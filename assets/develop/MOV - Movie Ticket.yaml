@@ -1,0 +1,77 @@
+#
+# MOV - Movie Ticket
+#
+
+code: MOV
+
+metadata:
+  kind: Utility
+  category: Ticket
+  name: Movie Ticket
+  description: Entry ticket.
+  examples:
+    - Sun Pictures
+    - TLC Chinese Theater
+    - Colosseum Kino
+
+fields:
+  - name: Version
+    label: Version
+    type: uint
+    description: Payload Version
+    size: 1
+    example: 0
+    computed: true
+
+  - name: TradingRestriction
+    label: Trading Restriction
+    type: country
+    size: 3
+    example: AUS
+    span: full
+
+  - name: AgeRestriction
+    label: Age Restriction
+    type: dropdown
+    size: 5
+    example: 18+
+    options:
+      - 15-18
+      - 18+
+      - 19+
+      - 21+
+      - 21-30
+
+  - name: Venue
+    label: Venue
+    type: string
+    size: 32
+    example: George St, Sydney
+    span: full
+    displayOrder: 2
+
+  - name: ValidFrom
+    label: Valid From
+    type: time
+    size: 8
+    example: Mon Nov 05 2018 09:00:00 GMT+1000 (AEST)
+    span: left
+    displayOrder: 3
+    default: now
+
+  - name: ExpirationTimestamp
+    label: Expiry Date
+    type: time
+    size: 8
+    example: Mon Nov 05 2018 12:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 4
+
+  - name: Description
+    label: Description
+    type: string
+    size: 95
+    example: The Incredibles 2. 10/06/2018. Screen 3.
+    span: full
+    displayOrder: 1
+    required: true

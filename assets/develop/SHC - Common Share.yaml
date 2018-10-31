@@ -1,0 +1,106 @@
+#
+# SHC - Common Share
+#
+
+code: SHC
+
+metadata:
+  kind: Security
+  category: Equity Security
+  name: Share - Common
+  description: Common stock represents ownership interests in corporations.
+  examples:
+    - Tesla Shareholders Agreement
+    - Bitmain Shareholder Agreement
+    - Antpool Investment Agreement
+
+fields:
+  - name: Version
+    label: Version
+    type: uint
+    description: Payload Version
+    size: 1
+    example: 0
+    computed: true
+
+  - name: TradingRestriction
+    label: Trading Restriction
+    type: country
+    size: 3
+    example: AUS
+    span: full
+    displayOrder: 3
+
+  - name: DividendType
+    label: Dividend Type
+    type: dropdown
+    size: 1
+    example: C
+    displayOrder: 6
+    options:
+      C: Combination
+      V: Variable
+      F: Fixed
+
+  - name: DividendVar
+    label: Dividend (%)
+    type: float
+    size: 4
+    example: 0.02
+    default: 0
+
+  - name: DividendFixed
+    label: Dividend (Fixed)
+    type: float
+    size: 4
+    example: 10000
+    default: 0
+
+  - name: DistributionInterval
+    label: Distribution Interval
+    type: dropdown
+    size: 1
+    example: Q
+    displayOrder: 7
+    options:
+      Q: Quarterly
+      M: Monthly
+      W: Weekly
+      A: Annually
+      B: Biannually
+
+  - name: Guaranteed
+    label: Dividend Guaranteed
+    type: dropdown
+    size: 1
+    example: Y
+    displayOrder: 5
+    default: 'N'
+    emptyOption: false
+    options:
+      Y: 'Yes'
+      N: 'No'
+
+  - name: Ticker
+    label: Ticker
+    type: string
+    size: 5
+    example: AAPL
+    displayOrder: 4
+
+  - name: ISIN
+    label: ISIN (optional)
+    type: string
+    size: 12
+    example: US0004026250
+    span: full
+    displayOrder: 2
+
+  - name: Description
+    label: Description
+    type: string
+    size: 120
+    example: APPLC - Apple corp - Common share issue class C
+    span: full
+    displayOrder: 1
+    required: true

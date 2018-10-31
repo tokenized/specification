@@ -1,0 +1,69 @@
+#
+# TIC - Admission Ticket
+#
+
+code: TIC
+
+metadata:
+  kind: Utility
+  category: Ticket
+  name: Ticket (Admission)
+  description: Admission ticket
+  examples:
+    - Freddie Mercury Concert
+    - Bitcoin Conference
+    - Zoo Park Entry
+
+fields:
+  - name: Version
+    label: Version
+    type: uint
+    description: Payload Version
+    size: 1
+    example: 0
+    computed: true
+
+  - name: TradingRestriction
+    label: Trading Restriction
+    type: country
+    size: 3
+    example: AUS
+    span: full
+
+  - name: AgeRestriction
+    label: Age Restriction
+    type: dropdown
+    size: 5
+    example: 18+
+    options:
+      - 15-18
+      - 18+
+      - 19+
+      - 21+
+      - 21-30
+
+  - name: ValidFrom
+    label: Valid From
+    type: time
+    size: 8
+    example: Mon Nov 05 2018 09:00:00 GMT+1000 (AEST)
+    span: left
+    displayOrder: 2
+    default: now
+
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
+    type: time
+    size: 8
+    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 3
+
+  - name: Description
+    label: Description
+    type: string
+    size: 127
+    example: Coingeek Conference - London (November 2018). Regular admission.
+    span: full
+    displayOrder: 1
+    required: true
