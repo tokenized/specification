@@ -5,9 +5,8 @@
 # be overwritten when code is regenerated.
 
 
-# AssetDefinition (General Template) [This action is used by the issuer to
-# define the properties/characteristics of the Asset (token) that it wants
-# to create.]
+# AssetDefinition : This action is used by the issuer to define the
+# properties/characteristics of the Asset (token) that it wants to create.
 
 - message: A1
   fields:
@@ -25,7 +24,7 @@
     - Payload:                         [PAYLOAD, 152]
 
 
-# AssetCreation (General Template) [This action creates an Asset in
+# AssetCreation : (General Template) [This action creates an Asset in
 # response to the Issuer's instructions in the Definition Action.
 
 - message: A2
@@ -45,14 +44,14 @@
     - Payload:                         [PAYLOAD, 152]
 
 
-# AssetModification (General Template) [Token Dilutions, Call
-# Backs/Revocations, burning etc.]. Any field can be amended except for the
-# Asset Revision field (incremental counter based on the previous Asset
-# Creation Txn) and the Action Prefix. Asset Types specific payloads are
-# locked to the Asset Type. Asset Type specific payload amendments must be
-# done as a protocol Version upgrade. Authorization flags can restrict some
-# fields or all fields from being amended. Some amendments require a Token
-# Owner vote for the smart contract to permit.
+# AssetModification : Token Dilutions, Call Backs/Revocations, burning etc.
+# Any field can be amended except for the Asset Revision field (incremental
+# counter based on the previous Asset Creation Txn) and the Action Prefix.
+# Asset Types specific payloads are locked to the Asset Type. Asset Type
+# specific payload amendments must be done as a protocol Version upgrade.
+# Authorization flags can restrict some fields or all fields from being
+# amended. Some amendments require a Token Owner vote for the smart
+# contract to permit.
 
 - message: A3
   fields:
@@ -71,7 +70,7 @@
     - Payload:                         [PAYLOAD, 152]
 
 
-# ContractOffer The Contract Offer action allows the Issuer to tell the
+# ContractOffer : The Contract Offer action allows the Issuer to tell the
 # smart contract what they want the details (labels, data, T&C's, etc.) of
 # the Contract to be on-chain in a public and immutable way. The Contract
 # Offer action 'initializes' a generic smart contract that has been spun up
@@ -99,7 +98,7 @@
     - RestrictedQty:                   [UINT, 8]
 
 
-# ContractFormation This txn is created by the Contract (smart
+# ContractFormation : This txn is created by the Contract (smart
 # contract/off-chain agent/token contract) upon receipt of a valid Contract
 # Offer Action from the issuer. The Smart Contract will execute on a server
 # controlled by the Issuer. or a Smart Contract Operator on their behalf .
@@ -125,7 +124,7 @@
     - RestrictedQty:                   [UINT, 8]
 
 
-# ContractAmendment the issuer can initiate an amendment to the contract
+# ContractAmendment : the issuer can initiate an amendment to the contract
 # establishment metadata. This can be due to a change of name, change of
 # contract terms, change of authorizations, or change of the URI. The
 # ability to make an amendment to the contract is limited by the
@@ -158,7 +157,7 @@
     - RestrictedQty:                   [UINT, 8]
 
 
-# Order Issuer to signal to the smart contract that the tokens that a
+# Order : Issuer to signal to the smart contract that the tokens that a
 # particular PKH owns are to be confiscated, frozen or thawed.
 
 - message: E1
@@ -176,7 +175,7 @@
     - Message:                         [STRING, 61]
 
 
-# Freeze To be used to comply with contractual/legal requirements. The
+# Freeze : To be used to comply with contractual/legal requirements. The
 # whitelist public address will be marked as frozen. However the Freeze
 # action publishes this fact to the public blockchain for transparency. The
 # Contract (referencing the whitelist) will not settle any exchange that
@@ -194,7 +193,7 @@
     - Message:                         [STRING, 61]
 
 
-# Thaw to be used to comply with contractual obligations or legal
+# Thaw : to be used to comply with contractual obligations or legal
 # requirements. The Alleged Offender's tokens will be unfrozen to allow
 # them to resume normal exchange and governance activities.
 
@@ -209,7 +208,7 @@
     - Message:                         [STRING, 61]
 
 
-# Confiscation to be used to comply with contractual obligations and/or
+# Confiscation : to be used to comply with contractual obligations and/or
 # legal requirements.
 
 - message: E4
@@ -224,7 +223,7 @@
     - Message:                         [STRING, 61]
 
 
-# Reconciliation to be used at the direction of the issuer to fix record
+# Reconciliation : to be used at the direction of the issuer to fix record
 # keeping errors with bitcoin and token balances.
 
 - message: E5
@@ -239,7 +238,7 @@
     - Message:                         [STRING, 61]
 
 
-# Initiative Allows Token Owners to propose a Initiative (aka
+# Initiative : Allows Token Owners to propose a Initiative (aka
 # Initiative/Shareholder vote). A significant cost - specified in the
 # Contract Formation - is attached to this action to reduce spam, as the
 # resulting vote will be put to all token owners.
@@ -259,8 +258,9 @@
     - VoteCutOffTimestamp:             [TIME, 8]
 
 
-# Referendum Issuer instructs the Contract to Initiate a Token Owner Vote.
-# Usually used for contract amendments, organizational governance, etc.
+# Referendum : Issuer instructs the Contract to Initiate a Token Owner
+# Vote. Usually used for contract amendments, organizational governance,
+# etc.
 
 - message: G2
   fields:
@@ -277,8 +277,9 @@
     - VoteCutOffTimestamp:             [TIME, 8]
 
 
-# Vote A vote is created by the Contract in response to a valid Referendum
-# (Issuer) or Initiative (User) Action. Votes can be made by Token Owners.
+# Vote : A vote is created by the Contract in response to a valid
+# Referendum (Issuer) or Initiative (User) Action. Votes can be made by
+# Token Owners.
 
 - message: G3
   fields:
@@ -296,7 +297,7 @@
     - Timestamp:                       [TIME, 8]
 
 
-# BallotCast Used to allow Token Owners to cast their ballot (vote) on
+# BallotCast : Used to allow Token Owners to cast their ballot (vote) on
 # proposals raised by the Issuer or other token holders. 1 Vote per token
 # unless a vote multiplier is specified in the relevant Asset Definition
 # action.
@@ -311,7 +312,7 @@
     - Vote:                            [STRING, 16]
 
 
-# BallotCounted The smart contract will respond to a Ballot Cast action
+# BallotCounted : The smart contract will respond to a Ballot Cast action
 # with a Ballot Counted action if the Ballot Cast is valid. If the Ballot
 # Cast is not valid, then the smart contract will respond with a Rejection
 # Action.
@@ -327,7 +328,7 @@
     - Timestamp:                       [TIME, 8]
 
 
-# Result Once a vote has been completed the results are published.
+# Result : Once a vote has been completed the results are published.
 
 - message: G6
   fields:
@@ -356,7 +357,7 @@
     - Result:                          [STRING, 16]
 
 
-# Message the message action is a general purpose communication action.
+# Message : the message action is a general purpose communication action.
 # 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be
 # used for passing partially signed txns on-chain, establishing private
 # communication channels including receipting, invoices, PO, and private
@@ -373,7 +374,7 @@
     - Message:                         [STRING, 203]
 
 
-# Rejection used to reject Exchange, Send, Initiative, Referendum, Order,
+# Rejection : used to reject Exchange, Send, Initiative, Referendum, Order,
 # and Ballot Cast actions that do not comply with the Contract. If money is
 # to be returned to a User then it is used in lieu of the Settlement Action
 # to properly account for token balances. All Issuer/User Actions must be
@@ -394,8 +395,8 @@
     - Message:                         [STRING, 169]
 
 
-# Establishment Establishes a register. The register is intended to be used
-# primarily for whitelisting. However, other types of registers can be
+# Establishment : Establishes a register. The register is intended to be
+# used primarily for whitelisting. However, other types of registers can be
 # used.
 
 - message: R1
@@ -411,10 +412,11 @@
     - Message:                         [STRING, 148]
 
 
-# Addition Adds a User's public address to a global distributed whitelist.
-# Entities (eg. Issuer) can filter by the public address of known and
-# trusted entities (eg. KYC Databases such as coinbase) and therefore are
-# able to create sublists - or subsets - of the main global whitelist.
+# Addition : Adds a User's public address to a global distributed
+# whitelist. Entities (eg. Issuer) can filter by the public address of
+# known and trusted entities (eg. KYC Databases such as coinbase) and
+# therefore are able to create sublists - or subsets - of the main global
+# whitelist.
 
 - message: R2
   fields:
@@ -429,7 +431,7 @@
     - Message:                         [STRING, 148]
 
 
-# Alteration A registry entry can be altered.
+# Alteration : A registry entry can be altered.
 
 - message: R3
   fields:
@@ -444,7 +446,7 @@
     - Message:                         [STRING, 160]
 
 
-# Removal Removes a User's public address from the global distributed
+# Removal : Removes a User's public address from the global distributed
 # whitelist.
 
 - message: R4
@@ -455,12 +457,12 @@
     - Message:                         [STRING, 181]
 
 
-# Send A Token Owner Sends a Token to a Receiver. The Send Action requires
-# no sign-off by the Token Receiving Party and does not provide any
-# on-chain consideration to the Token Sending Party. Can be used for User
-# Revocation (remove tokens from wallet by sending back to Issuer). Can be
-# used for redeeming a ticket, however, it is probably better for most
-# ticket use cases to use the exchange action for ticket redemption.
+# Send : A Token Owner Sends a Token to a Receiver. The Send Action
+# requires no sign-off by the Token Receiving Party and does not provide
+# any on-chain consideration to the Token Sending Party. Can be used for
+# User Revocation (remove tokens from wallet by sending back to Issuer).
+# Can be used for redeeming a ticket, however, it is probably better for
+# most ticket use cases to use the exchange action for ticket redemption.
 
 - message: T1
   fields:
@@ -471,7 +473,7 @@
     - TokenQty:                        [UINT, 8]
 
 
-# Exchange Example
+# Exchange : Example
 
 - message: T2
   fields:
@@ -487,9 +489,9 @@
     - ExchangeFeeAddress:              [STRING, 34]
 
 
-# Swap Two parties want to swap a token (Atomic Swap) directly for another
-# token. No BCH is used in the txn other than for paying the necessary
-# network/transaction fees.
+# Swap : Two parties want to swap a token (Atomic Swap) directly for
+# another token. No BCH is used in the txn other than for paying the
+# necessary network/transaction fees.
 
 - message: T3
   fields:
@@ -508,8 +510,8 @@
     - ExchangeFeeAddress:              [STRING, 34]
 
 
-# Settlement (to be used for finalizing the transfer of bitcoins and tokens
-# from exchange, issuance, swap actions)
+# Settlement : (to be used for finalizing the transfer of bitcoins and
+# tokens from exchange, issuance, swap actions)
 
 - message: T4
   fields:
