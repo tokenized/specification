@@ -24,8 +24,8 @@
     - Payload:                         [PAYLOAD, 152]
 
 
-# AssetCreation : (General Template) [This action creates an Asset in
-# response to the Issuer's instructions in the Definition Action.
+# AssetCreation : This action creates an Asset in response to the Issuer's
+# instructions in the Definition Action.
 
 - message: A2
   fields:
