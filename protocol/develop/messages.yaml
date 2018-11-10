@@ -1,65 +1,8 @@
-#
-# Protocol Message Actions
-#
-
 # Package protocol provides base level structs and validation for
 # the protocol.
 #
 # The code in this file is auto-generated. Do not edit it by hand as it will
 # be overwritten when code is regenerated.
-
-
-# Addition Adds a User's public address to a global distributed whitelist.
-# Entities (eg. Issuer) can filter by the public address of known and
-# trusted entities (eg. KYC Databases such as coinbase) and therefore are
-# able to create sublists - or subsets - of the main global whitelist.
-
-- message: R2
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Sublist:                         [STRING, 4]
-    - KYC:                             [STRING, 1]
-    - KYCJurisdiction:                 [STRING, 5]
-    - DOB:                             [TIME, 8]
-    - CountryOfResidence:              [STRING, 3]
-    - SupportingDocumentationHash:     [SHA, 32]
-    - Message:                         [STRING, 148]
-
-
-# Alteration A registry entry can be altered.
-
-- message: R3
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Sublist:                         [STRING, 4]
-    - KYC:                             [STRING, 1]
-    - KYCJurisdiction:                 [STRING, 5]
-    - DOB:                             [TIME, 8]
-    - CountryOfResidence:              [STRING, 3]
-    - SupportingDocumentationHash:     [SHA, 32]
-    - Message:                         [STRING, 160]
-
-
-# AssetCreation (General Template) [This action creates an Asset in
-# response to the Issuer's instructions in the Definition Action.
-
-- message: A2
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - AssetRevision:                   [UINT, 2]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - VoteMultiplier:                  [UINT, 1]
-    - Qty:                             [UINT, 8]
-    - ContractFeeCurrency:             [STRING, 3]
-    - ContractFeeVar:                  [FLOAT, 4]
-    - ContractFeeFixed:                [FLOAT, 4]
-    - Payload:                         [PAYLOAD, 152]
 
 
 # AssetDefinition (General Template) [This action is used by the issuer to
@@ -72,6 +15,26 @@
     - Version:                         [UINT, 1]
     - AssetType:                       [STRING, 3]
     - AssetID:                         [STRING, 32]
+    - AuthorizationFlags:              [BIN, 2]
+    - VotingSystem:                    [STRING, 1]
+    - VoteMultiplier:                  [UINT, 1]
+    - Qty:                             [UINT, 8]
+    - ContractFeeCurrency:             [STRING, 3]
+    - ContractFeeVar:                  [FLOAT, 4]
+    - ContractFeeFixed:                [FLOAT, 4]
+    - Payload:                         [PAYLOAD, 152]
+
+
+# AssetCreation (General Template) [This action creates an Asset in
+# response to the Issuer's instructions in the Definition Action.
+
+- message: A2
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - AssetType:                       [STRING, 3]
+    - AssetID:                         [STRING, 32]
+    - AssetRevision:                   [UINT, 2]
     - AuthorizationFlags:              [BIN, 2]
     - VotingSystem:                    [STRING, 1]
     - VoteMultiplier:                  [UINT, 1]
@@ -108,109 +71,6 @@
     - Payload:                         [PAYLOAD, 152]
 
 
-# BallotCast Used to allow Token Owners to cast their ballot (vote) on
-# proposals raised by the Issuer or other token holders. 1 Vote per token
-# unless a vote multiplier is specified in the relevant Asset Definition
-# action.
-
-- message: G4
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - VoteTxnID:                       [SHA, 32]
-    - Vote:                            [STRING, 16]
-
-
-# Confiscation to be used to comply with contractual obligations and/or
-# legal requirements.
-
-- message: E4
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - RefTxnID:                        [SHA, 32]
-    - OffendersQty:                    [UINT, 8]
-    - CustodiansQty:                   [UINT, 8]
-    - Message:                         [STRING, 61]
-
-
-# ContractAmendment the issuer can initiate an amendment to the contract
-# establishment metadata. This can be due to a change of name, change of
-# contract terms, change of authorizations, or change of the URI. The
-# ability to make an amendment to the contract is limited by the
-# Authorization Flag set on the previous Contract Formation action. The
-# Authorization Flags can be set to allow Contract Amendments, but only if
-# a Token Owner vote has passed in favour of making the Amendment. Contract
-# revision/protocol identifier and action prefix can't be amended. The rest
-# of the fields are open to change. However, the Issuer is responsible for
-# acting lawfully (in their jurisdiction) and in accordance with the terms
-# of the Investment Contract.
-
-- message: C3
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - ContractName:                    [STRING, 32]
-    - ContractFileHash:                [SHA, 32]
-    - GoverningLaw:                    [STRING, 5]
-    - Jurisdiction:                    [STRING, 5]
-    - ContractExpiration:              [TIME, 8]
-    - URI:                             [STRING, 78]
-    - IssuerID:                        [STRING, 16]
-    - IssuerType:                      [STRING, 1]
-    - ContractOperatorID:              [STRING, 16]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - InitiativeThreshold:             [FLOAT, 4]
-    - InitiativeThresholdCurrency:     [STRING, 3]
-    - RestrictedQty:                   [UINT, 8]
-
-
-# ContractFormation For Dynamic Contracts this txn is done by the Contract
-# (smart contract/off-chain agent/token contract) upon receipt of a valid
-# Contract Offer Action from the issuer. The Smart Contract will execute on
-# a server controlled by the Issuer. or a Smart Contract Operator on their
-# behalf A huge amount of trust is placed on the issuer (who can use a 3rd
-# party to handle the technical side, and manage technical risk, on their
-# behalf) when it comes to the handling of the underlying asset
-# (redemption, dividends, stewardship of the company) therefore it is
-# logical for the Issuer to be responsible for the management of their own
-# tokens according to the contract they developed and published to the
-# blockchain (this contract formation action). Any actions by the Issuer
-# that is in contradiction to the terms of the contract will be easily
-# proved with publicly available txns and can be challenged legally in a
-# cost efficient manner. Therefore this is a trust-but-verify model. For
-# Static Contracts there will be no Contract Offer Action and the
-# Contracting Parties must sign-off the Contract Formation Action
-# off-chain. When the Contracting Parties have all signed-off on the
-# Formation Action then the Formation Action can be broadcasted to the BCH
-# network and becomes an immutable record.
-
-- message: C2
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - ContractName:                    [STRING, 32]
-    - ContractFileHash:                [SHA, 32]
-    - GoverningLaw:                    [STRING, 5]
-    - Jurisdiction:                    [STRING, 5]
-    - ContractExpiration:              [TIME, 8]
-    - URI:                             [STRING, 78]
-    - ContractRevision:                [UINT, 2]
-    - IssuerID:                        [STRING, 16]
-    - IssuerType:                      [STRING, 1]
-    - ContractOperatorID:              [STRING, 16]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - InitiativeThreshold:             [FLOAT, 4]
-    - InitiativeThresholdCurrency:     [STRING, 3]
-    - RestrictedQty:                   [UINT, 8]
-
-
 # ContractOffer The Contract Offer action allows the Issuer to tell the
 # smart contract what they want the details (labels, data, T&C's, etc.) of
 # the Contract to be on-chain in a public and immutable way. The Contract
@@ -239,37 +99,81 @@
     - RestrictedQty:                   [UINT, 8]
 
 
-# Establishment Establishes a register. The register is intended to be used
-# primarily for whitelisting. However, other types of registers can be
-# used.
+# ContractFormation This txn is created by the Contract (smart
+# contract/off-chain agent/token contract) upon receipt of a valid Contract
+# Offer Action from the issuer. The Smart Contract will execute on a server
+# controlled by the Issuer. or a Smart Contract Operator on their behalf .
 
-- message: R1
+- message: C2
   fields:
     - ActionPrefix:                    [STRING, 2]
     - Version:                         [UINT, 1]
-    - Registrar:                       [STRING, 16]
-    - RegisterType:                    [STRING, 1]
-    - KYCJurisdiction:                 [STRING, 5]
-    - DOB:                             [TIME, 8]
-    - CountryOfResidence:              [STRING, 3]
-    - SupportingDocumentationHash:     [SHA, 32]
-    - Message:                         [STRING, 148]
+    - ContractName:                    [STRING, 32]
+    - ContractFileHash:                [SHA, 32]
+    - GoverningLaw:                    [STRING, 5]
+    - Jurisdiction:                    [STRING, 5]
+    - ContractExpiration:              [TIME, 8]
+    - URI:                             [STRING, 78]
+    - ContractRevision:                [UINT, 2]
+    - IssuerID:                        [STRING, 16]
+    - IssuerType:                      [STRING, 1]
+    - ContractOperatorID:              [STRING, 16]
+    - AuthorizationFlags:              [BIN, 2]
+    - VotingSystem:                    [STRING, 1]
+    - InitiativeThreshold:             [FLOAT, 4]
+    - InitiativeThresholdCurrency:     [STRING, 3]
+    - RestrictedQty:                   [UINT, 8]
 
 
-# Exchange Example
+# ContractAmendment the issuer can initiate an amendment to the contract
+# establishment metadata. This can be due to a change of name, change of
+# contract terms, change of authorizations, or change of the URI. The
+# ability to make an amendment to the contract is limited by the
+# Authorization Flag set on the previous Contract Formation action. The
+# Authorization Flags can be set to allow Contract Amendments, but only if
+# a Token Owner vote has passed in favour of making the Amendment. Contract
+# revision/protocol identifier and action prefix can't be amended. The rest
+# of the fields are open to change. However, the Issuer is responsible for
+# acting lawfully (in their jurisdiction) and in accordance with the terms
+# of the Investment Contract.
 
-- message: T2
+- message: C3
   fields:
     - ActionPrefix:                    [STRING, 2]
     - Version:                         [UINT, 1]
-    - Party1AssetType:                 [STRING, 3]
-    - Party1AssetID:                   [STRING, 32]
-    - Party1TokenQty:                  [UINT, 8]
-    - OfferValidUntil:                 [TIME, 8]
-    - ExchangeFeeCurrency:             [STRING, 3]
-    - ExchangeFeeVar:                  [FLOAT, 4]
-    - ExchangeFeeFixed:                [FLOAT, 4]
-    - ExchangeFeeAddress:              [STRING, 34]
+    - ContractName:                    [STRING, 32]
+    - ContractFileHash:                [SHA, 32]
+    - GoverningLaw:                    [STRING, 5]
+    - Jurisdiction:                    [STRING, 5]
+    - ContractExpiration:              [TIME, 8]
+    - URI:                             [STRING, 78]
+    - ContractRevision:                [UINT, 2]
+    - IssuerID:                        [STRING, 16]
+    - IssuerType:                      [STRING, 1]
+    - ContractOperatorID:              [STRING, 16]
+    - AuthorizationFlags:              [BIN, 2]
+    - VotingSystem:                    [STRING, 1]
+    - InitiativeThreshold:             [FLOAT, 4]
+    - InitiativeThresholdCurrency:     [STRING, 3]
+    - RestrictedQty:                   [UINT, 8]
+
+
+# Order Issuer to signal to the smart contract that the tokens that a
+# particular PKH owns are to be confiscated, frozen or thawed.
+
+- message: E1
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - AssetType:                       [STRING, 3]
+    - AssetID:                         [STRING, 32]
+    - ComplianceAction:                [STRING, 1]
+    - TargetAddress:                   [STRING, 34]
+    - DepositAddress:                  [STRING, 34]
+    - SupportingEvidenceHash:          [SHA, 32]
+    - Qty:                             [UINT, 8]
+    - Expiration:                      [TIME, 8]
+    - Message:                         [STRING, 61]
 
 
 # Freeze To be used to comply with contractual/legal requirements. The
@@ -284,9 +188,54 @@
     - Version:                         [UINT, 1]
     - AssetType:                       [STRING, 3]
     - AssetID:                         [STRING, 32]
-    - RefTxnID:                        [SHA, 32]
+    - Timestamp:                       [TIME, 8]
     - Qty:                             [UINT, 8]
     - Expiration:                      [TIME, 8]
+    - Message:                         [STRING, 61]
+
+
+# Thaw to be used to comply with contractual obligations or legal
+# requirements. The Alleged Offender's tokens will be unfrozen to allow
+# them to resume normal exchange and governance activities.
+
+- message: E3
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - AssetType:                       [STRING, 3]
+    - AssetID:                         [STRING, 32]
+    - Timestamp:                       [TIME, 8]
+    - Qty:                             [UINT, 8]
+    - Message:                         [STRING, 61]
+
+
+# Confiscation to be used to comply with contractual obligations and/or
+# legal requirements.
+
+- message: E4
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - AssetType:                       [STRING, 3]
+    - AssetID:                         [STRING, 32]
+    - Timestamp:                       [TIME, 8]
+    - TargetsQty:                      [UINT, 8]
+    - DepositsQty:                     [UINT, 8]
+    - Message:                         [STRING, 61]
+
+
+# Reconciliation to be used at the direction of the issuer to fix record
+# keeping errors with bitcoin and token balances.
+
+- message: E5
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - AssetType:                       [STRING, 3]
+    - AssetID:                         [STRING, 32]
+    - RefTxnID:                        [SHA, 32]
+    - TargetAddressQty:                [UINT, 8]
+    - Timestamp:                       [TIME, 8]
     - Message:                         [STRING, 61]
 
 
@@ -310,40 +259,6 @@
     - VoteCutOffTimestamp:             [TIME, 8]
 
 
-# Message the message action is a general purpose communication action.
-# 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be
-# used for passing partially signed txns on-chain, establishing private
-# communication channels including receipting, invoices, PO, and private
-# offers/bids. The messages are broken down by type for easy filtering in
-# the a user’s wallet. The Message Types are listed in the Message Types
-# table.
-
-- message: M1
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - MessageType:                     [STRING, 2]
-    - Message:                         [STRING, 211]
-
-
-# Order Issuer to signal to the smart contract that the tokens that a
-# particular PKH owns are to be confiscated, frozen or thawed.
-
-- message: E1
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - ComplianceAction:                [STRING, 1]
-    - OffenderPKH:                     [STRING, 34]
-    - CustodianAddress:                [STRING, 34]
-    - SupportingEvidenceHash:          [SHA, 32]
-    - Qty:                             [UINT, 8]
-    - Expiration:                      [TIME, 8]
-    - Message:                         [STRING, 61]
-
-
 # Referendum Issuer instructs the Contract to Initiate a Token Owner Vote.
 # Usually used for contract amendments, organizational governance, etc.
 
@@ -362,39 +277,44 @@
     - VoteCutOffTimestamp:             [TIME, 8]
 
 
-# Rejection used to reject Exchange, Send, Initiative, Referendum, Order,
-# and Ballot Cast actions that do not comply with the Contract. If money is
-# to be returned to a User then it is used in lieu of the Settlement Action
-# to properly account for token balances. All Issuer/User Actions must be
-# responded to by the Contract with an Action. The only exception to this
-# rule is when there is not enough fees in the first Action for the
-# Contract's response action to remain revenue neutral. If not enough fees
-# are attached to pay for the Contract's response then the Contract will
-# not respond. For example
+# Vote A vote is created by the Contract in response to a valid Referendum
+# (Issuer) or Initiative (User) Action. Votes can be made by Token Owners.
 
-- message: M2
+- message: G3
   fields:
     - ActionPrefix:                    [STRING, 2]
     - Version:                         [UINT, 1]
     - AssetType:                       [STRING, 3]
     - AssetID:                         [STRING, 32]
-    - RefTxnID:                        [SHA, 32]
-    - RejectionType:                   [STRING, 1]
-    - Message:                         [STRING, 145]
+    - VoteType:                        [STRING, 1]
+    - VoteOptions:                     [STRING, 16]
+    - VoteMax:                         [UINT, 1]
+    - VoteLogic:                       [STRING, 1]
+    - ProposalDescription:             [STRING, 82]
+    - ProposalDocumentHash:            [SHA, 32]
+    - VoteCutOffTimestamp:             [TIME, 8]
+    - Timestamp:                       [TIME, 8]
 
 
-# Removal Removes a User's public address from the global distributed
-# whitelist.
+# BallotCast Used to allow Token Owners to cast their ballot (vote) on
+# proposals raised by the Issuer or other token holders. 1 Vote per token
+# unless a vote multiplier is specified in the relevant Asset Definition
+# action.
 
-- message: R4
+- message: G4
   fields:
     - ActionPrefix:                    [STRING, 2]
     - Version:                         [UINT, 1]
-    - SupportingDocumenationHash:      [SHA, 32]
-    - Message:                         [STRING, 181]
+    - AssetType:                       [STRING, 3]
+    - AssetID:                         [STRING, 32]
+    - VoteTxnID:                       [SHA, 32]
+    - Vote:                            [STRING, 16]
 
 
-# Result Once a vote has been completed the results are published.
+# BallotCounted The smart contract will respond to a Ballot Cast action
+# with a Ballot Counted action if the Ballot Cast is valid. If the Ballot
+# Cast is not valid, then the smart contract will respond with a Rejection
+# Action.
 
 - message: G5
   fields:
@@ -402,8 +322,22 @@
     - Version:                         [UINT, 1]
     - AssetType:                       [STRING, 3]
     - AssetID:                         [STRING, 32]
+    - VoteTxnID:                       [SHA, 32]
+    - Vote:                            [STRING, 16]
+    - Timestamp:                       [TIME, 8]
+
+
+# Result Once a vote has been completed the results are published.
+
+- message: G6
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - AssetType:                       [STRING, 3]
+    - AssetID:                         [STRING, 32]
     - VoteType:                        [STRING, 1]
     - VoteTxnID:                       [SHA, 32]
+    - Timestamp:                       [TIME, 8]
     - Option1Tally:                    [UINT, 8]
     - Option2Tally:                    [UINT, 8]
     - Option3Tally:                    [UINT, 8]
@@ -419,8 +353,106 @@
     - Option13Tally:                   [UINT, 8]
     - Option14Tally:                   [UINT, 8]
     - Option15Tally:                   [UINT, 8]
-    - Option16Tally:                   [UINT, 8]
     - Result:                          [STRING, 16]
+
+
+# Message the message action is a general purpose communication action.
+# 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be
+# used for passing partially signed txns on-chain, establishing private
+# communication channels including receipting, invoices, PO, and private
+# offers/bids. The messages are broken down by type for easy filtering in
+# the a user’s wallet. The Message Types are listed in the Message Types
+# table.
+
+- message: M1
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - Timestamp:                       [TIME, 8]
+    - MessageType:                     [STRING, 2]
+    - Message:                         [STRING, 203]
+
+
+# Rejection used to reject Exchange, Send, Initiative, Referendum, Order,
+# and Ballot Cast actions that do not comply with the Contract. If money is
+# to be returned to a User then it is used in lieu of the Settlement Action
+# to properly account for token balances. All Issuer/User Actions must be
+# responded to by the Contract with an Action. The only exception to this
+# rule is when there is not enough fees in the first Action for the
+# Contract response action to remain revenue neutral. If not enough fees
+# are attached to pay for the Contract response then the Contract will not
+# respond. For example
+
+- message: M2
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - Timestamp:                       [TIME, 8]
+    - AssetType:                       [STRING, 3]
+    - AssetID:                         [STRING, 32]
+    - RejectionType:                   [STRING, 1]
+    - Message:                         [STRING, 169]
+
+
+# Establishment Establishes a register. The register is intended to be used
+# primarily for whitelisting. However, other types of registers can be
+# used.
+
+- message: R1
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - Registrar:                       [STRING, 16]
+    - RegisterType:                    [STRING, 1]
+    - KYCJurisdiction:                 [STRING, 5]
+    - DOB:                             [TIME, 8]
+    - CountryOfResidence:              [STRING, 3]
+    - SupportingDocumentationHash:     [SHA, 32]
+    - Message:                         [STRING, 148]
+
+
+# Addition Adds a User's public address to a global distributed whitelist.
+# Entities (eg. Issuer) can filter by the public address of known and
+# trusted entities (eg. KYC Databases such as coinbase) and therefore are
+# able to create sublists - or subsets - of the main global whitelist.
+
+- message: R2
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - Sublist:                         [STRING, 4]
+    - KYC:                             [STRING, 1]
+    - KYCJurisdiction:                 [STRING, 5]
+    - DOB:                             [TIME, 8]
+    - CountryOfResidence:              [STRING, 3]
+    - SupportingDocumentationHash:     [SHA, 32]
+    - Message:                         [STRING, 148]
+
+
+# Alteration A registry entry can be altered.
+
+- message: R3
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - Sublist:                         [STRING, 4]
+    - KYC:                             [STRING, 1]
+    - KYCJurisdiction:                 [STRING, 5]
+    - DOB:                             [TIME, 8]
+    - CountryOfResidence:              [STRING, 3]
+    - SupportingDocumentationHash:     [SHA, 32]
+    - Message:                         [STRING, 160]
+
+
+# Removal Removes a User's public address from the global distributed
+# whitelist.
+
+- message: R4
+  fields:
+    - ActionPrefix:                    [STRING, 2]
+    - Version:                         [UINT, 1]
+    - SupportingDocumentationHash:     [SHA, 32]
+    - Message:                         [STRING, 181]
 
 
 # Send A Token Owner Sends a Token to a Receiver. The Send Action requires
@@ -439,18 +471,20 @@
     - TokenQty:                        [UINT, 8]
 
 
-# Settlement (to be used for finalizing the transfer of bitcoins and tokens
-# from exchange, issuance, swap actions)
+# Exchange Example
 
-- message: T4
+- message: T2
   fields:
     - ActionPrefix:                    [STRING, 2]
     - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
+    - Party1AssetType:                 [STRING, 3]
+    - Party1AssetID:                   [STRING, 32]
     - Party1TokenQty:                  [UINT, 8]
-    - Party2TokenQty:                  [UINT, 8]
-    - RefTxnIDHash:                    [SHA, 32]
+    - OfferValidUntil:                 [TIME, 8]
+    - ExchangeFeeCurrency:             [STRING, 3]
+    - ExchangeFeeVar:                  [FLOAT, 4]
+    - ExchangeFeeFixed:                [FLOAT, 4]
+    - ExchangeFeeAddress:              [STRING, 34]
 
 
 # Swap Two parties want to swap a token (Atomic Swap) directly for another
@@ -474,37 +508,17 @@
     - ExchangeFeeAddress:              [STRING, 34]
 
 
-# Thaw to be used to comply with contractual obligations or legal
-# requirements. The Alleged Offender's tokens will be unfrozen to allow
-# them to resume normal exchange and governance activities.
+# Settlement (to be used for finalizing the transfer of bitcoins and tokens
+# from exchange, issuance, swap actions)
 
-- message: E3
+- message: T4
   fields:
     - ActionPrefix:                    [STRING, 2]
     - Version:                         [UINT, 1]
     - AssetType:                       [STRING, 3]
     - AssetID:                         [STRING, 32]
-    - RefTxnID:                        [SHA, 32]
-    - Qty:                             [UINT, 8]
-    - Message:                         [STRING, 61]
-
-
-# Vote A vote is created by the Contract in response to a valid Referendum
-# (Issuer) or Initiative (User) Action. Votes can be made by Token Owners.
-
-- message: G3
-  fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - VoteType:                        [STRING, 1]
-    - VoteOptions:                     [STRING, 16]
-    - VoteMax:                         [UINT, 1]
-    - VoteLogic:                       [STRING, 1]
-    - ProposalDescription:             [STRING, 82]
-    - ProposalDocumentHash:            [SHA, 32]
-    - VoteCutOffTimestamp:             [TIME, 8]
-    - RefTxnIDHash:                    [SHA, 32]
+    - Party1TokenQty:                  [UINT, 8]
+    - Party2TokenQty:                  [UINT, 8]
+    - Timestamp:                       [TIME, 8]
 
 
