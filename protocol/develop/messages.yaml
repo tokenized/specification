@@ -1,3 +1,7 @@
+#
+# Protocol Message Actions
+#
+
 # Package protocol provides base level structs and validation for
 # the protocol.
 #
@@ -10,18 +14,78 @@
 
 - message: A1
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - VoteMultiplier:                  [UINT, 1]
-    - Qty:                             [UINT, 8]
-    - ContractFeeCurrency:             [STRING, 3]
-    - ContractFeeVar:                  [FLOAT, 4]
-    - ContractFeeFixed:                [FLOAT, 4]
-    - Payload:                         [PAYLOAD, 152]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Asset Definition"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share - Common"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to Bitcoin Cash addr, a vanity identifying label."
+      type: STRING
+      size: 32
+
+    - name: AuthorizationFlags
+      label: "Authorization Flags"
+      description: "16 Authorization Flags,  bitwise operation"
+      type: BIN
+      size: 2
+
+    - name: VotingSystem
+      label: "Voting System"
+      description: "Asset-specific voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
+      type: STRING
+      size: 1
+
+    - name: VoteMultiplier
+      label: "Vote Multiplier"
+      description: "Multiplies the vote by the integer. 1 token = 1 vote normally.  1 token = 3 votes with a multiplier of 3, for example."
+      type: UINT
+      size: 1
+
+    - name: Qty
+      label: "Qty"
+      description: "Quantity of token.0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract."
+      type: UINT
+      size: 8
+
+    - name: ContractFeeCurrency
+      label: "Contract Fee Currency"
+      description: "BCH, USD, AUD, EUR, etc."
+      type: STRING
+      size: 3
+
+    - name: ContractFeeVar
+      label: "Contract Fee Var"
+      description: "% of the value of the transaction"
+      type: FLOAT
+      size: 4
+
+    - name: ContractFeeFixed
+      label: "Contract Fee Fixed"
+      description: "Fixed fee (payment made in BCH)"
+      type: FLOAT
+      size: 4
+
+    - name: Payload
+      label: "Payload"
+      description: "See Asset Type Definition"
+      type: PAYLOAD
+      size: 152
+
 
 
 # AssetCreation : This action creates an Asset in response to the Issuer's
@@ -29,19 +93,84 @@
 
 - message: A2
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - AssetRevision:                   [UINT, 2]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - VoteMultiplier:                  [UINT, 1]
-    - Qty:                             [UINT, 8]
-    - ContractFeeCurrency:             [STRING, 3]
-    - ContractFeeVar:                  [FLOAT, 4]
-    - ContractFeeFixed:                [FLOAT, 4]
-    - Payload:                         [PAYLOAD, 152]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Asset Creation"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share - Common"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to Bitcoin Cash addr, a vanity identifying label."
+      type: STRING
+      size: 32
+
+    - name: AssetRevision
+      label: "Asset Revision"
+      description: "Counter 0 - 65,535"
+      type: UINT
+      size: 2
+
+    - name: AuthorizationFlags
+      label: "Authorization Flags"
+      description: "16 Authorization Flags,  bitwise operation"
+      type: BIN
+      size: 2
+
+    - name: VotingSystem
+      label: "Voting System"
+      description: "Asset-specific voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
+      type: STRING
+      size: 1
+
+    - name: VoteMultiplier
+      label: "Vote Multiplier"
+      description: "Multiplies the vote by the integer. 1 token = 1 vote normally.  1 token = 3 votes with a multiplier of 3, for example."
+      type: UINT
+      size: 1
+
+    - name: Qty
+      label: "Qty"
+      description: "Quantity of token.0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract."
+      type: UINT
+      size: 8
+
+    - name: ContractFeeCurrency
+      label: "Contract Fee Currency"
+      description: "BCH, USD, AUD, EUR, etc."
+      type: STRING
+      size: 3
+
+    - name: ContractFeeVar
+      label: "Contract Fee Var"
+      description: "% of the value of the transaction"
+      type: FLOAT
+      size: 4
+
+    - name: ContractFeeFixed
+      label: "Contract Fee Fixed"
+      description: "Fixed fee (payment made in BCH)"
+      type: FLOAT
+      size: 4
+
+    - name: Payload
+      label: "Payload"
+      description: "See Asset Type Definition"
+      type: PAYLOAD
+      size: 152
+
 
 
 # AssetModification : Token Dilutions, Call Backs/Revocations, burning etc.
@@ -55,19 +184,84 @@
 
 - message: A3
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - AssetRevision:                   [UINT, 2]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - VoteMultiplier:                  [UINT, 1]
-    - Qty:                             [UINT, 8]
-    - ContractFeeCurrency:             [STRING, 3]
-    - ContractFeeVar:                  [FLOAT, 4]
-    - ContractFeeFixed:                [FLOAT, 4]
-    - Payload:                         [PAYLOAD, 152]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Asset Modification"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Admission Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to Bitcoin Cash addr, a vanity identifying label."
+      type: STRING
+      size: 32
+
+    - name: AssetRevision
+      label: "Asset Revision"
+      description: "Counter 0 - 65,535"
+      type: UINT
+      size: 2
+
+    - name: AuthorizationFlags
+      label: "Authorization Flags"
+      description: "16 Authorization Flags,  bitwise operation"
+      type: BIN
+      size: 2
+
+    - name: VotingSystem
+      label: "Voting System"
+      description: "Asset-specific voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
+      type: STRING
+      size: 1
+
+    - name: VoteMultiplier
+      label: "Vote Multiplier"
+      description: "Multiplies the vote by the integer. 1 token = 1 vote normally.  1 token = 3 votes with a multiplier of 3, for example."
+      type: UINT
+      size: 1
+
+    - name: Qty
+      label: "Qty"
+      description: "Fungible shares of the Asset. 0 is valid. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible token ID and many Asset IDs can be associated with a particular Contract."
+      type: UINT
+      size: 8
+
+    - name: ContractFeeCurrency
+      label: "Contract Fee Currency"
+      description: "BCH, USD, AUD, EUR, etc."
+      type: STRING
+      size: 3
+
+    - name: ContractFeeVar
+      label: "Contract Fee Var"
+      description: "% of the value of the transaction"
+      type: FLOAT
+      size: 4
+
+    - name: ContractFeeFixed
+      label: "Contract Fee Fixed"
+      description: "Fixed fee (payment made in BCH)"
+      type: FLOAT
+      size: 4
+
+    - name: Payload
+      label: "Payload"
+      description: "152"
+      type: PAYLOAD
+      size: 152
+
 
 
 # ContractOffer : The Contract Offer action allows the Issuer to tell the
@@ -80,22 +274,102 @@
 
 - message: C1
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - ContractName:                    [STRING, 32]
-    - ContractFileHash:                [SHA, 32]
-    - GoverningLaw:                    [STRING, 5]
-    - Jurisdiction:                    [STRING, 5]
-    - ContractExpiration:              [TIME, 8]
-    - URI:                             [STRING, 78]
-    - IssuerID:                        [STRING, 16]
-    - IssuerType:                      [STRING, 1]
-    - ContractOperatorID:              [STRING, 16]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - InitiativeThreshold:             [FLOAT, 4]
-    - InitiativeThresholdCurrency:     [STRING, 3]
-    - RestrictedQty:                   [UINT, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Contract Offer"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "255 reserved for additional versions. Tokenized protocol versioning."
+      type: UINT
+      size: 1
+
+    - name: ContractName
+      label: "Contract Name"
+      description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
+      type: STRING
+      size: 32
+
+    - name: ContractFileHash
+      label: "Contract File Hash"
+      description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
+      type: SHA
+      size: 32
+
+    - name: GoverningLaw
+      label: "Governing Law"
+      description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+      type: STRING
+      size: 5
+
+    - name: Jurisdiction
+      label: "Jurisdiction"
+      description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+      type: STRING
+      size: 5
+
+    - name: ContractExpiration
+      label: "Contract Expiration"
+      description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
+      type: TIME
+      size: 8
+
+    - name: URI
+      label: "URI"
+      description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
+      type: STRING
+      size: 78
+
+    - name: IssuerID
+      label: "Issuer ID"
+      description: "Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
+      type: STRING
+      size: 16
+
+    - name: IssuerType
+      label: "Issuer Type"
+      description: "O - Public Company Limited by Shares, P - Private Company Limited by Shares"
+      type: STRING
+      size: 1
+
+    - name: ContractOperatorID
+      label: "Contract Operator ID"
+      description: "Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
+      type: STRING
+      size: 16
+
+    - name: AuthorizationFlags
+      label: "Authorization Flags"
+      description: "16 Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File."
+      type: BIN
+      size: 2
+
+    - name: VotingSystem
+      label: "Voting System"
+      description: "Contract-wide voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
+      type: STRING
+      size: 1
+
+    - name: InitiativeThreshold
+      label: "Initiative Threshold"
+      description: "Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote."
+      type: FLOAT
+      size: 4
+
+    - name: InitiativeThresholdCurrency
+      label: "Initiative Threshold Currency"
+      description: "Currency.  Always paid in BCH at current market valuations in the currency listed."
+      type: STRING
+      size: 3
+
+    - name: RestrictedQty
+      label: "Restricted Qty"
+      description: "Number of Assets (non-fungible). 0 if unlimited which will display an infinity symbol in UI"
+      type: UINT
+      size: 8
+
 
 
 # ContractFormation : This txn is created by the Contract (smart
@@ -105,23 +379,108 @@
 
 - message: C2
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - ContractName:                    [STRING, 32]
-    - ContractFileHash:                [SHA, 32]
-    - GoverningLaw:                    [STRING, 5]
-    - Jurisdiction:                    [STRING, 5]
-    - ContractExpiration:              [TIME, 8]
-    - URI:                             [STRING, 78]
-    - ContractRevision:                [UINT, 2]
-    - IssuerID:                        [STRING, 16]
-    - IssuerType:                      [STRING, 1]
-    - ContractOperatorID:              [STRING, 16]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - InitiativeThreshold:             [FLOAT, 4]
-    - InitiativeThresholdCurrency:     [STRING, 3]
-    - RestrictedQty:                   [UINT, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Contract Formation"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "255 reserved for additional versions. Tokenized protocol versioning."
+      type: UINT
+      size: 1
+
+    - name: ContractName
+      label: "Contract Name"
+      description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost. Then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
+      type: STRING
+      size: 32
+
+    - name: ContractFileHash
+      label: "Contract File Hash"
+      description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
+      type: SHA
+      size: 32
+
+    - name: GoverningLaw
+      label: "Governing Law"
+      description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+      type: STRING
+      size: 5
+
+    - name: Jurisdiction
+      label: "Jurisdiction"
+      description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+      type: STRING
+      size: 5
+
+    - name: ContractExpiration
+      label: "Contract Expiration"
+      description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and issue transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
+      type: TIME
+      size: 8
+
+    - name: URI
+      label: "URI"
+      description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
+      type: STRING
+      size: 78
+
+    - name: ContractRevision
+      label: "Contract Revision"
+      description: "Counter 0 - 65,535"
+      type: UINT
+      size: 2
+
+    - name: IssuerID
+      label: "Issuer ID"
+      description: "Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
+      type: STRING
+      size: 16
+
+    - name: IssuerType
+      label: "Issuer Type"
+      description: "O - Public Company Limited by Shares, P - Private Company Limited by Shares"
+      type: STRING
+      size: 1
+
+    - name: ContractOperatorID
+      label: "Contract Operator ID"
+      description: "Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
+      type: STRING
+      size: 16
+
+    - name: AuthorizationFlags
+      label: "Authorization Flags"
+      description: "16 Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File."
+      type: BIN
+      size: 2
+
+    - name: VotingSystem
+      label: "Voting System"
+      description: "Contract-wide voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
+      type: STRING
+      size: 1
+
+    - name: InitiativeThreshold
+      label: "Initiative Threshold"
+      description: "Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote."
+      type: FLOAT
+      size: 4
+
+    - name: InitiativeThresholdCurrency
+      label: "Initiative Threshold Currency"
+      description: "Currency.  Always paid in BCH at current market valuations in the currency listed."
+      type: STRING
+      size: 3
+
+    - name: RestrictedQty
+      label: "Restricted Qty"
+      description: "Number of Assets (non-fungible). 0 if unlimited which will display an infinity symbol in UI"
+      type: UINT
+      size: 8
+
 
 
 # ContractAmendment : the issuer can initiate an amendment to the contract
@@ -138,23 +497,108 @@
 
 - message: C3
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - ContractName:                    [STRING, 32]
-    - ContractFileHash:                [SHA, 32]
-    - GoverningLaw:                    [STRING, 5]
-    - Jurisdiction:                    [STRING, 5]
-    - ContractExpiration:              [TIME, 8]
-    - URI:                             [STRING, 78]
-    - ContractRevision:                [UINT, 2]
-    - IssuerID:                        [STRING, 16]
-    - IssuerType:                      [STRING, 1]
-    - ContractOperatorID:              [STRING, 16]
-    - AuthorizationFlags:              [BIN, 2]
-    - VotingSystem:                    [STRING, 1]
-    - InitiativeThreshold:             [FLOAT, 4]
-    - InitiativeThresholdCurrency:     [STRING, 3]
-    - RestrictedQty:                   [UINT, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Contract Amendment"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "255 reserved for additional versions"
+      type: UINT
+      size: 1
+
+    - name: ContractName
+      label: "Contract Name"
+      description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost. Then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.  The example in this case is a proprietary Ordinary Share Smart Contract developed by Tokenized for funds."
+      type: STRING
+      size: 32
+
+    - name: ContractFileHash
+      label: "Contract File Hash"
+      description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (pdf)"
+      type: SHA
+      size: 32
+
+    - name: GoverningLaw
+      label: "Governing Law"
+      description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+      type: STRING
+      size: 5
+
+    - name: Jurisdiction
+      label: "Jurisdiction"
+      description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+      type: STRING
+      size: 5
+
+    - name: ContractExpiration
+      label: "Contract Expiration"
+      description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and issue transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid."
+      type: TIME
+      size: 8
+
+    - name: URI
+      label: "URI"
+      description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be an IPFS address (hash) or txn-id for on chain information using OP_PUSHDATA/OP_DROP."
+      type: STRING
+      size: 78
+
+    - name: ContractRevision
+      label: "Contract Revision"
+      description: "Counter 0 - 65,535"
+      type: UINT
+      size: 2
+
+    - name: IssuerID
+      label: "Issuer ID"
+      description: "Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. (Example value could represent Vanguard Australia Residential Real Estate Fund for Retail Investors) "
+      type: STRING
+      size: 16
+
+    - name: IssuerType
+      label: "Issuer Type"
+      description: "O - Public Company Limited by Shares, P - Private Company Limited by Shares"
+      type: STRING
+      size: 1
+
+    - name: ContractOperatorID
+      label: "Contract Operator ID"
+      description: "Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
+      type: STRING
+      size: 16
+
+    - name: AuthorizationFlags
+      label: "Authorization Flags"
+      description: "16 Authorization Flags"
+      type: BIN
+      size: 2
+
+    - name: VotingSystem
+      label: "Voting System"
+      description: "Contract-wide voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
+      type: STRING
+      size: 1
+
+    - name: InitiativeThreshold
+      label: "Initiative Threshold"
+      description: "Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote."
+      type: FLOAT
+      size: 4
+
+    - name: InitiativeThresholdCurrency
+      label: "Initiative Threshold Currency"
+      description: "Currency.  Always paid in BCH at current market valuations in the currency specified."
+      type: STRING
+      size: 3
+
+    - name: RestrictedQty
+      label: "Restricted Qty"
+      description: "Number of Assets (non-fungible). 0 if unlimited which will display an infinity symbol in UI"
+      type: UINT
+      size: 8
+
 
 
 # Order : Issuer to signal to the smart contract that the tokens that a
@@ -162,17 +606,72 @@
 
 - message: E1
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - ComplianceAction:                [STRING, 1]
-    - TargetAddress:                   [STRING, 34]
-    - DepositAddress:                  [STRING, 34]
-    - SupportingEvidenceHash:          [SHA, 32]
-    - Qty:                             [UINT, 8]
-    - Expiration:                      [TIME, 8]
-    - Message:                         [STRING, 61]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Order"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: ComplianceAction
+      label: "Compliance Action"
+      description: "Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)"
+      type: STRING
+      size: 1
+
+    - name: TargetAddress
+      label: "Target Address"
+      description: "Public address where the token balance will be changed."
+      type: STRING
+      size: 34
+
+    - name: DepositAddress
+      label: "Deposit Address"
+      description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
+      type: STRING
+      size: 34
+
+    - name: SupportingEvidenceHash
+      label: "Supporting Evidence Hash"
+      description: "SHA-256: warrant, court order, etc."
+      type: SHA
+      size: 32
+
+    - name: Qty
+      label: "Qty"
+      description: "Qty of tokens to be frozen, thawed, confiscated or reconciled."
+      type: UINT
+      size: 8
+
+    - name: Expiration
+      label: "Expiration"
+      description: "Used for a 'timeout'.  Tokens are automatically unfrozen after the expiration date without requiring a Thaw Action. Null value for Thaw or Confiscation orders."
+      type: TIME
+      size: 8
+
+    - name: Message
+      label: "Message"
+      description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+      type: STRING
+      size: 61
+
 
 
 # Freeze : To be used to comply with contractual/legal requirements. The
@@ -183,14 +682,54 @@
 
 - message: E2
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - Timestamp:                       [TIME, 8]
-    - Qty:                             [UINT, 8]
-    - Expiration:                      [TIME, 8]
-    - Message:                         [STRING, 61]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Freeze"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Freeze action."
+      type: TIME
+      size: 8
+
+    - name: Qty
+      label: "Qty"
+      description: "Tokens to be frozen, thawed or confiscated."
+      type: UINT
+      size: 8
+
+    - name: Expiration
+      label: "Expiration"
+      description: "Used for a 'timeout'.  Tokens are automatically unfrozen after the expiration date without requiring a Thaw Action."
+      type: TIME
+      size: 8
+
+    - name: Message
+      label: "Message"
+      description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+      type: STRING
+      size: 61
+
 
 
 # Thaw : to be used to comply with contractual obligations or legal
@@ -199,13 +738,48 @@
 
 - message: E3
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - Timestamp:                       [TIME, 8]
-    - Qty:                             [UINT, 8]
-    - Message:                         [STRING, 61]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Thaw"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Thaw action."
+      type: TIME
+      size: 8
+
+    - name: Qty
+      label: "Qty"
+      description: "Tokens to be thawed."
+      type: UINT
+      size: 8
+
+    - name: Message
+      label: "Message"
+      description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+      type: STRING
+      size: 61
+
 
 
 # Confiscation : to be used to comply with contractual obligations and/or
@@ -213,14 +787,54 @@
 
 - message: E4
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - Timestamp:                       [TIME, 8]
-    - TargetsQty:                      [UINT, 8]
-    - DepositsQty:                     [UINT, 8]
-    - Message:                         [STRING, 61]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Confiscation"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Confiscation action."
+      type: TIME
+      size: 8
+
+    - name: TargetsQty
+      label: "Target's Qty"
+      description: "Offender's token balance after confiscation."
+      type: UINT
+      size: 8
+
+    - name: DepositsQty
+      label: "Deposit's Qty"
+      description: "Custodian's token balance after confiscation."
+      type: UINT
+      size: 8
+
+    - name: Message
+      label: "Message"
+      description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+      type: STRING
+      size: 61
+
 
 
 # Reconciliation : to be used at the direction of the issuer to fix record
@@ -228,14 +842,54 @@
 
 - message: E5
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - RefTxnID:                        [SHA, 32]
-    - TargetAddressQty:                [UINT, 8]
-    - Timestamp:                       [TIME, 8]
-    - Message:                         [STRING, 61]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Reconciliation"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: RefTxnID
+      label: "Ref Txn ID"
+      description: "The settlement action that was dropped from the network."
+      type: SHA
+      size: 32
+
+    - name: TargetAddressQty
+      label: "Target Address Qty"
+      description: "Target's token balance after reconciliation. To be calculated by the amount of tokens to amend and the amount they own already."
+      type: UINT
+      size: 8
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Reconciliation action."
+      type: TIME
+      size: 8
+
+    - name: Message
+      label: "Message"
+      description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+      type: STRING
+      size: 61
+
 
 
 # Initiative : Allows Token Owners to propose a Initiative (aka
@@ -245,17 +899,72 @@
 
 - message: G1
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - VoteType:                        [STRING, 1]
-    - VoteOptions:                     [STRING, 16]
-    - VoteMax:                         [UINT, 1]
-    - VoteLogic:                       [STRING, 1]
-    - ProposalDescription:             [STRING, 82]
-    - ProposalDocumentHash:            [SHA, 32]
-    - VoteCutOffTimestamp:             [TIME, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Initiative"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: VoteType
+      label: "Vote Type"
+      description: "Contract Amendment (C), Asset Amendment (A), Authorization Flags Amendment (F), Proposal (P), etc."
+      type: STRING
+      size: 1
+
+    - name: VoteOptions
+      label: "Vote Options"
+      description: "Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes."
+      type: STRING
+      size: 15
+
+    - name: VoteMax
+      label: "Vote Max"
+      description: "Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
+      type: UINT
+      size: 1
+
+    - name: VoteLogic
+      label: "Vote Logic"
+      description: "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) "
+      type: STRING
+      size: 1
+
+    - name: ProposalDescription
+      label: "Proposal Description"
+      description: "Description of the vote"
+      type: STRING
+      size: 82
+
+    - name: ProposalDocumentHash
+      label: "Proposal Document Hash"
+      description: "Hash of the proposal document to be distributed to voters"
+      type: SHA
+      size: 32
+
+    - name: VoteCutOffTimestamp
+      label: "Vote Cut Off Timestamp"
+      description: "Ballot casts after this timestamp will not be included.  The vote has finished."
+      type: TIME
+      size: 8
+
 
 
 # Referendum : Issuer instructs the Contract to Initiate a Token Owner
@@ -264,17 +973,72 @@
 
 - message: G2
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - VoteType:                        [STRING, 1]
-    - VoteOptions:                     [STRING, 16]
-    - VoteMax:                         [UINT, 1]
-    - VoteLogic:                       [STRING, 1]
-    - ProposalDescription:             [STRING, 82]
-    - ProposalDocumentHash:            [SHA, 32]
-    - VoteCutOffTimestamp:             [TIME, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Referendum"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: VoteType
+      label: "Vote Type"
+      description: "Contract Amendment (C), Asset Amendment (A), Authorization Flags Amendment (F), Proposal (P), etc."
+      type: STRING
+      size: 1
+
+    - name: VoteOptions
+      label: "Vote Options"
+      description: "Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes."
+      type: STRING
+      size: 15
+
+    - name: VoteMax
+      label: "Vote Max"
+      description: "Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
+      type: UINT
+      size: 1
+
+    - name: VoteLogic
+      label: "Vote Logic"
+      description: "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) "
+      type: STRING
+      size: 1
+
+    - name: ProposalDescription
+      label: "Proposal Description"
+      description: "Description of the vote"
+      type: STRING
+      size: 82
+
+    - name: ProposalDocumentHash
+      label: "Proposal Document Hash"
+      description: "Hash of the proposal document to be distributed to voters"
+      type: SHA
+      size: 32
+
+    - name: VoteCutOffTimestamp
+      label: "Vote Cut Off Timestamp"
+      description: "Ballot casts after this timestamp will not be included.  The vote has finished."
+      type: TIME
+      size: 8
+
 
 
 # Vote : A vote is created by the Contract in response to a valid
@@ -283,18 +1047,78 @@
 
 - message: G3
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - VoteType:                        [STRING, 1]
-    - VoteOptions:                     [STRING, 16]
-    - VoteMax:                         [UINT, 1]
-    - VoteLogic:                       [STRING, 1]
-    - ProposalDescription:             [STRING, 82]
-    - ProposalDocumentHash:            [SHA, 32]
-    - VoteCutOffTimestamp:             [TIME, 8]
-    - Timestamp:                       [TIME, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Vote"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: VoteType
+      label: "Vote Type"
+      description: "Contract Amendment (C), Asset Amendment (A), Authorization Flags Amendment (F), Proposal (P), etc. C, A, F are always binary votes (Y/N) with A representing Yes/Accept and B representing No/Reject."
+      type: STRING
+      size: 1
+
+    - name: VoteOptions
+      label: "Vote Options"
+      description: "Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID."
+      type: STRING
+      size: 15
+
+    - name: VoteMax
+      label: "Vote Max"
+      description: "Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
+      type: UINT
+      size: 1
+
+    - name: VoteLogic
+      label: "Vote Logic"
+      description: "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) "
+      type: STRING
+      size: 1
+
+    - name: ProposalDescription
+      label: "Proposal Description"
+      description: "Description of the vote"
+      type: STRING
+      size: 82
+
+    - name: ProposalDocumentHash
+      label: "Proposal Document Hash"
+      description: "Hash of the proposal document to be distributed to voters"
+      type: SHA
+      size: 32
+
+    - name: VoteCutOffTimestamp
+      label: "Vote Cut Off Timestamp"
+      description: "Any vote registered after this time will not be valid."
+      type: TIME
+      size: 8
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Vote action."
+      type: TIME
+      size: 8
+
 
 
 # BallotCast : Used to allow Token Owners to cast their ballot (vote) on
@@ -304,12 +1128,41 @@
 
 - message: G4
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - VoteTxnID:                       [SHA, 32]
-    - Vote:                            [STRING, 16]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Ballot Cast"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: VoteTxnID
+      label: "Vote Txn ID
+      type: SHA
+      size: 32
+
+    - name: Vote
+      label: "Vote"
+      description: "Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes."
+      type: STRING
+      size: 15
+
 
 
 # BallotCounted : The smart contract will respond to a Ballot Cast action
@@ -319,42 +1172,192 @@
 
 - message: G5
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - VoteTxnID:                       [SHA, 32]
-    - Vote:                            [STRING, 16]
-    - Timestamp:                       [TIME, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Ballot Counted"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: VoteTxnID
+      label: "Vote Txn ID"
+      description: "Tx-ID of the Vote the Ballot Cast is being made for."
+      type: SHA
+      size: 32
+
+    - name: Vote
+      label: "Vote"
+      description: "Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes."
+      type: STRING
+      size: 16
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Result action."
+      type: TIME
+      size: 8
+
 
 
 # Result : Once a vote has been completed the results are published.
 
 - message: G6
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - VoteType:                        [STRING, 1]
-    - VoteTxnID:                       [SHA, 32]
-    - Timestamp:                       [TIME, 8]
-    - Option1Tally:                    [UINT, 8]
-    - Option2Tally:                    [UINT, 8]
-    - Option3Tally:                    [UINT, 8]
-    - Option4Tally:                    [UINT, 8]
-    - Option5Tally:                    [UINT, 8]
-    - Option6Tally:                    [UINT, 8]
-    - Option7Tally:                    [UINT, 8]
-    - Option8Tally:                    [UINT, 8]
-    - Option9Tally:                    [UINT, 8]
-    - Option10Tally:                   [UINT, 8]
-    - Option11Tally:                   [UINT, 8]
-    - Option12Tally:                   [UINT, 8]
-    - Option13Tally:                   [UINT, 8]
-    - Option14Tally:                   [UINT, 8]
-    - Option15Tally:                   [UINT, 8]
-    - Result:                          [STRING, 16]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Result"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null."
+      type: STRING
+      size: 32
+
+    - name: VoteType
+      label: "Vote Type"
+      description: "Contract Amendment (C), Asset Amendment (A), Authorization Flags Amendment (F), Proposal (P), etc."
+      type: STRING
+      size: 1
+
+    - name: VoteTxnID
+      label: "Vote Txn ID"
+      description: "Link to the Vote Action txn."
+      type: SHA
+      size: 32
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Result action."
+      type: TIME
+      size: 8
+
+    - name: Option1Tally
+      label: "Option 1 Tally"
+      description: "Number of valid votes counted for Option 1"
+      type: UINT
+      size: 8
+
+    - name: Option2Tally
+      label: "Option 2 Tally"
+      description: "Number of valid votes counted for Option 2"
+      type: UINT
+      size: 8
+
+    - name: Option3Tally
+      label: "Option 3 Tally"
+      description: "Number of valid votes counted for Option 3"
+      type: UINT
+      size: 8
+
+    - name: Option4Tally
+      label: "Option 4 Tally"
+      description: "Number of valid votes counted for Option 4"
+      type: UINT
+      size: 8
+
+    - name: Option5Tally
+      label: "Option 5 Tally"
+      description: "Number of valid votes counted for Option 5"
+      type: UINT
+      size: 8
+
+    - name: Option6Tally
+      label: "Option 6 Tally"
+      description: "Number of valid votes counted for Option 6"
+      type: UINT
+      size: 8
+
+    - name: Option7Tally
+      label: "Option 7 Tally"
+      description: "Number of valid votes counted for Option 7"
+      type: UINT
+      size: 8
+
+    - name: Option8Tally
+      label: "Option 8 Tally"
+      description: "Number of valid votes counted for Option 8"
+      type: UINT
+      size: 8
+
+    - name: Option9Tally
+      label: "Option 9 Tally"
+      description: "Number of valid votes counted for Option 9"
+      type: UINT
+      size: 8
+
+    - name: Option10Tally
+      label: "Option 10 Tally"
+      description: "Number of valid votes counted for Option 10"
+      type: UINT
+      size: 8
+
+    - name: Option11Tally
+      label: "Option 11 Tally"
+      description: "Number of valid votes counted for Option 11"
+      type: UINT
+      size: 8
+
+    - name: Option12Tally
+      label: "Option 12 Tally"
+      description: "Number of valid votes counted for Option 12"
+      type: UINT
+      size: 8
+
+    - name: Option13Tally
+      label: "Option 13 Tally"
+      description: "Number of valid votes counted for Option 13"
+      type: UINT
+      size: 8
+
+    - name: Option14Tally
+      label: "Option 14 Tally"
+      description: "Number of valid votes counted for Option 14"
+      type: UINT
+      size: 8
+
+    - name: Option15Tally
+      label: "Option 15 Tally"
+      description: "Number of valid votes counted for Option 15"
+      type: UINT
+      size: 8
+
+    - name: Result
+      label: "Result"
+      description: "The Option with the most votes. Draw (D)"
+      type: STRING
+      size: 16
+
 
 
 # Message : the message action is a general purpose communication action.
@@ -367,11 +1370,36 @@
 
 - message: M1
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Timestamp:                       [TIME, 8]
-    - MessageType:                     [STRING, 2]
-    - Message:                         [STRING, 203]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Message"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Reconciliation action."
+      type: TIME
+      size: 8
+
+    - name: MessageType
+      label: "Message Type"
+      description: "Potential for up to 255 different message types"
+      type: STRING
+      size: 2
+
+    - name: Message
+      label: "Message"
+      description: "Public or private (RSA public key, Diffie-Hellman).  Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted.  See Message Types for a full list of potential use cases."
+      type: STRING
+      size: 203
+
 
 
 # Rejection : used to reject Exchange, Send, Initiative, Referendum, Order,
@@ -386,13 +1414,48 @@
 
 - message: M2
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Timestamp:                       [TIME, 8]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - RejectionType:                   [STRING, 1]
-    - Message:                         [STRING, 169]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Rejection"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Reconciliation action."
+      type: TIME
+      size: 8
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Real Estate Security, share, bond"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: RejectionType
+      label: "Rejection Type"
+      description: "Classifies the rejection by a type."
+      type: STRING
+      size: 1
+
+    - name: Message
+      label: "Message"
+      description: "Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type sub-field."
+      type: STRING
+      size: 169
+
 
 
 # Establishment : Establishes a register. The register is intended to be
@@ -401,15 +1464,55 @@
 
 - message: R1
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Registrar:                       [STRING, 16]
-    - RegisterType:                    [STRING, 1]
-    - KYCJurisdiction:                 [STRING, 5]
-    - DOB:                             [TIME, 8]
-    - CountryOfResidence:              [STRING, 3]
-    - SupportingDocumentationHash:     [SHA, 32]
-    - Message:                         [STRING, 148]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Establishment"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: Registrar
+      label: "Registrar
+      type: STRING
+      size: 16
+
+    - name: RegisterType
+      label: "Register Type
+      type: STRING
+      size: 1
+
+    - name: KYCJurisdiction
+      label: "KYC Jurisdiction
+      type: STRING
+      size: 5
+
+    - name: DOB
+      label: "DOB"
+      description: "Date of Birth : DD/MM/YYYY"
+      type: TIME
+      size: 8
+
+    - name: CountryOfResidence
+      label: "Country of Residence
+      type: STRING
+      size: 3
+
+    - name: SupportingDocumentationHash
+      label: "Supporting Documentation Hash
+      type: SHA
+      size: 32
+
+    - name: Message
+      label: "Message"
+      description: "An establishment message can be used to provide more information."
+      type: STRING
+      size: 148
+
 
 
 # Addition : Adds a User's public address to a global distributed
@@ -420,30 +1523,114 @@
 
 - message: R2
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Sublist:                         [STRING, 4]
-    - KYC:                             [STRING, 1]
-    - KYCJurisdiction:                 [STRING, 5]
-    - DOB:                             [TIME, 8]
-    - CountryOfResidence:              [STRING, 3]
-    - SupportingDocumentationHash:     [SHA, 32]
-    - Message:                         [STRING, 148]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Addition"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: Sublist
+      label: "Sublist"
+      description: "Null value = Global KYC compliance. eg. Organizations can define their own pseudo-anonymous and publicly available membership lists."
+      type: STRING
+      size: 4
+
+    - name: KYC
+      label: "KYC"
+      description: "Y/N"
+      type: STRING
+      size: 1
+
+    - name: KYCJurisdiction
+      label: "KYC Jurisdiction
+      type: STRING
+      size: 5
+
+    - name: DOB
+      label: "DOB"
+      description: "Date of Birth : DD/MM/YYYY"
+      type: TIME
+      size: 8
+
+    - name: CountryOfResidence
+      label: "Country of Residence
+      type: STRING
+      size: 3
+
+    - name: SupportingDocumentationHash
+      label: "Supporting Documentation Hash
+      type: SHA
+      size: 32
+
+    - name: Message
+      label: "Message"
+      description: "Note"
+      type: STRING
+      size: 148
+
 
 
 # Alteration : A registry entry can be altered.
 
 - message: R3
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Sublist:                         [STRING, 4]
-    - KYC:                             [STRING, 1]
-    - KYCJurisdiction:                 [STRING, 5]
-    - DOB:                             [TIME, 8]
-    - CountryOfResidence:              [STRING, 3]
-    - SupportingDocumentationHash:     [SHA, 32]
-    - Message:                         [STRING, 160]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Alteration"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: Sublist
+      label: "Sublist"
+      description: "Null value = Global KYC compliance. eg. Organizations can define their own pseudo-anonymous and publicly available membership lists."
+      type: STRING
+      size: 4
+
+    - name: KYC
+      label: "KYC"
+      description: "Y/N"
+      type: STRING
+      size: 1
+
+    - name: KYCJurisdiction
+      label: "KYC Jurisdiction
+      type: STRING
+      size: 5
+
+    - name: DOB
+      label: "DOB"
+      description: "Date of Birth : DD/MM/YYYY"
+      type: TIME
+      size: 8
+
+    - name: CountryOfResidence
+      label: "Country of Residence
+      type: STRING
+      size: 3
+
+    - name: SupportingDocumentationHash
+      label: "Supporting Documentation Hash
+      type: SHA
+      size: 32
+
+    - name: Message
+      label: "Message"
+      description: "Note"
+      type: STRING
+      size: 160
+
 
 
 # Removal : Removes a User's public address from the global distributed
@@ -451,10 +1638,30 @@
 
 - message: R4
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - SupportingDocumentationHash:     [SHA, 32]
-    - Message:                         [STRING, 181]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Removal"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: SupportingDocumentationHash
+      label: "Supporting Documentation Hash"
+      description: "Document explaining the removal.  Might be at the user's request, or it might be due a to a "
+      type: SHA
+      size: 32
+
+    - name: Message
+      label: "Message"
+      description: "Note.  Explanation"
+      type: STRING
+      size: 181
+
 
 
 # Send : A Token Owner Sends a Token to a Receiver. The Send Action
@@ -466,27 +1673,100 @@
 
 - message: T1
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - TokenQty:                        [UINT, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Send"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "Asset Type"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "Asset ID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: TokenQty
+      label: "Token Qty
+      type: UINT
+      size: 8
+
 
 
 # Exchange : Example
 
 - message: T2
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Party1AssetType:                 [STRING, 3]
-    - Party1AssetID:                   [STRING, 32]
-    - Party1TokenQty:                  [UINT, 8]
-    - OfferValidUntil:                 [TIME, 8]
-    - ExchangeFeeCurrency:             [STRING, 3]
-    - ExchangeFeeVar:                  [FLOAT, 4]
-    - ExchangeFeeFixed:                [FLOAT, 4]
-    - ExchangeFeeAddress:              [STRING, 34]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Exchange"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: Party1AssetType
+      label: "Party1AssetType"
+      description: "The Asset Type and Asset ID are used by wallets/Ccontracts/users to link the Action to the Asset Creation Action. All Actions reference the Asset Creation Action.  The Asset Creation Txn-ID is not used because Asset Amendments would result in all Token Owners would need to have their tokens 'updated'."
+      type: STRING
+      size: 3
+
+    - name: Party1AssetID
+      label: "Party1AssetID
+      type: STRING
+      size: 32
+
+    - name: Party1TokenQty
+      label: "Party1TokenQty"
+      description: "Qty of tokens to be exchanged."
+      type: UINT
+      size: 8
+
+    - name: OfferValidUntil
+      label: "Offer Valid Until"
+      description: "This prevents the token receiver from holding on to the signed message as a form of a call option.  Eg. the sale of these tokens at this price is valid for 30 mins."
+      type: TIME
+      size: 8
+
+    - name: ExchangeFeeCurrency
+      label: "Exchange Fee Currency"
+      description: "BCH, USD, AUD, EUR, etc."
+      type: STRING
+      size: 3
+
+    - name: ExchangeFeeVar
+      label: "Exchange Fee Var"
+      description: "% of the value of the transaction"
+      type: FLOAT
+      size: 4
+
+    - name: ExchangeFeeFixed
+      label: "Exchange Fee Fixed"
+      description: "Fixed fee (payment made in BCH"
+      type: FLOAT
+      size: 4
+
+    - name: ExchangeFeeAddress
+      label: "Exchange Fee Address"
+      description: "Identifies the public address that the exchange fee should be paid to."
+      type: STRING
+      size: 34
+
 
 
 # Swap : Two parties want to swap a token (Atomic Swap) directly for
@@ -495,19 +1775,82 @@
 
 - message: T3
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - Party1AssetType:                 [STRING, 3]
-    - Party1AssetID:                   [STRING, 32]
-    - Party1TokenQty:                  [UINT, 8]
-    - OfferValidUntil:                 [TIME, 8]
-    - Party2AssetType:                 [STRING, 3]
-    - Party2AssetID:                   [STRING, 32]
-    - Party2TokenQty:                  [UINT, 8]
-    - ExchangeFeeCurrency:             [STRING, 3]
-    - ExchangeFeeVar:                  [FLOAT, 4]
-    - ExchangeFeeFixed:                [FLOAT, 4]
-    - ExchangeFeeAddress:              [STRING, 34]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Swap"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: Party1AssetType
+      label: "Party1AssetType"
+      description: "The Asset Type and Asset ID are used by wallets/Ccontracts/users to link the Action to the Asset Creation Action. All Actions reference the Asset Creation Action.  The Asset Creation Txn-ID is not used because Asset Amendments would result in all Token Owners would need to have their tokens 'updated'."
+      type: STRING
+      size: 3
+
+    - name: Party1AssetID
+      label: "Party1AssetID
+      type: STRING
+      size: 32
+
+    - name: Party1TokenQty
+      label: "Party1TokenQty"
+      description: "Qty of tokens to be exchanged."
+      type: UINT
+      size: 8
+
+    - name: OfferValidUntil
+      label: "Offer Valid Until"
+      description: "This prevents the token receiver from holding on to the signed message as a form of a call option.  Eg. the sale of these tokens at this price is valid for 30 mins."
+      type: TIME
+      size: 8
+
+    - name: Party2AssetType
+      label: "Party2AssetType"
+      description: "In an Atomic Swap the Party2Asset(Type/ID/TokenQty) is what the Contracting Party 2 is putting up for exchange in the swap.  That is they own the Party2Asset before the exchange and will own Party1Asset after the exchange, if approved by the smart contract."
+      type: STRING
+      size: 3
+
+    - name: Party2AssetID
+      label: "Party2AssetID
+      type: STRING
+      size: 32
+
+    - name: Party2TokenQty
+      label: "Party2TokenQty"
+      description: "Qty of tokens to be exchanged."
+      type: UINT
+      size: 8
+
+    - name: ExchangeFeeCurrency
+      label: "Exchange Fee Currency"
+      description: "BCH, USD, AUD, EUR, etc."
+      type: STRING
+      size: 3
+
+    - name: ExchangeFeeVar
+      label: "Exchange Fee Var"
+      description: "% of the value of the transaction"
+      type: FLOAT
+      size: 4
+
+    - name: ExchangeFeeFixed
+      label: "Exchange Fee Fixed"
+      description: "Fixed fee (payment made in BCH"
+      type: FLOAT
+      size: 4
+
+    - name: ExchangeFeeAddress
+      label: "Exchange Fee Address"
+      description: "Identifies the public address that the exchange fee should be paid to."
+      type: STRING
+      size: 34
+
 
 
 # Settlement : (to be used for finalizing the transfer of bitcoins and
@@ -515,12 +1858,46 @@
 
 - message: T4
   fields:
-    - ActionPrefix:                    [STRING, 2]
-    - Version:                         [UINT, 1]
-    - AssetType:                       [STRING, 3]
-    - AssetID:                         [STRING, 32]
-    - Party1TokenQty:                  [UINT, 8]
-    - Party2TokenQty:                  [UINT, 8]
-    - Timestamp:                       [TIME, 8]
+    - name: ActionPrefix
+      label: "Action Prefix"
+      description: "Settlement"
+      type: STRING
+      size: 2
+
+    - name: Version
+      label: "Version"
+      description: "For data parsing/interpretation in the event of protocol upgrades."
+      type: UINT
+      size: 1
+
+    - name: AssetType
+      label: "AssetType"
+      description: "eg. Share, Bond, Ticket"
+      type: STRING
+      size: 3
+
+    - name: AssetID
+      label: "AssetID"
+      description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+      type: STRING
+      size: 32
+
+    - name: Party1TokenQty
+      label: "Party1TokenQty"
+      description: "The resulting token balance for Contracting Party 1."
+      type: UINT
+      size: 8
+
+    - name: Party2TokenQty
+      label: "Party2TokenQty"
+      description: "The resulting token balance for Contracting Party 2."
+      type: UINT
+      size: 8
+
+    - name: Timestamp
+      label: "Timestamp"
+      description: "Timestamp of when the smart contract created the Settlement action."
+      type: TIME
+      size: 8
 
 
