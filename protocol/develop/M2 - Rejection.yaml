@@ -1,0 +1,53 @@
+#
+# M2 - Rejection Action
+#
+
+code: M2
+
+metadata:
+  name: Rejection
+  label: Rejection Action
+  description: "Used to reject Exchange, Send, Initiative, Referendum, Order, and Ballot Cast actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Issuer/User Actions must be responded to by the Contract with an Action. The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral. If not enough fees are attached to pay for the Contract response then the Contract will not respond."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Rejection"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the smart contract created the Reconciliation action."
+    type: TIME
+    size: 8
+
+  - name: AssetType
+    label: "Asset Type"
+    description: "eg. Real Estate Security, share, bond"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "Asset ID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: STRING
+    size: 32
+
+  - name: RejectionType
+    label: "Rejection Type"
+    description: "Classifies the rejection by a type."
+    type: STRING
+    size: 1
+
+  - name: Message
+    label: "Message"
+    description: "Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type sub-field."
+    type: STRING
+    size: 169

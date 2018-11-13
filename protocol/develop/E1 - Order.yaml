@@ -1,0 +1,77 @@
+#
+# E1 - Order Action
+#
+
+code: E1
+
+metadata:
+  name: Order
+  label: Order Action
+  description: "Issuer to signal to the smart contract that the tokens that a particular PKH owns are to be confiscated, frozen or thawed."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Order"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: AssetType
+    label: "Asset Type"
+    description: "eg. Share, Bond, Ticket"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "Asset ID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: STRING
+    size: 32
+
+  - name: ComplianceAction
+    label: "Compliance Action"
+    description: "Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)"
+    type: STRING
+    size: 1
+
+  - name: TargetAddress
+    label: "Target Address"
+    description: "Public address where the token balance will be changed."
+    type: STRING
+    size: 34
+
+  - name: DepositAddress
+    label: "Deposit Address"
+    description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
+    type: STRING
+    size: 34
+
+  - name: SupportingEvidenceHash
+    label: "Supporting Evidence Hash"
+    description: "SHA-256: warrant, court order, etc."
+    type: SHA
+    size: 32
+
+  - name: Qty
+    label: "Qty"
+    description: "Qty of tokens to be frozen, thawed, confiscated or reconciled."
+    type: UINT
+    size: 8
+
+  - name: Expiration
+    label: "Expiration"
+    description: "Used for a 'timeout'.  Tokens are automatically unfrozen after the expiration date without requiring a Thaw Action. Null value for Thaw or Confiscation orders."
+    type: TIME
+    size: 8
+
+  - name: Message
+    label: "Message"
+    description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+    type: STRING
+    size: 61

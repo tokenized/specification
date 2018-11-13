@@ -1,0 +1,113 @@
+#
+# C3 - Contract Amendment Action
+#
+
+code: C3
+
+metadata:
+  name: ContractAmendment
+  label: Contract Amendment Action
+  description: "The issuer can initiate an amendment to the contract establishment metadata. This can be due to a change of name, change of contract terms, change of authorizations, or change of the URI. The ability to make an amendment to the contract is limited by the Authorization Flag set on the previous Contract Formation action. The Authorization Flags can be set to allow Contract Amendments, but only if a Token Owner vote has passed in favour of making the Amendment. Contract revision/protocol identifier and action prefix can't be amended. The rest of the fields are open to change. However, the Issuer is responsible for acting lawfully (in their jurisdiction) and in accordance with the terms of the Investment Contract."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Contract Amendment"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "255 reserved for additional versions"
+    type: UINT
+    size: 1
+
+  - name: ContractName
+    label: "Contract Name"
+    description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost. Then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.  The example in this case is a proprietary Ordinary Share Smart Contract developed by Tokenized for funds."
+    type: STRING
+    size: 32
+
+  - name: ContractFileHash
+    label: "Contract File Hash"
+    description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (pdf)"
+    type: SHA
+    size: 32
+
+  - name: GoverningLaw
+    label: "Governing Law"
+    description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    type: STRING
+    size: 5
+
+  - name: Jurisdiction
+    label: "Jurisdiction"
+    description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    type: STRING
+    size: 5
+
+  - name: ContractExpiration
+    label: "Contract Expiration"
+    description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and issue transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid."
+    type: TIME
+    size: 8
+
+  - name: URI
+    label: "URI"
+    description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be an IPFS address (hash) or txn-id for on chain information using OP_PUSHDATA/OP_DROP."
+    type: STRING
+    size: 78
+
+  - name: ContractRevision
+    label: "Contract Revision"
+    description: "Counter 0 - 65,535"
+    type: UINT
+    size: 2
+
+  - name: IssuerID
+    label: "Issuer ID"
+    description: "Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. (Example value could represent Vanguard Australia Residential Real Estate Fund for Retail Investors) "
+    type: STRING
+    size: 16
+
+  - name: IssuerType
+    label: "Issuer Type"
+    description: "O - Public Company Limited by Shares, P - Private Company Limited by Shares"
+    type: STRING
+    size: 1
+
+  - name: ContractOperatorID
+    label: "Contract Operator ID"
+    description: "Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
+    type: STRING
+    size: 16
+
+  - name: AuthorizationFlags
+    label: "Authorization Flags"
+    description: "16 Authorization Flags"
+    type: BIN
+    size: 2
+
+  - name: VotingSystem
+    label: "Voting System"
+    description: "Contract-wide voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
+    type: STRING
+    size: 1
+
+  - name: InitiativeThreshold
+    label: "Initiative Threshold"
+    description: "Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote."
+    type: FLOAT
+    size: 4
+
+  - name: InitiativeThresholdCurrency
+    label: "Initiative Threshold Currency"
+    description: "Currency.  Always paid in BCH at current market valuations in the currency specified."
+    type: STRING
+    size: 3
+
+  - name: RestrictedQty
+    label: "Restricted Qty"
+    description: "Number of Assets (non-fungible). 0 if unlimited which will display an infinity symbol in UI"
+    type: UINT
+    size: 8

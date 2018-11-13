@@ -1,0 +1,62 @@
+#
+# R2 - Addition Action
+#
+
+code: R2
+
+metadata:
+  name: Addition
+  label: Addition Action
+  description: "Adds a User's public address to a global distributed whitelist. Entities (eg. Issuer) can filter by the public address of known and trusted entities (eg. KYC Databases such as coinbase) and therefore are able to create sublists - or subsets - of the main global whitelist."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Addition"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: Sublist
+    label: "Sublist"
+    description: "Null value = Global KYC compliance. eg. Organizations can define their own pseudo-anonymous and publicly available membership lists."
+    type: STRING
+    size: 4
+
+  - name: KYC
+    label: "KYC"
+    description: "Y/N"
+    type: STRING
+    size: 1
+
+  - name: KYCJurisdiction
+    label: "KYC Jurisdiction"
+    type: STRING
+    size: 5
+
+  - name: DOB
+    label: "DOB"
+    description: "Date of Birth : DD/MM/YYYY"
+    type: TIME
+    size: 8
+
+  - name: CountryOfResidence
+    label: "Country of Residence"
+    type: STRING
+    size: 3
+
+  - name: SupportingDocumentationHash
+    label: "Supporting Documentation Hash"
+    type: SHA
+    size: 32
+
+  - name: Message
+    label: "Message"
+    description: "Note"
+    type: STRING
+    size: 148

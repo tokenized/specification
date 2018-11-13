@@ -1,0 +1,69 @@
+#
+# T2 - Exchange Action
+#
+
+code: T2
+
+metadata:
+  name: Exchange
+  label: Exchange Action
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Exchange"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: Party1AssetType
+    label: "Party1AssetType"
+    description: "The Asset Type and Asset ID are used by wallets/Ccontracts/users to link the Action to the Asset Creation Action. All Actions reference the Asset Creation Action.  The Asset Creation Txn-ID is not used because Asset Amendments would result in all Token Owners would need to have their tokens 'updated'."
+    type: STRING
+    size: 3
+
+  - name: Party1AssetID
+    label: "Party1AssetID"
+    type: STRING
+    size: 32
+
+  - name: Party1TokenQty
+    label: "Party1TokenQty"
+    description: "Qty of tokens to be exchanged."
+    type: UINT
+    size: 8
+
+  - name: OfferValidUntil
+    label: "Offer Valid Until"
+    description: "This prevents the token receiver from holding on to the signed message as a form of a call option.  Eg. the sale of these tokens at this price is valid for 30 mins."
+    type: TIME
+    size: 8
+
+  - name: ExchangeFeeCurrency
+    label: "Exchange Fee Currency"
+    description: "BCH, USD, AUD, EUR, etc."
+    type: STRING
+    size: 3
+
+  - name: ExchangeFeeVar
+    label: "Exchange Fee Var"
+    description: "% of the value of the transaction"
+    type: FLOAT
+    size: 4
+
+  - name: ExchangeFeeFixed
+    label: "Exchange Fee Fixed"
+    description: "Fixed fee (payment made in BCH"
+    type: FLOAT
+    size: 4
+
+  - name: ExchangeFeeAddress
+    label: "Exchange Fee Address"
+    description: "Identifies the public address that the exchange fee should be paid to."
+    type: STRING
+    size: 34

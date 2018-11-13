@@ -1,0 +1,149 @@
+#
+# G6 - Result Action
+#
+
+code: G6
+
+metadata:
+  name: Result
+  label: Result Action
+  description: "Once a vote has been completed the results are published."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Result"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: AssetType
+    label: "Asset Type"
+    description: "eg. Share, Bond, Ticket"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "Asset ID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null."
+    type: STRING
+    size: 32
+
+  - name: VoteType
+    label: "Vote Type"
+    description: "Contract Amendment (C), Asset Amendment (A), Authorization Flags Amendment (F), Proposal (P), etc."
+    type: STRING
+    size: 1
+
+  - name: VoteTxnID
+    label: "Vote Txn ID"
+    description: "Link to the Vote Action txn."
+    type: SHA
+    size: 32
+
+  - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the smart contract created the Result action."
+    type: TIME
+    size: 8
+
+  - name: Option1Tally
+    label: "Option 1 Tally"
+    description: "Number of valid votes counted for Option 1"
+    type: UINT
+    size: 8
+
+  - name: Option2Tally
+    label: "Option 2 Tally"
+    description: "Number of valid votes counted for Option 2"
+    type: UINT
+    size: 8
+
+  - name: Option3Tally
+    label: "Option 3 Tally"
+    description: "Number of valid votes counted for Option 3"
+    type: UINT
+    size: 8
+
+  - name: Option4Tally
+    label: "Option 4 Tally"
+    description: "Number of valid votes counted for Option 4"
+    type: UINT
+    size: 8
+
+  - name: Option5Tally
+    label: "Option 5 Tally"
+    description: "Number of valid votes counted for Option 5"
+    type: UINT
+    size: 8
+
+  - name: Option6Tally
+    label: "Option 6 Tally"
+    description: "Number of valid votes counted for Option 6"
+    type: UINT
+    size: 8
+
+  - name: Option7Tally
+    label: "Option 7 Tally"
+    description: "Number of valid votes counted for Option 7"
+    type: UINT
+    size: 8
+
+  - name: Option8Tally
+    label: "Option 8 Tally"
+    description: "Number of valid votes counted for Option 8"
+    type: UINT
+    size: 8
+
+  - name: Option9Tally
+    label: "Option 9 Tally"
+    description: "Number of valid votes counted for Option 9"
+    type: UINT
+    size: 8
+
+  - name: Option10Tally
+    label: "Option 10 Tally"
+    description: "Number of valid votes counted for Option 10"
+    type: UINT
+    size: 8
+
+  - name: Option11Tally
+    label: "Option 11 Tally"
+    description: "Number of valid votes counted for Option 11"
+    type: UINT
+    size: 8
+
+  - name: Option12Tally
+    label: "Option 12 Tally"
+    description: "Number of valid votes counted for Option 12"
+    type: UINT
+    size: 8
+
+  - name: Option13Tally
+    label: "Option 13 Tally"
+    description: "Number of valid votes counted for Option 13"
+    type: UINT
+    size: 8
+
+  - name: Option14Tally
+    label: "Option 14 Tally"
+    description: "Number of valid votes counted for Option 14"
+    type: UINT
+    size: 8
+
+  - name: Option15Tally
+    label: "Option 15 Tally"
+    description: "Number of valid votes counted for Option 15"
+    type: UINT
+    size: 8
+
+  - name: Result
+    label: "Result"
+    description: "The Option with the most votes. Draw (D)"
+    type: STRING
+    size: 16

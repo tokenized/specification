@@ -1,0 +1,59 @@
+#
+# E4 - Confiscation Action
+#
+
+code: E4
+
+metadata:
+  name: Confiscation
+  label: Confiscation Action
+  description: "To be used to comply with contractual obligations and/or legal requirements."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Confiscation"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: AssetType
+    label: "Asset Type"
+    description: "eg. Share, Bond, Ticket"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "Asset ID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: STRING
+    size: 32
+
+  - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the smart contract created the Confiscation action."
+    type: TIME
+    size: 8
+
+  - name: TargetsQty
+    label: "Target's Qty"
+    description: "Offender's token balance after confiscation."
+    type: UINT
+    size: 8
+
+  - name: DepositsQty
+    label: "Deposit's Qty"
+    description: "Custodian's token balance after confiscation."
+    type: UINT
+    size: 8
+
+  - name: Message
+    label: "Message"
+    description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+    type: STRING
+    size: 61

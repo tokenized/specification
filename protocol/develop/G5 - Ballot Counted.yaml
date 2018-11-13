@@ -1,0 +1,53 @@
+#
+# G5 - Ballot Counted Action
+#
+
+code: G5
+
+metadata:
+  name: BallotCounted
+  label: Ballot Counted Action
+  description: "The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Ballot Counted"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: AssetType
+    label: "Asset Type"
+    description: "eg. Share, Bond, Ticket"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "Asset ID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: STRING
+    size: 32
+
+  - name: VoteTxnID
+    label: "Vote Txn ID"
+    description: "Tx-ID of the Vote the Ballot Cast is being made for."
+    type: SHA
+    size: 32
+
+  - name: Vote
+    label: "Vote"
+    description: "Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes."
+    type: STRING
+    size: 16
+
+  - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the smart contract created the Result action."
+    type: TIME
+    size: 8

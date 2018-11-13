@@ -1,0 +1,59 @@
+#
+# E5 - Reconciliation Action
+#
+
+code: E5
+
+metadata:
+  name: Reconciliation
+  label: Reconciliation Action
+  description: "To be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Reconciliation"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: AssetType
+    label: "Asset Type"
+    description: "eg. Share, Bond, Ticket"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "Asset ID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: STRING
+    size: 32
+
+  - name: RefTxnID
+    label: "Ref Txn ID"
+    description: "The settlement action that was dropped from the network."
+    type: SHA
+    size: 32
+
+  - name: TargetAddressQty
+    label: "Target Address Qty"
+    description: "Target's token balance after reconciliation. To be calculated by the amount of tokens to amend and the amount they own already."
+    type: UINT
+    size: 8
+
+  - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the smart contract created the Reconciliation action."
+    type: TIME
+    size: 8
+
+  - name: Message
+    label: "Message"
+    description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+    type: STRING
+    size: 61

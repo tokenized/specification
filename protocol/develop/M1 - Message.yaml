@@ -1,0 +1,41 @@
+#
+# M1 - Message Action
+#
+
+code: M1
+
+metadata:
+  name: Message
+  label: Message Action
+  description: "The message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels including receipting, invoices, PO, and private offers/bids. The messages are broken down by type for easy filtering in the a user’s wallet. The Message Types are listed in the Message Types table."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Message"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the smart contract created the Reconciliation action."
+    type: TIME
+    size: 8
+
+  - name: MessageType
+    label: "Message Type"
+    description: "Potential for up to 255 different message types"
+    type: STRING
+    size: 2
+
+  - name: Message
+    label: "Message"
+    description: "Public or private (RSA public key, Diffie-Hellman).  Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted.  See Message Types for a full list of potential use cases."
+    type: STRING
+    size: 203

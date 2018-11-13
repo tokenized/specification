@@ -1,0 +1,53 @@
+#
+# T4 - Settlement Action
+#
+
+code: T4
+
+metadata:
+  name: Settlement
+  label: Settlement Action
+  description: "To be used for finalizing the transfer of bitcoins and tokens from exchange, issuance, swap actions."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Settlement"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: AssetType
+    label: "AssetType"
+    description: "eg. Share, Bond, Ticket"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "AssetID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: STRING
+    size: 32
+
+  - name: Party1TokenQty
+    label: "Party1TokenQty"
+    description: "The resulting token balance for Contracting Party 1."
+    type: UINT
+    size: 8
+
+  - name: Party2TokenQty
+    label: "Party2TokenQty"
+    description: "The resulting token balance for Contracting Party 2."
+    type: UINT
+    size: 8
+
+  - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the smart contract created the Settlement action."
+    type: TIME
+    size: 8

@@ -1,0 +1,62 @@
+#
+# R3 - Alteration Action
+#
+
+code: R3
+
+metadata:
+  name: Alteration
+  label: Alteration Action
+  description: "A registry entry can be altered."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Alteration"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: Sublist
+    label: "Sublist"
+    description: "Null value = Global KYC compliance. eg. Organizations can define their own pseudo-anonymous and publicly available membership lists."
+    type: STRING
+    size: 4
+
+  - name: KYC
+    label: "KYC"
+    description: "Y/N"
+    type: STRING
+    size: 1
+
+  - name: KYCJurisdiction
+    label: "KYC Jurisdiction"
+    type: STRING
+    size: 5
+
+  - name: DOB
+    label: "DOB"
+    description: "Date of Birth : DD/MM/YYYY"
+    type: TIME
+    size: 8
+
+  - name: CountryOfResidence
+    label: "Country of Residence"
+    type: STRING
+    size: 3
+
+  - name: SupportingDocumentationHash
+    label: "Supporting Documentation Hash"
+    type: SHA
+    size: 32
+
+  - name: Message
+    label: "Message"
+    description: "Note"
+    type: STRING
+    size: 160

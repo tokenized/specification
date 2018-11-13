@@ -1,0 +1,89 @@
+#
+# A3 - Asset Modification Action
+#
+
+code: A3
+
+metadata:
+  name: AssetModification
+  label: Asset Modification Action
+  description: "Token Dilutions, Call Backs/Revocations, burning etc. Any field can be amended except for the Asset Revision field (incremental counter based on the previous Asset Creation Txn) and the Action Prefix. Asset Types specific payloads are locked to the Asset Type. Asset Type specific payload amendments must be done as a protocol Version upgrade. Authorization flags can restrict some fields or all fields from being amended. Some amendments require a Token Owner vote for the smart contract to permit."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Asset Modification"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: AssetType
+    label: "Asset Type"
+    description: "eg. Admission Ticket"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "Asset ID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to Bitcoin Cash addr, a vanity identifying label."
+    type: STRING
+    size: 32
+
+  - name: AssetRevision
+    label: "Asset Revision"
+    description: "Counter 0 - 65,535"
+    type: UINT
+    size: 2
+
+  - name: AuthorizationFlags
+    label: "Authorization Flags"
+    description: "16 Authorization Flags,  bitwise operation"
+    type: BIN
+    size: 2
+
+  - name: VotingSystem
+    label: "Voting System"
+    description: "Asset-specific voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
+    type: STRING
+    size: 1
+
+  - name: VoteMultiplier
+    label: "Vote Multiplier"
+    description: "Multiplies the vote by the integer. 1 token = 1 vote normally.  1 token = 3 votes with a multiplier of 3, for example."
+    type: UINT
+    size: 1
+
+  - name: Qty
+    label: "Qty"
+    description: "Fungible shares of the Asset. 0 is valid. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible token ID and many Asset IDs can be associated with a particular Contract."
+    type: UINT
+    size: 8
+
+  - name: ContractFeeCurrency
+    label: "Contract Fee Currency"
+    description: "BCH, USD, AUD, EUR, etc."
+    type: STRING
+    size: 3
+
+  - name: ContractFeeVar
+    label: "Contract Fee Var"
+    description: "% of the value of the transaction"
+    type: FLOAT
+    size: 4
+
+  - name: ContractFeeFixed
+    label: "Contract Fee Fixed"
+    description: "Fixed fee (payment made in BCH)"
+    type: FLOAT
+    size: 4
+
+  - name: Payload
+    label: "Payload"
+    description: "152"
+    type: PAYLOAD
+    size: 152

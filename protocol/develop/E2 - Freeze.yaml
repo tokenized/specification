@@ -1,0 +1,59 @@
+#
+# E2 - Freeze Action
+#
+
+code: E2
+
+metadata:
+  name: Freeze
+  label: Freeze Action
+  description: "To be used to comply with contractual/legal requirements. The whitelist public address will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The Contract (referencing the whitelist) will not settle any exchange that involves the frozen Token Owner's public address."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Freeze"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: AssetType
+    label: "Asset Type"
+    description: "eg. Share, Bond, Ticket"
+    type: STRING
+    size: 3
+
+  - name: AssetID
+    label: "Asset ID"
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: STRING
+    size: 32
+
+  - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the smart contract created the Freeze action."
+    type: TIME
+    size: 8
+
+  - name: Qty
+    label: "Qty"
+    description: "Tokens to be frozen, thawed or confiscated."
+    type: UINT
+    size: 8
+
+  - name: Expiration
+    label: "Expiration"
+    description: "Used for a 'timeout'.  Tokens are automatically unfrozen after the expiration date without requiring a Thaw Action."
+    type: TIME
+    size: 8
+
+  - name: Message
+    label: "Message"
+    description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
+    type: STRING
+    size: 61

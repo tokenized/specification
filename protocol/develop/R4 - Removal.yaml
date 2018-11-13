@@ -1,0 +1,35 @@
+#
+# R4 - Removal Action
+#
+
+code: R4
+
+metadata:
+  name: Removal
+  label: Removal Action
+  description: "Removes a User's public address from the global distributed whitelist."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Removal"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: SupportingDocumentationHash
+    label: "Supporting Documentation Hash"
+    description: "Document explaining the removal.  Might be at the user's request, or it might be due a to a "
+    type: SHA
+    size: 32
+
+  - name: Message
+    label: "Message"
+    description: "Note.  Explanation"
+    type: STRING
+    size: 181

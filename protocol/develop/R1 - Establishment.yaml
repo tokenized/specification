@@ -1,0 +1,60 @@
+#
+# R1 - Establishment Action
+#
+
+code: R1
+
+metadata:
+  name: Establishment
+  label: Establishment Action
+  description: "Establishes a register. The register is intended to be used primarily for whitelisting. However, other types of registers can be used."
+
+fields:
+  - name: ActionPrefix
+    label: "Action Prefix"
+    description: "Establishment"
+    type: STRING
+    size: 2
+
+  - name: Version
+    label: "Version"
+    description: "For data parsing/interpretation in the event of protocol upgrades."
+    type: UINT
+    size: 1
+
+  - name: Registrar
+    label: "Registrar"
+    type: STRING
+    size: 16
+
+  - name: RegisterType
+    label: "Register Type"
+    type: STRING
+    size: 1
+
+  - name: KYCJurisdiction
+    label: "KYC Jurisdiction"
+    type: STRING
+    size: 5
+
+  - name: DOB
+    label: "DOB"
+    description: "Date of Birth : DD/MM/YYYY"
+    type: TIME
+    size: 8
+
+  - name: CountryOfResidence
+    label: "Country of Residence"
+    type: STRING
+    size: 3
+
+  - name: SupportingDocumentationHash
+    label: "Supporting Documentation Hash"
+    type: SHA
+    size: 32
+
+  - name: Message
+    label: "Message"
+    description: "An establishment message can be used to provide more information."
+    type: STRING
+    size: 148
