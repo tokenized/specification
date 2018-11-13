@@ -16,8 +16,8 @@ All asset payloads for the Asset related message actions.
 
 ### Messages
 
-All asset messages for the Message related message actions.
+All message payloads for the Message related message actions.
 
 # License
 
-Copyright Tokenized (c) 2018
+Copyright 2018 nChain Holdings Limited.
