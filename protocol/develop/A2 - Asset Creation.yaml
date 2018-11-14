@@ -86,4 +86,4 @@ fields:
     label: "Payload"
     description: "See Asset Type Definition"
     type: PAYLOAD
-    size: 152
+    size: 145
