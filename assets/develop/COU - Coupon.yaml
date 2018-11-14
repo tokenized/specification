@@ -58,7 +58,7 @@ fields:
   - name: Description
     label: Description
     type: string
-    size: 100
+    size: 93
     example: Int'l, 50% off 2nd Item
     span: full
     displayOrder: 1
