@@ -40,6 +40,12 @@ fields:
     type: UINT
     size: 2
 
+ - name: Timestamp
+    label: "Timestamp"
+    description: "Timestamp of when the Smart Contract created the Asset Creation action."
+    type: TIME
+    size: 8
+
   - name: AuthorizationFlags
     label: "Authorization Flags"
     description: "16 Authorization Flags,  bitwise operation"
