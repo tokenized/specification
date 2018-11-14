@@ -99,7 +99,7 @@ fields:
   - name: Description
     label: Description
     type: string
-    size: 120
+    size: 113
     example: APPLC - Apple corp - Common share issue class C
     span: full
     displayOrder: 1
