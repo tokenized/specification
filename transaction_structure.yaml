@@ -1,0 +1,73 @@
+#
+# Transaction Structures For Each User/Issuer-Initiated Action
+#
+
+- name: ContractOffer
+  label: "Contract Offer"
+  validation: "Contract Formation"
+  rejection: "Rejection"
+  
+- name: ContractAmendment
+  label: "Contract Amendment"
+  validation: "Contract Formation"
+  rejection: "Rejection"
+  
+- name: AssetDefinition
+  label: "Asset Definition"
+  validation: "Asset Creation"
+  rejection: "Rejection"
+
+- name: AssetModification
+  label: "Asset Modification"
+  validation: "Asset Creation"
+  rejection: "Rejection"
+
+- name: Send
+  label: "Send"
+  validation: "Settlement"
+  rejection: "Rejection"
+
+- name: Exchange
+  label: "Exchange"
+  validation: "Settlement"
+  rejection: "Rejection"
+
+- name: Swap
+  label: "Swap"
+  validation: "Settlement"
+  rejection: "Rejection"
+
+- name: Initiative
+  label: "Initiative"
+  validation: "Vote"
+  rejection: "Rejection"
+
+- name: Referendum
+  label: "Referendum"
+  validation: "Vote"
+  rejection: "Rejection"
+  
+- name: BallotCast
+  label: "Ballot Cast"
+  validation: "Ballot Counted"
+  rejection: "Rejection"
+  
+- name: Order (Freeze) 
+  label: "OrderFreeze"
+  validation: "Freeze"
+  rejection: "Rejection"  
+
+- name: Order (Thaw)
+  label: "OrderThaw"
+  validation: "Thaw"
+  rejection: "Rejection"
+  
+- name: Order (Confiscation)
+  label: "OrderConfiscation"
+  validation: "Confiscation"
+  rejection: "Rejection" 
+
+- name: Order (Reconciliation)
+  label: "OrderReconciliation"
+  validation: "Reconciliation"
+  rejection: "Rejection"
