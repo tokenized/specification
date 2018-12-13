@@ -8,6 +8,8 @@ metadata:
   name: Referendum
   label: Referendum Action
   description: "Issuer instructs the Contract to Initiate a Token Owner Vote. Usually used for contract amendments, organizational governance, etc."
+  validation: Vote
+  rejection: Rejection
 
 fields:
   - name: ActionPrefix

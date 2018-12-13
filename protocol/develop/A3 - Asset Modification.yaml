@@ -8,6 +8,8 @@ metadata:
   name: AssetModification
   label: Asset Modification Action
   description: "Token Dilutions, Call Backs/Revocations, burning etc. Any field can be amended except for the Asset Revision field (incremental counter based on the previous Asset Creation Txn) and the Action Prefix. Asset Types specific payloads are locked to the Asset Type. Asset Type specific payload amendments must be done as a protocol Version upgrade. Authorization flags can restrict some fields or all fields from being amended. Some amendments require a Token Owner vote for the smart contract to permit."
+  validation: AssetCreation
+  rejection: Rejection
 
 fields:
   - name: ActionPrefix

@@ -8,6 +8,8 @@ metadata:
   name: Initiative
   label: Initiative Action
   description: "Allows Token Owners to propose a Initiative (aka Initiative/Shareholder vote). A significant cost - specified in the Contract Formation - is attached to this action to reduce spam, as the resulting vote will be put to all token owners."
+  validation: Vote
+  rejection: Rejection
 
 fields:
   - name: ActionPrefix

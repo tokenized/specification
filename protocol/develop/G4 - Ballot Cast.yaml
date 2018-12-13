@@ -8,6 +8,8 @@ metadata:
   name: BallotCast
   label: Ballot Cast Action
   description: "Used to allow Token Owners to cast their ballot (vote) on proposals raised by the Issuer or other token holders. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action."
+  validation: BallotCounted
+  rejection: Rejection
 
 fields:
   - name: ActionPrefix

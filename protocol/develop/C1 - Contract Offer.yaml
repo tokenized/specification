@@ -8,6 +8,8 @@ metadata:
   name: ContractOffer
   label: Contract Offer Action
   description: "The Contract Offer action allows the Issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the Smart Contract Operator or the Issuer. This on chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
+  validation: ContractFormation
+  rejection: Rejection
 
 fields:
   - name: ActionPrefix

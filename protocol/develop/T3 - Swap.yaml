@@ -8,6 +8,8 @@ metadata:
   name: Swap
   label: Swap Action
   description: "Two parties want to swap a token (Atomic Swap) directly for another token. No BCH is used in the txn other than for paying the necessary network/transaction fees."
+  validation: Settlement
+  rejection: Rejection
 
 fields:
   - name: ActionPrefix

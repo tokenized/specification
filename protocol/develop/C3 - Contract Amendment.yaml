@@ -8,6 +8,8 @@ metadata:
   name: ContractAmendment
   label: Contract Amendment Action
   description: "The issuer can initiate an amendment to the contract establishment metadata. This can be due to a change of name, change of contract terms, change of authorizations, or change of the URI. The ability to make an amendment to the contract is limited by the Authorization Flag set on the previous Contract Formation action. The Authorization Flags can be set to allow Contract Amendments, but only if a Token Owner vote has passed in favour of making the Amendment. Contract revision/protocol identifier and action prefix can't be amended. The rest of the fields are open to change. However, the Issuer is responsible for acting lawfully (in their jurisdiction) and in accordance with the terms of the Investment Contract."
+  validation: ContractFormation
+  rejection: Rejection
 
 fields:
   - name: ActionPrefix

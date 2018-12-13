@@ -7,6 +7,8 @@ code: T2
 metadata:
   name: Exchange
   label: Exchange Action
+  validation: Settlement
+  rejection: Rejection
 
 fields:
   - name: ActionPrefix
