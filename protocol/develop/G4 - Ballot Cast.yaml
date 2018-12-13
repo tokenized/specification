@@ -11,6 +11,11 @@ metadata:
   validation: BallotCounted
   rejection: Rejection
 
+rules:
+  contractFee: 4000
+  inputs: [USER]
+  outputs: [CONTRACT, USER]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

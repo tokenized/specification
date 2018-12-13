@@ -11,6 +11,12 @@ metadata:
   validation: Settlement
   rejection: Rejection
 
+rules:
+  contractFee: 8000
+  inputs: [SENDER]
+  outputs: [CONTRACT, RECEIVER, SENDER]
+  required: [AssetType, AssetID, TokenQty]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

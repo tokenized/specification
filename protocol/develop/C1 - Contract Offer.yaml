@@ -11,6 +11,12 @@ metadata:
   validation: ContractFormation
   rejection: Rejection
 
+rules:
+  contractFee: 4000
+  inputs: [ISSUER]
+  outputs: [CONTRACT, ISSUER]
+  required: [ContractName]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

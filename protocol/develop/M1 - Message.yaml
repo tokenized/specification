@@ -9,6 +9,11 @@ metadata:
   label: Message Action
   description: "The message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels including receipting, invoices, PO, and private offers/bids. The messages are broken down by type for easy filtering in the a user’s wallet. The Message Types are listed in the Message Types table."
 
+rules:
+  contractFee: 4000
+  inputs: [SENDER]
+  outputs: [RECEIVER, SENDER]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

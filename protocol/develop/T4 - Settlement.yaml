@@ -9,6 +9,11 @@ metadata:
   label: Settlement Action
   description: "To be used for finalizing the transfer of bitcoins and tokens from exchange, issuance, swap actions."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [SENDER, RECEIVER, CONTRACT]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

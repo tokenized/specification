@@ -9,6 +9,12 @@ metadata:
   label: Contract Formation Action
   description: "This txn is created by the Contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer. The Smart Contract will execute on a server controlled by the Issuer. or a Smart Contract Operator on their behalf ."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [CONTRACT, ISSUER]
+  required: [ContractName, ContractRevision]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

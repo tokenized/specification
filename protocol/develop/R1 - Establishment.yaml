@@ -9,6 +9,11 @@ metadata:
   label: Establishment Action
   description: "Establishes a register. The register is intended to be used primarily for whitelisting. However, other types of registers can be used."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [CONTRACT]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

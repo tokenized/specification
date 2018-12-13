@@ -11,6 +11,12 @@ metadata:
   validation: [Freeze, Thaw, Confiscation, Reconciliation]
   rejection: Rejection
 
+rules:
+  contractFee: 8000
+  inputs: [ISSUER]
+  outputs: [CONTRACT, ISSUER]
+  required: [ComplianceAction, TargetAddress]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

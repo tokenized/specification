@@ -11,6 +11,12 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
+rules:
+  contractFee: 4000
+  inputs: [ISSUER]
+  outputs: [CONTRACT, ISSUER]
+  required: [AssetType, AssetID, Qty]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

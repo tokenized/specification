@@ -9,6 +9,11 @@ metadata:
   label: Removal Action
   description: "Removes a User's public address from the global distributed whitelist."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [USER, CONTRACT]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

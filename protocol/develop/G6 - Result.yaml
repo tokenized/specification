@@ -9,6 +9,11 @@ metadata:
   label: Result Action
   description: "Once a vote has been completed the results are published."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [CONTRACT, USER]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

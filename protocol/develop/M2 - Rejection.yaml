@@ -9,6 +9,11 @@ metadata:
   label: Rejection Action
   description: "Used to reject Exchange, Send, Initiative, Referendum, Order, and Ballot Cast actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Issuer/User Actions must be responded to by the Contract with an Action. The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral. If not enough fees are attached to pay for the Contract response then the Contract will not respond."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [USER, CONTRACT]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

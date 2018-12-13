@@ -9,6 +9,11 @@ metadata:
   label: Vote Action
   description: "A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action. Votes can be made by Token Owners."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [CONTRACT, USER]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

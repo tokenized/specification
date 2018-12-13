@@ -9,6 +9,11 @@ metadata:
   label: Thaw Action
   description: "To be used to comply with contractual obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [USER, CONTRACT]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

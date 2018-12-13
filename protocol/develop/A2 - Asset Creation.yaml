@@ -9,6 +9,12 @@ metadata:
   label: Asset Creation Action
   description: "This action creates an Asset in response to the Issuer's instructions in the Definition Action."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [CONTRACT, ISSUER]
+  required: [AssetType, AssetID, Qty]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

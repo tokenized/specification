@@ -11,6 +11,12 @@ metadata:
   validation: Vote
   rejection: Rejection
 
+rules:
+  contractFee: 4000
+  inputs: [ISSUER]
+  outputs: [CONTRACT, ISSUER]
+  required: [ProposalDescription, VoteOptions]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

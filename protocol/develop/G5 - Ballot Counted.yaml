@@ -9,6 +9,11 @@ metadata:
   label: Ballot Counted Action
   description: "The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
 
+rules:
+  contractFee: 5000
+  inputs: [CONTRACT]
+  outputs: [USER, CONTRACT]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

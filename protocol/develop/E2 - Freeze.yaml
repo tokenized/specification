@@ -9,6 +9,11 @@ metadata:
   label: Freeze Action
   description: "To be used to comply with contractual/legal requirements. The whitelist public address will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The Contract (referencing the whitelist) will not settle any exchange that involves the frozen Token Owner's public address."
 
+rules:
+  contractFee: 546
+  inputs: [CONTRACT]
+  outputs: [USER, CONTRACT]
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"
