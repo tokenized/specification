@@ -13,11 +13,11 @@ metadata:
 
 rules:
   fee: 4000
-    inputs:
+  inputs:
     - name: Issuer
       label: "Issuer's Public Address"
       
-   outputs:
+  outputs:
     - name: Contract
       label: "Contract Public Address"
    
