@@ -10,10 +10,22 @@ metadata:
   description: "This txn is created by the Contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer. The Smart Contract will execute on a server controlled by the Issuer. or a Smart Contract Operator on their behalf ."
 
 rules:
-  contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [CONTRACT, ISSUER]
-  required: [ContractName, ContractRevision]
+  fee: 546
+  inputs:
+    - name: Contract
+      label: "Contract Public Address"
+      
+   outputs:
+    - name: Contract
+      label: "Contract Public Address"
+   
+    - name: Issuer
+      label: "Issuer's Public Address"
+      description: "Change (Required, minimum 546)"
+    
+    - name: ContractFee
+      label: "Contract Fee Address"
+      description: "Contract Operator's Fee"
 
 fields:
   - name: ActionPrefix
@@ -33,6 +45,7 @@ fields:
     description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost. Then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
     type: STRING
     size: 32
+    required: true
 
   - name: ContractFileHash
     label: "Contract File Hash"
@@ -75,6 +88,7 @@ fields:
     description: "Counter 0 - 65,535"
     type: UINT
     size: 2
+    required: true
 
   - name: IssuerID
     label: "Issuer ID"
