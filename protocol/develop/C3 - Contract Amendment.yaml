@@ -12,10 +12,18 @@ metadata:
   rejection: Rejection
 
 rules:
-  contractFee: 4000
-  inputs: [ISSUER]
-  outputs: [CONTRACT, ISSUER]
-  required: [ContractName]
+  fee: 4000
+    inputs:
+    - name: Issuer
+      label: "Issuer's Public Address"
+      
+   outputs:
+    - name: Contract
+      label: "Contract Public Address"
+   
+    - name: Issuer
+      label: "Issuer's Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
@@ -35,6 +43,7 @@ fields:
     description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost. Then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.  The example in this case is a proprietary Ordinary Share Smart Contract developed by Tokenized for funds."
     type: STRING
     size: 32
+    required: true
 
   - name: ContractFileHash
     label: "Contract File Hash"
