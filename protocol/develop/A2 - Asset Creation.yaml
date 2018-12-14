@@ -15,7 +15,7 @@ rules:
     - name: Contract
       label: "Contract Public Address"
       
-   outputs:
+  outputs:
     - name: Contract
       label: "Contract Public Address"
       description: "Dust Limit"
