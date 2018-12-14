@@ -13,9 +13,16 @@ metadata:
 
 rules:
   contractFee: 4000
-  inputs: [USER]
-  outputs: [CONTRACT, USER]
-  required: [ProposalDescription, VoteOptions]
+  inputs: 
+    - name: User
+      label: "Token Owner's Public Address"
+     
+  outputs: 
+    - name: Contract
+      label: "Contract Public Address"
+    
+    - name: User
+      label: "Token Owner's Public Address"
 
 fields:
   - name: ActionPrefix
@@ -53,6 +60,7 @@ fields:
     description: "Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes."
     type: STRING
     size: 15
+    required: true
 
   - name: VoteMax
     label: "Vote Max"
@@ -71,6 +79,7 @@ fields:
     description: "Description of the vote"
     type: STRING
     size: 82
+    required: true
 
   - name: ProposalDocumentHash
     label: "Proposal Document Hash"
