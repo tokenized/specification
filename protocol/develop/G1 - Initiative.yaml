@@ -12,7 +12,7 @@ metadata:
   rejection: Rejection
 
 rules:
-  contractFee: 4000
+  fee: 4000
   inputs: 
     - name: User
       label: "Token Owner's Public Address"
@@ -23,6 +23,7 @@ rules:
     
     - name: User
       label: "Token Owner's Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
