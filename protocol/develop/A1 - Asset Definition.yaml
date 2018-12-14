@@ -20,9 +20,11 @@ rules:
   outputs:
     - name: Contract
       label: "Contract Public Address"
+      description: "Enough for the responding action."
   
     - name: Issuer
       label: "Issuer's Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
