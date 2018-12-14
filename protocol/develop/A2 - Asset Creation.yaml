@@ -18,12 +18,16 @@ rules:
    outputs:
     - name: Contract
       label: "Contract Public Address"
-      description: "Enough for the responding action."
+      description: "Dust Limit"
    
     - name: Issuer
       label: "Issuer's Public Address"
-      description: "Change"
+      description: "Change (Required, minimum 546)"
 
+    - name: ContractFee
+      label: "Contract Fee Address"
+      description: "Contract Operator's Fee"
+      
 fields:
   - name: ActionPrefix
     label: "Action Prefix"
