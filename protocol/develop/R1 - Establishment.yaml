@@ -11,8 +11,14 @@ metadata:
 
 rules:
   fee: 546
-  inputs: [REGISTER]
-  outputs: [REGISTER]
+
+  inputs: 
+    - name: Register
+      label: "Register's Public Address"
+      
+  outputs: 
+    - name: Register
+      label: "Register's Public Address"
 
 fields:
   - name: ActionPrefix
