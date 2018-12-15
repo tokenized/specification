@@ -14,16 +14,20 @@ rules:
   inputs: 
     - name: Contract
       label: "Contract Public Address"
-      
-  outputs: 
+
+  outputs:
     - name: User
       label: "Target Public Address"
       description: "Dust limit rule minimum value output of 546"
-      
+
+    - name: Deposit
+      label: "Deposit Public Address"
+      description: "Dust limit rule minimum value output of 546"
+
     - name: Contract
       label: "Contract Public Address"
       description: "Change, minimum 546"
-      
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"
