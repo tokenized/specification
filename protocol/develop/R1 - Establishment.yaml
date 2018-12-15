@@ -10,6 +10,7 @@ metadata:
   description: "Establishes a register. The register is intended to be used primarily for whitelisting. However, other types of registers can be used."
 
 rules:
+  fee: 546
   inputs: [REGISTER]
   outputs: [REGISTER]
 
