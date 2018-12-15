@@ -14,16 +14,16 @@ rules:
   inputs: 
     - name: Contract
       label: "Contract Public Address"
-      
-  outputs: 
+
+  outputs:
     - name: User
       label: "Target Public Address"
-      description: "Dust limit rule minimum value output of 546"
-      
+      description: "546 minimum.  If X bitcoin needs to be sent to the address, then this value will be X."
+
     - name: Contract
       label: "Contract Public Address"
       description: "Change, minimum 546"
-      
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"
