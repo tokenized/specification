@@ -12,10 +12,23 @@ metadata:
   rejection: Rejection
 
 rules:
-  contractFee: 4000
-  inputs: [ISSUER]
-  outputs: [CONTRACT, ISSUER]
-  required: [ProposalDescription, VoteOptions]
+  fee: 4000
+  inputs: 
+    - name: Issuer
+      label: "Issuer's Public Address"
+     
+  outputs: 
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Enough for the responding action"
+
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Fund the Result at Vote cutoff"
+    
+    - name: Issuer
+      label: "Issuer's Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
@@ -53,6 +66,7 @@ fields:
     description: "Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes."
     type: STRING
     size: 15
+    required: true
 
   - name: VoteMax
     label: "Vote Max"
@@ -71,6 +85,7 @@ fields:
     description: "Description of the vote"
     type: STRING
     size: 82
+    required: true
 
   - name: ProposalDocumentHash
     label: "Proposal Document Hash"

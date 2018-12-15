@@ -10,8 +10,15 @@ metadata:
   description: "Establishes a register. The register is intended to be used primarily for whitelisting. However, other types of registers can be used."
 
 rules:
-  inputs: [REGISTER]
-  outputs: [REGISTER]
+  fee: 546
+
+  inputs: 
+    - name: Register
+      label: "Register's Public Address"
+      
+  outputs: 
+    - name: Register
+      label: "Register's Public Address"
 
 fields:
   - name: ActionPrefix
