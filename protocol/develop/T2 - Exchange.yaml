@@ -11,10 +11,26 @@ metadata:
   rejection: Rejection
 
 rules:
-  contractFee: 8000
-  inputs: [SENDER, RECEIVER]
-  outputs: [CONTRACT, SENDER, RECEIVER]
-  required: [Party1AssetType, Party1AssetID, Party1TokenQty]
+  fee: 8000
+  inputs:
+    - name: Sender
+      label: "Token Sender's Public Address (Contracting Party 1)"
+      
+    - name: Receiver
+      label: "Token Receiver's Public Address (Contracting Party 2)"
+      
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+      description: "The Token Receiver (buyer) pays the Contract the money to hold in 'momentary escrow' (including fees).  The Contract will transfer the money to the Token Sender in a Transfer Txn if the Exchange Txn is acceptable.  If the Txn is not acceptable then the SC will send the money back to the Token Receiver less miner's fees using a Rejection Action."
+   
+    - name: Sender
+      label: "Contracting Party 1 (Token Sender)"
+      description: "Contracting Party 1 simply sends any amount back to himself.  No additional UTXO is created for typical Exchange txns."
+
+    - name: Receiver
+      label: "Contracting Party 2 (Token Receiver)"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
@@ -34,18 +50,21 @@ fields:
     description: "The Asset Type and Asset ID are used by wallets/Ccontracts/users to link the Action to the Asset Creation Action. All Actions reference the Asset Creation Action.  The Asset Creation Txn-ID is not used because Asset Amendments would result in all Token Owners would need to have their tokens 'updated'."
     type: STRING
     size: 3
+    required: true
 
   - name: Party1AssetID
     label: "Party1AssetID"
     type: STRING
     size: 32
-
+    required: true
+    
   - name: Party1TokenQty
     label: "Party1TokenQty"
     description: "Qty of tokens to be exchanged."
     type: UINT
     size: 8
-
+    required: true
+    
   - name: OfferValidUntil
     label: "Offer Valid Until"
     description: "This prevents the token receiver from holding on to the signed message as a form of a call option.  Eg. the sale of these tokens at this price is valid for 30 mins."
