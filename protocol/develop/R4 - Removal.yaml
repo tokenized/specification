@@ -10,9 +10,19 @@ metadata:
   description: "Removes a User's public address from the global distributed whitelist."
 
 rules:
-  fee: 546
-  inputs: [REGISTER]
-  outputs: [USER, REGISTER]
+fee: 546
+  inputs: 
+    - name: Register
+      label: "Register's Public Address"
+      
+  outputs: 
+    - name: User
+      label: "User's Public Address"
+      description: "Dust limit rule minimum value output of 546"
+    
+    - name: Register
+      label: "Register's Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
