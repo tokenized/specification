@@ -10,9 +10,15 @@ metadata:
   description: "Once a vote has been completed the results are published."
 
 rules:
-  contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [CONTRACT, USER]
+  fee: 546
+  inputs:
+    - name: Contract
+      label: "Contract Public Address"
+      
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Dust limit rule minimum value output of 546"
 
 fields:
   - name: ActionPrefix
