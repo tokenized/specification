@@ -10,10 +10,20 @@ metadata:
   description: "To be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances."
 
 rules:
-  contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [USER, CONTRACT]
-
+  fee: 546
+  inputs: 
+    - name: Contract
+      label: "Contract Public Address"
+      
+  outputs: 
+    - name: User
+      label: "Target Public Address"
+      description: "Dust limit rule minimum value output of 546"
+      
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Change, minimum 546"
+      
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

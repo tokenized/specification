@@ -12,10 +12,23 @@ metadata:
   rejection: Rejection
 
 rules:
-  contractFee: 8000
-  inputs: [SENDER]
-  outputs: [CONTRACT, RECEIVER, SENDER]
-  required: [AssetType, AssetID, TokenQty]
+  fee: 8000
+  inputs:
+    - name: Sender
+      label: "Token Sender's Public Address (Contracting Party 1)"
+      
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Enough for the costs of the responding action + the Contract Fee"
+   
+    - name: Receiver
+      label: "Token Receiver's Public Address"
+      description: "Dust limit rule minimum value output of 546"
+  
+    - name: Sender
+      label: "Token Sender's Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
@@ -35,14 +48,17 @@ fields:
     description: "eg. Share, Bond, Ticket"
     type: STRING
     size: 3
+    required: true
 
   - name: AssetID
     label: "Asset ID"
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
     type: STRING
     size: 32
+    required: true
 
   - name: TokenQty
     label: "Token Qty"
     type: UINT
     size: 8
+    required: true

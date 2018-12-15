@@ -10,9 +10,33 @@ metadata:
   description: "To be used for finalizing the transfer of bitcoins and tokens from exchange, issuance, swap actions."
 
 rules:
-  contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [SENDER, RECEIVER, CONTRACT]
+  fee: 546
+  inputs: 
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Contract 1 in response to a Swap action"
+
+    - name: OtherContract
+      label: "Contract Public Address (Contracting Party 2's Token)"
+      description: "Used in response to Swap actions only"
+      optional: true
+
+  outputs:
+    - name: Sender
+      label: "Token Sender's Public Address (Contracting Party 1)"
+
+    - name: Receiver
+      label: "Token Receiver's Public Address (Contracting Party 2)"
+      description: "Change for response to Exchange/Swap. For response to Sends, it should be a nominal amount of 546 sats."
+
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Dust limit rule minimum value output of 546"
+
+    - name: OtherContract
+      label: "Contract Public Address (Contracting Party 2's Token)"
+      description: "Response to Swaps only. Dust limit rule minimum value output of 546."
+      optional: true
 
 fields:
   - name: ActionPrefix

@@ -10,9 +10,9 @@ metadata:
   description: "Adds a User's public address to a global distributed whitelist. Entities (eg. Issuer) can filter by the public address of known and trusted entities (eg. KYC Databases such as coinbase) and therefore are able to create sublists - or subsets - of the main global whitelist."
 
 rules:
-  contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [USER, CONTRACT]
+  fee: 546
+  inputs: [REGISTER]
+  outputs: [USER, REGISTER]
 
 fields:
   - name: ActionPrefix
