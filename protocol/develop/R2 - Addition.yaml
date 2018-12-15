@@ -10,9 +10,19 @@ metadata:
   description: "Adds a User's public address to a global distributed whitelist. Entities (eg. Issuer) can filter by the public address of known and trusted entities (eg. KYC Databases such as coinbase) and therefore are able to create sublists - or subsets - of the main global whitelist."
 
 rules:
-  inputs: [REGISTER]
-  outputs: [USER, REGISTER]
-
+  fee: 546
+  inputs: 
+    - name: Register
+      label: "Register's Public Address"
+      
+  outputs: 
+    - name: User
+      label: "User's Public Address"
+      description: "Dust limit rule minimum value output of 546"
+  
+    - name: Register
+      label: "Register's Public Address"
+      
 fields:
   - name: ActionPrefix
     label: "Action Prefix"
