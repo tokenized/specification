@@ -12,9 +12,19 @@ metadata:
   rejection: Rejection
 
 rules:
-  contractFee: 4000
-  inputs: [USER]
-  outputs: [CONTRACT, USER]
+  fee: 4000
+  inputs: 
+    - name: User
+      label: "Token Owner's Public Address"
+      
+  outputs: 
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Dust limit rule minimum value output of 546"
+      
+    - name: User
+      label: "Token Owner's Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix

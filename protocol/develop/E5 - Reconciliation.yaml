@@ -10,9 +10,19 @@ metadata:
   description: "To be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances."
 
 rules:
-  contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [USER, CONTRACT]
+  fee: 546
+  inputs: 
+    - name: Contract
+      label: "Contract Public Address"
+
+  outputs:
+    - name: User
+      label: "Target Public Address"
+      description: "546 minimum.  If X bitcoin needs to be sent to the address, then this value will be X."
+
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Change, minimum 546"
 
 fields:
   - name: ActionPrefix

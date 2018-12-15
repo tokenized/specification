@@ -12,11 +12,31 @@ metadata:
   rejection: Rejection
 
 rules:
-  contractFee: 8000
-  inputs: [SENDER, RECEIVER]
-  outputs: [CONTRACT, OTHER_CONTRACT, SENDER, RECEIVER]
-  required: [Party1AssetType, Party1AssetID, Party1TokenQty, Party2AssetType, Party2AssetID, Party2TokenQty]
-
+  fee: 8000
+  inputs:
+    - name: Sender
+      label: "Contracting Party 1 (Token Sending & Receiving Address)"
+      
+    - name: Receiver
+      label: "Contracting Party 2 (Token Sending & Receiving Address)"
+      
+  outputs:
+    - name: Contract
+      label: "Contract Public Address (Contracting Party 1's Token)"
+      description: "Enough for the responding action"
+   
+    - name: OtherContract
+      label: "Contract Public Address (Contracting Party 2's Token)"
+      description: "Enough for the responding action"
+      
+    - name: Sender
+      label: "Contracting Party 1 (Token Sender)"
+      description: "Change"
+      
+    - name: Receiver
+      label: "Contracting Party 2 (Token Receiver)"
+      description: "Change/send back to themselves"
+  
 fields:
   - name: ActionPrefix
     label: "Action Prefix"
@@ -35,17 +55,20 @@ fields:
     description: "The Asset Type and Asset ID are used by wallets/Ccontracts/users to link the Action to the Asset Creation Action. All Actions reference the Asset Creation Action.  The Asset Creation Txn-ID is not used because Asset Amendments would result in all Token Owners would need to have their tokens 'updated'."
     type: STRING
     size: 3
-
+    required: true
+    
   - name: Party1AssetID
     label: "Party 1 Asset ID"
     type: STRING
     size: 32
+    required: true
 
   - name: Party1TokenQty
     label: "Party1TokenQty"
     description: "Qty of tokens to be exchanged."
     type: UINT
     size: 8
+    required: true
 
   - name: OfferValidUntil
     label: "Offer Valid Until"
@@ -58,17 +81,20 @@ fields:
     description: "In an Atomic Swap the Party2Asset(Type/ID/TokenQty) is what the Contracting Party 2 is putting up for exchange in the swap.  That is they own the Party2Asset before the exchange and will own Party1Asset after the exchange, if approved by the smart contract."
     type: STRING
     size: 3
+    required: true
 
   - name: Party2AssetID
     label: "Party 2 Asset ID"
     type: STRING
     size: 32
+    required: true
 
   - name: Party2TokenQty
     label: "Party2TokenQty"
     description: "Qty of tokens to be exchanged."
     type: UINT
     size: 8
+    required: true
 
   - name: ExchangeFeeCurrency
     label: "Exchange Fee Currency"

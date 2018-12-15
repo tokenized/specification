@@ -22,7 +22,7 @@ rules:
   
     - name: Register
       label: "Register's Public Address"
-      
+
 fields:
   - name: ActionPrefix
     label: "Action Prefix"

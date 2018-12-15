@@ -1,0 +1,43 @@
+#
+# Contract Authorization Flags
+#
+
+- name: 01
+  label: "Contract Amendments Permitted (excluding Contract Authorization Flags)"
+
+- name: 02
+  label: "Vote required for Contract Amendments (excluding Contract Authorization Flags)"
+  
+- name: 03
+  label: "Contract Authorization Flags can be Amended"
+  
+- name: 04
+  label: "Contract Authorization Flag amendments permitted with Referendum"  
+  
+- name: 05
+  label: "Initiatives can amend the Contract"
+
+- name: 06
+  label: "Enforcement Actions Permitted"
+  
+- name: 07
+  label: "Transfers are restricted to a Whitelist"
+
+- name: 08
+
+- name: 09
+
+- name: 10
+  
+- name: 11
+  
+- name: 12
+ 
+- name: 13
+
+- name: 14
+  
+- name: 15
+  
+- name: 16  
+  

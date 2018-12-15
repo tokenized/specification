@@ -10,6 +10,7 @@ metadata:
   description: "A registry entry can be altered."
 
 rules:
+  fee: 546
   inputs: [REGISTER]
   outputs: [USER, REGISTER]
 

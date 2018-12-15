@@ -10,9 +10,19 @@ metadata:
   description: "The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
 
 rules:
-  contractFee: 5000
-  inputs: [CONTRACT]
-  outputs: [USER, CONTRACT]
+  fee: 5000
+  inputs: 
+    - name: Contract
+      label: "Contract Public Address"
+      
+  outputs: 
+    - name: User
+      label: "Token Owner's Public Address"
+      description: "Dust limit rule minimum value output of 546"
+    
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
