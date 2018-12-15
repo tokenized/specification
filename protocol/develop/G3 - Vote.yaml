@@ -11,9 +11,18 @@ metadata:
 
 rules:
   contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [CONTRACT, USER]
-
+  inputs: 
+    - name: Contract
+      label: "Contract Public Address"
+   
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+     
+    - name: Issuer
+      label: "Issuer's Public Address"
+      description: "Issuer gets the threshold fee."
+   
 fields:
   - name: ActionPrefix
     label: "Action Prefix"
