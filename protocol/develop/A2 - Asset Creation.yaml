@@ -10,10 +10,19 @@ metadata:
   description: "This action creates an Asset in response to the Issuer's instructions in the Definition Action."
 
 rules:
-  contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [CONTRACT, ISSUER]
-  required: [AssetType, AssetID, Qty]
+  fee: 546
+  inputs:
+    - name: Contract
+      label: "Contract Public Address"
+      
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Dust Limit"
+   
+    - name: Issuer
+      label: "Issuer's Public Address"
+      description: "Change (Required, minimum 546)"
 
 fields:
   - name: ActionPrefix
@@ -33,13 +42,15 @@ fields:
     description: "eg. Share - Common"
     type: STRING
     size: 3
-
+    required: true
+    
   - name: AssetID
     label: "Asset ID"
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to Bitcoin Cash addr, a vanity identifying label."
     type: STRING
     size: 32
-
+    required: true
+    
   - name: AssetRevision
     label: "Asset Revision"
     description: "Counter 0 - 65,535"
@@ -75,7 +86,8 @@ fields:
     description: "Quantity of token.0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract."
     type: UINT
     size: 8
-
+    required: true
+    
   - name: ContractFeeCurrency
     label: "Contract Fee Currency"
     description: "BCH, USD, AUD, EUR, etc."
