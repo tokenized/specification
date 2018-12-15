@@ -12,10 +12,18 @@ metadata:
   rejection: Rejection
 
 rules:
-  contractFee: 8000
-  inputs: [ISSUER]
-  outputs: [CONTRACT, ISSUER]
-  required: [ComplianceAction, TargetAddress]
+  fee: 8000
+  inputs: 
+    - name: Issuer
+      label: "Issuer's Public Address"
+      
+  outputs: 
+    - name: Contract
+      label: "Contract Public Address" 
+    
+    - name: Issuer
+      label: "Issuer's Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
@@ -47,12 +55,14 @@ fields:
     description: "Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)"
     type: STRING
     size: 1
+    required: true
 
   - name: TargetAddress
     label: "Target Address"
     description: "Public address where the token balance will be changed."
     type: STRING
     size: 34
+    required: true
 
   - name: DepositAddress
     label: "Deposit Address"
