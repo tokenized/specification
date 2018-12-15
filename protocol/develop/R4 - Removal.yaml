@@ -10,6 +10,7 @@ metadata:
   description: "Removes a User's public address from the global distributed whitelist."
 
 rules:
+  fee: 546
   inputs: [REGISTER]
   outputs: [USER, REGISTER]
 
