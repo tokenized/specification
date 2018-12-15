@@ -11,8 +11,17 @@ metadata:
 
 rules:
   fee: 546
-  inputs: [REGISTER]
-  outputs: [USER, REGISTER]
+  inputs: 
+    - name: Register
+      label: "Register's Public Address"
+      
+  outputs: 
+    - name: User
+      label: "User's Public Address"
+      description: "Dust limit rule minimum value output of 546"
+
+    - name: Register
+      label: "Register's Public Address"
 
 fields:
   - name: ActionPrefix
