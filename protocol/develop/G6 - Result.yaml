@@ -155,6 +155,6 @@ fields:
 
   - name: Result
     label: "Result"
-    description: "The Option with the most votes. Draw (D)"
+    description: "The Option with the most votes. In the event of a draw for 1st place, all winning options are listed."
     type: STRING
-    size: 16
+    size: 15
