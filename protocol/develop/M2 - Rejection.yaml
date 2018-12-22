@@ -11,8 +11,18 @@ metadata:
 
 rules:
   contractFee: 546
-  inputs: [CONTRACT]
-  outputs: [USER, CONTRACT]
+  inputs: 
+    - name: Contract 
+      label: "Contract Public Address"
+      
+  outputs: 
+    - name: User
+      label: "User's Public Address"
+      description: "Return the money less fees"
+      
+    - name: Contract
+      label: "Contract Public Address"
+      description: "Change"
 
 fields:
   - name: ActionPrefix
