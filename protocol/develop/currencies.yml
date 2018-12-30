@@ -147,6 +147,13 @@ currencies:
     fractional_unit: Cent
     countries: BHS
     monetary_authority: Central Bank of The Bahamas 
+  BSV:
+    name:	Bitcoin SV
+    symbol: ₿
+    fractions: 100,000,000
+    fractional_unit: Satoshis
+    countries: none
+    monetary_authority: Satoshi Nakamoto   
   BTN:
     name:	Bhutanese ngultrum
     symbol: Nu.
