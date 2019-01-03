@@ -1,4 +1,7 @@
----
+#
+# Currencies
+#
+
 currencies:
   AED:
     name: United Arab Emirates dirham
@@ -152,7 +155,7 @@ currencies:
     symbol: ₿
     fractions: 100,000,000
     fractional_unit: Satoshis
-    countries: none
+    countries: null
     monetary_authority: Satoshi Nakamoto   
   BTN:
     name:	Bhutanese ngultrum
