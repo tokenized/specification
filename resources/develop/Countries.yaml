@@ -1,0 +1,1296 @@
+#
+# Countries
+#
+
+countries:
+  ALA:
+    name: Aaland Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/52/Flag_of_%C3%85land.svg"
+  AFG:
+    name: Afghanistan
+    states: [] 
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Afghanistan.svg"
+  ALB:
+    name: Albania
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg"
+  DZA:
+    name: Algeria
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg"
+  ASM:
+    name: American Samoa
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/87/Flag_of_American_Samoa.svg"
+  AND:
+    name: Andorra
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Andorra.svg"
+  AGO:
+    name: Angola
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Angola.svg"
+  AIA:
+    name: Anguilla
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Anguilla.svg"
+  ATA:
+    name: Antarctica
+    states: []
+    flag: 
+  ATG:
+    name: Antigua and Barbuda
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Antigua_and_Barbuda.svg"
+  ARG:
+    name: Argentina
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg"
+  ARM:
+    name: Armenia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_Armenia.svg"
+  ABW:
+    name: Aruba
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Aruba.svg"
+  AUS:
+    name: Australia
+    states:
+      AUNSW: New South Wales
+      AUQLD: Queensland
+      AUSA: South Australia
+      AUTAS: Tasmania
+      AUVIC: Victoria
+      AUWA: Western Australia
+      AUACT: Australian Capital Territory
+      AUNT: Northern Territory
+      AUJBT: Jervis Bay Territory
+      AUCX: Christmas Island
+      AUCC: Cocos (Keening) Island
+      AUHM: Heard Island and McDonalds Islands
+      AUNF: Norfolk Island
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg"
+  AUT:
+    name: Austria
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg"
+  AZE:
+    name: Azerbaijan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Azerbaijan.svg"
+  BHS:
+    name: The Bahamas
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/93/Flag_of_the_Bahamas.svg"
+  BHR:
+    name: Bahrain
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Bahrain.svg"
+  BGD:
+    name: Bangladesh
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg"
+  BRB:
+    name: Barbados
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg"
+  BLR:
+    name: Belarus
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Belarus.svg"
+  BEL:
+    name: Belgium
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg"
+  BLZ:
+    name: Belize
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg"
+  BEN:
+    name: Benin
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Benin.svg"
+  BMU:
+    name: Bermuda
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bermuda.svg"
+  BTN:
+    name: Bhutan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/91/Flag_of_Bhutan.svg"
+  BOL:
+    name: Bolivia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/de/Flag_of_Bolivia_%28state%29.svg"
+  BES:
+    name: Bonaire, St Eustasuis and Saba
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
+  BIH:
+    name: Bosnia and Herzegovina
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bosnia_and_Herzegovina.svg"
+  BWA:
+    name: Botswana
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Botswana.svg"
+  BVT:
+    name: Bouvet Island
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
+  BRA:
+    name: Brazil
+    states:
+      BRAC: Acre
+      BRAL: Alagoas
+      BRAP: Amapá
+      BRAM: Amazonas
+      BRBA: Bahia
+      BRCE: Ceará
+      BRES: Espírito Santo
+      BRDF: Federal District
+      BRGO: Goiás
+      BRMA: Maranhão
+      BRMT: Mato Grosso
+      BRMS: Mato Grosso do Sul
+      BRMG: Minas Gerais
+      BRPA: Pará
+      BRPB: Paraíba
+      BRPR: Paraná
+      BRPE: Pernambuco
+      BRPI: Piauí
+      BRRJ: Rio de Janeiro
+      BRRN: Rio Grande do Norte
+      BRRS: Rio Grande do Sul
+      BRRO: Rondônia
+      BRRR: Roraima
+      BRSC: Santa Catarina
+      BRSP: São Paulo
+      BRSE: Sergipe
+      BRTO: Tocantins
+    flag: "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg"
+  IOT:
+    name: British Indian Ocean Territory
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_the_British_Indian_Ocean_Territory.svg"
+  VGB:
+    name: British Virgin Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/42/Flag_of_the_British_Virgin_Islands.svg"
+  BRN:
+    name: Brunei
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Brunei.svg"
+  BGR:
+    name: Bulgaria
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg"
+  BFA:
+    name: Burkina Faso
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Burkina_Faso.svg"
+  BDI:
+    name: Burundi
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/50/Flag_of_Burundi.svg"
+  KHM:
+    name: Cambodia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_Cambodia.svg"
+  CMR:
+    name: Cameroon
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Cameroon.svg"
+  CAN:
+    name: Canada
+    states:
+      CAAB: Alberta
+      CABC: British Columbia
+      CAMB: Manitoba
+      CANB: New Brunswick
+      CANL: Newfoundland and Labrador
+      CANS: Nova Scotia
+      CAON: Ontario
+      CAPE: Prince Edward Island
+      CAQC: Quebec
+      CASK: Saskatchewan
+      CANT: Northwest Territories
+      CANU: Nunavut
+      CAYT: Yukon
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg"
+  CPV:
+    name: Cape Verde
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Cape_Verde.svg"
+  CYM:
+    name: Cayman Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_the_Cayman_Islands.svg"
+  CAF:
+    name: Central African Republic
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Central_African_Republic.svg"
+  TCD:
+    name: Chad
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Flag_of_Chad.svg" 
+  CHL:
+    name: Chile
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/78/Flag_of_Chile.svg"
+  CHN:
+    name: China
+    states:
+      CNBJ: Beijing
+      CNTJ: Tianjin
+      CNHE: Hebei
+      CNSX: Shanxi
+      CNNM: Nei Mongol (mn)
+      CNLN: Liaoning
+      CNJL: Jilin
+      CNHL: Heilongjiang
+      CNSH: Shanghai
+      CNJS: Jiangsu
+      CNZJ: Zhejiang
+      CNAH: Anhui
+      CNFJ: Fujian
+      CNJX: Jiangxi
+      CNSD: Shandong
+      CNHA: Henan
+      CNHB: Hubei
+      CNHN: Hunan
+      CNGD: Guangdong
+      CNGX: Guangxi
+      CNHI: Hainan
+      CNCQ: Chongqing
+      CNSC: Sichuan
+      CNGZ: Guizhou
+      CNYN: Yunnan
+      CNXZ: Xizang
+      CNSN: Shaanxi
+      CNGS: Gansu
+      CNQH: Qinghai
+      CNNX: Ningxia
+      CNXJ: Xinjiang
+      CNTW: Taiwan
+      CNHK: Hong Kong (Xianggang)
+      CNMC: Macao (Aomen)
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg"
+  CXR:
+    name: Christmas Island
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/67/Flag_of_Christmas_Island.svg"
+  CCK:
+    name: Cocos Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Cocos_%28Keeling%29_Islands.svg"
+  COL:
+    name: Colombia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg"
+  COM:
+    name: Comoros
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/94/Flag_of_the_Comoros.svg"
+  COG:
+    name: Congo-Brazzaville
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_the_Republic_of_the_Congo.svg"
+  COD:
+    name: Congo-Kinshasa
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Democratic_Republic_of_the_Congo.svg"
+  COK:
+    name: Cook Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/35/Flag_of_the_Cook_Islands.svg"
+  CRI:
+    name: Costa Rica
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Costa_Rica_%28state%29.svg"
+  HRV:
+    name: Croatia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg"
+  CUB:
+    name: Cuba
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Flag_of_Cuba.svg"
+  CUW:
+    name: Curacao
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_Cura%C3%A7ao.svg"
+  CYP:
+    name: Cyprus
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Cyprus.svg"
+  CZE:
+    name: Czech Republic
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg"
+  DNK:
+    name: Denmark
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg"
+  DJI:
+    name: Djibouti
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_Djibouti.svg"
+  DMA:
+    name: Dominica
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Flag_of_Dominica.svg"
+  DOM:
+    name: Dominican Republic
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_the_Dominican_Republic.svg"
+  TLS:
+    name: East Timor
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg"
+  ECU:
+    name: Ecuador
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg"
+  EGY:
+    name: Egypt
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"
+  SLV:
+    name: El Salvador
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_El_Salvador.svg"
+  GNQ:
+    name: Equatorial Guinea
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Equatorial_Guinea.svg"
+  ERI:
+    name: Eritrea
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_Eritrea.svg"
+  EST:
+    name: Estonia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Estonia.svg"
+  ETH:
+    name: Ethiopia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg"
+  FLK:
+    name: Falkland Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg"
+  FRO:
+    name: Faroe Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flag_of_the_Faroe_Islands.svg"
+  FJI:
+    name: Fiji
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Fiji.svg"
+  FIN:
+    name: Finland
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg"
+  FRA:
+    name: France
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+  GUF:
+    name: French Guiana
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+  PYF:
+    name: French Polynesia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/db/Flag_of_French_Polynesia.svg"
+  ATF:
+    name: French Southern and Antarctic Lands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Flag_of_the_French_Southern_and_Antarctic_Lands.svg"
+  GAB:
+    name: Gabon
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/04/Flag_of_Gabon.svg" 
+  GMB:
+    name: The Gambia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_The_Gambia.svg"
+  GEO:
+    name: Georgia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Georgia.svg"
+  DEU:
+    name: Germany
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg"
+  GHA:
+    name: Ghana
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Ghana.svg"
+  GIB:
+    name: Gibraltar
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/02/Flag_of_Gibraltar.svg"
+  GRC:
+    name: Greece
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg"
+  GRL:
+    name: Greenland
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_Greenland.svg"
+  GRD:
+    name: Grenada
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Grenada.svg"
+  GLP:
+    name: Guadeloupe
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+  GUM:
+    name: Guam
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/07/Flag_of_Guam.svg"
+  GTM:
+    name: Guatemala
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg"
+  GGY:
+    name: Guernsey
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Guernsey.svg"
+  GIN:
+    name: Guinea
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_Guinea.svg"
+  GNB:
+    name: Guinea-Bissau
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Guinea-Bissau.svg"
+  GUY:
+    name: Guyana
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_Guyana.svg"
+  HTI:
+    name: Haiti
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Haiti.svg"
+  HMD:
+    name: Heard Island and McDonald Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg"
+  HND:
+    name: Honduras
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/82/Flag_of_Honduras.svg"
+  HKG:
+    name: Hong Kong
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg"
+  HUN:
+    name: Hungary
+    states: []    
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg"
+  ISL:
+    name: Iceland
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Iceland.svg"
+  IND:
+    name: India
+    states:
+      INAN: Andaman and Nicobar Islands
+      INAP: Andhra Pradesh
+      INAR: Arunachal Pradesh
+      INAS: Assam
+      INBR: Bihar
+      INCH: Chandigarh
+      INCT: Chhattisgarh
+      INDN: Dadra and Nagar Haveli
+      INDD: Daman and Diu
+      INDL: Delhi
+      INGA: Goa
+      INGJ: Gujarat
+      INHR: Haryana
+      INHP: Himachal Pradesh
+      INJK: Jammu and Kashmir
+      INJH: Jharkhand
+      INKA: Karnataka
+      INKL: Kerala
+      INLD: Lakshadweep
+      INMP: Madhya Pradesh
+      INMH: Maharashtra
+      INMN: Manipur
+      INML: Meghalaya
+      INMZ: Mizoram
+      INNL: Nagaland
+      INOR: Odisha (formerly known as Orissa)
+      INPY: Puducherry (Pondicherry)
+      INPB: Punjab
+      INRJ: Rajasthan
+      INSK: Sikkim
+      INTN: Tamil Nadu
+      INTG: Telangana
+      INTR: Tripura
+      INUT: Uttarakhand
+      INUP: Uttar Pradesh
+      INWB: West Bengal
+    flag: "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
+  IDN:
+    name: Indonesia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" 
+  IRN:
+    name: Iran
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg"
+  IRQ:
+    name: Iraq
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg"
+  IRL:
+    name: Ireland
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg"
+  IMN:
+    name: Isle of Man
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Flag_of_the_Isle_of_Mann.svg"
+  ISR:
+    name: Israel
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg"
+  ITA:
+    name: Italy
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg"
+  CIV:
+    name: Ivory Coast
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg"
+  JAM:
+    name: Jamaica
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Jamaica.svg"
+  JPN:
+    name: Japan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg"
+  JEY:
+    name: Jersey
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Flag_of_Jersey.svg"
+  JOR:
+    name: Jordan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Flag_of_Jordan.svg"
+  KAZ:
+    name: Kazakhstan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg"
+  KEN:
+    name: Kenya
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg"
+  KIR:
+    name: Kiribati
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kiribati.svg"
+  KWT:
+    name: Kuwait
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Kuwait.svg"
+  KGZ:
+    name: Kyrgyzstan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Flag_of_Kyrgyzstan.svg"
+  LAO:
+    name: Laos
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Laos.svg"
+  LVA:
+    name: Latvia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Latvia.svg"
+  LBN:
+    name: Lebanon
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/59/Flag_of_Lebanon.svg"
+  LSO:
+    name: Lesotho
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Lesotho.svg"
+  LBR:
+    name: Liberia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b8/Flag_of_Liberia.svg"
+  LBY:
+    name: Libya
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Libya.svg"
+  LIE:
+    name: Liechtenstein
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg"
+  LTU:
+    name: Lithuania
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Lithuania.svg"
+  LUX:
+    name: Luxembourg
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/da/Flag_of_Luxembourg.svg"
+  MAC:
+    name: Macau
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/63/Flag_of_Macau.svg"
+  MKD:
+    name: Macedonia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_Macedonia.svg"
+  MDG:
+    name: Madagascar
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg"
+  MWI:
+    name: Malawi
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Flag_of_Malawi.svg"
+  MYS:
+    name: Malaysia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Malaysia.svg"
+  MDV:
+    name: Maldives
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Maldives.svg"
+  MLI:
+    name: Mali
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Mali.svg"
+  MLT:
+    name: Malta
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg"
+  MHL:
+    name: Marshall Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Flag_of_the_Marshall_Islands.svg"
+  MTQ:
+    name: Martinique
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+  MRT:
+    name: Mauritania
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/30/New_National_Flag_of_Mauritania.png"
+  MUS:
+    name: Mauritius
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Mauritius.svg"
+  MYT:
+    name: Mayotte
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Mayotte_%28local%29.svg"
+  MEX:
+    name: Mexico
+    states:
+      MXAGU: Aguascalientes
+      MXBCN: Baja California
+      MXBCS: Baja California Sur
+      MXCHP: Chiapas
+      MXCHH: Chihuahua
+      MXCAM: Campeche
+      MXCOA: Coahuila
+      MXCOL: Colima
+      MXDIF: Distrito Federal
+      MXDUR: Durango
+      MXGUA: Guanajuato
+      MXGRO: Guerrero
+      MXHID: Hidalgo
+      MXJAL: Jalisco
+      MXMEX: Mexico (Federal District)
+      MXMIC: Michoacán
+      MXMOR: Morelos
+      MXNAY: Nayarit
+      MXNLE: Nuevo León
+      MXOAX: Oaxaca
+      MXPUE: Puebla
+      MXQUE: Querétaro
+      MXROO: Quintana Roo
+      MXSLP: San Luis Potosí
+      MXSIN: Sinaloa
+      MXSON: Sonora
+      MXTAB: Tabasco
+      MXTAM: Tamaulipas
+      MXTLA: Tlaxcala
+      MXVER: Veracruz
+      MXYUC: Yucatán
+      MXZAC: Zacatecas
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg"
+  FSM:
+    name: Micronesia
+    states: []
+    flag: 
+  MDA:
+    name: Moldova
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Moldova.svg"
+  MCO:
+    name: Monaco
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Flag_of_Monaco.svg"
+  MNG:
+    name: Mongolia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Flag_of_Mongolia.svg"
+  MNE:
+    name: Montenegro
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg"
+  MSR:
+    name: Montserrat
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Montserrat.svg" 
+  MAR:
+    name: Morocco
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg"
+  MOZ:
+    name: Mozambique
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Mozambique.svg"
+  MMR:
+    name: Myanmar
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_Myanmar.svg"
+  NAM:
+    name: Namibia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Namibia.svg"
+  NRU:
+    name: Nauru
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/30/Flag_of_Nauru.svg"
+  NPL:
+    name: Nepal
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg"
+  NLD:
+    name: Netherlands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
+  NCL:
+    name: New Caledonia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+  NZL:
+    name: New Zealand
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg"
+  NIC:
+    name: Nicaragua
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Nicaragua.svg"
+  NER:
+    name: Niger
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Flag_of_Niger.svg"
+  NGA:
+    name: Nigeria
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg"
+  NIU:
+    name: Niue
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Niue.svg"
+  NFK:
+    name: Norfolk and Philip Island
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Norfolk_Island.svg"
+  PRK:
+    name: North Korea
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_North_Korea.svg"
+  MNP:
+    name: Northern Mariana Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Flag_of_the_Northern_Mariana_Islands.svg"
+  NOR:
+    name: Norway
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
+  OMN:
+    name: Oman
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Oman.svg"
+  PAK:
+    name: Pakistan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg"
+  PLW:
+    name: Palau
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Palau.svg"
+  PSE:
+    name: Palestinian Territory
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg"
+  PAN:
+    name: Panama
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg"
+  PNG:
+    name: Papua New Guinea
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Flag_of_Papua_New_Guinea.svg"
+  PRY:
+    name: Paraguay
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg" 
+  PER:
+    name: Peru
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Peru_%28state%29.svg"
+  PHL:
+    name: Philippines
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_the_Philippines.svg"
+  PCN:
+    name: Pitcairn Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_the_Pitcairn_Islands.svg"
+  POL:
+    name: Poland
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg"
+  PRT:
+    name: Portugal
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg"
+  PRI:
+    name: Puerto Rico
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/28/Flag_of_Puerto_Rico.svg"
+  QAT:
+    name: Qatar
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
+  REU:
+    name: Réunion
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Flag_of_R%C3%A9union.svg"
+  ROU:
+    name: Romania
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg"
+  RUS:
+    name: Russia
+    states:
+      RUAD: Adygeya, Respublika
+      RUAL: Altay, Respublika
+      RUBA: Bashkortostan, Respublika
+      RUBU: Buryatiya, Respublika
+      RUCE: Chechenskaya Respublika
+      RUCU: Chuvashskaya Respublika
+      RUDA: Dagestan, Respublika
+      RUIN: Ingushetiya, Respublika
+      RUKB: Kabardino-Balkarskaya Respublika
+      RUKL: Kalmykiya, Respublika
+      RUKC: Karachayevo-Cherkesskaya Respubl.
+      RUKR: Kareliya, Respublika
+      RUKK: Khakasiya, Respublika
+      RUKO: Komi, Respublika
+      RUME: Mariy El, Respublika
+      RUMO: Mordoviya, Respublika
+      RUSA: Sakha, Respublika
+      RUSE: Severnaya Osetiya-Alaniya, Respubl.
+      RUTA: Tatarstan, Respublika
+      RUTY: Tyva, Respublika
+      RUUD: Udmurtskaya Respublika
+      RUALT: Altayskiy kray
+      RUKAM: Kamchatskiy kray
+      RUKHA: Khabarovskiy kray
+      RUKDA: Krasnodarskiy kray
+      RUKYA: Krasnoyarskiy kray
+      RUPER: Permskiy kray
+      RUPRI: Primorskiy kray
+      RUSTA: Stavropol"skiy kray
+      RUZAB: Zabaykal"skiy kray
+      RUAMU: Amurskaya oblast"
+      RUARK: Arkhangel"skaya oblast"
+      RUAST: Astrakhanskaya oblast"
+      RUBEL: Belgorodskaya oblast"
+      RUBRY: Bryanskaya oblast"
+      RUCHE: Chelyabinskaya oblast"
+      RUIRK: Irkutskaya oblast"
+      RUIVA: Ivanovskaya oblast"
+      RUKGD: Kaliningradskaya oblast"
+      RUKLU: Kaluzhskaya oblast"
+      RUKEM: Kemerovskaya oblast"
+      RUKIR: Kirovskaya oblast"
+      RUKOS: Kostromskaya oblast"
+      RUKGN: Kurganskaya oblast"
+      RUKRS: Kurskaya oblast"
+      RULEN: Leningradskaya oblast"
+      RULIP: Lipetskaya oblast"
+      RUMAG: Magadanskaya oblast"
+      RUMOS: Moskovskaya oblast"
+      RUMUR: Murmanskaya oblast"
+      RUNIZ: Nizhegorodskaya oblast"
+      RUNGR: Novgorodskaya oblast"
+      RUNVS: Novosibirskaya oblast"
+      RUOMS: Omskaya oblast"
+      RUORE: Orenburgskaya oblast"
+      RUORL: Orlovskaya oblast"
+      RUPNZ: Penzenskaya oblast"
+      RUPSK: Pskovskaya oblast"
+      RUROS: Rostovskaya oblast"
+      RURYA: Ryazanskaya oblast"
+      RUSAK: Sakhalinskaya oblast"
+      RUSAM: Samarskaya oblast"
+      RUSAR: Saratovskaya oblast"
+      RUSMO: Smolenskaya oblast"
+      RUSVE: Sverdlovskaya oblast"
+      RUTAM: Tambovskaya oblast"
+      RUTOM: Tomskaya oblast"
+      RUTUL: Tul"skaya oblast"
+      RUTVE: Tverskaya oblast"
+      RUTYU: Tyumenskaya oblast"
+      RUULY: Ul"yanovskaya oblast"
+      RUVLA: Vladimirskaya oblast"
+      RUVGG: Volgogradskaya oblast"
+      RUVLG: Vologodskaya oblast"
+      RUVOR: Voronezhskaya oblast"
+      RUYAR: Yaroslavskaya oblast"
+      RUMOW: Moskva (autonomous city)
+      RUSPE: Sankt-Peterburg (autonomous city)
+      RUYEV: Yevreyskaya avtonomnaya oblast"
+      RUCHU: Chukotskiy avtonomnyy okrug
+      RUKHM: Khanty-Mansiyskiy avtonomnyy okrug-Yugra
+      RUNEN: Nenetskiy avtonomnyy okrug
+      RUYAN: Yamalo-Nenetskiy avtonomnyy okrug
+    flag: "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg"
+  RWA:
+    name: Rwanda
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Rwanda.svg"
+  SHN:
+    name: Saint Helena, Ascension and Tristan da Cunha
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
+  KNA:
+    name: Saint Kitts and Nevis
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Saint_Kitts_and_Nevis.svg"
+  LCA:
+    name: Saint Lucia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Saint_Lucia.svg"
+  SPM:
+    name: Saint Pierre and Miquelon
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+  VCT:
+    name: Saint Vincent and the Grenadines
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Flag_of_Saint_Vincent_and_the_Grenadines.svg"
+  BLM:
+    name: Saint-Barthelemy
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Saint_Barthelemy_%28local%29.svg"
+  MAF:
+    name: Saint-Martin
+    states: []
+    flag: 
+  WSM:
+    name: Samoa
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Samoa.svg"
+  SMR:
+    name: San Marino
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_San_Marino.svg"
+  STP:
+    name: São Tomé and Príncipe
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Sao_Tome_and_Principe.svg"
+  SAU:
+    name: Saudi Arabia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
+   SEN:
+    name: Senegal
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Flag_of_Senegal.svg"
+  SRB:
+    name: Serbia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg"
+  SYC:
+    name: Seychelles
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Seychelles.svg"
+  SLE:
+    name: Sierra Leone
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Sierra_Leone.svg"
+  SGP:
+    name: Singapore
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Singapore.svg"
+  SXM:
+    name: Sint Maarten
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Sint_Maarten.svg"
+  SVK:
+    name: Slovakia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Slovakia.svg"
+  SVN:
+    name: Slovenia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Flag_of_Slovenia.svg"
+  SLB:
+    name: Solomon Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Solomon_Islands.svg"
+  SOM:
+    name: Somalia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_Somalia.svg"
+  ZAF:
+    name: South Africa
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg"
+  SGS:
+    name: South Georgia and the South Sandwich Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_South_Georgia_and_the_South_Sandwich_Islands.svg"
+  KOR:
+    name: South Korea
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg" 
+  SSD:
+    name: South Sudan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flag_of_South_Sudan.svg"
+  ESP:
+    name: Spain
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg"
+  LKA:
+    name: Sri Lanka
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg"
+  SDN:
+    name: Sudan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Sudan.svg"
+  SUR:
+    name: Suriname
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Suriname.svg"
+  SJM:
+    name: Svalbard and Jan Mayen
+    states: []
+    flag: 
+  SWZ:
+    name: Swaziland
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Eswatini.svg"
+  SWE:
+    name: Sweden
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg"
+  CHE:
+    name: Switzerland
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg"
+  SYR:
+    name: Syria
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/53/Flag_of_Syria.svg"
+  TWN:
+    name: Taiwan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
+  TJK:
+    name: Tajikistan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Tajikistan.svg"
+  TZA:
+    name: Tanzania
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tanzania.svg"
+  THA:
+    name: Thailand
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg"
+  TGO:
+    name: Togo
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/68/Flag_of_Togo.svg"
+  TKL:
+    name: Tokelau
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Flag_of_Tokelau.svg"
+  TON:
+    name: Tonga
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Tonga.svg"
+  TTO:
+    name: Trinidad and Tobago
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Trinidad_and_Tobago.svg"
+  TUN:
+    name: Tunisia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Tunisia.svg"
+  TUR:
+    name: Turkey
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg"
+  TKM:
+    name: Turkmenistan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Turkmenistan.svg"
+  TCA:
+    name: Turks and Caicos Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_the_Turks_and_Caicos_Islands.svg"
+  TUV:
+    name: Tuvalu
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tuvalu.svg"
+  UGA:
+    name: Uganda
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Flag_of_Uganda.svg"
+  UKR:
+    name: Ukraine
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg"
+  ARE:
+    name: United Arab Emirates
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
+  GBR:
+    name: United Kingdom
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
+  UMI:
+    name: United States Minor Outlying Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+  URY:
+    name: Uruguay
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg"
+  VIR:
+    name: US Virgin Islands
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_United_States_Virgin_Islands.svg"
+  USA:
+    name: USA
+    states:
+      USAK: Alaska
+      USAL: Alabama
+      USAR: Arkansas
+      USAZ: Arizona
+      USCA: California
+      USCO: Colorado
+      USCT: Connecticut
+      USDC: Washington D.C.
+      USDE: Delaware
+      USFL: Florida
+      USGA: Georgia
+      USHI: Hawaii
+      USIA: Iowa
+      USID: Idaho
+      USIL: Illinois
+      USIN: Indiana
+      USKS: Kansas
+      USKY: Kentucky
+      USLA: Louisiana
+      USMA: Massachusetts
+      USMD: Maryland
+      USME: Maine
+      USMI: Michigan
+      USMN: Minnesota
+      USMO: Missouri
+      USMS: Mississippi
+      USMT: Montana
+      USNC: North Carolina
+      USND: North Dakota
+      USNE: Nebraska
+      USNH: New Hampshire
+      USNJ: New Jersey
+      USNM: New Mexico
+      USNV: Nevada
+      USNY: New York
+      USOH: Ohio
+      USOK: Oklahoma
+      USOR: Oregon
+      USPA: Pennsylvania
+      USRI: Rhode Island
+      USSC: South Carolina
+      USSD: South Dakota
+      USTN: Tennessee
+      USTX: Texas
+      USUT: Utah
+      USVA: Virginia
+      USVT: Vermont
+      USWA: Washington
+      USWI: Wisconsin
+      USWV: West Virginia
+      USWY: Wyoming
+      USAS: American Samoa
+      USGU: Guam
+      USMP: Northern Mariana Islands
+      USPR: Puerto Rico
+      USUM: United States Minor Outlying Islands
+      USVI: US Virgin Islands
+    flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+  UZB:
+    name: Uzbekistan
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Uzbekistan.svg"
+  VUT:
+    name: Vanuatu
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_Vanuatu_%28official%29.svg"
+  VAT:
+    name: Vatican City
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_the_Vatican_City.svg"
+  VEN:
+    name: Venezuela
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Flag_of_Venezuela_%28state%29.svg"
+  VNM:
+    name: Vietnam
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg"
+  WLF:
+    name: Wallis and Futuna
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+  ESH:
+    name: Western Sahara
+    states: []
+    flag: 
+  YEM:
+    name: Yemen
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Yemen.svg"
+  ZMB:
+    name: Zambia
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Zambia.svg"
+  ZWE:
+    name: Zimbabwe
+    states: []
+    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg"
