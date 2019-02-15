@@ -1067,7 +1067,7 @@ TRY:
 #XBB	.	European Monetary Unit (E.M.U.-6) (bond market unit)	
 #XBC	.	European Unit of Account 9 (E.U.A.-9) (bond market unit)	
 #XBD	.	European Unit of Account 17 (E.U.A.-17) (bond market unit)	
-XCD	100	East Caribbean dollar	Anguilla (AI), Antigua andBarbuda (AG), Dominica (DM),  Grenada (GD),  Montserrat (MS),  Saint Kitts and Nevis (KN),  Saint Lucia (LC),  Saint Vincent and the Grenadines (VC)
+#XCD	100	East Caribbean dollar	Anguilla (AI), Antigua andBarbuda (AG), Dominica (DM),  Grenada (GD),  Montserrat (MS),  Saint Kitts and Nevis (KN),  Saint Lucia (LC),  Saint Vincent and the Grenadines (VC)
 #XDR	.	Special drawing rights	International Monetary Fund
   XOF:
     name:	West African CFA franc
@@ -1077,7 +1077,7 @@ XCD	100	East Caribbean dollar	Anguilla (AI), Antigua andBarbuda (AG), Dominica (
     countries: BEN, BFA, CIV, GNB, MLI, NER, SEN, TGO
     monetary_authority: Central Bank of West African States
 #XPD	.	Palladium (one troy ounce)	
-XPF	0	CFP franc (franc Pacifique)	French territories of the Pacific Ocean:  French Polynesia (PF),  NewCaledonia (NC),  Wallis and Futuna (WF)
+#XPF	0	CFP franc (franc Pacifique)	French territories of the Pacific Ocean:  French Polynesia (PF),  NewCaledonia (NC),  Wallis and Futuna (WF)
 #XPT	.	Platinum (one troy ounce)		
   YER:
     name:	Yemeni rial
