@@ -1,0 +1,178 @@
+#
+# Entities (Legal Entities & Ownership Structures)
+#
+
+entities:
+  legalEntities:
+    I: 
+      name: individual # (Natural Person)
+      label: "Individual"
+      role: 
+        principal: null
+        legalGuardian: []
+        agent: [] # (granted by the principal)
+        ancillary:
+          accountant: []
+          advisor: [] 
+          lawyer: []
+          manager: []
+          trader: []
+    P: 
+      name: publicCompany
+      label: "Public Company Limited by Shares"
+      roles:
+        board:
+          chairman: null
+          director: []
+          secretary: null
+        officers: 
+          ceo: null
+          coo: null
+          cfo: null
+          cto: null
+          executive: []
+        ancillary:
+          accountant: []
+          advisor: [] 
+          lawyer: []
+          manager: []
+          trader: []
+        ownership: 
+          member: []   
+          significantMember: []
+    C: 
+      name: privateCompany
+      label: "Private Company Limited by Shares"
+      roles:
+        board:
+          chairman: null
+          director: [] 
+          secretary: null        
+        officers: 
+          ceo: null
+          coo: null
+          cfo: null
+          cto: null   
+          executive: []        
+        ancillary:
+          accountant: []
+          advisor: []  
+          lawyer: []
+          manager: []
+          trader: []
+        ownership:  
+          member: []
+          significantMember: []
+    L: 
+      name: limitedPartnership
+      label: "Limited Partnership"
+      roles:
+        managingPartner: []
+        partner: []
+        ancillary: 
+          accountant: []
+          advisor: []  
+          lawyer: []
+          manager: []
+          trader: []
+    U: 
+      name: unlimitedPartnership
+      label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership,  )
+      roles:
+        managingPartner: []
+        partner: []  
+        ancillary:   
+          accountant: []
+          advisor: []  
+          lawyer: []
+          manager: []
+          trader: []
+    T: 
+      name: soleProprietorship
+      label: "Sole Proprietorship"
+      roles:
+        proprietor: null
+        agent: [] # (granted by the proprietor)
+        ancillary:
+          accountant: []
+          advisor: []  
+          lawyer: []
+          manager: []
+          trader: []
+    S: 
+      name: statutoryCompany
+      label: "Statutory Company"
+      roles:
+        board:
+          chairman: null
+          director: [] 
+          secretary: null        
+        officers: 
+          ceo: null
+          coo: null
+          cfo: null
+          cto: null
+          executive: []        
+        ancillary:
+          accountant: []
+          advisor: []  
+          lawyer: []
+          manager: []
+          trader: []
+    O: 
+      name: nonProfitOrganization
+      label: "Non-Profit Organization"
+      role:  
+        board:
+          chairman: null
+          director: [] 
+          secretary: null          
+        officers: 
+          ceo: null
+          coo: null
+          cfo: null
+          cto: null
+          executive: []          
+        ancillary: 
+          accountant: []
+          advisor: [] 
+          lawyer: []
+          manager: []
+          trader: []
+    N: 
+      name: nationState
+      label: "Nation State" # (Sovereign State)
+    G: 
+      name: governmentAgency
+      label: "Government Agency"
+  ownershipStructures:  
+    U:
+      name: unitTrust
+      label: "Unit Trust"
+      roles:  
+        trustee: []
+        beneficiary: []
+        settlor: [] 
+        protector: []
+        ancillary: 
+          accountant: []
+          advisor: [] 
+          custodian: []
+          lawyer: []
+          manager: []
+          trader: []
+    D:
+      name: discretionaryTrust
+      label: "Discretionary Trust" # (Family Trust)
+      roles:
+        trustee: []
+        beneficiary: []
+        settlor: []
+        protector: []
+        ancillary: 
+          accountant: []
+          advisor: [] 
+          custodian: []
+          lawyer: []
+          manager: []
+          trader: []
