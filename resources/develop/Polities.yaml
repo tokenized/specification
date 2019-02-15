@@ -1,8 +1,8 @@
 #
-# Countries
+# Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, International Organizations, etc.)
 #
 
-countries:
+polities:
   ALA:
     name: Aaland Islands
     states: []
@@ -55,6 +55,10 @@ countries:
     name: Aruba
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Aruba.svg"
+  AU:
+    name: African Union
+    states: DZA, AGO, BEN, BWA, BFA, BDI, CPV, CMR, CAF, TCD, COM, COD, DJI, EGY, GNQ, ERI, SWZ, ETH, GAB, GMB, GHA, GIN, GNB, CIV, KEN, LSO, LBR, LBY      
+    flag: "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_the_African_Union.svg"
   AUS:
     name: Australia
     states:
@@ -72,10 +76,14 @@ countries:
       AUHM: Heard Island and McDonalds Islands
       AUNF: Norfolk Island
     flag: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg"
+    fiscalYear: 0701-0630
+    govFiscalYear: 0701-0630
   AUT:
     name: Austria
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   AZE:
     name: Azerbaijan
     states: []
@@ -92,6 +100,8 @@ countries:
     name: Bangladesh
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg"
+    fiscalYear: 0701-0630
+    govFiscalYear: 0701-0630   
   BRB:
     name: Barbados
     states: []
@@ -104,6 +114,8 @@ countries:
     name: Belgium
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231    
   BLZ:
     name: Belize
     states: []
@@ -171,6 +183,8 @@ countries:
       BRSE: Sergipe
       BRTO: Tocantins
     flag: "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   IOT:
     name: British Indian Ocean Territory
     states: []
@@ -220,6 +234,8 @@ countries:
       CANU: Nunavut
       CAYT: Yukon
     flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0401-0331   
   CPV:
     name: Cape Verde
     states: []
@@ -278,6 +294,8 @@ countries:
       CNHK: Hong Kong (Xianggang)
       CNMC: Macao (Aomen)
     flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   CXR:
     name: Christmas Island
     states: []
@@ -310,6 +328,8 @@ countries:
     name: Costa Rica
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Costa_Rica_%28state%29.svg"
+    fiscalYear: 1001-0931
+    govFiscalYear: 1001-0931   
   HRV:
     name: Croatia
     states: []
@@ -358,6 +378,8 @@ countries:
     name: Egypt
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"
+    fiscalYear: 0701-0630
+    govFiscalYear: 0701-0630   
   SLV:
     name: El Salvador
     states: []
@@ -378,6 +400,12 @@ countries:
     name: Ethiopia
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg"
+    fiscalYear: 0708-0707
+    govFiscalYear: 0708-0707   
+  EU:
+    name: European Union
+    states: AUT, BEL, BGR, HRV, CYP, CZE, DNK, EST, FIN, FRA, DEU, GRC, HUN, IRL, ITA, LVA, LTU, LUX, MLT, NLD, POL, PRT, ROU, SVK, SVN, ESP, SWE, GBR
+    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg" 
   FLK:
     name: Falkland Islands
     states: []
@@ -426,6 +454,8 @@ countries:
     name: Germany
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   GHA:
     name: Ghana
     states: []
@@ -438,6 +468,8 @@ countries:
     name: Greece
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   GRL:
     name: Greenland
     states: []
@@ -490,6 +522,8 @@ countries:
     name: Hong Kong
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg"
+    fiscalYear: 0401-0331 
+    govFiscalYear: 0401-0331  
   HUN:
     name: Hungary
     states: []    
@@ -538,10 +572,14 @@ countries:
       INUP: Uttar Pradesh
       INWB: West Bengal
     flag: "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
+    fiscalYear: 0401-0331 
+    govFiscalYear: 0401-0331    
   IDN:
     name: Indonesia
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" 
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   IRN:
     name: Iran
     states: []
@@ -554,6 +592,8 @@ countries:
     name: Ireland
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   IMN:
     name: Isle of Man
     states: []
@@ -562,6 +602,8 @@ countries:
     name: Israel
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   ITA:
     name: Italy
     states: []
@@ -578,6 +620,8 @@ countries:
     name: Japan
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0401-0331 
   JEY:
     name: Jersey
     states: []
@@ -778,10 +822,14 @@ countries:
     name: Nepal
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231   
   NLD:
     name: Netherlands
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   NCL:
     name: New Caledonia
     states: []
@@ -870,6 +918,8 @@ countries:
     name: Portugal
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   PRI:
     name: Puerto Rico
     states: []
@@ -878,6 +928,8 @@ countries:
     name: Qatar
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   REU:
     name: Réunion
     states: []
@@ -886,6 +938,8 @@ countries:
     name: Romania
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   RUS:
     name: Russia
     states:
@@ -973,6 +1027,8 @@ countries:
       RUNEN: Nenetskiy avtonomnyy okrug
       RUYAN: Yamalo-Nenetskiy avtonomnyy okrug
     flag: "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   RWA:
     name: Rwanda
     states: []
@@ -1073,6 +1129,8 @@ countries:
     name: South Korea
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg" 
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   SSD:
     name: South Sudan
     states: []
@@ -1081,6 +1139,8 @@ countries:
     name: Spain
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   LKA:
     name: Sri Lanka
     states: []
@@ -1105,10 +1165,14 @@ countries:
     name: Sweden
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   CHE:
     name: Switzerland
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   SYR:
     name: Syria
     states: []
@@ -1117,6 +1181,8 @@ countries:
     name: Taiwan
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   TJK:
     name: Tajikistan
     states: []
@@ -1177,10 +1243,14 @@ countries:
     name: United Arab Emirates
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
+    fiscalYear: 0101-1231
+    govFiscalYear: 0101-1231 
   GBR:
     name: United Kingdom
     states: []
     flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
+    fiscalYear: 0406-0405
+    govFiscalYear: 0401-0331  
   UMI:
     name: United States Minor Outlying Islands
     states: []
