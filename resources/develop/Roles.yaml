@@ -1,0 +1,60 @@
+#
+# Roles (Roles that entities play in relation to their interactions with other entities.  These roles have widely-accepted tasks, rights and duties.)
+#
+
+1:
+  - accountant: []
+2:
+  - advisor: [] 
+3:
+  - agent: []
+4:
+  - beneficiary: []
+5:
+  - ceo: null
+6:
+  - cfo: null
+7:
+  - chairman: null
+8:
+  - coo: null
+9:
+  - cto: null
+10:
+  - custodian: []
+11:
+  - director: []
+12:
+  - executive: []  
+13:
+  - lawyer: []
+14:
+  - legalGuardian: []
+15: 
+  - manager: []
+16:
+  - managingPartner: []
+17:
+  - member: [] # (eg. shareholder)
+18:
+  - partner: []
+19:
+  - principal: null
+20:
+  - proprietor: null
+21:
+  - protector: []
+22:
+  - secretary: null
+23:
+  - settlor: [] 
+24:
+  - significantMember: [] # (eg. major shareholder)
+25:
+  - smartContractOperator: []
+26:
+  - trader: []
+27:
+  - trustee: []
+
+
