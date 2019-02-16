@@ -39,14 +39,14 @@ currencies:
     countries: SXM, CUW
     monetary_authority: Central Bank of Curaçao and Sint Maarten 
   AOA:
-    name:	Angolan kwanza	
+    name: Angolan kwanza	
     symbol: Kz
     fractions: 100
     fractional_unit: Cêntimo
     countries: AGO
     monetary_authority: Central Bank of Angola
   ARS:
-    name:	Argentine peso	
+    name: Argentine peso	
     symbol: $
     fractions: 100
     fractional_unit: Centavo
