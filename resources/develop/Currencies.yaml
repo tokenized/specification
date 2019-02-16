@@ -9,7 +9,7 @@ currencies:
     fractions: 100
     fractional_unit: Fils
     countries: United Arab Emirates
-    monetary_authority:
+    monetary_authority: Central Bank of the United Arab Emirates
   AFN: 
     name: Afghan afghani
     symbol: ؋
