@@ -1,160 +1,169 @@
-#
-# G6 - Result Action
-#
+# 
+# Result Action: Once a vote has been completed the results are published.
+# 
 
 code: G6
 
 metadata:
   name: Result
   label: Result Action
-  description: "Once a vote has been completed the results are published."
+  description: "Result Action -  Once a vote has been completed the results are published."
+  validation: AssetCreation
+  rejection: Rejection
 
 rules:
-  fee: 546
+  fee:
   inputs:
-    - name: Contract
-      label: "Contract Public Address"
-      
+    - name: 
+      label: Contract Public Address
+      comments: 
+
   outputs:
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Dust limit rule minimum value output of 546"
+    - name: 
+      label: Contract Public Address
+      comments: Dust limit rule minimum value output of 546
+
+    - name: 
+      label: OP_RETURN (Result Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Result"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 1
+    example hex: 4c
+    example value: "76"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 64
+    example value: "100"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
 
-  - name: AssetType
-    label: "Asset Type"
-    description: "eg. Share, Bond, Ticket"
-    type: STRING
-    size: 3
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Result: The result of a vote. The smart contract will tally up all the valid votes by summing up the Ballot Counted actions in all blocks from the first block after the block that the Vote Action was included all the way up until the block before the next block annoucement after the vote cutoff timestamp.  The smart contract will wait 6 confirmations from the cutoff block before tallying up the votes and publishing the Result Action."
+    type: string
+    size: 2
+    example hex: 4736
+    example value: "G6"
+    notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: AssetID
-    label: "Asset ID"
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null."
-    type: STRING
-    size: 32
-
-  - name: VoteType
-    label: "Vote Type"
-    description: "Contract Amendment (C), Asset Amendment (A), Authorization Flags Amendment (F), Proposal (P), etc."
-    type: STRING
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
     size: 1
-
-  - name: VoteTxnID
-    label: "Vote Txn ID"
-    description: "Link to the Vote Action txn."
-    type: SHA
-    size: 32
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: Timestamp
-    label: "Timestamp"
+    label: Timestamp
     description: "Timestamp of when the smart contract created the Result action."
-    type: TIME
+    type: time
     size: 8
+    example hex: 0000016331e3c200
+    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
+    notes: ""
+
+  - name: AssetType
+    label: Asset Type
+    description: "eg. Share, Bond, Ticket"
+    type: string
+    size: 3
+    example hex: 534843
+    example value: "SHC"
+    notes: ""
+
+  - name: AssetID
+    label: Asset ID
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null."
+    type: string
+    size: 32
+    example hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
+
+  - name: ProposalType
+    label: Proposal Type
+    description: "1-255. 0 is not valid. P - Proposal, Name of the subfield in Contract Formation or Asset Creation"
+    type: nvarchar8
+    size: 2
+    example hex: 0150
+    example value: "P"
+    notes: ""
+
+  - name: VoteTxnID
+    label: Vote Txn ID
+    description: "Link to the Vote Action txn."
+    type: sha256
+    size: 32
+    example hex: f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37
+    example value: "f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37"
+    notes: ""
+
+  - name: VoteOptionsCount
+    label: VoteOptionsCount
+    description: "Number of Vote Options to follow."
+    type: uint8
+    size: 1
+    example hex: aN
+    example value: ""
+    notes: ""
 
   - name: Option1Tally
-    label: "Option 1 Tally"
+    label: Option 1 Tally
     description: "Number of valid votes counted for Option 1"
-    type: UINT
+    type: uint64
     size: 8
+    example hex: 0000000000000bb8
+    example value: "3000"
+    notes: ""
 
-  - name: Option2Tally
-    label: "Option 2 Tally"
-    description: "Number of valid votes counted for Option 2"
-    type: UINT
-    size: 8
-
-  - name: Option3Tally
-    label: "Option 3 Tally"
+  - name: OptionXTally
+    label: Option X Tally
     description: "Number of valid votes counted for Option 3"
-    type: UINT
+    type: uint64
     size: 8
+    example hex: 000000000000002b
+    example value: "43"
+    notes: ""
 
-  - name: Option4Tally
-    label: "Option 4 Tally"
-    description: "Number of valid votes counted for Option 4"
-    type: UINT
-    size: 8
-
-  - name: Option5Tally
-    label: "Option 5 Tally"
-    description: "Number of valid votes counted for Option 5"
-    type: UINT
-    size: 8
-
-  - name: Option6Tally
-    label: "Option 6 Tally"
-    description: "Number of valid votes counted for Option 6"
-    type: UINT
-    size: 8
-
-  - name: Option7Tally
-    label: "Option 7 Tally"
-    description: "Number of valid votes counted for Option 7"
-    type: UINT
-    size: 8
-
-  - name: Option8Tally
-    label: "Option 8 Tally"
-    description: "Number of valid votes counted for Option 8"
-    type: UINT
-    size: 8
-
-  - name: Option9Tally
-    label: "Option 9 Tally"
-    description: "Number of valid votes counted for Option 9"
-    type: UINT
-    size: 8
-
-  - name: Option10Tally
-    label: "Option 10 Tally"
-    description: "Number of valid votes counted for Option 10"
-    type: UINT
-    size: 8
-
-  - name: Option11Tally
-    label: "Option 11 Tally"
-    description: "Number of valid votes counted for Option 11"
-    type: UINT
-    size: 8
-
-  - name: Option12Tally
-    label: "Option 12 Tally"
-    description: "Number of valid votes counted for Option 12"
-    type: UINT
-    size: 8
-
-  - name: Option13Tally
-    label: "Option 13 Tally"
-    description: "Number of valid votes counted for Option 13"
-    type: UINT
-    size: 8
-
-  - name: Option14Tally
-    label: "Option 14 Tally"
-    description: "Number of valid votes counted for Option 14"
-    type: UINT
-    size: 8
-
-  - name: Option15Tally
-    label: "Option 15 Tally"
-    description: "Number of valid votes counted for Option 15"
-    type: UINT
-    size: 8
-
-  - name: Result
-    label: "Result"
-    description: "The Option with the most votes. In the event of a draw for 1st place, all winning options are listed."
-    type: STRING
-    size: 15

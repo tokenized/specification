@@ -1,64 +1,180 @@
-#
-# T1 - Send Action
-#
+# 
+# Send Action: A Token Owner Sends a Token to a Receiver. The Send Action requires no sign-off by the Token Receiving Party and does not provide any on-chain consideration to the Token Sending Party.  Can be used for User Revocation (remove tokens from wallet by sending back to Issuer).  Can be used for redeeming a ticket, coupon, points, etc.
+# 
 
 code: T1
 
 metadata:
   name: Send
   label: Send Action
-  description: "A Token Owner Sends a Token to a Receiver. The Send Action requires no sign-off by the Token Receiving Party and does not provide any on-chain consideration to the Token Sending Party. Can be used for User Revocation (remove tokens from wallet by sending back to Issuer). Can be used for redeeming a ticket, however, it is probably better for most ticket use cases to use the exchange action for ticket redemption."
-  validation: Settlement
+  description: "Send Action -  A Token Owner Sends a Token to a Receiver. The Send Action requires no sign-off by the Token Receiving Party and does not provide any on-chain consideration to the Token Sending Party.  Can be used for User Revocation (remove tokens from wallet by sending back to Issuer).  Can be used for redeeming a ticket, coupon, points, etc."
+  validation: AssetCreation
   rejection: Rejection
 
 rules:
-  fee: 8000
+  fee:
   inputs:
-    - name: Sender
-      label: "Token Sender's Public Address (Contracting Party 1)"
-      
+    - name: 
+      label: Token Sending Public Address 1
+      comments: 
+
+    - name: 
+      label: Token Sending Public Address X
+      comments: 
+
   outputs:
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Enough for the costs of the responding action + the Contract Fee"
-   
-    - name: Receiver
-      label: "Token Receiver's Public Address"
-      description: "Dust limit rule minimum value output of 546"
-  
-    - name: Sender
-      label: "Token Sender's Public Address"
-      description: "Change"
+    - name: 
+      label: Contract Public Address
+      comments: Enough for the costs of the responding action + the Contract Fee
+
+    - name: 
+      label: Token Receiver's Public Address 1
+      comments: Token Output Address 1 (Token Receiver).
+
+    - name: 
+      label: Token Receiver's Address X
+      comments: Token Output Address X (Token Receiver).
+
+    - name: 
+      label: Token Receiver's Address X
+      comments: Token Output Address X (Token Receiver).
+
+    - name: 
+      label: Token Sender's Public Address X
+      comments: Change
+
+    - name: 
+      label: OP_RETURN (Send Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Send"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 1
+    example hex: 4c
+    example value: "76"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 93
+    example value: "147"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
+
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Send: Memberships, redemption, sending tokens for free. A token transfer that has no on chain consideration. Example: a currency tether token used as a means of payment for a good or service."
+    type: string
+    size: 2
+    example hex: 5431
+    example value: "T1"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: AssetType
-    label: "Asset Type"
-    description: "eg. Share, Bond, Ticket"
-    type: STRING
+    label: Asset Type
+    description: "eg. Share, Bond, Ticket. All characters must be capitalised."
+    type: string
     size: 3
-    required: true
+    example hex: 534843
+    example value: "SHC"
+    notes: ""
 
   - name: AssetID
-    label: "Asset ID"
+    label: Asset ID
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: STRING
+    type: string
     size: 32
-    required: true
+    example hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
 
-  - name: TokenQty
-    label: "Token Qty"
-    type: UINT
+  - name: QtyOfTokenSendingAddresses
+    label: Quantity of Token Sending Addresses
+    description: "Number inputs sending tokens. Number equates to the number of inputs starting with index 0. 1-255, 0 is not valid."
+    type: uint8
+    size: 1
+    example hex: 02
+    example value: "2"
+    notes: ""
+
+  - name: TokenSendingAddressX
+    label: Token Sending Address X
+    description: "Value of tokens to be spent from the address at Input Index X"
+    type: uint64
     size: 8
-    required: true
+    example hex: 0000000000000064
+    example value: "100"
+    notes: ""
+
+  - name: QtyOfTokenReceivingAddresses
+    label: Quantity of Token Receiving Addresses
+    description: "Number outputs receiving tokens. Number equates to the number of outputs starting with index 1 (Contract Address is Index 0). 1-255. 0 is not valid."
+    type: uint8
+    size: 1
+    example hex: 01
+    example value: "1"
+    notes: ""
+
+  - name: TokenReceivingAddressX
+    label: Token Receiving Address X
+    description: "Value of tokens to be received by the address at OutputX"
+    type: uint64
+    size: 8
+    example hex: 0000000000000064
+    example value: "100"
+    notes: ""
+
+  - name: RegistrySigAlgoReceivingAddressX
+    label: Registry Signature Algorithm
+    description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
+    type: string
+    size: 1
+    example hex: 45
+    example value: "E"
+    notes: ""
+

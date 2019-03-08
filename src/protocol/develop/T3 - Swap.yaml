@@ -1,121 +1,313 @@
-#
-# T3 - Swap Action
-#
+# 
+# Swap Action: Two parties want to swap a token (Atomic Swap) directly for another token.  BSV is used in the txn other than for paying the necessary network/transaction fees.
+# 
 
 code: T3
 
 metadata:
   name: Swap
   label: Swap Action
-  description: "Two parties want to swap a token (Atomic Swap) directly for another token. No BCH is used in the txn other than for paying the necessary network/transaction fees."
-  validation: Settlement
+  description: "Swap Action -  Two parties want to swap a token (Atomic Swap) directly for another token.  BSV is used in the txn other than for paying the necessary network/transaction fees."
+  validation: AssetCreation
   rejection: Rejection
 
 rules:
-  fee: 8000
+  fee:
   inputs:
-    - name: Sender
-      label: "Contracting Party 1 (Token Sending & Receiving Address)"
-      
-    - name: Receiver
-      label: "Contracting Party 2 (Token Sending & Receiving Address)"
-      
+    - name: 
+      label: Asset 1 Sending Address 1
+      comments: 
+
+    - name: 
+      label: Asset 1 Sending Address X
+      comments: 
+
+    - name: 
+      label: Asset 2 Sending Address X
+      comments: 
+
+    - name: 
+      label: Asset 2 Sending Address X
+      comments: 
+
   outputs:
-    - name: Contract
-      label: "Contract Public Address (Contracting Party 1's Token)"
-      description: "Enough for the responding action"
-   
-    - name: OtherContract
-      label: "Contract Public Address (Contracting Party 2's Token)"
-      description: "Enough for the responding action"
-      
-    - name: Sender
-      label: "Contracting Party 1 (Token Sender)"
-      description: "Change"
-      
-    - name: Receiver
-      label: "Contracting Party 2 (Token Receiver)"
-      description: "Change/send back to themselves"
-  
+    - name: 
+      label: Contract Public Address (Contracting Party 1's Token)
+      comments: Enough for the responding action.
+
+    - name: 
+      label: Contract Public Address (Contracting Party 2's Token)
+      comments: Enough for the responding action.
+
+    - name: 
+      label: Asset 1 Receiving Address X
+      comments: Change
+
+    - name: 
+      label: Asset 1 Receiving Address X
+      comments: Change
+
+    - name: 
+      label: Asset 1 Receiving Address X
+      comments: Change
+
+    - name: 
+      label: Asset 2 Receiving Address X
+      comments: Change
+
+    - name: 
+      label: Asset 2 Receiving Address X
+      comments: 
+
+    - name: 
+      label: OP_RETURN (Swap Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
+
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Swap"
-    type: STRING
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 1
+    example hex: 4d
+    example value: "77"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
     size: 2
+    example hex: 157
+    example value: "343"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
 
-  - name: Party1AssetType
-    label: "Party1AssetType"
-    description: "The Asset Type and Asset ID are used by wallets/Ccontracts/users to link the Action to the Asset Creation Action. All Actions reference the Asset Creation Action.  The Asset Creation Txn-ID is not used because Asset Amendments would result in all Token Owners would need to have their tokens 'updated'."
-    type: STRING
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Swap: Used for the exchange of tokens for other tokens.  Aka an Atomic Swap.  As two contracts are involved, the Settlement Action will involve a 2-step signing process whereby each Contract signs their input."
+    type: string
+    size: 2
+    example hex: 5433
+    example value: "T3"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
+
+  - name: AssetType1
+    label: Asset Type 1
+    description: "The Asset Type and Asset ID are used by wallets/Contracts/users to link the Action to the Asset Creation Action. All Actions reference the Asset Creation Action.  The Asset Creation Txn-ID is not used because Asset Amendments would result in all Token Owners would need to have their tokens 'updated'."
+    type: string
     size: 3
-    required: true
-    
-  - name: Party1AssetID
-    label: "Party 1 Asset ID"
-    type: STRING
+    example hex: 525245
+    example value: "RRE"
+    notes: ""
+
+  - name: AssetID1
+    label: Asset ID 1
+    description: ""
+    type: string
     size: 32
-    required: true
+    example hex: 72616e3271737a6e68697335337a000000000000000000000000000000000000
+    example value: "ran2qsznhis53z"
+    notes: ""
 
-  - name: Party1TokenQty
-    label: "Party1TokenQty"
-    description: "Qty of tokens to be exchanged."
-    type: UINT
-    size: 8
-    required: true
-
-  - name: OfferValidUntil
-    label: "Offer Valid Until"
-    description: "This prevents the token receiver from holding on to the signed message as a form of a call option.  Eg. the sale of these tokens at this price is valid for 30 mins."
-    type: TIME
-    size: 8
-
-  - name: Party2AssetType
-    label: "Party2AssetType"
+  - name: AssetType2
+    label: Asset Type 2
     description: "In an Atomic Swap the Party2Asset(Type/ID/TokenQty) is what the Contracting Party 2 is putting up for exchange in the swap.  That is they own the Party2Asset before the exchange and will own Party1Asset after the exchange, if approved by the smart contract."
-    type: STRING
+    type: string
     size: 3
-    required: true
+    example hex: 534843
+    example value: "SHC"
+    notes: ""
 
-  - name: Party2AssetID
-    label: "Party 2 Asset ID"
-    type: STRING
+  - name: AssetID2
+    label: Asset ID 2
+    description: ""
+    type: string
     size: 32
-    required: true
+    example hex: 61706d3271737a6e686b7332337a000000000000000000000000000000000000
+    example value: "apm2qsznhks23z"
+    notes: ""
 
-  - name: Party2TokenQty
-    label: "Party2TokenQty"
-    description: "Qty of tokens to be exchanged."
-    type: UINT
+  - name: OfferExpiry
+    label: Offer Expiry
+    description: "This prevents either party from holding on to the partially signed message as a form of an option.  Eg. the sale of these tokens at this price is valid for 30 mins."
+    type: time
     size: 8
-    required: true
+    example hex: 0000016331e3c200
+    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
+    notes: ""
 
   - name: ExchangeFeeCurrency
-    label: "Exchange Fee Currency"
-    description: "BCH, USD, AUD, EUR, etc."
-    type: STRING
+    label: Exchange Fee Currency
+    description: "BSV, USD, AUD, EUR, etc."
+    type: string
     size: 3
+    example hex: 415544
+    example value: "AUD"
+    notes: ""
 
   - name: ExchangeFeeVar
-    label: "Exchange Fee Var"
-    description: "% of the value of the transaction"
-    type: FLOAT
+    label: Exchange Fee Variable
+    description: "Percent of the value of the transaction"
+    type: float32
     size: 4
+    example hex: 3ba3d70a
+    example value: "0.005"
+    notes: ""
 
   - name: ExchangeFeeFixed
-    label: "Exchange Fee Fixed"
-    description: "Fixed fee (payment made in BCH"
-    type: FLOAT
+    label: Exchange Fee Fixed
+    description: "Fixed fee (payment made in BSV"
+    type: float32
     size: 4
+    example hex: 3c23d70a
+    example value: "0.01"
+    notes: ""
 
   - name: ExchangeFeeAddress
-    label: "Exchange Fee Address"
+    label: Exchange Fee Address
     description: "Identifies the public address that the exchange fee should be paid to."
-    type: STRING
+    type: string
     size: 34
+    example hex: 31485132554c7544375435796b6175635a334b6d546f346932393932355161366963
+    example value: "1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic"
+    notes: ""
+
+  - name: QtyOfAsset1SendingAddresses 
+    label: Qty of Asset 1 Sending Addresses
+    description: "Asset 1 Sending Addresses"
+    type: uint8
+    size: 1
+    example hex: 01
+    example value: "1"
+    notes: ""
+
+  - name: AddressXAsset1SendingQty
+    label: Address X Asset 1 Sending Qty
+    description: "Qty of Asset1 tokens to be sent by the address at Index X (Address X) position of the inputs"
+    type: uint64
+    size: 8
+    example hex: 00000000000000c8
+    example value: "200"
+    notes: ""
+
+  - name: QtyOfAsset1ReceivingAddresses 
+    label: Qty of Asset 1 Receiving Addresses
+    description: ""
+    type: uint8
+    size: 1
+    example hex: aN
+    example value: ""
+    notes: ""
+
+  - name: AddressXAsset1ReceivingQty
+    label: Address X Asset 1 Receiving Qty
+    description: "Qty of Asset 1 tokens to be received by the address at Index X (Address X) position of the outputs."
+    type: uint64
+    size: 8
+    example hex: 00000000000000c8
+    example value: "200"
+    notes: ""
+
+  - name: RegistrySigAlgoAsset1ReceivingAddressX
+    label: Registry Signature Algorithm for Asset 1 Receiving Address X
+    description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
+    type: string
+    size: 1
+    example hex: 45
+    example value: "E"
+    notes: ""
+
+  - name: RegistryConfirmationSigAddressXAsset1Receiving
+    label: Registry Confirmation Signature for Address X Asset 1 Receiving
+    description: "Length 0-255 bytes. IF restricted to a registry (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted registry through an API signature of [Contract Address + Asset Code + Public Address + Blockhash of the Latest Block + Block Height + Confirmed/Rejected Bool]. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field."
+    type: nvarchar8
+    size: 89
+    example hex: 584945777a4a423233734672794b4d7a78354d6642776e7431474d554b4e54516e7146385768735344317777744b4b6737426f412f35474c657535556e776172375a687452313874647a75496664584474552b7a4d484c383d
+    example value: "IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8="
+    notes: ""
+
+  - name: QtyOfAsset2SendingAddresses 
+    label: Qty of Asset 2 Sending Addresses
+    description: "Asset 2 Sending Addresses"
+    type: uint8
+    size: 1
+    example hex: 01
+    example value: "1"
+    notes: ""
+
+  - name: AddressXAsset2SendingQty
+    label: Address X Asset 2 Sending Qty
+    description: "Qty of Asset2 tokens to be sent by the address at Index X (Address X) position of the inputs"
+    type: uint64
+    size: 8
+    example hex: 00000000000000c8
+    example value: "200"
+    notes: ""
+
+  - name: QtyOfAsset2ReceivingAddresses 
+    label: Qty of Asset 2 Receiving Addresses
+    description: ""
+    type: uint8
+    size: 1
+    example hex: aN
+    example value: ""
+    notes: ""
+
+  - name: AddressXAsset2ReceivingQty
+    label: Address X Asset 2 Receiving Qty
+    description: "Qty of Asset 2 tokens to be received by the address at Index X (Address X) position of the outputs."
+    type: uint64
+    size: 8
+    example hex: 00000000000000c8
+    example value: "200"
+    notes: ""
+
+  - name: RegistrySigAlgoAsset2ReceivingAddressX
+    label: Registry Signature Algorithm for Asset 2 Receiving Address X
+    description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
+    type: string
+    size: 1
+    example hex: 45
+    example value: "E"
+    notes: ""
+

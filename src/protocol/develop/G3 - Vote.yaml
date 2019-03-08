@@ -1,97 +1,96 @@
-#
-# G3 - Vote Action
-#
+# 
+# Vote Action: A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action.  Votes can be made by Token Owners.  
+# 
 
 code: G3
 
 metadata:
   name: Vote
   label: Vote Action
-  description: "A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action. Votes can be made by Token Owners."
+  description: "Vote Action -  A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action.  Votes can be made by Token Owners.  "
+  validation: AssetCreation
+  rejection: Rejection
 
 rules:
-  contractFee: 546
-  inputs: 
-    - name: Contract
-      label: "Contract Public Address"
-   
+  fee:
+  inputs:
+    - name: 
+      label: Contract Public Address
+      comments: 
+
   outputs:
-    - name: Contract
-      label: "Contract Public Address"
-     
-    - name: Issuer
-      label: "Issuer's Public Address"
-      description: "Issuer gets the threshold fee."
-   
+    - name: 
+      label: Contract Public Address
+      comments: 
+
+    - name: 
+      label: Issuer's Public Address
+      comments: Issuer gets the threshold fee.
+
+    - name: 
+      label: Contract Fee Address
+      comments: Contract Operator's Fee
+
+    - name: 
+      label: OP_RETURN (Vote Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
+
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Vote"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 
+    example hex: 
+    example value: ""
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 0b
+    example value: "11"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
 
-  - name: AssetType
-    label: "Asset Type"
-    description: "eg. Share, Bond, Ticket"
-    type: STRING
-    size: 3
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Vote: The actual vote.  The vote will have an expiry and ballot casts will only be valid if they are timestamped by the BSV network to be within the time range of the expiration timestamp and the timestamp of the Vote Action."
+    type: string
+    size: 2
+    example hex: 4733
+    example value: "G3"
+    notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: AssetID
-    label: "Asset ID"
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: STRING
-    size: 32
-
-  - name: VoteType
-    label: "Vote Type"
-    description: "Contract Amendment (C), Asset Amendment (A), Authorization Flags Amendment (F), Proposal (P), etc. C, A, F are always binary votes (Y/N) with A representing Yes/Accept and B representing No/Reject."
-    type: STRING
-    size: 1
-
-  - name: VoteOptions
-    label: "Vote Options"
-    description: "Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID."
-    type: STRING
-    size: 15
-
-  - name: VoteMax
-    label: "Vote Max"
-    description: "Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
-    type: UINT
-    size: 1
-
-  - name: VoteLogic
-    label: "Vote Logic"
-    description: "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) "
-    type: STRING
-    size: 1
-
-  - name: ProposalDescription
-    label: "Proposal Description"
-    description: "Description of the vote"
-    type: STRING
-    size: 82
-
-  - name: ProposalDocumentHash
-    label: "Proposal Document Hash"
-    description: "Hash of the proposal document to be distributed to voters"
-    type: SHA
-    size: 32
-
-  - name: VoteCutOffTimestamp
-    label: "Vote Cut Off Timestamp"
-    description: "Any vote registered after this time will not be valid."
-    type: TIME
-    size: 8
-
-  - name: Timestamp
-    label: "Timestamp"
-    description: "Timestamp of when the smart contract created the Vote action."
-    type: TIME
-    size: 8

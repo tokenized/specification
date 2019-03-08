@@ -1,68 +1,137 @@
-#
-# M2 - Rejection Action
-#
+# 
+# Rejection Action: used to reject Exchange, Send, Initiative, Referendum, Order, and Ballot Cast actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Issuer/User Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond. For example: Send and Exchange Actions must be responded to by the Contract with either a Settlement Action or a Rejection Action.
+# 
 
 code: M2
 
 metadata:
   name: Rejection
   label: Rejection Action
-  description: "Used to reject Exchange, Send, Initiative, Referendum, Order, and Ballot Cast actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Issuer/User Actions must be responded to by the Contract with an Action. The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral. If not enough fees are attached to pay for the Contract response then the Contract will not respond."
+  description: "Rejection Action -  used to reject Exchange, Send, Initiative, Referendum, Order, and Ballot Cast actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Issuer/User Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond. For example: Send and Exchange Actions must be responded to by the Contract with either a Settlement Action or a Rejection Action."
+  validation: AssetCreation
+  rejection: Rejection
 
 rules:
-  contractFee: 546
-  inputs: 
-    - name: Contract 
-      label: "Contract Public Address"
-      
-  outputs: 
-    - name: User
-      label: "User's Public Address"
-      description: "Return the money less fees"
-      
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Change"
+  fee:
+  inputs:
+    - name: 
+      label: Contract Public Address
+      comments: 
+
+  outputs:
+    - name: 
+      label: User's Public Address
+      comments: Return the money less fees
+
+    - name: 
+      label: OP_RETURN (Rejection Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
+
+    - name: 
+      label: 
+      comments: 
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Rejection"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 
+    example hex: aN
+    example value: ""
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 35
+    example value: "53"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
+
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Rejection: The Rejection Action is a message that the smart contract broadcasts as a response to any invalid actions.  The Rejection Action can also include a refund.  The Rejection Action will only be used when the initiating action paid enough to pay for the Rejection Action, otherwise it will just be ignored."
+    type: string
+    size: 2
+    example hex: 4d32
+    example value: "M2"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: Timestamp
-    label: "Timestamp"
+    label: Timestamp
     description: "Timestamp of when the smart contract created the Reconciliation action."
-    type: TIME
+    type: time
     size: 8
+    example hex: 0000016331e3c200
+    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
+    notes: ""
 
-  - name: AssetType
-    label: "Asset Type"
-    description: "eg. Real Estate Security, share, bond"
-    type: STRING
-    size: 3
+  - name: QtyReceivingAddresses
+    label: Qty Receiving Addresses
+    description: "0-255 Message Receiving Addresses"
+    type: uint8
+    size: 1
+    example hex: 01
+    example value: "1"
+    notes: ""
 
-  - name: AssetID
-    label: "Asset ID"
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: STRING
-    size: 32
+  - name: AddressXIndex
+    label: Address X Index
+    description: "Associates the message to a particular output by the index."
+    type: uint16
+    size: 1
+    example hex: 0000
+    example value: "0"
+    notes: ""
 
   - name: RejectionType
-    label: "Rejection Type"
+    label: Rejection Type
     description: "Classifies the rejection by a type."
-    type: STRING
+    type: uint8
     size: 1
+    example hex: 01
+    example value: "1"
+    notes: ""
 
-  - name: Message
-    label: "Message"
-    description: "Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type sub-field."
-    type: STRING
-    size: 169

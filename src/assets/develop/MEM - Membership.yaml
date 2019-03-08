@@ -1,0 +1,29 @@
+# 
+# Version
+# 
+version: Wed Jun 27 2018 17:00:00 GMT+1000 (AEST)
+parentVersion: 0 
+code: MEM
+kind: Identity
+
+metadata:
+  label: Version
+  description: Version
+  example: Version
+
+     fields:
+
+  - name: ExpiryDate
+    label: ExpiryDate
+    type: time
+    example: 27/06/2019
+    exampleHex: 0x0000017802b01f00
+    size: 8
+
+  - name: LenIDNumber
+    label: LenIDNumber
+    type: uint8
+    example: 12
+    exampleHex: 0x0c
+    size: 1
+

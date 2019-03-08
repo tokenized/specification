@@ -1,95 +1,227 @@
-#
-# E1 - Order Action
-#
+# 
+# Order Action: Issuer to signal to the smart contract that the tokens that a particular PKH owns are to be confiscated, frozen or thawed.
+# 
 
 code: E1
 
 metadata:
   name: Order
   label: Order Action
-  description: "Issuer to signal to the smart contract that the tokens that a particular PKH owns are to be confiscated, frozen or thawed."
-  validation: [Freeze, Thaw, Confiscation, Reconciliation]
+  description: "Order Action -  Issuer to signal to the smart contract that the tokens that a particular PKH owns are to be confiscated, frozen or thawed."
+  validation: AssetCreation
   rejection: Rejection
 
 rules:
-  fee: 8000
-  inputs: 
-    - name: Issuer
-      label: "Issuer's Public Address"
-      
-  outputs: 
-    - name: Contract
-      label: "Contract Public Address" 
-    
-    - name: Issuer
-      label: "Issuer's Public Address"
-      description: "Change"
+  fee:
+  inputs:
+    - name: 
+      label: Issuer's Public Address
+      comments: 
+
+  outputs:
+    - name: 
+      label: Contract Public Address
+      comments: 
+
+    - name: 
+      label: Issuer's Public Address
+      comments: Change
+
+    - name: 
+      label: OP_RETURN (Order Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Order"
-    type: STRING
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 1
+    example hex: 4d
+    example value: "77"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
     size: 2
+    example hex: 152
+    example value: "338"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
+
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Order: An instruction by the issuer to the smart contract to either Freeze, Thaw or Confiscate tokens from the specified token holder. This order will often be in response to a court order that the issuer receives."
+    type: string
+    size: 2
+    example hex: 4531
+    example value: "E1"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: AssetType
-    label: "Asset Type"
+    label: Asset Type
     description: "eg. Share, Bond, Ticket"
-    type: STRING
+    type: string
     size: 3
+    example hex: 534843
+    example value: "SHC"
+    notes: ""
 
   - name: AssetID
-    label: "Asset ID"
+    label: Asset ID
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: STRING
+    type: string
     size: 32
+    example hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
 
   - name: ComplianceAction
-    label: "Compliance Action"
+    label: Compliance Action
     description: "Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)"
-    type: STRING
+    type: string
     size: 1
-    required: true
+    example hex: 46
+    example value: "F"
+    notes: ""
 
-  - name: TargetAddress
-    label: "Target Address"
+  - name: QtyTargetAddresses
+    label: Qty of Target Addresses
+    description: "0 - 65,535 bytes"
+    type: uint16
+    size: 2
+    example hex: 0001
+    example value: "1"
+    notes: ""
+
+  - name: TargetAddressX
+    label: Target Address X
     description: "Public address where the token balance will be changed."
-    type: STRING
+    type: string
     size: 34
-    required: true
+    example hex: 31485132554c7544375435796b6175635a334b6d546f346932393932355161366963
+    example value: "1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic"
+    notes: ""
+
+  - name: TargetAddressXQty
+    label: Target Address X Qty
+    description: "Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used."
+    type: uint64
+    size: 8
+    example hex: 0000000000002710
+    example value: "10000"
+    notes: ""
 
   - name: DepositAddress
-    label: "Deposit Address"
-    description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
-    type: STRING
-    size: 34
+    label: Deposit Address
+    description: "Length 1-255 bytes. The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
+    type: nvarchar8
+    size: 35
+    example hex: 2231377a4157616269706355486e35585039773847456333504b764735625947424d65
+    example value: "17zAWabipcUHn5XP9w8GEc3PKvG5bYGBMe"
+    notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
+
+  - name: EnforcementAuthorityName
+    label: Enforcement Authority Name
+    description: "Length 0-255 bytes. Enforcement Authority Name (eg. Queensland Police Service, Tokenized, etc.)"
+    type: nvarchar8
+    size: 37
+    example hex: 2453757072656d6520616e6420446973747269637420436f75727473204272697362616e65
+    example value: "Supreme and District Courts Brisbane"
+    notes: ""
+
+  - name: SigAlgoAddressList
+    label: Signature Algorithm for Address List
+    description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
+    type: string
+    size: 1
+    example hex: 45
+    example value: "E"
+    notes: ""
+
+  - name: EnforcementAuthorityPublicKey
+    label: Enforcement Authority Public Key
+    description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
+    type: nvarchar8
+    size: 1
+    example hex: 00
+    example value: ""
+    notes: ""
+
+  - name: OrderSignature
+    label: Enforcement Authority Order Signature
+    description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)"
+    type: nvarchar8
+    size: 71
+    example hex: 00
+    example value: ""
+    notes: ""
 
   - name: SupportingEvidenceHash
-    label: "Supporting Evidence Hash"
+    label: Supporting Evidence Hash
     description: "SHA-256: warrant, court order, etc."
-    type: SHA
+    type: sha256
     size: 32
+    example hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
+    example value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
+    notes: ""
 
-  - name: Qty
-    label: "Qty"
-    description: "Qty of tokens to be frozen, thawed, confiscated or reconciled."
-    type: UINT
+  - name: RefTxnID
+    label: Ref Txn ID
+    description: "The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield."
+    type: sha256
+    size: 32
+    example hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
+    example value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
+    notes: ""
+
+  - name: FreezePeriod
+    label: Freeze Period
+    description: "Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders."
+    type: time
     size: 8
+    example hex: 00000166550ce380
+    example value: "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)"
+    notes: ""
 
-  - name: Expiration
-    label: "Expiration"
-    description: "Used for a 'timeout'.  Tokens are automatically unfrozen after the expiration date without requiring a Thaw Action. Null value for Thaw or Confiscation orders."
-    type: TIME
-    size: 8
-
-  - name: Message
-    label: "Message"
-    description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
-    type: STRING
-    size: 61

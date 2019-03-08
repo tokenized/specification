@@ -1,68 +1,88 @@
-#
-# G5 - Ballot Counted Action
-#
+# 
+# Ballot Counted Action: The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid.  If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.
+# 
 
 code: G5
 
 metadata:
   name: BallotCounted
   label: Ballot Counted Action
-  description: "The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
+  description: "Ballot Counted Action -  The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid.  If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
+  validation: AssetCreation
+  rejection: Rejection
 
 rules:
-  fee: 5000
-  inputs: 
-    - name: Contract
-      label: "Contract Public Address"
-      
-  outputs: 
-    - name: User
-      label: "Token Owner's Public Address"
-      description: "Dust limit rule minimum value output of 546"
-    
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Change"
+  fee:
+  inputs:
+    - name: 
+      label: Contract Public Address
+      comments: 
+
+  outputs:
+    - name: 
+      label: Token Owner's Public Address
+      comments: Dust limit rule minimum value output of 546
+
+    - name: 
+      label: OP_RETURN (Ballot Cast Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Ballot Counted"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 
+    example hex: 
+    example value: ""
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 0b
+    example value: "11"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
 
-  - name: AssetType
-    label: "Asset Type"
-    description: "eg. Share, Bond, Ticket"
-    type: STRING
-    size: 3
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Ballot Counted: The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid.  If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
+    type: string
+    size: 2
+    example hex: 4735
+    example value: "G5"
+    notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: AssetID
-    label: "Asset ID"
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: STRING
-    size: 32
-
-  - name: VoteTxnID
-    label: "Vote Txn ID"
-    description: "Tx-ID of the Vote the Ballot Cast is being made for."
-    type: SHA
-    size: 32
-
-  - name: Vote
-    label: "Vote"
-    description: "Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes."
-    type: STRING
-    size: 16
-
-  - name: Timestamp
-    label: "Timestamp"
-    description: "Timestamp of when the smart contract created the Result action."
-    type: TIME
-    size: 8

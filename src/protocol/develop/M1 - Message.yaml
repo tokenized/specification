@@ -1,56 +1,137 @@
-#
-# M1 - Message Action
-#
+# 
+# Message Action: the message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels including receipting, invoices, PO, and private offers/bids.  The messages are broken down by type for easy filtering in the a user’s wallet.  The Message Types are listed in the Message Types table.
+# 
 
 code: M1
 
 metadata:
   name: Message
   label: Message Action
-  description: "The message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels including receipting, invoices, PO, and private offers/bids. The messages are broken down by type for easy filtering in the a user’s wallet. The Message Types are listed in the Message Types table."
+  description: "Message Action -  the message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels including receipting, invoices, PO, and private offers/bids.  The messages are broken down by type for easy filtering in the a user’s wallet.  The Message Types are listed in the Message Types table."
+  validation: AssetCreation
+  rejection: Rejection
 
 rules:
-  fee: 4000
-  inputs: 
-    - name: Sender
-      label: "Msg Sender's Public Address"
-      
-  outputs: 
-    - name: Receiver
-      label: "Msg Receiver's Public Address"
-      description: "Dust limit rule minimum value output of 546"
-      
-    - name: Sender
-      label: "Msg Sender's Public Address"
-      description: "Change"
+  fee:
+  inputs:
+    - name: 
+      label: Msg Sender's Public Address
+      comments: 
+
+  outputs:
+    - name: 
+      label: Msg Receiver's Public Address
+      comments: Dust limit rule minimum value output of 546
+
+    - name: 
+      label: Msg Sender's Public Address
+      comments: Change
+
+    - name: 
+      label: OP_RETURN (Message Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Message"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 
+    example hex: aN
+    example value: ""
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 1e
+    example value: "30"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
+
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Message: The message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message action can also be used for passing partially signed txns on-chain, establishing private communication channels including receipting, invoices, PO, and private offers/bids. The messages are broken down by type for easy filtering in the a user’s wallet. The Message Types are listed in the Message Types table."
+    type: string
+    size: 2
+    example hex: 4d31
+    example value: "M1"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: Timestamp
-    label: "Timestamp"
+    label: Timestamp
     description: "Timestamp of when the smart contract created the Reconciliation action."
-    type: TIME
+    type: time
     size: 8
+    example hex: 0000016331e3c200
+    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
+    notes: ""
+
+  - name: QtyReceivingAddresses
+    label: Qty Receiving Addresses
+    description: "0-255 Message Receiving Addresses"
+    type: uint8
+    size: 1
+    example hex: 01
+    example value: "1"
+    notes: ""
+
+  - name: AddressXIndex
+    label: Address X Index
+    description: "Associates the message to a particular output by the index."
+    type: uint16
+    size: 1
+    example hex: 0000
+    example value: "0"
+    notes: ""
 
   - name: MessageType
-    label: "Message Type"
-    description: "Potential for up to 255 different message types"
-    type: STRING
+    label: Message Type
+    description: "Potential for up to 65,535 different message types"
+    type: string
     size: 2
+    example hex: 3600
+    example value: "6"
+    notes: ""
 
-  - name: Message
-    label: "Message"
-    description: "Public or private (RSA public key, Diffie-Hellman).  Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted.  See Message Types for a full list of potential use cases."
-    type: STRING
-    size: 203

@@ -1,103 +1,200 @@
-#
-# A1 - Asset Definition Action
-#
+# 
+# Asset Definition Action: This action is used by the issuer to define the properties/characteristics of the Asset (token) that it wants to create.
+# 
 
 code: A1
 
 metadata:
   name: AssetDefinition
   label: Asset Definition Action
-  description: "This action is used by the issuer to define the properties/characteristics of the Asset (token) that it wants to create."
+  description: "Asset Definition Action -  This action is used by the issuer to define the properties/characteristics of the Asset (token) that it wants to create."
   validation: AssetCreation
   rejection: Rejection
 
 rules:
-  fee: 4000
+  fee:
   inputs:
-    - name: Issuer
-      label: "Issuer's Public Address"
+    - name: 
+      label: Issuer's Public Address
+      comments: 
 
   outputs:
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Enough for the responding action."
-  
-    - name: Issuer
-      label: "Issuer's Public Address"
-      description: "Change"
+    - name: 
+      label: Contract Public Address
+      comments: Enough for the responding action.
+
+    - name: 
+      label: Issuer's Public Address
+      comments: Change
+
+    - name: 
+      label: OP_RETURN (Asset Definition Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Asset Definition"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 1
+    example hex: 4c
+    example value: "76"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: d7
+    example value: "215"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
+
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Asset Definition: The issuer can define what the details and characteristics of a particular asset are and instruct the smart contract to create an asset."
+    type: string
+    size: 2
+    example hex: 4131
+    example value: "A1"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: AssetType
-    label: "Asset Type"
+    label: Asset Type
     description: "eg. Share - Common"
-    type: STRING
+    type: string
     size: 3
-    required: true
+    example hex: 434f55
+    example value: "COU"
+    notes: "Cannot be changed by issuer, operator or smart contract."
 
   - name: AssetID
-    label: "Asset ID"
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to Bitcoin Cash addr, a vanity identifying label."
-    type: STRING
+    label: Asset ID
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label."
+    type: string
     size: 32
-    required: true
+    example hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: AuthorizationFlags
-    label: "Authorization Flags"
-    description: "16 Authorization Flags,  bitwise operation"
-    type: BIN
-    size: 2
-
-  - name: VotingSystem
-    label: "Voting System"
-    description: "Asset-specific voting system. (M - Majority vote, A - Absolute Majority, P - Plurality, S - Supermajority, C - Absolute Supermajority, N - No Voting Rights, etc.) See Voting Sheet for details."
-    type: STRING
-    size: 1
+  - name: AssetAuthFlags
+    label: Asset Authorization Flags
+    description: "Authorization Flags,  bitwise operation"
+    type: bin[var]
+    size: 8
+    example hex: 8d1faNaNaNaNaNaN
+    example value: "1000110111111"
+    notes: ""
 
   - name: VoteMultiplier
-    label: "Vote Multiplier"
-    description: "Multiplies the vote by the integer. 1 token = 1 vote normally.  1 token = 3 votes with a multiplier of 3, for example."
-    type: UINT
+    label: Vote Multiplier
+    description: "Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example."
+    type: uint8
     size: 1
+    example hex: 03
+    example value: "3"
+    notes: ""
 
-  - name: Qty
-    label: "Qty"
-    description: "Quantity of token.0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract."
-    type: UINT
+  - name: ReferendumProposal
+    label: Referendum Proposal 
+    description: "A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless."
+    type: string
+    size: 1
+    example hex: 59
+    example value: "Y"
+    notes: ""
+
+  - name: InitiativeProposal
+    label: Initiative Proposal
+    description: "An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless."
+    type: string
+    size: 1
+    example hex: 59
+    example value: "Y"
+    notes: ""
+
+  - name: AssetModificationGovernance
+    label: Asset Modification Governance
+    description: "C - Contract-wide Asset Governance.  A - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative).  The voting system specifies the voting rules."
+    type: string
+    size: 1
+    example hex: 43
+    example value: "C"
+    notes: ""
+
+  - name: TokenQty
+    label: Qty of Tokens
+    description: "Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract."
+    type: uint64
     size: 8
-    required: true
+    example hex: 00000000000f4240
+    example value: "1000000"
+    notes: ""
 
   - name: ContractFeeCurrency
-    label: "Contract Fee Currency"
-    description: "BCH, USD, AUD, EUR, etc."
-    type: STRING
+    label: Contract Fee Currency
+    description: "BSV, USD, AUD, EUR, etc."
+    type: string
     size: 3
+    example hex: 415544
+    example value: "AUD"
+    notes: ""
 
   - name: ContractFeeVar
-    label: "Contract Fee Var"
-    description: "% of the value of the transaction"
-    type: FLOAT
+    label: Contract Fee Var
+    description: "Percent of the value of the transaction"
+    type: float32
     size: 4
+    example hex: 3ba3d70a
+    example value: "0.005"
+    notes: ""
 
   - name: ContractFeeFixed
-    label: "Contract Fee Fixed"
-    description: "Fixed fee (payment made in BCH)"
-    type: FLOAT
+    label: Contract Fee Fixed
+    description: "Fixed fee (payment made in BSV)"
+    type: float32
     size: 4
+    example hex: 3c23d70a
+    example value: "0.01"
+    notes: ""
 
-  - name: Payload
-    label: "Payload"
-    description: "See Asset Type Definition"
-    type: PAYLOAD
-    size: 145

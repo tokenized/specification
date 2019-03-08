@@ -1,82 +1,202 @@
-#
-# T4 - Settlement Action
-#
+# 
+# Settlement Action: (to be used for finalizing the transfer of bitcoins and tokens from exchange, issuance, swap actions)
+# 
 
 code: T4
 
 metadata:
   name: Settlement
   label: Settlement Action
-  description: "To be used for finalizing the transfer of bitcoins and tokens from exchange, issuance, swap actions."
+  description: "Settlement Action -  (to be used for finalizing the transfer of bitcoins and tokens from exchange, issuance, swap actions)"
+  validation: AssetCreation
+  rejection: Rejection
 
 rules:
-  fee: 546
-  inputs: 
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Contract 1 in response to a Swap action"
+  fee:
+  inputs:
+    - name: 
+      label: Contract Public Address (Asset Code 1)
+      comments: Sample number. Contract 1 in response to a Swap action.
 
-    - name: OtherContract
-      label: "Contract Public Address (Contracting Party 2's Token)"
-      description: "Used in response to Swap actions only"
-      optional: true
+    - name: 
+      label: Contract Public Address (Asset Code 2's)
+      comments: Only used in response to Swap actions only.
 
   outputs:
-    - name: Sender
-      label: "Token Sender's Public Address (Contracting Party 1)"
+    - name: 
+      label: Token Sender's Public Address
+      comments: Token Sender (or seller) is paid 7 BSV (in this example). For SWAP actions can be sender and receiver of Asset 1 and/or Asset 2.
 
-    - name: Receiver
-      label: "Token Receiver's Public Address (Contracting Party 2)"
-      description: "Change for response to Exchange/Swap. For response to Sends, it should be a nominal amount of 546 sats."
+    - name: 
+      label: Token Receiver's Public Address
+      comments: Change for response to Exchange/Swap. For response to Sends, it should be a nominal amount of 546 sats.
 
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Dust limit rule minimum value output of 546"
+    - name: 
+      label: Token Address X (Sending and Receiving)
+      comments: Dust limit rule minimum value output of 546
 
-    - name: OtherContract
-      label: "Contract Public Address (Contracting Party 2's Token)"
-      description: "Response to Swaps only. Dust limit rule minimum value output of 546."
-      optional: true
+    - name: 
+      label: Contract Fee Address (Optional)
+      comments: Contract Operator's Fee (Optional)
+
+    - name: 
+      label: Contract Fee Address (Optional)
+      comments: Contract Operator's Fee (Optional)
+
+    - name: 
+      label: Exchange Fee Address (Optional)
+      comments: Exchange Fee (Optional)
+
+    - name: 
+      label: OP_RETURN (Settlement Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: 
+      comments: 
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Settlement"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 1
+    example hex: 4c
+    example value: "76"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 65
+    example value: "101"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
 
-  - name: AssetType
-    label: "AssetType"
-    description: "eg. Share, Bond, Ticket"
-    type: STRING
-    size: 3
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Settlement: A settlement is a response by the smart contract to publicly announce that the issue/exchange/swap action has been approved by the smart contract.  "
+    type: string
+    size: 2
+    example hex: 5434
+    example value: "T4"
+    notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: AssetID
-    label: "AssetID"
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: STRING
-    size: 32
-
-  - name: Party1TokenQty
-    label: "Party1TokenQty"
-    description: "The resulting token balance for Contracting Party 1."
-    type: UINT
-    size: 8
-
-  - name: Party2TokenQty
-    label: "Party2TokenQty"
-    description: "The resulting token balance for Contracting Party 2."
-    type: UINT
-    size: 8
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: Timestamp
-    label: "Timestamp"
+    label: Timestamp
     description: "Timestamp of when the smart contract created the Settlement action."
-    type: TIME
+    type: time
     size: 8
+    example hex: 0000016331e3c200
+    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
+    notes: ""
+
+  - name: TransferType
+    label: Transfer Type
+    description: "S - Send, E - Exchange, X - Swap"
+    type: string
+    size: 1
+    example hex: 53
+    example value: "S"
+    notes: ""
+
+  - name: AssetType1
+    label: Asset Type 1
+    description: "eg. Share, Bond, Ticket"
+    type: string
+    size: 3
+    example hex: 525245
+    example value: "RRE"
+    notes: ""
+
+  - name: AssetID1
+    label: Asset ID 1
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. "
+    type: string
+    size: 32
+    example hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
+
+  - name: AssetType2
+    label: Asset Type 2
+    description: "eg. Share, Bond, Ticket. NULL for Send and Exchange Response Type."
+    type: string
+    size: 3
+    example hex: 534843
+    example value: "SHC"
+    notes: ""
+
+  - name: AssetID2
+    label: Asset ID 2
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.  NULL for Send and Exchange Response Type."
+    type: string
+    size: 32
+    example hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
+
+  - name: QtyAsset1Settlements
+    label: Qty Asset 1 Settlements
+    description: "Number of settlements for Asset 1."
+    type: uint8
+    size: 1
+    example hex: aN
+    example value: ""
+    notes: ""
+
+  - name: Asset1AddressXQty
+    label: Asset 1 Address X Qty
+    description: "The resulting token balance of Asset 1 for Address X. (X = Output Index)"
+    type: uint64
+    size: 8
+    example hex: 0000000000005208
+    example value: "21000"
+    notes: ""
+
+  - name: QtyAsset2Addresses
+    label: Qty Asset 2 Addresses
+    description: "Number of settlements for Asset 1. NULL for Send and Exchange Response Type."
+    type: uint8
+    size: 1
+    example hex: aN
+    example value: ""
+    notes: ""
+

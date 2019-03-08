@@ -1,0 +1,29 @@
+# 
+# Version
+# 
+version: 20000
+parentVersion: 0 
+code: LOY
+kind: Utility
+
+metadata:
+  label: Version
+  description: Version
+  example: Version
+
+     fields:
+
+  - name: LenIssuerName
+    label: LenIssuerName
+    type: uint8
+    example: 120
+    exampleHex: 0x78
+    size: 1
+
+  - name: IssuerName
+    label: IssuerName
+    type: nvarchar8
+    example: Thai Airways
+    exampleHex: 0x0c546861692041697277617973
+    size: 13
+

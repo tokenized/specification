@@ -1,100 +1,186 @@
-#
-# G2 - Referendum Action
-#
+# 
+# Referendum Action: Issuer instructs the Contract to Initiate a Token Owner Vote. Usually used for contract amendments, organizational governance, etc.
+# 
 
 code: G2
 
 metadata:
   name: Referendum
   label: Referendum Action
-  description: "Issuer instructs the Contract to Initiate a Token Owner Vote. Usually used for contract amendments, organizational governance, etc."
-  validation: Vote
+  description: "Referendum Action -  Issuer instructs the Contract to Initiate a Token Owner Vote. Usually used for contract amendments, organizational governance, etc."
+  validation: AssetCreation
   rejection: Rejection
 
 rules:
-  fee: 4000
-  inputs: 
-    - name: Issuer
-      label: "Issuer's Public Address"
-     
-  outputs: 
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Enough for the responding action"
+  fee:
+  inputs:
+    - name: 
+      label: Issuer's Public Address
+      comments: 
 
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Fund the Result at Vote cutoff"
-    
-    - name: Issuer
-      label: "Issuer's Public Address"
-      description: "Change"
+  outputs:
+    - name: 
+      label: Contract Public Address
+      comments: Enough for the responding action.
+
+    - name: 
+      label: Contract Public Address
+      comments: Fund the Result at Vote cut off
+
+    - name: 
+      label: Issuer's Public Address
+      comments: Change
+
+    - name: 
+      label: OP_RETURN (Referendum Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Referendum"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 1
+    example hex: 4c
+    example value: "76"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 91
+    example value: "145"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
+
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Referendum: An issuer initiated vote."
+    type: string
+    size: 2
+    example hex: 4732
+    example value: "G2"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 0
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
+
+  - name: AssetSpecificVote
+    label: Asset Specific Vote
+    description: "Y- Yes, N- No.  No Asset Type/AssetID subfields for N - No."
+    type: string
+    size: 1
+    example hex: 59
+    example value: "Y"
+    notes: ""
 
   - name: AssetType
-    label: "Asset Type"
+    label: Asset Type
     description: "eg. Share, Bond, Ticket"
-    type: STRING
+    type: string
     size: 3
+    example hex: 525245
+    example value: "RRE"
+    notes: ""
 
   - name: AssetID
-    label: "Asset ID"
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: STRING
+    label: Asset ID
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: string
     size: 32
+    example hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
 
-  - name: VoteType
-    label: "Vote Type"
-    description: "Contract Amendment (C), Asset Amendment (A), Authorization Flags Amendment (F), Proposal (P), etc."
-    type: STRING
+  - name: VoteSystem
+    label: Vote System
+    description: "X for Vote System X. (1-255, 0 is not valid.)"
+    type: uint8
     size: 1
+    example hex: 01
+    example value: "1"
+    notes: ""
+
+  - name: ProposalType
+    label: Proposal Type
+    description: "Length 1-255 bytes. Name of the subfield.  P - (Proposal) for general proposal. Otherwise the subfield name is chosen for votes on amendments/modificaitons of contracts/assets."
+    type: nvarchar8
+    size: 13
+    example hex: 0c4a7572697364696374696f6e
+    example value: "Jurisdiction"
+    notes: ""
 
   - name: VoteOptions
-    label: "Vote Options"
-    description: "Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes."
-    type: STRING
-    size: 15
-    required: true
+    label: Vote Options
+    description: "Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail."
+    type: nvarchar8
+    size: 16
+    example hex: 0f4142434445464748494a4b4c4d4e4f
+    example value: "ABCDEFGHIJKLMNO"
+    notes: ""
 
   - name: VoteMax
-    label: "Vote Max"
+    label: Vote Max
     description: "Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
-    type: UINT
+    type: uint8
     size: 1
-
-  - name: VoteLogic
-    label: "Vote Logic"
-    description: "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) "
-    type: STRING
-    size: 1
+    example hex: 0f
+    example value: "15"
+    notes: ""
 
   - name: ProposalDescription
-    label: "Proposal Description"
-    description: "Description of the vote"
-    type: STRING
-    size: 82
-    required: true
+    label: Proposal Description
+    description: "Length 0 to 65,535 bytes. 0 is valid. If 0, Proposal Document Hash is also 0. Description of the vote"
+    type: nvarchar16
+    size: 34
+    example hex: 00204368616e676520746865206e616d65206f662074686520436f6e74726163742e
+    example value: "Change the name of the Contract."
+    notes: ""
 
   - name: ProposalDocumentHash
-    label: "Proposal Document Hash"
+    label: Proposal Document Hash
     description: "Hash of the proposal document to be distributed to voters"
-    type: SHA
+    type: sha256
     size: 32
+    example hex: 77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec
+    example value: "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec"
+    notes: ""
 
-  - name: VoteCutOffTimestamp
-    label: "Vote Cut Off Timestamp"
-    description: "Ballot casts after this timestamp will not be included.  The vote has finished."
-    type: TIME
-    size: 8

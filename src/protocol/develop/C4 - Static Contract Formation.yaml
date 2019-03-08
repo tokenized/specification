@@ -1,0 +1,367 @@
+# 
+# Static Contract Formation Action:
+# 
+
+code: C4
+
+metadata:
+  name: StaticContract Formation
+  label: Static Contract Formation Action
+  description: "Static Contract Formation Action - "
+  validation: AssetCreation
+  rejection: Rejection
+
+rules:
+  fee:
+  inputs:
+    - name: 
+      label: Issuer's Public Address
+      comments: 
+
+  outputs:
+    - name: 
+      label: Contract Public Address
+      comments: 
+
+    - name: 
+      label: Issuer's Public Address
+      comments: Change
+
+    - name: 
+      label: OP_RETURN (Contract Amendment Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
+
+    - name: 
+      label: 
+      comments: 
+
+fields:
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 1
+    example hex: 4d
+    example value: "77"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 2
+    example hex: 0137
+    example value: "311"
+    notes: "Depends on Action Payload"
+
+  - name: Version
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
+    size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
+
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Static Contract Formation: TBD"
+    type: string
+    size: 2
+    example hex: 4334
+    example value: "C4"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
+
+  - name: ContractName
+    label: Contract Name
+    description: "Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
+    type: nvarchar8
+    size: 30
+    example hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
+    example value: "Tesla - Shareholder Agreement"
+    notes: ""
+
+  - name: ContractFileType
+    label: Contract File Type
+    description: "1 - SHA-256 Hash, 2 - Markdown file"
+    type: uint8
+    size: 1
+    example hex: 01
+    example value: "1"
+    notes: ""
+
+  - name: LenContractFile
+    label: Length of Contract File
+    description: "Max size is the max transaction size - other data in the txn.  "
+    type: uint32
+    size: 4
+    example hex: 00000020
+    example value: "32"
+    notes: ""
+
+  - name: ContractFile
+    label: Contract File
+    description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
+    type: string
+    size: 32
+    example hex: 63323336663737633761626437323439343839653764326262366337653436626133663430393539353665373861353834616637353365636535366366366431
+    example value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
+    notes: ""
+
+  - name: ContractRevision
+    label: Contract Revision
+    description: "Counter 0 - 65,535"
+    type: uint16
+    size: 2
+    example hex: 0000
+    example value: "0"
+    notes: ""
+
+  - name: GoverningLaw
+    label: Governing Law
+    description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    type: string
+    size: 5
+    example hex: 5553410000
+    example value: "USA"
+    notes: ""
+
+  - name: Jurisdiction
+    label: Jurisdiction
+    description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    type: string
+    size: 5
+    example hex: 55532d4341
+    example value: "US-CA"
+    notes: ""
+
+  - name: EffectiveDate
+    label: Effective Date
+    description: "Start date of the contract."
+    type: time
+    size: 8
+    example hex: 00000163400d3f00
+    example value: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    notes: ""
+
+  - name: ContractExpiration
+    label: Contract Expiration
+    description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
+    type: time
+    size: 8
+    example hex: 00000163400d3f00
+    example value: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    notes: ""
+
+  - name: ContractURI
+    label: Contract URI
+    description: "Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
+    type: nvarchar8
+    size: 53
+    example hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
+    example value: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
+    notes: ""
+
+  - name: PrevRevTxID
+    label: PrevRevTxID
+    description: "The Tx-ID of the previous contract revision."
+    type: string
+    size: 32
+    example hex: 33633736326166396465303964633734303331333266346132316264663861613032663431646239646537663964616236303430396162386363393037613366
+    example value: "3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f"
+    notes: ""
+
+  - name: EntityCount
+    label: Entity Count
+    description: "Number of entities involved in the contract as contracting parties."
+    type: uint8
+    size: 1
+    example hex: aN
+    example value: ""
+    notes: ""
+
+  - name: EntityXName
+    label: Entity X Name
+    description: "Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
+    type: nvarchar8
+    size: 11
+    example hex: 0a5465736c6120496e632e
+    example value: "Tesla Inc."
+    notes: ""
+
+  - name: EntityXType
+    label: Entity X Type
+    description: "P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources)."
+    type: string
+    size: 1
+    example hex: 50
+    example value: "P"
+    notes: ""
+
+  - name: EntityXAddress
+    label: Entity X Address
+    description: "Physical/mailing address. Y/N, N means there is no issuer address."
+    type: string
+    size: 1
+    example hex: 59
+    example value: "Y"
+    notes: "Entity/Contracting Party X Details
+"
+
+  - name: UnitXNumber
+    label: Unit X Number
+    description: "Issuer/Entity/Contracting Party X Address Details (eg. HQ)"
+    type: nvarchar8
+    size: 2
+    example hex: 0132
+    example value: "2"
+    notes: ""
+
+  - name: BuildingXNumber
+    label: Building X Number
+    description: ""
+    type: nvarchar8
+    size: 6
+    example hex: 053133353737
+    example value: "13577"
+    notes: ""
+
+  - name: StreetX
+    label: Street X
+    description: ""
+    type: nvarchar16
+    size: 14
+    example hex: 000c466169726d6f6e7420417665
+    example value: "Fairmont Ave"
+    notes: ""
+
+  - name: SuburbCityX
+    label: Suburb/City X
+    description: ""
+    type: nvarchar8
+    size: 8
+    example hex: 07526f62696e6f68
+    example value: "Robinoh"
+    notes: ""
+
+  - name: TerritoryStateProvinceCodeX
+    label: Territory/State/Province Code X
+    description: ""
+    type: string
+    size: 5
+    example hex: 4243000000
+    example value: "BC"
+    notes: ""
+
+  - name: CountryCodeX
+    label: Country Code X
+    description: ""
+    type: string
+    size: 3
+    example hex: 555341
+    example value: "USA"
+    notes: ""
+
+  - name: PostalZIPCodeX
+    label: Postal/ZIP Code X
+    description: ""
+    type: string
+    size: 12
+    example hex: 353032313000000000000000
+    example value: "50210"
+    notes: ""
+
+  - name: EmailAddressX
+    label: Email Address X
+    description: "Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address"
+    type: nvarchar8
+    size: 20
+    example hex: 136a616d657340746f6b656e697a65642e636f6d
+    example value: "james@tokenized.com"
+    notes: ""
+
+  - name: PhoneNumberX
+    label: Phone Number X
+    description: "Length 0-50 bytes. 0 is valid. Phone Number for Entity."
+    type: nvarchar8
+    size: 11
+    example hex: 0a30343438343834383438
+    example value: "0448484848"
+    notes: ""
+
+  - name: EntityXKeyRolesCount
+    label: Entity X Key Roles Count
+    description: "Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid."
+    type: uint8
+    size: 1
+    example hex: 01
+    example value: "1"
+    notes: "Key Roles - Amendments to Chairmain/Director positions can be restricted to a vote.  No restrictions on changing other roles."
+
+  - name: EntityXKeyRoleXType
+    label: Entity X Key Role X Type
+    description: "Chairman, Director. Found in 'Roles' in Specification/Resources"
+    type: string
+    size: 1
+    example hex: 43454f
+    example value: "CEO"
+    notes: ""
+
+  - name: EntityXKeyRoleXName
+    label: Entity X Key Role X Name
+    description: "Length 0-255 bytes. Name (eg. John Alexander Smith)"
+    type: nvarchar8
+    size: 14
+    example hex: 0d4a616d65732042656c64696e67
+    example value: "James Belding"
+    notes: ""
+
+  - name: EntityXNotableRolesXCount
+    label: Entity X Notable Roles X Count
+    description: "Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid."
+    type: uint8
+    size: 1
+    example hex: 01
+    example value: "1"
+    notes: "Notable Roles - Amendments to Officer/Manager/etc. positions can be restricted to a vote.  No restrictions on changing other roles."
+
+  - name: EntityXNotableRoleXType
+    label: Entity X Notable Role X Type
+    description: "Executives, Secretary, CEO, CTO, Managers, etc. Found in 'Roles' in Specification/Resources"
+    type: string
+    size: 1
+    example hex: 43454f
+    example value: "CEO"
+    notes: ""
+

@@ -1,76 +1,155 @@
-#
-# R2 - Addition Action
-#
+# 
+# Addition Action: Adds a User's public address to a global distributed whitelist. Entities (eg. Issuer) can filter by the public address of known and trusted entities (eg. KYC Databases such as coinbase) and therefore are able to create sublists - or subsets - of the main global whitelist. 
+# 
 
 code: R2
 
 metadata:
   name: Addition
   label: Addition Action
-  description: "Adds a User's public address to a global distributed whitelist. Entities (eg. Issuer) can filter by the public address of known and trusted entities (eg. KYC Databases such as coinbase) and therefore are able to create sublists - or subsets - of the main global whitelist."
+  description: "Addition Action -  Adds a User's public address to a global distributed whitelist. Entities (eg. Issuer) can filter by the public address of known and trusted entities (eg. KYC Databases such as coinbase) and therefore are able to create sublists - or subsets - of the main global whitelist. "
+  validation: AssetCreation
+  rejection: Rejection
 
 rules:
-  fee: 546
-  inputs: 
-    - name: Register
-      label: "Register's Public Address"
-      
-  outputs: 
-    - name: User
-      label: "User's Public Address"
-      description: "Dust limit rule minimum value output of 546"
-  
-    - name: Register
-      label: "Register's Public Address"
+  fee:
+  inputs:
+    - name: 
+      label: Register's Public Address
+      comments: 
+
+  outputs:
+    - name: 
+      label: User's Public Address
+      comments: Dust limit rule minimum value output of 546
+
+    - name: 
+      label: Register's Public Address
+      comments: 
+
+    - name: 
+      label: OP_RETURN (Addition Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Addition"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 
+    example hex: aN
+    example value: ""
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 43
+    example value: "67"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
+
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Addition: Used to add entries to the registry."
+    type: string
+    size: 2
+    example hex: 5232
+    example value: "R2"
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: Sublist
-    label: "Sublist"
+    label: Sublist
     description: "Null value = Global KYC compliance. eg. Organizations can define their own pseudo-anonymous and publicly available membership lists."
-    type: STRING
+    type: string
     size: 4
+    example hex: 00000000
+    example value: ""
+    notes: ""
 
   - name: KYC
-    label: "KYC"
+    label: KYC
     description: "Y/N"
-    type: STRING
+    type: string
     size: 1
+    example hex: 59
+    example value: "Y"
+    notes: ""
 
-  - name: KYCJurisdiction
-    label: "KYC Jurisdiction"
-    type: STRING
+  - name: Jurisdiction
+    label: Jurisdiction
+    description: ""
+    type: string
     size: 5
+    example hex: 4155530000
+    example value: "AUS"
+    notes: ""
 
   - name: DOB
-    label: "DOB"
+    label: DOB
     description: "Date of Birth : DD/MM/YYYY"
-    type: TIME
+    type: time
     size: 8
+    example hex: 0000007ff7a48180
+    example value: "Tue Jun 02 1987 17:00:00 GMT+1000 (AEST)"
+    notes: ""
 
-  - name: CountryOfResidence
-    label: "Country of Residence"
-    type: STRING
+  - name: CountryofResidence
+    label: Country of Residence
+    description: ""
+    type: string
     size: 3
+    example hex: 415553
+    example value: "AUS"
+    notes: ""
 
   - name: SupportingDocumentationHash
-    label: "Supporting Documentation Hash"
-    type: SHA
+    label: Supporting Documentation Hash
+    description: ""
+    type: sha256
     size: 32
+    example hex: 98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4
+    example value: "98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4"
+    notes: ""
 
-  - name: Message
-    label: "Message"
-    description: "Note"
-    type: STRING
-    size: 148

@@ -1,74 +1,110 @@
-#
-# E2 - Freeze Action
-#
+# 
+# Freeze Action: To be used to comply with contractual/legal requirements.  The whitelist public address will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract (referencing the whitelist) will not settle any exchange that involves the frozen Token Owner's public address.
+# 
 
 code: E2
 
 metadata:
   name: Freeze
   label: Freeze Action
-  description: "To be used to comply with contractual/legal requirements. The whitelist public address will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The Contract (referencing the whitelist) will not settle any exchange that involves the frozen Token Owner's public address."
+  description: "Freeze Action -  To be used to comply with contractual/legal requirements.  The whitelist public address will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract (referencing the whitelist) will not settle any exchange that involves the frozen Token Owner's public address."
+  validation: AssetCreation
+  rejection: Rejection
 
 rules:
-  fee: 546
-  inputs: 
-    - name: Contract
-      label: "Contract Public Address"
-      
-  outputs: 
-    - name: User
-      label: "Target Public Address"
-      description: "Dust limit rule minimum value output of 546"
+  fee:
+  inputs:
+    - name: 
+      label: Contract Public Address
+      comments: 
 
-    - name: Contract
-      label: "Contract Public Address"
-      description: "Change, minimum 546"
+  outputs:
+    - name: 
+      label: Target Public Address X
+      comments: If Target Public Address is the Contract Address then the entire contract is frozen.  All request actions during the Freeze period will be ignored and rejected when the contract is thawed and rebuilds.
+
+    - name: 
+      label: Contract Fee Address
+      comments: Contract Operator's Fee
+
+    - name: 
+      label: OP_RETURN (Freeze Action)
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+
+    - name: 
+      label: Miner's Fee
+      comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: ActionPrefix
-    label: "Action Prefix"
-    description: "Freeze"
-    type: STRING
-    size: 2
+  - name: PUSHDATAINSTRUCTION
+    label: Push Data
+    description: "PUSHDATA 13 bytes for Protocol Identifer"
+    type: opcode
+    size: 1
+    example hex: 0d
+    example value: "13"
+    notes: "Cannot be changed by issuer, operator, or smart contract."
+
+  - name: ProtocolID
+    label: Protocol Identifier
+    description: "Tokenized ID Prefix.  tokenized.com"
+    type: string
+    size: 13
+    example hex: 746f6b656e697a65642e636f6d
+    example value: "tokenized.com"
+    notes: ""
+
+  - name: OP_PUSHDATA
+    label: Push Data
+    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
+    type: opcode
+    size: 
+    example hex: aN
+    example value: ""
+    notes: "Cannot be changed by issuer, operator or smart contract."
+
+  - name: LenActionPayload
+    label: Length of Action Payload
+    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    type: pushdata_length
+    size: 1
+    example hex: 15
+    example value: "21"
+    notes: "Depends on Action Payload"
 
   - name: Version
-    label: "Version"
-    description: "For data parsing/interpretation in the event of protocol upgrades."
-    type: UINT
+    label: Version
+    description: "255 reserved for additional versions. Tokenized protocol versioning."
+    type: uint8
     size: 1
+    example hex: 00
+    example value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
 
-  - name: AssetType
-    label: "Asset Type"
-    description: "eg. Share, Bond, Ticket"
-    type: STRING
-    size: 3
-
-  - name: AssetID
-    label: "Asset ID"
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: STRING
-    size: 32
+  - name: ActionPrefix
+    label: Action Prefix
+    description: "Freeze: The smart contract freezes tokens it controls for a particular token holder in response to an Issuer created Order Action.  The token holder won't be able to engage in any Transfer, or Governance Operations.  All requests (Exchange, Send, Ballot Cast, Initiative, Swap) will be met with a Rejection Action if their tokens have been frozen or confiscated."
+    type: string
+    size: 2
+    example hex: 4532
+    example value: "E2"
+    notes: "Cannot be changed by issuer, operator or smart contract."
 
   - name: Timestamp
-    label: "Timestamp"
+    label: Timestamp
     description: "Timestamp of when the smart contract created the Freeze action."
-    type: TIME
+    type: time
     size: 8
+    example hex: 0000016331e3c200
+    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
+    notes: ""
 
-  - name: Qty
-    label: "Qty"
-    description: "Tokens to be frozen, thawed or confiscated."
-    type: UINT
-    size: 8
+  - name: QtyofAddresses
+    label: Qty of Addresses
+    description: "0 - 65,535 bytes"
+    type: uint8
+    size: 2
+    example hex: aN
+    example value: ""
+    notes: ""
 
-  - name: Expiration
-    label: "Expiration"
-    description: "Used for a 'timeout'.  Tokens are automatically unfrozen after the expiration date without requiring a Thaw Action."
-    type: TIME
-    size: 8
-
-  - name: Message
-    label: "Message"
-    description: "Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
-    type: STRING
-    size: 61
