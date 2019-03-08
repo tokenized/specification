@@ -58,8 +58,21 @@ func (m Message) CodeName() string {
 	return fmt.Sprintf("Code%v", m.Name())
 }
 
+func (m Message) TypeLetter() string {
+	code := strings.ToLower(m.Code[:1])
+	return fmt.Sprintf(code)
+}
+
 func (m Message) Name() string {
 	return strings.Replace(m.Metadata.Name, " ", "", -1)
+}
+
+func (m Message) Label() string {
+	return fmt.Sprintf(m.Metadata.Label)
+}
+
+func (m Message) Description() string {
+	return fmt.Sprintf(m.Metadata.Description)
 }
 
 func (m Message) Hex() string {

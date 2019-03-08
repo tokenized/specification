@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/tokenized/specification/internal/golang"
+	"github.com/tokenized/specification/internal/markdown"
 	"github.com/tokenized/specification/internal/platform/parser"
 	"github.com/tokenized/specification/internal/python"
 
@@ -39,7 +40,7 @@ var cmdGenerate = &cobra.Command{
 		// Compile languages
 		golang.Compile(distPath, allMessages)
 		python.Compile(distPath, allMessages)
-		// markdown.Compile(distPath, allMessages)
+		markdown.Compile(distPath, allMessages)
 
 		return nil
 	},

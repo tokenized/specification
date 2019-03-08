@@ -2,6 +2,13 @@
 
 Reference for the Tokenized Protocol structure. Definitions are stored in YAML to be parsed and compiled to other languages. Definitions are grouped by their purpose and are versioned within.
 
+## Supported Languages
+
+- Go
+- Python
+- Markdown
+- _your language here_ (contributions welcome)
+
 ## Getting Started
 
 To build the project from source, clone the GitHub repo and in a command line terminal.
@@ -19,7 +26,7 @@ Navigate to the root directory and run:
 
 - `cmd/tokenized` - Command line interface
 - `src` - Source files for protocol messages (see Source Definitions)
-- `dist` - Latest copies of libraries for each language
+- `dist` - Latest library for each language
 - `internal` - Compiler logic and templates
 
 ## Source Definitions

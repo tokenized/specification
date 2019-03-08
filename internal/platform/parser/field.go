@@ -14,10 +14,15 @@ type Field struct {
 	Required     bool
 	ExampleValue string `yaml:"example_value"`
 	ExampleHex   string `yaml:"example_hex"`
+	Notes        string
 }
 
 func (f Field) FieldName() string {
 	return strings.Replace(f.Name, " ", "", -1)
+}
+
+func (f Field) FieldBytes() string {
+	return fmt.Sprintf("%v", f.Size)
 }
 
 func (f Field) FormType() string {

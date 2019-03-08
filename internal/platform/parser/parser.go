@@ -116,9 +116,15 @@ func reformat(s string, prefix string) string {
 }
 
 func SnakeCase(str string) string {
-	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
-	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
-	return strings.ToLower(snake)
+	result := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
+	result = matchAllCap.ReplaceAllString(result, "${1}_${2}")
+	return strings.ToLower(result)
+}
+
+func KebabCase(str string) string {
+	result := matchFirstCap.ReplaceAllString(str, "${1}-${2}")
+	result = matchAllCap.ReplaceAllString(result, "${1}-${2}")
+	return strings.ToLower(result)
 }
 
 func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
