@@ -78,11 +78,11 @@ fields:
   - name: MessagePayload
     label: Message Payload
     description: >
-      Length 0-65,535 bytes. Public or private (RSA public key, Diffie-Hellman).
+      Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman).
       Issuers/Contracts can send the signifying amount of satoshis to themselves for public
       announcements or private 'notes' if encrypted. See Message Types for a full list of
       potential use cases.
-    type: nvarchar16
+    type: nvarchar64
     example_hex: "000c48656c6c6f20776f726c6421"
     example_value: "Hello world!"
     notes: ""
