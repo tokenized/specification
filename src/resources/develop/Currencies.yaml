@@ -70,7 +70,7 @@ currencies:
   AWG:
     name: ArubanFlorin
     label: Aruban florin
-    symbol:	"ƒ"
+    symbol: "ƒ"
     fractions: 100
     fractionalUnit: Cent
     polity: ABW
@@ -78,7 +78,7 @@ currencies:
   AZN:
     name: AzerbaijaniManat
     label: Azerbaijani manat
-    symbol:	"₼"
+    symbol: "₼"
     fractions: 100
     fractionalUnit: Qəpik
     polity: AZE
@@ -86,7 +86,7 @@ currencies:
   BAM:
     name: BosniaHerzegovinaConvertibleMark
     label: Bosnia and Herzegovina convertible mark
-    symbol:	"КМ"
+    symbol: "КМ"
     fractions: 100
     fractionalUnit: Fening
     polity: BIH
@@ -94,7 +94,7 @@ currencies:
   BBD:
     name: BarbadianDollar
     label: Barbadian dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: BRB
@@ -102,7 +102,7 @@ currencies:
   BDT:
     name: BangladeshiTaka
     label: Bangladeshi taka
-    symbol:	"৳"
+    symbol: "৳"
     fractions: 100
     fractionalUnit: Poisha
     polity: BGD
