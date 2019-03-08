@@ -7,7 +7,7 @@ code: C3
 metadata:
   name: ContractAmendment
   label: Contract Amendment Action
-  description: "Contract Amendment Action - the issuer can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action.
+  description: "Contract Amendment Action - the issuer can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action."
   validation: AssetCreation
   rejection: Rejection
 

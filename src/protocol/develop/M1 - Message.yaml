@@ -1,5 +1,10 @@
 #
-# Message Action: the message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids).  The messages are broken down by type for easy filtering in the a user’s wallet.  The Message Types are listed in the Message Types table.
+# Message Action: the message action is a general purpose communication action.
+# 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for
+# passing partially signed txns on-chain, establishing private communication channels
+# and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken
+# down by type for easy filtering in the a user's wallet. The Message Types are listed
+# in the Message Types table.
 #
 
 code: M1
@@ -7,7 +12,13 @@ code: M1
 metadata:
   name: Message
   label: Message Action
-  description: "Message Action -  the message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids).  The messages are broken down by type for easy filtering in the a user’s wallet.  The Message Types are listed in the Message Types table."
+  description: >
+    Message Action - the message action is a general purpose communication action.
+    'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for
+    passing partially signed txns on-chain, establishing private communication channels
+    and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken
+    down by type for easy filtering in the a user's wallet. The Message Types are listed
+    in the Message Types table.
 
 rules:
   fee:
@@ -30,7 +41,10 @@ fields:
 
   - name: TextEncoding
     label: Text Encoding
-    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    description: >
+      0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.
+      Encoding applies to all 'text' data types. All 'string' types will always be encoded
+      with ASCII. Where string is selected, all fields will be ASCII.
     type: uint8
     size: 1
     example_hex: 00
@@ -50,21 +64,25 @@ fields:
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
     type: uint16[]
-    example_hex: 00010002
+    example_hex: "00010002"
 
   - name: MessageType
     label: Message Type
     description: "Potential for up to 65,535 different message types"
     type: string
     size: 2
-    example_hex: 3600
+    example_hex: "3600"
     example_value: "6"
     notes: ""
 
   - name: MessagePayload
     label: Message Payload
-    description: "Length 0-65,535 bytes. Public or private (RSA public key, Diffie-Hellman).  Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted.  See Message Types for a full list of potential use cases."
+    description: >
+      Length 0-65,535 bytes. Public or private (RSA public key, Diffie-Hellman).
+      Issuers/Contracts can send the signifying amount of satoshis to themselves for public
+      announcements or private 'notes' if encrypted. See Message Types for a full list of
+      potential use cases.
     type: nvarchar16
-    example_hex: 000c48656c6c6f20776f726c6421
+    example_hex: "000c48656c6c6f20776f726c6421"
     example_value: "Hello world!"
     notes: ""
