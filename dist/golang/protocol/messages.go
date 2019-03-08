@@ -2416,14 +2416,14 @@ type Order struct {
 	TargetAddressCount uint16
 	TargetAddresses []TargetAddress
 	DepositAddress Nvarchar8
-	EnforcementAuthorityName Nvarchar8
+	AuthorityName Nvarchar8
 	SigAlgoAddressList uint8
-	EnforcementAuthorityPublicKey Nvarchar8
+	AuthorityPublicKey Nvarchar8
 	OrderSignature Nvarchar8
 	SupportingEvidenceHash []byte
 	RefTxnID []byte
 	FreezePeriod uint64
-	Message Nvarchar16
+	Message nvarchar64
 }
 
 // NewOrder returns a new Order with defaults set.
@@ -2497,7 +2497,7 @@ func (m Order) Serialize() ([]byte, error) {
 	}
 
 	{
-		b, err := m.EnforcementAuthorityName.Serialize()
+		b, err := m.AuthorityName.Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -2512,7 +2512,7 @@ func (m Order) Serialize() ([]byte, error) {
 	}
 
 	{
-		b, err := m.EnforcementAuthorityPublicKey.Serialize()
+		b, err := m.AuthorityPublicKey.Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -2617,7 +2617,7 @@ func (m *Order) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.EnforcementAuthorityName.Write(buf); err != nil {
+	if err := m.AuthorityName.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -2625,7 +2625,7 @@ func (m *Order) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.EnforcementAuthorityPublicKey.Write(buf); err != nil {
+	if err := m.AuthorityPublicKey.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -2670,9 +2670,9 @@ func (m Order) String() string {
 	vals = append(vals, fmt.Sprintf("TargetAddressCount:%v", m.TargetAddressCount))
 	vals = append(vals, fmt.Sprintf("TargetAddresses:%#+v", m.TargetAddresses))
 	vals = append(vals, fmt.Sprintf("DepositAddress:%#+v", m.DepositAddress))
-	vals = append(vals, fmt.Sprintf("EnforcementAuthorityName:%#+v", m.EnforcementAuthorityName))
+	vals = append(vals, fmt.Sprintf("AuthorityName:%#+v", m.AuthorityName))
 	vals = append(vals, fmt.Sprintf("SigAlgoAddressList:%v", m.SigAlgoAddressList))
-	vals = append(vals, fmt.Sprintf("EnforcementAuthorityPublicKey:%#+v", m.EnforcementAuthorityPublicKey))
+	vals = append(vals, fmt.Sprintf("AuthorityPublicKey:%#+v", m.AuthorityPublicKey))
 	vals = append(vals, fmt.Sprintf("OrderSignature:%#+v", m.OrderSignature))
 	vals = append(vals, fmt.Sprintf("SupportingEvidenceHash:%#x", m.SupportingEvidenceHash))
 	vals = append(vals, fmt.Sprintf("RefTxnID:%#x", m.RefTxnID))
@@ -3632,8 +3632,7 @@ func (m Referendum) String() string {
 }
 
 // Vote : Vote Action - A vote is created by the Contract in response to a
-// valid Referendum (Issuer) or Initiative (User) Action. Votes can be made
-// by Token Owners.
+// valid Referendum (Issuer) or Initiative (User) Action.
 type Vote struct {
 	Header Header
 	Timestamp uint64
@@ -3718,10 +3717,10 @@ func (m Vote) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// BallotCast : Ballot Cast Action - Used to allow Token Owners to cast
-// their ballot (vote) on proposals raised by the Issuer or other token
-// holders. 1 Vote per token unless a vote multiplier is specified in the
-// relevant Asset Definition action.
+// BallotCast : Ballot Cast Action - Used by Token Owners to cast their
+// ballot (vote) on proposals raised by the Issuer (Referendum) or other
+// token holders (Initiative). 1 Vote per token unless a vote multiplier is
+// specified in the relevant Asset Definition action.
 type BallotCast struct {
 	Header Header
 	AssetType []byte
@@ -3946,7 +3945,7 @@ type Result struct {
 	ProposedChanges []Amendment
 	VoteTxnID []byte
 	VoteOptionsCount uint8
-	Option1Tally uint64
+	OptionXTally uint64
 	Result Nvarchar8
 	Timestamp uint64
 }
@@ -4018,7 +4017,7 @@ func (m Result) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, m.Option1Tally); err != nil {
+	if err := write(buf, m.OptionXTally); err != nil {
 		return nil, err
 	}
 
@@ -4103,7 +4102,7 @@ func (m *Result) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.Option1Tally); err != nil {
+	if err := read(buf, &m.OptionXTally); err != nil {
 		return 0, err
 	}
 
@@ -4135,7 +4134,7 @@ func (m Result) String() string {
 	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", m.ProposedChanges))
 	vals = append(vals, fmt.Sprintf("VoteTxnID:%#x", m.VoteTxnID))
 	vals = append(vals, fmt.Sprintf("VoteOptionsCount:%v", m.VoteOptionsCount))
-	vals = append(vals, fmt.Sprintf("Option1Tally:%v", m.Option1Tally))
+	vals = append(vals, fmt.Sprintf("OptionXTally:%v", m.OptionXTally))
 	vals = append(vals, fmt.Sprintf("Result:%#+v", m.Result))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
 
@@ -4143,12 +4142,13 @@ func (m Result) String() string {
 }
 
 // Message : Message Action - the message action is a general purpose
-// communication action. &#39;Twitter/sms&#39; for Issuers/Investors/Users. The
+// communication action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The
 // message txn can also be used for passing partially signed txns on-chain,
-// establishing private communication channels including receipting,
-// invoices, PO, and private offers/bids. The messages are broken down by
-// type for easy filtering in the a user’s wallet. The Message Types are
+// establishing private communication channels and EDI (receipting,
+// invoices, PO, and private offers/bids). The messages are broken down by
+// type for easy filtering in the a user&#39;s wallet. The Message Types are
 // listed in the Message Types table.
+
 type Message struct {
 	Header Header
 	TextEncoding uint8
@@ -4156,7 +4156,6 @@ type Message struct {
 	AddressIndexes []uint16
 	MessageType []byte
 	MessagePayload Nvarchar16
-	Timestamp uint64
 }
 
 // NewMessage returns a new Message with defaults set.
@@ -4216,10 +4215,6 @@ func (m Message) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, m.Timestamp); err != nil {
-		return nil, err
-	}
-
 	b := buf.Bytes()
 
 	header, err := NewHeaderForCode(CodeMessage, len(b))
@@ -4268,10 +4263,6 @@ func (m *Message) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.Timestamp); err != nil {
-		return 0, err
-	}
-
 	return len(b), nil
 }
 
@@ -4289,22 +4280,18 @@ func (m Message) String() string {
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
 	vals = append(vals, fmt.Sprintf("MessageType:%#x", m.MessageType))
 	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", m.MessagePayload))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Rejection : Rejection Action - used to reject Exchange, Send,
-// Initiative, Referendum, Order, and Ballot Cast actions that do not
-// comply with the Contract. If money is to be returned to a User then it
-// is used in lieu of the Settlement Action to properly account for token
-// balances. All Issuer/User Actions must be responded to by the Contract
-// with an Action. The only exception to this rule is when there is not
-// enough fees in the first Action for the Contract response action to
-// remain revenue neutral. If not enough fees are attached to pay for the
-// Contract response then the Contract will not respond. For example: Send
-// and Exchange Actions must be responded to by the Contract with either a
-// Settlement Action or a Rejection Action.
+// Rejection : Rejection Action - used to reject request actions that do
+// not comply with the Contract. If money is to be returned to a User then
+// it is used in lieu of the Settlement Action to properly account for
+// token balances. All Issuer/User request Actions must be responded to by
+// the Contract with an Action. The only exception to this rule is when
+// there is not enough fees in the first Action for the Contract response
+// action to remain revenue neutral. If not enough fees are attached to pay
+// for the Contract response then the Contract will not respond.
 type Rejection struct {
 	Header Header
 	TextEncoding uint8
@@ -4449,17 +4436,11 @@ func (m Rejection) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Establishment : Establishment Action - Establishes a register. The
-// register is intended to be used primarily for whitelisting. However,
-// other types of registers can be used.
+// Establishment : Establishment Action - Establishes an on-chain register.
 type Establishment struct {
 	Header Header
 	TextEncoding uint8
-	Registrar Nvarchar8
-	RegisterType byte
-	Jurisdiction []byte
-	SupportingDocumentationHash []byte
-	Message Nvarchar16
+	Message nvarchar64
 }
 
 // NewEstablishment returns a new Establishment with defaults set.
@@ -4491,29 +4472,6 @@ func (m Establishment) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
-	{
-		b, err := m.Registrar.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, m.RegisterType); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.Jurisdiction, 5)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.SupportingDocumentationHash, 32)); err != nil {
 		return nil, err
 	}
 
@@ -4558,24 +4516,6 @@ func (m *Establishment) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.Registrar.Write(buf); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.RegisterType); err != nil {
-		return 0, err
-	}
-
-	m.Jurisdiction = make([]byte, 5)
-	if err := readLen(buf, m.Jurisdiction); err != nil {
-		return 0, err
-	}
-
-	m.SupportingDocumentationHash = make([]byte, 32)
-	if err := readLen(buf, m.SupportingDocumentationHash); err != nil {
-		return 0, err
-	}
-
 	if err := m.Message.Write(buf); err != nil {
 		return 0, err
 	}
@@ -4593,30 +4533,16 @@ func (m Establishment) String() string {
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("Registrar:%#+v", m.Registrar))
-	vals = append(vals, fmt.Sprintf("RegisterType:%#+v", m.RegisterType))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#x", m.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("SupportingDocumentationHash:%#x", m.SupportingDocumentationHash))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Addition : Addition Action - Adds a User&#39;s public address to a global
-// distributed whitelist. Entities (eg. Issuer) can filter by the public
-// address of known and trusted entities (eg. KYC Databases such as
-// coinbase) and therefore are able to create sublists - or subsets - of
-// the main global whitelist.
+// Addition : Addition Action - Adds an entry to the Register.
 type Addition struct {
 	Header Header
 	TextEncoding uint8
-	Sublist []byte
-	KYC byte
-	Jurisdiction []byte
-	DOB uint64
-	CountryofResidence []byte
-	SupportingDocumentationHash []byte
-	Message Nvarchar16
+	Message nvarchar64
 }
 
 // NewAddition returns a new Addition with defaults set.
@@ -4648,30 +4574,6 @@ func (m Addition) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.Sublist, 4)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.KYC); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.Jurisdiction, 5)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.DOB); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.CountryofResidence, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.SupportingDocumentationHash, 32)); err != nil {
 		return nil, err
 	}
 
@@ -4716,34 +4618,6 @@ func (m *Addition) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.Sublist = make([]byte, 4)
-	if err := readLen(buf, m.Sublist); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.KYC); err != nil {
-		return 0, err
-	}
-
-	m.Jurisdiction = make([]byte, 5)
-	if err := readLen(buf, m.Jurisdiction); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.DOB); err != nil {
-		return 0, err
-	}
-
-	m.CountryofResidence = make([]byte, 3)
-	if err := readLen(buf, m.CountryofResidence); err != nil {
-		return 0, err
-	}
-
-	m.SupportingDocumentationHash = make([]byte, 32)
-	if err := readLen(buf, m.SupportingDocumentationHash); err != nil {
-		return 0, err
-	}
-
 	if err := m.Message.Write(buf); err != nil {
 		return 0, err
 	}
@@ -4761,28 +4635,16 @@ func (m Addition) String() string {
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("Sublist:%#x", m.Sublist))
-	vals = append(vals, fmt.Sprintf("KYC:%#+v", m.KYC))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#x", m.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("DOB:%v", m.DOB))
-	vals = append(vals, fmt.Sprintf("CountryofResidence:%#x", m.CountryofResidence))
-	vals = append(vals, fmt.Sprintf("SupportingDocumentationHash:%#x", m.SupportingDocumentationHash))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Alteration : Alteration Action - A registry entry can be altered.
+// Alteration : Alteration Action - A register entry/record can be altered.
 type Alteration struct {
 	Header Header
 	TextEncoding uint8
-	Sublist []byte
-	KYC byte
-	Jurisdiction []byte
-	DOB uint64
-	CountryofResidence []byte
-	SupportingDocumentationHash []byte
-	Message Nvarchar16
+	Message nvarchar64
 }
 
 // NewAlteration returns a new Alteration with defaults set.
@@ -4814,30 +4676,6 @@ func (m Alteration) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.Sublist, 4)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.KYC); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.Jurisdiction, 5)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.DOB); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.CountryofResidence, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.SupportingDocumentationHash, 32)); err != nil {
 		return nil, err
 	}
 
@@ -4882,34 +4720,6 @@ func (m *Alteration) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.Sublist = make([]byte, 4)
-	if err := readLen(buf, m.Sublist); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.KYC); err != nil {
-		return 0, err
-	}
-
-	m.Jurisdiction = make([]byte, 5)
-	if err := readLen(buf, m.Jurisdiction); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.DOB); err != nil {
-		return 0, err
-	}
-
-	m.CountryofResidence = make([]byte, 3)
-	if err := readLen(buf, m.CountryofResidence); err != nil {
-		return 0, err
-	}
-
-	m.SupportingDocumentationHash = make([]byte, 32)
-	if err := readLen(buf, m.SupportingDocumentationHash); err != nil {
-		return 0, err
-	}
-
 	if err := m.Message.Write(buf); err != nil {
 		return 0, err
 	}
@@ -4927,24 +4737,16 @@ func (m Alteration) String() string {
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("Sublist:%#x", m.Sublist))
-	vals = append(vals, fmt.Sprintf("KYC:%#+v", m.KYC))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#x", m.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("DOB:%v", m.DOB))
-	vals = append(vals, fmt.Sprintf("CountryofResidence:%#x", m.CountryofResidence))
-	vals = append(vals, fmt.Sprintf("SupportingDocumentationHash:%#x", m.SupportingDocumentationHash))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Removal : Removal Action - Removes a User&#39;s public address from the
-// global distributed whitelist.
+// Removal : Removal Action - Removes an entry/record from the Register.
 type Removal struct {
 	Header Header
 	TextEncoding uint8
-	SupportingDocumentationHash []byte
-	Message Nvarchar16
+	Message nvarchar64
 }
 
 // NewRemoval returns a new Removal with defaults set.
@@ -4976,10 +4778,6 @@ func (m Removal) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.SupportingDocumentationHash, 32)); err != nil {
 		return nil, err
 	}
 
@@ -5024,11 +4822,6 @@ func (m *Removal) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.SupportingDocumentationHash = make([]byte, 32)
-	if err := readLen(buf, m.SupportingDocumentationHash); err != nil {
-		return 0, err
-	}
-
 	if err := m.Message.Write(buf); err != nil {
 		return 0, err
 	}
@@ -5046,7 +4839,6 @@ func (m Removal) String() string {
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("SupportingDocumentationHash:%#x", m.SupportingDocumentationHash))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -5434,9 +5226,9 @@ func (m Exchange) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Swap : Swap Action - Two (or more) parties want to swap a token (Atomic
-// Swap) directly for another token. BSV is not used in the transaction
-// other than for paying the necessary network/transaction fees.
+// Swap : Swap Action - Two parties (or more) want to swap a token (Atomic
+// Swap) directly for another token. At a minimum, Bitcoin is used in the
+// txn for paying the necessary network/transaction fees.
 type Swap struct {
 	Header Header
 	TextEncoding uint8

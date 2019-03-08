@@ -403,14 +403,14 @@ class Action_Order(ActionBase):
         'TargetAddressCount':              [3, DAT_uint16, 2],
         'TargetAddresses':                 [4, DAT_TargetAddress[], 0],
         'DepositAddress':                  [5, DAT_nvarchar8, 0],
-        'EnforcementAuthorityName':        [6, DAT_nvarchar8, 0],
+        'AuthorityName':                   [6, DAT_nvarchar8, 0],
         'SigAlgoAddressList':              [7, DAT_uint8, 1],
-        'EnforcementAuthorityPublicKey':   [8, DAT_nvarchar8, 0],
+        'AuthorityPublicKey':              [8, DAT_nvarchar8, 0],
         'OrderSignature':                  [9, DAT_nvarchar8, 0],
         'SupportingEvidenceHash':          [10, DAT_sha256, 32],
         'RefTxnID':                        [11, DAT_sha256, 32],
         'FreezePeriod':                    [12, DAT_time, 8],
-        'Message':                         [13, DAT_nvarchar16, 0]
+        'Message':                         [13, DAT_nvarchar64, 0]
     }
 
     rules = {
@@ -425,9 +425,9 @@ class Action_Order(ActionBase):
         self.TargetAddressCount = None
         self.TargetAddresses = None
         self.DepositAddress = None
-        self.EnforcementAuthorityName = None
+        self.AuthorityName = None
         self.SigAlgoAddressList = None
-        self.EnforcementAuthorityPublicKey = None
+        self.AuthorityPublicKey = None
         self.OrderSignature = None
         self.SupportingEvidenceHash = None
         self.RefTxnID = None
@@ -609,8 +609,7 @@ class Action_Referendum(ActionBase):
 
 
 # Vote : Vote Action - A vote is created by the Contract in response to a
-# valid Referendum (Issuer) or Initiative (User) Action. Votes can be made
-# by Token Owners.
+# valid Referendum (Issuer) or Initiative (User) Action.
 
 class Action_Vote(ActionBase):
     ActionPrefix = 'G3'
@@ -628,10 +627,10 @@ class Action_Vote(ActionBase):
     def init_attributes(self):
 
 
-# BallotCast : Ballot Cast Action - Used to allow Token Owners to cast
-# their ballot (vote) on proposals raised by the Issuer or other token
-# holders. 1 Vote per token unless a vote multiplier is specified in the
-# relevant Asset Definition action.
+# BallotCast : Ballot Cast Action - Used by Token Owners to cast their
+# ballot (vote) on proposals raised by the Issuer (Referendum) or other
+# token holders (Initiative). 1 Vote per token unless a vote multiplier is
+# specified in the relevant Asset Definition action.
 
 class Action_BallotCast(ActionBase):
     ActionPrefix = 'G4'
@@ -688,7 +687,7 @@ class Action_Result(ActionBase):
         'ProposedChanges':                 [4, DAT_Amendment[], 0],
         'VoteTxnID':                       [5, DAT_sha256, 32],
         'VoteOptionsCount':                [6, DAT_uint8, 1],
-        'Option1Tally':                    [7, DAT_uint64, 8],
+        'OptionXTally':                    [7, DAT_uint64, 8],
         'Result':                          [8, DAT_nvarchar8, 0],
         'Timestamp':                       [9, DAT_timestamp, 8]
     }
@@ -706,18 +705,19 @@ class Action_Result(ActionBase):
         self.ProposedChanges = None
         self.VoteTxnID = None
         self.VoteOptionsCount = None
-        self.Option1Tally = None
+        self.OptionXTally = None
         self.Result = None
         self.Timestamp = None
 
 
 # Message : Message Action - the message action is a general purpose
-# communication action. &#39;Twitter/sms&#39; for Issuers/Investors/Users. The
+# communication action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The
 # message txn can also be used for passing partially signed txns on-chain,
-# establishing private communication channels including receipting,
-# invoices, PO, and private offers/bids. The messages are broken down by
-# type for easy filtering in the a user’s wallet. The Message Types are
+# establishing private communication channels and EDI (receipting,
+# invoices, PO, and private offers/bids). The messages are broken down by
+# type for easy filtering in the a user&#39;s wallet. The Message Types are
 # listed in the Message Types table.
+
 
 class Action_Message(ActionBase):
     ActionPrefix = 'M1'
@@ -726,8 +726,7 @@ class Action_Message(ActionBase):
         'QtyReceivingAddresses':           [0, DAT_uint8, 1],
         'AddressIndexes':                  [1, DAT_uint16[], 0],
         'MessageType':                     [2, DAT_string, 2],
-        'MessagePayload':                  [3, DAT_nvarchar16, 0],
-        'Timestamp':                       [4, DAT_timestamp, 8]
+        'MessagePayload':                  [3, DAT_nvarchar16, 0]
     }
 
     rules = {
@@ -740,20 +739,16 @@ class Action_Message(ActionBase):
         self.AddressIndexes = None
         self.MessageType = None
         self.MessagePayload = None
-        self.Timestamp = None
 
 
-# Rejection : Rejection Action - used to reject Exchange, Send, Initiative,
-# Referendum, Order, and Ballot Cast actions that do not comply with the
-# Contract. If money is to be returned to a User then it is used in lieu of
-# the Settlement Action to properly account for token balances. All
-# Issuer/User Actions must be responded to by the Contract with an Action.
-# The only exception to this rule is when there is not enough fees in the
-# first Action for the Contract response action to remain revenue neutral.
-# If not enough fees are attached to pay for the Contract response then the
-# Contract will not respond. For example: Send and Exchange Actions must be
-# responded to by the Contract with either a Settlement Action or a
-# Rejection Action.
+# Rejection : Rejection Action - used to reject request actions that do not
+# comply with the Contract. If money is to be returned to a User then it is
+# used in lieu of the Settlement Action to properly account for token
+# balances. All Issuer/User request Actions must be responded to by the
+# Contract with an Action. The only exception to this rule is when there is
+# not enough fees in the first Action for the Contract response action to
+# remain revenue neutral. If not enough fees are attached to pay for the
+# Contract response then the Contract will not respond.
 
 class Action_Rejection(ActionBase):
     ActionPrefix = 'M2'
@@ -779,19 +774,13 @@ class Action_Rejection(ActionBase):
         self.Timestamp = None
 
 
-# Establishment : Establishment Action - Establishes a register. The
-# register is intended to be used primarily for whitelisting. However,
-# other types of registers can be used.
+# Establishment : Establishment Action - Establishes an on-chain register.
 
 class Action_Establishment(ActionBase):
     ActionPrefix = 'R1'
 
     schema = {
-        'Registrar':                       [0, DAT_nvarchar8, 9],
-        'RegisterType':                    [1, DAT_string, 1],
-        'Jurisdiction':                    [2, DAT_string, 5],
-        'SupportingDocumentationHash':     [3, DAT_sha256, 32],
-        'Message':                         [4, DAT_nvarchar16, 25]
+        'Message':                         [0, DAT_nvarchar64, 25]
     }
 
     rules = {
@@ -801,29 +790,15 @@ class Action_Establishment(ActionBase):
     }
 
     def init_attributes(self):
-        self.RegisterType = None
-        self.Jurisdiction = None
-        self.SupportingDocumentationHash = None
-        self.Message = None
 
 
-# Addition : Addition Action - Adds a User&#39;s public address to a global
-# distributed whitelist. Entities (eg. Issuer) can filter by the public
-# address of known and trusted entities (eg. KYC Databases such as
-# coinbase) and therefore are able to create sublists - or subsets - of the
-# main global whitelist.
+# Addition : Addition Action - Adds an entry to the Register.
 
 class Action_Addition(ActionBase):
     ActionPrefix = 'R2'
 
     schema = {
-        'Sublist':                         [0, DAT_string, 4],
-        'KYC':                             [1, DAT_string, 1],
-        'Jurisdiction':                    [2, DAT_string, 5],
-        'DOB':                             [3, DAT_time, 8],
-        'CountryofResidence':              [4, DAT_string, 3],
-        'SupportingDocumentationHash':     [5, DAT_sha256, 32],
-        'Message':                         [6, DAT_nvarchar16, 0]
+        'Message':                         [0, DAT_nvarchar64, 0]
     }
 
     rules = {
@@ -833,27 +808,15 @@ class Action_Addition(ActionBase):
     }
 
     def init_attributes(self):
-        self.KYC = None
-        self.Jurisdiction = None
-        self.DOB = None
-        self.CountryofResidence = None
-        self.SupportingDocumentationHash = None
-        self.Message = None
 
 
-# Alteration : Alteration Action - A registry entry can be altered.
+# Alteration : Alteration Action - A register entry/record can be altered.
 
 class Action_Alteration(ActionBase):
     ActionPrefix = 'R3'
 
     schema = {
-        'Sublist':                         [0, DAT_string, 4],
-        'KYC':                             [1, DAT_string, 1],
-        'Jurisdiction':                    [2, DAT_string, 5],
-        'DOB':                             [3, DAT_time, 8],
-        'CountryofResidence':              [4, DAT_string, 3],
-        'SupportingDocumentationHash':     [5, DAT_sha256, 32],
-        'Message':                         [6, DAT_nvarchar16, 0]
+        'Message':                         [0, DAT_nvarchar64, 0]
     }
 
     rules = {
@@ -863,23 +826,15 @@ class Action_Alteration(ActionBase):
     }
 
     def init_attributes(self):
-        self.KYC = None
-        self.Jurisdiction = None
-        self.DOB = None
-        self.CountryofResidence = None
-        self.SupportingDocumentationHash = None
-        self.Message = None
 
 
-# Removal : Removal Action - Removes a User&#39;s public address from the
-# global distributed whitelist.
+# Removal : Removal Action - Removes an entry/record from the Register.
 
 class Action_Removal(ActionBase):
     ActionPrefix = 'R4'
 
     schema = {
-        'SupportingDocumentationHash':     [0, DAT_sha256, 32],
-        'Message':                         [1, DAT_nvarchar16, 0]
+        'Message':                         [0, DAT_nvarchar64, 0]
     }
 
     rules = {
@@ -889,7 +844,6 @@ class Action_Removal(ActionBase):
     }
 
     def init_attributes(self):
-        self.Message = None
 
 
 # Send : Send Action - A Token Owner Sends a Token to a Receiver. The Send
@@ -963,9 +917,9 @@ class Action_Exchange(ActionBase):
         self.TokenReceivers = None
 
 
-# Swap : Swap Action - Two (or more) parties want to swap a token (Atomic
-# Swap) directly for another token. BSV is not used in the transaction
-# other than for paying the necessary network/transaction fees.
+# Swap : Swap Action - Two parties (or more) want to swap a token (Atomic
+# Swap) directly for another token. At a minimum, Bitcoin is used in the
+# txn for paying the necessary network/transaction fees.
 
 class Action_Swap(ActionBase):
     ActionPrefix = 'T3'

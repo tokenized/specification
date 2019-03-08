@@ -872,7 +872,7 @@ func TestResult(t *testing.T) {
 
 func TestMessage(t *testing.T) {
 	// The hex is the body of the message
-	body := "0002000100023600000c48656c6c6f20776f726c64211588f8cc6a16430d"
+	body := "0002000100023600000c48656c6c6f20776f726c6421"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {
@@ -968,7 +968,7 @@ func TestRejection(t *testing.T) {
 
 func TestEstablishment(t *testing.T) {
 	// The hex is the body of the message
-	body := "0008436f696e6261736500415553000098ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be400174e6f72746820416d65726963612057686974656c697374"
+	body := "0000174e6f72746820416d65726963612057686974656c697374"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {
@@ -1016,7 +1016,7 @@ func TestEstablishment(t *testing.T) {
 
 func TestAddition(t *testing.T) {
 	// The hex is the body of the message
-	body := "00000000005941555300000000007ff7a4818041555398ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be40008757365726e616d65"
+	body := "000008757365726e616d65"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {
@@ -1064,7 +1064,7 @@ func TestAddition(t *testing.T) {
 
 func TestAlteration(t *testing.T) {
 	// The hex is the body of the message
-	body := "00000000005941555300000000007ff7a4818041555398ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4001c4368616e67656420436f756e747279206f66205265736964656e6365"
+	body := "00001c4368616e67656420436f756e747279206f66205265736964656e6365"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {
@@ -1112,7 +1112,7 @@ func TestAlteration(t *testing.T) {
 
 func TestRemoval(t *testing.T) {
 	// The hex is the body of the message
-	body := "0098ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4002b52656d6f7665642064756520746f2076696f6c6174696f6e206f6620636f6d70616e7920706f6c6963792e"
+	body := "00002b52656d6f7665642064756520746f2076696f6c6174696f6e206f6620636f6d70616e7920706f6c6963792e"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {
