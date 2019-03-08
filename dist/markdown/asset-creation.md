@@ -1,11 +1,11 @@
 
-# Asset Creation Action</H1>
+# Asset Creation Action
 
 Asset Creation Action -  This action creates an Asset in response to the Issuer&#39;s instructions in the Definition Action.
 
 The following breaks down the construction of a Asset Creation Action. The action is constructed by building a single string from each of the elements in order.
 
-<table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+<table class="waffle">
 	<tr style='height:19px;'>
 		<th style="width:6%" class="s0">Field</th>
 		<th style="width:9%" class="s1">Label</th>

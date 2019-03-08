@@ -1,11 +1,11 @@
 {{$letter := .TypeLetter}}
-# {{.Label}}</H1>
+# {{.Label}}
 
 {{.Description}}
 
 The following breaks down the construction of a {{.Label}}. The action is constructed by building a single string from each of the elements in order.
 
-<table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+<table class="waffle">
 	<tr style='height:19px;'>
 		<th style="width:6%" class="s0">Field</th>
 		<th style="width:9%" class="s1">Label</th>

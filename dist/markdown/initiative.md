@@ -1,11 +1,11 @@
 
-# Initiative Action</H1>
+# Initiative Action
 
 Initiative Action -  Allows Token Owners to propose an Initiative (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action to reduce spam, as the resulting vote will be put to all token owners.
 
 The following breaks down the construction of a Initiative Action. The action is constructed by building a single string from each of the elements in order.
 
-<table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+<table class="waffle">
 	<tr style='height:19px;'>
 		<th style="width:6%" class="s0">Field</th>
 		<th style="width:9%" class="s1">Label</th>

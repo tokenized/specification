@@ -63,7 +63,7 @@ class Action_AssetCreation(ActionBase):
 
     schema = {
         'AssetType':                       [0, DAT_string, 3],
-        'Asset ID':                        [1, DAT_string, 32],
+        'AssetID':                         [1, DAT_string, 32],
         'AssetAuthFlags':                  [2, DAT_bin, 8],
         'TransfersPermitted':              [3, DAT_bool, 1],
         'TradeRestrictions':               [4, DAT_string, 3],
@@ -89,7 +89,7 @@ class Action_AssetCreation(ActionBase):
     }
 
     def init_attributes(self):
-        self.Asset ID = None
+        self.AssetID = None
         self.AssetAuthFlags = None
         self.TransfersPermitted = None
         self.TradeRestrictions = None
@@ -115,10 +115,12 @@ class Action_AssetModification(ActionBase):
     ActionPrefix = 'A3'
 
     schema = {
-        'AssetRevision':                   [0, DAT_uint64, 8],
-        'ModificationCount':               [1, DAT_uint8, 1],
-        'Modifications':                   [2, DAT_Amendment[], 0],
-        'RefTxID':                         [3, DAT_sha256, 32]
+        'AssetType':                       [0, DAT_string, 3],
+        'AssetID':                         [1, DAT_string, 32],
+        'AssetRevision':                   [2, DAT_uint64, 8],
+        'ModificationCount':               [3, DAT_uint8, 1],
+        'Modifications':                   [4, DAT_Amendment[], 0],
+        'RefTxID':                         [5, DAT_sha256, 32]
     }
 
     rules = {
@@ -128,6 +130,8 @@ class Action_AssetModification(ActionBase):
     }
 
     def init_attributes(self):
+        self.AssetID = None
+        self.AssetRevision = None
         self.ModificationCount = None
         self.Modifications = None
         self.RefTxID = None
@@ -726,7 +730,7 @@ class Action_Message(ActionBase):
         'QtyReceivingAddresses':           [0, DAT_uint8, 1],
         'AddressIndexes':                  [1, DAT_uint16[], 0],
         'MessageType':                     [2, DAT_string, 2],
-        'MessagePayload':                  [3, DAT_nvarchar16, 0]
+        'MessagePayload':                  [3, DAT_nvarchar64, 0]
     }
 
     rules = {

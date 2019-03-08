@@ -1,11 +1,11 @@
 
-# Contract Offer Action</H1>
+# Contract Offer Action
 
 The Contract Offer action allows the Issuer to tell the smart contract what they want the details (labels, data, T&amp;C&#39;s, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action &#39;initializes&#39; a generic smart contract that has been spun up by either the Smart Contract Operator or the Issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 
 The following breaks down the construction of a Contract Offer Action. The action is constructed by building a single string from each of the elements in order.
 
-<table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+<table class="waffle">
 	<tr style='height:19px;'>
 		<th style="width:6%" class="s0">Field</th>
 		<th style="width:9%" class="s1">Label</th>

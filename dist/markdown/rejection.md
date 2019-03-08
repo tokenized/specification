@@ -1,11 +1,11 @@
 
-# Rejection Action</H1>
+# Rejection Action
 
 Rejection Action - used to reject request actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Issuer/User request Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond.
 
 The following breaks down the construction of a Rejection Action. The action is constructed by building a single string from each of the elements in order.
 
-<table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+<table class="waffle">
 	<tr style='height:19px;'>
 		<th style="width:6%" class="s0">Field</th>
 		<th style="width:9%" class="s1">Label</th>

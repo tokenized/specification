@@ -104,7 +104,7 @@ func TestAssetCreation(t *testing.T) {
 
 func TestAssetModification(t *testing.T) {
 	// The hex is the body of the message
-	body := "00000000000000000000a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d"
+	body := "0053484361706d3271737a6e686b7332337a386438337534317338303139687972693369000000000000000000a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {

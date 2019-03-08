@@ -1,11 +1,11 @@
 
-# Vote Action</H1>
+# Vote Action
 
 Vote Action -  A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action.
 
 The following breaks down the construction of a Vote Action. The action is constructed by building a single string from each of the elements in order.
 
-<table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+<table class="waffle">
 	<tr style='height:19px;'>
 		<th style="width:6%" class="s0">Field</th>
 		<th style="width:9%" class="s1">Label</th>

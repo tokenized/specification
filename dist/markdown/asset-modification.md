@@ -1,11 +1,11 @@
 
-# Asset Modification Action</H1>
+# Asset Modification Action
 
 Asset Modification Action -  Token Dilutions, Call Backs/Revocations, burning etc.
 
 The following breaks down the construction of a Asset Modification Action. The action is constructed by building a single string from each of the elements in order.
 
-<table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+<table class="waffle">
 	<tr style='height:19px;'>
 		<th style="width:6%" class="s0">Field</th>
 		<th style="width:9%" class="s1">Label</th>
@@ -35,6 +35,26 @@ The following breaks down the construction of a Asset Modification Action. The a
 		<td class="a10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
 		<td class="a10">uint8</td>
 		<td class="a11">Can be changed by Issuer or Operator at their discretion.</td>
+	</tr>
+
+	<tr>
+		<td class="a10">Asset Type</td>
+		<td class="a10">AssetType</td>
+		<td class="a10">3</td>
+		<td class="a10" style="word-break:break-all">SHC</td>
+		<td class="a10">eg. Share - Common</td>
+		<td class="a10">string</td>
+		<td class="a11"></td>
+	</tr>
+
+	<tr>
+		<td class="a10">Asset ID</td>
+		<td class="a10">AssetID</td>
+		<td class="a10">32</td>
+		<td class="a10" style="word-break:break-all">apm2qsznhks23z8d83u41s8019hyri3i</td>
+		<td class="a10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type &#43; Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.</td>
+		<td class="a10">string</td>
+		<td class="a11"></td>
 	</tr>
 
 	<tr>

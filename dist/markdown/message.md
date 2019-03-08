@@ -1,12 +1,12 @@
 
-# Message Action</H1>
+# Message Action
 
 Message Action - the message action is a general purpose communication action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken down by type for easy filtering in the a user&#39;s wallet. The Message Types are listed in the Message Types table.
 
 
 The following breaks down the construction of a Message Action. The action is constructed by building a single string from each of the elements in order.
 
-<table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+<table class="waffle">
 	<tr style='height:19px;'>
 		<th style="width:6%" class="s0">Field</th>
 		<th style="width:9%" class="s1">Label</th>
@@ -74,9 +74,9 @@ The following breaks down the construction of a Message Action. The action is co
 		<td class="m10">MessagePayload</td>
 		<td class="m10">0</td>
 		<td class="m10" style="word-break:break-all">Hello world!</td>
-		<td class="m10">Length 0-65,535 bytes. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private &#39;notes&#39; if encrypted. See Message Types for a full list of potential use cases.
+		<td class="m10">Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private &#39;notes&#39; if encrypted. See Message Types for a full list of potential use cases.
 </td>
-		<td class="m10">nvarchar16</td>
+		<td class="m10">nvarchar64</td>
 		<td class="m11"></td>
 	</tr>
 

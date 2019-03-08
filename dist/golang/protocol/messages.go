@@ -691,6 +691,8 @@ func (m AssetCreation) String() string {
 type AssetModification struct {
 	Header Header
 	TextEncoding uint8
+	AssetType []byte
+	AssetID []byte
 	AssetRevision uint64
 	ModificationCount uint8
 	Modifications []Amendment
@@ -726,6 +728,14 @@ func (m AssetModification) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	if err := write(buf, m.TextEncoding); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, pad(m.AssetType, 3)); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, pad(m.AssetID, 32)); err != nil {
 		return nil, err
 	}
 
@@ -782,6 +792,16 @@ func (m *AssetModification) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
+	m.AssetType = make([]byte, 3)
+	if err := readLen(buf, m.AssetType); err != nil {
+		return 0, err
+	}
+
+	m.AssetID = make([]byte, 32)
+	if err := readLen(buf, m.AssetID); err != nil {
+		return 0, err
+	}
+
 	if err := read(buf, &m.AssetRevision); err != nil {
 		return 0, err
 	}
@@ -817,6 +837,8 @@ func (m AssetModification) String() string {
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
+	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
 	vals = append(vals, fmt.Sprintf("AssetRevision:%v", m.AssetRevision))
 	vals = append(vals, fmt.Sprintf("ModificationCount:%v", m.ModificationCount))
 	vals = append(vals, fmt.Sprintf("Modifications:%#+v", m.Modifications))
@@ -4155,7 +4177,7 @@ type Message struct {
 	QtyReceivingAddresses uint8
 	AddressIndexes []uint16
 	MessageType []byte
-	MessagePayload Nvarchar16
+	MessagePayload nvarchar64
 }
 
 // NewMessage returns a new Message with defaults set.
