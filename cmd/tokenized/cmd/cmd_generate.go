@@ -6,9 +6,7 @@ import (
 	"os"
 
 	"github.com/tokenized/specification/internal/golang"
-	"github.com/tokenized/specification/internal/markdown"
 	"github.com/tokenized/specification/internal/platform/parser"
-	"github.com/tokenized/specification/internal/python"
 
 	"github.com/spf13/cobra"
 )
@@ -23,20 +21,24 @@ var cmdGenerate = &cobra.Command{
 			fmt.Println("Debug mode enabled!")
 		}
 
-		golang.Compile()
-		markdown.Compile()
-		python.Compile()
-
+		// Determine paths
 		dir, err := os.Getwd()
 		if err != nil {
 			log.Fatal(err)
 		}
 		srcPath := dir + "/src"
+		distPath := dir + "/dist"
 
+		// Fetch files and messages
 		allFiles := parser.FetchFiles(srcPath, "protocol", "develop")
 		allMessages := parser.BuildMessages(allFiles, "protocol")
 
-		fmt.Println(allMessages)
+		// fmt.Printf("%+v", allMessages)
+
+		// Compile languages
+		golang.Compile(distPath, allMessages)
+		// markdown.Compile(distPath, allMessages)
+		// python.Compile(distPath, allMessages)
 
 		return nil
 	},

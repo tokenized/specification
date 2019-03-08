@@ -1,11 +1,6 @@
 package cmd
 
 import (
-	"encoding/hex"
-	"fmt"
-
-	"github.com/tokenized/specification/dist/golang/protocol"
-
 	"github.com/spf13/cobra"
 )
 
@@ -15,33 +10,33 @@ var cmdDecode = &cobra.Command{
 	Args:  cobra.MinimumNArgs(1),
 	RunE: func(c *cobra.Command, args []string) error {
 
-		raw := args[0]
+		// raw := args[0]
 
-		debugMode, _ := c.Flags().GetBool(FlagDebugMode)
+		// debugMode, _ := c.Flags().GetBool(FlagDebugMode)
 
-		if debugMode {
-			fmt.Println("Debug mode enabled!")
-		}
+		// if debugMode {
+		// 	fmt.Println("Debug mode enabled!")
+		// }
 
-		b, err := hex.DecodeString(raw)
-		if err != nil {
-			panic(err)
-		}
+		// b, err := hex.DecodeString(raw)
+		// if err != nil {
+		// 	panic(err)
+		// }
 
-		m, err := protocol.New(b)
-		if err != nil {
-			panic(err)
-		}
+		// m, err := protocol.New(b)
+		// if err != nil {
+		// 	panic(err)
+		// }
 
-		fmt.Printf("message (string)\n%#s\n\n", m)
-		fmt.Printf("message (struct)\n%#+v\n\n", m)
+		// fmt.Printf("message (string)\n%#s\n\n", m)
+		// fmt.Printf("message (struct)\n%#+v\n\n", m)
 
-		p, err := m.PayloadMessage()
-		if err != nil {
-			panic(err)
-		}
+		// p, err := m.PayloadMessage()
+		// if err != nil {
+		// 	panic(err)
+		// }
 
-		fmt.Printf("payload (struct)\n%#+v\n", p)
+		// fmt.Printf("payload (struct)\n%#+v\n", p)
 
 		return nil
 	},

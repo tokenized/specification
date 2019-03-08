@@ -5,10 +5,16 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 
 	"gopkg.in/yaml.v2"
+)
+
+var (
+	matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
+	matchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
 )
 
 func BuildMessages(filenames []string, packageName string) Messages {
@@ -72,4 +78,42 @@ func FetchFiles(srcPath, packageName, version string) []string {
 	}
 
 	return filenames
+}
+
+func reformat(s string, prefix string) string {
+	parts := strings.Split(s, " ")
+
+	lines := []string{}
+
+	line := prefix
+
+	for _, p := range parts {
+		if len(p) == 0 {
+			continue
+		}
+
+		if len(line)+len(p) > 74 {
+			// line length exceeded. Add the line to our lines
+			lines = append(lines, line)
+
+			// start a new line
+			line = prefix
+		}
+
+		// append the word to the line
+		line = fmt.Sprintf("%v %v", line, p)
+	}
+
+	// make sure to append any remaining non-empty line
+	if line != prefix {
+		lines = append(lines, line)
+	}
+
+	return strings.Join(lines, "\n")
+}
+
+func SnakeCase(str string) string {
+	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
+	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
+	return strings.ToLower(snake)
 }
