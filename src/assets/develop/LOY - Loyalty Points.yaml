@@ -2,7 +2,7 @@
 # Version
 # 
 version: 20000
-parentVersion: 0 
+parentVersion: 0
 code: LOY
 kind: Utility
 
@@ -11,8 +11,7 @@ metadata:
   description: Version
   example: Version
 
-     fields:
-
+  fields:
   - name: LenIssuerName
     label: LenIssuerName
     type: uint8
@@ -26,4 +25,3 @@ metadata:
     example: Thai Airways
     exampleHex: 0x0c546861692041697277617973
     size: 13
-
