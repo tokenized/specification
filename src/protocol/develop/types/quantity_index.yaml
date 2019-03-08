@@ -1,6 +1,6 @@
 metadata:
   name: QuantityIndex
-  description: "A QuantityIndex is contains a quantity, and an index. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position."
+  description: "A QuantityIndex contains a quantity, and an index. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position."
 
 fields:
   - name: Index

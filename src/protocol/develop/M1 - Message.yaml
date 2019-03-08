@@ -1,5 +1,5 @@
 #
-# Message Action: the message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels including receipting, invoices, PO, and private offers/bids.  The messages are broken down by type for easy filtering in the a userâ€™s wallet.  The Message Types are listed in the Message Types table.
+# Message Action: the message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids).  The messages are broken down by type for easy filtering in the a user’s wallet.  The Message Types are listed in the Message Types table.
 #
 
 code: M1
@@ -7,33 +7,19 @@ code: M1
 metadata:
   name: Message
   label: Message Action
-  description: "Message Action -  the message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels including receipting, invoices, PO, and private offers/bids.  The messages are broken down by type for easy filtering in the a userâ€™s wallet.  The Message Types are listed in the Message Types table."
-  validation: AssetCreation
-  rejection: Rejection
+  description: "Message Action -  the message action is a general purpose communication action. 'Twitter/sms' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids).  The messages are broken down by type for easy filtering in the a user’s wallet.  The Message Types are listed in the Message Types table."
 
 rules:
   fee:
   inputs:
-    - name:
+    - name: Sender
       label: "Msg Sender's Public Address"
       comments:
 
   outputs:
-    - name:
+    - name: ReceiverX
       label: "Msg Receiver's Public Address"
       comments: Dust limit rule minimum value output of 546
-
-    - name:
-      label: "Msg Sender's Public Address"
-      comments: Change
-
-    - name:
-      label: OP_RETURN (Message Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
-
-    - name:
-      label: "Miner's Fee"
-      comments: "~550-1000 Bytes to account for return data and txn data."
 
 fields:
   - name: Header
@@ -82,12 +68,3 @@ fields:
     example_hex: 000c48656c6c6f20776f726c6421
     example_value: "Hello world!"
     notes: ""
-
-  - name: Timestamp
-    label: Timestamp
-    description: "Timestamp in nanoseconds of when the smart contract created the action."
-    type: timestamp
-    size: 8
-    example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
-    notes: "Cannot be changed by issuer, operator. Smart contract controls."

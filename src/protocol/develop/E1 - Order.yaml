@@ -87,9 +87,9 @@ fields:
     example_value: "17zAWabipcUHn5XP9w8GEc3PKvG5bYGBMe"
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
 
-  - name: EnforcementAuthorityName
-    label: Enforcement Authority Name
-    description: "Length 0-255 bytes. Enforcement Authority Name (eg. Queensland Police Service, Tokenized, etc.)"
+  - name: AuthorityName
+    label: Authority Name
+    description: "Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)"
     type: nvarchar8
     example_hex: 2453757072656d6520616e6420446973747269637420436f75727473204272697362616e65
     example_value: "Supreme and District Courts Brisbane"
@@ -104,8 +104,8 @@ fields:
     example_value: 1
     notes: ""
 
-  - name: EnforcementAuthorityPublicKey
-    label: Enforcement Authority Public Key
+  - name: AuthorityPublicKey
+    label: Authority Public Key
     description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
     type: nvarchar8
     example_hex: 00
@@ -113,7 +113,7 @@ fields:
     notes: ""
 
   - name: OrderSignature
-    label: Enforcement Authority Order Signature
+    label: Authority Order Signature
     description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)"
     type: nvarchar8
     example_hex: 00
@@ -149,8 +149,8 @@ fields:
 
   - name: Message
     label: Message Period
-    description: "Length 0 - 65,535 bytes. 0 is valid. Explanation. No personal information to be given away.  Privacy to be respected as much as possible."
-    type: nvarchar16
+    description: "Length only limited by the Bitcoin protocol."
+    type: nvarchar64
     example_hex: 0023536f7272792c206275742074686520636f757274206f72646572206d616465206d652e
     example_value: "Sorry, but the court order made me."
     notes: ""

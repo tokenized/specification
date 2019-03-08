@@ -14,34 +14,22 @@ metadata:
 rules:
   fee:
   inputs:
-    - name:
+    - name: Asset1Contract
       label: Contract Public Address (Asset 1)
       comments: Contract (Asset 1) in response to a Send, Exchange and Swap action.
 
-    - name:
+    - name: Asset2Contract
       label: Contract Public Address (Asset 2)
       comments: Only used in response to Swap actions only.
 
   outputs:
-    - name:
+    - name: Asset1SettlementAddressX
       label: "Asset 1 Settlement Address X"
       comments: Address X that is being settled for Asset 1.
 
-    - name:
+    - name: Asset2SettlementAddressX
       label: "Asset 2 Settlement Address X"
       comments: Address X that is being settled for Asset 2.
-
-    - name:
-      label: Contract Fee Address (Optional)
-      comments: "Contract Operator's Fee (Optional)"
-
-    - name:
-      label: Exchange Fee Address (Optional)
-      comments: Exchange Fee (Optional)
-
-    - name:
-      label: OP_RETURN (Settlement Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
 
 fields:
   - name: Header

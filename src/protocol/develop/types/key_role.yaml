@@ -7,9 +7,9 @@ fields:
     description: "Chairman, Director. Found in 'Roles' in Specification/Resources"
     type: string
     size: 1
-    example_hex: 43454f
-    example_value: "CEO"
-    notes: ""
+    example_hex: 37
+    example_value: "7"
+    notes: "7 - Chairman"
 
   - name: Name
     label: Key Role Name
@@ -17,5 +17,5 @@ fields:
     type: nvarchar8
     size: 14
     example_hex: 0d4a616d65732042656c64696e67
-    example_value: "James Belding"
+    example_value: "Satoshi Nakamoto"
     notes: ""

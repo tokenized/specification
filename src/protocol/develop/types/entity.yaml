@@ -22,11 +22,11 @@ fields:
 
   - name: Address
     label: Entity Address
-    description: "Physical/mailing address. Y/N, N means there is no issuer address."
-    type: string
+    description: "Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address."
+    type: bool
     size: 1
-    example_hex: 59
-    example_value: "Y"
+    example_hex: 01
+    example_value: "1"
     notes: "Entity/Contracting Party X Details
 "
 
@@ -99,7 +99,7 @@ fields:
     type: nvarchar8
     size: 20
     example_hex: 136a616d657340746f6b656e697a65642e636f6d
-    example_value: "james@tokenized.com"
+    example_value: "satoshi@tokenized.com"
     notes: ""
 
   - name: PhoneNumber

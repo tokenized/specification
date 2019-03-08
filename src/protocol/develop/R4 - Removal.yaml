@@ -1,5 +1,5 @@
 #
-# Removal Action: Removes a User's public address from the global distributed whitelist.
+# Removal Action: Removes an entry/record from the Register.
 #
 
 code: R4
@@ -7,33 +7,19 @@ code: R4
 metadata:
   name: Removal
   label: Removal Action
-  description: "Removal Action -  Removes a User's public address from the global distributed whitelist."
-  validation: AssetCreation
-  rejection: Rejection
+  description: "Removal Action - Removes an entry/record from the Register."
 
 rules:
   fee:
   inputs:
-    - name:
+    - name: Register
       label: "Register's Public Address"
       comments:
 
   outputs:
-    - name:
-      label: "User's Public Address"
-      comments: Dust limit rule minimum value output of 546
-
-    - name:
+    - name: Register
       label: "Register's Public Address"
-      comments: Change
-
-    - name:
-      label: OP_RETURN (Whitelist Removal Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
-
-    - name:
-      label: "Miner's Fee"
-      comments: "~550-1000 Bytes to account for return data and txn data."
+      comments: 
 
 fields:
   - name: Header
@@ -49,21 +35,12 @@ fields:
     size: 1
     example_hex: 00
     example_value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion."
-
-  - name: SupportingDocumentationHash
-    label: Supporting Documentation Hash
-    description: "Document explaining the removal.  Might be at the user's request, or it might be due a to a "
-    type: sha256
-    size: 32
-    example_hex: 98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4
-    example_value: "98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4"
-    notes: ""
+    notes:
 
   - name: Message
     label: Message
-    description: "Length 0-65,535 bytes. Note / explanation"
-    type: nvarchar16
+    description: "Length only limited by the Bitcoin protocol."
+    type: nvarchar64
     example_hex: 002b52656d6f7665642064756520746f2076696f6c6174696f6e206f6620636f6d70616e7920706f6c6963792e
     example_value: "Removed due to violation of company policy."
     notes: ""

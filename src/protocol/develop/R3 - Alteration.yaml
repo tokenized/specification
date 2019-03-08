@@ -1,5 +1,5 @@
 #
-# Alteration Action: A registry entry can be altered.
+# Alteration Action: A register entry/record can be altered.
 #
 
 code: R3
@@ -7,33 +7,19 @@ code: R3
 metadata:
   name: Alteration
   label: Alteration Action
-  description: "Alteration Action -  A registry entry can be altered."
-  validation: AssetCreation
-  rejection: Rejection
+  description: "Alteration Action -  A register entry/record can be altered."
 
 rules:
   fee:
   inputs:
-    - name:
+    - name: Register
       label: "Register's Public Address"
       comments:
 
   outputs:
-    - name:
-      label: "User's Public Address"
-      comments: Dust limit rule minimum value output of 546
-
-    - name:
+    - name: Register
       label: "Register's Public Address"
       comments:
-
-    - name:
-      label: OP_RETURN (Addition Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
-
-    - name:
-      label: "Miner's Fee"
-      comments: "~550-1000 Bytes to account for return data and txn data."
 
 fields:
   - name: Header
@@ -49,66 +35,12 @@ fields:
     size: 1
     example_hex: 00
     example_value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion."
-
-  - name: Sublist
-    label: Sublist
-    description: "Null value = Global KYC compliance. eg. Organizations can define their own pseudo-anonymous and publicly available membership lists."
-    type: string
-    size: 4
-    example_hex: 00000000
-    example_value: ""
-    notes: ""
-
-  - name: KYC
-    label: KYC
-    description: "Y/N"
-    type: string
-    size: 1
-    example_hex: 59
-    example_value: "Y"
-    notes: ""
-
-  - name: Jurisdiction
-    label: Jurisdiction
-    description: ""
-    type: string
-    size: 5
-    example_hex: 4155530000
-    example_value: "AUS"
-    notes: ""
-
-  - name: DOB
-    label: DOB
-    description: "Date of Birth : DD/MM/YYYY"
-    type: time
-    size: 8
-    example_hex: 0000007ff7a48180
-    example_value: "Tue Jun 02 1987 17:00:00 GMT+1000 (AEST)"
-    notes: ""
-
-  - name: CountryofResidence
-    label: Country of Residence
-    description: ""
-    type: string
-    size: 3
-    example_hex: 415553
-    example_value: "AUS"
-    notes: ""
-
-  - name: SupportingDocumentationHash
-    label: Supporting Documentation Hash
-    description: ""
-    type: sha256
-    size: 32
-    example_hex: 98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4
-    example_value: "98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4"
-    notes: ""
+    notes:
 
   - name: Message
     label: Message
-    description: "Length 0-65,535 bytes. Note"
-    type: nvarchar16
+    description: "Length only limited by the Bitcoin protocol."
+    type: nvarchar64
     example_hex: 001c4368616e67656420436f756e747279206f66205265736964656e6365
     example_value: "Changed Country of Residence"
     notes: ""
