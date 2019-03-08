@@ -2,8 +2,11 @@ package parser
 
 import (
 	"fmt"
+	"html/template"
 	"io/ioutil"
+	"math"
 	"os"
+	"path"
 	"path/filepath"
 	"regexp"
 	"sort"
@@ -116,4 +119,25 @@ func SnakeCase(str string) string {
 	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
 	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
 	return strings.ToLower(snake)
+}
+
+func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
+	f, err := os.Create(outFile)
+	if err != nil {
+		panic(err)
+	}
+
+	tmplFuncs := template.FuncMap{
+		"minus": func(a, b int) int {
+			return a - b
+		},
+		"padding": func(str string, size int) string {
+			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
+		},
+	}
+
+	tmpl := template.Must(template.New(path.Base(inFile)).Funcs(tmplFuncs).ParseFiles(inFile))
+	if err := tmpl.Execute(f, data); err != nil {
+		panic(err)
+	}
 }

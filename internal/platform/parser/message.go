@@ -97,11 +97,18 @@ func (m Message) HasPayloadMessage() bool {
 	return false
 }
 
-func (m Message) GoComment() string {
+func (m Message) CommentSlash() string {
 	s := html.UnescapeString(m.Metadata.Description)
 	s = m.Metadata.Name + " : " + s
 
 	return reformat(s, "//")
+}
+
+func (m Message) CommentHash() string {
+	s := html.UnescapeString(m.Metadata.Description)
+	s = m.Metadata.Name + " : " + s
+
+	return reformat(s, "#")
 }
 
 func (m Message) DataFields() []Field {
