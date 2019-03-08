@@ -56,7 +56,7 @@ fields:
     example_value: "SHC"
     notes: ""
 
-  - name: Asset ID
+  - name: AssetID
     label: Asset ID
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label."
     type: string
