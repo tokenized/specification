@@ -1,0 +1,31 @@
+
+metadata:
+  name: Registry
+
+fields:
+  - name: Name
+    label: Registry Name
+    description: "Length 0-255 bytes. 0 is valid. Registry X Name (eg. Coinbase, Tokenized, etc.)"
+    type: nvarchar8
+    size: 10
+    example_hex: 09546f6b656e697a6564
+    example_value: "Tokenized"
+    notes: ""
+
+  - name: URL
+    label: Registry URL
+    description: "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint"
+    type: nvarchar8
+    size: 53
+    example_hex: 34687474703a2f2f72656769737472792e746f6b656e697a65642e636f6d2f6170692f3336353064392f76657273696f6e32303130
+    example_value: "http://registry.tokenized.com/api/3650d9/version2010"
+    notes: ""
+
+  - name: PublicKey
+    label: Registry Public Key
+    description: "Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry."
+    type: nvarchar8
+    size: 1
+    example_hex: 00
+    example_value: ""
+    notes: ""

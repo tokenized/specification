@@ -1,115 +1,64 @@
-# 
-# Contract Amendment Action: the issuer can initiate an amendment to the contract establishment metadata.  This can be due to a change of name, change of contract terms, change of authorizations, or change of the URI.  The ability to make an amendment to the contract is limited by the Authorization Flag set on the previous Contract Formation action.  The Authorization Flags can be set to allow Contract Amendments, but only if a Token Owner vote has passed in favour of making the Amendment. Contract revision/protocol identifier and action prefix can't be amended.  The rest of the fields are open to change.  However, the Issuer is responsible for acting lawfully (in their jurisdiction) and in accordance with the terms of the Investment Contract.
-# 
+#
+# Contract Amendment Action: the issuer can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action.
+#
 
 code: C3
 
 metadata:
   name: ContractAmendment
   label: Contract Amendment Action
-  description: "Contract Amendment Action -  the issuer can initiate an amendment to the contract establishment metadata.  This can be due to a change of name, change of contract terms, change of authorizations, or change of the URI.  The ability to make an amendment to the contract is limited by the Authorization Flag set on the previous Contract Formation action.  The Authorization Flags can be set to allow Contract Amendments, but only if a Token Owner vote has passed in favour of making the Amendment. Contract revision/protocol identifier and action prefix can't be amended.  The rest of the fields are open to change.  However, the Issuer is responsible for acting lawfully (in their jurisdiction) and in accordance with the terms of the Investment Contract."
+  description: "Contract Amendment Action - the issuer can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action.
   validation: AssetCreation
   rejection: Rejection
 
 rules:
   fee:
   inputs:
-    - name: 
-      label: Issuer's Public Address
-      comments: 
+    - name: Issuer
+      label: "Issuer's Public Address"
+      comments:
 
-    - name: 
+    - name: NewIssuer
       label: New Issuer Public Address
       comments: Only treated as the new Issuer address when the Change Issuer Address flag is set to Y.
 
   outputs:
-    - name: 
+    - name: Contract
       label: Contract Public Address
-      comments: 
-
-    - name: 
-      label: Issuer's Public Address
-      comments: Change
-
-    - name: 
-      label: OP_RETURN (Contract Amendment Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
-
-    - name: 
-      label: Miner's Fee
-      comments: ~550-1000 Bytes to account for return data and txn data.
+      comments:
 
 fields:
-  - name: PUSHDATAINSTRUCTION
-    label: Push Data
-    description: "PUSHDATA 13 bytes for Protocol Identifer"
-    type: opcode
-    size: 1
-    example hex: 0d
-    example value: "13"
-    notes: "Cannot be changed by issuer, operator, or smart contract."
-
-  - name: ProtocolID
-    label: Protocol Identifier
-    description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
-    size: 13
-    example hex: 746f6b656e697a65642e636f6d
-    example value: "tokenized.com"
-    notes: ""
-
-  - name: OP_PUSHDATA
-    label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 
-    example hex: 
-    example value: ""
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
-    type: pushdata_length
-    size: 1
-    example hex: 43
-    example value: "67"
-    notes: "Depends on Action Payload"
-
-  - name: Version
-    label: Version
-    description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
-    size: 1
-    example hex: 0
-    example value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
-
-  - name: ActionPrefix
-    label: Action Prefix
-    description: "Contract Amendment: The issuer can request amendments to the Contract.  If the amendments don't violate any terms and conditions then the smart contract will respond with a new Contract Formation Action that reflects the requested amendments and increment the Contract Formation Action's revision by 1.   Otherwise the smart contract will respond with a Rejection Action."
-    type: string
-    size: 2
-    example hex: 4333
-    example value: "C3"
-    notes: "Cannot be changed by issuer, operator or smart contract."
+  - name: Header
+    label: Header
+    description: "Common header data for all messages"
+    type: Header
+    notes: "Common header data for all messages."
 
   - name: TextEncoding
     label: Text Encoding
     description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
     type: uint8
     size: 1
-    example hex: 0
-    example value: "0"
+    example_hex: 00
+    example_value: "0"
     notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: ChangeIssuerAddress
     label: Change Issuer Address
-    description: "Y - Yes, N - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position."
-    type: string
+    description: "1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position."
+    type: bool
     size: 1
-    example hex: 59
-    example value: "Y"
+    example_hex: 01
+    example_value: 1
+    notes: ""
+
+  - name: ChangeOperatorAddress
+    label: Change Operator Address
+    description: "1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position."
+    type: bool
+    size: 1
+    example_hex: 01
+    example_value: 1
     notes: ""
 
   - name: ContractRevision
@@ -117,8 +66,8 @@ fields:
     description: "Counter 0 - 65,535"
     type: uint16
     size: 2
-    example hex: 0000
-    example value: "0"
+    example_hex: 002a
+    example_value: 42
     notes: ""
 
   - name: AmendmentsCount
@@ -126,25 +75,19 @@ fields:
     description: "Number of Amendments. Must be less than the max Subfield Index of CF."
     type: uint8
     size: 1
-    example hex: 01
-    example value: "1"
+    example_hex: 00
+    example_value: 0
     notes: ""
 
-  - name: SubfieldX
-    label: Subfield X
-    description: "Subfield to be amended."
-    type: nvarchar8
-    size: 14
-    example hex: 0d52656769737472794e616d6532
-    example value: "RegistryName2"
-    notes: ""
+  - name: Amendments
+    label: Amendments
+    type: Amendment[]
 
-  - name: AmendmentX
-    label: Amendment
-    description: "New data for the amended subfield. Data type determinded by the subfield index."
-    type: nvarchar32
-    size: 13
-    example hex: 00000009546f6b656e697a6564
-    example value: "Tokenized"
+  - name: RefTxID
+    label: Ref Tx-ID
+    description: "Tx-ID of the associated Result action (governance) that permitted the modifications."
+    type: SHA256
+    size: 32
+    example_hex: a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d
+    example_value: "a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d"
     notes: ""
-

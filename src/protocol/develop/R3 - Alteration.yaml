@@ -1,6 +1,6 @@
-# 
+#
 # Alteration Action: A registry entry can be altered.
-# 
+#
 
 code: R3
 
@@ -14,89 +14,41 @@ metadata:
 rules:
   fee:
   inputs:
-    - name: 
-      label: Register's Public Address
-      comments: 
+    - name:
+      label: "Register's Public Address"
+      comments:
 
   outputs:
-    - name: 
-      label: User's Public Address
+    - name:
+      label: "User's Public Address"
       comments: Dust limit rule minimum value output of 546
 
-    - name: 
-      label: Register's Public Address
-      comments: 
+    - name:
+      label: "Register's Public Address"
+      comments:
 
-    - name: 
+    - name:
       label: OP_RETURN (Addition Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
 
-    - name: 
-      label: Miner's Fee
-      comments: ~550-1000 Bytes to account for return data and txn data.
+    - name:
+      label: "Miner's Fee"
+      comments: "~550-1000 Bytes to account for return data and txn data."
 
 fields:
-  - name: PUSHDATAINSTRUCTION
-    label: Push Data
-    description: "PUSHDATA 13 bytes for Protocol Identifer"
-    type: opcode
-    size: 1
-    example hex: 0d
-    example value: "13"
-    notes: "Cannot be changed by issuer, operator, or smart contract."
-
-  - name: ProtocolID
-    label: Protocol Identifier
-    description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
-    size: 13
-    example hex: 746f6b656e697a65642e636f6d
-    example value: "tokenized.com"
-    notes: ""
-
-  - name: OP_PUSHDATA
-    label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 1
-    example hex: 4c
-    example value: "76"
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
-    type: pushdata_length
-    size: 1
-    example hex: 57
-    example value: "87"
-    notes: "Depends on Action Payload"
-
-  - name: Version
-    label: Version
-    description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
-    size: 1
-    example hex: 00
-    example value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
-
-  - name: ActionPrefix
-    label: Action Prefix
-    description: "Alteration: Used to alter entries already added to the registry."
-    type: string
-    size: 2
-    example hex: 5233
-    example value: "R3"
-    notes: "Cannot be changed by issuer, operator or smart contract."
+  - name: Header
+    label: Header
+    description: "Common header data for all messages"
+    type: Header
+    notes: "Common header data for all messages."
 
   - name: TextEncoding
     label: Text Encoding
     description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
     type: uint8
     size: 1
-    example hex: 00
-    example value: "0"
+    example_hex: 00
+    example_value: "0"
     notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: Sublist
@@ -104,8 +56,8 @@ fields:
     description: "Null value = Global KYC compliance. eg. Organizations can define their own pseudo-anonymous and publicly available membership lists."
     type: string
     size: 4
-    example hex: 00000000
-    example value: ""
+    example_hex: 00000000
+    example_value: ""
     notes: ""
 
   - name: KYC
@@ -113,8 +65,8 @@ fields:
     description: "Y/N"
     type: string
     size: 1
-    example hex: 59
-    example value: "Y"
+    example_hex: 59
+    example_value: "Y"
     notes: ""
 
   - name: Jurisdiction
@@ -122,8 +74,8 @@ fields:
     description: ""
     type: string
     size: 5
-    example hex: 4155530000
-    example value: "AUS"
+    example_hex: 4155530000
+    example_value: "AUS"
     notes: ""
 
   - name: DOB
@@ -131,8 +83,8 @@ fields:
     description: "Date of Birth : DD/MM/YYYY"
     type: time
     size: 8
-    example hex: 0000007ff7a48180
-    example value: "Tue Jun 02 1987 17:00:00 GMT+1000 (AEST)"
+    example_hex: 0000007ff7a48180
+    example_value: "Tue Jun 02 1987 17:00:00 GMT+1000 (AEST)"
     notes: ""
 
   - name: CountryofResidence
@@ -140,8 +92,8 @@ fields:
     description: ""
     type: string
     size: 3
-    example hex: 415553
-    example value: "AUS"
+    example_hex: 415553
+    example_value: "AUS"
     notes: ""
 
   - name: SupportingDocumentationHash
@@ -149,7 +101,14 @@ fields:
     description: ""
     type: sha256
     size: 32
-    example hex: 98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4
-    example value: "98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4"
+    example_hex: 98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4
+    example_value: "98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4"
     notes: ""
 
+  - name: Message
+    label: Message
+    description: "Length 0-65,535 bytes. Note"
+    type: nvarchar16
+    example_hex: 001c4368616e67656420436f756e747279206f66205265736964656e6365
+    example_value: "Changed Country of Residence"
+    notes: ""

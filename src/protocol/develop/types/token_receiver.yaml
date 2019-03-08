@@ -1,0 +1,39 @@
+metadata:
+  name: TokenReceiver
+  description: "A TokenReceiver is contains a quantity, index, and registry token deails. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position. The registry token details include the type of algorithm, and the token."
+
+fields:
+  - name: Index
+    label: Index
+    description: "The index of the output receiving the tokens"
+    type: uint16
+    size: 2
+    example_hex: 0000
+    example_value: 0
+    notes: ""
+
+  - name: Quantity
+    label: Quantity
+    description: "Number of tokens to be received by address at Output X"
+    type: uint64
+    size: 8
+    example_hex: 0000000000000064
+    example_value: 100
+    notes: ""
+
+  - name: RegistrySigAlgorithm
+    label: Registry Signature Algorithm
+    description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
+    type: uint8
+    size: 1
+    example_hex: 01
+    example_value: 1
+    notes: ""
+
+  - name: RegistryConfirmationSigToken
+    label: Registry Confirmation Signature for Token Receiving X
+    description: "Length 0-255 bytes. IF restricted to a registry (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted registry through an API signature of [Contract Address + Asset Code + Public Address + Blockhash of the Latest Block + Block Height + Confirmed/Rejected Bool]. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field."
+    type: nvarchar8
+    example_hex: 584945777a4a423233734672794b4d7a78354d6642776e7431474d554b4e54516e7146385768735344317777744b4b6737426f412f35474c657535556e776172375a687452313874647a75496664584474552b7a4d484c383d
+    example_value: "IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8="
+    notes: ""

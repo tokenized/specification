@@ -1,153 +1,105 @@
-# 
-# Exchange Action: Example: Bob (Token Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7 BSV.  Both parties must sign the transaction for it to be valid.
-# 
+#
+# Exchange Action: Tokens exchanged for Bitcoin (BSV). Example: Bob (Token Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7 BSV.  Both parties must sign the transaction for it to be valid.
+#
 
 code: T2
 
 metadata:
   name: Exchange
   label: Exchange Action
-  description: "Exchange Action -  Example: Bob (Token Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7 BSV.  Both parties must sign the transaction for it to be valid."
+  description: "Exchange Action -  Tokens exchanged for Bitcoin (BSV). Example: Bob (Token Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7 BSV.  Both parties must sign the transaction for it to be valid."
   validation: AssetCreation
   rejection: Rejection
 
 rules:
   fee:
   inputs:
-    - name: 
+    - name:
       label: Token Sending Address X
-      comments: 
+      comments:
 
-    - name: 
+    - name:
       label: Token Sending Address X
-      comments: 
+      comments:
 
-    - name: 
+    - name:
       label: Bitcoin Sending address X
-      comments: 
+      comments:
 
-    - name: 
+    - name:
       label: Bitcoin Sending Address X
-      comments: 
+      comments:
 
   outputs:
-    - name: 
+    - name:
       label: Contract Public Address
-      comments: The Token Receiver (buyer) pays the Contract the money to hold in 'momentary escrow' (including fees).  The Contract will transfer the money to the Token Sender in a Transfer Txn if the Exchange Txn is acceptable.  If the Txn is not acceptable then the SC will send the money back to the Token Receiver less miner's fees using a Rejection Action.
+      comments: "The Token Receiver (buyer) pays the Contract the money to hold in 'momentary escrow' (including fees).  The Contract will transfer the money to the Token Sender in a Transfer Txn if the Exchange Txn is acceptable.  If the Txn is not acceptable then the SC will send the money back to the Token Receiver less miner's fees using a Rejection Action."
 
-    - name: 
+    - name:
       label: Bitcoin Receiving Address X
-      comments: Contracting Party 1 simply sends any amount back to himself.  No additional UTXO is created for typical Exchange txns.
+      comments: Token Sender simply sends any amount back to himself.  No additional UTXO is created for typical Exchange txns.
 
-    - name: 
+    - name:
       label: Bitcoin Receiving Address X
       comments: Change
 
-    - name: 
+    - name:
       label: Token Receiving Address X
       comments: Change
 
-    - name: 
+    - name:
       label: Token Receiving Address X
       comments: Change
 
-    - name: 
+    - name:
       label: OP_RETURN (Exchange Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
 
-    - name: 
-      label: Miner's Fee
-      comments: ~550-1000 Bytes to account for return data and txn data.
+    - name:
+      label: "Miner's Fee"
+      comments: "~550-1000 Bytes to account for return data and txn data."
 
 fields:
-  - name: PUSHDATAINSTRUCTION
-    label: Push Data
-    description: "PUSHDATA 13 bytes for Protocol Identifer"
-    type: opcode
-    size: 1
-    example hex: 0d
-    example value: "13"
-    notes: "Cannot be changed by issuer, operator, or smart contract."
-
-  - name: ProtocolID
-    label: Protocol Identifier
-    description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
-    size: 13
-    example hex: 746f6b656e697a65642e636f6d
-    example value: "tokenized.com"
-    notes: ""
-
-  - name: OP_PUSHDATA
-    label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 1
-    example hex: 4c
-    example value: "76"
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
-    type: pushdata_length
-    size: 1
-    example hex: c8
-    example value: "200"
-    notes: "Depends on Action Payload"
-
-  - name: Version
-    label: Version
-    description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
-    size: 1
-    example hex: 0
-    example value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
-
-  - name: ActionPrefix
-    label: Action Prefix
-    description: "Exchange: Used for the exchange of tokens for BSV (on chain consideration).  This will likely be the most common exchange type. Requires a signature (ECC) from both contracting parties (sender and receiver)."
-    type: string
-    size: 2
-    example hex: 5432
-    example value: "T2"
-    notes: "Cannot be changed by issuer, operator or smart contract."
+  - name: Header
+    label: Header
+    description: "Common header data for all messages"
+    type: Header
+    notes: "Common header data for all messages."
 
   - name: TextEncoding
     label: Text Encoding
     description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
     type: uint8
     size: 1
-    example hex: 0
-    example value: "0"
+    example_hex: 00
+    example_value: "0"
     notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: AssetType
     label: Asset Type
-    description: "The Asset Type and Asset ID are used by wallets/Ccontracts/users to link the Action to the Asset Creation Action. All Actions reference the Asset Creation Action.  The Asset Creation Txn-ID is not used because Asset Amendments would result in all Token Owners would need to have their tokens 'updated'."
+    description: "Asset Type to be exchanged."
     type: string
     size: 3
-    example hex: 525245
-    example value: "RRE"
+    example_hex: 525245
+    example_value: "RRE"
     notes: ""
 
   - name: AssetID
     label: Asset ID
-    description: ""
+    description: "ID of the Asset that is being exchanged."
     type: string
     size: 32
-    example hex: 61706d3271737a6e686b7332337a000000000000000000000000000000000000
-    example value: "apm2qsznhks23z"
+    example_hex: 61706d3271737a6e686b7332337a000000000000000000000000000000000000
+    example_value: "apm2qsznhks23z"
     notes: ""
 
   - name: OfferExpiry
     label: Offer Expiry
-    description: "This prevents the token receiver from holding on to the signed message as a form of a call option.  Eg. the sale of these tokens at this price is valid for 30 mins."
+    description: "This prevents the token receiver from holding on to the signed message as a type of an option.  Eg. the sale of these tokens at this price is valid for 30 mins."
     type: time
     size: 8
-    example hex: 0000016331e3c200
-    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
+    example_hex: 0000016331e3c200
+    example_value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
     notes: ""
 
   - name: ExchangeFeeCurrency
@@ -155,8 +107,8 @@ fields:
     description: "BSV, USD, AUD, EUR, etc."
     type: string
     size: 3
-    example hex: 415544
-    example value: "AUD"
+    example_hex: 415544
+    example_value: "AUD"
     notes: ""
 
   - name: ExchangeFeeVar
@@ -164,17 +116,17 @@ fields:
     description: "Percent of the value of the transaction"
     type: float32
     size: 4
-    example hex: 3ba3d70a
-    example value: "0.005"
+    example_hex: 3ba3d70a
+    example_value: "0.005"
     notes: ""
 
   - name: ExchangeFeeFixed
     label: Exchange Fee Fixed
-    description: "                                     "
+    description: "Fixed Fee"
     type: float32
     size: 4
-    example hex: 3c23d70a
-    example value: "0.01"
+    example_hex: 3c23d70a
+    example_value: "0.01"
     notes: ""
 
   - name: ExchangeFeeAddress
@@ -182,52 +134,34 @@ fields:
     description: "Identifies the public address that the exchange fee should be paid to."
     type: string
     size: 34
-    example hex: 31485132554c7544375435796b6175635a334b6d546f346932393932355161366963
-    example value: "1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic"
+    example_hex: 31485132554c7544375435796b6175635a334b6d546f346932393932355161366963
+    example_value: "1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic"
     notes: ""
 
-  - name: QtyOfTokenSendingAddresses
+  - name: TokenSenderCount
     label: Quantity of Token Sending Addresses
-    description: "Number input addresses that are sending tokens. Number equates to the number of inputs starting with index 0. 1-255, 0 is not valid."
+    description: "Number input addresses that are sending tokens. 1-255, 0 is not valid."
     type: uint8
     size: 1
-    example hex: 02
-    example value: "2"
+    example_hex: 00
+    example_value: 0
     notes: ""
 
-  - name: TokenSendingAddressX
-    label: Token Sending Address X
-    description: "Value of tokens to be spent from the address at Input Index X"
-    type: uint64
-    size: 8
-    example hex: 0000000000000064
-    example value: "100"
-    notes: ""
+  - name: TokenSenders
+    label: Token Sender
+    description: "Each element has the value of tokens to be spent from the input address, which is referred to by the index."
+    type: QuantityIndex[]
 
-  - name: QtyOfTokenReceivingAddresses
-    label: Quantity of Token Receiving Addresses
-    description: "Number of output addresses receiving tokens. The number equates to the number of Bitcoin input addresses that come sequentially after the token sending input addresses. 1-255. 0 is not valid."
+  - name: TokenReceiverCount
+    label: "The number of token receivers"
+    description: "Number of outputs receiving tokens. 1-255. 0 is not valid."
     type: uint8
     size: 1
-    example hex: 01
-    example value: "1"
+    example_hex: 00
+    example_value: 0
     notes: ""
 
-  - name: TokenReceivingAddressX
-    label: Token Receiving Address X
-    description: "Value of tokens to be received by the address at Output Address X"
-    type: uint64
-    size: 8
-    example hex: 0000000000000547
-    example value: "1351"
-    notes: ""
-
-  - name: RegistrySigAlgoTokenReceivingAddressX
-    label: Registry Signature Algorithm for Token Receiving Address X
-    description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
-    type: string
-    size: 1
-    example hex: 45
-    example value: "E"
-    notes: ""
-
+  - name: TokenReceivers
+    label: Token Receivers
+    description: "Each element has the value of tokens to be received by the output address, which is referred to by the index."
+    type: TokenReceiver[]

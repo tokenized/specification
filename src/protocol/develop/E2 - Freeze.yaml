@@ -1,110 +1,55 @@
-# 
-# Freeze Action: To be used to comply with contractual/legal requirements.  The whitelist public address will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract (referencing the whitelist) will not settle any exchange that involves the frozen Token Owner's public address.
-# 
+#
+# Freeze Action: To be used to comply with contractual/legal/issuer requirements.  The target public address(es) will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract will not respond to any actions requested by the frozen address.
+#
 
 code: E2
 
 metadata:
   name: Freeze
   label: Freeze Action
-  description: "Freeze Action -  To be used to comply with contractual/legal requirements.  The whitelist public address will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract (referencing the whitelist) will not settle any exchange that involves the frozen Token Owner's public address."
+  description: "Freeze Action -  To be used to comply with contractual/legal/issuer requirements.  The target public address(es) will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract will not respond to any actions requested by the frozen address." 
   validation: AssetCreation
   rejection: Rejection
 
 rules:
   fee:
   inputs:
-    - name: 
+    - name: Contract
       label: Contract Public Address
-      comments: 
+      comments:
 
   outputs:
-    - name: 
+    - name: TargetX
       label: Target Public Address X
       comments: If Target Public Address is the Contract Address then the entire contract is frozen.  All request actions during the Freeze period will be ignored and rejected when the contract is thawed and rebuilds.
 
-    - name: 
-      label: Contract Fee Address
-      comments: Contract Operator's Fee
-
-    - name: 
-      label: OP_RETURN (Freeze Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
-
-    - name: 
-      label: Miner's Fee
-      comments: ~550-1000 Bytes to account for return data and txn data.
-
 fields:
-  - name: PUSHDATAINSTRUCTION
-    label: Push Data
-    description: "PUSHDATA 13 bytes for Protocol Identifer"
-    type: opcode
-    size: 1
-    example hex: 0d
-    example value: "13"
-    notes: "Cannot be changed by issuer, operator, or smart contract."
+  - name: Header
+    label: Header
+    description: "Common header data for all messages"
+    type: Header
+    notes: "Common header data for all messages."
 
-  - name: ProtocolID
-    label: Protocol Identifier
-    description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
-    size: 13
-    example hex: 746f6b656e697a65642e636f6d
-    example value: "tokenized.com"
+  - name: AddressCount
+    label: Number of Addresses
+    description: "0 - 65,535"
+    type: uint16
+    size: 2
+    example_hex: 0000
+    example_value: 0
     notes: ""
 
-  - name: OP_PUSHDATA
-    label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 
-    example hex: aN
-    example value: ""
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
-    type: pushdata_length
-    size: 1
-    example hex: 15
-    example value: "21"
-    notes: "Depends on Action Payload"
-
-  - name: Version
-    label: Version
-    description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
-    size: 1
-    example hex: 00
-    example value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
-
-  - name: ActionPrefix
-    label: Action Prefix
-    description: "Freeze: The smart contract freezes tokens it controls for a particular token holder in response to an Issuer created Order Action.  The token holder won't be able to engage in any Transfer, or Governance Operations.  All requests (Exchange, Send, Ballot Cast, Initiative, Swap) will be met with a Rejection Action if their tokens have been frozen or confiscated."
-    type: string
-    size: 2
-    example hex: 4532
-    example value: "E2"
-    notes: "Cannot be changed by issuer, operator or smart contract."
+  - name: Addresses
+    label: Addresses
+    description: "Addresses holding tokens to be frozen."
+    type: Address[]
+    notes: ""
 
   - name: Timestamp
     label: Timestamp
-    description: "Timestamp of when the smart contract created the Freeze action."
-    type: time
+    description: "Timestamp in nanoseconds of when the smart contract created the action."
+    type: timestamp
     size: 8
-    example hex: 0000016331e3c200
-    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
-    notes: ""
-
-  - name: QtyofAddresses
-    label: Qty of Addresses
-    description: "0 - 65,535 bytes"
-    type: uint8
-    size: 2
-    example hex: aN
-    example value: ""
-    notes: ""
-
+    example_hex: 1588f8cc6a16430d
+    example_value: 1551767413250187179
+    notes: "Cannot be changed by issuer, operator. Smart contract controls."

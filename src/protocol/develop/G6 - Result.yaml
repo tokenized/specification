@@ -1,6 +1,6 @@
-# 
+#
 # Result Action: Once a vote has been completed the results are published.
-# 
+#
 
 code: G6
 
@@ -14,103 +14,46 @@ metadata:
 rules:
   fee:
   inputs:
-    - name: 
+    - name:
       label: Contract Public Address
-      comments: 
+      comments:
 
   outputs:
-    - name: 
+    - name:
       label: Contract Public Address
       comments: Dust limit rule minimum value output of 546
 
-    - name: 
+    - name:
       label: OP_RETURN (Result Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
 
-    - name: 
-      label: Miner's Fee
+    - name:
+      label: "Miner's Fee"
       comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: PUSHDATAINSTRUCTION
-    label: Push Data
-    description: "PUSHDATA 13 bytes for Protocol Identifer"
-    type: opcode
-    size: 1
-    example hex: 0d
-    example value: "13"
-    notes: "Cannot be changed by issuer, operator, or smart contract."
-
-  - name: ProtocolID
-    label: Protocol Identifier
-    description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
-    size: 13
-    example hex: 746f6b656e697a65642e636f6d
-    example value: "tokenized.com"
-    notes: ""
-
-  - name: OP_PUSHDATA
-    label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 1
-    example hex: 4c
-    example value: "76"
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
-    type: pushdata_length
-    size: 1
-    example hex: 64
-    example value: "100"
-    notes: "Depends on Action Payload"
-
-  - name: Version
-    label: Version
-    description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
-    size: 1
-    example hex: 00
-    example value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
-
-  - name: ActionPrefix
-    label: Action Prefix
-    description: "Result: The result of a vote. The smart contract will tally up all the valid votes by summing up the Ballot Counted actions in all blocks from the first block after the block that the Vote Action was included all the way up until the block before the next block annoucement after the vote cutoff timestamp.  The smart contract will wait 6 confirmations from the cutoff block before tallying up the votes and publishing the Result Action."
-    type: string
-    size: 2
-    example hex: 4736
-    example value: "G6"
-    notes: "Cannot be changed by issuer, operator or smart contract."
+  - name: Header
+    label: Header
+    description: "Common header data for all messages"
+    type: Header
+    notes: "Common header data for all messages."
 
   - name: TextEncoding
     label: Text Encoding
     description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
     type: uint8
     size: 1
-    example hex: 00
-    example value: "0"
+    example_hex: 00
+    example_value: "0"
     notes: "Can be changed by Issuer or Operator at their discretion."
-
-  - name: Timestamp
-    label: Timestamp
-    description: "Timestamp of when the smart contract created the Result action."
-    type: time
-    size: 8
-    example hex: 0000016331e3c200
-    example value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
-    notes: ""
 
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket"
     type: string
     size: 3
-    example hex: 534843
-    example value: "SHC"
+    example_hex: 534843
+    example_value: "SHC"
     notes: ""
 
   - name: AssetID
@@ -118,26 +61,36 @@ fields:
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null."
     type: string
     size: 32
-    example hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
-    example value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
     notes: ""
 
-  - name: ProposalType
-    label: Proposal Type
-    description: "1-255. 0 is not valid. P - Proposal, Name of the subfield in Contract Formation or Asset Creation"
-    type: nvarchar8
-    size: 2
-    example hex: 0150
-    example value: "P"
-    notes: ""
+  - name: Proposal
+    label: Proposal
+    description: "1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty."
+    type: bool
+    size: 1
+    example_hex: 00
+    example_value: 0
+
+  - name: ProposedChangesCount
+    type: uint8
+    size: 1
+    example_hex: 00
+    example_value: 0
+
+  - name: ProposedChanges
+    label: Proposed Changes
+    description: "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time."
+    type: Amendment[]
 
   - name: VoteTxnID
     label: Vote Txn ID
     description: "Link to the Vote Action txn."
     type: sha256
     size: 32
-    example hex: f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37
-    example value: "f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37"
+    example_hex: f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37
+    example_value: "f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37"
     notes: ""
 
   - name: VoteOptionsCount
@@ -145,8 +98,8 @@ fields:
     description: "Number of Vote Options to follow."
     type: uint8
     size: 1
-    example hex: aN
-    example value: ""
+    example_hex: 01
+    example_value: "1"
     notes: ""
 
   - name: Option1Tally
@@ -154,16 +107,23 @@ fields:
     description: "Number of valid votes counted for Option 1"
     type: uint64
     size: 8
-    example hex: 0000000000000bb8
-    example value: "3000"
+    example_hex: 0000000000000bb8
+    example_value: "3000"
     notes: ""
 
-  - name: OptionXTally
-    label: Option X Tally
-    description: "Number of valid votes counted for Option 3"
-    type: uint64
+  - name: Result
+    label: Result
+    description: "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed. "
+    type: nvarchar8
+    example_hex: 0132
+    example_value: "2"
+    notes: ""
+
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds of when the smart contract created the action."
+    type: timestamp
     size: 8
-    example hex: 000000000000002b
-    example value: "43"
-    notes: ""
-
+    example_hex: 1588f8cc6a16430d
+    example_value: 1551767413250187179
+    notes: "Cannot be changed by issuer, operator. Smart contract controls."

@@ -1,0 +1,21 @@
+metadata:
+  name: NotableRole
+
+fields:
+  - name: Type
+    label: Key Role Type
+    description: "Chairman, Director. Found in 'Roles' in Specification/Resources"
+    type: string
+    size: 1
+    example_hex: 43454f
+    example_value: "CEO"
+    notes: ""
+
+  - name: Name
+    label: Key Role Name
+    description: "Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)"
+    type: nvarchar8
+    size: 14
+    example_hex: 0d4a616d65732042656c64696e67
+    example_value: "James Belding"
+    notes: ""

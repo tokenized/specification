@@ -1,6 +1,6 @@
-# 
-# Vote Action: A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action.  Votes can be made by Token Owners.  
-# 
+#
+# Vote Action: A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action.  Votes can be made by Token Owners.
+#
 
 code: G3
 
@@ -14,83 +14,43 @@ metadata:
 rules:
   fee:
   inputs:
-    - name: 
+    - name:
       label: Contract Public Address
-      comments: 
+      comments:
 
   outputs:
-    - name: 
+    - name:
       label: Contract Public Address
-      comments: 
+      comments:
 
-    - name: 
+    - name:
       label: Issuer's Public Address
       comments: Issuer gets the threshold fee.
 
-    - name: 
+    - name:
       label: Contract Fee Address
       comments: Contract Operator's Fee
 
-    - name: 
+    - name:
       label: OP_RETURN (Vote Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
 
-    - name: 
-      label: Miner's Fee
+    - name:
+      label: "Miner's Fee"
       comments: ~550-1000 Bytes to account for return data and txn data.
 
 fields:
-  - name: PUSHDATAINSTRUCTION
-    label: Push Data
-    description: "PUSHDATA 13 bytes for Protocol Identifer"
-    type: opcode
-    size: 1
-    example hex: 0d
-    example value: "13"
-    notes: "Cannot be changed by issuer, operator, or smart contract."
+  - name: Header
+    label: Header
+    description: "Common header data for all messages"
+    type: Header
+    notes: "Common header data for all messages."
 
-  - name: ProtocolID
-    label: Protocol Identifier
-    description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
-    size: 13
-    example hex: 746f6b656e697a65642e636f6d
-    example value: "tokenized.com"
-    notes: ""
-
-  - name: OP_PUSHDATA
-    label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 
-    example hex: 
-    example value: ""
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
-    type: pushdata_length
-    size: 1
-    example hex: 0b
-    example value: "11"
-    notes: "Depends on Action Payload"
-
-  - name: Version
-    label: Version
-    description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
-    size: 1
-    example hex: 00
-    example value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
-
-  - name: ActionPrefix
-    label: Action Prefix
-    description: "Vote: The actual vote.  The vote will have an expiry and ballot casts will only be valid if they are timestamped by the BSV network to be within the time range of the expiration timestamp and the timestamp of the Vote Action."
-    type: string
-    size: 2
-    example hex: 4733
-    example value: "G3"
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds of when the smart contract created the action."
+    type: timestamp
+    size: 8
+    example_hex: 1588f8cc6a16430d
+    example_value: 1551767413250187179
+    notes: "Cannot be changed by issuer, operator. Smart contract controls."

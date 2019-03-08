@@ -1,6 +1,6 @@
-# 
+#
 # Reconciliation Action: to be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances.
-# 
+#
 
 code: E5
 
@@ -14,97 +14,42 @@ metadata:
 rules:
   fee:
   inputs:
-    - name: 
+    - name: Contract
       label: Contract Public Address
-      comments: 
+      comments:
 
   outputs:
-    - name: 
-      label: Target Public Address
-      comments: 546 minimum.  If X bitcoin needs to be sent to the address, then this value will be a X.
-
-    - name: 
-      label: Contract Fee Address
-      comments: Contract Operator's Fee
-
-    - name: 
-      label: OP_RETURN (Confiscation Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
-
-    - name: 
-      label: Miner's Fee
-      comments: ~550-1000 Bytes to account for return data and txn data.
+    - name: TargetX
+      label: Target Public Address X
+      comments: 546 minimum.  If N bitcoin needs to be sent to the address, then this will be the output that receives the Bitcoin.
 
 fields:
-  - name: PUSHDATAINSTRUCTION
-    label: Push Data
-    description: "PUSHDATA 13 bytes for Protocol Identifer"
-    type: opcode
-    size: 1
-    example hex: 0d
-    example value: "13"
-    notes: "Cannot be changed by issuer, operator, or smart contract."
+  - name: Header
+    label: Header
+    description: "Common header data for all messages"
+    type: Header
+    notes: "Common header data for all messages."
 
-  - name: ProtocolID
-    label: Protocol Identifier
-    description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
-    size: 13
-    example hex: 746f6b656e697a65642e636f6d
-    example value: "tokenized.com"
+  - name: AddressCount
+    label: Number of Addresses
+    description: "0 - 65,535"
+    type: uint16
+    size: 2
+    example_hex: 0000
+    example_value: 0
     notes: ""
 
-  - name: OP_PUSHDATA
-    label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 
-    example hex: aN
-    example value: ""
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
-    type: pushdata_length
-    size: 1
-    example hex: 15
-    example value: "21"
-    notes: "Depends on Action Payload"
-
-  - name: Version
-    label: Version
-    description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
-    size: 1
-    example hex: 00
-    example value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
-
-  - name: ActionPrefix
-    label: Action Prefix
-    description: "Reconciliation: The smart contract uses the Reconciliation actionbitcoin to fix users' token and bitcoin balances that may be out of whack for whatever reason.  This can be a manual fix by the issuer or smart contract operator, or it can be automated with software, but it is outside of the scope of the standard smart contract. "
-    type: string
-    size: 2
-    example hex: 4535
-    example value: "E5"
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: QtyofAddresses
-    label: Qty of Addresses
-    description: "0 - 65,535 bytes"
-    type: uint8
-    size: 2
-    example hex: aN
-    example value: ""
+  - name: Addresses
+    label: Addresses
+    description: "Addresses holding tokens to be reconciled."
+    type: Address[]
     notes: ""
 
-  - name: AddressXQty
-    label: Address X Qty
-    description: "Target's token balance after reconciliation. To be calculated by the amount of tokens to amend and the amount they own already."
-    type: uint64
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds of when the smart contract created the action."
+    type: timestamp
     size: 8
-    example hex: 0000000000002710
-    example value: "10000"
-    notes: ""
-
+    example_hex: 1588f8cc6a16430d
+    example_value: 1551767413250187179
+    notes: "Cannot be changed by issuer, operator. Smart contract controls."

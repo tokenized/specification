@@ -1,6 +1,6 @@
-# 
+#
 # Establishment Action: Establishes a register. The register is intended to be used primarily for whitelisting.  However, other types of registers can be used.
-# 
+#
 
 code: R1
 
@@ -14,85 +14,37 @@ metadata:
 rules:
   fee:
   inputs:
-    - name: 
-      label: Register's Public Address
-      comments: 
+    - name:
+      label: "Register's Public Address"
+      comments:
 
   outputs:
-    - name: 
-      label: Register's Public Address
+    - name:
+      label: "Register's Public Address"
       comments: Send back to itself
 
-    - name: 
+    - name:
       label: OP_RETURN (Addition Action)
-      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn. 
+      comments: Only one Tokenized action (excluding Message actions) per txn.  Action payload is always the last index of the txn outputs.  There is no limit to the number of M1 (message) actions per txn.
 
-    - name: 
-      label: Miner's Fee
-      comments: ~550-1000 Bytes to account for return data and txn data.
+    - name:
+      label: "Miner's Fee"
+      comments: "~550-1000 Bytes to account for return data and txn data."
 
 fields:
-  - name: PUSHDATAINSTRUCTION
-    label: Push Data
-    description: "PUSHDATA 13 bytes for Protocol Identifer"
-    type: opcode
-    size: 1
-    example hex: 0d
-    example value: "13"
-    notes: "Cannot be changed by issuer, operator, or smart contract."
-
-  - name: ProtocolID
-    label: Protocol Identifier
-    description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
-    size: 13
-    example hex: 746f6b656e697a65642e636f6d
-    example value: "tokenized.com"
-    notes: ""
-
-  - name: OP_PUSHDATA
-    label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 1
-    example hex: 4c
-    example value: "76"
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
-    type: pushdata_length
-    size: 1
-    example hex: 4c
-    example value: "76"
-    notes: "Depends on Action Payload"
-
-  - name: Version
-    label: Version
-    description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
-    size: 1
-    example hex: 0
-    example value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the version."
-
-  - name: ActionPrefix
-    label: Action Prefix
-    description: "Establishment: A Registry is Established.  Registration Actions (Addition, Alterations, Removal) are now valid."
-    type: string
-    size: 2
-    example hex: 5231
-    example value: "R1"
-    notes: "Cannot be changed by issuer, operator or smart contract."
+  - name: Header
+    label: Header
+    description: "Common header data for all messages"
+    type: Header
+    notes: "Common header data for all messages."
 
   - name: TextEncoding
     label: Text Encoding
     description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
     type: uint8
     size: 1
-    example hex: 0
-    example value: "0"
+    example_hex: 00
+    example_value: "0"
     notes: "Can be changed by Issuer or Operator at their discretion."
 
   - name: Registrar
@@ -100,8 +52,8 @@ fields:
     description: "Length 0-255 bytes. 0 is acceptable. Registrar Subfield."
     type: nvarchar8
     size: 9
-    example hex: 08436f696e62617365
-    example value: "Coinbase"
+    example_hex: 08436f696e62617365
+    example_value: "Coinbase"
     notes: ""
 
   - name: RegisterType
@@ -109,8 +61,8 @@ fields:
     description: "1 - KYC"
     type: string
     size: 1
-    example hex: 00
-    example value: ""
+    example_hex: 00
+    example_value: ""
     notes: ""
 
   - name: Jurisdiction
@@ -118,8 +70,8 @@ fields:
     description: ""
     type: string
     size: 5
-    example hex: 4155530000
-    example value: "AUS"
+    example_hex: 4155530000
+    example_value: "AUS"
     notes: ""
 
   - name: SupportingDocumentationHash
@@ -127,7 +79,15 @@ fields:
     description: ""
     type: sha256
     size: 32
-    example hex: 98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4
-    example value: "98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4"
+    example_hex: 98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4
+    example_value: "98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4"
     notes: ""
 
+  - name: Message
+    label: Message
+    description: "Length 0-65,535 bytes. An establishment message can be used to provide more information."
+    type: nvarchar16
+    size: 25
+    example_hex: 00174e6f72746820416d65726963612057686974656c697374
+    example_value: "North America Whitelist"
+    notes: ""
