@@ -23,12 +23,12 @@ metadata:
 rules:
   fee:
   inputs:
-    - name: Sender
+    - name: MsgSender
       label: "Msg Sender's Public Address"
       comments:
 
   outputs:
-    - name: ReceiverX
+    - name: MsgReceiverX
       label: "Msg Receiver's Public Address"
       comments: Dust limit rule minimum value output of 546
 
