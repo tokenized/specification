@@ -2,41 +2,41 @@
 # Asset Authorization Flags
 #
 
-- name: 01
+- name: "01"
   label: "Asset Modifications Permitted (excluding Asset Authorization Flags)"
 
-- name: 02
+- name: "02"
   label: "Vote required for Asset Modifications (excluding Asset Authorization Flags)"
 
-- name: 03
+- name: "03"
   label: "Asset's Authorization Flags can be Amended"
 
-- name: 04
+- name: "04"
   label: "Asset Authorization Flag amendments permitted with Referendum"
 
-- name: 05
+- name: "05"
   label: "Initiatives are permitted"
 
-- name: 06
+- name: "06"
   label: "Initiatives can modify the Asset"
 
-- name: 07
+- name: "07"
   label: "Transfers Permitted"
 
-- name: 08
+- name: "08"
 
-- name: 09
+- name: "09"
 
-- name: 10
+- name: "10"
 
-- name: 11
+- name: "11"
 
-- name: 12
+- name: "12"
 
-- name: 13
+- name: "13"
 
-- name: 14
+- name: "14"
 
-- name: 15
+- name: "15"
 
-- name: 16
+- name: "16"
