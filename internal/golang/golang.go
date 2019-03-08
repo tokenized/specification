@@ -1,23 +1,20 @@
 package golang
 
 import (
-	"fmt"
-	"os"
-	"text/template"
-
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
 func Compile(distPath string, msgs parser.Messages) {
 
-	templateToFile(distPath, msgs, "protocol.tpl", "protocol.go")
+	// templateToFile(distPath, msgs, "protocol.tpl", "protocol.go")
+	templateToFile(distPath, msgs, "messages_test.tpl", "messages_test.go")
+	templateToFile(distPath, msgs, "messages.tpl", "messages.go")
 
-	pms := msgs.ProtocolMessages()
-	for _, pm := range pms {
-		// fmt.Printf("\n\n%+v", pm)
-		templateToFile(distPath, pm, "message.tpl", parser.SnakeCase(pm.Name())+".go")
-		// templateToFile("protocol", distPath, msgs)
-	}
+	// pms := msgs.ProtocolMessages()
+	// for _, pm := range pms {
+	// 	templateToFile(distPath, pm, "message.tpl", parser.SnakeCase(pm.Name())+".go")
+	// 	templateToFile(distPath, pm, "message_test.tpl", parser.SnakeCase(pm.Name())+"_test.go")
+	// }
 
 }
 
@@ -26,15 +23,5 @@ func templateToFile(distPath string, data interface{}, tplFile, goFile string) {
 
 	path := distPath + "/golang/protocol/" + goFile
 
-	fmt.Println(path)
-
-	f, err := os.Create(path)
-	if err != nil {
-		panic(err)
-	}
-
-	tmpl := template.Must(template.ParseFiles(tpl))
-	if err := tmpl.Execute(f, data); err != nil {
-		panic(err)
-	}
+	parser.TemplateToFile(distPath, data, tpl, path)
 }

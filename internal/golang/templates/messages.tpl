@@ -1,6 +1,40 @@
-{{.GoComment}}
+// Package {{.Package}} provides base level structs and validation for
+// the protocol.
+//
+// The code in this file is auto-generated. Do not edit it by hand as it will
+// be overwritten when code is regenerated.
 package protocol
 
+const (
+{{- range .ProtocolMessages}}
+{{.CodeNameComment}}
+	{{.CodeName}} = "{{.Code}}"
+{{ end -}}
+)
+
+// TypeMapping holds a mapping of message codes to message types.
+var (
+	TypeMapping = map[string]OpReturnMessage{
+{{- range .ProtocolMessages }}
+		Code{{.Name}}: &{{.Name}}{},
+{{- end }}
+	}
+
+	// ProtocolID is the current protocol ID
+	ProtocolID = []byte("tokenized.com")
+)
+
+func hexToBytes(s string) []byte {
+	decoded, err := hex.DecodeString(s)
+	if err != nil {
+		panic(err)
+	}
+
+	return []byte(decoded)
+}
+
+{{range .ProtocolMessages}}
+{{.CommentSlash}}
 type {{.Name}} struct {
 {{range .Fields}}	{{ .FieldName }} {{ .GoType }}
 {{ end -}}
@@ -73,7 +107,7 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 	if err := write(buf, m.{{.FieldName}}); err != nil {
 		return nil, err
 	}
-{{ end -}}{{ $last := .Name }}{{ end }}
+{{ end -}}{{ $last = .Name }}{{ end }}
 	b := buf.Bytes()
 
 	header, err := NewHeaderForCode(Code{{.Name}}, len(b))
@@ -95,7 +129,7 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 // the receiver.
 func (m *{{.Name}}) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
-{{$last := ""}}{{range .Fields -}}{{- if .IsInternalTypeArray -}}
+{{$last := ""}}{{range .Fields -}}{{- if .IsInternalTypeArray }}
 	for i := 0; i < int(m.{{$last}}); i++ {
 		x := &{{.GoTypeSingular}}{}
 		if err := x.Write(buf); err != nil {
@@ -106,7 +140,6 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 	}
 {{ else if .IsNativeTypeArray }}
 	m.{{.FieldName}} = make({{.GoType}}, m.{{$last}}, m.{{$last}})
-
 	if err := read(buf, &m.{{.FieldName}}); err != nil {
 		return 0, err
 	}
@@ -134,7 +167,7 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 	if err := read(buf, &m.{{.FieldName}}); err != nil {
 		return 0, err
 	}
-{{ end }}{{ $last := .FieldName }}{{ end }}
+{{ end }}{{ $last = .FieldName }}{{ end }}
 	return len(b), nil
 }
 
@@ -173,3 +206,4 @@ func (m {{.Name}}) String() string {
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
+{{ end -}}
