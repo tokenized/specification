@@ -2,17 +2,15 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+	"os"
 
-	"github.com/specification/internal/golang"
-	"github.com/specification/internal/markdown"
-	"github.com/specification/internal/platform/parser"
-	"github.com/specification/internal/python"
+	"github.com/tokenized/specification/internal/golang"
+	"github.com/tokenized/specification/internal/markdown"
+	"github.com/tokenized/specification/internal/platform/parser"
+	"github.com/tokenized/specification/internal/python"
 
 	"github.com/spf13/cobra"
-)
-
-const (
-	FlagDebugMode = "debug"
 )
 
 var cmdGenerate = &cobra.Command{
@@ -29,9 +27,16 @@ var cmdGenerate = &cobra.Command{
 		markdown.Compile()
 		python.Compile()
 
-		tmp := parser.FetchFiles("protocol", "develop")
+		dir, err := os.Getwd()
+		if err != nil {
+			log.Fatal(err)
+		}
+		srcPath := dir + "/src"
 
-		fmt.Println(tmp)
+		allFiles := parser.FetchFiles(srcPath, "protocol", "develop")
+		allMessages := parser.BuildMessages(allFiles, "protocol")
+
+		fmt.Println(allMessages)
 
 		return nil
 	},

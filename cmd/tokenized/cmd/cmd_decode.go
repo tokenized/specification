@@ -4,19 +4,19 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/specification/dist/golang/protocol"
+	"github.com/tokenized/specification/dist/golang/protocol"
 
 	"github.com/spf13/cobra"
-)
-
-const (
-	FlagDebugMode = "debug"
 )
 
 var cmdDecode = &cobra.Command{
 	Use:   "decode",
 	Short: "Decode a message",
+	Args:  cobra.MinimumNArgs(1),
 	RunE: func(c *cobra.Command, args []string) error {
+
+		raw := args[0]
+
 		debugMode, _ := c.Flags().GetBool(FlagDebugMode)
 
 		if debugMode {
