@@ -14,7 +14,7 @@ const (
 
 // TypeMapping holds a mapping of message codes to message types.
 var (
-	TypeMapping = map[string]OpReturnAction{
+	TypeMapping = map[string]OpReturnMessage{
 {{- range .ProtocolActions }}
 		Code{{.Name}}: &{{.Name}}{},
 {{- end }}
@@ -171,10 +171,10 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m {{.Name}}) PayloadAction() (PayloadAction, error) {
-{{- if .HasPayloadAction }}
-	p, err := NewPayloadActionFromCode(m.AssetType)
+// PayloadMessage returns the PayloadMessage, if any.
+func (m {{.Name}}) PayloadMessage() (PayloadMessage, error) {
+{{- if .HasPayloadMessage }}
+	p, err := NewPayloadMessageFromCode(m.AssetType)
 	if p == nil || err != nil {
 		return nil, err
 	}

@@ -94,7 +94,7 @@ const (
 
 // TypeMapping holds a mapping of message codes to message types.
 var (
-	TypeMapping = map[string]OpReturnAction{
+	TypeMapping = map[string]OpReturnMessage{
 		CodeAssetDefinition: &AssetDefinition{},
 		CodeAssetCreation: &AssetCreation{},
 		CodeAssetModification: &AssetModification{},
@@ -364,9 +364,9 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m AssetDefinition) PayloadAction() (PayloadAction, error) {
-	p, err := NewPayloadActionFromCode(m.AssetType)
+// PayloadMessage returns the PayloadMessage, if any.
+func (m AssetDefinition) PayloadMessage() (PayloadMessage, error) {
+	p, err := NewPayloadMessageFromCode(m.AssetType)
 	if p == nil || err != nil {
 		return nil, err
 	}
@@ -645,9 +645,9 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m AssetCreation) PayloadAction() (PayloadAction, error) {
-	p, err := NewPayloadActionFromCode(m.AssetType)
+// PayloadMessage returns the PayloadMessage, if any.
+func (m AssetCreation) PayloadMessage() (PayloadMessage, error) {
+	p, err := NewPayloadMessageFromCode(m.AssetType)
 	if p == nil || err != nil {
 		return nil, err
 	}
@@ -827,8 +827,8 @@ func (m *AssetModification) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m AssetModification) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m AssetModification) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -1368,8 +1368,8 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m ContractOffer) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m ContractOffer) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -1953,8 +1953,8 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m ContractFormation) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m ContractFormation) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -2144,8 +2144,8 @@ func (m *ContractAmendment) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m ContractAmendment) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m ContractAmendment) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -2398,8 +2398,8 @@ func (m *StaticContractFormation) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m StaticContractFormation) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m StaticContractFormation) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -2676,8 +2676,8 @@ func (m *Order) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Order) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Order) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -2809,8 +2809,8 @@ func (m *Freeze) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Freeze) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Freeze) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -2928,8 +2928,8 @@ func (m *Thaw) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Thaw) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Thaw) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -3055,8 +3055,8 @@ func (m *Confiscation) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Confiscation) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Confiscation) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -3174,8 +3174,8 @@ func (m *Reconciliation) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Reconciliation) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Reconciliation) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -3392,8 +3392,8 @@ func (m *Initiative) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Initiative) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Initiative) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -3627,8 +3627,8 @@ func (m *Referendum) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Referendum) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Referendum) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -3725,8 +3725,8 @@ func (m *Vote) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Vote) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Vote) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -3850,8 +3850,8 @@ func (m *BallotCast) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m BallotCast) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m BallotCast) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -3941,8 +3941,8 @@ func (m *BallotCounted) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m BallotCounted) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m BallotCounted) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -4139,8 +4139,8 @@ func (m *Result) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Result) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Result) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -4288,8 +4288,8 @@ func (m *Message) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Message) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Message) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -4439,8 +4439,8 @@ func (m *Rejection) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Rejection) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Rejection) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -4545,8 +4545,8 @@ func (m *Establishment) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Establishment) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Establishment) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -4647,8 +4647,8 @@ func (m *Addition) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Addition) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Addition) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -4749,8 +4749,8 @@ func (m *Alteration) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Alteration) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Alteration) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -4851,8 +4851,8 @@ func (m *Removal) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Removal) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Removal) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -5011,8 +5011,8 @@ func (m *Send) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Send) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Send) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -5223,8 +5223,8 @@ func (m *Exchange) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Exchange) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Exchange) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -5510,8 +5510,8 @@ func (m *Swap) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Swap) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Swap) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
@@ -5713,8 +5713,8 @@ func (m *Settlement) Write(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// PayloadAction returns the PayloadAction, if any.
-func (m Settlement) PayloadAction() (PayloadAction, error) {
+// PayloadMessage returns the PayloadMessage, if any.
+func (m Settlement) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 

@@ -101,7 +101,7 @@ func (m Action) PayloadFields() []Field {
 	return fields
 }
 
-func (m Action) HasPayloadAction() bool {
+func (m Action) HasPayloadMessage() bool {
 	switch m.Name() {
 	case "AssetDefinition", "AssetCreation":
 		return true
