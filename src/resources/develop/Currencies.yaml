@@ -462,7 +462,7 @@ currencies:
   HRK:
     name: CroatianKuna
     label: Croatian kuna
-    symbol:	"kn"
+    symbol: "kn"
     fractions: 100
     fractionalUnit: Lipa
     polity: HRV
@@ -470,7 +470,7 @@ currencies:
   HTG:
     name: HaitianGourde
     label: Haitian gourde
-    symbol:	"G"
+    symbol: "G"
     fractions: 100
     fractionalUnit: 	Centime
     polity: HTI
@@ -478,7 +478,7 @@ currencies:
   HUF:
     name: HungarianForint
     label: Hungarian forint
-    symbol:	"Ft"
+    symbol: "Ft"
     fractions: 100
     fractionalUnit: 	Fillér
     polity: HUN
@@ -486,7 +486,7 @@ currencies:
   IDR:
     name: IndonesianRupiah
     label: Indonesian rupiah
-    symbol:	"Rp"
+    symbol: "Rp"
     fractions: 100
     fractionalUnit: 	Sen
     polity: IDN
@@ -494,7 +494,7 @@ currencies:
   ILS:
     name: IsraeliNewShekel
     label: Israeli new shekel
-    symbol:	"₪"
+    symbol: "₪"
     fractions: 100
     fractionalUnit: 	Agora
     polity: ISR, PSE
@@ -502,7 +502,7 @@ currencies:
   INR:
     name: IndianRupee
     label: Indian rupee
-    symbol:	"₹"
+    symbol: "₹"
     fractions: 100
     fractionalUnit: 	Paisa
     polity: IND, BTN
@@ -510,7 +510,7 @@ currencies:
   IQD:
     name: IraqiDinar
     label: Iraqi dinar
-    symbol:	"ع.د"
+    symbol: "ع.د"
     fractions: 1000
     fractionalUnit: 	Fils
     polity: IRQ
@@ -518,7 +518,7 @@ currencies:
   IRR:
     name: IranianRial
     label: Iranian rial
-    symbol:	"﷼"
+    symbol: "﷼"
     fractions: 100
     fractionalUnit: Dinar
     polity: IRN
@@ -526,7 +526,7 @@ currencies:
   ISK:
     name: IcelandicKrona
     label: Icelandic króna
-    symbol:	"kr"
+    symbol: "kr"
     fractions: 100
     fractionalUnit: Eyrir
     polity: ISL
@@ -534,7 +534,7 @@ currencies:
   JMD:
     name: JamaicanDollar
     label: Jamaican dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: JAM
@@ -542,7 +542,7 @@ currencies:
   JOD:
     name: JordanianDinar
     label: Jordanian dinar
-    symbol:	"د.ا"
+    symbol: "د.ا"
     fractions: 100
     fractionalUnit: Piastre
     polity: JOR, PSE
@@ -550,7 +550,7 @@ currencies:
   JPY:
     name: JapaneseYen
     label: Japanese yen
-    symbol:	"¥"
+    symbol: "¥"
     fractions: 100
     fractionalUnit: Sen
     polity: JPN
@@ -558,7 +558,7 @@ currencies:
   KES:
     name: KenyanShilling
     label: Kenyan shilling
-    symbol:	"Sh"
+    symbol: "Sh"
     fractions: 100
     fractionalUnit: Cent
     polity: KEN
@@ -566,7 +566,7 @@ currencies:
   KGS:
     name: KyrgyzstaniSom
     label: Kyrgyzstani som
-    symbol:	"с"
+    symbol: "с"
     fractions: 100
     fractionalUnit: Tyiyn
     polity: KGZ
@@ -574,7 +574,7 @@ currencies:
   KHR:
     name: CambodianRiel
     label: Cambodian riel
-    symbol:	"៛"
+    symbol: "៛"
     fractions: 100
     fractionalUnit: Sen
     polity: KHM
@@ -582,7 +582,7 @@ currencies:
   KMF:
     name: ComoroFranc
     label: Comoro franc
-    symbol:	"Fr"
+    symbol: "Fr"
     fractions: 100
     fractionalUnit: Sen
     polity: COM
@@ -590,7 +590,7 @@ currencies:
   KPW:
     name: NorthKoreanWon
     label: North Korean won
-    symbol:	"₩"
+    symbol: "₩"
     fractions: 100
     fractionalUnit: Chon
     polity: PRK
@@ -598,7 +598,7 @@ currencies:
   KRW:
     name: SouthKoreanWon
     label: South Korean won
-    symbol:	"₩"
+    symbol: "₩"
     fractions: 100
     fractionalUnit: Jeon
     polity: KOR
@@ -606,7 +606,7 @@ currencies:
   KWD:
     name: KuwaitiDinar
     label: Kuwaiti dinar
-    symbol:	"د.ك"
+    symbol: "د.ك"
     fractions: 1000
     fractionalUnit: Fils
     polity: KWT
@@ -614,7 +614,7 @@ currencies:
   KYD:
     name: CaymanIslandsDollar
     label: Cayman Islands dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: CYM
@@ -622,7 +622,7 @@ currencies:
   KZT:
     name: KazakhstaniTenge
     label: Kazakhstani tenge
-    symbol:	"₸"
+    symbol: "₸"
     fractions: 100
     fractionalUnit: Tïın
     polity: KAZ
@@ -630,7 +630,7 @@ currencies:
   LAK:
     name: LaoKip
     label: Lao kip
-    symbol:	"₭"
+    symbol: "₭"
     fractions: 100
     fractionalUnit: Att
     polity: LAO
@@ -638,7 +638,7 @@ currencies:
   LBP:
     name: LebanesePound
     label: Lebanese pound
-    symbol:	"ل.ل"
+    symbol: "ل.ل"
     fractions: 100
     fractionalUnit: Piastre
     polity: LBN
@@ -646,7 +646,7 @@ currencies:
   LKR:
     name: SriLankanRupee
     label: Sri Lankan rupee
-    symbol:	"Rs"
+    symbol: "Rs"
     fractions: 100
     fractionalUnit: Cent
     polity: LKA
@@ -654,7 +654,7 @@ currencies:
   LRD:
     name: LiberianDollar
     label: Liberian dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: LBR
@@ -662,7 +662,7 @@ currencies:
   LSL:
     name: LesothoLoti
     label: Lesotho loti
-    symbol:	"L"
+    symbol: "L"
     fractions: 100
     fractionalUnit: Sente
     polity: LBR
@@ -670,7 +670,7 @@ currencies:
   LYD:
     name: LibyanDinar
     label: Libyan dinar
-    symbol:	"ل.د"
+    symbol: "ل.د"
     fractions: 1000
     fractionalUnit: Dirham
     polity: LBY
@@ -678,7 +678,7 @@ currencies:
   MAD:
     name: MoroccanDirham
     label: Moroccan dirham
-    symbol:	"د.م."
+    symbol: "د.م."
     fractions: 100
     fractionalUnit: Centime
     polity: MAR
@@ -686,7 +686,7 @@ currencies:
   MDL:
     name: MoldovanLeu
     label: Moldovan leu
-    symbol:	"L"
+    symbol: "L"
     fractions: 100
     fractionalUnit: Ban
     polity: MDA
@@ -694,7 +694,7 @@ currencies:
   MGA:
     name: MalagasyAriary
     label: Malagasy ariary
-    symbol:	"Ar"
+    symbol: "Ar"
     fractions: 5
     fractionalUnit: Iraimbilanja
     polity: MDG
@@ -710,7 +710,7 @@ currencies:
   MMK
     name: MyanmarKyat
     label: Myanmar kyat
-    symbol:	"Ks"
+    symbol: "Ks"
     fractions: 100
     fractionalUnit: Pya
     polity: MMR
@@ -718,7 +718,7 @@ currencies:
   MNT:
     name: MongolianTogrog
     label: Mongolian tögrög
-    symbol:	"₮"
+    symbol: "₮"
     fractions: 100
     fractionalUnit: Möngö
     polity: MNG
@@ -726,7 +726,7 @@ currencies:
   MOP:
     name: MacanesePataca
     label: Macanese pataca
-    symbol:	"P"
+    symbol: "P"
     fractions: 100
     fractionalUnit: Avo
     polity: MAC
@@ -734,7 +734,7 @@ currencies:
   MRU:
     name: MauritanianOuguiya
     label: Mauritanian ouguiya
-    symbol:	"UM"
+    symbol: "UM"
     fractions: 5
     fractionalUnit: Khoums
     polity: MRT
@@ -742,7 +742,7 @@ currencies:
   MUR:
     name: MauritianRupee
     label: Mauritian rupee
-    symbol:	"₨"
+    symbol: "₨"
     fractions: 100
     fractionalUnit: Cent
     polity: MUS
@@ -750,7 +750,7 @@ currencies:
   MVR:
     name: MaldivianRufiyaa
     label: Maldivian rufiyaa
-    symbol:	".ރ"
+    symbol: ".ރ"
     fractions: 100
     fractionalUnit: Laari
     polity: MDV
@@ -758,7 +758,7 @@ currencies:
   MWK:
     name: MalawianKwacha
     label: Malawian kwacha
-    symbol:	"MK"
+    symbol: "MK"
     fractions: 100
     fractionalUnit: Tambala
     polity: MWI
@@ -766,7 +766,7 @@ currencies:
   MXN:
     name: MexicanPeso
     label: Mexican peso
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Centavo
     polity: MEX
@@ -774,7 +774,7 @@ currencies:
   MYR:
     name: MalaysianRinggit
     label: Malaysian ringgit
-    symbol:	"RM"
+    symbol: "RM"
     fractions: 100
     fractionalUnit: Sen
     polity: MYS
@@ -782,7 +782,7 @@ currencies:
   MZN:
     name: MozambicanMetical
     label: Mozambican metical
-    symbol:	"MT"
+    symbol: "MT"
     fractions: 100
     fractionalUnit: Centavo
     polity: MOZ
@@ -790,7 +790,7 @@ currencies:
   NAD:
     name: NamibianDollar
     label: Namibian dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: NAM
@@ -798,7 +798,7 @@ currencies:
   NGN:
     name: NigerianNaira
     label: Nigerian naira
-    symbol:	"₦"
+    symbol: "₦"
     fractions: 100
     fractionalUnit: Kobo
     polity: NGA
@@ -806,7 +806,7 @@ currencies:
   NIO:
     name: NicaraguaCordoba
     label: Nicaraguan córdoba
-    symbol:	"C$"
+    symbol: "C$"
     fractions: 100
     fractionalUnit: Centavo
     polity: NIC
@@ -814,7 +814,7 @@ currencies:
   NOK:
     name: NorwegianKrone
     label: Norwegian krone
-    symbol:	"kr"
+    symbol: "kr"
     fractions: 100
     fractionalUnit: Øre
     polity: NOR, SJM, BVT
@@ -822,7 +822,7 @@ currencies:
   NPR:
     name: NepaleseRupee
     label: Nepalese rupee
-    symbol:	"₨"
+    symbol: "₨"
     fractions: 100
     fractionalUnit: Paisa
     polity: NPL
@@ -830,7 +830,7 @@ currencies:
   NZD:
     name: NewZealandDollar
     label: New Zealand dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: NZL, COK, NIU, PCN, TKL
@@ -838,7 +838,7 @@ currencies:
   OMR:
     name: OmaniRial
     label: Omani rial
-    symbol:	"ر.ع."
+    symbol: "ر.ع."
     fractions: 1000
     fractionalUnit: Baisa
     polity: OMN
@@ -846,7 +846,7 @@ currencies:
   PAB:
     name: PanamanianBalboa
     label: Panamanian balboa
-    symbol:	"B/."
+    symbol: "B/."
     fractions: 100
     fractionalUnit: Centésimo
     polity: PAN
@@ -854,7 +854,7 @@ currencies:
   PEN:
     name: PeruvianSol
     label: Peruvian sol
-    symbol:	"S/."
+    symbol: "S/."
     fractions: 100
     fractionalUnit: Céntimo
     polity: PER
@@ -862,7 +862,7 @@ currencies:
   PGK:
     name: PapuaNewGuineanKina
     label: Papua New Guinean kina
-    symbol:	"K"
+    symbol: "K"
     fractions: 100
     fractionalUnit: Toea
     polity: PNG
@@ -870,7 +870,7 @@ currencies:
   PHP:
     name: PhilippinePeso
     label: Philippine peso
-    symbol:	"₱"
+    symbol: "₱"
     fractions: 100
     fractionalUnit: Sentimo
     polity: PHL
@@ -878,7 +878,7 @@ currencies:
   PKR:
     name: PakistaniRupee
     label: Pakistani rupee
-    symbol:	"₨"
+    symbol: "₨"
     fractions: 100
     fractionalUnit: Paisa
     polity: PAK
@@ -886,7 +886,7 @@ currencies:
   PLN:
     name: PolishZloty
     label: Polish złoty
-    symbol:	"zł"
+    symbol: "zł"
     fractions: 100
     fractionalUnit: Grosz
     polity: POL
@@ -894,7 +894,7 @@ currencies:
   PYG:
     name: ParaguayanGuarani
     label: Paraguayan guaraní
-    symbol:	"₲"
+    symbol: "₲"
     fractions: 100
     fractionalUnit: Céntimo
     polity: PRY
@@ -902,7 +902,7 @@ currencies:
   QAR:
     name: QatariRiyal
     label: Qatari riyal
-    symbol:	"ر.ق"
+    symbol: "ر.ق"
     fractions: 100
     fractionalUnit: Dirham
     polity: QAT
@@ -910,7 +910,7 @@ currencies:
   RON:
     name: RomanianLeu
     label: Romanian leu
-    symbol:	"lei"
+    symbol: "lei"
     fractions: 100
     fractionalUnit: Ban
     polity: ROU
@@ -918,7 +918,7 @@ currencies:
   RSD:
     name: SerbianDinar
     label: Serbian dinar
-    symbol:	"din"
+    symbol: "din"
     fractions: 100
     fractionalUnit: Para
     polity: SRB
@@ -926,7 +926,7 @@ currencies:
   RUB:
     name: RussianRuble
     label: Russian ruble
-    symbol:	"₽"
+    symbol: "₽"
     fractions: 100
     fractionalUnit: Kopek
     polity: RUS
@@ -934,7 +934,7 @@ currencies:
   RWF:
     name: RwandanFranc
     label: Rwandan franc
-    symbol:	"Fr"
+    symbol: "Fr"
     fractions: 100
     fractionalUnit: Centime
     polity: RWA
@@ -942,7 +942,7 @@ currencies:
   SAR:
     name: SaudiRiyal
     label: Saudi riyal
-    symbol:	"ر.س"
+    symbol: "ر.س"
     fractions: 100
     fractionalUnit: Halala
     polity: SAU
@@ -950,7 +950,7 @@ currencies:
   SBD:
     name: SolomonIslandDollar
     label: Solomon Islands dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: SLB
@@ -958,7 +958,7 @@ currencies:
   SCR:
     name: SeychelloisRupee
     label: Seychellois rupee
-    symbol:	"₨"
+    symbol: "₨"
     fractions: 100
     fractionalUnit: Cent
     polity: SYC
@@ -1078,7 +1078,7 @@ currencies:
   TND:
     name: TunisianDinar
     label: Tunisian dinar
-    symbol:	"د.ت"
+    symbol: "د.ت"
     fractions: 1000
     fractionalUnit: Millime
     polity: TUN
@@ -1086,7 +1086,7 @@ currencies:
   TOP:
     name: TonganPaAnga
     label: Tongan paʻanga
-    symbol:	"T$"
+    symbol: "T$"
     fractions: 100
     fractionalUnit: Seniti
     polity: TON
@@ -1094,7 +1094,7 @@ currencies:
 TRY:
     name: TurkishLira
     label: Turkish lira
-    symbol:	"₺"
+    symbol: "₺"
     fractions: 100
     fractionalUnit: Kuruş
     polity: TUR
@@ -1102,7 +1102,7 @@ TRY:
   TTD:
     name: TrinidadTobagoDollar
     label: Trinidad and Tobago dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: TTO
@@ -1110,7 +1110,7 @@ TRY:
   TWD:
     name: NewTaiwanDollar
     label: New Taiwan dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: TWN
@@ -1118,7 +1118,7 @@ TRY:
   TZS:
     name: TanzanianShilling
     label: Tanzanian shilling
-    symbol:	"Sh"
+    symbol: "Sh"
     fractions: 100
     fractionalUnit: Cent
     polity: TZA
@@ -1126,7 +1126,7 @@ TRY:
   UAH:
     name: UkrainianHryvnia
     label: Ukrainian hryvnia
-    symbol:	"₴"
+    symbol: "₴"
     fractions: 100
     fractionalUnit: Kopiyka
     polity: UKR
@@ -1134,7 +1134,7 @@ TRY:
   UGX:
     name: UgandanShilling
     label: Ugandan shilling
-    symbol:	"Sh"
+    symbol: "Sh"
     fractions: 100
     fractionalUnit: Cent
     polity: UGA
@@ -1142,7 +1142,7 @@ TRY:
   USD:
     name: UnitedStatesDollar
     label: United States dollar
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Cent
     polity: USA, ASM, VGB, BES, ECU, SLV, GUM, HTI, MHL, FSM, MNP, PLW, PAN, PRI, TLS, TCA, VIR, UMI
@@ -1150,7 +1150,7 @@ TRY:
   UYU:
     name: UruguayanPeso
     label: Uruguayan peso
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Centésimo
     polity: URY
@@ -1158,7 +1158,7 @@ TRY:
   UYU:
     name: UruguayanPeso
     label: Uruguayan peso
-    symbol:	"$"
+    symbol: "$"
     fractions: 100
     fractionalUnit: Centésimo
     polity: URY
@@ -1166,7 +1166,7 @@ TRY:
   UZS:
     name: UzbekistaniSom
     label: Uzbekistani soʻm
-    symbol:	"so'm"
+    symbol: "so'm"
     fractions: 100
     fractionalUnit: Tiyin
     polity: UZB
@@ -1174,7 +1174,7 @@ TRY:
   VES:
     name: VenezuelanBolivarSoberano
     label: Venezuelan bolívar soberano
-    symbol:	"Bs."
+    symbol: "Bs."
     fractions: 100
     fractionalUnit: Céntimo
     polity: VEN
@@ -1182,7 +1182,7 @@ TRY:
   VND:
     name: VietlabelseDong
     label: Vietlabelse đồng
-    symbol:	"₫"
+    symbol: "₫"
     fractions: 100
     fractionalUnit: Hào
     polity: VNM
@@ -1190,7 +1190,7 @@ TRY:
   VUV:
     name: VanuatuVatu
     label: Vanuatu vatu
-    symbol:	"Vt"
+    symbol: "Vt"
     fractions: none
     fractionalUnit: none
     polity: VUT
@@ -1198,7 +1198,7 @@ TRY:
   WST:
     name: SamoanTala
     label: Samoan tālā
-    symbol:	"T"
+    symbol: "T"
     fractions: 100
     fractionalUnit: Sene
     polity: WSM
@@ -1206,7 +1206,7 @@ TRY:
   XAF:
     name: CentralAfricanCFAFranc
     label: Central African CFA franc
-    symbol:	"T"
+    symbol: "T"
     fractions: 100
     fractionalUnit: Sene
     polity: CMR, CAF, COG, TCD, GNQ, GAB
@@ -1241,7 +1241,7 @@ TRY:
   YER:
     name: YemeniRial
     label: Yemeni rial
-    symbol:	"﷼"
+    symbol: "﷼"
     fractions: 100
     fractionalUnit: Fils
     polity: YEM
@@ -1249,7 +1249,7 @@ TRY:
   ZAR:
     name: SouthAfricanRand
     label: South African rand
-    symbol:	"R"
+    symbol: "R"
     fractions: 100
     fractionalUnit: Cent
     polity: ZAF
@@ -1257,7 +1257,7 @@ TRY:
   ZMW:
     name: ZambianKwacha
     label: Zambian kwacha
-    symbol:	"ZK"
+    symbol: "ZK"
     fractions: 100
     fractionalUnit: Ngwee
     polity: ZMB
