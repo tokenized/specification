@@ -26,9 +26,9 @@ rules:
 fields:
   - name: Header
     label: Header
-    description: "Common header data for all messages"
+    description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all messages."
+    notes: "Common header data for all actions."
 
   - name: TextEncoding
     label: Text Encoding

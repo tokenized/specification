@@ -31,16 +31,16 @@ var cmdGenerate = &cobra.Command{
 		srcPath := dir + "/src"
 		distPath := dir + "/dist"
 
-		// Fetch files and messages
-		allFiles := parser.FetchFiles(srcPath, "protocol", "develop")
-		allMessages := parser.BuildMessages(allFiles, "protocol")
+		// Fetch files and actions
+		files := parser.FetchFiles(srcPath, "protocol", "develop/actions")
+		actions := parser.BuildActions(files, "protocol")
 
-		// fmt.Printf("%+v", allMessages)
+		// fmt.Printf("%+v", actions)
 
 		// Compile languages
-		golang.Compile(distPath, allMessages)
-		python.Compile(distPath, allMessages)
-		markdown.Compile(distPath, allMessages)
+		golang.Compile(distPath, actions)
+		python.Compile(distPath, actions)
+		markdown.Compile(distPath, actions)
 
 		return nil
 	},

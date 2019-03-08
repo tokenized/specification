@@ -20,8 +20,8 @@ var (
 	matchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
 )
 
-func BuildMessages(filenames []string, packageName string) Messages {
-	messages := Messages{
+func BuildActions(filenames []string, packageName string) Actions {
+	actions := Actions{
 		Package: packageName,
 	}
 
@@ -31,25 +31,25 @@ func BuildMessages(filenames []string, packageName string) Messages {
 			panic(err)
 		}
 
-		m := Message{}
+		m := Action{}
 		if err := yaml.Unmarshal(b, &m); err != nil {
 			panic(fmt.Errorf("file %v : %v", filename, err))
 		}
 
-		// This is not one of the message definitions
+		// This is not one of the action definitions
 		if len(m.Metadata.Name) == 0 {
 			continue
 		}
 
-		messages.Messages = append(messages.Messages, m)
+		actions.Actions = append(actions.Actions, m)
 	}
 
-	// Order by message code
-	sort.Slice(messages.Messages, func(i, j int) bool {
-		return messages.Messages[i].Code < messages.Messages[j].Code
+	// Order by action code
+	sort.Slice(actions.Actions, func(i, j int) bool {
+		return actions.Actions[i].Code < actions.Actions[j].Code
 	})
 
-	return messages
+	return actions
 }
 
 func FetchFiles(srcPath, packageName, version string) []string {

@@ -27,7 +27,7 @@ func (f Field) FieldBytes() string {
 
 func (f Field) FormType() string {
 	if f.Name == "Payload" {
-		return "json.RawMessage"
+		return "json.RawAction"
 	}
 
 	if f.Type == "[]byte" || f.Type == "byte" {

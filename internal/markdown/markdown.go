@@ -4,11 +4,11 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
-func Compile(distPath string, msgs parser.Messages) {
+func Compile(distPath string, msgs parser.Actions) {
 
-	pms := msgs.ProtocolMessages()
+	pms := msgs.ProtocolActions()
 	for _, pm := range pms {
-		templateToFile(distPath, pm, "message.tpl", parser.KebabCase(pm.Name())+".md")
+		templateToFile(distPath, pm, "action.tpl", "protocol-"+parser.KebabCase(pm.Name())+".md")
 	}
 
 }

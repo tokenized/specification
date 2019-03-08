@@ -4,10 +4,10 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
-func Compile(distPath string, msgs parser.Messages) {
+func Compile(distPath string, msgs parser.Actions) {
 
-	templateToFile(distPath, msgs, "messages_test.tpl", "messages_test.go")
-	templateToFile(distPath, msgs, "messages.tpl", "messages.go")
+	templateToFile(distPath, msgs, "actions_test.tpl", "actions_test.go")
+	templateToFile(distPath, msgs, "actions.tpl", "actions.go")
 
 }
 

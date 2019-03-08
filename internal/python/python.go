@@ -4,9 +4,9 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
-func Compile(distPath string, msgs parser.Messages) {
+func Compile(distPath string, msgs parser.Actions) {
 
-	templateToFile(distPath, msgs, "messages.tpl", "messages.py")
+	templateToFile(distPath, msgs, "actions.tpl", "actions.py")
 
 }
 

@@ -6,15 +6,15 @@ import (
 	"strings"
 )
 
-type Messages struct {
-	Package  string
-	Messages []Message
+type Actions struct {
+	Package string
+	Actions []Action
 }
 
-func (m Messages) ProtocolMessages() []Message {
-	pm := []Message{}
+func (m Actions) ProtocolActions() []Action {
+	pm := []Action{}
 
-	for _, v := range m.Messages {
+	for _, v := range m.Actions {
 		if len(v.Code) == 0 {
 			continue
 		}
@@ -25,10 +25,10 @@ func (m Messages) ProtocolMessages() []Message {
 	return pm
 }
 
-func (m Messages) TypeMessages() []Message {
-	pm := []Message{}
+func (m Actions) TypeActions() []Action {
+	pm := []Action{}
 
-	for _, v := range m.Messages {
+	for _, v := range m.Actions {
 		if len(v.Code) > 0 {
 			continue
 		}
@@ -39,14 +39,14 @@ func (m Messages) TypeMessages() []Message {
 	return pm
 }
 
-type Message struct {
+type Action struct {
 	Code     string
 	Metadata Metadata
 	Rules    Rules
 	Fields   []Field
 }
 
-func (m Message) CodeNameComment() string {
+func (m Action) CodeNameComment() string {
 	s := fmt.Sprintf("%v identifies data as a %v message.",
 		m.CodeName(),
 		m.Name())
@@ -54,28 +54,28 @@ func (m Message) CodeNameComment() string {
 	return reformat(s, "\t//")
 }
 
-func (m Message) CodeName() string {
+func (m Action) CodeName() string {
 	return fmt.Sprintf("Code%v", m.Name())
 }
 
-func (m Message) TypeLetter() string {
+func (m Action) TypeLetter() string {
 	code := strings.ToLower(m.Code[:1])
 	return fmt.Sprintf(code)
 }
 
-func (m Message) Name() string {
+func (m Action) Name() string {
 	return strings.Replace(m.Metadata.Name, " ", "", -1)
 }
 
-func (m Message) Label() string {
+func (m Action) Label() string {
 	return fmt.Sprintf(m.Metadata.Label)
 }
 
-func (m Message) Description() string {
+func (m Action) Description() string {
 	return fmt.Sprintf(m.Metadata.Description)
 }
 
-func (m Message) Hex() string {
+func (m Action) Hex() string {
 	vals := []string{}
 
 	for _, f := range m.PayloadFields() {
@@ -86,7 +86,7 @@ func (m Message) Hex() string {
 	return strings.Join(vals, "")
 }
 
-func (m Message) PayloadFields() []Field {
+func (m Action) PayloadFields() []Field {
 	fields := []Field{}
 
 	for _, f := range m.Fields {
@@ -101,7 +101,7 @@ func (m Message) PayloadFields() []Field {
 	return fields
 }
 
-func (m Message) HasPayloadMessage() bool {
+func (m Action) HasPayloadAction() bool {
 	switch m.Name() {
 	case "AssetDefinition", "AssetCreation":
 		return true
@@ -110,21 +110,21 @@ func (m Message) HasPayloadMessage() bool {
 	return false
 }
 
-func (m Message) CommentSlash() string {
+func (m Action) CommentSlash() string {
 	s := html.UnescapeString(m.Metadata.Description)
 	s = m.Metadata.Name + " : " + s
 
 	return reformat(s, "//")
 }
 
-func (m Message) CommentHash() string {
+func (m Action) CommentHash() string {
 	s := html.UnescapeString(m.Metadata.Description)
 	s = m.Metadata.Name + " : " + s
 
 	return reformat(s, "#")
 }
 
-func (m Message) DataFields() []Field {
+func (m Action) DataFields() []Field {
 	d := []Field{}
 
 	for _, f := range m.Fields {
