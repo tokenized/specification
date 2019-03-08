@@ -19,9 +19,9 @@ func NewFormByCode(code string) (Form, error) {
 {{range .Messages}}
 // {{.FormName}} is the JSON friendly version of a {{.Name}}.
 type {{.FormName}} struct {
-     BaseForm
-     {{range .DataFields}}
-     {{ .Name}} {{.FormType}} {{.Tags}}{{end}}
+	BaseForm
+	{{range .DataFields}}
+	{{ .Name}} {{.FormType}} {{.Tags}}{{end}}
 }
 
 // Write implements the io.Writer interface, writing the data in []byte to
@@ -47,32 +47,32 @@ func (f {{.FormName}}) PayloadForm() (PayloadForm, error) {
 
 // BuildMessage returns an OpReturnMessage from the form.
 func (f {{.FormName}}) BuildMessage() (OpReturnMessage, error) {
-     var err error
+	var err error
 
-     	m := New{{.Name}}()
+	m := New{{.Name}}()
 
-     {{range .DataFields}}
-     {{ .AssignFormValueToField }}
-     {{end}}
+	{{range .DataFields}}
+	{{ .AssignFormValueToField }}
+	{{end}}
 
-     {{ if .HasPayloadMessage }}
-     	pf, err := f.PayloadForm()
-      if err != nil {
-      		return nil, err
-      }
+	{{ if .HasPayloadMessage }}
+		pf, err := f.PayloadForm()
+	if err != nil {
+		return nil, err
+	}
 
-      if pf == nil {
-         return &m, nil
-      }
+	if pf == nil {
+		return &m, nil
+	}
 
-      b, err := pf.Bytes()
-      if err != nil {
-         return nil, err
-      }
+	b, err := pf.Bytes()
+	if err != nil {
+		return nil, err
+	}
 
-      m.Payload = b
-      {{end }}
+	m.Payload = b
+	{{end }}
 
-      return &m, nil
+	return &m, nil
 }
 {{end}}

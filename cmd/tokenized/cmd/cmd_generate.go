@@ -5,6 +5,7 @@ import (
 
 	"github.com/specification/internal/golang"
 	"github.com/specification/internal/markdown"
+	"github.com/specification/internal/platform/parser"
 	"github.com/specification/internal/python"
 
 	"github.com/spf13/cobra"
@@ -27,6 +28,10 @@ var cmdGenerate = &cobra.Command{
 		golang.Compile()
 		markdown.Compile()
 		python.Compile()
+
+		tmp := parser.FetchFiles("protocol", "develop")
+
+		fmt.Println(tmp)
 
 		return nil
 	},

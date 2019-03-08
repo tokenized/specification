@@ -10,6 +10,7 @@ var scCmd = &cobra.Command{
 }
 
 func Execute() {
+	scCmd.AddCommand(cmdDecode)
 	scCmd.AddCommand(cmdGenerate)
 	scCmd.Execute()
 }

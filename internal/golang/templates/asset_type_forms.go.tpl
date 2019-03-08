@@ -6,8 +6,8 @@ package protocol
 {{range .Models}}
 // {{.FormName}} is a JSON friendly model for an asset type.
 type {{.FormName}} struct {
-     {{range .Fields }}
-     {{.Name}} {{.FormType}} {{.Tags}}{{end}}
+	{{range .Fields }}
+	{{.Name}} {{.FormType}} {{.Tags}}{{end}}
 }
 
 // New{{.FormName}} returns a new {{.FormName}}.
@@ -36,16 +36,14 @@ func (f {{.FormName}}) pad(b []byte, l int) []byte {
 }
 
 // write writes the value to the buffer.
-func (f {{.FormName}}) write(buf *bytes.Buffer,
-	v interface{}) error {
+func (f {{.FormName}}) write(buf *bytes.Buffer, v interface{}) error {
 
 	return binary.Write(buf, binary.BigEndian, v)
 }
 
 // writeBytes writes a string of fixed length to the buffer. If the string
 // is longer that the length an error will be returned.
-func (f {{.FormName}}) writeBytes(buf *bytes.Buffer,
-	s string, l int) error {
+func (f {{.FormName}}) writeBytes(buf *bytes.Buffer, s string, l int) error {
 
 	if len(s) > l {
 		return fmt.Errorf("length exceeds %v", l)
@@ -60,9 +58,9 @@ func (f {{.FormName}}) writeBytes(buf *bytes.Buffer,
 func (f {{.FormName}}) Bytes() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-     {{range .Fields }}
-     {{.ToBuffer}}
-     {{end}}
+	{{range .Fields }}
+	{{.ToBuffer}}
+	{{end}}
 	return buf.Bytes(), nil
 }
 
@@ -73,9 +71,9 @@ func (f {{.FormName}}) PayloadMessage(code []byte) (PayloadMessage, error) {
 		return nil, err
 	}
 
-  if m != nil {
-    return m, nil
-  }
+	if m != nil {
+		return m, nil
+	}
 
 	return nil, errors.New("Not implemented")
 }

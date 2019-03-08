@@ -7,16 +7,16 @@ const (
 	// AssetTypeLen is the size in bytes of all asset type variants.
 	AssetTypeLen = 152
 {{range .Models }}
-        // Code{{.FullName}} identifies data as a {{.Name}} message.
-        Code{{.FullName}} = "{{.Code}}"
+	// Code{{.FullName}} identifies data as a {{.Name}} message.
+	Code{{.FullName}} = "{{.Code}}"
 {{end}})
 
 {{range .Models}}
 // {{.FullName}} asset type.
 type {{.FullName}} struct {
-     BaseMessage
-     {{range .Fields }}
-     {{.Name}} {{.GoType}}{{end}}
+	BaseMessage
+	{{range .Fields }}
+	{{.Name}} {{.GoType}}{{end}}
 }
 
 // New{{.FullName}} returns a new {{.FullName}}.
@@ -38,10 +38,10 @@ func (m {{.FullName}}) Len() int64 {
 func (m {{.FullName}}) Bytes() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-     {{range .Fields }}
-     {{.Bytes}}{{end}}
+	{{range .Fields }}
+	{{.Bytes}}{{end}}
 
-  return buf.Bytes(), nil
+	return buf.Bytes(), nil
 }
 
 // Write implements the io.Writer interface, writing the data in []byte to
@@ -49,8 +49,8 @@ func (m {{.FullName}}) Bytes() ([]byte, error) {
 func (m *{{.FullName}}) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
-     {{range .Fields }}
-     {{.Write}}{{end}}
+	{{range .Fields }}
+	{{.Write}}{{end}}
 
 	return int(m.Len()), nil
 }

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/tokenized/specification/cmd/smartcontract/cmd"
+	"github.com/tokenized/specification/cmd/tokenized/cmd"
 )
 
 func main() {
