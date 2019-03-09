@@ -70,6 +70,15 @@ fields:
     displayOrder: 2
     default: now    
 
+  - name: Area
+    label: Area
+    type: nvarchar8
+    size: 255
+    example: Upper Bowl
+    span: left
+    displayOrder: 2
+    default: now   
+
   - name: Seat
     label: Seat
     type: nvarchar8
