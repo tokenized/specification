@@ -1,17 +1,17 @@
-# 
-# Version
-# 
-version: 20000
-parentVersion: 0
+#
+# LOY - Loyalty Points
+#
+
 code: LOY
-kind: Utility
 
 metadata:
-  label: Version
-  description: Version
-  example: Version
+  kind: Utility
+  label: Loyalty Points
+  description: A Loyalty Point
+  examples:
+    - Please fill me in
 
-  fields:
+fields:
   - name: LenIssuerName
     label: LenIssuerName
     type: uint8

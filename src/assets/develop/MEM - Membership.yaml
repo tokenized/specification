@@ -1,17 +1,17 @@
-# 
-# Version
-# 
-version: Wed Jun 27 2018 17:00:00 GMT+1000 (AEST)
-parentVersion: 0 
+#
+# MEM - Membership
+#
+
 code: MEM
-kind: Identity
 
 metadata:
-  label: Version
-  description: Version
-  example: Version
+  kind: Identity
+  label: Membership
+  description: A Membership
+  examples:
+    - Please fill me in
 
-  fields:
+fields:
   - name: ExpiryDate
     label: ExpiryDate
     type: time

@@ -1,14 +1,14 @@
-# 
-# Version
-# 
-version: 85
-parentVersion: 0 
-code: CUR
+#
+# CUR - Currency
+#
+
 kind: Currency
 
 metadata:
-  label: Version
-  description: Version
-  example: Version
+  code: CUR
+  label: Currency
+  description: A Currency
+  examples:
+    - Please fill me in
 
-  fields: []
+fields: []

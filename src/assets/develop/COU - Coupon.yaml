@@ -1,14 +1,65 @@
-# 
-# Version
-# 
-version: Westfield - McDonalds
-parentVersion: 0 
+#
+# COU - Coupon
+#
+
 code: COU
-kind: Utility
 
 metadata:
-  label: Version
-  description: Version
-  example: Version
+  kind: Utility
+  category: Coupons
+  name: Coupon
+  description: Value exchange coupon
+  examples:
+    - Sale Price Discount
+    - Kickstarter Campaign
+    - Free Beer at BCH Meetup
 
-  fields: []
+fields:
+  - name: Version
+    label: Version
+    type: uint
+    description: Payload Version
+    size: 1
+    example: 0
+    computed: true
+
+  - name: TradingRestriction
+    label: Trading Restriction
+    type: country
+    size: 3
+    example: AUS
+    span: full
+
+  - name: RedeemingEntity
+    label: Redeeming Entity
+    type: string
+    size: 32
+    example: Woolworths
+    span: full
+    displayOrder: 2
+
+  - name: ExpiryDate
+    label: Expiry Date
+    type: time
+    size: 8
+    example: Sat Dec 12 2020 18:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 4
+
+  - name: IssueDate
+    label: Issue Date
+    type: time
+    size: 8
+    example: Sat Dec 12 2015 18:00:00 GMT+1000 (AEST)
+    span: left
+    displayOrder: 3
+    default: now
+
+  - name: Description
+    label: Description
+    type: string
+    size: 93
+    example: Int'l, 50% off 2nd Item
+    span: full
+    displayOrder: 1
+    required: true
