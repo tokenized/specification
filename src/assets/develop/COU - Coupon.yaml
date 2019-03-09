@@ -17,7 +17,7 @@ metadata:
 fields:
   - name: Version
     label: Version
-    type: uint
+    type: uint8
     description: Payload Version
     size: 1
     example: 0
@@ -25,26 +25,18 @@ fields:
 
   - name: TradingRestriction
     label: Trading Restriction
-    type: country
-    size: 3
+    type: polity
+    size: 5
     example: AUS
     span: full
 
   - name: RedeemingEntity
     label: Redeeming Entity
-    type: string
-    size: 32
-    example: Woolworths
+    type: nvarchar8
+    size: 255
+    example: Woolworths - Robina Town Centre
     span: full
     displayOrder: 2
-
-  - name: ExpiryDate
-    label: Expiry Date
-    type: time
-    size: 8
-    example: Sat Dec 12 2020 18:00:00 GMT+1000 (AEST)
-    span: right
-    displayOrder: 4
 
   - name: IssueDate
     label: Issue Date
@@ -55,11 +47,35 @@ fields:
     displayOrder: 3
     default: now
 
+  - name: ExpiryDate
+    label: Expiry Date
+    type: time
+    size: 8
+    example: Sat Dec 12 2020 18:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 4
+
+  - name: Value
+    label: Value
+    type: uint64
+    size: 8
+    example: denominated in the smallest unit of currency specified in the Currency subfield.
+    span: right
+    displayOrder: 4
+
+  - name: Currency
+    label: Currency
+    type: string
+    size: 3
+    example: AUD
+    span: right
+    displayOrder: 4
+
   - name: Description
     label: Description
-    type: string
-    size: 93
-    example: Int'l, 50% off 2nd Item
+    type: nvarchar16
+    size: 65,535
+    example: Gift Card
     span: full
     displayOrder: 1
     required: true
