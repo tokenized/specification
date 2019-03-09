@@ -12,7 +12,7 @@ metadata:
   examples:
     - Sale Price Discount
     - Kickstarter Campaign
-    - Free Beer at BCH Meetup
+    - Free Beer at BSV Meetup
 
 fields:
   - name: Version
