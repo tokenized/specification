@@ -25,8 +25,8 @@ fields:
 
   - name: TradingRestriction
     label: Trading Restriction
-    type: country
-    size: 3
+    type: polity
+    size: 5
     example: AUS
     span: full
 
@@ -41,19 +41,64 @@ fields:
       - 19+
       - 21+
       - 21-30
+      - 18-
 
-  - name: ValidFrom
-    label: Valid From
-    type: time
+  - name: Type
+    label: Type
+    type: string
+    size: 3
+    example: MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition
+    span: left
+    displayOrder: 2
+    default: now
+    
+  - name: Venue
+    label: Venue
+    type: nvarchar8
+    size: 255
+    example: Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1
+    span: left
+    displayOrder: 2
+    default: now    
+ 
+  - name: Class
+    label: Class
+    type: nvarchar8
+    size: 255
+    example: Gold Class, Platinum, VIP, Section A, etc.
+    span: left
+    displayOrder: 2
+    default: now    
+
+  - name: Seat
+    label: Seat
+    type: nvarchar8
+    size: 255
+    example: Sec 1, Row 3, Seat 5, or A122
+    span: left
+    displayOrder: 2
+    default: now    
+
+  - name: StartTimeDate
+    label: Start Time and Date
+    type: timestamp
     size: 8
     example: Mon Nov 05 2018 09:00:00 GMT+1000 (AEST)
     span: left
     displayOrder: 2
     default: now
 
+  - name: ValidFrom
+    label: Valid From
+    type: timestamp
+    size: 8
+    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 3
+
   - name: ExpirationTimestamp
     label: Expiration Timestamp
-    type: time
+    type: timestamp
     size: 8
     example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
     span: right
@@ -61,9 +106,9 @@ fields:
 
   - name: Description
     label: Description
-    type: string
-    size: 120
-    example: Coingeek Conference - London (November 2018). Regular admission.
+    type: nvarchar16
+    size: 65,535
+    example: Coingeek Conference - London (November 2018).
     span: full
     displayOrder: 1
     required: true
