@@ -39,11 +39,11 @@ All actions related to the Tokenized Protocol.
 
 ### Assets
 
-All asset payloads for the Asset related message actions.
+All asset payloads for the Asset related actions.
 
-### Messages
+### Resources
 
-All message payloads for the Message related message actions.
+All resources and message payloads for message related actions.
 
 # License
 

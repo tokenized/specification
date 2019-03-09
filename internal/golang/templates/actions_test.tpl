@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-{{range .ProtocolActions}}
+{{range .}}
 func Test{{.Name}}(t *testing.T) {
 	// The hex is the body of the message
 	body := "{{.Hex}}"

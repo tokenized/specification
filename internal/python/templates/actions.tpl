@@ -1,10 +1,10 @@
-# Package {{.Package}} provides base level structs and validation for
+# Package protocol provides base level structs and validation for
 # the protocol.
 #
 # The code in this file is auto-generated. Do not edit it by hand as it will
 # be overwritten when code is regenerated.
 
-{{ range .ProtocolActions }}
+{{ range . }}
 {{.CommentHash}}
 
 class Action_{{.Name}}({{ range .Fields }}{{ if eq .Name "Version" }}Versioned{{ end }}{{ end }}ActionBase):
@@ -28,6 +28,6 @@ class Action_{{.Name}}({{ range .Fields }}{{ if eq .Name "Version" }}Versioned{{
 {{ end }}
 
 ActionClassMap = {
-    {{ range $i, $v := .Actions }}{{ if $i }},
+    {{ range $i, $v := . }}{{ if $i }},
     {{ end }}'{{$v.Code}}': Action_{{$v.Name}}{{ end }}
 }

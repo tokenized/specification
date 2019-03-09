@@ -4,10 +4,11 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
-func Compile(distPath string, msgs parser.Actions) {
+func CompileProtocol(distPath string, msgs parser.ProtocolActions, typs parser.ProtocolTypes) {
 
 	templateToFile(distPath, msgs, "actions_test.tpl", "actions_test.go")
 	templateToFile(distPath, msgs, "actions.tpl", "actions.go")
+	// templateToFile(distPath, typs, "types.tpl", "types.go")
 
 }
 

@@ -1,4 +1,4 @@
-// Package {{.Package}} provides base level structs and validation for
+// Package protocol provides base level structs and validation for
 // the protocol.
 //
 // The code in this file is auto-generated. Do not edit it by hand as it will
@@ -6,7 +6,7 @@
 package protocol
 
 const (
-{{- range .ProtocolActions}}
+{{- range .}}
 {{.CodeNameComment}}
 	{{.CodeName}} = "{{.Code}}"
 {{ end -}}
@@ -15,7 +15,7 @@ const (
 // TypeMapping holds a mapping of message codes to message types.
 var (
 	TypeMapping = map[string]OpReturnMessage{
-{{- range .ProtocolActions }}
+{{- range . }}
 		Code{{.Name}}: &{{.Name}}{},
 {{- end }}
 	}
@@ -33,10 +33,10 @@ func hexToBytes(s string) []byte {
 	return []byte(decoded)
 }
 
-{{range .ProtocolActions}}
+{{ range . }}
 {{.CommentSlash}}
 type {{.Name}} struct {
-{{range .Fields}}	{{ .FieldName }} {{ .GoType }}
+{{ range .Fields }}	{{ .FieldName }} {{ .GoType }}
 {{ end -}}
 }
 
