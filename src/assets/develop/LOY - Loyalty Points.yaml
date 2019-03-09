@@ -9,19 +9,83 @@ metadata:
   label: Loyalty Points
   description: A Loyalty Point
   examples:
-    - Please fill me in
+    - Burger Prince Dollars
+    - Air Kilometers
+    - Frequent Shopper Points
 
 fields:
-  - name: LenIssuerName
-    label: LenIssuerName
+  - name: Version
+    label: Version
     type: uint8
-    example: 120
-    exampleHex: 0x78
+    description: Payload Version
     size: 1
+    example: 0
+    computed: true
 
-  - name: IssuerName
-    label: IssuerName
+  - name: TradingRestriction
+    label: Trading Restriction
+    type: polity
+    size: 5
+    example: AUS
+    span: full
+
+  - name: AgeRestriction
+    label: Age Restriction
+    type: dropdown
+    size: 5
+    example: 18+
+    options:
+      - 15-18
+      - 18+
+      - 19+
+      - 21+
+      - 21-30
+      - 18-
+
+  - name: Type
+    label: Type
+    type: string
+    size: 1
+    example: A
+    options:
+      - Air Miles (A)
+      - Dining (D)
+      - Shopping (S)
+      - Lifestyle (L)
+      - Petrol/Gas (P)
+      - Banking (B)
+      - Travel (T)
+      
+  - name: Name
+    label: Name
     type: nvarchar8
-    example: Thai Airways
-    exampleHex: 0x0c546861692041697277617973
-    size: 13
+    size: 255
+    example: Qantas Frequent Flyer Points
+    options:
+
+  - name: ValidFrom
+    label: Valid From
+    type: timestamp
+    size: 8
+    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 3
+
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
+    type: timestamp
+    size: 8
+    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 3 
+    
+  - name: Description
+    label: Description
+    type: nvarchar16
+    size: 65,535
+    example: Coingeek Conference - London (November 2018).
+    span: full
+    displayOrder: 1
+    required: true
+
+   
