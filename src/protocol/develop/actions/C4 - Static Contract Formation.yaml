@@ -7,20 +7,13 @@ code: C4
 metadata:
   name: StaticContract Formation
   label: Static Contract Formation Action
-  description: "Static Contract Formation Action "
-  validation: AssetCreation
-  rejection: Rejection
-
+  description: "Static Contract Formation Action"
+  
 rules:
   fee:
   inputs:
-    - name: Issuer
-      label: "Issuer's Public Address"
-      comments:
-
-  outputs:
-    - name: Contract
-      label: Contract Public Address
+    - name: PartyX
+      label: "Issuer or Party X Public Address"
       comments:
 
 fields:
