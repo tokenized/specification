@@ -9,6 +9,47 @@ metadata:
   label: Currency
   description: A Currency
   examples:
-    - Please fill me in
+    - Australian dollar
+    - Canadian dollar
 
-fields: []
+fields: 
+  - name: Version
+    label: Version
+    type: uint
+    description: Payload Version
+    size: 1
+    example: 0
+    computed: true
+
+  - name: TradingRestriction
+    label: Trading Restriction
+    type: polity
+    size: 5
+    example: AUS
+    span: full
+    displayOrder: 3
+   
+  - name: ISOCode
+    label: ISO Code
+    type: string
+    size: 3
+    example: AUD
+    span: full
+    displayOrder: 3
+
+  - name: MonetaryAuthority
+    label: Monetary Authority
+    type: nvarchar8
+    size: 255
+    example: Reserve Bank of Australia
+    span: full
+    displayOrder: 3
+   
+  - name: Description
+    label: Description
+    type: nvarchar8
+    size: 255
+    example: Australian dollar
+    span: full
+    displayOrder: 3
+    
