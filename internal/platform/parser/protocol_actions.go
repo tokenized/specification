@@ -2,7 +2,6 @@ package parser
 
 import (
 	"fmt"
-	"html"
 	"io/ioutil"
 	"sort"
 	"strings"
@@ -76,20 +75,6 @@ func (m ProtocolAction) Label() string {
 
 func (m ProtocolAction) Description() string {
 	return fmt.Sprintf(m.Metadata.Description)
-}
-
-func (m ProtocolAction) CommentSlash() string {
-	s := html.UnescapeString(m.Metadata.Description)
-	s = m.Metadata.Name + " : " + s
-
-	return reformat(s, "//")
-}
-
-func (m ProtocolAction) CommentHash() string {
-	s := html.UnescapeString(m.Metadata.Description)
-	s = m.Metadata.Name + " : " + s
-
-	return reformat(s, "#")
 }
 
 func (m ProtocolAction) Hex() string {

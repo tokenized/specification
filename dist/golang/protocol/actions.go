@@ -1,9 +1,10 @@
+package protocol
+
 // Package protocol provides base level structs and validation for
 // the protocol.
 //
 // The code in this file is auto-generated. Do not edit it by hand as it will
 // be overwritten when code is regenerated.
-package protocol
 
 const (
 	// CodeAssetDefinition identifies data as a AssetDefinition message.
@@ -139,7 +140,8 @@ func hexToBytes(s string) []byte {
 }
 
 
-// AssetDefinition : Asset Definition Action - This action is used by the
+
+// AssetDefinitionAsset Definition Action - This action is used by the
 // issuer to define the properties/characteristics of the Asset (token)
 // that it wants to create.
 type AssetDefinition struct {
@@ -403,7 +405,8 @@ func (m AssetDefinition) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// AssetCreation : Asset Creation Action - This action creates an Asset in
+
+// AssetCreationAsset Creation Action - This action creates an Asset in
 // response to the Issuer&#39;s instructions in the Definition Action.
 type AssetCreation struct {
 	Header Header
@@ -686,7 +689,8 @@ func (m AssetCreation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// AssetModification : Asset Modification Action - Token Dilutions, Call
+
+// AssetModificationAsset Modification Action - Token Dilutions, Call
 // Backs/Revocations, burning etc.
 type AssetModification struct {
 	Header Header
@@ -847,7 +851,8 @@ func (m AssetModification) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// ContractOffer : The Contract Offer action allows the Issuer to tell the
+
+// ContractOfferThe Contract Offer action allows the Issuer to tell the
 // smart contract what they want the details (labels, data, T&amp;C&#39;s, etc.) of
 // the Contract to be on-chain in a public and immutable way. The Contract
 // Offer action &#39;initializes&#39; a generic smart contract that has been spun
@@ -1416,7 +1421,8 @@ func (m ContractOffer) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// ContractFormation : This txn is created by the Contract (smart
+
+// ContractFormationThis txn is created by the Contract (smart
 // contract/off-chain agent/token contract) upon receipt of a valid
 // Contract Offer Action from the issuer. The Smart Contract will execute
 // on a server controlled by the Issuer. or a Smart Contract Operator on
@@ -2003,10 +2009,11 @@ func (m ContractFormation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// ContractAmendment : Contract Amendment Action - the issuer can initiate
-// an amendment to the contract establishment metadata. The ability to make
-// an amendment to the contract is restricted by the Authorization Flag set
-// on the current revision of Contract Formation action.
+
+// ContractAmendmentContract Amendment Action - the issuer can initiate an
+// amendment to the contract establishment metadata. The ability to make an
+// amendment to the contract is restricted by the Authorization Flag set on
+// the current revision of Contract Formation action.
 type ContractAmendment struct {
 	Header Header
 	TextEncoding uint8
@@ -2164,7 +2171,8 @@ func (m ContractAmendment) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// StaticContract Formation : Static Contract Formation Action
+
+// StaticContractFormationStatic Contract Formation Action
 type StaticContractFormation struct {
 	Header Header
 	TextEncoding uint8
@@ -2426,7 +2434,8 @@ func (m StaticContractFormation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Order : Order Action - Issuer to signal to the smart contract that the
+
+// OrderOrder Action - Issuer to signal to the smart contract that the
 // tokens that a particular public address(es) owns are to be confiscated,
 // frozen, thawed or reconciled.
 type Order struct {
@@ -2704,11 +2713,12 @@ func (m Order) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Freeze : Freeze Action - To be used to comply with
-// contractual/legal/issuer requirements. The target public address(es)
-// will be marked as frozen. However the Freeze action publishes this fact
-// to the public blockchain for transparency. The Contract will not respond
-// to any actions requested by the frozen address.
+
+// FreezeFreeze Action - To be used to comply with contractual/legal/issuer
+// requirements. The target public address(es) will be marked as frozen.
+// However the Freeze action publishes this fact to the public blockchain
+// for transparency. The Contract will not respond to any actions requested
+// by the frozen address.
 type Freeze struct {
 	Header Header
 	AddressCount uint16
@@ -2825,8 +2835,9 @@ func (m Freeze) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Thaw : Thaw Action - to be used to comply with contractual obligations
-// or legal requirements. The Alleged Offender&#39;s tokens will be unfrozen to
+
+// ThawThaw Action - to be used to comply with contractual obligations or
+// legal requirements. The Alleged Offender&#39;s tokens will be unfrozen to
 // allow them to resume normal exchange and governance activities.
 type Thaw struct {
 	Header Header
@@ -2944,8 +2955,9 @@ func (m Thaw) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Confiscation : Confiscation Action - to be used to comply with
-// contractual obligations, legal and/or issuer requirements.
+
+// ConfiscationConfiscation Action - to be used to comply with contractual
+// obligations, legal and/or issuer requirements.
 type Confiscation struct {
 	Header Header
 	AddressCount uint16
@@ -3072,8 +3084,9 @@ func (m Confiscation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Reconciliation : Reconciliation Action - to be used at the direction of
-// the issuer to fix record keeping errors with bitcoin and token balances.
+
+// ReconciliationReconciliation Action - to be used at the direction of the
+// issuer to fix record keeping errors with bitcoin and token balances.
 type Reconciliation struct {
 	Header Header
 	AddressCount uint16
@@ -3190,7 +3203,8 @@ func (m Reconciliation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Initiative : Initiative Action - Allows Token Owners to propose an
+
+// InitiativeInitiative Action - Allows Token Owners to propose an
 // Initiative (aka Initiative/Shareholder vote). A significant cost -
 // specified in the Contract Formation - can be attached to this action to
 // reduce spam, as the resulting vote will be put to all token owners.
@@ -3417,9 +3431,10 @@ func (m Initiative) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Referendum : Referendum Action - Issuer instructs the Contract to
-// Initiate a Token Owner Vote. Usually used for contract amendments,
-// organizational governance, etc.
+
+// ReferendumReferendum Action - Issuer instructs the Contract to Initiate
+// a Token Owner Vote. Usually used for contract amendments, organizational
+// governance, etc.
 type Referendum struct {
 	Header Header
 	TextEncoding uint8
@@ -3653,7 +3668,8 @@ func (m Referendum) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Vote : Vote Action - A vote is created by the Contract in response to a
+
+// VoteVote Action - A vote is created by the Contract in response to a
 // valid Referendum (Issuer) or Initiative (User) Action.
 type Vote struct {
 	Header Header
@@ -3739,9 +3755,10 @@ func (m Vote) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// BallotCast : Ballot Cast Action - Used by Token Owners to cast their
-// ballot (vote) on proposals raised by the Issuer (Referendum) or other
-// token holders (Initiative). 1 Vote per token unless a vote multiplier is
+
+// BallotCastBallot Cast Action - Used by Token Owners to cast their ballot
+// (vote) on proposals raised by the Issuer (Referendum) or other token
+// holders (Initiative). 1 Vote per token unless a vote multiplier is
 // specified in the relevant Asset Definition action.
 type BallotCast struct {
 	Header Header
@@ -3867,9 +3884,10 @@ func (m BallotCast) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// BallotCounted : Ballot Counted Action - The smart contract will respond
-// to a Ballot Cast action with a Ballot Counted action if the Ballot Cast
-// is valid. If the Ballot Cast is not valid, then the smart contract will
+
+// BallotCountedBallot Counted Action - The smart contract will respond to
+// a Ballot Cast action with a Ballot Counted action if the Ballot Cast is
+// valid. If the Ballot Cast is not valid, then the smart contract will
 // respond with a Rejection Action.
 type BallotCounted struct {
 	Header Header
@@ -3955,7 +3973,8 @@ func (m BallotCounted) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Result : Result Action - Once a vote has been completed the results are
+
+// ResultResult Action - Once a vote has been completed the results are
 // published.
 type Result struct {
 	Header Header
@@ -4163,7 +4182,8 @@ func (m Result) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Message : Message Action - the message action is a general purpose
+
+// MessageMessage Action - the message action is a general purpose
 // communication action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The
 // message txn can also be used for passing partially signed txns on-chain,
 // establishing private communication channels and EDI (receipting,
@@ -4306,14 +4326,15 @@ func (m Message) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Rejection : Rejection Action - used to reject request actions that do
-// not comply with the Contract. If money is to be returned to a User then
-// it is used in lieu of the Settlement Action to properly account for
-// token balances. All Issuer/User request Actions must be responded to by
-// the Contract with an Action. The only exception to this rule is when
-// there is not enough fees in the first Action for the Contract response
-// action to remain revenue neutral. If not enough fees are attached to pay
-// for the Contract response then the Contract will not respond.
+
+// RejectionRejection Action - used to reject request actions that do not
+// comply with the Contract. If money is to be returned to a User then it
+// is used in lieu of the Settlement Action to properly account for token
+// balances. All Issuer/User request Actions must be responded to by the
+// Contract with an Action. The only exception to this rule is when there
+// is not enough fees in the first Action for the Contract response action
+// to remain revenue neutral. If not enough fees are attached to pay for
+// the Contract response then the Contract will not respond.
 type Rejection struct {
 	Header Header
 	TextEncoding uint8
@@ -4458,7 +4479,8 @@ func (m Rejection) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Establishment : Establishment Action - Establishes an on-chain register.
+
+// EstablishmentEstablishment Action - Establishes an on-chain register.
 type Establishment struct {
 	Header Header
 	TextEncoding uint8
@@ -4560,7 +4582,8 @@ func (m Establishment) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Addition : Addition Action - Adds an entry to the Register.
+
+// AdditionAddition Action - Adds an entry to the Register.
 type Addition struct {
 	Header Header
 	TextEncoding uint8
@@ -4662,7 +4685,8 @@ func (m Addition) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Alteration : Alteration Action - A register entry/record can be altered.
+
+// AlterationAlteration Action - A register entry/record can be altered.
 type Alteration struct {
 	Header Header
 	TextEncoding uint8
@@ -4764,7 +4788,8 @@ func (m Alteration) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Removal : Removal Action - Removes an entry/record from the Register.
+
+// RemovalRemoval Action - Removes an entry/record from the Register.
 type Removal struct {
 	Header Header
 	TextEncoding uint8
@@ -4866,7 +4891,8 @@ func (m Removal) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Send : Send Action - A Token Owner Sends a Token to a Receiver. The Send
+
+// SendSend Action - A Token Owner Sends a Token to a Receiver. The Send
 // Action requires no sign-off by the Token Receiving Party and does not
 // provide any on-chain consideration to the Token Sending Party. Can be
 // used for redeeming a ticket, coupon, points, etc.
@@ -5031,10 +5057,10 @@ func (m Send) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Exchange : Exchange Action - Tokens exchanged for Bitcoin (BSV).
-// Example: Bob (Token Sender) to sell 21,000 tokens to Alice (Token
-// Receiver) for 7 BSV. Both parties must sign the transaction for it to be
-// valid.
+
+// ExchangeExchange Action - Tokens exchanged for Bitcoin (BSV). Example:
+// Bob (Token Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7
+// BSV. Both parties must sign the transaction for it to be valid.
 type Exchange struct {
 	Header Header
 	TextEncoding uint8
@@ -5248,7 +5274,8 @@ func (m Exchange) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Swap : Swap Action - Two parties (or more) want to swap a token (Atomic
+
+// SwapSwap Action - Two parties (or more) want to swap a token (Atomic
 // Swap) directly for another token. At a minimum, Bitcoin is used in the
 // txn for paying the necessary network/transaction fees.
 type Swap struct {
@@ -5541,7 +5568,8 @@ func (m Swap) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Settlement : Settlement Action - Finalizes the transfer of bitcoins and
+
+// SettlementSettlement Action - Finalizes the transfer of bitcoins and
 // tokens from send, exchange, and swap actions.
 type Settlement struct {
 	Header Header

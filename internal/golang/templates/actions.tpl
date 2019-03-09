@@ -1,9 +1,10 @@
+package protocol
+
 // Package protocol provides base level structs and validation for
 // the protocol.
 //
 // The code in this file is auto-generated. Do not edit it by hand as it will
 // be overwritten when code is regenerated.
-package protocol
 
 const (
 {{- range .}}
@@ -34,7 +35,8 @@ func hexToBytes(s string) []byte {
 }
 
 {{ range . }}
-{{.CommentSlash}}
+
+{{comment (print .Name .Metadata.Description) "//"}}
 type {{.Name}} struct {
 {{ range .Fields }}	{{ .FieldName }} {{ .GoType }}
 {{ end -}}

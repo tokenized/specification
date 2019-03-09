@@ -2,6 +2,7 @@ package parser
 
 import (
 	"fmt"
+	"html"
 	"html/template"
 	"math"
 	"os"
@@ -103,6 +104,9 @@ func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
 		},
 		"padding": func(str string, size int) string {
 			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
+		},
+		"comment": func(str, chr string) string {
+			return reformat(html.UnescapeString(str), chr)
 		},
 	}
 

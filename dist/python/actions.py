@@ -5,9 +5,8 @@
 # be overwritten when code is regenerated.
 
 
-# AssetDefinition : Asset Definition Action - This action is used by the
-# issuer to define the properties/characteristics of the Asset (token) that
-# it wants to create.
+# Asset Definition Action - This action is used by the issuer to define the
+# properties/characteristics of the Asset (token) that it wants to create.
 
 class Action_AssetDefinition(ActionBase):
     ActionPrefix = 'A1'
@@ -55,8 +54,8 @@ class Action_AssetDefinition(ActionBase):
         self.AssetPayload = None
 
 
-# AssetCreation : Asset Creation Action - This action creates an Asset in
-# response to the Issuer&#39;s instructions in the Definition Action.
+# Asset Creation Action - This action creates an Asset in response to the
+# Issuer&#39;s instructions in the Definition Action.
 
 class Action_AssetCreation(ActionBase):
     ActionPrefix = 'A2'
@@ -108,8 +107,8 @@ class Action_AssetCreation(ActionBase):
         self.Timestamp = None
 
 
-# AssetModification : Asset Modification Action - Token Dilutions, Call
-# Backs/Revocations, burning etc.
+# Asset Modification Action - Token Dilutions, Call Backs/Revocations,
+# burning etc.
 
 class Action_AssetModification(ActionBase):
     ActionPrefix = 'A3'
@@ -137,13 +136,13 @@ class Action_AssetModification(ActionBase):
         self.RefTxID = None
 
 
-# ContractOffer : The Contract Offer action allows the Issuer to tell the
-# smart contract what they want the details (labels, data, T&amp;C&#39;s, etc.) of
-# the Contract to be on-chain in a public and immutable way. The Contract
-# Offer action &#39;initializes&#39; a generic smart contract that has been spun up
-# by either the Smart Contract Operator or the Issuer. This on-chain action
-# allows for the positive response from the smart contract with either a
-# Contract Formation Action or a Rejection Action.
+# The Contract Offer action allows the Issuer to tell the smart contract
+# what they want the details (labels, data, T&amp;C&#39;s, etc.) of the Contract to
+# be on-chain in a public and immutable way. The Contract Offer action
+# &#39;initializes&#39; a generic smart contract that has been spun up by either
+# the Smart Contract Operator or the Issuer. This on-chain action allows
+# for the positive response from the smart contract with either a Contract
+# Formation Action or a Rejection Action.
 
 class Action_ContractOffer(ActionBase):
     ActionPrefix = 'C1'
@@ -227,10 +226,10 @@ class Action_ContractOffer(ActionBase):
         self.NotableRoles = None
 
 
-# ContractFormation : This txn is created by the Contract (smart
-# contract/off-chain agent/token contract) upon receipt of a valid Contract
-# Offer Action from the issuer. The Smart Contract will execute on a server
-# controlled by the Issuer. or a Smart Contract Operator on their behalf.
+# This txn is created by the Contract (smart contract/off-chain agent/token
+# contract) upon receipt of a valid Contract Offer Action from the issuer.
+# The Smart Contract will execute on a server controlled by the Issuer. or
+# a Smart Contract Operator on their behalf.
 
 class Action_ContractFormation(ActionBase):
     ActionPrefix = 'C2'
@@ -318,10 +317,10 @@ class Action_ContractFormation(ActionBase):
         self.Timestamp = None
 
 
-# ContractAmendment : Contract Amendment Action - the issuer can initiate
-# an amendment to the contract establishment metadata. The ability to make
-# an amendment to the contract is restricted by the Authorization Flag set
-# on the current revision of Contract Formation action.
+# Contract Amendment Action - the issuer can initiate an amendment to the
+# contract establishment metadata. The ability to make an amendment to the
+# contract is restricted by the Authorization Flag set on the current
+# revision of Contract Formation action.
 
 class Action_ContractAmendment(ActionBase):
     ActionPrefix = 'C3'
@@ -349,7 +348,7 @@ class Action_ContractAmendment(ActionBase):
         self.RefTxID = None
 
 
-# StaticContract Formation : Static Contract Formation Action
+# Static Contract Formation Action
 
 class Action_StaticContractFormation(ActionBase):
     ActionPrefix = 'C4'
@@ -393,9 +392,9 @@ class Action_StaticContractFormation(ActionBase):
         self.Entities = None
 
 
-# Order : Order Action - Issuer to signal to the smart contract that the
-# tokens that a particular public address(es) owns are to be confiscated,
-# frozen, thawed or reconciled.
+# Order Action - Issuer to signal to the smart contract that the tokens
+# that a particular public address(es) owns are to be confiscated, frozen,
+# thawed or reconciled.
 
 class Action_Order(ActionBase):
     ActionPrefix = 'E1'
@@ -439,11 +438,11 @@ class Action_Order(ActionBase):
         self.Message = None
 
 
-# Freeze : Freeze Action - To be used to comply with
-# contractual/legal/issuer requirements. The target public address(es) will
-# be marked as frozen. However the Freeze action publishes this fact to the
-# public blockchain for transparency. The Contract will not respond to any
-# actions requested by the frozen address.
+# Freeze Action - To be used to comply with contractual/legal/issuer
+# requirements. The target public address(es) will be marked as frozen.
+# However the Freeze action publishes this fact to the public blockchain
+# for transparency. The Contract will not respond to any actions requested
+# by the frozen address.
 
 class Action_Freeze(ActionBase):
     ActionPrefix = 'E2'
@@ -463,9 +462,9 @@ class Action_Freeze(ActionBase):
         self.Timestamp = None
 
 
-# Thaw : Thaw Action - to be used to comply with contractual obligations or
-# legal requirements. The Alleged Offender&#39;s tokens will be unfrozen to
-# allow them to resume normal exchange and governance activities.
+# Thaw Action - to be used to comply with contractual obligations or legal
+# requirements. The Alleged Offender&#39;s tokens will be unfrozen to allow
+# them to resume normal exchange and governance activities.
 
 class Action_Thaw(ActionBase):
     ActionPrefix = 'E3'
@@ -485,8 +484,8 @@ class Action_Thaw(ActionBase):
         self.Timestamp = None
 
 
-# Confiscation : Confiscation Action - to be used to comply with
-# contractual obligations, legal and/or issuer requirements.
+# Confiscation Action - to be used to comply with contractual obligations,
+# legal and/or issuer requirements.
 
 class Action_Confiscation(ActionBase):
     ActionPrefix = 'E4'
@@ -508,8 +507,8 @@ class Action_Confiscation(ActionBase):
         self.Timestamp = None
 
 
-# Reconciliation : Reconciliation Action - to be used at the direction of
-# the issuer to fix record keeping errors with bitcoin and token balances.
+# Reconciliation Action - to be used at the direction of the issuer to fix
+# record keeping errors with bitcoin and token balances.
 
 class Action_Reconciliation(ActionBase):
     ActionPrefix = 'E5'
@@ -529,10 +528,10 @@ class Action_Reconciliation(ActionBase):
         self.Timestamp = None
 
 
-# Initiative : Initiative Action - Allows Token Owners to propose an
-# Initiative (aka Initiative/Shareholder vote). A significant cost -
-# specified in the Contract Formation - can be attached to this action to
-# reduce spam, as the resulting vote will be put to all token owners.
+# Initiative Action - Allows Token Owners to propose an Initiative (aka
+# Initiative/Shareholder vote). A significant cost - specified in the
+# Contract Formation - can be attached to this action to reduce spam, as
+# the resulting vote will be put to all token owners.
 
 class Action_Initiative(ActionBase):
     ActionPrefix = 'G1'
@@ -570,9 +569,9 @@ class Action_Initiative(ActionBase):
         self.VoteCutOffTimestamp = None
 
 
-# Referendum : Referendum Action - Issuer instructs the Contract to
-# Initiate a Token Owner Vote. Usually used for contract amendments,
-# organizational governance, etc.
+# Referendum Action - Issuer instructs the Contract to Initiate a Token
+# Owner Vote. Usually used for contract amendments, organizational
+# governance, etc.
 
 class Action_Referendum(ActionBase):
     ActionPrefix = 'G2'
@@ -612,8 +611,8 @@ class Action_Referendum(ActionBase):
         self.VoteCutOffTimestamp = None
 
 
-# Vote : Vote Action - A vote is created by the Contract in response to a
-# valid Referendum (Issuer) or Initiative (User) Action.
+# Vote Action - A vote is created by the Contract in response to a valid
+# Referendum (Issuer) or Initiative (User) Action.
 
 class Action_Vote(ActionBase):
     ActionPrefix = 'G3'
@@ -631,10 +630,10 @@ class Action_Vote(ActionBase):
     def init_attributes(self):
 
 
-# BallotCast : Ballot Cast Action - Used by Token Owners to cast their
-# ballot (vote) on proposals raised by the Issuer (Referendum) or other
-# token holders (Initiative). 1 Vote per token unless a vote multiplier is
-# specified in the relevant Asset Definition action.
+# Ballot Cast Action - Used by Token Owners to cast their ballot (vote) on
+# proposals raised by the Issuer (Referendum) or other token holders
+# (Initiative). 1 Vote per token unless a vote multiplier is specified in
+# the relevant Asset Definition action.
 
 class Action_BallotCast(ActionBase):
     ActionPrefix = 'G4'
@@ -656,10 +655,10 @@ class Action_BallotCast(ActionBase):
         self.Vote = None
 
 
-# BallotCounted : Ballot Counted Action - The smart contract will respond
-# to a Ballot Cast action with a Ballot Counted action if the Ballot Cast
-# is valid. If the Ballot Cast is not valid, then the smart contract will
-# respond with a Rejection Action.
+# Ballot Counted Action - The smart contract will respond to a Ballot Cast
+# action with a Ballot Counted action if the Ballot Cast is valid. If the
+# Ballot Cast is not valid, then the smart contract will respond with a
+# Rejection Action.
 
 class Action_BallotCounted(ActionBase):
     ActionPrefix = 'G5'
@@ -677,8 +676,7 @@ class Action_BallotCounted(ActionBase):
     def init_attributes(self):
 
 
-# Result : Result Action - Once a vote has been completed the results are
-# published.
+# Result Action - Once a vote has been completed the results are published.
 
 class Action_Result(ActionBase):
     ActionPrefix = 'G6'
@@ -714,13 +712,13 @@ class Action_Result(ActionBase):
         self.Timestamp = None
 
 
-# Message : Message Action - the message action is a general purpose
-# communication action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The
-# message txn can also be used for passing partially signed txns on-chain,
-# establishing private communication channels and EDI (receipting,
-# invoices, PO, and private offers/bids). The messages are broken down by
-# type for easy filtering in the a user&#39;s wallet. The Message Types are
-# listed in the Message Types table.
+# Message Action - the message action is a general purpose communication
+# action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The message txn can
+# also be used for passing partially signed txns on-chain, establishing
+# private communication channels and EDI (receipting, invoices, PO, and
+# private offers/bids). The messages are broken down by type for easy
+# filtering in the a user&#39;s wallet. The Message Types are listed in the
+# Message Types table.
 
 
 class Action_Message(ActionBase):
@@ -745,14 +743,14 @@ class Action_Message(ActionBase):
         self.MessagePayload = None
 
 
-# Rejection : Rejection Action - used to reject request actions that do not
-# comply with the Contract. If money is to be returned to a User then it is
-# used in lieu of the Settlement Action to properly account for token
-# balances. All Issuer/User request Actions must be responded to by the
-# Contract with an Action. The only exception to this rule is when there is
-# not enough fees in the first Action for the Contract response action to
-# remain revenue neutral. If not enough fees are attached to pay for the
-# Contract response then the Contract will not respond.
+# Rejection Action - used to reject request actions that do not comply with
+# the Contract. If money is to be returned to a User then it is used in
+# lieu of the Settlement Action to properly account for token balances. All
+# Issuer/User request Actions must be responded to by the Contract with an
+# Action. The only exception to this rule is when there is not enough fees
+# in the first Action for the Contract response action to remain revenue
+# neutral. If not enough fees are attached to pay for the Contract response
+# then the Contract will not respond.
 
 class Action_Rejection(ActionBase):
     ActionPrefix = 'M2'
@@ -778,7 +776,7 @@ class Action_Rejection(ActionBase):
         self.Timestamp = None
 
 
-# Establishment : Establishment Action - Establishes an on-chain register.
+# Establishment Action - Establishes an on-chain register.
 
 class Action_Establishment(ActionBase):
     ActionPrefix = 'R1'
@@ -796,7 +794,7 @@ class Action_Establishment(ActionBase):
     def init_attributes(self):
 
 
-# Addition : Addition Action - Adds an entry to the Register.
+# Addition Action - Adds an entry to the Register.
 
 class Action_Addition(ActionBase):
     ActionPrefix = 'R2'
@@ -814,7 +812,7 @@ class Action_Addition(ActionBase):
     def init_attributes(self):
 
 
-# Alteration : Alteration Action - A register entry/record can be altered.
+# Alteration Action - A register entry/record can be altered.
 
 class Action_Alteration(ActionBase):
     ActionPrefix = 'R3'
@@ -832,7 +830,7 @@ class Action_Alteration(ActionBase):
     def init_attributes(self):
 
 
-# Removal : Removal Action - Removes an entry/record from the Register.
+# Removal Action - Removes an entry/record from the Register.
 
 class Action_Removal(ActionBase):
     ActionPrefix = 'R4'
@@ -850,10 +848,10 @@ class Action_Removal(ActionBase):
     def init_attributes(self):
 
 
-# Send : Send Action - A Token Owner Sends a Token to a Receiver. The Send
-# Action requires no sign-off by the Token Receiving Party and does not
-# provide any on-chain consideration to the Token Sending Party. Can be
-# used for redeeming a ticket, coupon, points, etc.
+# Send Action - A Token Owner Sends a Token to a Receiver. The Send Action
+# requires no sign-off by the Token Receiving Party and does not provide
+# any on-chain consideration to the Token Sending Party. Can be used for
+# redeeming a ticket, coupon, points, etc.
 
 class Action_Send(ActionBase):
     ActionPrefix = 'T1'
@@ -881,9 +879,9 @@ class Action_Send(ActionBase):
         self.TokenReceivers = None
 
 
-# Exchange : Exchange Action - Tokens exchanged for Bitcoin (BSV). Example:
-# Bob (Token Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7
-# BSV. Both parties must sign the transaction for it to be valid.
+# Exchange Action - Tokens exchanged for Bitcoin (BSV). Example: Bob (Token
+# Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7 BSV. Both
+# parties must sign the transaction for it to be valid.
 
 class Action_Exchange(ActionBase):
     ActionPrefix = 'T2'
@@ -921,9 +919,9 @@ class Action_Exchange(ActionBase):
         self.TokenReceivers = None
 
 
-# Swap : Swap Action - Two parties (or more) want to swap a token (Atomic
-# Swap) directly for another token. At a minimum, Bitcoin is used in the
-# txn for paying the necessary network/transaction fees.
+# Swap Action - Two parties (or more) want to swap a token (Atomic Swap)
+# directly for another token. At a minimum, Bitcoin is used in the txn for
+# paying the necessary network/transaction fees.
 
 class Action_Swap(ActionBase):
     ActionPrefix = 'T3'
@@ -973,8 +971,8 @@ class Action_Swap(ActionBase):
         self.Asset2Receivers = None
 
 
-# Settlement : Settlement Action - Finalizes the transfer of bitcoins and
-# tokens from send, exchange, and swap actions.
+# Settlement Action - Finalizes the transfer of bitcoins and tokens from
+# send, exchange, and swap actions.
 
 class Action_Settlement(ActionBase):
     ActionPrefix = 'T4'

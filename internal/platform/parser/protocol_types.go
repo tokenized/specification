@@ -3,6 +3,7 @@ package parser
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -32,4 +33,8 @@ type ProtocolTypes []ProtocolType
 type ProtocolType struct {
 	Metadata Metadata
 	Fields   []Field
+}
+
+func (m ProtocolType) Name() string {
+	return strings.Replace(m.Metadata.Name, " ", "", -1)
 }

@@ -5,7 +5,7 @@
 # be overwritten when code is regenerated.
 
 {{ range . }}
-{{.CommentHash}}
+{{comment .Metadata.Description "#"}}
 
 class Action_{{.Name}}({{ range .Fields }}{{ if eq .Name "Version" }}Versioned{{ end }}{{ end }}ActionBase):
     ActionPrefix = '{{.Code}}'
