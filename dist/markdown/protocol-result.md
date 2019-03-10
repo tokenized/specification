@@ -32,7 +32,7 @@ The following breaks down the construction of a Result Action. The action is con
 		<td class="g10">TextEncoding</td>
 		<td class="g10">1</td>
 		<td class="g10" style="word-break:break-all">0</td>
-		<td class="g10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
+		<td class="g10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
 		<td class="g10">uint8</td>
 		<td class="g11">Can be changed by Issuer or Operator at their discretion.</td>
 	</tr>
@@ -62,7 +62,7 @@ The following breaks down the construction of a Result Action. The action is con
 		<td class="g10">Proposal</td>
 		<td class="g10">1</td>
 		<td class="g10" style="word-break:break-all">0</td>
-		<td class="g10">1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a &#39;yes&#39;, or &#39;pass&#39;, if the threshold is met, and will process the proposed changes accordingly.</td>
+		<td class="g10">1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.</td>
 		<td class="g10">bool</td>
 		<td class="g11"></td>
 	</tr>

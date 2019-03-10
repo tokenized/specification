@@ -32,7 +32,7 @@ The following breaks down the construction of a Order Action. The action is cons
 		<td class="e10">TextEncoding</td>
 		<td class="e10">1</td>
 		<td class="e10" style="word-break:break-all">0</td>
-		<td class="e10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
+		<td class="e10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
 		<td class="e10">uint8</td>
 		<td class="e11">Can be changed by Issuer or Operator at their discretion.</td>
 	</tr>
@@ -112,7 +112,7 @@ The following breaks down the construction of a Order Action. The action is cons
 		<td class="e10">SigAlgoAddressList</td>
 		<td class="e10">1</td>
 		<td class="e10" style="word-break:break-all">1</td>
-		<td class="e10">0 = No Registry-signed Message, 1 = ECDSA&#43;secp256k1</td>
+		<td class="e10">0 = No Registry-signed Message, 1 = ECDSA+secp256k1</td>
 		<td class="e10">uint8</td>
 		<td class="e11"></td>
 	</tr>
@@ -161,8 +161,8 @@ The following breaks down the construction of a Order Action. The action is cons
 		<td class="e10">Freeze Period</td>
 		<td class="e10">FreezePeriod</td>
 		<td class="e10">8</td>
-		<td class="e10" style="word-break:break-all">Tue Oct 09 2018 05:00:00 GMT&#43;1000 (AEST)</td>
-		<td class="e10">Used for a &#39;time out&#39;.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.</td>
+		<td class="e10" style="word-break:break-all">Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)</td>
+		<td class="e10">Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.</td>
 		<td class="e10">time</td>
 		<td class="e11"></td>
 	</tr>

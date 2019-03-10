@@ -1,7 +1,7 @@
 
 # Static Contract Formation Action
 
-Static Contract Formation Action 
+Static Contract Formation Action
 
 The following breaks down the construction of a Static Contract Formation Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -32,7 +32,7 @@ The following breaks down the construction of a Static Contract Formation Action
 		<td class="c10">TextEncoding</td>
 		<td class="c10">1</td>
 		<td class="c10" style="word-break:break-all">0</td>
-		<td class="c10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
+		<td class="c10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
 		<td class="c10">uint8</td>
 		<td class="c11">Can be changed by Issuer or Operator at their discretion.</td>
 	</tr>
@@ -121,7 +121,7 @@ The following breaks down the construction of a Static Contract Formation Action
 		<td class="c10">Effective Date</td>
 		<td class="c10">EffectiveDate</td>
 		<td class="c10">8</td>
-		<td class="c10" style="word-break:break-all">Wed May 09 2018 00:00:00 GMT&#43;1000 (AEST)</td>
+		<td class="c10" style="word-break:break-all">Wed May 09 2018 00:00:00 GMT+1000 (AEST)</td>
 		<td class="c10">Start date of the contract.</td>
 		<td class="c10">time</td>
 		<td class="c11"></td>
@@ -131,8 +131,8 @@ The following breaks down the construction of a Static Contract Formation Action
 		<td class="c10">Contract Expiration</td>
 		<td class="c10">ContractExpiration</td>
 		<td class="c10">8</td>
-		<td class="c10" style="word-break:break-all">Wed May 09 2018 00:00:00 GMT&#43;1000 (AEST)</td>
-		<td class="c10">All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an &#39;Expired&#39; folder.</td>
+		<td class="c10" style="word-break:break-all">Wed May 09 2018 00:00:00 GMT+1000 (AEST)</td>
+		<td class="c10">All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.</td>
 		<td class="c10">time</td>
 		<td class="c11"></td>
 	</tr>

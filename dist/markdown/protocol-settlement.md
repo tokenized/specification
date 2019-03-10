@@ -32,7 +32,7 @@ The following breaks down the construction of a Settlement Action. The action is
 		<td class="t10">TextEncoding</td>
 		<td class="t10">1</td>
 		<td class="t10" style="word-break:break-all">0</td>
-		<td class="t10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
+		<td class="t10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
 		<td class="t10">uint8</td>
 		<td class="t11">Can be changed by Issuer or Operator at their discretion.</td>
 	</tr>

@@ -1,7 +1,7 @@
 
 # Message Action
 
-Message Action - the message action is a general purpose communication action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken down by type for easy filtering in the a user&#39;s wallet. The Message Types are listed in the Message Types table.
+Message Action - the message action is a general purpose communication action. 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken down by type for easy filtering in the a user's wallet. The Message Types are listed in the Message Types table.
 
 
 The following breaks down the construction of a Message Action. The action is constructed by building a single string from each of the elements in order.
@@ -33,7 +33,7 @@ The following breaks down the construction of a Message Action. The action is co
 		<td class="m10">TextEncoding</td>
 		<td class="m10">1</td>
 		<td class="m10" style="word-break:break-all">0</td>
-		<td class="m10">0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode. Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII. Where string is selected, all fields will be ASCII.
+		<td class="m10">0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode. Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII. Where string is selected, all fields will be ASCII.
 </td>
 		<td class="m10">uint8</td>
 		<td class="m11">Can be changed by Issuer or Operator at their discretion.</td>
@@ -74,7 +74,7 @@ The following breaks down the construction of a Message Action. The action is co
 		<td class="m10">MessagePayload</td>
 		<td class="m10">0</td>
 		<td class="m10" style="word-break:break-all">Hello world!</td>
-		<td class="m10">Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private &#39;notes&#39; if encrypted. See Message Types for a full list of potential use cases.
+		<td class="m10">Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
 </td>
 		<td class="m10">nvarchar64</td>
 		<td class="m11"></td>

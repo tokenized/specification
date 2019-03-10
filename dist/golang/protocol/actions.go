@@ -257,7 +257,7 @@ func (m AssetDefinition) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.AssetPayloadLen); i++ {
+	for i := 0; i < int(m.AssetPayloadLen); i++ {
 		if err := write(buf, m.AssetPayload[i]); err != nil {
 			return nil, err
 		}
@@ -407,7 +407,7 @@ func (m AssetDefinition) String() string {
 
 
 // AssetCreationAsset Creation Action - This action creates an Asset in
-// response to the Issuer&#39;s instructions in the Definition Action.
+// response to the Issuer's instructions in the Definition Action.
 type AssetCreation struct {
 	Header Header
 	TextEncoding uint8
@@ -523,7 +523,7 @@ func (m AssetCreation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.AssetPayloadLen); i++ {
+	for i := 0; i < int(m.AssetPayloadLen); i++ {
 		if err := write(buf, m.AssetPayload[i]); err != nil {
 			return nil, err
 		}
@@ -751,7 +751,7 @@ func (m AssetModification) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.ModificationCount); i++ {
+	for i := 0; i < int(m.ModificationCount); i++ {
 		b, err := m.Modifications[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -814,7 +814,7 @@ func (m *AssetModification) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.ModificationCount); i++ {
+	for i := 0; i < int(m.ModificationCount); i++ {
 		x := &Amendment{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -853,9 +853,9 @@ func (m AssetModification) String() string {
 
 
 // ContractOfferThe Contract Offer action allows the Issuer to tell the
-// smart contract what they want the details (labels, data, T&amp;C&#39;s, etc.) of
+// smart contract what they want the details (labels, data, T&C's, etc.) of
 // the Contract to be on-chain in a public and immutable way. The Contract
-// Offer action &#39;initializes&#39; a generic smart contract that has been spun
+// Offer action 'initializes' a generic smart contract that has been spun
 // up by either the Smart Contract Operator or the Issuer. This on-chain
 // action allows for the positive response from the smart contract with
 // either a Contract Formation Action or a Rejection Action.
@@ -1021,7 +1021,7 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.VotingSystemCount); i++ {
+	for i := 0; i < int(m.VotingSystemCount); i++ {
 		b, err := m.VotingSystems[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -1048,7 +1048,7 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.RegistryCount); i++ {
+	for i := 0; i < int(m.RegistryCount); i++ {
 		b, err := m.Registries[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -1152,7 +1152,7 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.KeyRolesCount); i++ {
+	for i := 0; i < int(m.KeyRolesCount); i++ {
 		b, err := m.KeyRoles[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -1167,7 +1167,7 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.NotableRolesCount); i++ {
+	for i := 0; i < int(m.NotableRolesCount); i++ {
 		b, err := m.NotableRoles[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -1268,7 +1268,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.VotingSystemCount); i++ {
+	for i := 0; i < int(m.VotingSystemCount); i++ {
 		x := &VotingSystem{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -1293,7 +1293,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.RegistryCount); i++ {
+	for i := 0; i < int(m.RegistryCount); i++ {
 		x := &Registry{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -1348,7 +1348,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.KeyRolesCount); i++ {
+	for i := 0; i < int(m.KeyRolesCount); i++ {
 		x := &KeyRole{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -1361,7 +1361,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.NotableRolesCount); i++ {
+	for i := 0; i < int(m.NotableRolesCount); i++ {
 		x := &NotableRole{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -1591,7 +1591,7 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.VotingSystemCount); i++ {
+	for i := 0; i < int(m.VotingSystemCount); i++ {
 		b, err := m.VotingSystems[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -1618,7 +1618,7 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.RegistryCount); i++ {
+	for i := 0; i < int(m.RegistryCount); i++ {
 		b, err := m.Registries[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -1722,7 +1722,7 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.KeyRolesCount); i++ {
+	for i := 0; i < int(m.KeyRolesCount); i++ {
 		b, err := m.KeyRoles[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -1737,7 +1737,7 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.NotableRolesCount); i++ {
+	for i := 0; i < int(m.NotableRolesCount); i++ {
 		b, err := m.NotableRoles[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -1846,7 +1846,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.VotingSystemCount); i++ {
+	for i := 0; i < int(m.VotingSystemCount); i++ {
 		x := &VotingSystem{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -1871,7 +1871,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.RegistryCount); i++ {
+	for i := 0; i < int(m.RegistryCount); i++ {
 		x := &Registry{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -1926,7 +1926,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.KeyRolesCount); i++ {
+	for i := 0; i < int(m.KeyRolesCount); i++ {
 		x := &KeyRole{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -1939,7 +1939,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.NotableRolesCount); i++ {
+	for i := 0; i < int(m.NotableRolesCount); i++ {
 		x := &NotableRole{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -2073,7 +2073,7 @@ func (m ContractAmendment) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.AmendmentsCount); i++ {
+	for i := 0; i < int(m.AmendmentsCount); i++ {
 		b, err := m.Amendments[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -2134,7 +2134,7 @@ func (m *ContractAmendment) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.AmendmentsCount); i++ {
+	for i := 0; i < int(m.AmendmentsCount); i++ {
 		x := &Amendment{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -2297,7 +2297,7 @@ func (m StaticContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.EntityCount); i++ {
+	for i := 0; i < int(m.EntityCount); i++ {
 		b, err := m.Entities[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -2394,7 +2394,7 @@ func (m *StaticContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.EntityCount); i++ {
+	for i := 0; i < int(m.EntityCount); i++ {
 		x := &Entity{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -2505,7 +2505,7 @@ func (m Order) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.TargetAddressCount); i++ {
+	for i := 0; i < int(m.TargetAddressCount); i++ {
 		b, err := m.TargetAddresses[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -2635,7 +2635,7 @@ func (m *Order) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.TargetAddressCount); i++ {
+	for i := 0; i < int(m.TargetAddressCount); i++ {
 		x := &TargetAddress{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -2758,7 +2758,7 @@ func (m Freeze) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.AddressCount); i++ {
+	for i := 0; i < int(m.AddressCount); i++ {
 		b, err := m.Addresses[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -2803,7 +2803,7 @@ func (m *Freeze) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.AddressCount); i++ {
+	for i := 0; i < int(m.AddressCount); i++ {
 		x := &Address{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -2837,7 +2837,7 @@ func (m Freeze) String() string {
 
 
 // ThawThaw Action - to be used to comply with contractual obligations or
-// legal requirements. The Alleged Offender&#39;s tokens will be unfrozen to
+// legal requirements. The Alleged Offender's tokens will be unfrozen to
 // allow them to resume normal exchange and governance activities.
 type Thaw struct {
 	Header Header
@@ -2878,7 +2878,7 @@ func (m Thaw) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.AddressCount); i++ {
+	for i := 0; i < int(m.AddressCount); i++ {
 		b, err := m.Addresses[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -2923,7 +2923,7 @@ func (m *Thaw) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.AddressCount); i++ {
+	for i := 0; i < int(m.AddressCount); i++ {
 		x := &Address{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -2998,7 +2998,7 @@ func (m Confiscation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.AddressCount); i++ {
+	for i := 0; i < int(m.AddressCount); i++ {
 		b, err := m.Addresses[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -3047,7 +3047,7 @@ func (m *Confiscation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.AddressCount); i++ {
+	for i := 0; i < int(m.AddressCount); i++ {
 		x := &Address{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -3126,7 +3126,7 @@ func (m Reconciliation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.AddressCount); i++ {
+	for i := 0; i < int(m.AddressCount); i++ {
 		b, err := m.Addresses[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -3171,7 +3171,7 @@ func (m *Reconciliation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.AddressCount); i++ {
+	for i := 0; i < int(m.AddressCount); i++ {
 		x := &Address{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -3276,7 +3276,7 @@ func (m Initiative) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.ProposedChangesCount); i++ {
+	for i := 0; i < int(m.ProposedChangesCount); i++ {
 		b, err := m.ProposedChanges[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -3373,7 +3373,7 @@ func (m *Initiative) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.ProposedChangesCount); i++ {
+	for i := 0; i < int(m.ProposedChangesCount); i++ {
 		x := &Amendment{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -3508,7 +3508,7 @@ func (m Referendum) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.ProposedChangesCount); i++ {
+	for i := 0; i < int(m.ProposedChangesCount); i++ {
 		b, err := m.ProposedChanges[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -3609,7 +3609,7 @@ func (m *Referendum) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.ProposedChangesCount); i++ {
+	for i := 0; i < int(m.ProposedChangesCount); i++ {
 		x := &Amendment{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -4039,7 +4039,7 @@ func (m Result) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.ProposedChangesCount); i++ {
+	for i := 0; i < int(m.ProposedChangesCount); i++ {
 		b, err := m.ProposedChanges[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -4125,7 +4125,7 @@ func (m *Result) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.ProposedChangesCount); i++ {
+	for i := 0; i < int(m.ProposedChangesCount); i++ {
 		x := &Amendment{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -4184,11 +4184,11 @@ func (m Result) String() string {
 
 
 // MessageMessage Action - the message action is a general purpose
-// communication action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The
+// communication action. 'Twitter/SMS' for Issuers/Investors/Users. The
 // message txn can also be used for passing partially signed txns on-chain,
 // establishing private communication channels and EDI (receipting,
 // invoices, PO, and private offers/bids). The messages are broken down by
-// type for easy filtering in the a user&#39;s wallet. The Message Types are
+// type for easy filtering in the a user's wallet. The Message Types are
 // listed in the Message Types table.
 
 type Message struct {
@@ -4236,7 +4236,7 @@ func (m Message) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.QtyReceivingAddresses); i++ {
+	for i := 0; i < int(m.QtyReceivingAddresses); i++ {
 		if err := write(buf, m.AddressIndexes[i]); err != nil {
 			return nil, err
 		}
@@ -4381,7 +4381,7 @@ func (m Rejection) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.QtyReceivingAddresses); i++ {
+	for i := 0; i < int(m.QtyReceivingAddresses); i++ {
 		if err := write(buf, m.AddressIndexes[i]); err != nil {
 			return nil, err
 		}
@@ -4951,7 +4951,7 @@ func (m Send) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.TokenSenderCount); i++ {
+	for i := 0; i < int(m.TokenSenderCount); i++ {
 		if err := write(buf, m.TokenSenders[i]); err != nil {
 			return nil, err
 		}
@@ -4961,7 +4961,7 @@ func (m Send) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.TokenReceiverCount); i++ {
+	for i := 0; i < int(m.TokenReceiverCount); i++ {
 		b, err := m.TokenReceivers[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -5025,7 +5025,7 @@ func (m *Send) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.TokenReceiverCount); i++ {
+	for i := 0; i < int(m.TokenReceiverCount); i++ {
 		x := &TokenReceiver{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -5141,7 +5141,7 @@ func (m Exchange) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.TokenSenderCount); i++ {
+	for i := 0; i < int(m.TokenSenderCount); i++ {
 		if err := write(buf, m.TokenSenders[i]); err != nil {
 			return nil, err
 		}
@@ -5151,7 +5151,7 @@ func (m Exchange) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.TokenReceiverCount); i++ {
+	for i := 0; i < int(m.TokenReceiverCount); i++ {
 		b, err := m.TokenReceivers[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -5237,7 +5237,7 @@ func (m *Exchange) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.TokenReceiverCount); i++ {
+	for i := 0; i < int(m.TokenReceiverCount); i++ {
 		x := &TokenReceiver{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -5372,7 +5372,7 @@ func (m Swap) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.Asset1SenderCount); i++ {
+	for i := 0; i < int(m.Asset1SenderCount); i++ {
 		if err := write(buf, m.Asset1Senders[i]); err != nil {
 			return nil, err
 		}
@@ -5382,7 +5382,7 @@ func (m Swap) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.Asset1ReceiverCount); i++ {
+	for i := 0; i < int(m.Asset1ReceiverCount); i++ {
 		b, err := m.Asset1Receivers[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -5397,7 +5397,7 @@ func (m Swap) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.Asset2SenderCount); i++ {
+	for i := 0; i < int(m.Asset2SenderCount); i++ {
 		if err := write(buf, m.Asset2Senders[i]); err != nil {
 			return nil, err
 		}
@@ -5407,7 +5407,7 @@ func (m Swap) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.Asset2ReceiverCount); i++ {
+	for i := 0; i < int(m.Asset2ReceiverCount); i++ {
 		b, err := m.Asset2Receivers[i].Serialize()
 		if err != nil {
 			return nil, err
@@ -5503,7 +5503,7 @@ func (m *Swap) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.Asset1ReceiverCount); i++ {
+	for i := 0; i < int(m.Asset1ReceiverCount); i++ {
 		x := &TokenReceiver{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -5525,7 +5525,7 @@ func (m *Swap) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	for i := 0; i &lt; int(m.Asset2ReceiverCount); i++ {
+	for i := 0; i < int(m.Asset2ReceiverCount); i++ {
 		x := &TokenReceiver{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
@@ -5642,7 +5642,7 @@ func (m Settlement) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.Asset1SettlementsCount); i++ {
+	for i := 0; i < int(m.Asset1SettlementsCount); i++ {
 		if err := write(buf, m.Asset1AddressesXQty[i]); err != nil {
 			return nil, err
 		}
@@ -5652,7 +5652,7 @@ func (m Settlement) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.Asset2SettlementsCount); i++ {
+	for i := 0; i < int(m.Asset2SettlementsCount); i++ {
 		if err := write(buf, m.Asset2AddressXQty[i]); err != nil {
 			return nil, err
 		}

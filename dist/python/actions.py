@@ -55,7 +55,7 @@ class Action_AssetDefinition(ActionBase):
 
 
 # Asset Creation Action - This action creates an Asset in response to the
-# Issuer&#39;s instructions in the Definition Action.
+# Issuer's instructions in the Definition Action.
 
 class Action_AssetCreation(ActionBase):
     ActionPrefix = 'A2'
@@ -137,9 +137,9 @@ class Action_AssetModification(ActionBase):
 
 
 # The Contract Offer action allows the Issuer to tell the smart contract
-# what they want the details (labels, data, T&amp;C&#39;s, etc.) of the Contract to
+# what they want the details (labels, data, T&C's, etc.) of the Contract to
 # be on-chain in a public and immutable way. The Contract Offer action
-# &#39;initializes&#39; a generic smart contract that has been spun up by either
+# 'initializes' a generic smart contract that has been spun up by either
 # the Smart Contract Operator or the Issuer. This on-chain action allows
 # for the positive response from the smart contract with either a Contract
 # Formation Action or a Rejection Action.
@@ -463,7 +463,7 @@ class Action_Freeze(ActionBase):
 
 
 # Thaw Action - to be used to comply with contractual obligations or legal
-# requirements. The Alleged Offender&#39;s tokens will be unfrozen to allow
+# requirements. The Alleged Offender's tokens will be unfrozen to allow
 # them to resume normal exchange and governance activities.
 
 class Action_Thaw(ActionBase):
@@ -713,11 +713,11 @@ class Action_Result(ActionBase):
 
 
 # Message Action - the message action is a general purpose communication
-# action. &#39;Twitter/SMS&#39; for Issuers/Investors/Users. The message txn can
+# action. 'Twitter/SMS' for Issuers/Investors/Users. The message txn can
 # also be used for passing partially signed txns on-chain, establishing
 # private communication channels and EDI (receipting, invoices, PO, and
 # private offers/bids). The messages are broken down by type for easy
-# filtering in the a user&#39;s wallet. The Message Types are listed in the
+# filtering in the a user's wallet. The Message Types are listed in the
 # Message Types table.
 
 

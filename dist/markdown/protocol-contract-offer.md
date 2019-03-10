@@ -1,7 +1,7 @@
 
 # Contract Offer Action
 
-The Contract Offer action allows the Issuer to tell the smart contract what they want the details (labels, data, T&amp;C&#39;s, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action &#39;initializes&#39; a generic smart contract that has been spun up by either the Smart Contract Operator or the Issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
+The Contract Offer action allows the Issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the Smart Contract Operator or the Issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 
 The following breaks down the construction of a Contract Offer Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -32,7 +32,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
 		<td class="c10">TextEncoding</td>
 		<td class="c10">1</td>
 		<td class="c10" style="word-break:break-all">0</td>
-		<td class="c10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
+		<td class="c10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
 		<td class="c10">uint8</td>
 		<td class="c11">Can be changed by Issuer or Operator at their discretion.</td>
 	</tr>
@@ -101,8 +101,8 @@ The following breaks down the construction of a Contract Offer Action. The actio
 		<td class="c10">Contract Expiration</td>
 		<td class="c10">ContractExpiration</td>
 		<td class="c10">8</td>
-		<td class="c10" style="word-break:break-all">Wed May 09 2018 00:00:00 GMT&#43;1000 (AEST)</td>
-		<td class="c10">All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an &#39;Expired&#39; folder.</td>
+		<td class="c10" style="word-break:break-all">Wed May 09 2018 00:00:00 GMT+1000 (AEST)</td>
+		<td class="c10">All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.</td>
 		<td class="c10">time</td>
 		<td class="c11">Contract Expiration - Amendments can be restricted to a vote.</td>
 	</tr>
@@ -132,7 +132,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
 		<td class="c10">IssuerType</td>
 		<td class="c10">1</td>
 		<td class="c10" style="word-break:break-all">P</td>
-		<td class="c10">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in &#39;Entities&#39; (Specification/Resources).</td>
+		<td class="c10">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).</td>
 		<td class="c10">string</td>
 		<td class="c11">Issuer Type - Amendments can be restricted to a vote.</td>
 	</tr>
@@ -162,7 +162,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
 		<td class="c10">ContractAuthFlags</td>
 		<td class="c10">16</td>
 		<td class="c10" style="word-break:break-all">010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000</td>
-		<td class="c10">Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract&#39;s control are listed in the actual Contract File.</td>
+		<td class="c10">Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.</td>
 		<td class="c10">bin</td>
 		<td class="c11">Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.</td>
 	</tr>

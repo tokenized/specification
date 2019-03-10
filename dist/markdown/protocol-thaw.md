@@ -1,7 +1,7 @@
 
 # Thaw Action
 
-Thaw Action -  to be used to comply with contractual obligations or legal requirements.  The Alleged Offender&#39;s tokens will be unfrozen to allow them to resume normal exchange and governance activities.
+Thaw Action -  to be used to comply with contractual obligations or legal requirements.  The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.
 
 The following breaks down the construction of a Thaw Action. The action is constructed by building a single string from each of the elements in order.
 

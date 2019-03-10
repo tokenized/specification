@@ -1,7 +1,7 @@
 
 # Asset Creation Action
 
-Asset Creation Action -  This action creates an Asset in response to the Issuer&#39;s instructions in the Definition Action.
+Asset Creation Action -  This action creates an Asset in response to the Issuer's instructions in the Definition Action.
 
 The following breaks down the construction of a Asset Creation Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -32,7 +32,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
 		<td class="a10">TextEncoding</td>
 		<td class="a10">1</td>
 		<td class="a10" style="word-break:break-all">0</td>
-		<td class="a10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
+		<td class="a10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
 		<td class="a10">uint8</td>
 		<td class="a11">Can be changed by Issuer or Operator at their discretion.</td>
 	</tr>
@@ -52,7 +52,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
 		<td class="a10">AssetID</td>
 		<td class="a10">32</td>
 		<td class="a10" style="word-break:break-all">apm2qsznhks23z8d83u41s8019hyri3i</td>
-		<td class="a10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type &#43; Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.</td>
+		<td class="a10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.</td>
 		<td class="a10">string</td>
 		<td class="a11"></td>
 	</tr>
@@ -142,7 +142,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
 		<td class="a10">TokenQty</td>
 		<td class="a10">8</td>
 		<td class="a10" style="word-break:break-all">1000000</td>
-		<td class="a10">Quantity of token - 0 is valid. Fungible &#39;shares&#39; of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.</td>
+		<td class="a10">Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.</td>
 		<td class="a10">uint64</td>
 		<td class="a11"></td>
 	</tr>

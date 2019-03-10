@@ -44,6 +44,12 @@ var cmdGenerate = &cobra.Command{
 		python.CompileProtocol(distPath, actions, fieldTypes)
 		markdown.CompileProtocol(distPath, actions, fieldTypes)
 
+		// -------------------------------------------------------------------------
+		// Assets
+
+		assets := parser.NewAssets(parser.FetchFiles(srcPath, "assets", "develop"))
+		golang.CompileAssets(distPath, assets)
+
 		return nil
 	},
 }

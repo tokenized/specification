@@ -235,7 +235,7 @@ func (m Entity) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.KeyRolesCount); i++ {
+	for i := 0; i < int(m.KeyRolesCount); i++ {
 		b, err := m.KeyRoles[i].Serialize()
 		if err != nil {
 				return nil, err
@@ -250,7 +250,7 @@ func (m Entity) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	for i := 0; i &lt; int(m.NotableRolesCount); i++ {
+	for i := 0; i < int(m.NotableRolesCount); i++ {
 		b, err := m.NotableRoles[i].Serialize()
 		if err != nil {
 				return nil, err
@@ -314,7 +314,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 		return err
 	}
 
-	for i := 0; i &lt; int(m.KeyRolesCount); i++ {
+	for i := 0; i < int(m.KeyRolesCount); i++ {
 		x := &KeyRole{}
 		if err := x.Write(buf); err != nil {
 				return err
@@ -326,7 +326,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 		return err
 	}
 
-	for i := 0; i &lt; int(m.NotableRolesCount); i++ {
+	for i := 0; i < int(m.NotableRolesCount); i++ {
 		x := &NotableRole{}
 		if err := x.Write(buf); err != nil {
 				return err

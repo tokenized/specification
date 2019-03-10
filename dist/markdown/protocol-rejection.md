@@ -32,7 +32,7 @@ The following breaks down the construction of a Rejection Action. The action is 
 		<td class="m10">TextEncoding</td>
 		<td class="m10">1</td>
 		<td class="m10" style="word-break:break-all">0</td>
-		<td class="m10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all &#39;text&#39; data types. All &#39;string&#39; types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
+		<td class="m10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
 		<td class="m10">uint8</td>
 		<td class="m11">Can be changed by Issuer or Operator at their discretion.</td>
 	</tr>
@@ -71,7 +71,7 @@ The following breaks down the construction of a Rejection Action. The action is 
 		<td class="m10">Message Payload</td>
 		<td class="m10">MessagePayload</td>
 		<td class="m10">0</td>
-		<td class="m10" style="word-break:break-all">Sorry, you don&#39;t have enough tokens.</td>
+		<td class="m10" style="word-break:break-all">Sorry, you don't have enough tokens.</td>
 		<td class="m10">Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.</td>
 		<td class="m10">nvarchar16</td>
 		<td class="m11"></td>

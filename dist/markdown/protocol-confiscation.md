@@ -52,7 +52,7 @@ The following breaks down the construction of a Confiscation Action. The action 
 		<td class="e10">DepositQty</td>
 		<td class="e10">8</td>
 		<td class="e10" style="word-break:break-all">10000</td>
-		<td class="e10">Custodian&#39;s token balance after confiscation.</td>
+		<td class="e10">Custodian's token balance after confiscation.</td>
 		<td class="e10">uint64</td>
 		<td class="e11"></td>
 	</tr>
