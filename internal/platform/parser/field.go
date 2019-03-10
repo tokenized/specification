@@ -145,38 +145,6 @@ func (f Field) GoType() string {
 	return fmt.Sprintf("%s%s", prefix, s)
 }
 
-// Bytes returns the code to write the field into a bytes.Buffer.
-// func (f Field) Bytes() string {
-// 	if f.GoType() == "[]byte" {
-// 		return fmt.Sprintf(`
-// 	if err := m.write(buf, m.pad(m.%v, %v)); err != nil {
-// 		return nil, err
-// 	}`, f.Name, f.Size)
-// 	}
-
-// 	return fmt.Sprintf(`
-// 	if err := m.write(buf, m.%v); err != nil {
-// 		return nil, err
-// 	}`, f.Name)
-// }
-
-// func (f Field) Write() string {
-// 	if f.GoType() == "[]byte" {
-// 		return fmt.Sprintf(`
-// 	m.%v = make([]byte, %v)
-// 	if err := m.readLen(buf, m.%v); err != nil {
-// 		return 0, err
-// 	}
-
-// 	m.%v = bytes.Trim(m.%v, "\x00")`, f.Name, f.Size, f.Name, f.Name, f.Name)
-// 	}
-
-// 	return fmt.Sprintf(`
-// 	if err := m.read(buf, &m.%v); err != nil {
-// 		return 0, err
-// 	}`, f.Name)
-// }
-
 func (f Field) IsInternalTypeArray() bool {
 	return f.IsInternalType() && strings.HasSuffix(f.Type, "[]")
 }
