@@ -1,6 +1,7 @@
 package protocol
 
 import (
+	"encoding/hex"
 	"reflect"
 	"testing"
 )

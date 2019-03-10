@@ -1,5 +1,11 @@
 package protocol
 
+import (
+	"bytes"
+	"fmt"
+	"strings"
+)
+
 // Package protocol provides base level structs and validation for
 // the protocol.
 //
@@ -129,15 +135,6 @@ var (
 	// ProtocolID is the current protocol ID
 	ProtocolID = []byte("tokenized.com")
 )
-
-func hexToBytes(s string) []byte {
-	decoded, err := hex.DecodeString(s)
-	if err != nil {
-		panic(err)
-	}
-
-	return []byte(decoded)
-}
 
 
 
@@ -2454,7 +2451,7 @@ type Order struct {
 	SupportingEvidenceHash []byte
 	RefTxnID []byte
 	FreezePeriod uint64
-	Message nvarchar64
+	Message Nvarchar64
 }
 
 // NewOrder returns a new Order with defaults set.
@@ -4197,7 +4194,7 @@ type Message struct {
 	QtyReceivingAddresses uint8
 	AddressIndexes []uint16
 	MessageType []byte
-	MessagePayload nvarchar64
+	MessagePayload Nvarchar64
 }
 
 // NewMessage returns a new Message with defaults set.
@@ -4484,7 +4481,7 @@ func (m Rejection) String() string {
 type Establishment struct {
 	Header Header
 	TextEncoding uint8
-	Message nvarchar64
+	Message Nvarchar64
 }
 
 // NewEstablishment returns a new Establishment with defaults set.
@@ -4587,7 +4584,7 @@ func (m Establishment) String() string {
 type Addition struct {
 	Header Header
 	TextEncoding uint8
-	Message nvarchar64
+	Message Nvarchar64
 }
 
 // NewAddition returns a new Addition with defaults set.
@@ -4690,7 +4687,7 @@ func (m Addition) String() string {
 type Alteration struct {
 	Header Header
 	TextEncoding uint8
-	Message nvarchar64
+	Message Nvarchar64
 }
 
 // NewAlteration returns a new Alteration with defaults set.
@@ -4793,7 +4790,7 @@ func (m Alteration) String() string {
 type Removal struct {
 	Header Header
 	TextEncoding uint8
-	Message nvarchar64
+	Message Nvarchar64
 }
 
 // NewRemoval returns a new Removal with defaults set.

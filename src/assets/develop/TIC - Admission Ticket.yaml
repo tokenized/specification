@@ -44,15 +44,15 @@ fields:
       - 21-30
       - 18-
 
-  - name: Type
-    label: Type
+  - name: AdmissionType
+    label: Admission Type
     type: string
     size: 3
     example: MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition
     span: left
     displayOrder: 2
     default: now
-    
+
   - name: Venue
     label: Venue
     type: nvarchar8

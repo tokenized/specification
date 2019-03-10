@@ -8,7 +8,7 @@ func CompileProtocol(distPath string, msgs parser.ProtocolActions, typs parser.P
 
 	templateToFile(distPath, msgs, "actions_test.tpl", "actions_test.go")
 	templateToFile(distPath, msgs, "actions.tpl", "actions.go")
-	templateToFile(distPath, typs, "types.tpl", "types.go")
+	templateToFile(distPath, typs, "field_types.tpl", "field_types.go")
 
 }
 

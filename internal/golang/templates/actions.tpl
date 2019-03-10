@@ -1,5 +1,11 @@
 package protocol
 
+import (
+	"bytes"
+	"fmt"
+	"strings"
+)
+
 // Package protocol provides base level structs and validation for
 // the protocol.
 //
@@ -24,15 +30,6 @@ var (
 	// ProtocolID is the current protocol ID
 	ProtocolID = []byte("tokenized.com")
 )
-
-func hexToBytes(s string) []byte {
-	decoded, err := hex.DecodeString(s)
-	if err != nil {
-		panic(err)
-	}
-
-	return []byte(decoded)
-}
 
 {{ range . }}
 
