@@ -5,9 +5,10 @@
 code: TIC
 
 metadata:
+  name: TicketAdmission
+  label: Ticket (Admission)
   kind: Utility
   category: Ticket
-  name: Ticket (Admission)
   description: Admission ticket
   examples:
     - Freddie Mercury Concert
@@ -59,8 +60,8 @@ fields:
     example: Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1
     span: left
     displayOrder: 2
-    default: now    
- 
+    default: now
+
   - name: Class
     label: Class
     type: nvarchar8
@@ -68,7 +69,7 @@ fields:
     example: Gold Class, Platinum, VIP, Section A, etc.
     span: left
     displayOrder: 2
-    default: now    
+    default: now
 
   - name: Area
     label: Area
@@ -77,7 +78,7 @@ fields:
     example: Upper Bowl
     span: left
     displayOrder: 2
-    default: now   
+    default: now
 
   - name: Seat
     label: Seat
@@ -86,7 +87,7 @@ fields:
     example: Sec 1, Row 3, Seat 5, or A122
     span: left
     displayOrder: 2
-    default: now    
+    default: now
 
   - name: StartTimeDate
     label: Start Time and Date
@@ -116,7 +117,7 @@ fields:
   - name: Description
     label: Description
     type: nvarchar16
-    size: 65,535
+    # size: 65,535
     example: Coingeek Conference - London (November 2018).
     span: full
     displayOrder: 1

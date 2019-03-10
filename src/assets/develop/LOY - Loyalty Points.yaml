@@ -5,8 +5,9 @@
 code: LOY
 
 metadata:
-  kind: Utility
+  name: LoyaltyPoints
   label: Loyalty Points
+  kind: Utility
   description: A Loyalty Point
   examples:
     - Burger Prince Dollars
@@ -55,7 +56,7 @@ fields:
       - Petrol/Gas (P)
       - Banking (B)
       - Travel (T)
-      
+
   - name: Name
     label: Name
     type: nvarchar8
@@ -77,15 +78,13 @@ fields:
     size: 8
     example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
     span: right
-    displayOrder: 3 
-    
+    displayOrder: 3
+
   - name: Description
     label: Description
     type: nvarchar16
-    size: 65,535
+    # size: 65,535
     example: Coingeek Conference - London (November 2018).
     span: full
     displayOrder: 1
     required: true
-
-   

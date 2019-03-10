@@ -5,8 +5,9 @@
 code: MEM
 
 metadata:
-  kind: Identity
+  name: Membership
   label: Membership
+  kind: Identity
   description: A Membership
   examples:
     - Director on the Board of a Company or Organization
@@ -62,27 +63,27 @@ fields:
     example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
     span: right
     displayOrder: 3
-    
+
   - name: ID
     label: ID
     type: nvarchar8
     size: 255
     example: 34536457575486868
     span: right
-    displayOrder: 3 
-    
+    displayOrder: 3
+
   - name: MembershipType
     label: MembershipType
     type: nvarchar8
     size: 255
     example: Director, Silver, Employee
     span: right
-    displayOrder: 3   
-    
+    displayOrder: 3
+
   - name: Description
     label: Description
     type: nvarchar64
-    size: 65,535
+    # size: 65,535
     example: Rights and duties listed.
     span: full
     displayOrder: 1

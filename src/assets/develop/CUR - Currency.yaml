@@ -2,17 +2,18 @@
 # CUR - Currency
 #
 
-kind: Currency
+code: CUR
 
 metadata:
-  code: CUR
+  name: Currency
   label: Currency
+  kind: Currency
   description: A Currency
   examples:
     - Australian dollar
     - Canadian dollar
 
-fields: 
+fields:
   - name: Version
     label: Version
     type: uint8
@@ -44,7 +45,7 @@ fields:
     example: Reserve Bank of Australia
     span: full
     displayOrder: 3
-   
+
   - name: Description
     label: Description
     type: nvarchar8
@@ -52,4 +53,3 @@ fields:
     example: Australian dollar
     span: full
     displayOrder: 3
-    

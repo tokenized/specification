@@ -5,9 +5,10 @@
 code: COU
 
 metadata:
+  name: Coupon
+  label: Coupon
   kind: Utility
   category: Coupons
-  name: Coupon
   description: Value exchange coupon
   examples:
     - Sale Price Discount
@@ -59,7 +60,7 @@ fields:
     label: Value
     type: uint64
     size: 8
-    example: denominated in the smallest unit of currency specified in the Currency subfield.
+    example: "Denominated in the smallest unit of currency specified in the Currency subfield."
     span: right
     displayOrder: 4
 
@@ -74,7 +75,7 @@ fields:
   - name: Description
     label: Description
     type: nvarchar16
-    size: 65,535
+    # size: 65,535
     example: Gift Card
     span: full
     displayOrder: 1

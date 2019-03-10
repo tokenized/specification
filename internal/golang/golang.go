@@ -12,6 +12,12 @@ func CompileProtocol(distPath string, msgs parser.ProtocolActions, typs parser.P
 
 }
 
+func CompileAssets(distPath string, assts parser.Assets) {
+
+	templateToFile(distPath, assts, "assets.tpl", "assets.go")
+
+}
+
 func templateToFile(distPath string, data interface{}, tplFile, goFile string) {
 	tpl := "./internal/golang/templates/" + tplFile
 
