@@ -153,7 +153,7 @@ fields:
 
   - name: VotingSystemCount
     label: Number of Voting Systems
-    description: "0-10 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null. 10 will be upper limit and restricted by the smart contract."
+    description: "0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null."
     type: uint8
     size: 1
     example_hex: 00
