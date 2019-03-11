@@ -45,6 +45,15 @@ fields:
     type: Address[]
     notes: ""
 
+  - name: RefTxnID
+    label: Ref Txn ID
+    description: "The related freeze action."
+    type: sha256
+    size: 32
+    example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
+    example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
+    notes: ""
+
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
