@@ -124,7 +124,7 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 {{$last := ""}}{{range .Fields -}}{{- if .IsInternalTypeArray }}
 	for i := 0; i < int(m.{{$last}}); i++ {
-		x := &{{.GoTypeSingular}}{}
+		x := &{{.SingularType}}{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
 		}

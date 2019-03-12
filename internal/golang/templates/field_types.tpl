@@ -50,7 +50,7 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 func (m *{{.Name}}) Write(buf *bytes.Buffer) error {
 {{ $last := "" }}{{- range .Fields }}{{ if .IsInternalTypeArray }}
 	for i := 0; i < int(m.{{$last}}); i++ {
-		x := &{{.GoTypeSingular}}{}
+		x := &{{.SingularType}}{}
 		if err := x.Write(buf); err != nil {
 				return err
 		}

@@ -81,7 +81,7 @@ func (f Field) IsNvarchar() bool {
 	return strings.HasPrefix(s, "nvarchar")
 }
 
-func (f Field) GoTypeSingular() string {
+func (f Field) SingularType() string {
 	return strings.Replace(f.GoType(), "[]", "", 1)
 }
 

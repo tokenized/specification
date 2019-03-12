@@ -30,7 +30,7 @@ The following breaks down the construction of a {{.Label}}. The action is constr
         <tr>
 {{- if .IsComplexType }}
             <td class="{{$letter}}6" colspan="7">
-                <a href="javascript:;" data-popover="type-{{.GoTypeSingular}}">
+                <a href="javascript:;" data-popover="type-{{.SingularType}}">
                    {{.Label}} - Click to show content
                 </a>
             </td>

@@ -38,7 +38,7 @@ func NewProtocolTypes(filenames []string) ProtocolTypes {
 		}
 
 		for j, f := range t.Fields {
-			if _, ok := types[f.GoTypeSingular()]; !ok {
+			if _, ok := types[f.SingularType()]; !ok {
 				continue
 			}
 

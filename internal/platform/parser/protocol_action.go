@@ -147,7 +147,7 @@ func AssociateActionsAndTypes(actions []ProtocolAction,
 		subTypes := []ProtocolType{}
 
 		for j, f := range a.Fields {
-			k := f.GoTypeSingular()
+			k := f.SingularType()
 
 			t, ok := protocolTypes[k]
 			if !ok {
