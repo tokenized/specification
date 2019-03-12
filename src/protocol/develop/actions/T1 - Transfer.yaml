@@ -97,7 +97,7 @@ fields:
     label: Token Receivers
     description: "Each element has the value of tokens to be received by the output address, which is referred to by the index."
     type: TokenReceiver[]
-    
+
   - name: OfferExpiry
     label: Offer Expiry
     description: "This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins."
@@ -107,7 +107,7 @@ fields:
     example_value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
     notes: ""
 
- - name: ExchangeFeeCurrency
+  - name: ExchangeFeeCurrency
     label: Exchange Fee Currency
     description: "BSV, USD, AUD, EUR, etc."
     type: string

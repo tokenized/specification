@@ -50,7 +50,7 @@ The following breaks down the construction of a {{.Label}}. The action is constr
     </table>
 </div>
 
-{{range .SubTypes}}
+{{range .FieldTypes}}
 <div class="ui modal" id="type-{{.Metadata.Name}}">
     <i class="close icon"></i>
     <div class="content docs-content">

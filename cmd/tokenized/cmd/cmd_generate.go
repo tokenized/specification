@@ -35,11 +35,9 @@ var cmdGenerate = &cobra.Command{
 
 		// --------------------------------------------------------------------
 		// Protocol
-		actions := parser.NewProtocolActions(parser.FetchFiles(srcPath, "protocol", "develop/actions"))
-		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", "develop/types"))
 
-		// each action knowns about 0 or more protocol types
-		actions = parser.AssociateActionsAndTypes(actions, fieldTypes)
+		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", "develop/types"))
+		actions := parser.NewProtocolActions(fieldTypes, parser.FetchFiles(srcPath, "protocol", "develop/actions"))
 
 		// Compile languages
 		golang.CompileProtocol(distPath, actions, fieldTypes)

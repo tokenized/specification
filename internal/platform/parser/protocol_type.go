@@ -53,9 +53,9 @@ func NewProtocolTypes(filenames []string) ProtocolTypes {
 type ProtocolTypes []ProtocolType
 
 type ProtocolType struct {
-	Metadata Metadata
-	Fields   []Field
-	SubTypes []ProtocolType
+	Metadata   Metadata
+	Fields     []Field
+	FieldTypes []ProtocolType
 }
 
 func (m ProtocolType) Name() string {
