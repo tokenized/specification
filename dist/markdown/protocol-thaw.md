@@ -10,6 +10,7 @@ The following breaks down the construction of a Thaw Action. The action is const
 | Metadata | Header[] | Header Array | -              | -        | Common header data | Header       |
 | Number of Addresses | AddressCount | 2 | 0 | 0 - 65,535 | uint16 |  |
 | Addresses | Addresses | 0 |  | Addresses holding tokens to be thawed. | Address[] |  |
+| Ref Txn ID | RefTxnID | 32 | f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37 | The related freeze action. | sha256 |  |
 | Timestamp | Timestamp | 8 | 1551767413250187179 | Timestamp in nanoseconds of when the smart contract created the action. | timestamp | Cannot be changed by issuer, operator. Smart contract controls. |
 
 
@@ -54,6 +55,16 @@ The following breaks down the construction of a Thaw Action. The action is const
         <td class="e10" style="word-break:break-all"></td>
         <td class="e10">Addresses holding tokens to be thawed.</td>
         <td class="e10">Address[]</td>
+        <td class="e11"></td>
+    </tr>
+
+    <tr>
+        <td class="e10">Ref Txn ID</td>
+        <td class="e10">RefTxnID</td>
+        <td class="e10">32</td>
+        <td class="e10" style="word-break:break-all">f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37</td>
+        <td class="e10">The related freeze action.</td>
+        <td class="e10">sha256</td>
         <td class="e11"></td>
     </tr>
 

@@ -1,5 +1,6 @@
 metadata:
   name: NotableRole
+  description: "NotableRole is used to refer to a role of note in an Entity."
 
 fields:
   - name: Type

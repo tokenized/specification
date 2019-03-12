@@ -1,5 +1,6 @@
 metadata:
   name: KeyRole
+  description: "KeyRole is used to refer to a key role in an Entity."
 
 fields:
   - name: Type

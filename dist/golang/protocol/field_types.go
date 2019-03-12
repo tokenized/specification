@@ -8,16 +8,17 @@ import "bytes"
 // The code in this file is auto-generated. Do not edit it by hand as it will
 // be overwritten when code is regenerated.
 
-// Address
+// Address Address represents a public address
 type Address struct {
 	Address []byte
 }
 
+// NewAddress return a new Address
 func NewAddress() Address {
 	return Address{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m Address) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -38,22 +39,23 @@ func (m *Address) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// AmendmentAn Amendment is used to describe the modification of a single
+// Amendment An Amendment is used to describe the modification of a single
 // field in a Contract or Asset, as defined in the ContractFormation and
 // AssetCreation messages.
 type Amendment struct {
-	FieldIndex uint8
-	Element uint16
+	FieldIndex    uint8
+	Element       uint16
 	SubfieldIndex uint8
 	DeleteElement bool
-	Data []byte
+	Data          []byte
 }
 
+// NewAmendment return a new Amendment
 func NewAmendment() Amendment {
 	return Amendment{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m Amendment) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -106,31 +108,33 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// Entity
+// Entity Entity represents the details of a legal Entity, such as a public
+// or private company, government agency, or and individual.
 type Entity struct {
-	Name Nvarchar8
-	Type byte
-	Address bool
-	UnitNumber Nvarchar8
-	BuildingNumber Nvarchar8
-	Street Nvarchar16
-	SuburbCity Nvarchar8
+	Name                       Nvarchar8
+	Type                       byte
+	Address                    bool
+	UnitNumber                 Nvarchar8
+	BuildingNumber             Nvarchar8
+	Street                     Nvarchar16
+	SuburbCity                 Nvarchar8
 	TerritoryStateProvinceCode []byte
-	CountryCode []byte
-	PostalZIPCode []byte
-	EmailAddress Nvarchar8
-	PhoneNumber Nvarchar8
-	KeyRolesCount uint8
-	KeyRoles []KeyRole
-	NotableRolesCount uint8
-	NotableRoles []NotableRole
+	CountryCode                []byte
+	PostalZIPCode              []byte
+	EmailAddress               Nvarchar8
+	PhoneNumber                Nvarchar8
+	KeyRolesCount              uint8
+	KeyRoles                   []KeyRole
+	NotableRolesCount          uint8
+	NotableRoles               []NotableRole
 }
 
+// NewEntity return a new Entity
 func NewEntity() Entity {
 	return Entity{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m Entity) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -238,11 +242,11 @@ func (m Entity) Serialize() ([]byte, error) {
 	for i := 0; i < int(m.KeyRolesCount); i++ {
 		b, err := m.KeyRoles[i].Serialize()
 		if err != nil {
-				return nil, err
+			return nil, err
 		}
 
 		if err := write(buf, b); err != nil {
-				return nil, err
+			return nil, err
 		}
 	}
 
@@ -253,11 +257,11 @@ func (m Entity) Serialize() ([]byte, error) {
 	for i := 0; i < int(m.NotableRolesCount); i++ {
 		b, err := m.NotableRoles[i].Serialize()
 		if err != nil {
-				return nil, err
+			return nil, err
 		}
 
 		if err := write(buf, b); err != nil {
-				return nil, err
+			return nil, err
 		}
 	}
 
@@ -267,7 +271,7 @@ func (m Entity) Serialize() ([]byte, error) {
 func (m *Entity) Write(buf *bytes.Buffer) error {
 
 	if err := m.Name.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	if err := read(buf, &m.Type); err != nil {
 		return err
@@ -278,16 +282,16 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	}
 
 	if err := m.UnitNumber.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	if err := m.BuildingNumber.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	if err := m.Street.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	if err := m.SuburbCity.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	m.TerritoryStateProvinceCode = make([]byte, 5)
 	if err := readLen(buf, m.TerritoryStateProvinceCode); err != nil {
@@ -305,10 +309,10 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	}
 
 	if err := m.EmailAddress.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	if err := m.PhoneNumber.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	if err := read(buf, &m.KeyRolesCount); err != nil {
 		return err
@@ -317,7 +321,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	for i := 0; i < int(m.KeyRolesCount); i++ {
 		x := &KeyRole{}
 		if err := x.Write(buf); err != nil {
-				return err
+			return err
 		}
 
 		m.KeyRoles = append(m.KeyRoles, *x)
@@ -329,7 +333,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	for i := 0; i < int(m.NotableRolesCount); i++ {
 		x := &NotableRole{}
 		if err := x.Write(buf); err != nil {
-				return err
+			return err
 		}
 
 		m.NotableRoles = append(m.NotableRoles, *x)
@@ -337,20 +341,22 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// Header
+// Header Header contains common details required by every Tokenized
+// message.
 type Header struct {
-	ProtocolID []byte
-	OpPushdata byte
+	ProtocolID       []byte
+	OpPushdata       byte
 	LenActionPayload []byte
-	Version uint8
-	ActionPrefix []byte
+	Version          uint8
+	ActionPrefix     []byte
 }
 
+// NewHeader return a new Header
 func NewHeader() Header {
 	return Header{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m Header) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -405,17 +411,18 @@ func (m *Header) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// KeyRole
+// KeyRole KeyRole is used to refer to a key role in an Entity.
 type KeyRole struct {
 	Type byte
 	Name Nvarchar8
 }
 
+// NewKeyRole return a new KeyRole
 func NewKeyRole() KeyRole {
 	return KeyRole{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m KeyRole) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -444,22 +451,23 @@ func (m *KeyRole) Write(buf *bytes.Buffer) error {
 	}
 
 	if err := m.Name.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	return nil
 }
 
-// NotableRole
+// NotableRole NotableRole is used to refer to a role of note in an Entity.
 type NotableRole struct {
 	Type byte
 	Name Nvarchar8
 }
 
+// NewNotableRole return a new NotableRole
 func NewNotableRole() NotableRole {
 	return NotableRole{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m NotableRole) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -488,24 +496,25 @@ func (m *NotableRole) Write(buf *bytes.Buffer) error {
 	}
 
 	if err := m.Name.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	return nil
 }
 
-// QuantityIndexA QuantityIndex contains a quantity, and an index. The
+// QuantityIndex A QuantityIndex contains a quantity, and an index. The
 // quantity could be used to describe a number of tokens, or a value. The
 // index is used to refer to an input index position.
 type QuantityIndex struct {
-	Index uint16
+	Index    uint16
 	Quantity uint64
 }
 
+// NewQuantityIndex return a new QuantityIndex
 func NewQuantityIndex() QuantityIndex {
 	return QuantityIndex{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m QuantityIndex) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -533,18 +542,19 @@ func (m *QuantityIndex) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// Registry
+// Registry A Registry defines the details of a public Registry.
 type Registry struct {
-	Name Nvarchar8
-	URL Nvarchar8
+	Name      Nvarchar8
+	URL       Nvarchar8
 	PublicKey Nvarchar8
 }
 
+// NewRegistry return a new Registry
 func NewRegistry() Registry {
 	return Registry{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m Registry) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -587,28 +597,29 @@ func (m Registry) Serialize() ([]byte, error) {
 func (m *Registry) Write(buf *bytes.Buffer) error {
 
 	if err := m.Name.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	if err := m.URL.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	if err := m.PublicKey.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	return nil
 }
 
-// TargetAddress
+// TargetAddress A TargetAddress defines a public address and quantity.
 type TargetAddress struct {
-	Address []byte
+	Address  []byte
 	Quantity uint64
 }
 
+// NewTargetAddress return a new TargetAddress
 func NewTargetAddress() TargetAddress {
 	return TargetAddress{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m TargetAddress) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -637,22 +648,24 @@ func (m *TargetAddress) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// TokenReceiverA TokenReceiver is contains a quantity, index, and registry
-// token deails. The quantity could be used to describe a number of tokens,
-// or a value. The index is used to refer to an input index position. The
-// registry token details include the type of algorithm, and the token.
+// TokenReceiver A TokenReceiver is contains a quantity, index, and
+// registry token deails. The quantity could be used to describe a number
+// of tokens, or a value. The index is used to refer to an input index
+// position. The registry token details include the type of algorithm, and
+// the token.
 type TokenReceiver struct {
-	Index uint16
-	Quantity uint64
-	RegistrySigAlgorithm uint8
+	Index                        uint16
+	Quantity                     uint64
+	RegistrySigAlgorithm         uint8
 	RegistryConfirmationSigToken Nvarchar8
 }
 
+// NewTokenReceiver return a new TokenReceiver
 func NewTokenReceiver() TokenReceiver {
 	return TokenReceiver{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m TokenReceiver) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -697,28 +710,29 @@ func (m *TokenReceiver) Write(buf *bytes.Buffer) error {
 	}
 
 	if err := m.RegistryConfirmationSigToken.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	return nil
 }
 
-// VotingSystem
+// VotingSystem A VotingSystem defines all details of a Voting System.
 type VotingSystem struct {
-	Name Nvarchar8
-	System []byte
-	Method byte
-	Logic byte
-	ThresholdPercentage uint8
-	VoteMultiplierPermitted byte
-	InitiativeThreshold float32
+	Name                        Nvarchar8
+	System                      []byte
+	Method                      byte
+	Logic                       byte
+	ThresholdPercentage         uint8
+	VoteMultiplierPermitted     byte
+	InitiativeThreshold         float32
 	InitiativeThresholdCurrency []byte
 }
 
+// NewVotingSystem return a new VotingSystem
 func NewVotingSystem() VotingSystem {
 	return VotingSystem{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m VotingSystem) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -767,7 +781,7 @@ func (m VotingSystem) Serialize() ([]byte, error) {
 func (m *VotingSystem) Write(buf *bytes.Buffer) error {
 
 	if err := m.Name.Write(buf); err != nil {
-		 return err
+		return err
 	}
 	m.System = make([]byte, 8)
 	if err := readLen(buf, m.System); err != nil {
@@ -801,4 +815,3 @@ func (m *VotingSystem) Write(buf *bytes.Buffer) error {
 
 	return nil
 }
-

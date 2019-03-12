@@ -19,7 +19,7 @@ rules:
   outputs:
     - name: Register
       label: "Register's Public Address"
-      comments: 
+      comments:
 
 fields:
   - name: Header
@@ -41,6 +41,6 @@ fields:
     label: Message
     description: "Length only limited by Bitcoin protocol."
     type: nvarchar64
-    example_hex: 0008757365726e616d65
+    example_hex: 0000000000000008757365726e616d65
     example_value: "username"
     notes: ""

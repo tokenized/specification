@@ -151,6 +151,6 @@ fields:
     label: Message Period
     description: "Length only limited by the Bitcoin protocol."
     type: nvarchar64
-    example_hex: 0023536f7272792c206275742074686520636f757274206f72646572206d616465206d652e
+    example_hex: 0000000000000023536f7272792c206275742074686520636f757274206f72646572206d616465206d652e
     example_value: "Sorry, but the court order made me."
     notes: ""

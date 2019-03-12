@@ -471,7 +471,8 @@ class Action_Thaw(ActionBase):
 
     schema = {
         'Addresses':                       [0, DAT_Address[], 0],
-        'Timestamp':                       [1, DAT_timestamp, 8]
+        'RefTxnID':                        [1, DAT_sha256, 32],
+        'Timestamp':                       [2, DAT_timestamp, 8]
     }
 
     rules = {
@@ -481,6 +482,7 @@ class Action_Thaw(ActionBase):
     }
 
     def init_attributes(self):
+        self.RefTxnID = None
         self.Timestamp = None
 
 
@@ -719,7 +721,6 @@ class Action_Result(ActionBase):
 # private offers/bids). The messages are broken down by type for easy
 # filtering in the a user's wallet. The Message Types are listed in the
 # Message Types table.
-
 
 class Action_Message(ActionBase):
     ActionPrefix = 'M1'

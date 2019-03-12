@@ -7,18 +7,20 @@ import "bytes"
 //
 // The code in this file is auto-generated. Do not edit it by hand as it will
 // be overwritten when code is regenerated.
+
 {{range .}}
-{{comment (print .Name .Metadata.Description) "//"}}
+{{comment (printf "%s %s" .Name .Metadata.Description) "//"}}
 type {{.Name}} struct {
 {{range .Fields}}	{{ .FieldName }} {{ .GoType }}
 {{ end -}}
 }
 
+// New{{.Name}} return a new {{.Name}}
 func New{{.Name}}() {{.Name}} {
 	return {{.Name}}{}
 }
 
-// Type returns the type identifer for this message.
+// Serialize returns the byte representation of the message.
 func (m {{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 {{ $last := "" }}{{ range .Fields }}{{ if .IsInternalTypeArray }}

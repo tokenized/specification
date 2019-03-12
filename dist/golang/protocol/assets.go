@@ -34,14 +34,14 @@ const (
 
 // Coupon asset type.
 type Coupon struct {
-	Version uint8
+	Version            uint8
 	TradingRestriction []byte
-	RedeemingEntity Nvarchar8
-	IssueDate uint64
-	ExpiryDate uint64
-	Value uint64
-	Currency []byte
-	Description Nvarchar16
+	RedeemingEntity    Nvarchar8
+	IssueDate          uint64
+	ExpiryDate         uint64
+	Value              uint64
+	Currency           []byte
+	Description        Nvarchar16
 }
 
 // NewCoupon returns a new Coupon.
@@ -199,11 +199,11 @@ func (m Coupon) String() string {
 
 // Currency asset type.
 type Currency struct {
-	Version uint8
+	Version            uint8
 	TradingRestriction []byte
-	ISOCode []byte
-	MonetaryAuthority Nvarchar8
-	Description Nvarchar8
+	ISOCode            []byte
+	MonetaryAuthority  Nvarchar8
+	Description        Nvarchar8
 }
 
 // NewCurrency returns a new Currency.
@@ -334,14 +334,14 @@ func (m Currency) String() string {
 
 // LoyaltyPoints asset type.
 type LoyaltyPoints struct {
-	Version uint8
-	TradingRestriction []byte
-	AgeRestriction []byte
-	OfferType byte
-	OfferName Nvarchar8
-	ValidFrom uint64
+	Version             uint8
+	TradingRestriction  []byte
+	AgeRestriction      []byte
+	OfferType           byte
+	OfferName           Nvarchar8
+	ValidFrom           uint64
 	ExpirationTimestamp uint64
-	Description Nvarchar16
+	Description         Nvarchar16
 }
 
 // NewLoyaltyPoints returns a new LoyaltyPoints.
@@ -499,14 +499,14 @@ func (m LoyaltyPoints) String() string {
 
 // Membership asset type.
 type Membership struct {
-	Version uint8
-	TradingRestriction []byte
-	AgeRestriction []byte
-	ValidFrom uint64
+	Version             uint8
+	TradingRestriction  []byte
+	AgeRestriction      []byte
+	ValidFrom           uint64
 	ExpirationTimestamp uint64
-	ID Nvarchar8
-	MembershipType Nvarchar8
-	Description Nvarchar64
+	ID                  Nvarchar8
+	MembershipType      Nvarchar8
+	Description         Nvarchar64
 }
 
 // NewMembership returns a new Membership.
@@ -671,12 +671,12 @@ func (m Membership) String() string {
 
 // ShareCommon asset type.
 type ShareCommon struct {
-	Version uint8
+	Version            uint8
 	TradingRestriction []byte
-	TransferLockout uint64
-	Ticker []byte
-	ISIN []byte
-	Description Nvarchar16
+	TransferLockout    uint64
+	Ticker             []byte
+	ISIN               []byte
+	Description        Nvarchar16
 }
 
 // NewShareCommon returns a new ShareCommon.
@@ -810,18 +810,18 @@ func (m ShareCommon) String() string {
 
 // TicketAdmission asset type.
 type TicketAdmission struct {
-	Version uint8
-	TradingRestriction []byte
-	AgeRestriction []byte
-	AdmissionType []byte
-	Venue Nvarchar8
-	Class Nvarchar8
-	Area Nvarchar8
-	Seat Nvarchar8
-	StartTimeDate uint64
-	ValidFrom uint64
+	Version             uint8
+	TradingRestriction  []byte
+	AgeRestriction      []byte
+	AdmissionType       []byte
+	Venue               Nvarchar8
+	Class               Nvarchar8
+	Area                Nvarchar8
+	Seat                Nvarchar8
+	StartTimeDate       uint64
+	ValidFrom           uint64
 	ExpirationTimestamp uint64
-	Description Nvarchar16
+	Description         Nvarchar16
 }
 
 // NewTicketAdmission returns a new TicketAdmission.

@@ -1,5 +1,5 @@
 #
-# Static Contract Formation Action: 
+# Static Contract Formation Action:
 #
 
 code: C4
@@ -8,7 +8,7 @@ metadata:
   name: StaticContract Formation
   label: Static Contract Formation Action
   description: "Static Contract Formation Action"
-  
+
 rules:
   fee:
   inputs:
@@ -40,15 +40,15 @@ fields:
     example_hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
     example_value: "Tesla - Shareholder Agreement"
     notes: ""
-    
+
   - name: ContractType
     label: Contract Type
-    description: 
+    description:
     type: nvarchar8
     size: 30
-    example_hex: 4e6f6e2d446973636c6f737572652041677265656d656e74
+    example_hex: 184e6f6e2d446973636c6f737572652041677265656d656e74
     example_value: "Non-Disclosure Agreement"
-    notes: ""    
+    notes: ""
 
   - name: ContractFileType
     label: Contract File Type

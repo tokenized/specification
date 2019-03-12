@@ -41,6 +41,6 @@ fields:
     label: Message
     description: "Length only limited by the Bitcoin protocol."
     type: nvarchar64
-    example_hex: 001c4368616e67656420436f756e747279206f66205265736964656e6365
+    example_hex: 000000000000001c4368616e67656420436f756e747279206f66205265736964656e6365
     example_value: "Changed Country of Residence"
     notes: ""

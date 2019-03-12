@@ -1,3 +1,8 @@
+// Package protocol provides base level structs and validation for
+// the protocol.
+//
+// The code in this file is auto-generated. Do not edit it by hand as it will
+// be overwritten when code is regenerated.
 package protocol
 
 import (
@@ -5,12 +10,6 @@ import (
 	"fmt"
 	"strings"
 )
-
-// Package protocol provides base level structs and validation for
-// the protocol.
-//
-// The code in this file is auto-generated. Do not edit it by hand as it will
-// be overwritten when code is regenerated.
 
 const (
 	// CodeAssetDefinition identifies data as a AssetDefinition message.
@@ -102,64 +101,62 @@ const (
 // TypeMapping holds a mapping of message codes to message types.
 var (
 	TypeMapping = map[string]OpReturnMessage{
-		CodeAssetDefinition: &AssetDefinition{},
-		CodeAssetCreation: &AssetCreation{},
-		CodeAssetModification: &AssetModification{},
-		CodeContractOffer: &ContractOffer{},
-		CodeContractFormation: &ContractFormation{},
-		CodeContractAmendment: &ContractAmendment{},
+		CodeAssetDefinition:         &AssetDefinition{},
+		CodeAssetCreation:           &AssetCreation{},
+		CodeAssetModification:       &AssetModification{},
+		CodeContractOffer:           &ContractOffer{},
+		CodeContractFormation:       &ContractFormation{},
+		CodeContractAmendment:       &ContractAmendment{},
 		CodeStaticContractFormation: &StaticContractFormation{},
-		CodeOrder: &Order{},
-		CodeFreeze: &Freeze{},
-		CodeThaw: &Thaw{},
-		CodeConfiscation: &Confiscation{},
-		CodeReconciliation: &Reconciliation{},
-		CodeInitiative: &Initiative{},
-		CodeReferendum: &Referendum{},
-		CodeVote: &Vote{},
-		CodeBallotCast: &BallotCast{},
-		CodeBallotCounted: &BallotCounted{},
-		CodeResult: &Result{},
-		CodeMessage: &Message{},
-		CodeRejection: &Rejection{},
-		CodeEstablishment: &Establishment{},
-		CodeAddition: &Addition{},
-		CodeAlteration: &Alteration{},
-		CodeRemoval: &Removal{},
-		CodeSend: &Send{},
-		CodeExchange: &Exchange{},
-		CodeSwap: &Swap{},
-		CodeSettlement: &Settlement{},
+		CodeOrder:                   &Order{},
+		CodeFreeze:                  &Freeze{},
+		CodeThaw:                    &Thaw{},
+		CodeConfiscation:            &Confiscation{},
+		CodeReconciliation:          &Reconciliation{},
+		CodeInitiative:              &Initiative{},
+		CodeReferendum:              &Referendum{},
+		CodeVote:                    &Vote{},
+		CodeBallotCast:              &BallotCast{},
+		CodeBallotCounted:           &BallotCounted{},
+		CodeResult:                  &Result{},
+		CodeMessage:                 &Message{},
+		CodeRejection:               &Rejection{},
+		CodeEstablishment:           &Establishment{},
+		CodeAddition:                &Addition{},
+		CodeAlteration:              &Alteration{},
+		CodeRemoval:                 &Removal{},
+		CodeSend:                    &Send{},
+		CodeExchange:                &Exchange{},
+		CodeSwap:                    &Swap{},
+		CodeSettlement:              &Settlement{},
 	}
 
 	// ProtocolID is the current protocol ID
 	ProtocolID = []byte("tokenized.com")
 )
 
-
-
-// AssetDefinitionAsset Definition Action - This action is used by the
+// AssetDefinition Asset Definition Action - This action is used by the
 // issuer to define the properties/characteristics of the Asset (token)
 // that it wants to create.
 type AssetDefinition struct {
-	Header Header
-	TextEncoding uint8
-	AssetType []byte
-	AssetID []byte
-	AssetAuthFlags []byte
-	TransfersPermitted bool
-	TradeRestrictions []byte
-	EnforcementOrdersPermitted bool
-	VoteMultiplier uint8
-	ReferendumProposal bool
-	InitiativeProposal bool
+	Header                      Header
+	TextEncoding                uint8
+	AssetType                   []byte
+	AssetID                     []byte
+	AssetAuthFlags              []byte
+	TransfersPermitted          bool
+	TradeRestrictions           []byte
+	EnforcementOrdersPermitted  bool
+	VoteMultiplier              uint8
+	ReferendumProposal          bool
+	InitiativeProposal          bool
 	AssetModificationGovernance bool
-	TokenQty uint64
-	ContractFeeCurrency []byte
-	ContractFeeVar float32
-	ContractFeeFixed float32
-	AssetPayloadLen uint16
-	AssetPayload []byte
+	TokenQty                    uint64
+	ContractFeeCurrency         []byte
+	ContractFeeVar              float32
+	ContractFeeFixed            float32
+	AssetPayloadLen             uint16
+	AssetPayload                []byte
 }
 
 // NewAssetDefinition returns a new AssetDefinition with defaults set.
@@ -356,6 +353,7 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 	}
 
 	m.AssetPayload = make([]byte, m.AssetPayloadLen, m.AssetPayloadLen)
+
 	if err := read(buf, &m.AssetPayload); err != nil {
 		return 0, err
 	}
@@ -402,30 +400,29 @@ func (m AssetDefinition) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// AssetCreationAsset Creation Action - This action creates an Asset in
+// AssetCreation Asset Creation Action - This action creates an Asset in
 // response to the Issuer's instructions in the Definition Action.
 type AssetCreation struct {
-	Header Header
-	TextEncoding uint8
-	AssetType []byte
-	AssetID []byte
-	AssetAuthFlags []byte
-	TransfersPermitted bool
-	TradeRestrictions []byte
-	EnforcementOrdersPermitted bool
-	VoteMultiplier uint8
-	ReferendumProposal bool
-	InitiativeProposal bool
+	Header                      Header
+	TextEncoding                uint8
+	AssetType                   []byte
+	AssetID                     []byte
+	AssetAuthFlags              []byte
+	TransfersPermitted          bool
+	TradeRestrictions           []byte
+	EnforcementOrdersPermitted  bool
+	VoteMultiplier              uint8
+	ReferendumProposal          bool
+	InitiativeProposal          bool
 	AssetModificationGovernance bool
-	TokenQty uint64
-	ContractFeeCurrency []byte
-	ContractFeeVar float32
-	ContractFeeFixed float32
-	AssetPayloadLen uint16
-	AssetPayload []byte
-	AssetRevision uint64
-	Timestamp uint64
+	TokenQty                    uint64
+	ContractFeeCurrency         []byte
+	ContractFeeVar              float32
+	ContractFeeFixed            float32
+	AssetPayloadLen             uint16
+	AssetPayload                []byte
+	AssetRevision               uint64
+	Timestamp                   uint64
 }
 
 // NewAssetCreation returns a new AssetCreation with defaults set.
@@ -630,6 +627,7 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 	}
 
 	m.AssetPayload = make([]byte, m.AssetPayloadLen, m.AssetPayloadLen)
+
 	if err := read(buf, &m.AssetPayload); err != nil {
 		return 0, err
 	}
@@ -686,18 +684,17 @@ func (m AssetCreation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// AssetModificationAsset Modification Action - Token Dilutions, Call
+// AssetModification Asset Modification Action - Token Dilutions, Call
 // Backs/Revocations, burning etc.
 type AssetModification struct {
-	Header Header
-	TextEncoding uint8
-	AssetType []byte
-	AssetID []byte
-	AssetRevision uint64
+	Header            Header
+	TextEncoding      uint8
+	AssetType         []byte
+	AssetID           []byte
+	AssetRevision     uint64
 	ModificationCount uint8
-	Modifications []Amendment
-	RefTxID []byte
+	Modifications     []Amendment
+	RefTxID           []byte
 }
 
 // NewAssetModification returns a new AssetModification with defaults set.
@@ -848,8 +845,7 @@ func (m AssetModification) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ContractOfferThe Contract Offer action allows the Issuer to tell the
+// ContractOffer The Contract Offer action allows the Issuer to tell the
 // smart contract what they want the details (labels, data, T&C's, etc.) of
 // the Contract to be on-chain in a public and immutable way. The Contract
 // Offer action 'initializes' a generic smart contract that has been spun
@@ -857,42 +853,42 @@ func (m AssetModification) String() string {
 // action allows for the positive response from the smart contract with
 // either a Contract Formation Action or a Rejection Action.
 type ContractOffer struct {
-	Header Header
-	TextEncoding uint8
-	ContractName Nvarchar8
-	ContractFileType uint8
-	LenContractFile uint32
-	ContractFile []byte
-	GoverningLaw []byte
-	Jurisdiction []byte
-	ContractExpiration uint64
-	ContractURI Nvarchar8
-	IssuerName Nvarchar8
-	IssuerType byte
-	IssuerLogoURL Nvarchar8
-	ContractOperatorID Nvarchar8
-	ContractAuthFlags []byte
-	VotingSystemCount uint8
-	VotingSystems []VotingSystem
-	RestrictedQtyAssets uint64
-	ReferendumProposal bool
-	InitiativeProposal bool
-	RegistryCount uint8
-	Registries []Registry
-	IssuerAddress bool
-	UnitNumber Nvarchar8
-	BuildingNumber Nvarchar8
-	Street Nvarchar16
-	SuburbCity Nvarchar8
+	Header                     Header
+	TextEncoding               uint8
+	ContractName               Nvarchar8
+	ContractFileType           uint8
+	LenContractFile            uint32
+	ContractFile               []byte
+	GoverningLaw               []byte
+	Jurisdiction               []byte
+	ContractExpiration         uint64
+	ContractURI                Nvarchar8
+	IssuerName                 Nvarchar8
+	IssuerType                 byte
+	IssuerLogoURL              Nvarchar8
+	ContractOperatorID         Nvarchar8
+	ContractAuthFlags          []byte
+	VotingSystemCount          uint8
+	VotingSystems              []VotingSystem
+	RestrictedQtyAssets        uint64
+	ReferendumProposal         bool
+	InitiativeProposal         bool
+	RegistryCount              uint8
+	Registries                 []Registry
+	IssuerAddress              bool
+	UnitNumber                 Nvarchar8
+	BuildingNumber             Nvarchar8
+	Street                     Nvarchar16
+	SuburbCity                 Nvarchar8
 	TerritoryStateProvinceCode []byte
-	CountryCode []byte
-	PostalZIPCode Nvarchar8
-	EmailAddress Nvarchar8
-	PhoneNumber Nvarchar8
-	KeyRolesCount uint8
-	KeyRoles []KeyRole
-	NotableRolesCount uint8
-	NotableRoles []NotableRole
+	CountryCode                []byte
+	PostalZIPCode              Nvarchar8
+	EmailAddress               Nvarchar8
+	PhoneNumber                Nvarchar8
+	KeyRolesCount              uint8
+	KeyRoles                   []KeyRole
+	NotableRolesCount          uint8
+	NotableRoles               []NotableRole
 }
 
 // NewContractOffer returns a new ContractOffer with defaults set.
@@ -1418,51 +1414,50 @@ func (m ContractOffer) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ContractFormationThis txn is created by the Contract (smart
+// ContractFormation This txn is created by the Contract (smart
 // contract/off-chain agent/token contract) upon receipt of a valid
 // Contract Offer Action from the issuer. The Smart Contract will execute
 // on a server controlled by the Issuer. or a Smart Contract Operator on
 // their behalf.
 type ContractFormation struct {
-	Header Header
-	TextEncoding uint8
-	ContractName Nvarchar8
-	ContractFileType uint8
-	LenContractFile uint32
-	ContractFile []byte
-	GoverningLaw []byte
-	Jurisdiction []byte
-	ContractExpiration uint64
-	ContractURI Nvarchar8
-	IssuerName Nvarchar8
-	IssuerType byte
-	IssuerLogoURL Nvarchar8
-	ContractOperatorID Nvarchar8
-	ContractAuthFlags []byte
-	VotingSystemCount uint8
-	VotingSystems []VotingSystem
-	RestrictedQtyAssets uint64
-	ReferendumProposal bool
-	InitiativeProposal bool
-	RegistryCount uint8
-	Registries []Registry
-	IssuerAddress bool
-	UnitNumber Nvarchar8
-	BuildingNumber Nvarchar8
-	Street Nvarchar16
-	SuburbCity Nvarchar8
+	Header                     Header
+	TextEncoding               uint8
+	ContractName               Nvarchar8
+	ContractFileType           uint8
+	LenContractFile            uint32
+	ContractFile               []byte
+	GoverningLaw               []byte
+	Jurisdiction               []byte
+	ContractExpiration         uint64
+	ContractURI                Nvarchar8
+	IssuerName                 Nvarchar8
+	IssuerType                 byte
+	IssuerLogoURL              Nvarchar8
+	ContractOperatorID         Nvarchar8
+	ContractAuthFlags          []byte
+	VotingSystemCount          uint8
+	VotingSystems              []VotingSystem
+	RestrictedQtyAssets        uint64
+	ReferendumProposal         bool
+	InitiativeProposal         bool
+	RegistryCount              uint8
+	Registries                 []Registry
+	IssuerAddress              bool
+	UnitNumber                 Nvarchar8
+	BuildingNumber             Nvarchar8
+	Street                     Nvarchar16
+	SuburbCity                 Nvarchar8
 	TerritoryStateProvinceCode []byte
-	CountryCode []byte
-	PostalZIPCode Nvarchar8
-	EmailAddress Nvarchar8
-	PhoneNumber Nvarchar8
-	KeyRolesCount uint8
-	KeyRoles []KeyRole
-	NotableRolesCount uint8
-	NotableRoles []NotableRole
-	ContractRevision uint64
-	Timestamp uint64
+	CountryCode                []byte
+	PostalZIPCode              Nvarchar8
+	EmailAddress               Nvarchar8
+	PhoneNumber                Nvarchar8
+	KeyRolesCount              uint8
+	KeyRoles                   []KeyRole
+	NotableRolesCount          uint8
+	NotableRoles               []NotableRole
+	ContractRevision           uint64
+	Timestamp                  uint64
 }
 
 // NewContractFormation returns a new ContractFormation with defaults set.
@@ -2006,20 +2001,19 @@ func (m ContractFormation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ContractAmendmentContract Amendment Action - the issuer can initiate an
+// ContractAmendment Contract Amendment Action - the issuer can initiate an
 // amendment to the contract establishment metadata. The ability to make an
 // amendment to the contract is restricted by the Authorization Flag set on
 // the current revision of Contract Formation action.
 type ContractAmendment struct {
-	Header Header
-	TextEncoding uint8
-	ChangeIssuerAddress bool
+	Header                Header
+	TextEncoding          uint8
+	ChangeIssuerAddress   bool
 	ChangeOperatorAddress bool
-	ContractRevision uint16
-	AmendmentsCount uint8
-	Amendments []Amendment
-	RefTxID []byte
+	ContractRevision      uint16
+	AmendmentsCount       uint8
+	Amendments            []Amendment
+	RefTxID               []byte
 }
 
 // NewContractAmendment returns a new ContractAmendment with defaults set.
@@ -2168,25 +2162,24 @@ func (m ContractAmendment) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// StaticContractFormationStatic Contract Formation Action
+// StaticContractFormation Static Contract Formation Action
 type StaticContractFormation struct {
-	Header Header
-	TextEncoding uint8
-	ContractName Nvarchar8
-	ContractType Nvarchar8
-	ContractFileType uint8
-	LenContractFile uint32
-	ContractFile []byte
-	ContractRevision uint16
-	GoverningLaw []byte
-	Jurisdiction []byte
-	EffectiveDate uint64
+	Header             Header
+	TextEncoding       uint8
+	ContractName       Nvarchar8
+	ContractType       Nvarchar8
+	ContractFileType   uint8
+	LenContractFile    uint32
+	ContractFile       []byte
+	ContractRevision   uint16
+	GoverningLaw       []byte
+	Jurisdiction       []byte
+	EffectiveDate      uint64
 	ContractExpiration uint64
-	ContractURI Nvarchar8
-	PrevRevTxID []byte
-	EntityCount uint8
-	Entities []Entity
+	ContractURI        Nvarchar8
+	PrevRevTxID        []byte
+	EntityCount        uint8
+	Entities           []Entity
 }
 
 // NewStaticContractFormation returns a new StaticContractFormation with defaults set.
@@ -2431,27 +2424,26 @@ func (m StaticContractFormation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// OrderOrder Action - Issuer to signal to the smart contract that the
+// Order Order Action - Issuer to signal to the smart contract that the
 // tokens that a particular public address(es) owns are to be confiscated,
 // frozen, thawed or reconciled.
 type Order struct {
-	Header Header
-	TextEncoding uint8
-	AssetType []byte
-	AssetID []byte
-	ComplianceAction byte
-	TargetAddressCount uint16
-	TargetAddresses []TargetAddress
-	DepositAddress Nvarchar8
-	AuthorityName Nvarchar8
-	SigAlgoAddressList uint8
-	AuthorityPublicKey Nvarchar8
-	OrderSignature Nvarchar8
+	Header                 Header
+	TextEncoding           uint8
+	AssetType              []byte
+	AssetID                []byte
+	ComplianceAction       byte
+	TargetAddressCount     uint16
+	TargetAddresses        []TargetAddress
+	DepositAddress         Nvarchar8
+	AuthorityName          Nvarchar8
+	SigAlgoAddressList     uint8
+	AuthorityPublicKey     Nvarchar8
+	OrderSignature         Nvarchar8
 	SupportingEvidenceHash []byte
-	RefTxnID []byte
-	FreezePeriod uint64
-	Message Nvarchar64
+	RefTxnID               []byte
+	FreezePeriod           uint64
+	Message                Nvarchar64
 }
 
 // NewOrder returns a new Order with defaults set.
@@ -2710,17 +2702,16 @@ func (m Order) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// FreezeFreeze Action - To be used to comply with contractual/legal/issuer
-// requirements. The target public address(es) will be marked as frozen.
-// However the Freeze action publishes this fact to the public blockchain
-// for transparency. The Contract will not respond to any actions requested
-// by the frozen address.
+// Freeze Freeze Action - To be used to comply with
+// contractual/legal/issuer requirements. The target public address(es)
+// will be marked as frozen. However the Freeze action publishes this fact
+// to the public blockchain for transparency. The Contract will not respond
+// to any actions requested by the frozen address.
 type Freeze struct {
-	Header Header
+	Header       Header
 	AddressCount uint16
-	Addresses []Address
-	Timestamp uint64
+	Addresses    []Address
+	Timestamp    uint64
 }
 
 // NewFreeze returns a new Freeze with defaults set.
@@ -2832,15 +2823,15 @@ func (m Freeze) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ThawThaw Action - to be used to comply with contractual obligations or
+// Thaw Thaw Action - to be used to comply with contractual obligations or
 // legal requirements. The Alleged Offender's tokens will be unfrozen to
 // allow them to resume normal exchange and governance activities.
 type Thaw struct {
-	Header Header
+	Header       Header
 	AddressCount uint16
-	Addresses []Address
-	Timestamp uint64
+	Addresses    []Address
+	RefTxnID     []byte
+	Timestamp    uint64
 }
 
 // NewThaw returns a new Thaw with defaults set.
@@ -2886,6 +2877,10 @@ func (m Thaw) Serialize() ([]byte, error) {
 		}
 	}
 
+	if err := write(buf, pad(m.RefTxnID, 32)); err != nil {
+		return nil, err
+	}
+
 	if err := write(buf, m.Timestamp); err != nil {
 		return nil, err
 	}
@@ -2929,6 +2924,11 @@ func (m *Thaw) Write(b []byte) (int, error) {
 		m.Addresses = append(m.Addresses, *x)
 	}
 
+	m.RefTxnID = make([]byte, 32)
+	if err := readLen(buf, m.RefTxnID); err != nil {
+		return 0, err
+	}
+
 	if err := read(buf, &m.Timestamp); err != nil {
 		return 0, err
 	}
@@ -2947,20 +2947,20 @@ func (m Thaw) String() string {
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("AddressCount:%v", m.AddressCount))
 	vals = append(vals, fmt.Sprintf("Addresses:%#+v", m.Addresses))
+	vals = append(vals, fmt.Sprintf("RefTxnID:%#x", m.RefTxnID))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ConfiscationConfiscation Action - to be used to comply with contractual
+// Confiscation Confiscation Action - to be used to comply with contractual
 // obligations, legal and/or issuer requirements.
 type Confiscation struct {
-	Header Header
+	Header       Header
 	AddressCount uint16
-	Addresses []Address
-	DepositQty uint64
-	Timestamp uint64
+	Addresses    []Address
+	DepositQty   uint64
+	Timestamp    uint64
 }
 
 // NewConfiscation returns a new Confiscation with defaults set.
@@ -3081,14 +3081,13 @@ func (m Confiscation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ReconciliationReconciliation Action - to be used at the direction of the
-// issuer to fix record keeping errors with bitcoin and token balances.
+// Reconciliation Reconciliation Action - to be used at the direction of
+// the issuer to fix record keeping errors with bitcoin and token balances.
 type Reconciliation struct {
-	Header Header
+	Header       Header
 	AddressCount uint16
-	Addresses []Address
-	Timestamp uint64
+	Addresses    []Address
+	Timestamp    uint64
 }
 
 // NewReconciliation returns a new Reconciliation with defaults set.
@@ -3200,25 +3199,24 @@ func (m Reconciliation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// InitiativeInitiative Action - Allows Token Owners to propose an
+// Initiative Initiative Action - Allows Token Owners to propose an
 // Initiative (aka Initiative/Shareholder vote). A significant cost -
 // specified in the Contract Formation - can be attached to this action to
 // reduce spam, as the resulting vote will be put to all token owners.
 type Initiative struct {
-	Header Header
-	TextEncoding uint8
-	AssetType []byte
-	AssetID []byte
-	VoteSystem uint8
-	Proposal bool
+	Header               Header
+	TextEncoding         uint8
+	AssetType            []byte
+	AssetID              []byte
+	VoteSystem           uint8
+	Proposal             bool
 	ProposedChangesCount uint8
-	ProposedChanges []Amendment
-	VoteOptions Nvarchar8
-	VoteMax uint8
-	ProposalDescription Nvarchar16
+	ProposedChanges      []Amendment
+	VoteOptions          Nvarchar8
+	VoteMax              uint8
+	ProposalDescription  Nvarchar16
 	ProposalDocumentHash []byte
-	VoteCutOffTimestamp uint64
+	VoteCutOffTimestamp  uint64
 }
 
 // NewInitiative returns a new Initiative with defaults set.
@@ -3428,25 +3426,24 @@ func (m Initiative) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ReferendumReferendum Action - Issuer instructs the Contract to Initiate
+// Referendum Referendum Action - Issuer instructs the Contract to Initiate
 // a Token Owner Vote. Usually used for contract amendments, organizational
 // governance, etc.
 type Referendum struct {
-	Header Header
-	TextEncoding uint8
-	AssetSpecificVote bool
-	AssetType []byte
-	AssetID []byte
-	VoteSystem uint8
-	Proposal bool
+	Header               Header
+	TextEncoding         uint8
+	AssetSpecificVote    bool
+	AssetType            []byte
+	AssetID              []byte
+	VoteSystem           uint8
+	Proposal             bool
 	ProposedChangesCount uint8
-	ProposedChanges []Amendment
-	VoteOptions Nvarchar8
-	VoteMax uint8
-	ProposalDescription Nvarchar16
+	ProposedChanges      []Amendment
+	VoteOptions          Nvarchar8
+	VoteMax              uint8
+	ProposalDescription  Nvarchar16
 	ProposalDocumentHash []byte
-	VoteCutOffTimestamp uint64
+	VoteCutOffTimestamp  uint64
 }
 
 // NewReferendum returns a new Referendum with defaults set.
@@ -3665,11 +3662,10 @@ func (m Referendum) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// VoteVote Action - A vote is created by the Contract in response to a
+// Vote Vote Action - A vote is created by the Contract in response to a
 // valid Referendum (Issuer) or Initiative (User) Action.
 type Vote struct {
-	Header Header
+	Header    Header
 	Timestamp uint64
 }
 
@@ -3752,17 +3748,16 @@ func (m Vote) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// BallotCastBallot Cast Action - Used by Token Owners to cast their ballot
-// (vote) on proposals raised by the Issuer (Referendum) or other token
-// holders (Initiative). 1 Vote per token unless a vote multiplier is
+// BallotCast Ballot Cast Action - Used by Token Owners to cast their
+// ballot (vote) on proposals raised by the Issuer (Referendum) or other
+// token holders (Initiative). 1 Vote per token unless a vote multiplier is
 // specified in the relevant Asset Definition action.
 type BallotCast struct {
-	Header Header
+	Header    Header
 	AssetType []byte
-	AssetID []byte
+	AssetID   []byte
 	VoteTxnID []byte
-	Vote Nvarchar8
+	Vote      Nvarchar8
 }
 
 // NewBallotCast returns a new BallotCast with defaults set.
@@ -3881,13 +3876,12 @@ func (m BallotCast) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// BallotCountedBallot Counted Action - The smart contract will respond to
+// BallotCounted Ballot Counted Action - The smart contract will respond to
 // a Ballot Cast action with a Ballot Counted action if the Ballot Cast is
 // valid. If the Ballot Cast is not valid, then the smart contract will
 // respond with a Rejection Action.
 type BallotCounted struct {
-	Header Header
+	Header    Header
 	Timestamp uint64
 }
 
@@ -3970,22 +3964,21 @@ func (m BallotCounted) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ResultResult Action - Once a vote has been completed the results are
+// Result Result Action - Once a vote has been completed the results are
 // published.
 type Result struct {
-	Header Header
-	TextEncoding uint8
-	AssetType []byte
-	AssetID []byte
-	Proposal bool
+	Header               Header
+	TextEncoding         uint8
+	AssetType            []byte
+	AssetID              []byte
+	Proposal             bool
 	ProposedChangesCount uint8
-	ProposedChanges []Amendment
-	VoteTxnID []byte
-	VoteOptionsCount uint8
-	OptionXTally uint64
-	Result Nvarchar8
-	Timestamp uint64
+	ProposedChanges      []Amendment
+	VoteTxnID            []byte
+	VoteOptionsCount     uint8
+	OptionXTally         uint64
+	Result               Nvarchar8
+	Timestamp            uint64
 }
 
 // NewResult returns a new Result with defaults set.
@@ -4179,22 +4172,20 @@ func (m Result) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// MessageMessage Action - the message action is a general purpose
+// Message Message Action - the message action is a general purpose
 // communication action. 'Twitter/SMS' for Issuers/Investors/Users. The
 // message txn can also be used for passing partially signed txns on-chain,
 // establishing private communication channels and EDI (receipting,
 // invoices, PO, and private offers/bids). The messages are broken down by
 // type for easy filtering in the a user's wallet. The Message Types are
 // listed in the Message Types table.
-
 type Message struct {
-	Header Header
-	TextEncoding uint8
+	Header                Header
+	TextEncoding          uint8
 	QtyReceivingAddresses uint8
-	AddressIndexes []uint16
-	MessageType []byte
-	MessagePayload Nvarchar64
+	AddressIndexes        []uint16
+	MessageType           []byte
+	MessagePayload        Nvarchar64
 }
 
 // NewMessage returns a new Message with defaults set.
@@ -4289,6 +4280,7 @@ func (m *Message) Write(b []byte) (int, error) {
 	}
 
 	m.AddressIndexes = make([]uint16, m.QtyReceivingAddresses, m.QtyReceivingAddresses)
+
 	if err := read(buf, &m.AddressIndexes); err != nil {
 		return 0, err
 	}
@@ -4323,8 +4315,7 @@ func (m Message) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// RejectionRejection Action - used to reject request actions that do not
+// Rejection Rejection Action - used to reject request actions that do not
 // comply with the Contract. If money is to be returned to a User then it
 // is used in lieu of the Settlement Action to properly account for token
 // balances. All Issuer/User request Actions must be responded to by the
@@ -4333,13 +4324,13 @@ func (m Message) String() string {
 // to remain revenue neutral. If not enough fees are attached to pay for
 // the Contract response then the Contract will not respond.
 type Rejection struct {
-	Header Header
-	TextEncoding uint8
+	Header                Header
+	TextEncoding          uint8
 	QtyReceivingAddresses uint8
-	AddressIndexes []uint16
-	RejectionType uint8
-	MessagePayload Nvarchar16
-	Timestamp uint64
+	AddressIndexes        []uint16
+	RejectionType         uint8
+	MessagePayload        Nvarchar16
+	Timestamp             uint64
 }
 
 // NewRejection returns a new Rejection with defaults set.
@@ -4438,6 +4429,7 @@ func (m *Rejection) Write(b []byte) (int, error) {
 	}
 
 	m.AddressIndexes = make([]uint16, m.QtyReceivingAddresses, m.QtyReceivingAddresses)
+
 	if err := read(buf, &m.AddressIndexes); err != nil {
 		return 0, err
 	}
@@ -4476,12 +4468,11 @@ func (m Rejection) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// EstablishmentEstablishment Action - Establishes an on-chain register.
+// Establishment Establishment Action - Establishes an on-chain register.
 type Establishment struct {
-	Header Header
+	Header       Header
 	TextEncoding uint8
-	Message Nvarchar64
+	Message      Nvarchar64
 }
 
 // NewEstablishment returns a new Establishment with defaults set.
@@ -4579,12 +4570,11 @@ func (m Establishment) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// AdditionAddition Action - Adds an entry to the Register.
+// Addition Addition Action - Adds an entry to the Register.
 type Addition struct {
-	Header Header
+	Header       Header
 	TextEncoding uint8
-	Message Nvarchar64
+	Message      Nvarchar64
 }
 
 // NewAddition returns a new Addition with defaults set.
@@ -4682,12 +4672,11 @@ func (m Addition) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// AlterationAlteration Action - A register entry/record can be altered.
+// Alteration Alteration Action - A register entry/record can be altered.
 type Alteration struct {
-	Header Header
+	Header       Header
 	TextEncoding uint8
-	Message Nvarchar64
+	Message      Nvarchar64
 }
 
 // NewAlteration returns a new Alteration with defaults set.
@@ -4785,12 +4774,11 @@ func (m Alteration) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// RemovalRemoval Action - Removes an entry/record from the Register.
+// Removal Removal Action - Removes an entry/record from the Register.
 type Removal struct {
-	Header Header
+	Header       Header
 	TextEncoding uint8
-	Message Nvarchar64
+	Message      Nvarchar64
 }
 
 // NewRemoval returns a new Removal with defaults set.
@@ -4888,20 +4876,19 @@ func (m Removal) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// SendSend Action - A Token Owner Sends a Token to a Receiver. The Send
+// Send Send Action - A Token Owner Sends a Token to a Receiver. The Send
 // Action requires no sign-off by the Token Receiving Party and does not
 // provide any on-chain consideration to the Token Sending Party. Can be
 // used for redeeming a ticket, coupon, points, etc.
 type Send struct {
-	Header Header
-	TextEncoding uint8
-	AssetType []byte
-	AssetID []byte
-	TokenSenderCount uint8
-	TokenSenders []QuantityIndex
+	Header             Header
+	TextEncoding       uint8
+	AssetType          []byte
+	AssetID            []byte
+	TokenSenderCount   uint8
+	TokenSenders       []QuantityIndex
 	TokenReceiverCount uint8
-	TokenReceivers []TokenReceiver
+	TokenReceivers     []TokenReceiver
 }
 
 // NewSend returns a new Send with defaults set.
@@ -5014,6 +5001,7 @@ func (m *Send) Write(b []byte) (int, error) {
 	}
 
 	m.TokenSenders = make([]QuantityIndex, m.TokenSenderCount, m.TokenSenderCount)
+
 	if err := read(buf, &m.TokenSenders); err != nil {
 		return 0, err
 	}
@@ -5054,24 +5042,23 @@ func (m Send) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// ExchangeExchange Action - Tokens exchanged for Bitcoin (BSV). Example:
+// Exchange Exchange Action - Tokens exchanged for Bitcoin (BSV). Example:
 // Bob (Token Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7
 // BSV. Both parties must sign the transaction for it to be valid.
 type Exchange struct {
-	Header Header
-	TextEncoding uint8
-	AssetType []byte
-	AssetID []byte
-	OfferExpiry uint64
+	Header              Header
+	TextEncoding        uint8
+	AssetType           []byte
+	AssetID             []byte
+	OfferExpiry         uint64
 	ExchangeFeeCurrency []byte
-	ExchangeFeeVar float32
-	ExchangeFeeFixed float32
-	ExchangeFeeAddress []byte
-	TokenSenderCount uint8
-	TokenSenders []QuantityIndex
-	TokenReceiverCount uint8
-	TokenReceivers []TokenReceiver
+	ExchangeFeeVar      float32
+	ExchangeFeeFixed    float32
+	ExchangeFeeAddress  []byte
+	TokenSenderCount    uint8
+	TokenSenders        []QuantityIndex
+	TokenReceiverCount  uint8
+	TokenReceivers      []TokenReceiver
 }
 
 // NewExchange returns a new Exchange with defaults set.
@@ -5226,6 +5213,7 @@ func (m *Exchange) Write(b []byte) (int, error) {
 	}
 
 	m.TokenSenders = make([]QuantityIndex, m.TokenSenderCount, m.TokenSenderCount)
+
 	if err := read(buf, &m.TokenSenders); err != nil {
 		return 0, err
 	}
@@ -5271,30 +5259,29 @@ func (m Exchange) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// SwapSwap Action - Two parties (or more) want to swap a token (Atomic
+// Swap Swap Action - Two parties (or more) want to swap a token (Atomic
 // Swap) directly for another token. At a minimum, Bitcoin is used in the
 // txn for paying the necessary network/transaction fees.
 type Swap struct {
-	Header Header
-	TextEncoding uint8
-	AssetType1 []byte
-	AssetID1 []byte
-	AssetType2 []byte
-	AssetID2 []byte
-	OfferExpiry uint64
+	Header              Header
+	TextEncoding        uint8
+	AssetType1          []byte
+	AssetID1            []byte
+	AssetType2          []byte
+	AssetID2            []byte
+	OfferExpiry         uint64
 	ExchangeFeeCurrency []byte
-	ExchangeFeeVar float32
-	ExchangeFeeFixed float32
-	ExchangeFeeAddress []byte
-	Asset1SenderCount uint8
-	Asset1Senders []QuantityIndex
+	ExchangeFeeVar      float32
+	ExchangeFeeFixed    float32
+	ExchangeFeeAddress  []byte
+	Asset1SenderCount   uint8
+	Asset1Senders       []QuantityIndex
 	Asset1ReceiverCount uint8
-	Asset1Receivers []TokenReceiver
-	Asset2SenderCount uint8
-	Asset2Senders []QuantityIndex
+	Asset1Receivers     []TokenReceiver
+	Asset2SenderCount   uint8
+	Asset2Senders       []QuantityIndex
 	Asset2ReceiverCount uint8
-	Asset2Receivers []TokenReceiver
+	Asset2Receivers     []TokenReceiver
 }
 
 // NewSwap returns a new Swap with defaults set.
@@ -5492,6 +5479,7 @@ func (m *Swap) Write(b []byte) (int, error) {
 	}
 
 	m.Asset1Senders = make([]QuantityIndex, m.Asset1SenderCount, m.Asset1SenderCount)
+
 	if err := read(buf, &m.Asset1Senders); err != nil {
 		return 0, err
 	}
@@ -5514,6 +5502,7 @@ func (m *Swap) Write(b []byte) (int, error) {
 	}
 
 	m.Asset2Senders = make([]QuantityIndex, m.Asset2SenderCount, m.Asset2SenderCount)
+
 	if err := read(buf, &m.Asset2Senders); err != nil {
 		return 0, err
 	}
@@ -5565,22 +5554,21 @@ func (m Swap) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-
-// SettlementSettlement Action - Finalizes the transfer of bitcoins and
+// Settlement Settlement Action - Finalizes the transfer of bitcoins and
 // tokens from send, exchange, and swap actions.
 type Settlement struct {
-	Header Header
-	TextEncoding uint8
-	TransferType byte
-	AssetType1 []byte
-	AssetID1 []byte
-	AssetType2 []byte
-	AssetID2 []byte
+	Header                 Header
+	TextEncoding           uint8
+	TransferType           byte
+	AssetType1             []byte
+	AssetID1               []byte
+	AssetType2             []byte
+	AssetID2               []byte
 	Asset1SettlementsCount uint8
-	Asset1AddressesXQty []QuantityIndex
+	Asset1AddressesXQty    []QuantityIndex
 	Asset2SettlementsCount uint8
-	Asset2AddressXQty []QuantityIndex
-	Timestamp uint64
+	Asset2AddressXQty      []QuantityIndex
+	Timestamp              uint64
 }
 
 // NewSettlement returns a new Settlement with defaults set.
@@ -5718,6 +5706,7 @@ func (m *Settlement) Write(b []byte) (int, error) {
 	}
 
 	m.Asset1AddressesXQty = make([]QuantityIndex, m.Asset1SettlementsCount, m.Asset1SettlementsCount)
+
 	if err := read(buf, &m.Asset1AddressesXQty); err != nil {
 		return 0, err
 	}
@@ -5727,6 +5716,7 @@ func (m *Settlement) Write(b []byte) (int, error) {
 	}
 
 	m.Asset2AddressXQty = make([]QuantityIndex, m.Asset2SettlementsCount, m.Asset2SettlementsCount)
+
 	if err := read(buf, &m.Asset2AddressXQty); err != nil {
 		return 0, err
 	}
