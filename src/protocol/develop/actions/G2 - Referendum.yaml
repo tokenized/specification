@@ -117,8 +117,8 @@ fields:
 
   - name: ProposalDescription
     label: Proposal Description
-    description: "Length 0 to 65,535 bytes. 0 is valid. Description of the vote."
-    type: nvarchar16
+    description: "Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote."
+    type: nvarchar32
     example_hex: 00204368616e676520746865206e616d65206f662074686520436f6e74726163742e
     example_value: "Change the name of the Contract."
     notes: ""
