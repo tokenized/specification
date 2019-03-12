@@ -2,6 +2,7 @@ package protocol
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -128,6 +129,9 @@ type Nvarchar interface {
 	String() string
 	Write(*bytes.Buffer) error
 	Serialize() ([]byte, error)
+	Set(data []byte) error
+	MarshalJSON() ([]byte, error)
+	UnmarshalJSON(b []byte) error
 }
 
 // NewNvarchar returns a suitable Nvarchar type based on the length of the
@@ -159,6 +163,12 @@ func NewNvarchar8(b []byte) *Nvarchar8 {
 		Len:  uint8(len(b)),
 		Data: b,
 	}
+}
+
+func (t *Nvarchar8) Set(data []byte) error {
+	t.Len = uint8(len(data))
+	t.Data = data
+	return nil
 }
 
 // Write writes the contents of the io.Writer to the struct.
@@ -211,6 +221,26 @@ func (t Nvarchar8) String() string {
 	return string(t.Data)
 }
 
+func (t Nvarchar8) MarshalJSON() ([]byte, error) {
+	result := make([]byte, 0, t.Len+2)
+	result = append(result, '"')
+	result = append(result, t.Data...)
+	result = append(result, '"')
+	return result, nil
+}
+
+func (t *Nvarchar8) UnmarshalJSON(b []byte) error {
+	if len(b) == 0 {
+		return t.Set([]byte{})
+	}
+	var data string
+	err := json.Unmarshal(b, &data)
+	if err != nil {
+		return err
+	}
+	return t.Set([]byte(data))
+}
+
 // Nvarchar16 is used to represent string data up to and including 65535 bytes
 // in length.
 type Nvarchar16 struct {
@@ -224,6 +254,12 @@ func NewNvarchar16(b []byte) *Nvarchar16 {
 		Len:  uint16(len(b)),
 		Data: b,
 	}
+}
+
+func (t *Nvarchar16) Set(data []byte) error {
+	t.Len = uint16(len(data))
+	t.Data = data
+	return nil
 }
 
 // Write writes the contents of the io.Writer to the struct.
@@ -276,6 +312,26 @@ func (t Nvarchar16) String() string {
 	return string(t.Data)
 }
 
+func (t Nvarchar16) MarshalJSON() ([]byte, error) {
+	result := make([]byte, 0, t.Len+2)
+	result = append(result, '"')
+	result = append(result, t.Data...)
+	result = append(result, '"')
+	return result, nil
+}
+
+func (t *Nvarchar16) UnmarshalJSON(b []byte) error {
+	if len(b) == 0 {
+		return t.Set([]byte{})
+	}
+	var data string
+	err := json.Unmarshal(b, &data)
+	if err != nil {
+		return err
+	}
+	return t.Set([]byte(data))
+}
+
 // Nvarchar32 is used to represent string data up to and including
 // 4294967295 bytes in length.
 type Nvarchar32 struct {
@@ -289,6 +345,12 @@ func NewNvarchar32(b []byte) *Nvarchar32 {
 		Len:  uint32(len(b)),
 		Data: b,
 	}
+}
+
+func (t *Nvarchar32) Set(data []byte) error {
+	t.Len = uint32(len(data))
+	t.Data = data
+	return nil
 }
 
 // Write writes the contents of the io.Writer to the struct.
@@ -341,6 +403,26 @@ func (t Nvarchar32) String() string {
 	return string(t.Data)
 }
 
+func (t Nvarchar32) MarshalJSON() ([]byte, error) {
+	result := make([]byte, 0, t.Len+2)
+	result = append(result, '"')
+	result = append(result, t.Data...)
+	result = append(result, '"')
+	return result, nil
+}
+
+func (t *Nvarchar32) UnmarshalJSON(b []byte) error {
+	if len(b) == 0 {
+		return t.Set([]byte{})
+	}
+	var data string
+	err := json.Unmarshal(b, &data)
+	if err != nil {
+		return err
+	}
+	return t.Set([]byte(data))
+}
+
 // Nvarchar64 is used to represent string data up to and including
 // 18446744073709551615 bytes in length.
 type Nvarchar64 struct {
@@ -354,6 +436,12 @@ func NewNvarchar64(b []byte) *Nvarchar64 {
 		Len:  uint64(len(b)),
 		Data: b,
 	}
+}
+
+func (t *Nvarchar64) Set(data []byte) error {
+	t.Len = uint64(len(data))
+	t.Data = data
+	return nil
 }
 
 // Write writes the contents of the io.Writer to the struct.
@@ -404,4 +492,24 @@ func (t Nvarchar64) Serialize() ([]byte, error) {
 // String returns a string representation of the bytes.
 func (t Nvarchar64) String() string {
 	return string(t.Data)
+}
+
+func (t Nvarchar64) MarshalJSON() ([]byte, error) {
+	result := make([]byte, 0, t.Len+2)
+	result = append(result, '"')
+	result = append(result, t.Data...)
+	result = append(result, '"')
+	return result, nil
+}
+
+func (t *Nvarchar64) UnmarshalJSON(b []byte) error {
+	if len(b) == 0 {
+		return t.Set([]byte{})
+	}
+	var data string
+	err := json.Unmarshal(b, &data)
+	if err != nil {
+		return err
+	}
+	return t.Set([]byte(data))
 }
