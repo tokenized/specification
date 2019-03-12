@@ -40,7 +40,7 @@ fields:
   - name: Message
     label: Message
     description: "Length only limited by Bitcoin protocol."
-    type: nvarchar64
+    type: nvarchar32
     size: 25
     example_hex: 00000000000000174e6f72746820416d65726963612057686974656c697374
     example_value: "North America Whitelist"
