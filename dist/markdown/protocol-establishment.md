@@ -47,7 +47,7 @@ The following breaks down the construction of a Establishment Action. The action
                 North America Whitelist
             </td>
             <td class="r10">Length only limited by Bitcoin protocol.</td>
-            <td class="r10">nvarchar64</td>
+            <td class="r10">nvarchar32</td>
             <td class="r11"></td>
         </tr>
 

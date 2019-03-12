@@ -86,7 +86,7 @@ The following breaks down the construction of a Message Action. The action is co
             </td>
             <td class="m10">Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
 </td>
-            <td class="m10">nvarchar64</td>
+            <td class="m10">nvarchar32</td>
             <td class="m11"></td>
         </tr>
 

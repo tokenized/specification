@@ -199,7 +199,7 @@ The following breaks down the construction of a Order Action. The action is cons
                 Sorry, but the court order made me.
             </td>
             <td class="e10">Length only limited by the Bitcoin protocol.</td>
-            <td class="e10">nvarchar64</td>
+            <td class="e10">nvarchar32</td>
             <td class="e11"></td>
         </tr>
 

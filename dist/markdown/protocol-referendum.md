@@ -150,8 +150,8 @@ The following breaks down the construction of a Referendum Action. The action is
             <td class="g10" style="word-break:break-all">
                 Change the name of the Contract.
             </td>
-            <td class="g10">Length 0 to 65,535 bytes. 0 is valid. Description of the vote.</td>
-            <td class="g10">nvarchar16</td>
+            <td class="g10">Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.</td>
+            <td class="g10">nvarchar32</td>
             <td class="g11"></td>
         </tr>
 

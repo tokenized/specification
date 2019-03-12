@@ -80,14 +80,8 @@ const (
 	// CodeRemoval identifies data as a Removal message.
 	CodeRemoval = "R4"
 
-	// CodeSend identifies data as a Send message.
-	CodeSend = "T1"
-
-	// CodeExchange identifies data as a Exchange message.
-	CodeExchange = "T2"
-
-	// CodeSwap identifies data as a Swap message.
-	CodeSwap = "T3"
+	// CodeTransfer identifies data as a Transfer message.
+	CodeTransfer = "T1"
 
 	// CodeSettlement identifies data as a Settlement message.
 	CodeSettlement = "T4"
@@ -120,9 +114,7 @@ var (
 		CodeAddition:                &Addition{},
 		CodeAlteration:              &Alteration{},
 		CodeRemoval:                 &Removal{},
-		CodeSend:                    &Send{},
-		CodeExchange:                &Exchange{},
-		CodeSwap:                    &Swap{},
+		CodeTransfer:                &Transfer{},
 		CodeSettlement:              &Settlement{},
 	}
 
@@ -2436,7 +2428,7 @@ type Order struct {
 	SupportingEvidenceHash []byte
 	RefTxnID               []byte
 	FreezePeriod           uint64
-	Message                Nvarchar64
+	Message                Nvarchar32
 }
 
 // NewOrder returns a new Order with defaults set.
@@ -3207,7 +3199,7 @@ type Initiative struct {
 	ProposedChanges      []Amendment
 	VoteOptions          Nvarchar8
 	VoteMax              uint8
-	ProposalDescription  Nvarchar16
+	ProposalDescription  Nvarchar32
 	ProposalDocumentHash []byte
 	VoteCutOffTimestamp  uint64
 }
@@ -3434,7 +3426,7 @@ type Referendum struct {
 	ProposedChanges      []Amendment
 	VoteOptions          Nvarchar8
 	VoteMax              uint8
-	ProposalDescription  Nvarchar16
+	ProposalDescription  Nvarchar32
 	ProposalDocumentHash []byte
 	VoteCutOffTimestamp  uint64
 }
@@ -4178,7 +4170,7 @@ type Message struct {
 	QtyReceivingAddresses uint8
 	AddressIndexes        []uint16
 	MessageType           []byte
-	MessagePayload        Nvarchar64
+	MessagePayload        Nvarchar32
 }
 
 // NewMessage returns a new Message with defaults set.
@@ -4321,7 +4313,7 @@ type Rejection struct {
 	QtyReceivingAddresses uint8
 	AddressIndexes        []uint16
 	RejectionType         uint8
-	MessagePayload        Nvarchar16
+	MessagePayload        Nvarchar32
 	Timestamp             uint64
 }
 
@@ -4463,7 +4455,7 @@ func (m Rejection) String() string {
 type Establishment struct {
 	Header       Header
 	TextEncoding uint8
-	Message      Nvarchar64
+	Message      Nvarchar32
 }
 
 // NewEstablishment returns a new Establishment with defaults set.
@@ -4565,7 +4557,7 @@ func (m Establishment) String() string {
 type Addition struct {
 	Header       Header
 	TextEncoding uint8
-	Message      Nvarchar64
+	Message      Nvarchar32
 }
 
 // NewAddition returns a new Addition with defaults set.
@@ -4667,7 +4659,7 @@ func (m Addition) String() string {
 type Alteration struct {
 	Header       Header
 	TextEncoding uint8
-	Message      Nvarchar64
+	Message      Nvarchar32
 }
 
 // NewAlteration returns a new Alteration with defaults set.
@@ -4769,7 +4761,7 @@ func (m Alteration) String() string {
 type Removal struct {
 	Header       Header
 	TextEncoding uint8
-	Message      Nvarchar64
+	Message      Nvarchar32
 }
 
 // NewRemoval returns a new Removal with defaults set.
@@ -4867,212 +4859,45 @@ func (m Removal) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Send Send Action - A Token Owner Sends a Token to a Receiver. The Send
-// Action requires no sign-off by the Token Receiving Party and does not
-// provide any on-chain consideration to the Token Sending Party. Can be
-// used for redeeming a ticket, coupon, points, etc.
-type Send struct {
-	Header             Header
-	TextEncoding       uint8
-	AssetType          []byte
-	AssetID            []byte
-	TokenSenderCount   uint8
-	TokenSenders       []QuantityIndex
-	TokenReceiverCount uint8
-	TokenReceivers     []TokenReceiver
-}
-
-// NewSend returns a new Send with defaults set.
-func NewSend() Send {
-	return Send{}
-}
-
-// Type returns the type identifer for this message.
-func (m Send) Type() string {
-	return CodeSend
-}
-
-// Read implements the io.Reader interface, writing the receiver to the
-// []byte.
-func (m Send) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
-
-	if err != nil {
-		return 0, err
-	}
-
-	copy(b, data)
-
-	return len(b), nil
-}
-
-// Serialize returns the full OP_RETURN payload bytes.
-func (m Send) Serialize() ([]byte, error) {
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.TokenSenderCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.TokenSenderCount); i++ {
-		b, err := m.TokenSenders[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, m.TokenReceiverCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.TokenReceiverCount); i++ {
-		b, err := m.TokenReceivers[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode(CodeSend, len(b))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
-}
-
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Send) Write(b []byte) (int, error) {
-	buf := bytes.NewBuffer(b)
-
-	if err := m.Header.Write(buf); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
-	}
-
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.TokenSenderCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.TokenSenderCount); i++ {
-		x := &QuantityIndex{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.TokenSenders = append(m.TokenSenders, *x)
-	}
-
-	if err := read(buf, &m.TokenReceiverCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.TokenReceiverCount); i++ {
-		x := &TokenReceiver{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.TokenReceivers = append(m.TokenReceivers, *x)
-	}
-
-	return len(b), nil
-}
-
-// PayloadMessage returns the PayloadMessage, if any.
-func (m Send) PayloadMessage() (PayloadMessage, error) {
-	return nil, nil
-}
-
-func (m Send) String() string {
-	vals := []string{}
-
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
-	vals = append(vals, fmt.Sprintf("TokenSenderCount:%v", m.TokenSenderCount))
-	vals = append(vals, fmt.Sprintf("TokenSenders:%#+v", m.TokenSenders))
-	vals = append(vals, fmt.Sprintf("TokenReceiverCount:%v", m.TokenReceiverCount))
-	vals = append(vals, fmt.Sprintf("TokenReceivers:%#+v", m.TokenReceivers))
-
-	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
-}
-
-// Exchange Exchange Action - Tokens exchanged for Bitcoin (BSV). Example:
-// Bob (Token Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7
-// BSV. Both parties must sign the transaction for it to be valid.
-type Exchange struct {
+// Transfer A Token Owner(s) Sends, Excahnges or Swaps a token(s) or
+// Bitcoin for a token(s) or Bitcoin. Can be as simple as sending a single
+// token to a receiver. Or can be as complex as many senders sending many
+// different assets - controlled by many different smart contracts - to a
+// number of receivers. This action also supports atomic swaps (tokens for
+// tokens). Since many parties and contracts can be involved in a transfer
+// and the corresponding settlement action, the partially signed T1 and T2
+// actions will need to be passed around on-chain with an M1 action, or
+// off-chain.
+type Transfer struct {
 	Header              Header
 	TextEncoding        uint8
-	AssetType           []byte
-	AssetID             []byte
+	AssetCount          uint8
+	AssetTypeX          []byte
+	AssetIDX            []byte
+	AssetXSenderCount   uint8
+	AssetXSenders       []QuantityIndex
+	AssetXReceiverCount uint8
+	AssetXReceivers     []TokenReceiver
 	OfferExpiry         uint64
 	ExchangeFeeCurrency []byte
 	ExchangeFeeVar      float32
 	ExchangeFeeFixed    float32
 	ExchangeFeeAddress  []byte
-	TokenSenderCount    uint8
-	TokenSenders        []QuantityIndex
-	TokenReceiverCount  uint8
-	TokenReceivers      []TokenReceiver
 }
 
-// NewExchange returns a new Exchange with defaults set.
-func NewExchange() Exchange {
-	return Exchange{}
+// NewTransfer returns a new Transfer with defaults set.
+func NewTransfer() Transfer {
+	return Transfer{}
 }
 
 // Type returns the type identifer for this message.
-func (m Exchange) Type() string {
-	return CodeExchange
+func (m Transfer) Type() string {
+	return CodeTransfer
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Exchange) Read(b []byte) (int, error) {
+func (m Transfer) Read(b []byte) (int, error) {
 	data, err := m.Serialize()
 
 	if err != nil {
@@ -5085,19 +4910,53 @@ func (m Exchange) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Exchange) Serialize() ([]byte, error) {
+func (m Transfer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	if err := write(buf, m.TextEncoding); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
+	if err := write(buf, m.AssetCount); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := write(buf, pad(m.AssetTypeX, 3)); err != nil {
 		return nil, err
+	}
+
+	if err := write(buf, pad(m.AssetIDX, 32)); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.AssetXSenderCount); err != nil {
+		return nil, err
+	}
+
+	for i := 0; i < int(m.AssetXSenderCount); i++ {
+		b, err := m.AssetXSenders[i].Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+
+	if err := write(buf, m.AssetXReceiverCount); err != nil {
+		return nil, err
+	}
+
+	for i := 0; i < int(m.AssetXReceiverCount); i++ {
+		b, err := m.AssetXReceivers[i].Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
 	}
 
 	if err := write(buf, m.OfferExpiry); err != nil {
@@ -5120,39 +4979,9 @@ func (m Exchange) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, m.TokenSenderCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.TokenSenderCount); i++ {
-		b, err := m.TokenSenders[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, m.TokenReceiverCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.TokenReceiverCount); i++ {
-		b, err := m.TokenReceivers[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeExchange, len(b))
+	header, err := NewHeaderForCode(CodeTransfer, len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -5169,7 +4998,7 @@ func (m Exchange) Serialize() ([]byte, error) {
 
 // Write implements the io.Writer interface, writing the data in []byte to
 // the receiver.
-func (m *Exchange) Write(b []byte) (int, error) {
+func (m *Transfer) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	if err := m.Header.Write(buf); err != nil {
@@ -5180,14 +5009,44 @@ func (m *Exchange) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
+	if err := read(buf, &m.AssetCount); err != nil {
 		return 0, err
 	}
 
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
+	m.AssetTypeX = make([]byte, 3)
+	if err := readLen(buf, m.AssetTypeX); err != nil {
 		return 0, err
+	}
+
+	m.AssetIDX = make([]byte, 32)
+	if err := readLen(buf, m.AssetIDX); err != nil {
+		return 0, err
+	}
+
+	if err := read(buf, &m.AssetXSenderCount); err != nil {
+		return 0, err
+	}
+
+	for i := 0; i < int(m.AssetXSenderCount); i++ {
+		x := &QuantityIndex{}
+		if err := x.Write(buf); err != nil {
+			return 0, err
+		}
+
+		m.AssetXSenders = append(m.AssetXSenders, *x)
+	}
+
+	if err := read(buf, &m.AssetXReceiverCount); err != nil {
+		return 0, err
+	}
+
+	for i := 0; i < int(m.AssetXReceiverCount); i++ {
+		x := &TokenReceiver{}
+		if err := x.Write(buf); err != nil {
+			return 0, err
+		}
+
+		m.AssetXReceivers = append(m.AssetXReceivers, *x)
 	}
 
 	if err := read(buf, &m.OfferExpiry); err != nil {
@@ -5212,385 +5071,45 @@ func (m *Exchange) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TokenSenderCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.TokenSenderCount); i++ {
-		x := &QuantityIndex{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.TokenSenders = append(m.TokenSenders, *x)
-	}
-
-	if err := read(buf, &m.TokenReceiverCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.TokenReceiverCount); i++ {
-		x := &TokenReceiver{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.TokenReceivers = append(m.TokenReceivers, *x)
-	}
-
 	return len(b), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Exchange) PayloadMessage() (PayloadMessage, error) {
+func (m Transfer) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Exchange) String() string {
+func (m Transfer) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetCount:%v", m.AssetCount))
+	vals = append(vals, fmt.Sprintf("AssetTypeX:%#x", m.AssetTypeX))
+	vals = append(vals, fmt.Sprintf("AssetIDX:%#x", m.AssetIDX))
+	vals = append(vals, fmt.Sprintf("AssetXSenderCount:%v", m.AssetXSenderCount))
+	vals = append(vals, fmt.Sprintf("AssetXSenders:%#+v", m.AssetXSenders))
+	vals = append(vals, fmt.Sprintf("AssetXReceiverCount:%v", m.AssetXReceiverCount))
+	vals = append(vals, fmt.Sprintf("AssetXReceivers:%#+v", m.AssetXReceivers))
 	vals = append(vals, fmt.Sprintf("OfferExpiry:%v", m.OfferExpiry))
 	vals = append(vals, fmt.Sprintf("ExchangeFeeCurrency:%#x", m.ExchangeFeeCurrency))
 	vals = append(vals, fmt.Sprintf("ExchangeFeeVar:%v", m.ExchangeFeeVar))
 	vals = append(vals, fmt.Sprintf("ExchangeFeeFixed:%v", m.ExchangeFeeFixed))
 	vals = append(vals, fmt.Sprintf("ExchangeFeeAddress:%#x", m.ExchangeFeeAddress))
-	vals = append(vals, fmt.Sprintf("TokenSenderCount:%v", m.TokenSenderCount))
-	vals = append(vals, fmt.Sprintf("TokenSenders:%#+v", m.TokenSenders))
-	vals = append(vals, fmt.Sprintf("TokenReceiverCount:%v", m.TokenReceiverCount))
-	vals = append(vals, fmt.Sprintf("TokenReceivers:%#+v", m.TokenReceivers))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Swap Swap Action - Two parties (or more) want to swap a token (Atomic
-// Swap) directly for another token. At a minimum, Bitcoin is used in the
-// txn for paying the necessary network/transaction fees.
-type Swap struct {
-	Header              Header
-	TextEncoding        uint8
-	AssetType1          []byte
-	AssetID1            []byte
-	AssetType2          []byte
-	AssetID2            []byte
-	OfferExpiry         uint64
-	ExchangeFeeCurrency []byte
-	ExchangeFeeVar      float32
-	ExchangeFeeFixed    float32
-	ExchangeFeeAddress  []byte
-	Asset1SenderCount   uint8
-	Asset1Senders       []QuantityIndex
-	Asset1ReceiverCount uint8
-	Asset1Receivers     []TokenReceiver
-	Asset2SenderCount   uint8
-	Asset2Senders       []QuantityIndex
-	Asset2ReceiverCount uint8
-	Asset2Receivers     []TokenReceiver
-}
-
-// NewSwap returns a new Swap with defaults set.
-func NewSwap() Swap {
-	return Swap{}
-}
-
-// Type returns the type identifer for this message.
-func (m Swap) Type() string {
-	return CodeSwap
-}
-
-// Read implements the io.Reader interface, writing the receiver to the
-// []byte.
-func (m Swap) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
-
-	if err != nil {
-		return 0, err
-	}
-
-	copy(b, data)
-
-	return len(b), nil
-}
-
-// Serialize returns the full OP_RETURN payload bytes.
-func (m Swap) Serialize() ([]byte, error) {
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetType1, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID1, 32)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetType2, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID2, 32)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.OfferExpiry); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.ExchangeFeeCurrency, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.ExchangeFeeVar); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.ExchangeFeeFixed); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.ExchangeFeeAddress, 34)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.Asset1SenderCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.Asset1SenderCount); i++ {
-		b, err := m.Asset1Senders[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, m.Asset1ReceiverCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.Asset1ReceiverCount); i++ {
-		b, err := m.Asset1Receivers[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, m.Asset2SenderCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.Asset2SenderCount); i++ {
-		b, err := m.Asset2Senders[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, m.Asset2ReceiverCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.Asset2ReceiverCount); i++ {
-		b, err := m.Asset2Receivers[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode(CodeSwap, len(b))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
-}
-
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Swap) Write(b []byte) (int, error) {
-	buf := bytes.NewBuffer(b)
-
-	if err := m.Header.Write(buf); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
-	m.AssetType1 = make([]byte, 3)
-	if err := readLen(buf, m.AssetType1); err != nil {
-		return 0, err
-	}
-
-	m.AssetID1 = make([]byte, 32)
-	if err := readLen(buf, m.AssetID1); err != nil {
-		return 0, err
-	}
-
-	m.AssetType2 = make([]byte, 3)
-	if err := readLen(buf, m.AssetType2); err != nil {
-		return 0, err
-	}
-
-	m.AssetID2 = make([]byte, 32)
-	if err := readLen(buf, m.AssetID2); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.OfferExpiry); err != nil {
-		return 0, err
-	}
-
-	m.ExchangeFeeCurrency = make([]byte, 3)
-	if err := readLen(buf, m.ExchangeFeeCurrency); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.ExchangeFeeVar); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.ExchangeFeeFixed); err != nil {
-		return 0, err
-	}
-
-	m.ExchangeFeeAddress = make([]byte, 34)
-	if err := readLen(buf, m.ExchangeFeeAddress); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.Asset1SenderCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.Asset1SenderCount); i++ {
-		x := &QuantityIndex{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.Asset1Senders = append(m.Asset1Senders, *x)
-	}
-
-	if err := read(buf, &m.Asset1ReceiverCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.Asset1ReceiverCount); i++ {
-		x := &TokenReceiver{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.Asset1Receivers = append(m.Asset1Receivers, *x)
-	}
-
-	if err := read(buf, &m.Asset2SenderCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.Asset2SenderCount); i++ {
-		x := &QuantityIndex{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.Asset2Senders = append(m.Asset2Senders, *x)
-	}
-
-	if err := read(buf, &m.Asset2ReceiverCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.Asset2ReceiverCount); i++ {
-		x := &TokenReceiver{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.Asset2Receivers = append(m.Asset2Receivers, *x)
-	}
-
-	return len(b), nil
-}
-
-// PayloadMessage returns the PayloadMessage, if any.
-func (m Swap) PayloadMessage() (PayloadMessage, error) {
-	return nil, nil
-}
-
-func (m Swap) String() string {
-	vals := []string{}
-
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType1:%#x", m.AssetType1))
-	vals = append(vals, fmt.Sprintf("AssetID1:%#x", m.AssetID1))
-	vals = append(vals, fmt.Sprintf("AssetType2:%#x", m.AssetType2))
-	vals = append(vals, fmt.Sprintf("AssetID2:%#x", m.AssetID2))
-	vals = append(vals, fmt.Sprintf("OfferExpiry:%v", m.OfferExpiry))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeCurrency:%#x", m.ExchangeFeeCurrency))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeVar:%v", m.ExchangeFeeVar))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeFixed:%v", m.ExchangeFeeFixed))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeAddress:%#x", m.ExchangeFeeAddress))
-	vals = append(vals, fmt.Sprintf("Asset1SenderCount:%v", m.Asset1SenderCount))
-	vals = append(vals, fmt.Sprintf("Asset1Senders:%#+v", m.Asset1Senders))
-	vals = append(vals, fmt.Sprintf("Asset1ReceiverCount:%v", m.Asset1ReceiverCount))
-	vals = append(vals, fmt.Sprintf("Asset1Receivers:%#+v", m.Asset1Receivers))
-	vals = append(vals, fmt.Sprintf("Asset2SenderCount:%v", m.Asset2SenderCount))
-	vals = append(vals, fmt.Sprintf("Asset2Senders:%#+v", m.Asset2Senders))
-	vals = append(vals, fmt.Sprintf("Asset2ReceiverCount:%v", m.Asset2ReceiverCount))
-	vals = append(vals, fmt.Sprintf("Asset2Receivers:%#+v", m.Asset2Receivers))
-
-	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
-}
-
-// Settlement Settlement Action - Finalizes the transfer of bitcoins and
-// tokens from send, exchange, and swap actions.
+// Settlement Settlement Action - Settles the transfer request of bitcoins
+// and tokens from transfer (T1) actions.
 type Settlement struct {
 	Header                 Header
 	TextEncoding           uint8
-	TransferType           byte
-	AssetType1             []byte
-	AssetID1               []byte
-	AssetType2             []byte
-	AssetID2               []byte
-	Asset1SettlementsCount uint8
-	Asset1AddressesXQty    []QuantityIndex
-	Asset2SettlementsCount uint8
-	Asset2AddressXQty      []QuantityIndex
+	AssetCount             uint8
+	AssetTypeX             []byte
+	AssetIDX               []byte
+	AssetXSettlementsCount uint8
+	AssetXAddressesXQty    []QuantityIndex
 	Timestamp              uint64
 }
 
@@ -5626,47 +5145,24 @@ func (m Settlement) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, m.TransferType); err != nil {
+	if err := write(buf, m.AssetCount); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType1, 3)); err != nil {
+	if err := write(buf, pad(m.AssetTypeX, 3)); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetID1, 32)); err != nil {
+	if err := write(buf, pad(m.AssetIDX, 32)); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType2, 3)); err != nil {
+	if err := write(buf, m.AssetXSettlementsCount); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetID2, 32)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.Asset1SettlementsCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.Asset1SettlementsCount); i++ {
-		b, err := m.Asset1AddressesXQty[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, m.Asset2SettlementsCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.Asset2SettlementsCount); i++ {
-		b, err := m.Asset2AddressXQty[i].Serialize()
+	for i := 0; i < int(m.AssetXSettlementsCount); i++ {
+		b, err := m.AssetXAddressesXQty[i].Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -5710,54 +5206,31 @@ func (m *Settlement) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TransferType); err != nil {
+	if err := read(buf, &m.AssetCount); err != nil {
 		return 0, err
 	}
 
-	m.AssetType1 = make([]byte, 3)
-	if err := readLen(buf, m.AssetType1); err != nil {
+	m.AssetTypeX = make([]byte, 3)
+	if err := readLen(buf, m.AssetTypeX); err != nil {
 		return 0, err
 	}
 
-	m.AssetID1 = make([]byte, 32)
-	if err := readLen(buf, m.AssetID1); err != nil {
+	m.AssetIDX = make([]byte, 32)
+	if err := readLen(buf, m.AssetIDX); err != nil {
 		return 0, err
 	}
 
-	m.AssetType2 = make([]byte, 3)
-	if err := readLen(buf, m.AssetType2); err != nil {
+	if err := read(buf, &m.AssetXSettlementsCount); err != nil {
 		return 0, err
 	}
 
-	m.AssetID2 = make([]byte, 32)
-	if err := readLen(buf, m.AssetID2); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.Asset1SettlementsCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.Asset1SettlementsCount); i++ {
+	for i := 0; i < int(m.AssetXSettlementsCount); i++ {
 		x := &QuantityIndex{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
 		}
 
-		m.Asset1AddressesXQty = append(m.Asset1AddressesXQty, *x)
-	}
-
-	if err := read(buf, &m.Asset2SettlementsCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.Asset2SettlementsCount); i++ {
-		x := &QuantityIndex{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.Asset2AddressXQty = append(m.Asset2AddressXQty, *x)
+		m.AssetXAddressesXQty = append(m.AssetXAddressesXQty, *x)
 	}
 
 	if err := read(buf, &m.Timestamp); err != nil {
@@ -5777,15 +5250,11 @@ func (m Settlement) String() string {
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("TransferType:%#+v", m.TransferType))
-	vals = append(vals, fmt.Sprintf("AssetType1:%#x", m.AssetType1))
-	vals = append(vals, fmt.Sprintf("AssetID1:%#x", m.AssetID1))
-	vals = append(vals, fmt.Sprintf("AssetType2:%#x", m.AssetType2))
-	vals = append(vals, fmt.Sprintf("AssetID2:%#x", m.AssetID2))
-	vals = append(vals, fmt.Sprintf("Asset1SettlementsCount:%v", m.Asset1SettlementsCount))
-	vals = append(vals, fmt.Sprintf("Asset1AddressesXQty:%#+v", m.Asset1AddressesXQty))
-	vals = append(vals, fmt.Sprintf("Asset2SettlementsCount:%v", m.Asset2SettlementsCount))
-	vals = append(vals, fmt.Sprintf("Asset2AddressXQty:%#+v", m.Asset2AddressXQty))
+	vals = append(vals, fmt.Sprintf("AssetCount:%v", m.AssetCount))
+	vals = append(vals, fmt.Sprintf("AssetTypeX:%#x", m.AssetTypeX))
+	vals = append(vals, fmt.Sprintf("AssetIDX:%#x", m.AssetIDX))
+	vals = append(vals, fmt.Sprintf("AssetXSettlementsCount:%v", m.AssetXSettlementsCount))
+	vals = append(vals, fmt.Sprintf("AssetXAddressesXQty:%#+v", m.AssetXAddressesXQty))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))

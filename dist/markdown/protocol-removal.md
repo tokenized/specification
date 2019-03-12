@@ -47,7 +47,7 @@ The following breaks down the construction of a Removal Action. The action is co
                 Removed due to violation of company policy.
             </td>
             <td class="r10">Length only limited by the Bitcoin protocol.</td>
-            <td class="r10">nvarchar64</td>
+            <td class="r10">nvarchar32</td>
             <td class="r11"></td>
         </tr>
 

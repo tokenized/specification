@@ -1158,9 +1158,9 @@ func TestRemoval(t *testing.T) {
 	}
 }
 
-func TestSend(t *testing.T) {
+func TestTransfer(t *testing.T) {
 	// The hex is the body of the message
-	body := "0053484361706d3271737a6e686b7332337a3864383375343173383031396879726933690000"
+	body := "0053484353484361706d3271737a6e686b7332337a38643833753431733830313968797269336900000000016331e3c2004155443ba3d70a3c23d70a31485132554c7544375435796b6175635a334b6d546f346932393932355161366963"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {
@@ -1168,105 +1168,9 @@ func TestSend(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewSend()
+	m := NewTransfer()
 
-	header, err := NewHeaderForCode(CodeSend, len(b))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m.Header = *header
-
-	headerBytes, err := m.Header.Serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
-	}
-
-	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
-	}
-}
-
-func TestExchange(t *testing.T) {
-	// The hex is the body of the message
-	body := "0052524561706d3271737a6e686b7332337a0000000000000000000000000000000000000000016331e3c2004155443ba3d70a3c23d70a31485132554c7544375435796b6175635a334b6d546f3469323939323551613669630000"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
-
-	// Create a valid header for the body
-	m := NewExchange()
-
-	header, err := NewHeaderForCode(CodeExchange, len(b))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m.Header = *header
-
-	headerBytes, err := m.Header.Serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
-	}
-
-	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
-	}
-}
-
-func TestSwap(t *testing.T) {
-	// The hex is the body of the message
-	body := "0052524572616e3271737a6e68697335337a00000000000000000000000000000000000053484361706d3271737a6e686b7332337a0000000000000000000000000000000000000000016331e3c2004155443ba3d70a3c23d70a31485132554c7544375435796b6175635a334b6d546f34693239393235516136696300000000"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
-
-	// Create a valid header for the body
-	m := NewSwap()
-
-	header, err := NewHeaderForCode(CodeSwap, len(b))
+	header, err := NewHeaderForCode(CodeTransfer, len(b))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1304,7 +1208,7 @@ func TestSwap(t *testing.T) {
 
 func TestSettlement(t *testing.T) {
 	// The hex is the body of the message
-	body := "005352524561706d3271737a6e686b7332337a38643833753431733830313968797269336953484361706d3271737a6e686b7332337a38643833753431733830313968797269336900001588f8cc6a16430d"
+	body := "0053484352524561706d3271737a6e686b7332337a386438337534317338303139687972693369001588f8cc6a16430d"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {

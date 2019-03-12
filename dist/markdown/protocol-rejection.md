@@ -83,7 +83,7 @@ The following breaks down the construction of a Rejection Action. The action is 
                 Sorry, you don't have enough tokens.
             </td>
             <td class="m10">Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.</td>
-            <td class="m10">nvarchar16</td>
+            <td class="m10">nvarchar32</td>
             <td class="m11"></td>
         </tr>
 

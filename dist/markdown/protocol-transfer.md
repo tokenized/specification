@@ -1,9 +1,9 @@
 
-# Send Action
+# Transfer Action
 
-Send Action -  A Token Owner Sends a Token to a Receiver. The Send Action requires no sign-off by the Token Receiving Party and does not provide any on-chain consideration to the Token Sending Party.  Can be used for redeeming a ticket, coupon, points, etc.
+A Token Owner(s) Sends, Excahnges or Swaps a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.
 
-The following breaks down the construction of a Send Action. The action is constructed by building a single string from each of the elements in order.
+The following breaks down the construction of a Transfer Action. The action is constructed by building a single string from each of the elements in order.
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -19,7 +19,7 @@ The following breaks down the construction of a Send Action. The action is const
         </tr>
 
         <tr>
-            <td class="s5" rowspan="8">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="14">Metadata (OP_RETURN Payload)</td>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -40,8 +40,20 @@ The following breaks down the construction of a Send Action. The action is const
         </tr>
 
         <tr>
-            <td class="t10">Asset Type</td>
-            <td class="t10">AssetType</td>
+            <td class="t10">Asset Count</td>
+            <td class="t10">AssetCount</td>
+            <td class="t10">1</td>
+            <td class="t10" style="word-break:break-all">
+                4
+            </td>
+            <td class="t10">The number of Assets involved in the Transfer Action.</td>
+            <td class="t10">uint8</td>
+            <td class="t11"></td>
+        </tr>
+
+        <tr>
+            <td class="t10">Asset Type X</td>
+            <td class="t10">AssetTypeX</td>
             <td class="t10">3</td>
             <td class="t10" style="word-break:break-all">
                 SHC
@@ -52,8 +64,8 @@ The following breaks down the construction of a Send Action. The action is const
         </tr>
 
         <tr>
-            <td class="t10">Asset ID</td>
-            <td class="t10">AssetID</td>
+            <td class="t10">Asset ID X</td>
+            <td class="t10">AssetIDX</td>
             <td class="t10">32</td>
             <td class="t10" style="word-break:break-all">
                 apm2qsznhks23z8d83u41s8019hyri3i
@@ -65,7 +77,7 @@ The following breaks down the construction of a Send Action. The action is const
 
         <tr>
             <td class="t10">Token Sender Count</td>
-            <td class="t10">TokenSenderCount</td>
+            <td class="t10">AssetXSenderCount</td>
             <td class="t10">1</td>
             <td class="t10" style="word-break:break-all">
                 0
@@ -78,14 +90,14 @@ The following breaks down the construction of a Send Action. The action is const
         <tr>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-QuantityIndex">
-                   Token Senders - Click to show content
+                   Asset X Senders - Click to show content
                 </a>
             </td>
         </tr>
 
         <tr>
             <td class="t10">The number of token receivers</td>
-            <td class="t10">TokenReceiverCount</td>
+            <td class="t10">AssetXReceiverCount</td>
             <td class="t10">1</td>
             <td class="t10" style="word-break:break-all">
                 0
@@ -101,6 +113,66 @@ The following breaks down the construction of a Send Action. The action is const
                    Token Receivers - Click to show content
                 </a>
             </td>
+        </tr>
+
+        <tr>
+            <td class="t10">Offer Expiry</td>
+            <td class="t10">OfferExpiry</td>
+            <td class="t10">8</td>
+            <td class="t10" style="word-break:break-all">
+                Sun May 06 2018 06:00:00 GMT+1000 (AEST)
+            </td>
+            <td class="t10">This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins.</td>
+            <td class="t10">time</td>
+            <td class="t11"></td>
+        </tr>
+
+        <tr>
+            <td class="t10">Exchange Fee Currency</td>
+            <td class="t10">ExchangeFeeCurrency</td>
+            <td class="t10">3</td>
+            <td class="t10" style="word-break:break-all">
+                AUD
+            </td>
+            <td class="t10">BSV, USD, AUD, EUR, etc.</td>
+            <td class="t10">string</td>
+            <td class="t11"></td>
+        </tr>
+
+        <tr>
+            <td class="t10">Exchange Fee Variable</td>
+            <td class="t10">ExchangeFeeVar</td>
+            <td class="t10">4</td>
+            <td class="t10" style="word-break:break-all">
+                0.005
+            </td>
+            <td class="t10">Percent of the value of the transaction</td>
+            <td class="t10">float32</td>
+            <td class="t11"></td>
+        </tr>
+
+        <tr>
+            <td class="t10">Exchange Fee Fixed</td>
+            <td class="t10">ExchangeFeeFixed</td>
+            <td class="t10">4</td>
+            <td class="t10" style="word-break:break-all">
+                0.01
+            </td>
+            <td class="t10">Fixed fee</td>
+            <td class="t10">float32</td>
+            <td class="t11"></td>
+        </tr>
+
+        <tr>
+            <td class="t10">Exchange Fee Address</td>
+            <td class="t10">ExchangeFeeAddress</td>
+            <td class="t10">34</td>
+            <td class="t10" style="word-break:break-all">
+                1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic
+            </td>
+            <td class="t10">Identifies the public address that the exchange fee should be paid to.</td>
+            <td class="t10">string</td>
+            <td class="t11"></td>
         </tr>
 
     </table>

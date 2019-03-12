@@ -1,7 +1,7 @@
 
 # Settlement Action
 
-Settlement Action -  Finalizes the transfer of bitcoins and tokens from send, exchange, and swap actions.
+Settlement Action -  Settles the transfer request of bitcoins and tokens from transfer (T1) actions.
 
 The following breaks down the construction of a Settlement Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -19,7 +19,7 @@ The following breaks down the construction of a Settlement Action. The action is
         </tr>
 
         <tr>
-            <td class="s5" rowspan="12">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="8">Metadata (OP_RETURN Payload)</td>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -40,20 +40,20 @@ The following breaks down the construction of a Settlement Action. The action is
         </tr>
 
         <tr>
-            <td class="t10">Transfer Type</td>
-            <td class="t10">TransferType</td>
+            <td class="t10">Asset Count</td>
+            <td class="t10">AssetCount</td>
             <td class="t10">1</td>
             <td class="t10" style="word-break:break-all">
-                S
+                4
             </td>
-            <td class="t10">S - Send, E - Exchange, X - Swap</td>
-            <td class="t10">string</td>
+            <td class="t10">The number of Assets specified by the Transfer action to be settled.</td>
+            <td class="t10">uint8</td>
             <td class="t11"></td>
         </tr>
 
         <tr>
-            <td class="t10">Asset Type 1</td>
-            <td class="t10">AssetType1</td>
+            <td class="t10">Asset Type X</td>
+            <td class="t10">AssetTypeX</td>
             <td class="t10">3</td>
             <td class="t10" style="word-break:break-all">
                 RRE
@@ -64,8 +64,8 @@ The following breaks down the construction of a Settlement Action. The action is
         </tr>
 
         <tr>
-            <td class="t10">Asset ID 1</td>
-            <td class="t10">AssetID1</td>
+            <td class="t10">Asset ID X</td>
+            <td class="t10">AssetIDX</td>
             <td class="t10">32</td>
             <td class="t10" style="word-break:break-all">
                 apm2qsznhks23z8d83u41s8019hyri3i
@@ -76,37 +76,13 @@ The following breaks down the construction of a Settlement Action. The action is
         </tr>
 
         <tr>
-            <td class="t10">Asset Type 2</td>
-            <td class="t10">AssetType2</td>
-            <td class="t10">3</td>
-            <td class="t10" style="word-break:break-all">
-                SHC
-            </td>
-            <td class="t10">eg. Share, Bond, Ticket. NULL for Send and Exchange Response Type.</td>
-            <td class="t10">string</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t10">Asset ID 2</td>
-            <td class="t10">AssetID2</td>
-            <td class="t10">32</td>
-            <td class="t10" style="word-break:break-all">
-                apm2qsznhks23z8d83u41s8019hyri3i
-            </td>
-            <td class="t10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.  NULL for Send and Exchange Response Type.</td>
-            <td class="t10">string</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t10">Asset 1 Settlements Count</td>
-            <td class="t10">Asset1SettlementsCount</td>
+            <td class="t10">Asset X Settlements Count</td>
+            <td class="t10">AssetXSettlementsCount</td>
             <td class="t10">1</td>
             <td class="t10" style="word-break:break-all">
                 0
             </td>
-            <td class="t10">Number of settlements for Asset 1.</td>
+            <td class="t10">Number of settlements for Asset X.</td>
             <td class="t10">uint8</td>
             <td class="t11"></td>
         </tr>
@@ -114,27 +90,7 @@ The following breaks down the construction of a Settlement Action. The action is
         <tr>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-QuantityIndex">
-                   Asset 1 Address X Qty - Click to show content
-                </a>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="t10">Asset 2 Settlements Count</td>
-            <td class="t10">Asset2SettlementsCount</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                0
-            </td>
-            <td class="t10">Number of settlements for Asset 2. 0 for Send and Exchange Response Type.</td>
-            <td class="t10">uint8</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t6" colspan="7">
-                <a href="javascript:;" data-popover="type-QuantityIndex">
-                   Asset 2 Address X Qty - Click to show content
+                   Asset X Address X Qty - Click to show content
                 </a>
             </td>
         </tr>
@@ -212,41 +168,6 @@ The following breaks down the construction of a Settlement Action. The action is
                 <td class="t10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
                 <td class="t10">string</td>
                 <td class="t11">Cannot be changed by issuer, operator or smart contract.</td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div class="ui modal" id="type-QuantityIndex">
-    <i class="close icon"></i>
-    <div class="content docs-content">
-        <table class="ui table">
-            <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
-                <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
-                <th style="width:26%" class="s1">Comments</th>
-                <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
-            </tr>
-            <tr>
-                <td class="t10">Index</td>
-                <td class="t10">Index</td>
-                <td class="t10">2</td>
-                <td class="t10" style="word-break:break-all">0</td>
-                <td class="t10">The index of the input sending the tokens</td>
-                <td class="t10">uint16</td>
-                <td class="t11"></td>
-            </tr>
-            <tr>
-                <td class="t10">Quantity</td>
-                <td class="t10">Quantity</td>
-                <td class="t10">8</td>
-                <td class="t10" style="word-break:break-all">100</td>
-                <td class="t10">Number of tokens being sent</td>
-                <td class="t10">uint64</td>
-                <td class="t11"></td>
             </tr>
         </table>
     </div>

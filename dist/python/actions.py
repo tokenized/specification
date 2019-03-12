@@ -413,7 +413,7 @@ class Action_Order(ActionBase):
         'SupportingEvidenceHash':          [10, DAT_sha256, 32],
         'RefTxnID':                        [11, DAT_sha256, 32],
         'FreezePeriod':                    [12, DAT_time, 8],
-        'Message':                         [13, DAT_nvarchar64, 0]
+        'Message':                         [13, DAT_nvarchar32, 0]
     }
 
     rules = {
@@ -547,7 +547,7 @@ class Action_Initiative(ActionBase):
         'ProposedChanges':                 [5, DAT_Amendment[], 0],
         'VoteOptions':                     [6, DAT_nvarchar8, 0],
         'VoteMax':                         [7, DAT_uint8, 1],
-        'ProposalDescription':             [8, DAT_nvarchar16, 0],
+        'ProposalDescription':             [8, DAT_nvarchar32, 0],
         'ProposalDocumentHash':            [9, DAT_sha256, 32],
         'VoteCutOffTimestamp':             [10, DAT_time, 8]
     }
@@ -588,7 +588,7 @@ class Action_Referendum(ActionBase):
         'ProposedChanges':                 [6, DAT_Amendment[], 0],
         'VoteOptions':                     [7, DAT_nvarchar8, 0],
         'VoteMax':                         [8, DAT_uint8, 1],
-        'ProposalDescription':             [9, DAT_nvarchar16, 0],
+        'ProposalDescription':             [9, DAT_nvarchar32, 0],
         'ProposalDocumentHash':            [10, DAT_sha256, 32],
         'VoteCutOffTimestamp':             [11, DAT_time, 8]
     }
@@ -729,7 +729,7 @@ class Action_Message(ActionBase):
         'QtyReceivingAddresses':           [0, DAT_uint8, 1],
         'AddressIndexes':                  [1, DAT_uint16[], 0],
         'MessageType':                     [2, DAT_string, 2],
-        'MessagePayload':                  [3, DAT_nvarchar64, 0]
+        'MessagePayload':                  [3, DAT_nvarchar32, 0]
     }
 
     rules = {
@@ -760,7 +760,7 @@ class Action_Rejection(ActionBase):
         'QtyReceivingAddresses':           [0, DAT_uint8, 1],
         'AddressIndexes':                  [1, DAT_uint16[], 0],
         'RejectionType':                   [2, DAT_uint8, 1],
-        'MessagePayload':                  [3, DAT_nvarchar16, 0],
+        'MessagePayload':                  [3, DAT_nvarchar32, 0],
         'Timestamp':                       [4, DAT_timestamp, 8]
     }
 
@@ -783,7 +783,7 @@ class Action_Establishment(ActionBase):
     ActionPrefix = 'R1'
 
     schema = {
-        'Message':                         [0, DAT_nvarchar64, 25]
+        'Message':                         [0, DAT_nvarchar32, 25]
     }
 
     rules = {
@@ -801,7 +801,7 @@ class Action_Addition(ActionBase):
     ActionPrefix = 'R2'
 
     schema = {
-        'Message':                         [0, DAT_nvarchar64, 0]
+        'Message':                         [0, DAT_nvarchar32, 0]
     }
 
     rules = {
@@ -819,7 +819,7 @@ class Action_Alteration(ActionBase):
     ActionPrefix = 'R3'
 
     schema = {
-        'Message':                         [0, DAT_nvarchar64, 0]
+        'Message':                         [0, DAT_nvarchar32, 0]
     }
 
     rules = {
@@ -837,7 +837,7 @@ class Action_Removal(ActionBase):
     ActionPrefix = 'R4'
 
     schema = {
-        'Message':                         [0, DAT_nvarchar64, 0]
+        'Message':                         [0, DAT_nvarchar32, 0]
     }
 
     rules = {
@@ -849,21 +849,31 @@ class Action_Removal(ActionBase):
     def init_attributes(self):
 
 
-# Send Action - A Token Owner Sends a Token to a Receiver. The Send Action
-# requires no sign-off by the Token Receiving Party and does not provide
-# any on-chain consideration to the Token Sending Party. Can be used for
-# redeeming a ticket, coupon, points, etc.
+# A Token Owner(s) Sends, Excahnges or Swaps a token(s) or Bitcoin for a
+# token(s) or Bitcoin. Can be as simple as sending a single token to a
+# receiver. Or can be as complex as many senders sending many different
+# assets - controlled by many different smart contracts - to a number of
+# receivers. This action also supports atomic swaps (tokens for tokens).
+# Since many parties and contracts can be involved in a transfer and the
+# corresponding settlement action, the partially signed T1 and T2 actions
+# will need to be passed around on-chain with an M1 action, or off-chain.
 
-class Action_Send(ActionBase):
+class Action_Transfer(ActionBase):
     ActionPrefix = 'T1'
 
     schema = {
-        'AssetType':                       [0, DAT_string, 3],
-        'AssetID':                         [1, DAT_string, 32],
-        'TokenSenderCount':                [2, DAT_uint8, 1],
-        'TokenSenders':                    [3, DAT_QuantityIndex[], 0],
-        'TokenReceiverCount':              [4, DAT_uint8, 1],
-        'TokenReceivers':                  [5, DAT_TokenReceiver[], 0]
+        'AssetCount':                      [0, DAT_uint8, 1],
+        'AssetTypeX':                      [1, DAT_string, 3],
+        'AssetIDX':                        [2, DAT_string, 32],
+        'AssetXSenderCount':               [3, DAT_uint8, 1],
+        'AssetXSenders':                   [4, DAT_QuantityIndex[], 0],
+        'AssetXReceiverCount':             [5, DAT_uint8, 1],
+        'AssetXReceivers':                 [6, DAT_TokenReceiver[], 0],
+        'OfferExpiry':                     [7, DAT_time, 8],
+        'ExchangeFeeCurrency':             [8, DAT_string, 3],
+        'ExchangeFeeVar':                  [9, DAT_float32, 4],
+        'ExchangeFeeFixed':                [10, DAT_float32, 4],
+        'ExchangeFeeAddress':              [11, DAT_string, 34]
     }
 
     rules = {
@@ -873,122 +883,32 @@ class Action_Send(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetID = None
-        self.TokenSenderCount = None
-        self.TokenSenders = None
-        self.TokenReceiverCount = None
-        self.TokenReceivers = None
-
-
-# Exchange Action - Tokens exchanged for Bitcoin (BSV). Example: Bob (Token
-# Sender) to sell 21,000 tokens to Alice (Token Receiver) for 7 BSV. Both
-# parties must sign the transaction for it to be valid.
-
-class Action_Exchange(ActionBase):
-    ActionPrefix = 'T2'
-
-    schema = {
-        'AssetType':                       [0, DAT_string, 3],
-        'AssetID':                         [1, DAT_string, 32],
-        'OfferExpiry':                     [2, DAT_time, 8],
-        'ExchangeFeeCurrency':             [3, DAT_string, 3],
-        'ExchangeFeeVar':                  [4, DAT_float32, 4],
-        'ExchangeFeeFixed':                [5, DAT_float32, 4],
-        'ExchangeFeeAddress':              [6, DAT_string, 34],
-        'TokenSenderCount':                [7, DAT_uint8, 1],
-        'TokenSenders':                    [8, DAT_QuantityIndex[], 0],
-        'TokenReceiverCount':              [9, DAT_uint8, 1],
-        'TokenReceivers':                  [10, DAT_TokenReceiver[], 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.AssetID = None
+        self.AssetTypeX = None
+        self.AssetIDX = None
+        self.AssetXSenderCount = None
+        self.AssetXSenders = None
+        self.AssetXReceiverCount = None
+        self.AssetXReceivers = None
         self.OfferExpiry = None
         self.ExchangeFeeCurrency = None
         self.ExchangeFeeVar = None
         self.ExchangeFeeFixed = None
         self.ExchangeFeeAddress = None
-        self.TokenSenderCount = None
-        self.TokenSenders = None
-        self.TokenReceiverCount = None
-        self.TokenReceivers = None
 
 
-# Swap Action - Two parties (or more) want to swap a token (Atomic Swap)
-# directly for another token. At a minimum, Bitcoin is used in the txn for
-# paying the necessary network/transaction fees.
-
-class Action_Swap(ActionBase):
-    ActionPrefix = 'T3'
-
-    schema = {
-        'AssetType1':                      [0, DAT_string, 3],
-        'AssetID1':                        [1, DAT_string, 32],
-        'AssetType2':                      [2, DAT_string, 3],
-        'AssetID2':                        [3, DAT_string, 32],
-        'OfferExpiry':                     [4, DAT_time, 8],
-        'ExchangeFeeCurrency':             [5, DAT_string, 3],
-        'ExchangeFeeVar':                  [6, DAT_float32, 4],
-        'ExchangeFeeFixed':                [7, DAT_float32, 4],
-        'ExchangeFeeAddress':              [8, DAT_string, 34],
-        'Asset1SenderCount':               [9, DAT_uint8, 1],
-        'Asset1Senders':                   [10, DAT_QuantityIndex[], 0],
-        'Asset1ReceiverCount':             [11, DAT_uint8, 1],
-        'Asset1Receivers':                 [12, DAT_TokenReceiver[], 0],
-        'Asset2SenderCount':               [13, DAT_uint8, 1],
-        'Asset2Senders':                   [14, DAT_QuantityIndex[], 0],
-        'Asset2ReceiverCount':             [15, DAT_uint8, 1],
-        'Asset2Receivers':                 [16, DAT_TokenReceiver[], 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.AssetID1 = None
-        self.AssetType2 = None
-        self.AssetID2 = None
-        self.OfferExpiry = None
-        self.ExchangeFeeCurrency = None
-        self.ExchangeFeeVar = None
-        self.ExchangeFeeFixed = None
-        self.ExchangeFeeAddress = None
-        self.Asset1SenderCount = None
-        self.Asset1Senders = None
-        self.Asset1ReceiverCount = None
-        self.Asset1Receivers = None
-        self.Asset2SenderCount = None
-        self.Asset2Senders = None
-        self.Asset2ReceiverCount = None
-        self.Asset2Receivers = None
-
-
-# Settlement Action - Finalizes the transfer of bitcoins and tokens from
-# send, exchange, and swap actions.
+# Settlement Action - Settles the transfer request of bitcoins and tokens
+# from transfer (T1) actions.
 
 class Action_Settlement(ActionBase):
     ActionPrefix = 'T4'
 
     schema = {
-        'TransferType':                    [0, DAT_string, 1],
-        'AssetType1':                      [1, DAT_string, 3],
-        'AssetID1':                        [2, DAT_string, 32],
-        'AssetType2':                      [3, DAT_string, 3],
-        'AssetID2':                        [4, DAT_string, 32],
-        'Asset1SettlementsCount':          [5, DAT_uint8, 1],
-        'Asset1AddressesXQty':             [6, DAT_QuantityIndex[], 0],
-        'Asset2SettlementsCount':          [7, DAT_uint8, 1],
-        'Asset2AddressXQty':               [8, DAT_QuantityIndex[], 0],
-        'Timestamp':                       [9, DAT_timestamp, 8]
+        'AssetCount':                      [0, DAT_uint8, 1],
+        'AssetTypeX':                      [1, DAT_string, 3],
+        'AssetIDX':                        [2, DAT_string, 32],
+        'AssetXSettlementsCount':          [3, DAT_uint8, 1],
+        'AssetXAddressesXQty':             [4, DAT_QuantityIndex[], 0],
+        'Timestamp':                       [5, DAT_timestamp, 8]
     }
 
     rules = {
@@ -998,14 +918,10 @@ class Action_Settlement(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetType1 = None
-        self.AssetID1 = None
-        self.AssetType2 = None
-        self.AssetID2 = None
-        self.Asset1SettlementsCount = None
-        self.Asset1AddressesXQty = None
-        self.Asset2SettlementsCount = None
-        self.Asset2AddressXQty = None
+        self.AssetTypeX = None
+        self.AssetIDX = None
+        self.AssetXSettlementsCount = None
+        self.AssetXAddressesXQty = None
         self.Timestamp = None
 
 
@@ -1035,8 +951,6 @@ ActionClassMap = {
     'R2': Action_Addition,
     'R3': Action_Alteration,
     'R4': Action_Removal,
-    'T1': Action_Send,
-    'T2': Action_Exchange,
-    'T3': Action_Swap,
+    'T1': Action_Transfer,
     'T4': Action_Settlement
 }
