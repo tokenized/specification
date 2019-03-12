@@ -19,7 +19,7 @@ var (
 
 func FetchFiles(srcPath, packageName, version string) []string {
 
-	dir := srcPath + "/" + packageName + "/" + version
+	dir := filepath.FromSlash(srcPath + "/" + packageName + "/" + version)
 	filenames := []string{}
 
 	fn := func(path string, fileInfo os.FileInfo, err error) error {
