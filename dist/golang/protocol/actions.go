@@ -127,7 +127,6 @@ var (
 // that it wants to create.
 type AssetDefinition struct {
 	Header                      Header
-	TextEncoding                uint8
 	AssetType                   []byte
 	AssetID                     []byte
 	AssetAuthFlags              []byte
@@ -173,10 +172,6 @@ func (m AssetDefinition) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m AssetDefinition) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, pad(m.AssetType, 3)); err != nil {
 		return nil, err
@@ -267,10 +262,6 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	if err := m.Header.Write(buf); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.TextEncoding); err != nil {
 		return 0, err
 	}
 
@@ -365,7 +356,6 @@ func (m AssetDefinition) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
 	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x", m.AssetAuthFlags))
@@ -390,7 +380,6 @@ func (m AssetDefinition) String() string {
 // response to the Issuer's instructions in the Definition Action.
 type AssetCreation struct {
 	Header                      Header
-	TextEncoding                uint8
 	AssetType                   []byte
 	AssetID                     []byte
 	AssetAuthFlags              []byte
@@ -438,10 +427,6 @@ func (m AssetCreation) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m AssetCreation) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, pad(m.AssetType, 3)); err != nil {
 		return nil, err
@@ -540,10 +525,6 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	if err := m.Header.Write(buf); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.TextEncoding); err != nil {
 		return 0, err
 	}
 
@@ -646,7 +627,6 @@ func (m AssetCreation) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
 	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x", m.AssetAuthFlags))
@@ -673,7 +653,6 @@ func (m AssetCreation) String() string {
 // Backs/Revocations, burning etc.
 type AssetModification struct {
 	Header            Header
-	TextEncoding      uint8
 	AssetType         []byte
 	AssetID           []byte
 	AssetRevision     uint64
@@ -709,10 +688,6 @@ func (m AssetModification) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m AssetModification) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, pad(m.AssetType, 3)); err != nil {
 		return nil, err
@@ -771,10 +746,6 @@ func (m *AssetModification) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	m.AssetType = make([]byte, 3)
 	if err := readLen(buf, m.AssetType); err != nil {
 		return 0, err
@@ -819,7 +790,6 @@ func (m AssetModification) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
 	vals = append(vals, fmt.Sprintf("AssetRevision:%v", m.AssetRevision))
@@ -839,7 +809,6 @@ func (m AssetModification) String() string {
 // either a Contract Formation Action or a Rejection Action.
 type ContractOffer struct {
 	Header                     Header
-	TextEncoding               uint8
 	ContractName               Nvarchar8
 	ContractFileType           uint8
 	LenContractFile            uint32
@@ -903,10 +872,6 @@ func (m ContractOffer) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m ContractOffer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	{
 		b, err := m.ContractName.Serialize()
@@ -1182,10 +1147,6 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := m.ContractName.Write(buf); err != nil {
 		return 0, err
 	}
@@ -1360,7 +1321,6 @@ func (m ContractOffer) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
 	vals = append(vals, fmt.Sprintf("LenContractFile:%v", m.LenContractFile))
@@ -1406,7 +1366,6 @@ func (m ContractOffer) String() string {
 // their behalf.
 type ContractFormation struct {
 	Header                     Header
-	TextEncoding               uint8
 	ContractName               Nvarchar8
 	ContractFileType           uint8
 	LenContractFile            uint32
@@ -1472,10 +1431,6 @@ func (m ContractFormation) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m ContractFormation) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	{
 		b, err := m.ContractName.Serialize()
@@ -1759,10 +1714,6 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := m.ContractName.Write(buf); err != nil {
 		return 0, err
 	}
@@ -1945,7 +1896,6 @@ func (m ContractFormation) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
 	vals = append(vals, fmt.Sprintf("LenContractFile:%v", m.LenContractFile))
@@ -1992,7 +1942,6 @@ func (m ContractFormation) String() string {
 // the current revision of Contract Formation action.
 type ContractAmendment struct {
 	Header                Header
-	TextEncoding          uint8
 	ChangeIssuerAddress   bool
 	ChangeOperatorAddress bool
 	ContractRevision      uint16
@@ -2028,10 +1977,6 @@ func (m ContractAmendment) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m ContractAmendment) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, m.ChangeIssuerAddress); err != nil {
 		return nil, err
@@ -2090,10 +2035,6 @@ func (m *ContractAmendment) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.ChangeIssuerAddress); err != nil {
 		return 0, err
 	}
@@ -2136,7 +2077,6 @@ func (m ContractAmendment) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("ChangeIssuerAddress:%#+v", m.ChangeIssuerAddress))
 	vals = append(vals, fmt.Sprintf("ChangeOperatorAddress:%#+v", m.ChangeOperatorAddress))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", m.ContractRevision))
@@ -2150,7 +2090,6 @@ func (m ContractAmendment) String() string {
 // StaticContractFormation Static Contract Formation Action
 type StaticContractFormation struct {
 	Header             Header
-	TextEncoding       uint8
 	ContractName       Nvarchar8
 	ContractType       Nvarchar8
 	ContractFileType   uint8
@@ -2194,10 +2133,6 @@ func (m StaticContractFormation) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m StaticContractFormation) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	{
 		b, err := m.ContractName.Serialize()
@@ -2309,10 +2244,6 @@ func (m *StaticContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := m.ContractName.Write(buf); err != nil {
 		return 0, err
 	}
@@ -2390,7 +2321,6 @@ func (m StaticContractFormation) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractType:%#+v", m.ContractType))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
@@ -2414,7 +2344,6 @@ func (m StaticContractFormation) String() string {
 // frozen, thawed or reconciled.
 type Order struct {
 	Header                 Header
-	TextEncoding           uint8
 	AssetType              []byte
 	AssetID                []byte
 	ComplianceAction       byte
@@ -2458,10 +2387,6 @@ func (m Order) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Order) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, pad(m.AssetType, 3)); err != nil {
 		return nil, err
@@ -2587,10 +2512,6 @@ func (m *Order) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	m.AssetType = make([]byte, 3)
 	if err := readLen(buf, m.AssetType); err != nil {
 		return 0, err
@@ -2668,7 +2589,6 @@ func (m Order) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
 	vals = append(vals, fmt.Sprintf("ComplianceAction:%#+v", m.ComplianceAction))
@@ -3190,7 +3110,6 @@ func (m Reconciliation) String() string {
 // reduce spam, as the resulting vote will be put to all token owners.
 type Initiative struct {
 	Header               Header
-	TextEncoding         uint8
 	AssetType            []byte
 	AssetID              []byte
 	VoteSystem           uint8
@@ -3231,10 +3150,6 @@ func (m Initiative) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Initiative) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, pad(m.AssetType, 3)); err != nil {
 		return nil, err
@@ -3327,10 +3242,6 @@ func (m *Initiative) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	m.AssetType = make([]byte, 3)
 	if err := readLen(buf, m.AssetType); err != nil {
 		return 0, err
@@ -3395,7 +3306,6 @@ func (m Initiative) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
 	vals = append(vals, fmt.Sprintf("VoteSystem:%v", m.VoteSystem))
@@ -3416,7 +3326,6 @@ func (m Initiative) String() string {
 // governance, etc.
 type Referendum struct {
 	Header               Header
-	TextEncoding         uint8
 	AssetSpecificVote    bool
 	AssetType            []byte
 	AssetID              []byte
@@ -3458,10 +3367,6 @@ func (m Referendum) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Referendum) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, m.AssetSpecificVote); err != nil {
 		return nil, err
@@ -3558,10 +3463,6 @@ func (m *Referendum) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.AssetSpecificVote); err != nil {
 		return 0, err
 	}
@@ -3630,7 +3531,6 @@ func (m Referendum) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetSpecificVote:%#+v", m.AssetSpecificVote))
 	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
@@ -3953,7 +3853,6 @@ func (m BallotCounted) String() string {
 // published.
 type Result struct {
 	Header               Header
-	TextEncoding         uint8
 	AssetType            []byte
 	AssetID              []byte
 	Proposal             bool
@@ -3993,10 +3892,6 @@ func (m Result) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Result) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, pad(m.AssetType, 3)); err != nil {
 		return nil, err
@@ -4078,10 +3973,6 @@ func (m *Result) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	m.AssetType = make([]byte, 3)
 	if err := readLen(buf, m.AssetType); err != nil {
 		return 0, err
@@ -4142,7 +4033,6 @@ func (m Result) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
 	vals = append(vals, fmt.Sprintf("Proposal:%#+v", m.Proposal))
@@ -4166,7 +4056,6 @@ func (m Result) String() string {
 // listed in the Message Types table.
 type Message struct {
 	Header                Header
-	TextEncoding          uint8
 	QtyReceivingAddresses uint8
 	AddressIndexes        []uint16
 	MessageType           []byte
@@ -4200,10 +4089,6 @@ func (m Message) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Message) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, m.QtyReceivingAddresses); err != nil {
 		return nil, err
@@ -4256,10 +4141,6 @@ func (m *Message) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.QtyReceivingAddresses); err != nil {
 		return 0, err
 	}
@@ -4290,7 +4171,6 @@ func (m Message) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", m.QtyReceivingAddresses))
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
 	vals = append(vals, fmt.Sprintf("MessageType:%#x", m.MessageType))
@@ -4309,7 +4189,6 @@ func (m Message) String() string {
 // the Contract response then the Contract will not respond.
 type Rejection struct {
 	Header                Header
-	TextEncoding          uint8
 	QtyReceivingAddresses uint8
 	AddressIndexes        []uint16
 	RejectionType         uint8
@@ -4344,10 +4223,6 @@ func (m Rejection) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Rejection) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, m.QtyReceivingAddresses); err != nil {
 		return nil, err
@@ -4404,10 +4279,6 @@ func (m *Rejection) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.QtyReceivingAddresses); err != nil {
 		return 0, err
 	}
@@ -4441,7 +4312,6 @@ func (m Rejection) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", m.QtyReceivingAddresses))
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
 	vals = append(vals, fmt.Sprintf("RejectionType:%v", m.RejectionType))
@@ -4453,9 +4323,8 @@ func (m Rejection) String() string {
 
 // Establishment Establishment Action - Establishes an on-chain register.
 type Establishment struct {
-	Header       Header
-	TextEncoding uint8
-	Message      Nvarchar32
+	Header  Header
+	Message Nvarchar32
 }
 
 // NewEstablishment returns a new Establishment with defaults set.
@@ -4485,10 +4354,6 @@ func (m Establishment) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Establishment) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	{
 		b, err := m.Message.Serialize()
@@ -4527,10 +4392,6 @@ func (m *Establishment) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := m.Message.Write(buf); err != nil {
 		return 0, err
 	}
@@ -4547,7 +4408,6 @@ func (m Establishment) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -4555,9 +4415,8 @@ func (m Establishment) String() string {
 
 // Addition Addition Action - Adds an entry to the Register.
 type Addition struct {
-	Header       Header
-	TextEncoding uint8
-	Message      Nvarchar32
+	Header  Header
+	Message Nvarchar32
 }
 
 // NewAddition returns a new Addition with defaults set.
@@ -4587,10 +4446,6 @@ func (m Addition) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Addition) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	{
 		b, err := m.Message.Serialize()
@@ -4629,10 +4484,6 @@ func (m *Addition) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := m.Message.Write(buf); err != nil {
 		return 0, err
 	}
@@ -4649,7 +4500,6 @@ func (m Addition) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -4657,9 +4507,8 @@ func (m Addition) String() string {
 
 // Alteration Alteration Action - A register entry/record can be altered.
 type Alteration struct {
-	Header       Header
-	TextEncoding uint8
-	Message      Nvarchar32
+	Header  Header
+	Message Nvarchar32
 }
 
 // NewAlteration returns a new Alteration with defaults set.
@@ -4689,10 +4538,6 @@ func (m Alteration) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Alteration) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	{
 		b, err := m.Message.Serialize()
@@ -4731,10 +4576,6 @@ func (m *Alteration) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := m.Message.Write(buf); err != nil {
 		return 0, err
 	}
@@ -4751,7 +4592,6 @@ func (m Alteration) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -4759,9 +4599,8 @@ func (m Alteration) String() string {
 
 // Removal Removal Action - Removes an entry/record from the Register.
 type Removal struct {
-	Header       Header
-	TextEncoding uint8
-	Message      Nvarchar32
+	Header  Header
+	Message Nvarchar32
 }
 
 // NewRemoval returns a new Removal with defaults set.
@@ -4791,10 +4630,6 @@ func (m Removal) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Removal) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	{
 		b, err := m.Message.Serialize()
@@ -4833,10 +4668,6 @@ func (m *Removal) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := m.Message.Write(buf); err != nil {
 		return 0, err
 	}
@@ -4853,7 +4684,6 @@ func (m Removal) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -4870,7 +4700,6 @@ func (m Removal) String() string {
 // off-chain.
 type Transfer struct {
 	Header              Header
-	TextEncoding        uint8
 	AssetCount          uint8
 	AssetTypeX          []byte
 	AssetIDX            []byte
@@ -4912,10 +4741,6 @@ func (m Transfer) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Transfer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, m.AssetCount); err != nil {
 		return nil, err
@@ -5005,10 +4830,6 @@ func (m *Transfer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.AssetCount); err != nil {
 		return 0, err
 	}
@@ -5083,7 +4904,6 @@ func (m Transfer) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetCount:%v", m.AssetCount))
 	vals = append(vals, fmt.Sprintf("AssetTypeX:%#x", m.AssetTypeX))
 	vals = append(vals, fmt.Sprintf("AssetIDX:%#x", m.AssetIDX))
@@ -5104,7 +4924,6 @@ func (m Transfer) String() string {
 // and tokens from transfer (T1) actions.
 type Settlement struct {
 	Header                 Header
-	TextEncoding           uint8
 	AssetCount             uint8
 	AssetTypeX             []byte
 	AssetIDX               []byte
@@ -5140,10 +4959,6 @@ func (m Settlement) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m Settlement) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
 
 	if err := write(buf, m.AssetCount); err != nil {
 		return nil, err
@@ -5202,10 +5017,6 @@ func (m *Settlement) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.AssetCount); err != nil {
 		return 0, err
 	}
@@ -5249,7 +5060,6 @@ func (m Settlement) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetCount:%v", m.AssetCount))
 	vals = append(vals, fmt.Sprintf("AssetTypeX:%#x", m.AssetTypeX))
 	vals = append(vals, fmt.Sprintf("AssetIDX:%#x", m.AssetIDX))

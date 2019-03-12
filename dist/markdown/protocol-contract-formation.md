@@ -19,24 +19,12 @@ The following breaks down the construction of a Contract Formation Action. The a
         </tr>
 
         <tr>
-            <td class="s5" rowspan="38">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="37">Metadata (OP_RETURN Payload)</td>
             <td class="c6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="c10">Text Encoding</td>
-            <td class="c10">TextEncoding</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="c10">uint8</td>
-            <td class="c11">Can be changed by Issuer or Operator at their discretion.</td>
         </tr>
 
         <tr>

@@ -19,24 +19,12 @@ The following breaks down the construction of a Rejection Action. The action is 
         </tr>
 
         <tr>
-            <td class="s5" rowspan="7">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="6">Metadata (OP_RETURN Payload)</td>
             <td class="m6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="m10">Text Encoding</td>
-            <td class="m10">TextEncoding</td>
-            <td class="m10">1</td>
-            <td class="m10" style="word-break:break-all">
-                0
-            </td>
-            <td class="m10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="m10">uint8</td>
-            <td class="m11">Can be changed by Issuer or Operator at their discretion.</td>
         </tr>
 
         <tr>

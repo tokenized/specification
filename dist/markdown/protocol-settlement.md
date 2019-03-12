@@ -19,24 +19,12 @@ The following breaks down the construction of a Settlement Action. The action is
         </tr>
 
         <tr>
-            <td class="s5" rowspan="8">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="7">Metadata (OP_RETURN Payload)</td>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="t10">Text Encoding</td>
-            <td class="t10">TextEncoding</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                0
-            </td>
-            <td class="t10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="t10">uint8</td>
-            <td class="t11">Can be changed by Issuer or Operator at their discretion.</td>
         </tr>
 
         <tr>

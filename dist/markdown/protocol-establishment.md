@@ -19,24 +19,12 @@ The following breaks down the construction of a Establishment Action. The action
         </tr>
 
         <tr>
-            <td class="s5" rowspan="3">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="2">Metadata (OP_RETURN Payload)</td>
             <td class="r6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="r10">Text Encoding</td>
-            <td class="r10">TextEncoding</td>
-            <td class="r10">1</td>
-            <td class="r10" style="word-break:break-all">
-                0
-            </td>
-            <td class="r10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="r10">uint8</td>
-            <td class="r11"></td>
         </tr>
 
         <tr>
