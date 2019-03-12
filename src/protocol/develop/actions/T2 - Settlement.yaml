@@ -1,0 +1,91 @@
+#
+# Settlement Action: Settles the transfer request of bitcoins and tokens from transfer (T1) actions.
+#
+
+code: T4
+
+metadata:
+  name: Settlement
+  label: Settlement Action
+  description: "Settlement Action -  Settles the transfer request of bitcoins and tokens from transfer (T1) actions."
+  validation: AssetCreation
+  rejection: Rejection
+
+rules:
+  fee:
+  inputs:
+    - name: AssetXContract
+      label: Contract Public Address (Asset X)
+      comments: Contract (Asset X) in response to a transfer action with Asset X being sent to another address(es).
+
+  outputs:
+    - name: AssetXSettlementAddressX
+      label: "Asset 1 Settlement Address X"
+      comments: Address X that is being settled for Asset 1.
+
+fields:
+  - name: Header
+    label: Header
+    description: "Common header data for all actions"
+    type: Header
+    notes: "Common header data for all actions."
+
+  - name: TextEncoding
+    label: Text Encoding
+    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
+    type: uint8
+    size: 1
+    example_hex: 00
+    example_value: "0"
+    notes: "Can be changed by Issuer or Operator at their discretion."
+
+  - name: AssetCount
+    label: Asset Count
+    description: "The number of Assets specified by the Transfer action to be settled."
+    type: uint8
+    size: 1
+    example_hex: 534843
+    example_value: "4"
+    notes: ""
+
+  - name: AssetTypeX
+    label: Asset Type X
+    description: "eg. Share, Bond, Ticket"
+    type: string
+    size: 3
+    example_hex: 525245
+    example_value: "RRE"
+    notes: ""
+
+  - name: AssetIDX
+    label: Asset ID X
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. "
+    type: string
+    size: 32
+    example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
+
+  - name: AssetXSettlementsCount
+    label: Asset X Settlements Count
+    description: "Number of settlements for Asset X."
+    type: uint8
+    size: 1
+    example_hex: 00
+    example_value: 0
+    notes: ""
+
+  - name: AssetXAddressesXQty
+    label: Asset X Address X Qty
+    description: "Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index."
+    type: QuantityIndex[]
+    notes: ""
+
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds of when the smart contract created the action."
+    type: timestamp
+    size: 8
+    example_hex: 1588f8cc6a16430d
+    example_value: 1551767413250187179
+    notes: "Cannot be changed by issuer, operator. Smart contract controls."
