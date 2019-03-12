@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/tokenized/specification/internal/golang"
 	"github.com/tokenized/specification/internal/markdown"
@@ -30,14 +31,14 @@ var cmdGenerate = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-		srcPath := dir + "/src"
-		distPath := dir + "/dist"
+		srcPath := filepath.FromSlash(dir + "/src")
+		distPath := filepath.FromSlash(dir + "/dist")
 
 		// --------------------------------------------------------------------
 		// Protocol
 
-		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", "develop/types"))
-		actions := parser.NewProtocolActions(fieldTypes, parser.FetchFiles(srcPath, "protocol", "develop/actions"))
+		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/types")))
+		actions := parser.NewProtocolActions(fieldTypes, parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/actions")))
 
 		// Compile languages
 		golang.CompileProtocol(distPath, actions, fieldTypes)
