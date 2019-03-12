@@ -34,15 +34,6 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: TextEncoding
-    label: Text Encoding
-    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: "Can be changed by Issuer or Operator at their discretion."
-
   - name: AssetSpecificVote
     label: Asset Specific Vote
     description: "1 - Yes, 0 - No.  No Asset Type/AssetID subfields for N - No."

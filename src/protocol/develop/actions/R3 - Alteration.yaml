@@ -28,15 +28,6 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: TextEncoding
-    label: Text Encoding
-    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes:
-
   - name: Message
     label: Message
     description: "Length only limited by the Bitcoin protocol."
