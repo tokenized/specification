@@ -1,8 +1,3 @@
-// Package protocol provides base level structs and validation for
-// the protocol.
-//
-// The code in this file is auto-generated. Do not edit it by hand as it will
-// be overwritten when code is regenerated.
 package protocol
 
 import (
@@ -353,7 +348,6 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 	}
 
 	m.AssetPayload = make([]byte, m.AssetPayloadLen, m.AssetPayloadLen)
-
 	if err := read(buf, &m.AssetPayload); err != nil {
 		return 0, err
 	}
@@ -627,7 +621,6 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 	}
 
 	m.AssetPayload = make([]byte, m.AssetPayloadLen, m.AssetPayloadLen)
-
 	if err := read(buf, &m.AssetPayload); err != nil {
 		return 0, err
 	}
@@ -4280,7 +4273,6 @@ func (m *Message) Write(b []byte) (int, error) {
 	}
 
 	m.AddressIndexes = make([]uint16, m.QtyReceivingAddresses, m.QtyReceivingAddresses)
-
 	if err := read(buf, &m.AddressIndexes); err != nil {
 		return 0, err
 	}
@@ -4429,7 +4421,6 @@ func (m *Rejection) Write(b []byte) (int, error) {
 	}
 
 	m.AddressIndexes = make([]uint16, m.QtyReceivingAddresses, m.QtyReceivingAddresses)
-
 	if err := read(buf, &m.AddressIndexes); err != nil {
 		return 0, err
 	}
@@ -5001,7 +4992,6 @@ func (m *Send) Write(b []byte) (int, error) {
 	}
 
 	m.TokenSenders = make([]QuantityIndex, m.TokenSenderCount, m.TokenSenderCount)
-
 	if err := read(buf, &m.TokenSenders); err != nil {
 		return 0, err
 	}
@@ -5213,7 +5203,6 @@ func (m *Exchange) Write(b []byte) (int, error) {
 	}
 
 	m.TokenSenders = make([]QuantityIndex, m.TokenSenderCount, m.TokenSenderCount)
-
 	if err := read(buf, &m.TokenSenders); err != nil {
 		return 0, err
 	}
@@ -5479,7 +5468,6 @@ func (m *Swap) Write(b []byte) (int, error) {
 	}
 
 	m.Asset1Senders = make([]QuantityIndex, m.Asset1SenderCount, m.Asset1SenderCount)
-
 	if err := read(buf, &m.Asset1Senders); err != nil {
 		return 0, err
 	}
@@ -5502,7 +5490,6 @@ func (m *Swap) Write(b []byte) (int, error) {
 	}
 
 	m.Asset2Senders = make([]QuantityIndex, m.Asset2SenderCount, m.Asset2SenderCount)
-
 	if err := read(buf, &m.Asset2Senders); err != nil {
 		return 0, err
 	}
@@ -5706,7 +5693,6 @@ func (m *Settlement) Write(b []byte) (int, error) {
 	}
 
 	m.Asset1AddressesXQty = make([]QuantityIndex, m.Asset1SettlementsCount, m.Asset1SettlementsCount)
-
 	if err := read(buf, &m.Asset1AddressesXQty); err != nil {
 		return 0, err
 	}
@@ -5716,7 +5702,6 @@ func (m *Settlement) Write(b []byte) (int, error) {
 	}
 
 	m.Asset2AddressXQty = make([]QuantityIndex, m.Asset2SettlementsCount, m.Asset2SettlementsCount)
-
 	if err := read(buf, &m.Asset2AddressXQty); err != nil {
 		return 0, err
 	}

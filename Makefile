@@ -27,11 +27,11 @@ lint-go:
 	golint $(GO_DIST_DIR)
 	go vet ./...
 
- # run the tests with coverage
- test-go:
+# run the tests with coverage
+test-go:
 	go test -coverprofile=tmp/coverage.out $(GO_DIST_DIR)/*.go
 
- tools:
+tools:
 	go get golang.org/x/lint/golint
 	go get golang.org/x/tools/cmd/goimports
 

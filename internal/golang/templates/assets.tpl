@@ -6,9 +6,6 @@ import (
 	"strings"
 )
 
-// The code in this file is auto-generated. Do not edit it by hand as it will
-// be overwritten when code is regenerated.
-
 const (
 	// AssetTypeLen is the size in bytes of all asset type variants.
 	AssetTypeLen = 152
