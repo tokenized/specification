@@ -1,5 +1,6 @@
 metadata:
   name: Header
+  description: "Header contains common details required by every Tokenized message."
 
 fields:
   - name: ProtocolID

@@ -1,5 +1,6 @@
 metadata:
   name: Address
+  description: "Address represents a public address"
 
 fields:
   - name: Address

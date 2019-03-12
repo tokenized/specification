@@ -15,12 +15,22 @@ const (
 	// output as invalid, and can be used to add data to a TX.
 	OpReturn = 0x6a
 
-	OP_PUSHDATA1 = byte(0x4c)
-	OP_PUSHDATA2 = byte(0x4d)
-	OP_PUSHDATA4 = byte(0x4e)
+	// OpPushdata1 represent the OP_PUSHDATA1 opcode.
+	OpPushdata1 = byte(0x4c)
 
-	OP_PUSHDATA1_MAX = 255
-	OP_PUSHDATA2_MAX = 65535
+	// OpPushdata2 represents the OP_PUSHDATA2 opcode.
+	OpPushdata2 = byte(0x4d)
+
+	// OpPushdata4 represents the OP_PUSHDATA4 opcode.
+	OpPushdata4 = byte(0x4e)
+
+	// OpPushdata1Max is the maximum number of bytes that can be used in the
+	// OP_PUSHDATA1 opcode.
+	OpPushdata1Max = 255
+
+	// OpPushdata2Max is the maximum number of bytes that can be used in the
+	// OP_PUSHDATA2 opcode.
+	OpPushdata2Max = 65535
 )
 
 // PayloadMessage is the interface for messages that are derived from
@@ -86,14 +96,15 @@ func Code(b []byte) (string, error) {
 	return string(b[offset : offset+2]), nil
 }
 
+// NewHeaderForCode returns a new Header with the given code and size.
 func NewHeaderForCode(code string, size int) (*Header, error) {
 	// work out which opcode to use depending on size of the data.
-	opcode := OP_PUSHDATA1
+	opcode := OpPushdata1
 
-	if size > OP_PUSHDATA2_MAX {
-		opcode = OP_PUSHDATA4
-	} else if size > OP_PUSHDATA1_MAX {
-		opcode = OP_PUSHDATA2
+	if size > OpPushdata2Max {
+		opcode = OpPushdata4
+	} else if size > OpPushdata1Max {
+		opcode = OpPushdata2
 	}
 
 	lenPayload, err := uintToBytes(uint64(size))
@@ -112,23 +123,15 @@ func NewHeaderForCode(code string, size int) (*Header, error) {
 	return &h, nil
 }
 
-// nchar and nvarchar can store utf-8 characters.
-// char and varchar store ascii data
-//
-// 1st byte specifies length
-// 2nd byte onwards is the data, length of which was specified in the first
-// byte. If 1st byte was 0, there would be no data at all.
-
-// Nvarchar is subject to the encoding specified in the message
-
-// this could be a "factory". is it needed? return correct type based on size.
-
+// Nvarchar is a common interface for the Nvarchar types.
 type Nvarchar interface {
 	String() string
 	Write(*bytes.Buffer) error
 	Serialize() ([]byte, error)
 }
 
+// NewNvarchar returns a suitable Nvarchar type based on the length of the
+// given bytes.
 func NewNvarchar(b []byte) Nvarchar {
 	n := len(b)
 
@@ -143,11 +146,14 @@ func NewNvarchar(b []byte) Nvarchar {
 	return NewNvarchar64(b)
 }
 
+// Nvarchar8 is used to represent string data up to and including 255 bytes
+// in length.
 type Nvarchar8 struct {
 	Len  uint8
 	Data []byte
 }
 
+// NewNvarchar8 return a new Nvarchar8.
 func NewNvarchar8(b []byte) *Nvarchar8 {
 	return &Nvarchar8{
 		Len:  uint8(len(b)),
@@ -175,10 +181,13 @@ func (t *Nvarchar8) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+// Size returns the byte size of the type, including the number of bytes needed
+// to state the length of the data.
 func (t Nvarchar8) Size() int {
 	return 1 + len(t.Data)
 }
 
+// Serialize returns the bytes that represent the type.
 func (t Nvarchar8) Serialize() ([]byte, error) {
 	if len(t.Data) > 0xff {
 		return nil, errors.New("Data exceeds limit of type")
@@ -197,15 +206,19 @@ func (t Nvarchar8) Serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
+// String returns a string representation of the bytes.
 func (t Nvarchar8) String() string {
 	return string(t.Data)
 }
 
+// Nvarchar16 is used to represent string data up to and including 65535 bytes
+// in length.
 type Nvarchar16 struct {
 	Len  uint16
 	Data []byte
 }
 
+// NewNvarchar16 return a new Nvarchar16.
 func NewNvarchar16(b []byte) *Nvarchar16 {
 	return &Nvarchar16{
 		Len:  uint16(len(b)),
@@ -233,10 +246,13 @@ func (t *Nvarchar16) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+// Size returns the byte size of the type, including the number of bytes needed
+// to state the length of the data.
 func (t Nvarchar16) Size() int {
 	return 2 + len(t.Data)
 }
 
+// Serialize returns the bytes that represent the type.
 func (t Nvarchar16) Serialize() ([]byte, error) {
 	if len(t.Data) > 0xffff {
 		return nil, errors.New("Data exceeds limit of type")
@@ -255,15 +271,19 @@ func (t Nvarchar16) Serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
+// String returns a string representation of the bytes.
 func (t Nvarchar16) String() string {
 	return string(t.Data)
 }
 
+// Nvarchar32 is used to represent string data up to and including
+// 4294967295 bytes in length.
 type Nvarchar32 struct {
 	Len  uint32
 	Data []byte
 }
 
+// NewNvarchar32 return a new Nvarchar32.
 func NewNvarchar32(b []byte) *Nvarchar32 {
 	return &Nvarchar32{
 		Len:  uint32(len(b)),
@@ -291,10 +311,13 @@ func (t *Nvarchar32) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+// Size returns the byte size of the type, including the number of bytes needed
+// to state the length of the data.
 func (t Nvarchar32) Size() int {
 	return 4 + len(t.Data)
 }
 
+// Serialize returns the bytes that represent the type.
 func (t Nvarchar32) Serialize() ([]byte, error) {
 	if len(t.Data) > 0xffffffff {
 		return nil, errors.New("Data exceeds limit of type")
@@ -313,15 +336,19 @@ func (t Nvarchar32) Serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
+// String returns a string representation of the bytes.
 func (t Nvarchar32) String() string {
 	return string(t.Data)
 }
 
+// Nvarchar64 is used to represent string data up to and including
+// 18446744073709551615 bytes in length.
 type Nvarchar64 struct {
 	Len  uint64
 	Data []byte
 }
 
+// NewNvarchar64 return a new Nvarchar64.
 func NewNvarchar64(b []byte) *Nvarchar64 {
 	return &Nvarchar64{
 		Len:  uint64(len(b)),
@@ -349,10 +376,13 @@ func (t *Nvarchar64) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+// Size returns the byte size of the type, including the number of bytes needed
+// to state the length of the data.
 func (t Nvarchar64) Size() int {
 	return 8 + len(t.Data)
 }
 
+// Serialize returns the bytes that represent the type.
 func (t Nvarchar64) Serialize() ([]byte, error) {
 	if len(t.Data) > 0xffffffff {
 		return nil, errors.New("Data exceeds limit of type")
@@ -371,6 +401,7 @@ func (t Nvarchar64) Serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
+// String returns a string representation of the bytes.
 func (t Nvarchar64) String() string {
 	return string(t.Data)
 }

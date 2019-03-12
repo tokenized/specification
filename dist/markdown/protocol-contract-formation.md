@@ -22,7 +22,7 @@ The following breaks down the construction of a Contract Formation Action. The a
 | Issuer Logo URL | IssuerLogoURL | 0 | https://example.com/images/logo.png | The URL of the Issuers logo. | nvarchar8 |  |
 | Contract Operator ID | ContractOperatorID | 0 | Tokenized | Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer. | nvarchar8 |  |
 | Contract Authorization Flags | ContractAuthFlags | 16 | 010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000 | Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File. | bin | Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System. |
-| Number of Voting Systems | VotingSystemCount | 1 | 0 | 0-10 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null. 10 will be upper limit and restricted by the smart contract. | uint8 | Voting - Amendments can be restricted to a vote. |
+| Number of Voting Systems | VotingSystemCount | 1 | 0 | 0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null. | uint8 | Voting - Amendments can be restricted to a vote. |
 | Voting Systems | VotingSystems | 0 |  | A list voting systems. | VotingSystem[] |  |
 | Restricted Qty of Assets | RestrictedQtyAssets | 8 | 1 | Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI | uint64 | Qty of Assets - Amendments can be restricted to a vote. |
 | Referendum Proposal | ReferendumProposal | 1 | 1 | A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope). | bool | General Governance |
@@ -216,7 +216,7 @@ The following breaks down the construction of a Contract Formation Action. The a
         <td class="c10">VotingSystemCount</td>
         <td class="c10">1</td>
         <td class="c10" style="word-break:break-all">0</td>
-        <td class="c10">0-10 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null. 10 will be upper limit and restricted by the smart contract.</td>
+        <td class="c10">0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null.</td>
         <td class="c10">uint8</td>
         <td class="c11">Voting - Amendments can be restricted to a vote.</td>
     </tr>

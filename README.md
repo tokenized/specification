@@ -20,7 +20,7 @@ To build the project from source, clone the GitHub repo and in a command line te
 
 Navigate to the root directory and run:
 
-    make run-generate
+    make
 
 ## Project Structure
 

@@ -1,6 +1,7 @@
 
 metadata:
   name: Registry
+  description: "A Registry defines the details of a public Registry."
 
 fields:
   - name: Name

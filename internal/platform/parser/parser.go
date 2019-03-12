@@ -77,7 +77,7 @@ func reformat(s string, prefix string) string {
 		lines = append(lines, line)
 	}
 
-	return strings.Join(lines, "\n")
+	return strings.TrimSpace(strings.Join(lines, "\n"))
 }
 
 func SnakeCase(str string) string {

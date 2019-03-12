@@ -4,8 +4,36 @@ GO_BUILD = go build
 # tools
 BINARY_CONTRACT_CLI=tokenized
 
-dist-cli:
-	$(GO_DIST) -o dist/$(BINARY_CONTRACT_CLI) cmd/$(BINARY_CONTRACT_CLI)/main.go
+GO_DIST_DIR=dist/golang/protocol
+
+all: prepare tools run-generate format lint test
 
 run-generate:
 	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
+
+dist-cli:
+	$(GO_DIST) -o dist/$(BINARY_CONTRACT_CLI) cmd/$(BINARY_CONTRACT_CLI)/main.go
+
+format: format-go
+
+lint: lint-go
+
+test: test-go
+
+format-go:
+	goimports -w $(GO_DIST_DIR)/*.go
+
+lint-go:
+	golint $(GO_DIST_DIR)
+	go vet ./...
+
+ # run the tests with coverage
+ test-go:
+	go test -coverprofile=tmp/coverage.out $(GO_DIST_DIR)/*.go
+
+ tools:
+	go get golang.org/x/lint/golint
+	go get golang.org/x/tools/cmd/goimports
+
+prepare:
+	mkdir -p tmp
