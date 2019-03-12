@@ -4927,7 +4927,12 @@ func (m Send) Serialize() ([]byte, error) {
 	}
 
 	for i := 0; i < int(m.TokenSenderCount); i++ {
-		if err := write(buf, m.TokenSenders[i]); err != nil {
+		b, err := m.TokenSenders[i].Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
 			return nil, err
 		}
 	}
@@ -4991,9 +4996,13 @@ func (m *Send) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.TokenSenders = make([]QuantityIndex, m.TokenSenderCount, m.TokenSenderCount)
-	if err := read(buf, &m.TokenSenders); err != nil {
-		return 0, err
+	for i := 0; i < int(m.TokenSenderCount); i++ {
+		x := &QuantityIndex{}
+		if err := x.Write(buf); err != nil {
+			return 0, err
+		}
+
+		m.TokenSenders = append(m.TokenSenders, *x)
 	}
 
 	if err := read(buf, &m.TokenReceiverCount); err != nil {
@@ -5116,7 +5125,12 @@ func (m Exchange) Serialize() ([]byte, error) {
 	}
 
 	for i := 0; i < int(m.TokenSenderCount); i++ {
-		if err := write(buf, m.TokenSenders[i]); err != nil {
+		b, err := m.TokenSenders[i].Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
 			return nil, err
 		}
 	}
@@ -5202,9 +5216,13 @@ func (m *Exchange) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.TokenSenders = make([]QuantityIndex, m.TokenSenderCount, m.TokenSenderCount)
-	if err := read(buf, &m.TokenSenders); err != nil {
-		return 0, err
+	for i := 0; i < int(m.TokenSenderCount); i++ {
+		x := &QuantityIndex{}
+		if err := x.Write(buf); err != nil {
+			return 0, err
+		}
+
+		m.TokenSenders = append(m.TokenSenders, *x)
 	}
 
 	if err := read(buf, &m.TokenReceiverCount); err != nil {
@@ -5346,7 +5364,12 @@ func (m Swap) Serialize() ([]byte, error) {
 	}
 
 	for i := 0; i < int(m.Asset1SenderCount); i++ {
-		if err := write(buf, m.Asset1Senders[i]); err != nil {
+		b, err := m.Asset1Senders[i].Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
 			return nil, err
 		}
 	}
@@ -5371,7 +5394,12 @@ func (m Swap) Serialize() ([]byte, error) {
 	}
 
 	for i := 0; i < int(m.Asset2SenderCount); i++ {
-		if err := write(buf, m.Asset2Senders[i]); err != nil {
+		b, err := m.Asset2Senders[i].Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
 			return nil, err
 		}
 	}
@@ -5467,9 +5495,13 @@ func (m *Swap) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.Asset1Senders = make([]QuantityIndex, m.Asset1SenderCount, m.Asset1SenderCount)
-	if err := read(buf, &m.Asset1Senders); err != nil {
-		return 0, err
+	for i := 0; i < int(m.Asset1SenderCount); i++ {
+		x := &QuantityIndex{}
+		if err := x.Write(buf); err != nil {
+			return 0, err
+		}
+
+		m.Asset1Senders = append(m.Asset1Senders, *x)
 	}
 
 	if err := read(buf, &m.Asset1ReceiverCount); err != nil {
@@ -5489,9 +5521,13 @@ func (m *Swap) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.Asset2Senders = make([]QuantityIndex, m.Asset2SenderCount, m.Asset2SenderCount)
-	if err := read(buf, &m.Asset2Senders); err != nil {
-		return 0, err
+	for i := 0; i < int(m.Asset2SenderCount); i++ {
+		x := &QuantityIndex{}
+		if err := x.Write(buf); err != nil {
+			return 0, err
+		}
+
+		m.Asset2Senders = append(m.Asset2Senders, *x)
 	}
 
 	if err := read(buf, &m.Asset2ReceiverCount); err != nil {
@@ -5615,7 +5651,12 @@ func (m Settlement) Serialize() ([]byte, error) {
 	}
 
 	for i := 0; i < int(m.Asset1SettlementsCount); i++ {
-		if err := write(buf, m.Asset1AddressesXQty[i]); err != nil {
+		b, err := m.Asset1AddressesXQty[i].Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
 			return nil, err
 		}
 	}
@@ -5625,7 +5666,12 @@ func (m Settlement) Serialize() ([]byte, error) {
 	}
 
 	for i := 0; i < int(m.Asset2SettlementsCount); i++ {
-		if err := write(buf, m.Asset2AddressXQty[i]); err != nil {
+		b, err := m.Asset2AddressXQty[i].Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
 			return nil, err
 		}
 	}
@@ -5692,18 +5738,26 @@ func (m *Settlement) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.Asset1AddressesXQty = make([]QuantityIndex, m.Asset1SettlementsCount, m.Asset1SettlementsCount)
-	if err := read(buf, &m.Asset1AddressesXQty); err != nil {
-		return 0, err
+	for i := 0; i < int(m.Asset1SettlementsCount); i++ {
+		x := &QuantityIndex{}
+		if err := x.Write(buf); err != nil {
+			return 0, err
+		}
+
+		m.Asset1AddressesXQty = append(m.Asset1AddressesXQty, *x)
 	}
 
 	if err := read(buf, &m.Asset2SettlementsCount); err != nil {
 		return 0, err
 	}
 
-	m.Asset2AddressXQty = make([]QuantityIndex, m.Asset2SettlementsCount, m.Asset2SettlementsCount)
-	if err := read(buf, &m.Asset2AddressXQty); err != nil {
-		return 0, err
+	for i := 0; i < int(m.Asset2SettlementsCount); i++ {
+		x := &QuantityIndex{}
+		if err := x.Write(buf); err != nil {
+			return 0, err
+		}
+
+		m.Asset2AddressXQty = append(m.Asset2AddressXQty, *x)
 	}
 
 	if err := read(buf, &m.Timestamp); err != nil {

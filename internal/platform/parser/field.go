@@ -10,6 +10,7 @@ type Field struct {
 	Label        string
 	Description  string
 	Type         string
+	internalType bool
 	Size         int64
 	Required     bool
 	ExampleValue string `yaml:"example_value"`
@@ -125,17 +126,11 @@ func (f Field) GoType() string {
 	case "uint", "int", "float":
 		return fmt.Sprintf("%v%s%v", prefix, s, f.Size*8)
 
-	case "nvarchar8":
-		return prefix + "Nvarchar8"
-
-	case "nvarchar16":
-		return prefix + "Nvarchar16"
-
-	case "nvarchar32":
-		return prefix + "Nvarchar32"
-
-	case "nvarchar64":
-		return prefix + "Nvarchar64"
+	case "nvarchar8",
+		"nvarchar16",
+		"nvarchar32",
+		"nvarchar64":
+		return prefix + strings.Title(f.Type)
 
 	case "header":
 		return "Header"
@@ -154,25 +149,11 @@ func (f Field) IsNativeTypeArray() bool {
 }
 
 func (f Field) IsInternalType() bool {
-	s := strings.Replace(f.Type, "[]", "", 1)
+	return f.internalType || f.IsNvarchar()
+}
 
-	switch s {
-	case "Header",
-		"VotingSystem",
-		"Registry",
-		"KeyRole",
-		"NotableRole",
-		"Amendment",
-		"Entity",
-		"TargetAddress",
-		"Address",
-		"TokenSender",
-		"TokenReceiver":
-
-		return true
-	}
-
-	return strings.HasPrefix(s, "nvarchar")
+func (f Field) IsComplexType() bool {
+	return f.IsInternalType() && !strings.HasPrefix(f.Type, "nvarchar")
 }
 
 func (f Field) Trimmable() bool {
@@ -187,10 +168,6 @@ func (f Field) Trimmable() bool {
 	if f.Type == "SHA" {
 		return true
 	}
-
-	// if f.IsData() {
-	// 	return false
-	// }
 
 	return false
 }

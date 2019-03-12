@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v2"
 )
 
 func NewProtocolActions(filenames []string) ProtocolActions {
@@ -46,6 +46,7 @@ type ProtocolAction struct {
 	Metadata Metadata
 	Rules    Rules
 	Fields   []Field
+	SubTypes []ProtocolType
 }
 
 func (m ProtocolAction) CodeNameComment() string {
@@ -124,4 +125,45 @@ func (m ProtocolAction) DataFields() []Field {
 	}
 
 	return d
+}
+
+func (m ProtocolAction) FieldCount() string {
+	return fmt.Sprintf("%v", len(m.Fields))
+}
+
+// AssociateActionsAndTypes sets the SubTypes of each ProtocolAction to be a
+// slice of ProtocolType that the ProtocolAction references. This allows
+// a ProtocolAction to reference these types where needed.
+func AssociateActionsAndTypes(actions []ProtocolAction,
+	fieldTypes []ProtocolType) []ProtocolAction {
+
+	// put the protocol types in a map for easy lookup
+	protocolTypes := map[string]ProtocolType{}
+	for _, t := range fieldTypes {
+		protocolTypes[t.Name()] = t
+	}
+
+	for i, a := range actions {
+		subTypes := []ProtocolType{}
+
+		for j, f := range a.Fields {
+			k := f.GoTypeSingular()
+
+			t, ok := protocolTypes[k]
+			if !ok {
+				continue
+			}
+
+			// the action knows about this type, so add it to the subTypes.
+			subTypes = append(subTypes, t)
+
+			// this field is an internal type
+			actions[i].Fields[j].internalType = true
+		}
+
+		// set the action subtypes
+		actions[i].SubTypes = subTypes
+	}
+
+	return actions
 }

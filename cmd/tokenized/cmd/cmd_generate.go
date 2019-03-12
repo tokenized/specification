@@ -23,7 +23,7 @@ var cmdGenerate = &cobra.Command{
 			fmt.Println("Debug mode enabled!")
 		}
 
-		// -------------------------------------------------------------------------
+		// --------------------------------------------------------------------
 		// Paths
 
 		dir, err := os.Getwd()
@@ -33,18 +33,20 @@ var cmdGenerate = &cobra.Command{
 		srcPath := dir + "/src"
 		distPath := dir + "/dist"
 
-		// -------------------------------------------------------------------------
+		// --------------------------------------------------------------------
 		// Protocol
-
 		actions := parser.NewProtocolActions(parser.FetchFiles(srcPath, "protocol", "develop/actions"))
 		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", "develop/types"))
+
+		// each action knowns about 0 or more protocol types
+		actions = parser.AssociateActionsAndTypes(actions, fieldTypes)
 
 		// Compile languages
 		golang.CompileProtocol(distPath, actions, fieldTypes)
 		python.CompileProtocol(distPath, actions, fieldTypes)
 		markdown.CompileProtocol(distPath, actions, fieldTypes)
 
-		// -------------------------------------------------------------------------
+		// ---------------------------------------------------------------------
 		// Assets
 
 		assets := parser.NewAssets(parser.FetchFiles(srcPath, "assets", "develop"))
