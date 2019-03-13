@@ -41,7 +41,7 @@ prepare:
 	mkdir -p tmp
 
 format-win:
-	goimports -w dist\golang\protocol\*.go
+	goimports -w dist\golang\protocol\
 
 prepare-win:
 	mkdir tmp | echo tmp exists
