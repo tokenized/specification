@@ -11,7 +11,7 @@ type Field struct {
 	Description  string
 	Type         string
 	internalType bool
-	Size         int64
+	Size         uint64
 	Required     bool
 	ExampleValue string `yaml:"example_value"`
 	ExampleHex   string `yaml:"example_hex"`
@@ -20,6 +20,10 @@ type Field struct {
 
 func (f Field) FieldName() string {
 	return strings.Replace(f.Name, " ", "", -1)
+}
+
+func (f Field) FieldDescription() string {
+	return strings.Trim(f.Description, " ")
 }
 
 func (f Field) FieldBytes() string {
@@ -53,7 +57,7 @@ func (f Field) IsData() bool {
 }
 
 func (f Field) IsBytes() bool {
-	return f.GoType() == "[]byte" && !f.IsData()
+	return f.FieldGoType() == "[]byte" && !f.IsData()
 }
 
 func (f Field) IsNumeric() bool {
@@ -82,62 +86,11 @@ func (f Field) IsNvarchar() bool {
 }
 
 func (f Field) SingularType() string {
-	return strings.Replace(f.GoType(), "[]", "", 1)
+	return strings.Replace(f.FieldGoType(), "[]", "", 1)
 }
 
-func (f Field) GoType() string {
-	s := strings.ToLower(f.Type)
-
-	prefix := ""
-	if strings.HasSuffix(s, "[]") {
-		prefix = "[]"
-		s = f.Type[:len(s)-2]
-	}
-
-	switch s {
-	// Temporary
-	case "polity":
-		return "[]byte"
-	case "dropdown":
-		return "[]byte"
-
-	case "string":
-		if f.Length() > 1 {
-			return "[]byte"
-		}
-
-		return "byte"
-
-	case "opcode":
-		return "byte"
-
-	case "sha",
-		"sha256",
-		"bin[var]",
-		"bin",
-		"pushdata_length",
-		"text",
-		"payload":
-		return "[]byte"
-
-	case "time", "timestamp":
-		return "uint64"
-
-	case "uint", "int", "float":
-		return fmt.Sprintf("%v%s%v", prefix, s, f.Size*8)
-
-	case "nvarchar8",
-		"nvarchar16",
-		"nvarchar32",
-		"nvarchar64":
-		return prefix + strings.Title(f.Type)
-
-	case "header":
-		return "Header"
-
-	}
-
-	return fmt.Sprintf("%s%s", prefix, s)
+func (f Field) FieldGoType() string {
+	return GoType(f.Type, f.Size)
 }
 
 func (f Field) IsInternalTypeArray() bool {

@@ -180,3 +180,9 @@ fields:
     example_hex: 736f6d652064617461
     example_value: "some data"
     notes: ""
+
+# Constructor parameters
+constructor:
+    - name: assetType
+      type: string
+      field: AssetType

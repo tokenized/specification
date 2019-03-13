@@ -10,6 +10,7 @@ all: prepare tools run-generate format lint test
 
 run-generate:
 	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
+	goimports -w $(GO_DIST_DIR)
 
 dist-cli:
 	$(GO_DIST) -o dist/$(BINARY_CONTRACT_CLI) cmd/$(BINARY_CONTRACT_CLI)/main.go

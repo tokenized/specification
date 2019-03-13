@@ -4,10 +4,8 @@ Usage
 
     import "github.com/tokenized/specification/dist/protocol"
 
-    // Create a new protocol action
-    action := protocol.NewContractOffer()
-    action.ContractName = Nvarchar32("My Contract")
-    action.IssuerName = Nvarchar32("Acme Corporation")
+    // Create a new protocol action (parameters: Contract Name, Issuer Name)
+    action := protocol.NewContractOffer([]byte("My Contract"), []byte("Acme Corporation"))
 
     // Serialize the action as byte array
     output, err := action.Serialize()

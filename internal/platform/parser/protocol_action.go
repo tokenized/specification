@@ -77,11 +77,13 @@ func setFieldTypes(action ProtocolAction, fieldTypes []ProtocolType) ProtocolAct
 type ProtocolActions []ProtocolAction
 
 type ProtocolAction struct {
-	Code       string
-	Metadata   Metadata
-	Rules      Rules
-	Fields     []Field
-	FieldTypes []ProtocolType
+	Code        string
+	Metadata    Metadata
+	Rules       Rules
+	Fields      []Field
+	FieldTypes  []ProtocolType
+	Constructor []Constructor
+	Functions   []Function
 }
 
 func (m ProtocolAction) CodeNameComment() string {

@@ -8,7 +8,7 @@ import (
 
 const (
 {{- range .}}
-{{.CodeNameComment}}
+	{{.CodeNameComment}}
 	{{.CodeName}} = "{{.Code}}"
 {{ end -}}
 )
@@ -25,18 +25,35 @@ var (
 	ProtocolID = []byte("tokenized.com")
 )
 
-{{ range . }}
+{{ range $action := . }}
 
 {{comment (print .Name " " .Metadata.Description) "//"}}
 type {{.Name}} struct {
-{{ range .Fields }}	{{ .FieldName }} {{ .GoType }}
+{{ range .Fields }}	{{ .FieldName }} {{ .FieldGoType }} // {{ .FieldDescription }}
 {{ end -}}
 }
 
-// New{{.Name}} returns a new {{.Name}} with defaults set.
-func New{{.Name}}() {{.Name}} {
-	return {{.Name}}{}
+// New{{.Name}} returns a new empty {{.Name}}.
+func NewEmpty{{.Name}}() *{{.Name}} {
+	result := {{.Name}}{}
+	return &result
 }
+
+// New{{.Name}} returns a new {{.Name}} with specified values set.
+func New{{.Name}}({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .ConstructorName }} {{ .ConstructorGoType }}{{ end -}}) *{{.Name}} {
+	result := {{.Name}}{}
+	{{ range .Constructor -}}
+	result.{{ .ConstructorField -}}
+	{{ if eq .ConstructorSetMethod "=" }} = {{ .ConstructorName }}{{ else }}.{{ .ConstructorSetMethod }}({{ .ConstructorName }}){{ end }}
+	{{ end -}}
+	return &result
+}
+
+{{ range .Functions }}// {{.FunctionName}} {{ .FunctionDescription }}.
+func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .FunctionParams }}{{if $i}}, {{end}}{{ .ParamName }} {{ .ParamGoType }}{{ end -}}) {
+
+}
+{{ end }}
 
 // Type returns the type identifer for this message.
 func (m {{.Name}}) Type() string {
@@ -132,7 +149,7 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 		m.{{.Name}} = append(m.{{.Name}}, *x)
 	}
 {{ else if .IsNativeTypeArray }}
-	m.{{.FieldName}} = make({{.GoType}}, m.{{$last}}, m.{{$last}})
+	m.{{.FieldName}} = make({{.FieldGoType}}, m.{{$last}}, m.{{$last}})
 	if err := read(buf, &m.{{.FieldName}}); err != nil {
 		return 0, err
 	}
@@ -191,7 +208,7 @@ func (m {{.Name}}) String() string {
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%v", m.{{.FieldName}}))
 	{{- else if eq .Type "SHA" }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%x\"", m.{{.FieldName}}))
-	{{- else if eq .GoType "[]byte" }}
+	{{- else if eq .FieldGoType "[]byte" }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#x", m.{{.FieldName}}))
 	{{- else }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#+v", m.{{.FieldName}}))

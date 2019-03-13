@@ -321,3 +321,29 @@ fields:
     label: Notable Roles
     description: "A list of Notable Roles."
     type: NotableRole[]
+
+# Constructor parameters
+constructor:
+    - name: name
+      type: bin
+      field: ContractName
+      set_method: Set
+
+    - name: issuerName
+      type: bin
+      field: IssuerName
+      set_method: Set
+
+# Functions for configuring the action
+functions:
+    - name: AddKeyRole
+      description: Adds a key role to the asset
+      params:
+          - name: roleType
+            type: uint
+            size: 1
+            field: Type
+          - name: name
+            type: string
+            field: Name
+            set_method: Set

@@ -126,29 +126,37 @@ var (
 // issuer to define the properties/characteristics of the Asset (token)
 // that it wants to create.
 type AssetDefinition struct {
-	Header                      Header
-	TextEncoding                uint8
-	AssetType                   []byte
-	AssetID                     []byte
-	AssetAuthFlags              []byte
-	TransfersPermitted          bool
-	TradeRestrictions           []byte
-	EnforcementOrdersPermitted  bool
-	VoteMultiplier              uint8
-	ReferendumProposal          bool
-	InitiativeProposal          bool
-	AssetModificationGovernance bool
-	TokenQty                    uint64
-	ContractFeeCurrency         []byte
-	ContractFeeVar              float32
-	ContractFeeFixed            float32
-	AssetPayloadLen             uint16
-	AssetPayload                []byte
+	Header                      Header  // Common header data for all actions
+	TextEncoding                uint8   // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetType                   []byte  // eg. Share - Common
+	AssetID                     []byte  // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetAuthFlags              []byte  // Authorization Flags,  bitwise operation
+	TransfersPermitted          bool    // 1 = Transfers are permitted.  0 = Transfers are not permitted.
+	TradeRestrictions           []byte  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
+	EnforcementOrdersPermitted  bool    // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
+	VoteMultiplier              uint8   // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
+	ReferendumProposal          bool    // A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.
+	InitiativeProposal          bool    // An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.
+	AssetModificationGovernance bool    // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
+	TokenQty                    uint64  // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.
+	ContractFeeCurrency         []byte  // BSV, USD, AUD, EUR, etc.
+	ContractFeeVar              float32 // Percent of the value of the transaction
+	ContractFeeFixed            float32 // Fixed fee (payment made in BSV)
+	AssetPayloadLen             uint16  // Size of the asset payload in bytes.
+	AssetPayload                []byte  // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
 }
 
-// NewAssetDefinition returns a new AssetDefinition with defaults set.
-func NewAssetDefinition() AssetDefinition {
-	return AssetDefinition{}
+// NewAssetDefinition returns a new empty AssetDefinition.
+func NewEmptyAssetDefinition() *AssetDefinition {
+	result := AssetDefinition{}
+	return &result
+}
+
+// NewAssetDefinition returns a new AssetDefinition with specified values set.
+func NewAssetDefinition(assetType []byte) *AssetDefinition {
+	result := AssetDefinition{}
+	result.AssetType = assetType
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -389,31 +397,38 @@ func (m AssetDefinition) String() string {
 // AssetCreation Asset Creation Action - This action creates an Asset in
 // response to the Issuer's instructions in the Definition Action.
 type AssetCreation struct {
-	Header                      Header
-	TextEncoding                uint8
-	AssetType                   []byte
-	AssetID                     []byte
-	AssetAuthFlags              []byte
-	TransfersPermitted          bool
-	TradeRestrictions           []byte
-	EnforcementOrdersPermitted  bool
-	VoteMultiplier              uint8
-	ReferendumProposal          bool
-	InitiativeProposal          bool
-	AssetModificationGovernance bool
-	TokenQty                    uint64
-	ContractFeeCurrency         []byte
-	ContractFeeVar              float32
-	ContractFeeFixed            float32
-	AssetPayloadLen             uint16
-	AssetPayload                []byte
-	AssetRevision               uint64
-	Timestamp                   uint64
+	Header                      Header  // Common header data for all actions
+	TextEncoding                uint8   // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetType                   []byte  // eg. Share - Common
+	AssetID                     []byte  // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetAuthFlags              []byte  // Authorization Flags,  bitwise operation
+	TransfersPermitted          bool    // 1 = Transfers are permitted.  0 = Transfers are not permitted.
+	TradeRestrictions           []byte  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
+	EnforcementOrdersPermitted  bool    // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
+	VoteMultiplier              uint8   // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
+	ReferendumProposal          bool    // A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.
+	InitiativeProposal          bool    // An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.
+	AssetModificationGovernance bool    // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative).  The voting system specifies the voting rules.
+	TokenQty                    uint64  // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.
+	ContractFeeCurrency         []byte  // BSV, USD, AUD, EUR, etc.
+	ContractFeeVar              float32 // Percent of the value of the transaction
+	ContractFeeFixed            float32 // Fixed fee (payment made in BSV)
+	AssetPayloadLen             uint16  // Size of the asset payload in bytes.
+	AssetPayload                []byte  // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
+	AssetRevision               uint64  // Counter 0 - 65,535
+	Timestamp                   uint64  // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewAssetCreation returns a new AssetCreation with defaults set.
-func NewAssetCreation() AssetCreation {
-	return AssetCreation{}
+// NewAssetCreation returns a new empty AssetCreation.
+func NewEmptyAssetCreation() *AssetCreation {
+	result := AssetCreation{}
+	return &result
+}
+
+// NewAssetCreation returns a new AssetCreation with specified values set.
+func NewAssetCreation() *AssetCreation {
+	result := AssetCreation{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -672,19 +687,26 @@ func (m AssetCreation) String() string {
 // AssetModification Asset Modification Action - Token Dilutions, Call
 // Backs/Revocations, burning etc.
 type AssetModification struct {
-	Header            Header
-	TextEncoding      uint8
-	AssetType         []byte
-	AssetID           []byte
-	AssetRevision     uint64
-	ModificationCount uint8
-	Modifications     []Amendment
-	RefTxID           []byte
+	Header            Header      // Common header data for all actions
+	TextEncoding      uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetType         []byte      // eg. Share - Common
+	AssetID           []byte      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetRevision     uint64      // Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected.
+	ModificationCount uint8       // Number of Modifications. Must be less than the max Subfield Index of CF.
+	Modifications     []Amendment //
+	RefTxID           [32]byte    // Tx-ID of the associated Result action (governance) that permitted the modifications.
 }
 
-// NewAssetModification returns a new AssetModification with defaults set.
-func NewAssetModification() AssetModification {
-	return AssetModification{}
+// NewAssetModification returns a new empty AssetModification.
+func NewEmptyAssetModification() *AssetModification {
+	result := AssetModification{}
+	return &result
+}
+
+// NewAssetModification returns a new AssetModification with specified values set.
+func NewAssetModification() *AssetModification {
+	result := AssetModification{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -741,7 +763,7 @@ func (m AssetModification) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, pad(m.RefTxID, 32)); err != nil {
+	if err := write(buf, m.RefTxID); err != nil {
 		return nil, err
 	}
 
@@ -802,8 +824,7 @@ func (m *AssetModification) Write(b []byte) (int, error) {
 		m.Modifications = append(m.Modifications, *x)
 	}
 
-	m.RefTxID = make([]byte, 32)
-	if err := readLen(buf, m.RefTxID); err != nil {
+	if err := read(buf, &m.RefTxID); err != nil {
 		return 0, err
 	}
 
@@ -825,7 +846,7 @@ func (m AssetModification) String() string {
 	vals = append(vals, fmt.Sprintf("AssetRevision:%v", m.AssetRevision))
 	vals = append(vals, fmt.Sprintf("ModificationCount:%v", m.ModificationCount))
 	vals = append(vals, fmt.Sprintf("Modifications:%#+v", m.Modifications))
-	vals = append(vals, fmt.Sprintf("RefTxID:%#x", m.RefTxID))
+	vals = append(vals, fmt.Sprintf("RefTxID:%#+v", m.RefTxID))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -838,47 +859,61 @@ func (m AssetModification) String() string {
 // action allows for the positive response from the smart contract with
 // either a Contract Formation Action or a Rejection Action.
 type ContractOffer struct {
-	Header                     Header
-	TextEncoding               uint8
-	ContractName               Nvarchar8
-	ContractFileType           uint8
-	LenContractFile            uint32
-	ContractFile               []byte
-	GoverningLaw               []byte
-	Jurisdiction               []byte
-	ContractExpiration         uint64
-	ContractURI                Nvarchar8
-	IssuerName                 Nvarchar8
-	IssuerType                 byte
-	IssuerLogoURL              Nvarchar8
-	ContractOperatorID         Nvarchar8
-	ContractAuthFlags          []byte
-	VotingSystemCount          uint8
-	VotingSystems              []VotingSystem
-	RestrictedQtyAssets        uint64
-	ReferendumProposal         bool
-	InitiativeProposal         bool
-	RegistryCount              uint8
-	Registries                 []Registry
-	IssuerAddress              bool
-	UnitNumber                 Nvarchar8
-	BuildingNumber             Nvarchar8
-	Street                     Nvarchar16
-	SuburbCity                 Nvarchar8
-	TerritoryStateProvinceCode []byte
-	CountryCode                []byte
-	PostalZIPCode              Nvarchar8
-	EmailAddress               Nvarchar8
-	PhoneNumber                Nvarchar8
-	KeyRolesCount              uint8
-	KeyRoles                   []KeyRole
-	NotableRolesCount          uint8
-	NotableRoles               []NotableRole
+	Header                     Header         // Common header data for all actions
+	TextEncoding               uint8          // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	ContractName               Nvarchar8      // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractFileType           uint8          // 1 - SHA-256 Hash, 2 - Markdown
+	LenContractFile            uint32         // Max size is the max transaction size - other data in the txn.
+	ContractFile               []byte         // SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	GoverningLaw               []byte         // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction               []byte         // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	ContractExpiration         uint64         // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
+	ContractURI                Nvarchar8      // Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS).
+	IssuerName                 Nvarchar8      // Length 0-255 bytes. 0 is not valid.Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	IssuerType                 byte           // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	IssuerLogoURL              Nvarchar8      // The URL of the Issuers logo.
+	ContractOperatorID         Nvarchar8      // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
+	ContractAuthFlags          []byte         // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
+	VotingSystemCount          uint8          // 0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null.
+	VotingSystems              []VotingSystem // A list voting systems.
+	RestrictedQtyAssets        uint64         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
+	ReferendumProposal         bool           // A Referendum is permitted for Proposals (outside of smart contract scope).
+	InitiativeProposal         bool           // An initiative is permitted for Proposals (outside of smart contract scope).
+	RegistryCount              uint8          // Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields).
+	Registries                 []Registry     // A list Registries
+	IssuerAddress              bool           // Physical/mailing address. Y/N, N means there is no issuer address.
+	UnitNumber                 Nvarchar8      // Issuer Address Details (eg. HQ)
+	BuildingNumber             Nvarchar8      //
+	Street                     Nvarchar16     //
+	SuburbCity                 Nvarchar8      //
+	TerritoryStateProvinceCode []byte         //
+	CountryCode                []byte         //
+	PostalZIPCode              Nvarchar8      //
+	EmailAddress               Nvarchar8      // Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                Nvarchar8      // Length 0-50 bytes. 0 is valid (no Phone subfield).Phone Number for Entity.
+	KeyRolesCount              uint8          // Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.
+	KeyRoles                   []KeyRole      // A list of Key Roles.
+	NotableRolesCount          uint8          // Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.
+	NotableRoles               []NotableRole  // A list of Notable Roles.
 }
 
-// NewContractOffer returns a new ContractOffer with defaults set.
-func NewContractOffer() ContractOffer {
-	return ContractOffer{}
+// NewContractOffer returns a new empty ContractOffer.
+func NewEmptyContractOffer() *ContractOffer {
+	result := ContractOffer{}
+	return &result
+}
+
+// NewContractOffer returns a new ContractOffer with specified values set.
+func NewContractOffer(name []byte, issuerName []byte) *ContractOffer {
+	result := ContractOffer{}
+	result.ContractName.Set(name)
+	result.IssuerName.Set(issuerName)
+	return &result
+}
+
+// AddKeyRole Adds a key role to the asset.
+func (action *ContractOffer) AddKeyRole(roleType uint8, name []byte) {
+
 }
 
 // Type returns the type identifer for this message.
@@ -1405,49 +1440,56 @@ func (m ContractOffer) String() string {
 // on a server controlled by the Issuer. or a Smart Contract Operator on
 // their behalf.
 type ContractFormation struct {
-	Header                     Header
-	TextEncoding               uint8
-	ContractName               Nvarchar8
-	ContractFileType           uint8
-	LenContractFile            uint32
-	ContractFile               []byte
-	GoverningLaw               []byte
-	Jurisdiction               []byte
-	ContractExpiration         uint64
-	ContractURI                Nvarchar8
-	IssuerName                 Nvarchar8
-	IssuerType                 byte
-	IssuerLogoURL              Nvarchar8
-	ContractOperatorID         Nvarchar8
-	ContractAuthFlags          []byte
-	VotingSystemCount          uint8
-	VotingSystems              []VotingSystem
-	RestrictedQtyAssets        uint64
-	ReferendumProposal         bool
-	InitiativeProposal         bool
-	RegistryCount              uint8
-	Registries                 []Registry
-	IssuerAddress              bool
-	UnitNumber                 Nvarchar8
-	BuildingNumber             Nvarchar8
-	Street                     Nvarchar16
-	SuburbCity                 Nvarchar8
-	TerritoryStateProvinceCode []byte
-	CountryCode                []byte
-	PostalZIPCode              Nvarchar8
-	EmailAddress               Nvarchar8
-	PhoneNumber                Nvarchar8
-	KeyRolesCount              uint8
-	KeyRoles                   []KeyRole
-	NotableRolesCount          uint8
-	NotableRoles               []NotableRole
-	ContractRevision           uint64
-	Timestamp                  uint64
+	Header                     Header         // Common header data for all actions
+	TextEncoding               uint8          // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	ContractName               Nvarchar8      // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractFileType           uint8          // 1 - SHA-256 Hash, 2 - Markdown file
+	LenContractFile            uint32         // Max size is the max transaction size - other data in the txn.
+	ContractFile               []byte         // SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	GoverningLaw               []byte         // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction               []byte         // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	ContractExpiration         uint64         // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
+	ContractURI                Nvarchar8      // Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
+	IssuerName                 Nvarchar8      // Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	IssuerType                 byte           // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	IssuerLogoURL              Nvarchar8      // The URL of the Issuers logo.
+	ContractOperatorID         Nvarchar8      // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
+	ContractAuthFlags          []byte         // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
+	VotingSystemCount          uint8          // 0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null.
+	VotingSystems              []VotingSystem // A list voting systems.
+	RestrictedQtyAssets        uint64         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
+	ReferendumProposal         bool           // A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).
+	InitiativeProposal         bool           // An initiative is permitted for Contract-Wide Proposals (outside of smart contract scope).
+	RegistryCount              uint8          // Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields).
+	Registries                 []Registry     // A list Registries
+	IssuerAddress              bool           // Physical/mailing address. Y/N, N means there is no issuer address.
+	UnitNumber                 Nvarchar8      // Issuer Address Details (eg. HQ)
+	BuildingNumber             Nvarchar8      //
+	Street                     Nvarchar16     //
+	SuburbCity                 Nvarchar8      //
+	TerritoryStateProvinceCode []byte         //
+	CountryCode                []byte         //
+	PostalZIPCode              Nvarchar8      //
+	EmailAddress               Nvarchar8      // Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                Nvarchar8      // Phone Number for Entity. Max acceptable size: 50.
+	KeyRolesCount              uint8          // Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.
+	KeyRoles                   []KeyRole      // A list of Key Roles.
+	NotableRolesCount          uint8          // Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.
+	NotableRoles               []NotableRole  // A list of Notable Roles.
+	ContractRevision           uint64         // Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.
+	Timestamp                  uint64         // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewContractFormation returns a new ContractFormation with defaults set.
-func NewContractFormation() ContractFormation {
-	return ContractFormation{}
+// NewContractFormation returns a new empty ContractFormation.
+func NewEmptyContractFormation() *ContractFormation {
+	result := ContractFormation{}
+	return &result
+}
+
+// NewContractFormation returns a new ContractFormation with specified values set.
+func NewContractFormation() *ContractFormation {
+	result := ContractFormation{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -1991,19 +2033,26 @@ func (m ContractFormation) String() string {
 // amendment to the contract is restricted by the Authorization Flag set on
 // the current revision of Contract Formation action.
 type ContractAmendment struct {
-	Header                Header
-	TextEncoding          uint8
-	ChangeIssuerAddress   bool
-	ChangeOperatorAddress bool
-	ContractRevision      uint16
-	AmendmentsCount       uint8
-	Amendments            []Amendment
-	RefTxID               []byte
+	Header                Header      // Common header data for all actions
+	TextEncoding          uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	ChangeIssuerAddress   bool        // 1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position.
+	ChangeOperatorAddress bool        // 1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position.
+	ContractRevision      uint16      // Counter 0 - 65,535
+	AmendmentsCount       uint8       // Number of Amendments. Must be less than the max Subfield Index of CF.
+	Amendments            []Amendment //
+	RefTxID               [32]byte    // Tx-ID of the associated Result action (governance) that permitted the modifications.
 }
 
-// NewContractAmendment returns a new ContractAmendment with defaults set.
-func NewContractAmendment() ContractAmendment {
-	return ContractAmendment{}
+// NewContractAmendment returns a new empty ContractAmendment.
+func NewEmptyContractAmendment() *ContractAmendment {
+	result := ContractAmendment{}
+	return &result
+}
+
+// NewContractAmendment returns a new ContractAmendment with specified values set.
+func NewContractAmendment() *ContractAmendment {
+	result := ContractAmendment{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2060,7 +2109,7 @@ func (m ContractAmendment) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, pad(m.RefTxID, 32)); err != nil {
+	if err := write(buf, m.RefTxID); err != nil {
 		return nil, err
 	}
 
@@ -2119,8 +2168,7 @@ func (m *ContractAmendment) Write(b []byte) (int, error) {
 		m.Amendments = append(m.Amendments, *x)
 	}
 
-	m.RefTxID = make([]byte, 32)
-	if err := readLen(buf, m.RefTxID); err != nil {
+	if err := read(buf, &m.RefTxID); err != nil {
 		return 0, err
 	}
 
@@ -2142,34 +2190,41 @@ func (m ContractAmendment) String() string {
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", m.ContractRevision))
 	vals = append(vals, fmt.Sprintf("AmendmentsCount:%v", m.AmendmentsCount))
 	vals = append(vals, fmt.Sprintf("Amendments:%#+v", m.Amendments))
-	vals = append(vals, fmt.Sprintf("RefTxID:%#x", m.RefTxID))
+	vals = append(vals, fmt.Sprintf("RefTxID:%#+v", m.RefTxID))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // StaticContractFormation Static Contract Formation Action
 type StaticContractFormation struct {
-	Header             Header
-	TextEncoding       uint8
-	ContractName       Nvarchar8
-	ContractType       Nvarchar8
-	ContractFileType   uint8
-	LenContractFile    uint32
-	ContractFile       []byte
-	ContractRevision   uint16
-	GoverningLaw       []byte
-	Jurisdiction       []byte
-	EffectiveDate      uint64
-	ContractExpiration uint64
-	ContractURI        Nvarchar8
-	PrevRevTxID        []byte
-	EntityCount        uint8
-	Entities           []Entity
+	Header             Header    // Common header data for all actions
+	TextEncoding       uint8     // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	ContractName       Nvarchar8 // Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractType       Nvarchar8 //
+	ContractFileType   uint8     // 1 - SHA-256 Hash, 2 - Markdown file
+	LenContractFile    uint32    // Max size is the max transaction size - other data in the txn.
+	ContractFile       []byte    // SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	ContractRevision   uint16    // Counter 0 - 65,535
+	GoverningLaw       []byte    // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction       []byte    // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	EffectiveDate      uint64    // Start date of the contract.
+	ContractExpiration uint64    // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
+	ContractURI        Nvarchar8 // Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
+	PrevRevTxID        []byte    // The Tx-ID of the previous contract revision.
+	EntityCount        uint8     // Number of entities involved in the contract as contracting parties.
+	Entities           []Entity  //
 }
 
-// NewStaticContractFormation returns a new StaticContractFormation with defaults set.
-func NewStaticContractFormation() StaticContractFormation {
-	return StaticContractFormation{}
+// NewStaticContractFormation returns a new empty StaticContractFormation.
+func NewEmptyStaticContractFormation() *StaticContractFormation {
+	result := StaticContractFormation{}
+	return &result
+}
+
+// NewStaticContractFormation returns a new StaticContractFormation with specified values set.
+func NewStaticContractFormation() *StaticContractFormation {
+	result := StaticContractFormation{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2413,27 +2468,34 @@ func (m StaticContractFormation) String() string {
 // tokens that a particular public address(es) owns are to be confiscated,
 // frozen, thawed or reconciled.
 type Order struct {
-	Header                 Header
-	TextEncoding           uint8
-	AssetType              []byte
-	AssetID                []byte
-	ComplianceAction       byte
-	TargetAddressCount     uint16
-	TargetAddresses        []TargetAddress
-	DepositAddress         Nvarchar8
-	AuthorityName          Nvarchar8
-	SigAlgoAddressList     uint8
-	AuthorityPublicKey     Nvarchar8
-	OrderSignature         Nvarchar8
-	SupportingEvidenceHash []byte
-	RefTxnID               []byte
-	FreezePeriod           uint64
-	Message                Nvarchar32
+	Header                 Header          // Common header data for all actions
+	TextEncoding           uint8           // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetType              []byte          // eg. Share, Bond, Ticket
+	AssetID                []byte          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	ComplianceAction       byte            // Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)
+	TargetAddressCount     uint16          // 0 - 65,535
+	TargetAddresses        []TargetAddress //
+	DepositAddress         Nvarchar8       // Length 1-255 bytes. The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin.
+	AuthorityName          Nvarchar8       // Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)
+	SigAlgoAddressList     uint8           // 0 = No Registry-signed Message, 1 = ECDSA+secp256k1
+	AuthorityPublicKey     Nvarchar8       // Length 0-255 bytes. Public Key associated with the Enforcement Authority
+	OrderSignature         Nvarchar8       // Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)
+	SupportingEvidenceHash [32]byte        // SHA-256: warrant, court order, etc.
+	RefTxnID               [32]byte        // The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
+	FreezePeriod           uint64          // Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.
+	Message                Nvarchar32      // Length only limited by the Bitcoin protocol.
 }
 
-// NewOrder returns a new Order with defaults set.
-func NewOrder() Order {
-	return Order{}
+// NewOrder returns a new empty Order.
+func NewEmptyOrder() *Order {
+	result := Order{}
+	return &result
+}
+
+// NewOrder returns a new Order with specified values set.
+func NewOrder() *Order {
+	result := Order{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2538,11 +2600,11 @@ func (m Order) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, pad(m.SupportingEvidenceHash, 32)); err != nil {
+	if err := write(buf, m.SupportingEvidenceHash); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.RefTxnID, 32)); err != nil {
+	if err := write(buf, m.RefTxnID); err != nil {
 		return nil, err
 	}
 
@@ -2638,13 +2700,11 @@ func (m *Order) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.SupportingEvidenceHash = make([]byte, 32)
-	if err := readLen(buf, m.SupportingEvidenceHash); err != nil {
+	if err := read(buf, &m.SupportingEvidenceHash); err != nil {
 		return 0, err
 	}
 
-	m.RefTxnID = make([]byte, 32)
-	if err := readLen(buf, m.RefTxnID); err != nil {
+	if err := read(buf, &m.RefTxnID); err != nil {
 		return 0, err
 	}
 
@@ -2679,8 +2739,8 @@ func (m Order) String() string {
 	vals = append(vals, fmt.Sprintf("SigAlgoAddressList:%v", m.SigAlgoAddressList))
 	vals = append(vals, fmt.Sprintf("AuthorityPublicKey:%#+v", m.AuthorityPublicKey))
 	vals = append(vals, fmt.Sprintf("OrderSignature:%#+v", m.OrderSignature))
-	vals = append(vals, fmt.Sprintf("SupportingEvidenceHash:%#x", m.SupportingEvidenceHash))
-	vals = append(vals, fmt.Sprintf("RefTxnID:%#x", m.RefTxnID))
+	vals = append(vals, fmt.Sprintf("SupportingEvidenceHash:%#+v", m.SupportingEvidenceHash))
+	vals = append(vals, fmt.Sprintf("RefTxnID:%#+v", m.RefTxnID))
 	vals = append(vals, fmt.Sprintf("FreezePeriod:%v", m.FreezePeriod))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
@@ -2693,15 +2753,22 @@ func (m Order) String() string {
 // to the public blockchain for transparency. The Contract will not respond
 // to any actions requested by the frozen address.
 type Freeze struct {
-	Header       Header
-	AddressCount uint16
-	Addresses    []Address
-	Timestamp    uint64
+	Header       Header    // Common header data for all actions
+	AddressCount uint16    // 0 - 65,535
+	Addresses    []Address // Addresses holding tokens to be frozen.
+	Timestamp    uint64    // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewFreeze returns a new Freeze with defaults set.
-func NewFreeze() Freeze {
-	return Freeze{}
+// NewFreeze returns a new empty Freeze.
+func NewEmptyFreeze() *Freeze {
+	result := Freeze{}
+	return &result
+}
+
+// NewFreeze returns a new Freeze with specified values set.
+func NewFreeze() *Freeze {
+	result := Freeze{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2812,16 +2879,23 @@ func (m Freeze) String() string {
 // legal requirements. The Alleged Offender's tokens will be unfrozen to
 // allow them to resume normal exchange and governance activities.
 type Thaw struct {
-	Header       Header
-	AddressCount uint16
-	Addresses    []Address
-	RefTxnID     []byte
-	Timestamp    uint64
+	Header       Header    // Common header data for all actions
+	AddressCount uint16    // 0 - 65,535
+	Addresses    []Address // Addresses holding tokens to be thawed.
+	RefTxnID     [32]byte  // The related freeze action.
+	Timestamp    uint64    // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewThaw returns a new Thaw with defaults set.
-func NewThaw() Thaw {
-	return Thaw{}
+// NewThaw returns a new empty Thaw.
+func NewEmptyThaw() *Thaw {
+	result := Thaw{}
+	return &result
+}
+
+// NewThaw returns a new Thaw with specified values set.
+func NewThaw() *Thaw {
+	result := Thaw{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2862,7 +2936,7 @@ func (m Thaw) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, pad(m.RefTxnID, 32)); err != nil {
+	if err := write(buf, m.RefTxnID); err != nil {
 		return nil, err
 	}
 
@@ -2909,8 +2983,7 @@ func (m *Thaw) Write(b []byte) (int, error) {
 		m.Addresses = append(m.Addresses, *x)
 	}
 
-	m.RefTxnID = make([]byte, 32)
-	if err := readLen(buf, m.RefTxnID); err != nil {
+	if err := read(buf, &m.RefTxnID); err != nil {
 		return 0, err
 	}
 
@@ -2932,7 +3005,7 @@ func (m Thaw) String() string {
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("AddressCount:%v", m.AddressCount))
 	vals = append(vals, fmt.Sprintf("Addresses:%#+v", m.Addresses))
-	vals = append(vals, fmt.Sprintf("RefTxnID:%#x", m.RefTxnID))
+	vals = append(vals, fmt.Sprintf("RefTxnID:%#+v", m.RefTxnID))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -2941,16 +3014,23 @@ func (m Thaw) String() string {
 // Confiscation Confiscation Action - to be used to comply with contractual
 // obligations, legal and/or issuer requirements.
 type Confiscation struct {
-	Header       Header
-	AddressCount uint16
-	Addresses    []Address
-	DepositQty   uint64
-	Timestamp    uint64
+	Header       Header    // Common header data for all actions
+	AddressCount uint16    // 0 - 65,535
+	Addresses    []Address // Addresses holding tokens to be confiscated.
+	DepositQty   uint64    // Custodian's token balance after confiscation.
+	Timestamp    uint64    // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewConfiscation returns a new Confiscation with defaults set.
-func NewConfiscation() Confiscation {
-	return Confiscation{}
+// NewConfiscation returns a new empty Confiscation.
+func NewEmptyConfiscation() *Confiscation {
+	result := Confiscation{}
+	return &result
+}
+
+// NewConfiscation returns a new Confiscation with specified values set.
+func NewConfiscation() *Confiscation {
+	result := Confiscation{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3069,15 +3149,22 @@ func (m Confiscation) String() string {
 // Reconciliation Reconciliation Action - to be used at the direction of
 // the issuer to fix record keeping errors with bitcoin and token balances.
 type Reconciliation struct {
-	Header       Header
-	AddressCount uint16
-	Addresses    []Address
-	Timestamp    uint64
+	Header       Header    // Common header data for all actions
+	AddressCount uint16    // 0 - 65,535
+	Addresses    []Address // Addresses holding tokens to be reconciled.
+	Timestamp    uint64    // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewReconciliation returns a new Reconciliation with defaults set.
-func NewReconciliation() Reconciliation {
-	return Reconciliation{}
+// NewReconciliation returns a new empty Reconciliation.
+func NewEmptyReconciliation() *Reconciliation {
+	result := Reconciliation{}
+	return &result
+}
+
+// NewReconciliation returns a new Reconciliation with specified values set.
+func NewReconciliation() *Reconciliation {
+	result := Reconciliation{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3189,24 +3276,31 @@ func (m Reconciliation) String() string {
 // specified in the Contract Formation - can be attached to this action to
 // reduce spam, as the resulting vote will be put to all token owners.
 type Initiative struct {
-	Header               Header
-	TextEncoding         uint8
-	AssetType            []byte
-	AssetID              []byte
-	VoteSystem           uint8
-	Proposal             bool
-	ProposedChangesCount uint8
-	ProposedChanges      []Amendment
-	VoteOptions          Nvarchar8
-	VoteMax              uint8
-	ProposalDescription  Nvarchar32
-	ProposalDocumentHash []byte
-	VoteCutOffTimestamp  uint64
+	Header               Header      // Common header data for all actions
+	TextEncoding         uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetType            []byte      // eg. Share, Bond, Ticket
+	AssetID              []byte      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	VoteSystem           uint8       // X for Vote System X. (1-255, 0 is not valid.)
+	Proposal             bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
+	ProposedChangesCount uint8       //
+	ProposedChanges      []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
+	VoteOptions          Nvarchar8   // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.
+	VoteMax              uint8       // Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
+	ProposalDescription  Nvarchar32  // Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote
+	ProposalDocumentHash [32]byte    // Hash of the proposal document to be distributed to voters.
+	VoteCutOffTimestamp  uint64      // Ballot casts after this timestamp will not be included. The vote has finished.
 }
 
-// NewInitiative returns a new Initiative with defaults set.
-func NewInitiative() Initiative {
-	return Initiative{}
+// NewInitiative returns a new empty Initiative.
+func NewEmptyInitiative() *Initiative {
+	result := Initiative{}
+	return &result
+}
+
+// NewInitiative returns a new Initiative with specified values set.
+func NewInitiative() *Initiative {
+	result := Initiative{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3293,7 +3387,7 @@ func (m Initiative) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, pad(m.ProposalDocumentHash, 32)); err != nil {
+	if err := write(buf, m.ProposalDocumentHash); err != nil {
 		return nil, err
 	}
 
@@ -3374,8 +3468,7 @@ func (m *Initiative) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ProposalDocumentHash = make([]byte, 32)
-	if err := readLen(buf, m.ProposalDocumentHash); err != nil {
+	if err := read(buf, &m.ProposalDocumentHash); err != nil {
 		return 0, err
 	}
 
@@ -3405,7 +3498,7 @@ func (m Initiative) String() string {
 	vals = append(vals, fmt.Sprintf("VoteOptions:%#+v", m.VoteOptions))
 	vals = append(vals, fmt.Sprintf("VoteMax:%v", m.VoteMax))
 	vals = append(vals, fmt.Sprintf("ProposalDescription:%#+v", m.ProposalDescription))
-	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#x", m.ProposalDocumentHash))
+	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#+v", m.ProposalDocumentHash))
 	vals = append(vals, fmt.Sprintf("VoteCutOffTimestamp:%v", m.VoteCutOffTimestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -3415,25 +3508,32 @@ func (m Initiative) String() string {
 // a Token Owner Vote. Usually used for contract amendments, organizational
 // governance, etc.
 type Referendum struct {
-	Header               Header
-	TextEncoding         uint8
-	AssetSpecificVote    bool
-	AssetType            []byte
-	AssetID              []byte
-	VoteSystem           uint8
-	Proposal             bool
-	ProposedChangesCount uint8
-	ProposedChanges      []Amendment
-	VoteOptions          Nvarchar8
-	VoteMax              uint8
-	ProposalDescription  Nvarchar32
-	ProposalDocumentHash []byte
-	VoteCutOffTimestamp  uint64
+	Header               Header      // Common header data for all actions
+	TextEncoding         uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetSpecificVote    bool        // 1 - Yes, 0 - No.  No Asset Type/AssetID subfields for N - No.
+	AssetType            []byte      // eg. Share, Bond, Ticket
+	AssetID              []byte      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	VoteSystem           uint8       // X for Vote System X. (1-255, 0 is not valid.)
+	Proposal             bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
+	ProposedChangesCount uint8       //
+	ProposedChanges      []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
+	VoteOptions          Nvarchar8   // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail.
+	VoteMax              uint8       // Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
+	ProposalDescription  Nvarchar32  // Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.
+	ProposalDocumentHash [32]byte    // Hash of the proposal document to be distributed to voters
+	VoteCutOffTimestamp  uint64      // Ballot casts after this timestamp will not be included. The vote has finished.
 }
 
-// NewReferendum returns a new Referendum with defaults set.
-func NewReferendum() Referendum {
-	return Referendum{}
+// NewReferendum returns a new empty Referendum.
+func NewEmptyReferendum() *Referendum {
+	result := Referendum{}
+	return &result
+}
+
+// NewReferendum returns a new Referendum with specified values set.
+func NewReferendum() *Referendum {
+	result := Referendum{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3524,7 +3624,7 @@ func (m Referendum) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, pad(m.ProposalDocumentHash, 32)); err != nil {
+	if err := write(buf, m.ProposalDocumentHash); err != nil {
 		return nil, err
 	}
 
@@ -3609,8 +3709,7 @@ func (m *Referendum) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ProposalDocumentHash = make([]byte, 32)
-	if err := readLen(buf, m.ProposalDocumentHash); err != nil {
+	if err := read(buf, &m.ProposalDocumentHash); err != nil {
 		return 0, err
 	}
 
@@ -3641,7 +3740,7 @@ func (m Referendum) String() string {
 	vals = append(vals, fmt.Sprintf("VoteOptions:%#+v", m.VoteOptions))
 	vals = append(vals, fmt.Sprintf("VoteMax:%v", m.VoteMax))
 	vals = append(vals, fmt.Sprintf("ProposalDescription:%#+v", m.ProposalDescription))
-	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#x", m.ProposalDocumentHash))
+	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#+v", m.ProposalDocumentHash))
 	vals = append(vals, fmt.Sprintf("VoteCutOffTimestamp:%v", m.VoteCutOffTimestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -3650,13 +3749,20 @@ func (m Referendum) String() string {
 // Vote Vote Action - A vote is created by the Contract in response to a
 // valid Referendum (Issuer) or Initiative (User) Action.
 type Vote struct {
-	Header    Header
-	Timestamp uint64
+	Header    Header // Common header data for all actions
+	Timestamp uint64 // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewVote returns a new Vote with defaults set.
-func NewVote() Vote {
-	return Vote{}
+// NewVote returns a new empty Vote.
+func NewEmptyVote() *Vote {
+	result := Vote{}
+	return &result
+}
+
+// NewVote returns a new Vote with specified values set.
+func NewVote() *Vote {
+	result := Vote{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3738,16 +3844,23 @@ func (m Vote) String() string {
 // token holders (Initiative). 1 Vote per token unless a vote multiplier is
 // specified in the relevant Asset Definition action.
 type BallotCast struct {
-	Header    Header
-	AssetType []byte
-	AssetID   []byte
-	VoteTxnID []byte
-	Vote      Nvarchar8
+	Header    Header    // Common header data for all actions
+	AssetType []byte    // eg. Share, Bond, Ticket
+	AssetID   []byte    // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	VoteTxnID [32]byte  // Tx-ID of the Vote the Ballot Cast is being made for.
+	Vote      Nvarchar8 // Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.
 }
 
-// NewBallotCast returns a new BallotCast with defaults set.
-func NewBallotCast() BallotCast {
-	return BallotCast{}
+// NewBallotCast returns a new empty BallotCast.
+func NewEmptyBallotCast() *BallotCast {
+	result := BallotCast{}
+	return &result
+}
+
+// NewBallotCast returns a new BallotCast with specified values set.
+func NewBallotCast() *BallotCast {
+	result := BallotCast{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3781,7 +3894,7 @@ func (m BallotCast) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.VoteTxnID, 32)); err != nil {
+	if err := write(buf, m.VoteTxnID); err != nil {
 		return nil, err
 	}
 
@@ -3832,8 +3945,7 @@ func (m *BallotCast) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.VoteTxnID = make([]byte, 32)
-	if err := readLen(buf, m.VoteTxnID); err != nil {
+	if err := read(buf, &m.VoteTxnID); err != nil {
 		return 0, err
 	}
 
@@ -3855,7 +3967,7 @@ func (m BallotCast) String() string {
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
-	vals = append(vals, fmt.Sprintf("VoteTxnID:%#x", m.VoteTxnID))
+	vals = append(vals, fmt.Sprintf("VoteTxnID:%#+v", m.VoteTxnID))
 	vals = append(vals, fmt.Sprintf("Vote:%#+v", m.Vote))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -3866,13 +3978,20 @@ func (m BallotCast) String() string {
 // valid. If the Ballot Cast is not valid, then the smart contract will
 // respond with a Rejection Action.
 type BallotCounted struct {
-	Header    Header
-	Timestamp uint64
+	Header    Header // Common header data for all actions
+	Timestamp uint64 // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewBallotCounted returns a new BallotCounted with defaults set.
-func NewBallotCounted() BallotCounted {
-	return BallotCounted{}
+// NewBallotCounted returns a new empty BallotCounted.
+func NewEmptyBallotCounted() *BallotCounted {
+	result := BallotCounted{}
+	return &result
+}
+
+// NewBallotCounted returns a new BallotCounted with specified values set.
+func NewBallotCounted() *BallotCounted {
+	result := BallotCounted{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3952,23 +4071,30 @@ func (m BallotCounted) String() string {
 // Result Result Action - Once a vote has been completed the results are
 // published.
 type Result struct {
-	Header               Header
-	TextEncoding         uint8
-	AssetType            []byte
-	AssetID              []byte
-	Proposal             bool
-	ProposedChangesCount uint8
-	ProposedChanges      []Amendment
-	VoteTxnID            []byte
-	VoteOptionsCount     uint8
-	OptionXTally         uint64
-	Result               Nvarchar8
-	Timestamp            uint64
+	Header               Header      // Common header data for all actions
+	TextEncoding         uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetType            []byte      // eg. Share, Bond, Ticket
+	AssetID              []byte      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null.
+	Proposal             bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
+	ProposedChangesCount uint8       //
+	ProposedChanges      []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
+	VoteTxnID            [32]byte    // Link to the Vote Action txn.
+	VoteOptionsCount     uint8       // Number of Vote Options to follow.
+	OptionXTally         uint64      // Number of valid votes counted for Option X
+	Result               Nvarchar8   // Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.
+	Timestamp            uint64      // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewResult returns a new Result with defaults set.
-func NewResult() Result {
-	return Result{}
+// NewResult returns a new empty Result.
+func NewEmptyResult() *Result {
+	result := Result{}
+	return &result
+}
+
+// NewResult returns a new Result with specified values set.
+func NewResult() *Result {
+	result := Result{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -4025,7 +4151,7 @@ func (m Result) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, pad(m.VoteTxnID, 32)); err != nil {
+	if err := write(buf, m.VoteTxnID); err != nil {
 		return nil, err
 	}
 
@@ -4109,8 +4235,7 @@ func (m *Result) Write(b []byte) (int, error) {
 		m.ProposedChanges = append(m.ProposedChanges, *x)
 	}
 
-	m.VoteTxnID = make([]byte, 32)
-	if err := readLen(buf, m.VoteTxnID); err != nil {
+	if err := read(buf, &m.VoteTxnID); err != nil {
 		return 0, err
 	}
 
@@ -4148,7 +4273,7 @@ func (m Result) String() string {
 	vals = append(vals, fmt.Sprintf("Proposal:%#+v", m.Proposal))
 	vals = append(vals, fmt.Sprintf("ProposedChangesCount:%v", m.ProposedChangesCount))
 	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", m.ProposedChanges))
-	vals = append(vals, fmt.Sprintf("VoteTxnID:%#x", m.VoteTxnID))
+	vals = append(vals, fmt.Sprintf("VoteTxnID:%#+v", m.VoteTxnID))
 	vals = append(vals, fmt.Sprintf("VoteOptionsCount:%v", m.VoteOptionsCount))
 	vals = append(vals, fmt.Sprintf("OptionXTally:%v", m.OptionXTally))
 	vals = append(vals, fmt.Sprintf("Result:%#+v", m.Result))
@@ -4165,17 +4290,26 @@ func (m Result) String() string {
 // type for easy filtering in the a user's wallet. The Message Types are
 // listed in the Message Types table.
 type Message struct {
-	Header                Header
-	TextEncoding          uint8
-	QtyReceivingAddresses uint8
-	AddressIndexes        []uint16
-	MessageType           []byte
-	MessagePayload        Nvarchar32
+	Header       Header // Common header data for all actions
+	TextEncoding uint8  // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode. Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII. Where string is selected, all fields will be ASCII.
+
+	QtyReceivingAddresses uint8      // 0-255 Message Receiving Addresses
+	AddressIndexes        []uint16   // Associates the message to a particular output by the index.
+	MessageType           []byte     // Potential for up to 65,535 different message types
+	MessagePayload        Nvarchar32 // Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
+
 }
 
-// NewMessage returns a new Message with defaults set.
-func NewMessage() Message {
-	return Message{}
+// NewMessage returns a new empty Message.
+func NewEmptyMessage() *Message {
+	result := Message{}
+	return &result
+}
+
+// NewMessage returns a new Message with specified values set.
+func NewMessage() *Message {
+	result := Message{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -4308,18 +4442,25 @@ func (m Message) String() string {
 // to remain revenue neutral. If not enough fees are attached to pay for
 // the Contract response then the Contract will not respond.
 type Rejection struct {
-	Header                Header
-	TextEncoding          uint8
-	QtyReceivingAddresses uint8
-	AddressIndexes        []uint16
-	RejectionType         uint8
-	MessagePayload        Nvarchar32
-	Timestamp             uint64
+	Header                Header     // Common header data for all actions
+	TextEncoding          uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	QtyReceivingAddresses uint8      // 0-255 Message Receiving Addresses
+	AddressIndexes        []uint16   // Associates the message to a particular output by the index.
+	RejectionType         uint8      // Classifies the rejection by a type.
+	MessagePayload        Nvarchar32 // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
+	Timestamp             uint64     // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewRejection returns a new Rejection with defaults set.
-func NewRejection() Rejection {
-	return Rejection{}
+// NewRejection returns a new empty Rejection.
+func NewEmptyRejection() *Rejection {
+	result := Rejection{}
+	return &result
+}
+
+// NewRejection returns a new Rejection with specified values set.
+func NewRejection() *Rejection {
+	result := Rejection{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -4453,14 +4594,21 @@ func (m Rejection) String() string {
 
 // Establishment Establishment Action - Establishes an on-chain register.
 type Establishment struct {
-	Header       Header
-	TextEncoding uint8
-	Message      Nvarchar32
+	Header       Header     // Common header data for all actions
+	TextEncoding uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	Message      Nvarchar32 // Length only limited by Bitcoin protocol.
 }
 
-// NewEstablishment returns a new Establishment with defaults set.
-func NewEstablishment() Establishment {
-	return Establishment{}
+// NewEstablishment returns a new empty Establishment.
+func NewEmptyEstablishment() *Establishment {
+	result := Establishment{}
+	return &result
+}
+
+// NewEstablishment returns a new Establishment with specified values set.
+func NewEstablishment() *Establishment {
+	result := Establishment{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -4555,14 +4703,21 @@ func (m Establishment) String() string {
 
 // Addition Addition Action - Adds an entry to the Register.
 type Addition struct {
-	Header       Header
-	TextEncoding uint8
-	Message      Nvarchar32
+	Header       Header     // Common header data for all actions
+	TextEncoding uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	Message      Nvarchar32 // Length only limited by Bitcoin protocol.
 }
 
-// NewAddition returns a new Addition with defaults set.
-func NewAddition() Addition {
-	return Addition{}
+// NewAddition returns a new empty Addition.
+func NewEmptyAddition() *Addition {
+	result := Addition{}
+	return &result
+}
+
+// NewAddition returns a new Addition with specified values set.
+func NewAddition() *Addition {
+	result := Addition{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -4657,14 +4812,21 @@ func (m Addition) String() string {
 
 // Alteration Alteration Action - A register entry/record can be altered.
 type Alteration struct {
-	Header       Header
-	TextEncoding uint8
-	Message      Nvarchar32
+	Header       Header     // Common header data for all actions
+	TextEncoding uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	Message      Nvarchar32 // Length only limited by the Bitcoin protocol.
 }
 
-// NewAlteration returns a new Alteration with defaults set.
-func NewAlteration() Alteration {
-	return Alteration{}
+// NewAlteration returns a new empty Alteration.
+func NewEmptyAlteration() *Alteration {
+	result := Alteration{}
+	return &result
+}
+
+// NewAlteration returns a new Alteration with specified values set.
+func NewAlteration() *Alteration {
+	result := Alteration{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -4759,14 +4921,21 @@ func (m Alteration) String() string {
 
 // Removal Removal Action - Removes an entry/record from the Register.
 type Removal struct {
-	Header       Header
-	TextEncoding uint8
-	Message      Nvarchar32
+	Header       Header     // Common header data for all actions
+	TextEncoding uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	Message      Nvarchar32 // Length only limited by the Bitcoin protocol.
 }
 
-// NewRemoval returns a new Removal with defaults set.
-func NewRemoval() Removal {
-	return Removal{}
+// NewRemoval returns a new empty Removal.
+func NewEmptyRemoval() *Removal {
+	result := Removal{}
+	return &result
+}
+
+// NewRemoval returns a new Removal with specified values set.
+func NewRemoval() *Removal {
+	result := Removal{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -4869,25 +5038,32 @@ func (m Removal) String() string {
 // actions will need to be passed around on-chain with an M1 action, or
 // off-chain.
 type Transfer struct {
-	Header              Header
-	TextEncoding        uint8
-	AssetCount          uint8
-	AssetTypeX          []byte
-	AssetIDX            []byte
-	AssetXSenderCount   uint8
-	AssetXSenders       []QuantityIndex
-	AssetXReceiverCount uint8
-	AssetXReceivers     []TokenReceiver
-	OfferExpiry         uint64
-	ExchangeFeeCurrency []byte
-	ExchangeFeeVar      float32
-	ExchangeFeeFixed    float32
-	ExchangeFeeAddress  []byte
+	Header              Header          // Common header data for all actions
+	TextEncoding        uint8           // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetCount          uint8           // The number of Assets involved in the Transfer Action.
+	AssetTypeX          []byte          // eg. Share, Bond, Ticket. All characters must be capitalised.
+	AssetIDX            []byte          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetXSenderCount   uint8           // Number inputs sending tokens. 1-255, 0 is not valid.
+	AssetXSenders       []QuantityIndex // Each element has the value of tokens to be spent from the input address, which is referred to by the index.
+	AssetXReceiverCount uint8           // Number of outputs receiving tokens. 1-255. 0 is not valid.
+	AssetXReceivers     []TokenReceiver // Each element has the value of tokens to be received by the output address, which is referred to by the index.
+	OfferExpiry         uint64          // This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins.
+	ExchangeFeeCurrency []byte          // BSV, USD, AUD, EUR, etc.
+	ExchangeFeeVar      float32         // Percent of the value of the transaction
+	ExchangeFeeFixed    float32         // Fixed fee
+	ExchangeFeeAddress  []byte          // Identifies the public address that the exchange fee should be paid to.
 }
 
-// NewTransfer returns a new Transfer with defaults set.
-func NewTransfer() Transfer {
-	return Transfer{}
+// NewTransfer returns a new empty Transfer.
+func NewEmptyTransfer() *Transfer {
+	result := Transfer{}
+	return &result
+}
+
+// NewTransfer returns a new Transfer with specified values set.
+func NewTransfer() *Transfer {
+	result := Transfer{}
+	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -5103,19 +5279,26 @@ func (m Transfer) String() string {
 // Settlement Settlement Action - Settles the transfer request of bitcoins
 // and tokens from transfer (T1) actions.
 type Settlement struct {
-	Header                 Header
-	TextEncoding           uint8
-	AssetCount             uint8
-	AssetTypeX             []byte
-	AssetIDX               []byte
-	AssetXSettlementsCount uint8
-	AssetXAddressesXQty    []QuantityIndex
-	Timestamp              uint64
+	Header                 Header          // Common header data for all actions
+	TextEncoding           uint8           // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
+	AssetCount             uint8           // The number of Assets specified by the Transfer action to be settled.
+	AssetTypeX             []byte          // eg. Share, Bond, Ticket
+	AssetIDX               []byte          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetXSettlementsCount uint8           // Number of settlements for Asset X.
+	AssetXAddressesXQty    []QuantityIndex // Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.
+	Timestamp              uint64          // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewSettlement returns a new Settlement with defaults set.
-func NewSettlement() Settlement {
-	return Settlement{}
+// NewSettlement returns a new empty Settlement.
+func NewEmptySettlement() *Settlement {
+	result := Settlement{}
+	return &result
+}
+
+// NewSettlement returns a new Settlement with specified values set.
+func NewSettlement() *Settlement {
+	result := Settlement{}
+	return &result
 }
 
 // Type returns the type identifer for this message.

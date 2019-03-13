@@ -5,13 +5,18 @@ import "bytes"
 {{range .}}
 {{comment (print .Name " " .Metadata.Description) "//"}}
 type {{.Name}} struct {
-{{range .Fields}}	{{ .FieldName }} {{ .GoType }}
+{{range .Fields}}	{{ .FieldName }} {{ .FieldGoType }} // {{ .FieldDescription }}
 {{ end -}}
 }
 
-// New{{.Name}} return a new {{.Name}}
-func New{{.Name}}() {{.Name}} {
-	return {{.Name}}{}
+// New{{.Name}} returns a new {{.Name}} with defaults set.
+func New{{.Name}}({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .ConstructorName }} {{ .ConstructorGoType }}{{ end -}}) *{{.Name}} {
+	result := {{.Name}}{}
+	{{ range .Constructor -}}
+	result.{{ .ConstructorField -}}
+	{{ if eq .ConstructorSetMethod "=" }} = {{ .ConstructorName }}{{ else }}.{{ .ConstructorSetMethod }}({{ .ConstructorName }}){{ end }}
+	{{ end -}}
+	return &result
 }
 
 // Serialize returns the byte representation of the message.

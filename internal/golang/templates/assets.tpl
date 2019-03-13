@@ -16,7 +16,7 @@ const (
 {{range .}}
 // {{.Name}} asset type.
 type {{.Name}} struct {
-{{range .Fields }}	{{.Name}} {{.GoType}}
+{{range .Fields }}	{{.Name}} {{.FieldGoType}}
 {{ end -}}
 }
 
@@ -165,7 +165,7 @@ func (m {{.Name}}) String() string {
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%v", m.{{.FieldName}}))
 	{{- else if eq .Type "SHA" }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%x\"", m.{{.FieldName}}))
-	{{- else if eq .GoType "[]byte" }}
+	{{- else if eq .FieldGoType "[]byte" }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#x", m.{{.FieldName}}))
 	{{- else }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#+v", m.{{.FieldName}}))

@@ -285,10 +285,10 @@ The following breaks down the construction of a Order Action. The action is cons
             <tr>
                 <td class="e10">Address</td>
                 <td class="e10">Address</td>
-                <td class="e10">34</td>
-                <td class="e10" style="word-break:break-all">1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic</td>
+                <td class="e10">0</td>
+                <td class="e10" style="word-break:break-all"></td>
                 <td class="e10">Public address where the token balance will be changed.</td>
-                <td class="e10">string</td>
+                <td class="e10">Address</td>
                 <td class="e11"></td>
             </tr>
             <tr>

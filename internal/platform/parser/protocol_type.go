@@ -56,6 +56,7 @@ type ProtocolType struct {
 	Metadata   Metadata
 	Fields     []Field
 	FieldTypes []ProtocolType
+	Constructor []Constructor
 }
 
 func (m ProtocolType) Name() string {

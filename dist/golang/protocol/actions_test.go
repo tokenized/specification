@@ -16,7 +16,7 @@ func TestAssetDefinition(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewAssetDefinition()
+	m := NewEmptyAssetDefinition()
 
 	header, err := NewHeaderForCode(CodeAssetDefinition, len(b))
 	if err != nil {
@@ -64,7 +64,7 @@ func TestAssetCreation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewAssetCreation()
+	m := NewEmptyAssetCreation()
 
 	header, err := NewHeaderForCode(CodeAssetCreation, len(b))
 	if err != nil {
@@ -112,7 +112,7 @@ func TestAssetModification(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewAssetModification()
+	m := NewEmptyAssetModification()
 
 	header, err := NewHeaderForCode(CodeAssetModification, len(b))
 	if err != nil {
@@ -160,7 +160,7 @@ func TestContractOffer(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewContractOffer()
+	m := NewEmptyContractOffer()
 
 	header, err := NewHeaderForCode(CodeContractOffer, len(b))
 	if err != nil {
@@ -208,7 +208,7 @@ func TestContractFormation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewContractFormation()
+	m := NewEmptyContractFormation()
 
 	header, err := NewHeaderForCode(CodeContractFormation, len(b))
 	if err != nil {
@@ -256,7 +256,7 @@ func TestContractAmendment(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewContractAmendment()
+	m := NewEmptyContractAmendment()
 
 	header, err := NewHeaderForCode(CodeContractAmendment, len(b))
 	if err != nil {
@@ -304,7 +304,7 @@ func TestStaticContractFormation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewStaticContractFormation()
+	m := NewEmptyStaticContractFormation()
 
 	header, err := NewHeaderForCode(CodeStaticContractFormation, len(b))
 	if err != nil {
@@ -352,7 +352,7 @@ func TestOrder(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewOrder()
+	m := NewEmptyOrder()
 
 	header, err := NewHeaderForCode(CodeOrder, len(b))
 	if err != nil {
@@ -400,7 +400,7 @@ func TestFreeze(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewFreeze()
+	m := NewEmptyFreeze()
 
 	header, err := NewHeaderForCode(CodeFreeze, len(b))
 	if err != nil {
@@ -448,7 +448,7 @@ func TestThaw(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewThaw()
+	m := NewEmptyThaw()
 
 	header, err := NewHeaderForCode(CodeThaw, len(b))
 	if err != nil {
@@ -496,7 +496,7 @@ func TestConfiscation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewConfiscation()
+	m := NewEmptyConfiscation()
 
 	header, err := NewHeaderForCode(CodeConfiscation, len(b))
 	if err != nil {
@@ -544,7 +544,7 @@ func TestReconciliation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewReconciliation()
+	m := NewEmptyReconciliation()
 
 	header, err := NewHeaderForCode(CodeReconciliation, len(b))
 	if err != nil {
@@ -592,7 +592,7 @@ func TestInitiative(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewInitiative()
+	m := NewEmptyInitiative()
 
 	header, err := NewHeaderForCode(CodeInitiative, len(b))
 	if err != nil {
@@ -640,7 +640,7 @@ func TestReferendum(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewReferendum()
+	m := NewEmptyReferendum()
 
 	header, err := NewHeaderForCode(CodeReferendum, len(b))
 	if err != nil {
@@ -688,7 +688,7 @@ func TestVote(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewVote()
+	m := NewEmptyVote()
 
 	header, err := NewHeaderForCode(CodeVote, len(b))
 	if err != nil {
@@ -736,7 +736,7 @@ func TestBallotCast(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewBallotCast()
+	m := NewEmptyBallotCast()
 
 	header, err := NewHeaderForCode(CodeBallotCast, len(b))
 	if err != nil {
@@ -784,7 +784,7 @@ func TestBallotCounted(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewBallotCounted()
+	m := NewEmptyBallotCounted()
 
 	header, err := NewHeaderForCode(CodeBallotCounted, len(b))
 	if err != nil {
@@ -832,7 +832,7 @@ func TestResult(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewResult()
+	m := NewEmptyResult()
 
 	header, err := NewHeaderForCode(CodeResult, len(b))
 	if err != nil {
@@ -880,7 +880,7 @@ func TestMessage(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewMessage()
+	m := NewEmptyMessage()
 
 	header, err := NewHeaderForCode(CodeMessage, len(b))
 	if err != nil {
@@ -928,7 +928,7 @@ func TestRejection(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewRejection()
+	m := NewEmptyRejection()
 
 	header, err := NewHeaderForCode(CodeRejection, len(b))
 	if err != nil {
@@ -976,7 +976,7 @@ func TestEstablishment(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEstablishment()
+	m := NewEmptyEstablishment()
 
 	header, err := NewHeaderForCode(CodeEstablishment, len(b))
 	if err != nil {
@@ -1024,7 +1024,7 @@ func TestAddition(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewAddition()
+	m := NewEmptyAddition()
 
 	header, err := NewHeaderForCode(CodeAddition, len(b))
 	if err != nil {
@@ -1072,7 +1072,7 @@ func TestAlteration(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewAlteration()
+	m := NewEmptyAlteration()
 
 	header, err := NewHeaderForCode(CodeAlteration, len(b))
 	if err != nil {
@@ -1120,7 +1120,7 @@ func TestRemoval(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewRemoval()
+	m := NewEmptyRemoval()
 
 	header, err := NewHeaderForCode(CodeRemoval, len(b))
 	if err != nil {
@@ -1168,7 +1168,7 @@ func TestTransfer(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewTransfer()
+	m := NewEmptyTransfer()
 
 	header, err := NewHeaderForCode(CodeTransfer, len(b))
 	if err != nil {
@@ -1216,7 +1216,7 @@ func TestSettlement(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewSettlement()
+	m := NewEmptySettlement()
 
 	header, err := NewHeaderForCode(CodeSettlement, len(b))
 	if err != nil {
