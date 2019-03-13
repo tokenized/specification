@@ -34,7 +34,7 @@ The following breaks down the construction of a Addition Action. The action is c
             <td class="r10" style="word-break:break-all">
                 username
             </td>
-            <td class="r10">Length only limited by Bitcoin protocol.</td>
+            <td class="r10"></td>
             <td class="r10">nvarchar32</td>
             <td class="r11"></td>
         </tr>

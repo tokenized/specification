@@ -32,7 +32,7 @@ The following breaks down the construction of a Transfer Action. The action is c
             <td class="t10">AssetCount</td>
             <td class="t10">1</td>
             <td class="t10" style="word-break:break-all">
-                4
+                0
             </td>
             <td class="t10">The number of Assets involved in the Transfer Action.</td>
             <td class="t10">uint8</td>

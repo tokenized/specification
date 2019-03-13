@@ -30,8 +30,8 @@ fields:
 
   - name: Message
     label: Message
-    description: "Length only limited by Bitcoin protocol."
+    description:
     type: nvarchar32
-    example_hex: 0000000000000008757365726e616d65
+    example_hex: 00000008757365726e616d65
     example_value: "username"
     notes: ""

@@ -186,7 +186,7 @@ The following breaks down the construction of a Order Action. The action is cons
             <td class="e10" style="word-break:break-all">
                 Sorry, but the court order made me.
             </td>
-            <td class="e10">Length only limited by the Bitcoin protocol.</td>
+            <td class="e10"></td>
             <td class="e10">nvarchar32</td>
             <td class="e11"></td>
         </tr>

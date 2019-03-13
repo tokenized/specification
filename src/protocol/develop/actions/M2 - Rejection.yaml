@@ -58,7 +58,7 @@ fields:
     label: Message Payload
     description: "Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield."
     type: nvarchar32
-    example_hex: 0024536f7272792c20796f7520646f6e2774206861766520656e6f75676820746f6b656e732e
+    example_hex: 00000024536f7272792c20796f7520646f6e2774206861766520656e6f75676820746f6b656e732e
     example_value: "Sorry, you don't have enough tokens."
     notes: ""
 

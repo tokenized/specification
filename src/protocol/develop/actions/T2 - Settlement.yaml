@@ -35,8 +35,8 @@ fields:
     description: "The number of Assets specified by the Transfer action to be settled."
     type: uint8
     size: 1
-    example_hex: 534843
-    example_value: "4"
+    example_hex: 00
+    example_value: 0
     notes: ""
 
   - name: AssetTypeX

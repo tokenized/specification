@@ -32,7 +32,7 @@ The following breaks down the construction of a Settlement Action. The action is
             <td class="t10">AssetCount</td>
             <td class="t10">1</td>
             <td class="t10" style="word-break:break-all">
-                4
+                0
             </td>
             <td class="t10">The number of Assets specified by the Transfer action to be settled.</td>
             <td class="t10">uint8</td>
