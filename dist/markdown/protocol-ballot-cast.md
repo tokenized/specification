@@ -66,7 +66,7 @@ The following breaks down the construction of a Ballot Cast Action. The action i
         <tr>
             <td class="g10">Vote</td>
             <td class="g10">Vote</td>
-            <td class="g10">255</td>
+            <td class="g10">8</td>
             <td class="g10" style="word-break:break-all">
                 A
             </td>

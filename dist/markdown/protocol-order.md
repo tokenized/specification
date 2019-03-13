@@ -86,7 +86,7 @@ The following breaks down the construction of a Order Action. The action is cons
         <tr>
             <td class="e10">Deposit Address</td>
             <td class="e10">DepositAddress</td>
-            <td class="e10">255</td>
+            <td class="e10">8</td>
             <td class="e10" style="word-break:break-all">
                 17zAWabipcUHn5XP9w8GEc3PKvG5bYGBMe
             </td>
@@ -98,7 +98,7 @@ The following breaks down the construction of a Order Action. The action is cons
         <tr>
             <td class="e10">Authority Name</td>
             <td class="e10">AuthorityName</td>
-            <td class="e10">255</td>
+            <td class="e10">8</td>
             <td class="e10" style="word-break:break-all">
                 Supreme and District Courts Brisbane
             </td>
@@ -122,7 +122,7 @@ The following breaks down the construction of a Order Action. The action is cons
         <tr>
             <td class="e10">Authority Public Key</td>
             <td class="e10">AuthorityPublicKey</td>
-            <td class="e10">255</td>
+            <td class="e10">8</td>
             <td class="e10" style="word-break:break-all">
                 
             </td>
@@ -134,7 +134,7 @@ The following breaks down the construction of a Order Action. The action is cons
         <tr>
             <td class="e10">Authority Order Signature</td>
             <td class="e10">OrderSignature</td>
-            <td class="e10">255</td>
+            <td class="e10">8</td>
             <td class="e10" style="word-break:break-all">
                 
             </td>
@@ -182,7 +182,7 @@ The following breaks down the construction of a Order Action. The action is cons
         <tr>
             <td class="e10">Message Period</td>
             <td class="e10">Message</td>
-            <td class="e10">4294967295</td>
+            <td class="e10">32</td>
             <td class="e10" style="word-break:break-all">
                 Sorry, but the court order made me.
             </td>

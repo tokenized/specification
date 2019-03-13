@@ -30,7 +30,7 @@ The following breaks down the construction of a Alteration Action. The action is
         <tr>
             <td class="r10">Message</td>
             <td class="r10">Message</td>
-            <td class="r10">4294967295</td>
+            <td class="r10">32</td>
             <td class="r10" style="word-break:break-all">
                 Changed Country of Residence
             </td>

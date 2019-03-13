@@ -58,7 +58,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    size: 65535
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     size: 113
     example: APPLC - Apple corp - Common share issue class C
     span: full

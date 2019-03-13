@@ -102,7 +102,8 @@ fields:
     label: Vote Options
     description: "Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0f4142434445464748494a4b4c4d4e4f
     example_value: "ABCDEFGHIJKLMNO"
     notes: ""
@@ -120,7 +121,8 @@ fields:
     label: Proposal Description
     description: "Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote."
     type: varchar
-    size: 4294967295
+    # varchar size is number of bits to serialize the size of the value
+    size: 32
     example_hex: 00204368616e676520746865206e616d65206f662074686520436f6e74726163742e
     example_value: "Change the name of the Contract."
     notes: ""

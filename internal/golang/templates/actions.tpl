@@ -33,12 +33,7 @@ type {{.Name}} struct {
 {{ end -}}
 }
 
-// New{{.Name}} returns a new empty {{.Name}}.
-func NewEmpty{{.Name}}() *{{.Name}} {
-	result := {{.Name}}{}
-	return &result
-}
-
+{{ if .Constructor -}}
 // New{{.Name}} returns a new {{.Name}} with specified values set.
 func New{{.Name}}({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .ConstructorName }} {{ .ConstructorGoType }}{{ end -}}) *{{.Name}} {
 	result := {{.Name}}{}
@@ -48,6 +43,7 @@ func New{{.Name}}({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .Constr
 	{{ end -}}
 	return &result
 }
+{{ end -}}
 
 {{ range .Functions }}// {{.FunctionName}} {{ .FunctionDescription }}.
 func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .FunctionParams }}{{if ne .ParamName "hidden"}}{{if $i}}, {{end}}{{ .ParamName }} {{ .ParamGoType }}{{ end -}}{{ end -}}) {

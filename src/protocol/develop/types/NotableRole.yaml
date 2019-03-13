@@ -16,8 +16,8 @@ fields:
     label: Notable Role Name
     description: "Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)"
     type: varchar
-    size: 255
-    size: 14
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0d4a616d65732042656c64696e67
     example_value: "Satoshi Nakamoto"
     notes: ""

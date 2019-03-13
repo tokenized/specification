@@ -122,7 +122,7 @@ The following breaks down the construction of a Referendum Action. The action is
         <tr>
             <td class="g10">Vote Options</td>
             <td class="g10">VoteOptions</td>
-            <td class="g10">255</td>
+            <td class="g10">8</td>
             <td class="g10" style="word-break:break-all">
                 ABCDEFGHIJKLMNO
             </td>
@@ -146,7 +146,7 @@ The following breaks down the construction of a Referendum Action. The action is
         <tr>
             <td class="g10">Proposal Description</td>
             <td class="g10">ProposalDescription</td>
-            <td class="g10">4294967295</td>
+            <td class="g10">32</td>
             <td class="g10" style="word-break:break-all">
                 Change the name of the Contract.
             </td>

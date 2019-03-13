@@ -27,7 +27,8 @@ fields:
     label: Contract Name
     description: "Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 30
     example_hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
     example_value: "Tesla - Shareholder Agreement"
@@ -37,7 +38,8 @@ fields:
     label: Contract Type
     description:
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 30
     example_hex: 184e6f6e2d446973636c6f737572652041677265656d656e74
     example_value: "Non-Disclosure Agreement"
@@ -119,7 +121,8 @@ fields:
     label: Contract URI
     description: "Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 53
     example_hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
     example_value: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"

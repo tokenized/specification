@@ -122,7 +122,7 @@ The following breaks down the construction of a Result Action. The action is con
         <tr>
             <td class="g10">Result</td>
             <td class="g10">Result</td>
-            <td class="g10">255</td>
+            <td class="g10">8</td>
             <td class="g10" style="word-break:break-all">
                 2
             </td>

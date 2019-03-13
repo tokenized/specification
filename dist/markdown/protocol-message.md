@@ -67,7 +67,7 @@ The following breaks down the construction of a Message Action. The action is co
         <tr>
             <td class="m10">Message Payload</td>
             <td class="m10">MessagePayload</td>
-            <td class="m10">4294967295</td>
+            <td class="m10">32</td>
             <td class="m10" style="word-break:break-all">
                 Hello world!
             </td>

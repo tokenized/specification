@@ -102,7 +102,7 @@ func (m Coupon) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Description, 65535); err != nil {
+	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
 
@@ -372,7 +372,7 @@ func (m LoyaltyPoints) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Description, 65535); err != nil {
+	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
 
@@ -523,7 +523,7 @@ func (m Membership) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Description, 65535); err != nil {
+	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
 
@@ -824,7 +824,7 @@ func (m TicketAdmission) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Description, 65535); err != nil {
+	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
 

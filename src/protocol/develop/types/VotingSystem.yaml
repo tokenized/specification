@@ -7,7 +7,8 @@ fields:
     label: Voting System Name
     description: "eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 20
     example_hex: 135370656369616c205265736f6c7574696f6e73
     example_value: "Special Resolutions"

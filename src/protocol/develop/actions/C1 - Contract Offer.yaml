@@ -38,7 +38,8 @@ fields:
     label:
     description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
     example_value: "Tesla - Shareholder Agreement"
     notes: ""
@@ -65,7 +66,8 @@ fields:
     label: Contract File
     description: "SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
     type: varchar
-    size: 4294967295
+    # varchar size is number of bits to serialize the size of the value
+    size: 32
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
     notes: ""
@@ -101,7 +103,8 @@ fields:
     label: Contract URI
     description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS)."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
     example_value: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
     notes: ""
@@ -110,7 +113,8 @@ fields:
     label: Issuer Name
     description: "Length 0-255 bytes. 0 is not valid.Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0a5465736c6120496e632e
     example_value: "Tesla Inc."
     notes: ""
@@ -128,7 +132,8 @@ fields:
     label: Issuer Logo URL
     description: "The URL of the Issuers logo."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: "2368747470733a2f2f6578616d706c652e636f6d2f696d616765732f6c6f676f2e706e67"
     example_value: "https://example.com/images/logo.png"
     notes: ""
@@ -137,7 +142,8 @@ fields:
     label: Contract Operator ID
     description: "Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 09546f6b656e697a6564
     example_value: "Tokenized"
     notes: ""
@@ -220,7 +226,8 @@ fields:
     label: Unit Number
     description: "Issuer Address Details (eg. HQ)"
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0132
     example_value: "2"
     notes: ""
@@ -229,7 +236,8 @@ fields:
     label: Building Number
     description: ""
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 053133353737
     example_value: "13577"
     notes: ""
@@ -238,7 +246,8 @@ fields:
     label: Street
     description: ""
     type: varchar
-    size: 65535
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     example_hex: 000c466169726d6f6e7420417665
     example_value: "Fairmont Ave"
     notes: ""
@@ -247,7 +256,8 @@ fields:
     label: Suburb/City
     description: ""
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 07526f62696e6f68
     example_value: "Robinoh"
     notes: ""
@@ -274,7 +284,8 @@ fields:
     label: Postal/ZIP Code
     description: ""
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 053530323130
     example_value: "50210"
     notes: ""
@@ -283,7 +294,8 @@ fields:
     label: Email Address
     description: "Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address"
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 136a616d657340746f6b656e697a65642e636f6d
     example_value: "james@tokenized.com"
     notes: ""
@@ -292,7 +304,8 @@ fields:
     label: Phone Number
     description: "Length 0-50 bytes. 0 is valid (no Phone subfield).Phone Number for Entity."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0a30343230313939393939
     example_value: "0420199999"
     notes: ""
@@ -324,16 +337,6 @@ fields:
     label: Notable Roles
     description: "A list of Notable Roles."
     type: NotableRole[]
-
-# Constructor parameters
-constructor:
-    - name: name
-      type: string
-      field: ContractName
-
-    - name: issuerName
-      type: string
-      field: IssuerName
 
 # Functions for configuring the action
 functions:

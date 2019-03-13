@@ -145,19 +145,6 @@ type AssetDefinition struct {
 	AssetPayload                []byte  // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
 }
 
-// NewAssetDefinition returns a new empty AssetDefinition.
-func NewEmptyAssetDefinition() *AssetDefinition {
-	result := AssetDefinition{}
-	return &result
-}
-
-// NewAssetDefinition returns a new AssetDefinition with specified values set.
-func NewAssetDefinition(assetType string) *AssetDefinition {
-	result := AssetDefinition{}
-	result.AssetType = assetType
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m AssetDefinition) Type() string {
 	return CodeAssetDefinition
@@ -418,18 +405,6 @@ type AssetCreation struct {
 	AssetPayload                []byte  // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
 	AssetRevision               uint64  // Counter 0 - 65,535
 	Timestamp                   uint64  // Timestamp in nanoseconds of when the smart contract created the action.
-}
-
-// NewAssetCreation returns a new empty AssetCreation.
-func NewEmptyAssetCreation() *AssetCreation {
-	result := AssetCreation{}
-	return &result
-}
-
-// NewAssetCreation returns a new AssetCreation with specified values set.
-func NewAssetCreation() *AssetCreation {
-	result := AssetCreation{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -700,18 +675,6 @@ type AssetModification struct {
 	RefTxID           [32]byte    // Tx-ID of the associated Result action (governance) that permitted the modifications.
 }
 
-// NewAssetModification returns a new empty AssetModification.
-func NewEmptyAssetModification() *AssetModification {
-	result := AssetModification{}
-	return &result
-}
-
-// NewAssetModification returns a new AssetModification with specified values set.
-func NewAssetModification() *AssetModification {
-	result := AssetModification{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m AssetModification) Type() string {
 	return CodeAssetModification
@@ -896,20 +859,6 @@ type ContractOffer struct {
 	NotableRoles               []NotableRole  // A list of Notable Roles.
 }
 
-// NewContractOffer returns a new empty ContractOffer.
-func NewEmptyContractOffer() *ContractOffer {
-	result := ContractOffer{}
-	return &result
-}
-
-// NewContractOffer returns a new ContractOffer with specified values set.
-func NewContractOffer(name string, issuerName string) *ContractOffer {
-	result := ContractOffer{}
-	result.ContractName = name
-	result.IssuerName = issuerName
-	return &result
-}
-
 // SetIssuerAddress Sets the issuer's mailing address on the contract..
 func (action *ContractOffer) SetIssuerAddress(unit string, building string, street string, city string, state string, countryCode string, postalCode string) {
 	action.UnitNumber = unit
@@ -955,7 +904,7 @@ func (m ContractOffer) Read(b []byte) (int, error) {
 func (m ContractOffer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := WriteVarChar(buf, m.ContractName, 255); err != nil {
+	if err := WriteVarChar(buf, m.ContractName, 8); err != nil {
 		return nil, err
 	}
 
@@ -967,7 +916,7 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.ContractFile, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.ContractFile, 32); err != nil {
 		return nil, err
 	}
 
@@ -983,11 +932,11 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.ContractURI, 255); err != nil {
+	if err := WriteVarChar(buf, m.ContractURI, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.IssuerName, 255); err != nil {
+	if err := WriteVarChar(buf, m.IssuerName, 8); err != nil {
 		return nil, err
 	}
 
@@ -995,11 +944,11 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.IssuerLogoURL, 255); err != nil {
+	if err := WriteVarChar(buf, m.IssuerLogoURL, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.ContractOperatorID, 255); err != nil {
+	if err := WriteVarChar(buf, m.ContractOperatorID, 8); err != nil {
 		return nil, err
 	}
 
@@ -1053,19 +1002,19 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.UnitNumber, 255); err != nil {
+	if err := WriteVarChar(buf, m.UnitNumber, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.BuildingNumber, 255); err != nil {
+	if err := WriteVarChar(buf, m.BuildingNumber, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Street, 65535); err != nil {
+	if err := WriteVarChar(buf, m.Street, 16); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.SuburbCity, 255); err != nil {
+	if err := WriteVarChar(buf, m.SuburbCity, 8); err != nil {
 		return nil, err
 	}
 
@@ -1077,15 +1026,15 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.PostalZIPCode, 255); err != nil {
+	if err := WriteVarChar(buf, m.PostalZIPCode, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.EmailAddress, 255); err != nil {
+	if err := WriteVarChar(buf, m.EmailAddress, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.PhoneNumber, 255); err != nil {
+	if err := WriteVarChar(buf, m.PhoneNumber, 8); err != nil {
 		return nil, err
 	}
 
@@ -1147,7 +1096,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ContractName, err = ReadVarChar(buf, 255)
+		m.ContractName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1163,7 +1112,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ContractFile, err = ReadVarChar(buf, 4294967295)
+		m.ContractFile, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -1191,7 +1140,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ContractURI, err = ReadVarChar(buf, 255)
+		m.ContractURI, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1199,7 +1148,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.IssuerName, err = ReadVarChar(buf, 255)
+		m.IssuerName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1211,7 +1160,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.IssuerLogoURL, err = ReadVarChar(buf, 255)
+		m.IssuerLogoURL, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1219,7 +1168,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ContractOperatorID, err = ReadVarChar(buf, 255)
+		m.ContractOperatorID, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1274,7 +1223,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.UnitNumber, err = ReadVarChar(buf, 255)
+		m.UnitNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1282,7 +1231,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.BuildingNumber, err = ReadVarChar(buf, 255)
+		m.BuildingNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1290,7 +1239,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.Street, err = ReadVarChar(buf, 65535)
+		m.Street, err = ReadVarChar(buf, 16)
 		if err != nil {
 			return 0, err
 		}
@@ -1298,7 +1247,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.SuburbCity, err = ReadVarChar(buf, 255)
+		m.SuburbCity, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1322,7 +1271,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.PostalZIPCode, err = ReadVarChar(buf, 255)
+		m.PostalZIPCode, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1330,7 +1279,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.EmailAddress, err = ReadVarChar(buf, 255)
+		m.EmailAddress, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1338,7 +1287,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.PhoneNumber, err = ReadVarChar(buf, 255)
+		m.PhoneNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1465,18 +1414,6 @@ type ContractFormation struct {
 	Timestamp                  uint64         // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewContractFormation returns a new empty ContractFormation.
-func NewEmptyContractFormation() *ContractFormation {
-	result := ContractFormation{}
-	return &result
-}
-
-// NewContractFormation returns a new ContractFormation with specified values set.
-func NewContractFormation() *ContractFormation {
-	result := ContractFormation{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m ContractFormation) Type() string {
 	return CodeContractFormation
@@ -1500,7 +1437,7 @@ func (m ContractFormation) Read(b []byte) (int, error) {
 func (m ContractFormation) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := WriteVarChar(buf, m.ContractName, 255); err != nil {
+	if err := WriteVarChar(buf, m.ContractName, 8); err != nil {
 		return nil, err
 	}
 
@@ -1528,11 +1465,11 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.ContractURI, 255); err != nil {
+	if err := WriteVarChar(buf, m.ContractURI, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.IssuerName, 255); err != nil {
+	if err := WriteVarChar(buf, m.IssuerName, 8); err != nil {
 		return nil, err
 	}
 
@@ -1540,11 +1477,11 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.IssuerLogoURL, 255); err != nil {
+	if err := WriteVarChar(buf, m.IssuerLogoURL, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.ContractOperatorID, 255); err != nil {
+	if err := WriteVarChar(buf, m.ContractOperatorID, 8); err != nil {
 		return nil, err
 	}
 
@@ -1598,19 +1535,19 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.UnitNumber, 255); err != nil {
+	if err := WriteVarChar(buf, m.UnitNumber, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.BuildingNumber, 255); err != nil {
+	if err := WriteVarChar(buf, m.BuildingNumber, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Street, 65535); err != nil {
+	if err := WriteVarChar(buf, m.Street, 16); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.SuburbCity, 255); err != nil {
+	if err := WriteVarChar(buf, m.SuburbCity, 8); err != nil {
 		return nil, err
 	}
 
@@ -1622,15 +1559,15 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.PostalZIPCode, 255); err != nil {
+	if err := WriteVarChar(buf, m.PostalZIPCode, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.EmailAddress, 255); err != nil {
+	if err := WriteVarChar(buf, m.EmailAddress, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.PhoneNumber, 255); err != nil {
+	if err := WriteVarChar(buf, m.PhoneNumber, 8); err != nil {
 		return nil, err
 	}
 
@@ -1700,7 +1637,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ContractName, err = ReadVarChar(buf, 255)
+		m.ContractName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1740,7 +1677,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ContractURI, err = ReadVarChar(buf, 255)
+		m.ContractURI, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1748,7 +1685,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.IssuerName, err = ReadVarChar(buf, 255)
+		m.IssuerName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1760,7 +1697,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.IssuerLogoURL, err = ReadVarChar(buf, 255)
+		m.IssuerLogoURL, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1768,7 +1705,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ContractOperatorID, err = ReadVarChar(buf, 255)
+		m.ContractOperatorID, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1823,7 +1760,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.UnitNumber, err = ReadVarChar(buf, 255)
+		m.UnitNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1831,7 +1768,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.BuildingNumber, err = ReadVarChar(buf, 255)
+		m.BuildingNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1839,7 +1776,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.Street, err = ReadVarChar(buf, 65535)
+		m.Street, err = ReadVarChar(buf, 16)
 		if err != nil {
 			return 0, err
 		}
@@ -1847,7 +1784,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.SuburbCity, err = ReadVarChar(buf, 255)
+		m.SuburbCity, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1871,7 +1808,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.PostalZIPCode, err = ReadVarChar(buf, 255)
+		m.PostalZIPCode, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1879,7 +1816,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.EmailAddress, err = ReadVarChar(buf, 255)
+		m.EmailAddress, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1887,7 +1824,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.PhoneNumber, err = ReadVarChar(buf, 255)
+		m.PhoneNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1991,18 +1928,6 @@ type ContractAmendment struct {
 	AmendmentsCount       uint8       // Number of Amendments. Must be less than the max Subfield Index of CF.
 	Amendments            []Amendment //
 	RefTxID               [32]byte    // Tx-ID of the associated Result action (governance) that permitted the modifications.
-}
-
-// NewContractAmendment returns a new empty ContractAmendment.
-func NewEmptyContractAmendment() *ContractAmendment {
-	result := ContractAmendment{}
-	return &result
-}
-
-// NewContractAmendment returns a new ContractAmendment with specified values set.
-func NewContractAmendment() *ContractAmendment {
-	result := ContractAmendment{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2153,18 +2078,6 @@ type StaticContractFormation struct {
 	PrevRevTxID        [32]byte // The Tx-ID of the previous contract revision.
 	EntityCount        uint8    // Number of entities involved in the contract as contracting parties.
 	Entities           []Entity //
-}
-
-// NewStaticContractFormation returns a new empty StaticContractFormation.
-func NewEmptyStaticContractFormation() *StaticContractFormation {
-	result := StaticContractFormation{}
-	return &result
-}
-
-// NewStaticContractFormation returns a new StaticContractFormation with specified values set.
-func NewStaticContractFormation() *StaticContractFormation {
-	result := StaticContractFormation{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2415,18 +2328,6 @@ type Order struct {
 	Message                string          // Length only limited by the Bitcoin protocol.
 }
 
-// NewOrder returns a new empty Order.
-func NewEmptyOrder() *Order {
-	result := Order{}
-	return &result
-}
-
-// NewOrder returns a new Order with specified values set.
-func NewOrder() *Order {
-	result := Order{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Order) Type() string {
 	return CodeOrder
@@ -2477,11 +2378,11 @@ func (m Order) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := WriteVarChar(buf, m.DepositAddress, 255); err != nil {
+	if err := WriteVarChar(buf, m.DepositAddress, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.AuthorityName, 255); err != nil {
+	if err := WriteVarChar(buf, m.AuthorityName, 8); err != nil {
 		return nil, err
 	}
 
@@ -2489,11 +2390,11 @@ func (m Order) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.AuthorityPublicKey, 255); err != nil {
+	if err := WriteVarChar(buf, m.AuthorityPublicKey, 8); err != nil {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.OrderSignature, 255); err != nil {
+	if err := WriteVarChar(buf, m.OrderSignature, 8); err != nil {
 		return nil, err
 	}
 
@@ -2509,7 +2410,7 @@ func (m Order) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Message, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.Message, 32); err != nil {
 		return nil, err
 	}
 
@@ -2574,7 +2475,7 @@ func (m *Order) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.DepositAddress, err = ReadVarChar(buf, 255)
+		m.DepositAddress, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -2582,7 +2483,7 @@ func (m *Order) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.AuthorityName, err = ReadVarChar(buf, 255)
+		m.AuthorityName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -2594,7 +2495,7 @@ func (m *Order) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.AuthorityPublicKey, err = ReadVarChar(buf, 255)
+		m.AuthorityPublicKey, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -2602,7 +2503,7 @@ func (m *Order) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.OrderSignature, err = ReadVarChar(buf, 255)
+		m.OrderSignature, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -2622,7 +2523,7 @@ func (m *Order) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 4294967295)
+		m.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -2668,18 +2569,6 @@ type Freeze struct {
 	AddressCount uint16    // 0 - 65,535
 	Addresses    []Address // Addresses holding tokens to be frozen.
 	Timestamp    uint64    // Timestamp in nanoseconds of when the smart contract created the action.
-}
-
-// NewFreeze returns a new empty Freeze.
-func NewEmptyFreeze() *Freeze {
-	result := Freeze{}
-	return &result
-}
-
-// NewFreeze returns a new Freeze with specified values set.
-func NewFreeze() *Freeze {
-	result := Freeze{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2795,18 +2684,6 @@ type Thaw struct {
 	Addresses    []Address // Addresses holding tokens to be thawed.
 	RefTxnID     [32]byte  // The related freeze action.
 	Timestamp    uint64    // Timestamp in nanoseconds of when the smart contract created the action.
-}
-
-// NewThaw returns a new empty Thaw.
-func NewEmptyThaw() *Thaw {
-	result := Thaw{}
-	return &result
-}
-
-// NewThaw returns a new Thaw with specified values set.
-func NewThaw() *Thaw {
-	result := Thaw{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -2932,18 +2809,6 @@ type Confiscation struct {
 	Timestamp    uint64    // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewConfiscation returns a new empty Confiscation.
-func NewEmptyConfiscation() *Confiscation {
-	result := Confiscation{}
-	return &result
-}
-
-// NewConfiscation returns a new Confiscation with specified values set.
-func NewConfiscation() *Confiscation {
-	result := Confiscation{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Confiscation) Type() string {
 	return CodeConfiscation
@@ -3064,18 +2929,6 @@ type Reconciliation struct {
 	AddressCount uint16    // 0 - 65,535
 	Addresses    []Address // Addresses holding tokens to be reconciled.
 	Timestamp    uint64    // Timestamp in nanoseconds of when the smart contract created the action.
-}
-
-// NewReconciliation returns a new empty Reconciliation.
-func NewEmptyReconciliation() *Reconciliation {
-	result := Reconciliation{}
-	return &result
-}
-
-// NewReconciliation returns a new Reconciliation with specified values set.
-func NewReconciliation() *Reconciliation {
-	result := Reconciliation{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3201,18 +3054,6 @@ type Initiative struct {
 	VoteCutOffTimestamp  uint64      // Ballot casts after this timestamp will not be included. The vote has finished.
 }
 
-// NewInitiative returns a new empty Initiative.
-func NewEmptyInitiative() *Initiative {
-	result := Initiative{}
-	return &result
-}
-
-// NewInitiative returns a new Initiative with specified values set.
-func NewInitiative() *Initiative {
-	result := Initiative{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Initiative) Type() string {
 	return CodeInitiative
@@ -3267,7 +3108,7 @@ func (m Initiative) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := WriteVarChar(buf, m.VoteOptions, 255); err != nil {
+	if err := WriteVarChar(buf, m.VoteOptions, 8); err != nil {
 		return nil, err
 	}
 
@@ -3275,7 +3116,7 @@ func (m Initiative) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.ProposalDescription, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.ProposalDescription, 32); err != nil {
 		return nil, err
 	}
 
@@ -3352,7 +3193,7 @@ func (m *Initiative) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.VoteOptions, err = ReadVarChar(buf, 255)
+		m.VoteOptions, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -3364,7 +3205,7 @@ func (m *Initiative) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ProposalDescription, err = ReadVarChar(buf, 4294967295)
+		m.ProposalDescription, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -3423,18 +3264,6 @@ type Referendum struct {
 	ProposalDescription  string      // Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.
 	ProposalDocumentHash [32]byte    // Hash of the proposal document to be distributed to voters
 	VoteCutOffTimestamp  uint64      // Ballot casts after this timestamp will not be included. The vote has finished.
-}
-
-// NewReferendum returns a new empty Referendum.
-func NewEmptyReferendum() *Referendum {
-	result := Referendum{}
-	return &result
-}
-
-// NewReferendum returns a new Referendum with specified values set.
-func NewReferendum() *Referendum {
-	result := Referendum{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3499,7 +3328,7 @@ func (m Referendum) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := WriteVarChar(buf, m.VoteOptions, 255); err != nil {
+	if err := WriteVarChar(buf, m.VoteOptions, 8); err != nil {
 		return nil, err
 	}
 
@@ -3507,7 +3336,7 @@ func (m Referendum) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.ProposalDescription, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.ProposalDescription, 32); err != nil {
 		return nil, err
 	}
 
@@ -3592,7 +3421,7 @@ func (m *Referendum) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.VoteOptions, err = ReadVarChar(buf, 255)
+		m.VoteOptions, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -3604,7 +3433,7 @@ func (m *Referendum) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.ProposalDescription, err = ReadVarChar(buf, 4294967295)
+		m.ProposalDescription, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -3652,18 +3481,6 @@ func (m Referendum) String() string {
 type Vote struct {
 	Header    Header // Common header data for all actions
 	Timestamp uint64 // Timestamp in nanoseconds of when the smart contract created the action.
-}
-
-// NewVote returns a new empty Vote.
-func NewEmptyVote() *Vote {
-	result := Vote{}
-	return &result
-}
-
-// NewVote returns a new Vote with specified values set.
-func NewVote() *Vote {
-	result := Vote{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3752,18 +3569,6 @@ type BallotCast struct {
 	Vote      string   // Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.
 }
 
-// NewBallotCast returns a new empty BallotCast.
-func NewEmptyBallotCast() *BallotCast {
-	result := BallotCast{}
-	return &result
-}
-
-// NewBallotCast returns a new BallotCast with specified values set.
-func NewBallotCast() *BallotCast {
-	result := BallotCast{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m BallotCast) Type() string {
 	return CodeBallotCast
@@ -3799,7 +3604,7 @@ func (m BallotCast) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Vote, 255); err != nil {
+	if err := WriteVarChar(buf, m.Vote, 8); err != nil {
 		return nil, err
 	}
 
@@ -3851,7 +3656,7 @@ func (m *BallotCast) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.Vote, err = ReadVarChar(buf, 255)
+		m.Vote, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -3884,18 +3689,6 @@ func (m BallotCast) String() string {
 type BallotCounted struct {
 	Header    Header // Common header data for all actions
 	Timestamp uint64 // Timestamp in nanoseconds of when the smart contract created the action.
-}
-
-// NewBallotCounted returns a new empty BallotCounted.
-func NewEmptyBallotCounted() *BallotCounted {
-	result := BallotCounted{}
-	return &result
-}
-
-// NewBallotCounted returns a new BallotCounted with specified values set.
-func NewBallotCounted() *BallotCounted {
-	result := BallotCounted{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -3988,18 +3781,6 @@ type Result struct {
 	Timestamp            uint64      // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewResult returns a new empty Result.
-func NewEmptyResult() *Result {
-	result := Result{}
-	return &result
-}
-
-// NewResult returns a new Result with specified values set.
-func NewResult() *Result {
-	result := Result{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Result) Type() string {
 	return CodeResult
@@ -4062,7 +3843,7 @@ func (m Result) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Result, 255); err != nil {
+	if err := WriteVarChar(buf, m.Result, 8); err != nil {
 		return nil, err
 	}
 
@@ -4143,7 +3924,7 @@ func (m *Result) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.Result, err = ReadVarChar(buf, 255)
+		m.Result, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -4195,18 +3976,6 @@ type Message struct {
 
 }
 
-// NewMessage returns a new empty Message.
-func NewEmptyMessage() *Message {
-	result := Message{}
-	return &result
-}
-
-// NewMessage returns a new Message with specified values set.
-func NewMessage() *Message {
-	result := Message{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Message) Type() string {
 	return CodeMessage
@@ -4244,7 +4013,7 @@ func (m Message) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.MessagePayload, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.MessagePayload, 32); err != nil {
 		return nil, err
 	}
 
@@ -4293,7 +4062,7 @@ func (m *Message) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.MessagePayload, err = ReadVarChar(buf, 4294967295)
+		m.MessagePayload, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -4336,18 +4105,6 @@ type Rejection struct {
 	Timestamp             uint64   // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
-// NewRejection returns a new empty Rejection.
-func NewEmptyRejection() *Rejection {
-	result := Rejection{}
-	return &result
-}
-
-// NewRejection returns a new Rejection with specified values set.
-func NewRejection() *Rejection {
-	result := Rejection{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Rejection) Type() string {
 	return CodeRejection
@@ -4385,7 +4142,7 @@ func (m Rejection) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.MessagePayload, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.MessagePayload, 32); err != nil {
 		return nil, err
 	}
 
@@ -4434,7 +4191,7 @@ func (m *Rejection) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.MessagePayload, err = ReadVarChar(buf, 4294967295)
+		m.MessagePayload, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -4469,18 +4226,6 @@ func (m Rejection) String() string {
 type Establishment struct {
 	Header  Header // Common header data for all actions
 	Message string // Length only limited by Bitcoin protocol.
-}
-
-// NewEstablishment returns a new empty Establishment.
-func NewEmptyEstablishment() *Establishment {
-	result := Establishment{}
-	return &result
-}
-
-// NewEstablishment returns a new Establishment with specified values set.
-func NewEstablishment() *Establishment {
-	result := Establishment{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -4567,18 +4312,6 @@ type Addition struct {
 	Message string // Length only limited by Bitcoin protocol.
 }
 
-// NewAddition returns a new empty Addition.
-func NewEmptyAddition() *Addition {
-	result := Addition{}
-	return &result
-}
-
-// NewAddition returns a new Addition with specified values set.
-func NewAddition() *Addition {
-	result := Addition{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Addition) Type() string {
 	return CodeAddition
@@ -4602,7 +4335,7 @@ func (m Addition) Read(b []byte) (int, error) {
 func (m Addition) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := WriteVarChar(buf, m.Message, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.Message, 32); err != nil {
 		return nil, err
 	}
 
@@ -4634,7 +4367,7 @@ func (m *Addition) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 4294967295)
+		m.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -4663,18 +4396,6 @@ type Alteration struct {
 	Message string // Length only limited by the Bitcoin protocol.
 }
 
-// NewAlteration returns a new empty Alteration.
-func NewEmptyAlteration() *Alteration {
-	result := Alteration{}
-	return &result
-}
-
-// NewAlteration returns a new Alteration with specified values set.
-func NewAlteration() *Alteration {
-	result := Alteration{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Alteration) Type() string {
 	return CodeAlteration
@@ -4698,7 +4419,7 @@ func (m Alteration) Read(b []byte) (int, error) {
 func (m Alteration) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := WriteVarChar(buf, m.Message, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.Message, 32); err != nil {
 		return nil, err
 	}
 
@@ -4730,7 +4451,7 @@ func (m *Alteration) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 4294967295)
+		m.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -4759,18 +4480,6 @@ type Removal struct {
 	Message string // Length only limited by the Bitcoin protocol.
 }
 
-// NewRemoval returns a new empty Removal.
-func NewEmptyRemoval() *Removal {
-	result := Removal{}
-	return &result
-}
-
-// NewRemoval returns a new Removal with specified values set.
-func NewRemoval() *Removal {
-	result := Removal{}
-	return &result
-}
-
 // Type returns the type identifer for this message.
 func (m Removal) Type() string {
 	return CodeRemoval
@@ -4794,7 +4503,7 @@ func (m Removal) Read(b []byte) (int, error) {
 func (m Removal) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := WriteVarChar(buf, m.Message, 4294967295); err != nil {
+	if err := WriteVarChar(buf, m.Message, 32); err != nil {
 		return nil, err
 	}
 
@@ -4826,7 +4535,7 @@ func (m *Removal) Write(b []byte) (int, error) {
 
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 4294967295)
+		m.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -4872,18 +4581,6 @@ type Transfer struct {
 	ExchangeFeeVar      float32         // Percent of the value of the transaction
 	ExchangeFeeFixed    float32         // Fixed fee
 	ExchangeFeeAddress  Address         // Identifies the public address that the exchange fee should be paid to.
-}
-
-// NewTransfer returns a new empty Transfer.
-func NewEmptyTransfer() *Transfer {
-	result := Transfer{}
-	return &result
-}
-
-// NewTransfer returns a new Transfer with specified values set.
-func NewTransfer() *Transfer {
-	result := Transfer{}
-	return &result
 }
 
 // Type returns the type identifer for this message.
@@ -5112,18 +4809,6 @@ type Settlement struct {
 	AssetXSettlementsCount uint8           // Number of settlements for Asset X.
 	AssetXAddressesXQty    []QuantityIndex // Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.
 	Timestamp              uint64          // Timestamp in nanoseconds of when the smart contract created the action.
-}
-
-// NewSettlement returns a new empty Settlement.
-func NewEmptySettlement() *Settlement {
-	result := Settlement{}
-	return &result
-}
-
-// NewSettlement returns a new Settlement with specified values set.
-func NewSettlement() *Settlement {
-	result := Settlement{}
-	return &result
 }
 
 // Type returns the type identifer for this message.

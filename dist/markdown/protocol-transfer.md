@@ -303,7 +303,7 @@ The following breaks down the construction of a Transfer Action. The action is c
             <tr>
                 <td class="t10">Registry Confirmation Signature for Token Receiving X</td>
                 <td class="t10">RegistryConfirmationSigToken</td>
-                <td class="t10">255</td>
+                <td class="t10">8</td>
                 <td class="t10" style="word-break:break-all">IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8=</td>
                 <td class="t10">Length 0-255 bytes. IF restricted to a registry (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted registry through an API signature of [Contract Address + Asset Code + Public Address + Blockhash of the Latest Block + Block Height + Confirmed/Rejected Bool]. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.</td>
                 <td class="t10">varchar</td>

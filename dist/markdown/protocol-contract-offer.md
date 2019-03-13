@@ -30,7 +30,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10"></td>
             <td class="c10">ContractName</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 Tesla - Shareholder Agreement
             </td>
@@ -66,7 +66,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Contract File</td>
             <td class="c10">ContractFile</td>
-            <td class="c10">4294967295</td>
+            <td class="c10">32</td>
             <td class="c10" style="word-break:break-all">
                 c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
             </td>
@@ -114,7 +114,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Contract URI</td>
             <td class="c10">ContractURI</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj
             </td>
@@ -126,7 +126,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Issuer Name</td>
             <td class="c10">IssuerName</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 Tesla Inc.
             </td>
@@ -150,7 +150,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Issuer Logo URL</td>
             <td class="c10">IssuerLogoURL</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 https://example.com/images/logo.png
             </td>
@@ -162,7 +162,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Contract Operator ID</td>
             <td class="c10">ContractOperatorID</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 Tokenized
             </td>
@@ -274,7 +274,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Unit Number</td>
             <td class="c10">UnitNumber</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 2
             </td>
@@ -286,7 +286,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Building Number</td>
             <td class="c10">BuildingNumber</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 13577
             </td>
@@ -298,7 +298,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Street</td>
             <td class="c10">Street</td>
-            <td class="c10">65535</td>
+            <td class="c10">16</td>
             <td class="c10" style="word-break:break-all">
                 Fairmont Ave
             </td>
@@ -310,7 +310,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Suburb/City</td>
             <td class="c10">SuburbCity</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 Robinoh
             </td>
@@ -346,7 +346,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Postal/ZIP Code</td>
             <td class="c10">PostalZIPCode</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 50210
             </td>
@@ -358,7 +358,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Email Address</td>
             <td class="c10">EmailAddress</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 james@tokenized.com
             </td>
@@ -370,7 +370,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c10">Phone Number</td>
             <td class="c10">PhoneNumber</td>
-            <td class="c10">255</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 0420199999
             </td>
@@ -678,7 +678,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <tr>
                 <td class="c10">Notable Role Name</td>
                 <td class="c10">Name</td>
-                <td class="c10">14</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Satoshi Nakamoto</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)</td>
                 <td class="c10">varchar</td>

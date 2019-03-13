@@ -74,7 +74,8 @@ fields:
     label: Deposit Address
     description: "Length 1-255 bytes. The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 2231377a4157616269706355486e35585039773847456333504b764735625947424d65
     example_value: "17zAWabipcUHn5XP9w8GEc3PKvG5bYGBMe"
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
@@ -83,7 +84,8 @@ fields:
     label: Authority Name
     description: "Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)"
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 2453757072656d6520616e6420446973747269637420436f75727473204272697362616e65
     example_value: "Supreme and District Courts Brisbane"
     notes: ""
@@ -101,7 +103,8 @@ fields:
     label: Authority Public Key
     description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 00
     example_value: ""
     notes: ""
@@ -110,7 +113,8 @@ fields:
     label: Authority Order Signature
     description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)"
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 00
     example_value: ""
     notes: ""
@@ -146,7 +150,8 @@ fields:
     label: Message Period
     description: "Length only limited by the Bitcoin protocol."
     type: varchar
-    size: 4294967295
+    # varchar size is number of bits to serialize the size of the value
+    size: 32
     example_hex: 0000000000000023536f7272792c206275742074686520636f757274206f72646572206d616465206d652e
     example_value: "Sorry, but the court order made me."
     notes: ""

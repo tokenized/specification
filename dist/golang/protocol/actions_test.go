@@ -16,7 +16,7 @@ func TestAssetDefinition(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyAssetDefinition()
+	m := AssetDefinition{}
 
 	header, err := NewHeaderForCode([]byte(CodeAssetDefinition), len(b))
 	if err != nil {
@@ -64,7 +64,7 @@ func TestAssetCreation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyAssetCreation()
+	m := AssetCreation{}
 
 	header, err := NewHeaderForCode([]byte(CodeAssetCreation), len(b))
 	if err != nil {
@@ -112,7 +112,7 @@ func TestAssetModification(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyAssetModification()
+	m := AssetModification{}
 
 	header, err := NewHeaderForCode([]byte(CodeAssetModification), len(b))
 	if err != nil {
@@ -160,7 +160,7 @@ func TestContractOffer(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyContractOffer()
+	m := ContractOffer{}
 
 	header, err := NewHeaderForCode([]byte(CodeContractOffer), len(b))
 	if err != nil {
@@ -208,7 +208,7 @@ func TestContractFormation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyContractFormation()
+	m := ContractFormation{}
 
 	header, err := NewHeaderForCode([]byte(CodeContractFormation), len(b))
 	if err != nil {
@@ -256,7 +256,7 @@ func TestContractAmendment(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyContractAmendment()
+	m := ContractAmendment{}
 
 	header, err := NewHeaderForCode([]byte(CodeContractAmendment), len(b))
 	if err != nil {
@@ -304,7 +304,7 @@ func TestStaticContractFormation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyStaticContractFormation()
+	m := StaticContractFormation{}
 
 	header, err := NewHeaderForCode([]byte(CodeStaticContractFormation), len(b))
 	if err != nil {
@@ -352,7 +352,7 @@ func TestOrder(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyOrder()
+	m := Order{}
 
 	header, err := NewHeaderForCode([]byte(CodeOrder), len(b))
 	if err != nil {
@@ -400,7 +400,7 @@ func TestFreeze(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyFreeze()
+	m := Freeze{}
 
 	header, err := NewHeaderForCode([]byte(CodeFreeze), len(b))
 	if err != nil {
@@ -448,7 +448,7 @@ func TestThaw(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyThaw()
+	m := Thaw{}
 
 	header, err := NewHeaderForCode([]byte(CodeThaw), len(b))
 	if err != nil {
@@ -496,7 +496,7 @@ func TestConfiscation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyConfiscation()
+	m := Confiscation{}
 
 	header, err := NewHeaderForCode([]byte(CodeConfiscation), len(b))
 	if err != nil {
@@ -544,7 +544,7 @@ func TestReconciliation(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyReconciliation()
+	m := Reconciliation{}
 
 	header, err := NewHeaderForCode([]byte(CodeReconciliation), len(b))
 	if err != nil {
@@ -592,7 +592,7 @@ func TestInitiative(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyInitiative()
+	m := Initiative{}
 
 	header, err := NewHeaderForCode([]byte(CodeInitiative), len(b))
 	if err != nil {
@@ -640,7 +640,7 @@ func TestReferendum(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyReferendum()
+	m := Referendum{}
 
 	header, err := NewHeaderForCode([]byte(CodeReferendum), len(b))
 	if err != nil {
@@ -688,7 +688,7 @@ func TestVote(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyVote()
+	m := Vote{}
 
 	header, err := NewHeaderForCode([]byte(CodeVote), len(b))
 	if err != nil {
@@ -736,7 +736,7 @@ func TestBallotCast(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyBallotCast()
+	m := BallotCast{}
 
 	header, err := NewHeaderForCode([]byte(CodeBallotCast), len(b))
 	if err != nil {
@@ -784,7 +784,7 @@ func TestBallotCounted(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyBallotCounted()
+	m := BallotCounted{}
 
 	header, err := NewHeaderForCode([]byte(CodeBallotCounted), len(b))
 	if err != nil {
@@ -832,7 +832,7 @@ func TestResult(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyResult()
+	m := Result{}
 
 	header, err := NewHeaderForCode([]byte(CodeResult), len(b))
 	if err != nil {
@@ -880,7 +880,7 @@ func TestMessage(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyMessage()
+	m := Message{}
 
 	header, err := NewHeaderForCode([]byte(CodeMessage), len(b))
 	if err != nil {
@@ -928,7 +928,7 @@ func TestRejection(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyRejection()
+	m := Rejection{}
 
 	header, err := NewHeaderForCode([]byte(CodeRejection), len(b))
 	if err != nil {
@@ -976,7 +976,7 @@ func TestEstablishment(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyEstablishment()
+	m := Establishment{}
 
 	header, err := NewHeaderForCode([]byte(CodeEstablishment), len(b))
 	if err != nil {
@@ -1024,7 +1024,7 @@ func TestAddition(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyAddition()
+	m := Addition{}
 
 	header, err := NewHeaderForCode([]byte(CodeAddition), len(b))
 	if err != nil {
@@ -1072,7 +1072,7 @@ func TestAlteration(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyAlteration()
+	m := Alteration{}
 
 	header, err := NewHeaderForCode([]byte(CodeAlteration), len(b))
 	if err != nil {
@@ -1120,7 +1120,7 @@ func TestRemoval(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyRemoval()
+	m := Removal{}
 
 	header, err := NewHeaderForCode([]byte(CodeRemoval), len(b))
 	if err != nil {
@@ -1168,7 +1168,7 @@ func TestTransfer(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptyTransfer()
+	m := Transfer{}
 
 	header, err := NewHeaderForCode([]byte(CodeTransfer), len(b))
 	if err != nil {
@@ -1216,7 +1216,7 @@ func TestSettlement(t *testing.T) {
 	}
 
 	// Create a valid header for the body
-	m := NewEmptySettlement()
+	m := Settlement{}
 
 	header, err := NewHeaderForCode([]byte(CodeSettlement), len(b))
 	if err != nil {

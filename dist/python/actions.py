@@ -144,15 +144,15 @@ class Action_ContractOffer(ActionBase):
     schema = {
         'ContractFileType':                [0, DAT_uint8, 1],
         'LenContractFile':                 [1, DAT_uint32, 4],
-        'ContractFile':                    [2, DAT_varchar, 4294967295],
+        'ContractFile':                    [2, DAT_varchar, 32],
         'GoverningLaw':                    [3, DAT_fixedchar, 5],
         'Jurisdiction':                    [4, DAT_fixedchar, 5],
         'ContractExpiration':              [5, DAT_time, 8],
-        'ContractURI':                     [6, DAT_varchar, 255],
-        'IssuerName':                      [7, DAT_varchar, 255],
+        'ContractURI':                     [6, DAT_varchar, 8],
+        'IssuerName':                      [7, DAT_varchar, 8],
         'IssuerType':                      [8, DAT_string, 1],
-        'IssuerLogoURL':                   [9, DAT_varchar, 255],
-        'ContractOperatorID':              [10, DAT_varchar, 255],
+        'IssuerLogoURL':                   [9, DAT_varchar, 8],
+        'ContractOperatorID':              [10, DAT_varchar, 8],
         'ContractAuthFlags':               [11, DAT_bin, 16],
         'VotingSystemCount':               [12, DAT_uint8, 1],
         'VotingSystems':                   [13, DAT_VotingSystem[], 0],
@@ -162,15 +162,15 @@ class Action_ContractOffer(ActionBase):
         'RegistryCount':                   [17, DAT_uint8, 1],
         'Registries':                      [18, DAT_Registry[], 0],
         'IssuerAddress':                   [19, DAT_bool, 1],
-        'UnitNumber':                      [20, DAT_varchar, 255],
-        'BuildingNumber':                  [21, DAT_varchar, 255],
-        'Street':                          [22, DAT_varchar, 65535],
-        'SuburbCity':                      [23, DAT_varchar, 255],
+        'UnitNumber':                      [20, DAT_varchar, 8],
+        'BuildingNumber':                  [21, DAT_varchar, 8],
+        'Street':                          [22, DAT_varchar, 16],
+        'SuburbCity':                      [23, DAT_varchar, 8],
         'TerritoryStateProvinceCode':      [24, DAT_fixedchar, 5],
         'CountryCode':                     [25, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [26, DAT_varchar, 255],
-        'EmailAddress':                    [27, DAT_varchar, 255],
-        'PhoneNumber':                     [28, DAT_varchar, 255],
+        'PostalZIPCode':                   [26, DAT_varchar, 8],
+        'EmailAddress':                    [27, DAT_varchar, 8],
+        'PhoneNumber':                     [28, DAT_varchar, 8],
         'KeyRolesCount':                   [29, DAT_uint8, 1],
         'KeyRoles':                        [30, DAT_KeyRole[], 0],
         'NotableRolesCount':               [31, DAT_uint8, 1],
@@ -233,11 +233,11 @@ class Action_ContractFormation(ActionBase):
         'GoverningLaw':                    [3, DAT_fixedchar, 5],
         'Jurisdiction':                    [4, DAT_fixedchar, 5],
         'ContractExpiration':              [5, DAT_time, 8],
-        'ContractURI':                     [6, DAT_varchar, 255],
-        'IssuerName':                      [7, DAT_varchar, 255],
+        'ContractURI':                     [6, DAT_varchar, 8],
+        'IssuerName':                      [7, DAT_varchar, 8],
         'IssuerType':                      [8, DAT_fixedchar, 1],
-        'IssuerLogoURL':                   [9, DAT_varchar, 255],
-        'ContractOperatorID':              [10, DAT_varchar, 255],
+        'IssuerLogoURL':                   [9, DAT_varchar, 8],
+        'ContractOperatorID':              [10, DAT_varchar, 8],
         'ContractAuthFlags':               [11, DAT_bin, 16],
         'VotingSystemCount':               [12, DAT_uint8, 1],
         'VotingSystems':                   [13, DAT_VotingSystem[], 0],
@@ -247,15 +247,15 @@ class Action_ContractFormation(ActionBase):
         'RegistryCount':                   [17, DAT_uint8, 1],
         'Registries':                      [18, DAT_Registry[], 0],
         'IssuerAddress':                   [19, DAT_bool, 1],
-        'UnitNumber':                      [20, DAT_varchar, 255],
-        'BuildingNumber':                  [21, DAT_varchar, 255],
-        'Street':                          [22, DAT_varchar, 65535],
-        'SuburbCity':                      [23, DAT_varchar, 255],
+        'UnitNumber':                      [20, DAT_varchar, 8],
+        'BuildingNumber':                  [21, DAT_varchar, 8],
+        'Street':                          [22, DAT_varchar, 16],
+        'SuburbCity':                      [23, DAT_varchar, 8],
         'TerritoryStateProvinceCode':      [24, DAT_fixedchar, 5],
         'CountryCode':                     [25, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [26, DAT_varchar, 255],
-        'EmailAddress':                    [27, DAT_varchar, 255],
-        'PhoneNumber':                     [28, DAT_varchar, 255],
+        'PostalZIPCode':                   [26, DAT_varchar, 8],
+        'EmailAddress':                    [27, DAT_varchar, 8],
+        'PhoneNumber':                     [28, DAT_varchar, 8],
         'KeyRolesCount':                   [29, DAT_uint8, 1],
         'KeyRoles':                        [30, DAT_KeyRole[], 0],
         'NotableRolesCount':               [31, DAT_uint8, 1],
@@ -390,15 +390,15 @@ class Action_Order(ActionBase):
         'ComplianceAction':                [1, DAT_fixedchar, 1],
         'TargetAddressCount':              [2, DAT_uint16, 2],
         'TargetAddresses':                 [3, DAT_TargetAddress[], 0],
-        'DepositAddress':                  [4, DAT_varchar, 255],
-        'AuthorityName':                   [5, DAT_varchar, 255],
+        'DepositAddress':                  [4, DAT_varchar, 8],
+        'AuthorityName':                   [5, DAT_varchar, 8],
         'SigAlgoAddressList':              [6, DAT_uint8, 1],
-        'AuthorityPublicKey':              [7, DAT_varchar, 255],
-        'OrderSignature':                  [8, DAT_varchar, 255],
+        'AuthorityPublicKey':              [7, DAT_varchar, 8],
+        'OrderSignature':                  [8, DAT_varchar, 8],
         'SupportingEvidenceHash':          [9, DAT_sha256, 32],
         'RefTxnID':                        [10, DAT_sha256, 32],
         'FreezePeriod':                    [11, DAT_time, 8],
-        'Message':                         [12, DAT_varchar, 4294967295]
+        'Message':                         [12, DAT_varchar, 32]
     }
 
     rules = {
@@ -528,9 +528,9 @@ class Action_Initiative(ActionBase):
         'Proposal':                        [2, DAT_bool, 1],
         'ProposedChangesCount':            [3, DAT_uint8, 1],
         'ProposedChanges':                 [4, DAT_Amendment[], 0],
-        'VoteOptions':                     [5, DAT_varchar, 255],
+        'VoteOptions':                     [5, DAT_varchar, 8],
         'VoteMax':                         [6, DAT_uint8, 1],
-        'ProposalDescription':             [7, DAT_varchar, 4294967295],
+        'ProposalDescription':             [7, DAT_varchar, 32],
         'ProposalDocumentHash':            [8, DAT_sha256, 32],
         'VoteCutOffTimestamp':             [9, DAT_time, 8]
     }
@@ -568,9 +568,9 @@ class Action_Referendum(ActionBase):
         'Proposal':                        [4, DAT_bool, 1],
         'ProposedChangesCount':            [5, DAT_uint8, 1],
         'ProposedChanges':                 [6, DAT_Amendment[], 0],
-        'VoteOptions':                     [7, DAT_varchar, 255],
+        'VoteOptions':                     [7, DAT_varchar, 8],
         'VoteMax':                         [8, DAT_uint8, 1],
-        'ProposalDescription':             [9, DAT_varchar, 4294967295],
+        'ProposalDescription':             [9, DAT_varchar, 32],
         'ProposalDocumentHash':            [10, DAT_sha256, 32],
         'VoteCutOffTimestamp':             [11, DAT_time, 8]
     }
@@ -625,7 +625,7 @@ class Action_BallotCast(ActionBase):
     schema = {
         'AssetID':                         [0, DAT_fixedchar, 32],
         'VoteTxnID':                       [1, DAT_sha256, 32],
-        'Vote':                            [2, DAT_varchar, 255]
+        'Vote':                            [2, DAT_varchar, 8]
     }
 
     rules = {
@@ -673,7 +673,7 @@ class Action_Result(ActionBase):
         'VoteTxnID':                       [4, DAT_sha256, 32],
         'VoteOptionsCount':                [5, DAT_uint8, 1],
         'OptionXTally':                    [6, DAT_uint64, 8],
-        'Result':                          [7, DAT_varchar, 255],
+        'Result':                          [7, DAT_varchar, 8],
         'Timestamp':                       [8, DAT_timestamp, 8]
     }
 
@@ -708,7 +708,7 @@ class Action_Message(ActionBase):
     schema = {
         'AddressIndexes':                  [0, DAT_uint16[], 0],
         'MessageType':                     [1, DAT_fixedchar, 2],
-        'MessagePayload':                  [2, DAT_varchar, 4294967295]
+        'MessagePayload':                  [2, DAT_varchar, 32]
     }
 
     rules = {
@@ -737,7 +737,7 @@ class Action_Rejection(ActionBase):
     schema = {
         'AddressIndexes':                  [0, DAT_uint16[], 0],
         'RejectionType':                   [1, DAT_uint8, 1],
-        'MessagePayload':                  [2, DAT_varchar, 4294967295],
+        'MessagePayload':                  [2, DAT_varchar, 32],
         'Timestamp':                       [3, DAT_timestamp, 8]
     }
 

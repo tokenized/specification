@@ -123,16 +123,23 @@ func NewHeaderForCode(code []byte, size int) (*Header, error) {
 	return &h, nil
 }
 
-func WriteVarChar(buf *bytes.Buffer, value string, maxSize uint64) error {
+func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {
+	if len(value) >= 2<<uint64(sizeBits) {
+		return errors.New(fmt.Sprintf("Varchar size beyond size bits limit (%d) : %d", (2<<uint64(sizeBits))-1, len(value)))
+	}
+
 	var err error
-	if maxSize < 256 {
+	switch sizeBits {
+	case 8:
 		err = write(buf, uint8(len(value)))
-	} else if maxSize < 65536 {
+	case 16:
 		err = write(buf, uint16(len(value)))
-	} else if maxSize < 4294967296 {
+	case 32:
 		err = write(buf, uint32(len(value)))
-	} else {
+	case 64:
 		err = write(buf, uint64(len(value)))
+	default:
+		return errors.New(fmt.Sprintf("Invalid varchar size bits : %d", sizeBits))
 	}
 	if err != nil {
 		return err
@@ -141,23 +148,26 @@ func WriteVarChar(buf *bytes.Buffer, value string, maxSize uint64) error {
 	return write(buf, []byte(value))
 }
 
-func ReadVarChar(buf *bytes.Buffer, maxSize uint64) (string, error) {
+func ReadVarChar(buf *bytes.Buffer, sizeBits int) (string, error) {
 	var err error
 	var size uint64
-	if maxSize < 256 {
+	switch sizeBits {
+	case 8:
 		var size8 uint8
 		err = read(buf, &size8)
 		size = uint64(size8)
-	} else if maxSize < 65536 {
+	case 16:
 		var size16 uint16
 		err = read(buf, &size16)
 		size = uint64(size16)
-	} else if maxSize < 4294967296 {
+	case 32:
 		var size32 uint32
 		err = read(buf, &size32)
 		size = uint64(size32)
-	} else {
+	case 64:
 		err = read(buf, &size)
+	default:
+		err = errors.New(fmt.Sprintf("Invalid varchar size bits : %d", sizeBits))
 	}
 	if err != nil {
 		return "", err

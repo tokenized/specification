@@ -98,7 +98,8 @@ fields:
     label: Result
     description: "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed. "
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0132
     example_value: "2"
     notes: ""

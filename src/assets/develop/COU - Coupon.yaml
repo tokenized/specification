@@ -34,7 +34,8 @@ fields:
   - name: RedeemingEntity
     label: Redeeming Entity
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 255
     example: Woolworths - Robina Town Centre
     span: full
@@ -76,7 +77,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    size: 65535
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     # size: 65,535
     example: Gift Card
     span: full

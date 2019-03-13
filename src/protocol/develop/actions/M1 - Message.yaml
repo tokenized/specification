@@ -71,7 +71,8 @@ fields:
       announcements or private 'notes' if encrypted. See Message Types for a full list of
       potential use cases.
     type: varchar
-    size: 4294967295
+    # varchar size is number of bits to serialize the size of the value
+    size: 32
     example_hex: "000000000000000c48656c6c6f20776f726c6421"
     example_value: "Hello world!"
     notes: ""

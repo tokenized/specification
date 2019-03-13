@@ -7,7 +7,8 @@ fields:
     label: Name
     description: "Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 11
     example_hex: 0a5465736c6120496e632e
     example_value: "Tesla Inc."
@@ -36,7 +37,8 @@ fields:
     label: Unit Number
     description: "Issuer/Entity/Contracting Party X Address Details (eg. HQ)"
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 2
     example_hex: 0132
     example_value: "2"
@@ -46,7 +48,8 @@ fields:
     label: Building Number
     description: ""
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 6
     example_hex: 053133353737
     example_value: "13577"
@@ -56,7 +59,8 @@ fields:
     label: Street
     description: ""
     type: varchar
-    size: 65535
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     size: 14
     example_hex: 000c466169726d6f6e7420417665
     example_value: "Fairmont Ave"
@@ -66,7 +70,8 @@ fields:
     label: Suburb/City
     description: ""
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 8
     example_hex: 07526f62696e6f68
     example_value: "Robinoh"
@@ -103,7 +108,8 @@ fields:
     label: Email Address
     description: "Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address"
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 20
     example_hex: 136a616d657340746f6b656e697a65642e636f6d
     example_value: "satoshi@tokenized.com"
@@ -113,7 +119,8 @@ fields:
     label: Phone Number
     description: "Length 0-50 bytes. 0 is valid. Phone Number for Entity."
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 11
     example_hex: 0a30343438343834383438
     example_value: "0448484848"

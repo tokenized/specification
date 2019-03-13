@@ -428,7 +428,7 @@ func (m NotableRole) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.Name, 14); err != nil {
+	if err := WriteVarChar(buf, m.Name, 8); err != nil {
 		return nil, err
 	}
 
@@ -613,7 +613,7 @@ func (m TokenReceiver) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := WriteVarChar(buf, m.RegistryConfirmationSigToken, 255); err != nil {
+	if err := WriteVarChar(buf, m.RegistryConfirmationSigToken, 8); err != nil {
 		return nil, err
 	}
 

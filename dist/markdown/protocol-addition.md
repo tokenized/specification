@@ -30,7 +30,7 @@ The following breaks down the construction of a Addition Action. The action is c
         <tr>
             <td class="r10">Message</td>
             <td class="r10">Message</td>
-            <td class="r10">4294967295</td>
+            <td class="r10">32</td>
             <td class="r10" style="word-break:break-all">
                 username
             </td>

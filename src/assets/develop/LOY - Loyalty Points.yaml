@@ -60,7 +60,8 @@ fields:
   - name: OfferName
     label: Offer Name
     type: varchar
-    size: 255
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 255
     example: Qantas Frequent Flyer Points
     options:
@@ -84,7 +85,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    size: 65535
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     # size: 65,535
     example: Coingeek Conference - London (November 2018).
     span: full
