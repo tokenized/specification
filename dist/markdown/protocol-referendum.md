@@ -11,10 +11,10 @@ The following breaks down the construction of a Referendum Action. The action is
             <th style="width:9%" class="s1">Label</th>
             <th style="width:9%" class="s1">Name</th>
             <th style="width:2%" class="s1">Bytes</th>
-            <th style="width:29%" class="s1">Example Values</th>
+            <th style="width:35%" class="s1">Example Values</th>
             <th style="width:26%" class="s1">Comments</th>
             <th style="width:5%" class="s1">Data Type</th>
-            <th style="width:14%" class="s1">Amendment Restrictions</th>
+            <th class="s1">Amendment Restrictions</th>
         </tr>
 
         <tr>
@@ -145,6 +145,120 @@ The following breaks down the construction of a Referendum Action. The action is
 
     </table>
 </div>
+
+<div class="ritz grid-container" dir="ltr">
+    <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
+         <tr style='height:19px;'>
+            <th style="width:
+            <th class="s1" colspan="6">Referendum Action Fee: 0</th>
+       </tr>
+         <tr style='height:19px;'>
+            <th style="width:10%" class="s1">Index (input)</th>
+            <th style="width:20%" class="s1">Txn inputs</th>
+            <th style="width:20%" class="s1">Comments</th>
+            <th style="width:10%" class="s1">Index (output)</th>
+            <th style="width:20%" class="s1">Txn outputs</th>
+            <th class="s1">Comments</th>
+       </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+       <tr>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g6">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+            <td class="g10">.</td>
+        </tr>
+    </table>
+</div>
+
 
 
 <div class="ui modal" id="type-Header">
