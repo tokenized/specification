@@ -8,6 +8,8 @@ GO_DIST_DIR=dist/golang/protocol
 
 all: prepare tools run-generate format lint test
 
+run-win: prepare-win tools run-generate format-win
+
 run-generate:
 	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
 
@@ -37,3 +39,9 @@ tools:
 
 prepare:
 	mkdir -p tmp
+
+format-win:
+	goimports -w dist\golang\protocol\*.go
+
+prepare-win:
+	mkdir tmp | echo tmp exists
