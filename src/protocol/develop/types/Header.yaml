@@ -6,7 +6,7 @@ fields:
   - name: ProtocolID
     label: Protocol Identifier
     description: "Tokenized ID Prefix.  tokenized.com"
-    type: string
+    type: bin
     size: 13
     example_hex: 746f6b656e697a65642e636f6d
     example_value: "tokenized.com"
@@ -42,7 +42,7 @@ fields:
   - name: ActionPrefix
     label: Action Prefix
     description: "Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract."
-    type: string
+    type: bin
     size: 2
     example_hex: 4331
     example_value: "C1"

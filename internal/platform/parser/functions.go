@@ -8,6 +8,7 @@ type Param struct {
 	Name      string
 	Type      string
 	Size      uint64
+	Value     string
 	Field     string
 	SetMethod string `yaml:"set_method"`
 }
@@ -15,11 +16,21 @@ type Param struct {
 type Function struct {
 	Name        string
 	Description string
+	Type        string
+	AppendType  string `yaml:"append_type"`
 	Params      []Param
 }
 
 func (f Function) FunctionName() string {
 	return strings.Replace(f.Name, " ", "", -1)
+}
+
+func (f Function) FunctionType() string {
+	return strings.Replace(f.Type, " ", "", -1)
+}
+
+func (f Function) FunctionAppendType() string {
+	return strings.Replace(f.AppendType, " ", "", -1)
 }
 
 func (f Function) FunctionDescription() string {
@@ -32,6 +43,13 @@ func (f Function) FunctionParams() []Param {
 
 func (p Param) ParamName() string {
 	return strings.Replace(p.Name, " ", "", -1)
+}
+
+func (p Param) ParamValue() string {
+	if len(p.Value) == 0 {
+		return strings.Replace(p.Name, " ", "", -1)
+	}
+	return p.Value
 }
 
 func (p Param) ParamField() string {

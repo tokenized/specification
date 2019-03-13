@@ -19,24 +19,12 @@ The following breaks down the construction of a Transfer Action. The action is c
         </tr>
 
         <tr>
-            <td class="s5" rowspan="14">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="13">Metadata (OP_RETURN Payload)</td>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="t10">Text Encoding</td>
-            <td class="t10">TextEncoding</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                0
-            </td>
-            <td class="t10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="t10">uint8</td>
-            <td class="t11">Can be changed by Issuer or Operator at their discretion.</td>
         </tr>
 
         <tr>
@@ -59,7 +47,7 @@ The following breaks down the construction of a Transfer Action. The action is c
                 SHC
             </td>
             <td class="t10">eg. Share, Bond, Ticket. All characters must be capitalised.</td>
-            <td class="t10">string</td>
+            <td class="t10">fixedchar</td>
             <td class="t11"></td>
         </tr>
 
@@ -71,7 +59,7 @@ The following breaks down the construction of a Transfer Action. The action is c
                 apm2qsznhks23z8d83u41s8019hyri3i
             </td>
             <td class="t10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.</td>
-            <td class="t10">string</td>
+            <td class="t10">fixedchar</td>
             <td class="t11"></td>
         </tr>
 
@@ -135,7 +123,7 @@ The following breaks down the construction of a Transfer Action. The action is c
                 AUD
             </td>
             <td class="t10">BSV, USD, AUD, EUR, etc.</td>
-            <td class="t10">string</td>
+            <td class="t10">fixedchar</td>
             <td class="t11"></td>
         </tr>
 
@@ -164,15 +152,11 @@ The following breaks down the construction of a Transfer Action. The action is c
         </tr>
 
         <tr>
-            <td class="t10">Exchange Fee Address</td>
-            <td class="t10">ExchangeFeeAddress</td>
-            <td class="t10">34</td>
-            <td class="t10" style="word-break:break-all">
-                1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic
+            <td class="t6" colspan="7">
+                <a href="javascript:;" data-popover="type-Address">
+                   Exchange Fee Address - Click to show content
+                </a>
             </td>
-            <td class="t10">Identifies the public address that the exchange fee should be paid to.</td>
-            <td class="t10">string</td>
-            <td class="t11"></td>
         </tr>
 
     </table>
@@ -198,7 +182,7 @@ The following breaks down the construction of a Transfer Action. The action is c
                 <td class="t10">13</td>
                 <td class="t10" style="word-break:break-all">tokenized.com</td>
                 <td class="t10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="t10">string</td>
+                <td class="t10">bin</td>
                 <td class="t11"></td>
             </tr>
             <tr>
@@ -234,7 +218,7 @@ The following breaks down the construction of a Transfer Action. The action is c
                 <td class="t10">2</td>
                 <td class="t10" style="word-break:break-all">C1</td>
                 <td class="t10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="t10">string</td>
+                <td class="t10">bin</td>
                 <td class="t11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>
@@ -319,10 +303,36 @@ The following breaks down the construction of a Transfer Action. The action is c
             <tr>
                 <td class="t10">Registry Confirmation Signature for Token Receiving X</td>
                 <td class="t10">RegistryConfirmationSigToken</td>
-                <td class="t10">0</td>
+                <td class="t10">255</td>
                 <td class="t10" style="word-break:break-all">IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8=</td>
                 <td class="t10">Length 0-255 bytes. IF restricted to a registry (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted registry through an API signature of [Contract Address + Asset Code + Public Address + Blockhash of the Latest Block + Block Height + Confirmed/Rejected Bool]. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.</td>
-                <td class="t10">nvarchar8</td>
+                <td class="t10">varchar</td>
+                <td class="t11"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="ui modal" id="type-Address">
+    <i class="close icon"></i>
+    <div class="content docs-content">
+        <table class="ui table">
+            <tr style='height:19px;'>
+                <th style="width:9%" class="s1">Label</th>
+                <th style="width:9%" class="s1">Name</th>
+                <th style="width:2%" class="s1">Bytes</th>
+                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:26%" class="s1">Comments</th>
+                <th style="width:5%" class="s1">Data Type</th>
+                <th style="width:14%" class="s2">Amendment Restrictions</th>
+            </tr>
+            <tr>
+                <td class="t10">Address</td>
+                <td class="t10">Address</td>
+                <td class="t10">20</td>
+                <td class="t10" style="word-break:break-all">1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic</td>
+                <td class="t10">Public address where the token balance will be changed.</td>
+                <td class="t10">bin</td>
                 <td class="t11"></td>
             </tr>
         </table>

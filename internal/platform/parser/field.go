@@ -60,6 +60,14 @@ func (f Field) IsBytes() bool {
 	return f.FieldGoType() == "[]byte" && !f.IsData()
 }
 
+func (f Field) IsVarChar() bool {
+	return f.Type == "varchar"
+}
+
+func (f Field) IsFixedChar() bool {
+	return f.Type == "fixedchar" && f.Size != 1
+}
+
 func (f Field) IsNumeric() bool {
 	s := strings.ToLower(f.Type)
 
@@ -75,14 +83,8 @@ func (f Field) IsFloat() bool {
 	return strings.HasPrefix(f.Type, s)
 }
 
-func (f Field) Length() int {
-	return int(f.Size)
-}
-
-func (f Field) IsNvarchar() bool {
-	s := strings.ToLower(f.Type)
-
-	return strings.HasPrefix(s, "nvarchar")
+func (f Field) Length() uint64 {
+	return f.Size
 }
 
 func (f Field) SingularType() string {
@@ -102,11 +104,11 @@ func (f Field) IsNativeTypeArray() bool {
 }
 
 func (f Field) IsInternalType() bool {
-	return f.internalType || f.IsNvarchar()
+	return f.internalType
 }
 
 func (f Field) IsComplexType() bool {
-	return f.IsInternalType() && !strings.HasPrefix(f.Type, "nvarchar")
+	return f.IsInternalType()
 }
 
 func (f Field) Trimmable() bool {

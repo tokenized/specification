@@ -50,8 +50,15 @@ func New{{.Name}}({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .Constr
 }
 
 {{ range .Functions }}// {{.FunctionName}} {{ .FunctionDescription }}.
-func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .FunctionParams }}{{if $i}}, {{end}}{{ .ParamName }} {{ .ParamGoType }}{{ end -}}) {
-
+func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .FunctionParams }}{{if ne .ParamName "hidden"}}{{if $i}}, {{end}}{{ .ParamName }} {{ .ParamGoType }}{{ end -}}{{ end -}}) {
+{{ if eq .FunctionType "set" -}}
+	{{ range .FunctionParams -}}
+	action.{{ .ParamField -}}
+	{{ if eq .ParamSetMethod "=" }} = {{ .ParamValue }}{{ else }}.{{ .ParamSetMethod }}({{ .ParamValue }}){{ end }}
+	{{ end -}}
+{{ else if eq .FunctionType "append" -}}
+	action.{{ .FunctionAppendType }}s = append(action.{{ .FunctionAppendType }}s, *New{{ .FunctionAppendType }}({{ range $i, $param := .FunctionParams }}{{if $i}}, {{end}}{{ .ParamName }}{{ end }}))
+{{ end -}}
 }
 {{ end }}
 
@@ -77,7 +84,15 @@ func (m {{.Name}}) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m {{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-{{$last := ""}}{{range .PayloadFields}}{{ if .IsInternalTypeArray }}
+{{$last := ""}}{{range .PayloadFields}}{{ if .IsVarChar }}
+	if err := WriteVarChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{ else if .IsFixedChar }}
+	if err := WriteFixedChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{ else if .IsInternalTypeArray }}
 	for i := 0; i < int(m.{{$last}}); i++ {
 		b, err := m.{{.Name}}[i].Serialize()
 		if err != nil {
@@ -105,10 +120,6 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 			return nil, err
 		}
 	}
-{{ else if .IsNvarchar }}
-	if _, err := m.{{.FieldName}}.Write(buf); err != nil {
-		return nil, err
-	}
 {{else if .IsBytes }}
 	if err := write(buf, pad(m.{{.FieldName}}, {{.Length}})); err != nil {
 		return nil, err
@@ -120,7 +131,7 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 {{ end -}}{{ $last = .Name }}{{ end }}
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(Code{{.Name}}, len(b))
+	header, err := NewHeaderForCode([]byte(Code{{.Name}}), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +150,23 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 // the receiver.
 func (m *{{.Name}}) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
-{{$last := ""}}{{range .Fields -}}{{- if .IsInternalTypeArray }}
+{{$last := ""}}{{range .Fields -}}{{- if .IsVarChar }}
+	{
+		var err error
+		m.{{.FieldName}}, err = ReadVarChar(buf, {{.Length}})
+		if err != nil {
+			return 0, err
+		}
+	}
+{{ else if .IsFixedChar }}
+	{
+		var err error
+		m.{{.FieldName}}, err = ReadFixedChar(buf, {{.Length}})
+		if err != nil {
+			return 0, err
+		}
+	}
+{{ else if .IsInternalTypeArray }}
 	for i := 0; i < int(m.{{$last}}); i++ {
 		x := &{{.SingularType}}{}
 		if err := x.Write(buf); err != nil {
@@ -184,7 +211,7 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 // PayloadMessage returns the PayloadMessage, if any.
 func (m {{.Name}}) PayloadMessage() (PayloadMessage, error) {
 {{- if .HasPayloadMessage }}
-	p, err := NewPayloadMessageFromCode(m.AssetType)
+	p, err := NewPayloadMessageFromCode([]byte(m.AssetType))
 	if p == nil || err != nil {
 		return nil, err
 	}

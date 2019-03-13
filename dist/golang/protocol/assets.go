@@ -33,12 +33,12 @@ const (
 type Coupon struct {
 	Version            uint8
 	TradingRestriction []byte
-	RedeemingEntity    Nvarchar8
+	RedeemingEntity    string
 	IssueDate          uint64
 	ExpiryDate         uint64
 	Value              uint64
-	Currency           []byte
-	Description        Nvarchar16
+	Currency           string
+	Description        string
 }
 
 // NewCoupon returns a new Coupon.
@@ -82,15 +82,8 @@ func (m Coupon) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.RedeemingEntity.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.RedeemingEntity, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.IssueDate); err != nil {
@@ -105,24 +98,17 @@ func (m Coupon) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.Currency, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.Currency, 3); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.Description.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Description, 65535); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeCoupon, len(b))
+	header, err := NewHeaderForCode([]byte(CodeCoupon), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +137,7 @@ func (m Coupon) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.RedeemingEntity.Write(buf); err != nil {
+	if err := read(buf, &m.RedeemingEntity); err != nil {
 		return 0, err
 	}
 
@@ -167,12 +153,11 @@ func (m Coupon) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.Currency = make([]byte, 3)
-	if err := readLen(buf, m.Currency); err != nil {
+	if err := read(buf, &m.Currency); err != nil {
 		return 0, err
 	}
 
-	if err := m.Description.Write(buf); err != nil {
+	if err := read(buf, &m.Description); err != nil {
 		return 0, err
 	}
 
@@ -188,7 +173,7 @@ func (m Coupon) String() string {
 	vals = append(vals, fmt.Sprintf("IssueDate:%v", m.IssueDate))
 	vals = append(vals, fmt.Sprintf("ExpiryDate:%v", m.ExpiryDate))
 	vals = append(vals, fmt.Sprintf("Value:%v", m.Value))
-	vals = append(vals, fmt.Sprintf("Currency:%#x", m.Currency))
+	vals = append(vals, fmt.Sprintf("Currency:%#+v", m.Currency))
 	vals = append(vals, fmt.Sprintf("Description:%#+v", m.Description))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -198,9 +183,9 @@ func (m Coupon) String() string {
 type Currency struct {
 	Version            uint8
 	TradingRestriction []byte
-	ISOCode            []byte
-	MonetaryAuthority  Nvarchar8
-	Description        Nvarchar8
+	ISOCode            string
+	MonetaryAuthority  string
+	Description        string
 }
 
 // NewCurrency returns a new Currency.
@@ -244,35 +229,21 @@ func (m Currency) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ISOCode, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.ISOCode, 3); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.MonetaryAuthority.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.MonetaryAuthority, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.Description.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Description, 255); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeCurrency, len(b))
+	header, err := NewHeaderForCode([]byte(CodeCurrency), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -301,16 +272,15 @@ func (m Currency) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ISOCode = make([]byte, 3)
-	if err := readLen(buf, m.ISOCode); err != nil {
+	if err := read(buf, &m.ISOCode); err != nil {
 		return 0, err
 	}
 
-	if err := m.MonetaryAuthority.Write(buf); err != nil {
+	if err := read(buf, &m.MonetaryAuthority); err != nil {
 		return 0, err
 	}
 
-	if err := m.Description.Write(buf); err != nil {
+	if err := read(buf, &m.Description); err != nil {
 		return 0, err
 	}
 
@@ -322,7 +292,7 @@ func (m Currency) String() string {
 
 	vals = append(vals, fmt.Sprintf("Version:%v", m.Version))
 	vals = append(vals, fmt.Sprintf("TradingRestriction:%#x", m.TradingRestriction))
-	vals = append(vals, fmt.Sprintf("ISOCode:%#x", m.ISOCode))
+	vals = append(vals, fmt.Sprintf("ISOCode:%#+v", m.ISOCode))
 	vals = append(vals, fmt.Sprintf("MonetaryAuthority:%#+v", m.MonetaryAuthority))
 	vals = append(vals, fmt.Sprintf("Description:%#+v", m.Description))
 
@@ -335,10 +305,10 @@ type LoyaltyPoints struct {
 	TradingRestriction  []byte
 	AgeRestriction      []byte
 	OfferType           byte
-	OfferName           Nvarchar8
+	OfferName           string
 	ValidFrom           uint64
 	ExpirationTimestamp uint64
-	Description         Nvarchar16
+	Description         string
 }
 
 // NewLoyaltyPoints returns a new LoyaltyPoints.
@@ -390,15 +360,8 @@ func (m LoyaltyPoints) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.OfferName.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.OfferName, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.ValidFrom); err != nil {
@@ -409,20 +372,13 @@ func (m LoyaltyPoints) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.Description.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Description, 65535); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeLoyaltyPoints, len(b))
+	header, err := NewHeaderForCode([]byte(CodeLoyaltyPoints), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -460,7 +416,7 @@ func (m LoyaltyPoints) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.OfferName.Write(buf); err != nil {
+	if err := read(buf, &m.OfferName); err != nil {
 		return 0, err
 	}
 
@@ -472,7 +428,7 @@ func (m LoyaltyPoints) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.Description.Write(buf); err != nil {
+	if err := read(buf, &m.Description); err != nil {
 		return 0, err
 	}
 
@@ -501,9 +457,9 @@ type Membership struct {
 	AgeRestriction      []byte
 	ValidFrom           uint64
 	ExpirationTimestamp uint64
-	ID                  Nvarchar8
-	MembershipType      Nvarchar8
-	Description         Nvarchar64
+	ID                  string
+	MembershipType      string
+	Description         string
 }
 
 // NewMembership returns a new Membership.
@@ -559,42 +515,21 @@ func (m Membership) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.ID.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ID, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.MembershipType.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.MembershipType, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.Description.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Description, 65535); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeMembership, len(b))
+	header, err := NewHeaderForCode([]byte(CodeMembership), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -636,15 +571,15 @@ func (m Membership) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.ID.Write(buf); err != nil {
+	if err := read(buf, &m.ID); err != nil {
 		return 0, err
 	}
 
-	if err := m.MembershipType.Write(buf); err != nil {
+	if err := read(buf, &m.MembershipType); err != nil {
 		return 0, err
 	}
 
-	if err := m.Description.Write(buf); err != nil {
+	if err := read(buf, &m.Description); err != nil {
 		return 0, err
 	}
 
@@ -671,9 +606,9 @@ type ShareCommon struct {
 	Version            uint8
 	TradingRestriction []byte
 	TransferLockout    uint64
-	Ticker             []byte
-	ISIN               []byte
-	Description        Nvarchar16
+	Ticker             string
+	ISIN               string
+	Description        string
 }
 
 // NewShareCommon returns a new ShareCommon.
@@ -721,28 +656,21 @@ func (m ShareCommon) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.Ticker, 5)); err != nil {
+	if err := WriteFixedChar(buf, m.Ticker, 5); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ISIN, 12)); err != nil {
+	if err := WriteFixedChar(buf, m.ISIN, 12); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.Description.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Description, 113); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeShareCommon, len(b))
+	header, err := NewHeaderForCode([]byte(CodeShareCommon), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -775,17 +703,15 @@ func (m ShareCommon) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.Ticker = make([]byte, 5)
-	if err := readLen(buf, m.Ticker); err != nil {
+	if err := read(buf, &m.Ticker); err != nil {
 		return 0, err
 	}
 
-	m.ISIN = make([]byte, 12)
-	if err := readLen(buf, m.ISIN); err != nil {
+	if err := read(buf, &m.ISIN); err != nil {
 		return 0, err
 	}
 
-	if err := m.Description.Write(buf); err != nil {
+	if err := read(buf, &m.Description); err != nil {
 		return 0, err
 	}
 
@@ -798,8 +724,8 @@ func (m ShareCommon) String() string {
 	vals = append(vals, fmt.Sprintf("Version:%v", m.Version))
 	vals = append(vals, fmt.Sprintf("TradingRestriction:%#x", m.TradingRestriction))
 	vals = append(vals, fmt.Sprintf("TransferLockout:%#+v", m.TransferLockout))
-	vals = append(vals, fmt.Sprintf("Ticker:%#x", m.Ticker))
-	vals = append(vals, fmt.Sprintf("ISIN:%#x", m.ISIN))
+	vals = append(vals, fmt.Sprintf("Ticker:%#+v", m.Ticker))
+	vals = append(vals, fmt.Sprintf("ISIN:%#+v", m.ISIN))
 	vals = append(vals, fmt.Sprintf("Description:%#+v", m.Description))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -810,15 +736,15 @@ type TicketAdmission struct {
 	Version             uint8
 	TradingRestriction  []byte
 	AgeRestriction      []byte
-	AdmissionType       []byte
-	Venue               Nvarchar8
-	Class               Nvarchar8
-	Area                Nvarchar8
-	Seat                Nvarchar8
+	AdmissionType       string
+	Venue               string
+	Class               string
+	Area                string
+	Seat                string
 	StartTimeDate       uint64
 	ValidFrom           uint64
 	ExpirationTimestamp uint64
-	Description         Nvarchar16
+	Description         string
 }
 
 // NewTicketAdmission returns a new TicketAdmission.
@@ -866,52 +792,24 @@ func (m TicketAdmission) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AdmissionType, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.AdmissionType, 3); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.Venue.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Venue, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.Class.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Class, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.Area.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Area, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.Seat.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Seat, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.StartTimeDate); err != nil {
@@ -926,20 +824,13 @@ func (m TicketAdmission) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.Description.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Description, 65535); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeTicketAdmission, len(b))
+	header, err := NewHeaderForCode([]byte(CodeTicketAdmission), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -973,24 +864,23 @@ func (m TicketAdmission) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.AdmissionType = make([]byte, 3)
-	if err := readLen(buf, m.AdmissionType); err != nil {
+	if err := read(buf, &m.AdmissionType); err != nil {
 		return 0, err
 	}
 
-	if err := m.Venue.Write(buf); err != nil {
+	if err := read(buf, &m.Venue); err != nil {
 		return 0, err
 	}
 
-	if err := m.Class.Write(buf); err != nil {
+	if err := read(buf, &m.Class); err != nil {
 		return 0, err
 	}
 
-	if err := m.Area.Write(buf); err != nil {
+	if err := read(buf, &m.Area); err != nil {
 		return 0, err
 	}
 
-	if err := m.Seat.Write(buf); err != nil {
+	if err := read(buf, &m.Seat); err != nil {
 		return 0, err
 	}
 
@@ -1006,7 +896,7 @@ func (m TicketAdmission) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.Description.Write(buf); err != nil {
+	if err := read(buf, &m.Description); err != nil {
 		return 0, err
 	}
 
@@ -1019,7 +909,7 @@ func (m TicketAdmission) String() string {
 	vals = append(vals, fmt.Sprintf("Version:%v", m.Version))
 	vals = append(vals, fmt.Sprintf("TradingRestriction:%#x", m.TradingRestriction))
 	vals = append(vals, fmt.Sprintf("AgeRestriction:%#x", m.AgeRestriction))
-	vals = append(vals, fmt.Sprintf("AdmissionType:%#x", m.AdmissionType))
+	vals = append(vals, fmt.Sprintf("AdmissionType:%#+v", m.AdmissionType))
 	vals = append(vals, fmt.Sprintf("Venue:%#+v", m.Venue))
 	vals = append(vals, fmt.Sprintf("Class:%#+v", m.Class))
 	vals = append(vals, fmt.Sprintf("Area:%#+v", m.Area))

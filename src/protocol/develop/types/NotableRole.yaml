@@ -6,7 +6,7 @@ fields:
   - name: Type
     label: Notable Role Type
     description: "Found in 'Roles' in Specification/Resources"
-    type: string
+    type: uint
     size: 1
     example_hex: 35
     example_value: "5"
@@ -15,7 +15,8 @@ fields:
   - name: Name
     label: Notable Role Name
     description: "Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)"
-    type: nvarchar8
+    type: varchar
+    size: 255
     size: 14
     example_hex: 0d4a616d65732042656c64696e67
     example_value: "Satoshi Nakamoto"
@@ -29,6 +30,5 @@ constructor:
       field: Type
 
     - name: name
-      type: bin
+      type: string
       field: Name
-      set_method: Set

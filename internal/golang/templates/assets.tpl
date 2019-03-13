@@ -52,7 +52,15 @@ func (m {{.Name}}) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m {{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-{{$last := ""}}{{range .Fields}}{{ if .IsInternalTypeArray }}
+{{$last := ""}}{{range .Fields}} {{ if .IsVarChar }}
+	if err := WriteVarChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{ else if .IsFixedChar }}
+	if err := WriteFixedChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{ else if .IsInternalTypeArray }}
 	for i := 0; i < int(m.{{$last}}); i++ {
 		b, err := m.{{.Name}}[i].Serialize()
 		if err != nil {
@@ -80,10 +88,6 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 			return nil, err
 		}
 	}
-{{ else if .IsNvarchar }}
-	if _, err := m.{{.FieldName}}.Write(buf); err != nil {
-		return nil, err
-	}
 {{else if .IsBytes }}
 	if err := write(buf, pad(m.{{.FieldName}}, {{.Length}})); err != nil {
 		return nil, err
@@ -95,7 +99,7 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 {{ end -}}{{ $last = .Name }}{{ end }}
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(Code{{.Name}}, len(b))
+	header, err := NewHeaderForCode([]byte(Code{{.Name}}), len(b))
 	if err != nil {
 		return nil, err
 	}

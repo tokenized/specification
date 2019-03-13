@@ -28,19 +28,11 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: TextEncoding
-    label: Text Encoding
-    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes:
-
   - name: Message
     label: Message
     description: "Length only limited by the Bitcoin protocol."
-    type: nvarchar32
+    type: varchar
+    size: 4294967295
     example_hex: 000000000000002b52656d6f7665642064756520746f2076696f6c6174696f6e206f6620636f6d70616e7920706f6c6963792e
     example_value: "Removed due to violation of company policy."
     notes: ""

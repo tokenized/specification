@@ -19,7 +19,7 @@ The following breaks down the construction of a Alteration Action. The action is
         </tr>
 
         <tr>
-            <td class="s5" rowspan="3">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="2">Metadata (OP_RETURN Payload)</td>
             <td class="r6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -28,26 +28,14 @@ The following breaks down the construction of a Alteration Action. The action is
         </tr>
 
         <tr>
-            <td class="r10">Text Encoding</td>
-            <td class="r10">TextEncoding</td>
-            <td class="r10">1</td>
-            <td class="r10" style="word-break:break-all">
-                0
-            </td>
-            <td class="r10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="r10">uint8</td>
-            <td class="r11"></td>
-        </tr>
-
-        <tr>
             <td class="r10">Message</td>
             <td class="r10">Message</td>
-            <td class="r10">0</td>
+            <td class="r10">4294967295</td>
             <td class="r10" style="word-break:break-all">
                 Changed Country of Residence
             </td>
             <td class="r10">Length only limited by the Bitcoin protocol.</td>
-            <td class="r10">nvarchar32</td>
+            <td class="r10">varchar</td>
             <td class="r11"></td>
         </tr>
 
@@ -74,7 +62,7 @@ The following breaks down the construction of a Alteration Action. The action is
                 <td class="r10">13</td>
                 <td class="r10" style="word-break:break-all">tokenized.com</td>
                 <td class="r10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="r10">string</td>
+                <td class="r10">bin</td>
                 <td class="r11"></td>
             </tr>
             <tr>
@@ -110,7 +98,7 @@ The following breaks down the construction of a Alteration Action. The action is
                 <td class="r10">2</td>
                 <td class="r10" style="word-break:break-all">C1</td>
                 <td class="r10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="r10">string</td>
+                <td class="r10">bin</td>
                 <td class="r11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>

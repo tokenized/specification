@@ -19,7 +19,7 @@ The following breaks down the construction of a Contract Formation Action. The a
         </tr>
 
         <tr>
-            <td class="s5" rowspan="38">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="37">Metadata (OP_RETURN Payload)</td>
             <td class="c6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -28,26 +28,14 @@ The following breaks down the construction of a Contract Formation Action. The a
         </tr>
 
         <tr>
-            <td class="c10">Text Encoding</td>
-            <td class="c10">TextEncoding</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="c10">uint8</td>
-            <td class="c11">Can be changed by Issuer or Operator at their discretion.</td>
-        </tr>
-
-        <tr>
             <td class="c10">Contract Name</td>
             <td class="c10">ContractName</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 Tesla - Shareholder Agreement
             </td>
             <td class="c10">Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -83,7 +71,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
             </td>
             <td class="c10">SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)</td>
-            <td class="c10">string</td>
+            <td class="c10">sha256</td>
             <td class="c11"></td>
         </tr>
 
@@ -95,7 +83,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 USA
             </td>
             <td class="c10">5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.</td>
-            <td class="c10">string</td>
+            <td class="c10">fixedchar</td>
             <td class="c11">Governing Law - Amendments can be restricted to a vote.</td>
         </tr>
 
@@ -107,7 +95,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 US-CA
             </td>
             <td class="c10">Legal proceedings/arbitration will take place using the specified Governing Law in this location.</td>
-            <td class="c10">string</td>
+            <td class="c10">fixedchar</td>
             <td class="c11">Jurisdiction - Amendments can be restricted to a vote.</td>
         </tr>
 
@@ -126,24 +114,24 @@ The following breaks down the construction of a Contract Formation Action. The a
         <tr>
             <td class="c10">Contract URI</td>
             <td class="c10">ContractURI</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj
             </td>
             <td class="c10">Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
         <tr>
             <td class="c10">Issuer Name</td>
             <td class="c10">IssuerName</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 Tesla Inc.
             </td>
             <td class="c10">Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. </td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -155,31 +143,31 @@ The following breaks down the construction of a Contract Formation Action. The a
                 P
             </td>
             <td class="c10">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).</td>
-            <td class="c10">string</td>
+            <td class="c10">fixedchar</td>
             <td class="c11">Issuer Type - Amendments can be restricted to a vote.</td>
         </tr>
 
         <tr>
             <td class="c10">Issuer Logo URL</td>
             <td class="c10">IssuerLogoURL</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 https://example.com/images/logo.png
             </td>
             <td class="c10">The URL of the Issuers logo.</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
         <tr>
             <td class="c10">Contract Operator ID</td>
             <td class="c10">ContractOperatorID</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 Tokenized
             </td>
             <td class="c10">Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -286,48 +274,48 @@ The following breaks down the construction of a Contract Formation Action. The a
         <tr>
             <td class="c10">Unit Number</td>
             <td class="c10">UnitNumber</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 2
             </td>
             <td class="c10">Issuer Address Details (eg. HQ)</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
         <tr>
             <td class="c10">Building Number</td>
             <td class="c10">BuildingNumber</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 13577
             </td>
             <td class="c10"></td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
         <tr>
             <td class="c10">Street</td>
             <td class="c10">Street</td>
-            <td class="c10">0</td>
+            <td class="c10">65535</td>
             <td class="c10" style="word-break:break-all">
                 Fairmont Ave
             </td>
             <td class="c10"></td>
-            <td class="c10">nvarchar16</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
         <tr>
             <td class="c10">Suburb/City</td>
             <td class="c10">SuburbCity</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 Robinoh
             </td>
             <td class="c10"></td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -339,7 +327,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 BC
             </td>
             <td class="c10"></td>
-            <td class="c10">string</td>
+            <td class="c10">fixedchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -351,43 +339,43 @@ The following breaks down the construction of a Contract Formation Action. The a
                 USA
             </td>
             <td class="c10"></td>
-            <td class="c10">string</td>
+            <td class="c10">fixedchar</td>
             <td class="c11"></td>
         </tr>
 
         <tr>
             <td class="c10">Postal/ZIP Code</td>
             <td class="c10">PostalZIPCode</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 50210
             </td>
             <td class="c10"></td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
         <tr>
             <td class="c10">Email Address</td>
             <td class="c10">EmailAddress</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 james@tokenized.com
             </td>
             <td class="c10">Address for text-based communication: eg. email address, Bitcoin address</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
         <tr>
             <td class="c10">Phone Number</td>
             <td class="c10">PhoneNumber</td>
-            <td class="c10">0</td>
+            <td class="c10">255</td>
             <td class="c10" style="word-break:break-all">
                 0448484848
             </td>
             <td class="c10">Phone Number for Entity. Max acceptable size: 50.</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -478,7 +466,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">13</td>
                 <td class="c10" style="word-break:break-all">tokenized.com</td>
                 <td class="c10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="c10">string</td>
+                <td class="c10">bin</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -514,7 +502,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">2</td>
                 <td class="c10" style="word-break:break-all">C1</td>
                 <td class="c10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="c10">string</td>
+                <td class="c10">bin</td>
                 <td class="c11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>
@@ -540,7 +528,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">20</td>
                 <td class="c10" style="word-break:break-all">Special Resolutions</td>
                 <td class="c10">eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -558,7 +546,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">A</td>
                 <td class="c10">R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful.</td>
-                <td class="c10">string</td>
+                <td class="c10">fixedchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -567,7 +555,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">0</td>
                 <td class="c10">0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) </td>
-                <td class="c10">string</td>
+                <td class="c10">fixedchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -585,7 +573,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">Y/N</td>
                 <td class="c10">Y - Yes, N - No. Where an asset has a vote multiplier, Y must be selected here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.</td>
-                <td class="c10">string</td>
+                <td class="c10">fixedchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -603,7 +591,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">3</td>
                 <td class="c10" style="word-break:break-all">AUD</td>
                 <td class="c10">Currency.  Always paid in BSV or a currency token (CUR) at current market valuations in the currency listed. NULL is valid.</td>
-                <td class="c10">string</td>
+                <td class="c10">fixedchar</td>
                 <td class="c11"></td>
             </tr>
         </table>
@@ -629,7 +617,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">10</td>
                 <td class="c10" style="word-break:break-all">Tokenized</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. Registry X Name (eg. Coinbase, Tokenized, etc.)</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -638,7 +626,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">53</td>
                 <td class="c10" style="word-break:break-all">http://registry.tokenized.com/api/3650d9/version2010</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -647,7 +635,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all"></td>
                 <td class="c10">Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
         </table>
@@ -673,7 +661,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">7</td>
                 <td class="c10">Chairman, Director. Found in 'Roles' in Specification/Resources</td>
-                <td class="c10">string</td>
+                <td class="c10">uint</td>
                 <td class="c11">7 - Chairman</td>
             </tr>
             <tr>
@@ -682,7 +670,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">14</td>
                 <td class="c10" style="word-break:break-all">Satoshi Nakamoto</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
         </table>
@@ -708,7 +696,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">5</td>
                 <td class="c10">Found in 'Roles' in Specification/Resources</td>
-                <td class="c10">string</td>
+                <td class="c10">uint</td>
                 <td class="c11">5 - CEO</td>
             </tr>
             <tr>
@@ -717,7 +705,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">14</td>
                 <td class="c10" style="word-break:break-all">Satoshi Nakamoto</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
         </table>

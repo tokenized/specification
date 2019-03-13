@@ -19,24 +19,12 @@ The following breaks down the construction of a Static Contract Formation Action
         </tr>
 
         <tr>
-            <td class="s5" rowspan="16">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="15">Metadata (OP_RETURN Payload)</td>
             <td class="c6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="c10">Text Encoding</td>
-            <td class="c10">TextEncoding</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="c10">uint8</td>
-            <td class="c11">Can be changed by Issuer or Operator at their discretion.</td>
         </tr>
 
         <tr>
@@ -47,7 +35,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 Tesla - Shareholder Agreement
             </td>
             <td class="c10">Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -59,7 +47,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 Non-Disclosure Agreement
             </td>
             <td class="c10"></td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -95,7 +83,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
             </td>
             <td class="c10">SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)</td>
-            <td class="c10">string</td>
+            <td class="c10">fixedchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -119,7 +107,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 USA
             </td>
             <td class="c10">5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.</td>
-            <td class="c10">string</td>
+            <td class="c10">fixedchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -131,7 +119,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 US-CA
             </td>
             <td class="c10">Legal proceedings/arbitration will take place using the specified Governing Law in this location.</td>
-            <td class="c10">string</td>
+            <td class="c10">fixedchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -167,7 +155,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj
             </td>
             <td class="c10">Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).</td>
-            <td class="c10">nvarchar8</td>
+            <td class="c10">varchar</td>
             <td class="c11"></td>
         </tr>
 
@@ -179,7 +167,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f
             </td>
             <td class="c10">The Tx-ID of the previous contract revision.</td>
-            <td class="c10">string</td>
+            <td class="c10">sha256</td>
             <td class="c11"></td>
         </tr>
 
@@ -226,7 +214,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">13</td>
                 <td class="c10" style="word-break:break-all">tokenized.com</td>
                 <td class="c10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="c10">string</td>
+                <td class="c10">bin</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -262,7 +250,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">2</td>
                 <td class="c10" style="word-break:break-all">C1</td>
                 <td class="c10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="c10">string</td>
+                <td class="c10">bin</td>
                 <td class="c11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>
@@ -288,7 +276,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">11</td>
                 <td class="c10" style="word-break:break-all">Tesla Inc.</td>
                 <td class="c10">Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. </td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -297,7 +285,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">P</td>
                 <td class="c10">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).</td>
-                <td class="c10">string</td>
+                <td class="c10">fixedchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -315,7 +303,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">2</td>
                 <td class="c10" style="word-break:break-all">2</td>
                 <td class="c10">Issuer/Entity/Contracting Party X Address Details (eg. HQ)</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -324,7 +312,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">6</td>
                 <td class="c10" style="word-break:break-all">13577</td>
                 <td class="c10"></td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -333,7 +321,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">14</td>
                 <td class="c10" style="word-break:break-all">Fairmont Ave</td>
                 <td class="c10"></td>
-                <td class="c10">nvarchar16</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -342,7 +330,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Robinoh</td>
                 <td class="c10"></td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -351,7 +339,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">5</td>
                 <td class="c10" style="word-break:break-all">BC</td>
                 <td class="c10"></td>
-                <td class="c10">string</td>
+                <td class="c10">fixedchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -360,7 +348,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">3</td>
                 <td class="c10" style="word-break:break-all">USA</td>
                 <td class="c10"></td>
-                <td class="c10">string</td>
+                <td class="c10">fixedchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -369,7 +357,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">12</td>
                 <td class="c10" style="word-break:break-all">50210</td>
                 <td class="c10"></td>
-                <td class="c10">string</td>
+                <td class="c10">fixedchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -378,7 +366,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">20</td>
                 <td class="c10" style="word-break:break-all">satoshi@tokenized.com</td>
                 <td class="c10">Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -387,7 +375,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">11</td>
                 <td class="c10" style="word-break:break-all">0448484848</td>
                 <td class="c10">Length 0-50 bytes. 0 is valid. Phone Number for Entity.</td>
-                <td class="c10">nvarchar8</td>
+                <td class="c10">varchar</td>
                 <td class="c11"></td>
             </tr>
             <tr>

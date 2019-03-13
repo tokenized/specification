@@ -19,24 +19,12 @@ The following breaks down the construction of a Rejection Action. The action is 
         </tr>
 
         <tr>
-            <td class="s5" rowspan="7">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="6">Metadata (OP_RETURN Payload)</td>
             <td class="m6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="m10">Text Encoding</td>
-            <td class="m10">TextEncoding</td>
-            <td class="m10">1</td>
-            <td class="m10" style="word-break:break-all">
-                0
-            </td>
-            <td class="m10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="m10">uint8</td>
-            <td class="m11">Can be changed by Issuer or Operator at their discretion.</td>
         </tr>
 
         <tr>
@@ -78,12 +66,12 @@ The following breaks down the construction of a Rejection Action. The action is 
         <tr>
             <td class="m10">Message Payload</td>
             <td class="m10">MessagePayload</td>
-            <td class="m10">0</td>
+            <td class="m10">4294967295</td>
             <td class="m10" style="word-break:break-all">
                 Sorry, you don't have enough tokens.
             </td>
             <td class="m10">Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.</td>
-            <td class="m10">nvarchar32</td>
+            <td class="m10">varchar</td>
             <td class="m11"></td>
         </tr>
 
@@ -122,7 +110,7 @@ The following breaks down the construction of a Rejection Action. The action is 
                 <td class="m10">13</td>
                 <td class="m10" style="word-break:break-all">tokenized.com</td>
                 <td class="m10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="m10">string</td>
+                <td class="m10">bin</td>
                 <td class="m11"></td>
             </tr>
             <tr>
@@ -158,7 +146,7 @@ The following breaks down the construction of a Rejection Action. The action is 
                 <td class="m10">2</td>
                 <td class="m10" style="word-break:break-all">C1</td>
                 <td class="m10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="m10">string</td>
+                <td class="m10">bin</td>
                 <td class="m11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>

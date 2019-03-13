@@ -22,7 +22,15 @@ func New{{.Name}}({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .Constr
 // Serialize returns the byte representation of the message.
 func (m {{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-{{ $last := "" }}{{ range .Fields }}{{ if .IsInternalTypeArray }}
+{{ $last := "" }}{{ range .Fields }}{{ if .IsVarChar }}
+	if err := WriteVarChar(buf, m.{{.Name}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{ else if .IsFixedChar }}
+	if err := WriteFixedChar(buf, m.{{.Name}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{ else if .IsInternalTypeArray }}
 	for i := 0; i < int(m.{{$last}}); i++ {
 		b, err := m.{{.Name}}[i].Serialize()
 		if err != nil {

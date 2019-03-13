@@ -45,7 +45,7 @@ fields:
 
   - name: OfferType
     label: Offer Type
-    type: string
+    type: fixedchar
     size: 1
     example: A
     options:
@@ -59,7 +59,8 @@ fields:
 
   - name: OfferName
     label: Offer Name
-    type: nvarchar8
+    type: varchar
+    size: 255
     size: 255
     example: Qantas Frequent Flyer Points
     options:
@@ -82,7 +83,8 @@ fields:
 
   - name: Description
     label: Description
-    type: nvarchar16
+    type: varchar
+    size: 65535
     # size: 65,535
     example: Coingeek Conference - London (November 2018).
     span: full

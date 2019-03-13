@@ -33,7 +33,8 @@ fields:
 
   - name: RedeemingEntity
     label: Redeeming Entity
-    type: nvarchar8
+    type: varchar
+    size: 255
     size: 255
     example: Woolworths - Robina Town Centre
     span: full
@@ -66,7 +67,7 @@ fields:
 
   - name: Currency
     label: Currency
-    type: string
+    type: fixedchar
     size: 3
     example: AUD
     span: right
@@ -74,7 +75,8 @@ fields:
 
   - name: Description
     label: Description
-    type: nvarchar16
+    type: varchar
+    size: 65535
     # size: 65,535
     example: Gift Card
     span: full

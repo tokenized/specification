@@ -2,7 +2,6 @@ package protocol
 
 import (
 	"bytes"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -98,7 +97,7 @@ func Code(b []byte) (string, error) {
 }
 
 // NewHeaderForCode returns a new Header with the given code and size.
-func NewHeaderForCode(code string, size int) (*Header, error) {
+func NewHeaderForCode(code []byte, size int) (*Header, error) {
 	// work out which opcode to use depending on size of the data.
 	opcode := OpPushdata1
 
@@ -118,398 +117,90 @@ func NewHeaderForCode(code string, size int) (*Header, error) {
 		OpPushdata:       opcode,
 		LenActionPayload: lenPayload,
 		Version:          Version,
-		ActionPrefix:     []byte(code),
+		ActionPrefix:     code,
 	}
 
 	return &h, nil
 }
 
-// Nvarchar is a common interface for the Nvarchar types.
-type Nvarchar interface {
-	String() string
-	Write(*bytes.Buffer) error
-	Serialize() ([]byte, error)
-	Set(data []byte) error
-	MarshalJSON() ([]byte, error)
-	UnmarshalJSON(b []byte) error
-}
-
-// NewNvarchar returns a suitable Nvarchar type based on the length of the
-// given bytes.
-func NewNvarchar(b []byte) Nvarchar {
-	n := len(b)
-
-	if n <= 0xff {
-		return NewNvarchar8(b)
-	} else if n <= 0xffff {
-		return NewNvarchar16(b)
-	} else if n <= 0xffffffff {
-		return NewNvarchar32(b)
+func WriteVarChar(buf *bytes.Buffer, value string, maxSize uint64) error {
+	var err error
+	if maxSize < 256 {
+		err = write(buf, uint8(len(value)))
+	} else if maxSize < 65536 {
+		err = write(buf, uint16(len(value)))
+	} else if maxSize < 4294967296 {
+		err = write(buf, uint32(len(value)))
+	} else {
+		err = write(buf, uint64(len(value)))
 	}
-
-	return NewNvarchar64(b)
-}
-
-// Nvarchar8 is used to represent string data up to and including 255 bytes
-// in length.
-type Nvarchar8 struct {
-	Len  uint8
-	Data []byte
-}
-
-// NewNvarchar8 return a new Nvarchar8.
-func NewNvarchar8(b []byte) *Nvarchar8 {
-	return &Nvarchar8{
-		Len:  uint8(len(b)),
-		Data: b,
-	}
-}
-
-func (t *Nvarchar8) Set(data []byte) error {
-	t.Len = uint8(len(data))
-	t.Data = data
-	return nil
-}
-
-// Write writes the contents of the io.Writer to the struct.
-func (t *Nvarchar8) Write(buf *bytes.Buffer) error {
-	if len(t.Data) > 0xff {
-		return errors.New("Data exceeds limit of type")
-	}
-
-	// write uint8
-	if err := read(buf, &t.Len); err != nil {
-		return err
-	}
-
-	// write data
-	t.Data = make([]byte, t.Len, t.Len)
-	if err := readLen(buf, t.Data); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Size returns the byte size of the type, including the number of bytes needed
-// to state the length of the data.
-func (t Nvarchar8) Size() int {
-	return 1 + len(t.Data)
-}
-
-// Serialize returns the bytes that represent the type.
-func (t Nvarchar8) Serialize() ([]byte, error) {
-	if len(t.Data) > 0xff {
-		return nil, errors.New("Data exceeds limit of type")
-	}
-
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, t.Len); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, t.Data); err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
-
-// String returns a string representation of the bytes.
-func (t Nvarchar8) String() string {
-	return string(t.Data)
-}
-
-func (t Nvarchar8) MarshalJSON() ([]byte, error) {
-	result := make([]byte, 0, t.Len+2)
-	result = append(result, '"')
-	result = append(result, t.Data...)
-	result = append(result, '"')
-	return result, nil
-}
-
-func (t *Nvarchar8) UnmarshalJSON(b []byte) error {
-	if len(b) == 0 {
-		return t.Set([]byte{})
-	}
-	var data string
-	err := json.Unmarshal(b, &data)
 	if err != nil {
 		return err
 	}
-	return t.Set([]byte(data))
+
+	return write(buf, []byte(value))
 }
 
-// Nvarchar16 is used to represent string data up to and including 65535 bytes
-// in length.
-type Nvarchar16 struct {
-	Len  uint16
-	Data []byte
-}
-
-// NewNvarchar16 return a new Nvarchar16.
-func NewNvarchar16(b []byte) *Nvarchar16 {
-	return &Nvarchar16{
-		Len:  uint16(len(b)),
-		Data: b,
+func ReadVarChar(buf *bytes.Buffer, maxSize uint64) (string, error) {
+	var err error
+	var size uint64
+	if maxSize < 256 {
+		var size8 uint8
+		err = read(buf, &size8)
+		size = uint64(size8)
+	} else if maxSize < 65536 {
+		var size16 uint16
+		err = read(buf, &size16)
+		size = uint64(size16)
+	} else if maxSize < 4294967296 {
+		var size32 uint32
+		err = read(buf, &size32)
+		size = uint64(size32)
+	} else {
+		err = read(buf, &size)
 	}
-}
-
-func (t *Nvarchar16) Set(data []byte) error {
-	t.Len = uint16(len(data))
-	t.Data = data
-	return nil
-}
-
-// Write writes the contents of the io.Writer to the struct.
-func (t *Nvarchar16) Write(buf *bytes.Buffer) error {
-	if len(t.Data) > 0xffff {
-		return errors.New("Data exceeds limit of type")
+	if err != nil {
+		return "", err
 	}
 
-	// write uint16
-	if err := read(buf, &t.Len); err != nil {
-		return err
+	data := make([]byte, size)
+	err = readLen(buf, data)
+	if err != nil {
+		return "", err
 	}
-
-	// write data
-	t.Data = make([]byte, t.Len, t.Len)
-	if err := readLen(buf, t.Data); err != nil {
-		return err
-	}
-
-	return nil
+	return string(data), nil
 }
 
-// Size returns the byte size of the type, including the number of bytes needed
-// to state the length of the data.
-func (t Nvarchar16) Size() int {
-	return 2 + len(t.Data)
-}
-
-// Serialize returns the bytes that represent the type.
-func (t Nvarchar16) Serialize() ([]byte, error) {
-	if len(t.Data) > 0xffff {
-		return nil, errors.New("Data exceeds limit of type")
+func WriteFixedChar(buf *bytes.Buffer, value string, size uint64) error {
+	if uint64(len(value)) > size {
+		return errors.New(fmt.Sprintf("FixedChar too long %d > %d", len(value), size))
 	}
-
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, t.Len); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, t.Data); err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
-
-// String returns a string representation of the bytes.
-func (t Nvarchar16) String() string {
-	return string(t.Data)
-}
-
-func (t Nvarchar16) MarshalJSON() ([]byte, error) {
-	result := make([]byte, 0, t.Len+2)
-	result = append(result, '"')
-	result = append(result, t.Data...)
-	result = append(result, '"')
-	return result, nil
-}
-
-func (t *Nvarchar16) UnmarshalJSON(b []byte) error {
-	if len(b) == 0 {
-		return t.Set([]byte{})
-	}
-	var data string
-	err := json.Unmarshal(b, &data)
+	err := write(buf, []byte(value))
 	if err != nil {
 		return err
 	}
-	return t.Set([]byte(data))
-}
 
-// Nvarchar32 is used to represent string data up to and including
-// 4294967295 bytes in length.
-type Nvarchar32 struct {
-	Len  uint32
-	Data []byte
-}
-
-// NewNvarchar32 return a new Nvarchar32.
-func NewNvarchar32(b []byte) *Nvarchar32 {
-	return &Nvarchar32{
-		Len:  uint32(len(b)),
-		Data: b,
+	// Pad with zeroes
+	if uint64(len(value)) < size {
+		padCount := size - uint64(len(value))
+		empty := make([]byte, padCount)
+		for i := uint64(0); i < padCount; i++ {
+			empty[i] = 0
+		}
+		err := write(buf, empty)
+		if err != nil {
+			return err
+		}
 	}
-}
-
-func (t *Nvarchar32) Set(data []byte) error {
-	t.Len = uint32(len(data))
-	t.Data = data
 	return nil
 }
 
-// Write writes the contents of the io.Writer to the struct.
-func (t *Nvarchar32) Write(buf *bytes.Buffer) error {
-	if len(t.Data) > 0xffffffff {
-		return errors.New("Data exceeds limit of type")
-	}
-
-	// write uint32
-	if err := read(buf, &t.Len); err != nil {
-		return err
-	}
-
-	// write data
-	t.Data = make([]byte, t.Len, t.Len)
-	if err := readLen(buf, t.Data); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Size returns the byte size of the type, including the number of bytes needed
-// to state the length of the data.
-func (t Nvarchar32) Size() int {
-	return 4 + len(t.Data)
-}
-
-// Serialize returns the bytes that represent the type.
-func (t Nvarchar32) Serialize() ([]byte, error) {
-	if len(t.Data) > 0xffffffff {
-		return nil, errors.New("Data exceeds limit of type")
-	}
-
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, t.Len); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, t.Data); err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
-
-// String returns a string representation of the bytes.
-func (t Nvarchar32) String() string {
-	return string(t.Data)
-}
-
-func (t Nvarchar32) MarshalJSON() ([]byte, error) {
-	result := make([]byte, 0, t.Len+2)
-	result = append(result, '"')
-	result = append(result, t.Data...)
-	result = append(result, '"')
-	return result, nil
-}
-
-func (t *Nvarchar32) UnmarshalJSON(b []byte) error {
-	if len(b) == 0 {
-		return t.Set([]byte{})
-	}
-	var data string
-	err := json.Unmarshal(b, &data)
+func ReadFixedChar(buf *bytes.Buffer, size uint64) (string, error) {
+	var err error
+	data := make([]byte, size)
+	err = readLen(buf, data)
 	if err != nil {
-		return err
+		return "", err
 	}
-	return t.Set([]byte(data))
-}
-
-// Nvarchar64 is used to represent string data up to and including
-// 18446744073709551615 bytes in length.
-type Nvarchar64 struct {
-	Len  uint64
-	Data []byte
-}
-
-// NewNvarchar64 return a new Nvarchar64.
-func NewNvarchar64(b []byte) *Nvarchar64 {
-	return &Nvarchar64{
-		Len:  uint64(len(b)),
-		Data: b,
-	}
-}
-
-func (t *Nvarchar64) Set(data []byte) error {
-	t.Len = uint64(len(data))
-	t.Data = data
-	return nil
-}
-
-// Write writes the contents of the io.Writer to the struct.
-func (t *Nvarchar64) Write(buf *bytes.Buffer) error {
-	if len(t.Data) > 0xffffffff {
-		return errors.New("Data exceeds limit of type")
-	}
-
-	// write uint64
-	if err := read(buf, &t.Len); err != nil {
-		return err
-	}
-
-	// write data
-	t.Data = make([]byte, t.Len, t.Len)
-	if err := readLen(buf, t.Data); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Size returns the byte size of the type, including the number of bytes needed
-// to state the length of the data.
-func (t Nvarchar64) Size() int {
-	return 8 + len(t.Data)
-}
-
-// Serialize returns the bytes that represent the type.
-func (t Nvarchar64) Serialize() ([]byte, error) {
-	if len(t.Data) > 0xffffffff {
-		return nil, errors.New("Data exceeds limit of type")
-	}
-
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, t.Len); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, t.Data); err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
-
-// String returns a string representation of the bytes.
-func (t Nvarchar64) String() string {
-	return string(t.Data)
-}
-
-func (t Nvarchar64) MarshalJSON() ([]byte, error) {
-	result := make([]byte, 0, t.Len+2)
-	result = append(result, '"')
-	result = append(result, t.Data...)
-	result = append(result, '"')
-	return result, nil
-}
-
-func (t *Nvarchar64) UnmarshalJSON(b []byte) error {
-	if len(b) == 0 {
-		return t.Set([]byte{})
-	}
-	var data string
-	err := json.Unmarshal(b, &data)
-	if err != nil {
-		return err
-	}
-	return t.Set([]byte(data))
+	return string(data), nil
 }

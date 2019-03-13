@@ -59,7 +59,7 @@ The following breaks down the construction of a Referendum Action. The action is
                 RRE
             </td>
             <td class="g10">eg. Share, Bond, Ticket</td>
-            <td class="g10">string</td>
+            <td class="g10">fixedchar</td>
             <td class="g11"></td>
         </tr>
 
@@ -71,7 +71,7 @@ The following breaks down the construction of a Referendum Action. The action is
                 apm2qsznhks23z8d83u41s8019hyri3i
             </td>
             <td class="g10">Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.</td>
-            <td class="g10">string</td>
+            <td class="g10">fixedchar</td>
             <td class="g11"></td>
         </tr>
 
@@ -122,12 +122,12 @@ The following breaks down the construction of a Referendum Action. The action is
         <tr>
             <td class="g10">Vote Options</td>
             <td class="g10">VoteOptions</td>
-            <td class="g10">0</td>
+            <td class="g10">255</td>
             <td class="g10" style="word-break:break-all">
                 ABCDEFGHIJKLMNO
             </td>
             <td class="g10">Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail.</td>
-            <td class="g10">nvarchar8</td>
+            <td class="g10">varchar</td>
             <td class="g11"></td>
         </tr>
 
@@ -146,12 +146,12 @@ The following breaks down the construction of a Referendum Action. The action is
         <tr>
             <td class="g10">Proposal Description</td>
             <td class="g10">ProposalDescription</td>
-            <td class="g10">0</td>
+            <td class="g10">4294967295</td>
             <td class="g10" style="word-break:break-all">
                 Change the name of the Contract.
             </td>
             <td class="g10">Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.</td>
-            <td class="g10">nvarchar32</td>
+            <td class="g10">varchar</td>
             <td class="g11"></td>
         </tr>
 
@@ -202,7 +202,7 @@ The following breaks down the construction of a Referendum Action. The action is
                 <td class="g10">13</td>
                 <td class="g10" style="word-break:break-all">tokenized.com</td>
                 <td class="g10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="g10">string</td>
+                <td class="g10">bin</td>
                 <td class="g11"></td>
             </tr>
             <tr>
@@ -238,7 +238,7 @@ The following breaks down the construction of a Referendum Action. The action is
                 <td class="g10">2</td>
                 <td class="g10" style="word-break:break-all">C1</td>
                 <td class="g10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="g10">string</td>
+                <td class="g10">bin</td>
                 <td class="g11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>

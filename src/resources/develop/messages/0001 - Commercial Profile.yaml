@@ -13,6 +13,7 @@ fields:
   - name: BusinessName
     label: Business Name
     description: "The name of your business"
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_value: "Willa Wonka's Chocolate Factory"
     notes: ""

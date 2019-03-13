@@ -19,24 +19,12 @@ The following breaks down the construction of a Settlement Action. The action is
         </tr>
 
         <tr>
-            <td class="s5" rowspan="8">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="7">Metadata (OP_RETURN Payload)</td>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="t10">Text Encoding</td>
-            <td class="t10">TextEncoding</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                0
-            </td>
-            <td class="t10"> 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.</td>
-            <td class="t10">uint8</td>
-            <td class="t11">Can be changed by Issuer or Operator at their discretion.</td>
         </tr>
 
         <tr>
@@ -59,7 +47,7 @@ The following breaks down the construction of a Settlement Action. The action is
                 RRE
             </td>
             <td class="t10">eg. Share, Bond, Ticket</td>
-            <td class="t10">string</td>
+            <td class="t10">fixedchar</td>
             <td class="t11"></td>
         </tr>
 
@@ -71,7 +59,7 @@ The following breaks down the construction of a Settlement Action. The action is
                 apm2qsznhks23z8d83u41s8019hyri3i
             </td>
             <td class="t10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. </td>
-            <td class="t10">string</td>
+            <td class="t10">fixedchar</td>
             <td class="t11"></td>
         </tr>
 
@@ -130,7 +118,7 @@ The following breaks down the construction of a Settlement Action. The action is
                 <td class="t10">13</td>
                 <td class="t10" style="word-break:break-all">tokenized.com</td>
                 <td class="t10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="t10">string</td>
+                <td class="t10">bin</td>
                 <td class="t11"></td>
             </tr>
             <tr>
@@ -166,7 +154,7 @@ The following breaks down the construction of a Settlement Action. The action is
                 <td class="t10">2</td>
                 <td class="t10" style="word-break:break-all">C1</td>
                 <td class="t10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="t10">string</td>
+                <td class="t10">bin</td>
                 <td class="t11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>

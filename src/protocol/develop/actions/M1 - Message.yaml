@@ -39,18 +39,6 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: TextEncoding
-    label: Text Encoding
-    description: >
-      0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.
-      Encoding applies to all 'text' data types. All 'string' types will always be encoded
-      with ASCII. Where string is selected, all fields will be ASCII.
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion."
-
   - name: QtyReceivingAddresses
     label: Qty Receiving Addresses
     description: "0-255 Message Receiving Addresses"
@@ -69,7 +57,7 @@ fields:
   - name: MessageType
     label: Message Type
     description: "Potential for up to 65,535 different message types"
-    type: string
+    type: fixedchar
     size: 2
     example_hex: "3600"
     example_value: "6"
@@ -82,7 +70,8 @@ fields:
       Issuers/Contracts can send the signifying amount of satoshis to themselves for public
       announcements or private 'notes' if encrypted. See Message Types for a full list of
       potential use cases.
-    type: nvarchar32
+    type: varchar
+    size: 4294967295
     example_hex: "000000000000000c48656c6c6f20776f726c6421"
     example_value: "Hello world!"
     notes: ""

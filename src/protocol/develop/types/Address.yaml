@@ -6,8 +6,8 @@ fields:
   - name: Address
     label: Address
     description: "Public address where the token balance will be changed."
-    type: string
-    size: 34
+    type: bin
+    size: 20
     example_hex: 31485132554c7544375435796b6175635a334b6d546f346932393932355161366963
     example_value: "1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic"
     notes: ""

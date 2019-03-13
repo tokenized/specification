@@ -19,7 +19,7 @@ func Test{{.Name}}(t *testing.T) {
 	// Create a valid header for the body
 	m := NewEmpty{{.Name}}()
 
-	header, err := NewHeaderForCode({{.CodeName}}, len(b))
+	header, err := NewHeaderForCode([]byte({{.CodeName}}), len(b))
 	if err != nil {
 		t.Fatal(err)
 	}

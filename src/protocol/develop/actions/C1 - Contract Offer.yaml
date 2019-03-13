@@ -32,21 +32,13 @@ fields:
     label: "Header"
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
-
-  - name: TextEncoding
-    label: Text Encoding
-    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: ContractName
     label:
     description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
     example_value: "Tesla - Shareholder Agreement"
     notes: ""
@@ -71,9 +63,9 @@ fields:
 
   - name: ContractFile
     label: Contract File
-    description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
-    type: string
-    size: 32
+    description: "SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
+    type: varchar
+    size: 4294967295
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
     notes: ""
@@ -81,7 +73,7 @@ fields:
   - name: GoverningLaw
     label: Governing Law
     description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
-    type: string
+    type: fixedchar
     size: 5
     example_hex: 5553410000
     example_value: "USA"
@@ -90,7 +82,7 @@ fields:
   - name: Jurisdiction
     label: Jurisdiction
     description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
-    type: string
+    type: fixedchar
     size: 5
     example_hex: 55532d4341
     example_value: "US-CA"
@@ -108,7 +100,8 @@ fields:
   - name: ContractURI
     label: Contract URI
     description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS)."
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
     example_value: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
     notes: ""
@@ -116,7 +109,8 @@ fields:
   - name: IssuerName
     label: Issuer Name
     description: "Length 0-255 bytes. 0 is not valid.Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 0a5465736c6120496e632e
     example_value: "Tesla Inc."
     notes: ""
@@ -133,7 +127,8 @@ fields:
   - name: IssuerLogoURL
     label: Issuer Logo URL
     description: "The URL of the Issuers logo."
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: "2368747470733a2f2f6578616d706c652e636f6d2f696d616765732f6c6f676f2e706e67"
     example_value: "https://example.com/images/logo.png"
     notes: ""
@@ -141,7 +136,8 @@ fields:
   - name: ContractOperatorID
     label: Contract Operator ID
     description: "Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 09546f6b656e697a6564
     example_value: "Tokenized"
     notes: ""
@@ -166,7 +162,7 @@ fields:
 
   - name: VotingSystems
     label: Voting Systems
-    description: "A list voting systems."
+    description: "A list of voting systems."
     type: VotingSystem[]
     notes: ""
 
@@ -223,7 +219,8 @@ fields:
   - name: UnitNumber
     label: Unit Number
     description: "Issuer Address Details (eg. HQ)"
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 0132
     example_value: "2"
     notes: ""
@@ -231,7 +228,8 @@ fields:
   - name: BuildingNumber
     label: Building Number
     description: ""
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 053133353737
     example_value: "13577"
     notes: ""
@@ -239,7 +237,8 @@ fields:
   - name: Street
     label: Street
     description: ""
-    type: nvarchar16
+    type: varchar
+    size: 65535
     example_hex: 000c466169726d6f6e7420417665
     example_value: "Fairmont Ave"
     notes: ""
@@ -247,7 +246,8 @@ fields:
   - name: SuburbCity
     label: Suburb/City
     description: ""
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 07526f62696e6f68
     example_value: "Robinoh"
     notes: ""
@@ -255,7 +255,7 @@ fields:
   - name: TerritoryStateProvinceCode
     label: Territory/State/Province Code
     description: ""
-    type: string
+    type: fixedchar
     size: 5
     example_hex: 4243000000
     example_value: "BC"
@@ -264,7 +264,7 @@ fields:
   - name: CountryCode
     label: Country Code
     description: ""
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 555341
     example_value: "USA"
@@ -273,7 +273,8 @@ fields:
   - name: PostalZIPCode
     label: Postal/ZIP Code
     description: ""
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 053530323130
     example_value: "50210"
     notes: ""
@@ -281,7 +282,8 @@ fields:
   - name: EmailAddress
     label: Email Address
     description: "Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address"
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 136a616d657340746f6b656e697a65642e636f6d
     example_value: "james@tokenized.com"
     notes: ""
@@ -289,7 +291,8 @@ fields:
   - name: PhoneNumber
     label: Phone Number
     description: "Length 0-50 bytes. 0 is valid (no Phone subfield).Phone Number for Entity."
-    type: nvarchar8
+    type: varchar
+    size: 255
     example_hex: 0a30343230313939393939
     example_value: "0420199999"
     notes: ""
@@ -325,25 +328,76 @@ fields:
 # Constructor parameters
 constructor:
     - name: name
-      type: bin
+      type: string
       field: ContractName
-      set_method: Set
 
     - name: issuerName
-      type: bin
+      type: string
       field: IssuerName
-      set_method: Set
 
 # Functions for configuring the action
 functions:
+    - name: SetIssuerAddress
+      description: Sets the issuer's mailing address on the contract.
+      type: set
+      params:
+          - name: unit
+            type: string
+            field: UnitNumber
+
+          - name: building
+            type: string
+            field: BuildingNumber
+
+          - name: street
+            type: string
+            field: Street
+
+          - name: city
+            type: string
+            field: SuburbCity
+
+          - name: state
+            type: string
+            field: TerritoryStateProvinceCode
+
+          - name: countryCode
+            type: string
+            field: CountryCode
+
+          - name: postalCode
+            type: string
+            field: PostalZIPCode
+
+          - name: hidden
+            type: string
+            field: IssuerAddress
+            value: true
+
     - name: AddKeyRole
-      description: Adds a key role to the asset
+      description: Adds a key role to the contract
+      type: append
+      append_type: KeyRole
       params:
           - name: roleType
             type: uint
             size: 1
             field: Type
+
           - name: name
             type: string
             field: Name
-            set_method: Set
+
+    - name: AddNotableRole
+      description: Adds a notable role to the contract
+      type: append
+      append_type: NotableRole
+      params:
+          - name: roleType
+            type: uint
+            size: 1
+            field: Type
+
+          - name: name
+            type: string
+            field: Name

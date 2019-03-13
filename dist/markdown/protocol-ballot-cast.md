@@ -35,7 +35,7 @@ The following breaks down the construction of a Ballot Cast Action. The action i
                 RRE
             </td>
             <td class="g10">eg. Share, Bond, Ticket</td>
-            <td class="g10">string</td>
+            <td class="g10">fixedchar</td>
             <td class="g11"></td>
         </tr>
 
@@ -47,7 +47,7 @@ The following breaks down the construction of a Ballot Cast Action. The action i
                 apm2qsznhks23z8d83u41s8019hyri3i
             </td>
             <td class="g10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.</td>
-            <td class="g10">string</td>
+            <td class="g10">fixedchar</td>
             <td class="g11"></td>
         </tr>
 
@@ -66,12 +66,12 @@ The following breaks down the construction of a Ballot Cast Action. The action i
         <tr>
             <td class="g10">Vote</td>
             <td class="g10">Vote</td>
-            <td class="g10">0</td>
+            <td class="g10">255</td>
             <td class="g10" style="word-break:break-all">
                 A
             </td>
             <td class="g10">Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.</td>
-            <td class="g10">nvarchar8</td>
+            <td class="g10">varchar</td>
             <td class="g11"></td>
         </tr>
 
@@ -98,7 +98,7 @@ The following breaks down the construction of a Ballot Cast Action. The action i
                 <td class="g10">13</td>
                 <td class="g10" style="word-break:break-all">tokenized.com</td>
                 <td class="g10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="g10">string</td>
+                <td class="g10">bin</td>
                 <td class="g11"></td>
             </tr>
             <tr>
@@ -134,7 +134,7 @@ The following breaks down the construction of a Ballot Cast Action. The action i
                 <td class="g10">2</td>
                 <td class="g10" style="word-break:break-all">C1</td>
                 <td class="g10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="g10">string</td>
+                <td class="g10">bin</td>
                 <td class="g11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>

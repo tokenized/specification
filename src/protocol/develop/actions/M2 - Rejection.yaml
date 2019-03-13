@@ -28,16 +28,7 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
-
-  - name: TextEncoding
-    label: Text Encoding
-    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes: "Can be changed by Issuer or Operator at their discretion."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: QtyReceivingAddresses
     label: Qty Receiving Addresses
@@ -66,7 +57,8 @@ fields:
   - name: MessagePayload
     label: Message Payload
     description: "Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield."
-    type: nvarchar32
+    type: varchar
+    size: 4294967295
     example_hex: 0024536f7272792c20796f7520646f6e2774206861766520656e6f75676820746f6b656e732e
     example_value: "Sorry, you don't have enough tokens."
     notes: ""

@@ -127,19 +127,18 @@ var (
 // that it wants to create.
 type AssetDefinition struct {
 	Header                      Header  // Common header data for all actions
-	TextEncoding                uint8   // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	AssetType                   []byte  // eg. Share - Common
-	AssetID                     []byte  // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetType                   string  // eg. Share - Common
+	AssetID                     string  // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
 	AssetAuthFlags              []byte  // Authorization Flags,  bitwise operation
 	TransfersPermitted          bool    // 1 = Transfers are permitted.  0 = Transfers are not permitted.
-	TradeRestrictions           []byte  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
+	TradeRestrictions           string  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
 	EnforcementOrdersPermitted  bool    // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
 	VoteMultiplier              uint8   // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
 	ReferendumProposal          bool    // A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.
 	InitiativeProposal          bool    // An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.
 	AssetModificationGovernance bool    // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
 	TokenQty                    uint64  // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.
-	ContractFeeCurrency         []byte  // BSV, USD, AUD, EUR, etc.
+	ContractFeeCurrency         string  // BSV, USD, AUD, EUR, etc.
 	ContractFeeVar              float32 // Percent of the value of the transaction
 	ContractFeeFixed            float32 // Fixed fee (payment made in BSV)
 	AssetPayloadLen             uint16  // Size of the asset payload in bytes.
@@ -153,7 +152,7 @@ func NewEmptyAssetDefinition() *AssetDefinition {
 }
 
 // NewAssetDefinition returns a new AssetDefinition with specified values set.
-func NewAssetDefinition(assetType []byte) *AssetDefinition {
+func NewAssetDefinition(assetType string) *AssetDefinition {
 	result := AssetDefinition{}
 	result.AssetType = assetType
 	return &result
@@ -182,15 +181,11 @@ func (m AssetDefinition) Read(b []byte) (int, error) {
 func (m AssetDefinition) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
 		return nil, err
 	}
 
@@ -202,7 +197,7 @@ func (m AssetDefinition) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.TradeRestrictions, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.TradeRestrictions, 3); err != nil {
 		return nil, err
 	}
 
@@ -230,7 +225,7 @@ func (m AssetDefinition) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ContractFeeCurrency, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.ContractFeeCurrency, 3); err != nil {
 		return nil, err
 	}
 
@@ -254,7 +249,7 @@ func (m AssetDefinition) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeAssetDefinition, len(b))
+	header, err := NewHeaderForCode([]byte(CodeAssetDefinition), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -278,18 +273,20 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
-	}
-
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	m.AssetAuthFlags = make([]byte, 8)
@@ -301,9 +298,12 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.TradeRestrictions = make([]byte, 3)
-	if err := readLen(buf, m.TradeRestrictions); err != nil {
-		return 0, err
+	{
+		var err error
+		m.TradeRestrictions, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.EnforcementOrdersPermitted); err != nil {
@@ -330,9 +330,12 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ContractFeeCurrency = make([]byte, 3)
-	if err := readLen(buf, m.ContractFeeCurrency); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractFeeCurrency, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ContractFeeVar); err != nil {
@@ -357,7 +360,7 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 
 // PayloadMessage returns the PayloadMessage, if any.
 func (m AssetDefinition) PayloadMessage() (PayloadMessage, error) {
-	p, err := NewPayloadMessageFromCode(m.AssetType)
+	p, err := NewPayloadMessageFromCode([]byte(m.AssetType))
 	if p == nil || err != nil {
 		return nil, err
 	}
@@ -373,19 +376,18 @@ func (m AssetDefinition) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
 	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x", m.AssetAuthFlags))
 	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", m.TransfersPermitted))
-	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#x", m.TradeRestrictions))
+	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", m.TradeRestrictions))
 	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", m.EnforcementOrdersPermitted))
 	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", m.VoteMultiplier))
 	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", m.ReferendumProposal))
 	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", m.InitiativeProposal))
 	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%#+v", m.AssetModificationGovernance))
 	vals = append(vals, fmt.Sprintf("TokenQty:%v", m.TokenQty))
-	vals = append(vals, fmt.Sprintf("ContractFeeCurrency:%#x", m.ContractFeeCurrency))
+	vals = append(vals, fmt.Sprintf("ContractFeeCurrency:%#+v", m.ContractFeeCurrency))
 	vals = append(vals, fmt.Sprintf("ContractFeeVar:%v", m.ContractFeeVar))
 	vals = append(vals, fmt.Sprintf("ContractFeeFixed:%v", m.ContractFeeFixed))
 	vals = append(vals, fmt.Sprintf("AssetPayloadLen:%v", m.AssetPayloadLen))
@@ -398,19 +400,18 @@ func (m AssetDefinition) String() string {
 // response to the Issuer's instructions in the Definition Action.
 type AssetCreation struct {
 	Header                      Header  // Common header data for all actions
-	TextEncoding                uint8   // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	AssetType                   []byte  // eg. Share - Common
-	AssetID                     []byte  // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetType                   string  // eg. Share - Common
+	AssetID                     string  // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
 	AssetAuthFlags              []byte  // Authorization Flags,  bitwise operation
 	TransfersPermitted          bool    // 1 = Transfers are permitted.  0 = Transfers are not permitted.
-	TradeRestrictions           []byte  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
+	TradeRestrictions           string  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
 	EnforcementOrdersPermitted  bool    // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
 	VoteMultiplier              uint8   // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
 	ReferendumProposal          bool    // A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.
 	InitiativeProposal          bool    // An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.
 	AssetModificationGovernance bool    // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative).  The voting system specifies the voting rules.
 	TokenQty                    uint64  // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.
-	ContractFeeCurrency         []byte  // BSV, USD, AUD, EUR, etc.
+	ContractFeeCurrency         string  // BSV, USD, AUD, EUR, etc.
 	ContractFeeVar              float32 // Percent of the value of the transaction
 	ContractFeeFixed            float32 // Fixed fee (payment made in BSV)
 	AssetPayloadLen             uint16  // Size of the asset payload in bytes.
@@ -454,15 +455,11 @@ func (m AssetCreation) Read(b []byte) (int, error) {
 func (m AssetCreation) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
 		return nil, err
 	}
 
@@ -474,7 +471,7 @@ func (m AssetCreation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.TradeRestrictions, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.TradeRestrictions, 3); err != nil {
 		return nil, err
 	}
 
@@ -502,7 +499,7 @@ func (m AssetCreation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ContractFeeCurrency, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.ContractFeeCurrency, 3); err != nil {
 		return nil, err
 	}
 
@@ -534,7 +531,7 @@ func (m AssetCreation) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeAssetCreation, len(b))
+	header, err := NewHeaderForCode([]byte(CodeAssetCreation), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -558,18 +555,20 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
-	}
-
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	m.AssetAuthFlags = make([]byte, 8)
@@ -581,9 +580,12 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.TradeRestrictions = make([]byte, 3)
-	if err := readLen(buf, m.TradeRestrictions); err != nil {
-		return 0, err
+	{
+		var err error
+		m.TradeRestrictions, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.EnforcementOrdersPermitted); err != nil {
@@ -610,9 +612,12 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ContractFeeCurrency = make([]byte, 3)
-	if err := readLen(buf, m.ContractFeeCurrency); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractFeeCurrency, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ContractFeeVar); err != nil {
@@ -645,7 +650,7 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 
 // PayloadMessage returns the PayloadMessage, if any.
 func (m AssetCreation) PayloadMessage() (PayloadMessage, error) {
-	p, err := NewPayloadMessageFromCode(m.AssetType)
+	p, err := NewPayloadMessageFromCode([]byte(m.AssetType))
 	if p == nil || err != nil {
 		return nil, err
 	}
@@ -661,19 +666,18 @@ func (m AssetCreation) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
 	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x", m.AssetAuthFlags))
 	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", m.TransfersPermitted))
-	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#x", m.TradeRestrictions))
+	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", m.TradeRestrictions))
 	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", m.EnforcementOrdersPermitted))
 	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", m.VoteMultiplier))
 	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", m.ReferendumProposal))
 	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", m.InitiativeProposal))
 	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%#+v", m.AssetModificationGovernance))
 	vals = append(vals, fmt.Sprintf("TokenQty:%v", m.TokenQty))
-	vals = append(vals, fmt.Sprintf("ContractFeeCurrency:%#x", m.ContractFeeCurrency))
+	vals = append(vals, fmt.Sprintf("ContractFeeCurrency:%#+v", m.ContractFeeCurrency))
 	vals = append(vals, fmt.Sprintf("ContractFeeVar:%v", m.ContractFeeVar))
 	vals = append(vals, fmt.Sprintf("ContractFeeFixed:%v", m.ContractFeeFixed))
 	vals = append(vals, fmt.Sprintf("AssetPayloadLen:%v", m.AssetPayloadLen))
@@ -688,9 +692,8 @@ func (m AssetCreation) String() string {
 // Backs/Revocations, burning etc.
 type AssetModification struct {
 	Header            Header      // Common header data for all actions
-	TextEncoding      uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	AssetType         []byte      // eg. Share - Common
-	AssetID           []byte      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetType         string      // eg. Share - Common
+	AssetID           string      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
 	AssetRevision     uint64      // Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected.
 	ModificationCount uint8       // Number of Modifications. Must be less than the max Subfield Index of CF.
 	Modifications     []Amendment //
@@ -732,15 +735,11 @@ func (m AssetModification) Read(b []byte) (int, error) {
 func (m AssetModification) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
 		return nil, err
 	}
 
@@ -769,7 +768,7 @@ func (m AssetModification) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeAssetModification, len(b))
+	header, err := NewHeaderForCode([]byte(CodeAssetModification), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -793,18 +792,20 @@ func (m *AssetModification) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
-	}
-
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.AssetRevision); err != nil {
@@ -840,9 +841,8 @@ func (m AssetModification) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
 	vals = append(vals, fmt.Sprintf("AssetRevision:%v", m.AssetRevision))
 	vals = append(vals, fmt.Sprintf("ModificationCount:%v", m.ModificationCount))
 	vals = append(vals, fmt.Sprintf("Modifications:%#+v", m.Modifications))
@@ -860,37 +860,36 @@ func (m AssetModification) String() string {
 // either a Contract Formation Action or a Rejection Action.
 type ContractOffer struct {
 	Header                     Header         // Common header data for all actions
-	TextEncoding               uint8          // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	ContractName               Nvarchar8      // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractName               string         // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
 	ContractFileType           uint8          // 1 - SHA-256 Hash, 2 - Markdown
 	LenContractFile            uint32         // Max size is the max transaction size - other data in the txn.
-	ContractFile               []byte         // SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
-	GoverningLaw               []byte         // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-	Jurisdiction               []byte         // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	ContractFile               string         // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	GoverningLaw               string         // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction               string         // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
 	ContractExpiration         uint64         // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
-	ContractURI                Nvarchar8      // Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS).
-	IssuerName                 Nvarchar8      // Length 0-255 bytes. 0 is not valid.Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
-	IssuerType                 byte           // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
-	IssuerLogoURL              Nvarchar8      // The URL of the Issuers logo.
-	ContractOperatorID         Nvarchar8      // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
+	ContractURI                string         // Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS).
+	IssuerName                 string         // Length 0-255 bytes. 0 is not valid.Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	IssuerType                 string         // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	IssuerLogoURL              string         // The URL of the Issuers logo.
+	ContractOperatorID         string         // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
 	ContractAuthFlags          []byte         // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
 	VotingSystemCount          uint8          // 0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null.
-	VotingSystems              []VotingSystem // A list voting systems.
+	VotingSystems              []VotingSystem // A list of voting systems.
 	RestrictedQtyAssets        uint64         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	ReferendumProposal         bool           // A Referendum is permitted for Proposals (outside of smart contract scope).
 	InitiativeProposal         bool           // An initiative is permitted for Proposals (outside of smart contract scope).
 	RegistryCount              uint8          // Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields).
 	Registries                 []Registry     // A list Registries
 	IssuerAddress              bool           // Physical/mailing address. Y/N, N means there is no issuer address.
-	UnitNumber                 Nvarchar8      // Issuer Address Details (eg. HQ)
-	BuildingNumber             Nvarchar8      //
-	Street                     Nvarchar16     //
-	SuburbCity                 Nvarchar8      //
-	TerritoryStateProvinceCode []byte         //
-	CountryCode                []byte         //
-	PostalZIPCode              Nvarchar8      //
-	EmailAddress               Nvarchar8      // Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address
-	PhoneNumber                Nvarchar8      // Length 0-50 bytes. 0 is valid (no Phone subfield).Phone Number for Entity.
+	UnitNumber                 string         // Issuer Address Details (eg. HQ)
+	BuildingNumber             string         //
+	Street                     string         //
+	SuburbCity                 string         //
+	TerritoryStateProvinceCode string         //
+	CountryCode                string         //
+	PostalZIPCode              string         //
+	EmailAddress               string         // Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                string         // Length 0-50 bytes. 0 is valid (no Phone subfield).Phone Number for Entity.
 	KeyRolesCount              uint8          // Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.
 	KeyRoles                   []KeyRole      // A list of Key Roles.
 	NotableRolesCount          uint8          // Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.
@@ -904,16 +903,33 @@ func NewEmptyContractOffer() *ContractOffer {
 }
 
 // NewContractOffer returns a new ContractOffer with specified values set.
-func NewContractOffer(name []byte, issuerName []byte) *ContractOffer {
+func NewContractOffer(name string, issuerName string) *ContractOffer {
 	result := ContractOffer{}
-	result.ContractName.Set(name)
-	result.IssuerName.Set(issuerName)
+	result.ContractName = name
+	result.IssuerName = issuerName
 	return &result
 }
 
-// AddKeyRole Adds a key role to the asset.
-func (action *ContractOffer) AddKeyRole(roleType uint8, name []byte) {
+// SetIssuerAddress Sets the issuer's mailing address on the contract..
+func (action *ContractOffer) SetIssuerAddress(unit string, building string, street string, city string, state string, countryCode string, postalCode string) {
+	action.UnitNumber = unit
+	action.BuildingNumber = building
+	action.Street = street
+	action.SuburbCity = city
+	action.TerritoryStateProvinceCode = state
+	action.CountryCode = countryCode
+	action.PostalZIPCode = postalCode
+	action.IssuerAddress = true
+}
 
+// AddKeyRole Adds a key role to the contract.
+func (action *ContractOffer) AddKeyRole(roleType uint8, name string) {
+	action.KeyRoles = append(action.KeyRoles, *NewKeyRole(roleType, name))
+}
+
+// AddNotableRole Adds a notable role to the contract.
+func (action *ContractOffer) AddNotableRole(roleType uint8, name string) {
+	action.NotableRoles = append(action.NotableRoles, *NewNotableRole(roleType, name))
 }
 
 // Type returns the type identifer for this message.
@@ -939,19 +955,8 @@ func (m ContractOffer) Read(b []byte) (int, error) {
 func (m ContractOffer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteVarChar(buf, m.ContractName, 255); err != nil {
 		return nil, err
-	}
-
-	{
-		b, err := m.ContractName.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
 	}
 
 	if err := write(buf, m.ContractFileType); err != nil {
@@ -962,15 +967,15 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ContractFile, 32)); err != nil {
+	if err := WriteVarChar(buf, m.ContractFile, 4294967295); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.GoverningLaw, 5)); err != nil {
+	if err := WriteFixedChar(buf, m.GoverningLaw, 5); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.Jurisdiction, 5)); err != nil {
+	if err := WriteFixedChar(buf, m.Jurisdiction, 5); err != nil {
 		return nil, err
 	}
 
@@ -978,52 +983,24 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.ContractURI.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ContractURI, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.IssuerName.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.IssuerName, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.IssuerType); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.IssuerLogoURL.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.IssuerLogoURL, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.ContractOperatorID.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ContractOperatorID, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, pad(m.ContractAuthFlags, 16)); err != nil {
@@ -1076,89 +1053,40 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.UnitNumber.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	{
-		b, err := m.BuildingNumber.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	{
-		b, err := m.Street.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	{
-		b, err := m.SuburbCity.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, pad(m.TerritoryStateProvinceCode, 5)); err != nil {
+	if err := WriteVarChar(buf, m.UnitNumber, 255); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.CountryCode, 3)); err != nil {
+	if err := WriteVarChar(buf, m.BuildingNumber, 255); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.PostalZIPCode.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Street, 65535); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.EmailAddress.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.SuburbCity, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.PhoneNumber.Serialize()
-		if err != nil {
-			return nil, err
-		}
+	if err := WriteFixedChar(buf, m.TerritoryStateProvinceCode, 5); err != nil {
+		return nil, err
+	}
 
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteFixedChar(buf, m.CountryCode, 3); err != nil {
+		return nil, err
+	}
+
+	if err := WriteVarChar(buf, m.PostalZIPCode, 255); err != nil {
+		return nil, err
+	}
+
+	if err := WriteVarChar(buf, m.EmailAddress, 255); err != nil {
+		return nil, err
+	}
+
+	if err := WriteVarChar(buf, m.PhoneNumber, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.KeyRolesCount); err != nil {
@@ -1193,7 +1121,7 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeContractOffer, len(b))
+	header, err := NewHeaderForCode([]byte(CodeContractOffer), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -1217,12 +1145,12 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
-	if err := m.ContractName.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractName, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ContractFileType); err != nil {
@@ -1233,43 +1161,68 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ContractFile = make([]byte, 32)
-	if err := readLen(buf, m.ContractFile); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractFile, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.GoverningLaw = make([]byte, 5)
-	if err := readLen(buf, m.GoverningLaw); err != nil {
-		return 0, err
+	{
+		var err error
+		m.GoverningLaw, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.Jurisdiction = make([]byte, 5)
-	if err := readLen(buf, m.Jurisdiction); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Jurisdiction, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ContractExpiration); err != nil {
 		return 0, err
 	}
 
-	if err := m.ContractURI.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractURI, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.IssuerName.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.IssuerName, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.IssuerType); err != nil {
 		return 0, err
 	}
 
-	if err := m.IssuerLogoURL.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.IssuerLogoURL, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.ContractOperatorID.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractOperatorID, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	m.ContractAuthFlags = make([]byte, 16)
@@ -1319,42 +1272,76 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.UnitNumber.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.UnitNumber, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.BuildingNumber.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.BuildingNumber, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.Street.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Street, err = ReadVarChar(buf, 65535)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.SuburbCity.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.SuburbCity, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.TerritoryStateProvinceCode = make([]byte, 5)
-	if err := readLen(buf, m.TerritoryStateProvinceCode); err != nil {
-		return 0, err
+	{
+		var err error
+		m.TerritoryStateProvinceCode, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.CountryCode = make([]byte, 3)
-	if err := readLen(buf, m.CountryCode); err != nil {
-		return 0, err
+	{
+		var err error
+		m.CountryCode, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.PostalZIPCode.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.PostalZIPCode, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.EmailAddress.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.EmailAddress, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.PhoneNumber.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.PhoneNumber, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.KeyRolesCount); err != nil {
@@ -1395,13 +1382,12 @@ func (m ContractOffer) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
 	vals = append(vals, fmt.Sprintf("LenContractFile:%v", m.LenContractFile))
-	vals = append(vals, fmt.Sprintf("ContractFile:%#x", m.ContractFile))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#x", m.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#x", m.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("ContractFile:%#+v", m.ContractFile))
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", m.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", m.Jurisdiction))
 	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", m.ContractExpiration))
 	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", m.ContractURI))
 	vals = append(vals, fmt.Sprintf("IssuerName:%#+v", m.IssuerName))
@@ -1421,8 +1407,8 @@ func (m ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("BuildingNumber:%#+v", m.BuildingNumber))
 	vals = append(vals, fmt.Sprintf("Street:%#+v", m.Street))
 	vals = append(vals, fmt.Sprintf("SuburbCity:%#+v", m.SuburbCity))
-	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#x", m.TerritoryStateProvinceCode))
-	vals = append(vals, fmt.Sprintf("CountryCode:%#x", m.CountryCode))
+	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#+v", m.TerritoryStateProvinceCode))
+	vals = append(vals, fmt.Sprintf("CountryCode:%#+v", m.CountryCode))
 	vals = append(vals, fmt.Sprintf("PostalZIPCode:%#+v", m.PostalZIPCode))
 	vals = append(vals, fmt.Sprintf("EmailAddress:%#+v", m.EmailAddress))
 	vals = append(vals, fmt.Sprintf("PhoneNumber:%#+v", m.PhoneNumber))
@@ -1441,19 +1427,18 @@ func (m ContractOffer) String() string {
 // their behalf.
 type ContractFormation struct {
 	Header                     Header         // Common header data for all actions
-	TextEncoding               uint8          // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	ContractName               Nvarchar8      // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractName               string         // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
 	ContractFileType           uint8          // 1 - SHA-256 Hash, 2 - Markdown file
 	LenContractFile            uint32         // Max size is the max transaction size - other data in the txn.
-	ContractFile               []byte         // SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
-	GoverningLaw               []byte         // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-	Jurisdiction               []byte         // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	ContractFile               [32]byte       // SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	GoverningLaw               string         // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction               string         // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
 	ContractExpiration         uint64         // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
-	ContractURI                Nvarchar8      // Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
-	IssuerName                 Nvarchar8      // Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	ContractURI                string         // Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
+	IssuerName                 string         // Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
 	IssuerType                 byte           // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
-	IssuerLogoURL              Nvarchar8      // The URL of the Issuers logo.
-	ContractOperatorID         Nvarchar8      // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
+	IssuerLogoURL              string         // The URL of the Issuers logo.
+	ContractOperatorID         string         // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
 	ContractAuthFlags          []byte         // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
 	VotingSystemCount          uint8          // 0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null.
 	VotingSystems              []VotingSystem // A list voting systems.
@@ -1463,15 +1448,15 @@ type ContractFormation struct {
 	RegistryCount              uint8          // Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields).
 	Registries                 []Registry     // A list Registries
 	IssuerAddress              bool           // Physical/mailing address. Y/N, N means there is no issuer address.
-	UnitNumber                 Nvarchar8      // Issuer Address Details (eg. HQ)
-	BuildingNumber             Nvarchar8      //
-	Street                     Nvarchar16     //
-	SuburbCity                 Nvarchar8      //
-	TerritoryStateProvinceCode []byte         //
-	CountryCode                []byte         //
-	PostalZIPCode              Nvarchar8      //
-	EmailAddress               Nvarchar8      // Address for text-based communication: eg. email address, Bitcoin address
-	PhoneNumber                Nvarchar8      // Phone Number for Entity. Max acceptable size: 50.
+	UnitNumber                 string         // Issuer Address Details (eg. HQ)
+	BuildingNumber             string         //
+	Street                     string         //
+	SuburbCity                 string         //
+	TerritoryStateProvinceCode string         //
+	CountryCode                string         //
+	PostalZIPCode              string         //
+	EmailAddress               string         // Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                string         // Phone Number for Entity. Max acceptable size: 50.
 	KeyRolesCount              uint8          // Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.
 	KeyRoles                   []KeyRole      // A list of Key Roles.
 	NotableRolesCount          uint8          // Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.
@@ -1515,19 +1500,8 @@ func (m ContractFormation) Read(b []byte) (int, error) {
 func (m ContractFormation) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteVarChar(buf, m.ContractName, 255); err != nil {
 		return nil, err
-	}
-
-	{
-		b, err := m.ContractName.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
 	}
 
 	if err := write(buf, m.ContractFileType); err != nil {
@@ -1538,15 +1512,15 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ContractFile, 32)); err != nil {
+	if err := write(buf, m.ContractFile); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.GoverningLaw, 5)); err != nil {
+	if err := WriteFixedChar(buf, m.GoverningLaw, 5); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.Jurisdiction, 5)); err != nil {
+	if err := WriteFixedChar(buf, m.Jurisdiction, 5); err != nil {
 		return nil, err
 	}
 
@@ -1554,52 +1528,24 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.ContractURI.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ContractURI, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.IssuerName.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.IssuerName, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.IssuerType); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.IssuerLogoURL.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.IssuerLogoURL, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.ContractOperatorID.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ContractOperatorID, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, pad(m.ContractAuthFlags, 16)); err != nil {
@@ -1652,89 +1598,40 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.UnitNumber.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	{
-		b, err := m.BuildingNumber.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	{
-		b, err := m.Street.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	{
-		b, err := m.SuburbCity.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, pad(m.TerritoryStateProvinceCode, 5)); err != nil {
+	if err := WriteVarChar(buf, m.UnitNumber, 255); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.CountryCode, 3)); err != nil {
+	if err := WriteVarChar(buf, m.BuildingNumber, 255); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.PostalZIPCode.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Street, 65535); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.EmailAddress.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.SuburbCity, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.PhoneNumber.Serialize()
-		if err != nil {
-			return nil, err
-		}
+	if err := WriteFixedChar(buf, m.TerritoryStateProvinceCode, 5); err != nil {
+		return nil, err
+	}
 
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteFixedChar(buf, m.CountryCode, 3); err != nil {
+		return nil, err
+	}
+
+	if err := WriteVarChar(buf, m.PostalZIPCode, 255); err != nil {
+		return nil, err
+	}
+
+	if err := WriteVarChar(buf, m.EmailAddress, 255); err != nil {
+		return nil, err
+	}
+
+	if err := WriteVarChar(buf, m.PhoneNumber, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.KeyRolesCount); err != nil {
@@ -1777,7 +1674,7 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeContractFormation, len(b))
+	header, err := NewHeaderForCode([]byte(CodeContractFormation), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -1801,12 +1698,12 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
-	if err := m.ContractName.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractName, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ContractFileType); err != nil {
@@ -1817,43 +1714,64 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ContractFile = make([]byte, 32)
-	if err := readLen(buf, m.ContractFile); err != nil {
+	if err := read(buf, &m.ContractFile); err != nil {
 		return 0, err
 	}
 
-	m.GoverningLaw = make([]byte, 5)
-	if err := readLen(buf, m.GoverningLaw); err != nil {
-		return 0, err
+	{
+		var err error
+		m.GoverningLaw, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.Jurisdiction = make([]byte, 5)
-	if err := readLen(buf, m.Jurisdiction); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Jurisdiction, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ContractExpiration); err != nil {
 		return 0, err
 	}
 
-	if err := m.ContractURI.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractURI, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.IssuerName.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.IssuerName, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.IssuerType); err != nil {
 		return 0, err
 	}
 
-	if err := m.IssuerLogoURL.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.IssuerLogoURL, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.ContractOperatorID.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractOperatorID, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	m.ContractAuthFlags = make([]byte, 16)
@@ -1903,42 +1821,76 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.UnitNumber.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.UnitNumber, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.BuildingNumber.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.BuildingNumber, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.Street.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Street, err = ReadVarChar(buf, 65535)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.SuburbCity.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.SuburbCity, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.TerritoryStateProvinceCode = make([]byte, 5)
-	if err := readLen(buf, m.TerritoryStateProvinceCode); err != nil {
-		return 0, err
+	{
+		var err error
+		m.TerritoryStateProvinceCode, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.CountryCode = make([]byte, 3)
-	if err := readLen(buf, m.CountryCode); err != nil {
-		return 0, err
+	{
+		var err error
+		m.CountryCode, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.PostalZIPCode.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.PostalZIPCode, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.EmailAddress.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.EmailAddress, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.PhoneNumber.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.PhoneNumber, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.KeyRolesCount); err != nil {
@@ -1987,13 +1939,12 @@ func (m ContractFormation) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
 	vals = append(vals, fmt.Sprintf("LenContractFile:%v", m.LenContractFile))
-	vals = append(vals, fmt.Sprintf("ContractFile:%#x", m.ContractFile))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#x", m.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#x", m.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("ContractFile:%#+v", m.ContractFile))
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", m.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", m.Jurisdiction))
 	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", m.ContractExpiration))
 	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", m.ContractURI))
 	vals = append(vals, fmt.Sprintf("IssuerName:%#+v", m.IssuerName))
@@ -2013,8 +1964,8 @@ func (m ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("BuildingNumber:%#+v", m.BuildingNumber))
 	vals = append(vals, fmt.Sprintf("Street:%#+v", m.Street))
 	vals = append(vals, fmt.Sprintf("SuburbCity:%#+v", m.SuburbCity))
-	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#x", m.TerritoryStateProvinceCode))
-	vals = append(vals, fmt.Sprintf("CountryCode:%#x", m.CountryCode))
+	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#+v", m.TerritoryStateProvinceCode))
+	vals = append(vals, fmt.Sprintf("CountryCode:%#+v", m.CountryCode))
 	vals = append(vals, fmt.Sprintf("PostalZIPCode:%#+v", m.PostalZIPCode))
 	vals = append(vals, fmt.Sprintf("EmailAddress:%#+v", m.EmailAddress))
 	vals = append(vals, fmt.Sprintf("PhoneNumber:%#+v", m.PhoneNumber))
@@ -2034,7 +1985,6 @@ func (m ContractFormation) String() string {
 // the current revision of Contract Formation action.
 type ContractAmendment struct {
 	Header                Header      // Common header data for all actions
-	TextEncoding          uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
 	ChangeIssuerAddress   bool        // 1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position.
 	ChangeOperatorAddress bool        // 1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position.
 	ContractRevision      uint16      // Counter 0 - 65,535
@@ -2078,10 +2028,6 @@ func (m ContractAmendment) Read(b []byte) (int, error) {
 func (m ContractAmendment) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
 	if err := write(buf, m.ChangeIssuerAddress); err != nil {
 		return nil, err
 	}
@@ -2115,7 +2061,7 @@ func (m ContractAmendment) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeContractAmendment, len(b))
+	header, err := NewHeaderForCode([]byte(CodeContractAmendment), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -2136,10 +2082,6 @@ func (m *ContractAmendment) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	if err := m.Header.Write(buf); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.TextEncoding); err != nil {
 		return 0, err
 	}
 
@@ -2184,7 +2126,6 @@ func (m ContractAmendment) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("ChangeIssuerAddress:%#+v", m.ChangeIssuerAddress))
 	vals = append(vals, fmt.Sprintf("ChangeOperatorAddress:%#+v", m.ChangeOperatorAddress))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", m.ContractRevision))
@@ -2197,22 +2138,21 @@ func (m ContractAmendment) String() string {
 
 // StaticContractFormation Static Contract Formation Action
 type StaticContractFormation struct {
-	Header             Header    // Common header data for all actions
-	TextEncoding       uint8     // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	ContractName       Nvarchar8 // Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
-	ContractType       Nvarchar8 //
-	ContractFileType   uint8     // 1 - SHA-256 Hash, 2 - Markdown file
-	LenContractFile    uint32    // Max size is the max transaction size - other data in the txn.
-	ContractFile       []byte    // SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
-	ContractRevision   uint16    // Counter 0 - 65,535
-	GoverningLaw       []byte    // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-	Jurisdiction       []byte    // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
-	EffectiveDate      uint64    // Start date of the contract.
-	ContractExpiration uint64    // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
-	ContractURI        Nvarchar8 // Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
-	PrevRevTxID        []byte    // The Tx-ID of the previous contract revision.
-	EntityCount        uint8     // Number of entities involved in the contract as contracting parties.
-	Entities           []Entity  //
+	Header             Header   // Common header data for all actions
+	ContractName       string   // Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractType       string   //
+	ContractFileType   uint8    // 1 - SHA-256 Hash, 2 - Markdown file
+	LenContractFile    uint32   // Max size is the max transaction size - other data in the txn.
+	ContractFile       string   // SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	ContractRevision   uint16   // Counter 0 - 65,535
+	GoverningLaw       string   // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction       string   // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	EffectiveDate      uint64   // Start date of the contract.
+	ContractExpiration uint64   // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
+	ContractURI        string   // Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
+	PrevRevTxID        [32]byte // The Tx-ID of the previous contract revision.
+	EntityCount        uint8    // Number of entities involved in the contract as contracting parties.
+	Entities           []Entity //
 }
 
 // NewStaticContractFormation returns a new empty StaticContractFormation.
@@ -2250,30 +2190,12 @@ func (m StaticContractFormation) Read(b []byte) (int, error) {
 func (m StaticContractFormation) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteVarChar(buf, m.ContractName, 30); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.ContractName.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	{
-		b, err := m.ContractType.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ContractType, 30); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.ContractFileType); err != nil {
@@ -2284,7 +2206,7 @@ func (m StaticContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ContractFile, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.ContractFile, 32); err != nil {
 		return nil, err
 	}
 
@@ -2292,11 +2214,11 @@ func (m StaticContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.GoverningLaw, 5)); err != nil {
+	if err := WriteFixedChar(buf, m.GoverningLaw, 5); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.Jurisdiction, 5)); err != nil {
+	if err := WriteFixedChar(buf, m.Jurisdiction, 5); err != nil {
 		return nil, err
 	}
 
@@ -2308,18 +2230,11 @@ func (m StaticContractFormation) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.ContractURI.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ContractURI, 53); err != nil {
+		return nil, err
 	}
 
-	if err := write(buf, pad(m.PrevRevTxID, 32)); err != nil {
+	if err := write(buf, m.PrevRevTxID); err != nil {
 		return nil, err
 	}
 
@@ -2340,7 +2255,7 @@ func (m StaticContractFormation) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeStaticContractFormation, len(b))
+	header, err := NewHeaderForCode([]byte(CodeStaticContractFormation), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -2364,16 +2279,20 @@ func (m *StaticContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractName, err = ReadVarChar(buf, 30)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.ContractName.Write(buf); err != nil {
-		return 0, err
-	}
-
-	if err := m.ContractType.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractType, err = ReadVarChar(buf, 30)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ContractFileType); err != nil {
@@ -2384,23 +2303,32 @@ func (m *StaticContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ContractFile = make([]byte, 32)
-	if err := readLen(buf, m.ContractFile); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractFile, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ContractRevision); err != nil {
 		return 0, err
 	}
 
-	m.GoverningLaw = make([]byte, 5)
-	if err := readLen(buf, m.GoverningLaw); err != nil {
-		return 0, err
+	{
+		var err error
+		m.GoverningLaw, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.Jurisdiction = make([]byte, 5)
-	if err := readLen(buf, m.Jurisdiction); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Jurisdiction, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.EffectiveDate); err != nil {
@@ -2411,12 +2339,15 @@ func (m *StaticContractFormation) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.ContractURI.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ContractURI, err = ReadVarChar(buf, 53)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.PrevRevTxID = make([]byte, 32)
-	if err := readLen(buf, m.PrevRevTxID); err != nil {
+	if err := read(buf, &m.PrevRevTxID); err != nil {
 		return 0, err
 	}
 
@@ -2445,19 +2376,18 @@ func (m StaticContractFormation) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractType:%#+v", m.ContractType))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
 	vals = append(vals, fmt.Sprintf("LenContractFile:%v", m.LenContractFile))
-	vals = append(vals, fmt.Sprintf("ContractFile:%#x", m.ContractFile))
+	vals = append(vals, fmt.Sprintf("ContractFile:%#+v", m.ContractFile))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", m.ContractRevision))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#x", m.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#x", m.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", m.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", m.Jurisdiction))
 	vals = append(vals, fmt.Sprintf("EffectiveDate:%v", m.EffectiveDate))
 	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", m.ContractExpiration))
 	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", m.ContractURI))
-	vals = append(vals, fmt.Sprintf("PrevRevTxID:%#x", m.PrevRevTxID))
+	vals = append(vals, fmt.Sprintf("PrevRevTxID:%#+v", m.PrevRevTxID))
 	vals = append(vals, fmt.Sprintf("EntityCount:%v", m.EntityCount))
 	vals = append(vals, fmt.Sprintf("Entities:%#+v", m.Entities))
 
@@ -2469,21 +2399,20 @@ func (m StaticContractFormation) String() string {
 // frozen, thawed or reconciled.
 type Order struct {
 	Header                 Header          // Common header data for all actions
-	TextEncoding           uint8           // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	AssetType              []byte          // eg. Share, Bond, Ticket
-	AssetID                []byte          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetType              string          // eg. Share, Bond, Ticket
+	AssetID                string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
 	ComplianceAction       byte            // Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)
 	TargetAddressCount     uint16          // 0 - 65,535
 	TargetAddresses        []TargetAddress //
-	DepositAddress         Nvarchar8       // Length 1-255 bytes. The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin.
-	AuthorityName          Nvarchar8       // Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)
+	DepositAddress         string          // Length 1-255 bytes. The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin.
+	AuthorityName          string          // Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)
 	SigAlgoAddressList     uint8           // 0 = No Registry-signed Message, 1 = ECDSA+secp256k1
-	AuthorityPublicKey     Nvarchar8       // Length 0-255 bytes. Public Key associated with the Enforcement Authority
-	OrderSignature         Nvarchar8       // Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)
+	AuthorityPublicKey     string          // Length 0-255 bytes. Public Key associated with the Enforcement Authority
+	OrderSignature         string          // Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)
 	SupportingEvidenceHash [32]byte        // SHA-256: warrant, court order, etc.
 	RefTxnID               [32]byte        // The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
 	FreezePeriod           uint64          // Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.
-	Message                Nvarchar32      // Length only limited by the Bitcoin protocol.
+	Message                string          // Length only limited by the Bitcoin protocol.
 }
 
 // NewOrder returns a new empty Order.
@@ -2521,15 +2450,11 @@ func (m Order) Read(b []byte) (int, error) {
 func (m Order) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
 		return nil, err
 	}
 
@@ -2552,52 +2477,24 @@ func (m Order) Serialize() ([]byte, error) {
 		}
 	}
 
-	{
-		b, err := m.DepositAddress.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.DepositAddress, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.AuthorityName.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.AuthorityName, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.SigAlgoAddressList); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.AuthorityPublicKey.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.AuthorityPublicKey, 255); err != nil {
+		return nil, err
 	}
 
-	{
-		b, err := m.OrderSignature.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.OrderSignature, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.SupportingEvidenceHash); err != nil {
@@ -2612,20 +2509,13 @@ func (m Order) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.Message.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Message, 4294967295); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeOrder, len(b))
+	header, err := NewHeaderForCode([]byte(CodeOrder), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -2649,18 +2539,20 @@ func (m *Order) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
-	}
-
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ComplianceAction); err != nil {
@@ -2680,24 +2572,40 @@ func (m *Order) Write(b []byte) (int, error) {
 		m.TargetAddresses = append(m.TargetAddresses, *x)
 	}
 
-	if err := m.DepositAddress.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.DepositAddress, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.AuthorityName.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AuthorityName, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.SigAlgoAddressList); err != nil {
 		return 0, err
 	}
 
-	if err := m.AuthorityPublicKey.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AuthorityPublicKey, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.OrderSignature.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.OrderSignature, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.SupportingEvidenceHash); err != nil {
@@ -2712,8 +2620,12 @@ func (m *Order) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.Message.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Message, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	return len(b), nil
@@ -2728,9 +2640,8 @@ func (m Order) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
 	vals = append(vals, fmt.Sprintf("ComplianceAction:%#+v", m.ComplianceAction))
 	vals = append(vals, fmt.Sprintf("TargetAddressCount:%v", m.TargetAddressCount))
 	vals = append(vals, fmt.Sprintf("TargetAddresses:%#+v", m.TargetAddresses))
@@ -2815,7 +2726,7 @@ func (m Freeze) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeFreeze, len(b))
+	header, err := NewHeaderForCode([]byte(CodeFreeze), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -2946,7 +2857,7 @@ func (m Thaw) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeThaw, len(b))
+	header, err := NewHeaderForCode([]byte(CodeThaw), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -3081,7 +2992,7 @@ func (m Confiscation) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeConfiscation, len(b))
+	header, err := NewHeaderForCode([]byte(CodeConfiscation), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -3211,7 +3122,7 @@ func (m Reconciliation) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeReconciliation, len(b))
+	header, err := NewHeaderForCode([]byte(CodeReconciliation), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -3277,16 +3188,15 @@ func (m Reconciliation) String() string {
 // reduce spam, as the resulting vote will be put to all token owners.
 type Initiative struct {
 	Header               Header      // Common header data for all actions
-	TextEncoding         uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	AssetType            []byte      // eg. Share, Bond, Ticket
-	AssetID              []byte      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetType            string      // eg. Share, Bond, Ticket
+	AssetID              string      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
 	VoteSystem           uint8       // X for Vote System X. (1-255, 0 is not valid.)
 	Proposal             bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
 	ProposedChangesCount uint8       //
 	ProposedChanges      []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
-	VoteOptions          Nvarchar8   // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.
+	VoteOptions          string      // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.
 	VoteMax              uint8       // Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
-	ProposalDescription  Nvarchar32  // Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote
+	ProposalDescription  string      // Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote
 	ProposalDocumentHash [32]byte    // Hash of the proposal document to be distributed to voters.
 	VoteCutOffTimestamp  uint64      // Ballot casts after this timestamp will not be included. The vote has finished.
 }
@@ -3326,15 +3236,11 @@ func (m Initiative) Read(b []byte) (int, error) {
 func (m Initiative) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
 		return nil, err
 	}
 
@@ -3361,30 +3267,16 @@ func (m Initiative) Serialize() ([]byte, error) {
 		}
 	}
 
-	{
-		b, err := m.VoteOptions.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.VoteOptions, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.VoteMax); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.ProposalDescription.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ProposalDescription, 4294967295); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.ProposalDocumentHash); err != nil {
@@ -3397,7 +3289,7 @@ func (m Initiative) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeInitiative, len(b))
+	header, err := NewHeaderForCode([]byte(CodeInitiative), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -3421,18 +3313,20 @@ func (m *Initiative) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
-	}
-
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.VoteSystem); err != nil {
@@ -3456,16 +3350,24 @@ func (m *Initiative) Write(b []byte) (int, error) {
 		m.ProposedChanges = append(m.ProposedChanges, *x)
 	}
 
-	if err := m.VoteOptions.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.VoteOptions, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.VoteMax); err != nil {
 		return 0, err
 	}
 
-	if err := m.ProposalDescription.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ProposalDescription, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ProposalDocumentHash); err != nil {
@@ -3488,9 +3390,8 @@ func (m Initiative) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
 	vals = append(vals, fmt.Sprintf("VoteSystem:%v", m.VoteSystem))
 	vals = append(vals, fmt.Sprintf("Proposal:%#+v", m.Proposal))
 	vals = append(vals, fmt.Sprintf("ProposedChangesCount:%v", m.ProposedChangesCount))
@@ -3511,15 +3412,15 @@ type Referendum struct {
 	Header               Header      // Common header data for all actions
 	TextEncoding         uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
 	AssetSpecificVote    bool        // 1 - Yes, 0 - No.  No Asset Type/AssetID subfields for N - No.
-	AssetType            []byte      // eg. Share, Bond, Ticket
-	AssetID              []byte      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetType            string      // eg. Share, Bond, Ticket
+	AssetID              string      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
 	VoteSystem           uint8       // X for Vote System X. (1-255, 0 is not valid.)
 	Proposal             bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
 	ProposedChangesCount uint8       //
 	ProposedChanges      []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
-	VoteOptions          Nvarchar8   // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail.
+	VoteOptions          string      // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail.
 	VoteMax              uint8       // Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
-	ProposalDescription  Nvarchar32  // Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.
+	ProposalDescription  string      // Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.
 	ProposalDocumentHash [32]byte    // Hash of the proposal document to be distributed to voters
 	VoteCutOffTimestamp  uint64      // Ballot casts after this timestamp will not be included. The vote has finished.
 }
@@ -3567,11 +3468,11 @@ func (m Referendum) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
 		return nil, err
 	}
 
@@ -3598,30 +3499,16 @@ func (m Referendum) Serialize() ([]byte, error) {
 		}
 	}
 
-	{
-		b, err := m.VoteOptions.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.VoteOptions, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.VoteMax); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.ProposalDescription.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.ProposalDescription, 4294967295); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.ProposalDocumentHash); err != nil {
@@ -3634,7 +3521,7 @@ func (m Referendum) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeReferendum, len(b))
+	header, err := NewHeaderForCode([]byte(CodeReferendum), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -3666,14 +3553,20 @@ func (m *Referendum) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.VoteSystem); err != nil {
@@ -3697,16 +3590,24 @@ func (m *Referendum) Write(b []byte) (int, error) {
 		m.ProposedChanges = append(m.ProposedChanges, *x)
 	}
 
-	if err := m.VoteOptions.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.VoteOptions, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.VoteMax); err != nil {
 		return 0, err
 	}
 
-	if err := m.ProposalDescription.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ProposalDescription, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ProposalDocumentHash); err != nil {
@@ -3731,8 +3632,8 @@ func (m Referendum) String() string {
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetSpecificVote:%#+v", m.AssetSpecificVote))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
 	vals = append(vals, fmt.Sprintf("VoteSystem:%v", m.VoteSystem))
 	vals = append(vals, fmt.Sprintf("Proposal:%#+v", m.Proposal))
 	vals = append(vals, fmt.Sprintf("ProposedChangesCount:%v", m.ProposedChangesCount))
@@ -3794,7 +3695,7 @@ func (m Vote) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeVote, len(b))
+	header, err := NewHeaderForCode([]byte(CodeVote), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -3844,11 +3745,11 @@ func (m Vote) String() string {
 // token holders (Initiative). 1 Vote per token unless a vote multiplier is
 // specified in the relevant Asset Definition action.
 type BallotCast struct {
-	Header    Header    // Common header data for all actions
-	AssetType []byte    // eg. Share, Bond, Ticket
-	AssetID   []byte    // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	VoteTxnID [32]byte  // Tx-ID of the Vote the Ballot Cast is being made for.
-	Vote      Nvarchar8 // Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.
+	Header    Header   // Common header data for all actions
+	AssetType string   // eg. Share, Bond, Ticket
+	AssetID   string   // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	VoteTxnID [32]byte // Tx-ID of the Vote the Ballot Cast is being made for.
+	Vote      string   // Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.
 }
 
 // NewBallotCast returns a new empty BallotCast.
@@ -3886,11 +3787,11 @@ func (m BallotCast) Read(b []byte) (int, error) {
 func (m BallotCast) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
 		return nil, err
 	}
 
@@ -3898,20 +3799,13 @@ func (m BallotCast) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.Vote.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Vote, 255); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeBallotCast, len(b))
+	header, err := NewHeaderForCode([]byte(CodeBallotCast), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -3935,22 +3829,32 @@ func (m *BallotCast) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.VoteTxnID); err != nil {
 		return 0, err
 	}
 
-	if err := m.Vote.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Vote, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	return len(b), nil
@@ -3965,8 +3869,8 @@ func (m BallotCast) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
 	vals = append(vals, fmt.Sprintf("VoteTxnID:%#+v", m.VoteTxnID))
 	vals = append(vals, fmt.Sprintf("Vote:%#+v", m.Vote))
 
@@ -4023,7 +3927,7 @@ func (m BallotCounted) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeBallotCounted, len(b))
+	header, err := NewHeaderForCode([]byte(CodeBallotCounted), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -4072,16 +3976,15 @@ func (m BallotCounted) String() string {
 // published.
 type Result struct {
 	Header               Header      // Common header data for all actions
-	TextEncoding         uint8       // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	AssetType            []byte      // eg. Share, Bond, Ticket
-	AssetID              []byte      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null.
+	AssetType            string      // eg. Share, Bond, Ticket
+	AssetID              string      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null.
 	Proposal             bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
 	ProposedChangesCount uint8       //
 	ProposedChanges      []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
 	VoteTxnID            [32]byte    // Link to the Vote Action txn.
 	VoteOptionsCount     uint8       // Number of Vote Options to follow.
 	OptionXTally         uint64      // Number of valid votes counted for Option X
-	Result               Nvarchar8   // Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.
+	Result               string      // Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.
 	Timestamp            uint64      // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
@@ -4120,15 +4023,11 @@ func (m Result) Read(b []byte) (int, error) {
 func (m Result) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetType, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetID, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
 		return nil, err
 	}
 
@@ -4163,15 +4062,8 @@ func (m Result) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.Result.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.Result, 255); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.Timestamp); err != nil {
@@ -4180,7 +4072,7 @@ func (m Result) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeResult, len(b))
+	header, err := NewHeaderForCode([]byte(CodeResult), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -4204,18 +4096,20 @@ func (m *Result) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetType = make([]byte, 3)
-	if err := readLen(buf, m.AssetType); err != nil {
-		return 0, err
-	}
-
-	m.AssetID = make([]byte, 32)
-	if err := readLen(buf, m.AssetID); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.Proposal); err != nil {
@@ -4247,8 +4141,12 @@ func (m *Result) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.Result.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Result, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.Timestamp); err != nil {
@@ -4267,9 +4165,8 @@ func (m Result) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
-	vals = append(vals, fmt.Sprintf("AssetType:%#x", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#x", m.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
 	vals = append(vals, fmt.Sprintf("Proposal:%#+v", m.Proposal))
 	vals = append(vals, fmt.Sprintf("ProposedChangesCount:%v", m.ProposedChangesCount))
 	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", m.ProposedChanges))
@@ -4290,13 +4187,11 @@ func (m Result) String() string {
 // type for easy filtering in the a user's wallet. The Message Types are
 // listed in the Message Types table.
 type Message struct {
-	Header       Header // Common header data for all actions
-	TextEncoding uint8  // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode. Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII. Where string is selected, all fields will be ASCII.
-
-	QtyReceivingAddresses uint8      // 0-255 Message Receiving Addresses
-	AddressIndexes        []uint16   // Associates the message to a particular output by the index.
-	MessageType           []byte     // Potential for up to 65,535 different message types
-	MessagePayload        Nvarchar32 // Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
+	Header                Header   // Common header data for all actions
+	QtyReceivingAddresses uint8    // 0-255 Message Receiving Addresses
+	AddressIndexes        []uint16 // Associates the message to a particular output by the index.
+	MessageType           string   // Potential for up to 65,535 different message types
+	MessagePayload        string   // Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
 
 }
 
@@ -4335,10 +4230,6 @@ func (m Message) Read(b []byte) (int, error) {
 func (m Message) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
 	if err := write(buf, m.QtyReceivingAddresses); err != nil {
 		return nil, err
 	}
@@ -4349,24 +4240,17 @@ func (m Message) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, pad(m.MessageType, 2)); err != nil {
+	if err := WriteFixedChar(buf, m.MessageType, 2); err != nil {
 		return nil, err
 	}
 
-	{
-		b, err := m.MessagePayload.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.MessagePayload, 4294967295); err != nil {
+		return nil, err
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeMessage, len(b))
+	header, err := NewHeaderForCode([]byte(CodeMessage), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -4390,10 +4274,6 @@ func (m *Message) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.QtyReceivingAddresses); err != nil {
 		return 0, err
 	}
@@ -4403,13 +4283,20 @@ func (m *Message) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.MessageType = make([]byte, 2)
-	if err := readLen(buf, m.MessageType); err != nil {
-		return 0, err
+	{
+		var err error
+		m.MessageType, err = ReadFixedChar(buf, 2)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := m.MessagePayload.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.MessagePayload, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	return len(b), nil
@@ -4424,10 +4311,9 @@ func (m Message) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", m.QtyReceivingAddresses))
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
-	vals = append(vals, fmt.Sprintf("MessageType:%#x", m.MessageType))
+	vals = append(vals, fmt.Sprintf("MessageType:%#+v", m.MessageType))
 	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", m.MessagePayload))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -4442,13 +4328,12 @@ func (m Message) String() string {
 // to remain revenue neutral. If not enough fees are attached to pay for
 // the Contract response then the Contract will not respond.
 type Rejection struct {
-	Header                Header     // Common header data for all actions
-	TextEncoding          uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	QtyReceivingAddresses uint8      // 0-255 Message Receiving Addresses
-	AddressIndexes        []uint16   // Associates the message to a particular output by the index.
-	RejectionType         uint8      // Classifies the rejection by a type.
-	MessagePayload        Nvarchar32 // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
-	Timestamp             uint64     // Timestamp in nanoseconds of when the smart contract created the action.
+	Header                Header   // Common header data for all actions
+	QtyReceivingAddresses uint8    // 0-255 Message Receiving Addresses
+	AddressIndexes        []uint16 // Associates the message to a particular output by the index.
+	RejectionType         uint8    // Classifies the rejection by a type.
+	MessagePayload        string   // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
+	Timestamp             uint64   // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // NewRejection returns a new empty Rejection.
@@ -4486,10 +4371,6 @@ func (m Rejection) Read(b []byte) (int, error) {
 func (m Rejection) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
 	if err := write(buf, m.QtyReceivingAddresses); err != nil {
 		return nil, err
 	}
@@ -4504,15 +4385,8 @@ func (m Rejection) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	{
-		b, err := m.MessagePayload.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	if err := WriteVarChar(buf, m.MessagePayload, 4294967295); err != nil {
+		return nil, err
 	}
 
 	if err := write(buf, m.Timestamp); err != nil {
@@ -4521,7 +4395,7 @@ func (m Rejection) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeRejection, len(b))
+	header, err := NewHeaderForCode([]byte(CodeRejection), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -4545,10 +4419,6 @@ func (m *Rejection) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.QtyReceivingAddresses); err != nil {
 		return 0, err
 	}
@@ -4562,8 +4432,12 @@ func (m *Rejection) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := m.MessagePayload.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.MessagePayload, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.Timestamp); err != nil {
@@ -4582,7 +4456,6 @@ func (m Rejection) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", m.QtyReceivingAddresses))
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
 	vals = append(vals, fmt.Sprintf("RejectionType:%v", m.RejectionType))
@@ -4594,9 +4467,8 @@ func (m Rejection) String() string {
 
 // Establishment Establishment Action - Establishes an on-chain register.
 type Establishment struct {
-	Header       Header     // Common header data for all actions
-	TextEncoding uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	Message      Nvarchar32 // Length only limited by Bitcoin protocol.
+	Header  Header // Common header data for all actions
+	Message string // Length only limited by Bitcoin protocol.
 }
 
 // NewEstablishment returns a new empty Establishment.
@@ -4634,24 +4506,13 @@ func (m Establishment) Read(b []byte) (int, error) {
 func (m Establishment) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteVarChar(buf, m.Message, 25); err != nil {
 		return nil, err
-	}
-
-	{
-		b, err := m.Message.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeEstablishment, len(b))
+	header, err := NewHeaderForCode([]byte(CodeEstablishment), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -4675,12 +4536,12 @@ func (m *Establishment) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
-	if err := m.Message.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Message, err = ReadVarChar(buf, 25)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	return len(b), nil
@@ -4695,7 +4556,6 @@ func (m Establishment) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -4703,9 +4563,8 @@ func (m Establishment) String() string {
 
 // Addition Addition Action - Adds an entry to the Register.
 type Addition struct {
-	Header       Header     // Common header data for all actions
-	TextEncoding uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	Message      Nvarchar32 // Length only limited by Bitcoin protocol.
+	Header  Header // Common header data for all actions
+	Message string // Length only limited by Bitcoin protocol.
 }
 
 // NewAddition returns a new empty Addition.
@@ -4743,24 +4602,13 @@ func (m Addition) Read(b []byte) (int, error) {
 func (m Addition) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteVarChar(buf, m.Message, 4294967295); err != nil {
 		return nil, err
-	}
-
-	{
-		b, err := m.Message.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeAddition, len(b))
+	header, err := NewHeaderForCode([]byte(CodeAddition), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -4784,12 +4632,12 @@ func (m *Addition) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
-	if err := m.Message.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Message, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	return len(b), nil
@@ -4804,7 +4652,6 @@ func (m Addition) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -4812,9 +4659,8 @@ func (m Addition) String() string {
 
 // Alteration Alteration Action - A register entry/record can be altered.
 type Alteration struct {
-	Header       Header     // Common header data for all actions
-	TextEncoding uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	Message      Nvarchar32 // Length only limited by the Bitcoin protocol.
+	Header  Header // Common header data for all actions
+	Message string // Length only limited by the Bitcoin protocol.
 }
 
 // NewAlteration returns a new empty Alteration.
@@ -4852,24 +4698,13 @@ func (m Alteration) Read(b []byte) (int, error) {
 func (m Alteration) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteVarChar(buf, m.Message, 4294967295); err != nil {
 		return nil, err
-	}
-
-	{
-		b, err := m.Message.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeAlteration, len(b))
+	header, err := NewHeaderForCode([]byte(CodeAlteration), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -4893,12 +4728,12 @@ func (m *Alteration) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
-	if err := m.Message.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Message, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	return len(b), nil
@@ -4913,7 +4748,6 @@ func (m Alteration) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -4921,9 +4755,8 @@ func (m Alteration) String() string {
 
 // Removal Removal Action - Removes an entry/record from the Register.
 type Removal struct {
-	Header       Header     // Common header data for all actions
-	TextEncoding uint8      // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
-	Message      Nvarchar32 // Length only limited by the Bitcoin protocol.
+	Header  Header // Common header data for all actions
+	Message string // Length only limited by the Bitcoin protocol.
 }
 
 // NewRemoval returns a new empty Removal.
@@ -4961,24 +4794,13 @@ func (m Removal) Read(b []byte) (int, error) {
 func (m Removal) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
+	if err := WriteVarChar(buf, m.Message, 4294967295); err != nil {
 		return nil, err
-	}
-
-	{
-		b, err := m.Message.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeRemoval, len(b))
+	header, err := NewHeaderForCode([]byte(CodeRemoval), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -5002,12 +4824,12 @@ func (m *Removal) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
-	if err := m.Message.Write(buf); err != nil {
-		return 0, err
+	{
+		var err error
+		m.Message, err = ReadVarChar(buf, 4294967295)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	return len(b), nil
@@ -5022,7 +4844,6 @@ func (m Removal) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -5039,19 +4860,18 @@ func (m Removal) String() string {
 // off-chain.
 type Transfer struct {
 	Header              Header          // Common header data for all actions
-	TextEncoding        uint8           // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
 	AssetCount          uint8           // The number of Assets involved in the Transfer Action.
-	AssetTypeX          []byte          // eg. Share, Bond, Ticket. All characters must be capitalised.
-	AssetIDX            []byte          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetTypeX          string          // eg. Share, Bond, Ticket. All characters must be capitalised.
+	AssetIDX            string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
 	AssetXSenderCount   uint8           // Number inputs sending tokens. 1-255, 0 is not valid.
 	AssetXSenders       []QuantityIndex // Each element has the value of tokens to be spent from the input address, which is referred to by the index.
 	AssetXReceiverCount uint8           // Number of outputs receiving tokens. 1-255. 0 is not valid.
 	AssetXReceivers     []TokenReceiver // Each element has the value of tokens to be received by the output address, which is referred to by the index.
 	OfferExpiry         uint64          // This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins.
-	ExchangeFeeCurrency []byte          // BSV, USD, AUD, EUR, etc.
+	ExchangeFeeCurrency string          // BSV, USD, AUD, EUR, etc.
 	ExchangeFeeVar      float32         // Percent of the value of the transaction
 	ExchangeFeeFixed    float32         // Fixed fee
-	ExchangeFeeAddress  []byte          // Identifies the public address that the exchange fee should be paid to.
+	ExchangeFeeAddress  Address         // Identifies the public address that the exchange fee should be paid to.
 }
 
 // NewTransfer returns a new empty Transfer.
@@ -5089,19 +4909,15 @@ func (m Transfer) Read(b []byte) (int, error) {
 func (m Transfer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
 	if err := write(buf, m.AssetCount); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetTypeX, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetTypeX, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetIDX, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetIDX, 32); err != nil {
 		return nil, err
 	}
 
@@ -5139,7 +4955,7 @@ func (m Transfer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ExchangeFeeCurrency, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.ExchangeFeeCurrency, 3); err != nil {
 		return nil, err
 	}
 
@@ -5151,13 +4967,20 @@ func (m Transfer) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.ExchangeFeeAddress, 34)); err != nil {
-		return nil, err
+	{
+		b, err := m.ExchangeFeeAddress.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
 	}
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeTransfer, len(b))
+	header, err := NewHeaderForCode([]byte(CodeTransfer), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -5181,22 +5004,24 @@ func (m *Transfer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.AssetCount); err != nil {
 		return 0, err
 	}
 
-	m.AssetTypeX = make([]byte, 3)
-	if err := readLen(buf, m.AssetTypeX); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetTypeX, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetIDX = make([]byte, 32)
-	if err := readLen(buf, m.AssetIDX); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetIDX, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.AssetXSenderCount); err != nil {
@@ -5229,9 +5054,12 @@ func (m *Transfer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ExchangeFeeCurrency = make([]byte, 3)
-	if err := readLen(buf, m.ExchangeFeeCurrency); err != nil {
-		return 0, err
+	{
+		var err error
+		m.ExchangeFeeCurrency, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.ExchangeFeeVar); err != nil {
@@ -5242,8 +5070,7 @@ func (m *Transfer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	m.ExchangeFeeAddress = make([]byte, 34)
-	if err := readLen(buf, m.ExchangeFeeAddress); err != nil {
+	if err := m.ExchangeFeeAddress.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -5259,19 +5086,18 @@ func (m Transfer) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetCount:%v", m.AssetCount))
-	vals = append(vals, fmt.Sprintf("AssetTypeX:%#x", m.AssetTypeX))
-	vals = append(vals, fmt.Sprintf("AssetIDX:%#x", m.AssetIDX))
+	vals = append(vals, fmt.Sprintf("AssetTypeX:%#+v", m.AssetTypeX))
+	vals = append(vals, fmt.Sprintf("AssetIDX:%#+v", m.AssetIDX))
 	vals = append(vals, fmt.Sprintf("AssetXSenderCount:%v", m.AssetXSenderCount))
 	vals = append(vals, fmt.Sprintf("AssetXSenders:%#+v", m.AssetXSenders))
 	vals = append(vals, fmt.Sprintf("AssetXReceiverCount:%v", m.AssetXReceiverCount))
 	vals = append(vals, fmt.Sprintf("AssetXReceivers:%#+v", m.AssetXReceivers))
 	vals = append(vals, fmt.Sprintf("OfferExpiry:%v", m.OfferExpiry))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeCurrency:%#x", m.ExchangeFeeCurrency))
+	vals = append(vals, fmt.Sprintf("ExchangeFeeCurrency:%#+v", m.ExchangeFeeCurrency))
 	vals = append(vals, fmt.Sprintf("ExchangeFeeVar:%v", m.ExchangeFeeVar))
 	vals = append(vals, fmt.Sprintf("ExchangeFeeFixed:%v", m.ExchangeFeeFixed))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeAddress:%#x", m.ExchangeFeeAddress))
+	vals = append(vals, fmt.Sprintf("ExchangeFeeAddress:%#+v", m.ExchangeFeeAddress))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5280,10 +5106,9 @@ func (m Transfer) String() string {
 // and tokens from transfer (T1) actions.
 type Settlement struct {
 	Header                 Header          // Common header data for all actions
-	TextEncoding           uint8           // 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII.
 	AssetCount             uint8           // The number of Assets specified by the Transfer action to be settled.
-	AssetTypeX             []byte          // eg. Share, Bond, Ticket
-	AssetIDX               []byte          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetTypeX             string          // eg. Share, Bond, Ticket
+	AssetIDX               string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
 	AssetXSettlementsCount uint8           // Number of settlements for Asset X.
 	AssetXAddressesXQty    []QuantityIndex // Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.
 	Timestamp              uint64          // Timestamp in nanoseconds of when the smart contract created the action.
@@ -5324,19 +5149,15 @@ func (m Settlement) Read(b []byte) (int, error) {
 func (m Settlement) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.TextEncoding); err != nil {
-		return nil, err
-	}
-
 	if err := write(buf, m.AssetCount); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetTypeX, 3)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetTypeX, 3); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetIDX, 32)); err != nil {
+	if err := WriteFixedChar(buf, m.AssetIDX, 32); err != nil {
 		return nil, err
 	}
 
@@ -5361,7 +5182,7 @@ func (m Settlement) Serialize() ([]byte, error) {
 
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode(CodeSettlement, len(b))
+	header, err := NewHeaderForCode([]byte(CodeSettlement), len(b))
 	if err != nil {
 		return nil, err
 	}
@@ -5385,22 +5206,24 @@ func (m *Settlement) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.TextEncoding); err != nil {
-		return 0, err
-	}
-
 	if err := read(buf, &m.AssetCount); err != nil {
 		return 0, err
 	}
 
-	m.AssetTypeX = make([]byte, 3)
-	if err := readLen(buf, m.AssetTypeX); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetTypeX, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	m.AssetIDX = make([]byte, 32)
-	if err := readLen(buf, m.AssetIDX); err != nil {
-		return 0, err
+	{
+		var err error
+		m.AssetIDX, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
 	}
 
 	if err := read(buf, &m.AssetXSettlementsCount); err != nil {
@@ -5432,10 +5255,9 @@ func (m Settlement) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("TextEncoding:%v", m.TextEncoding))
 	vals = append(vals, fmt.Sprintf("AssetCount:%v", m.AssetCount))
-	vals = append(vals, fmt.Sprintf("AssetTypeX:%#x", m.AssetTypeX))
-	vals = append(vals, fmt.Sprintf("AssetIDX:%#x", m.AssetIDX))
+	vals = append(vals, fmt.Sprintf("AssetTypeX:%#+v", m.AssetTypeX))
+	vals = append(vals, fmt.Sprintf("AssetIDX:%#+v", m.AssetIDX))
 	vals = append(vals, fmt.Sprintf("AssetXSettlementsCount:%v", m.AssetXSettlementsCount))
 	vals = append(vals, fmt.Sprintf("AssetXAddressesXQty:%#+v", m.AssetXAddressesXQty))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))

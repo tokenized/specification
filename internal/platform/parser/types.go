@@ -21,12 +21,13 @@ func GoType(typeName string, size uint64) string {
 	case "dropdown":
 		return "[]byte"
 
-	case "string":
-		if size == 0 || size > 1 {
-			return "[]byte"
+	case "varchar":
+		return "string"
+	case "fixedchar":
+		if size == 1 {
+			return "byte"
 		}
-
-		return "byte"
+		return "string"
 
 	case "opcode":
 		return "byte"
@@ -40,7 +41,6 @@ func GoType(typeName string, size uint64) string {
 		"bin[var]",
 		"bin",
 		"pushdata_length",
-		"text",
 		"payload":
 		return "[]byte"
 
@@ -56,7 +56,8 @@ func GoType(typeName string, size uint64) string {
 		"nvarchar64":
 		return prefix + strings.Title(typeName)
 
-	case "header":
+	case "Header",
+		"header":
 		return "Header"
 
 	}

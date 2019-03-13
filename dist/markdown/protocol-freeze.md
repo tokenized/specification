@@ -82,7 +82,7 @@ The following breaks down the construction of a Freeze Action. The action is con
                 <td class="e10">13</td>
                 <td class="e10" style="word-break:break-all">tokenized.com</td>
                 <td class="e10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="e10">string</td>
+                <td class="e10">bin</td>
                 <td class="e11"></td>
             </tr>
             <tr>
@@ -118,7 +118,7 @@ The following breaks down the construction of a Freeze Action. The action is con
                 <td class="e10">2</td>
                 <td class="e10" style="word-break:break-all">C1</td>
                 <td class="e10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="e10">string</td>
+                <td class="e10">bin</td>
                 <td class="e11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>
@@ -141,10 +141,10 @@ The following breaks down the construction of a Freeze Action. The action is con
             <tr>
                 <td class="e10">Address</td>
                 <td class="e10">Address</td>
-                <td class="e10">34</td>
+                <td class="e10">20</td>
                 <td class="e10" style="word-break:break-all">1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic</td>
                 <td class="e10">Public address where the token balance will be changed.</td>
-                <td class="e10">string</td>
+                <td class="e10">bin</td>
                 <td class="e11"></td>
             </tr>
         </table>

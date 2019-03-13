@@ -66,7 +66,8 @@ fields:
 
   - name: ID
     label: ID
-    type: nvarchar8
+    type: varchar
+    size: 255
     size: 255
     example: 34536457575486868
     span: right
@@ -74,7 +75,8 @@ fields:
 
   - name: MembershipType
     label: MembershipType
-    type: nvarchar8
+    type: varchar
+    size: 255
     size: 255
     example: Director, Silver, Employee
     span: right
@@ -82,8 +84,8 @@ fields:
 
   - name: Description
     label: Description
-    type: nvarchar64
-    # size: 65,535
+    type: varchar
+    size: 65535
     example: Rights and duties listed.
     span: full
     displayOrder: 1
