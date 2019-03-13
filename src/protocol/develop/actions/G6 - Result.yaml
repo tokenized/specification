@@ -56,12 +56,6 @@ fields:
     example_hex: 00
     example_value: 0
 
-  - name: ProposedChangesCount
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-
   - name: ProposedChanges
     label: Proposed Changes
     description: "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time."
@@ -79,16 +73,15 @@ fields:
   - name: VoteOptionsCount
     label: VoteOptionsCount
     description: "Number of Vote Options to follow."
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
-    notes: ""
 
   - name: OptionXTally
     label: Option X Tally
     description: "Number of valid votes counted for Option X"
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000000bb8
     example_value: "3000"

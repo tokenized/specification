@@ -19,7 +19,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
         </tr>
 
         <tr>
-            <td class="s5" rowspan="7">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="6">Metadata (OP_RETURN Payload)</td>
             <td class="c6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -59,19 +59,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
                 42
             </td>
             <td class="c10">Counter 0 - 65,535</td>
-            <td class="c10">uint16</td>
-            <td class="c11"></td>
-        </tr>
-
-        <tr>
-            <td class="c10">AmendmentsCount</td>
-            <td class="c10">AmendmentsCount</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10">Number of Amendments. Must be less than the max Subfield Index of CF.</td>
-            <td class="c10">uint8</td>
+            <td class="c10">uint</td>
             <td class="c11"></td>
         </tr>
 
@@ -145,7 +133,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">0</td>
                 <td class="c10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="c10">uint8</td>
+                <td class="c10">uint</td>
                 <td class="c11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
@@ -180,7 +168,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">2</td>
                 <td class="c10">Index of the field to be amended.</td>
-                <td class="c10">uint8</td>
+                <td class="c10">uint</td>
                 <td class="c11">A field with a complex array type uses the same FieldIndex value for all elements. For example, in C1 the VotingSystems field is FieldIndex 16. Indexes are zero based.</td>
             </tr>
             <tr>
@@ -189,7 +177,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
                 <td class="c10">2</td>
                 <td class="c10" style="word-break:break-all">0</td>
                 <td class="c10">Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.</td>
-                <td class="c10">uint16</td>
+                <td class="c10">uint</td>
                 <td class="c11">To specify the 3rd VotingSystem of a Contract, the value 2 would be given. Indexes are zero based.</td>
             </tr>
             <tr>
@@ -198,7 +186,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">1</td>
                 <td class="c10">Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.</td>
-                <td class="c10">uint8</td>
+                <td class="c10">uint</td>
                 <td class="c11">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
             </tr>
             <tr>
@@ -213,10 +201,10 @@ The following breaks down the construction of a Contract Amendment Action. The a
             <tr>
                 <td class="c10">Data</td>
                 <td class="c10">Data</td>
-                <td class="c10">0</td>
+                <td class="c10">32</td>
                 <td class="c10" style="word-break:break-all"></td>
                 <td class="c10">New data for the amended subfield. Data type depends on the the type of the field being amended.</td>
-                <td class="c10">byte[]</td>
+                <td class="c10">varchar</td>
                 <td class="c11">The bytes should be in an format appropriate for the field being modified.</td>
             </tr>
         </table>

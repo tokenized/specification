@@ -34,15 +34,6 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: TextEncoding
-    label: Text Encoding
-    description: " 0 = ASCII, 1 = UTF-8, 2 = UTF-16, 3 = Unicode.  Encoding applies to all 'text' data types. All 'string' types will always be encoded with ASCII.  Where string is selected, all fields will be ASCII."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: "Can be changed by Issuer or Operator at their discretion."
-
   - name: AssetSpecificVote
     label: Asset Specific Vote
     description: "1 - Yes, 0 - No.  No Asset Type/AssetID subfields for N - No."
@@ -73,7 +64,7 @@ fields:
   - name: VoteSystem
     label: Vote System
     description: "X for Vote System X. (1-255, 0 is not valid.)"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
@@ -83,12 +74,6 @@ fields:
     label: Proposal
     description: "1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly."
     type: bool
-    size: 1
-    example_hex: 00
-    example_value: 0
-
-  - name: ProposedChangesCount
-    type: uint8
     size: 1
     example_hex: 00
     example_value: 0
@@ -111,7 +96,7 @@ fields:
   - name: VoteMax
     label: Vote Max
     description: "Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 0f
     example_value: "15"

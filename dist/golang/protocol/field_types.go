@@ -17,20 +17,20 @@ func NewAddress() *Address {
 func (m Address) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Address
 	if err := write(buf, m.Address); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *Address) Write(buf *bytes.Buffer) error {
 
+	// Address
 	m.Address = make([]byte, 20)
 	if err := readLen(buf, m.Address); err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -42,7 +42,7 @@ type Amendment struct {
 	Element       uint16 // Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.
 	SubfieldIndex uint8  // Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.
 	DeleteElement bool   // 1 = remove the element listed in the Element field, 0 means this is not a delete operation. The DeleteElement field only applies to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.
-	Data          []byte // New data for the amended subfield. Data type depends on the the type of the field being amended.
+	Data          string // New data for the amended subfield. Data type depends on the the type of the field being amended.
 }
 
 // NewAmendment returns a new Amendment with defaults set.
@@ -55,52 +55,263 @@ func NewAmendment() *Amendment {
 func (m Amendment) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// FieldIndex
 	if err := write(buf, m.FieldIndex); err != nil {
 		return nil, err
 	}
 
+	// Element
 	if err := write(buf, m.Element); err != nil {
 		return nil, err
 	}
 
+	// SubfieldIndex
 	if err := write(buf, m.SubfieldIndex); err != nil {
 		return nil, err
 	}
 
+	// DeleteElement
 	if err := write(buf, m.DeleteElement); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, m.Data); err != nil {
+	// Data
+	if err := WriteVarChar(buf, m.Data, 32); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *Amendment) Write(buf *bytes.Buffer) error {
 
+	// FieldIndex
 	if err := read(buf, &m.FieldIndex); err != nil {
 		return err
 	}
 
+	// Element
 	if err := read(buf, &m.Element); err != nil {
 		return err
 	}
 
+	// SubfieldIndex
 	if err := read(buf, &m.SubfieldIndex); err != nil {
 		return err
 	}
 
+	// DeleteElement
 	if err := read(buf, &m.DeleteElement); err != nil {
 		return err
 	}
 
-	m.Data = make([]byte, 0)
-	if err := readLen(buf, m.Data); err != nil {
-		return err
+	// Data
+	{
+		var err error
+		m.Data, err = ReadVarChar(buf, 32)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// AssetSettlement AssetSettlement is the data required to settle an asset
+// transfer.
+type AssetSettlement struct {
+	AssetType         string          // eg. Share, Bond, Ticket. All characters must be capitalised.
+	AssetID           string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetAddressesQty []QuantityIndex // Each element contains the resulting token balance of the asset for the output Address, which is referred to by the index.
+}
+
+// NewAssetSettlement returns a new AssetSettlement with defaults set.
+func NewAssetSettlement() *AssetSettlement {
+	result := AssetSettlement{}
+	return &result
+}
+
+// Serialize returns the byte representation of the message.
+func (m AssetSettlement) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	// AssetType
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+		return nil, err
 	}
 
+	// AssetID
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+		return nil, err
+	}
+
+	// AssetAddressesQty
+	if err := WriteVariableSize(buf, uint64(len(m.AssetAddressesQty)), 0, 8); err != nil {
+		return nil, err
+	}
+	for _, value := range m.AssetAddressesQty {
+		b, err := value.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+	return buf.Bytes(), nil
+}
+
+func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
+
+	// AssetType
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return err
+		}
+	}
+
+	// AssetID
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return err
+		}
+	}
+
+	// AssetAddressesQty
+	{
+		size, err := ReadVariableSize(buf, 0, 8)
+		if err != nil {
+			return err
+		}
+		m.AssetAddressesQty = make([]QuantityIndex, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue QuantityIndex
+			if err := newValue.Write(buf); err != nil {
+				return err
+			}
+
+			m.AssetAddressesQty = append(m.AssetAddressesQty, newValue)
+		}
+	}
+	return nil
+}
+
+// AssetTransfer AssetTransfer is the data required to transfer an asset.
+type AssetTransfer struct {
+	AssetType      string          // eg. Share, Bond, Ticket. All characters must be capitalised.
+	AssetID        string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetSenders   []QuantityIndex // Each element has the value of tokens to be spent from the input address, which is referred to by the index.
+	AssetReceivers []TokenReceiver // Each element has the value of tokens to be received by the output address, which is referred to by the index.
+}
+
+// NewAssetTransfer returns a new AssetTransfer with defaults set.
+func NewAssetTransfer() *AssetTransfer {
+	result := AssetTransfer{}
+	return &result
+}
+
+// Serialize returns the byte representation of the message.
+func (m AssetTransfer) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	// AssetType
+	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+		return nil, err
+	}
+
+	// AssetID
+	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+		return nil, err
+	}
+
+	// AssetSenders
+	if err := WriteVariableSize(buf, uint64(len(m.AssetSenders)), 0, 8); err != nil {
+		return nil, err
+	}
+	for _, value := range m.AssetSenders {
+		b, err := value.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+
+	// AssetReceivers
+	if err := WriteVariableSize(buf, uint64(len(m.AssetReceivers)), 0, 8); err != nil {
+		return nil, err
+	}
+	for _, value := range m.AssetReceivers {
+		b, err := value.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+	return buf.Bytes(), nil
+}
+
+func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
+
+	// AssetType
+	{
+		var err error
+		m.AssetType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return err
+		}
+	}
+
+	// AssetID
+	{
+		var err error
+		m.AssetID, err = ReadFixedChar(buf, 32)
+		if err != nil {
+			return err
+		}
+	}
+
+	// AssetSenders
+	{
+		size, err := ReadVariableSize(buf, 0, 8)
+		if err != nil {
+			return err
+		}
+		m.AssetSenders = make([]QuantityIndex, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue QuantityIndex
+			if err := newValue.Write(buf); err != nil {
+				return err
+			}
+
+			m.AssetSenders = append(m.AssetSenders, newValue)
+		}
+	}
+
+	// AssetReceivers
+	{
+		size, err := ReadVariableSize(buf, 0, 8)
+		if err != nil {
+			return err
+		}
+		m.AssetReceivers = make([]TokenReceiver, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue TokenReceiver
+			if err := newValue.Write(buf); err != nil {
+				return err
+			}
+
+			m.AssetReceivers = append(m.AssetReceivers, newValue)
+		}
+	}
 	return nil
 }
 
@@ -119,9 +330,7 @@ type Entity struct {
 	PostalZIPCode              string        //
 	EmailAddress               string        // Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address
 	PhoneNumber                string        // Length 0-50 bytes. 0 is valid. Phone Number for Entity.
-	KeyRolesCount              uint8         // Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.
 	KeyRoles                   []KeyRole     // A list of Key Roles.
-	NotableRolesCount          uint8         // Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.
 	NotableRoles               []NotableRole // A list of Notable Roles.
 }
 
@@ -135,60 +344,72 @@ func NewEntity() *Entity {
 func (m Entity) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Name
 	if err := WriteVarChar(buf, m.Name, 11); err != nil {
 		return nil, err
 	}
 
+	// Type
 	if err := write(buf, m.Type); err != nil {
 		return nil, err
 	}
 
+	// Address
 	if err := write(buf, m.Address); err != nil {
 		return nil, err
 	}
 
+	// UnitNumber
 	if err := WriteVarChar(buf, m.UnitNumber, 2); err != nil {
 		return nil, err
 	}
 
+	// BuildingNumber
 	if err := WriteVarChar(buf, m.BuildingNumber, 6); err != nil {
 		return nil, err
 	}
 
+	// Street
 	if err := WriteVarChar(buf, m.Street, 14); err != nil {
 		return nil, err
 	}
 
+	// SuburbCity
 	if err := WriteVarChar(buf, m.SuburbCity, 8); err != nil {
 		return nil, err
 	}
 
+	// TerritoryStateProvinceCode
 	if err := WriteFixedChar(buf, m.TerritoryStateProvinceCode, 5); err != nil {
 		return nil, err
 	}
 
+	// CountryCode
 	if err := WriteFixedChar(buf, m.CountryCode, 3); err != nil {
 		return nil, err
 	}
 
+	// PostalZIPCode
 	if err := WriteFixedChar(buf, m.PostalZIPCode, 12); err != nil {
 		return nil, err
 	}
 
+	// EmailAddress
 	if err := WriteVarChar(buf, m.EmailAddress, 20); err != nil {
 		return nil, err
 	}
 
+	// PhoneNumber
 	if err := WriteVarChar(buf, m.PhoneNumber, 11); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, m.KeyRolesCount); err != nil {
+	// KeyRoles
+	if err := WriteVariableSize(buf, uint64(len(m.KeyRoles)), 0, 8); err != nil {
 		return nil, err
 	}
-
-	for i := 0; i < int(m.KeyRolesCount); i++ {
-		b, err := m.KeyRoles[i].Serialize()
+	for _, value := range m.KeyRoles {
+		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -198,12 +419,12 @@ func (m Entity) Serialize() ([]byte, error) {
 		}
 	}
 
-	if err := write(buf, m.NotableRolesCount); err != nil {
+	// NotableRoles
+	if err := WriteVariableSize(buf, uint64(len(m.NotableRoles)), 0, 8); err != nil {
 		return nil, err
 	}
-
-	for i := 0; i < int(m.NotableRolesCount); i++ {
-		b, err := m.NotableRoles[i].Serialize()
+	for _, value := range m.NotableRoles {
+		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -212,83 +433,143 @@ func (m Entity) Serialize() ([]byte, error) {
 			return nil, err
 		}
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *Entity) Write(buf *bytes.Buffer) error {
 
-	if err := read(buf, &m.Name); err != nil {
-		return err
+	// Name
+	{
+		var err error
+		m.Name, err = ReadVarChar(buf, 11)
+		if err != nil {
+			return err
+		}
 	}
 
+	// Type
 	if err := read(buf, &m.Type); err != nil {
 		return err
 	}
 
+	// Address
 	if err := read(buf, &m.Address); err != nil {
 		return err
 	}
 
-	if err := read(buf, &m.UnitNumber); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.BuildingNumber); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.Street); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.SuburbCity); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.TerritoryStateProvinceCode); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.CountryCode); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.PostalZIPCode); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.EmailAddress); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.PhoneNumber); err != nil {
-		return err
-	}
-
-	if err := read(buf, &m.KeyRolesCount); err != nil {
-		return err
-	}
-
-	for i := 0; i < int(m.KeyRolesCount); i++ {
-		x := &KeyRole{}
-		if err := x.Write(buf); err != nil {
+	// UnitNumber
+	{
+		var err error
+		m.UnitNumber, err = ReadVarChar(buf, 2)
+		if err != nil {
 			return err
 		}
-
-		m.KeyRoles = append(m.KeyRoles, *x)
-	}
-	if err := read(buf, &m.NotableRolesCount); err != nil {
-		return err
 	}
 
-	for i := 0; i < int(m.NotableRolesCount); i++ {
-		x := &NotableRole{}
-		if err := x.Write(buf); err != nil {
+	// BuildingNumber
+	{
+		var err error
+		m.BuildingNumber, err = ReadVarChar(buf, 6)
+		if err != nil {
 			return err
 		}
+	}
 
-		m.NotableRoles = append(m.NotableRoles, *x)
+	// Street
+	{
+		var err error
+		m.Street, err = ReadVarChar(buf, 14)
+		if err != nil {
+			return err
+		}
+	}
+
+	// SuburbCity
+	{
+		var err error
+		m.SuburbCity, err = ReadVarChar(buf, 8)
+		if err != nil {
+			return err
+		}
+	}
+
+	// TerritoryStateProvinceCode
+	{
+		var err error
+		m.TerritoryStateProvinceCode, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return err
+		}
+	}
+
+	// CountryCode
+	{
+		var err error
+		m.CountryCode, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return err
+		}
+	}
+
+	// PostalZIPCode
+	{
+		var err error
+		m.PostalZIPCode, err = ReadFixedChar(buf, 12)
+		if err != nil {
+			return err
+		}
+	}
+
+	// EmailAddress
+	{
+		var err error
+		m.EmailAddress, err = ReadVarChar(buf, 20)
+		if err != nil {
+			return err
+		}
+	}
+
+	// PhoneNumber
+	{
+		var err error
+		m.PhoneNumber, err = ReadVarChar(buf, 11)
+		if err != nil {
+			return err
+		}
+	}
+
+	// KeyRoles
+	{
+		size, err := ReadVariableSize(buf, 0, 8)
+		if err != nil {
+			return err
+		}
+		m.KeyRoles = make([]KeyRole, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue KeyRole
+			if err := newValue.Write(buf); err != nil {
+				return err
+			}
+
+			m.KeyRoles = append(m.KeyRoles, newValue)
+		}
+	}
+
+	// NotableRoles
+	{
+		size, err := ReadVariableSize(buf, 0, 8)
+		if err != nil {
+			return err
+		}
+		m.NotableRoles = make([]NotableRole, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue NotableRole
+			if err := newValue.Write(buf); err != nil {
+				return err
+			}
+
+			m.NotableRoles = append(m.NotableRoles, newValue)
+		}
 	}
 	return nil
 }
@@ -313,54 +594,62 @@ func NewHeader() *Header {
 func (m Header) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// ProtocolID
 	if err := write(buf, m.ProtocolID); err != nil {
 		return nil, err
 	}
 
+	// OpPushdata
 	if err := write(buf, m.OpPushdata); err != nil {
 		return nil, err
 	}
 
+	// LenActionPayload
 	if err := write(buf, m.LenActionPayload); err != nil {
 		return nil, err
 	}
 
+	// Version
 	if err := write(buf, m.Version); err != nil {
 		return nil, err
 	}
 
+	// ActionPrefix
 	if err := write(buf, m.ActionPrefix); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *Header) Write(buf *bytes.Buffer) error {
 
+	// ProtocolID
 	m.ProtocolID = make([]byte, 13)
 	if err := readLen(buf, m.ProtocolID); err != nil {
 		return err
 	}
 
+	// OpPushdata
 	if err := read(buf, &m.OpPushdata); err != nil {
 		return err
 	}
 
-	l := lenForOpPushdata(m.OpPushdata)
-	m.LenActionPayload = make([]byte, l, l)
+	// LenActionPayload
+	m.LenActionPayload = make([]byte, 2)
 	if err := readLen(buf, m.LenActionPayload); err != nil {
 		return err
 	}
+
+	// Version
 	if err := read(buf, &m.Version); err != nil {
 		return err
 	}
 
+	// ActionPrefix
 	m.ActionPrefix = make([]byte, 2)
 	if err := readLen(buf, m.ActionPrefix); err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -382,27 +671,33 @@ func NewKeyRole(roleType uint8, name string) *KeyRole {
 func (m KeyRole) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Type
 	if err := write(buf, m.Type); err != nil {
 		return nil, err
 	}
 
+	// Name
 	if err := WriteVarChar(buf, m.Name, 14); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *KeyRole) Write(buf *bytes.Buffer) error {
 
+	// Type
 	if err := read(buf, &m.Type); err != nil {
 		return err
 	}
 
-	if err := read(buf, &m.Name); err != nil {
-		return err
+	// Name
+	{
+		var err error
+		m.Name, err = ReadVarChar(buf, 14)
+		if err != nil {
+			return err
+		}
 	}
-
 	return nil
 }
 
@@ -424,27 +719,33 @@ func NewNotableRole(roleType uint8, name string) *NotableRole {
 func (m NotableRole) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Type
 	if err := write(buf, m.Type); err != nil {
 		return nil, err
 	}
 
+	// Name
 	if err := WriteVarChar(buf, m.Name, 8); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *NotableRole) Write(buf *bytes.Buffer) error {
 
+	// Type
 	if err := read(buf, &m.Type); err != nil {
 		return err
 	}
 
-	if err := read(buf, &m.Name); err != nil {
-		return err
+	// Name
+	{
+		var err error
+		m.Name, err = ReadVarChar(buf, 8)
+		if err != nil {
+			return err
+		}
 	}
-
 	return nil
 }
 
@@ -466,27 +767,29 @@ func NewQuantityIndex() *QuantityIndex {
 func (m QuantityIndex) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Index
 	if err := write(buf, m.Index); err != nil {
 		return nil, err
 	}
 
+	// Quantity
 	if err := write(buf, m.Quantity); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *QuantityIndex) Write(buf *bytes.Buffer) error {
 
+	// Index
 	if err := read(buf, &m.Index); err != nil {
 		return err
 	}
 
+	// Quantity
 	if err := read(buf, &m.Quantity); err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -507,35 +810,51 @@ func NewRegistry() *Registry {
 func (m Registry) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Name
 	if err := WriteVarChar(buf, m.Name, 10); err != nil {
 		return nil, err
 	}
 
+	// URL
 	if err := WriteVarChar(buf, m.URL, 53); err != nil {
 		return nil, err
 	}
 
+	// PublicKey
 	if err := WriteVarChar(buf, m.PublicKey, 1); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *Registry) Write(buf *bytes.Buffer) error {
 
-	if err := read(buf, &m.Name); err != nil {
-		return err
+	// Name
+	{
+		var err error
+		m.Name, err = ReadVarChar(buf, 10)
+		if err != nil {
+			return err
+		}
 	}
 
-	if err := read(buf, &m.URL); err != nil {
-		return err
+	// URL
+	{
+		var err error
+		m.URL, err = ReadVarChar(buf, 53)
+		if err != nil {
+			return err
+		}
 	}
 
-	if err := read(buf, &m.PublicKey); err != nil {
-		return err
+	// PublicKey
+	{
+		var err error
+		m.PublicKey, err = ReadVarChar(buf, 1)
+		if err != nil {
+			return err
+		}
 	}
-
 	return nil
 }
 
@@ -555,27 +874,36 @@ func NewTargetAddress() *TargetAddress {
 func (m TargetAddress) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.Address); err != nil {
-		return nil, err
+	// Address
+	{
+		b, err := m.Address.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
 	}
 
+	// Quantity
 	if err := write(buf, m.Quantity); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *TargetAddress) Write(buf *bytes.Buffer) error {
 
-	if err := read(buf, &m.Address); err != nil {
+	// Address
+	if err := m.Address.Write(buf); err != nil {
 		return err
 	}
 
+	// Quantity
 	if err := read(buf, &m.Quantity); err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -601,43 +929,53 @@ func NewTokenReceiver() *TokenReceiver {
 func (m TokenReceiver) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Index
 	if err := write(buf, m.Index); err != nil {
 		return nil, err
 	}
 
+	// Quantity
 	if err := write(buf, m.Quantity); err != nil {
 		return nil, err
 	}
 
+	// RegistrySigAlgorithm
 	if err := write(buf, m.RegistrySigAlgorithm); err != nil {
 		return nil, err
 	}
 
+	// RegistryConfirmationSigToken
 	if err := WriteVarChar(buf, m.RegistryConfirmationSigToken, 8); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *TokenReceiver) Write(buf *bytes.Buffer) error {
 
+	// Index
 	if err := read(buf, &m.Index); err != nil {
 		return err
 	}
 
+	// Quantity
 	if err := read(buf, &m.Quantity); err != nil {
 		return err
 	}
 
+	// RegistrySigAlgorithm
 	if err := read(buf, &m.RegistrySigAlgorithm); err != nil {
 		return err
 	}
 
-	if err := read(buf, &m.RegistryConfirmationSigToken); err != nil {
-		return err
+	// RegistryConfirmationSigToken
+	{
+		var err error
+		m.RegistryConfirmationSigToken, err = ReadVarChar(buf, 8)
+		if err != nil {
+			return err
+		}
 	}
-
 	return nil
 }
 
@@ -663,75 +1001,97 @@ func NewVotingSystem() *VotingSystem {
 func (m VotingSystem) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Name
 	if err := WriteVarChar(buf, m.Name, 20); err != nil {
 		return nil, err
 	}
 
+	// System
 	if err := write(buf, m.System); err != nil {
 		return nil, err
 	}
 
+	// Method
 	if err := write(buf, m.Method); err != nil {
 		return nil, err
 	}
 
+	// Logic
 	if err := write(buf, m.Logic); err != nil {
 		return nil, err
 	}
 
+	// ThresholdPercentage
 	if err := write(buf, m.ThresholdPercentage); err != nil {
 		return nil, err
 	}
 
+	// VoteMultiplierPermitted
 	if err := write(buf, m.VoteMultiplierPermitted); err != nil {
 		return nil, err
 	}
 
+	// InitiativeThreshold
 	if err := write(buf, m.InitiativeThreshold); err != nil {
 		return nil, err
 	}
 
+	// InitiativeThresholdCurrency
 	if err := WriteFixedChar(buf, m.InitiativeThresholdCurrency, 3); err != nil {
 		return nil, err
 	}
-
 	return buf.Bytes(), nil
 }
 
 func (m *VotingSystem) Write(buf *bytes.Buffer) error {
 
-	if err := read(buf, &m.Name); err != nil {
-		return err
+	// Name
+	{
+		var err error
+		m.Name, err = ReadVarChar(buf, 20)
+		if err != nil {
+			return err
+		}
 	}
 
+	// System
 	m.System = make([]byte, 8)
 	if err := readLen(buf, m.System); err != nil {
 		return err
 	}
 
+	// Method
 	if err := read(buf, &m.Method); err != nil {
 		return err
 	}
 
+	// Logic
 	if err := read(buf, &m.Logic); err != nil {
 		return err
 	}
 
+	// ThresholdPercentage
 	if err := read(buf, &m.ThresholdPercentage); err != nil {
 		return err
 	}
 
+	// VoteMultiplierPermitted
 	if err := read(buf, &m.VoteMultiplierPermitted); err != nil {
 		return err
 	}
 
+	// InitiativeThreshold
 	if err := read(buf, &m.InitiativeThreshold); err != nil {
 		return err
 	}
 
-	if err := read(buf, &m.InitiativeThresholdCurrency); err != nil {
-		return err
+	// InitiativeThresholdCurrency
+	{
+		var err error
+		m.InitiativeThresholdCurrency, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return err
+		}
 	}
-
 	return nil
 }

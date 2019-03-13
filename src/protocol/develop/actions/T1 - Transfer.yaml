@@ -1,5 +1,5 @@
 #
-# Transfer Action: A Token Owner(s) transfers a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.  
+# Transfer Action: A Token Owner(s) transfers a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.
 #
 
 code: T1
@@ -20,7 +20,7 @@ rules:
 
   outputs:
     - name: AssetXContract
-      label: Contract Public Address for Asset X 
+      label: Contract Public Address for Asset X
       comments: Enough for the costs of the responding action + the Contract Fee
 
     - name: AssetXReceiverX
@@ -34,60 +34,11 @@ fields:
     type: Header
     notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
-  - name: AssetCount
-    label: Asset Count
-    description: "The number of Assets involved in the Transfer Action."
-    type: uint8
-    size: 1
-    example_hex: 534843
-    example_value: "4"
+  - name: Assets
+    label: Assets
+    description: "The Assets involved in the Transfer Action."
+    type: AssetTransfer[]
     notes: ""
-
-  - name: AssetTypeX
-    label: Asset Type X
-    description: "eg. Share, Bond, Ticket. All characters must be capitalised."
-    type: fixedchar
-    size: 3
-    example_hex: 534843
-    example_value: "SHC"
-    notes: ""
-
-  - name: AssetIDX
-    label: Asset ID X
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: fixedchar
-    size: 32
-    example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
-    example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
-    notes: ""
-
-  - name: AssetXSenderCount
-    label: Token Sender Count
-    description: "Number inputs sending tokens. 1-255, 0 is not valid."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
-
-  - name: AssetXSenders
-    label: Asset X Senders
-    description: "Each element has the value of tokens to be spent from the input address, which is referred to by the index."
-    type: QuantityIndex[]
-
-  - name: AssetXReceiverCount
-    label: "The number of token receivers"
-    description: "Number of outputs receiving tokens. 1-255. 0 is not valid."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
-
-  - name: AssetXReceivers
-    label: Token Receivers
-    description: "Each element has the value of tokens to be received by the output address, which is referred to by the index."
-    type: TokenReceiver[]
 
   - name: OfferExpiry
     label: Offer Expiry
@@ -110,7 +61,7 @@ fields:
   - name: ExchangeFeeVar
     label: Exchange Fee Variable
     description: "Percent of the value of the transaction"
-    type: float32
+    type: float
     size: 4
     example_hex: 3ba3d70a
     example_value: "0.005"
@@ -119,7 +70,7 @@ fields:
   - name: ExchangeFeeFixed
     label: Exchange Fee Fixed
     description: "Fixed fee"
-    type: float32
+    type: float
     size: 4
     example_hex: 3c23d70a
     example_value: "0.01"

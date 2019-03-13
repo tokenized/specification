@@ -19,7 +19,7 @@ The following breaks down the construction of a Settlement Action. The action is
         </tr>
 
         <tr>
-            <td class="s5" rowspan="7">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="3">Metadata (OP_RETURN Payload)</td>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -28,57 +28,9 @@ The following breaks down the construction of a Settlement Action. The action is
         </tr>
 
         <tr>
-            <td class="t10">Asset Count</td>
-            <td class="t10">AssetCount</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                4
-            </td>
-            <td class="t10">The number of Assets specified by the Transfer action to be settled.</td>
-            <td class="t10">uint8</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t10">Asset Type X</td>
-            <td class="t10">AssetTypeX</td>
-            <td class="t10">3</td>
-            <td class="t10" style="word-break:break-all">
-                RRE
-            </td>
-            <td class="t10">eg. Share, Bond, Ticket</td>
-            <td class="t10">fixedchar</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t10">Asset ID X</td>
-            <td class="t10">AssetIDX</td>
-            <td class="t10">32</td>
-            <td class="t10" style="word-break:break-all">
-                apm2qsznhks23z8d83u41s8019hyri3i
-            </td>
-            <td class="t10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. </td>
-            <td class="t10">fixedchar</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t10">Asset X Settlements Count</td>
-            <td class="t10">AssetXSettlementsCount</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                0
-            </td>
-            <td class="t10">Number of settlements for Asset X.</td>
-            <td class="t10">uint8</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
             <td class="t6" colspan="7">
-                <a href="javascript:;" data-popover="type-QuantityIndex">
-                   Asset X Address X Qty - Click to show content
+                <a href="javascript:;" data-popover="type-AssetSettlement">
+                   Assets - Click to show content
                 </a>
             </td>
         </tr>
@@ -145,7 +97,7 @@ The following breaks down the construction of a Settlement Action. The action is
                 <td class="t10">1</td>
                 <td class="t10" style="word-break:break-all">0</td>
                 <td class="t10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="t10">uint8</td>
+                <td class="t10">uint</td>
                 <td class="t11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
@@ -161,7 +113,7 @@ The following breaks down the construction of a Settlement Action. The action is
     </div>
 </div>
 
-<div class="ui modal" id="type-QuantityIndex">
+<div class="ui modal" id="type-AssetSettlement">
     <i class="close icon"></i>
     <div class="content docs-content">
         <table class="ui table">
@@ -175,21 +127,30 @@ The following breaks down the construction of a Settlement Action. The action is
                 <th style="width:14%" class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
-                <td class="t10">Index</td>
-                <td class="t10">Index</td>
-                <td class="t10">2</td>
-                <td class="t10" style="word-break:break-all">0</td>
-                <td class="t10">The index of the input sending the tokens</td>
-                <td class="t10">uint16</td>
+                <td class="t10">Asset Type</td>
+                <td class="t10">AssetType</td>
+                <td class="t10">3</td>
+                <td class="t10" style="word-break:break-all">SHC</td>
+                <td class="t10">eg. Share, Bond, Ticket. All characters must be capitalised.</td>
+                <td class="t10">fixedchar</td>
                 <td class="t11"></td>
             </tr>
             <tr>
-                <td class="t10">Quantity</td>
-                <td class="t10">Quantity</td>
-                <td class="t10">8</td>
-                <td class="t10" style="word-break:break-all">100</td>
-                <td class="t10">Number of tokens being sent</td>
-                <td class="t10">uint64</td>
+                <td class="t10">Asset ID</td>
+                <td class="t10">AssetID</td>
+                <td class="t10">32</td>
+                <td class="t10" style="word-break:break-all">apm2qsznhks23z8d83u41s8019hyri3i</td>
+                <td class="t10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.</td>
+                <td class="t10">fixedchar</td>
+                <td class="t11"></td>
+            </tr>
+            <tr>
+                <td class="t10">Asset Address Qty</td>
+                <td class="t10">AssetAddressesQty</td>
+                <td class="t10">0</td>
+                <td class="t10" style="word-break:break-all"></td>
+                <td class="t10">Each element contains the resulting token balance of the asset for the output Address, which is referred to by the index.</td>
+                <td class="t10">QuantityIndex[]</td>
                 <td class="t11"></td>
             </tr>
         </table>

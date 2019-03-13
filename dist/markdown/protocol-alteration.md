@@ -89,7 +89,7 @@ The following breaks down the construction of a Alteration Action. The action is
                 <td class="r10">1</td>
                 <td class="r10" style="word-break:break-all">0</td>
                 <td class="r10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="r10">uint8</td>
+                <td class="r10">uint</td>
                 <td class="r11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>

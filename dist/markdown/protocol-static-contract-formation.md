@@ -19,7 +19,7 @@ The following breaks down the construction of a Static Contract Formation Action
         </tr>
 
         <tr>
-            <td class="s5" rowspan="15">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="13">Metadata (OP_RETURN Payload)</td>
             <td class="c6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -30,7 +30,7 @@ The following breaks down the construction of a Static Contract Formation Action
         <tr>
             <td class="c10">Contract Name</td>
             <td class="c10">ContractName</td>
-            <td class="c10">30</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 Tesla - Shareholder Agreement
             </td>
@@ -42,7 +42,7 @@ The following breaks down the construction of a Static Contract Formation Action
         <tr>
             <td class="c10">Contract Type</td>
             <td class="c10">ContractType</td>
-            <td class="c10">30</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 Non-Disclosure Agreement
             </td>
@@ -59,19 +59,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 1
             </td>
             <td class="c10">1 - SHA-256 Hash, 2 - Markdown file</td>
-            <td class="c10">uint8</td>
-            <td class="c11"></td>
-        </tr>
-
-        <tr>
-            <td class="c10">Length of Contract File</td>
-            <td class="c10">LenContractFile</td>
-            <td class="c10">4</td>
-            <td class="c10" style="word-break:break-all">
-                32
-            </td>
-            <td class="c10">Max size is the max transaction size - other data in the txn.  </td>
-            <td class="c10">uint32</td>
+            <td class="c10">uint</td>
             <td class="c11"></td>
         </tr>
 
@@ -82,8 +70,8 @@ The following breaks down the construction of a Static Contract Formation Action
             <td class="c10" style="word-break:break-all">
                 c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
             </td>
-            <td class="c10">SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)</td>
-            <td class="c10">fixedchar</td>
+            <td class="c10">SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)</td>
+            <td class="c10">varbin</td>
             <td class="c11"></td>
         </tr>
 
@@ -95,7 +83,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 0
             </td>
             <td class="c10">Counter 0 - 65,535</td>
-            <td class="c10">uint16</td>
+            <td class="c10">uint</td>
             <td class="c11"></td>
         </tr>
 
@@ -150,7 +138,7 @@ The following breaks down the construction of a Static Contract Formation Action
         <tr>
             <td class="c10">Contract URI</td>
             <td class="c10">ContractURI</td>
-            <td class="c10">53</td>
+            <td class="c10">8</td>
             <td class="c10" style="word-break:break-all">
                 https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj
             </td>
@@ -168,18 +156,6 @@ The following breaks down the construction of a Static Contract Formation Action
             </td>
             <td class="c10">The Tx-ID of the previous contract revision.</td>
             <td class="c10">sha256</td>
-            <td class="c11"></td>
-        </tr>
-
-        <tr>
-            <td class="c10">Entity Count</td>
-            <td class="c10">EntityCount</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10">Number of entities involved in the contract as contracting parties.</td>
-            <td class="c10">uint8</td>
             <td class="c11"></td>
         </tr>
 
@@ -241,7 +217,7 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">0</td>
                 <td class="c10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="c10">uint8</td>
+                <td class="c10">uint</td>
                 <td class="c11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
@@ -379,30 +355,12 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c11"></td>
             </tr>
             <tr>
-                <td class="c10">KeyRoles Count</td>
-                <td class="c10">KeyRolesCount</td>
-                <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">0</td>
-                <td class="c10">Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.</td>
-                <td class="c10">uint8</td>
-                <td class="c11"></td>
-            </tr>
-            <tr>
                 <td class="c10">Key Roles</td>
                 <td class="c10">KeyRoles</td>
                 <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all"></td>
                 <td class="c10">A list of Key Roles.</td>
                 <td class="c10">KeyRole[]</td>
-                <td class="c11"></td>
-            </tr>
-            <tr>
-                <td class="c10">Notable Roles Count</td>
-                <td class="c10">NotableRolesCount</td>
-                <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">0</td>
-                <td class="c10">Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.</td>
-                <td class="c10">uint8</td>
                 <td class="c11"></td>
             </tr>
             <tr>

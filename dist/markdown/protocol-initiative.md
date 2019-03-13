@@ -19,7 +19,7 @@ The following breaks down the construction of a Initiative Action. The action is
         </tr>
 
         <tr>
-            <td class="s5" rowspan="12">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="11">Metadata (OP_RETURN Payload)</td>
             <td class="g6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -59,7 +59,7 @@ The following breaks down the construction of a Initiative Action. The action is
                 1
             </td>
             <td class="g10">X for Vote System X. (1-255, 0 is not valid.)</td>
-            <td class="g10">uint8</td>
+            <td class="g10">uint</td>
             <td class="g11"></td>
         </tr>
 
@@ -72,18 +72,6 @@ The following breaks down the construction of a Initiative Action. The action is
             </td>
             <td class="g10">1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.</td>
             <td class="g10">bool</td>
-            <td class="g11"></td>
-        </tr>
-
-        <tr>
-            <td class="g10"></td>
-            <td class="g10">ProposedChangesCount</td>
-            <td class="g10">1</td>
-            <td class="g10" style="word-break:break-all">
-                0
-            </td>
-            <td class="g10"></td>
-            <td class="g10">uint8</td>
             <td class="g11"></td>
         </tr>
 
@@ -115,7 +103,7 @@ The following breaks down the construction of a Initiative Action. The action is
                 15
             </td>
             <td class="g10">Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)</td>
-            <td class="g10">uint8</td>
+            <td class="g10">uint</td>
             <td class="g11"></td>
         </tr>
 
@@ -205,7 +193,7 @@ The following breaks down the construction of a Initiative Action. The action is
                 <td class="g10">1</td>
                 <td class="g10" style="word-break:break-all">0</td>
                 <td class="g10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="g10">uint8</td>
+                <td class="g10">uint</td>
                 <td class="g11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
@@ -240,7 +228,7 @@ The following breaks down the construction of a Initiative Action. The action is
                 <td class="g10">1</td>
                 <td class="g10" style="word-break:break-all">2</td>
                 <td class="g10">Index of the field to be amended.</td>
-                <td class="g10">uint8</td>
+                <td class="g10">uint</td>
                 <td class="g11">A field with a complex array type uses the same FieldIndex value for all elements. For example, in C1 the VotingSystems field is FieldIndex 16. Indexes are zero based.</td>
             </tr>
             <tr>
@@ -249,7 +237,7 @@ The following breaks down the construction of a Initiative Action. The action is
                 <td class="g10">2</td>
                 <td class="g10" style="word-break:break-all">0</td>
                 <td class="g10">Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.</td>
-                <td class="g10">uint16</td>
+                <td class="g10">uint</td>
                 <td class="g11">To specify the 3rd VotingSystem of a Contract, the value 2 would be given. Indexes are zero based.</td>
             </tr>
             <tr>
@@ -258,7 +246,7 @@ The following breaks down the construction of a Initiative Action. The action is
                 <td class="g10">1</td>
                 <td class="g10" style="word-break:break-all">1</td>
                 <td class="g10">Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.</td>
-                <td class="g10">uint8</td>
+                <td class="g10">uint</td>
                 <td class="g11">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
             </tr>
             <tr>
@@ -273,10 +261,10 @@ The following breaks down the construction of a Initiative Action. The action is
             <tr>
                 <td class="g10">Data</td>
                 <td class="g10">Data</td>
-                <td class="g10">0</td>
+                <td class="g10">32</td>
                 <td class="g10" style="word-break:break-all"></td>
                 <td class="g10">New data for the amended subfield. Data type depends on the the type of the field being amended.</td>
-                <td class="g10">byte[]</td>
+                <td class="g10">varchar</td>
                 <td class="g11">The bytes should be in an format appropriate for the field being modified.</td>
             </tr>
         </table>

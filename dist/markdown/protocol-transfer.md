@@ -19,7 +19,7 @@ The following breaks down the construction of a Transfer Action. The action is c
         </tr>
 
         <tr>
-            <td class="s5" rowspan="13">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="7">Metadata (OP_RETURN Payload)</td>
             <td class="t6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -28,77 +28,9 @@ The following breaks down the construction of a Transfer Action. The action is c
         </tr>
 
         <tr>
-            <td class="t10">Asset Count</td>
-            <td class="t10">AssetCount</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                4
-            </td>
-            <td class="t10">The number of Assets involved in the Transfer Action.</td>
-            <td class="t10">uint8</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t10">Asset Type X</td>
-            <td class="t10">AssetTypeX</td>
-            <td class="t10">3</td>
-            <td class="t10" style="word-break:break-all">
-                SHC
-            </td>
-            <td class="t10">eg. Share, Bond, Ticket. All characters must be capitalised.</td>
-            <td class="t10">fixedchar</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t10">Asset ID X</td>
-            <td class="t10">AssetIDX</td>
-            <td class="t10">32</td>
-            <td class="t10" style="word-break:break-all">
-                apm2qsznhks23z8d83u41s8019hyri3i
-            </td>
-            <td class="t10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.</td>
-            <td class="t10">fixedchar</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t10">Token Sender Count</td>
-            <td class="t10">AssetXSenderCount</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                0
-            </td>
-            <td class="t10">Number inputs sending tokens. 1-255, 0 is not valid.</td>
-            <td class="t10">uint8</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
             <td class="t6" colspan="7">
-                <a href="javascript:;" data-popover="type-QuantityIndex">
-                   Asset X Senders - Click to show content
-                </a>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="t10">The number of token receivers</td>
-            <td class="t10">AssetXReceiverCount</td>
-            <td class="t10">1</td>
-            <td class="t10" style="word-break:break-all">
-                0
-            </td>
-            <td class="t10">Number of outputs receiving tokens. 1-255. 0 is not valid.</td>
-            <td class="t10">uint8</td>
-            <td class="t11"></td>
-        </tr>
-
-        <tr>
-            <td class="t6" colspan="7">
-                <a href="javascript:;" data-popover="type-TokenReceiver">
-                   Token Receivers - Click to show content
+                <a href="javascript:;" data-popover="type-AssetTransfer">
+                   Assets - Click to show content
                 </a>
             </td>
         </tr>
@@ -135,7 +67,7 @@ The following breaks down the construction of a Transfer Action. The action is c
                 0.005
             </td>
             <td class="t10">Percent of the value of the transaction</td>
-            <td class="t10">float32</td>
+            <td class="t10">float</td>
             <td class="t11"></td>
         </tr>
 
@@ -147,7 +79,7 @@ The following breaks down the construction of a Transfer Action. The action is c
                 0.01
             </td>
             <td class="t10">Fixed fee</td>
-            <td class="t10">float32</td>
+            <td class="t10">float</td>
             <td class="t11"></td>
         </tr>
 
@@ -209,7 +141,7 @@ The following breaks down the construction of a Transfer Action. The action is c
                 <td class="t10">1</td>
                 <td class="t10" style="word-break:break-all">0</td>
                 <td class="t10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="t10">uint8</td>
+                <td class="t10">uint</td>
                 <td class="t11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
@@ -225,7 +157,7 @@ The following breaks down the construction of a Transfer Action. The action is c
     </div>
 </div>
 
-<div class="ui modal" id="type-QuantityIndex">
+<div class="ui modal" id="type-AssetTransfer">
     <i class="close icon"></i>
     <div class="content docs-content">
         <table class="ui table">
@@ -239,74 +171,39 @@ The following breaks down the construction of a Transfer Action. The action is c
                 <th style="width:14%" class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
-                <td class="t10">Index</td>
-                <td class="t10">Index</td>
-                <td class="t10">2</td>
-                <td class="t10" style="word-break:break-all">0</td>
-                <td class="t10">The index of the input sending the tokens</td>
-                <td class="t10">uint16</td>
+                <td class="t10">Asset Type</td>
+                <td class="t10">AssetType</td>
+                <td class="t10">3</td>
+                <td class="t10" style="word-break:break-all">SHC</td>
+                <td class="t10">eg. Share, Bond, Ticket. All characters must be capitalised.</td>
+                <td class="t10">fixedchar</td>
                 <td class="t11"></td>
             </tr>
             <tr>
-                <td class="t10">Quantity</td>
-                <td class="t10">Quantity</td>
-                <td class="t10">8</td>
-                <td class="t10" style="word-break:break-all">100</td>
-                <td class="t10">Number of tokens being sent</td>
-                <td class="t10">uint64</td>
-                <td class="t11"></td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div class="ui modal" id="type-TokenReceiver">
-    <i class="close icon"></i>
-    <div class="content docs-content">
-        <table class="ui table">
-            <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
-                <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
-                <th style="width:26%" class="s1">Comments</th>
-                <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
-            </tr>
-            <tr>
-                <td class="t10">Index</td>
-                <td class="t10">Index</td>
-                <td class="t10">2</td>
-                <td class="t10" style="word-break:break-all">0</td>
-                <td class="t10">The index of the output receiving the tokens</td>
-                <td class="t10">uint16</td>
+                <td class="t10">Asset ID</td>
+                <td class="t10">AssetID</td>
+                <td class="t10">32</td>
+                <td class="t10" style="word-break:break-all">apm2qsznhks23z8d83u41s8019hyri3i</td>
+                <td class="t10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.</td>
+                <td class="t10">fixedchar</td>
                 <td class="t11"></td>
             </tr>
             <tr>
-                <td class="t10">Quantity</td>
-                <td class="t10">Quantity</td>
-                <td class="t10">8</td>
-                <td class="t10" style="word-break:break-all">100</td>
-                <td class="t10">Number of tokens to be received by address at Output X</td>
-                <td class="t10">uint64</td>
+                <td class="t10">Asset Senders</td>
+                <td class="t10">AssetSenders</td>
+                <td class="t10">0</td>
+                <td class="t10" style="word-break:break-all"></td>
+                <td class="t10">Each element has the value of tokens to be spent from the input address, which is referred to by the index.</td>
+                <td class="t10">QuantityIndex[]</td>
                 <td class="t11"></td>
             </tr>
             <tr>
-                <td class="t10">Registry Signature Algorithm</td>
-                <td class="t10">RegistrySigAlgorithm</td>
-                <td class="t10">1</td>
-                <td class="t10" style="word-break:break-all">1</td>
-                <td class="t10">0 = No Registry-signed Message, 1 = ECDSA+secp256k1</td>
-                <td class="t10">uint8</td>
-                <td class="t11"></td>
-            </tr>
-            <tr>
-                <td class="t10">Registry Confirmation Signature for Token Receiving X</td>
-                <td class="t10">RegistryConfirmationSigToken</td>
-                <td class="t10">8</td>
-                <td class="t10" style="word-break:break-all">IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8=</td>
-                <td class="t10">Length 0-255 bytes. IF restricted to a registry (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted registry through an API signature of [Contract Address + Asset Code + Public Address + Blockhash of the Latest Block + Block Height + Confirmed/Rejected Bool]. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.</td>
-                <td class="t10">varchar</td>
+                <td class="t10">Token Receivers</td>
+                <td class="t10">AssetReceivers</td>
+                <td class="t10">0</td>
+                <td class="t10" style="word-break:break-all"></td>
+                <td class="t10">Each element has the value of tokens to be received by the output address, which is referred to by the index.</td>
+                <td class="t10">TokenReceiver[]</td>
                 <td class="t11"></td>
             </tr>
         </table>

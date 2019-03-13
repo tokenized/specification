@@ -19,7 +19,7 @@ The following breaks down the construction of a Order Action. The action is cons
         </tr>
 
         <tr>
-            <td class="s5" rowspan="15">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="14">Metadata (OP_RETURN Payload)</td>
             <td class="e6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -64,18 +64,6 @@ The following breaks down the construction of a Order Action. The action is cons
         </tr>
 
         <tr>
-            <td class="e10">Number of Target Addresses</td>
-            <td class="e10">TargetAddressCount</td>
-            <td class="e10">2</td>
-            <td class="e10" style="word-break:break-all">
-                0
-            </td>
-            <td class="e10">0 - 65,535</td>
-            <td class="e10">uint16</td>
-            <td class="e11"></td>
-        </tr>
-
-        <tr>
             <td class="e6" colspan="7">
                 <a href="javascript:;" data-popover="type-TargetAddress">
                    Target Addresses - Click to show content
@@ -84,15 +72,11 @@ The following breaks down the construction of a Order Action. The action is cons
         </tr>
 
         <tr>
-            <td class="e10">Deposit Address</td>
-            <td class="e10">DepositAddress</td>
-            <td class="e10">8</td>
-            <td class="e10" style="word-break:break-all">
-                17zAWabipcUHn5XP9w8GEc3PKvG5bYGBMe
+            <td class="e6" colspan="7">
+                <a href="javascript:;" data-popover="type-Address">
+                   Deposit Address - Click to show content
+                </a>
             </td>
-            <td class="e10">Length 1-255 bytes. The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin.</td>
-            <td class="e10">varchar</td>
-            <td class="e11">Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes.</td>
         </tr>
 
         <tr>
@@ -115,7 +99,7 @@ The following breaks down the construction of a Order Action. The action is cons
                 1
             </td>
             <td class="e10">0 = No Registry-signed Message, 1 = ECDSA+secp256k1</td>
-            <td class="e10">uint8</td>
+            <td class="e10">uint</td>
             <td class="e11"></td>
         </tr>
 
@@ -241,7 +225,7 @@ The following breaks down the construction of a Order Action. The action is cons
                 <td class="e10">1</td>
                 <td class="e10" style="word-break:break-all">0</td>
                 <td class="e10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="e10">uint8</td>
+                <td class="e10">uint</td>
                 <td class="e11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
@@ -286,6 +270,32 @@ The following breaks down the construction of a Order Action. The action is cons
                 <td class="e10" style="word-break:break-all">10000</td>
                 <td class="e10">Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.</td>
                 <td class="e10">uint</td>
+                <td class="e11"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="ui modal" id="type-Address">
+    <i class="close icon"></i>
+    <div class="content docs-content">
+        <table class="ui table">
+            <tr style='height:19px;'>
+                <th style="width:9%" class="s1">Label</th>
+                <th style="width:9%" class="s1">Name</th>
+                <th style="width:2%" class="s1">Bytes</th>
+                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:26%" class="s1">Comments</th>
+                <th style="width:5%" class="s1">Data Type</th>
+                <th style="width:14%" class="s2">Amendment Restrictions</th>
+            </tr>
+            <tr>
+                <td class="e10">Address</td>
+                <td class="e10">Address</td>
+                <td class="e10">20</td>
+                <td class="e10" style="word-break:break-all">1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic</td>
+                <td class="e10">Public address where the token balance will be changed.</td>
+                <td class="e10">bin</td>
                 <td class="e11"></td>
             </tr>
         </table>

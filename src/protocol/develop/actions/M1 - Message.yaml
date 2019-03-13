@@ -39,15 +39,6 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: QtyReceivingAddresses
-    label: Qty Receiving Addresses
-    description: "0-255 Message Receiving Addresses"
-    type: uint8
-    size: 1
-    example_hex: 02
-    example_value: 2
-    notes: ""
-
   - name: AddressIndexes
     label: Address Indexes
     description: "Associates the message to a particular output by the index."

@@ -124,24 +124,7 @@ func NewHeaderForCode(code []byte, size int) (*Header, error) {
 }
 
 func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {
-	if len(value) >= 2<<uint64(sizeBits) {
-		return errors.New(fmt.Sprintf("Varchar size beyond size bits limit (%d) : %d", (2<<uint64(sizeBits))-1, len(value)))
-	}
-
-	var err error
-	switch sizeBits {
-	case 8:
-		err = write(buf, uint8(len(value)))
-	case 16:
-		err = write(buf, uint16(len(value)))
-	case 32:
-		err = write(buf, uint32(len(value)))
-	case 64:
-		err = write(buf, uint64(len(value)))
-	default:
-		return errors.New(fmt.Sprintf("Invalid varchar size bits : %d", sizeBits))
-	}
-	if err != nil {
+	if err := WriteVariableSize(buf, uint64(len(value)), sizeBits, 0); err != nil {
 		return err
 	}
 
@@ -149,26 +132,7 @@ func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {
 }
 
 func ReadVarChar(buf *bytes.Buffer, sizeBits int) (string, error) {
-	var err error
-	var size uint64
-	switch sizeBits {
-	case 8:
-		var size8 uint8
-		err = read(buf, &size8)
-		size = uint64(size8)
-	case 16:
-		var size16 uint16
-		err = read(buf, &size16)
-		size = uint64(size16)
-	case 32:
-		var size32 uint32
-		err = read(buf, &size32)
-		size = uint64(size32)
-	case 64:
-		err = read(buf, &size)
-	default:
-		err = errors.New(fmt.Sprintf("Invalid varchar size bits : %d", sizeBits))
-	}
+	size, err := ReadVariableSize(buf, sizeBits, 0)
 	if err != nil {
 		return "", err
 	}
@@ -213,4 +177,86 @@ func ReadFixedChar(buf *bytes.Buffer, size uint64) (string, error) {
 		return "", err
 	}
 	return string(data), nil
+}
+
+func WriteVarBin(buf *bytes.Buffer, value []byte, sizeBits int) error {
+	if err := WriteVariableSize(buf, uint64(len(value)), sizeBits, 0); err != nil {
+		return err
+	}
+
+	return write(buf, value)
+}
+
+func ReadVarBin(buf *bytes.Buffer, sizeBits int) ([]byte, error) {
+	size, err := ReadVariableSize(buf, sizeBits, 0)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	data := make([]byte, size)
+	err = readLen(buf, data)
+	if err != nil {
+		return []byte{}, err
+	}
+	return data, nil
+}
+
+// WriteVariableSize writes a size/length to the buffer using the specified size unsigned integer.
+// defaultSizeBits is used if sizeBits is zero.
+func WriteVariableSize(buf *bytes.Buffer, size uint64, sizeBits int, defaultSizeBits int) error {
+	if sizeBits == 0 {
+		sizeBits = defaultSizeBits
+	}
+	if size >= 2<<uint64(sizeBits) {
+		return errors.New(fmt.Sprintf("Size beyond size bits limit (%d) : %d", (2<<uint64(sizeBits))-1, size))
+	}
+
+	var err error
+	switch sizeBits {
+	case 8:
+		err = write(buf, uint8(size))
+	case 16:
+		err = write(buf, uint16(size))
+	case 32:
+		err = write(buf, uint32(size))
+	case 64:
+		err = write(buf, uint64(size))
+	default:
+		return errors.New(fmt.Sprintf("Invalid variable size bits : %d", sizeBits))
+	}
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ReadVariableSize reads a size/length from the buffer using the specified size unsigned integer.
+// defaultSizeBits is used if sizeBits is zero.
+func ReadVariableSize(buf *bytes.Buffer, sizeBits int, defaultSizeBits int) (uint64, error) {
+	if sizeBits == 0 {
+		sizeBits = defaultSizeBits
+	}
+
+	var err error
+	var size uint64
+	switch sizeBits {
+	case 8:
+		var size8 uint8
+		err = read(buf, &size8)
+		size = uint64(size8)
+	case 16:
+		var size16 uint16
+		err = read(buf, &size16)
+		size = uint64(size16)
+	case 32:
+		var size32 uint32
+		err = read(buf, &size32)
+		size = uint64(size32)
+	case 64:
+		err = read(buf, &size)
+	default:
+		err = errors.New(fmt.Sprintf("Invalid variable size bits : %d", sizeBits))
+	}
+	return size, err
 }

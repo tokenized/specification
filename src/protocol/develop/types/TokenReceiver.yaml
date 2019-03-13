@@ -6,7 +6,7 @@ fields:
   - name: Index
     label: Index
     description: "The index of the output receiving the tokens"
-    type: uint16
+    type: uint
     size: 2
     example_hex: 0000
     example_value: 0
@@ -15,7 +15,7 @@ fields:
   - name: Quantity
     label: Quantity
     description: "Number of tokens to be received by address at Output X"
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000000064
     example_value: 100
@@ -24,7 +24,7 @@ fields:
   - name: RegistrySigAlgorithm
     label: Registry Signature Algorithm
     description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: 1

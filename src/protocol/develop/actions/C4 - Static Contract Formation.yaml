@@ -29,7 +29,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 30
     example_hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
     example_value: "Tesla - Shareholder Agreement"
     notes: ""
@@ -40,7 +39,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 30
     example_hex: 184e6f6e2d446973636c6f737572652041677265656d656e74
     example_value: "Non-Disclosure Agreement"
     notes: ""
@@ -48,25 +46,17 @@ fields:
   - name: ContractFileType
     label: Contract File Type
     description: "1 - SHA-256 Hash, 2 - Markdown file"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
     notes: ""
 
-  - name: LenContractFile
-    label: Length of Contract File
-    description: "Max size is the max transaction size - other data in the txn.  "
-    type: uint32
-    size: 4
-    example_hex: 00000020
-    example_value: "32"
-    notes: ""
-
   - name: ContractFile
     label: Contract File
-    description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
-    type: fixedchar
+    description: "SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
+    type: varbin
+    # varbin size is number of bits to serialize the size of the data
     size: 32
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
@@ -75,7 +65,7 @@ fields:
   - name: ContractRevision
     label: Contract Revision
     description: "Counter 0 - 65,535"
-    type: uint16
+    type: uint
     size: 2
     example_hex: 0000
     example_value: "0"
@@ -123,7 +113,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 53
     example_hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
     example_value: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
     notes: ""
@@ -135,15 +124,6 @@ fields:
     size: 32
     example_hex: 3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f
     example_value: "3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f"
-    notes: ""
-
-  - name: EntityCount
-    label: Entity Count
-    description: "Number of entities involved in the contract as contracting parties."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
     notes: ""
 
   - name: Entities

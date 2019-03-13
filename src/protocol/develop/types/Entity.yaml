@@ -126,28 +126,10 @@ fields:
     example_value: "0448484848"
     notes: ""
 
-  - name: KeyRolesCount
-    label: KeyRoles Count
-    description: "Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
-
   - name: KeyRoles
     label: Key Roles
     description: "A list of Key Roles."
     type: KeyRole[]
-
-  - name: NotableRolesCount
-    label: Notable Roles Count
-    description: "Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
 
   - name: NotableRoles
     label: Notable Roles

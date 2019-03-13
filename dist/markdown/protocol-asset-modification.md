@@ -19,7 +19,7 @@ The following breaks down the construction of a Asset Modification Action. The a
         </tr>
 
         <tr>
-            <td class="s5" rowspan="7">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="6">Metadata (OP_RETURN Payload)</td>
             <td class="a6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -59,20 +59,8 @@ The following breaks down the construction of a Asset Modification Action. The a
                 0
             </td>
             <td class="a10">Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected. </td>
-            <td class="a10">uint64</td>
+            <td class="a10">uint</td>
             <td class="a11">Cannot be Amended</td>
-        </tr>
-
-        <tr>
-            <td class="a10">ModificationCount</td>
-            <td class="a10">ModificationCount</td>
-            <td class="a10">1</td>
-            <td class="a10" style="word-break:break-all">
-                0
-            </td>
-            <td class="a10">Number of Modifications. Must be less than the max Subfield Index of CF.</td>
-            <td class="a10">uint8</td>
-            <td class="a11"></td>
         </tr>
 
         <tr>
@@ -145,7 +133,7 @@ The following breaks down the construction of a Asset Modification Action. The a
                 <td class="a10">1</td>
                 <td class="a10" style="word-break:break-all">0</td>
                 <td class="a10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="a10">uint8</td>
+                <td class="a10">uint</td>
                 <td class="a11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
@@ -180,7 +168,7 @@ The following breaks down the construction of a Asset Modification Action. The a
                 <td class="a10">1</td>
                 <td class="a10" style="word-break:break-all">2</td>
                 <td class="a10">Index of the field to be amended.</td>
-                <td class="a10">uint8</td>
+                <td class="a10">uint</td>
                 <td class="a11">A field with a complex array type uses the same FieldIndex value for all elements. For example, in C1 the VotingSystems field is FieldIndex 16. Indexes are zero based.</td>
             </tr>
             <tr>
@@ -189,7 +177,7 @@ The following breaks down the construction of a Asset Modification Action. The a
                 <td class="a10">2</td>
                 <td class="a10" style="word-break:break-all">0</td>
                 <td class="a10">Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.</td>
-                <td class="a10">uint16</td>
+                <td class="a10">uint</td>
                 <td class="a11">To specify the 3rd VotingSystem of a Contract, the value 2 would be given. Indexes are zero based.</td>
             </tr>
             <tr>
@@ -198,7 +186,7 @@ The following breaks down the construction of a Asset Modification Action. The a
                 <td class="a10">1</td>
                 <td class="a10" style="word-break:break-all">1</td>
                 <td class="a10">Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.</td>
-                <td class="a10">uint8</td>
+                <td class="a10">uint</td>
                 <td class="a11">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
             </tr>
             <tr>
@@ -213,10 +201,10 @@ The following breaks down the construction of a Asset Modification Action. The a
             <tr>
                 <td class="a10">Data</td>
                 <td class="a10">Data</td>
-                <td class="a10">0</td>
+                <td class="a10">32</td>
                 <td class="a10" style="word-break:break-all"></td>
                 <td class="a10">New data for the amended subfield. Data type depends on the the type of the field being amended.</td>
-                <td class="a10">byte[]</td>
+                <td class="a10">varchar</td>
                 <td class="a11">The bytes should be in an format appropriate for the field being modified.</td>
             </tr>
         </table>

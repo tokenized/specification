@@ -40,6 +40,7 @@ func GoType(typeName string, size uint64) string {
 		"SHA",
 		"bin[var]",
 		"bin",
+		"varbin",
 		"pushdata_length",
 		"payload":
 		return "[]byte"
@@ -50,11 +51,8 @@ func GoType(typeName string, size uint64) string {
 	case "uint", "int", "float":
 		return fmt.Sprintf("%v%s%v", prefix, strings.ToLower(name), size*8)
 
-	case "nvarchar8",
-		"nvarchar16",
-		"nvarchar32",
-		"nvarchar64":
-		return prefix + strings.Title(typeName)
+	case "bool":
+		return "bool"
 
 	case "Header",
 		"header":
@@ -63,4 +61,52 @@ func GoType(typeName string, size uint64) string {
 	}
 
 	return fmt.Sprintf("%s%s", prefix, name)
+}
+
+func IsInternalType(typeName string, size uint64) bool {
+	name := typeName
+	if strings.HasSuffix(name, "[]") {
+		name = typeName[:len(name)-2]
+	}
+
+	switch name {
+	// Temporary
+	case "polity":
+		return false
+	case "dropdown":
+		return false
+
+	case "varchar":
+		return false
+	case "fixedchar":
+		return false
+
+	case "opcode":
+		return false
+
+	case "sha256",
+		"SHA256":
+		return false
+
+	case "sha",
+		"SHA",
+		"bin[var]",
+		"bin",
+		"varbin",
+		"pushdata_length",
+		"payload":
+		return false
+
+	case "time", "timestamp":
+		return false
+
+	case "uint", "uint8", "uint16", "uint32", "uint64", "int", "int8", "int16", "int32", "int64", "float", "float32", "float64":
+		return false
+
+	case "bool":
+		return false
+
+	}
+
+	return true
 }

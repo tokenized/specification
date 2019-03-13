@@ -19,24 +19,12 @@ The following breaks down the construction of a Rejection Action. The action is 
         </tr>
 
         <tr>
-            <td class="s5" rowspan="6">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="5">Metadata (OP_RETURN Payload)</td>
             <td class="m6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="m10">Qty Receiving Addresses</td>
-            <td class="m10">QtyReceivingAddresses</td>
-            <td class="m10">1</td>
-            <td class="m10" style="word-break:break-all">
-                2
-            </td>
-            <td class="m10">0-255 Message Receiving Addresses</td>
-            <td class="m10">uint8</td>
-            <td class="m11"></td>
         </tr>
 
         <tr>
@@ -59,7 +47,7 @@ The following breaks down the construction of a Rejection Action. The action is 
                 1
             </td>
             <td class="m10">Classifies the rejection by a type.</td>
-            <td class="m10">uint8</td>
+            <td class="m10">uint</td>
             <td class="m11"></td>
         </tr>
 
@@ -137,7 +125,7 @@ The following breaks down the construction of a Rejection Action. The action is 
                 <td class="m10">1</td>
                 <td class="m10" style="word-break:break-all">0</td>
                 <td class="m10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="m10">uint8</td>
+                <td class="m10">uint</td>
                 <td class="m11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>

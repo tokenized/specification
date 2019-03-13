@@ -44,7 +44,7 @@ fields:
   - name: ThresholdPercentage
     label: Threshold Percentage for the Voting System
     description: "1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it."
-    type: uint8
+    type: uint
     size: 1
     example_hex: 00
     example_value: "0.75"
@@ -62,7 +62,7 @@ fields:
   - name: InitiativeThreshold
     label: Initiative Threshold for the Voting System
     description: "Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid."
-    type: float32
+    type: float
     size: 4
     example_hex: 42c80000
     example_value: "100"

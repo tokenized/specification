@@ -19,7 +19,7 @@ The following breaks down the construction of a Asset Definition Action. The act
         </tr>
 
         <tr>
-            <td class="s5" rowspan="17">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="16">Metadata (OP_RETURN Payload)</td>
             <td class="a6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -107,7 +107,7 @@ The following breaks down the construction of a Asset Definition Action. The act
                 3
             </td>
             <td class="a10">Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.</td>
-            <td class="a10">uint8</td>
+            <td class="a10">uint</td>
             <td class="a11"></td>
         </tr>
 
@@ -155,7 +155,7 @@ The following breaks down the construction of a Asset Definition Action. The act
                 1000000
             </td>
             <td class="a10">Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.</td>
-            <td class="a10">uint64</td>
+            <td class="a10">uint</td>
             <td class="a11"></td>
         </tr>
 
@@ -179,7 +179,7 @@ The following breaks down the construction of a Asset Definition Action. The act
                 0.005
             </td>
             <td class="a10">Percent of the value of the transaction</td>
-            <td class="a10">float32</td>
+            <td class="a10">float</td>
             <td class="a11"></td>
         </tr>
 
@@ -191,31 +191,19 @@ The following breaks down the construction of a Asset Definition Action. The act
                 0.01
             </td>
             <td class="a10">Fixed fee (payment made in BSV)</td>
-            <td class="a10">float32</td>
-            <td class="a11"></td>
-        </tr>
-
-        <tr>
-            <td class="a10">Asset Payload Length</td>
-            <td class="a10">AssetPayloadLen</td>
-            <td class="a10">2</td>
-            <td class="a10" style="word-break:break-all">
-                9
-            </td>
-            <td class="a10">Size of the asset payload in bytes.</td>
-            <td class="a10">uint16</td>
+            <td class="a10">float</td>
             <td class="a11"></td>
         </tr>
 
         <tr>
             <td class="a10">Asset Payload</td>
             <td class="a10">AssetPayload</td>
-            <td class="a10">0</td>
+            <td class="a10">16</td>
             <td class="a10" style="word-break:break-all">
                 some data
             </td>
             <td class="a10">Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)</td>
-            <td class="a10">byte[]</td>
+            <td class="a10">varbin</td>
             <td class="a11"></td>
         </tr>
 
@@ -269,7 +257,7 @@ The following breaks down the construction of a Asset Definition Action. The act
                 <td class="a10">1</td>
                 <td class="a10" style="word-break:break-all">0</td>
                 <td class="a10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="a10">uint8</td>
+                <td class="a10">uint</td>
                 <td class="a11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>

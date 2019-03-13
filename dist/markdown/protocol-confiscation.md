@@ -19,24 +19,12 @@ The following breaks down the construction of a Confiscation Action. The action 
         </tr>
 
         <tr>
-            <td class="s5" rowspan="5">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="4">Metadata (OP_RETURN Payload)</td>
             <td class="e6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
-        </tr>
-
-        <tr>
-            <td class="e10">Number of Addresses</td>
-            <td class="e10">AddressCount</td>
-            <td class="e10">2</td>
-            <td class="e10" style="word-break:break-all">
-                0
-            </td>
-            <td class="e10">0 - 65,535</td>
-            <td class="e10">uint16</td>
-            <td class="e11"></td>
         </tr>
 
         <tr>
@@ -55,7 +43,7 @@ The following breaks down the construction of a Confiscation Action. The action 
                 10000
             </td>
             <td class="e10">Custodian's token balance after confiscation.</td>
-            <td class="e10">uint64</td>
+            <td class="e10">uint</td>
             <td class="e11"></td>
         </tr>
 
@@ -121,7 +109,7 @@ The following breaks down the construction of a Confiscation Action. The action 
                 <td class="e10">1</td>
                 <td class="e10" style="word-break:break-all">0</td>
                 <td class="e10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="e10">uint8</td>
+                <td class="e10">uint</td>
                 <td class="e11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>

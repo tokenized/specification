@@ -7,7 +7,7 @@ fields:
   - name: FieldIndex
     label: Field Index
     description: "Index of the field to be amended."
-    type: uint8
+    type: uint
     size: 1
     example_hex: 02
     example_value: 2
@@ -16,7 +16,7 @@ fields:
   - name: Element
     label: Element
     description: "Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection."
-    type: uint16
+    type: uint
     size: 2
     example_hex: 0000
     example_value: 0
@@ -25,7 +25,7 @@ fields:
   - name: SubfieldIndex
     label: Subfield Index
     description: "Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to."
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: 1
@@ -39,5 +39,6 @@ fields:
   - name: Data
     label: Data
     description: "New data for the amended subfield. Data type depends on the the type of the field being amended."
-    type: byte[]
+    type: varchar
+    size: 32
     notes: "The bytes should be in an format appropriate for the field being modified."

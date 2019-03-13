@@ -19,7 +19,7 @@ The following breaks down the construction of a Contract Formation Action. The a
         </tr>
 
         <tr>
-            <td class="s5" rowspan="37">Metadata (OP_RETURN Payload)</td>
+            <td class="s5" rowspan="32">Metadata (OP_RETURN Payload)</td>
             <td class="c6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -47,20 +47,8 @@ The following breaks down the construction of a Contract Formation Action. The a
                 1
             </td>
             <td class="c10">1 - SHA-256 Hash, 2 - Markdown file</td>
-            <td class="c10">uint8</td>
+            <td class="c10">uint</td>
             <td class="c11">Contract File - Amendments can be restricted to a vote.</td>
-        </tr>
-
-        <tr>
-            <td class="c10">Length of Contract File</td>
-            <td class="c10">LenContractFile</td>
-            <td class="c10">4</td>
-            <td class="c10" style="word-break:break-all">
-                32
-            </td>
-            <td class="c10">Max size is the max transaction size - other data in the txn.  </td>
-            <td class="c10">uint32</td>
-            <td class="c11"></td>
         </tr>
 
         <tr>
@@ -70,8 +58,8 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c10" style="word-break:break-all">
                 c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
             </td>
-            <td class="c10">SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)</td>
-            <td class="c10">sha256</td>
+            <td class="c10">SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)</td>
+            <td class="c10">varbin</td>
             <td class="c11"></td>
         </tr>
 
@@ -184,18 +172,6 @@ The following breaks down the construction of a Contract Formation Action. The a
         </tr>
 
         <tr>
-            <td class="c10">Number of Voting Systems</td>
-            <td class="c10">VotingSystemCount</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10">0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null.</td>
-            <td class="c10">uint8</td>
-            <td class="c11">Voting - Amendments can be restricted to a vote.</td>
-        </tr>
-
-        <tr>
             <td class="c6" colspan="7">
                 <a href="javascript:;" data-popover="type-VotingSystem">
                    Voting Systems - Click to show content
@@ -211,7 +187,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 1
             </td>
             <td class="c10">Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI</td>
-            <td class="c10">uint64</td>
+            <td class="c10">uint</td>
             <td class="c11">Qty of Assets - Amendments can be restricted to a vote.</td>
         </tr>
 
@@ -237,18 +213,6 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c10">An initiative is permitted for Contract-Wide Proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
             <td class="c11"></td>
-        </tr>
-
-        <tr>
-            <td class="c10">Registry Count</td>
-            <td class="c10">RegistryCount</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10">Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields).</td>
-            <td class="c10">uint8</td>
-            <td class="c11">Registry - Can be restricted to a vote.</td>
         </tr>
 
         <tr>
@@ -380,35 +344,11 @@ The following breaks down the construction of a Contract Formation Action. The a
         </tr>
 
         <tr>
-            <td class="c10">KeyRoles Count</td>
-            <td class="c10">KeyRolesCount</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10">Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.</td>
-            <td class="c10">uint8</td>
-            <td class="c11"></td>
-        </tr>
-
-        <tr>
             <td class="c6" colspan="7">
                 <a href="javascript:;" data-popover="type-KeyRole">
                    Key Roles - Click to show content
                 </a>
             </td>
-        </tr>
-
-        <tr>
-            <td class="c10">Notable Roles Count</td>
-            <td class="c10">NotableRolesCount</td>
-            <td class="c10">1</td>
-            <td class="c10" style="word-break:break-all">
-                0
-            </td>
-            <td class="c10">Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.</td>
-            <td class="c10">uint8</td>
-            <td class="c11"></td>
         </tr>
 
         <tr>
@@ -427,7 +367,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 0
             </td>
             <td class="c10">Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.</td>
-            <td class="c10">uint64</td>
+            <td class="c10">uint</td>
             <td class="c11">Can't be changed by issuer or smart contract operator.</td>
         </tr>
 
@@ -493,7 +433,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">0</td>
                 <td class="c10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="c10">uint8</td>
+                <td class="c10">uint</td>
                 <td class="c11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
@@ -564,7 +504,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">0.75</td>
                 <td class="c10">1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.</td>
-                <td class="c10">uint8</td>
+                <td class="c10">uint</td>
                 <td class="c11"></td>
             </tr>
             <tr>
@@ -582,7 +522,7 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">4</td>
                 <td class="c10" style="word-break:break-all">100</td>
                 <td class="c10">Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid.</td>
-                <td class="c10">float32</td>
+                <td class="c10">float</td>
                 <td class="c11"></td>
             </tr>
             <tr>

@@ -80,17 +80,27 @@ func (m {{.Name}}) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m {{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-{{$last := ""}}{{range .PayloadFields}}{{ if .IsVarChar }}
+{{ range .PayloadFields }}
+
+	// {{.FieldName}}
+{{- if .IsVarChar }}
 	if err := WriteVarChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
 		return nil, err
 	}
-{{ else if .IsFixedChar }}
+{{- else if .IsFixedChar }}
 	if err := WriteFixedChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
 		return nil, err
 	}
-{{ else if .IsInternalTypeArray }}
-	for i := 0; i < int(m.{{$last}}); i++ {
-		b, err := m.{{.Name}}[i].Serialize()
+{{- else if .IsVarBin }}
+	if err := WriteVarBin(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{- else if .IsInternalTypeArray }}
+	if err := WriteVariableSize(buf, uint64(len(m.{{.FieldName}})), {{.Length}}, 8); err != nil {
+		return nil, err
+	}
+	for _, value := range m.{{.FieldName}} {
+		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -99,13 +109,16 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 			return nil, err
 		}
 	}
-{{ else if .IsNativeTypeArray }}
-	for i := 0; i < int(m.{{$last}}); i++ {
-		if err := write(buf, m.{{.FieldName}}[i]); err != nil {
+{{- else if .IsNativeTypeArray }}
+	if err := WriteVariableSize(buf, uint64(len(m.{{.FieldName}})), {{.Length}}, 8); err != nil {
+		return nil, err
+	}
+	for _, value := range m.{{.FieldName}} {
+		if err := write(buf, value); err != nil {
 			return nil, err
 		}
 	}
-{{ else if .IsInternalType }}
+{{- else if .IsInternalType }}
 	{
 		b, err := m.{{.Name}}.Serialize()
 		if err != nil {
@@ -116,15 +129,15 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 			return nil, err
 		}
 	}
-{{else if .IsBytes }}
+{{- else if .IsBytes }}
 	if err := write(buf, pad(m.{{.FieldName}}, {{.Length}})); err != nil {
 		return nil, err
 	}
-{{else}}
+{{- else}}
 	if err := write(buf, m.{{.FieldName}}); err != nil {
 		return nil, err
 	}
-{{ end -}}{{ $last = .Name }}{{ end }}
+{{- end }}{{ end }}
 	b := buf.Bytes()
 
 	header, err := NewHeaderForCode([]byte(Code{{.Name}}), len(b))
@@ -146,7 +159,10 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 // the receiver.
 func (m *{{.Name}}) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
-{{$last := ""}}{{range .Fields -}}{{- if .IsVarChar }}
+{{- range .Fields }}
+
+	// {{.FieldName}}
+{{- if .IsVarChar }}
 	{
 		var err error
 		m.{{.FieldName}}, err = ReadVarChar(buf, {{.Length}})
@@ -154,7 +170,7 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 			return 0, err
 		}
 	}
-{{ else if .IsFixedChar }}
+{{- else if .IsFixedChar }}
 	{
 		var err error
 		m.{{.FieldName}}, err = ReadFixedChar(buf, {{.Length}})
@@ -162,45 +178,57 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 			return 0, err
 		}
 	}
-{{ else if .IsInternalTypeArray }}
-	for i := 0; i < int(m.{{$last}}); i++ {
-		x := &{{.SingularType}}{}
-		if err := x.Write(buf); err != nil {
+{{- else if .IsVarBin }}
+	{
+		var err error
+		m.{{.FieldName}}, err = ReadVarBin(buf, {{.Length}})
+		if err != nil {
 			return 0, err
 		}
+	}
+{{- else if .IsInternalTypeArray }}
+	{
+		size, err := ReadVariableSize(buf, {{.Length}}, 8)
+		if err != nil {
+			return 0, err
+		}
+		m.{{.FieldName}} = make([]{{.SingularType}}, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue {{.SingularType}}
+			if err := newValue.Write(buf); err != nil {
+				return 0, err
+			}
 
-		m.{{.Name}} = append(m.{{.Name}}, *x)
+			m.{{.FieldName}} = append(m.{{.FieldName}}, newValue)
+		}
 	}
-{{ else if .IsNativeTypeArray }}
-	m.{{.FieldName}} = make({{.FieldGoType}}, m.{{$last}}, m.{{$last}})
-	if err := read(buf, &m.{{.FieldName}}); err != nil {
-		return 0, err
+{{- else if .IsNativeTypeArray }}
+	{
+		size, err := ReadVariableSize(buf, {{.Length}}, 8)
+		if err != nil {
+			return 0, err
+		}
+		m.{{.FieldName}} = make({{.FieldGoType}}, size, size)
+		if err := read(buf, &m.{{.FieldName}}); err != nil {
+			return 0, err
+		}
 	}
-{{ else if .IsInternalType }}
+{{- else if .IsInternalType }}
 	if err := m.{{.Name}}.Write(buf); err != nil {
 		return 0, err
 	}
-{{ else if eq .FieldName "AssetPayload" }}
-	{
-		b := make([]byte, m.{{$last}}, m.{{$last}})
-		if err := readLen(buf, b); err != nil {
-			return 0, err
-		}
-
-		m.{{.FieldName}} = b
-	}
-{{ else if or .IsBytes .IsData }}
+{{- else if or .IsBytes .IsData }}
 	m.{{.FieldName}} = make([]byte, {{.Length}})
 	if err := readLen(buf, m.{{.FieldName}}); err != nil {
 		return 0, err
 	}
-{{ else if .Trimmable }}
+{{- else if .Trimmable }}
 	m.{{.FieldName}} = bytes.Trim(m.{{.FieldName}}, "\x00")
-{{ else }}
+{{- else }}
 	if err := read(buf, &m.{{.FieldName}}); err != nil {
 		return 0, err
 	}
-{{ end }}{{ $last = .FieldName }}{{ end }}
+{{- end }}{{ end }}
 	return len(b), nil
 }
 

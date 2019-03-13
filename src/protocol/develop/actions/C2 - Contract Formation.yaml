@@ -43,25 +43,17 @@ fields:
   - name: ContractFileType
     label: Contract File Type
     description: "1 - SHA-256 Hash, 2 - Markdown file"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
     notes: "Contract File - Amendments can be restricted to a vote."
 
-  - name: LenContractFile
-    label: Length of Contract File
-    description: "Max size is the max transaction size - other data in the txn.  "
-    type: uint32
-    size: 4
-    example_hex: 00000020
-    example_value: "32"
-    notes: ""
-
   - name: ContractFile
     label: Contract File
-    description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
-    type: sha256
+    description: "SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
+    type: varbin
+    # varbin size is number of bits to serialize the size of the data
     size: 32
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
@@ -152,15 +144,6 @@ fields:
     example_value: "010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000"
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
-  - name: VotingSystemCount
-    label: Number of Voting Systems
-    description: "0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes: "Voting - Amendments can be restricted to a vote."
-
   - name: VotingSystems
     label: Voting Systems
     description: "A list voting systems."
@@ -170,7 +153,7 @@ fields:
   - name: RestrictedQtyAssets
     label: Restricted Qty of Assets
     description: "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000000001
     example_value: "1"
@@ -193,15 +176,6 @@ fields:
     example_hex: 00
     example_value: 0
     notes: ""
-
-  - name: RegistryCount
-    label: Registry Count
-    description: "Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields)."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes: "Registry - Can be restricted to a vote."
 
   - name: Registries
     label: Registries
@@ -305,28 +279,10 @@ fields:
     example_value: "0448484848"
     notes: ""
 
-  - name: KeyRolesCount
-    label: KeyRoles Count
-    description: "Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
-
   - name: KeyRoles
     label: Key Roles
     description: "A list of Key Roles."
     type: KeyRole[]
-
-  - name: NotableRolesCount
-    label: Notable Roles Count
-    description: "Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
 
   - name: NotableRoles
     label: Notable Roles
@@ -336,7 +292,7 @@ fields:
   - name: ContractRevision
     label: Contract Revision
     description: "Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published."
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000000000
     example_value: "0"

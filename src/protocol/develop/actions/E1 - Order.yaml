@@ -57,27 +57,16 @@ fields:
     example_value: "F"
     notes: ""
 
-  - name: TargetAddressCount
-    label: Number of Target Addresses
-    description: "0 - 65,535"
-    type: uint16
-    size: 2
-    example_hex: 0000
-    example_value: 0
-    notes: ""
-
   - name: TargetAddresses
     label: Target Addresses
     type: TargetAddress[]
+    # array size is number of bits to serialize the size of the array
+    size: 16
 
   - name: DepositAddress
     label: Deposit Address
-    description: "Length 1-255 bytes. The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 2231377a4157616269706355486e35585039773847456333504b764735625947424d65
-    example_value: "17zAWabipcUHn5XP9w8GEc3PKvG5bYGBMe"
+    description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
+    type: Address
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
 
   - name: AuthorityName
@@ -93,7 +82,7 @@ fields:
   - name: SigAlgoAddressList
     label: Signature Algorithm for Address List
     description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: 1

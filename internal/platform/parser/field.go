@@ -10,7 +10,6 @@ type Field struct {
 	Label        string
 	Description  string
 	Type         string
-	internalType bool
 	Size         uint64
 	Required     bool
 	ExampleValue string `yaml:"example_value"`
@@ -68,6 +67,10 @@ func (f Field) IsFixedChar() bool {
 	return f.Type == "fixedchar" && f.Size != 1
 }
 
+func (f Field) IsVarBin() bool {
+	return f.Type == "varbin"
+}
+
 func (f Field) IsNumeric() bool {
 	s := strings.ToLower(f.Type)
 
@@ -104,7 +107,7 @@ func (f Field) IsNativeTypeArray() bool {
 }
 
 func (f Field) IsInternalType() bool {
-	return f.internalType
+	return IsInternalType(f.Type, f.Size)
 }
 
 func (f Field) IsComplexType() bool {

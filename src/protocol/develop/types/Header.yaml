@@ -33,7 +33,7 @@ fields:
   - name: Version
     label: Version
     description: "255 reserved for additional versions. Tokenized protocol versioning."
-    type: uint8
+    type: uint
     size: 1
     example_hex: 0
     example_value: "0"

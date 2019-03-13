@@ -18,7 +18,7 @@ metadata:
 fields:
   - name: Version
     label: Version
-    type: uint8
+    type: uint
     description: Payload Version
     size: 1
     example: 0
@@ -60,7 +60,7 @@ fields:
 
   - name: Value
     label: Value
-    type: uint64
+    type: uint
     size: 8
     example: "Denominated in the smallest unit of currency specified in the Currency subfield."
     span: right

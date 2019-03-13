@@ -54,7 +54,7 @@ func setFieldTypes(action ProtocolAction, fieldTypes []ProtocolType) ProtocolAct
 	// Set the action subtypes
 	pts := []ProtocolType{}
 
-	for j, f := range action.Fields {
+	for _, f := range action.Fields {
 		k := f.SingularType()
 
 		t, ok := protocolTypes[k]
@@ -66,7 +66,7 @@ func setFieldTypes(action ProtocolAction, fieldTypes []ProtocolType) ProtocolAct
 		pts = append(pts, t)
 
 		// This field is an internal type
-		action.Fields[j].internalType = true
+		// action.Fields[j].internalType = true
 	}
 
 	action.FieldTypes = pts

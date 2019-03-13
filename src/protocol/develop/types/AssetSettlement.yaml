@@ -1,0 +1,29 @@
+metadata:
+  name: AssetSettlement
+  label: Asset Settlement
+  description: "AssetSettlement is the data required to settle an asset transfer."
+
+fields:
+  - name: AssetType
+    label: Asset Type
+    description: "eg. Share, Bond, Ticket. All characters must be capitalised."
+    type: fixedchar
+    size: 3
+    example_hex: 534843
+    example_value: "SHC"
+    notes: ""
+
+  - name: AssetID
+    label: Asset ID
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: fixedchar
+    size: 32
+    example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
+
+  - name: AssetAddressesQty
+    label: Asset Address Qty
+    description: "Each element contains the resulting token balance of the asset for the output Address, which is referred to by the index."
+    type: QuantityIndex[]
+    notes: ""

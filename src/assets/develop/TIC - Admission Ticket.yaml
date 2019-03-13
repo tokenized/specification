@@ -18,7 +18,7 @@ metadata:
 fields:
   - name: Version
     label: Version
-    type: uint8
+    type: uint
     description: Payload Version
     size: 1
     example: 0
