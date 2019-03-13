@@ -8,18 +8,16 @@ The following breaks down the construction of a Vote Action. The action is const
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:6%" class="s0">Field</th>
             <th style="width:9%" class="s1">Label</th>
             <th style="width:9%" class="s1">Name</th>
             <th style="width:2%" class="s1">Bytes</th>
             <th style="width:29%" class="s1">Example Values</th>
             <th style="width:26%" class="s1">Comments</th>
             <th style="width:5%" class="s1">Data Type</th>
-            <th style="width:14%" class="s2">Amendment Restrictions</th>
+            <th style="width:14%" class="s1">Amendment Restrictions</th>
         </tr>
 
         <tr>
-            <td class="s5" rowspan="2">Metadata (OP_RETURN Payload)</td>
             <td class="g6" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
@@ -31,12 +29,10 @@ The following breaks down the construction of a Vote Action. The action is const
             <td class="g10">Timestamp</td>
             <td class="g10">Timestamp</td>
             <td class="g10">8</td>
-            <td class="g10" style="word-break:break-all">
-                1551767413250187179
-            </td>
+            <td class="g10"><abbr 1551767413250187179>Hover</abbr></td>
             <td class="g10">Timestamp in nanoseconds of when the smart contract created the action.</td>
             <td class="g10">timestamp</td>
-            <td class="g11">Cannot be changed by issuer, operator. Smart contract controls.</td>
+            <td class="g10">Cannot be changed by issuer, operator. Smart contract controls.</td>
         </tr>
 
     </table>
@@ -63,7 +59,7 @@ The following breaks down the construction of a Vote Action. The action is const
                 <td class="g10" style="word-break:break-all">tokenized.com</td>
                 <td class="g10">Tokenized ID Prefix.  tokenized.com</td>
                 <td class="g10">string</td>
-                <td class="g11"></td>
+                <td class="g10"></td>
             </tr>
             <tr>
                 <td class="g10">Push Data</td>
@@ -72,7 +68,7 @@ The following breaks down the construction of a Vote Action. The action is const
                 <td class="g10" style="word-break:break-all">77</td>
                 <td class="g10">PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload.</td>
                 <td class="g10">opcode</td>
-                <td class="g11">Cannot be changed by issuer, operator or smart contract.</td>
+                <td class="g10">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
             <tr>
                 <td class="g10">Length of Action Payload</td>
@@ -81,7 +77,7 @@ The following breaks down the construction of a Vote Action. The action is const
                 <td class="g10" style="word-break:break-all">409</td>
                 <td class="g10">Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4.</td>
                 <td class="g10">pushdata_length</td>
-                <td class="g11">Depends on Action Payload</td>
+                <td class="g10">Depends on Action Payload</td>
             </tr>
             <tr>
                 <td class="g10">Version</td>
@@ -90,7 +86,7 @@ The following breaks down the construction of a Vote Action. The action is const
                 <td class="g10" style="word-break:break-all">0</td>
                 <td class="g10">255 reserved for additional versions. Tokenized protocol versioning.</td>
                 <td class="g10">uint8</td>
-                <td class="g11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
+                <td class="g10">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
             </tr>
             <tr>
                 <td class="g10">Action Prefix</td>
@@ -99,7 +95,7 @@ The following breaks down the construction of a Vote Action. The action is const
                 <td class="g10" style="word-break:break-all">C1</td>
                 <td class="g10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
                 <td class="g10">string</td>
-                <td class="g11">Cannot be changed by issuer, operator or smart contract.</td>
+                <td class="g10">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
         </table>
     </div>
