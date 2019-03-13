@@ -250,12 +250,12 @@ The following breaks down the construction of a Result Action. The action is con
                 <td class="g11">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
             </tr>
             <tr>
-                <td class="g10">Delete Element</td>
-                <td class="g10">DeleteElement</td>
+                <td class="g10">Operation</td>
+                <td class="g10">Operation</td>
                 <td class="g10">0</td>
-                <td class="g10" style="word-break:break-all"></td>
-                <td class="g10">1 = remove the element listed in the Element field, 0 means this is not a delete operation. The DeleteElement field only applies to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.</td>
-                <td class="g10">bool</td>
+                <td class="g10" style="word-break:break-all">0</td>
+                <td class="g10">0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.</td>
+                <td class="g10">byte</td>
                 <td class="g11"></td>
             </tr>
             <tr>

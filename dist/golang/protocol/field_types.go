@@ -40,7 +40,7 @@ type Amendment struct {
 	FieldIndex    uint8
 	Element       uint16
 	SubfieldIndex uint8
-	DeleteElement bool
+	Operation     byte
 	Data          []byte
 }
 
@@ -65,7 +65,7 @@ func (m Amendment) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	if err := write(buf, m.DeleteElement); err != nil {
+	if err := write(buf, m.Operation); err != nil {
 		return nil, err
 	}
 
@@ -90,7 +90,7 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 		return err
 	}
 
-	if err := read(buf, &m.DeleteElement); err != nil {
+	if err := read(buf, &m.Operation); err != nil {
 		return err
 	}
 

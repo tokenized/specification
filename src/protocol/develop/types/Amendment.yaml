@@ -31,10 +31,12 @@ fields:
     example_value: 1
     notes: "For example to specify the 2nd field of a VotingSystem, value 1 would be given."
 
-  - name: DeleteElement
-    label: Delete Element
-    type: bool
-    description: "1 = remove the element listed in the Element field, 0 means this is not a delete operation. The DeleteElement field only applies to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract."
+  - name: Operation
+    label: Operation
+    type: byte
+    description: "0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract."
+    example_hex: 00
+    example_value: 0
 
   - name: Data
     label: Data
