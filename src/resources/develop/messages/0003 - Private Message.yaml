@@ -1,0 +1,27 @@
+#
+# Private Message: Generic private message. Sent to another address(es). Encryption is to be used.
+#
+
+code: '0003'
+
+metadata:
+  label: Public Message
+  description: "Generic private message. Sent to another address(es). Encryption is to be used."
+
+fields:
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds for when the message sender creates the transaction."
+    type: timestamp
+    size: 8
+    example_hex: 1588f8cc6a16430d
+    example_value: 1551767413250187179
+    notes: ""
+  
+  - name: PublicMessage
+    label: Public Message
+    description: "Tokenized Ltd announces product launch."
+    type: nvarchar32
+    example_value: ""
+    notes: ""
+    

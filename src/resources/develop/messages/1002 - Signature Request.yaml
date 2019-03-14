@@ -1,0 +1,26 @@
+#
+# Signature Request: Partially-signed transactions (Tokenized actions, Bitcoin, Multisig, Threshold Signatures, etc.) can be passed around on-chain to the parties (including Smart Contracts) that still have to sign the transaction.
+#
+
+code: '1002'
+
+metadata:
+  label: Signature Request
+  description: "Partially-signed transactions (Tokenized actions, Bitcoin, Multisig, Threshold Signatures, etc.) can be passed around on-chain to the parties (including Smart Contracts) that still have to sign the transaction.
+
+fields:
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds for when the message sender creates the transaction."
+    type: timestamp
+    size: 8
+    example_hex: 1588f8cc6a16430d
+    example_value: 1551767413250187179
+    notes: ""  
+  
+  - name: SigRequest
+    label: Signature Request
+    description: "A Bitcoin transaction with multiple inputs from different wallets/users."
+    type: nvarchar32
+    example_value: ""
+    notes: ""
