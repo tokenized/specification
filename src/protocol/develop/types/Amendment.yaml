@@ -33,7 +33,8 @@ fields:
 
   - name: Operation
     label: Operation
-    type: byte
+    type: uint
+    size: 1
     description: "0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract."
     example_hex: 00
     example_value: 0

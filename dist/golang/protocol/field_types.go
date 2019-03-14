@@ -40,7 +40,7 @@ type Amendment struct {
 	FieldIndex    uint8  // Index of the field to be amended.
 	Element       uint16 // Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.
 	SubfieldIndex uint8  // Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.
-	Operation     byte   // 0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.
+	Operation     uint8  // 0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.
 	Data          string // New data for the amended subfield. Data type depends on the the type of the field being amended.
 }
 
@@ -69,16 +69,9 @@ func (m Amendment) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// Operation (byte)
-	{
-		b, err := m.Operation.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
+	// Operation (uint8)
+	if err := write(buf, m.Operation); err != nil {
+		return nil, err
 	}
 
 	// Data (string)
@@ -105,8 +98,8 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 		return err
 	}
 
-	// Operation (byte)
-	if err := m.Operation.Write(buf); err != nil {
+	// Operation (uint8)
+	if err := read(buf, &m.Operation); err != nil {
 		return err
 	}
 

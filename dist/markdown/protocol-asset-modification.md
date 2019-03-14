@@ -159,10 +159,10 @@ The following breaks down the construction of a Asset Modification Action. The a
             <tr>
                 <td class="a10">Operation</td>
                 <td class="a10">Operation</td>
-                <td class="a10">0</td>
+                <td class="a10">1</td>
                 <td class="a10" style="word-break:break-all">0</td>
                 <td class="a10">0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.</td>
-                <td class="a10">byte</td>
+                <td class="a10">uint</td>
                 <td class="a10"></td>
             </tr>
             <tr>
