@@ -102,6 +102,144 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+// AssetSettlement An AssetSettlement describes the settlements resulting
+// from an Asset Transfer.
+type AssetSettlement struct {
+	Type            []byte
+	ID              []byte
+	SettlementCount uint8
+	Settlements     []QuantityIndex
+}
+
+// NewAssetSettlement return a new AssetSettlement
+func NewAssetSettlement() AssetSettlement {
+	return AssetSettlement{}
+}
+
+// Serialize returns the byte representation of the message.
+func (m AssetSettlement) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	if err := write(buf, m.Type); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.ID); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.SettlementCount); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.Settlements); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
+
+func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
+
+	m.Type = make([]byte, 3)
+	if err := readLen(buf, m.Type); err != nil {
+		return err
+	}
+
+	m.ID = make([]byte, 32)
+	if err := readLen(buf, m.ID); err != nil {
+		return err
+	}
+
+	if err := read(buf, &m.SettlementCount); err != nil {
+		return err
+	}
+
+	if err := read(buf, &m.Settlements); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// AssetTransfer An AssetTransfer describes the senders and receivers
+// related to the transfer of an Asset.
+type AssetTransfer struct {
+	Type          []byte
+	ID            []byte
+	SenderCount   uint8
+	Senders       []QuantityIndex
+	ReceiverCount uint8
+	Receivers     []TokenReceiver
+}
+
+// NewAssetTransfer return a new AssetTransfer
+func NewAssetTransfer() AssetTransfer {
+	return AssetTransfer{}
+}
+
+// Serialize returns the byte representation of the message.
+func (m AssetTransfer) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	if err := write(buf, m.Type); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.ID); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.SenderCount); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.Senders); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.ReceiverCount); err != nil {
+		return nil, err
+	}
+
+	if err := write(buf, m.Receivers); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
+
+func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
+
+	m.Type = make([]byte, 3)
+	if err := readLen(buf, m.Type); err != nil {
+		return err
+	}
+
+	m.ID = make([]byte, 32)
+	if err := readLen(buf, m.ID); err != nil {
+		return err
+	}
+
+	if err := read(buf, &m.SenderCount); err != nil {
+		return err
+	}
+
+	if err := read(buf, &m.Senders); err != nil {
+		return err
+	}
+
+	if err := read(buf, &m.ReceiverCount); err != nil {
+		return err
+	}
+
+	if err := read(buf, &m.Receivers); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // Entity Entity represents the details of a legal Entity, such as a public
 // or private company, government agency, or and individual.
 type Entity struct {

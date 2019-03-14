@@ -836,17 +836,12 @@ class Action_Transfer(ActionBase):
     ActionPrefix = 'T1'
 
     schema = {
-        'AssetTypeX':                      [0, DAT_string, 3],
-        'AssetIDX':                        [1, DAT_string, 32],
-        'AssetXSenderCount':               [2, DAT_uint8, 1],
-        'AssetXSenders':                   [3, DAT_QuantityIndex[], 0],
-        'AssetXReceiverCount':             [4, DAT_uint8, 1],
-        'AssetXReceivers':                 [5, DAT_TokenReceiver[], 0],
-        'OfferExpiry':                     [6, DAT_time, 8],
-        'ExchangeFeeCurrency':             [7, DAT_string, 3],
-        'ExchangeFeeVar':                  [8, DAT_float32, 4],
-        'ExchangeFeeFixed':                [9, DAT_float32, 4],
-        'ExchangeFeeAddress':              [10, DAT_string, 34]
+        'AssetTransfers':                  [0, DAT_AssetTransfer[], 0],
+        'OfferExpiry':                     [1, DAT_time, 8],
+        'ExchangeFeeCurrency':             [2, DAT_string, 3],
+        'ExchangeFeeVar':                  [3, DAT_float32, 4],
+        'ExchangeFeeFixed':                [4, DAT_float32, 4],
+        'ExchangeFeeAddress':              [5, DAT_string, 34]
     }
 
     rules = {
@@ -856,11 +851,6 @@ class Action_Transfer(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetIDX = None
-        self.AssetXSenderCount = None
-        self.AssetXSenders = None
-        self.AssetXReceiverCount = None
-        self.AssetXReceivers = None
         self.OfferExpiry = None
         self.ExchangeFeeCurrency = None
         self.ExchangeFeeVar = None
@@ -875,11 +865,8 @@ class Action_Settlement(ActionBase):
     ActionPrefix = 'T4'
 
     schema = {
-        'AssetTypeX':                      [0, DAT_string, 3],
-        'AssetIDX':                        [1, DAT_string, 32],
-        'AssetXSettlementsCount':          [2, DAT_uint8, 1],
-        'AssetXAddressesXQty':             [3, DAT_QuantityIndex[], 0],
-        'Timestamp':                       [4, DAT_timestamp, 8]
+        'AssetSettlements':                [0, DAT_AssetSettlement[], 0],
+        'Timestamp':                       [1, DAT_timestamp, 8]
     }
 
     rules = {
@@ -889,9 +876,6 @@ class Action_Settlement(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetIDX = None
-        self.AssetXSettlementsCount = None
-        self.AssetXAddressesXQty = None
         self.Timestamp = None
 
 
