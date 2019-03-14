@@ -37,7 +37,7 @@ The following breaks down the construction of a Removal Action. The action is co
     </table>
 </div>
 
-##Removal Action Transaction Summary
+## Removal Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -52,14 +52,17 @@ The following breaks down the construction of a Removal Action. The action is co
             <th style="width:20%" class="s1">Txn outputs</th>
             <th class="s1">Comments</th>
        </tr>
+
+
        <tr>
-            <td class="r5">[{Register Register's Public Address }]</td>
-            <td class="r6">.</td>
-            <td class="r6">.</td>
-            <td class="r10">.</td>
-            <td class="r10">.</td>
-            <td class="r10">.</td>
+            <td class="r5">0</td>
+            <td class="r6">Register's Public Address</td>
+            <td class="r6"></td>
+            <td class="r10">0</td>
+            <td class="r10">Register's Public Address</td>
+            <td class="r10"></td>
         </tr>
+
     </table>
 </div>
 

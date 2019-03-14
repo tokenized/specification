@@ -73,7 +73,7 @@ The following breaks down the construction of a Rejection Action. The action is 
     </table>
 </div>
 
-##Rejection Action Transaction Summary
+## Rejection Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -88,14 +88,17 @@ The following breaks down the construction of a Rejection Action. The action is 
             <th style="width:20%" class="s1">Txn outputs</th>
             <th class="s1">Comments</th>
        </tr>
+
+
        <tr>
-            <td class="m5">[{Contract Contract Public Address }]</td>
-            <td class="m6">.</td>
-            <td class="m6">.</td>
-            <td class="m10">.</td>
-            <td class="m10">.</td>
-            <td class="m10">.</td>
+            <td class="m5">0</td>
+            <td class="m6">Contract Public Address</td>
+            <td class="m6"></td>
+            <td class="m10">0</td>
+            <td class="m10">User's Public Address</td>
+            <td class="m10">Return the money less fees</td>
         </tr>
+
     </table>
 </div>
 

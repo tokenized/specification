@@ -152,7 +152,7 @@ The following breaks down the construction of a Static Contract Formation Action
     </table>
 </div>
 
-##Static Contract Formation Action Transaction Summary
+## Static Contract Formation Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -167,14 +167,17 @@ The following breaks down the construction of a Static Contract Formation Action
             <th style="width:20%" class="s1">Txn outputs</th>
             <th class="s1">Comments</th>
        </tr>
+
+
        <tr>
-            <td class="c5">[{PartyX Issuer or Party X Public Address }]</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
+            <td class="c5">0</td>
+            <td class="c6">Issuer or Party X Public Address</td>
+            <td class="c6"></td>
+            <td class="c10"></td>
+            <td class="c10"></td>
+            <td class="c10"></td>
         </tr>
+
     </table>
 </div>
 
