@@ -10,7 +10,12 @@ const (
 {{- range .}}
 	{{.CodeNameComment}}
 	{{.CodeName}} = "{{.Code}}"
-{{ end -}}
+{{ end }}
+
+	ComplianceActionFreeze = byte('F')
+	ComplianceActionThaw = byte('T')
+	ComplianceActionConfiscation = byte('C')
+	ComplianceActionReconciliation = byte('R')
 )
 
 // TypeMapping holds a mapping of message codes to message types.
