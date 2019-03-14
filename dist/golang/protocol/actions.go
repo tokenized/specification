@@ -4700,13 +4700,8 @@ func (m Removal) String() string {
 // off-chain.
 type Transfer struct {
 	Header              Header
-	AssetCount          uint8
-	AssetTypeX          []byte
-	AssetIDX            []byte
-	AssetXSenderCount   uint8
-	AssetXSenders       []QuantityIndex
-	AssetXReceiverCount uint8
-	AssetXReceivers     []TokenReceiver
+	AssetTransferCount  uint8
+	AssetTransfers      []AssetTransfer
 	OfferExpiry         uint64
 	ExchangeFeeCurrency []byte
 	ExchangeFeeVar      float32
@@ -4742,39 +4737,12 @@ func (m Transfer) Read(b []byte) (int, error) {
 func (m Transfer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.AssetCount); err != nil {
+	if err := write(buf, m.AssetTransferCount); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetTypeX, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetIDX, 32)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.AssetXSenderCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.AssetXSenderCount); i++ {
-		b, err := m.AssetXSenders[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-
-	if err := write(buf, m.AssetXReceiverCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.AssetXReceiverCount); i++ {
-		b, err := m.AssetXReceivers[i].Serialize()
+	for i := 0; i < int(m.AssetTransferCount); i++ {
+		b, err := m.AssetTransfers[i].Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -4830,44 +4798,17 @@ func (m *Transfer) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.AssetCount); err != nil {
+	if err := read(buf, &m.AssetTransferCount); err != nil {
 		return 0, err
 	}
 
-	m.AssetTypeX = make([]byte, 3)
-	if err := readLen(buf, m.AssetTypeX); err != nil {
-		return 0, err
-	}
-
-	m.AssetIDX = make([]byte, 32)
-	if err := readLen(buf, m.AssetIDX); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.AssetXSenderCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.AssetXSenderCount); i++ {
-		x := &QuantityIndex{}
+	for i := 0; i < int(m.AssetTransferCount); i++ {
+		x := &AssetTransfer{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
 		}
 
-		m.AssetXSenders = append(m.AssetXSenders, *x)
-	}
-
-	if err := read(buf, &m.AssetXReceiverCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.AssetXReceiverCount); i++ {
-		x := &TokenReceiver{}
-		if err := x.Write(buf); err != nil {
-			return 0, err
-		}
-
-		m.AssetXReceivers = append(m.AssetXReceivers, *x)
+		m.AssetTransfers = append(m.AssetTransfers, *x)
 	}
 
 	if err := read(buf, &m.OfferExpiry); err != nil {
@@ -4904,13 +4845,8 @@ func (m Transfer) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetCount:%v", m.AssetCount))
-	vals = append(vals, fmt.Sprintf("AssetTypeX:%#x", m.AssetTypeX))
-	vals = append(vals, fmt.Sprintf("AssetIDX:%#x", m.AssetIDX))
-	vals = append(vals, fmt.Sprintf("AssetXSenderCount:%v", m.AssetXSenderCount))
-	vals = append(vals, fmt.Sprintf("AssetXSenders:%#+v", m.AssetXSenders))
-	vals = append(vals, fmt.Sprintf("AssetXReceiverCount:%v", m.AssetXReceiverCount))
-	vals = append(vals, fmt.Sprintf("AssetXReceivers:%#+v", m.AssetXReceivers))
+	vals = append(vals, fmt.Sprintf("AssetTransferCount:%v", m.AssetTransferCount))
+	vals = append(vals, fmt.Sprintf("AssetTransfers:%#+v", m.AssetTransfers))
 	vals = append(vals, fmt.Sprintf("OfferExpiry:%v", m.OfferExpiry))
 	vals = append(vals, fmt.Sprintf("ExchangeFeeCurrency:%#x", m.ExchangeFeeCurrency))
 	vals = append(vals, fmt.Sprintf("ExchangeFeeVar:%v", m.ExchangeFeeVar))
@@ -4923,13 +4859,10 @@ func (m Transfer) String() string {
 // Settlement Settlement Action - Settles the transfer request of bitcoins
 // and tokens from transfer (T1) actions.
 type Settlement struct {
-	Header                 Header
-	AssetCount             uint8
-	AssetTypeX             []byte
-	AssetIDX               []byte
-	AssetXSettlementsCount uint8
-	AssetXAddressesXQty    []QuantityIndex
-	Timestamp              uint64
+	Header               Header
+	AssetSettlementCount uint8
+	AssetSettlements     []AssetSettlement
+	Timestamp            uint64
 }
 
 // NewSettlement returns a new Settlement with defaults set.
@@ -4960,24 +4893,12 @@ func (m Settlement) Read(b []byte) (int, error) {
 func (m Settlement) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	if err := write(buf, m.AssetCount); err != nil {
+	if err := write(buf, m.AssetSettlementCount); err != nil {
 		return nil, err
 	}
 
-	if err := write(buf, pad(m.AssetTypeX, 3)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, pad(m.AssetIDX, 32)); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, m.AssetXSettlementsCount); err != nil {
-		return nil, err
-	}
-
-	for i := 0; i < int(m.AssetXSettlementsCount); i++ {
-		b, err := m.AssetXAddressesXQty[i].Serialize()
+	for i := 0; i < int(m.AssetSettlementCount); i++ {
+		b, err := m.AssetSettlements[i].Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -5017,31 +4938,17 @@ func (m *Settlement) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	if err := read(buf, &m.AssetCount); err != nil {
+	if err := read(buf, &m.AssetSettlementCount); err != nil {
 		return 0, err
 	}
 
-	m.AssetTypeX = make([]byte, 3)
-	if err := readLen(buf, m.AssetTypeX); err != nil {
-		return 0, err
-	}
-
-	m.AssetIDX = make([]byte, 32)
-	if err := readLen(buf, m.AssetIDX); err != nil {
-		return 0, err
-	}
-
-	if err := read(buf, &m.AssetXSettlementsCount); err != nil {
-		return 0, err
-	}
-
-	for i := 0; i < int(m.AssetXSettlementsCount); i++ {
-		x := &QuantityIndex{}
+	for i := 0; i < int(m.AssetSettlementCount); i++ {
+		x := &AssetSettlement{}
 		if err := x.Write(buf); err != nil {
 			return 0, err
 		}
 
-		m.AssetXAddressesXQty = append(m.AssetXAddressesXQty, *x)
+		m.AssetSettlements = append(m.AssetSettlements, *x)
 	}
 
 	if err := read(buf, &m.Timestamp); err != nil {
@@ -5060,11 +4967,8 @@ func (m Settlement) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetCount:%v", m.AssetCount))
-	vals = append(vals, fmt.Sprintf("AssetTypeX:%#x", m.AssetTypeX))
-	vals = append(vals, fmt.Sprintf("AssetIDX:%#x", m.AssetIDX))
-	vals = append(vals, fmt.Sprintf("AssetXSettlementsCount:%v", m.AssetXSettlementsCount))
-	vals = append(vals, fmt.Sprintf("AssetXAddressesXQty:%#+v", m.AssetXAddressesXQty))
+	vals = append(vals, fmt.Sprintf("AssetSettlementCount:%v", m.AssetSettlementCount))
+	vals = append(vals, fmt.Sprintf("AssetSettlements:%#+v", m.AssetSettlements))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))

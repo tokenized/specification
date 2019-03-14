@@ -1160,7 +1160,7 @@ func TestRemoval(t *testing.T) {
 
 func TestTransfer(t *testing.T) {
 	// The hex is the body of the message
-	body := "0053484361706d3271737a6e686b7332337a38643833753431733830313968797269336900000000016331e3c2004155443ba3d70a3c23d70a31485132554c7544375435796b6175635a334b6d546f346932393932355161366963"
+	body := "000000016331e3c2004155443ba3d70a3c23d70a31485132554c7544375435796b6175635a334b6d546f346932393932355161366963"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {
@@ -1208,7 +1208,7 @@ func TestTransfer(t *testing.T) {
 
 func TestSettlement(t *testing.T) {
 	// The hex is the body of the message
-	body := "0052524561706d3271737a6e686b7332337a386438337534317338303139687972693369001588f8cc6a16430d"
+	body := "001588f8cc6a16430d"
 
 	b, err := hex.DecodeString(body)
 	if err != nil {
