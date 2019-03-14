@@ -27,9 +27,9 @@ type PayloadMessage interface {
 	write(b []byte) (int, error)
 }
 
-// NewPayloadMessageFromCode returns the approriate PayloadMessage for the
+// New returns the approriate PayloadMessage for the
 // given code.
-func NewPayloadMessageFromCode(code []byte) (PayloadMessage, error) {
+func New(code []byte) (PayloadMessage, error) {
 	s := string(code)
 
 	switch s {
@@ -48,9 +48,8 @@ type OpReturnMessage interface {
 	PayloadMessage() (PayloadMessage, error)
 }
 
-// New returns a new message, as an OpReturnMessage, from the OP_RETURN
-// payload.
-func New(b []byte) (OpReturnMessage, error) {
+// Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
+func Deserialize(b []byte) (OpReturnMessage, error) {
 	buf := bytes.NewBuffer(b)
 
 	var opCode byte

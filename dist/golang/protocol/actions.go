@@ -485,7 +485,7 @@ func (m *AssetDefinition) write(b []byte) (int, error) {
 
 // PayloadMessage returns the PayloadMessage, if any.
 func (m AssetDefinition) PayloadMessage() (PayloadMessage, error) {
-	p, err := NewPayloadMessageFromCode([]byte(m.AssetType))
+	p, err := New([]byte(m.AssetType))
 	if p == nil || err != nil {
 		return nil, err
 	}
@@ -863,7 +863,7 @@ func (m *AssetCreation) write(b []byte) (int, error) {
 
 // PayloadMessage returns the PayloadMessage, if any.
 func (m AssetCreation) PayloadMessage() (PayloadMessage, error) {
-	p, err := NewPayloadMessageFromCode([]byte(m.AssetType))
+	p, err := New([]byte(m.AssetType))
 	if p == nil || err != nil {
 		return nil, err
 	}

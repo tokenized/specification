@@ -240,7 +240,7 @@ func (m *{{.Name}}) write(b []byte) (int, error) {
 // PayloadMessage returns the PayloadMessage, if any.
 func (m {{.Name}}) PayloadMessage() (PayloadMessage, error) {
 {{- if .HasPayloadMessage }}
-	p, err := NewPayloadMessageFromCode([]byte(m.AssetType))
+	p, err := New([]byte(m.AssetType))
 	if p == nil || err != nil {
 		return nil, err
 	}
