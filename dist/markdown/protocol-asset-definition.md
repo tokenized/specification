@@ -235,21 +235,12 @@ The following breaks down the construction of a Asset Definition Action. The act
             </tr>
             <tr>
                 <td class="a10">Push Data</td>
-                <td class="a10">OpPushdata</td>
-                <td class="a10">1</td>
-                <td class="a10" style="word-break:break-all">77</td>
-                <td class="a10">PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload.</td>
-                <td class="a10">opcode</td>
-                <td class="a11">Cannot be changed by issuer, operator or smart contract.</td>
-            </tr>
-            <tr>
-                <td class="a10">Length of Action Payload</td>
-                <td class="a10">LenActionPayload</td>
-                <td class="a10">2</td>
-                <td class="a10" style="word-break:break-all">409</td>
-                <td class="a10">Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4.</td>
+                <td class="a10">OpPushDataLength</td>
+                <td class="a10">0</td>
+                <td class="a10" style="word-break:break-all">76</td>
+                <td class="a10">Bitcoin script to push payload</td>
                 <td class="a10">pushdata_length</td>
-                <td class="a11">Depends on Action Payload</td>
+                <td class="a11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
             <tr>
                 <td class="a10">Version</td>

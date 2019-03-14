@@ -195,21 +195,12 @@ The following breaks down the construction of a Static Contract Formation Action
             </tr>
             <tr>
                 <td class="c10">Push Data</td>
-                <td class="c10">OpPushdata</td>
-                <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">77</td>
-                <td class="c10">PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload.</td>
-                <td class="c10">opcode</td>
-                <td class="c11">Cannot be changed by issuer, operator or smart contract.</td>
-            </tr>
-            <tr>
-                <td class="c10">Length of Action Payload</td>
-                <td class="c10">LenActionPayload</td>
-                <td class="c10">2</td>
-                <td class="c10" style="word-break:break-all">409</td>
-                <td class="c10">Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4.</td>
+                <td class="c10">OpPushDataLength</td>
+                <td class="c10">0</td>
+                <td class="c10" style="word-break:break-all">76</td>
+                <td class="c10">Bitcoin script to push payload</td>
                 <td class="c10">pushdata_length</td>
-                <td class="c11">Depends on Action Payload</td>
+                <td class="c11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
             <tr>
                 <td class="c10">Version</td>

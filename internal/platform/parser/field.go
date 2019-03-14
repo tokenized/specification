@@ -71,6 +71,10 @@ func (f Field) IsVarBin() bool {
 	return f.Type == "varbin"
 }
 
+func (f Field) IsPushDataLength() bool {
+	return f.Type == "pushdata_length"
+}
+
 func (f Field) IsNumeric() bool {
 	s := strings.ToLower(f.Type)
 

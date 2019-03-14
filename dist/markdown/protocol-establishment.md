@@ -67,21 +67,12 @@ The following breaks down the construction of a Establishment Action. The action
             </tr>
             <tr>
                 <td class="r10">Push Data</td>
-                <td class="r10">OpPushdata</td>
-                <td class="r10">1</td>
-                <td class="r10" style="word-break:break-all">77</td>
-                <td class="r10">PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload.</td>
-                <td class="r10">opcode</td>
-                <td class="r11">Cannot be changed by issuer, operator or smart contract.</td>
-            </tr>
-            <tr>
-                <td class="r10">Length of Action Payload</td>
-                <td class="r10">LenActionPayload</td>
-                <td class="r10">2</td>
-                <td class="r10" style="word-break:break-all">409</td>
-                <td class="r10">Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4.</td>
+                <td class="r10">OpPushDataLength</td>
+                <td class="r10">0</td>
+                <td class="r10" style="word-break:break-all">76</td>
+                <td class="r10">Bitcoin script to push payload</td>
                 <td class="r10">pushdata_length</td>
-                <td class="r11">Depends on Action Payload</td>
+                <td class="r11">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
             <tr>
                 <td class="r10">Version</td>

@@ -12,23 +12,13 @@ fields:
     example_value: "tokenized.com"
     notes: ""
 
-  - name: OpPushdata
+  - name: OpPushDataLength
     label: Push Data
-    description: "PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload."
-    type: opcode
-    size: 1
-    example_hex: 4d
-    example_value: "77"
-    notes: "Cannot be changed by issuer, operator or smart contract."
-
-  - name: LenActionPayload
-    label: Length of Action Payload
-    description: "Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4."
+    description: "Bitcoin script to push payload"
     type: pushdata_length
-    size: 2
-    example_hex: 199
-    example_value: "409"
-    notes: "Depends on Action Payload"
+    example_hex: 4c
+    example_value: "76"
+    notes: "Cannot be changed by issuer, operator or smart contract."
 
   - name: Version
     label: Version

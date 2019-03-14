@@ -24,7 +24,7 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 {{- range .Fields }}
 
-	// {{.Name}}
+	// {{.Name}} ({{.FieldGoType}})
 {{- if .IsVarChar }}
 	if err := WriteVarChar(buf, m.{{.Name}}, {{.Length}}); err != nil {
 		return nil, err
@@ -35,6 +35,10 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 	}
 {{- else if .IsVarBin }}
 	if err := WriteVarBin(buf, m.{{.Name}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{- else if .IsPushDataLength }}
+	if _, err := buf.Write(PushDataScript(m.{{.Name}})); err != nil {
 		return nil, err
 	}
 {{- else if .IsInternalTypeArray }}
@@ -71,6 +75,10 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 			return nil, err
 		}
 	}
+{{- else if or .IsBytes .IsData }}
+	if err := WriteFixedBin(buf, m.{{.Name}}, {{.Length}}); err != nil {
+		return nil, err
+	}
 {{- else }}
 	if err := write(buf, m.{{.FieldName}}); err != nil {
 		return nil, err
@@ -82,7 +90,7 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 func (m *{{.Name}}) Write(buf *bytes.Buffer) error {
 {{- range .Fields }}
 
-	// {{.Name}}
+	// {{.Name}} ({{.FieldGoType}})
 {{- if .IsVarChar }}
 	{
 		var err error
@@ -103,6 +111,14 @@ func (m *{{.Name}}) Write(buf *bytes.Buffer) error {
 	{
 		var err error
 		m.{{.Name}}, err = ReadVarBin(buf, {{.Length}})
+		if err != nil {
+			return err
+		}
+	}
+{{- else if .IsPushDataLength }}
+	{
+		var err error
+		m.{{.Name}}, err = ParsePushDataScript(buf)
 		if err != nil {
 			return err
 		}

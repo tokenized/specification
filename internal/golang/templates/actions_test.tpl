@@ -8,50 +8,54 @@ import (
 
 {{range .}}
 func Test{{.Name}}(t *testing.T) {
-	// The hex is the body of the message
-	body := "{{.Hex}}"
+	// Create a randomized object
+	initialMessage := {{.Name}}{}
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	{{- range $i, $field := .PayloadFields }}
+	// {{ $field.FieldName }} ({{ $field.Type }})
+		{{- if $field.IsVarChar }}
+	initialMessage.{{ $field.FieldName }} = "Text {{ $i }}"
+		{{- else if $field.IsFixedChar }}
+	{
+		text := make([]byte, 0, {{ $field.Length }})
+		for i := uint64(0); i < {{ $field.Length }}; i++ {
+			text = append(text, byte(65 + i + {{ $i }}))
+		}
+		initialMessage.{{ $field.FieldName }} = string(text)
 	}
+		{{- else }}
+	// {{ $field.Type }} test not setup
+		{{- end }}
+	{{ end }}
 
-	// Create a valid header for the body
-	m := {{.Name}}{}
-
-	header, err := NewHeaderForCode([]byte({{.CodeName}}), len(b))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m.Header = *header
-
-	headerBytes, err := m.Header.Serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
+	// Encode message
+	initialEncoding, err := initialMessage.Serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	// Decode message
+	decodedMessage := {{.Name}}{}
+
+	n, err := decodedMessage.Write(initialEncoding)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("Decoded : %d bytes", n)
+
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.Serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 }
 {{end}}

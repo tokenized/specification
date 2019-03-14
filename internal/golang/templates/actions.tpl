@@ -82,7 +82,8 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 {{ range .PayloadFields }}
 
-	// {{.FieldName}}
+	// {{.FieldName}} ({{.FieldGoType}})
+	// fmt.Printf("Serializing {{.FieldName}}\n")
 {{- if .IsVarChar }}
 	if err := WriteVarChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
 		return nil, err
@@ -137,10 +138,14 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 	if err := write(buf, m.{{.FieldName}}); err != nil {
 		return nil, err
 	}
-{{- end }}{{ end }}
+{{- end }}
+	// fmt.Printf("Serialized {{.FieldName}} : buf len %d\n", buf.Len())
+{{ end }}
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode([]byte(Code{{.Name}}), len(b))
+	// Header
+	// fmt.Printf("Serializing Header\n")
+	header, err := NewHeaderForCode([]byte(Code{{.Name}}), uint64(len(b)))
 	if err != nil {
 		return nil, err
 	}
@@ -149,8 +154,10 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
 
 	out := append(h, b...)
+	// fmt.Printf("Serialized {{.Name}} : %d bytes\n", len(out))
 
 	return out, nil
 }
@@ -158,10 +165,13 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 // Write implements the io.Writer interface, writing the data in []byte to
 // the receiver.
 func (m *{{.Name}}) Write(b []byte) (int, error) {
+	// fmt.Printf("Reading {{.Name}} : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
+
 {{- range .Fields }}
 
-	// {{.FieldName}}
+	// {{.FieldName}} ({{.FieldGoType}})
+	// fmt.Printf("Reading {{.FieldName}} : %d bytes remaining\n", buf.Len())
 {{- if .IsVarChar }}
 	{
 		var err error
@@ -184,6 +194,14 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 		m.{{.FieldName}}, err = ReadVarBin(buf, {{.Length}})
 		if err != nil {
 			return 0, err
+		}
+	}
+{{- else if .IsPushDataLength }}
+	{
+		var err error
+		m.{{.Name}}, err = ParsePushDataScript(buf)
+		if err != nil {
+			return err
 		}
 	}
 {{- else if .IsInternalTypeArray }}
@@ -214,7 +232,7 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 		}
 	}
 {{- else if .IsInternalType }}
-	if err := m.{{.Name}}.Write(buf); err != nil {
+	if err := m.{{.FieldName}}.Write(buf); err != nil {
 		return 0, err
 	}
 {{- else if or .IsBytes .IsData }}
@@ -228,8 +246,13 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 	if err := read(buf, &m.{{.FieldName}}); err != nil {
 		return 0, err
 	}
-{{- end }}{{ end }}
-	return len(b), nil
+{{- end }}
+
+	// fmt.Printf("Read {{.FieldName}} : %d bytes remaining\n%+v\n", buf.Len(), m.{{.FieldName}})
+{{ end }}
+
+	fmt.Printf("Read {{.Name}} : %d bytes remaining\n", buf.Len())
+	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.

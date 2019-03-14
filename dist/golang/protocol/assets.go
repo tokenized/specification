@@ -74,41 +74,48 @@ func (m Coupon) Read(b []byte) (int, error) {
 func (m Coupon) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
 	if err := write(buf, m.Version); err != nil {
 		return nil, err
 	}
 
+	// TradingRestriction ([]byte)
 	if err := write(buf, pad(m.TradingRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// RedeemingEntity (string)
 	if err := WriteVarChar(buf, m.RedeemingEntity, 255); err != nil {
 		return nil, err
 	}
 
+	// IssueDate (uint64)
 	if err := write(buf, m.IssueDate); err != nil {
 		return nil, err
 	}
 
+	// ExpiryDate (uint64)
 	if err := write(buf, m.ExpiryDate); err != nil {
 		return nil, err
 	}
 
+	// Value (uint64)
 	if err := write(buf, m.Value); err != nil {
 		return nil, err
 	}
 
+	// Currency (string)
 	if err := WriteFixedChar(buf, m.Currency, 3); err != nil {
 		return nil, err
 	}
 
+	// Description (string)
 	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
-
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode([]byte(CodeCoupon), len(b))
+	header, err := NewHeaderForCode([]byte(CodeCoupon), uint64(len(b)))
 	if err != nil {
 		return nil, err
 	}
@@ -128,39 +135,58 @@ func (m Coupon) Serialize() ([]byte, error) {
 func (m Coupon) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
+	// Version (uint8)
 	if err := read(buf, &m.Version); err != nil {
 		return 0, err
 	}
 
+	// TradingRestriction ([]byte)
 	m.TradingRestriction = make([]byte, 5)
 	if err := readLen(buf, m.TradingRestriction); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.RedeemingEntity); err != nil {
-		return 0, err
+	// RedeemingEntity (string)
+	{
+		var err error
+		m.RedeemingEntity, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
+	// IssueDate (uint64)
 	if err := read(buf, &m.IssueDate); err != nil {
 		return 0, err
 	}
 
+	// ExpiryDate (uint64)
 	if err := read(buf, &m.ExpiryDate); err != nil {
 		return 0, err
 	}
 
+	// Value (uint64)
 	if err := read(buf, &m.Value); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.Currency); err != nil {
-		return 0, err
+	// Currency (string)
+	{
+		var err error
+		m.Currency, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.Description); err != nil {
-		return 0, err
+	// Description (string)
+	{
+		var err error
+		m.Description, err = ReadVarChar(buf, 16)
+		if err != nil {
+			return 0, err
+		}
 	}
-
 	return len(b), nil
 }
 
@@ -221,29 +247,33 @@ func (m Currency) Read(b []byte) (int, error) {
 func (m Currency) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
 	if err := write(buf, m.Version); err != nil {
 		return nil, err
 	}
 
+	// TradingRestriction ([]byte)
 	if err := write(buf, pad(m.TradingRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// ISOCode (string)
 	if err := WriteFixedChar(buf, m.ISOCode, 3); err != nil {
 		return nil, err
 	}
 
+	// MonetaryAuthority (string)
 	if err := WriteVarChar(buf, m.MonetaryAuthority, 255); err != nil {
 		return nil, err
 	}
 
+	// Description (string)
 	if err := WriteVarChar(buf, m.Description, 255); err != nil {
 		return nil, err
 	}
-
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode([]byte(CodeCurrency), len(b))
+	header, err := NewHeaderForCode([]byte(CodeCurrency), uint64(len(b)))
 	if err != nil {
 		return nil, err
 	}
@@ -263,27 +293,43 @@ func (m Currency) Serialize() ([]byte, error) {
 func (m Currency) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
+	// Version (uint8)
 	if err := read(buf, &m.Version); err != nil {
 		return 0, err
 	}
 
+	// TradingRestriction ([]byte)
 	m.TradingRestriction = make([]byte, 5)
 	if err := readLen(buf, m.TradingRestriction); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.ISOCode); err != nil {
-		return 0, err
+	// ISOCode (string)
+	{
+		var err error
+		m.ISOCode, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.MonetaryAuthority); err != nil {
-		return 0, err
+	// MonetaryAuthority (string)
+	{
+		var err error
+		m.MonetaryAuthority, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.Description); err != nil {
-		return 0, err
+	// Description (string)
+	{
+		var err error
+		m.Description, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
-
 	return len(b), nil
 }
 
@@ -344,41 +390,48 @@ func (m LoyaltyPoints) Read(b []byte) (int, error) {
 func (m LoyaltyPoints) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
 	if err := write(buf, m.Version); err != nil {
 		return nil, err
 	}
 
+	// TradingRestriction ([]byte)
 	if err := write(buf, pad(m.TradingRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// AgeRestriction ([]byte)
 	if err := write(buf, pad(m.AgeRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// OfferType (byte)
 	if err := write(buf, m.OfferType); err != nil {
 		return nil, err
 	}
 
+	// OfferName (string)
 	if err := WriteVarChar(buf, m.OfferName, 255); err != nil {
 		return nil, err
 	}
 
+	// ValidFrom (uint64)
 	if err := write(buf, m.ValidFrom); err != nil {
 		return nil, err
 	}
 
+	// ExpirationTimestamp (uint64)
 	if err := write(buf, m.ExpirationTimestamp); err != nil {
 		return nil, err
 	}
 
+	// Description (string)
 	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
-
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode([]byte(CodeLoyaltyPoints), len(b))
+	header, err := NewHeaderForCode([]byte(CodeLoyaltyPoints), uint64(len(b)))
 	if err != nil {
 		return nil, err
 	}
@@ -398,40 +451,55 @@ func (m LoyaltyPoints) Serialize() ([]byte, error) {
 func (m LoyaltyPoints) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
+	// Version (uint8)
 	if err := read(buf, &m.Version); err != nil {
 		return 0, err
 	}
 
+	// TradingRestriction ([]byte)
 	m.TradingRestriction = make([]byte, 5)
 	if err := readLen(buf, m.TradingRestriction); err != nil {
 		return 0, err
 	}
 
+	// AgeRestriction ([]byte)
 	m.AgeRestriction = make([]byte, 5)
 	if err := readLen(buf, m.AgeRestriction); err != nil {
 		return 0, err
 	}
 
+	// OfferType (byte)
 	if err := read(buf, &m.OfferType); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.OfferName); err != nil {
-		return 0, err
+	// OfferName (string)
+	{
+		var err error
+		m.OfferName, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
+	// ValidFrom (uint64)
 	if err := read(buf, &m.ValidFrom); err != nil {
 		return 0, err
 	}
 
+	// ExpirationTimestamp (uint64)
 	if err := read(buf, &m.ExpirationTimestamp); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.Description); err != nil {
-		return 0, err
+	// Description (string)
+	{
+		var err error
+		m.Description, err = ReadVarChar(buf, 16)
+		if err != nil {
+			return 0, err
+		}
 	}
-
 	return len(b), nil
 }
 
@@ -495,41 +563,48 @@ func (m Membership) Read(b []byte) (int, error) {
 func (m Membership) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
 	if err := write(buf, m.Version); err != nil {
 		return nil, err
 	}
 
+	// TradingRestriction ([]byte)
 	if err := write(buf, pad(m.TradingRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// AgeRestriction ([]byte)
 	if err := write(buf, pad(m.AgeRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// ValidFrom (uint64)
 	if err := write(buf, m.ValidFrom); err != nil {
 		return nil, err
 	}
 
+	// ExpirationTimestamp (uint64)
 	if err := write(buf, m.ExpirationTimestamp); err != nil {
 		return nil, err
 	}
 
+	// ID (string)
 	if err := WriteVarChar(buf, m.ID, 255); err != nil {
 		return nil, err
 	}
 
+	// MembershipType (string)
 	if err := WriteVarChar(buf, m.MembershipType, 255); err != nil {
 		return nil, err
 	}
 
+	// Description (string)
 	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
-
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode([]byte(CodeMembership), len(b))
+	header, err := NewHeaderForCode([]byte(CodeMembership), uint64(len(b)))
 	if err != nil {
 		return nil, err
 	}
@@ -549,40 +624,59 @@ func (m Membership) Serialize() ([]byte, error) {
 func (m Membership) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
+	// Version (uint8)
 	if err := read(buf, &m.Version); err != nil {
 		return 0, err
 	}
 
+	// TradingRestriction ([]byte)
 	m.TradingRestriction = make([]byte, 5)
 	if err := readLen(buf, m.TradingRestriction); err != nil {
 		return 0, err
 	}
 
+	// AgeRestriction ([]byte)
 	m.AgeRestriction = make([]byte, 5)
 	if err := readLen(buf, m.AgeRestriction); err != nil {
 		return 0, err
 	}
 
+	// ValidFrom (uint64)
 	if err := read(buf, &m.ValidFrom); err != nil {
 		return 0, err
 	}
 
+	// ExpirationTimestamp (uint64)
 	if err := read(buf, &m.ExpirationTimestamp); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.ID); err != nil {
-		return 0, err
+	// ID (string)
+	{
+		var err error
+		m.ID, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.MembershipType); err != nil {
-		return 0, err
+	// MembershipType (string)
+	{
+		var err error
+		m.MembershipType, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.Description); err != nil {
-		return 0, err
+	// Description (string)
+	{
+		var err error
+		m.Description, err = ReadVarChar(buf, 16)
+		if err != nil {
+			return 0, err
+		}
 	}
-
 	return len(b), nil
 }
 
@@ -644,33 +738,38 @@ func (m ShareCommon) Read(b []byte) (int, error) {
 func (m ShareCommon) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
 	if err := write(buf, m.Version); err != nil {
 		return nil, err
 	}
 
+	// TradingRestriction ([]byte)
 	if err := write(buf, pad(m.TradingRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// TransferLockout (uint64)
 	if err := write(buf, m.TransferLockout); err != nil {
 		return nil, err
 	}
 
+	// Ticker (string)
 	if err := WriteFixedChar(buf, m.Ticker, 5); err != nil {
 		return nil, err
 	}
 
+	// ISIN (string)
 	if err := WriteFixedChar(buf, m.ISIN, 12); err != nil {
 		return nil, err
 	}
 
+	// Description (string)
 	if err := WriteVarChar(buf, m.Description, 113); err != nil {
 		return nil, err
 	}
-
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode([]byte(CodeShareCommon), len(b))
+	header, err := NewHeaderForCode([]byte(CodeShareCommon), uint64(len(b)))
 	if err != nil {
 		return nil, err
 	}
@@ -690,31 +789,48 @@ func (m ShareCommon) Serialize() ([]byte, error) {
 func (m ShareCommon) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
+	// Version (uint8)
 	if err := read(buf, &m.Version); err != nil {
 		return 0, err
 	}
 
+	// TradingRestriction ([]byte)
 	m.TradingRestriction = make([]byte, 5)
 	if err := readLen(buf, m.TradingRestriction); err != nil {
 		return 0, err
 	}
 
+	// TransferLockout (uint64)
 	if err := read(buf, &m.TransferLockout); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.Ticker); err != nil {
-		return 0, err
+	// Ticker (string)
+	{
+		var err error
+		m.Ticker, err = ReadFixedChar(buf, 5)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.ISIN); err != nil {
-		return 0, err
+	// ISIN (string)
+	{
+		var err error
+		m.ISIN, err = ReadFixedChar(buf, 12)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.Description); err != nil {
-		return 0, err
+	// Description (string)
+	{
+		var err error
+		m.Description, err = ReadVarChar(buf, 113)
+		if err != nil {
+			return 0, err
+		}
 	}
-
 	return len(b), nil
 }
 
@@ -780,57 +896,68 @@ func (m TicketAdmission) Read(b []byte) (int, error) {
 func (m TicketAdmission) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
 	if err := write(buf, m.Version); err != nil {
 		return nil, err
 	}
 
+	// TradingRestriction ([]byte)
 	if err := write(buf, pad(m.TradingRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// AgeRestriction ([]byte)
 	if err := write(buf, pad(m.AgeRestriction, 5)); err != nil {
 		return nil, err
 	}
 
+	// AdmissionType (string)
 	if err := WriteFixedChar(buf, m.AdmissionType, 3); err != nil {
 		return nil, err
 	}
 
+	// Venue (string)
 	if err := WriteVarChar(buf, m.Venue, 255); err != nil {
 		return nil, err
 	}
 
+	// Class (string)
 	if err := WriteVarChar(buf, m.Class, 255); err != nil {
 		return nil, err
 	}
 
+	// Area (string)
 	if err := WriteVarChar(buf, m.Area, 255); err != nil {
 		return nil, err
 	}
 
+	// Seat (string)
 	if err := WriteVarChar(buf, m.Seat, 255); err != nil {
 		return nil, err
 	}
 
+	// StartTimeDate (uint64)
 	if err := write(buf, m.StartTimeDate); err != nil {
 		return nil, err
 	}
 
+	// ValidFrom (uint64)
 	if err := write(buf, m.ValidFrom); err != nil {
 		return nil, err
 	}
 
+	// ExpirationTimestamp (uint64)
 	if err := write(buf, m.ExpirationTimestamp); err != nil {
 		return nil, err
 	}
 
+	// Description (string)
 	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
-
 	b := buf.Bytes()
 
-	header, err := NewHeaderForCode([]byte(CodeTicketAdmission), len(b))
+	header, err := NewHeaderForCode([]byte(CodeTicketAdmission), uint64(len(b)))
 	if err != nil {
 		return nil, err
 	}
@@ -850,56 +977,91 @@ func (m TicketAdmission) Serialize() ([]byte, error) {
 func (m TicketAdmission) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
+	// Version (uint8)
 	if err := read(buf, &m.Version); err != nil {
 		return 0, err
 	}
 
+	// TradingRestriction ([]byte)
 	m.TradingRestriction = make([]byte, 5)
 	if err := readLen(buf, m.TradingRestriction); err != nil {
 		return 0, err
 	}
 
+	// AgeRestriction ([]byte)
 	m.AgeRestriction = make([]byte, 5)
 	if err := readLen(buf, m.AgeRestriction); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.AdmissionType); err != nil {
-		return 0, err
+	// AdmissionType (string)
+	{
+		var err error
+		m.AdmissionType, err = ReadFixedChar(buf, 3)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.Venue); err != nil {
-		return 0, err
+	// Venue (string)
+	{
+		var err error
+		m.Venue, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.Class); err != nil {
-		return 0, err
+	// Class (string)
+	{
+		var err error
+		m.Class, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.Area); err != nil {
-		return 0, err
+	// Area (string)
+	{
+		var err error
+		m.Area, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	if err := read(buf, &m.Seat); err != nil {
-		return 0, err
+	// Seat (string)
+	{
+		var err error
+		m.Seat, err = ReadVarChar(buf, 255)
+		if err != nil {
+			return 0, err
+		}
 	}
 
+	// StartTimeDate (uint64)
 	if err := read(buf, &m.StartTimeDate); err != nil {
 		return 0, err
 	}
 
+	// ValidFrom (uint64)
 	if err := read(buf, &m.ValidFrom); err != nil {
 		return 0, err
 	}
 
+	// ExpirationTimestamp (uint64)
 	if err := read(buf, &m.ExpirationTimestamp); err != nil {
 		return 0, err
 	}
 
-	if err := read(buf, &m.Description); err != nil {
-		return 0, err
+	// Description (string)
+	{
+		var err error
+		m.Description, err = ReadVarChar(buf, 16)
+		if err != nil {
+			return 0, err
+		}
 	}
-
 	return len(b), nil
 }
 

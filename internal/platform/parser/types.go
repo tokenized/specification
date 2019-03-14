@@ -40,12 +40,10 @@ func GoType(typeName string, size uint64) string {
 		"SHA",
 		"bin[var]",
 		"bin",
-		"varbin",
-		"pushdata_length",
-		"payload":
+		"varbin":
 		return "[]byte"
 
-	case "time", "timestamp":
+	case "time", "timestamp", "pushdata_length":
 		return "uint64"
 
 	case "uint", "int", "float":
@@ -93,8 +91,7 @@ func IsInternalType(typeName string, size uint64) bool {
 		"bin[var]",
 		"bin",
 		"varbin",
-		"pushdata_length",
-		"payload":
+		"pushdata_length":
 		return false
 
 	case "time", "timestamp":

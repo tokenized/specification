@@ -14,23 +14,6 @@ const (
 	// OpReturn (OP_RETURN) is a script opcode is used to mark a transaction
 	// output as invalid, and can be used to add data to a TX.
 	OpReturn = 0x6a
-
-	// OpPushdata1 represent the OP_PUSHDATA1 opcode.
-	OpPushdata1 = byte(0x4c)
-
-	// OpPushdata2 represents the OP_PUSHDATA2 opcode.
-	OpPushdata2 = byte(0x4d)
-
-	// OpPushdata4 represents the OP_PUSHDATA4 opcode.
-	OpPushdata4 = byte(0x4e)
-
-	// OpPushdata1Max is the maximum number of bytes that can be used in the
-	// OP_PUSHDATA1 opcode.
-	OpPushdata1Max = 255
-
-	// OpPushdata2Max is the maximum number of bytes that can be used in the
-	// OP_PUSHDATA2 opcode.
-	OpPushdata2Max = 65535
 )
 
 // PayloadMessage is the interface for messages that are derived from
@@ -97,25 +80,10 @@ func Code(b []byte) (string, error) {
 }
 
 // NewHeaderForCode returns a new Header with the given code and size.
-func NewHeaderForCode(code []byte, size int) (*Header, error) {
-	// work out which opcode to use depending on size of the data.
-	opcode := OpPushdata1
-
-	if size > OpPushdata2Max {
-		opcode = OpPushdata4
-	} else if size > OpPushdata1Max {
-		opcode = OpPushdata2
-	}
-
-	lenPayload, err := uintToBytes(uint64(size))
-	if err != nil {
-		return nil, err
-	}
-
+func NewHeaderForCode(code []byte, size uint64) (*Header, error) {
 	h := Header{
 		ProtocolID:       ProtocolID,
-		OpPushdata:       opcode,
-		LenActionPayload: lenPayload,
+		OpPushDataLength: size,
 		Version:          Version,
 		ActionPrefix:     code,
 	}
@@ -128,7 +96,10 @@ func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {
 		return err
 	}
 
-	return write(buf, []byte(value))
+	if _, err := buf.Write([]byte(value)); err != nil {
+		return err
+	}
+	return nil
 }
 
 func ReadVarChar(buf *bytes.Buffer, sizeBits int) (string, error) {
@@ -149,8 +120,7 @@ func WriteFixedChar(buf *bytes.Buffer, value string, size uint64) error {
 	if uint64(len(value)) > size {
 		return errors.New(fmt.Sprintf("FixedChar too long %d > %d", len(value), size))
 	}
-	err := write(buf, []byte(value))
-	if err != nil {
+	if _, err := buf.Write([]byte(value)); err != nil {
 		return err
 	}
 
@@ -161,8 +131,8 @@ func WriteFixedChar(buf *bytes.Buffer, value string, size uint64) error {
 		for i := uint64(0); i < padCount; i++ {
 			empty[i] = 0
 		}
-		err := write(buf, empty)
-		if err != nil {
+
+		if _, err := buf.Write(empty); err != nil {
 			return err
 		}
 	}
@@ -184,7 +154,10 @@ func WriteVarBin(buf *bytes.Buffer, value []byte, sizeBits int) error {
 		return err
 	}
 
-	return write(buf, value)
+	if _, err := buf.Write(value); err != nil {
+		return err
+	}
+	return nil
 }
 
 func ReadVarBin(buf *bytes.Buffer, sizeBits int) ([]byte, error) {
@@ -199,6 +172,29 @@ func ReadVarBin(buf *bytes.Buffer, sizeBits int) ([]byte, error) {
 		return []byte{}, err
 	}
 	return data, nil
+}
+
+func WriteFixedBin(buf *bytes.Buffer, value []byte, size uint64) error {
+	if uint64(len(value)) > size {
+		return errors.New(fmt.Sprintf("FixedBin too long %d > %d", len(value), size))
+	}
+	if _, err := buf.Write(value); err != nil {
+		return err
+	}
+
+	// Pad with zeroes
+	if uint64(len(value)) < size {
+		padCount := size - uint64(len(value))
+		empty := make([]byte, padCount)
+		for i := uint64(0); i < padCount; i++ {
+			empty[i] = 0
+		}
+
+		if _, err := buf.Write(empty); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // WriteVariableSize writes a size/length to the buffer using the specified size unsigned integer.

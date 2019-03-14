@@ -132,7 +132,6 @@ func (m ProtocolAction) PayloadFields() []Field {
 	for _, f := range m.Fields {
 		if f.Name == "Header" {
 			continue
-
 		}
 
 		fields = append(fields, f)
