@@ -4,7 +4,7 @@ import "bytes"
 
 // Address Address represents a public address
 type Address struct {
-	Address [20]byte `json:"address,omitempty"` // Public address where the token balance will be changed.
+	PKH [20]byte `json:"pkh,omitempty"` // Public address where the token balance will be changed.
 }
 
 // NewAddress returns a new Address with defaults set.
@@ -17,8 +17,8 @@ func NewAddress() *Address {
 func (m Address) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	// Address ([20]byte)
-	if err := write(buf, m.Address); err != nil {
+	// PKH ([20]byte)
+	if err := write(buf, m.PKH); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
@@ -26,8 +26,8 @@ func (m Address) Serialize() ([]byte, error) {
 
 func (m *Address) Write(buf *bytes.Buffer) error {
 
-	// Address ([20]byte)
-	if err := read(buf, &m.Address); err != nil {
+	// PKH ([20]byte)
+	if err := read(buf, &m.PKH); err != nil {
 		return err
 	}
 	return nil

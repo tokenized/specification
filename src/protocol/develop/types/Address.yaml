@@ -3,8 +3,8 @@ metadata:
   description: "Address represents a public address"
 
 fields:
-  - name: Address
-    label: Address
+  - name: PKH
+    label: Public Key Hash
     description: "Public address where the token balance will be changed."
     type: bin
     size: 20

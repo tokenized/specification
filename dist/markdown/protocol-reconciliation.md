@@ -103,8 +103,8 @@ The following breaks down the construction of a Reconciliation Action. The actio
                 <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
-                <td class="e10">Address</td>
-                <td class="e10">Address</td>
+                <td class="e10">Public Key Hash</td>
+                <td class="e10">PKH</td>
                 <td class="e10">20</td>
                 <td class="e10" style="word-break:break-all">1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic</td>
                 <td class="e10">Public address where the token balance will be changed.</td>
