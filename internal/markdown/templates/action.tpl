@@ -1,11 +1,11 @@
 {{$letter := .TypeLetter}}
-{{$code := .ActionCode}}
+{{$code := .Code}}
 {{$description := .CodeComment}}
-# {{.Label}}
+# {{.Metadata.Label}}
 
 {{.Metadata.Description}}
 
-The following breaks down the construction of a {{.Label}}. The action is constructed by building a single string from each of the elements in order.
+The following breaks down the construction of a {{.Metadata.Label}}. The action is constructed by building a single string from each of the elements in order.
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -36,7 +36,7 @@ The following breaks down the construction of a {{.Label}}. The action is constr
 {{- else}}
             <td class="{{$letter}}9">{{.Label}}</td>
             <td class="{{$letter}}10">{{.Name}}</td>
-            <td class="{{$letter}}10">{{.FieldBytes}}</td>
+            <td class="{{$letter}}10">{{.Size}}</td>
             <td class="{{$letter}}10">{{if gt (len .ExampleValue) 32}}<abbr title="{{.ExampleValue}}">Hover for example</abbr>{{else}}{{.ExampleValue}}{{end}}</td>
             <td class="{{$letter}}10">{{if gt (len .Description) 96}}<abbr title="{{.Description}}">{{.DescriptionAbbr}} ...</abbr>{{else}}{{.Description}}{{end}}</td>
             <td class="{{$letter}}10">{{.Type}}</td>
@@ -47,7 +47,7 @@ The following breaks down the construction of a {{.Label}}. The action is constr
     </table>
 </div>
 
-##{{.Label}} Transaction Summary
+##{{.Metadata.Label}} Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -91,7 +91,7 @@ The following breaks down the construction of a {{.Label}}. The action is constr
             <tr>
                 <td class="{{$letter}}10">{{.Label}}</td>
                 <td class="{{$letter}}10">{{.Name}}</td>
-                <td class="{{$letter}}10">{{.FieldBytes}}</td>
+                <td class="{{$letter}}10">{{.Size}}</td>
                 <td class="{{$letter}}10" style="word-break:break-all">{{if and (eq $header 1) (eq .Name "ActionPrefix")}}{{$code}}{{else}}{{.ExampleValue}}{{end}}</td>
                 <td class="{{$letter}}10">{{if and (eq $header 1) (eq .Name "ActionPrefix")}}{{$description}}{{$header = 0}}{{else}}{{.Description}}{{end}}</td>
                 <td class="{{$letter}}10">{{.Type}}</td>

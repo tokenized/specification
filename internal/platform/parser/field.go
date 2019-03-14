@@ -26,10 +26,6 @@ func (f Field) DescriptionAbbr() string {
 	return fmt.Sprintf(f.Description[:90])
 }
 
-func (f Field) FieldBytes() string {
-	return fmt.Sprintf("%v", f.Size)
-}
-
 func (f Field) FormType() string {
 	if f.Name == "Payload" {
 		return "json.RawAction"
