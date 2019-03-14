@@ -214,7 +214,7 @@ func (action *AssetDefinition) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *AssetDefinition) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -562,7 +562,7 @@ func (action *AssetCreation) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *AssetCreation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -930,7 +930,7 @@ func (action *AssetModification) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *AssetModification) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -1158,7 +1158,7 @@ func (action *ContractOffer) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *ContractOffer) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -1874,7 +1874,7 @@ func (action *ContractFormation) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *ContractFormation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -2595,7 +2595,7 @@ func (action *ContractAmendment) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *ContractAmendment) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -2770,7 +2770,7 @@ func (action *StaticContractFormation) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *StaticContractFormation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -3084,7 +3084,7 @@ func (action *Order) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Order) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -3412,7 +3412,7 @@ func (action *Freeze) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Freeze) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -3532,7 +3532,7 @@ func (action *Thaw) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Thaw) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -3667,7 +3667,7 @@ func (action *Confiscation) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Confiscation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -3801,7 +3801,7 @@ func (action *Reconciliation) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Reconciliation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -3929,7 +3929,7 @@ func (action *Initiative) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Initiative) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -4201,7 +4201,7 @@ func (action *Referendum) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Referendum) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -4478,7 +4478,7 @@ func (action *Vote) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Vote) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -4562,7 +4562,7 @@ func (action *BallotCast) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *BallotCast) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -4703,7 +4703,7 @@ func (action *BallotCounted) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *BallotCounted) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -4790,7 +4790,7 @@ func (action *Result) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Result) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -5040,7 +5040,7 @@ func (action *Message) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Message) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -5197,7 +5197,7 @@ func (action *Rejection) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Rejection) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -5355,7 +5355,7 @@ func (action *Establishment) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Establishment) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -5437,7 +5437,7 @@ func (action *Addition) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Addition) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -5519,7 +5519,7 @@ func (action *Alteration) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Alteration) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -5601,7 +5601,7 @@ func (action *Removal) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Removal) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -5696,7 +5696,7 @@ func (action *Transfer) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Transfer) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
@@ -5889,7 +5889,7 @@ func (action *Settlement) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *Settlement) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 

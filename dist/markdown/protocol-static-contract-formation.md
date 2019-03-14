@@ -195,7 +195,7 @@ The following breaks down the construction of a Static Contract Formation Action
             <tr>
                 <td class="c10">Name</td>
                 <td class="c10">Name</td>
-                <td class="c10">11</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Tesla Inc.</td>
                 <td class="c10">Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. </td>
                 <td class="c10">varchar</td>
@@ -222,7 +222,7 @@ The following breaks down the construction of a Static Contract Formation Action
             <tr>
                 <td class="c10">Unit Number</td>
                 <td class="c10">UnitNumber</td>
-                <td class="c10">2</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">2</td>
                 <td class="c10">Issuer/Entity/Contracting Party X Address Details (eg. HQ)</td>
                 <td class="c10">varchar</td>
@@ -231,7 +231,7 @@ The following breaks down the construction of a Static Contract Formation Action
             <tr>
                 <td class="c10">Building Number</td>
                 <td class="c10">BuildingNumber</td>
-                <td class="c10">6</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">13577</td>
                 <td class="c10"></td>
                 <td class="c10">varchar</td>
@@ -240,7 +240,7 @@ The following breaks down the construction of a Static Contract Formation Action
             <tr>
                 <td class="c10">Street</td>
                 <td class="c10">Street</td>
-                <td class="c10">14</td>
+                <td class="c10">16</td>
                 <td class="c10" style="word-break:break-all">Fairmont Ave</td>
                 <td class="c10"></td>
                 <td class="c10">varchar</td>
@@ -285,7 +285,7 @@ The following breaks down the construction of a Static Contract Formation Action
             <tr>
                 <td class="c10">Email Address</td>
                 <td class="c10">EmailAddress</td>
-                <td class="c10">20</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">satoshi@tokenized.com</td>
                 <td class="c10">Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address</td>
                 <td class="c10">varchar</td>
@@ -294,7 +294,7 @@ The following breaks down the construction of a Static Contract Formation Action
             <tr>
                 <td class="c10">Phone Number</td>
                 <td class="c10">PhoneNumber</td>
-                <td class="c10">11</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">0448484848</td>
                 <td class="c10">Length 0-50 bytes. 0 is valid. Phone Number for Entity.</td>
                 <td class="c10">varchar</td>

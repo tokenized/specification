@@ -78,7 +78,7 @@ func (action *{{.Name}}) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// Serialize returns the full OP_RETURN payload bytes.
+// serialize returns the full OP_RETURN payload bytes.
 func (action *{{.Name}}) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 {{ range .PayloadFields }}

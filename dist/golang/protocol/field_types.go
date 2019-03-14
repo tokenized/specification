@@ -344,7 +344,7 @@ func (m Entity) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Name (string)
-	if err := WriteVarChar(buf, m.Name, 11); err != nil {
+	if err := WriteVarChar(buf, m.Name, 8); err != nil {
 		return nil, err
 	}
 
@@ -359,17 +359,17 @@ func (m Entity) Serialize() ([]byte, error) {
 	}
 
 	// UnitNumber (string)
-	if err := WriteVarChar(buf, m.UnitNumber, 2); err != nil {
+	if err := WriteVarChar(buf, m.UnitNumber, 8); err != nil {
 		return nil, err
 	}
 
 	// BuildingNumber (string)
-	if err := WriteVarChar(buf, m.BuildingNumber, 6); err != nil {
+	if err := WriteVarChar(buf, m.BuildingNumber, 8); err != nil {
 		return nil, err
 	}
 
 	// Street (string)
-	if err := WriteVarChar(buf, m.Street, 14); err != nil {
+	if err := WriteVarChar(buf, m.Street, 16); err != nil {
 		return nil, err
 	}
 
@@ -394,12 +394,12 @@ func (m Entity) Serialize() ([]byte, error) {
 	}
 
 	// EmailAddress (string)
-	if err := WriteVarChar(buf, m.EmailAddress, 20); err != nil {
+	if err := WriteVarChar(buf, m.EmailAddress, 8); err != nil {
 		return nil, err
 	}
 
 	// PhoneNumber (string)
-	if err := WriteVarChar(buf, m.PhoneNumber, 11); err != nil {
+	if err := WriteVarChar(buf, m.PhoneNumber, 8); err != nil {
 		return nil, err
 	}
 
@@ -440,7 +440,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	// Name (string)
 	{
 		var err error
-		m.Name, err = ReadVarChar(buf, 11)
+		m.Name, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -459,7 +459,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	// UnitNumber (string)
 	{
 		var err error
-		m.UnitNumber, err = ReadVarChar(buf, 2)
+		m.UnitNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -468,7 +468,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	// BuildingNumber (string)
 	{
 		var err error
-		m.BuildingNumber, err = ReadVarChar(buf, 6)
+		m.BuildingNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -477,7 +477,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	// Street (string)
 	{
 		var err error
-		m.Street, err = ReadVarChar(buf, 14)
+		m.Street, err = ReadVarChar(buf, 16)
 		if err != nil {
 			return err
 		}
@@ -522,7 +522,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	// EmailAddress (string)
 	{
 		var err error
-		m.EmailAddress, err = ReadVarChar(buf, 20)
+		m.EmailAddress, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -531,7 +531,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	// PhoneNumber (string)
 	{
 		var err error
-		m.PhoneNumber, err = ReadVarChar(buf, 11)
+		m.PhoneNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -618,7 +618,7 @@ func (m KeyRole) Serialize() ([]byte, error) {
 	}
 
 	// Name (string)
-	if err := WriteVarChar(buf, m.Name, 14); err != nil {
+	if err := WriteVarChar(buf, m.Name, 8); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
@@ -634,7 +634,7 @@ func (m *KeyRole) Write(buf *bytes.Buffer) error {
 	// Name (string)
 	{
 		var err error
-		m.Name, err = ReadVarChar(buf, 14)
+		m.Name, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -752,17 +752,17 @@ func (m Registry) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Name (string)
-	if err := WriteVarChar(buf, m.Name, 10); err != nil {
+	if err := WriteVarChar(buf, m.Name, 8); err != nil {
 		return nil, err
 	}
 
 	// URL (string)
-	if err := WriteVarChar(buf, m.URL, 53); err != nil {
+	if err := WriteVarChar(buf, m.URL, 8); err != nil {
 		return nil, err
 	}
 
 	// PublicKey (string)
-	if err := WriteVarChar(buf, m.PublicKey, 1); err != nil {
+	if err := WriteVarChar(buf, m.PublicKey, 8); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
@@ -773,7 +773,7 @@ func (m *Registry) Write(buf *bytes.Buffer) error {
 	// Name (string)
 	{
 		var err error
-		m.Name, err = ReadVarChar(buf, 10)
+		m.Name, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -782,7 +782,7 @@ func (m *Registry) Write(buf *bytes.Buffer) error {
 	// URL (string)
 	{
 		var err error
-		m.URL, err = ReadVarChar(buf, 53)
+		m.URL, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -791,7 +791,7 @@ func (m *Registry) Write(buf *bytes.Buffer) error {
 	// PublicKey (string)
 	{
 		var err error
-		m.PublicKey, err = ReadVarChar(buf, 1)
+		m.PublicKey, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
@@ -943,7 +943,7 @@ func (m VotingSystem) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Name (string)
-	if err := WriteVarChar(buf, m.Name, 20); err != nil {
+	if err := WriteVarChar(buf, m.Name, 8); err != nil {
 		return nil, err
 	}
 
@@ -989,7 +989,7 @@ func (m *VotingSystem) Write(buf *bytes.Buffer) error {
 	// Name (string)
 	{
 		var err error
-		m.Name, err = ReadVarChar(buf, 20)
+		m.Name, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return err
 		}
