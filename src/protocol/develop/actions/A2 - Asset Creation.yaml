@@ -36,12 +36,12 @@ fields:
     label: "Header"
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: AssetType
     label: Asset Type
     description: "eg. Share - Common"
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 534843
     example_value: "SHC"
@@ -50,7 +50,7 @@ fields:
   - name: AssetID
     label: Asset ID
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label."
-    type: string
+    type: fixedchar
     size: 32
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
@@ -77,7 +77,7 @@ fields:
   - name: TradeRestrictions
     label: Trade Restrictions
     description: "Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only."
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 474252
     example_value: "GBR"
@@ -95,7 +95,7 @@ fields:
   - name: VoteMultiplier
     label: Vote Multiplier
     description: "Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example."
-    type: uint8
+    type: uint
     size: 1
     example_hex: 03
     example_value: "3"
@@ -131,7 +131,7 @@ fields:
   - name: TokenQty
     label: Qty of Tokens
     description: "Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract."
-    type: uint64
+    type: uint
     size: 8
     example_hex: 00000000000f4240
     example_value: "1000000"
@@ -140,7 +140,7 @@ fields:
   - name: ContractFeeCurrency
     label: Contract Fee Currency
     description: "BSV, USD, AUD, EUR, etc."
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 415544
     example_value: "AUD"
@@ -149,7 +149,7 @@ fields:
   - name: ContractFeeVar
     label: Contract Fee Var
     description: "Percent of the value of the transaction"
-    type: float32
+    type: float
     size: 4
     example_hex: 3ba3d70a
     example_value: "0.005"
@@ -158,24 +158,18 @@ fields:
   - name: ContractFeeFixed
     label: Contract Fee Fixed
     description: "Fixed fee (payment made in BSV)"
-    type: float32
+    type: float
     size: 4
     example_hex: 3c23d70a
     example_value: "0.01"
     notes: ""
 
-  - name: AssetPayloadLen
-    label: Asset Payload Length
-    description: "Size of the asset payload in bytes."
-    type: uint16
-    size: 2
-    example_hex: 0009
-    example_value: 9
-
   - name: AssetPayload
     label: Asset Payload
     description: "Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)"
-    type: byte[]
+    type: varbin
+    # varbin size is number of bits to serialize the size of the data
+    size: 16
     example_hex: 736f6d652064617461
     example_value: "some data"
     notes: ""
@@ -183,7 +177,7 @@ fields:
   - name: Asset Revision
     label: Asset Revision
     description: "Counter 0 - 65,535"
-    type: uint64
+    type: uint
     size: 8
     example_hex: 00000000000011bf
     example_value: "0000000000000000000000000000000000000000000000000001000110111111"

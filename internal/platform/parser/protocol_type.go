@@ -32,18 +32,18 @@ func NewProtocolTypes(filenames []string) ProtocolTypes {
 	}
 
 	// the protocol types may have protocol types as fields.
-	for i, t := range items {
+	for _, t := range items {
 		if t.Metadata.Name != "Entity" {
 			continue
 		}
 
-		for j, f := range t.Fields {
+		for _, f := range t.Fields {
 			if _, ok := types[f.SingularType()]; !ok {
 				continue
 			}
 
 			// this is an internal type
-			items[i].Fields[j].internalType = true
+			// items[i].Fields[j].internalType = true
 		}
 	}
 
@@ -56,6 +56,7 @@ type ProtocolType struct {
 	Metadata   Metadata
 	Fields     []Field
 	FieldTypes []ProtocolType
+	Constructor []Constructor
 }
 
 func (m ProtocolType) Name() string {

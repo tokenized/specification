@@ -18,7 +18,7 @@ metadata:
 fields:
   - name: Version
     label: Version
-    type: uint8
+    type: uint
     description: Payload Version
     size: 1
     example: 0
@@ -42,14 +42,14 @@ fields:
 
   - name: Ticker
     label: Ticker
-    type: string
+    type: fixedchar
     size: 5
     example: AAPL
     displayOrder: 4
 
   - name: ISIN
     label: ISIN (optional)
-    type: string
+    type: fixedchar
     size: 12
     example: US0004026250
     span: full
@@ -57,7 +57,9 @@ fields:
 
   - name: Description
     label: Description
-    type: nvarchar16
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     size: 113
     example: APPLC - Apple corp - Common share issue class C
     span: full

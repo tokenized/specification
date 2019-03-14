@@ -1,95 +1,50 @@
 package protocol
 
 import (
-	"reflect"
+	"bytes"
 	"testing"
 )
 
-func TestUintToBytes(t *testing.T) {
-	tests := []struct {
-		name string
-		i    uint64
-		want []byte
-	}{
-		{
-			name: "0",
-			i:    0,
-			want: []byte{0},
-		},
-		{
-			name: "255",
-			i:    255,
-			want: []byte{255},
-		},
-		{
-			name: "65535",
-			i:    65535,
-			want: []byte{255, 255},
-		},
-		{
-			name: "65536",
-			i:    65536,
-			want: []byte{0, 1, 0, 0},
-		},
-		{
-			name: "0xFFFFFFFFFFFFFFFe",
-			i:    0xFFFFFFFFFFFFFFFe,
-			want: []byte{0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe},
-		},
-	}
+var tests = []struct {
+	size   uint64
+	script []byte
+}{
+	// Single byte pushes (op code is 8 bit integer representing size to push)
+	{0, []byte{0}},
+	{10, []byte{10}},
+	{0x4b, []byte{0x4b}},
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			b, err := uintToBytes(tt.i)
-			if err != nil {
-				t.Fatal(err)
-			}
+	// OP_PUSHDATA1 (push code 0x4c followed by 1 byte for size)
+	{0x4c, []byte{0x4c, 0x4c}},
+	{0x50, []byte{0x4c, 0x50}},
 
-			if !reflect.DeepEqual(b, tt.want) {
-				t.Fatalf("got\n%+v\nwant\n%+v", b, tt.want)
-			}
-		})
+	// OP_PUSHDATA2 (push code 0x4d followed by 2 bytes for size)
+	{0x1050, []byte{0x4d, 0x10, 0x50}},
+	{0xff50, []byte{0x4d, 0xff, 0x50}},
+
+	// OP_PUSHDATA4 (push code 0x4e followed by 4 bytes for size)
+	{0x0010ff50, []byte{0x4e, 0x00, 0x10, 0xff, 0x50}},
+	{0x00ffff50, []byte{0x4e, 0x00, 0xff, 0xff, 0x50}},
+}
+
+func TestPushDataScript(t *testing.T) {
+	for i, test := range tests {
+		result := PushDataScript(test.size)
+		if !bytes.Equal(result, test.script) {
+			t.Fatalf("Failed test %d :\nResult : %+v\nCorrect : %+v\n", i, result, test.script)
+		}
 	}
 }
 
-func TestLenForOpPushdata(t *testing.T) {
-	tests := []struct {
-		name   string
-		opcode byte
-		want   int
-	}{
-		{
-			name:   "OP_PUSHDATA1",
-			opcode: 0x4c,
-			want:   1,
-		},
-		{
-			name:   "OP_PUSHDATA2",
-			opcode: 0x4d,
-			want:   2,
-		},
-		{
-			name:   "OP_PUSHDATA4",
-			opcode: 0x4e,
-			want:   4,
-		},
-		{
-			name: "Fail low",
-		},
-		{
-			name:   "Fail 0x4f",
-			opcode: 0x4f,
-			want:   0,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got := lenForOpPushdata(tt.opcode)
-
-			if got != tt.want {
-				t.Fatalf("got\n%+v\nwant\n%+v", got, tt.want)
-			}
-		})
+func TestParsePushDataScript(t *testing.T) {
+	for i, test := range tests {
+		buf := bytes.NewBuffer(test.script)
+		result, err := ParsePushDataScript(buf)
+		if err != nil {
+			t.Fatalf("Failed test %d : %s", i, err)
+		}
+		if result != test.size {
+			t.Fatalf("Failed test %d :\nResult : %d\nCorrect : %d\n", i, result, test.size)
+		}
 	}
 }

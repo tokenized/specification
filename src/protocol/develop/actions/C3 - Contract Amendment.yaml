@@ -32,7 +32,7 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: ChangeIssuerAddress
     label: Change Issuer Address
@@ -55,19 +55,10 @@ fields:
   - name: ContractRevision
     label: Contract Revision
     description: "Counter 0 - 65,535"
-    type: uint16
+    type: uint
     size: 2
     example_hex: 002a
     example_value: 42
-    notes: ""
-
-  - name: AmendmentsCount
-    label: AmendmentsCount
-    description: "Number of Amendments. Must be less than the max Subfield Index of CF."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
     notes: ""
 
   - name: Amendments

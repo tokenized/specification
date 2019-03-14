@@ -18,7 +18,7 @@ metadata:
 fields:
   - name: Version
     label: Version
-    type: uint8
+    type: uint
     description: Payload Version
     size: 1
     example: 0
@@ -33,7 +33,9 @@ fields:
 
   - name: RedeemingEntity
     label: Redeeming Entity
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 255
     example: Woolworths - Robina Town Centre
     span: full
@@ -58,7 +60,7 @@ fields:
 
   - name: Value
     label: Value
-    type: uint64
+    type: uint
     size: 8
     example: "Denominated in the smallest unit of currency specified in the Currency subfield."
     span: right
@@ -66,7 +68,7 @@ fields:
 
   - name: Currency
     label: Currency
-    type: string
+    type: fixedchar
     size: 3
     example: AUD
     span: right
@@ -74,7 +76,9 @@ fields:
 
   - name: Description
     label: Description
-    type: nvarchar16
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     # size: 65,535
     example: Gift Card
     span: full

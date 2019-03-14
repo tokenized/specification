@@ -28,12 +28,12 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket"
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 534843
     example_value: "SHC"
@@ -42,7 +42,7 @@ fields:
   - name: AssetID
     label: Asset ID
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null."
-    type: string
+    type: fixedchar
     size: 32
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
@@ -52,12 +52,6 @@ fields:
     label: Proposal
     description: "1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly."
     type: bool
-    size: 1
-    example_hex: 00
-    example_value: 0
-
-  - name: ProposedChangesCount
-    type: uint8
     size: 1
     example_hex: 00
     example_value: 0
@@ -79,16 +73,15 @@ fields:
   - name: VoteOptionsCount
     label: VoteOptionsCount
     description: "Number of Vote Options to follow."
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
-    notes: ""
 
   - name: OptionXTally
     label: Option X Tally
     description: "Number of valid votes counted for Option X"
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000000bb8
     example_value: "3000"
@@ -97,7 +90,9 @@ fields:
   - name: Result
     label: Result
     description: "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed. "
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0132
     example_value: "2"
     notes: ""

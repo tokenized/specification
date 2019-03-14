@@ -6,16 +6,13 @@ fields:
   - name: Address
     label: Address
     description: "Public address where the token balance will be changed."
-    type: string
-    size: 34
-    example_hex: 31485132554c7544375435796b6175635a334b6d546f346932393932355161366963
-    example_value: "1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic"
+    type: Address
     notes: ""
 
   - name: Quantity
     label: Quantity
     description: "Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used."
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000002710
     example_value: "10000"

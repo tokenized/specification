@@ -28,7 +28,7 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: QtyReceivingAddresses
     label: Qty Receiving Addresses
@@ -48,7 +48,7 @@ fields:
   - name: RejectionType
     label: Rejection Type
     description: "Classifies the rejection by a type."
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
@@ -57,7 +57,9 @@ fields:
   - name: MessagePayload
     label: Message Payload
     description: "Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield."
-    type: nvarchar32
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 32
     example_hex: 00000024536f7272792c20796f7520646f6e2774206861766520656e6f75676820746f6b656e732e
     example_value: "Sorry, you don't have enough tokens."
     notes: ""

@@ -28,12 +28,14 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: ContractName
     label: Contract Name
     description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
     example_value: "Tesla - Shareholder Agreement"
     notes: ""
@@ -41,25 +43,17 @@ fields:
   - name: ContractFileType
     label: Contract File Type
     description: "1 - SHA-256 Hash, 2 - Markdown file"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
     notes: "Contract File - Amendments can be restricted to a vote."
 
-  - name: LenContractFile
-    label: Length of Contract File
-    description: "Max size is the max transaction size - other data in the txn.  "
-    type: uint32
-    size: 4
-    example_hex: 00000020
-    example_value: "32"
-    notes: ""
-
   - name: ContractFile
     label: Contract File
-    description: "SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
-    type: string
+    description: "SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
+    type: varbin
+    # varbin size is number of bits to serialize the size of the data
     size: 32
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
@@ -68,7 +62,7 @@ fields:
   - name: GoverningLaw
     label: Governing Law
     description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
-    type: string
+    type: fixedchar
     size: 5
     example_hex: 5553410000
     example_value: "USA"
@@ -77,7 +71,7 @@ fields:
   - name: Jurisdiction
     label: Jurisdiction
     description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
-    type: string
+    type: fixedchar
     size: 5
     example_hex: 55532d4341
     example_value: "US-CA"
@@ -95,7 +89,9 @@ fields:
   - name: ContractURI
     label: Contract URI
     description: "Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
     example_value: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
     notes: ""
@@ -103,7 +99,9 @@ fields:
   - name: IssuerName
     label: Issuer Name
     description: "Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0a5465736c6120496e632e
     example_value: "Tesla Inc."
     notes: ""
@@ -111,7 +109,7 @@ fields:
   - name: IssuerType
     label: Issuer Type
     description: "P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources)."
-    type: string
+    type: fixedchar
     size: 1
     example_hex: 50
     example_value: "P"
@@ -120,7 +118,9 @@ fields:
   - name: IssuerLogoURL
     label: Issuer Logo URL
     description: "The URL of the Issuers logo."
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: "2368747470733a2f2f6578616d706c652e636f6d2f696d616765732f6c6f676f2e706e67"
     example_value: "https://example.com/images/logo.png"
     notes: ""
@@ -128,7 +128,9 @@ fields:
   - name: ContractOperatorID
     label: Contract Operator ID
     description: "Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 09546f6b656e697a6564
     example_value: "Tokenized"
     notes: ""
@@ -142,15 +144,6 @@ fields:
     example_value: "010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000"
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
-  - name: VotingSystemCount
-    label: Number of Voting Systems
-    description: "0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes: "Voting - Amendments can be restricted to a vote."
-
   - name: VotingSystems
     label: Voting Systems
     description: "A list voting systems."
@@ -160,7 +153,7 @@ fields:
   - name: RestrictedQtyAssets
     label: Restricted Qty of Assets
     description: "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000000001
     example_value: "1"
@@ -184,15 +177,6 @@ fields:
     example_value: 0
     notes: ""
 
-  - name: RegistryCount
-    label: Registry Count
-    description: "Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields)."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: "0"
-    notes: "Registry - Can be restricted to a vote."
-
   - name: Registries
     label: Registries
     description: "A list Registries"
@@ -210,7 +194,9 @@ fields:
   - name: UnitNumber
     label: Unit Number
     description: "Issuer Address Details (eg. HQ)"
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0132
     example_value: "2"
     notes: ""
@@ -218,7 +204,9 @@ fields:
   - name: BuildingNumber
     label: Building Number
     description: ""
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 053133353737
     example_value: "13577"
     notes: ""
@@ -226,7 +214,9 @@ fields:
   - name: Street
     label: Street
     description: ""
-    type: nvarchar16
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     example_hex: 000c466169726d6f6e7420417665
     example_value: "Fairmont Ave"
     notes: ""
@@ -234,7 +224,9 @@ fields:
   - name: SuburbCity
     label: Suburb/City
     description: ""
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 07526f62696e6f68
     example_value: "Robinoh"
     notes: ""
@@ -242,7 +234,7 @@ fields:
   - name: TerritoryStateProvinceCode
     label: Territory/State/Province Code
     description: ""
-    type: string
+    type: fixedchar
     size: 5
     example_hex: 4243000000
     example_value: "BC"
@@ -251,7 +243,7 @@ fields:
   - name: CountryCode
     label: Country Code
     description: ""
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 555341
     example_value: "USA"
@@ -260,7 +252,9 @@ fields:
   - name: PostalZIPCode
     label: Postal/ZIP Code
     description: ""
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 053530323130
     example_value: "50210"
     notes: ""
@@ -268,7 +262,9 @@ fields:
   - name: EmailAddress
     label: Email Address
     description: "Address for text-based communication: eg. email address, Bitcoin address"
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 136a616d657340746f6b656e697a65642e636f6d
     example_value: "james@tokenized.com"
     notes: ""
@@ -276,33 +272,17 @@ fields:
   - name: PhoneNumber
     label: Phone Number
     description: "Phone Number for Entity. Max acceptable size: 50."
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0a30343438343834383438
     example_value: "0448484848"
-    notes: ""
-
-  - name: KeyRolesCount
-    label: KeyRoles Count
-    description: "Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
     notes: ""
 
   - name: KeyRoles
     label: Key Roles
     description: "A list of Key Roles."
     type: KeyRole[]
-
-  - name: NotableRolesCount
-    label: Notable Roles Count
-    description: "Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
 
   - name: NotableRoles
     label: Notable Roles
@@ -312,7 +292,7 @@ fields:
   - name: ContractRevision
     label: Contract Revision
     description: "Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published."
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000000000
     example_value: "0"

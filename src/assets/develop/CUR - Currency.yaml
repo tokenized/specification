@@ -16,7 +16,7 @@ metadata:
 fields:
   - name: Version
     label: Version
-    type: uint8
+    type: uint
     description: Payload Version
     size: 1
     example: 0
@@ -32,7 +32,7 @@ fields:
    
   - name: ISOCode
     label: ISO Code
-    type: string
+    type: fixedchar
     size: 3
     example: AUD
     span: full
@@ -40,7 +40,9 @@ fields:
 
   - name: MonetaryAuthority
     label: Monetary Authority
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 255
     example: Reserve Bank of Australia
     span: full
@@ -48,7 +50,9 @@ fields:
 
   - name: Description
     label: Description
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 255
     example: Australian dollar
     span: full

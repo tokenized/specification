@@ -31,7 +31,9 @@ fields:
   - name: Message
     label: Message
     description:
-    type: nvarchar32
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 32
     example_hex: 00000008757365726e616d65
     example_value: "username"
     notes: ""

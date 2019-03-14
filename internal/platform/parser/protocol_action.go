@@ -54,7 +54,7 @@ func setFieldTypes(action ProtocolAction, fieldTypes []ProtocolType) ProtocolAct
 	// Set the action subtypes
 	pts := []ProtocolType{}
 
-	for j, f := range action.Fields {
+	for _, f := range action.Fields {
 		k := f.SingularType()
 
 		t, ok := protocolTypes[k]
@@ -66,7 +66,7 @@ func setFieldTypes(action ProtocolAction, fieldTypes []ProtocolType) ProtocolAct
 		pts = append(pts, t)
 
 		// This field is an internal type
-		action.Fields[j].internalType = true
+		// action.Fields[j].internalType = true
 	}
 
 	action.FieldTypes = pts
@@ -77,11 +77,13 @@ func setFieldTypes(action ProtocolAction, fieldTypes []ProtocolType) ProtocolAct
 type ProtocolActions []ProtocolAction
 
 type ProtocolAction struct {
-	Code       string
-	Metadata   Metadata
-	Rules      Rules
-	Fields     []Field
-	FieldTypes []ProtocolType
+	Code        string
+	Metadata    Metadata
+	Rules       Rules
+	Fields      []Field
+	FieldTypes  []ProtocolType
+	Constructor []Constructor
+	Functions   []Function
 }
 
 func (m ProtocolAction) CodeNameComment() string {
@@ -142,7 +144,6 @@ func (m ProtocolAction) PayloadFields() []Field {
 	for _, f := range m.Fields {
 		if f.Name == "Header" {
 			continue
-
 		}
 
 		fields = append(fields, f)

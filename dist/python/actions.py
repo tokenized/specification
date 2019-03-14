@@ -12,21 +12,20 @@ class Action_AssetDefinition(ActionBase):
     ActionPrefix = 'A1'
 
     schema = {
-        'AssetID':                         [0, DAT_string, 32],
+        'AssetID':                         [0, DAT_fixedchar, 32],
         'AssetAuthFlags':                  [1, DAT_bin, 8],
         'TransfersPermitted':              [2, DAT_bool, 1],
-        'TradeRestrictions':               [3, DAT_string, 3],
+        'TradeRestrictions':               [3, DAT_fixedchar, 3],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 1],
-        'VoteMultiplier':                  [5, DAT_uint8, 1],
+        'VoteMultiplier':                  [5, DAT_uint, 1],
         'ReferendumProposal':              [6, DAT_bool, 1],
         'InitiativeProposal':              [7, DAT_bool, 1],
         'AssetModificationGovernance':     [8, DAT_bool, 1],
-        'TokenQty':                        [9, DAT_uint64, 8],
-        'ContractFeeCurrency':             [10, DAT_string, 3],
-        'ContractFeeVar':                  [11, DAT_float32, 4],
-        'ContractFeeFixed':                [12, DAT_float32, 4],
-        'AssetPayloadLen':                 [13, DAT_uint16, 2],
-        'AssetPayload':                    [14, DAT_byte[], 0]
+        'TokenQty':                        [9, DAT_uint, 8],
+        'ContractFeeCurrency':             [10, DAT_fixedchar, 3],
+        'ContractFeeVar':                  [11, DAT_float, 4],
+        'ContractFeeFixed':                [12, DAT_float, 4],
+        'AssetPayload':                    [13, DAT_varbin, 16]
     }
 
     rules = {
@@ -48,7 +47,6 @@ class Action_AssetDefinition(ActionBase):
         self.ContractFeeCurrency = None
         self.ContractFeeVar = None
         self.ContractFeeFixed = None
-        self.AssetPayloadLen = None
         self.AssetPayload = None
 
 
@@ -59,23 +57,22 @@ class Action_AssetCreation(ActionBase):
     ActionPrefix = 'A2'
 
     schema = {
-        'AssetID':                         [0, DAT_string, 32],
+        'AssetID':                         [0, DAT_fixedchar, 32],
         'AssetAuthFlags':                  [1, DAT_bin, 8],
         'TransfersPermitted':              [2, DAT_bool, 1],
-        'TradeRestrictions':               [3, DAT_string, 3],
+        'TradeRestrictions':               [3, DAT_fixedchar, 3],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 1],
-        'VoteMultiplier':                  [5, DAT_uint8, 1],
+        'VoteMultiplier':                  [5, DAT_uint, 1],
         'ReferendumProposal':              [6, DAT_bool, 1],
         'InitiativeProposal':              [7, DAT_bool, 1],
         'AssetModificationGovernance':     [8, DAT_bool, 1],
-        'TokenQty':                        [9, DAT_uint64, 8],
-        'ContractFeeCurrency':             [10, DAT_string, 3],
-        'ContractFeeVar':                  [11, DAT_float32, 4],
-        'ContractFeeFixed':                [12, DAT_float32, 4],
-        'AssetPayloadLen':                 [13, DAT_uint16, 2],
-        'AssetPayload':                    [14, DAT_byte[], 0],
-        'Asset Revision':                  [15, DAT_uint64, 8],
-        'Timestamp':                       [16, DAT_timestamp, 8]
+        'TokenQty':                        [9, DAT_uint, 8],
+        'ContractFeeCurrency':             [10, DAT_fixedchar, 3],
+        'ContractFeeVar':                  [11, DAT_float, 4],
+        'ContractFeeFixed':                [12, DAT_float, 4],
+        'AssetPayload':                    [13, DAT_varbin, 16],
+        'Asset Revision':                  [14, DAT_uint, 8],
+        'Timestamp':                       [15, DAT_timestamp, 8]
     }
 
     rules = {
@@ -97,7 +94,6 @@ class Action_AssetCreation(ActionBase):
         self.ContractFeeCurrency = None
         self.ContractFeeVar = None
         self.ContractFeeFixed = None
-        self.AssetPayloadLen = None
         self.AssetPayload = None
         self.Asset Revision = None
         self.Timestamp = None
@@ -110,11 +106,10 @@ class Action_AssetModification(ActionBase):
     ActionPrefix = 'A3'
 
     schema = {
-        'AssetID':                         [0, DAT_string, 32],
-        'AssetRevision':                   [1, DAT_uint64, 8],
-        'ModificationCount':               [2, DAT_uint8, 1],
-        'Modifications':                   [3, DAT_Amendment[], 0],
-        'RefTxID':                         [4, DAT_sha256, 32]
+        'AssetID':                         [0, DAT_fixedchar, 32],
+        'AssetRevision':                   [1, DAT_uint, 8],
+        'Modifications':                   [2, DAT_Amendment[], 0],
+        'RefTxID':                         [3, DAT_sha256, 32]
     }
 
     rules = {
@@ -125,7 +120,6 @@ class Action_AssetModification(ActionBase):
 
     def init_attributes(self):
         self.AssetRevision = None
-        self.ModificationCount = None
         self.Modifications = None
         self.RefTxID = None
 
@@ -142,39 +136,34 @@ class Action_ContractOffer(ActionBase):
     ActionPrefix = 'C1'
 
     schema = {
-        'ContractFileType':                [0, DAT_uint8, 1],
-        'LenContractFile':                 [1, DAT_uint32, 4],
-        'ContractFile':                    [2, DAT_string, 32],
-        'GoverningLaw':                    [3, DAT_string, 5],
-        'Jurisdiction':                    [4, DAT_string, 5],
-        'ContractExpiration':              [5, DAT_time, 8],
-        'ContractURI':                     [6, DAT_nvarchar8, 0],
-        'IssuerName':                      [7, DAT_nvarchar8, 0],
-        'IssuerType':                      [8, DAT_string, 1],
-        'IssuerLogoURL':                   [9, DAT_nvarchar8, 0],
-        'ContractOperatorID':              [10, DAT_nvarchar8, 0],
-        'ContractAuthFlags':               [11, DAT_bin, 16],
-        'VotingSystemCount':               [12, DAT_uint8, 1],
-        'VotingSystems':                   [13, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [14, DAT_uint64, 8],
-        'ReferendumProposal':              [15, DAT_bool, 1],
-        'InitiativeProposal':              [16, DAT_bool, 1],
-        'RegistryCount':                   [17, DAT_uint8, 1],
-        'Registries':                      [18, DAT_Registry[], 0],
-        'IssuerAddress':                   [19, DAT_bool, 1],
-        'UnitNumber':                      [20, DAT_nvarchar8, 0],
-        'BuildingNumber':                  [21, DAT_nvarchar8, 0],
-        'Street':                          [22, DAT_nvarchar16, 0],
-        'SuburbCity':                      [23, DAT_nvarchar8, 0],
-        'TerritoryStateProvinceCode':      [24, DAT_string, 5],
-        'CountryCode':                     [25, DAT_string, 3],
-        'PostalZIPCode':                   [26, DAT_nvarchar8, 0],
-        'EmailAddress':                    [27, DAT_nvarchar8, 0],
-        'PhoneNumber':                     [28, DAT_nvarchar8, 0],
-        'KeyRolesCount':                   [29, DAT_uint8, 1],
-        'KeyRoles':                        [30, DAT_KeyRole[], 0],
-        'NotableRolesCount':               [31, DAT_uint8, 1],
-        'NotableRoles':                    [32, DAT_NotableRole[], 0]
+        'ContractFileType':                [0, DAT_uint, 1],
+        'ContractFile':                    [1, DAT_varbin, 32],
+        'GoverningLaw':                    [2, DAT_fixedchar, 5],
+        'Jurisdiction':                    [3, DAT_fixedchar, 5],
+        'ContractExpiration':              [4, DAT_time, 8],
+        'ContractURI':                     [5, DAT_varchar, 8],
+        'IssuerName':                      [6, DAT_varchar, 8],
+        'IssuerType':                      [7, DAT_fixedchar, 1],
+        'IssuerLogoURL':                   [8, DAT_varchar, 8],
+        'ContractOperatorID':              [9, DAT_varchar, 8],
+        'ContractAuthFlags':               [10, DAT_bin, 16],
+        'VotingSystems':                   [11, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [12, DAT_uint, 8],
+        'ReferendumProposal':              [13, DAT_bool, 1],
+        'InitiativeProposal':              [14, DAT_bool, 1],
+        'Registries':                      [15, DAT_Registry[], 0],
+        'IssuerAddress':                   [16, DAT_bool, 1],
+        'UnitNumber':                      [17, DAT_varchar, 8],
+        'BuildingNumber':                  [18, DAT_varchar, 8],
+        'Street':                          [19, DAT_varchar, 16],
+        'SuburbCity':                      [20, DAT_varchar, 8],
+        'TerritoryStateProvinceCode':      [21, DAT_fixedchar, 5],
+        'CountryCode':                     [22, DAT_fixedchar, 3],
+        'PostalZIPCode':                   [23, DAT_varchar, 8],
+        'EmailAddress':                    [24, DAT_varchar, 8],
+        'PhoneNumber':                     [25, DAT_varchar, 8],
+        'KeyRoles':                        [26, DAT_KeyRole[], 0],
+        'NotableRoles':                    [27, DAT_NotableRole[], 0]
     }
 
     rules = {
@@ -184,7 +173,6 @@ class Action_ContractOffer(ActionBase):
     }
 
     def init_attributes(self):
-        self.LenContractFile = None
         self.ContractFile = None
         self.GoverningLaw = None
         self.Jurisdiction = None
@@ -195,12 +183,10 @@ class Action_ContractOffer(ActionBase):
         self.IssuerLogoURL = None
         self.ContractOperatorID = None
         self.ContractAuthFlags = None
-        self.VotingSystemCount = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
         self.ReferendumProposal = None
         self.InitiativeProposal = None
-        self.RegistryCount = None
         self.Registries = None
         self.IssuerAddress = None
         self.UnitNumber = None
@@ -212,9 +198,7 @@ class Action_ContractOffer(ActionBase):
         self.PostalZIPCode = None
         self.EmailAddress = None
         self.PhoneNumber = None
-        self.KeyRolesCount = None
         self.KeyRoles = None
-        self.NotableRolesCount = None
         self.NotableRoles = None
 
 
@@ -227,41 +211,36 @@ class Action_ContractFormation(ActionBase):
     ActionPrefix = 'C2'
 
     schema = {
-        'ContractFileType':                [0, DAT_uint8, 1],
-        'LenContractFile':                 [1, DAT_uint32, 4],
-        'ContractFile':                    [2, DAT_string, 32],
-        'GoverningLaw':                    [3, DAT_string, 5],
-        'Jurisdiction':                    [4, DAT_string, 5],
-        'ContractExpiration':              [5, DAT_time, 8],
-        'ContractURI':                     [6, DAT_nvarchar8, 0],
-        'IssuerName':                      [7, DAT_nvarchar8, 0],
-        'IssuerType':                      [8, DAT_string, 1],
-        'IssuerLogoURL':                   [9, DAT_nvarchar8, 0],
-        'ContractOperatorID':              [10, DAT_nvarchar8, 0],
-        'ContractAuthFlags':               [11, DAT_bin, 16],
-        'VotingSystemCount':               [12, DAT_uint8, 1],
-        'VotingSystems':                   [13, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [14, DAT_uint64, 8],
-        'ReferendumProposal':              [15, DAT_bool, 1],
-        'InitiativeProposal':              [16, DAT_bool, 1],
-        'RegistryCount':                   [17, DAT_uint8, 1],
-        'Registries':                      [18, DAT_Registry[], 0],
-        'IssuerAddress':                   [19, DAT_bool, 1],
-        'UnitNumber':                      [20, DAT_nvarchar8, 0],
-        'BuildingNumber':                  [21, DAT_nvarchar8, 0],
-        'Street':                          [22, DAT_nvarchar16, 0],
-        'SuburbCity':                      [23, DAT_nvarchar8, 0],
-        'TerritoryStateProvinceCode':      [24, DAT_string, 5],
-        'CountryCode':                     [25, DAT_string, 3],
-        'PostalZIPCode':                   [26, DAT_nvarchar8, 0],
-        'EmailAddress':                    [27, DAT_nvarchar8, 0],
-        'PhoneNumber':                     [28, DAT_nvarchar8, 0],
-        'KeyRolesCount':                   [29, DAT_uint8, 1],
-        'KeyRoles':                        [30, DAT_KeyRole[], 0],
-        'NotableRolesCount':               [31, DAT_uint8, 1],
-        'NotableRoles':                    [32, DAT_NotableRole[], 0],
-        'ContractRevision':                [33, DAT_uint64, 8],
-        'Timestamp':                       [34, DAT_timestamp, 8]
+        'ContractFileType':                [0, DAT_uint, 1],
+        'ContractFile':                    [1, DAT_varbin, 32],
+        'GoverningLaw':                    [2, DAT_fixedchar, 5],
+        'Jurisdiction':                    [3, DAT_fixedchar, 5],
+        'ContractExpiration':              [4, DAT_time, 8],
+        'ContractURI':                     [5, DAT_varchar, 8],
+        'IssuerName':                      [6, DAT_varchar, 8],
+        'IssuerType':                      [7, DAT_fixedchar, 1],
+        'IssuerLogoURL':                   [8, DAT_varchar, 8],
+        'ContractOperatorID':              [9, DAT_varchar, 8],
+        'ContractAuthFlags':               [10, DAT_bin, 16],
+        'VotingSystems':                   [11, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [12, DAT_uint, 8],
+        'ReferendumProposal':              [13, DAT_bool, 1],
+        'InitiativeProposal':              [14, DAT_bool, 1],
+        'Registries':                      [15, DAT_Registry[], 0],
+        'IssuerAddress':                   [16, DAT_bool, 1],
+        'UnitNumber':                      [17, DAT_varchar, 8],
+        'BuildingNumber':                  [18, DAT_varchar, 8],
+        'Street':                          [19, DAT_varchar, 16],
+        'SuburbCity':                      [20, DAT_varchar, 8],
+        'TerritoryStateProvinceCode':      [21, DAT_fixedchar, 5],
+        'CountryCode':                     [22, DAT_fixedchar, 3],
+        'PostalZIPCode':                   [23, DAT_varchar, 8],
+        'EmailAddress':                    [24, DAT_varchar, 8],
+        'PhoneNumber':                     [25, DAT_varchar, 8],
+        'KeyRoles':                        [26, DAT_KeyRole[], 0],
+        'NotableRoles':                    [27, DAT_NotableRole[], 0],
+        'ContractRevision':                [28, DAT_uint, 8],
+        'Timestamp':                       [29, DAT_timestamp, 8]
     }
 
     rules = {
@@ -271,7 +250,6 @@ class Action_ContractFormation(ActionBase):
     }
 
     def init_attributes(self):
-        self.LenContractFile = None
         self.ContractFile = None
         self.GoverningLaw = None
         self.Jurisdiction = None
@@ -282,12 +260,10 @@ class Action_ContractFormation(ActionBase):
         self.IssuerLogoURL = None
         self.ContractOperatorID = None
         self.ContractAuthFlags = None
-        self.VotingSystemCount = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
         self.ReferendumProposal = None
         self.InitiativeProposal = None
-        self.RegistryCount = None
         self.Registries = None
         self.IssuerAddress = None
         self.UnitNumber = None
@@ -299,9 +275,7 @@ class Action_ContractFormation(ActionBase):
         self.PostalZIPCode = None
         self.EmailAddress = None
         self.PhoneNumber = None
-        self.KeyRolesCount = None
         self.KeyRoles = None
-        self.NotableRolesCount = None
         self.NotableRoles = None
         self.ContractRevision = None
         self.Timestamp = None
@@ -317,10 +291,9 @@ class Action_ContractAmendment(ActionBase):
 
     schema = {
         'ChangeOperatorAddress':           [0, DAT_bool, 1],
-        'ContractRevision':                [1, DAT_uint16, 2],
-        'AmendmentsCount':                 [2, DAT_uint8, 1],
-        'Amendments':                      [3, DAT_Amendment[], 0],
-        'RefTxID':                         [4, DAT_SHA256, 32]
+        'ContractRevision':                [1, DAT_uint, 2],
+        'Amendments':                      [2, DAT_Amendment[], 0],
+        'RefTxID':                         [3, DAT_SHA256, 32]
     }
 
     rules = {
@@ -331,7 +304,6 @@ class Action_ContractAmendment(ActionBase):
 
     def init_attributes(self):
         self.ContractRevision = None
-        self.AmendmentsCount = None
         self.Amendments = None
         self.RefTxID = None
 
@@ -342,19 +314,17 @@ class Action_StaticContractFormation(ActionBase):
     ActionPrefix = 'C4'
 
     schema = {
-        'ContractType':                    [0, DAT_nvarchar8, 30],
-        'ContractFileType':                [1, DAT_uint8, 1],
-        'LenContractFile':                 [2, DAT_uint32, 4],
-        'ContractFile':                    [3, DAT_string, 32],
-        'ContractRevision':                [4, DAT_uint16, 2],
-        'GoverningLaw':                    [5, DAT_string, 5],
-        'Jurisdiction':                    [6, DAT_string, 5],
-        'EffectiveDate':                   [7, DAT_time, 8],
-        'ContractExpiration':              [8, DAT_time, 8],
-        'ContractURI':                     [9, DAT_nvarchar8, 53],
-        'PrevRevTxID':                     [10, DAT_string, 32],
-        'EntityCount':                     [11, DAT_uint8, 1],
-        'Entities':                        [12, DAT_Entity[], 0]
+        'ContractType':                    [0, DAT_varchar, 8],
+        'ContractFileType':                [1, DAT_uint, 1],
+        'ContractFile':                    [2, DAT_varbin, 32],
+        'ContractRevision':                [3, DAT_uint, 2],
+        'GoverningLaw':                    [4, DAT_fixedchar, 5],
+        'Jurisdiction':                    [5, DAT_fixedchar, 5],
+        'EffectiveDate':                   [6, DAT_time, 8],
+        'ContractExpiration':              [7, DAT_time, 8],
+        'ContractURI':                     [8, DAT_varchar, 8],
+        'PrevRevTxID':                     [9, DAT_sha256, 32],
+        'Entities':                        [10, DAT_Entity[], 0]
     }
 
     rules = {
@@ -365,7 +335,6 @@ class Action_StaticContractFormation(ActionBase):
 
     def init_attributes(self):
         self.ContractFileType = None
-        self.LenContractFile = None
         self.ContractFile = None
         self.ContractRevision = None
         self.GoverningLaw = None
@@ -374,7 +343,6 @@ class Action_StaticContractFormation(ActionBase):
         self.ContractExpiration = None
         self.ContractURI = None
         self.PrevRevTxID = None
-        self.EntityCount = None
         self.Entities = None
 
 
@@ -386,19 +354,18 @@ class Action_Order(ActionBase):
     ActionPrefix = 'E1'
 
     schema = {
-        'AssetID':                         [0, DAT_string, 32],
-        'ComplianceAction':                [1, DAT_string, 1],
-        'TargetAddressCount':              [2, DAT_uint16, 2],
-        'TargetAddresses':                 [3, DAT_TargetAddress[], 0],
-        'DepositAddress':                  [4, DAT_nvarchar8, 0],
-        'AuthorityName':                   [5, DAT_nvarchar8, 0],
-        'SigAlgoAddressList':              [6, DAT_uint8, 1],
-        'AuthorityPublicKey':              [7, DAT_nvarchar8, 0],
-        'OrderSignature':                  [8, DAT_nvarchar8, 0],
-        'SupportingEvidenceHash':          [9, DAT_sha256, 32],
-        'RefTxnID':                        [10, DAT_sha256, 32],
-        'FreezePeriod':                    [11, DAT_time, 8],
-        'Message':                         [12, DAT_nvarchar32, 0]
+        'AssetID':                         [0, DAT_fixedchar, 32],
+        'ComplianceAction':                [1, DAT_fixedchar, 1],
+        'TargetAddresses':                 [2, DAT_TargetAddress[], 16],
+        'DepositAddress':                  [3, DAT_Address, 0],
+        'AuthorityName':                   [4, DAT_varchar, 8],
+        'SigAlgoAddressList':              [5, DAT_uint, 1],
+        'AuthorityPublicKey':              [6, DAT_varchar, 8],
+        'OrderSignature':                  [7, DAT_varchar, 8],
+        'SupportingEvidenceHash':          [8, DAT_sha256, 32],
+        'RefTxnID':                        [9, DAT_sha256, 32],
+        'FreezePeriod':                    [10, DAT_time, 8],
+        'Message':                         [11, DAT_varchar, 32]
     }
 
     rules = {
@@ -409,7 +376,6 @@ class Action_Order(ActionBase):
 
     def init_attributes(self):
         self.ComplianceAction = None
-        self.TargetAddressCount = None
         self.TargetAddresses = None
         self.DepositAddress = None
         self.AuthorityName = None
@@ -432,8 +398,7 @@ class Action_Freeze(ActionBase):
     ActionPrefix = 'E2'
 
     schema = {
-        'Addresses':                       [0, DAT_Address[], 0],
-        'Timestamp':                       [1, DAT_timestamp, 8]
+        'Timestamp':                       [0, DAT_timestamp, 8]
     }
 
     rules = {
@@ -443,7 +408,6 @@ class Action_Freeze(ActionBase):
     }
 
     def init_attributes(self):
-        self.Timestamp = None
 
 
 # Thaw Action - to be used to comply with contractual obligations or legal
@@ -454,53 +418,7 @@ class Action_Thaw(ActionBase):
     ActionPrefix = 'E3'
 
     schema = {
-        'Addresses':                       [0, DAT_Address[], 0],
-        'RefTxnID':                        [1, DAT_sha256, 32],
-        'Timestamp':                       [2, DAT_timestamp, 8]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.RefTxnID = None
-        self.Timestamp = None
-
-
-# Confiscation Action - to be used to comply with contractual obligations,
-# legal and/or issuer requirements.
-
-class Action_Confiscation(ActionBase):
-    ActionPrefix = 'E4'
-
-    schema = {
-        'Addresses':                       [0, DAT_Address[], 0],
-        'DepositQty':                      [1, DAT_uint64, 8],
-        'Timestamp':                       [2, DAT_timestamp, 8]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.DepositQty = None
-        self.Timestamp = None
-
-
-# Reconciliation Action - to be used at the direction of the issuer to fix
-# record keeping errors with bitcoin and token balances.
-
-class Action_Reconciliation(ActionBase):
-    ActionPrefix = 'E5'
-
-    schema = {
-        'Addresses':                       [0, DAT_Address[], 0],
+        'RefTxnID':                        [0, DAT_sha256, 32],
         'Timestamp':                       [1, DAT_timestamp, 8]
     }
 
@@ -512,6 +430,46 @@ class Action_Reconciliation(ActionBase):
 
     def init_attributes(self):
         self.Timestamp = None
+
+
+# Confiscation Action - to be used to comply with contractual obligations,
+# legal and/or issuer requirements.
+
+class Action_Confiscation(ActionBase):
+    ActionPrefix = 'E4'
+
+    schema = {
+        'DepositQty':                      [0, DAT_uint, 8],
+        'Timestamp':                       [1, DAT_timestamp, 8]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
+        self.Timestamp = None
+
+
+# Reconciliation Action - to be used at the direction of the issuer to fix
+# record keeping errors with bitcoin and token balances.
+
+class Action_Reconciliation(ActionBase):
+    ActionPrefix = 'E5'
+
+    schema = {
+        'Timestamp':                       [0, DAT_timestamp, 8]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
 
 
 # Initiative Action - Allows Token Owners to propose an Initiative (aka
@@ -523,16 +481,15 @@ class Action_Initiative(ActionBase):
     ActionPrefix = 'G1'
 
     schema = {
-        'AssetID':                         [0, DAT_string, 32],
-        'VoteSystem':                      [1, DAT_uint8, 1],
+        'AssetID':                         [0, DAT_fixedchar, 32],
+        'VoteSystem':                      [1, DAT_uint, 1],
         'Proposal':                        [2, DAT_bool, 1],
-        'ProposedChangesCount':            [3, DAT_uint8, 1],
-        'ProposedChanges':                 [4, DAT_Amendment[], 0],
-        'VoteOptions':                     [5, DAT_nvarchar8, 0],
-        'VoteMax':                         [6, DAT_uint8, 1],
-        'ProposalDescription':             [7, DAT_nvarchar32, 0],
-        'ProposalDocumentHash':            [8, DAT_sha256, 32],
-        'VoteCutOffTimestamp':             [9, DAT_time, 8]
+        'ProposedChanges':                 [3, DAT_Amendment[], 0],
+        'VoteOptions':                     [4, DAT_varchar, 8],
+        'VoteMax':                         [5, DAT_uint, 1],
+        'ProposalDescription':             [6, DAT_varchar, 32],
+        'ProposalDocumentHash':            [7, DAT_sha256, 32],
+        'VoteCutOffTimestamp':             [8, DAT_time, 8]
     }
 
     rules = {
@@ -544,7 +501,6 @@ class Action_Initiative(ActionBase):
     def init_attributes(self):
         self.VoteSystem = None
         self.Proposal = None
-        self.ProposedChangesCount = None
         self.ProposedChanges = None
         self.VoteOptions = None
         self.VoteMax = None
@@ -561,17 +517,16 @@ class Action_Referendum(ActionBase):
     ActionPrefix = 'G2'
 
     schema = {
-        'AssetType':                       [0, DAT_string, 3],
-        'AssetID':                         [1, DAT_string, 32],
-        'VoteSystem':                      [2, DAT_uint8, 1],
+        'AssetType':                       [0, DAT_fixedchar, 3],
+        'AssetID':                         [1, DAT_fixedchar, 32],
+        'VoteSystem':                      [2, DAT_uint, 1],
         'Proposal':                        [3, DAT_bool, 1],
-        'ProposedChangesCount':            [4, DAT_uint8, 1],
-        'ProposedChanges':                 [5, DAT_Amendment[], 0],
-        'VoteOptions':                     [6, DAT_nvarchar8, 0],
-        'VoteMax':                         [7, DAT_uint8, 1],
-        'ProposalDescription':             [8, DAT_nvarchar32, 0],
-        'ProposalDocumentHash':            [9, DAT_sha256, 32],
-        'VoteCutOffTimestamp':             [10, DAT_time, 8]
+        'ProposedChanges':                 [4, DAT_Amendment[], 0],
+        'VoteOptions':                     [5, DAT_varchar, 8],
+        'VoteMax':                         [6, DAT_uint, 1],
+        'ProposalDescription':             [7, DAT_varchar, 32],
+        'ProposalDocumentHash':            [8, DAT_sha256, 32],
+        'VoteCutOffTimestamp':             [9, DAT_time, 8]
     }
 
     rules = {
@@ -584,7 +539,6 @@ class Action_Referendum(ActionBase):
         self.AssetID = None
         self.VoteSystem = None
         self.Proposal = None
-        self.ProposedChangesCount = None
         self.ProposedChanges = None
         self.VoteOptions = None
         self.VoteMax = None
@@ -621,9 +575,9 @@ class Action_BallotCast(ActionBase):
     ActionPrefix = 'G4'
 
     schema = {
-        'AssetID':                         [0, DAT_string, 32],
+        'AssetID':                         [0, DAT_fixedchar, 32],
         'VoteTxnID':                       [1, DAT_sha256, 32],
-        'Vote':                            [2, DAT_nvarchar8, 0]
+        'Vote':                            [2, DAT_varchar, 8]
     }
 
     rules = {
@@ -664,15 +618,14 @@ class Action_Result(ActionBase):
     ActionPrefix = 'G6'
 
     schema = {
-        'AssetID':                         [0, DAT_string, 32],
+        'AssetID':                         [0, DAT_fixedchar, 32],
         'Proposal':                        [1, DAT_bool, 1],
-        'ProposedChangesCount':            [2, DAT_uint8, 1],
-        'ProposedChanges':                 [3, DAT_Amendment[], 0],
-        'VoteTxnID':                       [4, DAT_sha256, 32],
-        'VoteOptionsCount':                [5, DAT_uint8, 1],
-        'OptionXTally':                    [6, DAT_uint64, 8],
-        'Result':                          [7, DAT_nvarchar8, 0],
-        'Timestamp':                       [8, DAT_timestamp, 8]
+        'ProposedChanges':                 [2, DAT_Amendment[], 0],
+        'VoteTxnID':                       [3, DAT_sha256, 32],
+        'VoteOptionsCount':                [4, DAT_uint, 1],
+        'OptionXTally':                    [5, DAT_uint, 8],
+        'Result':                          [6, DAT_varchar, 8],
+        'Timestamp':                       [7, DAT_timestamp, 8]
     }
 
     rules = {
@@ -683,7 +636,6 @@ class Action_Result(ActionBase):
 
     def init_attributes(self):
         self.Proposal = None
-        self.ProposedChangesCount = None
         self.ProposedChanges = None
         self.VoteTxnID = None
         self.VoteOptionsCount = None
@@ -704,9 +656,8 @@ class Action_Message(ActionBase):
     ActionPrefix = 'M1'
 
     schema = {
-        'AddressIndexes':                  [0, DAT_uint16[], 0],
-        'MessageType':                     [1, DAT_string, 2],
-        'MessagePayload':                  [2, DAT_nvarchar32, 0]
+        'MessageType':                     [0, DAT_fixedchar, 2],
+        'MessagePayload':                  [1, DAT_varchar, 32]
     }
 
     rules = {
@@ -716,7 +667,6 @@ class Action_Message(ActionBase):
     }
 
     def init_attributes(self):
-        self.MessageType = None
         self.MessagePayload = None
 
 
@@ -733,10 +683,9 @@ class Action_Rejection(ActionBase):
     ActionPrefix = 'M2'
 
     schema = {
-        'AddressIndexes':                  [0, DAT_uint16[], 0],
-        'RejectionType':                   [1, DAT_uint8, 1],
-        'MessagePayload':                  [2, DAT_nvarchar32, 0],
-        'Timestamp':                       [3, DAT_timestamp, 8]
+        'RejectionType':                   [0, DAT_uint, 1],
+        'MessagePayload':                  [1, DAT_varchar, 32],
+        'Timestamp':                       [2, DAT_timestamp, 8]
     }
 
     rules = {
@@ -746,7 +695,6 @@ class Action_Rejection(ActionBase):
     }
 
     def init_attributes(self):
-        self.RejectionType = None
         self.MessagePayload = None
         self.Timestamp = None
 
@@ -836,12 +784,11 @@ class Action_Transfer(ActionBase):
     ActionPrefix = 'T1'
 
     schema = {
-        'AssetTransfers':                  [0, DAT_AssetTransfer[], 0],
-        'OfferExpiry':                     [1, DAT_time, 8],
-        'ExchangeFeeCurrency':             [2, DAT_string, 3],
-        'ExchangeFeeVar':                  [3, DAT_float32, 4],
-        'ExchangeFeeFixed':                [4, DAT_float32, 4],
-        'ExchangeFeeAddress':              [5, DAT_string, 34]
+        'OfferExpiry':                     [0, DAT_time, 8],
+        'ExchangeFeeCurrency':             [1, DAT_fixedchar, 3],
+        'ExchangeFeeVar':                  [2, DAT_float, 4],
+        'ExchangeFeeFixed':                [3, DAT_float, 4],
+        'ExchangeFeeAddress':              [4, DAT_Address, 0]
     }
 
     rules = {
@@ -851,7 +798,6 @@ class Action_Transfer(ActionBase):
     }
 
     def init_attributes(self):
-        self.OfferExpiry = None
         self.ExchangeFeeCurrency = None
         self.ExchangeFeeVar = None
         self.ExchangeFeeFixed = None
@@ -865,8 +811,7 @@ class Action_Settlement(ActionBase):
     ActionPrefix = 'T4'
 
     schema = {
-        'AssetSettlements':                [0, DAT_AssetSettlement[], 0],
-        'Timestamp':                       [1, DAT_timestamp, 8]
+        'Timestamp':                       [0, DAT_timestamp, 8]
     }
 
     rules = {
@@ -876,7 +821,6 @@ class Action_Settlement(ActionBase):
     }
 
     def init_attributes(self):
-        self.Timestamp = None
 
 
 

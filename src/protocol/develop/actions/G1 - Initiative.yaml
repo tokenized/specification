@@ -32,12 +32,12 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket"
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 534843
     example_value: "SHC"
@@ -46,7 +46,7 @@ fields:
   - name: AssetID
     label: Asset ID
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: string
+    type: fixedchar
     size: 32
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
@@ -55,7 +55,7 @@ fields:
   - name: VoteSystem
     label: Vote System
     description: "X for Vote System X. (1-255, 0 is not valid.)"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
@@ -69,12 +69,6 @@ fields:
     example_hex: 00
     example_value: 0
 
-  - name: ProposedChangesCount
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-
   - name: ProposedChanges
     label: Proposed Changes
     description: "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time."
@@ -83,7 +77,9 @@ fields:
   - name: VoteOptions
     label: Vote Options
     description: "Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes."
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 0f4142434445464748494a4b4c4d4e4f
     example_value: "ABCDEFGHIJKLMNO"
     notes: ""
@@ -91,7 +87,7 @@ fields:
   - name: VoteMax
     label: Vote Max
     description: "Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 0f
     example_value: "15"
@@ -100,7 +96,9 @@ fields:
   - name: ProposalDescription
     label: Proposal Description
     description: "Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote"
-    type: nvarchar32
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 32
     example_hex: 000000204368616e676520746865206e616d65206f662074686520436f6e74726163742e
     example_value: "Change the name of the Contract."
     notes: ""

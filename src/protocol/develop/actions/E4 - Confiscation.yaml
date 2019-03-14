@@ -34,25 +34,18 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: AddressCount
-    label: Number of Addresses
-    description: "0 - 65,535"
-    type: uint16
-    size: 2
-    example_hex: 0000
-    example_value: 0
-    notes: ""
-
   - name: Addresses
     label: Addresses
     description: "Addresses holding tokens to be confiscated."
     type: Address[]
+    # array size is number of bits to serialize the size of the array
+    size: 16
     notes: ""
 
   - name: DepositQty
     label: Deposit Qty
     description: "Custodian's token balance after confiscation."
-    type: uint64
+    type: uint
     size: 8
     example_hex: 0000000000002710
     example_value: "10000"

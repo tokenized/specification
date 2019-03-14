@@ -28,12 +28,12 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket"
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 534843
     example_value: "SHC"
@@ -42,7 +42,7 @@ fields:
   - name: AssetID
     label: Asset ID
     description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
-    type: string
+    type: fixedchar
     size: 32
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
@@ -51,37 +51,30 @@ fields:
   - name: ComplianceAction
     label: Compliance Action
     description: "Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)"
-    type: string
+    type: fixedchar
     size: 1
     example_hex: 46
     example_value: "F"
     notes: ""
 
-  - name: TargetAddressCount
-    label: Number of Target Addresses
-    description: "0 - 65,535"
-    type: uint16
-    size: 2
-    example_hex: 0000
-    example_value: 0
-    notes: ""
-
   - name: TargetAddresses
     label: Target Addresses
     type: TargetAddress[]
+    # array size is number of bits to serialize the size of the array
+    size: 16
 
   - name: DepositAddress
     label: Deposit Address
-    description: "Length 1-255 bytes. The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
-    type: nvarchar8
-    example_hex: 2231377a4157616269706355486e35585039773847456333504b764735625947424d65
-    example_value: "17zAWabipcUHn5XP9w8GEc3PKvG5bYGBMe"
+    description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
+    type: Address
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
 
   - name: AuthorityName
     label: Authority Name
     description: "Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)"
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 2453757072656d6520616e6420446973747269637420436f75727473204272697362616e65
     example_value: "Supreme and District Courts Brisbane"
     notes: ""
@@ -89,7 +82,7 @@ fields:
   - name: SigAlgoAddressList
     label: Signature Algorithm for Address List
     description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: 1
@@ -98,7 +91,9 @@ fields:
   - name: AuthorityPublicKey
     label: Authority Public Key
     description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 00
     example_value: ""
     notes: ""
@@ -106,7 +101,9 @@ fields:
   - name: OrderSignature
     label: Authority Order Signature
     description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)"
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     example_hex: 00
     example_value: ""
     notes: ""
@@ -141,7 +138,9 @@ fields:
   - name: Message
     label: Message Period
     description:
-    type: nvarchar32
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 32
     example_hex: 00000023536f7272792c206275742074686520636f757274206f72646572206d616465206d652e
     example_value: "Sorry, but the court order made me."
     notes: ""

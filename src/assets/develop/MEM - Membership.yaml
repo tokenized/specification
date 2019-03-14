@@ -21,7 +21,7 @@ metadata:
 fields:
   - name: Version
     label: Version
-    type: uint8
+    type: uint
     description: Payload Version
     size: 1
     example: 0
@@ -66,7 +66,9 @@ fields:
 
   - name: ID
     label: ID
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 255
     example: 34536457575486868
     span: right
@@ -74,7 +76,9 @@ fields:
 
   - name: MembershipType
     label: MembershipType
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 255
     example: Director, Silver, Employee
     span: right
@@ -82,8 +86,9 @@ fields:
 
   - name: Description
     label: Description
-    type: nvarchar64
-    # size: 65,535
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     example: Rights and duties listed.
     span: full
     displayOrder: 1

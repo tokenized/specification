@@ -1,1255 +1,1778 @@
 package protocol
 
 import (
-	"encoding/hex"
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestAssetDefinition(t *testing.T) {
-	// The hex is the body of the message
-	body := "434f5561706d3271737a6e686b7332337a38643833753431733830313968797269336900000000000011bf01474252010301010100000000000f42404155443ba3d70a3c23d70a0009736f6d652064617461"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// Create a randomized object
+	initialMessage := AssetDefinition{}
+	// AssetType (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+0))
+		}
+		initialMessage.AssetType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewAssetDefinition()
+	// AssetID (fixedchar)
+	{
+		text := make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.AssetID = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeAssetDefinition, len(b))
+	// AssetAuthFlags (bin)
+	// bin test not setup
+
+	// TransfersPermitted (bool)
+	// bool test not setup
+
+	// TradeRestrictions (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+4))
+		}
+		initialMessage.TradeRestrictions = string(text)
+	}
+
+	// EnforcementOrdersPermitted (bool)
+	// bool test not setup
+
+	// VoteMultiplier (uint)
+	// uint test not setup
+
+	// ReferendumProposal (bool)
+	// bool test not setup
+
+	// InitiativeProposal (bool)
+	// bool test not setup
+
+	// AssetModificationGovernance (bool)
+	// bool test not setup
+
+	// TokenQty (uint)
+	// uint test not setup
+
+	// ContractFeeCurrency (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+11))
+		}
+		initialMessage.ContractFeeCurrency = string(text)
+	}
+
+	// ContractFeeVar (float)
+	// float test not setup
+
+	// ContractFeeFixed (float)
+	// float test not setup
+
+	// AssetPayload (varbin)
+	initialMessage.AssetPayload = make([]byte, 0, 16)
+	for i := uint64(0); i < 16; i++ {
+		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+14))
+	}
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := AssetDefinition{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestAssetCreation(t *testing.T) {
-	// The hex is the body of the message
-	body := "53484361706d3271737a6e686b7332337a38643833753431733830313968797269336900000000000011bf01474252010301010100000000000f42404155443ba3d70a3c23d70a0009736f6d65206461746100000000000011bf1588f8cc6a16430d"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// Create a randomized object
+	initialMessage := AssetCreation{}
+	// AssetType (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+0))
+		}
+		initialMessage.AssetType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewAssetCreation()
+	// AssetID (fixedchar)
+	{
+		text := make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.AssetID = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeAssetCreation, len(b))
+	// AssetAuthFlags (bin)
+	// bin test not setup
+
+	// TransfersPermitted (bool)
+	// bool test not setup
+
+	// TradeRestrictions (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+4))
+		}
+		initialMessage.TradeRestrictions = string(text)
+	}
+
+	// EnforcementOrdersPermitted (bool)
+	// bool test not setup
+
+	// VoteMultiplier (uint)
+	// uint test not setup
+
+	// ReferendumProposal (bool)
+	// bool test not setup
+
+	// InitiativeProposal (bool)
+	// bool test not setup
+
+	// AssetModificationGovernance (bool)
+	// bool test not setup
+
+	// TokenQty (uint)
+	// uint test not setup
+
+	// ContractFeeCurrency (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+11))
+		}
+		initialMessage.ContractFeeCurrency = string(text)
+	}
+
+	// ContractFeeVar (float)
+	// float test not setup
+
+	// ContractFeeFixed (float)
+	// float test not setup
+
+	// AssetPayload (varbin)
+	initialMessage.AssetPayload = make([]byte, 0, 16)
+	for i := uint64(0); i < 16; i++ {
+		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+14))
+	}
+
+	// AssetRevision (uint)
+	// uint test not setup
+
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := AssetCreation{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestAssetModification(t *testing.T) {
-	// The hex is the body of the message
-	body := "53484361706d3271737a6e686b7332337a386438337534317338303139687972693369000000000000000000a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// Create a randomized object
+	initialMessage := AssetModification{}
+	// AssetType (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+0))
+		}
+		initialMessage.AssetType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewAssetModification()
+	// AssetID (fixedchar)
+	{
+		text := make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.AssetID = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeAssetModification, len(b))
+	// AssetRevision (uint)
+	// uint test not setup
+
+	// Modifications (Amendment[])
+	// Amendment[] test not setup
+
+	// RefTxID (sha256)
+	// sha256 test not setup
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := AssetModification{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestContractOffer(t *testing.T) {
-	// The hex is the body of the message
-	body := "1d5465736c61202d205368617265686f6c6465722041677265656d656e740100000020c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1555341000055532d4341000000005c78d0f03468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a0a5465736c6120496e632e502368747470733a2f2f6578616d706c652e636f6d2f696d616765732f6c6f676f2e706e6709546f6b656e697a6564492492496db6db6d249b6db6db6db6c0000000000000000001010100010132053133353737000c466169726d6f6e742041766507526f62696e6f684243000000555341053530323130136a616d657340746f6b656e697a65642e636f6d0a303432303139393939390000"
+	// Create a randomized object
+	initialMessage := ContractOffer{}
+	// ContractName (varchar)
+	initialMessage.ContractName = "Text 0"
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// ContractFileType (uint)
+	// uint test not setup
+
+	// ContractFile (varbin)
+	initialMessage.ContractFile = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+2))
 	}
 
-	// Create a valid header for the body
-	m := NewContractOffer()
+	// GoverningLaw (fixedchar)
+	{
+		text := make([]byte, 0, 5)
+		for i := uint64(0); i < 5; i++ {
+			text = append(text, byte(65+i+3))
+		}
+		initialMessage.GoverningLaw = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeContractOffer, len(b))
+	// Jurisdiction (fixedchar)
+	{
+		text := make([]byte, 0, 5)
+		for i := uint64(0); i < 5; i++ {
+			text = append(text, byte(65+i+4))
+		}
+		initialMessage.Jurisdiction = string(text)
+	}
+
+	// ContractExpiration (time)
+	// time test not setup
+
+	// ContractURI (varchar)
+	initialMessage.ContractURI = "Text 6"
+
+	// IssuerName (varchar)
+	initialMessage.IssuerName = "Text 7"
+
+	// IssuerType (fixedchar)
+	// fixedchar test not setup
+
+	// IssuerLogoURL (varchar)
+	initialMessage.IssuerLogoURL = "Text 9"
+
+	// ContractOperatorID (varchar)
+	initialMessage.ContractOperatorID = "Text 10"
+
+	// ContractAuthFlags (bin)
+	// bin test not setup
+
+	// VotingSystems (VotingSystem[])
+	// VotingSystem[] test not setup
+
+	// RestrictedQtyAssets (uint)
+	// uint test not setup
+
+	// ReferendumProposal (bool)
+	// bool test not setup
+
+	// InitiativeProposal (bool)
+	// bool test not setup
+
+	// Registries (Registry[])
+	// Registry[] test not setup
+
+	// IssuerAddress (bool)
+	// bool test not setup
+
+	// UnitNumber (varchar)
+	initialMessage.UnitNumber = "Text 18"
+
+	// BuildingNumber (varchar)
+	initialMessage.BuildingNumber = "Text 19"
+
+	// Street (varchar)
+	initialMessage.Street = "Text 20"
+
+	// SuburbCity (varchar)
+	initialMessage.SuburbCity = "Text 21"
+
+	// TerritoryStateProvinceCode (fixedchar)
+	{
+		text := make([]byte, 0, 5)
+		for i := uint64(0); i < 5; i++ {
+			text = append(text, byte(65+i+22))
+		}
+		initialMessage.TerritoryStateProvinceCode = string(text)
+	}
+
+	// CountryCode (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+23))
+		}
+		initialMessage.CountryCode = string(text)
+	}
+
+	// PostalZIPCode (varchar)
+	initialMessage.PostalZIPCode = "Text 24"
+
+	// EmailAddress (varchar)
+	initialMessage.EmailAddress = "Text 25"
+
+	// PhoneNumber (varchar)
+	initialMessage.PhoneNumber = "Text 26"
+
+	// KeyRoles (KeyRole[])
+	// KeyRole[] test not setup
+
+	// NotableRoles (NotableRole[])
+	// NotableRole[] test not setup
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := ContractOffer{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestContractFormation(t *testing.T) {
-	// The hex is the body of the message
-	body := "1d5465736c61202d205368617265686f6c6465722041677265656d656e740100000020c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1555341000055532d434100000163400d3f003468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a0a5465736c6120496e632e502368747470733a2f2f6578616d706c652e636f6d2f696d616765732f6c6f676f2e706e6709546f6b656e697a6564492492496db6db6d249b6db6db6db6c0000000000000000001010000010132053133353737000c466169726d6f6e742041766507526f62696e6f684243000000555341053530323130136a616d657340746f6b656e697a65642e636f6d0a30343438343834383438000000000000000000001588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := ContractFormation{}
+	// ContractName (varchar)
+	initialMessage.ContractName = "Text 0"
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// ContractFileType (uint)
+	// uint test not setup
+
+	// ContractFile (varbin)
+	initialMessage.ContractFile = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+2))
 	}
 
-	// Create a valid header for the body
-	m := NewContractFormation()
+	// GoverningLaw (fixedchar)
+	{
+		text := make([]byte, 0, 5)
+		for i := uint64(0); i < 5; i++ {
+			text = append(text, byte(65+i+3))
+		}
+		initialMessage.GoverningLaw = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeContractFormation, len(b))
+	// Jurisdiction (fixedchar)
+	{
+		text := make([]byte, 0, 5)
+		for i := uint64(0); i < 5; i++ {
+			text = append(text, byte(65+i+4))
+		}
+		initialMessage.Jurisdiction = string(text)
+	}
+
+	// ContractExpiration (time)
+	// time test not setup
+
+	// ContractURI (varchar)
+	initialMessage.ContractURI = "Text 6"
+
+	// IssuerName (varchar)
+	initialMessage.IssuerName = "Text 7"
+
+	// IssuerType (fixedchar)
+	// fixedchar test not setup
+
+	// IssuerLogoURL (varchar)
+	initialMessage.IssuerLogoURL = "Text 9"
+
+	// ContractOperatorID (varchar)
+	initialMessage.ContractOperatorID = "Text 10"
+
+	// ContractAuthFlags (bin)
+	// bin test not setup
+
+	// VotingSystems (VotingSystem[])
+	// VotingSystem[] test not setup
+
+	// RestrictedQtyAssets (uint)
+	// uint test not setup
+
+	// ReferendumProposal (bool)
+	// bool test not setup
+
+	// InitiativeProposal (bool)
+	// bool test not setup
+
+	// Registries (Registry[])
+	// Registry[] test not setup
+
+	// IssuerAddress (bool)
+	// bool test not setup
+
+	// UnitNumber (varchar)
+	initialMessage.UnitNumber = "Text 18"
+
+	// BuildingNumber (varchar)
+	initialMessage.BuildingNumber = "Text 19"
+
+	// Street (varchar)
+	initialMessage.Street = "Text 20"
+
+	// SuburbCity (varchar)
+	initialMessage.SuburbCity = "Text 21"
+
+	// TerritoryStateProvinceCode (fixedchar)
+	{
+		text := make([]byte, 0, 5)
+		for i := uint64(0); i < 5; i++ {
+			text = append(text, byte(65+i+22))
+		}
+		initialMessage.TerritoryStateProvinceCode = string(text)
+	}
+
+	// CountryCode (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+23))
+		}
+		initialMessage.CountryCode = string(text)
+	}
+
+	// PostalZIPCode (varchar)
+	initialMessage.PostalZIPCode = "Text 24"
+
+	// EmailAddress (varchar)
+	initialMessage.EmailAddress = "Text 25"
+
+	// PhoneNumber (varchar)
+	initialMessage.PhoneNumber = "Text 26"
+
+	// KeyRoles (KeyRole[])
+	// KeyRole[] test not setup
+
+	// NotableRoles (NotableRole[])
+	// NotableRole[] test not setup
+
+	// ContractRevision (uint)
+	// uint test not setup
+
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := ContractFormation{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestContractAmendment(t *testing.T) {
-	// The hex is the body of the message
-	body := "0101002a00a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d"
+	// Create a randomized object
+	initialMessage := ContractAmendment{}
+	// ChangeIssuerAddress (bool)
+	// bool test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
+	// ChangeOperatorAddress (bool)
+	// bool test not setup
 
-	// Create a valid header for the body
-	m := NewContractAmendment()
+	// ContractRevision (uint)
+	// uint test not setup
 
-	header, err := NewHeaderForCode(CodeContractAmendment, len(b))
-	if err != nil {
-		t.Fatal(err)
-	}
+	// Amendments (Amendment[])
+	// Amendment[] test not setup
 
-	m.Header = *header
+	// RefTxID (SHA256)
+	// SHA256 test not setup
 
-	headerBytes, err := m.Header.Serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	// Decode message
+	decodedMessage := ContractAmendment{}
+
+	n, err := decodedMessage.write(initialEncoding)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("Decoded : %d bytes", n)
+
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestStaticContractFormation(t *testing.T) {
-	// The hex is the body of the message
-	body := "1d5465736c61202d205368617265686f6c6465722041677265656d656e74184e6f6e2d446973636c6f737572652041677265656d656e740100000020c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d10000555341000055532d434100000163400d3f00000000005c78d0f03468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f00"
+	// Create a randomized object
+	initialMessage := StaticContractFormation{}
+	// ContractName (varchar)
+	initialMessage.ContractName = "Text 0"
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// ContractType (varchar)
+	initialMessage.ContractType = "Text 1"
+
+	// ContractFileType (uint)
+	// uint test not setup
+
+	// ContractFile (varbin)
+	initialMessage.ContractFile = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+3))
 	}
 
-	// Create a valid header for the body
-	m := NewStaticContractFormation()
+	// ContractRevision (uint)
+	// uint test not setup
 
-	header, err := NewHeaderForCode(CodeStaticContractFormation, len(b))
+	// GoverningLaw (fixedchar)
+	{
+		text := make([]byte, 0, 5)
+		for i := uint64(0); i < 5; i++ {
+			text = append(text, byte(65+i+5))
+		}
+		initialMessage.GoverningLaw = string(text)
+	}
+
+	// Jurisdiction (fixedchar)
+	{
+		text := make([]byte, 0, 5)
+		for i := uint64(0); i < 5; i++ {
+			text = append(text, byte(65+i+6))
+		}
+		initialMessage.Jurisdiction = string(text)
+	}
+
+	// EffectiveDate (time)
+	// time test not setup
+
+	// ContractExpiration (time)
+	// time test not setup
+
+	// ContractURI (varchar)
+	initialMessage.ContractURI = "Text 9"
+
+	// PrevRevTxID (sha256)
+	// sha256 test not setup
+
+	// Entities (Entity[])
+	// Entity[] test not setup
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := StaticContractFormation{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestOrder(t *testing.T) {
-	// The hex is the body of the message
-	body := "53484361706d3271737a6e686b7332337a3864383375343173383031396879726933694600002231377a4157616269706355486e35585039773847456333504b764735625947424d652453757072656d6520616e6420446973747269637420436f75727473204272697362616e65010000c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb3700000166550ce38000000023536f7272792c206275742074686520636f757274206f72646572206d616465206d652e"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// Create a randomized object
+	initialMessage := Order{}
+	// AssetType (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+0))
+		}
+		initialMessage.AssetType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewOrder()
+	// AssetID (fixedchar)
+	{
+		text := make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.AssetID = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeOrder, len(b))
+	// ComplianceAction (fixedchar)
+	// fixedchar test not setup
+
+	// TargetAddresses (TargetAddress[])
+	// TargetAddress[] test not setup
+
+	// DepositAddress (Address)
+	// Address test not setup
+
+	// AuthorityName (varchar)
+	initialMessage.AuthorityName = "Text 5"
+
+	// SigAlgoAddressList (uint)
+	// uint test not setup
+
+	// AuthorityPublicKey (varchar)
+	initialMessage.AuthorityPublicKey = "Text 7"
+
+	// OrderSignature (varchar)
+	initialMessage.OrderSignature = "Text 8"
+
+	// SupportingEvidenceHash (sha256)
+	// sha256 test not setup
+
+	// RefTxnID (sha256)
+	// sha256 test not setup
+
+	// FreezePeriod (time)
+	// time test not setup
+
+	// Message (varchar)
+	initialMessage.Message = "Text 12"
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Order{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestFreeze(t *testing.T) {
-	// The hex is the body of the message
-	body := "00001588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := Freeze{}
+	// Addresses (Address[])
+	// Address[] test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
-	// Create a valid header for the body
-	m := NewFreeze()
-
-	header, err := NewHeaderForCode(CodeFreeze, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Freeze{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestThaw(t *testing.T) {
-	// The hex is the body of the message
-	body := "0000f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb371588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := Thaw{}
+	// Addresses (Address[])
+	// Address[] test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
+	// RefTxnID (sha256)
+	// sha256 test not setup
 
-	// Create a valid header for the body
-	m := NewThaw()
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
-	header, err := NewHeaderForCode(CodeThaw, len(b))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m.Header = *header
-
-	headerBytes, err := m.Header.Serialize()
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
+	// Decode message
+	decodedMessage := Thaw{}
 
-	n, err := m.Write(want)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestConfiscation(t *testing.T) {
-	// The hex is the body of the message
-	body := "000000000000000027101588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := Confiscation{}
+	// Addresses (Address[])
+	// Address[] test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
+	// DepositQty (uint)
+	// uint test not setup
 
-	// Create a valid header for the body
-	m := NewConfiscation()
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
-	header, err := NewHeaderForCode(CodeConfiscation, len(b))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m.Header = *header
-
-	headerBytes, err := m.Header.Serialize()
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
+	// Decode message
+	decodedMessage := Confiscation{}
 
-	n, err := m.Write(want)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestReconciliation(t *testing.T) {
-	// The hex is the body of the message
-	body := "00001588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := Reconciliation{}
+	// Addresses (Address[])
+	// Address[] test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
-	// Create a valid header for the body
-	m := NewReconciliation()
-
-	header, err := NewHeaderForCode(CodeReconciliation, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Reconciliation{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestInitiative(t *testing.T) {
-	// The hex is the body of the message
-	body := "53484361706d3271737a6e686b7332337a3864383375343173383031396879726933690100000f4142434445464748494a4b4c4d4e4f0f000000204368616e676520746865206e616d65206f662074686520436f6e74726163742e77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec0000016482fd5d80"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// Create a randomized object
+	initialMessage := Initiative{}
+	// AssetType (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+0))
+		}
+		initialMessage.AssetType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewInitiative()
+	// AssetID (fixedchar)
+	{
+		text := make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.AssetID = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeInitiative, len(b))
+	// VoteSystem (uint)
+	// uint test not setup
+
+	// Proposal (bool)
+	// bool test not setup
+
+	// ProposedChanges (Amendment[])
+	// Amendment[] test not setup
+
+	// VoteOptions (varchar)
+	initialMessage.VoteOptions = "Text 5"
+
+	// VoteMax (uint)
+	// uint test not setup
+
+	// ProposalDescription (varchar)
+	initialMessage.ProposalDescription = "Text 7"
+
+	// ProposalDocumentHash (sha256)
+	// sha256 test not setup
+
+	// VoteCutOffTimestamp (time)
+	// time test not setup
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Initiative{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestReferendum(t *testing.T) {
-	// The hex is the body of the message
-	body := "0152524561706d3271737a6e686b7332337a3864383375343173383031396879726933690100000f4142434445464748494a4b4c4d4e4f0f000000204368616e676520746865206e616d65206f662074686520436f6e74726163742e77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec0000016482fd5d80"
+	// Create a randomized object
+	initialMessage := Referendum{}
+	// AssetSpecificVote (bool)
+	// bool test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// AssetType (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.AssetType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewReferendum()
+	// AssetID (fixedchar)
+	{
+		text := make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			text = append(text, byte(65+i+2))
+		}
+		initialMessage.AssetID = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeReferendum, len(b))
+	// VoteSystem (uint)
+	// uint test not setup
+
+	// Proposal (bool)
+	// bool test not setup
+
+	// ProposedChanges (Amendment[])
+	// Amendment[] test not setup
+
+	// VoteOptions (varchar)
+	initialMessage.VoteOptions = "Text 6"
+
+	// VoteMax (uint)
+	// uint test not setup
+
+	// ProposalDescription (varchar)
+	initialMessage.ProposalDescription = "Text 8"
+
+	// ProposalDocumentHash (sha256)
+	// sha256 test not setup
+
+	// VoteCutOffTimestamp (time)
+	// time test not setup
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Referendum{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestVote(t *testing.T) {
-	// The hex is the body of the message
-	body := "1588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := Vote{}
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
-
-	// Create a valid header for the body
-	m := NewVote()
-
-	header, err := NewHeaderForCode(CodeVote, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Vote{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestBallotCast(t *testing.T) {
-	// The hex is the body of the message
-	body := "52524561706d3271737a6e686b7332337a386438337534317338303139687972693369f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb370141"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// Create a randomized object
+	initialMessage := BallotCast{}
+	// AssetType (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+0))
+		}
+		initialMessage.AssetType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewBallotCast()
+	// AssetID (fixedchar)
+	{
+		text := make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.AssetID = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeBallotCast, len(b))
+	// VoteTxnID (sha256)
+	// sha256 test not setup
+
+	// Vote (varchar)
+	initialMessage.Vote = "Text 3"
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := BallotCast{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestBallotCounted(t *testing.T) {
-	// The hex is the body of the message
-	body := "1588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := BallotCounted{}
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
-
-	// Create a valid header for the body
-	m := NewBallotCounted()
-
-	header, err := NewHeaderForCode(CodeBallotCounted, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := BallotCounted{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestResult(t *testing.T) {
-	// The hex is the body of the message
-	body := "53484361706d3271737a6e686b7332337a3864383375343173383031396879726933690000f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37010000000000000bb801321588f8cc6a16430d"
-
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// Create a randomized object
+	initialMessage := Result{}
+	// AssetType (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+0))
+		}
+		initialMessage.AssetType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewResult()
+	// AssetID (fixedchar)
+	{
+		text := make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.AssetID = string(text)
+	}
 
-	header, err := NewHeaderForCode(CodeResult, len(b))
+	// Proposal (bool)
+	// bool test not setup
+
+	// ProposedChanges (Amendment[])
+	// Amendment[] test not setup
+
+	// VoteTxnID (sha256)
+	// sha256 test not setup
+
+	// VoteOptionsCount (uint)
+	// uint test not setup
+
+	// OptionXTally (uint)
+	// uint test not setup
+
+	// Result (varchar)
+	initialMessage.Result = "Text 7"
+
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Result{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestMessage(t *testing.T) {
-	// The hex is the body of the message
-	body := "020001000236000000000c48656c6c6f20776f726c6421"
+	// Create a randomized object
+	initialMessage := Message{}
+	// AddressIndexes (uint16[])
+	// uint16[] test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// MessageType (fixedchar)
+	{
+		text := make([]byte, 0, 2)
+		for i := uint64(0); i < 2; i++ {
+			text = append(text, byte(65+i+1))
+		}
+		initialMessage.MessageType = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewMessage()
+	// MessagePayload (varchar)
+	initialMessage.MessagePayload = "Text 2"
 
-	header, err := NewHeaderForCode(CodeMessage, len(b))
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	m.Header = *header
-
-	headerBytes, err := m.Header.Serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	// Decode message
+	decodedMessage := Message{}
+
+	n, err := decodedMessage.write(initialEncoding)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("Decoded : %d bytes", n)
+
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestRejection(t *testing.T) {
-	// The hex is the body of the message
-	body := "02000100020100000024536f7272792c20796f7520646f6e2774206861766520656e6f75676820746f6b656e732e1588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := Rejection{}
+	// AddressIndexes (uint16[])
+	// uint16[] test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
+	// RejectionType (uint)
+	// uint test not setup
 
-	// Create a valid header for the body
-	m := NewRejection()
+	// MessagePayload (varchar)
+	initialMessage.MessagePayload = "Text 2"
 
-	header, err := NewHeaderForCode(CodeRejection, len(b))
-	if err != nil {
-		t.Fatal(err)
-	}
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
-	m.Header = *header
-
-	headerBytes, err := m.Header.Serialize()
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
+	// Decode message
+	decodedMessage := Rejection{}
 
-	n, err := m.Write(want)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestEstablishment(t *testing.T) {
-	// The hex is the body of the message
-	body := "000000174e6f72746820416d65726963612057686974656c697374"
+	// Create a randomized object
+	initialMessage := Establishment{}
+	// Message (varchar)
+	initialMessage.Message = "Text 0"
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
-
-	// Create a valid header for the body
-	m := NewEstablishment()
-
-	header, err := NewHeaderForCode(CodeEstablishment, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Establishment{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestAddition(t *testing.T) {
-	// The hex is the body of the message
-	body := "00000008757365726e616d65"
+	// Create a randomized object
+	initialMessage := Addition{}
+	// Message (varchar)
+	initialMessage.Message = "Text 0"
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
-
-	// Create a valid header for the body
-	m := NewAddition()
-
-	header, err := NewHeaderForCode(CodeAddition, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Addition{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestAlteration(t *testing.T) {
-	// The hex is the body of the message
-	body := "0000001c4368616e67656420436f756e747279206f66205265736964656e6365"
+	// Create a randomized object
+	initialMessage := Alteration{}
+	// Message (varchar)
+	initialMessage.Message = "Text 0"
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
-
-	// Create a valid header for the body
-	m := NewAlteration()
-
-	header, err := NewHeaderForCode(CodeAlteration, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Alteration{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestRemoval(t *testing.T) {
-	// The hex is the body of the message
-	body := "0000002b52656d6f7665642064756520746f2076696f6c6174696f6e206f6620636f6d70616e7920706f6c6963792e"
+	// Create a randomized object
+	initialMessage := Removal{}
+	// Message (varchar)
+	initialMessage.Message = "Text 0"
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
-
-	// Create a valid header for the body
-	m := NewRemoval()
-
-	header, err := NewHeaderForCode(CodeRemoval, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Removal{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestTransfer(t *testing.T) {
-	// The hex is the body of the message
-	body := "000000016331e3c2004155443ba3d70a3c23d70a31485132554c7544375435796b6175635a334b6d546f346932393932355161366963"
+	// Create a randomized object
+	initialMessage := Transfer{}
+	// Assets (AssetTransfer[])
+	// AssetTransfer[] test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	// OfferExpiry (time)
+	// time test not setup
+
+	// ExchangeFeeCurrency (fixedchar)
+	{
+		text := make([]byte, 0, 3)
+		for i := uint64(0); i < 3; i++ {
+			text = append(text, byte(65+i+2))
+		}
+		initialMessage.ExchangeFeeCurrency = string(text)
 	}
 
-	// Create a valid header for the body
-	m := NewTransfer()
+	// ExchangeFeeVar (float)
+	// float test not setup
 
-	header, err := NewHeaderForCode(CodeTransfer, len(b))
+	// ExchangeFeeFixed (float)
+	// float test not setup
+
+	// ExchangeFeeAddress (Address)
+	// Address test not setup
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Transfer{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
 func TestSettlement(t *testing.T) {
-	// The hex is the body of the message
-	body := "001588f8cc6a16430d"
+	// Create a randomized object
+	initialMessage := Settlement{}
+	// Assets (AssetSettlement[])
+	// AssetSettlement[] test not setup
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
-	}
+	// Timestamp (timestamp)
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
-	// Create a valid header for the body
-	m := NewSettlement()
-
-	header, err := NewHeaderForCode(CodeSettlement, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := Settlement{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }

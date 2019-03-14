@@ -16,13 +16,8 @@ const (
 {{range .}}
 // {{.Name}} asset type.
 type {{.Name}} struct {
-{{range .Fields }}	{{.Name}} {{.GoType}}
+{{range .Fields }}	{{.Name}} {{.FieldGoType}}
 {{ end -}}
-}
-
-// New{{.Name}} returns a new {{.Name}}.
-func New{{.Name}}() {{.Name}} {
-	return {{.Name}}{}
 }
 
 // Type returns the type identifer for this message.
@@ -37,8 +32,8 @@ func (m {{.Name}}) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m {{.Name}}) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *{{.Name}}) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -50,96 +45,130 @@ func (m {{.Name}}) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m {{.Name}}) Serialize() ([]byte, error) {
+func (m *{{.Name}}) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-{{$last := ""}}{{range .Fields}}{{ if .IsInternalTypeArray }}
-	for i := 0; i < int(m.{{$last}}); i++ {
-		b, err := m.{{.Name}}[i].Serialize()
-		if err != nil {
-			return nil, err
-		}
+{{range .Fields}}
 
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-{{ else if .IsNativeTypeArray }}
-	for i := 0; i < int(m.{{$last}}); i++ {
-		if err := write(buf, m.{{.FieldName}}[i]); err != nil {
-			return nil, err
-		}
-	}
-{{ else if .IsInternalType }}
-	{
-		b, err := m.{{.Name}}.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-{{ else if .IsNvarchar }}
-	if _, err := m.{{.FieldName}}.Write(buf); err != nil {
+	// {{.FieldName}} ({{.FieldGoType}})
+{{- if .IsVarChar }}
+	if err := WriteVarChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
 		return nil, err
 	}
-{{else if .IsBytes }}
+{{- else if .IsFixedChar }}
+	if err := WriteFixedChar(buf, m.{{.FieldName}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{- else if .IsVarBin }}
+	if err := WriteVarBin(buf, m.{{.Name}}, {{.Length}}); err != nil {
+		return nil, err
+	}
+{{- else if .IsPushDataLength }}
+	if err := write(buf, PushDataScript(m.{{.Name}})); err != nil {
+		return nil, err
+	}
+{{- else if .IsInternalTypeArray }}
+	if err := WriteVariableSize(buf, uint64(len(m.{{.Name}})), {{.Length}}, 8); err != nil {
+		return nil, err
+	}
+	for _, value := range m.{{.Name}} {
+		b, err := value.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+{{- else if .IsNativeTypeArray }}
+	if err := WriteVariableSize(buf, uint64(len(m.{{.Name}})), {{.Length}}, 8); err != nil {
+		return nil, err
+	}
+	for _, value := range m.{{.Name}} {
+		if err := write(buf, value); err != nil {
+			return nil, err
+		}
+	}
+{{- else if .IsBytes }}
 	if err := write(buf, pad(m.{{.FieldName}}, {{.Length}})); err != nil {
 		return nil, err
 	}
-{{else}}
+{{- else}}
 	if err := write(buf, m.{{.FieldName}}); err != nil {
 		return nil, err
 	}
-{{ end -}}{{ $last = .Name }}{{ end }}
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode(Code{{.Name}}, len(b))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
+{{ end -}}{{ end }}
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m {{.Name}}) Write(b []byte) (int, error) {
+// write populates the fields in {{.Name}} from the byte slice
+func (m *{{.Name}}) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
-{{$last := ""}}{{range .Fields -}}{{- if .IsInternalTypeArray }}
-	for i := 0; i < int(m.{{$last}}); i++ {
-		x := &{{.SingularType}}{}
-		if err := x.Write(buf); err != nil {
+{{- range .Fields}}
+
+	// {{.Name}} ({{.FieldGoType}})
+{{- if .IsVarChar }}
+	{
+		var err error
+		m.{{.FieldName}}, err = ReadVarChar(buf, {{.Length}})
+		if err != nil {
 			return 0, err
 		}
-
-		m.{{.Name}} = append(m.{{.Name}}, *x)
 	}
-{{ else if .IsNativeTypeArray }}
-	m.{{.FieldName}} = make({{.GoType}}, m.{{$last}}, m.{{$last}})
-	if err := read(buf, &m.{{.FieldName}}); err != nil {
-		return 0, err
+{{- else if .IsFixedChar }}
+	{
+		var err error
+		m.{{.FieldName}}, err = ReadFixedChar(buf, {{.Length}})
+		if err != nil {
+			return 0, err
+		}
+	}
+{{- else if .IsVarBin }}
+	{
+		var err error
+		m.{{.FieldName}}, err = ReadVarBin(buf, {{.Length}})
+		if err != nil {
+			return 0, err
+		}
+	}
+{{- else if .IsPushDataLength }}
+	{
+		var err error
+		m.{{.Name}}, err = ParsePushDataScript(buf)
+		if err != nil {
+			return err
+		}
+	}
+{{- else if .IsInternalTypeArray }}
+	{
+		size, err := ReadVariableSize(buf, {{.Length}}, 8)
+		if err != nil {
+			return 0, err
+		}
+		m.{{.FieldName}} = make([]{{.SingularType}}, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue {{.SingularType}}
+			if err := newValue.Write(buf); err != nil {
+				return 0, err
+			}
+
+			m.{{.FieldName}} = append(m.{{.FieldName}}, newValue)
+		}
+	}
+{{- else if .IsNativeTypeArray }}
+	{
+		size, err := ReadVariableSize(buf, {{.Length}}, 8)
+		if err != nil {
+			return 0, err
+		}
+		m.{{.FieldName}} = make({{.FieldGoType}}, size, size)
+		if err := read(buf, &m.{{.FieldName}}); err != nil {
+			return 0, err
+		}
 	}
 {{ else if .IsInternalType }}
 	if err := m.{{.Name}}.Write(buf); err != nil {
 		return 0, err
-	}
-{{ else if eq .FieldName "AssetPayload" }}
-	{
-		b := make([]byte, m.{{$last}}, m.{{$last}})
-		if err := readLen(buf, b); err != nil {
-			return 0, err
-		}
-
-		m.{{.FieldName}} = b
 	}
 {{ else if or .IsBytes .IsData }}
 	m.{{.FieldName}} = make([]byte, {{.Length}})
@@ -152,7 +181,7 @@ func (m {{.Name}}) Write(b []byte) (int, error) {
 	if err := read(buf, &m.{{.FieldName}}); err != nil {
 		return 0, err
 	}
-{{ end }}{{ $last = .FieldName }}{{ end }}
+{{ end }}{{ end }}
 	return len(b), nil
 }
 
@@ -165,7 +194,7 @@ func (m {{.Name}}) String() string {
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%v", m.{{.FieldName}}))
 	{{- else if eq .Type "SHA" }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%x\"", m.{{.FieldName}}))
-	{{- else if eq .GoType "[]byte" }}
+	{{- else if eq .FieldGoType "[]byte" }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#x", m.{{.FieldName}}))
 	{{- else }}
 	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#+v", m.{{.FieldName}}))

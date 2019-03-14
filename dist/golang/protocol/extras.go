@@ -2,53 +2,40 @@ package protocol
 
 import (
 	"bytes"
+	"encoding/binary"
 	"errors"
 	"fmt"
-	"io"
 )
 
 const (
-	// Version of the Tokenized protocol.
-	Version = uint8(0)
-
 	// OpReturn (OP_RETURN) is a script opcode is used to mark a transaction
 	// output as invalid, and can be used to add data to a TX.
 	OpReturn = 0x6a
 
-	// OpPushdata1 represent the OP_PUSHDATA1 opcode.
-	OpPushdata1 = byte(0x4c)
+	// ProtocolID is the current protocol ID
+	ProtocolID = "tokenized.com"
 
-	// OpPushdata2 represents the OP_PUSHDATA2 opcode.
-	OpPushdata2 = byte(0x4d)
-
-	// OpPushdata4 represents the OP_PUSHDATA4 opcode.
-	OpPushdata4 = byte(0x4e)
-
-	// OpPushdata1Max is the maximum number of bytes that can be used in the
-	// OP_PUSHDATA1 opcode.
-	OpPushdata1Max = 255
-
-	// OpPushdata2Max is the maximum number of bytes that can be used in the
-	// OP_PUSHDATA2 opcode.
-	OpPushdata2Max = 65535
+	// Version of the Tokenized protocol.
+	Version = uint8(0)
 )
 
 // PayloadMessage is the interface for messages that are derived from
 // payloads, such as asset types.
 type PayloadMessage interface {
-	io.Writer
 	Type() string
-	Serialize() ([]byte, error)
+	serialize() ([]byte, error)
+	write(b []byte) (int, error)
 }
 
-// NewPayloadMessageFromCode returns the approriate PayloadMessage for the
+// New returns the approriate PayloadMessage for the
 // given code.
-func NewPayloadMessageFromCode(code []byte) (PayloadMessage, error) {
+func New(code []byte) (PayloadMessage, error) {
 	s := string(code)
 
 	switch s {
 	case CodeShareCommon:
-		return NewShareCommon(), nil
+		result := ShareCommon{}
+		return &result, nil
 	}
 
 	return nil, fmt.Errorf("No asset type for code %s", code)
@@ -61,24 +48,140 @@ type OpReturnMessage interface {
 	PayloadMessage() (PayloadMessage, error)
 }
 
-// New returns a new message, as an OpReturnMessage, from the OP_RETURN
-// payload.
-func New(b []byte) (OpReturnMessage, error) {
-	code, err := Code(b)
+// Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
+func Deserialize(b []byte) (OpReturnMessage, error) {
+	buf := bytes.NewBuffer(b)
+
+	var opCode byte
+	var err error
+
+	// Parse OP_RETURN op code
+	err = binary.Read(buf, defaultEndian, &opCode)
 	if err != nil {
 		return nil, err
 	}
 
-	t, ok := TypeMapping[code]
-	if !ok {
-		return nil, fmt.Errorf("Unknown code :  %v", code)
+	if opCode != OpReturn {
+		return nil, fmt.Errorf("Not an op return output : %02x", opCode)
 	}
 
-	if _, err := t.Write(b); err != nil {
+	// Parse push op code for op return protocol ID
+	err = binary.Read(buf, defaultEndian, &opCode)
+	if err != nil {
 		return nil, err
 	}
 
-	return t, nil
+	if int(opCode) != len(ProtocolID) {
+		return nil, fmt.Errorf("Push not correct size for protocol ID : %02x", opCode)
+	}
+
+	// Parse protocol ID
+	protocolID := make([]byte, len(ProtocolID))
+	_, err = buf.Read(protocolID)
+	if err != nil {
+		return nil, err
+	}
+
+	if !bytes.Equal(protocolID, []byte(ProtocolID)) {
+		return nil, fmt.Errorf("Invalid protocol ID : %s", string(protocolID))
+	}
+
+	// Parse push op code for payload length + 3 for version and message type code
+	var payloadSize uint64
+	payloadSize, err = ParsePushDataScript(buf)
+	if err != nil {
+		return nil, err
+	}
+
+	if uint64(buf.Len()) < payloadSize {
+		return nil, fmt.Errorf("Payload push op code is too large for message : %d", payloadSize)
+	}
+
+	// Parse version
+	var version uint8
+	err = binary.Read(buf, defaultEndian, &version)
+	if err != nil {
+		return nil, err
+	}
+
+	if version != Version {
+		return nil, fmt.Errorf("Unsupported version : %02x", version)
+	}
+
+	// Parse message type code
+	code := make([]byte, 2)
+	_, err = buf.Read(code)
+	if err != nil {
+		return nil, err
+	}
+
+	msg := TypeMapping(string(code))
+	if msg == nil {
+		return nil, fmt.Errorf("Unknown code : %s", code)
+	}
+
+	if _, err := msg.write(b); err != nil {
+		return nil, err
+	}
+
+	return msg, nil
+}
+
+// Serialize returns a complete op return script including the specified payload.
+func Serialize(msg PayloadMessage) ([]byte, error) {
+	var buf bytes.Buffer
+	var err error
+
+	// Write OP_RETURN op code
+	err = binary.Write(&buf, defaultEndian, OpReturn)
+	if err != nil {
+		return nil, err
+	}
+
+	// Write signature push op code
+	protocolIDSize := uint8(len(ProtocolID))
+	err = binary.Write(&buf, defaultEndian, protocolIDSize)
+	if err != nil {
+		return nil, err
+	}
+
+	// Write protocol ID
+	_, err = buf.Write([]byte(ProtocolID))
+	if err != nil {
+		return nil, err
+	}
+
+	var payload []byte
+	payload, err = msg.serialize()
+	if err != nil {
+		return nil, err
+	}
+
+	// Write push op code for payload length + 3 for version and message type code
+	_, err = buf.Write(PushDataScript(uint64(len(payload)) + 3))
+	if err != nil {
+		return nil, err
+	}
+
+	// Write version
+	err = binary.Write(&buf, defaultEndian, Version)
+	if err != nil {
+		return nil, err
+	}
+
+	// Write message type code
+	_, err = buf.Write([]byte(msg.Type()))
+	if err != nil {
+		return nil, err
+	}
+
+	// Write payload
+	_, err = buf.Write(payload)
+	if err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
 }
 
 // Code returns the identifying code from the OP_RETURN payload.
@@ -96,312 +199,168 @@ func Code(b []byte) (string, error) {
 	return string(b[offset : offset+2]), nil
 }
 
-// NewHeaderForCode returns a new Header with the given code and size.
-func NewHeaderForCode(code string, size int) (*Header, error) {
-	// work out which opcode to use depending on size of the data.
-	opcode := OpPushdata1
-
-	if size > OpPushdata2Max {
-		opcode = OpPushdata4
-	} else if size > OpPushdata1Max {
-		opcode = OpPushdata2
+func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {
+	if err := WriteVariableSize(buf, uint64(len(value)), sizeBits, 0); err != nil {
+		return err
 	}
 
-	lenPayload, err := uintToBytes(uint64(size))
+	if _, err := buf.Write([]byte(value)); err != nil {
+		return err
+	}
+	return nil
+}
+
+func ReadVarChar(buf *bytes.Buffer, sizeBits int) (string, error) {
+	size, err := ReadVariableSize(buf, sizeBits, 0)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 
-	h := Header{
-		ProtocolID:       ProtocolID,
-		OpPushdata:       opcode,
-		LenActionPayload: lenPayload,
-		Version:          Version,
-		ActionPrefix:     []byte(code),
+	data := make([]byte, size)
+	err = readLen(buf, data)
+	if err != nil {
+		return "", err
 	}
-
-	return &h, nil
+	return string(data), nil
 }
 
-// Nvarchar is a common interface for the Nvarchar types.
-type Nvarchar interface {
-	String() string
-	Write(*bytes.Buffer) error
-	Serialize() ([]byte, error)
-}
-
-// NewNvarchar returns a suitable Nvarchar type based on the length of the
-// given bytes.
-func NewNvarchar(b []byte) Nvarchar {
-	n := len(b)
-
-	if n <= 0xff {
-		return NewNvarchar8(b)
-	} else if n <= 0xffff {
-		return NewNvarchar16(b)
-	} else if n <= 0xffffffff {
-		return NewNvarchar32(b)
+func WriteFixedChar(buf *bytes.Buffer, value string, size uint64) error {
+	if uint64(len(value)) > size {
+		return errors.New(fmt.Sprintf("FixedChar too long %d > %d", len(value), size))
 	}
-
-	return NewNvarchar64(b)
-}
-
-// Nvarchar8 is used to represent string data up to and including 255 bytes
-// in length.
-type Nvarchar8 struct {
-	Len  uint8
-	Data []byte
-}
-
-// NewNvarchar8 return a new Nvarchar8.
-func NewNvarchar8(b []byte) *Nvarchar8 {
-	return &Nvarchar8{
-		Len:  uint8(len(b)),
-		Data: b,
-	}
-}
-
-// Write writes the contents of the io.Writer to the struct.
-func (t *Nvarchar8) Write(buf *bytes.Buffer) error {
-	if len(t.Data) > 0xff {
-		return errors.New("Data exceeds limit of type")
-	}
-
-	// write uint8
-	if err := read(buf, &t.Len); err != nil {
+	if _, err := buf.Write([]byte(value)); err != nil {
 		return err
 	}
 
-	// write data
-	t.Data = make([]byte, t.Len, t.Len)
-	if err := readLen(buf, t.Data); err != nil {
+	// Pad with zeroes
+	if uint64(len(value)) < size {
+		padCount := size - uint64(len(value))
+		empty := make([]byte, padCount)
+		for i := uint64(0); i < padCount; i++ {
+			empty[i] = 0
+		}
+
+		if _, err := buf.Write(empty); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func ReadFixedChar(buf *bytes.Buffer, size uint64) (string, error) {
+	var err error
+	data := make([]byte, size)
+	err = readLen(buf, data)
+	if err != nil {
+		return "", err
+	}
+	return string(data), nil
+}
+
+func WriteVarBin(buf *bytes.Buffer, value []byte, sizeBits int) error {
+	if err := WriteVariableSize(buf, uint64(len(value)), sizeBits, 0); err != nil {
+		return err
+	}
+
+	if _, err := buf.Write(value); err != nil {
+		return err
+	}
+	return nil
+}
+
+func ReadVarBin(buf *bytes.Buffer, sizeBits int) ([]byte, error) {
+	size, err := ReadVariableSize(buf, sizeBits, 0)
+	if err != nil {
+		return []byte{}, err
+	}
+
+	data := make([]byte, size)
+	err = readLen(buf, data)
+	if err != nil {
+		return []byte{}, err
+	}
+	return data, nil
+}
+
+func WriteFixedBin(buf *bytes.Buffer, value []byte, size uint64) error {
+	if uint64(len(value)) > size {
+		return errors.New(fmt.Sprintf("FixedBin too long %d > %d", len(value), size))
+	}
+	if _, err := buf.Write(value); err != nil {
+		return err
+	}
+
+	// Pad with zeroes
+	if uint64(len(value)) < size {
+		padCount := size - uint64(len(value))
+		empty := make([]byte, padCount)
+		for i := uint64(0); i < padCount; i++ {
+			empty[i] = 0
+		}
+
+		if _, err := buf.Write(empty); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// WriteVariableSize writes a size/length to the buffer using the specified size unsigned integer.
+// defaultSizeBits is used if sizeBits is zero.
+func WriteVariableSize(buf *bytes.Buffer, size uint64, sizeBits int, defaultSizeBits int) error {
+	if sizeBits == 0 {
+		sizeBits = defaultSizeBits
+	}
+	if size >= 2<<uint64(sizeBits) {
+		return errors.New(fmt.Sprintf("Size beyond size bits limit (%d) : %d", (2<<uint64(sizeBits))-1, size))
+	}
+
+	var err error
+	switch sizeBits {
+	case 8:
+		err = write(buf, uint8(size))
+	case 16:
+		err = write(buf, uint16(size))
+	case 32:
+		err = write(buf, uint32(size))
+	case 64:
+		err = write(buf, uint64(size))
+	default:
+		return errors.New(fmt.Sprintf("Invalid variable size bits : %d", sizeBits))
+	}
+	if err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// Size returns the byte size of the type, including the number of bytes needed
-// to state the length of the data.
-func (t Nvarchar8) Size() int {
-	return 1 + len(t.Data)
-}
-
-// Serialize returns the bytes that represent the type.
-func (t Nvarchar8) Serialize() ([]byte, error) {
-	if len(t.Data) > 0xff {
-		return nil, errors.New("Data exceeds limit of type")
+// ReadVariableSize reads a size/length from the buffer using the specified size unsigned integer.
+// defaultSizeBits is used if sizeBits is zero.
+func ReadVariableSize(buf *bytes.Buffer, sizeBits int, defaultSizeBits int) (uint64, error) {
+	if sizeBits == 0 {
+		sizeBits = defaultSizeBits
 	}
 
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, t.Len); err != nil {
-		return nil, err
+	var err error
+	var size uint64
+	switch sizeBits {
+	case 8:
+		var size8 uint8
+		err = read(buf, &size8)
+		size = uint64(size8)
+	case 16:
+		var size16 uint16
+		err = read(buf, &size16)
+		size = uint64(size16)
+	case 32:
+		var size32 uint32
+		err = read(buf, &size32)
+		size = uint64(size32)
+	case 64:
+		err = read(buf, &size)
+	default:
+		err = errors.New(fmt.Sprintf("Invalid variable size bits : %d", sizeBits))
 	}
-
-	if err := write(buf, t.Data); err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
-
-// String returns a string representation of the bytes.
-func (t Nvarchar8) String() string {
-	return string(t.Data)
-}
-
-// Nvarchar16 is used to represent string data up to and including 65535 bytes
-// in length.
-type Nvarchar16 struct {
-	Len  uint16
-	Data []byte
-}
-
-// NewNvarchar16 return a new Nvarchar16.
-func NewNvarchar16(b []byte) *Nvarchar16 {
-	return &Nvarchar16{
-		Len:  uint16(len(b)),
-		Data: b,
-	}
-}
-
-// Write writes the contents of the io.Writer to the struct.
-func (t *Nvarchar16) Write(buf *bytes.Buffer) error {
-	if len(t.Data) > 0xffff {
-		return errors.New("Data exceeds limit of type")
-	}
-
-	// write uint16
-	if err := read(buf, &t.Len); err != nil {
-		return err
-	}
-
-	// write data
-	t.Data = make([]byte, t.Len, t.Len)
-	if err := readLen(buf, t.Data); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Size returns the byte size of the type, including the number of bytes needed
-// to state the length of the data.
-func (t Nvarchar16) Size() int {
-	return 2 + len(t.Data)
-}
-
-// Serialize returns the bytes that represent the type.
-func (t Nvarchar16) Serialize() ([]byte, error) {
-	if len(t.Data) > 0xffff {
-		return nil, errors.New("Data exceeds limit of type")
-	}
-
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, t.Len); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, t.Data); err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
-
-// String returns a string representation of the bytes.
-func (t Nvarchar16) String() string {
-	return string(t.Data)
-}
-
-// Nvarchar32 is used to represent string data up to and including
-// 4294967295 bytes in length.
-type Nvarchar32 struct {
-	Len  uint32
-	Data []byte
-}
-
-// NewNvarchar32 return a new Nvarchar32.
-func NewNvarchar32(b []byte) *Nvarchar32 {
-	return &Nvarchar32{
-		Len:  uint32(len(b)),
-		Data: b,
-	}
-}
-
-// Write writes the contents of the io.Writer to the struct.
-func (t *Nvarchar32) Write(buf *bytes.Buffer) error {
-	if len(t.Data) > 0xffffffff {
-		return errors.New("Data exceeds limit of type")
-	}
-
-	// write uint32
-	if err := read(buf, &t.Len); err != nil {
-		return err
-	}
-
-	// write data
-	t.Data = make([]byte, t.Len, t.Len)
-	if err := readLen(buf, t.Data); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Size returns the byte size of the type, including the number of bytes needed
-// to state the length of the data.
-func (t Nvarchar32) Size() int {
-	return 4 + len(t.Data)
-}
-
-// Serialize returns the bytes that represent the type.
-func (t Nvarchar32) Serialize() ([]byte, error) {
-	if len(t.Data) > 0xffffffff {
-		return nil, errors.New("Data exceeds limit of type")
-	}
-
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, t.Len); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, t.Data); err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
-
-// String returns a string representation of the bytes.
-func (t Nvarchar32) String() string {
-	return string(t.Data)
-}
-
-// Nvarchar64 is used to represent string data up to and including
-// 18446744073709551615 bytes in length.
-type Nvarchar64 struct {
-	Len  uint64
-	Data []byte
-}
-
-// NewNvarchar64 return a new Nvarchar64.
-func NewNvarchar64(b []byte) *Nvarchar64 {
-	return &Nvarchar64{
-		Len:  uint64(len(b)),
-		Data: b,
-	}
-}
-
-// Write writes the contents of the io.Writer to the struct.
-func (t *Nvarchar64) Write(buf *bytes.Buffer) error {
-	if len(t.Data) > 0xffffffff {
-		return errors.New("Data exceeds limit of type")
-	}
-
-	// write uint64
-	if err := read(buf, &t.Len); err != nil {
-		return err
-	}
-
-	// write data
-	t.Data = make([]byte, t.Len, t.Len)
-	if err := readLen(buf, t.Data); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Size returns the byte size of the type, including the number of bytes needed
-// to state the length of the data.
-func (t Nvarchar64) Size() int {
-	return 8 + len(t.Data)
-}
-
-// Serialize returns the bytes that represent the type.
-func (t Nvarchar64) Serialize() ([]byte, error) {
-	if len(t.Data) > 0xffffffff {
-		return nil, errors.New("Data exceeds limit of type")
-	}
-
-	buf := new(bytes.Buffer)
-
-	if err := write(buf, t.Len); err != nil {
-		return nil, err
-	}
-
-	if err := write(buf, t.Data); err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
-}
-
-// String returns a string representation of the bytes.
-func (t Nvarchar64) String() string {
-	return string(t.Data)
+	return size, err
 }

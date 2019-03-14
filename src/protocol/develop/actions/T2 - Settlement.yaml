@@ -28,21 +28,13 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
-  - name: AssetSettlementCount
-    label: Asset Settlement Count
-    description: "The number of Asset Settlements specified by the Transfer action to be settled."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
-
-  - name: AssetSettlements
-    label: Asset Settlements
-    description: "The list of Asset Settlements"
+  - name: Assets
+    label: Assets
+    description: "The Assets settled by the transfer action."
     type: AssetSettlement[]
+    notes: ""
 
   - name: Timestamp
     label: Timestamp

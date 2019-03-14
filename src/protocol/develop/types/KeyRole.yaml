@@ -6,7 +6,7 @@ fields:
   - name: Type
     label: Key Role Type
     description: "Chairman, Director. Found in 'Roles' in Specification/Resources"
-    type: string
+    type: uint
     size: 1
     example_hex: 37
     example_value: "7"
@@ -15,8 +15,21 @@ fields:
   - name: Name
     label: Key Role Name
     description: "Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)"
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 14
     example_hex: 0d4a616d65732042656c64696e67
     example_value: "Satoshi Nakamoto"
     notes: ""
+
+# Constructor parameters
+constructor:
+    - name: roleType
+      type: uint
+      size: 1
+      field: Type
+
+    - name: name
+      type: string
+      field: Name

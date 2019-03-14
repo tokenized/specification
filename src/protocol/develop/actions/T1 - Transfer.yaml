@@ -32,21 +32,13 @@ fields:
     label: Header
     description: "Common header data for all actions"
     type: Header
-    notes: "Common header data for all actions."
+    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
-  - name: AssetTransferCount
-    label: Asset Count
-    description: "The number of Asset Transfers involved in this Transfer Action."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
-
-  - name: AssetTransfers
+  - name: Assets
     label: Assets
-    description: "The list of Assets"
+    description: "The Assets involved in the Transfer Action."
     type: AssetTransfer[]
+    notes: ""
 
   - name: OfferExpiry
     label: Offer Expiry
@@ -60,7 +52,7 @@ fields:
   - name: ExchangeFeeCurrency
     label: Exchange Fee Currency
     description: "BSV, USD, AUD, EUR, etc."
-    type: string
+    type: fixedchar
     size: 3
     example_hex: 415544
     example_value: "AUD"
@@ -69,7 +61,7 @@ fields:
   - name: ExchangeFeeVar
     label: Exchange Fee Variable
     description: "Percent of the value of the transaction"
-    type: float32
+    type: float
     size: 4
     example_hex: 3ba3d70a
     example_value: "0.005"
@@ -78,7 +70,7 @@ fields:
   - name: ExchangeFeeFixed
     label: Exchange Fee Fixed
     description: "Fixed fee"
-    type: float32
+    type: float
     size: 4
     example_hex: 3c23d70a
     example_value: "0.01"
@@ -87,8 +79,7 @@ fields:
   - name: ExchangeFeeAddress
     label: Exchange Fee Address
     description: "Identifies the public address that the exchange fee should be paid to."
-    type: string
-    size: 34
+    type: Address
     example_hex: 31485132554c7544375435796b6175635a334b6d546f346932393932355161366963
     example_value: "1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic"
     notes: ""

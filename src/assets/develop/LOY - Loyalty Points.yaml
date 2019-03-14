@@ -17,7 +17,7 @@ metadata:
 fields:
   - name: Version
     label: Version
-    type: uint8
+    type: uint
     description: Payload Version
     size: 1
     example: 0
@@ -45,7 +45,7 @@ fields:
 
   - name: OfferType
     label: Offer Type
-    type: string
+    type: fixedchar
     size: 1
     example: A
     options:
@@ -59,7 +59,9 @@ fields:
 
   - name: OfferName
     label: Offer Name
-    type: nvarchar8
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
     size: 255
     example: Qantas Frequent Flyer Points
     options:
@@ -82,7 +84,9 @@ fields:
 
   - name: Description
     label: Description
-    type: nvarchar16
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 16
     # size: 65,535
     example: Coingeek Conference - London (November 2018).
     span: full

@@ -4,54 +4,70 @@ import (
 	"encoding/hex"
 	"reflect"
 	"testing"
+	"time"
 )
 
 {{range .}}
 func Test{{.Name}}(t *testing.T) {
-	// The hex is the body of the message
-	body := "{{.Hex}}"
+	// Create a randomized object
+	initialMessage := {{.Name}}{}
 
-	b, err := hex.DecodeString(body)
-	if err != nil {
-		t.Fatalf("Invalid hex value : hex=%v : %v", body, err)
+	{{- range $i, $field := .PayloadFields }}
+	// {{ $field.FieldName }} ({{ $field.Type }})
+		{{- if $field.IsVarChar }}
+	initialMessage.{{ $field.FieldName }} = "Text {{ $i }}"
+		{{- else if $field.IsFixedChar }}
+	{
+		text := make([]byte, 0, {{ $field.Length }})
+		for i := uint64(0); i < {{ $field.Length }}; i++ {
+			text = append(text, byte(65 + i + {{ $i }}))
+		}
+		initialMessage.{{ $field.FieldName }} = string(text)
 	}
+		{{- else if $field.IsBytes }}
+		initialMessage.{{ $field.FieldName }} = make([]byte, 0, {{ $field.Length }})
+		for i := uint64(0); i < {{ $field.Length }}; i++ {
+			initialMessage.{{ $field.FieldName }} = append(initialMessage.{{ $field.FieldName }}, byte(65 + i + {{ $i }}))
+		}
+		{{- else if eq $field.Type "timestamp" }}
+		initialMessage.{{ $field.FieldName }} = uint64(time.Now().UnixNano())
+		{{- else }}
+	// {{ $field.Type }} test not setup
+		{{- end }}
+	{{ end }}
 
-	// Create a valid header for the body
-	m := New{{.Name}}()
-
-	header, err := NewHeaderForCode({{.CodeName}}, len(b))
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
-	m.Header = *header
+	// Decode message
+	decodedMessage := {{.Name}}{}
 
-	headerBytes, err := m.Header.Serialize()
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
+	t.Logf("Decoded : %d bytes", n)
 
-	// This is the target byte payload
-	want := headerBytes
-	want = append(want, b...)
-
-	n, err := m.Write(want)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if n != len(want) {
-		t.Fatalf("got %v, want %v", n, len(want))
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
 	}
 
 	// Serializing the message should give us the same bytes
-	got, err := m.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(got, want) {
-		t.Errorf("got\n%+v\nwant\n%+v", got, want)
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 {{end}}
