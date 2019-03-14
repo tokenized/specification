@@ -30,47 +30,19 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: AssetCount
-    label: Asset Count
-    description: "The number of Assets specified by the Transfer action to be settled."
+  - name: AssetSettlementCount
+    label: Asset Settlement Count
+    description: "The number of Asset Settlements specified by the Transfer action to be settled."
     type: uint8
     size: 1
     example_hex: 00
     example_value: 0
     notes: ""
 
-  - name: AssetTypeX
-    label: Asset Type X
-    description: "eg. Share, Bond, Ticket"
-    type: string
-    size: 3
-    example_hex: 525245
-    example_value: "RRE"
-    notes: ""
-
-  - name: AssetIDX
-    label: Asset ID X
-    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. "
-    type: string
-    size: 32
-    example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
-    example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
-    notes: ""
-
-  - name: AssetXSettlementsCount
-    label: Asset X Settlements Count
-    description: "Number of settlements for Asset X."
-    type: uint8
-    size: 1
-    example_hex: 00
-    example_value: 0
-    notes: ""
-
-  - name: AssetXAddressesXQty
-    label: Asset X Address X Qty
-    description: "Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index."
-    type: QuantityIndex[]
-    notes: ""
+  - name: AssetSettlements
+    label: Asset Settlements
+    description: "The list of Asset Settlements"
+    type: AssetSettlement[]
 
   - name: Timestamp
     label: Timestamp

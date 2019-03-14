@@ -1,0 +1,50 @@
+metadata:
+  name: AssetTransfer
+  description: "An AssetTransfer describes the senders and receivers related to the transfer of an Asset."
+
+fields:
+  - name: Type
+    label: Asset Type
+    description: "eg. Share, Bond, Ticket. All characters must be capitalised."
+    type: string
+    size: 3
+    example_hex: 534843
+    example_value: "SHC"
+    notes: ""
+
+  - name: ID
+    label: Asset ID
+    description: "Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans."
+    type: string
+    size: 32
+    example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
+    example_value: "apm2qsznhks23z8d83u41s8019hyri3i"
+    notes: ""
+
+  - name: SenderCount
+    label: Token Sender Count
+    description: "Number inputs sending tokens. 1-255, 0 is not valid."
+    type: uint8
+    size: 1
+    example_hex: 00
+    example_value: 0
+    notes: ""
+
+  - name: Senders
+    label: Senders
+    description: "Each element has the value of tokens to be spent from the input address, which is referred to by the index."
+    type: QuantityIndex[]
+
+  - name: ReceiverCount
+    label: "The number of token receivers"
+    description: "Number of outputs receiving tokens. 1-255. 0 is not valid."
+    type: uint8
+    size: 1
+    example_hex: 00
+    example_value: 0
+    notes: ""
+
+  - name: Receivers
+    label: Receivers
+    description: "Each element has the value of tokens to be received by the output address, which is referred to by the index."
+    type: TokenReceiver[]
