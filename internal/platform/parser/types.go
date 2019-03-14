@@ -39,9 +39,11 @@ func GoType(typeName string, size uint64) string {
 	case "sha",
 		"SHA",
 		"bin[var]",
-		"bin",
 		"varbin":
 		return "[]byte"
+
+	case "bin":
+		return fmt.Sprintf("[%d]byte", size)
 
 	case "time", "timestamp", "pushdata_length":
 		return "uint64"

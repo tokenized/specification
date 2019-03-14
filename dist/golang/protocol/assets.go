@@ -41,11 +41,6 @@ type Coupon struct {
 	Description        string
 }
 
-// NewCoupon returns a new Coupon.
-func NewCoupon() Coupon {
-	return Coupon{}
-}
-
 // Type returns the type identifer for this message.
 func (m Coupon) Type() string {
 	return CodeCoupon
@@ -58,8 +53,8 @@ func (m Coupon) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Coupon) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Coupon) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -71,7 +66,7 @@ func (m Coupon) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Coupon) Serialize() ([]byte, error) {
+func (m *Coupon) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -113,26 +108,11 @@ func (m Coupon) Serialize() ([]byte, error) {
 	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode([]byte(CodeCoupon), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m Coupon) Write(b []byte) (int, error) {
+// write populates the fields in Coupon from the byte slice
+func (m *Coupon) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -214,11 +194,6 @@ type Currency struct {
 	Description        string
 }
 
-// NewCurrency returns a new Currency.
-func NewCurrency() Currency {
-	return Currency{}
-}
-
 // Type returns the type identifer for this message.
 func (m Currency) Type() string {
 	return CodeCurrency
@@ -231,8 +206,8 @@ func (m Currency) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Currency) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Currency) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -244,7 +219,7 @@ func (m Currency) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Currency) Serialize() ([]byte, error) {
+func (m *Currency) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -271,26 +246,11 @@ func (m Currency) Serialize() ([]byte, error) {
 	if err := WriteVarChar(buf, m.Description, 255); err != nil {
 		return nil, err
 	}
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode([]byte(CodeCurrency), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m Currency) Write(b []byte) (int, error) {
+// write populates the fields in Currency from the byte slice
+func (m *Currency) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -357,11 +317,6 @@ type LoyaltyPoints struct {
 	Description         string
 }
 
-// NewLoyaltyPoints returns a new LoyaltyPoints.
-func NewLoyaltyPoints() LoyaltyPoints {
-	return LoyaltyPoints{}
-}
-
 // Type returns the type identifer for this message.
 func (m LoyaltyPoints) Type() string {
 	return CodeLoyaltyPoints
@@ -374,8 +329,8 @@ func (m LoyaltyPoints) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m LoyaltyPoints) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *LoyaltyPoints) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -387,7 +342,7 @@ func (m LoyaltyPoints) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m LoyaltyPoints) Serialize() ([]byte, error) {
+func (m *LoyaltyPoints) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -429,26 +384,11 @@ func (m LoyaltyPoints) Serialize() ([]byte, error) {
 	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode([]byte(CodeLoyaltyPoints), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m LoyaltyPoints) Write(b []byte) (int, error) {
+// write populates the fields in LoyaltyPoints from the byte slice
+func (m *LoyaltyPoints) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -530,11 +470,6 @@ type Membership struct {
 	Description         string
 }
 
-// NewMembership returns a new Membership.
-func NewMembership() Membership {
-	return Membership{}
-}
-
 // Type returns the type identifer for this message.
 func (m Membership) Type() string {
 	return CodeMembership
@@ -547,8 +482,8 @@ func (m Membership) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Membership) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Membership) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -560,7 +495,7 @@ func (m Membership) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Membership) Serialize() ([]byte, error) {
+func (m *Membership) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -602,26 +537,11 @@ func (m Membership) Serialize() ([]byte, error) {
 	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode([]byte(CodeMembership), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m Membership) Write(b []byte) (int, error) {
+// write populates the fields in Membership from the byte slice
+func (m *Membership) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -705,11 +625,6 @@ type ShareCommon struct {
 	Description        string
 }
 
-// NewShareCommon returns a new ShareCommon.
-func NewShareCommon() ShareCommon {
-	return ShareCommon{}
-}
-
 // Type returns the type identifer for this message.
 func (m ShareCommon) Type() string {
 	return CodeShareCommon
@@ -722,8 +637,8 @@ func (m ShareCommon) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m ShareCommon) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *ShareCommon) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -735,7 +650,7 @@ func (m ShareCommon) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m ShareCommon) Serialize() ([]byte, error) {
+func (m *ShareCommon) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -767,26 +682,11 @@ func (m ShareCommon) Serialize() ([]byte, error) {
 	if err := WriteVarChar(buf, m.Description, 113); err != nil {
 		return nil, err
 	}
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode([]byte(CodeShareCommon), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m ShareCommon) Write(b []byte) (int, error) {
+// write populates the fields in ShareCommon from the byte slice
+func (m *ShareCommon) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -863,11 +763,6 @@ type TicketAdmission struct {
 	Description         string
 }
 
-// NewTicketAdmission returns a new TicketAdmission.
-func NewTicketAdmission() TicketAdmission {
-	return TicketAdmission{}
-}
-
 // Type returns the type identifer for this message.
 func (m TicketAdmission) Type() string {
 	return CodeTicketAdmission
@@ -880,8 +775,8 @@ func (m TicketAdmission) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m TicketAdmission) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *TicketAdmission) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -893,7 +788,7 @@ func (m TicketAdmission) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m TicketAdmission) Serialize() ([]byte, error) {
+func (m *TicketAdmission) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -955,26 +850,11 @@ func (m TicketAdmission) Serialize() ([]byte, error) {
 	if err := WriteVarChar(buf, m.Description, 16); err != nil {
 		return nil, err
 	}
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode([]byte(CodeTicketAdmission), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m TicketAdmission) Write(b []byte) (int, error) {
+// write populates the fields in TicketAdmission from the byte slice
+func (m *TicketAdmission) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)

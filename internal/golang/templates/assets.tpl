@@ -20,11 +20,6 @@ type {{.Name}} struct {
 {{ end -}}
 }
 
-// New{{.Name}} returns a new {{.Name}}.
-func New{{.Name}}() {{.Name}} {
-	return {{.Name}}{}
-}
-
 // Type returns the type identifer for this message.
 func (m {{.Name}}) Type() string {
 	return Code{{.Name}}
@@ -37,8 +32,8 @@ func (m {{.Name}}) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m {{.Name}}) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *{{.Name}}) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -50,7 +45,7 @@ func (m {{.Name}}) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m {{.Name}}) Serialize() ([]byte, error) {
+func (m *{{.Name}}) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 {{range .Fields}}
 
@@ -103,26 +98,11 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 		return nil, err
 	}
 {{ end -}}{{ end }}
-	b := buf.Bytes()
-
-	header, err := NewHeaderForCode([]byte(Code{{.Name}}), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	out := append(h, b...)
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m {{.Name}}) Write(b []byte) (int, error) {
+// write populates the fields in {{.Name}} from the byte slice
+func (m *{{.Name}}) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 {{- range .Fields}}
 

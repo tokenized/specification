@@ -3,6 +3,7 @@ package protocol
 import (
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestAssetDefinition(t *testing.T) {
@@ -75,10 +76,13 @@ func TestAssetDefinition(t *testing.T) {
 	// float test not setup
 
 	// AssetPayload (varbin)
-	// varbin test not setup
+	initialMessage.AssetPayload = make([]byte, 0, 16)
+	for i := uint64(0); i < 16; i++ {
+		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+14))
+	}
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -87,7 +91,7 @@ func TestAssetDefinition(t *testing.T) {
 	// Decode message
 	decodedMessage := AssetDefinition{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -98,13 +102,17 @@ func TestAssetDefinition(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -178,16 +186,19 @@ func TestAssetCreation(t *testing.T) {
 	// float test not setup
 
 	// AssetPayload (varbin)
-	// varbin test not setup
+	initialMessage.AssetPayload = make([]byte, 0, 16)
+	for i := uint64(0); i < 16; i++ {
+		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+14))
+	}
 
 	// AssetRevision (uint)
 	// uint test not setup
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -196,7 +207,7 @@ func TestAssetCreation(t *testing.T) {
 	// Decode message
 	decodedMessage := AssetCreation{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -207,13 +218,17 @@ func TestAssetCreation(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -248,7 +263,7 @@ func TestAssetModification(t *testing.T) {
 	// sha256 test not setup
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -257,7 +272,7 @@ func TestAssetModification(t *testing.T) {
 	// Decode message
 	decodedMessage := AssetModification{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -268,13 +283,17 @@ func TestAssetModification(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -288,7 +307,10 @@ func TestContractOffer(t *testing.T) {
 	// uint test not setup
 
 	// ContractFile (varbin)
-	// varbin test not setup
+	initialMessage.ContractFile = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+2))
+	}
 
 	// GoverningLaw (fixedchar)
 	{
@@ -393,7 +415,7 @@ func TestContractOffer(t *testing.T) {
 	// NotableRole[] test not setup
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -402,7 +424,7 @@ func TestContractOffer(t *testing.T) {
 	// Decode message
 	decodedMessage := ContractOffer{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -413,13 +435,17 @@ func TestContractOffer(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -433,7 +459,10 @@ func TestContractFormation(t *testing.T) {
 	// uint test not setup
 
 	// ContractFile (varbin)
-	// varbin test not setup
+	initialMessage.ContractFile = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+2))
+	}
 
 	// GoverningLaw (fixedchar)
 	{
@@ -541,10 +570,10 @@ func TestContractFormation(t *testing.T) {
 	// uint test not setup
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -553,7 +582,7 @@ func TestContractFormation(t *testing.T) {
 	// Decode message
 	decodedMessage := ContractFormation{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -564,13 +593,17 @@ func TestContractFormation(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -593,7 +626,7 @@ func TestContractAmendment(t *testing.T) {
 	// SHA256 test not setup
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -602,7 +635,7 @@ func TestContractAmendment(t *testing.T) {
 	// Decode message
 	decodedMessage := ContractAmendment{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -613,13 +646,17 @@ func TestContractAmendment(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -636,7 +673,10 @@ func TestStaticContractFormation(t *testing.T) {
 	// uint test not setup
 
 	// ContractFile (varbin)
-	// varbin test not setup
+	initialMessage.ContractFile = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+3))
+	}
 
 	// ContractRevision (uint)
 	// uint test not setup
@@ -675,7 +715,7 @@ func TestStaticContractFormation(t *testing.T) {
 	// Entity[] test not setup
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -684,7 +724,7 @@ func TestStaticContractFormation(t *testing.T) {
 	// Decode message
 	decodedMessage := StaticContractFormation{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -695,13 +735,17 @@ func TestStaticContractFormation(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -760,7 +804,7 @@ func TestOrder(t *testing.T) {
 	initialMessage.Message = "Text 12"
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -769,7 +813,7 @@ func TestOrder(t *testing.T) {
 	// Decode message
 	decodedMessage := Order{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -780,13 +824,17 @@ func TestOrder(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -797,10 +845,10 @@ func TestFreeze(t *testing.T) {
 	// Address[] test not setup
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -809,7 +857,7 @@ func TestFreeze(t *testing.T) {
 	// Decode message
 	decodedMessage := Freeze{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -820,13 +868,17 @@ func TestFreeze(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -840,10 +892,10 @@ func TestThaw(t *testing.T) {
 	// sha256 test not setup
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -852,7 +904,7 @@ func TestThaw(t *testing.T) {
 	// Decode message
 	decodedMessage := Thaw{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -863,13 +915,17 @@ func TestThaw(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -883,10 +939,10 @@ func TestConfiscation(t *testing.T) {
 	// uint test not setup
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -895,7 +951,7 @@ func TestConfiscation(t *testing.T) {
 	// Decode message
 	decodedMessage := Confiscation{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -906,13 +962,17 @@ func TestConfiscation(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -923,10 +983,10 @@ func TestReconciliation(t *testing.T) {
 	// Address[] test not setup
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -935,7 +995,7 @@ func TestReconciliation(t *testing.T) {
 	// Decode message
 	decodedMessage := Reconciliation{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -946,13 +1006,17 @@ func TestReconciliation(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1002,7 +1066,7 @@ func TestInitiative(t *testing.T) {
 	// time test not setup
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1011,7 +1075,7 @@ func TestInitiative(t *testing.T) {
 	// Decode message
 	decodedMessage := Initiative{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1022,13 +1086,17 @@ func TestInitiative(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1081,7 +1149,7 @@ func TestReferendum(t *testing.T) {
 	// time test not setup
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1090,7 +1158,7 @@ func TestReferendum(t *testing.T) {
 	// Decode message
 	decodedMessage := Referendum{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1101,7 +1169,7 @@ func TestReferendum(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1109,16 +1177,20 @@ func TestReferendum(t *testing.T) {
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	}
 }
 
 func TestVote(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Vote{}
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1127,7 +1199,7 @@ func TestVote(t *testing.T) {
 	// Decode message
 	decodedMessage := Vote{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1138,13 +1210,17 @@ func TestVote(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1176,7 +1252,7 @@ func TestBallotCast(t *testing.T) {
 	initialMessage.Vote = "Text 3"
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1185,7 +1261,7 @@ func TestBallotCast(t *testing.T) {
 	// Decode message
 	decodedMessage := BallotCast{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1196,7 +1272,7 @@ func TestBallotCast(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1204,16 +1280,20 @@ func TestBallotCast(t *testing.T) {
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	}
 }
 
 func TestBallotCounted(t *testing.T) {
 	// Create a randomized object
 	initialMessage := BallotCounted{}
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1222,7 +1302,7 @@ func TestBallotCounted(t *testing.T) {
 	// Decode message
 	decodedMessage := BallotCounted{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1233,13 +1313,17 @@ func TestBallotCounted(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1283,10 +1367,10 @@ func TestResult(t *testing.T) {
 	initialMessage.Result = "Text 7"
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1295,7 +1379,7 @@ func TestResult(t *testing.T) {
 	// Decode message
 	decodedMessage := Result{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1306,13 +1390,17 @@ func TestResult(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1335,7 +1423,7 @@ func TestMessage(t *testing.T) {
 	initialMessage.MessagePayload = "Text 2"
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1344,7 +1432,7 @@ func TestMessage(t *testing.T) {
 	// Decode message
 	decodedMessage := Message{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1355,13 +1443,17 @@ func TestMessage(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1378,10 +1470,10 @@ func TestRejection(t *testing.T) {
 	initialMessage.MessagePayload = "Text 2"
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1390,7 +1482,7 @@ func TestRejection(t *testing.T) {
 	// Decode message
 	decodedMessage := Rejection{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1401,13 +1493,17 @@ func TestRejection(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1418,7 +1514,7 @@ func TestEstablishment(t *testing.T) {
 	initialMessage.Message = "Text 0"
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1427,7 +1523,7 @@ func TestEstablishment(t *testing.T) {
 	// Decode message
 	decodedMessage := Establishment{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1438,13 +1534,17 @@ func TestEstablishment(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1455,7 +1555,7 @@ func TestAddition(t *testing.T) {
 	initialMessage.Message = "Text 0"
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1464,7 +1564,7 @@ func TestAddition(t *testing.T) {
 	// Decode message
 	decodedMessage := Addition{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1475,13 +1575,17 @@ func TestAddition(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1492,7 +1596,7 @@ func TestAlteration(t *testing.T) {
 	initialMessage.Message = "Text 0"
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1501,7 +1605,7 @@ func TestAlteration(t *testing.T) {
 	// Decode message
 	decodedMessage := Alteration{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1512,13 +1616,17 @@ func TestAlteration(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1529,7 +1637,7 @@ func TestRemoval(t *testing.T) {
 	initialMessage.Message = "Text 0"
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1538,7 +1646,7 @@ func TestRemoval(t *testing.T) {
 	// Decode message
 	decodedMessage := Removal{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1549,13 +1657,17 @@ func TestRemoval(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1587,7 +1699,7 @@ func TestTransfer(t *testing.T) {
 	// Address test not setup
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1596,7 +1708,7 @@ func TestTransfer(t *testing.T) {
 	// Decode message
 	decodedMessage := Transfer{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1607,13 +1719,17 @@ func TestTransfer(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }
 
@@ -1624,10 +1740,10 @@ func TestSettlement(t *testing.T) {
 	// AssetSettlement[] test not setup
 
 	// Timestamp (timestamp)
-	// timestamp test not setup
+	initialMessage.Timestamp = uint64(time.Now().UnixNano())
 
 	// Encode message
-	initialEncoding, err := initialMessage.Serialize()
+	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1636,7 +1752,7 @@ func TestSettlement(t *testing.T) {
 	// Decode message
 	decodedMessage := Settlement{}
 
-	n, err := decodedMessage.Write(initialEncoding)
+	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1647,12 +1763,16 @@ func TestSettlement(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.Serialize()
+	secondEncoding, err := decodedMessage.serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
 		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	if !reflect.DeepEqual(initialMessage, decodedMessage) {
+		t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	}
 }

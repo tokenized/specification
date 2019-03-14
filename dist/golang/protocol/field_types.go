@@ -4,7 +4,7 @@ import "bytes"
 
 // Address Address represents a public address
 type Address struct {
-	Address []byte // Public address where the token balance will be changed.
+	Address [20]byte // Public address where the token balance will be changed.
 }
 
 // NewAddress returns a new Address with defaults set.
@@ -17,8 +17,8 @@ func NewAddress() *Address {
 func (m Address) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	// Address ([]byte)
-	if err := WriteFixedBin(buf, m.Address, 20); err != nil {
+	// Address ([20]byte)
+	if err := write(buf, m.Address); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
@@ -26,9 +26,8 @@ func (m Address) Serialize() ([]byte, error) {
 
 func (m *Address) Write(buf *bytes.Buffer) error {
 
-	// Address ([]byte)
-	m.Address = make([]byte, 20)
-	if err := readLen(buf, m.Address); err != nil {
+	// Address ([20]byte)
+	if err := read(buf, &m.Address); err != nil {
 		return err
 	}
 	return nil
@@ -577,10 +576,6 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 // Header Header contains common details required by every Tokenized
 // message.
 type Header struct {
-	ProtocolID       []byte // Tokenized ID Prefix.  tokenized.com
-	OpPushDataLength uint64 // Bitcoin script to push payload
-	Version          uint8  // 255 reserved for additional versions. Tokenized protocol versioning.
-	ActionPrefix     []byte // Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.
 }
 
 // NewHeader returns a new Header with defaults set.
@@ -592,56 +587,10 @@ func NewHeader() *Header {
 // Serialize returns the byte representation of the message.
 func (m Header) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-
-	// ProtocolID ([]byte)
-	if err := WriteFixedBin(buf, m.ProtocolID, 13); err != nil {
-		return nil, err
-	}
-
-	// OpPushDataLength (uint64)
-	if _, err := buf.Write(PushDataScript(m.OpPushDataLength)); err != nil {
-		return nil, err
-	}
-
-	// Version (uint8)
-	if err := write(buf, m.Version); err != nil {
-		return nil, err
-	}
-
-	// ActionPrefix ([]byte)
-	if err := WriteFixedBin(buf, m.ActionPrefix, 2); err != nil {
-		return nil, err
-	}
 	return buf.Bytes(), nil
 }
 
 func (m *Header) Write(buf *bytes.Buffer) error {
-
-	// ProtocolID ([]byte)
-	m.ProtocolID = make([]byte, 13)
-	if err := readLen(buf, m.ProtocolID); err != nil {
-		return err
-	}
-
-	// OpPushDataLength (uint64)
-	{
-		var err error
-		m.OpPushDataLength, err = ParsePushDataScript(buf)
-		if err != nil {
-			return err
-		}
-	}
-
-	// Version (uint8)
-	if err := read(buf, &m.Version); err != nil {
-		return err
-	}
-
-	// ActionPrefix ([]byte)
-	m.ActionPrefix = make([]byte, 2)
-	if err := readLen(buf, m.ActionPrefix); err != nil {
-		return err
-	}
 	return nil
 }
 
@@ -974,7 +923,7 @@ func (m *TokenReceiver) Write(buf *bytes.Buffer) error {
 // VotingSystem A VotingSystem defines all details of a Voting System.
 type VotingSystem struct {
 	Name                        string  // eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.
-	System                      []byte  // Specifies which subfield is subject to this vote system's control.
+	System                      [8]byte // Specifies which subfield is subject to this vote system's control.
 	Method                      byte    // R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful.
 	Logic                       byte    // 0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.)
 	ThresholdPercentage         uint8   // 1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.
@@ -998,8 +947,8 @@ func (m VotingSystem) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// System ([]byte)
-	if err := WriteFixedBin(buf, m.System, 8); err != nil {
+	// System ([8]byte)
+	if err := write(buf, m.System); err != nil {
 		return nil, err
 	}
 
@@ -1046,9 +995,8 @@ func (m *VotingSystem) Write(buf *bytes.Buffer) error {
 		}
 	}
 
-	// System ([]byte)
-	m.System = make([]byte, 8)
-	if err := readLen(buf, m.System); err != nil {
+	// System ([8]byte)
+	if err := read(buf, &m.System); err != nil {
 		return err
 	}
 

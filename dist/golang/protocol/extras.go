@@ -2,26 +2,29 @@ package protocol
 
 import (
 	"bytes"
+	"encoding/binary"
 	"errors"
 	"fmt"
-	"io"
 )
 
 const (
-	// Version of the Tokenized protocol.
-	Version = uint8(0)
-
 	// OpReturn (OP_RETURN) is a script opcode is used to mark a transaction
 	// output as invalid, and can be used to add data to a TX.
 	OpReturn = 0x6a
+
+	// ProtocolID is the current protocol ID
+	ProtocolID = "tokenized.com"
+
+	// Version of the Tokenized protocol.
+	Version = uint8(0)
 )
 
 // PayloadMessage is the interface for messages that are derived from
 // payloads, such as asset types.
 type PayloadMessage interface {
-	io.Writer
 	Type() string
-	Serialize() ([]byte, error)
+	serialize() ([]byte, error)
+	write(b []byte) (int, error)
 }
 
 // NewPayloadMessageFromCode returns the approriate PayloadMessage for the
@@ -31,7 +34,8 @@ func NewPayloadMessageFromCode(code []byte) (PayloadMessage, error) {
 
 	switch s {
 	case CodeShareCommon:
-		return NewShareCommon(), nil
+		result := ShareCommon{}
+		return &result, nil
 	}
 
 	return nil, fmt.Errorf("No asset type for code %s", code)
@@ -47,21 +51,138 @@ type OpReturnMessage interface {
 // New returns a new message, as an OpReturnMessage, from the OP_RETURN
 // payload.
 func New(b []byte) (OpReturnMessage, error) {
-	code, err := Code(b)
+	buf := bytes.NewBuffer(b)
+
+	var opCode byte
+	var err error
+
+	// Parse OP_RETURN op code
+	err = binary.Read(buf, defaultEndian, &opCode)
 	if err != nil {
 		return nil, err
 	}
 
-	t, ok := TypeMapping[code]
-	if !ok {
-		return nil, fmt.Errorf("Unknown code :  %v", code)
+	if opCode != OpReturn {
+		return nil, fmt.Errorf("Not an op return output : %02x", opCode)
 	}
 
-	if _, err := t.Write(b); err != nil {
+	// Parse push op code for op return protocol ID
+	err = binary.Read(buf, defaultEndian, &opCode)
+	if err != nil {
 		return nil, err
 	}
 
-	return t, nil
+	if int(opCode) != len(ProtocolID) {
+		return nil, fmt.Errorf("Push not correct size for protocol ID : %02x", opCode)
+	}
+
+	// Parse protocol ID
+	protocolID := make([]byte, len(ProtocolID))
+	_, err = buf.Read(protocolID)
+	if err != nil {
+		return nil, err
+	}
+
+	if !bytes.Equal(protocolID, []byte(ProtocolID)) {
+		return nil, fmt.Errorf("Invalid protocol ID : %s", string(protocolID))
+	}
+
+	// Parse push op code for payload length + 3 for version and message type code
+	var payloadSize uint64
+	payloadSize, err = ParsePushDataScript(buf)
+	if err != nil {
+		return nil, err
+	}
+
+	if uint64(buf.Len()) < payloadSize {
+		return nil, fmt.Errorf("Payload push op code is too large for message : %d", payloadSize)
+	}
+
+	// Parse version
+	var version uint8
+	err = binary.Read(buf, defaultEndian, &version)
+	if err != nil {
+		return nil, err
+	}
+
+	if version != Version {
+		return nil, fmt.Errorf("Unsupported version : %02x", version)
+	}
+
+	// Parse message type code
+	code := make([]byte, 2)
+	_, err = buf.Read(code)
+	if err != nil {
+		return nil, err
+	}
+
+	msg := TypeMapping(string(code))
+	if msg == nil {
+		return nil, fmt.Errorf("Unknown code : %s", code)
+	}
+
+	if _, err := msg.write(b); err != nil {
+		return nil, err
+	}
+
+	return msg, nil
+}
+
+// Serialize returns a complete op return script including the specified payload.
+func Serialize(msg PayloadMessage) ([]byte, error) {
+	var buf bytes.Buffer
+	var err error
+
+	// Write OP_RETURN op code
+	err = binary.Write(&buf, defaultEndian, OpReturn)
+	if err != nil {
+		return nil, err
+	}
+
+	// Write signature push op code
+	protocolIDSize := uint8(len(ProtocolID))
+	err = binary.Write(&buf, defaultEndian, protocolIDSize)
+	if err != nil {
+		return nil, err
+	}
+
+	// Write protocol ID
+	_, err = buf.Write([]byte(ProtocolID))
+	if err != nil {
+		return nil, err
+	}
+
+	var payload []byte
+	payload, err = msg.serialize()
+	if err != nil {
+		return nil, err
+	}
+
+	// Write push op code for payload length + 3 for version and message type code
+	_, err = buf.Write(PushDataScript(uint64(len(payload)) + 3))
+	if err != nil {
+		return nil, err
+	}
+
+	// Write version
+	err = binary.Write(&buf, defaultEndian, Version)
+	if err != nil {
+		return nil, err
+	}
+
+	// Write message type code
+	_, err = buf.Write([]byte(msg.Type()))
+	if err != nil {
+		return nil, err
+	}
+
+	// Write payload
+	_, err = buf.Write(payload)
+	if err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
 }
 
 // Code returns the identifying code from the OP_RETURN payload.
@@ -77,18 +198,6 @@ func Code(b []byte) (string, error) {
 	}
 
 	return string(b[offset : offset+2]), nil
-}
-
-// NewHeaderForCode returns a new Header with the given code and size.
-func NewHeaderForCode(code []byte, size uint64) (*Header, error) {
-	h := Header{
-		ProtocolID:       ProtocolID,
-		OpPushDataLength: size,
-		Version:          Version,
-		ActionPrefix:     code,
-	}
-
-	return &h, nil
 }
 
 func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {

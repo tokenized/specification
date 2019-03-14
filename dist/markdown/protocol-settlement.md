@@ -64,42 +64,6 @@ The following breaks down the construction of a Settlement Action. The action is
                 <th style="width:5%" class="s1">Data Type</th>
                 <th style="width:14%" class="s2">Amendment Restrictions</th>
             </tr>
-            <tr>
-                <td class="t10">Protocol Identifier</td>
-                <td class="t10">ProtocolID</td>
-                <td class="t10">13</td>
-                <td class="t10" style="word-break:break-all">tokenized.com</td>
-                <td class="t10">Tokenized ID Prefix.  tokenized.com</td>
-                <td class="t10">bin</td>
-                <td class="t11"></td>
-            </tr>
-            <tr>
-                <td class="t10">Push Data</td>
-                <td class="t10">OpPushDataLength</td>
-                <td class="t10">0</td>
-                <td class="t10" style="word-break:break-all">76</td>
-                <td class="t10">Bitcoin script to push payload</td>
-                <td class="t10">pushdata_length</td>
-                <td class="t11">Cannot be changed by issuer, operator or smart contract.</td>
-            </tr>
-            <tr>
-                <td class="t10">Version</td>
-                <td class="t10">Version</td>
-                <td class="t10">1</td>
-                <td class="t10" style="word-break:break-all">0</td>
-                <td class="t10">255 reserved for additional versions. Tokenized protocol versioning.</td>
-                <td class="t10">uint</td>
-                <td class="t11">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
-            </tr>
-            <tr>
-                <td class="t10">Action Prefix</td>
-                <td class="t10">ActionPrefix</td>
-                <td class="t10">2</td>
-                <td class="t10" style="word-break:break-all">C1</td>
-                <td class="t10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
-                <td class="t10">bin</td>
-                <td class="t11">Cannot be changed by issuer, operator or smart contract.</td>
-            </tr>
         </table>
     </div>
 </div>

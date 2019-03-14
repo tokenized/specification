@@ -88,39 +88,90 @@ const (
 )
 
 // TypeMapping holds a mapping of message codes to message types.
-var (
-	TypeMapping = map[string]OpReturnMessage{
-		CodeAssetDefinition:         &AssetDefinition{},
-		CodeAssetCreation:           &AssetCreation{},
-		CodeAssetModification:       &AssetModification{},
-		CodeContractOffer:           &ContractOffer{},
-		CodeContractFormation:       &ContractFormation{},
-		CodeContractAmendment:       &ContractAmendment{},
-		CodeStaticContractFormation: &StaticContractFormation{},
-		CodeOrder:                   &Order{},
-		CodeFreeze:                  &Freeze{},
-		CodeThaw:                    &Thaw{},
-		CodeConfiscation:            &Confiscation{},
-		CodeReconciliation:          &Reconciliation{},
-		CodeInitiative:              &Initiative{},
-		CodeReferendum:              &Referendum{},
-		CodeVote:                    &Vote{},
-		CodeBallotCast:              &BallotCast{},
-		CodeBallotCounted:           &BallotCounted{},
-		CodeResult:                  &Result{},
-		CodeMessage:                 &Message{},
-		CodeRejection:               &Rejection{},
-		CodeEstablishment:           &Establishment{},
-		CodeAddition:                &Addition{},
-		CodeAlteration:              &Alteration{},
-		CodeRemoval:                 &Removal{},
-		CodeTransfer:                &Transfer{},
-		CodeSettlement:              &Settlement{},
+func TypeMapping(code string) OpReturnMessage {
+	switch code {
+	case CodeAssetDefinition:
+		result := AssetDefinition{}
+		return &result
+	case CodeAssetCreation:
+		result := AssetCreation{}
+		return &result
+	case CodeAssetModification:
+		result := AssetModification{}
+		return &result
+	case CodeContractOffer:
+		result := ContractOffer{}
+		return &result
+	case CodeContractFormation:
+		result := ContractFormation{}
+		return &result
+	case CodeContractAmendment:
+		result := ContractAmendment{}
+		return &result
+	case CodeStaticContractFormation:
+		result := StaticContractFormation{}
+		return &result
+	case CodeOrder:
+		result := Order{}
+		return &result
+	case CodeFreeze:
+		result := Freeze{}
+		return &result
+	case CodeThaw:
+		result := Thaw{}
+		return &result
+	case CodeConfiscation:
+		result := Confiscation{}
+		return &result
+	case CodeReconciliation:
+		result := Reconciliation{}
+		return &result
+	case CodeInitiative:
+		result := Initiative{}
+		return &result
+	case CodeReferendum:
+		result := Referendum{}
+		return &result
+	case CodeVote:
+		result := Vote{}
+		return &result
+	case CodeBallotCast:
+		result := BallotCast{}
+		return &result
+	case CodeBallotCounted:
+		result := BallotCounted{}
+		return &result
+	case CodeResult:
+		result := Result{}
+		return &result
+	case CodeMessage:
+		result := Message{}
+		return &result
+	case CodeRejection:
+		result := Rejection{}
+		return &result
+	case CodeEstablishment:
+		result := Establishment{}
+		return &result
+	case CodeAddition:
+		result := Addition{}
+		return &result
+	case CodeAlteration:
+		result := Alteration{}
+		return &result
+	case CodeRemoval:
+		result := Removal{}
+		return &result
+	case CodeTransfer:
+		result := Transfer{}
+		return &result
+	case CodeSettlement:
+		result := Settlement{}
+		return &result
+	default:
+		return nil
 	}
-
-	// ProtocolID is the current protocol ID
-	ProtocolID = []byte("tokenized.com")
-)
+}
 
 // AssetDefinition Asset Definition Action - This action is used by the
 // issuer to define the properties/characteristics of the Asset (token)
@@ -129,7 +180,7 @@ type AssetDefinition struct {
 	Header                      Header  // Common header data for all actions
 	AssetType                   string  // eg. Share - Common
 	AssetID                     string  // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
-	AssetAuthFlags              []byte  // Authorization Flags,  bitwise operation
+	AssetAuthFlags              [8]byte // Authorization Flags,  bitwise operation
 	TransfersPermitted          bool    // 1 = Transfers are permitted.  0 = Transfers are not permitted.
 	TradeRestrictions           string  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
 	EnforcementOrdersPermitted  bool    // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
@@ -151,8 +202,8 @@ func (m AssetDefinition) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m AssetDefinition) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *AssetDefinition) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -164,7 +215,7 @@ func (m AssetDefinition) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m AssetDefinition) Serialize() ([]byte, error) {
+func (m *AssetDefinition) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
@@ -181,9 +232,9 @@ func (m AssetDefinition) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
-	// AssetAuthFlags ([]byte)
+	// AssetAuthFlags ([8]byte)
 	// fmt.Printf("Serializing AssetAuthFlags\n")
-	if err := write(buf, pad(m.AssetAuthFlags, 8)); err != nil {
+	if err := write(buf, m.AssetAuthFlags); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetAuthFlags : buf len %d\n", buf.Len())
@@ -272,30 +323,11 @@ func (m AssetDefinition) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized AssetPayload : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeAssetDefinition), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized AssetDefinition : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *AssetDefinition) Write(b []byte) (int, error) {
+// write populates the fields in AssetDefinition from the byte slice
+func (m *AssetDefinition) write(b []byte) (int, error) {
 	// fmt.Printf("Reading AssetDefinition : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -331,10 +363,9 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
 
-	// AssetAuthFlags ([]byte)
+	// AssetAuthFlags ([8]byte)
 	// fmt.Printf("Reading AssetAuthFlags : %d bytes remaining\n", buf.Len())
-	m.AssetAuthFlags = make([]byte, 8)
-	if err := readLen(buf, m.AssetAuthFlags); err != nil {
+	if err := read(buf, &m.AssetAuthFlags); err != nil {
 		return 0, err
 	}
 
@@ -448,7 +479,7 @@ func (m *AssetDefinition) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read AssetPayload : %d bytes remaining\n%+v\n", buf.Len(), m.AssetPayload)
 
-	fmt.Printf("Read AssetDefinition : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read AssetDefinition : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -459,7 +490,7 @@ func (m AssetDefinition) PayloadMessage() (PayloadMessage, error) {
 		return nil, err
 	}
 
-	if _, err := p.Write(m.AssetPayload); err != nil {
+	if _, err := p.write(m.AssetPayload); err != nil {
 		return nil, err
 	}
 
@@ -472,7 +503,7 @@ func (m AssetDefinition) String() string {
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x", m.AssetAuthFlags))
+	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#+v", m.AssetAuthFlags))
 	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", m.TransfersPermitted))
 	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", m.TradeRestrictions))
 	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", m.EnforcementOrdersPermitted))
@@ -495,7 +526,7 @@ type AssetCreation struct {
 	Header                      Header  // Common header data for all actions
 	AssetType                   string  // eg. Share - Common
 	AssetID                     string  // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
-	AssetAuthFlags              []byte  // Authorization Flags,  bitwise operation
+	AssetAuthFlags              [8]byte // Authorization Flags,  bitwise operation
 	TransfersPermitted          bool    // 1 = Transfers are permitted.  0 = Transfers are not permitted.
 	TradeRestrictions           string  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
 	EnforcementOrdersPermitted  bool    // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
@@ -519,8 +550,8 @@ func (m AssetCreation) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m AssetCreation) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *AssetCreation) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -532,7 +563,7 @@ func (m AssetCreation) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m AssetCreation) Serialize() ([]byte, error) {
+func (m *AssetCreation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
@@ -549,9 +580,9 @@ func (m AssetCreation) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
-	// AssetAuthFlags ([]byte)
+	// AssetAuthFlags ([8]byte)
 	// fmt.Printf("Serializing AssetAuthFlags\n")
-	if err := write(buf, pad(m.AssetAuthFlags, 8)); err != nil {
+	if err := write(buf, m.AssetAuthFlags); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetAuthFlags : buf len %d\n", buf.Len())
@@ -654,30 +685,11 @@ func (m AssetCreation) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeAssetCreation), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized AssetCreation : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *AssetCreation) Write(b []byte) (int, error) {
+// write populates the fields in AssetCreation from the byte slice
+func (m *AssetCreation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading AssetCreation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -713,10 +725,9 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
 
-	// AssetAuthFlags ([]byte)
+	// AssetAuthFlags ([8]byte)
 	// fmt.Printf("Reading AssetAuthFlags : %d bytes remaining\n", buf.Len())
-	m.AssetAuthFlags = make([]byte, 8)
-	if err := readLen(buf, m.AssetAuthFlags); err != nil {
+	if err := read(buf, &m.AssetAuthFlags); err != nil {
 		return 0, err
 	}
 
@@ -846,7 +857,7 @@ func (m *AssetCreation) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read AssetCreation : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read AssetCreation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -857,7 +868,7 @@ func (m AssetCreation) PayloadMessage() (PayloadMessage, error) {
 		return nil, err
 	}
 
-	if _, err := p.Write(m.AssetPayload); err != nil {
+	if _, err := p.write(m.AssetPayload); err != nil {
 		return nil, err
 	}
 
@@ -870,7 +881,7 @@ func (m AssetCreation) String() string {
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
 	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
 	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x", m.AssetAuthFlags))
+	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#+v", m.AssetAuthFlags))
 	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", m.TransfersPermitted))
 	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", m.TradeRestrictions))
 	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", m.EnforcementOrdersPermitted))
@@ -907,8 +918,8 @@ func (m AssetModification) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m AssetModification) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *AssetModification) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -920,7 +931,7 @@ func (m AssetModification) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m AssetModification) Serialize() ([]byte, error) {
+func (m *AssetModification) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
@@ -968,30 +979,11 @@ func (m AssetModification) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized RefTxID : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeAssetModification), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized AssetModification : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *AssetModification) Write(b []byte) (int, error) {
+// write populates the fields in AssetModification from the byte slice
+func (m *AssetModification) write(b []byte) (int, error) {
 	// fmt.Printf("Reading AssetModification : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -1063,7 +1055,7 @@ func (m *AssetModification) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read RefTxID : %d bytes remaining\n%+v\n", buf.Len(), m.RefTxID)
 
-	fmt.Printf("Read AssetModification : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read AssetModification : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -1105,7 +1097,7 @@ type ContractOffer struct {
 	IssuerType                 byte           // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
 	IssuerLogoURL              string         // The URL of the Issuers logo.
 	ContractOperatorID         string         // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
-	ContractAuthFlags          []byte         // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
+	ContractAuthFlags          [16]byte       // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
 	VotingSystems              []VotingSystem // A list of voting systems.
 	RestrictedQtyAssets        uint64         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	ReferendumProposal         bool           // A Referendum is permitted for Proposals (outside of smart contract scope).
@@ -1154,8 +1146,8 @@ func (m ContractOffer) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m ContractOffer) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *ContractOffer) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -1167,7 +1159,7 @@ func (m ContractOffer) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m ContractOffer) Serialize() ([]byte, error) {
+func (m *ContractOffer) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// ContractName (string)
@@ -1247,9 +1239,9 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized ContractOperatorID : buf len %d\n", buf.Len())
 
-	// ContractAuthFlags ([]byte)
+	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Serializing ContractAuthFlags\n")
-	if err := write(buf, pad(m.ContractAuthFlags, 16)); err != nil {
+	if err := write(buf, m.ContractAuthFlags); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractAuthFlags : buf len %d\n", buf.Len())
@@ -1413,30 +1405,11 @@ func (m ContractOffer) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized NotableRoles : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeContractOffer), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized ContractOffer : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *ContractOffer) Write(b []byte) (int, error) {
+// write populates the fields in ContractOffer from the byte slice
+func (m *ContractOffer) write(b []byte) (int, error) {
 	// fmt.Printf("Reading ContractOffer : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -1568,10 +1541,9 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read ContractOperatorID : %d bytes remaining\n%+v\n", buf.Len(), m.ContractOperatorID)
 
-	// ContractAuthFlags ([]byte)
+	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Reading ContractAuthFlags : %d bytes remaining\n", buf.Len())
-	m.ContractAuthFlags = make([]byte, 16)
-	if err := readLen(buf, m.ContractAuthFlags); err != nil {
+	if err := read(buf, &m.ContractAuthFlags); err != nil {
 		return 0, err
 	}
 
@@ -1797,7 +1769,7 @@ func (m *ContractOffer) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read NotableRoles : %d bytes remaining\n%+v\n", buf.Len(), m.NotableRoles)
 
-	fmt.Printf("Read ContractOffer : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read ContractOffer : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -1821,7 +1793,7 @@ func (m ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("IssuerType:%#+v", m.IssuerType))
 	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", m.IssuerLogoURL))
 	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", m.ContractOperatorID))
-	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x", m.ContractAuthFlags))
+	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", m.ContractAuthFlags))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", m.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", m.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", m.ReferendumProposal))
@@ -1861,7 +1833,7 @@ type ContractFormation struct {
 	IssuerType                 byte           // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
 	IssuerLogoURL              string         // The URL of the Issuers logo.
 	ContractOperatorID         string         // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
-	ContractAuthFlags          []byte         // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
+	ContractAuthFlags          [16]byte       // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
 	VotingSystems              []VotingSystem // A list voting systems.
 	RestrictedQtyAssets        uint64         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	ReferendumProposal         bool           // A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).
@@ -1890,8 +1862,8 @@ func (m ContractFormation) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m ContractFormation) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *ContractFormation) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -1903,7 +1875,7 @@ func (m ContractFormation) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m ContractFormation) Serialize() ([]byte, error) {
+func (m *ContractFormation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// ContractName (string)
@@ -1983,9 +1955,9 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized ContractOperatorID : buf len %d\n", buf.Len())
 
-	// ContractAuthFlags ([]byte)
+	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Serializing ContractAuthFlags\n")
-	if err := write(buf, pad(m.ContractAuthFlags, 16)); err != nil {
+	if err := write(buf, m.ContractAuthFlags); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractAuthFlags : buf len %d\n", buf.Len())
@@ -2163,30 +2135,11 @@ func (m ContractFormation) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeContractFormation), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized ContractFormation : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *ContractFormation) Write(b []byte) (int, error) {
+// write populates the fields in ContractFormation from the byte slice
+func (m *ContractFormation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading ContractFormation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -2318,10 +2271,9 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read ContractOperatorID : %d bytes remaining\n%+v\n", buf.Len(), m.ContractOperatorID)
 
-	// ContractAuthFlags ([]byte)
+	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Reading ContractAuthFlags : %d bytes remaining\n", buf.Len())
-	m.ContractAuthFlags = make([]byte, 16)
-	if err := readLen(buf, m.ContractAuthFlags); err != nil {
+	if err := read(buf, &m.ContractAuthFlags); err != nil {
 		return 0, err
 	}
 
@@ -2563,7 +2515,7 @@ func (m *ContractFormation) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read ContractFormation : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read ContractFormation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -2587,7 +2539,7 @@ func (m ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("IssuerType:%#+v", m.IssuerType))
 	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", m.IssuerLogoURL))
 	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", m.ContractOperatorID))
-	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x", m.ContractAuthFlags))
+	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", m.ContractAuthFlags))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", m.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", m.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", m.ReferendumProposal))
@@ -2631,8 +2583,8 @@ func (m ContractAmendment) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m ContractAmendment) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *ContractAmendment) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -2644,7 +2596,7 @@ func (m ContractAmendment) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m ContractAmendment) Serialize() ([]byte, error) {
+func (m *ContractAmendment) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// ChangeIssuerAddress (bool)
@@ -2692,30 +2644,11 @@ func (m ContractAmendment) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized RefTxID : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeContractAmendment), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized ContractAmendment : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *ContractAmendment) Write(b []byte) (int, error) {
+// write populates the fields in ContractAmendment from the byte slice
+func (m *ContractAmendment) write(b []byte) (int, error) {
 	// fmt.Printf("Reading ContractAmendment : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -2779,7 +2712,7 @@ func (m *ContractAmendment) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read RefTxID : %d bytes remaining\n%+v\n", buf.Len(), m.RefTxID)
 
-	fmt.Printf("Read ContractAmendment : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read ContractAmendment : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -2825,8 +2758,8 @@ func (m StaticContractFormation) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m StaticContractFormation) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *StaticContractFormation) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -2838,7 +2771,7 @@ func (m StaticContractFormation) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m StaticContractFormation) Serialize() ([]byte, error) {
+func (m *StaticContractFormation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// ContractName (string)
@@ -2935,30 +2868,11 @@ func (m StaticContractFormation) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Entities : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeStaticContractFormation), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized StaticContractFormation : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *StaticContractFormation) Write(b []byte) (int, error) {
+// write populates the fields in StaticContractFormation from the byte slice
+func (m *StaticContractFormation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading StaticContractFormation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -3102,7 +3016,7 @@ func (m *StaticContractFormation) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Entities : %d bytes remaining\n%+v\n", buf.Len(), m.Entities)
 
-	fmt.Printf("Read StaticContractFormation : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read StaticContractFormation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -3158,8 +3072,8 @@ func (m Order) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Order) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Order) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3171,7 +3085,7 @@ func (m Order) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Order) Serialize() ([]byte, error) {
+func (m *Order) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
@@ -3282,30 +3196,11 @@ func (m Order) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeOrder), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Order : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Order) Write(b []byte) (int, error) {
+// write populates the fields in Order from the byte slice
+func (m *Order) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Order : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -3457,7 +3352,7 @@ func (m *Order) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
 
-	fmt.Printf("Read Order : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Order : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -3505,8 +3400,8 @@ func (m Freeze) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Freeze) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Freeze) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3518,7 +3413,7 @@ func (m Freeze) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Freeze) Serialize() ([]byte, error) {
+func (m *Freeze) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Addresses ([]Address)
@@ -3545,30 +3440,11 @@ func (m Freeze) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeFreeze), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Freeze : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Freeze) Write(b []byte) (int, error) {
+// write populates the fields in Freeze from the byte slice
+func (m *Freeze) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Freeze : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -3608,7 +3484,7 @@ func (m *Freeze) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read Freeze : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Freeze : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -3644,8 +3520,8 @@ func (m Thaw) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Thaw) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Thaw) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3657,7 +3533,7 @@ func (m Thaw) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Thaw) Serialize() ([]byte, error) {
+func (m *Thaw) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Addresses ([]Address)
@@ -3691,30 +3567,11 @@ func (m Thaw) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeThaw), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Thaw : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Thaw) Write(b []byte) (int, error) {
+// write populates the fields in Thaw from the byte slice
+func (m *Thaw) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Thaw : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -3762,7 +3619,7 @@ func (m *Thaw) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read Thaw : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Thaw : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -3798,8 +3655,8 @@ func (m Confiscation) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Confiscation) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Confiscation) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3811,7 +3668,7 @@ func (m Confiscation) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Confiscation) Serialize() ([]byte, error) {
+func (m *Confiscation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Addresses ([]Address)
@@ -3845,30 +3702,11 @@ func (m Confiscation) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeConfiscation), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Confiscation : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Confiscation) Write(b []byte) (int, error) {
+// write populates the fields in Confiscation from the byte slice
+func (m *Confiscation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Confiscation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -3916,7 +3754,7 @@ func (m *Confiscation) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read Confiscation : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Confiscation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -3951,8 +3789,8 @@ func (m Reconciliation) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Reconciliation) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Reconciliation) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3964,7 +3802,7 @@ func (m Reconciliation) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Reconciliation) Serialize() ([]byte, error) {
+func (m *Reconciliation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Addresses ([]Address)
@@ -3991,30 +3829,11 @@ func (m Reconciliation) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeReconciliation), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Reconciliation : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Reconciliation) Write(b []byte) (int, error) {
+// write populates the fields in Reconciliation from the byte slice
+func (m *Reconciliation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Reconciliation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -4054,7 +3873,7 @@ func (m *Reconciliation) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read Reconciliation : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Reconciliation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -4098,8 +3917,8 @@ func (m Initiative) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Initiative) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Initiative) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4111,7 +3930,7 @@ func (m Initiative) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Initiative) Serialize() ([]byte, error) {
+func (m *Initiative) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
@@ -4194,30 +4013,11 @@ func (m Initiative) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized VoteCutOffTimestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeInitiative), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Initiative : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Initiative) Write(b []byte) (int, error) {
+// write populates the fields in Initiative from the byte slice
+func (m *Initiative) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Initiative : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -4337,7 +4137,7 @@ func (m *Initiative) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read VoteCutOffTimestamp : %d bytes remaining\n%+v\n", buf.Len(), m.VoteCutOffTimestamp)
 
-	fmt.Printf("Read Initiative : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Initiative : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -4389,8 +4189,8 @@ func (m Referendum) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Referendum) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Referendum) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4402,7 +4202,7 @@ func (m Referendum) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Referendum) Serialize() ([]byte, error) {
+func (m *Referendum) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetSpecificVote (bool)
@@ -4492,30 +4292,11 @@ func (m Referendum) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized VoteCutOffTimestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeReferendum), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Referendum : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Referendum) Write(b []byte) (int, error) {
+// write populates the fields in Referendum from the byte slice
+func (m *Referendum) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Referendum : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -4643,7 +4424,7 @@ func (m *Referendum) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read VoteCutOffTimestamp : %d bytes remaining\n%+v\n", buf.Len(), m.VoteCutOffTimestamp)
 
-	fmt.Printf("Read Referendum : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Referendum : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -4685,8 +4466,8 @@ func (m Vote) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Vote) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Vote) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4698,7 +4479,7 @@ func (m Vote) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Vote) Serialize() ([]byte, error) {
+func (m *Vote) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Timestamp (uint64)
@@ -4708,30 +4489,11 @@ func (m Vote) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeVote), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Vote : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Vote) Write(b []byte) (int, error) {
+// write populates the fields in Vote from the byte slice
+func (m *Vote) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Vote : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -4751,7 +4513,7 @@ func (m *Vote) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read Vote : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Vote : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -4788,8 +4550,8 @@ func (m BallotCast) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m BallotCast) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *BallotCast) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4801,7 +4563,7 @@ func (m BallotCast) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m BallotCast) Serialize() ([]byte, error) {
+func (m *BallotCast) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
@@ -4832,30 +4594,11 @@ func (m BallotCast) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Vote : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeBallotCast), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized BallotCast : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *BallotCast) Write(b []byte) (int, error) {
+// write populates the fields in BallotCast from the byte slice
+func (m *BallotCast) write(b []byte) (int, error) {
 	// fmt.Printf("Reading BallotCast : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -4911,7 +4654,7 @@ func (m *BallotCast) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Vote : %d bytes remaining\n%+v\n", buf.Len(), m.Vote)
 
-	fmt.Printf("Read BallotCast : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read BallotCast : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -4948,8 +4691,8 @@ func (m BallotCounted) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m BallotCounted) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *BallotCounted) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4961,7 +4704,7 @@ func (m BallotCounted) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m BallotCounted) Serialize() ([]byte, error) {
+func (m *BallotCounted) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Timestamp (uint64)
@@ -4971,30 +4714,11 @@ func (m BallotCounted) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeBallotCounted), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized BallotCounted : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *BallotCounted) Write(b []byte) (int, error) {
+// write populates the fields in BallotCounted from the byte slice
+func (m *BallotCounted) write(b []byte) (int, error) {
 	// fmt.Printf("Reading BallotCounted : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -5014,7 +4738,7 @@ func (m *BallotCounted) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read BallotCounted : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read BallotCounted : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -5054,8 +4778,8 @@ func (m Result) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Result) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Result) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5067,7 +4791,7 @@ func (m Result) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Result) Serialize() ([]byte, error) {
+func (m *Result) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
@@ -5143,30 +4867,11 @@ func (m Result) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeResult), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Result : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Result) Write(b []byte) (int, error) {
+// write populates the fields in Result from the byte slice
+func (m *Result) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Result : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -5274,7 +4979,7 @@ func (m *Result) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read Result : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Result : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -5322,8 +5027,8 @@ func (m Message) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Message) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Message) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5335,7 +5040,7 @@ func (m Message) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Message) Serialize() ([]byte, error) {
+func (m *Message) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AddressIndexes ([]uint16)
@@ -5364,30 +5069,11 @@ func (m Message) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized MessagePayload : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeMessage), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Message : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Message) Write(b []byte) (int, error) {
+// write populates the fields in Message from the byte slice
+func (m *Message) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Message : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -5438,7 +5124,7 @@ func (m *Message) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read MessagePayload : %d bytes remaining\n%+v\n", buf.Len(), m.MessagePayload)
 
-	fmt.Printf("Read Message : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Message : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -5481,8 +5167,8 @@ func (m Rejection) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Rejection) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Rejection) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5494,7 +5180,7 @@ func (m Rejection) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Rejection) Serialize() ([]byte, error) {
+func (m *Rejection) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AddressIndexes ([]uint16)
@@ -5530,30 +5216,11 @@ func (m Rejection) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeRejection), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Rejection : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Rejection) Write(b []byte) (int, error) {
+// write populates the fields in Rejection from the byte slice
+func (m *Rejection) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Rejection : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -5608,7 +5275,7 @@ func (m *Rejection) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read Rejection : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Rejection : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -5642,8 +5309,8 @@ func (m Establishment) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Establishment) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Establishment) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5655,7 +5322,7 @@ func (m Establishment) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Establishment) Serialize() ([]byte, error) {
+func (m *Establishment) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Message (string)
@@ -5665,30 +5332,11 @@ func (m Establishment) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeEstablishment), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Establishment : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Establishment) Write(b []byte) (int, error) {
+// write populates the fields in Establishment from the byte slice
+func (m *Establishment) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Establishment : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -5712,7 +5360,7 @@ func (m *Establishment) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
 
-	fmt.Printf("Read Establishment : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Establishment : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -5743,8 +5391,8 @@ func (m Addition) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Addition) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Addition) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5756,7 +5404,7 @@ func (m Addition) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Addition) Serialize() ([]byte, error) {
+func (m *Addition) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Message (string)
@@ -5766,30 +5414,11 @@ func (m Addition) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeAddition), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Addition : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Addition) Write(b []byte) (int, error) {
+// write populates the fields in Addition from the byte slice
+func (m *Addition) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Addition : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -5813,7 +5442,7 @@ func (m *Addition) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
 
-	fmt.Printf("Read Addition : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Addition : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -5844,8 +5473,8 @@ func (m Alteration) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Alteration) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Alteration) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5857,7 +5486,7 @@ func (m Alteration) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Alteration) Serialize() ([]byte, error) {
+func (m *Alteration) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Message (string)
@@ -5867,30 +5496,11 @@ func (m Alteration) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeAlteration), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Alteration : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Alteration) Write(b []byte) (int, error) {
+// write populates the fields in Alteration from the byte slice
+func (m *Alteration) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Alteration : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -5914,7 +5524,7 @@ func (m *Alteration) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
 
-	fmt.Printf("Read Alteration : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Alteration : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -5945,8 +5555,8 @@ func (m Removal) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Removal) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Removal) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5958,7 +5568,7 @@ func (m Removal) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Removal) Serialize() ([]byte, error) {
+func (m *Removal) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Message (string)
@@ -5968,30 +5578,11 @@ func (m Removal) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeRemoval), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Removal : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Removal) Write(b []byte) (int, error) {
+// write populates the fields in Removal from the byte slice
+func (m *Removal) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Removal : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -6015,7 +5606,7 @@ func (m *Removal) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
 
-	fmt.Printf("Read Removal : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Removal : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -6059,8 +5650,8 @@ func (m Transfer) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Transfer) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Transfer) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -6072,7 +5663,7 @@ func (m Transfer) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Transfer) Serialize() ([]byte, error) {
+func (m *Transfer) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Assets ([]AssetTransfer)
@@ -6134,30 +5725,11 @@ func (m Transfer) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized ExchangeFeeAddress : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeTransfer), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Transfer : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Transfer) Write(b []byte) (int, error) {
+// write populates the fields in Transfer from the byte slice
+func (m *Transfer) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Transfer : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -6233,7 +5805,7 @@ func (m *Transfer) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read ExchangeFeeAddress : %d bytes remaining\n%+v\n", buf.Len(), m.ExchangeFeeAddress)
 
-	fmt.Printf("Read Transfer : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Transfer : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -6271,8 +5843,8 @@ func (m Settlement) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m Settlement) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *Settlement) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -6284,7 +5856,7 @@ func (m Settlement) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m Settlement) Serialize() ([]byte, error) {
+func (m *Settlement) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Assets ([]AssetSettlement)
@@ -6311,30 +5883,11 @@ func (m Settlement) Serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(CodeSettlement), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized Settlement : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *Settlement) Write(b []byte) (int, error) {
+// write populates the fields in Settlement from the byte slice
+func (m *Settlement) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Settlement : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -6374,7 +5927,7 @@ func (m *Settlement) Write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
 
-	fmt.Printf("Read Settlement : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read Settlement : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 

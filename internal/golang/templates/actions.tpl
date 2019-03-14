@@ -14,16 +14,17 @@ const (
 )
 
 // TypeMapping holds a mapping of message codes to message types.
-var (
-	TypeMapping = map[string]OpReturnMessage{
+func TypeMapping(code string) OpReturnMessage {
+	switch(code) {
 {{- range . }}
-		Code{{.Name}}: &{{.Name}}{},
+	case Code{{.Name}}:
+		result := {{.Name}}{}
+		return &result
 {{- end }}
+	default:
+		return nil
 	}
-
-	// ProtocolID is the current protocol ID
-	ProtocolID = []byte("tokenized.com")
-)
+}
 
 {{ range $action := . }}
 
@@ -65,8 +66,8 @@ func (m {{.Name}}) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m {{.Name}}) Read(b []byte) (int, error) {
-	data, err := m.Serialize()
+func (m *{{.Name}}) read(b []byte) (int, error) {
+	data, err := m.serialize()
 
 	if err != nil {
 		return 0, err
@@ -78,7 +79,7 @@ func (m {{.Name}}) Read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m {{.Name}}) Serialize() ([]byte, error) {
+func (m *{{.Name}}) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 {{ range .PayloadFields }}
 
@@ -141,30 +142,11 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 {{- end }}
 	// fmt.Printf("Serialized {{.FieldName}} : buf len %d\n", buf.Len())
 {{ end }}
-	b := buf.Bytes()
-
-	// Header
-	// fmt.Printf("Serializing Header\n")
-	header, err := NewHeaderForCode([]byte(Code{{.Name}}), uint64(len(b)))
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := header.Serialize()
-	if err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized Header : %d bytes\n%+v\n%+v\n", len(h), header, h)
-
-	out := append(h, b...)
-	// fmt.Printf("Serialized {{.Name}} : %d bytes\n", len(out))
-
-	return out, nil
+	return buf.Bytes(), nil
 }
 
-// Write implements the io.Writer interface, writing the data in []byte to
-// the receiver.
-func (m *{{.Name}}) Write(b []byte) (int, error) {
+// write populates the fields in {{.Name}} from the byte slice
+func (m *{{.Name}}) write(b []byte) (int, error) {
 	// fmt.Printf("Reading {{.Name}} : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -251,7 +233,7 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 	// fmt.Printf("Read {{.FieldName}} : %d bytes remaining\n%+v\n", buf.Len(), m.{{.FieldName}})
 {{ end }}
 
-	fmt.Printf("Read {{.Name}} : %d bytes remaining\n", buf.Len())
+	// fmt.Printf("Read {{.Name}} : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -263,7 +245,7 @@ func (m {{.Name}}) PayloadMessage() (PayloadMessage, error) {
 		return nil, err
 	}
 
-	if _, err := p.Write(m.AssetPayload); err != nil {
+	if _, err := p.write(m.AssetPayload); err != nil {
 		return nil, err
 	}
 
