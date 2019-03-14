@@ -16,6 +16,8 @@ type Field struct {
 	ExampleValue string `yaml:"example_value"`
 	ExampleHex   string `yaml:"example_hex"`
 	Notes        string
+	Computed     bool
+	DisplayOrder int
 }
 
 func (f Field) FieldName() string {
