@@ -3062,7 +3062,7 @@ type Order struct {
 	SupportingEvidenceHash [32]byte        // SHA-256: warrant, court order, etc.
 	RefTxnID               [32]byte        // The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
 	FreezePeriod           uint64          // Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.
-	Message                string          // Length only limited by the Bitcoin protocol.
+	Message                string          //
 }
 
 // Type returns the type identifer for this message.
@@ -5013,10 +5013,11 @@ func (m Result) String() string {
 // type for easy filtering in the a user's wallet. The Message Types are
 // listed in the Message Types table.
 type Message struct {
-	Header         Header   // Common header data for all actions
-	AddressIndexes []uint16 // Associates the message to a particular output by the index.
-	MessageType    string   // Potential for up to 65,535 different message types
-	MessagePayload string   // Length only limited by the Bitcoin protocol. Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
+	Header                Header   // Common header data for all actions
+	QtyReceivingAddresses uint8    // 0-255 Message Receiving Addresses
+	AddressIndexes        []uint16 // Associates the message to a particular output by the index.
+	MessageType           string   // Potential for up to 65,535 different message types
+	MessagePayload        string   // Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
 
 }
 
@@ -5042,6 +5043,13 @@ func (m *Message) read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m *Message) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
+
+	// QtyReceivingAddresses (uint8)
+	// fmt.Printf("Serializing QtyReceivingAddresses\n")
+	if err := write(buf, m.QtyReceivingAddresses); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized QtyReceivingAddresses : buf len %d\n", buf.Len())
 
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Serializing AddressIndexes\n")
@@ -5084,6 +5092,14 @@ func (m *Message) write(b []byte) (int, error) {
 	}
 
 	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+
+	// QtyReceivingAddresses (uint8)
+	// fmt.Printf("Reading QtyReceivingAddresses : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &m.QtyReceivingAddresses); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read QtyReceivingAddresses : %d bytes remaining\n%+v\n", buf.Len(), m.QtyReceivingAddresses)
 
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Reading AddressIndexes : %d bytes remaining\n", buf.Len())
@@ -5137,6 +5153,7 @@ func (m Message) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
+	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", m.QtyReceivingAddresses))
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
 	vals = append(vals, fmt.Sprintf("MessageType:%#+v", m.MessageType))
 	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", m.MessagePayload))
@@ -5153,11 +5170,12 @@ func (m Message) String() string {
 // to remain revenue neutral. If not enough fees are attached to pay for
 // the Contract response then the Contract will not respond.
 type Rejection struct {
-	Header         Header   // Common header data for all actions
-	AddressIndexes []uint16 // Associates the message to a particular output by the index.
-	RejectionType  uint8    // Classifies the rejection by a type.
-	MessagePayload string   // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
-	Timestamp      uint64   // Timestamp in nanoseconds of when the smart contract created the action.
+	Header                Header   // Common header data for all actions
+	QtyReceivingAddresses uint8    // 0-255 Message Receiving Addresses
+	AddressIndexes        []uint16 // Associates the message to a particular output by the index.
+	RejectionType         uint8    // Classifies the rejection by a type.
+	MessagePayload        string   // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
+	Timestamp             uint64   // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -5182,6 +5200,13 @@ func (m *Rejection) read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (m *Rejection) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
+
+	// QtyReceivingAddresses (uint8)
+	// fmt.Printf("Serializing QtyReceivingAddresses\n")
+	if err := write(buf, m.QtyReceivingAddresses); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized QtyReceivingAddresses : buf len %d\n", buf.Len())
 
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Serializing AddressIndexes\n")
@@ -5231,6 +5256,14 @@ func (m *Rejection) write(b []byte) (int, error) {
 	}
 
 	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+
+	// QtyReceivingAddresses (uint8)
+	// fmt.Printf("Reading QtyReceivingAddresses : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &m.QtyReceivingAddresses); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read QtyReceivingAddresses : %d bytes remaining\n%+v\n", buf.Len(), m.QtyReceivingAddresses)
 
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Reading AddressIndexes : %d bytes remaining\n", buf.Len())
@@ -5288,6 +5321,7 @@ func (m Rejection) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
+	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", m.QtyReceivingAddresses))
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
 	vals = append(vals, fmt.Sprintf("RejectionType:%v", m.RejectionType))
 	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", m.MessagePayload))
@@ -5299,7 +5333,7 @@ func (m Rejection) String() string {
 // Establishment Establishment Action - Establishes an on-chain register.
 type Establishment struct {
 	Header  Header // Common header data for all actions
-	Message string // Length only limited by Bitcoin protocol.
+	Message string //
 }
 
 // Type returns the type identifer for this message.
@@ -5381,7 +5415,7 @@ func (m Establishment) String() string {
 // Addition Addition Action - Adds an entry to the Register.
 type Addition struct {
 	Header  Header // Common header data for all actions
-	Message string // Length only limited by Bitcoin protocol.
+	Message string //
 }
 
 // Type returns the type identifer for this message.
@@ -5463,7 +5497,7 @@ func (m Addition) String() string {
 // Alteration Alteration Action - A register entry/record can be altered.
 type Alteration struct {
 	Header  Header // Common header data for all actions
-	Message string // Length only limited by the Bitcoin protocol.
+	Message string //
 }
 
 // Type returns the type identifer for this message.
@@ -5545,7 +5579,7 @@ func (m Alteration) String() string {
 // Removal Removal Action - Removes an entry/record from the Register.
 type Removal struct {
 	Header  Header // Common header data for all actions
-	Message string // Length only limited by the Bitcoin protocol.
+	Message string //
 }
 
 // Type returns the type identifer for this message.

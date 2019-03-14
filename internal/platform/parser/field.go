@@ -21,6 +21,10 @@ func (f Field) FieldName() string {
 	return strings.Replace(f.Name, " ", "", -1)
 }
 
+func (f Field) FieldDescription() string {
+	return strings.Trim(f.Description, " ")
+}
+
 func (f Field) DescriptionAbbr() string {
 	return fmt.Sprintf(f.Description[:90])
 }

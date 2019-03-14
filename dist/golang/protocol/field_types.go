@@ -40,7 +40,7 @@ type Amendment struct {
 	FieldIndex    uint8  // Index of the field to be amended.
 	Element       uint16 // Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.
 	SubfieldIndex uint8  // Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.
-	DeleteElement bool   // 1 = remove the element listed in the Element field, 0 means this is not a delete operation. The DeleteElement field only applies to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.
+	Operation     byte   // 0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.
 	Data          string // New data for the amended subfield. Data type depends on the the type of the field being amended.
 }
 
@@ -69,9 +69,16 @@ func (m Amendment) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// DeleteElement (bool)
-	if err := write(buf, m.DeleteElement); err != nil {
-		return nil, err
+	// Operation (byte)
+	{
+		b, err := m.Operation.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
 	}
 
 	// Data (string)
@@ -98,8 +105,8 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 		return err
 	}
 
-	// DeleteElement (bool)
-	if err := read(buf, &m.DeleteElement); err != nil {
+	// Operation (byte)
+	if err := m.Operation.Write(buf); err != nil {
 		return err
 	}
 
@@ -117,9 +124,9 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 // AssetSettlement AssetSettlement is the data required to settle an asset
 // transfer.
 type AssetSettlement struct {
-	AssetType         string          // eg. Share, Bond, Ticket. All characters must be capitalised.
-	AssetID           string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	AssetAddressesQty []QuantityIndex // Each element contains the resulting token balance of the asset for the output Address, which is referred to by the index.
+	AssetType   string          // eg. Share, Bond, Ticket. All characters must be capitalised.
+	AssetID     string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	Settlements []QuantityIndex // Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.
 }
 
 // NewAssetSettlement returns a new AssetSettlement with defaults set.
@@ -142,11 +149,11 @@ func (m AssetSettlement) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// AssetAddressesQty ([]QuantityIndex)
-	if err := WriteVariableSize(buf, uint64(len(m.AssetAddressesQty)), 0, 8); err != nil {
+	// Settlements ([]QuantityIndex)
+	if err := WriteVariableSize(buf, uint64(len(m.Settlements)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.AssetAddressesQty {
+	for _, value := range m.Settlements {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -179,20 +186,20 @@ func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
 		}
 	}
 
-	// AssetAddressesQty ([]QuantityIndex)
+	// Settlements ([]QuantityIndex)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return err
 		}
-		m.AssetAddressesQty = make([]QuantityIndex, 0, size)
+		m.Settlements = make([]QuantityIndex, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue QuantityIndex
 			if err := newValue.Write(buf); err != nil {
 				return err
 			}
 
-			m.AssetAddressesQty = append(m.AssetAddressesQty, newValue)
+			m.Settlements = append(m.Settlements, newValue)
 		}
 	}
 	return nil

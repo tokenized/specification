@@ -656,8 +656,9 @@ class Action_Message(ActionBase):
     ActionPrefix = 'M1'
 
     schema = {
-        'MessageType':                     [0, DAT_fixedchar, 2],
-        'MessagePayload':                  [1, DAT_varchar, 32]
+        'AddressIndexes':                  [0, DAT_uint16[], 0],
+        'MessageType':                     [1, DAT_fixedchar, 2],
+        'MessagePayload':                  [2, DAT_varchar, 32]
     }
 
     rules = {
@@ -667,6 +668,7 @@ class Action_Message(ActionBase):
     }
 
     def init_attributes(self):
+        self.MessageType = None
         self.MessagePayload = None
 
 
@@ -683,9 +685,10 @@ class Action_Rejection(ActionBase):
     ActionPrefix = 'M2'
 
     schema = {
-        'RejectionType':                   [0, DAT_uint, 1],
-        'MessagePayload':                  [1, DAT_varchar, 32],
-        'Timestamp':                       [2, DAT_timestamp, 8]
+        'AddressIndexes':                  [0, DAT_uint16[], 0],
+        'RejectionType':                   [1, DAT_uint, 1],
+        'MessagePayload':                  [2, DAT_varchar, 32],
+        'Timestamp':                       [3, DAT_timestamp, 8]
     }
 
     rules = {
@@ -695,6 +698,7 @@ class Action_Rejection(ActionBase):
     }
 
     def init_attributes(self):
+        self.RejectionType = None
         self.MessagePayload = None
         self.Timestamp = None
 

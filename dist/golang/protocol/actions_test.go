@@ -1407,6 +1407,9 @@ func TestResult(t *testing.T) {
 func TestMessage(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Message{}
+	// QtyReceivingAddresses (uint8)
+	// uint8 test not setup
+
 	// AddressIndexes (uint16[])
 	// uint16[] test not setup
 
@@ -1414,13 +1417,13 @@ func TestMessage(t *testing.T) {
 	{
 		text := make([]byte, 0, 2)
 		for i := uint64(0); i < 2; i++ {
-			text = append(text, byte(65+i+1))
+			text = append(text, byte(65+i+2))
 		}
 		initialMessage.MessageType = string(text)
 	}
 
 	// MessagePayload (varchar)
-	initialMessage.MessagePayload = "Text 2"
+	initialMessage.MessagePayload = "Text 3"
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1460,6 +1463,9 @@ func TestMessage(t *testing.T) {
 func TestRejection(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Rejection{}
+	// QtyReceivingAddresses (uint8)
+	// uint8 test not setup
+
 	// AddressIndexes (uint16[])
 	// uint16[] test not setup
 
@@ -1467,7 +1473,7 @@ func TestRejection(t *testing.T) {
 	// uint test not setup
 
 	// MessagePayload (varchar)
-	initialMessage.MessagePayload = "Text 2"
+	initialMessage.MessagePayload = "Text 3"
 
 	// Timestamp (timestamp)
 	initialMessage.Timestamp = uint64(time.Now().UnixNano())
