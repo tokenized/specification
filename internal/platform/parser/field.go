@@ -45,14 +45,12 @@ func (f Field) FormType() string {
 	return f.Type
 }
 
-func (f Field) Tags() string {
-	return fmt.Sprintf("`json:\"%s,omitempty\"`", f.JSONFriendly())
+func (f Field) GoTags() string {
+	return fmt.Sprintf("`json:\"%s,omitempty\"`", f.SnakeCase())
 }
 
-func (f Field) JSONFriendly() string {
-	snake := matchFirstCap.ReplaceAllString(f.Name, "${1}_${2}")
-	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
-	return strings.ToLower(snake)
+func (f Field) SnakeCase() string {
+	return SnakeCase(f.Name)
 }
 
 func (f Field) IsData() bool {

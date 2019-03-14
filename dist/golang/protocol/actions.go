@@ -177,22 +177,22 @@ func TypeMapping(code string) OpReturnMessage {
 // issuer to define the properties/characteristics of the Asset (token)
 // that it wants to create.
 type AssetDefinition struct {
-	Header                      Header  // Common header data for all actions
-	AssetType                   string  // eg. Share - Common
-	AssetID                     string  // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
-	AssetAuthFlags              [8]byte // Authorization Flags,  bitwise operation
-	TransfersPermitted          bool    // 1 = Transfers are permitted.  0 = Transfers are not permitted.
-	TradeRestrictions           string  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
-	EnforcementOrdersPermitted  bool    // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
-	VoteMultiplier              uint8   // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
-	ReferendumProposal          bool    // A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.
-	InitiativeProposal          bool    // An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.
-	AssetModificationGovernance bool    // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
-	TokenQty                    uint64  // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.
-	ContractFeeCurrency         string  // BSV, USD, AUD, EUR, etc.
-	ContractFeeVar              float32 // Percent of the value of the transaction
-	ContractFeeFixed            float32 // Fixed fee (payment made in BSV)
-	AssetPayload                []byte  // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
+	Header                      Header  `json:"header,omitempty"`                        // Common header data for all actions
+	AssetType                   string  `json:"asset_type,omitempty"`                    // eg. Share - Common
+	AssetID                     string  `json:"asset_id,omitempty"`                      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetAuthFlags              [8]byte `json:"asset_auth_flags,omitempty"`              // Authorization Flags,  bitwise operation
+	TransfersPermitted          bool    `json:"transfers_permitted,omitempty"`           // 1 = Transfers are permitted.  0 = Transfers are not permitted.
+	TradeRestrictions           string  `json:"trade_restrictions,omitempty"`            // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
+	EnforcementOrdersPermitted  bool    `json:"enforcement_orders_permitted,omitempty"`  // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
+	VoteMultiplier              uint8   `json:"vote_multiplier,omitempty"`               // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
+	ReferendumProposal          bool    `json:"referendum_proposal,omitempty"`           // A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.
+	InitiativeProposal          bool    `json:"initiative_proposal,omitempty"`           // An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.
+	AssetModificationGovernance bool    `json:"asset_modification_governance,omitempty"` // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
+	TokenQty                    uint64  `json:"token_qty,omitempty"`                     // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.
+	ContractFeeCurrency         string  `json:"contract_fee_currency,omitempty"`         // BSV, USD, AUD, EUR, etc.
+	ContractFeeVar              float32 `json:"contract_fee_var,omitempty"`              // Percent of the value of the transaction
+	ContractFeeFixed            float32 `json:"contract_fee_fixed,omitempty"`            // Fixed fee (payment made in BSV)
+	AssetPayload                []byte  `json:"asset_payload,omitempty"`                 // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
 }
 
 // Type returns the type identifer for this message.
@@ -523,24 +523,24 @@ func (action AssetDefinition) String() string {
 // AssetCreation Asset Creation Action - This action creates an Asset in
 // response to the Issuer's instructions in the Definition Action.
 type AssetCreation struct {
-	Header                      Header  // Common header data for all actions
-	AssetType                   string  // eg. Share - Common
-	AssetID                     string  // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
-	AssetAuthFlags              [8]byte // Authorization Flags,  bitwise operation
-	TransfersPermitted          bool    // 1 = Transfers are permitted.  0 = Transfers are not permitted.
-	TradeRestrictions           string  // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
-	EnforcementOrdersPermitted  bool    // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
-	VoteMultiplier              uint8   // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
-	ReferendumProposal          bool    // A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.
-	InitiativeProposal          bool    // An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.
-	AssetModificationGovernance bool    // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative).  The voting system specifies the voting rules.
-	TokenQty                    uint64  // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.
-	ContractFeeCurrency         string  // BSV, USD, AUD, EUR, etc.
-	ContractFeeVar              float32 // Percent of the value of the transaction
-	ContractFeeFixed            float32 // Fixed fee (payment made in BSV)
-	AssetPayload                []byte  // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
-	AssetRevision               uint64  // Counter 0 - 65,535
-	Timestamp                   uint64  // Timestamp in nanoseconds of when the smart contract created the action.
+	Header                      Header  `json:"header,omitempty"`                        // Common header data for all actions
+	AssetType                   string  `json:"asset_type,omitempty"`                    // eg. Share - Common
+	AssetID                     string  `json:"asset_id,omitempty"`                      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetAuthFlags              [8]byte `json:"asset_auth_flags,omitempty"`              // Authorization Flags,  bitwise operation
+	TransfersPermitted          bool    `json:"transfers_permitted,omitempty"`           // 1 = Transfers are permitted.  0 = Transfers are not permitted.
+	TradeRestrictions           string  `json:"trade_restrictions,omitempty"`            // Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.
+	EnforcementOrdersPermitted  bool    `json:"enforcement_orders_permitted,omitempty"`  // 1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.
+	VoteMultiplier              uint8   `json:"vote_multiplier,omitempty"`               // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
+	ReferendumProposal          bool    `json:"referendum_proposal,omitempty"`           // A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.
+	InitiativeProposal          bool    `json:"initiative_proposal,omitempty"`           // An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.
+	AssetModificationGovernance bool    `json:"asset_modification_governance,omitempty"` // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative).  The voting system specifies the voting rules.
+	TokenQty                    uint64  `json:"token_qty,omitempty"`                     // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset IDs become the non-fungible Asset ID and many Asset IDs can be associated with a particular Contract.
+	ContractFeeCurrency         string  `json:"contract_fee_currency,omitempty"`         // BSV, USD, AUD, EUR, etc.
+	ContractFeeVar              float32 `json:"contract_fee_var,omitempty"`              // Percent of the value of the transaction
+	ContractFeeFixed            float32 `json:"contract_fee_fixed,omitempty"`            // Fixed fee (payment made in BSV)
+	AssetPayload                []byte  `json:"asset_payload,omitempty"`                 // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
+	AssetRevision               uint64  `json:"asset _revision,omitempty"`               // Counter 0 - 65,535
+	Timestamp                   uint64  `json:"timestamp,omitempty"`                     // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -903,12 +903,12 @@ func (action AssetCreation) String() string {
 // AssetModification Asset Modification Action - Token Dilutions, Call
 // Backs/Revocations, burning etc.
 type AssetModification struct {
-	Header        Header      // Common header data for all actions
-	AssetType     string      // eg. Share - Common
-	AssetID       string      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
-	AssetRevision uint64      // Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected.
-	Modifications []Amendment //
-	RefTxID       [32]byte    // Tx-ID of the associated Result action (governance) that permitted the modifications.
+	Header        Header      `json:"header,omitempty"`         // Common header data for all actions
+	AssetType     string      `json:"asset_type,omitempty"`     // eg. Share - Common
+	AssetID       string      `json:"asset_id,omitempty"`       // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.
+	AssetRevision uint64      `json:"asset_revision,omitempty"` // Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected.
+	Modifications []Amendment `json:"modifications,omitempty"`  //
+	RefTxID       [32]byte    `json:"ref_tx_id,omitempty"`      // Tx-ID of the associated Result action (governance) that permitted the modifications.
 }
 
 // Type returns the type identifer for this message.
@@ -1085,36 +1085,36 @@ func (action AssetModification) String() string {
 // action allows for the positive response from the smart contract with
 // either a Contract Formation Action or a Rejection Action.
 type ContractOffer struct {
-	Header                     Header         // Common header data for all actions
-	ContractName               string         // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
-	ContractFileType           uint8          // 1 - SHA-256 Hash, 2 - Markdown
-	ContractFile               []byte         // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
-	GoverningLaw               string         // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-	Jurisdiction               string         // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
-	ContractExpiration         uint64         // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
-	ContractURI                string         // Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS).
-	IssuerName                 string         // Length 0-255 bytes. 0 is not valid.Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
-	IssuerType                 byte           // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
-	IssuerLogoURL              string         // The URL of the Issuers logo.
-	ContractOperatorID         string         // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
-	ContractAuthFlags          [16]byte       // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
-	VotingSystems              []VotingSystem // A list of voting systems.
-	RestrictedQtyAssets        uint64         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
-	ReferendumProposal         bool           // A Referendum is permitted for Proposals (outside of smart contract scope).
-	InitiativeProposal         bool           // An initiative is permitted for Proposals (outside of smart contract scope).
-	Registries                 []Registry     // A list Registries
-	IssuerAddress              bool           // Physical/mailing address. Y/N, N means there is no issuer address.
-	UnitNumber                 string         // Issuer Address Details (eg. HQ)
-	BuildingNumber             string         //
-	Street                     string         //
-	SuburbCity                 string         //
-	TerritoryStateProvinceCode string         //
-	CountryCode                string         //
-	PostalZIPCode              string         //
-	EmailAddress               string         // Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address
-	PhoneNumber                string         // Length 0-50 bytes. 0 is valid (no Phone subfield).Phone Number for Entity.
-	KeyRoles                   []KeyRole      // A list of Key Roles.
-	NotableRoles               []NotableRole  // A list of Notable Roles.
+	Header                     Header         `json:"header,omitempty"`                        // Common header data for all actions
+	ContractName               string         `json:"contract_name,omitempty"`                 // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractFileType           uint8          `json:"contract_file_type,omitempty"`            // 1 - SHA-256 Hash, 2 - Markdown
+	ContractFile               []byte         `json:"contract_file,omitempty"`                 // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	GoverningLaw               string         `json:"governing_law,omitempty"`                 // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction               string         `json:"jurisdiction,omitempty"`                  // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	ContractExpiration         uint64         `json:"contract_expiration,omitempty"`           // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
+	ContractURI                string         `json:"contract_uri,omitempty"`                  // Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS).
+	IssuerName                 string         `json:"issuer_name,omitempty"`                   // Length 0-255 bytes. 0 is not valid.Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	IssuerType                 byte           `json:"issuer_type,omitempty"`                   // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	IssuerLogoURL              string         `json:"issuer_logo_url,omitempty"`               // The URL of the Issuers logo.
+	ContractOperatorID         string         `json:"contract_operator_id,omitempty"`          // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
+	ContractAuthFlags          [16]byte       `json:"contract_auth_flags,omitempty"`           // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
+	VotingSystems              []VotingSystem `json:"voting_systems,omitempty"`                // A list of voting systems.
+	RestrictedQtyAssets        uint64         `json:"restricted_qty_assets,omitempty"`         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
+	ReferendumProposal         bool           `json:"referendum_proposal,omitempty"`           // A Referendum is permitted for Proposals (outside of smart contract scope).
+	InitiativeProposal         bool           `json:"initiative_proposal,omitempty"`           // An initiative is permitted for Proposals (outside of smart contract scope).
+	Registries                 []Registry     `json:"registries,omitempty"`                    // A list Registries
+	IssuerAddress              bool           `json:"issuer_address,omitempty"`                // Physical/mailing address. Y/N, N means there is no issuer address.
+	UnitNumber                 string         `json:"unit_number,omitempty"`                   // Issuer Address Details (eg. HQ)
+	BuildingNumber             string         `json:"building_number,omitempty"`               //
+	Street                     string         `json:"street,omitempty"`                        //
+	SuburbCity                 string         `json:"suburb_city,omitempty"`                   //
+	TerritoryStateProvinceCode string         `json:"territory_state_province_code,omitempty"` //
+	CountryCode                string         `json:"country_code,omitempty"`                  //
+	PostalZIPCode              string         `json:"postal_zip_code,omitempty"`               //
+	EmailAddress               string         `json:"email_address,omitempty"`                 // Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                string         `json:"phone_number,omitempty"`                  // Length 0-50 bytes. 0 is valid (no Phone subfield).Phone Number for Entity.
+	KeyRoles                   []KeyRole      `json:"key_roles,omitempty"`                     // A list of Key Roles.
+	NotableRoles               []NotableRole  `json:"notable_roles,omitempty"`                 // A list of Notable Roles.
 }
 
 // SetIssuerAddress Sets the issuer's mailing address on the contract..
@@ -1821,38 +1821,38 @@ func (action ContractOffer) String() string {
 // on a server controlled by the Issuer. or a Smart Contract Operator on
 // their behalf.
 type ContractFormation struct {
-	Header                     Header         // Common header data for all actions
-	ContractName               string         // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
-	ContractFileType           uint8          // 1 - SHA-256 Hash, 2 - Markdown file
-	ContractFile               []byte         // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
-	GoverningLaw               string         // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-	Jurisdiction               string         // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
-	ContractExpiration         uint64         // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
-	ContractURI                string         // Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
-	IssuerName                 string         // Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
-	IssuerType                 byte           // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
-	IssuerLogoURL              string         // The URL of the Issuers logo.
-	ContractOperatorID         string         // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
-	ContractAuthFlags          [16]byte       // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
-	VotingSystems              []VotingSystem // A list voting systems.
-	RestrictedQtyAssets        uint64         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
-	ReferendumProposal         bool           // A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).
-	InitiativeProposal         bool           // An initiative is permitted for Contract-Wide Proposals (outside of smart contract scope).
-	Registries                 []Registry     // A list Registries
-	IssuerAddress              bool           // Physical/mailing address. Y/N, N means there is no issuer address.
-	UnitNumber                 string         // Issuer Address Details (eg. HQ)
-	BuildingNumber             string         //
-	Street                     string         //
-	SuburbCity                 string         //
-	TerritoryStateProvinceCode string         //
-	CountryCode                string         //
-	PostalZIPCode              string         //
-	EmailAddress               string         // Address for text-based communication: eg. email address, Bitcoin address
-	PhoneNumber                string         // Phone Number for Entity. Max acceptable size: 50.
-	KeyRoles                   []KeyRole      // A list of Key Roles.
-	NotableRoles               []NotableRole  // A list of Notable Roles.
-	ContractRevision           uint64         // Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.
-	Timestamp                  uint64         // Timestamp in nanoseconds of when the smart contract created the action.
+	Header                     Header         `json:"header,omitempty"`                        // Common header data for all actions
+	ContractName               string         `json:"contract_name,omitempty"`                 // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractFileType           uint8          `json:"contract_file_type,omitempty"`            // 1 - SHA-256 Hash, 2 - Markdown file
+	ContractFile               []byte         `json:"contract_file,omitempty"`                 // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	GoverningLaw               string         `json:"governing_law,omitempty"`                 // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction               string         `json:"jurisdiction,omitempty"`                  // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	ContractExpiration         uint64         `json:"contract_expiration,omitempty"`           // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
+	ContractURI                string         `json:"contract_uri,omitempty"`                  // Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
+	IssuerName                 string         `json:"issuer_name,omitempty"`                   // Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	IssuerType                 byte           `json:"issuer_type,omitempty"`                   // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	IssuerLogoURL              string         `json:"issuer_logo_url,omitempty"`               // The URL of the Issuers logo.
+	ContractOperatorID         string         `json:"contract_operator_id,omitempty"`          // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
+	ContractAuthFlags          [16]byte       `json:"contract_auth_flags,omitempty"`           // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
+	VotingSystems              []VotingSystem `json:"voting_systems,omitempty"`                // A list voting systems.
+	RestrictedQtyAssets        uint64         `json:"restricted_qty_assets,omitempty"`         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
+	ReferendumProposal         bool           `json:"referendum_proposal,omitempty"`           // A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).
+	InitiativeProposal         bool           `json:"initiative_proposal,omitempty"`           // An initiative is permitted for Contract-Wide Proposals (outside of smart contract scope).
+	Registries                 []Registry     `json:"registries,omitempty"`                    // A list Registries
+	IssuerAddress              bool           `json:"issuer_address,omitempty"`                // Physical/mailing address. Y/N, N means there is no issuer address.
+	UnitNumber                 string         `json:"unit_number,omitempty"`                   // Issuer Address Details (eg. HQ)
+	BuildingNumber             string         `json:"building_number,omitempty"`               //
+	Street                     string         `json:"street,omitempty"`                        //
+	SuburbCity                 string         `json:"suburb_city,omitempty"`                   //
+	TerritoryStateProvinceCode string         `json:"territory_state_province_code,omitempty"` //
+	CountryCode                string         `json:"country_code,omitempty"`                  //
+	PostalZIPCode              string         `json:"postal_zip_code,omitempty"`               //
+	EmailAddress               string         `json:"email_address,omitempty"`                 // Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                string         `json:"phone_number,omitempty"`                  // Phone Number for Entity. Max acceptable size: 50.
+	KeyRoles                   []KeyRole      `json:"key_roles,omitempty"`                     // A list of Key Roles.
+	NotableRoles               []NotableRole  `json:"notable_roles,omitempty"`                 // A list of Notable Roles.
+	ContractRevision           uint64         `json:"contract_revision,omitempty"`             // Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.
+	Timestamp                  uint64         `json:"timestamp,omitempty"`                     // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -2568,12 +2568,12 @@ func (action ContractFormation) String() string {
 // amendment to the contract is restricted by the Authorization Flag set on
 // the current revision of Contract Formation action.
 type ContractAmendment struct {
-	Header                Header      // Common header data for all actions
-	ChangeIssuerAddress   bool        // 1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position.
-	ChangeOperatorAddress bool        // 1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position.
-	ContractRevision      uint16      // Counter 0 - 65,535
-	Amendments            []Amendment //
-	RefTxID               [32]byte    // Tx-ID of the associated Result action (governance) that permitted the modifications.
+	Header                Header      `json:"header,omitempty"`                  // Common header data for all actions
+	ChangeIssuerAddress   bool        `json:"change_issuer_address,omitempty"`   // 1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position.
+	ChangeOperatorAddress bool        `json:"change_operator_address,omitempty"` // 1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position.
+	ContractRevision      uint16      `json:"contract_revision,omitempty"`       // Counter 0 - 65,535
+	Amendments            []Amendment `json:"amendments,omitempty"`              //
+	RefTxID               [32]byte    `json:"ref_tx_id,omitempty"`               // Tx-ID of the associated Result action (governance) that permitted the modifications.
 }
 
 // Type returns the type identifer for this message.
@@ -2736,19 +2736,19 @@ func (action ContractAmendment) String() string {
 
 // StaticContractFormation Static Contract Formation Action
 type StaticContractFormation struct {
-	Header             Header   // Common header data for all actions
-	ContractName       string   // Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
-	ContractType       string   //
-	ContractFileType   uint8    // 1 - SHA-256 Hash, 2 - Markdown file
-	ContractFile       []byte   // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
-	ContractRevision   uint16   // Counter 0 - 65,535
-	GoverningLaw       string   // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-	Jurisdiction       string   // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
-	EffectiveDate      uint64   // Start date of the contract.
-	ContractExpiration uint64   // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
-	ContractURI        string   // Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
-	PrevRevTxID        [32]byte // The Tx-ID of the previous contract revision.
-	Entities           []Entity //
+	Header             Header   `json:"header,omitempty"`              // Common header data for all actions
+	ContractName       string   `json:"contract_name,omitempty"`       // Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractType       string   `json:"contract_type,omitempty"`       //
+	ContractFileType   uint8    `json:"contract_file_type,omitempty"`  // 1 - SHA-256 Hash, 2 - Markdown file
+	ContractFile       []byte   `json:"contract_file,omitempty"`       // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	ContractRevision   uint16   `json:"contract_revision,omitempty"`   // Counter 0 - 65,535
+	GoverningLaw       string   `json:"governing_law,omitempty"`       // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction       string   `json:"jurisdiction,omitempty"`        // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	EffectiveDate      uint64   `json:"effective_date,omitempty"`      // Start date of the contract.
+	ContractExpiration uint64   `json:"contract_expiration,omitempty"` // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
+	ContractURI        string   `json:"contract_uri,omitempty"`        // Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
+	PrevRevTxID        [32]byte `json:"prev_rev_tx_id,omitempty"`      // The Tx-ID of the previous contract revision.
+	Entities           []Entity `json:"entities,omitempty"`            //
 }
 
 // Type returns the type identifer for this message.
@@ -3049,20 +3049,20 @@ func (action StaticContractFormation) String() string {
 // tokens that a particular public address(es) owns are to be confiscated,
 // frozen, thawed or reconciled.
 type Order struct {
-	Header                 Header          // Common header data for all actions
-	AssetType              string          // eg. Share, Bond, Ticket
-	AssetID                string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	ComplianceAction       byte            // Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)
-	TargetAddresses        []TargetAddress //
-	DepositAddress         Address         // The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin.
-	AuthorityName          string          // Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)
-	SigAlgoAddressList     uint8           // 0 = No Registry-signed Message, 1 = ECDSA+secp256k1
-	AuthorityPublicKey     string          // Length 0-255 bytes. Public Key associated with the Enforcement Authority
-	OrderSignature         string          // Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)
-	SupportingEvidenceHash [32]byte        // SHA-256: warrant, court order, etc.
-	RefTxnID               [32]byte        // The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
-	FreezePeriod           uint64          // Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.
-	Message                string          //
+	Header                 Header          `json:"header,omitempty"`                   // Common header data for all actions
+	AssetType              string          `json:"asset_type,omitempty"`               // eg. Share, Bond, Ticket
+	AssetID                string          `json:"asset_id,omitempty"`                 // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	ComplianceAction       byte            `json:"compliance_action,omitempty"`        // Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)
+	TargetAddresses        []TargetAddress `json:"target_addresses,omitempty"`         //
+	DepositAddress         Address         `json:"deposit_address,omitempty"`          // The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin.
+	AuthorityName          string          `json:"authority_name,omitempty"`           // Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)
+	SigAlgoAddressList     uint8           `json:"sig_algo_address_list,omitempty"`    // 0 = No Registry-signed Message, 1 = ECDSA+secp256k1
+	AuthorityPublicKey     string          `json:"authority_public_key,omitempty"`     // Length 0-255 bytes. Public Key associated with the Enforcement Authority
+	OrderSignature         string          `json:"order_signature,omitempty"`          // Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)
+	SupportingEvidenceHash [32]byte        `json:"supporting_evidence_hash,omitempty"` // SHA-256: warrant, court order, etc.
+	RefTxnID               [32]byte        `json:"ref_txn_id,omitempty"`               // The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
+	FreezePeriod           uint64          `json:"freeze_period,omitempty"`            // Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.
+	Message                string          `json:"message,omitempty"`                  //
 }
 
 // Type returns the type identifer for this message.
@@ -3388,9 +3388,9 @@ func (action Order) String() string {
 // to the public blockchain for transparency. The Contract will not respond
 // to any actions requested by the frozen address.
 type Freeze struct {
-	Header    Header    // Common header data for all actions
-	Addresses []Address // Addresses holding tokens to be frozen.
-	Timestamp uint64    // Timestamp in nanoseconds of when the smart contract created the action.
+	Header    Header    `json:"header,omitempty"`    // Common header data for all actions
+	Addresses []Address `json:"addresses,omitempty"` // Addresses holding tokens to be frozen.
+	Timestamp uint64    `json:"timestamp,omitempty"` // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -3507,10 +3507,10 @@ func (action Freeze) String() string {
 // legal requirements. The Alleged Offender's tokens will be unfrozen to
 // allow them to resume normal exchange and governance activities.
 type Thaw struct {
-	Header    Header    // Common header data for all actions
-	Addresses []Address // Addresses holding tokens to be thawed.
-	RefTxnID  [32]byte  // The related freeze action.
-	Timestamp uint64    // Timestamp in nanoseconds of when the smart contract created the action.
+	Header    Header    `json:"header,omitempty"`     // Common header data for all actions
+	Addresses []Address `json:"addresses,omitempty"`  // Addresses holding tokens to be thawed.
+	RefTxnID  [32]byte  `json:"ref_txn_id,omitempty"` // The related freeze action.
+	Timestamp uint64    `json:"timestamp,omitempty"`  // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -3642,10 +3642,10 @@ func (action Thaw) String() string {
 // Confiscation Confiscation Action - to be used to comply with contractual
 // obligations, legal and/or issuer requirements.
 type Confiscation struct {
-	Header     Header    // Common header data for all actions
-	Addresses  []Address // Addresses holding tokens to be confiscated.
-	DepositQty uint64    // Custodian's token balance after confiscation.
-	Timestamp  uint64    // Timestamp in nanoseconds of when the smart contract created the action.
+	Header     Header    `json:"header,omitempty"`      // Common header data for all actions
+	Addresses  []Address `json:"addresses,omitempty"`   // Addresses holding tokens to be confiscated.
+	DepositQty uint64    `json:"deposit_qty,omitempty"` // Custodian's token balance after confiscation.
+	Timestamp  uint64    `json:"timestamp,omitempty"`   // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -3777,9 +3777,9 @@ func (action Confiscation) String() string {
 // Reconciliation Reconciliation Action - to be used at the direction of
 // the issuer to fix record keeping errors with bitcoin and token balances.
 type Reconciliation struct {
-	Header    Header    // Common header data for all actions
-	Addresses []Address // Addresses holding tokens to be reconciled.
-	Timestamp uint64    // Timestamp in nanoseconds of when the smart contract created the action.
+	Header    Header    `json:"header,omitempty"`    // Common header data for all actions
+	Addresses []Address `json:"addresses,omitempty"` // Addresses holding tokens to be reconciled.
+	Timestamp uint64    `json:"timestamp,omitempty"` // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -3897,17 +3897,17 @@ func (action Reconciliation) String() string {
 // specified in the Contract Formation - can be attached to this action to
 // reduce spam, as the resulting vote will be put to all token owners.
 type Initiative struct {
-	Header               Header      // Common header data for all actions
-	AssetType            string      // eg. Share, Bond, Ticket
-	AssetID              string      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	VoteSystem           uint8       // X for Vote System X. (1-255, 0 is not valid.)
-	Proposal             bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
-	ProposedChanges      []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
-	VoteOptions          string      // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.
-	VoteMax              uint8       // Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
-	ProposalDescription  string      // Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote
-	ProposalDocumentHash [32]byte    // Hash of the proposal document to be distributed to voters.
-	VoteCutOffTimestamp  uint64      // Ballot casts after this timestamp will not be included. The vote has finished.
+	Header               Header      `json:"header,omitempty"`                 // Common header data for all actions
+	AssetType            string      `json:"asset_type,omitempty"`             // eg. Share, Bond, Ticket
+	AssetID              string      `json:"asset_id,omitempty"`               // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	VoteSystem           uint8       `json:"vote_system,omitempty"`            // X for Vote System X. (1-255, 0 is not valid.)
+	Proposal             bool        `json:"proposal,omitempty"`               // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
+	ProposedChanges      []Amendment `json:"proposed_changes,omitempty"`       // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
+	VoteOptions          string      `json:"vote_options,omitempty"`           // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.
+	VoteMax              uint8       `json:"vote_max,omitempty"`               // Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
+	ProposalDescription  string      `json:"proposal_description,omitempty"`   // Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote
+	ProposalDocumentHash [32]byte    `json:"proposal_document_hash,omitempty"` // Hash of the proposal document to be distributed to voters.
+	VoteCutOffTimestamp  uint64      `json:"vote_cut_off_timestamp,omitempty"` // Ballot casts after this timestamp will not be included. The vote has finished.
 }
 
 // Type returns the type identifer for this message.
@@ -4168,18 +4168,18 @@ func (action Initiative) String() string {
 // a Token Owner Vote. Usually used for contract amendments, organizational
 // governance, etc.
 type Referendum struct {
-	Header               Header      // Common header data for all actions
-	AssetSpecificVote    bool        // 1 - Yes, 0 - No.  No Asset Type/AssetID subfields for N - No.
-	AssetType            string      // eg. Share, Bond, Ticket
-	AssetID              string      // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	VoteSystem           uint8       // X for Vote System X. (1-255, 0 is not valid.)
-	Proposal             bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
-	ProposedChanges      []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
-	VoteOptions          string      // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail.
-	VoteMax              uint8       // Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
-	ProposalDescription  string      // Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.
-	ProposalDocumentHash [32]byte    // Hash of the proposal document to be distributed to voters
-	VoteCutOffTimestamp  uint64      // Ballot casts after this timestamp will not be included. The vote has finished.
+	Header               Header      `json:"header,omitempty"`                 // Common header data for all actions
+	AssetSpecificVote    bool        `json:"asset_specific_vote,omitempty"`    // 1 - Yes, 0 - No.  No Asset Type/AssetID subfields for N - No.
+	AssetType            string      `json:"asset_type,omitempty"`             // eg. Share, Bond, Ticket
+	AssetID              string      `json:"asset_id,omitempty"`               // Randomly generated base58 string.  Each Asset ID should be unique.  However, an Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	VoteSystem           uint8       `json:"vote_system,omitempty"`            // X for Vote System X. (1-255, 0 is not valid.)
+	Proposal             bool        `json:"proposal,omitempty"`               // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
+	ProposedChanges      []Amendment `json:"proposed_changes,omitempty"`       // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
+	VoteOptions          string      `json:"vote_options,omitempty"`           // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail.
+	VoteMax              uint8       `json:"vote_max,omitempty"`               // Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
+	ProposalDescription  string      `json:"proposal_description,omitempty"`   // Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.
+	ProposalDocumentHash [32]byte    `json:"proposal_document_hash,omitempty"` // Hash of the proposal document to be distributed to voters
+	VoteCutOffTimestamp  uint64      `json:"vote_cut_off_timestamp,omitempty"` // Ballot casts after this timestamp will not be included. The vote has finished.
 }
 
 // Type returns the type identifer for this message.
@@ -4455,8 +4455,8 @@ func (action Referendum) String() string {
 // Vote Vote Action - A vote is created by the Contract in response to a
 // valid Referendum (Issuer) or Initiative (User) Action.
 type Vote struct {
-	Header    Header // Common header data for all actions
-	Timestamp uint64 // Timestamp in nanoseconds of when the smart contract created the action.
+	Header    Header `json:"header,omitempty"`    // Common header data for all actions
+	Timestamp uint64 `json:"timestamp,omitempty"` // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -4536,11 +4536,11 @@ func (action Vote) String() string {
 // token holders (Initiative). 1 Vote per token unless a vote multiplier is
 // specified in the relevant Asset Definition action.
 type BallotCast struct {
-	Header    Header   // Common header data for all actions
-	AssetType string   // eg. Share, Bond, Ticket
-	AssetID   string   // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	VoteTxnID [32]byte // Tx-ID of the Vote the Ballot Cast is being made for.
-	Vote      string   // Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.
+	Header    Header   `json:"header,omitempty"`      // Common header data for all actions
+	AssetType string   `json:"asset_type,omitempty"`  // eg. Share, Bond, Ticket
+	AssetID   string   `json:"asset_id,omitempty"`    // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	VoteTxnID [32]byte `json:"vote_txn_id,omitempty"` // Tx-ID of the Vote the Ballot Cast is being made for.
+	Vote      string   `json:"vote,omitempty"`        // Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.
 }
 
 // Type returns the type identifer for this message.
@@ -4680,8 +4680,8 @@ func (action BallotCast) String() string {
 // valid. If the Ballot Cast is not valid, then the smart contract will
 // respond with a Rejection Action.
 type BallotCounted struct {
-	Header    Header // Common header data for all actions
-	Timestamp uint64 // Timestamp in nanoseconds of when the smart contract created the action.
+	Header    Header `json:"header,omitempty"`    // Common header data for all actions
+	Timestamp uint64 `json:"timestamp,omitempty"` // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -4759,16 +4759,16 @@ func (action BallotCounted) String() string {
 // Result Result Action - Once a vote has been completed the results are
 // published.
 type Result struct {
-	Header           Header      // Common header data for all actions
-	AssetType        string      // eg. Share, Bond, Ticket
-	AssetID          string      // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null.
-	Proposal         bool        // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
-	ProposedChanges  []Amendment // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
-	VoteTxnID        [32]byte    // Link to the Vote Action txn.
-	VoteOptionsCount uint8       // Number of Vote Options to follow.
-	OptionXTally     uint64      // Number of valid votes counted for Option X
-	Result           string      // Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.
-	Timestamp        uint64      // Timestamp in nanoseconds of when the smart contract created the action.
+	Header           Header      `json:"header,omitempty"`             // Common header data for all actions
+	AssetType        string      `json:"asset_type,omitempty"`         // eg. Share, Bond, Ticket
+	AssetID          string      `json:"asset_id,omitempty"`           // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans. If its a Contract vote then can be null.
+	Proposal         bool        `json:"proposal,omitempty"`           // 1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.
+	ProposedChanges  []Amendment `json:"proposed_changes,omitempty"`   // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
+	VoteTxnID        [32]byte    `json:"vote_txn_id,omitempty"`        // Link to the Vote Action txn.
+	VoteOptionsCount uint8       `json:"vote_options_count,omitempty"` // Number of Vote Options to follow.
+	OptionXTally     uint64      `json:"option_x_tally,omitempty"`     // Number of valid votes counted for Option X
+	Result           string      `json:"result,omitempty"`             // Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.
+	Timestamp        uint64      `json:"timestamp,omitempty"`          // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -5013,11 +5013,11 @@ func (action Result) String() string {
 // type for easy filtering in the a user's wallet. The Message Types are
 // listed in the Message Types table.
 type Message struct {
-	Header                Header   // Common header data for all actions
-	QtyReceivingAddresses uint8    // 0-255 Message Receiving Addresses
-	AddressIndexes        []uint16 // Associates the message to a particular output by the index.
-	MessageType           string   // Potential for up to 65,535 different message types
-	MessagePayload        string   // Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
+	Header                Header   `json:"header,omitempty"`                  // Common header data for all actions
+	QtyReceivingAddresses uint8    `json:"qty_receiving_addresses,omitempty"` // 0-255 Message Receiving Addresses
+	AddressIndexes        []uint16 `json:"address_indexes,omitempty"`         // Associates the message to a particular output by the index.
+	MessageType           string   `json:"message_type,omitempty"`            // Potential for up to 65,535 different message types
+	MessagePayload        string   `json:"message_payload,omitempty"`         // Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
 
 }
 
@@ -5170,12 +5170,12 @@ func (action Message) String() string {
 // to remain revenue neutral. If not enough fees are attached to pay for
 // the Contract response then the Contract will not respond.
 type Rejection struct {
-	Header                Header   // Common header data for all actions
-	QtyReceivingAddresses uint8    // 0-255 Message Receiving Addresses
-	AddressIndexes        []uint16 // Associates the message to a particular output by the index.
-	RejectionType         uint8    // Classifies the rejection by a type.
-	MessagePayload        string   // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
-	Timestamp             uint64   // Timestamp in nanoseconds of when the smart contract created the action.
+	Header                Header   `json:"header,omitempty"`                  // Common header data for all actions
+	QtyReceivingAddresses uint8    `json:"qty_receiving_addresses,omitempty"` // 0-255 Message Receiving Addresses
+	AddressIndexes        []uint16 `json:"address_indexes,omitempty"`         // Associates the message to a particular output by the index.
+	RejectionType         uint8    `json:"rejection_type,omitempty"`          // Classifies the rejection by a type.
+	MessagePayload        string   `json:"message_payload,omitempty"`         // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
+	Timestamp             uint64   `json:"timestamp,omitempty"`               // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -5332,8 +5332,8 @@ func (action Rejection) String() string {
 
 // Establishment Establishment Action - Establishes an on-chain register.
 type Establishment struct {
-	Header  Header // Common header data for all actions
-	Message string //
+	Header  Header `json:"header,omitempty"`  // Common header data for all actions
+	Message string `json:"message,omitempty"` //
 }
 
 // Type returns the type identifer for this message.
@@ -5414,8 +5414,8 @@ func (action Establishment) String() string {
 
 // Addition Addition Action - Adds an entry to the Register.
 type Addition struct {
-	Header  Header // Common header data for all actions
-	Message string //
+	Header  Header `json:"header,omitempty"`  // Common header data for all actions
+	Message string `json:"message,omitempty"` //
 }
 
 // Type returns the type identifer for this message.
@@ -5496,8 +5496,8 @@ func (action Addition) String() string {
 
 // Alteration Alteration Action - A register entry/record can be altered.
 type Alteration struct {
-	Header  Header // Common header data for all actions
-	Message string //
+	Header  Header `json:"header,omitempty"`  // Common header data for all actions
+	Message string `json:"message,omitempty"` //
 }
 
 // Type returns the type identifer for this message.
@@ -5578,8 +5578,8 @@ func (action Alteration) String() string {
 
 // Removal Removal Action - Removes an entry/record from the Register.
 type Removal struct {
-	Header  Header // Common header data for all actions
-	Message string //
+	Header  Header `json:"header,omitempty"`  // Common header data for all actions
+	Message string `json:"message,omitempty"` //
 }
 
 // Type returns the type identifer for this message.
@@ -5668,13 +5668,13 @@ func (action Removal) String() string {
 // actions will need to be passed around on-chain with an M1 action, or
 // off-chain.
 type Transfer struct {
-	Header              Header          // Common header data for all actions
-	Assets              []AssetTransfer // The Assets involved in the Transfer Action.
-	OfferExpiry         uint64          // This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins.
-	ExchangeFeeCurrency string          // BSV, USD, AUD, EUR, etc.
-	ExchangeFeeVar      float32         // Percent of the value of the transaction
-	ExchangeFeeFixed    float32         // Fixed fee
-	ExchangeFeeAddress  Address         // Identifies the public address that the exchange fee should be paid to.
+	Header              Header          `json:"header,omitempty"`                // Common header data for all actions
+	Assets              []AssetTransfer `json:"assets,omitempty"`                // The Assets involved in the Transfer Action.
+	OfferExpiry         uint64          `json:"offer_expiry,omitempty"`          // This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins.
+	ExchangeFeeCurrency string          `json:"exchange_fee_currency,omitempty"` // BSV, USD, AUD, EUR, etc.
+	ExchangeFeeVar      float32         `json:"exchange_fee_var,omitempty"`      // Percent of the value of the transaction
+	ExchangeFeeFixed    float32         `json:"exchange_fee_fixed,omitempty"`    // Fixed fee
+	ExchangeFeeAddress  Address         `json:"exchange_fee_address,omitempty"`  // Identifies the public address that the exchange fee should be paid to.
 }
 
 // Type returns the type identifer for this message.
@@ -5865,9 +5865,9 @@ func (action Transfer) String() string {
 // Settlement Settlement Action - Settles the transfer request of bitcoins
 // and tokens from transfer (T1) actions.
 type Settlement struct {
-	Header    Header            // Common header data for all actions
-	Assets    []AssetSettlement // The Assets settled by the transfer action.
-	Timestamp uint64            // Timestamp in nanoseconds of when the smart contract created the action.
+	Header    Header            `json:"header,omitempty"`    // Common header data for all actions
+	Assets    []AssetSettlement `json:"assets,omitempty"`    // The Assets settled by the transfer action.
+	Timestamp uint64            `json:"timestamp,omitempty"` // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.

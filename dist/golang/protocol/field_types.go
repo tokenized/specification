@@ -4,7 +4,7 @@ import "bytes"
 
 // Address Address represents a public address
 type Address struct {
-	Address [20]byte // Public address where the token balance will be changed.
+	Address [20]byte `json:"address,omitempty"` // Public address where the token balance will be changed.
 }
 
 // NewAddress returns a new Address with defaults set.
@@ -37,11 +37,11 @@ func (m *Address) Write(buf *bytes.Buffer) error {
 // field in a Contract or Asset, as defined in the ContractFormation and
 // AssetCreation messages.
 type Amendment struct {
-	FieldIndex    uint8  // Index of the field to be amended.
-	Element       uint16 // Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.
-	SubfieldIndex uint8  // Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.
-	Operation     uint8  // 0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.
-	Data          string // New data for the amended subfield. Data type depends on the the type of the field being amended.
+	FieldIndex    uint8  `json:"field_index,omitempty"`    // Index of the field to be amended.
+	Element       uint16 `json:"element,omitempty"`        // Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.
+	SubfieldIndex uint8  `json:"subfield_index,omitempty"` // Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.
+	Operation     uint8  `json:"operation,omitempty"`      // 0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.
+	Data          string `json:"data,omitempty"`           // New data for the amended subfield. Data type depends on the the type of the field being amended.
 }
 
 // NewAmendment returns a new Amendment with defaults set.
@@ -117,9 +117,9 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 // AssetSettlement AssetSettlement is the data required to settle an asset
 // transfer.
 type AssetSettlement struct {
-	AssetType   string          // eg. Share, Bond, Ticket. All characters must be capitalised.
-	AssetID     string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	Settlements []QuantityIndex // Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.
+	AssetType   string          `json:"asset_type,omitempty"`  // eg. Share, Bond, Ticket. All characters must be capitalised.
+	AssetID     string          `json:"asset_id,omitempty"`    // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	Settlements []QuantityIndex `json:"settlements,omitempty"` // Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.
 }
 
 // NewAssetSettlement returns a new AssetSettlement with defaults set.
@@ -200,10 +200,10 @@ func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
 
 // AssetTransfer AssetTransfer is the data required to transfer an asset.
 type AssetTransfer struct {
-	AssetType      string          // eg. Share, Bond, Ticket. All characters must be capitalised.
-	AssetID        string          // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	AssetSenders   []QuantityIndex // Each element has the value of tokens to be spent from the input address, which is referred to by the index.
-	AssetReceivers []TokenReceiver // Each element has the value of tokens to be received by the output address, which is referred to by the index.
+	AssetType      string          `json:"asset_type,omitempty"`      // eg. Share, Bond, Ticket. All characters must be capitalised.
+	AssetID        string          `json:"asset_id,omitempty"`        // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	AssetSenders   []QuantityIndex `json:"asset_senders,omitempty"`   // Each element has the value of tokens to be spent from the input address, which is referred to by the index.
+	AssetReceivers []TokenReceiver `json:"asset_receivers,omitempty"` // Each element has the value of tokens to be received by the output address, which is referred to by the index.
 }
 
 // NewAssetTransfer returns a new AssetTransfer with defaults set.
@@ -317,20 +317,20 @@ func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
 // Entity Entity represents the details of a legal Entity, such as a public
 // or private company, government agency, or and individual.
 type Entity struct {
-	Name                       string        // Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
-	Type                       byte          // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
-	Address                    bool          // Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
-	UnitNumber                 string        // Issuer/Entity/Contracting Party X Address Details (eg. HQ)
-	BuildingNumber             string        //
-	Street                     string        //
-	SuburbCity                 string        //
-	TerritoryStateProvinceCode string        //
-	CountryCode                string        //
-	PostalZIPCode              string        //
-	EmailAddress               string        // Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address
-	PhoneNumber                string        // Length 0-50 bytes. 0 is valid. Phone Number for Entity.
-	KeyRoles                   []KeyRole     // A list of Key Roles.
-	NotableRoles               []NotableRole // A list of Notable Roles.
+	Name                       string        `json:"name,omitempty"`                          // Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	Type                       byte          `json:"type,omitempty"`                          // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	Address                    bool          `json:"address,omitempty"`                       // Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
+	UnitNumber                 string        `json:"unit_number,omitempty"`                   // Issuer/Entity/Contracting Party X Address Details (eg. HQ)
+	BuildingNumber             string        `json:"building_number,omitempty"`               //
+	Street                     string        `json:"street,omitempty"`                        //
+	SuburbCity                 string        `json:"suburb_city,omitempty"`                   //
+	TerritoryStateProvinceCode string        `json:"territory_state_province_code,omitempty"` //
+	CountryCode                string        `json:"country_code,omitempty"`                  //
+	PostalZIPCode              string        `json:"postal_zip_code,omitempty"`               //
+	EmailAddress               string        `json:"email_address,omitempty"`                 // Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                string        `json:"phone_number,omitempty"`                  // Length 0-50 bytes. 0 is valid. Phone Number for Entity.
+	KeyRoles                   []KeyRole     `json:"key_roles,omitempty"`                     // A list of Key Roles.
+	NotableRoles               []NotableRole `json:"notable_roles,omitempty"`                 // A list of Notable Roles.
 }
 
 // NewEntity returns a new Entity with defaults set.
@@ -596,8 +596,8 @@ func (m *Header) Write(buf *bytes.Buffer) error {
 
 // KeyRole KeyRole is used to refer to a key role in an Entity.
 type KeyRole struct {
-	Type uint8  // Chairman, Director. Found in 'Roles' in Specification/Resources
-	Name string // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
+	Type uint8  `json:"type,omitempty"` // Chairman, Director. Found in 'Roles' in Specification/Resources
+	Name string `json:"name,omitempty"` // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
 }
 
 // NewKeyRole returns a new KeyRole with defaults set.
@@ -644,8 +644,8 @@ func (m *KeyRole) Write(buf *bytes.Buffer) error {
 
 // NotableRole NotableRole is used to refer to a role of note in an Entity.
 type NotableRole struct {
-	Type uint8  // Found in 'Roles' in Specification/Resources
-	Name string // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
+	Type uint8  `json:"type,omitempty"` // Found in 'Roles' in Specification/Resources
+	Name string `json:"name,omitempty"` // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
 }
 
 // NewNotableRole returns a new NotableRole with defaults set.
@@ -694,8 +694,8 @@ func (m *NotableRole) Write(buf *bytes.Buffer) error {
 // quantity could be used to describe a number of tokens, or a value. The
 // index is used to refer to an input index position.
 type QuantityIndex struct {
-	Index    uint16 // The index of the input sending the tokens
-	Quantity uint64 // Number of tokens being sent
+	Index    uint16 `json:"index,omitempty"`    // The index of the input sending the tokens
+	Quantity uint64 `json:"quantity,omitempty"` // Number of tokens being sent
 }
 
 // NewQuantityIndex returns a new QuantityIndex with defaults set.
@@ -736,9 +736,9 @@ func (m *QuantityIndex) Write(buf *bytes.Buffer) error {
 
 // Registry A Registry defines the details of a public Registry.
 type Registry struct {
-	Name      string // Length 0-255 bytes. 0 is valid. Registry X Name (eg. Coinbase, Tokenized, etc.)
-	URL       string // Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint
-	PublicKey string // Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.
+	Name      string `json:"name,omitempty"`       // Length 0-255 bytes. 0 is valid. Registry X Name (eg. Coinbase, Tokenized, etc.)
+	URL       string `json:"url,omitempty"`        // Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint
+	PublicKey string `json:"public_key,omitempty"` // Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.
 }
 
 // NewRegistry returns a new Registry with defaults set.
@@ -801,8 +801,8 @@ func (m *Registry) Write(buf *bytes.Buffer) error {
 
 // TargetAddress A TargetAddress defines a public address and quantity.
 type TargetAddress struct {
-	Address  Address // Public address where the token balance will be changed.
-	Quantity uint64  // Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.
+	Address  Address `json:"address,omitempty"`  // Public address where the token balance will be changed.
+	Quantity uint64  `json:"quantity,omitempty"` // Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.
 }
 
 // NewTargetAddress returns a new TargetAddress with defaults set.
@@ -854,10 +854,10 @@ func (m *TargetAddress) Write(buf *bytes.Buffer) error {
 // position. The registry token details include the type of algorithm, and
 // the token.
 type TokenReceiver struct {
-	Index                        uint16 // The index of the output receiving the tokens
-	Quantity                     uint64 // Number of tokens to be received by address at Output X
-	RegistrySigAlgorithm         uint8  // 0 = No Registry-signed Message, 1 = ECDSA+secp256k1
-	RegistryConfirmationSigToken string // Length 0-255 bytes. IF restricted to a registry (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted registry through an API signature of [Contract Address + Asset Code + Public Address + Blockhash of the Latest Block + Block Height + Confirmed/Rejected Bool]. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.
+	Index                        uint16 `json:"index,omitempty"`                           // The index of the output receiving the tokens
+	Quantity                     uint64 `json:"quantity,omitempty"`                        // Number of tokens to be received by address at Output X
+	RegistrySigAlgorithm         uint8  `json:"registry_sig_algorithm,omitempty"`          // 0 = No Registry-signed Message, 1 = ECDSA+secp256k1
+	RegistryConfirmationSigToken string `json:"registry_confirmation_sig_token,omitempty"` // Length 0-255 bytes. IF restricted to a registry (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted registry through an API signature of [Contract Address + Asset Code + Public Address + Blockhash of the Latest Block + Block Height + Confirmed/Rejected Bool]. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.
 }
 
 // NewTokenReceiver returns a new TokenReceiver with defaults set.
@@ -922,14 +922,14 @@ func (m *TokenReceiver) Write(buf *bytes.Buffer) error {
 
 // VotingSystem A VotingSystem defines all details of a Voting System.
 type VotingSystem struct {
-	Name                        string  // eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.
-	System                      [8]byte // Specifies which subfield is subject to this vote system's control.
-	Method                      byte    // R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful.
-	Logic                       byte    // 0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.)
-	ThresholdPercentage         uint8   // 1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.
-	VoteMultiplierPermitted     byte    // Y - Yes, N - No. Where an asset has a vote multiplier, Y must be selected here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.
-	InitiativeThreshold         float32 // Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid.
-	InitiativeThresholdCurrency string  // Currency.  Always paid in BSV or a currency token (CUR) at current market valuations in the currency listed. NULL is valid.
+	Name                        string  `json:"name,omitempty"`                          // eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.
+	System                      [8]byte `json:"system,omitempty"`                        // Specifies which subfield is subject to this vote system's control.
+	Method                      byte    `json:"method,omitempty"`                        // R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful.
+	Logic                       byte    `json:"logic,omitempty"`                         // 0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.)
+	ThresholdPercentage         uint8   `json:"threshold_percentage,omitempty"`          // 1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.
+	VoteMultiplierPermitted     byte    `json:"vote_multiplier_permitted,omitempty"`     // Y - Yes, N - No. Where an asset has a vote multiplier, Y must be selected here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.
+	InitiativeThreshold         float32 `json:"initiative_threshold,omitempty"`          // Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid.
+	InitiativeThresholdCurrency string  `json:"initiative_threshold_currency,omitempty"` // Currency.  Always paid in BSV or a currency token (CUR) at current market valuations in the currency listed. NULL is valid.
 }
 
 // NewVotingSystem returns a new VotingSystem with defaults set.

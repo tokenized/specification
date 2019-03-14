@@ -5,7 +5,7 @@ import "bytes"
 {{range .}}
 {{comment (print .Name " " .Metadata.Description) "//"}}
 type {{.Name}} struct {
-{{range .Fields}}	{{ .FieldName }} {{ .FieldGoType }} // {{ .FieldDescription }}
+{{range .Fields}}	{{ .FieldName }} {{ .FieldGoType }} {{ .GoTags }} // {{ .FieldDescription }}
 {{ end -}}
 }
 
