@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"math"
 )
 
 const (
@@ -84,55 +83,6 @@ func read(buf io.Reader, v interface{}) error {
 func readLen(buf io.Reader, b []byte) error {
 	_, err := io.ReadFull(buf, b)
 	return err
-}
-
-func uintToBytes(i uint64) ([]byte, error) {
-	l := 0
-
-	if i <= math.MaxUint8 {
-		l = 1
-	} else if i <= math.MaxUint16 {
-		l = 2
-	} else if i < math.MaxUint32 {
-		l = 4
-	} else {
-		l = 8
-	}
-
-	buf := new(bytes.Buffer)
-
-	if err := binary.Write(buf, defaultEndian, i); err != nil {
-		return nil, err
-	}
-
-	b := buf.Bytes()
-
-	if len(b) == l {
-		return b, nil
-	}
-
-	// trim off the leading 0, because we have an 8 byte representation here,
-	// and we want a representation of size l
-	b = bytes.TrimLeftFunc(b, func(v rune) bool {
-		return v == rune(0)
-	})
-
-	// pad the bytes out to the correct length
-	return lpad(b, l), nil
-
-}
-
-func lenForOpPushdata(code byte) int {
-	switch code {
-	case 76:
-		return 1
-	case 77:
-		return 2
-	case 78:
-		return 4
-	}
-
-	return 0
 }
 
 func PushDataScript(size uint64) []byte {
