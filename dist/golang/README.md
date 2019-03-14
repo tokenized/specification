@@ -4,17 +4,22 @@ Usage
 
     import "github.com/tokenized/specification/dist/protocol"
 
-    // Create a new protocol action (parameters: Contract Name, Issuer Name)
-    action := protocol.NewContractOffer([]byte("My Contract"), []byte("Acme Corporation"))
-
-    // Serialize the action as byte array
-    output, err := action.Serialize()
-    if err != nil {
-        return err
+    // Generate a new action
+    action := protocol.ContractOffer{
+        ContractName:     "Test",
+        ContractFileType: 2,
+        ContractFile:     []byte("sha25666666666666666666666666"),
+        // ...
     }
 
-    // Output bytes
-    fmt.Println(output)
+    // Serialize action
+    actionBytes, err := protocol.Serialize(&action)
+    if err != nil {
+        return errors.Wrap(err, "serializing payload")
+    }
+
+    // Convert to hex
+    actionHex := fmt.Sprintf("%x", actionBytes)
 
     // Output as human readible string
     fmt.Println(action.String())
