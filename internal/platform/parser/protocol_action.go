@@ -92,6 +92,18 @@ func (m ProtocolAction) CodeNameComment() string {
 	return reformat(s, "\t//")
 }
 
+func (m ProtocolAction) CodeComment() string {
+	s := fmt.Sprintf("%s identifies data as a %v message.",
+		m.ActionCode(),
+		m.Name())
+
+	return reformat(s, "\t//")
+}
+
+func (m ProtocolAction) ActionCode() string {
+	return m.Code
+}
+
 func (m ProtocolAction) CodeName() string {
 	return fmt.Sprintf("Code%v", m.Name())
 }

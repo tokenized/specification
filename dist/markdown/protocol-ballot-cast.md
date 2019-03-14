@@ -1,4 +1,6 @@
 
+
+
 # Ballot Cast Action
 
 Ballot Cast Action -  Used by Token Owners to cast their ballot (vote) on proposals raised by the Issuer (Referendum) or other token holders (Initiative). 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action.
@@ -8,74 +10,69 @@ The following breaks down the construction of a Ballot Cast Action. The action i
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:9%" class="s1">Label</th>
+            <th style="width:9%" class="s0">Label</th>
             <th style="width:9%" class="s1">Name</th>
             <th style="width:2%" class="s1">Bytes</th>
-            <th style="width:35%" class="s1">Example Values</th>
-            <th style="width:26%" class="s1">Comments</th>
+            <th style="width:25%" class="s1">Example Values</th>
+            <th style="width:36%" class="s1">Comments</th>
             <th style="width:5%" class="s1">Data Type</th>
             <th class="s1">Amendment Restrictions</th>
         </tr>
-
         <tr>
-            <td class="g6" colspan="7">
+            <td class="g5" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
         </tr>
-
         <tr>
-            <td class="g10">Asset Type</td>
+            <td class="g9">Asset Type</td>
             <td class="g10">AssetType</td>
             <td class="g10">3</td>
-            <td class="g10"><abbr RRE>Hover</abbr></td>
+            <td class="g10">RRE</td>
             <td class="g10">eg. Share, Bond, Ticket</td>
             <td class="g10">string</td>
             <td class="g10"></td>
         </tr>
-
         <tr>
-            <td class="g10">Asset ID</td>
+            <td class="g9">Asset ID</td>
             <td class="g10">AssetID</td>
             <td class="g10">32</td>
-            <td class="g10"><abbr apm2qsznhks23z8d83u41s8019hyri3i>Hover</abbr></td>
-            <td class="g10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.</td>
+            <td class="g10">apm2qsznhks23z8d83u41s8019hyri3i</td>
+            <td class="g10"><abbr title="Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is ...</abbr></td>
             <td class="g10">string</td>
             <td class="g10"></td>
         </tr>
-
         <tr>
-            <td class="g10">Vote Txn ID</td>
+            <td class="g9">Vote Txn ID</td>
             <td class="g10">VoteTxnID</td>
             <td class="g10">32</td>
-            <td class="g10"><abbr f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37>Hover</abbr></td>
+            <td class="g10"><abbr title="f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37">Hover for example</abbr></td>
             <td class="g10">Tx-ID of the Vote the Ballot Cast is being made for.</td>
             <td class="g10">sha256</td>
             <td class="g10"></td>
         </tr>
-
         <tr>
-            <td class="g10">Vote</td>
+            <td class="g9">Vote</td>
             <td class="g10">Vote</td>
             <td class="g10">0</td>
-            <td class="g10"><abbr A>Hover</abbr></td>
-            <td class="g10">Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.</td>
+            <td class="g10">A</td>
+            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.">Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or  ...</abbr></td>
             <td class="g10">nvarchar8</td>
             <td class="g10"></td>
         </tr>
-
     </table>
 </div>
+
+##Ballot Cast Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:
-            <th class="s1" colspan="6">Ballot Cast Action Fee: 0</th>
+            <th class="s0" colspan="6">Smart Contract Operator Fee: 0</th>
        </tr>
          <tr style='height:19px;'>
-            <th style="width:10%" class="s1">Index (input)</th>
+            <th style="width:10%" class="s0">Index (input)</th>
             <th style="width:20%" class="s1">Txn inputs</th>
             <th style="width:20%" class="s1">Comments</th>
             <th style="width:10%" class="s1">Index (output)</th>
@@ -83,31 +80,7 @@ The following breaks down the construction of a Ballot Cast Action. The action i
             <th class="s1">Comments</th>
        </tr>
        <tr>
-            <td class="g6">.</td>
-            <td class="g6">.</td>
-            <td class="g6">.</td>
-            <td class="g10">.</td>
-            <td class="g10">.</td>
-            <td class="g10">.</td>
-        </tr>
-       <tr>
-            <td class="g6">.</td>
-            <td class="g6">.</td>
-            <td class="g6">.</td>
-            <td class="g10">.</td>
-            <td class="g10">.</td>
-            <td class="g10">.</td>
-        </tr>
-       <tr>
-            <td class="g6">.</td>
-            <td class="g6">.</td>
-            <td class="g6">.</td>
-            <td class="g10">.</td>
-            <td class="g10">.</td>
-            <td class="g10">.</td>
-        </tr>
-       <tr>
-            <td class="g6">.</td>
+            <td class="g5">[{User Token Owner's Public Address }]</td>
             <td class="g6">.</td>
             <td class="g6">.</td>
             <td class="g10">.</td>
@@ -124,13 +97,13 @@ The following breaks down the construction of a Ballot Cast Action. The action i
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="g10">Protocol Identifier</td>
@@ -172,8 +145,8 @@ The following breaks down the construction of a Ballot Cast Action. The action i
                 <td class="g10">Action Prefix</td>
                 <td class="g10">ActionPrefix</td>
                 <td class="g10">2</td>
-                <td class="g10" style="word-break:break-all">C1</td>
-                <td class="g10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
+                <td class="g10" style="word-break:break-all">G4</td>
+                <td class="g10">// G4 identifies data as a BallotCast message.</td>
                 <td class="g10">string</td>
                 <td class="g10">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>

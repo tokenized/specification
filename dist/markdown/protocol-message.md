@@ -1,4 +1,6 @@
 
+
+
 # Message Action
 
 Message Action - the message action is a general purpose communication action. 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken down by type for easy filtering in the a user's wallet. The Message Types are listed in the Message Types table.
@@ -9,75 +11,70 @@ The following breaks down the construction of a Message Action. The action is co
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:9%" class="s1">Label</th>
+            <th style="width:9%" class="s0">Label</th>
             <th style="width:9%" class="s1">Name</th>
             <th style="width:2%" class="s1">Bytes</th>
-            <th style="width:35%" class="s1">Example Values</th>
-            <th style="width:26%" class="s1">Comments</th>
+            <th style="width:25%" class="s1">Example Values</th>
+            <th style="width:36%" class="s1">Comments</th>
             <th style="width:5%" class="s1">Data Type</th>
             <th class="s1">Amendment Restrictions</th>
         </tr>
-
         <tr>
-            <td class="m6" colspan="7">
+            <td class="m5" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
         </tr>
-
         <tr>
-            <td class="m10">Qty Receiving Addresses</td>
+            <td class="m9">Qty Receiving Addresses</td>
             <td class="m10">QtyReceivingAddresses</td>
             <td class="m10">1</td>
-            <td class="m10"><abbr 2>Hover</abbr></td>
+            <td class="m10">2</td>
             <td class="m10">0-255 Message Receiving Addresses</td>
             <td class="m10">uint8</td>
             <td class="m10"></td>
         </tr>
-
         <tr>
-            <td class="m10">Address Indexes</td>
+            <td class="m9">Address Indexes</td>
             <td class="m10">AddressIndexes</td>
             <td class="m10">0</td>
-            <td class="m10"><abbr >Hover</abbr></td>
+            <td class="m10"></td>
             <td class="m10">Associates the message to a particular output by the index.</td>
             <td class="m10">uint16[]</td>
             <td class="m10"></td>
         </tr>
-
         <tr>
-            <td class="m10">Message Type</td>
+            <td class="m9">Message Type</td>
             <td class="m10">MessageType</td>
             <td class="m10">2</td>
-            <td class="m10"><abbr 6>Hover</abbr></td>
+            <td class="m10">6</td>
             <td class="m10">Potential for up to 65,535 different message types</td>
             <td class="m10">string</td>
             <td class="m10"></td>
         </tr>
-
         <tr>
-            <td class="m10">Message Payload</td>
+            <td class="m9">Message Payload</td>
             <td class="m10">MessagePayload</td>
             <td class="m10">0</td>
-            <td class="m10"><abbr Hello world!>Hover</abbr></td>
-            <td class="m10">Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
-</td>
+            <td class="m10">Hello world!</td>
+            <td class="m10"><abbr title="Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
+">Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signify ...</abbr></td>
             <td class="m10">nvarchar32</td>
             <td class="m10"></td>
         </tr>
-
     </table>
 </div>
+
+##Message Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:
-            <th class="s1" colspan="6">Message Action Fee: 0</th>
+            <th class="s0" colspan="6">Smart Contract Operator Fee: 0</th>
        </tr>
          <tr style='height:19px;'>
-            <th style="width:10%" class="s1">Index (input)</th>
+            <th style="width:10%" class="s0">Index (input)</th>
             <th style="width:20%" class="s1">Txn inputs</th>
             <th style="width:20%" class="s1">Comments</th>
             <th style="width:10%" class="s1">Index (output)</th>
@@ -85,31 +82,7 @@ The following breaks down the construction of a Message Action. The action is co
             <th class="s1">Comments</th>
        </tr>
        <tr>
-            <td class="m6">.</td>
-            <td class="m6">.</td>
-            <td class="m6">.</td>
-            <td class="m10">.</td>
-            <td class="m10">.</td>
-            <td class="m10">.</td>
-        </tr>
-       <tr>
-            <td class="m6">.</td>
-            <td class="m6">.</td>
-            <td class="m6">.</td>
-            <td class="m10">.</td>
-            <td class="m10">.</td>
-            <td class="m10">.</td>
-        </tr>
-       <tr>
-            <td class="m6">.</td>
-            <td class="m6">.</td>
-            <td class="m6">.</td>
-            <td class="m10">.</td>
-            <td class="m10">.</td>
-            <td class="m10">.</td>
-        </tr>
-       <tr>
-            <td class="m6">.</td>
+            <td class="m5">[{MsgSender Msg Sender's Public Address }]</td>
             <td class="m6">.</td>
             <td class="m6">.</td>
             <td class="m10">.</td>
@@ -126,13 +99,13 @@ The following breaks down the construction of a Message Action. The action is co
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="m10">Protocol Identifier</td>
@@ -174,8 +147,8 @@ The following breaks down the construction of a Message Action. The action is co
                 <td class="m10">Action Prefix</td>
                 <td class="m10">ActionPrefix</td>
                 <td class="m10">2</td>
-                <td class="m10" style="word-break:break-all">C1</td>
-                <td class="m10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
+                <td class="m10" style="word-break:break-all">M1</td>
+                <td class="m10">// M1 identifies data as a Message message.</td>
                 <td class="m10">string</td>
                 <td class="m10">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>

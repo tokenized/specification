@@ -1,4 +1,6 @@
 
+
+
 # Contract Formation Action
 
 This txn is created by the Contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer.  The Smart Contract will execute on a server controlled by the Issuer. or a Smart Contract Operator on their behalf.
@@ -8,386 +10,349 @@ The following breaks down the construction of a Contract Formation Action. The a
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:9%" class="s1">Label</th>
+            <th style="width:9%" class="s0">Label</th>
             <th style="width:9%" class="s1">Name</th>
             <th style="width:2%" class="s1">Bytes</th>
-            <th style="width:35%" class="s1">Example Values</th>
-            <th style="width:26%" class="s1">Comments</th>
+            <th style="width:25%" class="s1">Example Values</th>
+            <th style="width:36%" class="s1">Comments</th>
             <th style="width:5%" class="s1">Data Type</th>
             <th class="s1">Amendment Restrictions</th>
         </tr>
-
         <tr>
-            <td class="c6" colspan="7">
+            <td class="c5" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
         </tr>
-
         <tr>
-            <td class="c10">Contract Name</td>
+            <td class="c9">Contract Name</td>
             <td class="c10">ContractName</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr Tesla - Shareholder Agreement>Hover</abbr></td>
-            <td class="c10">Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.</td>
+            <td class="c10">Tesla - Shareholder Agreement</td>
+            <td class="c10"><abbr title="Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.">Can be any unique identifying string, including human readable names for branding/vanity p ...</abbr></td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Contract File Type</td>
+            <td class="c9">Contract File Type</td>
             <td class="c10">ContractFileType</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr 1>Hover</abbr></td>
+            <td class="c10">1</td>
             <td class="c10">1 - SHA-256 Hash, 2 - Markdown file</td>
             <td class="c10">uint8</td>
             <td class="c10">Contract File - Amendments can be restricted to a vote.</td>
         </tr>
-
         <tr>
-            <td class="c10">Length of Contract File</td>
+            <td class="c9">Length of Contract File</td>
             <td class="c10">LenContractFile</td>
             <td class="c10">4</td>
-            <td class="c10"><abbr 32>Hover</abbr></td>
+            <td class="c10">32</td>
             <td class="c10">Max size is the max transaction size - other data in the txn.  </td>
             <td class="c10">uint32</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Contract File</td>
+            <td class="c9">Contract File</td>
             <td class="c10">ContractFile</td>
             <td class="c10">32</td>
-            <td class="c10"><abbr c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1>Hover</abbr></td>
-            <td class="c10">SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)</td>
+            <td class="c10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
+            <td class="c10"><abbr title="SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)">SHA-256 hash of the Contract file specific to the smart contract and relevant Assets.  Leg ...</abbr></td>
             <td class="c10">string</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Governing Law</td>
+            <td class="c9">Governing Law</td>
             <td class="c10">GoverningLaw</td>
             <td class="c10">5</td>
-            <td class="c10"><abbr USA>Hover</abbr></td>
-            <td class="c10">5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.</td>
+            <td class="c10">USA</td>
+            <td class="c10"><abbr title="5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.">5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are t ...</abbr></td>
             <td class="c10">string</td>
             <td class="c10">Governing Law - Amendments can be restricted to a vote.</td>
         </tr>
-
         <tr>
-            <td class="c10">Jurisdiction</td>
+            <td class="c9">Jurisdiction</td>
             <td class="c10">Jurisdiction</td>
             <td class="c10">5</td>
-            <td class="c10"><abbr US-CA>Hover</abbr></td>
-            <td class="c10">Legal proceedings/arbitration will take place using the specified Governing Law in this location.</td>
+            <td class="c10">US-CA</td>
+            <td class="c10"><abbr title="Legal proceedings/arbitration will take place using the specified Governing Law in this location.">Legal proceedings/arbitration will take place using the specified Governing Law in this lo ...</abbr></td>
             <td class="c10">string</td>
             <td class="c10">Jurisdiction - Amendments can be restricted to a vote.</td>
         </tr>
-
         <tr>
-            <td class="c10">Contract Expiration</td>
+            <td class="c9">Contract Expiration</td>
             <td class="c10">ContractExpiration</td>
             <td class="c10">8</td>
-            <td class="c10"><abbr Wed May 09 2018 00:00:00 GMT+1000 (AEST)>Hover</abbr></td>
-            <td class="c10">All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.</td>
+            <td class="c10"><abbr title="Wed May 09 2018 00:00:00 GMT+1000 (AEST)">Hover for example</abbr></td>
+            <td class="c10"><abbr title="All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.">All actions related to the contract will cease to work after this timestamp. The smart con ...</abbr></td>
             <td class="c10">time</td>
             <td class="c10">Contract Expiration - Amendments can be restricted to a vote.</td>
         </tr>
-
         <tr>
-            <td class="c10">Contract URI</td>
+            <td class="c9">Contract URI</td>
             <td class="c10">ContractURI</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj>Hover</abbr></td>
-            <td class="c10">Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).</td>
+            <td class="c10"><abbr title="https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj">Hover for example</abbr></td>
+            <td class="c10"><abbr title="Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).">Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the ...</abbr></td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Issuer Name</td>
+            <td class="c9">Issuer Name</td>
             <td class="c10">IssuerName</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr Tesla Inc.>Hover</abbr></td>
-            <td class="c10">Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. </td>
+            <td class="c10">Tesla Inc.</td>
+            <td class="c10"><abbr title="Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. ">Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  C ...</abbr></td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Issuer Type</td>
+            <td class="c9">Issuer Type</td>
             <td class="c10">IssuerType</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr P>Hover</abbr></td>
-            <td class="c10">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).</td>
+            <td class="c10">P</td>
+            <td class="c10"><abbr title="P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individua ...</abbr></td>
             <td class="c10">string</td>
             <td class="c10">Issuer Type - Amendments can be restricted to a vote.</td>
         </tr>
-
         <tr>
-            <td class="c10">Issuer Logo URL</td>
+            <td class="c9">Issuer Logo URL</td>
             <td class="c10">IssuerLogoURL</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr https://example.com/images/logo.png>Hover</abbr></td>
+            <td class="c10"><abbr title="https://example.com/images/logo.png">Hover for example</abbr></td>
             <td class="c10">The URL of the Issuers logo.</td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Contract Operator ID</td>
+            <td class="c9">Contract Operator ID</td>
             <td class="c10">ContractOperatorID</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr Tokenized>Hover</abbr></td>
-            <td class="c10">Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.</td>
+            <td class="c10">Tokenized</td>
+            <td class="c10"><abbr title="Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.">Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique iden ...</abbr></td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Contract Authorization Flags</td>
+            <td class="c9">Contract Authorization Flags</td>
             <td class="c10">ContractAuthFlags</td>
             <td class="c10">16</td>
-            <td class="c10"><abbr 010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000>Hover</abbr></td>
-            <td class="c10">Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.</td>
+            <td class="c10"><abbr title="010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000">Hover for example</abbr></td>
+            <td class="c10"><abbr title="Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.">Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other t ...</abbr></td>
             <td class="c10">bin</td>
             <td class="c10">Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.</td>
         </tr>
-
         <tr>
-            <td class="c10">Number of Voting Systems</td>
+            <td class="c9">Number of Voting Systems</td>
             <td class="c10">VotingSystemCount</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr 0>Hover</abbr></td>
-            <td class="c10">0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null.</td>
+            <td class="c10">0</td>
+            <td class="c10"><abbr title="0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, InitiativeThresholdCurrency) will be null.">0-255 voting systems. If 0, Voting System and associated subfields (InitiativeThreshold, I ...</abbr></td>
             <td class="c10">uint8</td>
             <td class="c10">Voting - Amendments can be restricted to a vote.</td>
         </tr>
-
         <tr>
-            <td class="c6" colspan="7">
+            <td class="c5" colspan="7">
                 <a href="javascript:;" data-popover="type-VotingSystem">
                    Voting Systems - Click to show content
                 </a>
             </td>
         </tr>
-
         <tr>
-            <td class="c10">Restricted Qty of Assets</td>
+            <td class="c9">Restricted Qty of Assets</td>
             <td class="c10">RestrictedQtyAssets</td>
             <td class="c10">8</td>
-            <td class="c10"><abbr 1>Hover</abbr></td>
-            <td class="c10">Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI</td>
+            <td class="c10">1</td>
+            <td class="c10"><abbr title="Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI">Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will disp ...</abbr></td>
             <td class="c10">uint64</td>
             <td class="c10">Qty of Assets - Amendments can be restricted to a vote.</td>
         </tr>
-
         <tr>
-            <td class="c10">Referendum Proposal</td>
+            <td class="c9">Referendum Proposal</td>
             <td class="c10">ReferendumProposal</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr 1>Hover</abbr></td>
+            <td class="c10">1</td>
             <td class="c10">A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
             <td class="c10">General Governance</td>
         </tr>
-
         <tr>
-            <td class="c10">Initiative Proposal</td>
+            <td class="c9">Initiative Proposal</td>
             <td class="c10">InitiativeProposal</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr 0>Hover</abbr></td>
+            <td class="c10">0</td>
             <td class="c10">An initiative is permitted for Contract-Wide Proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Registry Count</td>
+            <td class="c9">Registry Count</td>
             <td class="c10">RegistryCount</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr 0>Hover</abbr></td>
-            <td class="c10">Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields).</td>
+            <td class="c10">0</td>
+            <td class="c10"><abbr title="Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed by a Registrar (oracle)) the smart contract is permitted to interact with. 0-255. 0 is valid (no registry subfields).">Number of registries (eg. KYC registry/database/whitelist/identity database/etc - managed  ...</abbr></td>
             <td class="c10">uint8</td>
             <td class="c10">Registry - Can be restricted to a vote.</td>
         </tr>
-
         <tr>
-            <td class="c6" colspan="7">
+            <td class="c5" colspan="7">
                 <a href="javascript:;" data-popover="type-Registry">
                    Registries - Click to show content
                 </a>
             </td>
         </tr>
-
         <tr>
-            <td class="c10">Issuer Address</td>
+            <td class="c9">Issuer Address</td>
             <td class="c10">IssuerAddress</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr 1>Hover</abbr></td>
+            <td class="c10">1</td>
             <td class="c10">Physical/mailing address. Y/N, N means there is no issuer address.</td>
             <td class="c10">bool</td>
             <td class="c10">Issuer Details - Can always be amended by issuer/smart contract operator.</td>
         </tr>
-
         <tr>
-            <td class="c10">Unit Number</td>
+            <td class="c9">Unit Number</td>
             <td class="c10">UnitNumber</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr 2>Hover</abbr></td>
+            <td class="c10">2</td>
             <td class="c10">Issuer Address Details (eg. HQ)</td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Building Number</td>
+            <td class="c9">Building Number</td>
             <td class="c10">BuildingNumber</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr 13577>Hover</abbr></td>
+            <td class="c10">13577</td>
             <td class="c10"></td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Street</td>
+            <td class="c9">Street</td>
             <td class="c10">Street</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr Fairmont Ave>Hover</abbr></td>
+            <td class="c10">Fairmont Ave</td>
             <td class="c10"></td>
             <td class="c10">nvarchar16</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Suburb/City</td>
+            <td class="c9">Suburb/City</td>
             <td class="c10">SuburbCity</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr Robinoh>Hover</abbr></td>
+            <td class="c10">Robinoh</td>
             <td class="c10"></td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Territory/State/Province Code</td>
+            <td class="c9">Territory/State/Province Code</td>
             <td class="c10">TerritoryStateProvinceCode</td>
             <td class="c10">5</td>
-            <td class="c10"><abbr BC>Hover</abbr></td>
+            <td class="c10">BC</td>
             <td class="c10"></td>
             <td class="c10">string</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Country Code</td>
+            <td class="c9">Country Code</td>
             <td class="c10">CountryCode</td>
             <td class="c10">3</td>
-            <td class="c10"><abbr USA>Hover</abbr></td>
+            <td class="c10">USA</td>
             <td class="c10"></td>
             <td class="c10">string</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Postal/ZIP Code</td>
+            <td class="c9">Postal/ZIP Code</td>
             <td class="c10">PostalZIPCode</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr 50210>Hover</abbr></td>
+            <td class="c10">50210</td>
             <td class="c10"></td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Email Address</td>
+            <td class="c9">Email Address</td>
             <td class="c10">EmailAddress</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr james@tokenized.com>Hover</abbr></td>
+            <td class="c10">james@tokenized.com</td>
             <td class="c10">Address for text-based communication: eg. email address, Bitcoin address</td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">Phone Number</td>
+            <td class="c9">Phone Number</td>
             <td class="c10">PhoneNumber</td>
             <td class="c10">0</td>
-            <td class="c10"><abbr 0448484848>Hover</abbr></td>
+            <td class="c10">0448484848</td>
             <td class="c10">Phone Number for Entity. Max acceptable size: 50.</td>
             <td class="c10">nvarchar8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c10">KeyRoles Count</td>
+            <td class="c9">KeyRoles Count</td>
             <td class="c10">KeyRolesCount</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr 0>Hover</abbr></td>
-            <td class="c10">Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.</td>
+            <td class="c10">0</td>
+            <td class="c10"><abbr title="Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is valid.">Number of key roles associated with the issuing entity.  (eg. Directors, etc.) 0-255. 0 is ...</abbr></td>
             <td class="c10">uint8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c6" colspan="7">
+            <td class="c5" colspan="7">
                 <a href="javascript:;" data-popover="type-KeyRole">
                    Key Roles - Click to show content
                 </a>
             </td>
         </tr>
-
         <tr>
-            <td class="c10">Notable Roles Count</td>
+            <td class="c9">Notable Roles Count</td>
             <td class="c10">NotableRolesCount</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr 0>Hover</abbr></td>
-            <td class="c10">Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.</td>
+            <td class="c10">0</td>
+            <td class="c10"><abbr title="Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Managers, etc.) 0-255. 0 is valid.">Number of notable roles associated with the issuing entity.  (eg. Corporate Officers, Mana ...</abbr></td>
             <td class="c10">uint8</td>
             <td class="c10"></td>
         </tr>
-
         <tr>
-            <td class="c6" colspan="7">
+            <td class="c5" colspan="7">
                 <a href="javascript:;" data-popover="type-NotableRole">
                    Notable Roles - Click to show content
                 </a>
             </td>
         </tr>
-
         <tr>
-            <td class="c10">Contract Revision</td>
+            <td class="c9">Contract Revision</td>
             <td class="c10">ContractRevision</td>
             <td class="c10">8</td>
-            <td class="c10"><abbr 0>Hover</abbr></td>
-            <td class="c10">Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.</td>
+            <td class="c10">0</td>
+            <td class="c10"><abbr title="Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.">Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF ...</abbr></td>
             <td class="c10">uint64</td>
             <td class="c10">Can't be changed by issuer or smart contract operator.</td>
         </tr>
-
         <tr>
-            <td class="c10">Timestamp</td>
+            <td class="c9">Timestamp</td>
             <td class="c10">Timestamp</td>
             <td class="c10">8</td>
-            <td class="c10"><abbr 1551767413250187179>Hover</abbr></td>
+            <td class="c10">1551767413250187179</td>
             <td class="c10">Timestamp in nanoseconds of when the smart contract created the action.</td>
             <td class="c10">timestamp</td>
             <td class="c10">Cannot be changed by issuer, operator. Smart contract controls.</td>
         </tr>
-
     </table>
 </div>
+
+##Contract Formation Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:
-            <th class="s1" colspan="6">Contract Formation Action Fee: 0</th>
+            <th class="s0" colspan="6">Smart Contract Operator Fee: 0</th>
        </tr>
          <tr style='height:19px;'>
-            <th style="width:10%" class="s1">Index (input)</th>
+            <th style="width:10%" class="s0">Index (input)</th>
             <th style="width:20%" class="s1">Txn inputs</th>
             <th style="width:20%" class="s1">Comments</th>
             <th style="width:10%" class="s1">Index (output)</th>
@@ -395,287 +360,7 @@ The following breaks down the construction of a Contract Formation Action. The a
             <th class="s1">Comments</th>
        </tr>
        <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c6">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-            <td class="c10">.</td>
-        </tr>
-       <tr>
-            <td class="c6">.</td>
+            <td class="c5">[{Contract Contract Public Address }]</td>
             <td class="c6">.</td>
             <td class="c6">.</td>
             <td class="c10">.</td>
@@ -692,13 +377,13 @@ The following breaks down the construction of a Contract Formation Action. The a
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="c10">Protocol Identifier</td>
@@ -740,8 +425,8 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">Action Prefix</td>
                 <td class="c10">ActionPrefix</td>
                 <td class="c10">2</td>
-                <td class="c10" style="word-break:break-all">C1</td>
-                <td class="c10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
+                <td class="c10" style="word-break:break-all">C2</td>
+                <td class="c10">// C2 identifies data as a ContractFormation message.</td>
                 <td class="c10">string</td>
                 <td class="c10">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
@@ -754,13 +439,13 @@ The following breaks down the construction of a Contract Formation Action. The a
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="c10">Voting System Name</td>
@@ -843,13 +528,13 @@ The following breaks down the construction of a Contract Formation Action. The a
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="c10">Registry Name</td>
@@ -887,13 +572,13 @@ The following breaks down the construction of a Contract Formation Action. The a
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="c10">Key Role Type</td>
@@ -922,13 +607,13 @@ The following breaks down the construction of a Contract Formation Action. The a
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="c10">Notable Role Type</td>
