@@ -1,4 +1,6 @@
 
+
+
 # Asset Modification Action
 
 Asset Modification Action -  Token Dilutions, Call Backs/Revocations, burning etc.
@@ -8,92 +10,85 @@ The following breaks down the construction of a Asset Modification Action. The a
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:9%" class="s1">Label</th>
+            <th style="width:9%" class="s0">Label</th>
             <th style="width:9%" class="s1">Name</th>
             <th style="width:2%" class="s1">Bytes</th>
-            <th style="width:35%" class="s1">Example Values</th>
-            <th style="width:26%" class="s1">Comments</th>
+            <th style="width:25%" class="s1">Example Values</th>
+            <th style="width:36%" class="s1">Comments</th>
             <th style="width:5%" class="s1">Data Type</th>
             <th class="s1">Amendment Restrictions</th>
         </tr>
-
         <tr>
-            <td class="a6" colspan="7">
+            <td class="a5" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
         </tr>
-
         <tr>
-            <td class="a10">Asset Type</td>
+            <td class="a9">Asset Type</td>
             <td class="a10">AssetType</td>
             <td class="a10">3</td>
-            <td class="a10"><abbr SHC>Hover</abbr></td>
+            <td class="a10">SHC</td>
             <td class="a10">eg. Share - Common</td>
             <td class="a10">string</td>
             <td class="a10"></td>
         </tr>
-
         <tr>
-            <td class="a10">Asset ID</td>
+            <td class="a9">Asset ID</td>
             <td class="a10">AssetID</td>
             <td class="a10">32</td>
-            <td class="a10"><abbr apm2qsznhks23z8d83u41s8019hyri3i>Hover</abbr></td>
-            <td class="a10">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.</td>
+            <td class="a10">apm2qsznhks23z8d83u41s8019hyri3i</td>
+            <td class="a10"><abbr title="Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset ID = Asset Code.  An Asset Code is a human readable idenitfier that can be used in a similar way to a Bitcoin (BSV) address, a vanity identifying label.">Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is ...</abbr></td>
             <td class="a10">string</td>
             <td class="a10"></td>
         </tr>
-
         <tr>
-            <td class="a10">Asset Revision</td>
+            <td class="a9">Asset Revision</td>
             <td class="a10">AssetRevision</td>
             <td class="a10">8</td>
-            <td class="a10"><abbr 0>Hover</abbr></td>
-            <td class="a10">Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected. </td>
+            <td class="a10">0</td>
+            <td class="a10"><abbr title="Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected. ">Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can i ...</abbr></td>
             <td class="a10">uint64</td>
             <td class="a10">Cannot be Amended</td>
         </tr>
-
         <tr>
-            <td class="a10">ModificationCount</td>
+            <td class="a9">ModificationCount</td>
             <td class="a10">ModificationCount</td>
             <td class="a10">1</td>
-            <td class="a10"><abbr 0>Hover</abbr></td>
+            <td class="a10">0</td>
             <td class="a10">Number of Modifications. Must be less than the max Subfield Index of CF.</td>
             <td class="a10">uint8</td>
             <td class="a10"></td>
         </tr>
-
         <tr>
-            <td class="a6" colspan="7">
+            <td class="a5" colspan="7">
                 <a href="javascript:;" data-popover="type-Amendment">
                    Modifications - Click to show content
                 </a>
             </td>
         </tr>
-
         <tr>
-            <td class="a10">Ref Tx-ID</td>
+            <td class="a9">Ref Tx-ID</td>
             <td class="a10">RefTxID</td>
             <td class="a10">32</td>
-            <td class="a10"><abbr a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d>Hover</abbr></td>
+            <td class="a10"><abbr title="a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d">Hover for example</abbr></td>
             <td class="a10">Tx-ID of the associated Result action (governance) that permitted the modifications.</td>
             <td class="a10">sha256</td>
             <td class="a10"></td>
         </tr>
-
     </table>
 </div>
+
+##Asset Modification Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:
-            <th class="s1" colspan="6">Asset Modification Action Fee: 0</th>
+            <th class="s0" colspan="6">Smart Contract Operator Fee: 0</th>
        </tr>
          <tr style='height:19px;'>
-            <th style="width:10%" class="s1">Index (input)</th>
+            <th style="width:10%" class="s0">Index (input)</th>
             <th style="width:20%" class="s1">Txn inputs</th>
             <th style="width:20%" class="s1">Comments</th>
             <th style="width:10%" class="s1">Index (output)</th>
@@ -101,47 +96,7 @@ The following breaks down the construction of a Asset Modification Action. The a
             <th class="s1">Comments</th>
        </tr>
        <tr>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-        </tr>
-       <tr>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-        </tr>
-       <tr>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-        </tr>
-       <tr>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-        </tr>
-       <tr>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-        </tr>
-       <tr>
-            <td class="a6">.</td>
+            <td class="a5">[{Issuer Issuer's Public Address }]</td>
             <td class="a6">.</td>
             <td class="a6">.</td>
             <td class="a10">.</td>
@@ -158,13 +113,13 @@ The following breaks down the construction of a Asset Modification Action. The a
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="a10">Protocol Identifier</td>
@@ -206,8 +161,8 @@ The following breaks down the construction of a Asset Modification Action. The a
                 <td class="a10">Action Prefix</td>
                 <td class="a10">ActionPrefix</td>
                 <td class="a10">2</td>
-                <td class="a10" style="word-break:break-all">C1</td>
-                <td class="a10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
+                <td class="a10" style="word-break:break-all">A3</td>
+                <td class="a10">// A3 identifies data as a AssetModification message.</td>
                 <td class="a10">string</td>
                 <td class="a10">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
@@ -220,13 +175,13 @@ The following breaks down the construction of a Asset Modification Action. The a
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="a10">Field Index</td>

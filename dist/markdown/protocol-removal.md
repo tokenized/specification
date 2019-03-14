@@ -1,4 +1,6 @@
 
+
+
 # Removal Action
 
 Removal Action - Removes an entry/record from the Register.
@@ -8,44 +10,42 @@ The following breaks down the construction of a Removal Action. The action is co
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:9%" class="s1">Label</th>
+            <th style="width:9%" class="s0">Label</th>
             <th style="width:9%" class="s1">Name</th>
             <th style="width:2%" class="s1">Bytes</th>
-            <th style="width:35%" class="s1">Example Values</th>
-            <th style="width:26%" class="s1">Comments</th>
+            <th style="width:25%" class="s1">Example Values</th>
+            <th style="width:36%" class="s1">Comments</th>
             <th style="width:5%" class="s1">Data Type</th>
             <th class="s1">Amendment Restrictions</th>
         </tr>
-
         <tr>
-            <td class="r6" colspan="7">
+            <td class="r5" colspan="7">
                 <a href="javascript:;" data-popover="type-Header">
                    Header - Click to show content
                 </a>
              </td>
         </tr>
-
         <tr>
-            <td class="r10">Message</td>
+            <td class="r9">Message</td>
             <td class="r10">Message</td>
             <td class="r10">0</td>
-            <td class="r10"><abbr Removed due to violation of company policy.>Hover</abbr></td>
+            <td class="r10"><abbr title="Removed due to violation of company policy.">Hover for example</abbr></td>
             <td class="r10"></td>
             <td class="r10">nvarchar32</td>
             <td class="r10"></td>
         </tr>
-
     </table>
 </div>
+
+##Removal Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
          <tr style='height:19px;'>
-            <th style="width:
-            <th class="s1" colspan="6">Removal Action Fee: 0</th>
+            <th class="s0" colspan="6">Smart Contract Operator Fee: 0</th>
        </tr>
          <tr style='height:19px;'>
-            <th style="width:10%" class="s1">Index (input)</th>
+            <th style="width:10%" class="s0">Index (input)</th>
             <th style="width:20%" class="s1">Txn inputs</th>
             <th style="width:20%" class="s1">Comments</th>
             <th style="width:10%" class="s1">Index (output)</th>
@@ -53,7 +53,7 @@ The following breaks down the construction of a Removal Action. The action is co
             <th class="s1">Comments</th>
        </tr>
        <tr>
-            <td class="r6">.</td>
+            <td class="r5">[{Register Register's Public Address }]</td>
             <td class="r6">.</td>
             <td class="r6">.</td>
             <td class="r10">.</td>
@@ -70,13 +70,13 @@ The following breaks down the construction of a Removal Action. The action is co
     <div class="content docs-content">
         <table class="ui table">
             <tr style='height:19px;'>
-                <th style="width:9%" class="s1">Label</th>
+                <th style="width:5%" class="s1">Label</th>
                 <th style="width:9%" class="s1">Name</th>
-                <th style="width:2%" class="s1">Bytes</th>
-                <th style="width:29%" class="s1">Example Values</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
-                <th style="width:14%" class="s2">Amendment Restrictions</th>
+                <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
                 <td class="r10">Protocol Identifier</td>
@@ -118,8 +118,8 @@ The following breaks down the construction of a Removal Action. The action is co
                 <td class="r10">Action Prefix</td>
                 <td class="r10">ActionPrefix</td>
                 <td class="r10">2</td>
-                <td class="r10" style="word-break:break-all">C1</td>
-                <td class="r10">Contract Offer: The Contract Offer Action allows the Issuer to initialize a smart contract by providing all the necessary information, including T&C's.  The Contract Offer Action can also be used to signal to a market actor that they want to buy/form a contract.</td>
+                <td class="r10" style="word-break:break-all">R4</td>
+                <td class="r10">// R4 identifies data as a Removal message.</td>
                 <td class="r10">string</td>
                 <td class="r10">Cannot be changed by issuer, operator or smart contract.</td>
             </tr>
