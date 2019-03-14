@@ -196,14 +196,14 @@ type AssetDefinition struct {
 }
 
 // Type returns the type identifer for this message.
-func (m AssetDefinition) Type() string {
+func (action AssetDefinition) Type() string {
 	return CodeAssetDefinition
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *AssetDefinition) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *AssetDefinition) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -215,110 +215,110 @@ func (m *AssetDefinition) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *AssetDefinition) serialize() ([]byte, error) {
+func (action *AssetDefinition) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
 	// fmt.Printf("Serializing AssetType\n")
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+	if err := WriteFixedChar(buf, action.AssetType, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetType : buf len %d\n", buf.Len())
 
 	// AssetID (string)
 	// fmt.Printf("Serializing AssetID\n")
-	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+	if err := WriteFixedChar(buf, action.AssetID, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
 	// AssetAuthFlags ([8]byte)
 	// fmt.Printf("Serializing AssetAuthFlags\n")
-	if err := write(buf, m.AssetAuthFlags); err != nil {
+	if err := write(buf, action.AssetAuthFlags); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetAuthFlags : buf len %d\n", buf.Len())
 
 	// TransfersPermitted (bool)
 	// fmt.Printf("Serializing TransfersPermitted\n")
-	if err := write(buf, m.TransfersPermitted); err != nil {
+	if err := write(buf, action.TransfersPermitted); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized TransfersPermitted : buf len %d\n", buf.Len())
 
 	// TradeRestrictions (string)
 	// fmt.Printf("Serializing TradeRestrictions\n")
-	if err := WriteFixedChar(buf, m.TradeRestrictions, 3); err != nil {
+	if err := WriteFixedChar(buf, action.TradeRestrictions, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized TradeRestrictions : buf len %d\n", buf.Len())
 
 	// EnforcementOrdersPermitted (bool)
 	// fmt.Printf("Serializing EnforcementOrdersPermitted\n")
-	if err := write(buf, m.EnforcementOrdersPermitted); err != nil {
+	if err := write(buf, action.EnforcementOrdersPermitted); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized EnforcementOrdersPermitted : buf len %d\n", buf.Len())
 
 	// VoteMultiplier (uint8)
 	// fmt.Printf("Serializing VoteMultiplier\n")
-	if err := write(buf, m.VoteMultiplier); err != nil {
+	if err := write(buf, action.VoteMultiplier); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteMultiplier : buf len %d\n", buf.Len())
 
 	// ReferendumProposal (bool)
 	// fmt.Printf("Serializing ReferendumProposal\n")
-	if err := write(buf, m.ReferendumProposal); err != nil {
+	if err := write(buf, action.ReferendumProposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ReferendumProposal : buf len %d\n", buf.Len())
 
 	// InitiativeProposal (bool)
 	// fmt.Printf("Serializing InitiativeProposal\n")
-	if err := write(buf, m.InitiativeProposal); err != nil {
+	if err := write(buf, action.InitiativeProposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized InitiativeProposal : buf len %d\n", buf.Len())
 
 	// AssetModificationGovernance (bool)
 	// fmt.Printf("Serializing AssetModificationGovernance\n")
-	if err := write(buf, m.AssetModificationGovernance); err != nil {
+	if err := write(buf, action.AssetModificationGovernance); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetModificationGovernance : buf len %d\n", buf.Len())
 
 	// TokenQty (uint64)
 	// fmt.Printf("Serializing TokenQty\n")
-	if err := write(buf, m.TokenQty); err != nil {
+	if err := write(buf, action.TokenQty); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized TokenQty : buf len %d\n", buf.Len())
 
 	// ContractFeeCurrency (string)
 	// fmt.Printf("Serializing ContractFeeCurrency\n")
-	if err := WriteFixedChar(buf, m.ContractFeeCurrency, 3); err != nil {
+	if err := WriteFixedChar(buf, action.ContractFeeCurrency, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFeeCurrency : buf len %d\n", buf.Len())
 
 	// ContractFeeVar (float32)
 	// fmt.Printf("Serializing ContractFeeVar\n")
-	if err := write(buf, m.ContractFeeVar); err != nil {
+	if err := write(buf, action.ContractFeeVar); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFeeVar : buf len %d\n", buf.Len())
 
 	// ContractFeeFixed (float32)
 	// fmt.Printf("Serializing ContractFeeFixed\n")
-	if err := write(buf, m.ContractFeeFixed); err != nil {
+	if err := write(buf, action.ContractFeeFixed); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFeeFixed : buf len %d\n", buf.Len())
 
 	// AssetPayload ([]byte)
 	// fmt.Printf("Serializing AssetPayload\n")
-	if err := WriteVarBin(buf, m.AssetPayload, 16); err != nil {
+	if err := WriteVarBin(buf, action.AssetPayload, 16); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetPayload : buf len %d\n", buf.Len())
@@ -327,195 +327,195 @@ func (m *AssetDefinition) serialize() ([]byte, error) {
 }
 
 // write populates the fields in AssetDefinition from the byte slice
-func (m *AssetDefinition) write(b []byte) (int, error) {
+func (action *AssetDefinition) write(b []byte) (int, error) {
 	// fmt.Printf("Reading AssetDefinition : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// AssetType (string)
 	// fmt.Printf("Reading AssetType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
+		action.AssetType, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), m.AssetType)
+	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), action.AssetType)
 
 	// AssetID (string)
 	// fmt.Printf("Reading AssetID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetID, err = ReadFixedChar(buf, 32)
+		action.AssetID, err = ReadFixedChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
+	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), action.AssetID)
 
 	// AssetAuthFlags ([8]byte)
 	// fmt.Printf("Reading AssetAuthFlags : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.AssetAuthFlags); err != nil {
+	if err := read(buf, &action.AssetAuthFlags); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read AssetAuthFlags : %d bytes remaining\n%+v\n", buf.Len(), m.AssetAuthFlags)
+	// fmt.Printf("Read AssetAuthFlags : %d bytes remaining\n%+v\n", buf.Len(), action.AssetAuthFlags)
 
 	// TransfersPermitted (bool)
 	// fmt.Printf("Reading TransfersPermitted : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.TransfersPermitted); err != nil {
+	if err := read(buf, &action.TransfersPermitted); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read TransfersPermitted : %d bytes remaining\n%+v\n", buf.Len(), m.TransfersPermitted)
+	// fmt.Printf("Read TransfersPermitted : %d bytes remaining\n%+v\n", buf.Len(), action.TransfersPermitted)
 
 	// TradeRestrictions (string)
 	// fmt.Printf("Reading TradeRestrictions : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.TradeRestrictions, err = ReadFixedChar(buf, 3)
+		action.TradeRestrictions, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read TradeRestrictions : %d bytes remaining\n%+v\n", buf.Len(), m.TradeRestrictions)
+	// fmt.Printf("Read TradeRestrictions : %d bytes remaining\n%+v\n", buf.Len(), action.TradeRestrictions)
 
 	// EnforcementOrdersPermitted (bool)
 	// fmt.Printf("Reading EnforcementOrdersPermitted : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.EnforcementOrdersPermitted); err != nil {
+	if err := read(buf, &action.EnforcementOrdersPermitted); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read EnforcementOrdersPermitted : %d bytes remaining\n%+v\n", buf.Len(), m.EnforcementOrdersPermitted)
+	// fmt.Printf("Read EnforcementOrdersPermitted : %d bytes remaining\n%+v\n", buf.Len(), action.EnforcementOrdersPermitted)
 
 	// VoteMultiplier (uint8)
 	// fmt.Printf("Reading VoteMultiplier : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteMultiplier); err != nil {
+	if err := read(buf, &action.VoteMultiplier); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteMultiplier : %d bytes remaining\n%+v\n", buf.Len(), m.VoteMultiplier)
+	// fmt.Printf("Read VoteMultiplier : %d bytes remaining\n%+v\n", buf.Len(), action.VoteMultiplier)
 
 	// ReferendumProposal (bool)
 	// fmt.Printf("Reading ReferendumProposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ReferendumProposal); err != nil {
+	if err := read(buf, &action.ReferendumProposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ReferendumProposal : %d bytes remaining\n%+v\n", buf.Len(), m.ReferendumProposal)
+	// fmt.Printf("Read ReferendumProposal : %d bytes remaining\n%+v\n", buf.Len(), action.ReferendumProposal)
 
 	// InitiativeProposal (bool)
 	// fmt.Printf("Reading InitiativeProposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.InitiativeProposal); err != nil {
+	if err := read(buf, &action.InitiativeProposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read InitiativeProposal : %d bytes remaining\n%+v\n", buf.Len(), m.InitiativeProposal)
+	// fmt.Printf("Read InitiativeProposal : %d bytes remaining\n%+v\n", buf.Len(), action.InitiativeProposal)
 
 	// AssetModificationGovernance (bool)
 	// fmt.Printf("Reading AssetModificationGovernance : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.AssetModificationGovernance); err != nil {
+	if err := read(buf, &action.AssetModificationGovernance); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read AssetModificationGovernance : %d bytes remaining\n%+v\n", buf.Len(), m.AssetModificationGovernance)
+	// fmt.Printf("Read AssetModificationGovernance : %d bytes remaining\n%+v\n", buf.Len(), action.AssetModificationGovernance)
 
 	// TokenQty (uint64)
 	// fmt.Printf("Reading TokenQty : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.TokenQty); err != nil {
+	if err := read(buf, &action.TokenQty); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read TokenQty : %d bytes remaining\n%+v\n", buf.Len(), m.TokenQty)
+	// fmt.Printf("Read TokenQty : %d bytes remaining\n%+v\n", buf.Len(), action.TokenQty)
 
 	// ContractFeeCurrency (string)
 	// fmt.Printf("Reading ContractFeeCurrency : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractFeeCurrency, err = ReadFixedChar(buf, 3)
+		action.ContractFeeCurrency, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractFeeCurrency : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFeeCurrency)
+	// fmt.Printf("Read ContractFeeCurrency : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFeeCurrency)
 
 	// ContractFeeVar (float32)
 	// fmt.Printf("Reading ContractFeeVar : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractFeeVar); err != nil {
+	if err := read(buf, &action.ContractFeeVar); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractFeeVar : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFeeVar)
+	// fmt.Printf("Read ContractFeeVar : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFeeVar)
 
 	// ContractFeeFixed (float32)
 	// fmt.Printf("Reading ContractFeeFixed : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractFeeFixed); err != nil {
+	if err := read(buf, &action.ContractFeeFixed); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractFeeFixed : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFeeFixed)
+	// fmt.Printf("Read ContractFeeFixed : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFeeFixed)
 
 	// AssetPayload ([]byte)
 	// fmt.Printf("Reading AssetPayload : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetPayload, err = ReadVarBin(buf, 16)
+		action.AssetPayload, err = ReadVarBin(buf, 16)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetPayload : %d bytes remaining\n%+v\n", buf.Len(), m.AssetPayload)
+	// fmt.Printf("Read AssetPayload : %d bytes remaining\n%+v\n", buf.Len(), action.AssetPayload)
 
 	// fmt.Printf("Read AssetDefinition : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m AssetDefinition) PayloadMessage() (PayloadMessage, error) {
-	p, err := New([]byte(m.AssetType))
+func (action AssetDefinition) PayloadMessage() (PayloadMessage, error) {
+	p, err := New([]byte(action.AssetType))
 	if p == nil || err != nil {
 		return nil, err
 	}
 
-	if _, err := p.write(m.AssetPayload); err != nil {
+	if _, err := p.write(action.AssetPayload); err != nil {
 		return nil, err
 	}
 
 	return p, nil
 }
 
-func (m AssetDefinition) String() string {
+func (action AssetDefinition) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#+v", m.AssetAuthFlags))
-	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", m.TransfersPermitted))
-	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", m.TradeRestrictions))
-	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", m.EnforcementOrdersPermitted))
-	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", m.VoteMultiplier))
-	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", m.ReferendumProposal))
-	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", m.InitiativeProposal))
-	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%#+v", m.AssetModificationGovernance))
-	vals = append(vals, fmt.Sprintf("TokenQty:%v", m.TokenQty))
-	vals = append(vals, fmt.Sprintf("ContractFeeCurrency:%#+v", m.ContractFeeCurrency))
-	vals = append(vals, fmt.Sprintf("ContractFeeVar:%v", m.ContractFeeVar))
-	vals = append(vals, fmt.Sprintf("ContractFeeFixed:%v", m.ContractFeeFixed))
-	vals = append(vals, fmt.Sprintf("AssetPayload:%#x", m.AssetPayload))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", action.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#+v", action.AssetAuthFlags))
+	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", action.TransfersPermitted))
+	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", action.TradeRestrictions))
+	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", action.EnforcementOrdersPermitted))
+	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", action.VoteMultiplier))
+	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))
+	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", action.InitiativeProposal))
+	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%#+v", action.AssetModificationGovernance))
+	vals = append(vals, fmt.Sprintf("TokenQty:%v", action.TokenQty))
+	vals = append(vals, fmt.Sprintf("ContractFeeCurrency:%#+v", action.ContractFeeCurrency))
+	vals = append(vals, fmt.Sprintf("ContractFeeVar:%v", action.ContractFeeVar))
+	vals = append(vals, fmt.Sprintf("ContractFeeFixed:%v", action.ContractFeeFixed))
+	vals = append(vals, fmt.Sprintf("AssetPayload:%#x", action.AssetPayload))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -544,14 +544,14 @@ type AssetCreation struct {
 }
 
 // Type returns the type identifer for this message.
-func (m AssetCreation) Type() string {
+func (action AssetCreation) Type() string {
 	return CodeAssetCreation
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *AssetCreation) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *AssetCreation) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -563,124 +563,124 @@ func (m *AssetCreation) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *AssetCreation) serialize() ([]byte, error) {
+func (action *AssetCreation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
 	// fmt.Printf("Serializing AssetType\n")
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+	if err := WriteFixedChar(buf, action.AssetType, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetType : buf len %d\n", buf.Len())
 
 	// AssetID (string)
 	// fmt.Printf("Serializing AssetID\n")
-	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+	if err := WriteFixedChar(buf, action.AssetID, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
 	// AssetAuthFlags ([8]byte)
 	// fmt.Printf("Serializing AssetAuthFlags\n")
-	if err := write(buf, m.AssetAuthFlags); err != nil {
+	if err := write(buf, action.AssetAuthFlags); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetAuthFlags : buf len %d\n", buf.Len())
 
 	// TransfersPermitted (bool)
 	// fmt.Printf("Serializing TransfersPermitted\n")
-	if err := write(buf, m.TransfersPermitted); err != nil {
+	if err := write(buf, action.TransfersPermitted); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized TransfersPermitted : buf len %d\n", buf.Len())
 
 	// TradeRestrictions (string)
 	// fmt.Printf("Serializing TradeRestrictions\n")
-	if err := WriteFixedChar(buf, m.TradeRestrictions, 3); err != nil {
+	if err := WriteFixedChar(buf, action.TradeRestrictions, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized TradeRestrictions : buf len %d\n", buf.Len())
 
 	// EnforcementOrdersPermitted (bool)
 	// fmt.Printf("Serializing EnforcementOrdersPermitted\n")
-	if err := write(buf, m.EnforcementOrdersPermitted); err != nil {
+	if err := write(buf, action.EnforcementOrdersPermitted); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized EnforcementOrdersPermitted : buf len %d\n", buf.Len())
 
 	// VoteMultiplier (uint8)
 	// fmt.Printf("Serializing VoteMultiplier\n")
-	if err := write(buf, m.VoteMultiplier); err != nil {
+	if err := write(buf, action.VoteMultiplier); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteMultiplier : buf len %d\n", buf.Len())
 
 	// ReferendumProposal (bool)
 	// fmt.Printf("Serializing ReferendumProposal\n")
-	if err := write(buf, m.ReferendumProposal); err != nil {
+	if err := write(buf, action.ReferendumProposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ReferendumProposal : buf len %d\n", buf.Len())
 
 	// InitiativeProposal (bool)
 	// fmt.Printf("Serializing InitiativeProposal\n")
-	if err := write(buf, m.InitiativeProposal); err != nil {
+	if err := write(buf, action.InitiativeProposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized InitiativeProposal : buf len %d\n", buf.Len())
 
 	// AssetModificationGovernance (bool)
 	// fmt.Printf("Serializing AssetModificationGovernance\n")
-	if err := write(buf, m.AssetModificationGovernance); err != nil {
+	if err := write(buf, action.AssetModificationGovernance); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetModificationGovernance : buf len %d\n", buf.Len())
 
 	// TokenQty (uint64)
 	// fmt.Printf("Serializing TokenQty\n")
-	if err := write(buf, m.TokenQty); err != nil {
+	if err := write(buf, action.TokenQty); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized TokenQty : buf len %d\n", buf.Len())
 
 	// ContractFeeCurrency (string)
 	// fmt.Printf("Serializing ContractFeeCurrency\n")
-	if err := WriteFixedChar(buf, m.ContractFeeCurrency, 3); err != nil {
+	if err := WriteFixedChar(buf, action.ContractFeeCurrency, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFeeCurrency : buf len %d\n", buf.Len())
 
 	// ContractFeeVar (float32)
 	// fmt.Printf("Serializing ContractFeeVar\n")
-	if err := write(buf, m.ContractFeeVar); err != nil {
+	if err := write(buf, action.ContractFeeVar); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFeeVar : buf len %d\n", buf.Len())
 
 	// ContractFeeFixed (float32)
 	// fmt.Printf("Serializing ContractFeeFixed\n")
-	if err := write(buf, m.ContractFeeFixed); err != nil {
+	if err := write(buf, action.ContractFeeFixed); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFeeFixed : buf len %d\n", buf.Len())
 
 	// AssetPayload ([]byte)
 	// fmt.Printf("Serializing AssetPayload\n")
-	if err := WriteVarBin(buf, m.AssetPayload, 16); err != nil {
+	if err := WriteVarBin(buf, action.AssetPayload, 16); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetPayload : buf len %d\n", buf.Len())
 
 	// AssetRevision (uint64)
 	// fmt.Printf("Serializing AssetRevision\n")
-	if err := write(buf, m.AssetRevision); err != nil {
+	if err := write(buf, action.AssetRevision); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetRevision : buf len %d\n", buf.Len())
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -689,213 +689,213 @@ func (m *AssetCreation) serialize() ([]byte, error) {
 }
 
 // write populates the fields in AssetCreation from the byte slice
-func (m *AssetCreation) write(b []byte) (int, error) {
+func (action *AssetCreation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading AssetCreation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// AssetType (string)
 	// fmt.Printf("Reading AssetType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
+		action.AssetType, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), m.AssetType)
+	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), action.AssetType)
 
 	// AssetID (string)
 	// fmt.Printf("Reading AssetID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetID, err = ReadFixedChar(buf, 32)
+		action.AssetID, err = ReadFixedChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
+	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), action.AssetID)
 
 	// AssetAuthFlags ([8]byte)
 	// fmt.Printf("Reading AssetAuthFlags : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.AssetAuthFlags); err != nil {
+	if err := read(buf, &action.AssetAuthFlags); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read AssetAuthFlags : %d bytes remaining\n%+v\n", buf.Len(), m.AssetAuthFlags)
+	// fmt.Printf("Read AssetAuthFlags : %d bytes remaining\n%+v\n", buf.Len(), action.AssetAuthFlags)
 
 	// TransfersPermitted (bool)
 	// fmt.Printf("Reading TransfersPermitted : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.TransfersPermitted); err != nil {
+	if err := read(buf, &action.TransfersPermitted); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read TransfersPermitted : %d bytes remaining\n%+v\n", buf.Len(), m.TransfersPermitted)
+	// fmt.Printf("Read TransfersPermitted : %d bytes remaining\n%+v\n", buf.Len(), action.TransfersPermitted)
 
 	// TradeRestrictions (string)
 	// fmt.Printf("Reading TradeRestrictions : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.TradeRestrictions, err = ReadFixedChar(buf, 3)
+		action.TradeRestrictions, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read TradeRestrictions : %d bytes remaining\n%+v\n", buf.Len(), m.TradeRestrictions)
+	// fmt.Printf("Read TradeRestrictions : %d bytes remaining\n%+v\n", buf.Len(), action.TradeRestrictions)
 
 	// EnforcementOrdersPermitted (bool)
 	// fmt.Printf("Reading EnforcementOrdersPermitted : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.EnforcementOrdersPermitted); err != nil {
+	if err := read(buf, &action.EnforcementOrdersPermitted); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read EnforcementOrdersPermitted : %d bytes remaining\n%+v\n", buf.Len(), m.EnforcementOrdersPermitted)
+	// fmt.Printf("Read EnforcementOrdersPermitted : %d bytes remaining\n%+v\n", buf.Len(), action.EnforcementOrdersPermitted)
 
 	// VoteMultiplier (uint8)
 	// fmt.Printf("Reading VoteMultiplier : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteMultiplier); err != nil {
+	if err := read(buf, &action.VoteMultiplier); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteMultiplier : %d bytes remaining\n%+v\n", buf.Len(), m.VoteMultiplier)
+	// fmt.Printf("Read VoteMultiplier : %d bytes remaining\n%+v\n", buf.Len(), action.VoteMultiplier)
 
 	// ReferendumProposal (bool)
 	// fmt.Printf("Reading ReferendumProposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ReferendumProposal); err != nil {
+	if err := read(buf, &action.ReferendumProposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ReferendumProposal : %d bytes remaining\n%+v\n", buf.Len(), m.ReferendumProposal)
+	// fmt.Printf("Read ReferendumProposal : %d bytes remaining\n%+v\n", buf.Len(), action.ReferendumProposal)
 
 	// InitiativeProposal (bool)
 	// fmt.Printf("Reading InitiativeProposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.InitiativeProposal); err != nil {
+	if err := read(buf, &action.InitiativeProposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read InitiativeProposal : %d bytes remaining\n%+v\n", buf.Len(), m.InitiativeProposal)
+	// fmt.Printf("Read InitiativeProposal : %d bytes remaining\n%+v\n", buf.Len(), action.InitiativeProposal)
 
 	// AssetModificationGovernance (bool)
 	// fmt.Printf("Reading AssetModificationGovernance : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.AssetModificationGovernance); err != nil {
+	if err := read(buf, &action.AssetModificationGovernance); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read AssetModificationGovernance : %d bytes remaining\n%+v\n", buf.Len(), m.AssetModificationGovernance)
+	// fmt.Printf("Read AssetModificationGovernance : %d bytes remaining\n%+v\n", buf.Len(), action.AssetModificationGovernance)
 
 	// TokenQty (uint64)
 	// fmt.Printf("Reading TokenQty : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.TokenQty); err != nil {
+	if err := read(buf, &action.TokenQty); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read TokenQty : %d bytes remaining\n%+v\n", buf.Len(), m.TokenQty)
+	// fmt.Printf("Read TokenQty : %d bytes remaining\n%+v\n", buf.Len(), action.TokenQty)
 
 	// ContractFeeCurrency (string)
 	// fmt.Printf("Reading ContractFeeCurrency : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractFeeCurrency, err = ReadFixedChar(buf, 3)
+		action.ContractFeeCurrency, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractFeeCurrency : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFeeCurrency)
+	// fmt.Printf("Read ContractFeeCurrency : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFeeCurrency)
 
 	// ContractFeeVar (float32)
 	// fmt.Printf("Reading ContractFeeVar : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractFeeVar); err != nil {
+	if err := read(buf, &action.ContractFeeVar); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractFeeVar : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFeeVar)
+	// fmt.Printf("Read ContractFeeVar : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFeeVar)
 
 	// ContractFeeFixed (float32)
 	// fmt.Printf("Reading ContractFeeFixed : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractFeeFixed); err != nil {
+	if err := read(buf, &action.ContractFeeFixed); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractFeeFixed : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFeeFixed)
+	// fmt.Printf("Read ContractFeeFixed : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFeeFixed)
 
 	// AssetPayload ([]byte)
 	// fmt.Printf("Reading AssetPayload : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetPayload, err = ReadVarBin(buf, 16)
+		action.AssetPayload, err = ReadVarBin(buf, 16)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetPayload : %d bytes remaining\n%+v\n", buf.Len(), m.AssetPayload)
+	// fmt.Printf("Read AssetPayload : %d bytes remaining\n%+v\n", buf.Len(), action.AssetPayload)
 
 	// AssetRevision (uint64)
 	// fmt.Printf("Reading AssetRevision : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.AssetRevision); err != nil {
+	if err := read(buf, &action.AssetRevision); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read AssetRevision : %d bytes remaining\n%+v\n", buf.Len(), m.AssetRevision)
+	// fmt.Printf("Read AssetRevision : %d bytes remaining\n%+v\n", buf.Len(), action.AssetRevision)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read AssetCreation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m AssetCreation) PayloadMessage() (PayloadMessage, error) {
-	p, err := New([]byte(m.AssetType))
+func (action AssetCreation) PayloadMessage() (PayloadMessage, error) {
+	p, err := New([]byte(action.AssetType))
 	if p == nil || err != nil {
 		return nil, err
 	}
 
-	if _, err := p.write(m.AssetPayload); err != nil {
+	if _, err := p.write(action.AssetPayload); err != nil {
 		return nil, err
 	}
 
 	return p, nil
 }
 
-func (m AssetCreation) String() string {
+func (action AssetCreation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#+v", m.AssetAuthFlags))
-	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", m.TransfersPermitted))
-	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", m.TradeRestrictions))
-	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", m.EnforcementOrdersPermitted))
-	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", m.VoteMultiplier))
-	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", m.ReferendumProposal))
-	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", m.InitiativeProposal))
-	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%#+v", m.AssetModificationGovernance))
-	vals = append(vals, fmt.Sprintf("TokenQty:%v", m.TokenQty))
-	vals = append(vals, fmt.Sprintf("ContractFeeCurrency:%#+v", m.ContractFeeCurrency))
-	vals = append(vals, fmt.Sprintf("ContractFeeVar:%v", m.ContractFeeVar))
-	vals = append(vals, fmt.Sprintf("ContractFeeFixed:%v", m.ContractFeeFixed))
-	vals = append(vals, fmt.Sprintf("AssetPayload:%#x", m.AssetPayload))
-	vals = append(vals, fmt.Sprintf("AssetRevision:%v", m.AssetRevision))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", action.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#+v", action.AssetAuthFlags))
+	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", action.TransfersPermitted))
+	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", action.TradeRestrictions))
+	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", action.EnforcementOrdersPermitted))
+	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", action.VoteMultiplier))
+	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))
+	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", action.InitiativeProposal))
+	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%#+v", action.AssetModificationGovernance))
+	vals = append(vals, fmt.Sprintf("TokenQty:%v", action.TokenQty))
+	vals = append(vals, fmt.Sprintf("ContractFeeCurrency:%#+v", action.ContractFeeCurrency))
+	vals = append(vals, fmt.Sprintf("ContractFeeVar:%v", action.ContractFeeVar))
+	vals = append(vals, fmt.Sprintf("ContractFeeFixed:%v", action.ContractFeeFixed))
+	vals = append(vals, fmt.Sprintf("AssetPayload:%#x", action.AssetPayload))
+	vals = append(vals, fmt.Sprintf("AssetRevision:%v", action.AssetRevision))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -912,14 +912,14 @@ type AssetModification struct {
 }
 
 // Type returns the type identifer for this message.
-func (m AssetModification) Type() string {
+func (action AssetModification) Type() string {
 	return CodeAssetModification
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *AssetModification) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *AssetModification) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -931,36 +931,36 @@ func (m *AssetModification) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *AssetModification) serialize() ([]byte, error) {
+func (action *AssetModification) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
 	// fmt.Printf("Serializing AssetType\n")
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+	if err := WriteFixedChar(buf, action.AssetType, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetType : buf len %d\n", buf.Len())
 
 	// AssetID (string)
 	// fmt.Printf("Serializing AssetID\n")
-	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+	if err := WriteFixedChar(buf, action.AssetID, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
 	// AssetRevision (uint64)
 	// fmt.Printf("Serializing AssetRevision\n")
-	if err := write(buf, m.AssetRevision); err != nil {
+	if err := write(buf, action.AssetRevision); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetRevision : buf len %d\n", buf.Len())
 
 	// Modifications ([]Amendment)
 	// fmt.Printf("Serializing Modifications\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Modifications)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Modifications)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Modifications {
+	for _, value := range action.Modifications {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -974,7 +974,7 @@ func (m *AssetModification) serialize() ([]byte, error) {
 
 	// RefTxID ([32]byte)
 	// fmt.Printf("Serializing RefTxID\n")
-	if err := write(buf, m.RefTxID); err != nil {
+	if err := write(buf, action.RefTxID); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized RefTxID : buf len %d\n", buf.Len())
@@ -983,49 +983,49 @@ func (m *AssetModification) serialize() ([]byte, error) {
 }
 
 // write populates the fields in AssetModification from the byte slice
-func (m *AssetModification) write(b []byte) (int, error) {
+func (action *AssetModification) write(b []byte) (int, error) {
 	// fmt.Printf("Reading AssetModification : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// AssetType (string)
 	// fmt.Printf("Reading AssetType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
+		action.AssetType, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), m.AssetType)
+	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), action.AssetType)
 
 	// AssetID (string)
 	// fmt.Printf("Reading AssetID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetID, err = ReadFixedChar(buf, 32)
+		action.AssetID, err = ReadFixedChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
+	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), action.AssetID)
 
 	// AssetRevision (uint64)
 	// fmt.Printf("Reading AssetRevision : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.AssetRevision); err != nil {
+	if err := read(buf, &action.AssetRevision); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read AssetRevision : %d bytes remaining\n%+v\n", buf.Len(), m.AssetRevision)
+	// fmt.Printf("Read AssetRevision : %d bytes remaining\n%+v\n", buf.Len(), action.AssetRevision)
 
 	// Modifications ([]Amendment)
 	// fmt.Printf("Reading Modifications : %d bytes remaining\n", buf.Len())
@@ -1034,45 +1034,45 @@ func (m *AssetModification) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Modifications = make([]Amendment, 0, size)
+		action.Modifications = make([]Amendment, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Amendment
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Modifications = append(m.Modifications, newValue)
+			action.Modifications = append(action.Modifications, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Modifications : %d bytes remaining\n%+v\n", buf.Len(), m.Modifications)
+	// fmt.Printf("Read Modifications : %d bytes remaining\n%+v\n", buf.Len(), action.Modifications)
 
 	// RefTxID ([32]byte)
 	// fmt.Printf("Reading RefTxID : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.RefTxID); err != nil {
+	if err := read(buf, &action.RefTxID); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read RefTxID : %d bytes remaining\n%+v\n", buf.Len(), m.RefTxID)
+	// fmt.Printf("Read RefTxID : %d bytes remaining\n%+v\n", buf.Len(), action.RefTxID)
 
 	// fmt.Printf("Read AssetModification : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m AssetModification) PayloadMessage() (PayloadMessage, error) {
+func (action AssetModification) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m AssetModification) String() string {
+func (action AssetModification) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("AssetRevision:%v", m.AssetRevision))
-	vals = append(vals, fmt.Sprintf("Modifications:%#+v", m.Modifications))
-	vals = append(vals, fmt.Sprintf("RefTxID:%#+v", m.RefTxID))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", action.AssetID))
+	vals = append(vals, fmt.Sprintf("AssetRevision:%v", action.AssetRevision))
+	vals = append(vals, fmt.Sprintf("Modifications:%#+v", action.Modifications))
+	vals = append(vals, fmt.Sprintf("RefTxID:%#+v", action.RefTxID))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -1140,14 +1140,14 @@ func (action *ContractOffer) AddNotableRole(roleType uint8, name string) {
 }
 
 // Type returns the type identifer for this message.
-func (m ContractOffer) Type() string {
+func (action ContractOffer) Type() string {
 	return CodeContractOffer
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *ContractOffer) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *ContractOffer) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -1159,99 +1159,99 @@ func (m *ContractOffer) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *ContractOffer) serialize() ([]byte, error) {
+func (action *ContractOffer) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// ContractName (string)
 	// fmt.Printf("Serializing ContractName\n")
-	if err := WriteVarChar(buf, m.ContractName, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractName, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractName : buf len %d\n", buf.Len())
 
 	// ContractFileType (uint8)
 	// fmt.Printf("Serializing ContractFileType\n")
-	if err := write(buf, m.ContractFileType); err != nil {
+	if err := write(buf, action.ContractFileType); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFileType : buf len %d\n", buf.Len())
 
 	// ContractFile ([]byte)
 	// fmt.Printf("Serializing ContractFile\n")
-	if err := WriteVarBin(buf, m.ContractFile, 32); err != nil {
+	if err := WriteVarBin(buf, action.ContractFile, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFile : buf len %d\n", buf.Len())
 
 	// GoverningLaw (string)
 	// fmt.Printf("Serializing GoverningLaw\n")
-	if err := WriteFixedChar(buf, m.GoverningLaw, 5); err != nil {
+	if err := WriteFixedChar(buf, action.GoverningLaw, 5); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized GoverningLaw : buf len %d\n", buf.Len())
 
 	// Jurisdiction (string)
 	// fmt.Printf("Serializing Jurisdiction\n")
-	if err := WriteFixedChar(buf, m.Jurisdiction, 5); err != nil {
+	if err := WriteFixedChar(buf, action.Jurisdiction, 5); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Jurisdiction : buf len %d\n", buf.Len())
 
 	// ContractExpiration (uint64)
 	// fmt.Printf("Serializing ContractExpiration\n")
-	if err := write(buf, m.ContractExpiration); err != nil {
+	if err := write(buf, action.ContractExpiration); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractExpiration : buf len %d\n", buf.Len())
 
 	// ContractURI (string)
 	// fmt.Printf("Serializing ContractURI\n")
-	if err := WriteVarChar(buf, m.ContractURI, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractURI, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractURI : buf len %d\n", buf.Len())
 
 	// IssuerName (string)
 	// fmt.Printf("Serializing IssuerName\n")
-	if err := WriteVarChar(buf, m.IssuerName, 8); err != nil {
+	if err := WriteVarChar(buf, action.IssuerName, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized IssuerName : buf len %d\n", buf.Len())
 
 	// IssuerType (byte)
 	// fmt.Printf("Serializing IssuerType\n")
-	if err := write(buf, m.IssuerType); err != nil {
+	if err := write(buf, action.IssuerType); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized IssuerType : buf len %d\n", buf.Len())
 
 	// IssuerLogoURL (string)
 	// fmt.Printf("Serializing IssuerLogoURL\n")
-	if err := WriteVarChar(buf, m.IssuerLogoURL, 8); err != nil {
+	if err := WriteVarChar(buf, action.IssuerLogoURL, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized IssuerLogoURL : buf len %d\n", buf.Len())
 
 	// ContractOperatorID (string)
 	// fmt.Printf("Serializing ContractOperatorID\n")
-	if err := WriteVarChar(buf, m.ContractOperatorID, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractOperatorID, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractOperatorID : buf len %d\n", buf.Len())
 
 	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Serializing ContractAuthFlags\n")
-	if err := write(buf, m.ContractAuthFlags); err != nil {
+	if err := write(buf, action.ContractAuthFlags); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractAuthFlags : buf len %d\n", buf.Len())
 
 	// VotingSystems ([]VotingSystem)
 	// fmt.Printf("Serializing VotingSystems\n")
-	if err := WriteVariableSize(buf, uint64(len(m.VotingSystems)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.VotingSystems)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.VotingSystems {
+	for _, value := range action.VotingSystems {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -1265,31 +1265,31 @@ func (m *ContractOffer) serialize() ([]byte, error) {
 
 	// RestrictedQtyAssets (uint64)
 	// fmt.Printf("Serializing RestrictedQtyAssets\n")
-	if err := write(buf, m.RestrictedQtyAssets); err != nil {
+	if err := write(buf, action.RestrictedQtyAssets); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized RestrictedQtyAssets : buf len %d\n", buf.Len())
 
 	// ReferendumProposal (bool)
 	// fmt.Printf("Serializing ReferendumProposal\n")
-	if err := write(buf, m.ReferendumProposal); err != nil {
+	if err := write(buf, action.ReferendumProposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ReferendumProposal : buf len %d\n", buf.Len())
 
 	// InitiativeProposal (bool)
 	// fmt.Printf("Serializing InitiativeProposal\n")
-	if err := write(buf, m.InitiativeProposal); err != nil {
+	if err := write(buf, action.InitiativeProposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized InitiativeProposal : buf len %d\n", buf.Len())
 
 	// Registries ([]Registry)
 	// fmt.Printf("Serializing Registries\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Registries)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Registries)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Registries {
+	for _, value := range action.Registries {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -1303,80 +1303,80 @@ func (m *ContractOffer) serialize() ([]byte, error) {
 
 	// IssuerAddress (bool)
 	// fmt.Printf("Serializing IssuerAddress\n")
-	if err := write(buf, m.IssuerAddress); err != nil {
+	if err := write(buf, action.IssuerAddress); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized IssuerAddress : buf len %d\n", buf.Len())
 
 	// UnitNumber (string)
 	// fmt.Printf("Serializing UnitNumber\n")
-	if err := WriteVarChar(buf, m.UnitNumber, 8); err != nil {
+	if err := WriteVarChar(buf, action.UnitNumber, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized UnitNumber : buf len %d\n", buf.Len())
 
 	// BuildingNumber (string)
 	// fmt.Printf("Serializing BuildingNumber\n")
-	if err := WriteVarChar(buf, m.BuildingNumber, 8); err != nil {
+	if err := WriteVarChar(buf, action.BuildingNumber, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized BuildingNumber : buf len %d\n", buf.Len())
 
 	// Street (string)
 	// fmt.Printf("Serializing Street\n")
-	if err := WriteVarChar(buf, m.Street, 16); err != nil {
+	if err := WriteVarChar(buf, action.Street, 16); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Street : buf len %d\n", buf.Len())
 
 	// SuburbCity (string)
 	// fmt.Printf("Serializing SuburbCity\n")
-	if err := WriteVarChar(buf, m.SuburbCity, 8); err != nil {
+	if err := WriteVarChar(buf, action.SuburbCity, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized SuburbCity : buf len %d\n", buf.Len())
 
 	// TerritoryStateProvinceCode (string)
 	// fmt.Printf("Serializing TerritoryStateProvinceCode\n")
-	if err := WriteFixedChar(buf, m.TerritoryStateProvinceCode, 5); err != nil {
+	if err := WriteFixedChar(buf, action.TerritoryStateProvinceCode, 5); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized TerritoryStateProvinceCode : buf len %d\n", buf.Len())
 
 	// CountryCode (string)
 	// fmt.Printf("Serializing CountryCode\n")
-	if err := WriteFixedChar(buf, m.CountryCode, 3); err != nil {
+	if err := WriteFixedChar(buf, action.CountryCode, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized CountryCode : buf len %d\n", buf.Len())
 
 	// PostalZIPCode (string)
 	// fmt.Printf("Serializing PostalZIPCode\n")
-	if err := WriteVarChar(buf, m.PostalZIPCode, 8); err != nil {
+	if err := WriteVarChar(buf, action.PostalZIPCode, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized PostalZIPCode : buf len %d\n", buf.Len())
 
 	// EmailAddress (string)
 	// fmt.Printf("Serializing EmailAddress\n")
-	if err := WriteVarChar(buf, m.EmailAddress, 8); err != nil {
+	if err := WriteVarChar(buf, action.EmailAddress, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized EmailAddress : buf len %d\n", buf.Len())
 
 	// PhoneNumber (string)
 	// fmt.Printf("Serializing PhoneNumber\n")
-	if err := WriteVarChar(buf, m.PhoneNumber, 8); err != nil {
+	if err := WriteVarChar(buf, action.PhoneNumber, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized PhoneNumber : buf len %d\n", buf.Len())
 
 	// KeyRoles ([]KeyRole)
 	// fmt.Printf("Serializing KeyRoles\n")
-	if err := WriteVariableSize(buf, uint64(len(m.KeyRoles)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.KeyRoles)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.KeyRoles {
+	for _, value := range action.KeyRoles {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -1390,10 +1390,10 @@ func (m *ContractOffer) serialize() ([]byte, error) {
 
 	// NotableRoles ([]NotableRole)
 	// fmt.Printf("Serializing NotableRoles\n")
-	if err := WriteVariableSize(buf, uint64(len(m.NotableRoles)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.NotableRoles)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.NotableRoles {
+	for _, value := range action.NotableRoles {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -1409,145 +1409,145 @@ func (m *ContractOffer) serialize() ([]byte, error) {
 }
 
 // write populates the fields in ContractOffer from the byte slice
-func (m *ContractOffer) write(b []byte) (int, error) {
+func (action *ContractOffer) write(b []byte) (int, error) {
 	// fmt.Printf("Reading ContractOffer : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// ContractName (string)
 	// fmt.Printf("Reading ContractName : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractName, err = ReadVarChar(buf, 8)
+		action.ContractName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractName : %d bytes remaining\n%+v\n", buf.Len(), m.ContractName)
+	// fmt.Printf("Read ContractName : %d bytes remaining\n%+v\n", buf.Len(), action.ContractName)
 
 	// ContractFileType (uint8)
 	// fmt.Printf("Reading ContractFileType : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractFileType); err != nil {
+	if err := read(buf, &action.ContractFileType); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractFileType : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFileType)
+	// fmt.Printf("Read ContractFileType : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFileType)
 
 	// ContractFile ([]byte)
 	// fmt.Printf("Reading ContractFile : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractFile, err = ReadVarBin(buf, 32)
+		action.ContractFile, err = ReadVarBin(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFile)
+	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFile)
 
 	// GoverningLaw (string)
 	// fmt.Printf("Reading GoverningLaw : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.GoverningLaw, err = ReadFixedChar(buf, 5)
+		action.GoverningLaw, err = ReadFixedChar(buf, 5)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read GoverningLaw : %d bytes remaining\n%+v\n", buf.Len(), m.GoverningLaw)
+	// fmt.Printf("Read GoverningLaw : %d bytes remaining\n%+v\n", buf.Len(), action.GoverningLaw)
 
 	// Jurisdiction (string)
 	// fmt.Printf("Reading Jurisdiction : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Jurisdiction, err = ReadFixedChar(buf, 5)
+		action.Jurisdiction, err = ReadFixedChar(buf, 5)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Jurisdiction : %d bytes remaining\n%+v\n", buf.Len(), m.Jurisdiction)
+	// fmt.Printf("Read Jurisdiction : %d bytes remaining\n%+v\n", buf.Len(), action.Jurisdiction)
 
 	// ContractExpiration (uint64)
 	// fmt.Printf("Reading ContractExpiration : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractExpiration); err != nil {
+	if err := read(buf, &action.ContractExpiration); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractExpiration : %d bytes remaining\n%+v\n", buf.Len(), m.ContractExpiration)
+	// fmt.Printf("Read ContractExpiration : %d bytes remaining\n%+v\n", buf.Len(), action.ContractExpiration)
 
 	// ContractURI (string)
 	// fmt.Printf("Reading ContractURI : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractURI, err = ReadVarChar(buf, 8)
+		action.ContractURI, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractURI : %d bytes remaining\n%+v\n", buf.Len(), m.ContractURI)
+	// fmt.Printf("Read ContractURI : %d bytes remaining\n%+v\n", buf.Len(), action.ContractURI)
 
 	// IssuerName (string)
 	// fmt.Printf("Reading IssuerName : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.IssuerName, err = ReadVarChar(buf, 8)
+		action.IssuerName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read IssuerName : %d bytes remaining\n%+v\n", buf.Len(), m.IssuerName)
+	// fmt.Printf("Read IssuerName : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerName)
 
 	// IssuerType (byte)
 	// fmt.Printf("Reading IssuerType : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.IssuerType); err != nil {
+	if err := read(buf, &action.IssuerType); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read IssuerType : %d bytes remaining\n%+v\n", buf.Len(), m.IssuerType)
+	// fmt.Printf("Read IssuerType : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerType)
 
 	// IssuerLogoURL (string)
 	// fmt.Printf("Reading IssuerLogoURL : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.IssuerLogoURL, err = ReadVarChar(buf, 8)
+		action.IssuerLogoURL, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read IssuerLogoURL : %d bytes remaining\n%+v\n", buf.Len(), m.IssuerLogoURL)
+	// fmt.Printf("Read IssuerLogoURL : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerLogoURL)
 
 	// ContractOperatorID (string)
 	// fmt.Printf("Reading ContractOperatorID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractOperatorID, err = ReadVarChar(buf, 8)
+		action.ContractOperatorID, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractOperatorID : %d bytes remaining\n%+v\n", buf.Len(), m.ContractOperatorID)
+	// fmt.Printf("Read ContractOperatorID : %d bytes remaining\n%+v\n", buf.Len(), action.ContractOperatorID)
 
 	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Reading ContractAuthFlags : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractAuthFlags); err != nil {
+	if err := read(buf, &action.ContractAuthFlags); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractAuthFlags : %d bytes remaining\n%+v\n", buf.Len(), m.ContractAuthFlags)
+	// fmt.Printf("Read ContractAuthFlags : %d bytes remaining\n%+v\n", buf.Len(), action.ContractAuthFlags)
 
 	// VotingSystems ([]VotingSystem)
 	// fmt.Printf("Reading VotingSystems : %d bytes remaining\n", buf.Len())
@@ -1556,42 +1556,42 @@ func (m *ContractOffer) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.VotingSystems = make([]VotingSystem, 0, size)
+		action.VotingSystems = make([]VotingSystem, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue VotingSystem
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.VotingSystems = append(m.VotingSystems, newValue)
+			action.VotingSystems = append(action.VotingSystems, newValue)
 		}
 	}
 
-	// fmt.Printf("Read VotingSystems : %d bytes remaining\n%+v\n", buf.Len(), m.VotingSystems)
+	// fmt.Printf("Read VotingSystems : %d bytes remaining\n%+v\n", buf.Len(), action.VotingSystems)
 
 	// RestrictedQtyAssets (uint64)
 	// fmt.Printf("Reading RestrictedQtyAssets : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.RestrictedQtyAssets); err != nil {
+	if err := read(buf, &action.RestrictedQtyAssets); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read RestrictedQtyAssets : %d bytes remaining\n%+v\n", buf.Len(), m.RestrictedQtyAssets)
+	// fmt.Printf("Read RestrictedQtyAssets : %d bytes remaining\n%+v\n", buf.Len(), action.RestrictedQtyAssets)
 
 	// ReferendumProposal (bool)
 	// fmt.Printf("Reading ReferendumProposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ReferendumProposal); err != nil {
+	if err := read(buf, &action.ReferendumProposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ReferendumProposal : %d bytes remaining\n%+v\n", buf.Len(), m.ReferendumProposal)
+	// fmt.Printf("Read ReferendumProposal : %d bytes remaining\n%+v\n", buf.Len(), action.ReferendumProposal)
 
 	// InitiativeProposal (bool)
 	// fmt.Printf("Reading InitiativeProposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.InitiativeProposal); err != nil {
+	if err := read(buf, &action.InitiativeProposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read InitiativeProposal : %d bytes remaining\n%+v\n", buf.Len(), m.InitiativeProposal)
+	// fmt.Printf("Read InitiativeProposal : %d bytes remaining\n%+v\n", buf.Len(), action.InitiativeProposal)
 
 	// Registries ([]Registry)
 	// fmt.Printf("Reading Registries : %d bytes remaining\n", buf.Len())
@@ -1600,134 +1600,134 @@ func (m *ContractOffer) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Registries = make([]Registry, 0, size)
+		action.Registries = make([]Registry, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Registry
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Registries = append(m.Registries, newValue)
+			action.Registries = append(action.Registries, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Registries : %d bytes remaining\n%+v\n", buf.Len(), m.Registries)
+	// fmt.Printf("Read Registries : %d bytes remaining\n%+v\n", buf.Len(), action.Registries)
 
 	// IssuerAddress (bool)
 	// fmt.Printf("Reading IssuerAddress : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.IssuerAddress); err != nil {
+	if err := read(buf, &action.IssuerAddress); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read IssuerAddress : %d bytes remaining\n%+v\n", buf.Len(), m.IssuerAddress)
+	// fmt.Printf("Read IssuerAddress : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerAddress)
 
 	// UnitNumber (string)
 	// fmt.Printf("Reading UnitNumber : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.UnitNumber, err = ReadVarChar(buf, 8)
+		action.UnitNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read UnitNumber : %d bytes remaining\n%+v\n", buf.Len(), m.UnitNumber)
+	// fmt.Printf("Read UnitNumber : %d bytes remaining\n%+v\n", buf.Len(), action.UnitNumber)
 
 	// BuildingNumber (string)
 	// fmt.Printf("Reading BuildingNumber : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.BuildingNumber, err = ReadVarChar(buf, 8)
+		action.BuildingNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read BuildingNumber : %d bytes remaining\n%+v\n", buf.Len(), m.BuildingNumber)
+	// fmt.Printf("Read BuildingNumber : %d bytes remaining\n%+v\n", buf.Len(), action.BuildingNumber)
 
 	// Street (string)
 	// fmt.Printf("Reading Street : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Street, err = ReadVarChar(buf, 16)
+		action.Street, err = ReadVarChar(buf, 16)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Street : %d bytes remaining\n%+v\n", buf.Len(), m.Street)
+	// fmt.Printf("Read Street : %d bytes remaining\n%+v\n", buf.Len(), action.Street)
 
 	// SuburbCity (string)
 	// fmt.Printf("Reading SuburbCity : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.SuburbCity, err = ReadVarChar(buf, 8)
+		action.SuburbCity, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read SuburbCity : %d bytes remaining\n%+v\n", buf.Len(), m.SuburbCity)
+	// fmt.Printf("Read SuburbCity : %d bytes remaining\n%+v\n", buf.Len(), action.SuburbCity)
 
 	// TerritoryStateProvinceCode (string)
 	// fmt.Printf("Reading TerritoryStateProvinceCode : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.TerritoryStateProvinceCode, err = ReadFixedChar(buf, 5)
+		action.TerritoryStateProvinceCode, err = ReadFixedChar(buf, 5)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read TerritoryStateProvinceCode : %d bytes remaining\n%+v\n", buf.Len(), m.TerritoryStateProvinceCode)
+	// fmt.Printf("Read TerritoryStateProvinceCode : %d bytes remaining\n%+v\n", buf.Len(), action.TerritoryStateProvinceCode)
 
 	// CountryCode (string)
 	// fmt.Printf("Reading CountryCode : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.CountryCode, err = ReadFixedChar(buf, 3)
+		action.CountryCode, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read CountryCode : %d bytes remaining\n%+v\n", buf.Len(), m.CountryCode)
+	// fmt.Printf("Read CountryCode : %d bytes remaining\n%+v\n", buf.Len(), action.CountryCode)
 
 	// PostalZIPCode (string)
 	// fmt.Printf("Reading PostalZIPCode : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.PostalZIPCode, err = ReadVarChar(buf, 8)
+		action.PostalZIPCode, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read PostalZIPCode : %d bytes remaining\n%+v\n", buf.Len(), m.PostalZIPCode)
+	// fmt.Printf("Read PostalZIPCode : %d bytes remaining\n%+v\n", buf.Len(), action.PostalZIPCode)
 
 	// EmailAddress (string)
 	// fmt.Printf("Reading EmailAddress : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.EmailAddress, err = ReadVarChar(buf, 8)
+		action.EmailAddress, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read EmailAddress : %d bytes remaining\n%+v\n", buf.Len(), m.EmailAddress)
+	// fmt.Printf("Read EmailAddress : %d bytes remaining\n%+v\n", buf.Len(), action.EmailAddress)
 
 	// PhoneNumber (string)
 	// fmt.Printf("Reading PhoneNumber : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.PhoneNumber, err = ReadVarChar(buf, 8)
+		action.PhoneNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read PhoneNumber : %d bytes remaining\n%+v\n", buf.Len(), m.PhoneNumber)
+	// fmt.Printf("Read PhoneNumber : %d bytes remaining\n%+v\n", buf.Len(), action.PhoneNumber)
 
 	// KeyRoles ([]KeyRole)
 	// fmt.Printf("Reading KeyRoles : %d bytes remaining\n", buf.Len())
@@ -1736,18 +1736,18 @@ func (m *ContractOffer) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.KeyRoles = make([]KeyRole, 0, size)
+		action.KeyRoles = make([]KeyRole, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue KeyRole
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.KeyRoles = append(m.KeyRoles, newValue)
+			action.KeyRoles = append(action.KeyRoles, newValue)
 		}
 	}
 
-	// fmt.Printf("Read KeyRoles : %d bytes remaining\n%+v\n", buf.Len(), m.KeyRoles)
+	// fmt.Printf("Read KeyRoles : %d bytes remaining\n%+v\n", buf.Len(), action.KeyRoles)
 
 	// NotableRoles ([]NotableRole)
 	// fmt.Printf("Reading NotableRoles : %d bytes remaining\n", buf.Len())
@@ -1756,61 +1756,61 @@ func (m *ContractOffer) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.NotableRoles = make([]NotableRole, 0, size)
+		action.NotableRoles = make([]NotableRole, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue NotableRole
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.NotableRoles = append(m.NotableRoles, newValue)
+			action.NotableRoles = append(action.NotableRoles, newValue)
 		}
 	}
 
-	// fmt.Printf("Read NotableRoles : %d bytes remaining\n%+v\n", buf.Len(), m.NotableRoles)
+	// fmt.Printf("Read NotableRoles : %d bytes remaining\n%+v\n", buf.Len(), action.NotableRoles)
 
 	// fmt.Printf("Read ContractOffer : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m ContractOffer) PayloadMessage() (PayloadMessage, error) {
+func (action ContractOffer) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m ContractOffer) String() string {
+func (action ContractOffer) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
-	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
-	vals = append(vals, fmt.Sprintf("ContractFile:%#x", m.ContractFile))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", m.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", m.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", m.ContractExpiration))
-	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", m.ContractURI))
-	vals = append(vals, fmt.Sprintf("IssuerName:%#+v", m.IssuerName))
-	vals = append(vals, fmt.Sprintf("IssuerType:%#+v", m.IssuerType))
-	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", m.IssuerLogoURL))
-	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", m.ContractOperatorID))
-	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", m.ContractAuthFlags))
-	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", m.VotingSystems))
-	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", m.RestrictedQtyAssets))
-	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", m.ReferendumProposal))
-	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", m.InitiativeProposal))
-	vals = append(vals, fmt.Sprintf("Registries:%#+v", m.Registries))
-	vals = append(vals, fmt.Sprintf("IssuerAddress:%#+v", m.IssuerAddress))
-	vals = append(vals, fmt.Sprintf("UnitNumber:%#+v", m.UnitNumber))
-	vals = append(vals, fmt.Sprintf("BuildingNumber:%#+v", m.BuildingNumber))
-	vals = append(vals, fmt.Sprintf("Street:%#+v", m.Street))
-	vals = append(vals, fmt.Sprintf("SuburbCity:%#+v", m.SuburbCity))
-	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#+v", m.TerritoryStateProvinceCode))
-	vals = append(vals, fmt.Sprintf("CountryCode:%#+v", m.CountryCode))
-	vals = append(vals, fmt.Sprintf("PostalZIPCode:%#+v", m.PostalZIPCode))
-	vals = append(vals, fmt.Sprintf("EmailAddress:%#+v", m.EmailAddress))
-	vals = append(vals, fmt.Sprintf("PhoneNumber:%#+v", m.PhoneNumber))
-	vals = append(vals, fmt.Sprintf("KeyRoles:%#+v", m.KeyRoles))
-	vals = append(vals, fmt.Sprintf("NotableRoles:%#+v", m.NotableRoles))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
+	vals = append(vals, fmt.Sprintf("ContractFileType:%v", action.ContractFileType))
+	vals = append(vals, fmt.Sprintf("ContractFile:%#x", action.ContractFile))
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", action.ContractExpiration))
+	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
+	vals = append(vals, fmt.Sprintf("IssuerName:%#+v", action.IssuerName))
+	vals = append(vals, fmt.Sprintf("IssuerType:%#+v", action.IssuerType))
+	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", action.IssuerLogoURL))
+	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", action.ContractOperatorID))
+	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", action.ContractAuthFlags))
+	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
+	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
+	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))
+	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", action.InitiativeProposal))
+	vals = append(vals, fmt.Sprintf("Registries:%#+v", action.Registries))
+	vals = append(vals, fmt.Sprintf("IssuerAddress:%#+v", action.IssuerAddress))
+	vals = append(vals, fmt.Sprintf("UnitNumber:%#+v", action.UnitNumber))
+	vals = append(vals, fmt.Sprintf("BuildingNumber:%#+v", action.BuildingNumber))
+	vals = append(vals, fmt.Sprintf("Street:%#+v", action.Street))
+	vals = append(vals, fmt.Sprintf("SuburbCity:%#+v", action.SuburbCity))
+	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#+v", action.TerritoryStateProvinceCode))
+	vals = append(vals, fmt.Sprintf("CountryCode:%#+v", action.CountryCode))
+	vals = append(vals, fmt.Sprintf("PostalZIPCode:%#+v", action.PostalZIPCode))
+	vals = append(vals, fmt.Sprintf("EmailAddress:%#+v", action.EmailAddress))
+	vals = append(vals, fmt.Sprintf("PhoneNumber:%#+v", action.PhoneNumber))
+	vals = append(vals, fmt.Sprintf("KeyRoles:%#+v", action.KeyRoles))
+	vals = append(vals, fmt.Sprintf("NotableRoles:%#+v", action.NotableRoles))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -1856,14 +1856,14 @@ type ContractFormation struct {
 }
 
 // Type returns the type identifer for this message.
-func (m ContractFormation) Type() string {
+func (action ContractFormation) Type() string {
 	return CodeContractFormation
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *ContractFormation) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *ContractFormation) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -1875,99 +1875,99 @@ func (m *ContractFormation) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *ContractFormation) serialize() ([]byte, error) {
+func (action *ContractFormation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// ContractName (string)
 	// fmt.Printf("Serializing ContractName\n")
-	if err := WriteVarChar(buf, m.ContractName, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractName, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractName : buf len %d\n", buf.Len())
 
 	// ContractFileType (uint8)
 	// fmt.Printf("Serializing ContractFileType\n")
-	if err := write(buf, m.ContractFileType); err != nil {
+	if err := write(buf, action.ContractFileType); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFileType : buf len %d\n", buf.Len())
 
 	// ContractFile ([]byte)
 	// fmt.Printf("Serializing ContractFile\n")
-	if err := WriteVarBin(buf, m.ContractFile, 32); err != nil {
+	if err := WriteVarBin(buf, action.ContractFile, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFile : buf len %d\n", buf.Len())
 
 	// GoverningLaw (string)
 	// fmt.Printf("Serializing GoverningLaw\n")
-	if err := WriteFixedChar(buf, m.GoverningLaw, 5); err != nil {
+	if err := WriteFixedChar(buf, action.GoverningLaw, 5); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized GoverningLaw : buf len %d\n", buf.Len())
 
 	// Jurisdiction (string)
 	// fmt.Printf("Serializing Jurisdiction\n")
-	if err := WriteFixedChar(buf, m.Jurisdiction, 5); err != nil {
+	if err := WriteFixedChar(buf, action.Jurisdiction, 5); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Jurisdiction : buf len %d\n", buf.Len())
 
 	// ContractExpiration (uint64)
 	// fmt.Printf("Serializing ContractExpiration\n")
-	if err := write(buf, m.ContractExpiration); err != nil {
+	if err := write(buf, action.ContractExpiration); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractExpiration : buf len %d\n", buf.Len())
 
 	// ContractURI (string)
 	// fmt.Printf("Serializing ContractURI\n")
-	if err := WriteVarChar(buf, m.ContractURI, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractURI, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractURI : buf len %d\n", buf.Len())
 
 	// IssuerName (string)
 	// fmt.Printf("Serializing IssuerName\n")
-	if err := WriteVarChar(buf, m.IssuerName, 8); err != nil {
+	if err := WriteVarChar(buf, action.IssuerName, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized IssuerName : buf len %d\n", buf.Len())
 
 	// IssuerType (byte)
 	// fmt.Printf("Serializing IssuerType\n")
-	if err := write(buf, m.IssuerType); err != nil {
+	if err := write(buf, action.IssuerType); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized IssuerType : buf len %d\n", buf.Len())
 
 	// IssuerLogoURL (string)
 	// fmt.Printf("Serializing IssuerLogoURL\n")
-	if err := WriteVarChar(buf, m.IssuerLogoURL, 8); err != nil {
+	if err := WriteVarChar(buf, action.IssuerLogoURL, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized IssuerLogoURL : buf len %d\n", buf.Len())
 
 	// ContractOperatorID (string)
 	// fmt.Printf("Serializing ContractOperatorID\n")
-	if err := WriteVarChar(buf, m.ContractOperatorID, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractOperatorID, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractOperatorID : buf len %d\n", buf.Len())
 
 	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Serializing ContractAuthFlags\n")
-	if err := write(buf, m.ContractAuthFlags); err != nil {
+	if err := write(buf, action.ContractAuthFlags); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractAuthFlags : buf len %d\n", buf.Len())
 
 	// VotingSystems ([]VotingSystem)
 	// fmt.Printf("Serializing VotingSystems\n")
-	if err := WriteVariableSize(buf, uint64(len(m.VotingSystems)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.VotingSystems)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.VotingSystems {
+	for _, value := range action.VotingSystems {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -1981,31 +1981,31 @@ func (m *ContractFormation) serialize() ([]byte, error) {
 
 	// RestrictedQtyAssets (uint64)
 	// fmt.Printf("Serializing RestrictedQtyAssets\n")
-	if err := write(buf, m.RestrictedQtyAssets); err != nil {
+	if err := write(buf, action.RestrictedQtyAssets); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized RestrictedQtyAssets : buf len %d\n", buf.Len())
 
 	// ReferendumProposal (bool)
 	// fmt.Printf("Serializing ReferendumProposal\n")
-	if err := write(buf, m.ReferendumProposal); err != nil {
+	if err := write(buf, action.ReferendumProposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ReferendumProposal : buf len %d\n", buf.Len())
 
 	// InitiativeProposal (bool)
 	// fmt.Printf("Serializing InitiativeProposal\n")
-	if err := write(buf, m.InitiativeProposal); err != nil {
+	if err := write(buf, action.InitiativeProposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized InitiativeProposal : buf len %d\n", buf.Len())
 
 	// Registries ([]Registry)
 	// fmt.Printf("Serializing Registries\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Registries)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Registries)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Registries {
+	for _, value := range action.Registries {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -2019,80 +2019,80 @@ func (m *ContractFormation) serialize() ([]byte, error) {
 
 	// IssuerAddress (bool)
 	// fmt.Printf("Serializing IssuerAddress\n")
-	if err := write(buf, m.IssuerAddress); err != nil {
+	if err := write(buf, action.IssuerAddress); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized IssuerAddress : buf len %d\n", buf.Len())
 
 	// UnitNumber (string)
 	// fmt.Printf("Serializing UnitNumber\n")
-	if err := WriteVarChar(buf, m.UnitNumber, 8); err != nil {
+	if err := WriteVarChar(buf, action.UnitNumber, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized UnitNumber : buf len %d\n", buf.Len())
 
 	// BuildingNumber (string)
 	// fmt.Printf("Serializing BuildingNumber\n")
-	if err := WriteVarChar(buf, m.BuildingNumber, 8); err != nil {
+	if err := WriteVarChar(buf, action.BuildingNumber, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized BuildingNumber : buf len %d\n", buf.Len())
 
 	// Street (string)
 	// fmt.Printf("Serializing Street\n")
-	if err := WriteVarChar(buf, m.Street, 16); err != nil {
+	if err := WriteVarChar(buf, action.Street, 16); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Street : buf len %d\n", buf.Len())
 
 	// SuburbCity (string)
 	// fmt.Printf("Serializing SuburbCity\n")
-	if err := WriteVarChar(buf, m.SuburbCity, 8); err != nil {
+	if err := WriteVarChar(buf, action.SuburbCity, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized SuburbCity : buf len %d\n", buf.Len())
 
 	// TerritoryStateProvinceCode (string)
 	// fmt.Printf("Serializing TerritoryStateProvinceCode\n")
-	if err := WriteFixedChar(buf, m.TerritoryStateProvinceCode, 5); err != nil {
+	if err := WriteFixedChar(buf, action.TerritoryStateProvinceCode, 5); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized TerritoryStateProvinceCode : buf len %d\n", buf.Len())
 
 	// CountryCode (string)
 	// fmt.Printf("Serializing CountryCode\n")
-	if err := WriteFixedChar(buf, m.CountryCode, 3); err != nil {
+	if err := WriteFixedChar(buf, action.CountryCode, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized CountryCode : buf len %d\n", buf.Len())
 
 	// PostalZIPCode (string)
 	// fmt.Printf("Serializing PostalZIPCode\n")
-	if err := WriteVarChar(buf, m.PostalZIPCode, 8); err != nil {
+	if err := WriteVarChar(buf, action.PostalZIPCode, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized PostalZIPCode : buf len %d\n", buf.Len())
 
 	// EmailAddress (string)
 	// fmt.Printf("Serializing EmailAddress\n")
-	if err := WriteVarChar(buf, m.EmailAddress, 8); err != nil {
+	if err := WriteVarChar(buf, action.EmailAddress, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized EmailAddress : buf len %d\n", buf.Len())
 
 	// PhoneNumber (string)
 	// fmt.Printf("Serializing PhoneNumber\n")
-	if err := WriteVarChar(buf, m.PhoneNumber, 8); err != nil {
+	if err := WriteVarChar(buf, action.PhoneNumber, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized PhoneNumber : buf len %d\n", buf.Len())
 
 	// KeyRoles ([]KeyRole)
 	// fmt.Printf("Serializing KeyRoles\n")
-	if err := WriteVariableSize(buf, uint64(len(m.KeyRoles)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.KeyRoles)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.KeyRoles {
+	for _, value := range action.KeyRoles {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -2106,10 +2106,10 @@ func (m *ContractFormation) serialize() ([]byte, error) {
 
 	// NotableRoles ([]NotableRole)
 	// fmt.Printf("Serializing NotableRoles\n")
-	if err := WriteVariableSize(buf, uint64(len(m.NotableRoles)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.NotableRoles)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.NotableRoles {
+	for _, value := range action.NotableRoles {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -2123,14 +2123,14 @@ func (m *ContractFormation) serialize() ([]byte, error) {
 
 	// ContractRevision (uint64)
 	// fmt.Printf("Serializing ContractRevision\n")
-	if err := write(buf, m.ContractRevision); err != nil {
+	if err := write(buf, action.ContractRevision); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractRevision : buf len %d\n", buf.Len())
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -2139,145 +2139,145 @@ func (m *ContractFormation) serialize() ([]byte, error) {
 }
 
 // write populates the fields in ContractFormation from the byte slice
-func (m *ContractFormation) write(b []byte) (int, error) {
+func (action *ContractFormation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading ContractFormation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// ContractName (string)
 	// fmt.Printf("Reading ContractName : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractName, err = ReadVarChar(buf, 8)
+		action.ContractName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractName : %d bytes remaining\n%+v\n", buf.Len(), m.ContractName)
+	// fmt.Printf("Read ContractName : %d bytes remaining\n%+v\n", buf.Len(), action.ContractName)
 
 	// ContractFileType (uint8)
 	// fmt.Printf("Reading ContractFileType : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractFileType); err != nil {
+	if err := read(buf, &action.ContractFileType); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractFileType : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFileType)
+	// fmt.Printf("Read ContractFileType : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFileType)
 
 	// ContractFile ([]byte)
 	// fmt.Printf("Reading ContractFile : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractFile, err = ReadVarBin(buf, 32)
+		action.ContractFile, err = ReadVarBin(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFile)
+	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFile)
 
 	// GoverningLaw (string)
 	// fmt.Printf("Reading GoverningLaw : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.GoverningLaw, err = ReadFixedChar(buf, 5)
+		action.GoverningLaw, err = ReadFixedChar(buf, 5)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read GoverningLaw : %d bytes remaining\n%+v\n", buf.Len(), m.GoverningLaw)
+	// fmt.Printf("Read GoverningLaw : %d bytes remaining\n%+v\n", buf.Len(), action.GoverningLaw)
 
 	// Jurisdiction (string)
 	// fmt.Printf("Reading Jurisdiction : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Jurisdiction, err = ReadFixedChar(buf, 5)
+		action.Jurisdiction, err = ReadFixedChar(buf, 5)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Jurisdiction : %d bytes remaining\n%+v\n", buf.Len(), m.Jurisdiction)
+	// fmt.Printf("Read Jurisdiction : %d bytes remaining\n%+v\n", buf.Len(), action.Jurisdiction)
 
 	// ContractExpiration (uint64)
 	// fmt.Printf("Reading ContractExpiration : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractExpiration); err != nil {
+	if err := read(buf, &action.ContractExpiration); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractExpiration : %d bytes remaining\n%+v\n", buf.Len(), m.ContractExpiration)
+	// fmt.Printf("Read ContractExpiration : %d bytes remaining\n%+v\n", buf.Len(), action.ContractExpiration)
 
 	// ContractURI (string)
 	// fmt.Printf("Reading ContractURI : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractURI, err = ReadVarChar(buf, 8)
+		action.ContractURI, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractURI : %d bytes remaining\n%+v\n", buf.Len(), m.ContractURI)
+	// fmt.Printf("Read ContractURI : %d bytes remaining\n%+v\n", buf.Len(), action.ContractURI)
 
 	// IssuerName (string)
 	// fmt.Printf("Reading IssuerName : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.IssuerName, err = ReadVarChar(buf, 8)
+		action.IssuerName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read IssuerName : %d bytes remaining\n%+v\n", buf.Len(), m.IssuerName)
+	// fmt.Printf("Read IssuerName : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerName)
 
 	// IssuerType (byte)
 	// fmt.Printf("Reading IssuerType : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.IssuerType); err != nil {
+	if err := read(buf, &action.IssuerType); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read IssuerType : %d bytes remaining\n%+v\n", buf.Len(), m.IssuerType)
+	// fmt.Printf("Read IssuerType : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerType)
 
 	// IssuerLogoURL (string)
 	// fmt.Printf("Reading IssuerLogoURL : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.IssuerLogoURL, err = ReadVarChar(buf, 8)
+		action.IssuerLogoURL, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read IssuerLogoURL : %d bytes remaining\n%+v\n", buf.Len(), m.IssuerLogoURL)
+	// fmt.Printf("Read IssuerLogoURL : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerLogoURL)
 
 	// ContractOperatorID (string)
 	// fmt.Printf("Reading ContractOperatorID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractOperatorID, err = ReadVarChar(buf, 8)
+		action.ContractOperatorID, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractOperatorID : %d bytes remaining\n%+v\n", buf.Len(), m.ContractOperatorID)
+	// fmt.Printf("Read ContractOperatorID : %d bytes remaining\n%+v\n", buf.Len(), action.ContractOperatorID)
 
 	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Reading ContractAuthFlags : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractAuthFlags); err != nil {
+	if err := read(buf, &action.ContractAuthFlags); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractAuthFlags : %d bytes remaining\n%+v\n", buf.Len(), m.ContractAuthFlags)
+	// fmt.Printf("Read ContractAuthFlags : %d bytes remaining\n%+v\n", buf.Len(), action.ContractAuthFlags)
 
 	// VotingSystems ([]VotingSystem)
 	// fmt.Printf("Reading VotingSystems : %d bytes remaining\n", buf.Len())
@@ -2286,42 +2286,42 @@ func (m *ContractFormation) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.VotingSystems = make([]VotingSystem, 0, size)
+		action.VotingSystems = make([]VotingSystem, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue VotingSystem
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.VotingSystems = append(m.VotingSystems, newValue)
+			action.VotingSystems = append(action.VotingSystems, newValue)
 		}
 	}
 
-	// fmt.Printf("Read VotingSystems : %d bytes remaining\n%+v\n", buf.Len(), m.VotingSystems)
+	// fmt.Printf("Read VotingSystems : %d bytes remaining\n%+v\n", buf.Len(), action.VotingSystems)
 
 	// RestrictedQtyAssets (uint64)
 	// fmt.Printf("Reading RestrictedQtyAssets : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.RestrictedQtyAssets); err != nil {
+	if err := read(buf, &action.RestrictedQtyAssets); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read RestrictedQtyAssets : %d bytes remaining\n%+v\n", buf.Len(), m.RestrictedQtyAssets)
+	// fmt.Printf("Read RestrictedQtyAssets : %d bytes remaining\n%+v\n", buf.Len(), action.RestrictedQtyAssets)
 
 	// ReferendumProposal (bool)
 	// fmt.Printf("Reading ReferendumProposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ReferendumProposal); err != nil {
+	if err := read(buf, &action.ReferendumProposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ReferendumProposal : %d bytes remaining\n%+v\n", buf.Len(), m.ReferendumProposal)
+	// fmt.Printf("Read ReferendumProposal : %d bytes remaining\n%+v\n", buf.Len(), action.ReferendumProposal)
 
 	// InitiativeProposal (bool)
 	// fmt.Printf("Reading InitiativeProposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.InitiativeProposal); err != nil {
+	if err := read(buf, &action.InitiativeProposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read InitiativeProposal : %d bytes remaining\n%+v\n", buf.Len(), m.InitiativeProposal)
+	// fmt.Printf("Read InitiativeProposal : %d bytes remaining\n%+v\n", buf.Len(), action.InitiativeProposal)
 
 	// Registries ([]Registry)
 	// fmt.Printf("Reading Registries : %d bytes remaining\n", buf.Len())
@@ -2330,134 +2330,134 @@ func (m *ContractFormation) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Registries = make([]Registry, 0, size)
+		action.Registries = make([]Registry, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Registry
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Registries = append(m.Registries, newValue)
+			action.Registries = append(action.Registries, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Registries : %d bytes remaining\n%+v\n", buf.Len(), m.Registries)
+	// fmt.Printf("Read Registries : %d bytes remaining\n%+v\n", buf.Len(), action.Registries)
 
 	// IssuerAddress (bool)
 	// fmt.Printf("Reading IssuerAddress : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.IssuerAddress); err != nil {
+	if err := read(buf, &action.IssuerAddress); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read IssuerAddress : %d bytes remaining\n%+v\n", buf.Len(), m.IssuerAddress)
+	// fmt.Printf("Read IssuerAddress : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerAddress)
 
 	// UnitNumber (string)
 	// fmt.Printf("Reading UnitNumber : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.UnitNumber, err = ReadVarChar(buf, 8)
+		action.UnitNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read UnitNumber : %d bytes remaining\n%+v\n", buf.Len(), m.UnitNumber)
+	// fmt.Printf("Read UnitNumber : %d bytes remaining\n%+v\n", buf.Len(), action.UnitNumber)
 
 	// BuildingNumber (string)
 	// fmt.Printf("Reading BuildingNumber : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.BuildingNumber, err = ReadVarChar(buf, 8)
+		action.BuildingNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read BuildingNumber : %d bytes remaining\n%+v\n", buf.Len(), m.BuildingNumber)
+	// fmt.Printf("Read BuildingNumber : %d bytes remaining\n%+v\n", buf.Len(), action.BuildingNumber)
 
 	// Street (string)
 	// fmt.Printf("Reading Street : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Street, err = ReadVarChar(buf, 16)
+		action.Street, err = ReadVarChar(buf, 16)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Street : %d bytes remaining\n%+v\n", buf.Len(), m.Street)
+	// fmt.Printf("Read Street : %d bytes remaining\n%+v\n", buf.Len(), action.Street)
 
 	// SuburbCity (string)
 	// fmt.Printf("Reading SuburbCity : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.SuburbCity, err = ReadVarChar(buf, 8)
+		action.SuburbCity, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read SuburbCity : %d bytes remaining\n%+v\n", buf.Len(), m.SuburbCity)
+	// fmt.Printf("Read SuburbCity : %d bytes remaining\n%+v\n", buf.Len(), action.SuburbCity)
 
 	// TerritoryStateProvinceCode (string)
 	// fmt.Printf("Reading TerritoryStateProvinceCode : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.TerritoryStateProvinceCode, err = ReadFixedChar(buf, 5)
+		action.TerritoryStateProvinceCode, err = ReadFixedChar(buf, 5)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read TerritoryStateProvinceCode : %d bytes remaining\n%+v\n", buf.Len(), m.TerritoryStateProvinceCode)
+	// fmt.Printf("Read TerritoryStateProvinceCode : %d bytes remaining\n%+v\n", buf.Len(), action.TerritoryStateProvinceCode)
 
 	// CountryCode (string)
 	// fmt.Printf("Reading CountryCode : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.CountryCode, err = ReadFixedChar(buf, 3)
+		action.CountryCode, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read CountryCode : %d bytes remaining\n%+v\n", buf.Len(), m.CountryCode)
+	// fmt.Printf("Read CountryCode : %d bytes remaining\n%+v\n", buf.Len(), action.CountryCode)
 
 	// PostalZIPCode (string)
 	// fmt.Printf("Reading PostalZIPCode : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.PostalZIPCode, err = ReadVarChar(buf, 8)
+		action.PostalZIPCode, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read PostalZIPCode : %d bytes remaining\n%+v\n", buf.Len(), m.PostalZIPCode)
+	// fmt.Printf("Read PostalZIPCode : %d bytes remaining\n%+v\n", buf.Len(), action.PostalZIPCode)
 
 	// EmailAddress (string)
 	// fmt.Printf("Reading EmailAddress : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.EmailAddress, err = ReadVarChar(buf, 8)
+		action.EmailAddress, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read EmailAddress : %d bytes remaining\n%+v\n", buf.Len(), m.EmailAddress)
+	// fmt.Printf("Read EmailAddress : %d bytes remaining\n%+v\n", buf.Len(), action.EmailAddress)
 
 	// PhoneNumber (string)
 	// fmt.Printf("Reading PhoneNumber : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.PhoneNumber, err = ReadVarChar(buf, 8)
+		action.PhoneNumber, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read PhoneNumber : %d bytes remaining\n%+v\n", buf.Len(), m.PhoneNumber)
+	// fmt.Printf("Read PhoneNumber : %d bytes remaining\n%+v\n", buf.Len(), action.PhoneNumber)
 
 	// KeyRoles ([]KeyRole)
 	// fmt.Printf("Reading KeyRoles : %d bytes remaining\n", buf.Len())
@@ -2466,18 +2466,18 @@ func (m *ContractFormation) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.KeyRoles = make([]KeyRole, 0, size)
+		action.KeyRoles = make([]KeyRole, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue KeyRole
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.KeyRoles = append(m.KeyRoles, newValue)
+			action.KeyRoles = append(action.KeyRoles, newValue)
 		}
 	}
 
-	// fmt.Printf("Read KeyRoles : %d bytes remaining\n%+v\n", buf.Len(), m.KeyRoles)
+	// fmt.Printf("Read KeyRoles : %d bytes remaining\n%+v\n", buf.Len(), action.KeyRoles)
 
 	// NotableRoles ([]NotableRole)
 	// fmt.Printf("Reading NotableRoles : %d bytes remaining\n", buf.Len())
@@ -2486,79 +2486,79 @@ func (m *ContractFormation) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.NotableRoles = make([]NotableRole, 0, size)
+		action.NotableRoles = make([]NotableRole, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue NotableRole
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.NotableRoles = append(m.NotableRoles, newValue)
+			action.NotableRoles = append(action.NotableRoles, newValue)
 		}
 	}
 
-	// fmt.Printf("Read NotableRoles : %d bytes remaining\n%+v\n", buf.Len(), m.NotableRoles)
+	// fmt.Printf("Read NotableRoles : %d bytes remaining\n%+v\n", buf.Len(), action.NotableRoles)
 
 	// ContractRevision (uint64)
 	// fmt.Printf("Reading ContractRevision : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractRevision); err != nil {
+	if err := read(buf, &action.ContractRevision); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractRevision : %d bytes remaining\n%+v\n", buf.Len(), m.ContractRevision)
+	// fmt.Printf("Read ContractRevision : %d bytes remaining\n%+v\n", buf.Len(), action.ContractRevision)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read ContractFormation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m ContractFormation) PayloadMessage() (PayloadMessage, error) {
+func (action ContractFormation) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m ContractFormation) String() string {
+func (action ContractFormation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
-	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
-	vals = append(vals, fmt.Sprintf("ContractFile:%#x", m.ContractFile))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", m.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", m.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", m.ContractExpiration))
-	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", m.ContractURI))
-	vals = append(vals, fmt.Sprintf("IssuerName:%#+v", m.IssuerName))
-	vals = append(vals, fmt.Sprintf("IssuerType:%#+v", m.IssuerType))
-	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", m.IssuerLogoURL))
-	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", m.ContractOperatorID))
-	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", m.ContractAuthFlags))
-	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", m.VotingSystems))
-	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", m.RestrictedQtyAssets))
-	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", m.ReferendumProposal))
-	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", m.InitiativeProposal))
-	vals = append(vals, fmt.Sprintf("Registries:%#+v", m.Registries))
-	vals = append(vals, fmt.Sprintf("IssuerAddress:%#+v", m.IssuerAddress))
-	vals = append(vals, fmt.Sprintf("UnitNumber:%#+v", m.UnitNumber))
-	vals = append(vals, fmt.Sprintf("BuildingNumber:%#+v", m.BuildingNumber))
-	vals = append(vals, fmt.Sprintf("Street:%#+v", m.Street))
-	vals = append(vals, fmt.Sprintf("SuburbCity:%#+v", m.SuburbCity))
-	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#+v", m.TerritoryStateProvinceCode))
-	vals = append(vals, fmt.Sprintf("CountryCode:%#+v", m.CountryCode))
-	vals = append(vals, fmt.Sprintf("PostalZIPCode:%#+v", m.PostalZIPCode))
-	vals = append(vals, fmt.Sprintf("EmailAddress:%#+v", m.EmailAddress))
-	vals = append(vals, fmt.Sprintf("PhoneNumber:%#+v", m.PhoneNumber))
-	vals = append(vals, fmt.Sprintf("KeyRoles:%#+v", m.KeyRoles))
-	vals = append(vals, fmt.Sprintf("NotableRoles:%#+v", m.NotableRoles))
-	vals = append(vals, fmt.Sprintf("ContractRevision:%v", m.ContractRevision))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
+	vals = append(vals, fmt.Sprintf("ContractFileType:%v", action.ContractFileType))
+	vals = append(vals, fmt.Sprintf("ContractFile:%#x", action.ContractFile))
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", action.ContractExpiration))
+	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
+	vals = append(vals, fmt.Sprintf("IssuerName:%#+v", action.IssuerName))
+	vals = append(vals, fmt.Sprintf("IssuerType:%#+v", action.IssuerType))
+	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", action.IssuerLogoURL))
+	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", action.ContractOperatorID))
+	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", action.ContractAuthFlags))
+	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
+	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
+	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))
+	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", action.InitiativeProposal))
+	vals = append(vals, fmt.Sprintf("Registries:%#+v", action.Registries))
+	vals = append(vals, fmt.Sprintf("IssuerAddress:%#+v", action.IssuerAddress))
+	vals = append(vals, fmt.Sprintf("UnitNumber:%#+v", action.UnitNumber))
+	vals = append(vals, fmt.Sprintf("BuildingNumber:%#+v", action.BuildingNumber))
+	vals = append(vals, fmt.Sprintf("Street:%#+v", action.Street))
+	vals = append(vals, fmt.Sprintf("SuburbCity:%#+v", action.SuburbCity))
+	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#+v", action.TerritoryStateProvinceCode))
+	vals = append(vals, fmt.Sprintf("CountryCode:%#+v", action.CountryCode))
+	vals = append(vals, fmt.Sprintf("PostalZIPCode:%#+v", action.PostalZIPCode))
+	vals = append(vals, fmt.Sprintf("EmailAddress:%#+v", action.EmailAddress))
+	vals = append(vals, fmt.Sprintf("PhoneNumber:%#+v", action.PhoneNumber))
+	vals = append(vals, fmt.Sprintf("KeyRoles:%#+v", action.KeyRoles))
+	vals = append(vals, fmt.Sprintf("NotableRoles:%#+v", action.NotableRoles))
+	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -2577,14 +2577,14 @@ type ContractAmendment struct {
 }
 
 // Type returns the type identifer for this message.
-func (m ContractAmendment) Type() string {
+func (action ContractAmendment) Type() string {
 	return CodeContractAmendment
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *ContractAmendment) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *ContractAmendment) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -2596,36 +2596,36 @@ func (m *ContractAmendment) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *ContractAmendment) serialize() ([]byte, error) {
+func (action *ContractAmendment) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// ChangeIssuerAddress (bool)
 	// fmt.Printf("Serializing ChangeIssuerAddress\n")
-	if err := write(buf, m.ChangeIssuerAddress); err != nil {
+	if err := write(buf, action.ChangeIssuerAddress); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ChangeIssuerAddress : buf len %d\n", buf.Len())
 
 	// ChangeOperatorAddress (bool)
 	// fmt.Printf("Serializing ChangeOperatorAddress\n")
-	if err := write(buf, m.ChangeOperatorAddress); err != nil {
+	if err := write(buf, action.ChangeOperatorAddress); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ChangeOperatorAddress : buf len %d\n", buf.Len())
 
 	// ContractRevision (uint16)
 	// fmt.Printf("Serializing ContractRevision\n")
-	if err := write(buf, m.ContractRevision); err != nil {
+	if err := write(buf, action.ContractRevision); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractRevision : buf len %d\n", buf.Len())
 
 	// Amendments ([]Amendment)
 	// fmt.Printf("Serializing Amendments\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Amendments)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Amendments)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Amendments {
+	for _, value := range action.Amendments {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -2639,7 +2639,7 @@ func (m *ContractAmendment) serialize() ([]byte, error) {
 
 	// RefTxID ([32]byte)
 	// fmt.Printf("Serializing RefTxID\n")
-	if err := write(buf, m.RefTxID); err != nil {
+	if err := write(buf, action.RefTxID); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized RefTxID : buf len %d\n", buf.Len())
@@ -2648,41 +2648,41 @@ func (m *ContractAmendment) serialize() ([]byte, error) {
 }
 
 // write populates the fields in ContractAmendment from the byte slice
-func (m *ContractAmendment) write(b []byte) (int, error) {
+func (action *ContractAmendment) write(b []byte) (int, error) {
 	// fmt.Printf("Reading ContractAmendment : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// ChangeIssuerAddress (bool)
 	// fmt.Printf("Reading ChangeIssuerAddress : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ChangeIssuerAddress); err != nil {
+	if err := read(buf, &action.ChangeIssuerAddress); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ChangeIssuerAddress : %d bytes remaining\n%+v\n", buf.Len(), m.ChangeIssuerAddress)
+	// fmt.Printf("Read ChangeIssuerAddress : %d bytes remaining\n%+v\n", buf.Len(), action.ChangeIssuerAddress)
 
 	// ChangeOperatorAddress (bool)
 	// fmt.Printf("Reading ChangeOperatorAddress : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ChangeOperatorAddress); err != nil {
+	if err := read(buf, &action.ChangeOperatorAddress); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ChangeOperatorAddress : %d bytes remaining\n%+v\n", buf.Len(), m.ChangeOperatorAddress)
+	// fmt.Printf("Read ChangeOperatorAddress : %d bytes remaining\n%+v\n", buf.Len(), action.ChangeOperatorAddress)
 
 	// ContractRevision (uint16)
 	// fmt.Printf("Reading ContractRevision : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractRevision); err != nil {
+	if err := read(buf, &action.ContractRevision); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractRevision : %d bytes remaining\n%+v\n", buf.Len(), m.ContractRevision)
+	// fmt.Printf("Read ContractRevision : %d bytes remaining\n%+v\n", buf.Len(), action.ContractRevision)
 
 	// Amendments ([]Amendment)
 	// fmt.Printf("Reading Amendments : %d bytes remaining\n", buf.Len())
@@ -2691,45 +2691,45 @@ func (m *ContractAmendment) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Amendments = make([]Amendment, 0, size)
+		action.Amendments = make([]Amendment, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Amendment
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Amendments = append(m.Amendments, newValue)
+			action.Amendments = append(action.Amendments, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Amendments : %d bytes remaining\n%+v\n", buf.Len(), m.Amendments)
+	// fmt.Printf("Read Amendments : %d bytes remaining\n%+v\n", buf.Len(), action.Amendments)
 
 	// RefTxID ([32]byte)
 	// fmt.Printf("Reading RefTxID : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.RefTxID); err != nil {
+	if err := read(buf, &action.RefTxID); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read RefTxID : %d bytes remaining\n%+v\n", buf.Len(), m.RefTxID)
+	// fmt.Printf("Read RefTxID : %d bytes remaining\n%+v\n", buf.Len(), action.RefTxID)
 
 	// fmt.Printf("Read ContractAmendment : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m ContractAmendment) PayloadMessage() (PayloadMessage, error) {
+func (action ContractAmendment) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m ContractAmendment) String() string {
+func (action ContractAmendment) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("ChangeIssuerAddress:%#+v", m.ChangeIssuerAddress))
-	vals = append(vals, fmt.Sprintf("ChangeOperatorAddress:%#+v", m.ChangeOperatorAddress))
-	vals = append(vals, fmt.Sprintf("ContractRevision:%v", m.ContractRevision))
-	vals = append(vals, fmt.Sprintf("Amendments:%#+v", m.Amendments))
-	vals = append(vals, fmt.Sprintf("RefTxID:%#+v", m.RefTxID))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("ChangeIssuerAddress:%#+v", action.ChangeIssuerAddress))
+	vals = append(vals, fmt.Sprintf("ChangeOperatorAddress:%#+v", action.ChangeOperatorAddress))
+	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
+	vals = append(vals, fmt.Sprintf("Amendments:%#+v", action.Amendments))
+	vals = append(vals, fmt.Sprintf("RefTxID:%#+v", action.RefTxID))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -2752,14 +2752,14 @@ type StaticContractFormation struct {
 }
 
 // Type returns the type identifer for this message.
-func (m StaticContractFormation) Type() string {
+func (action StaticContractFormation) Type() string {
 	return CodeStaticContractFormation
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *StaticContractFormation) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *StaticContractFormation) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -2771,92 +2771,92 @@ func (m *StaticContractFormation) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *StaticContractFormation) serialize() ([]byte, error) {
+func (action *StaticContractFormation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// ContractName (string)
 	// fmt.Printf("Serializing ContractName\n")
-	if err := WriteVarChar(buf, m.ContractName, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractName, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractName : buf len %d\n", buf.Len())
 
 	// ContractType (string)
 	// fmt.Printf("Serializing ContractType\n")
-	if err := WriteVarChar(buf, m.ContractType, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractType, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractType : buf len %d\n", buf.Len())
 
 	// ContractFileType (uint8)
 	// fmt.Printf("Serializing ContractFileType\n")
-	if err := write(buf, m.ContractFileType); err != nil {
+	if err := write(buf, action.ContractFileType); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFileType : buf len %d\n", buf.Len())
 
 	// ContractFile ([]byte)
 	// fmt.Printf("Serializing ContractFile\n")
-	if err := WriteVarBin(buf, m.ContractFile, 32); err != nil {
+	if err := WriteVarBin(buf, action.ContractFile, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFile : buf len %d\n", buf.Len())
 
 	// ContractRevision (uint16)
 	// fmt.Printf("Serializing ContractRevision\n")
-	if err := write(buf, m.ContractRevision); err != nil {
+	if err := write(buf, action.ContractRevision); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractRevision : buf len %d\n", buf.Len())
 
 	// GoverningLaw (string)
 	// fmt.Printf("Serializing GoverningLaw\n")
-	if err := WriteFixedChar(buf, m.GoverningLaw, 5); err != nil {
+	if err := WriteFixedChar(buf, action.GoverningLaw, 5); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized GoverningLaw : buf len %d\n", buf.Len())
 
 	// Jurisdiction (string)
 	// fmt.Printf("Serializing Jurisdiction\n")
-	if err := WriteFixedChar(buf, m.Jurisdiction, 5); err != nil {
+	if err := WriteFixedChar(buf, action.Jurisdiction, 5); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Jurisdiction : buf len %d\n", buf.Len())
 
 	// EffectiveDate (uint64)
 	// fmt.Printf("Serializing EffectiveDate\n")
-	if err := write(buf, m.EffectiveDate); err != nil {
+	if err := write(buf, action.EffectiveDate); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized EffectiveDate : buf len %d\n", buf.Len())
 
 	// ContractExpiration (uint64)
 	// fmt.Printf("Serializing ContractExpiration\n")
-	if err := write(buf, m.ContractExpiration); err != nil {
+	if err := write(buf, action.ContractExpiration); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractExpiration : buf len %d\n", buf.Len())
 
 	// ContractURI (string)
 	// fmt.Printf("Serializing ContractURI\n")
-	if err := WriteVarChar(buf, m.ContractURI, 8); err != nil {
+	if err := WriteVarChar(buf, action.ContractURI, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractURI : buf len %d\n", buf.Len())
 
 	// PrevRevTxID ([32]byte)
 	// fmt.Printf("Serializing PrevRevTxID\n")
-	if err := write(buf, m.PrevRevTxID); err != nil {
+	if err := write(buf, action.PrevRevTxID); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized PrevRevTxID : buf len %d\n", buf.Len())
 
 	// Entities ([]Entity)
 	// fmt.Printf("Serializing Entities\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Entities)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Entities)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Entities {
+	for _, value := range action.Entities {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -2872,129 +2872,129 @@ func (m *StaticContractFormation) serialize() ([]byte, error) {
 }
 
 // write populates the fields in StaticContractFormation from the byte slice
-func (m *StaticContractFormation) write(b []byte) (int, error) {
+func (action *StaticContractFormation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading StaticContractFormation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// ContractName (string)
 	// fmt.Printf("Reading ContractName : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractName, err = ReadVarChar(buf, 8)
+		action.ContractName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractName : %d bytes remaining\n%+v\n", buf.Len(), m.ContractName)
+	// fmt.Printf("Read ContractName : %d bytes remaining\n%+v\n", buf.Len(), action.ContractName)
 
 	// ContractType (string)
 	// fmt.Printf("Reading ContractType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractType, err = ReadVarChar(buf, 8)
+		action.ContractType, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractType : %d bytes remaining\n%+v\n", buf.Len(), m.ContractType)
+	// fmt.Printf("Read ContractType : %d bytes remaining\n%+v\n", buf.Len(), action.ContractType)
 
 	// ContractFileType (uint8)
 	// fmt.Printf("Reading ContractFileType : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractFileType); err != nil {
+	if err := read(buf, &action.ContractFileType); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractFileType : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFileType)
+	// fmt.Printf("Read ContractFileType : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFileType)
 
 	// ContractFile ([]byte)
 	// fmt.Printf("Reading ContractFile : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractFile, err = ReadVarBin(buf, 32)
+		action.ContractFile, err = ReadVarBin(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), m.ContractFile)
+	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFile)
 
 	// ContractRevision (uint16)
 	// fmt.Printf("Reading ContractRevision : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractRevision); err != nil {
+	if err := read(buf, &action.ContractRevision); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractRevision : %d bytes remaining\n%+v\n", buf.Len(), m.ContractRevision)
+	// fmt.Printf("Read ContractRevision : %d bytes remaining\n%+v\n", buf.Len(), action.ContractRevision)
 
 	// GoverningLaw (string)
 	// fmt.Printf("Reading GoverningLaw : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.GoverningLaw, err = ReadFixedChar(buf, 5)
+		action.GoverningLaw, err = ReadFixedChar(buf, 5)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read GoverningLaw : %d bytes remaining\n%+v\n", buf.Len(), m.GoverningLaw)
+	// fmt.Printf("Read GoverningLaw : %d bytes remaining\n%+v\n", buf.Len(), action.GoverningLaw)
 
 	// Jurisdiction (string)
 	// fmt.Printf("Reading Jurisdiction : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Jurisdiction, err = ReadFixedChar(buf, 5)
+		action.Jurisdiction, err = ReadFixedChar(buf, 5)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Jurisdiction : %d bytes remaining\n%+v\n", buf.Len(), m.Jurisdiction)
+	// fmt.Printf("Read Jurisdiction : %d bytes remaining\n%+v\n", buf.Len(), action.Jurisdiction)
 
 	// EffectiveDate (uint64)
 	// fmt.Printf("Reading EffectiveDate : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.EffectiveDate); err != nil {
+	if err := read(buf, &action.EffectiveDate); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read EffectiveDate : %d bytes remaining\n%+v\n", buf.Len(), m.EffectiveDate)
+	// fmt.Printf("Read EffectiveDate : %d bytes remaining\n%+v\n", buf.Len(), action.EffectiveDate)
 
 	// ContractExpiration (uint64)
 	// fmt.Printf("Reading ContractExpiration : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ContractExpiration); err != nil {
+	if err := read(buf, &action.ContractExpiration); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ContractExpiration : %d bytes remaining\n%+v\n", buf.Len(), m.ContractExpiration)
+	// fmt.Printf("Read ContractExpiration : %d bytes remaining\n%+v\n", buf.Len(), action.ContractExpiration)
 
 	// ContractURI (string)
 	// fmt.Printf("Reading ContractURI : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ContractURI, err = ReadVarChar(buf, 8)
+		action.ContractURI, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ContractURI : %d bytes remaining\n%+v\n", buf.Len(), m.ContractURI)
+	// fmt.Printf("Read ContractURI : %d bytes remaining\n%+v\n", buf.Len(), action.ContractURI)
 
 	// PrevRevTxID ([32]byte)
 	// fmt.Printf("Reading PrevRevTxID : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.PrevRevTxID); err != nil {
+	if err := read(buf, &action.PrevRevTxID); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read PrevRevTxID : %d bytes remaining\n%+v\n", buf.Len(), m.PrevRevTxID)
+	// fmt.Printf("Read PrevRevTxID : %d bytes remaining\n%+v\n", buf.Len(), action.PrevRevTxID)
 
 	// Entities ([]Entity)
 	// fmt.Printf("Reading Entities : %d bytes remaining\n", buf.Len())
@@ -3003,44 +3003,44 @@ func (m *StaticContractFormation) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Entities = make([]Entity, 0, size)
+		action.Entities = make([]Entity, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Entity
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Entities = append(m.Entities, newValue)
+			action.Entities = append(action.Entities, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Entities : %d bytes remaining\n%+v\n", buf.Len(), m.Entities)
+	// fmt.Printf("Read Entities : %d bytes remaining\n%+v\n", buf.Len(), action.Entities)
 
 	// fmt.Printf("Read StaticContractFormation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m StaticContractFormation) PayloadMessage() (PayloadMessage, error) {
+func (action StaticContractFormation) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m StaticContractFormation) String() string {
+func (action StaticContractFormation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("ContractName:%#+v", m.ContractName))
-	vals = append(vals, fmt.Sprintf("ContractType:%#+v", m.ContractType))
-	vals = append(vals, fmt.Sprintf("ContractFileType:%v", m.ContractFileType))
-	vals = append(vals, fmt.Sprintf("ContractFile:%#x", m.ContractFile))
-	vals = append(vals, fmt.Sprintf("ContractRevision:%v", m.ContractRevision))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", m.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", m.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("EffectiveDate:%v", m.EffectiveDate))
-	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", m.ContractExpiration))
-	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", m.ContractURI))
-	vals = append(vals, fmt.Sprintf("PrevRevTxID:%#+v", m.PrevRevTxID))
-	vals = append(vals, fmt.Sprintf("Entities:%#+v", m.Entities))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
+	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
+	vals = append(vals, fmt.Sprintf("ContractFileType:%v", action.ContractFileType))
+	vals = append(vals, fmt.Sprintf("ContractFile:%#x", action.ContractFile))
+	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("EffectiveDate:%v", action.EffectiveDate))
+	vals = append(vals, fmt.Sprintf("ContractExpiration:%v", action.ContractExpiration))
+	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
+	vals = append(vals, fmt.Sprintf("PrevRevTxID:%#+v", action.PrevRevTxID))
+	vals = append(vals, fmt.Sprintf("Entities:%#+v", action.Entities))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3066,14 +3066,14 @@ type Order struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Order) Type() string {
+func (action Order) Type() string {
 	return CodeOrder
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Order) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Order) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3085,36 +3085,36 @@ func (m *Order) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Order) serialize() ([]byte, error) {
+func (action *Order) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
 	// fmt.Printf("Serializing AssetType\n")
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+	if err := WriteFixedChar(buf, action.AssetType, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetType : buf len %d\n", buf.Len())
 
 	// AssetID (string)
 	// fmt.Printf("Serializing AssetID\n")
-	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+	if err := WriteFixedChar(buf, action.AssetID, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
 	// ComplianceAction (byte)
 	// fmt.Printf("Serializing ComplianceAction\n")
-	if err := write(buf, m.ComplianceAction); err != nil {
+	if err := write(buf, action.ComplianceAction); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ComplianceAction : buf len %d\n", buf.Len())
 
 	// TargetAddresses ([]TargetAddress)
 	// fmt.Printf("Serializing TargetAddresses\n")
-	if err := WriteVariableSize(buf, uint64(len(m.TargetAddresses)), 16, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.TargetAddresses)), 16, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.TargetAddresses {
+	for _, value := range action.TargetAddresses {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -3129,7 +3129,7 @@ func (m *Order) serialize() ([]byte, error) {
 	// DepositAddress (Address)
 	// fmt.Printf("Serializing DepositAddress\n")
 	{
-		b, err := m.DepositAddress.Serialize()
+		b, err := action.DepositAddress.Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -3142,56 +3142,56 @@ func (m *Order) serialize() ([]byte, error) {
 
 	// AuthorityName (string)
 	// fmt.Printf("Serializing AuthorityName\n")
-	if err := WriteVarChar(buf, m.AuthorityName, 8); err != nil {
+	if err := WriteVarChar(buf, action.AuthorityName, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AuthorityName : buf len %d\n", buf.Len())
 
 	// SigAlgoAddressList (uint8)
 	// fmt.Printf("Serializing SigAlgoAddressList\n")
-	if err := write(buf, m.SigAlgoAddressList); err != nil {
+	if err := write(buf, action.SigAlgoAddressList); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized SigAlgoAddressList : buf len %d\n", buf.Len())
 
 	// AuthorityPublicKey (string)
 	// fmt.Printf("Serializing AuthorityPublicKey\n")
-	if err := WriteVarChar(buf, m.AuthorityPublicKey, 8); err != nil {
+	if err := WriteVarChar(buf, action.AuthorityPublicKey, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AuthorityPublicKey : buf len %d\n", buf.Len())
 
 	// OrderSignature (string)
 	// fmt.Printf("Serializing OrderSignature\n")
-	if err := WriteVarChar(buf, m.OrderSignature, 8); err != nil {
+	if err := WriteVarChar(buf, action.OrderSignature, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized OrderSignature : buf len %d\n", buf.Len())
 
 	// SupportingEvidenceHash ([32]byte)
 	// fmt.Printf("Serializing SupportingEvidenceHash\n")
-	if err := write(buf, m.SupportingEvidenceHash); err != nil {
+	if err := write(buf, action.SupportingEvidenceHash); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized SupportingEvidenceHash : buf len %d\n", buf.Len())
 
 	// RefTxnID ([32]byte)
 	// fmt.Printf("Serializing RefTxnID\n")
-	if err := write(buf, m.RefTxnID); err != nil {
+	if err := write(buf, action.RefTxnID); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized RefTxnID : buf len %d\n", buf.Len())
 
 	// FreezePeriod (uint64)
 	// fmt.Printf("Serializing FreezePeriod\n")
-	if err := write(buf, m.FreezePeriod); err != nil {
+	if err := write(buf, action.FreezePeriod); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized FreezePeriod : buf len %d\n", buf.Len())
 
 	// Message (string)
 	// fmt.Printf("Serializing Message\n")
-	if err := WriteVarChar(buf, m.Message, 32); err != nil {
+	if err := WriteVarChar(buf, action.Message, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
@@ -3200,49 +3200,49 @@ func (m *Order) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Order from the byte slice
-func (m *Order) write(b []byte) (int, error) {
+func (action *Order) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Order : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// AssetType (string)
 	// fmt.Printf("Reading AssetType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
+		action.AssetType, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), m.AssetType)
+	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), action.AssetType)
 
 	// AssetID (string)
 	// fmt.Printf("Reading AssetID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetID, err = ReadFixedChar(buf, 32)
+		action.AssetID, err = ReadFixedChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
+	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), action.AssetID)
 
 	// ComplianceAction (byte)
 	// fmt.Printf("Reading ComplianceAction : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ComplianceAction); err != nil {
+	if err := read(buf, &action.ComplianceAction); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ComplianceAction : %d bytes remaining\n%+v\n", buf.Len(), m.ComplianceAction)
+	// fmt.Printf("Read ComplianceAction : %d bytes remaining\n%+v\n", buf.Len(), action.ComplianceAction)
 
 	// TargetAddresses ([]TargetAddress)
 	// fmt.Printf("Reading TargetAddresses : %d bytes remaining\n", buf.Len())
@@ -3251,133 +3251,133 @@ func (m *Order) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.TargetAddresses = make([]TargetAddress, 0, size)
+		action.TargetAddresses = make([]TargetAddress, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue TargetAddress
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.TargetAddresses = append(m.TargetAddresses, newValue)
+			action.TargetAddresses = append(action.TargetAddresses, newValue)
 		}
 	}
 
-	// fmt.Printf("Read TargetAddresses : %d bytes remaining\n%+v\n", buf.Len(), m.TargetAddresses)
+	// fmt.Printf("Read TargetAddresses : %d bytes remaining\n%+v\n", buf.Len(), action.TargetAddresses)
 
 	// DepositAddress (Address)
 	// fmt.Printf("Reading DepositAddress : %d bytes remaining\n", buf.Len())
-	if err := m.DepositAddress.Write(buf); err != nil {
+	if err := action.DepositAddress.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read DepositAddress : %d bytes remaining\n%+v\n", buf.Len(), m.DepositAddress)
+	// fmt.Printf("Read DepositAddress : %d bytes remaining\n%+v\n", buf.Len(), action.DepositAddress)
 
 	// AuthorityName (string)
 	// fmt.Printf("Reading AuthorityName : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AuthorityName, err = ReadVarChar(buf, 8)
+		action.AuthorityName, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AuthorityName : %d bytes remaining\n%+v\n", buf.Len(), m.AuthorityName)
+	// fmt.Printf("Read AuthorityName : %d bytes remaining\n%+v\n", buf.Len(), action.AuthorityName)
 
 	// SigAlgoAddressList (uint8)
 	// fmt.Printf("Reading SigAlgoAddressList : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.SigAlgoAddressList); err != nil {
+	if err := read(buf, &action.SigAlgoAddressList); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read SigAlgoAddressList : %d bytes remaining\n%+v\n", buf.Len(), m.SigAlgoAddressList)
+	// fmt.Printf("Read SigAlgoAddressList : %d bytes remaining\n%+v\n", buf.Len(), action.SigAlgoAddressList)
 
 	// AuthorityPublicKey (string)
 	// fmt.Printf("Reading AuthorityPublicKey : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AuthorityPublicKey, err = ReadVarChar(buf, 8)
+		action.AuthorityPublicKey, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AuthorityPublicKey : %d bytes remaining\n%+v\n", buf.Len(), m.AuthorityPublicKey)
+	// fmt.Printf("Read AuthorityPublicKey : %d bytes remaining\n%+v\n", buf.Len(), action.AuthorityPublicKey)
 
 	// OrderSignature (string)
 	// fmt.Printf("Reading OrderSignature : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.OrderSignature, err = ReadVarChar(buf, 8)
+		action.OrderSignature, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read OrderSignature : %d bytes remaining\n%+v\n", buf.Len(), m.OrderSignature)
+	// fmt.Printf("Read OrderSignature : %d bytes remaining\n%+v\n", buf.Len(), action.OrderSignature)
 
 	// SupportingEvidenceHash ([32]byte)
 	// fmt.Printf("Reading SupportingEvidenceHash : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.SupportingEvidenceHash); err != nil {
+	if err := read(buf, &action.SupportingEvidenceHash); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read SupportingEvidenceHash : %d bytes remaining\n%+v\n", buf.Len(), m.SupportingEvidenceHash)
+	// fmt.Printf("Read SupportingEvidenceHash : %d bytes remaining\n%+v\n", buf.Len(), action.SupportingEvidenceHash)
 
 	// RefTxnID ([32]byte)
 	// fmt.Printf("Reading RefTxnID : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.RefTxnID); err != nil {
+	if err := read(buf, &action.RefTxnID); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read RefTxnID : %d bytes remaining\n%+v\n", buf.Len(), m.RefTxnID)
+	// fmt.Printf("Read RefTxnID : %d bytes remaining\n%+v\n", buf.Len(), action.RefTxnID)
 
 	// FreezePeriod (uint64)
 	// fmt.Printf("Reading FreezePeriod : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.FreezePeriod); err != nil {
+	if err := read(buf, &action.FreezePeriod); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read FreezePeriod : %d bytes remaining\n%+v\n", buf.Len(), m.FreezePeriod)
+	// fmt.Printf("Read FreezePeriod : %d bytes remaining\n%+v\n", buf.Len(), action.FreezePeriod)
 
 	// Message (string)
 	// fmt.Printf("Reading Message : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 32)
+		action.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
+	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), action.Message)
 
 	// fmt.Printf("Read Order : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Order) PayloadMessage() (PayloadMessage, error) {
+func (action Order) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Order) String() string {
+func (action Order) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("ComplianceAction:%#+v", m.ComplianceAction))
-	vals = append(vals, fmt.Sprintf("TargetAddresses:%#+v", m.TargetAddresses))
-	vals = append(vals, fmt.Sprintf("DepositAddress:%#+v", m.DepositAddress))
-	vals = append(vals, fmt.Sprintf("AuthorityName:%#+v", m.AuthorityName))
-	vals = append(vals, fmt.Sprintf("SigAlgoAddressList:%v", m.SigAlgoAddressList))
-	vals = append(vals, fmt.Sprintf("AuthorityPublicKey:%#+v", m.AuthorityPublicKey))
-	vals = append(vals, fmt.Sprintf("OrderSignature:%#+v", m.OrderSignature))
-	vals = append(vals, fmt.Sprintf("SupportingEvidenceHash:%#+v", m.SupportingEvidenceHash))
-	vals = append(vals, fmt.Sprintf("RefTxnID:%#+v", m.RefTxnID))
-	vals = append(vals, fmt.Sprintf("FreezePeriod:%v", m.FreezePeriod))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", action.AssetID))
+	vals = append(vals, fmt.Sprintf("ComplianceAction:%#+v", action.ComplianceAction))
+	vals = append(vals, fmt.Sprintf("TargetAddresses:%#+v", action.TargetAddresses))
+	vals = append(vals, fmt.Sprintf("DepositAddress:%#+v", action.DepositAddress))
+	vals = append(vals, fmt.Sprintf("AuthorityName:%#+v", action.AuthorityName))
+	vals = append(vals, fmt.Sprintf("SigAlgoAddressList:%v", action.SigAlgoAddressList))
+	vals = append(vals, fmt.Sprintf("AuthorityPublicKey:%#+v", action.AuthorityPublicKey))
+	vals = append(vals, fmt.Sprintf("OrderSignature:%#+v", action.OrderSignature))
+	vals = append(vals, fmt.Sprintf("SupportingEvidenceHash:%#+v", action.SupportingEvidenceHash))
+	vals = append(vals, fmt.Sprintf("RefTxnID:%#+v", action.RefTxnID))
+	vals = append(vals, fmt.Sprintf("FreezePeriod:%v", action.FreezePeriod))
+	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3394,14 +3394,14 @@ type Freeze struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Freeze) Type() string {
+func (action Freeze) Type() string {
 	return CodeFreeze
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Freeze) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Freeze) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3413,15 +3413,15 @@ func (m *Freeze) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Freeze) serialize() ([]byte, error) {
+func (action *Freeze) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Addresses ([]Address)
 	// fmt.Printf("Serializing Addresses\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Addresses)), 16, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Addresses)), 16, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Addresses {
+	for _, value := range action.Addresses {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -3435,7 +3435,7 @@ func (m *Freeze) serialize() ([]byte, error) {
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -3444,17 +3444,17 @@ func (m *Freeze) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Freeze from the byte slice
-func (m *Freeze) write(b []byte) (int, error) {
+func (action *Freeze) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Freeze : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Addresses ([]Address)
 	// fmt.Printf("Reading Addresses : %d bytes remaining\n", buf.Len())
@@ -3463,42 +3463,42 @@ func (m *Freeze) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Addresses = make([]Address, 0, size)
+		action.Addresses = make([]Address, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Address
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Addresses = append(m.Addresses, newValue)
+			action.Addresses = append(action.Addresses, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Addresses : %d bytes remaining\n%+v\n", buf.Len(), m.Addresses)
+	// fmt.Printf("Read Addresses : %d bytes remaining\n%+v\n", buf.Len(), action.Addresses)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read Freeze : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Freeze) PayloadMessage() (PayloadMessage, error) {
+func (action Freeze) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Freeze) String() string {
+func (action Freeze) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Addresses:%#+v", m.Addresses))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Addresses:%#+v", action.Addresses))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3514,14 +3514,14 @@ type Thaw struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Thaw) Type() string {
+func (action Thaw) Type() string {
 	return CodeThaw
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Thaw) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Thaw) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3533,15 +3533,15 @@ func (m *Thaw) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Thaw) serialize() ([]byte, error) {
+func (action *Thaw) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Addresses ([]Address)
 	// fmt.Printf("Serializing Addresses\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Addresses)), 16, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Addresses)), 16, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Addresses {
+	for _, value := range action.Addresses {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -3555,14 +3555,14 @@ func (m *Thaw) serialize() ([]byte, error) {
 
 	// RefTxnID ([32]byte)
 	// fmt.Printf("Serializing RefTxnID\n")
-	if err := write(buf, m.RefTxnID); err != nil {
+	if err := write(buf, action.RefTxnID); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized RefTxnID : buf len %d\n", buf.Len())
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -3571,17 +3571,17 @@ func (m *Thaw) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Thaw from the byte slice
-func (m *Thaw) write(b []byte) (int, error) {
+func (action *Thaw) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Thaw : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Addresses ([]Address)
 	// fmt.Printf("Reading Addresses : %d bytes remaining\n", buf.Len())
@@ -3590,51 +3590,51 @@ func (m *Thaw) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Addresses = make([]Address, 0, size)
+		action.Addresses = make([]Address, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Address
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Addresses = append(m.Addresses, newValue)
+			action.Addresses = append(action.Addresses, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Addresses : %d bytes remaining\n%+v\n", buf.Len(), m.Addresses)
+	// fmt.Printf("Read Addresses : %d bytes remaining\n%+v\n", buf.Len(), action.Addresses)
 
 	// RefTxnID ([32]byte)
 	// fmt.Printf("Reading RefTxnID : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.RefTxnID); err != nil {
+	if err := read(buf, &action.RefTxnID); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read RefTxnID : %d bytes remaining\n%+v\n", buf.Len(), m.RefTxnID)
+	// fmt.Printf("Read RefTxnID : %d bytes remaining\n%+v\n", buf.Len(), action.RefTxnID)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read Thaw : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Thaw) PayloadMessage() (PayloadMessage, error) {
+func (action Thaw) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Thaw) String() string {
+func (action Thaw) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Addresses:%#+v", m.Addresses))
-	vals = append(vals, fmt.Sprintf("RefTxnID:%#+v", m.RefTxnID))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Addresses:%#+v", action.Addresses))
+	vals = append(vals, fmt.Sprintf("RefTxnID:%#+v", action.RefTxnID))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3649,14 +3649,14 @@ type Confiscation struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Confiscation) Type() string {
+func (action Confiscation) Type() string {
 	return CodeConfiscation
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Confiscation) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Confiscation) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3668,15 +3668,15 @@ func (m *Confiscation) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Confiscation) serialize() ([]byte, error) {
+func (action *Confiscation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Addresses ([]Address)
 	// fmt.Printf("Serializing Addresses\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Addresses)), 16, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Addresses)), 16, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Addresses {
+	for _, value := range action.Addresses {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -3690,14 +3690,14 @@ func (m *Confiscation) serialize() ([]byte, error) {
 
 	// DepositQty (uint64)
 	// fmt.Printf("Serializing DepositQty\n")
-	if err := write(buf, m.DepositQty); err != nil {
+	if err := write(buf, action.DepositQty); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized DepositQty : buf len %d\n", buf.Len())
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -3706,17 +3706,17 @@ func (m *Confiscation) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Confiscation from the byte slice
-func (m *Confiscation) write(b []byte) (int, error) {
+func (action *Confiscation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Confiscation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Addresses ([]Address)
 	// fmt.Printf("Reading Addresses : %d bytes remaining\n", buf.Len())
@@ -3725,51 +3725,51 @@ func (m *Confiscation) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Addresses = make([]Address, 0, size)
+		action.Addresses = make([]Address, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Address
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Addresses = append(m.Addresses, newValue)
+			action.Addresses = append(action.Addresses, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Addresses : %d bytes remaining\n%+v\n", buf.Len(), m.Addresses)
+	// fmt.Printf("Read Addresses : %d bytes remaining\n%+v\n", buf.Len(), action.Addresses)
 
 	// DepositQty (uint64)
 	// fmt.Printf("Reading DepositQty : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.DepositQty); err != nil {
+	if err := read(buf, &action.DepositQty); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read DepositQty : %d bytes remaining\n%+v\n", buf.Len(), m.DepositQty)
+	// fmt.Printf("Read DepositQty : %d bytes remaining\n%+v\n", buf.Len(), action.DepositQty)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read Confiscation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Confiscation) PayloadMessage() (PayloadMessage, error) {
+func (action Confiscation) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Confiscation) String() string {
+func (action Confiscation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Addresses:%#+v", m.Addresses))
-	vals = append(vals, fmt.Sprintf("DepositQty:%v", m.DepositQty))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Addresses:%#+v", action.Addresses))
+	vals = append(vals, fmt.Sprintf("DepositQty:%v", action.DepositQty))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3783,14 +3783,14 @@ type Reconciliation struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Reconciliation) Type() string {
+func (action Reconciliation) Type() string {
 	return CodeReconciliation
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Reconciliation) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Reconciliation) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3802,15 +3802,15 @@ func (m *Reconciliation) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Reconciliation) serialize() ([]byte, error) {
+func (action *Reconciliation) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Addresses ([]Address)
 	// fmt.Printf("Serializing Addresses\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Addresses)), 16, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Addresses)), 16, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Addresses {
+	for _, value := range action.Addresses {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -3824,7 +3824,7 @@ func (m *Reconciliation) serialize() ([]byte, error) {
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -3833,17 +3833,17 @@ func (m *Reconciliation) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Reconciliation from the byte slice
-func (m *Reconciliation) write(b []byte) (int, error) {
+func (action *Reconciliation) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Reconciliation : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Addresses ([]Address)
 	// fmt.Printf("Reading Addresses : %d bytes remaining\n", buf.Len())
@@ -3852,42 +3852,42 @@ func (m *Reconciliation) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Addresses = make([]Address, 0, size)
+		action.Addresses = make([]Address, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Address
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Addresses = append(m.Addresses, newValue)
+			action.Addresses = append(action.Addresses, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Addresses : %d bytes remaining\n%+v\n", buf.Len(), m.Addresses)
+	// fmt.Printf("Read Addresses : %d bytes remaining\n%+v\n", buf.Len(), action.Addresses)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read Reconciliation : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Reconciliation) PayloadMessage() (PayloadMessage, error) {
+func (action Reconciliation) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Reconciliation) String() string {
+func (action Reconciliation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Addresses:%#+v", m.Addresses))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Addresses:%#+v", action.Addresses))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3911,14 +3911,14 @@ type Initiative struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Initiative) Type() string {
+func (action Initiative) Type() string {
 	return CodeInitiative
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Initiative) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Initiative) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -3930,43 +3930,43 @@ func (m *Initiative) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Initiative) serialize() ([]byte, error) {
+func (action *Initiative) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
 	// fmt.Printf("Serializing AssetType\n")
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+	if err := WriteFixedChar(buf, action.AssetType, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetType : buf len %d\n", buf.Len())
 
 	// AssetID (string)
 	// fmt.Printf("Serializing AssetID\n")
-	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+	if err := WriteFixedChar(buf, action.AssetID, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
 	// VoteSystem (uint8)
 	// fmt.Printf("Serializing VoteSystem\n")
-	if err := write(buf, m.VoteSystem); err != nil {
+	if err := write(buf, action.VoteSystem); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteSystem : buf len %d\n", buf.Len())
 
 	// Proposal (bool)
 	// fmt.Printf("Serializing Proposal\n")
-	if err := write(buf, m.Proposal); err != nil {
+	if err := write(buf, action.Proposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Proposal : buf len %d\n", buf.Len())
 
 	// ProposedChanges ([]Amendment)
 	// fmt.Printf("Serializing ProposedChanges\n")
-	if err := WriteVariableSize(buf, uint64(len(m.ProposedChanges)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.ProposedChanges)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.ProposedChanges {
+	for _, value := range action.ProposedChanges {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -3980,35 +3980,35 @@ func (m *Initiative) serialize() ([]byte, error) {
 
 	// VoteOptions (string)
 	// fmt.Printf("Serializing VoteOptions\n")
-	if err := WriteVarChar(buf, m.VoteOptions, 8); err != nil {
+	if err := WriteVarChar(buf, action.VoteOptions, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteOptions : buf len %d\n", buf.Len())
 
 	// VoteMax (uint8)
 	// fmt.Printf("Serializing VoteMax\n")
-	if err := write(buf, m.VoteMax); err != nil {
+	if err := write(buf, action.VoteMax); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteMax : buf len %d\n", buf.Len())
 
 	// ProposalDescription (string)
 	// fmt.Printf("Serializing ProposalDescription\n")
-	if err := WriteVarChar(buf, m.ProposalDescription, 32); err != nil {
+	if err := WriteVarChar(buf, action.ProposalDescription, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ProposalDescription : buf len %d\n", buf.Len())
 
 	// ProposalDocumentHash ([32]byte)
 	// fmt.Printf("Serializing ProposalDocumentHash\n")
-	if err := write(buf, m.ProposalDocumentHash); err != nil {
+	if err := write(buf, action.ProposalDocumentHash); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ProposalDocumentHash : buf len %d\n", buf.Len())
 
 	// VoteCutOffTimestamp (uint64)
 	// fmt.Printf("Serializing VoteCutOffTimestamp\n")
-	if err := write(buf, m.VoteCutOffTimestamp); err != nil {
+	if err := write(buf, action.VoteCutOffTimestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteCutOffTimestamp : buf len %d\n", buf.Len())
@@ -4017,57 +4017,57 @@ func (m *Initiative) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Initiative from the byte slice
-func (m *Initiative) write(b []byte) (int, error) {
+func (action *Initiative) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Initiative : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// AssetType (string)
 	// fmt.Printf("Reading AssetType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
+		action.AssetType, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), m.AssetType)
+	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), action.AssetType)
 
 	// AssetID (string)
 	// fmt.Printf("Reading AssetID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetID, err = ReadFixedChar(buf, 32)
+		action.AssetID, err = ReadFixedChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
+	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), action.AssetID)
 
 	// VoteSystem (uint8)
 	// fmt.Printf("Reading VoteSystem : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteSystem); err != nil {
+	if err := read(buf, &action.VoteSystem); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteSystem : %d bytes remaining\n%+v\n", buf.Len(), m.VoteSystem)
+	// fmt.Printf("Read VoteSystem : %d bytes remaining\n%+v\n", buf.Len(), action.VoteSystem)
 
 	// Proposal (bool)
 	// fmt.Printf("Reading Proposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Proposal); err != nil {
+	if err := read(buf, &action.Proposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Proposal : %d bytes remaining\n%+v\n", buf.Len(), m.Proposal)
+	// fmt.Printf("Read Proposal : %d bytes remaining\n%+v\n", buf.Len(), action.Proposal)
 
 	// ProposedChanges ([]Amendment)
 	// fmt.Printf("Reading ProposedChanges : %d bytes remaining\n", buf.Len())
@@ -4076,90 +4076,90 @@ func (m *Initiative) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.ProposedChanges = make([]Amendment, 0, size)
+		action.ProposedChanges = make([]Amendment, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Amendment
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.ProposedChanges = append(m.ProposedChanges, newValue)
+			action.ProposedChanges = append(action.ProposedChanges, newValue)
 		}
 	}
 
-	// fmt.Printf("Read ProposedChanges : %d bytes remaining\n%+v\n", buf.Len(), m.ProposedChanges)
+	// fmt.Printf("Read ProposedChanges : %d bytes remaining\n%+v\n", buf.Len(), action.ProposedChanges)
 
 	// VoteOptions (string)
 	// fmt.Printf("Reading VoteOptions : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.VoteOptions, err = ReadVarChar(buf, 8)
+		action.VoteOptions, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read VoteOptions : %d bytes remaining\n%+v\n", buf.Len(), m.VoteOptions)
+	// fmt.Printf("Read VoteOptions : %d bytes remaining\n%+v\n", buf.Len(), action.VoteOptions)
 
 	// VoteMax (uint8)
 	// fmt.Printf("Reading VoteMax : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteMax); err != nil {
+	if err := read(buf, &action.VoteMax); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteMax : %d bytes remaining\n%+v\n", buf.Len(), m.VoteMax)
+	// fmt.Printf("Read VoteMax : %d bytes remaining\n%+v\n", buf.Len(), action.VoteMax)
 
 	// ProposalDescription (string)
 	// fmt.Printf("Reading ProposalDescription : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ProposalDescription, err = ReadVarChar(buf, 32)
+		action.ProposalDescription, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ProposalDescription : %d bytes remaining\n%+v\n", buf.Len(), m.ProposalDescription)
+	// fmt.Printf("Read ProposalDescription : %d bytes remaining\n%+v\n", buf.Len(), action.ProposalDescription)
 
 	// ProposalDocumentHash ([32]byte)
 	// fmt.Printf("Reading ProposalDocumentHash : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ProposalDocumentHash); err != nil {
+	if err := read(buf, &action.ProposalDocumentHash); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ProposalDocumentHash : %d bytes remaining\n%+v\n", buf.Len(), m.ProposalDocumentHash)
+	// fmt.Printf("Read ProposalDocumentHash : %d bytes remaining\n%+v\n", buf.Len(), action.ProposalDocumentHash)
 
 	// VoteCutOffTimestamp (uint64)
 	// fmt.Printf("Reading VoteCutOffTimestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteCutOffTimestamp); err != nil {
+	if err := read(buf, &action.VoteCutOffTimestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteCutOffTimestamp : %d bytes remaining\n%+v\n", buf.Len(), m.VoteCutOffTimestamp)
+	// fmt.Printf("Read VoteCutOffTimestamp : %d bytes remaining\n%+v\n", buf.Len(), action.VoteCutOffTimestamp)
 
 	// fmt.Printf("Read Initiative : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Initiative) PayloadMessage() (PayloadMessage, error) {
+func (action Initiative) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Initiative) String() string {
+func (action Initiative) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("VoteSystem:%v", m.VoteSystem))
-	vals = append(vals, fmt.Sprintf("Proposal:%#+v", m.Proposal))
-	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", m.ProposedChanges))
-	vals = append(vals, fmt.Sprintf("VoteOptions:%#+v", m.VoteOptions))
-	vals = append(vals, fmt.Sprintf("VoteMax:%v", m.VoteMax))
-	vals = append(vals, fmt.Sprintf("ProposalDescription:%#+v", m.ProposalDescription))
-	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#+v", m.ProposalDocumentHash))
-	vals = append(vals, fmt.Sprintf("VoteCutOffTimestamp:%v", m.VoteCutOffTimestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", action.AssetID))
+	vals = append(vals, fmt.Sprintf("VoteSystem:%v", action.VoteSystem))
+	vals = append(vals, fmt.Sprintf("Proposal:%#+v", action.Proposal))
+	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", action.ProposedChanges))
+	vals = append(vals, fmt.Sprintf("VoteOptions:%#+v", action.VoteOptions))
+	vals = append(vals, fmt.Sprintf("VoteMax:%v", action.VoteMax))
+	vals = append(vals, fmt.Sprintf("ProposalDescription:%#+v", action.ProposalDescription))
+	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#+v", action.ProposalDocumentHash))
+	vals = append(vals, fmt.Sprintf("VoteCutOffTimestamp:%v", action.VoteCutOffTimestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4183,14 +4183,14 @@ type Referendum struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Referendum) Type() string {
+func (action Referendum) Type() string {
 	return CodeReferendum
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Referendum) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Referendum) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4202,50 +4202,50 @@ func (m *Referendum) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Referendum) serialize() ([]byte, error) {
+func (action *Referendum) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetSpecificVote (bool)
 	// fmt.Printf("Serializing AssetSpecificVote\n")
-	if err := write(buf, m.AssetSpecificVote); err != nil {
+	if err := write(buf, action.AssetSpecificVote); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetSpecificVote : buf len %d\n", buf.Len())
 
 	// AssetType (string)
 	// fmt.Printf("Serializing AssetType\n")
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+	if err := WriteFixedChar(buf, action.AssetType, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetType : buf len %d\n", buf.Len())
 
 	// AssetID (string)
 	// fmt.Printf("Serializing AssetID\n")
-	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+	if err := WriteFixedChar(buf, action.AssetID, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
 	// VoteSystem (uint8)
 	// fmt.Printf("Serializing VoteSystem\n")
-	if err := write(buf, m.VoteSystem); err != nil {
+	if err := write(buf, action.VoteSystem); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteSystem : buf len %d\n", buf.Len())
 
 	// Proposal (bool)
 	// fmt.Printf("Serializing Proposal\n")
-	if err := write(buf, m.Proposal); err != nil {
+	if err := write(buf, action.Proposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Proposal : buf len %d\n", buf.Len())
 
 	// ProposedChanges ([]Amendment)
 	// fmt.Printf("Serializing ProposedChanges\n")
-	if err := WriteVariableSize(buf, uint64(len(m.ProposedChanges)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.ProposedChanges)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.ProposedChanges {
+	for _, value := range action.ProposedChanges {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -4259,35 +4259,35 @@ func (m *Referendum) serialize() ([]byte, error) {
 
 	// VoteOptions (string)
 	// fmt.Printf("Serializing VoteOptions\n")
-	if err := WriteVarChar(buf, m.VoteOptions, 8); err != nil {
+	if err := WriteVarChar(buf, action.VoteOptions, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteOptions : buf len %d\n", buf.Len())
 
 	// VoteMax (uint8)
 	// fmt.Printf("Serializing VoteMax\n")
-	if err := write(buf, m.VoteMax); err != nil {
+	if err := write(buf, action.VoteMax); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteMax : buf len %d\n", buf.Len())
 
 	// ProposalDescription (string)
 	// fmt.Printf("Serializing ProposalDescription\n")
-	if err := WriteVarChar(buf, m.ProposalDescription, 32); err != nil {
+	if err := WriteVarChar(buf, action.ProposalDescription, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ProposalDescription : buf len %d\n", buf.Len())
 
 	// ProposalDocumentHash ([32]byte)
 	// fmt.Printf("Serializing ProposalDocumentHash\n")
-	if err := write(buf, m.ProposalDocumentHash); err != nil {
+	if err := write(buf, action.ProposalDocumentHash); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ProposalDocumentHash : buf len %d\n", buf.Len())
 
 	// VoteCutOffTimestamp (uint64)
 	// fmt.Printf("Serializing VoteCutOffTimestamp\n")
-	if err := write(buf, m.VoteCutOffTimestamp); err != nil {
+	if err := write(buf, action.VoteCutOffTimestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteCutOffTimestamp : buf len %d\n", buf.Len())
@@ -4296,65 +4296,65 @@ func (m *Referendum) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Referendum from the byte slice
-func (m *Referendum) write(b []byte) (int, error) {
+func (action *Referendum) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Referendum : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// AssetSpecificVote (bool)
 	// fmt.Printf("Reading AssetSpecificVote : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.AssetSpecificVote); err != nil {
+	if err := read(buf, &action.AssetSpecificVote); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read AssetSpecificVote : %d bytes remaining\n%+v\n", buf.Len(), m.AssetSpecificVote)
+	// fmt.Printf("Read AssetSpecificVote : %d bytes remaining\n%+v\n", buf.Len(), action.AssetSpecificVote)
 
 	// AssetType (string)
 	// fmt.Printf("Reading AssetType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
+		action.AssetType, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), m.AssetType)
+	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), action.AssetType)
 
 	// AssetID (string)
 	// fmt.Printf("Reading AssetID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetID, err = ReadFixedChar(buf, 32)
+		action.AssetID, err = ReadFixedChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
+	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), action.AssetID)
 
 	// VoteSystem (uint8)
 	// fmt.Printf("Reading VoteSystem : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteSystem); err != nil {
+	if err := read(buf, &action.VoteSystem); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteSystem : %d bytes remaining\n%+v\n", buf.Len(), m.VoteSystem)
+	// fmt.Printf("Read VoteSystem : %d bytes remaining\n%+v\n", buf.Len(), action.VoteSystem)
 
 	// Proposal (bool)
 	// fmt.Printf("Reading Proposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Proposal); err != nil {
+	if err := read(buf, &action.Proposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Proposal : %d bytes remaining\n%+v\n", buf.Len(), m.Proposal)
+	// fmt.Printf("Read Proposal : %d bytes remaining\n%+v\n", buf.Len(), action.Proposal)
 
 	// ProposedChanges ([]Amendment)
 	// fmt.Printf("Reading ProposedChanges : %d bytes remaining\n", buf.Len())
@@ -4363,91 +4363,91 @@ func (m *Referendum) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.ProposedChanges = make([]Amendment, 0, size)
+		action.ProposedChanges = make([]Amendment, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Amendment
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.ProposedChanges = append(m.ProposedChanges, newValue)
+			action.ProposedChanges = append(action.ProposedChanges, newValue)
 		}
 	}
 
-	// fmt.Printf("Read ProposedChanges : %d bytes remaining\n%+v\n", buf.Len(), m.ProposedChanges)
+	// fmt.Printf("Read ProposedChanges : %d bytes remaining\n%+v\n", buf.Len(), action.ProposedChanges)
 
 	// VoteOptions (string)
 	// fmt.Printf("Reading VoteOptions : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.VoteOptions, err = ReadVarChar(buf, 8)
+		action.VoteOptions, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read VoteOptions : %d bytes remaining\n%+v\n", buf.Len(), m.VoteOptions)
+	// fmt.Printf("Read VoteOptions : %d bytes remaining\n%+v\n", buf.Len(), action.VoteOptions)
 
 	// VoteMax (uint8)
 	// fmt.Printf("Reading VoteMax : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteMax); err != nil {
+	if err := read(buf, &action.VoteMax); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteMax : %d bytes remaining\n%+v\n", buf.Len(), m.VoteMax)
+	// fmt.Printf("Read VoteMax : %d bytes remaining\n%+v\n", buf.Len(), action.VoteMax)
 
 	// ProposalDescription (string)
 	// fmt.Printf("Reading ProposalDescription : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ProposalDescription, err = ReadVarChar(buf, 32)
+		action.ProposalDescription, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ProposalDescription : %d bytes remaining\n%+v\n", buf.Len(), m.ProposalDescription)
+	// fmt.Printf("Read ProposalDescription : %d bytes remaining\n%+v\n", buf.Len(), action.ProposalDescription)
 
 	// ProposalDocumentHash ([32]byte)
 	// fmt.Printf("Reading ProposalDocumentHash : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ProposalDocumentHash); err != nil {
+	if err := read(buf, &action.ProposalDocumentHash); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ProposalDocumentHash : %d bytes remaining\n%+v\n", buf.Len(), m.ProposalDocumentHash)
+	// fmt.Printf("Read ProposalDocumentHash : %d bytes remaining\n%+v\n", buf.Len(), action.ProposalDocumentHash)
 
 	// VoteCutOffTimestamp (uint64)
 	// fmt.Printf("Reading VoteCutOffTimestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteCutOffTimestamp); err != nil {
+	if err := read(buf, &action.VoteCutOffTimestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteCutOffTimestamp : %d bytes remaining\n%+v\n", buf.Len(), m.VoteCutOffTimestamp)
+	// fmt.Printf("Read VoteCutOffTimestamp : %d bytes remaining\n%+v\n", buf.Len(), action.VoteCutOffTimestamp)
 
 	// fmt.Printf("Read Referendum : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Referendum) PayloadMessage() (PayloadMessage, error) {
+func (action Referendum) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Referendum) String() string {
+func (action Referendum) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetSpecificVote:%#+v", m.AssetSpecificVote))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("VoteSystem:%v", m.VoteSystem))
-	vals = append(vals, fmt.Sprintf("Proposal:%#+v", m.Proposal))
-	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", m.ProposedChanges))
-	vals = append(vals, fmt.Sprintf("VoteOptions:%#+v", m.VoteOptions))
-	vals = append(vals, fmt.Sprintf("VoteMax:%v", m.VoteMax))
-	vals = append(vals, fmt.Sprintf("ProposalDescription:%#+v", m.ProposalDescription))
-	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#+v", m.ProposalDocumentHash))
-	vals = append(vals, fmt.Sprintf("VoteCutOffTimestamp:%v", m.VoteCutOffTimestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("AssetSpecificVote:%#+v", action.AssetSpecificVote))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", action.AssetID))
+	vals = append(vals, fmt.Sprintf("VoteSystem:%v", action.VoteSystem))
+	vals = append(vals, fmt.Sprintf("Proposal:%#+v", action.Proposal))
+	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", action.ProposedChanges))
+	vals = append(vals, fmt.Sprintf("VoteOptions:%#+v", action.VoteOptions))
+	vals = append(vals, fmt.Sprintf("VoteMax:%v", action.VoteMax))
+	vals = append(vals, fmt.Sprintf("ProposalDescription:%#+v", action.ProposalDescription))
+	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#+v", action.ProposalDocumentHash))
+	vals = append(vals, fmt.Sprintf("VoteCutOffTimestamp:%v", action.VoteCutOffTimestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4460,14 +4460,14 @@ type Vote struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Vote) Type() string {
+func (action Vote) Type() string {
 	return CodeVote
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Vote) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Vote) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4479,12 +4479,12 @@ func (m *Vote) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Vote) serialize() ([]byte, error) {
+func (action *Vote) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -4493,40 +4493,40 @@ func (m *Vote) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Vote from the byte slice
-func (m *Vote) write(b []byte) (int, error) {
+func (action *Vote) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Vote : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read Vote : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Vote) PayloadMessage() (PayloadMessage, error) {
+func (action Vote) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Vote) String() string {
+func (action Vote) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4544,14 +4544,14 @@ type BallotCast struct {
 }
 
 // Type returns the type identifer for this message.
-func (m BallotCast) Type() string {
+func (action BallotCast) Type() string {
 	return CodeBallotCast
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *BallotCast) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *BallotCast) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4563,33 +4563,33 @@ func (m *BallotCast) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *BallotCast) serialize() ([]byte, error) {
+func (action *BallotCast) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
 	// fmt.Printf("Serializing AssetType\n")
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+	if err := WriteFixedChar(buf, action.AssetType, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetType : buf len %d\n", buf.Len())
 
 	// AssetID (string)
 	// fmt.Printf("Serializing AssetID\n")
-	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+	if err := WriteFixedChar(buf, action.AssetID, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
 	// VoteTxnID ([32]byte)
 	// fmt.Printf("Serializing VoteTxnID\n")
-	if err := write(buf, m.VoteTxnID); err != nil {
+	if err := write(buf, action.VoteTxnID); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteTxnID : buf len %d\n", buf.Len())
 
 	// Vote (string)
 	// fmt.Printf("Serializing Vote\n")
-	if err := WriteVarChar(buf, m.Vote, 8); err != nil {
+	if err := WriteVarChar(buf, action.Vote, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Vote : buf len %d\n", buf.Len())
@@ -4598,79 +4598,79 @@ func (m *BallotCast) serialize() ([]byte, error) {
 }
 
 // write populates the fields in BallotCast from the byte slice
-func (m *BallotCast) write(b []byte) (int, error) {
+func (action *BallotCast) write(b []byte) (int, error) {
 	// fmt.Printf("Reading BallotCast : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// AssetType (string)
 	// fmt.Printf("Reading AssetType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
+		action.AssetType, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), m.AssetType)
+	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), action.AssetType)
 
 	// AssetID (string)
 	// fmt.Printf("Reading AssetID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetID, err = ReadFixedChar(buf, 32)
+		action.AssetID, err = ReadFixedChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
+	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), action.AssetID)
 
 	// VoteTxnID ([32]byte)
 	// fmt.Printf("Reading VoteTxnID : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteTxnID); err != nil {
+	if err := read(buf, &action.VoteTxnID); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteTxnID : %d bytes remaining\n%+v\n", buf.Len(), m.VoteTxnID)
+	// fmt.Printf("Read VoteTxnID : %d bytes remaining\n%+v\n", buf.Len(), action.VoteTxnID)
 
 	// Vote (string)
 	// fmt.Printf("Reading Vote : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Vote, err = ReadVarChar(buf, 8)
+		action.Vote, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Vote : %d bytes remaining\n%+v\n", buf.Len(), m.Vote)
+	// fmt.Printf("Read Vote : %d bytes remaining\n%+v\n", buf.Len(), action.Vote)
 
 	// fmt.Printf("Read BallotCast : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m BallotCast) PayloadMessage() (PayloadMessage, error) {
+func (action BallotCast) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m BallotCast) String() string {
+func (action BallotCast) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("VoteTxnID:%#+v", m.VoteTxnID))
-	vals = append(vals, fmt.Sprintf("Vote:%#+v", m.Vote))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", action.AssetID))
+	vals = append(vals, fmt.Sprintf("VoteTxnID:%#+v", action.VoteTxnID))
+	vals = append(vals, fmt.Sprintf("Vote:%#+v", action.Vote))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4685,14 +4685,14 @@ type BallotCounted struct {
 }
 
 // Type returns the type identifer for this message.
-func (m BallotCounted) Type() string {
+func (action BallotCounted) Type() string {
 	return CodeBallotCounted
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *BallotCounted) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *BallotCounted) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4704,12 +4704,12 @@ func (m *BallotCounted) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *BallotCounted) serialize() ([]byte, error) {
+func (action *BallotCounted) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -4718,40 +4718,40 @@ func (m *BallotCounted) serialize() ([]byte, error) {
 }
 
 // write populates the fields in BallotCounted from the byte slice
-func (m *BallotCounted) write(b []byte) (int, error) {
+func (action *BallotCounted) write(b []byte) (int, error) {
 	// fmt.Printf("Reading BallotCounted : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read BallotCounted : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m BallotCounted) PayloadMessage() (PayloadMessage, error) {
+func (action BallotCounted) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m BallotCounted) String() string {
+func (action BallotCounted) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4772,14 +4772,14 @@ type Result struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Result) Type() string {
+func (action Result) Type() string {
 	return CodeResult
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Result) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Result) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -4791,36 +4791,36 @@ func (m *Result) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Result) serialize() ([]byte, error) {
+func (action *Result) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// AssetType (string)
 	// fmt.Printf("Serializing AssetType\n")
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
+	if err := WriteFixedChar(buf, action.AssetType, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetType : buf len %d\n", buf.Len())
 
 	// AssetID (string)
 	// fmt.Printf("Serializing AssetID\n")
-	if err := WriteFixedChar(buf, m.AssetID, 32); err != nil {
+	if err := WriteFixedChar(buf, action.AssetID, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized AssetID : buf len %d\n", buf.Len())
 
 	// Proposal (bool)
 	// fmt.Printf("Serializing Proposal\n")
-	if err := write(buf, m.Proposal); err != nil {
+	if err := write(buf, action.Proposal); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Proposal : buf len %d\n", buf.Len())
 
 	// ProposedChanges ([]Amendment)
 	// fmt.Printf("Serializing ProposedChanges\n")
-	if err := WriteVariableSize(buf, uint64(len(m.ProposedChanges)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.ProposedChanges)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.ProposedChanges {
+	for _, value := range action.ProposedChanges {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -4834,35 +4834,35 @@ func (m *Result) serialize() ([]byte, error) {
 
 	// VoteTxnID ([32]byte)
 	// fmt.Printf("Serializing VoteTxnID\n")
-	if err := write(buf, m.VoteTxnID); err != nil {
+	if err := write(buf, action.VoteTxnID); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteTxnID : buf len %d\n", buf.Len())
 
 	// VoteOptionsCount (uint8)
 	// fmt.Printf("Serializing VoteOptionsCount\n")
-	if err := write(buf, m.VoteOptionsCount); err != nil {
+	if err := write(buf, action.VoteOptionsCount); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized VoteOptionsCount : buf len %d\n", buf.Len())
 
 	// OptionXTally (uint64)
 	// fmt.Printf("Serializing OptionXTally\n")
-	if err := write(buf, m.OptionXTally); err != nil {
+	if err := write(buf, action.OptionXTally); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized OptionXTally : buf len %d\n", buf.Len())
 
 	// Result (string)
 	// fmt.Printf("Serializing Result\n")
-	if err := WriteVarChar(buf, m.Result, 8); err != nil {
+	if err := WriteVarChar(buf, action.Result, 8); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Result : buf len %d\n", buf.Len())
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -4871,49 +4871,49 @@ func (m *Result) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Result from the byte slice
-func (m *Result) write(b []byte) (int, error) {
+func (action *Result) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Result : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// AssetType (string)
 	// fmt.Printf("Reading AssetType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
+		action.AssetType, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), m.AssetType)
+	// fmt.Printf("Read AssetType : %d bytes remaining\n%+v\n", buf.Len(), action.AssetType)
 
 	// AssetID (string)
 	// fmt.Printf("Reading AssetID : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.AssetID, err = ReadFixedChar(buf, 32)
+		action.AssetID, err = ReadFixedChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), m.AssetID)
+	// fmt.Printf("Read AssetID : %d bytes remaining\n%+v\n", buf.Len(), action.AssetID)
 
 	// Proposal (bool)
 	// fmt.Printf("Reading Proposal : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Proposal); err != nil {
+	if err := read(buf, &action.Proposal); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Proposal : %d bytes remaining\n%+v\n", buf.Len(), m.Proposal)
+	// fmt.Printf("Read Proposal : %d bytes remaining\n%+v\n", buf.Len(), action.Proposal)
 
 	// ProposedChanges ([]Amendment)
 	// fmt.Printf("Reading ProposedChanges : %d bytes remaining\n", buf.Len())
@@ -4922,85 +4922,85 @@ func (m *Result) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.ProposedChanges = make([]Amendment, 0, size)
+		action.ProposedChanges = make([]Amendment, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Amendment
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.ProposedChanges = append(m.ProposedChanges, newValue)
+			action.ProposedChanges = append(action.ProposedChanges, newValue)
 		}
 	}
 
-	// fmt.Printf("Read ProposedChanges : %d bytes remaining\n%+v\n", buf.Len(), m.ProposedChanges)
+	// fmt.Printf("Read ProposedChanges : %d bytes remaining\n%+v\n", buf.Len(), action.ProposedChanges)
 
 	// VoteTxnID ([32]byte)
 	// fmt.Printf("Reading VoteTxnID : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteTxnID); err != nil {
+	if err := read(buf, &action.VoteTxnID); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteTxnID : %d bytes remaining\n%+v\n", buf.Len(), m.VoteTxnID)
+	// fmt.Printf("Read VoteTxnID : %d bytes remaining\n%+v\n", buf.Len(), action.VoteTxnID)
 
 	// VoteOptionsCount (uint8)
 	// fmt.Printf("Reading VoteOptionsCount : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.VoteOptionsCount); err != nil {
+	if err := read(buf, &action.VoteOptionsCount); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read VoteOptionsCount : %d bytes remaining\n%+v\n", buf.Len(), m.VoteOptionsCount)
+	// fmt.Printf("Read VoteOptionsCount : %d bytes remaining\n%+v\n", buf.Len(), action.VoteOptionsCount)
 
 	// OptionXTally (uint64)
 	// fmt.Printf("Reading OptionXTally : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.OptionXTally); err != nil {
+	if err := read(buf, &action.OptionXTally); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read OptionXTally : %d bytes remaining\n%+v\n", buf.Len(), m.OptionXTally)
+	// fmt.Printf("Read OptionXTally : %d bytes remaining\n%+v\n", buf.Len(), action.OptionXTally)
 
 	// Result (string)
 	// fmt.Printf("Reading Result : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Result, err = ReadVarChar(buf, 8)
+		action.Result, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Result : %d bytes remaining\n%+v\n", buf.Len(), m.Result)
+	// fmt.Printf("Read Result : %d bytes remaining\n%+v\n", buf.Len(), action.Result)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read Result : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Result) PayloadMessage() (PayloadMessage, error) {
+func (action Result) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Result) String() string {
+func (action Result) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", m.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetID:%#+v", m.AssetID))
-	vals = append(vals, fmt.Sprintf("Proposal:%#+v", m.Proposal))
-	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", m.ProposedChanges))
-	vals = append(vals, fmt.Sprintf("VoteTxnID:%#+v", m.VoteTxnID))
-	vals = append(vals, fmt.Sprintf("VoteOptionsCount:%v", m.VoteOptionsCount))
-	vals = append(vals, fmt.Sprintf("OptionXTally:%v", m.OptionXTally))
-	vals = append(vals, fmt.Sprintf("Result:%#+v", m.Result))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetID:%#+v", action.AssetID))
+	vals = append(vals, fmt.Sprintf("Proposal:%#+v", action.Proposal))
+	vals = append(vals, fmt.Sprintf("ProposedChanges:%#+v", action.ProposedChanges))
+	vals = append(vals, fmt.Sprintf("VoteTxnID:%#+v", action.VoteTxnID))
+	vals = append(vals, fmt.Sprintf("VoteOptionsCount:%v", action.VoteOptionsCount))
+	vals = append(vals, fmt.Sprintf("OptionXTally:%v", action.OptionXTally))
+	vals = append(vals, fmt.Sprintf("Result:%#+v", action.Result))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5022,14 +5022,14 @@ type Message struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Message) Type() string {
+func (action Message) Type() string {
 	return CodeMessage
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Message) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Message) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5041,22 +5041,22 @@ func (m *Message) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Message) serialize() ([]byte, error) {
+func (action *Message) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// QtyReceivingAddresses (uint8)
 	// fmt.Printf("Serializing QtyReceivingAddresses\n")
-	if err := write(buf, m.QtyReceivingAddresses); err != nil {
+	if err := write(buf, action.QtyReceivingAddresses); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized QtyReceivingAddresses : buf len %d\n", buf.Len())
 
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Serializing AddressIndexes\n")
-	if err := WriteVariableSize(buf, uint64(len(m.AddressIndexes)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.AddressIndexes)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.AddressIndexes {
+	for _, value := range action.AddressIndexes {
 		if err := write(buf, value); err != nil {
 			return nil, err
 		}
@@ -5065,14 +5065,14 @@ func (m *Message) serialize() ([]byte, error) {
 
 	// MessageType (string)
 	// fmt.Printf("Serializing MessageType\n")
-	if err := WriteFixedChar(buf, m.MessageType, 2); err != nil {
+	if err := WriteFixedChar(buf, action.MessageType, 2); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized MessageType : buf len %d\n", buf.Len())
 
 	// MessagePayload (string)
 	// fmt.Printf("Serializing MessagePayload\n")
-	if err := WriteVarChar(buf, m.MessagePayload, 32); err != nil {
+	if err := WriteVarChar(buf, action.MessagePayload, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized MessagePayload : buf len %d\n", buf.Len())
@@ -5081,25 +5081,25 @@ func (m *Message) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Message from the byte slice
-func (m *Message) write(b []byte) (int, error) {
+func (action *Message) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Message : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// QtyReceivingAddresses (uint8)
 	// fmt.Printf("Reading QtyReceivingAddresses : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.QtyReceivingAddresses); err != nil {
+	if err := read(buf, &action.QtyReceivingAddresses); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read QtyReceivingAddresses : %d bytes remaining\n%+v\n", buf.Len(), m.QtyReceivingAddresses)
+	// fmt.Printf("Read QtyReceivingAddresses : %d bytes remaining\n%+v\n", buf.Len(), action.QtyReceivingAddresses)
 
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Reading AddressIndexes : %d bytes remaining\n", buf.Len())
@@ -5108,55 +5108,55 @@ func (m *Message) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.AddressIndexes = make([]uint16, size, size)
-		if err := read(buf, &m.AddressIndexes); err != nil {
+		action.AddressIndexes = make([]uint16, size, size)
+		if err := read(buf, &action.AddressIndexes); err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AddressIndexes : %d bytes remaining\n%+v\n", buf.Len(), m.AddressIndexes)
+	// fmt.Printf("Read AddressIndexes : %d bytes remaining\n%+v\n", buf.Len(), action.AddressIndexes)
 
 	// MessageType (string)
 	// fmt.Printf("Reading MessageType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.MessageType, err = ReadFixedChar(buf, 2)
+		action.MessageType, err = ReadFixedChar(buf, 2)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read MessageType : %d bytes remaining\n%+v\n", buf.Len(), m.MessageType)
+	// fmt.Printf("Read MessageType : %d bytes remaining\n%+v\n", buf.Len(), action.MessageType)
 
 	// MessagePayload (string)
 	// fmt.Printf("Reading MessagePayload : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.MessagePayload, err = ReadVarChar(buf, 32)
+		action.MessagePayload, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read MessagePayload : %d bytes remaining\n%+v\n", buf.Len(), m.MessagePayload)
+	// fmt.Printf("Read MessagePayload : %d bytes remaining\n%+v\n", buf.Len(), action.MessagePayload)
 
 	// fmt.Printf("Read Message : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Message) PayloadMessage() (PayloadMessage, error) {
+func (action Message) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Message) String() string {
+func (action Message) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", m.QtyReceivingAddresses))
-	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
-	vals = append(vals, fmt.Sprintf("MessageType:%#+v", m.MessageType))
-	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", m.MessagePayload))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", action.QtyReceivingAddresses))
+	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", action.AddressIndexes))
+	vals = append(vals, fmt.Sprintf("MessageType:%#+v", action.MessageType))
+	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", action.MessagePayload))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5179,14 +5179,14 @@ type Rejection struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Rejection) Type() string {
+func (action Rejection) Type() string {
 	return CodeRejection
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Rejection) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Rejection) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5198,22 +5198,22 @@ func (m *Rejection) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Rejection) serialize() ([]byte, error) {
+func (action *Rejection) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// QtyReceivingAddresses (uint8)
 	// fmt.Printf("Serializing QtyReceivingAddresses\n")
-	if err := write(buf, m.QtyReceivingAddresses); err != nil {
+	if err := write(buf, action.QtyReceivingAddresses); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized QtyReceivingAddresses : buf len %d\n", buf.Len())
 
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Serializing AddressIndexes\n")
-	if err := WriteVariableSize(buf, uint64(len(m.AddressIndexes)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.AddressIndexes)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.AddressIndexes {
+	for _, value := range action.AddressIndexes {
 		if err := write(buf, value); err != nil {
 			return nil, err
 		}
@@ -5222,21 +5222,21 @@ func (m *Rejection) serialize() ([]byte, error) {
 
 	// RejectionType (uint8)
 	// fmt.Printf("Serializing RejectionType\n")
-	if err := write(buf, m.RejectionType); err != nil {
+	if err := write(buf, action.RejectionType); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized RejectionType : buf len %d\n", buf.Len())
 
 	// MessagePayload (string)
 	// fmt.Printf("Serializing MessagePayload\n")
-	if err := WriteVarChar(buf, m.MessagePayload, 32); err != nil {
+	if err := WriteVarChar(buf, action.MessagePayload, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized MessagePayload : buf len %d\n", buf.Len())
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -5245,25 +5245,25 @@ func (m *Rejection) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Rejection from the byte slice
-func (m *Rejection) write(b []byte) (int, error) {
+func (action *Rejection) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Rejection : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// QtyReceivingAddresses (uint8)
 	// fmt.Printf("Reading QtyReceivingAddresses : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.QtyReceivingAddresses); err != nil {
+	if err := read(buf, &action.QtyReceivingAddresses); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read QtyReceivingAddresses : %d bytes remaining\n%+v\n", buf.Len(), m.QtyReceivingAddresses)
+	// fmt.Printf("Read QtyReceivingAddresses : %d bytes remaining\n%+v\n", buf.Len(), action.QtyReceivingAddresses)
 
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Reading AddressIndexes : %d bytes remaining\n", buf.Len())
@@ -5272,60 +5272,60 @@ func (m *Rejection) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.AddressIndexes = make([]uint16, size, size)
-		if err := read(buf, &m.AddressIndexes); err != nil {
+		action.AddressIndexes = make([]uint16, size, size)
+		if err := read(buf, &action.AddressIndexes); err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read AddressIndexes : %d bytes remaining\n%+v\n", buf.Len(), m.AddressIndexes)
+	// fmt.Printf("Read AddressIndexes : %d bytes remaining\n%+v\n", buf.Len(), action.AddressIndexes)
 
 	// RejectionType (uint8)
 	// fmt.Printf("Reading RejectionType : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.RejectionType); err != nil {
+	if err := read(buf, &action.RejectionType); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read RejectionType : %d bytes remaining\n%+v\n", buf.Len(), m.RejectionType)
+	// fmt.Printf("Read RejectionType : %d bytes remaining\n%+v\n", buf.Len(), action.RejectionType)
 
 	// MessagePayload (string)
 	// fmt.Printf("Reading MessagePayload : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.MessagePayload, err = ReadVarChar(buf, 32)
+		action.MessagePayload, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read MessagePayload : %d bytes remaining\n%+v\n", buf.Len(), m.MessagePayload)
+	// fmt.Printf("Read MessagePayload : %d bytes remaining\n%+v\n", buf.Len(), action.MessagePayload)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read Rejection : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Rejection) PayloadMessage() (PayloadMessage, error) {
+func (action Rejection) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Rejection) String() string {
+func (action Rejection) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", m.QtyReceivingAddresses))
-	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", m.AddressIndexes))
-	vals = append(vals, fmt.Sprintf("RejectionType:%v", m.RejectionType))
-	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", m.MessagePayload))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", action.QtyReceivingAddresses))
+	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", action.AddressIndexes))
+	vals = append(vals, fmt.Sprintf("RejectionType:%v", action.RejectionType))
+	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", action.MessagePayload))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5337,14 +5337,14 @@ type Establishment struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Establishment) Type() string {
+func (action Establishment) Type() string {
 	return CodeEstablishment
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Establishment) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Establishment) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5356,12 +5356,12 @@ func (m *Establishment) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Establishment) serialize() ([]byte, error) {
+func (action *Establishment) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Message (string)
 	// fmt.Printf("Serializing Message\n")
-	if err := WriteVarChar(buf, m.Message, 32); err != nil {
+	if err := WriteVarChar(buf, action.Message, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
@@ -5370,44 +5370,44 @@ func (m *Establishment) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Establishment from the byte slice
-func (m *Establishment) write(b []byte) (int, error) {
+func (action *Establishment) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Establishment : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Message (string)
 	// fmt.Printf("Reading Message : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 32)
+		action.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
+	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), action.Message)
 
 	// fmt.Printf("Read Establishment : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Establishment) PayloadMessage() (PayloadMessage, error) {
+func (action Establishment) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Establishment) String() string {
+func (action Establishment) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5419,14 +5419,14 @@ type Addition struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Addition) Type() string {
+func (action Addition) Type() string {
 	return CodeAddition
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Addition) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Addition) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5438,12 +5438,12 @@ func (m *Addition) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Addition) serialize() ([]byte, error) {
+func (action *Addition) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Message (string)
 	// fmt.Printf("Serializing Message\n")
-	if err := WriteVarChar(buf, m.Message, 32); err != nil {
+	if err := WriteVarChar(buf, action.Message, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
@@ -5452,44 +5452,44 @@ func (m *Addition) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Addition from the byte slice
-func (m *Addition) write(b []byte) (int, error) {
+func (action *Addition) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Addition : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Message (string)
 	// fmt.Printf("Reading Message : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 32)
+		action.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
+	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), action.Message)
 
 	// fmt.Printf("Read Addition : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Addition) PayloadMessage() (PayloadMessage, error) {
+func (action Addition) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Addition) String() string {
+func (action Addition) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5501,14 +5501,14 @@ type Alteration struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Alteration) Type() string {
+func (action Alteration) Type() string {
 	return CodeAlteration
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Alteration) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Alteration) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5520,12 +5520,12 @@ func (m *Alteration) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Alteration) serialize() ([]byte, error) {
+func (action *Alteration) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Message (string)
 	// fmt.Printf("Serializing Message\n")
-	if err := WriteVarChar(buf, m.Message, 32); err != nil {
+	if err := WriteVarChar(buf, action.Message, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
@@ -5534,44 +5534,44 @@ func (m *Alteration) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Alteration from the byte slice
-func (m *Alteration) write(b []byte) (int, error) {
+func (action *Alteration) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Alteration : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Message (string)
 	// fmt.Printf("Reading Message : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 32)
+		action.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
+	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), action.Message)
 
 	// fmt.Printf("Read Alteration : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Alteration) PayloadMessage() (PayloadMessage, error) {
+func (action Alteration) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Alteration) String() string {
+func (action Alteration) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5583,14 +5583,14 @@ type Removal struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Removal) Type() string {
+func (action Removal) Type() string {
 	return CodeRemoval
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Removal) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Removal) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5602,12 +5602,12 @@ func (m *Removal) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Removal) serialize() ([]byte, error) {
+func (action *Removal) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Message (string)
 	// fmt.Printf("Serializing Message\n")
-	if err := WriteVarChar(buf, m.Message, 32); err != nil {
+	if err := WriteVarChar(buf, action.Message, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Message : buf len %d\n", buf.Len())
@@ -5616,44 +5616,44 @@ func (m *Removal) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Removal from the byte slice
-func (m *Removal) write(b []byte) (int, error) {
+func (action *Removal) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Removal : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Message (string)
 	// fmt.Printf("Reading Message : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.Message, err = ReadVarChar(buf, 32)
+		action.Message, err = ReadVarChar(buf, 32)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), m.Message)
+	// fmt.Printf("Read Message : %d bytes remaining\n%+v\n", buf.Len(), action.Message)
 
 	// fmt.Printf("Read Removal : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Removal) PayloadMessage() (PayloadMessage, error) {
+func (action Removal) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Removal) String() string {
+func (action Removal) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", m.Message))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5678,14 +5678,14 @@ type Transfer struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Transfer) Type() string {
+func (action Transfer) Type() string {
 	return CodeTransfer
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Transfer) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Transfer) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5697,15 +5697,15 @@ func (m *Transfer) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Transfer) serialize() ([]byte, error) {
+func (action *Transfer) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Assets ([]AssetTransfer)
 	// fmt.Printf("Serializing Assets\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Assets)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Assets)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Assets {
+	for _, value := range action.Assets {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -5719,28 +5719,28 @@ func (m *Transfer) serialize() ([]byte, error) {
 
 	// OfferExpiry (uint64)
 	// fmt.Printf("Serializing OfferExpiry\n")
-	if err := write(buf, m.OfferExpiry); err != nil {
+	if err := write(buf, action.OfferExpiry); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized OfferExpiry : buf len %d\n", buf.Len())
 
 	// ExchangeFeeCurrency (string)
 	// fmt.Printf("Serializing ExchangeFeeCurrency\n")
-	if err := WriteFixedChar(buf, m.ExchangeFeeCurrency, 3); err != nil {
+	if err := WriteFixedChar(buf, action.ExchangeFeeCurrency, 3); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ExchangeFeeCurrency : buf len %d\n", buf.Len())
 
 	// ExchangeFeeVar (float32)
 	// fmt.Printf("Serializing ExchangeFeeVar\n")
-	if err := write(buf, m.ExchangeFeeVar); err != nil {
+	if err := write(buf, action.ExchangeFeeVar); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ExchangeFeeVar : buf len %d\n", buf.Len())
 
 	// ExchangeFeeFixed (float32)
 	// fmt.Printf("Serializing ExchangeFeeFixed\n")
-	if err := write(buf, m.ExchangeFeeFixed); err != nil {
+	if err := write(buf, action.ExchangeFeeFixed); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ExchangeFeeFixed : buf len %d\n", buf.Len())
@@ -5748,7 +5748,7 @@ func (m *Transfer) serialize() ([]byte, error) {
 	// ExchangeFeeAddress (Address)
 	// fmt.Printf("Serializing ExchangeFeeAddress\n")
 	{
-		b, err := m.ExchangeFeeAddress.Serialize()
+		b, err := action.ExchangeFeeAddress.Serialize()
 		if err != nil {
 			return nil, err
 		}
@@ -5763,17 +5763,17 @@ func (m *Transfer) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Transfer from the byte slice
-func (m *Transfer) write(b []byte) (int, error) {
+func (action *Transfer) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Transfer : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Assets ([]AssetTransfer)
 	// fmt.Printf("Reading Assets : %d bytes remaining\n", buf.Len())
@@ -5782,82 +5782,82 @@ func (m *Transfer) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Assets = make([]AssetTransfer, 0, size)
+		action.Assets = make([]AssetTransfer, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue AssetTransfer
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Assets = append(m.Assets, newValue)
+			action.Assets = append(action.Assets, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Assets : %d bytes remaining\n%+v\n", buf.Len(), m.Assets)
+	// fmt.Printf("Read Assets : %d bytes remaining\n%+v\n", buf.Len(), action.Assets)
 
 	// OfferExpiry (uint64)
 	// fmt.Printf("Reading OfferExpiry : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.OfferExpiry); err != nil {
+	if err := read(buf, &action.OfferExpiry); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read OfferExpiry : %d bytes remaining\n%+v\n", buf.Len(), m.OfferExpiry)
+	// fmt.Printf("Read OfferExpiry : %d bytes remaining\n%+v\n", buf.Len(), action.OfferExpiry)
 
 	// ExchangeFeeCurrency (string)
 	// fmt.Printf("Reading ExchangeFeeCurrency : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		m.ExchangeFeeCurrency, err = ReadFixedChar(buf, 3)
+		action.ExchangeFeeCurrency, err = ReadFixedChar(buf, 3)
 		if err != nil {
 			return 0, err
 		}
 	}
 
-	// fmt.Printf("Read ExchangeFeeCurrency : %d bytes remaining\n%+v\n", buf.Len(), m.ExchangeFeeCurrency)
+	// fmt.Printf("Read ExchangeFeeCurrency : %d bytes remaining\n%+v\n", buf.Len(), action.ExchangeFeeCurrency)
 
 	// ExchangeFeeVar (float32)
 	// fmt.Printf("Reading ExchangeFeeVar : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ExchangeFeeVar); err != nil {
+	if err := read(buf, &action.ExchangeFeeVar); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ExchangeFeeVar : %d bytes remaining\n%+v\n", buf.Len(), m.ExchangeFeeVar)
+	// fmt.Printf("Read ExchangeFeeVar : %d bytes remaining\n%+v\n", buf.Len(), action.ExchangeFeeVar)
 
 	// ExchangeFeeFixed (float32)
 	// fmt.Printf("Reading ExchangeFeeFixed : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.ExchangeFeeFixed); err != nil {
+	if err := read(buf, &action.ExchangeFeeFixed); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ExchangeFeeFixed : %d bytes remaining\n%+v\n", buf.Len(), m.ExchangeFeeFixed)
+	// fmt.Printf("Read ExchangeFeeFixed : %d bytes remaining\n%+v\n", buf.Len(), action.ExchangeFeeFixed)
 
 	// ExchangeFeeAddress (Address)
 	// fmt.Printf("Reading ExchangeFeeAddress : %d bytes remaining\n", buf.Len())
-	if err := m.ExchangeFeeAddress.Write(buf); err != nil {
+	if err := action.ExchangeFeeAddress.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read ExchangeFeeAddress : %d bytes remaining\n%+v\n", buf.Len(), m.ExchangeFeeAddress)
+	// fmt.Printf("Read ExchangeFeeAddress : %d bytes remaining\n%+v\n", buf.Len(), action.ExchangeFeeAddress)
 
 	// fmt.Printf("Read Transfer : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Transfer) PayloadMessage() (PayloadMessage, error) {
+func (action Transfer) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Transfer) String() string {
+func (action Transfer) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Assets:%#+v", m.Assets))
-	vals = append(vals, fmt.Sprintf("OfferExpiry:%v", m.OfferExpiry))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeCurrency:%#+v", m.ExchangeFeeCurrency))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeVar:%v", m.ExchangeFeeVar))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeFixed:%v", m.ExchangeFeeFixed))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeAddress:%#+v", m.ExchangeFeeAddress))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Assets:%#+v", action.Assets))
+	vals = append(vals, fmt.Sprintf("OfferExpiry:%v", action.OfferExpiry))
+	vals = append(vals, fmt.Sprintf("ExchangeFeeCurrency:%#+v", action.ExchangeFeeCurrency))
+	vals = append(vals, fmt.Sprintf("ExchangeFeeVar:%v", action.ExchangeFeeVar))
+	vals = append(vals, fmt.Sprintf("ExchangeFeeFixed:%v", action.ExchangeFeeFixed))
+	vals = append(vals, fmt.Sprintf("ExchangeFeeAddress:%#+v", action.ExchangeFeeAddress))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5871,14 +5871,14 @@ type Settlement struct {
 }
 
 // Type returns the type identifer for this message.
-func (m Settlement) Type() string {
+func (action Settlement) Type() string {
 	return CodeSettlement
 }
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Settlement) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (action *Settlement) read(b []byte) (int, error) {
+	data, err := action.serialize()
 
 	if err != nil {
 		return 0, err
@@ -5890,15 +5890,15 @@ func (m *Settlement) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Settlement) serialize() ([]byte, error) {
+func (action *Settlement) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Assets ([]AssetSettlement)
 	// fmt.Printf("Serializing Assets\n")
-	if err := WriteVariableSize(buf, uint64(len(m.Assets)), 0, 8); err != nil {
+	if err := WriteVariableSize(buf, uint64(len(action.Assets)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.Assets {
+	for _, value := range action.Assets {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -5912,7 +5912,7 @@ func (m *Settlement) serialize() ([]byte, error) {
 
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, m.Timestamp); err != nil {
+	if err := write(buf, action.Timestamp); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
@@ -5921,17 +5921,17 @@ func (m *Settlement) serialize() ([]byte, error) {
 }
 
 // write populates the fields in Settlement from the byte slice
-func (m *Settlement) write(b []byte) (int, error) {
+func (action *Settlement) write(b []byte) (int, error) {
 	// fmt.Printf("Reading Settlement : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Header (Header)
 	// fmt.Printf("Reading Header : %d bytes remaining\n", buf.Len())
-	if err := m.Header.Write(buf); err != nil {
+	if err := action.Header.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), m.Header)
+	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
 	// Assets ([]AssetSettlement)
 	// fmt.Printf("Reading Assets : %d bytes remaining\n", buf.Len())
@@ -5940,42 +5940,42 @@ func (m *Settlement) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-		m.Assets = make([]AssetSettlement, 0, size)
+		action.Assets = make([]AssetSettlement, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue AssetSettlement
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			m.Assets = append(m.Assets, newValue)
+			action.Assets = append(action.Assets, newValue)
 		}
 	}
 
-	// fmt.Printf("Read Assets : %d bytes remaining\n%+v\n", buf.Len(), m.Assets)
+	// fmt.Printf("Read Assets : %d bytes remaining\n%+v\n", buf.Len(), action.Assets)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &m.Timestamp); err != nil {
+	if err := read(buf, &action.Timestamp); err != nil {
 		return 0, err
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), m.Timestamp)
+	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// fmt.Printf("Read Settlement : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
 // PayloadMessage returns the PayloadMessage, if any.
-func (m Settlement) PayloadMessage() (PayloadMessage, error) {
+func (action Settlement) PayloadMessage() (PayloadMessage, error) {
 	return nil, nil
 }
 
-func (m Settlement) String() string {
+func (action Settlement) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Header:%#+v", m.Header))
-	vals = append(vals, fmt.Sprintf("Assets:%#+v", m.Assets))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", m.Timestamp))
+	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
+	vals = append(vals, fmt.Sprintf("Assets:%#+v", action.Assets))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }

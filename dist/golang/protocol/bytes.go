@@ -3,7 +3,6 @@ package protocol
 import (
 	"bytes"
 	"encoding/binary"
-	"errors"
 	"fmt"
 	"io"
 )
@@ -85,6 +84,7 @@ func readLen(buf io.Reader, b []byte) error {
 	return err
 }
 
+// PushDataScript prepares a push data script based on the given size
 func PushDataScript(size uint64) []byte {
 	if size <= uint64(OpMaxSingleBytePushdata) {
 		return []byte{byte(size)} // Single byte push
@@ -103,6 +103,7 @@ func PushDataScript(size uint64) []byte {
 	return buf.Bytes()
 }
 
+// ParsePushDataScript will parse a push data script and return its size
 func ParsePushDataScript(buf io.Reader) (uint64, error) {
 	var opCode byte
 	err := binary.Read(buf, defaultEndian, &opCode)
@@ -137,6 +138,6 @@ func ParsePushDataScript(buf io.Reader) (uint64, error) {
 		}
 		return uint64(size), nil
 	default:
-		return 0, errors.New(fmt.Sprintf("Invalid push data op code : 0x%02x", opCode))
+		return 0, fmt.Errorf("Invalid push data op code : 0x%02x", opCode)
 	}
 }

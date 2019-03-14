@@ -199,6 +199,7 @@ func Code(b []byte) (string, error) {
 	return string(b[offset : offset+2]), nil
 }
 
+// WriteVarChar writes a variable character string
 func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {
 	if err := WriteVariableSize(buf, uint64(len(value)), sizeBits, 0); err != nil {
 		return err
@@ -210,6 +211,7 @@ func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {
 	return nil
 }
 
+// ReadVarChar reads a variable character string
 func ReadVarChar(buf *bytes.Buffer, sizeBits int) (string, error) {
 	size, err := ReadVariableSize(buf, sizeBits, 0)
 	if err != nil {
@@ -224,9 +226,10 @@ func ReadVarChar(buf *bytes.Buffer, sizeBits int) (string, error) {
 	return string(data), nil
 }
 
+// WriteFixedChar writes a fixed character string
 func WriteFixedChar(buf *bytes.Buffer, value string, size uint64) error {
 	if uint64(len(value)) > size {
-		return errors.New(fmt.Sprintf("FixedChar too long %d > %d", len(value), size))
+		return fmt.Errorf("FixedChar too long %d > %d", len(value), size)
 	}
 	if _, err := buf.Write([]byte(value)); err != nil {
 		return err
@@ -247,6 +250,7 @@ func WriteFixedChar(buf *bytes.Buffer, value string, size uint64) error {
 	return nil
 }
 
+// ReadFixedChar reads a fixed character string
 func ReadFixedChar(buf *bytes.Buffer, size uint64) (string, error) {
 	var err error
 	data := make([]byte, size)
@@ -257,6 +261,7 @@ func ReadFixedChar(buf *bytes.Buffer, size uint64) (string, error) {
 	return string(data), nil
 }
 
+// WriteVarBin writes a variable binary value
 func WriteVarBin(buf *bytes.Buffer, value []byte, sizeBits int) error {
 	if err := WriteVariableSize(buf, uint64(len(value)), sizeBits, 0); err != nil {
 		return err
@@ -268,6 +273,7 @@ func WriteVarBin(buf *bytes.Buffer, value []byte, sizeBits int) error {
 	return nil
 }
 
+// ReadVarBin reads a variable binary value
 func ReadVarBin(buf *bytes.Buffer, sizeBits int) ([]byte, error) {
 	size, err := ReadVariableSize(buf, sizeBits, 0)
 	if err != nil {
@@ -282,9 +288,10 @@ func ReadVarBin(buf *bytes.Buffer, sizeBits int) ([]byte, error) {
 	return data, nil
 }
 
+// WriteFixedBin writes a fixed binary value
 func WriteFixedBin(buf *bytes.Buffer, value []byte, size uint64) error {
 	if uint64(len(value)) > size {
-		return errors.New(fmt.Sprintf("FixedBin too long %d > %d", len(value), size))
+		return fmt.Errorf("FixedBin too long %d > %d", len(value), size)
 	}
 	if _, err := buf.Write(value); err != nil {
 		return err
@@ -312,7 +319,7 @@ func WriteVariableSize(buf *bytes.Buffer, size uint64, sizeBits int, defaultSize
 		sizeBits = defaultSizeBits
 	}
 	if size >= 2<<uint64(sizeBits) {
-		return errors.New(fmt.Sprintf("Size beyond size bits limit (%d) : %d", (2<<uint64(sizeBits))-1, size))
+		return fmt.Errorf("Size beyond size bits limit (%d) : %d", (2<<uint64(sizeBits))-1, size)
 	}
 
 	var err error
@@ -326,7 +333,7 @@ func WriteVariableSize(buf *bytes.Buffer, size uint64, sizeBits int, defaultSize
 	case 64:
 		err = write(buf, uint64(size))
 	default:
-		return errors.New(fmt.Sprintf("Invalid variable size bits : %d", sizeBits))
+		return fmt.Errorf("Invalid variable size bits : %d", sizeBits)
 	}
 	if err != nil {
 		return err
@@ -360,7 +367,7 @@ func ReadVariableSize(buf *bytes.Buffer, sizeBits int, defaultSizeBits int) (uin
 	case 64:
 		err = read(buf, &size)
 	default:
-		err = errors.New(fmt.Sprintf("Invalid variable size bits : %d", sizeBits))
+		err = fmt.Errorf("Invalid variable size bits : %d", sizeBits)
 	}
 	return size, err
 }
