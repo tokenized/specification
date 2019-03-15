@@ -62,14 +62,17 @@ The following breaks down the construction of a {{.Metadata.Label}}. The action 
             <th style="width:20%" class="s1">Txn outputs</th>
             <th class="s1">Comments</th>
        </tr>
+
+{{range .Rules.Rows}}
        <tr>
-            <td class="{{$letter}}5">{{.Rules.Inputs}}</td>
-            <td class="{{$letter}}6">.</td>
-            <td class="{{$letter}}6">.</td>
-            <td class="{{$letter}}10">.</td>
-            <td class="{{$letter}}10">.</td>
-            <td class="{{$letter}}10">.</td>
+            <td class="{{$letter}}5">{{.InputIndex}}</td>
+            <td class="{{$letter}}6">{{.Input.Label}}</td>
+            <td class="{{$letter}}6">{{.Input.Comments}}</td>
+            <td class="{{$letter}}10">{{.OutputIndex}}</td>
+            <td class="{{$letter}}10">{{.Output.Label}}</td>
+            <td class="{{$letter}}10">{{.Output.Comments}}</td>
         </tr>
+{{end}}
     </table>
 </div>
 

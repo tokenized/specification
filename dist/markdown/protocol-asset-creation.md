@@ -190,7 +190,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
     </table>
 </div>
 
-##Asset Creation Action Transaction Summary
+## Asset Creation Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -205,14 +205,35 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <th style="width:20%" class="s1">Txn outputs</th>
             <th class="s1">Comments</th>
        </tr>
+
+
        <tr>
-            <td class="a5">[{Contract Contract Public Address }]</td>
-            <td class="a6">.</td>
-            <td class="a6">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
-            <td class="a10">.</td>
+            <td class="a5">0</td>
+            <td class="a6">Contract Public Address</td>
+            <td class="a6"></td>
+            <td class="a10">0</td>
+            <td class="a10">Contract Public Address</td>
+            <td class="a10">Dust Limit</td>
         </tr>
+
+       <tr>
+            <td class="a5"></td>
+            <td class="a6"></td>
+            <td class="a6"></td>
+            <td class="a10">1</td>
+            <td class="a10">Issuer's Public Address</td>
+            <td class="a10">Change (Required, minimum 546)</td>
+        </tr>
+
+       <tr>
+            <td class="a5"></td>
+            <td class="a6"></td>
+            <td class="a6"></td>
+            <td class="a10">2</td>
+            <td class="a10">Contract Fee Address</td>
+            <td class="a10">Contract Operator's Fee (Optional)</td>
+        </tr>
+
     </table>
 </div>
 
