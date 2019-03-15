@@ -19,7 +19,7 @@ func TestAssetDefinition(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test not setup
 
 	// AssetAuthFlags (bin)
@@ -116,7 +116,7 @@ func TestAssetDefinition(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test compare not setup
 
 	// AssetAuthFlags (bin)
@@ -177,7 +177,7 @@ func TestAssetCreation(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test not setup
 
 	// AssetAuthFlags (bin)
@@ -280,7 +280,7 @@ func TestAssetCreation(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test compare not setup
 
 	// AssetAuthFlags (bin)
@@ -349,7 +349,7 @@ func TestAssetModification(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test not setup
 
 	// AssetRevision (uint)
@@ -403,7 +403,7 @@ func TestAssetModification(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test compare not setup
 
 	// AssetRevision (uint)
@@ -1239,7 +1239,7 @@ func TestOrder(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test not setup
 
 	// ComplianceAction (fixedchar)
@@ -1317,7 +1317,7 @@ func TestOrder(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test compare not setup
 
 	// ComplianceAction (fixedchar)
@@ -1618,7 +1618,7 @@ func TestInitiative(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test not setup
 
 	// VoteSystem (uint)
@@ -1687,7 +1687,7 @@ func TestInitiative(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test compare not setup
 
 	// VoteSystem (uint)
@@ -1736,7 +1736,7 @@ func TestReferendum(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test not setup
 
 	// VoteSystem (uint)
@@ -1808,7 +1808,7 @@ func TestReferendum(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test compare not setup
 
 	// VoteSystem (uint)
@@ -1901,7 +1901,7 @@ func TestBallotCast(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test not setup
 
 	// VoteTxnID (sha256)
@@ -1950,7 +1950,7 @@ func TestBallotCast(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test compare not setup
 
 	// VoteTxnID (sha256)
@@ -2021,7 +2021,7 @@ func TestResult(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test not setup
 
 	// Proposal (bool)
@@ -2087,7 +2087,7 @@ func TestResult(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (bin)
+	// AssetCode (bin)
 	// bin test compare not setup
 
 	// Proposal (bool)
