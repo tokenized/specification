@@ -73,7 +73,7 @@ The following breaks down the construction of a Rejection Action. The action is 
     </table>
 </div>
 
-## Rejection Action Transaction Summary
+##Rejection Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
