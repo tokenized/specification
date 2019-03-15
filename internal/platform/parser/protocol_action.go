@@ -152,9 +152,18 @@ func (m ProtocolAction) PayloadFields() []Field {
 	return fields
 }
 
-func (m ProtocolAction) HasPayloadMessage() bool {
+func (m ProtocolAction) HasAssetPayload() bool {
 	switch m.Name() {
 	case "AssetDefinition", "AssetCreation":
+		return true
+	}
+
+	return false
+}
+
+func (m ProtocolAction) HasMessagePayload() bool {
+	switch m.Name() {
+	case "Message":
 		return true
 	}
 

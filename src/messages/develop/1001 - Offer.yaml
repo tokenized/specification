@@ -5,6 +5,7 @@
 code: '1001'
 
 metadata:
+  name: Offer
   label: Offer
   description: "A message that contains all of the details required for an agreement to be formed. Sent to an address(es). The Offer should have all, or nearly all, of the details required for the receiving party to accept the offer.  The Offer shall be in the form of a partially formed Bitcoin transaction with all of the relevent details (offer, consideration, offeror's payment/receipt details, etc.).  The Offer message is different to a Signature Request message in that it is missing the offeree's payment/receipt details (eg. UTXOs). If the Offer message is well received by the offeree, then the offeree can add their relevent details (eg. inputs/outputs) and sign the transaction.  If an additional signature is required from the offeror at this point, then the partially-signed transaction can be sent to the offeror by way of a Signature Request message."
 
@@ -17,10 +18,10 @@ fields:
     example_hex: 1588f8cc6a16430d
     example_value: 1551767413250187179
     notes: ""
-    
+
   - name: Offer
     label: Offer
-    description: "Offeror offers 3 Bitcoin for 10 Tokenized Ltd Common Shares (SHC) from the offeree."
-    type: nvarchar32
-    example_value: ""
+    description: "Full serialized bitcoin tx containing an offer to another party, usually to exchange tokens/bitcoin. The message needs data added by another party."
+    type: varbin
+    size: 32
     notes: ""

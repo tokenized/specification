@@ -12,7 +12,7 @@ class Action_AssetDefinition(ActionBase):
     ActionPrefix = 'A1'
 
     schema = {
-        'AssetID':                         [0, DAT_fixedchar, 32],
+        'AssetCode':                       [0, DAT_bin, 32],
         'AssetAuthFlags':                  [1, DAT_bin, 8],
         'TransfersPermitted':              [2, DAT_bool, 1],
         'TradeRestrictions':               [3, DAT_fixedchar, 3],
@@ -57,7 +57,7 @@ class Action_AssetCreation(ActionBase):
     ActionPrefix = 'A2'
 
     schema = {
-        'AssetID':                         [0, DAT_fixedchar, 32],
+        'AssetCode':                       [0, DAT_bin, 32],
         'AssetAuthFlags':                  [1, DAT_bin, 8],
         'TransfersPermitted':              [2, DAT_bool, 1],
         'TradeRestrictions':               [3, DAT_fixedchar, 3],
@@ -106,7 +106,7 @@ class Action_AssetModification(ActionBase):
     ActionPrefix = 'A3'
 
     schema = {
-        'AssetID':                         [0, DAT_fixedchar, 32],
+        'AssetCode':                       [0, DAT_bin, 32],
         'AssetRevision':                   [1, DAT_uint, 8],
         'Modifications':                   [2, DAT_Amendment[], 0],
         'RefTxID':                         [3, DAT_sha256, 32]
@@ -354,7 +354,7 @@ class Action_Order(ActionBase):
     ActionPrefix = 'E1'
 
     schema = {
-        'AssetID':                         [0, DAT_fixedchar, 32],
+        'AssetCode':                       [0, DAT_bin, 32],
         'ComplianceAction':                [1, DAT_fixedchar, 1],
         'TargetAddresses':                 [2, DAT_TargetAddress[], 16],
         'DepositAddress':                  [3, DAT_Address, 0],
@@ -481,7 +481,7 @@ class Action_Initiative(ActionBase):
     ActionPrefix = 'G1'
 
     schema = {
-        'AssetID':                         [0, DAT_fixedchar, 32],
+        'AssetCode':                       [0, DAT_bin, 32],
         'VoteSystem':                      [1, DAT_uint, 1],
         'Proposal':                        [2, DAT_bool, 1],
         'ProposedChanges':                 [3, DAT_Amendment[], 0],
@@ -518,7 +518,7 @@ class Action_Referendum(ActionBase):
 
     schema = {
         'AssetType':                       [0, DAT_fixedchar, 3],
-        'AssetID':                         [1, DAT_fixedchar, 32],
+        'AssetCode':                       [1, DAT_bin, 32],
         'VoteSystem':                      [2, DAT_uint, 1],
         'Proposal':                        [3, DAT_bool, 1],
         'ProposedChanges':                 [4, DAT_Amendment[], 0],
@@ -536,7 +536,7 @@ class Action_Referendum(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetID = None
+        self.AssetCode = None
         self.VoteSystem = None
         self.Proposal = None
         self.ProposedChanges = None
@@ -575,7 +575,7 @@ class Action_BallotCast(ActionBase):
     ActionPrefix = 'G4'
 
     schema = {
-        'AssetID':                         [0, DAT_fixedchar, 32],
+        'AssetCode':                       [0, DAT_bin, 32],
         'VoteTxnID':                       [1, DAT_sha256, 32],
         'Vote':                            [2, DAT_varchar, 8]
     }
@@ -618,7 +618,7 @@ class Action_Result(ActionBase):
     ActionPrefix = 'G6'
 
     schema = {
-        'AssetID':                         [0, DAT_fixedchar, 32],
+        'AssetCode':                       [0, DAT_bin, 32],
         'Proposal':                        [1, DAT_bool, 1],
         'ProposedChanges':                 [2, DAT_Amendment[], 0],
         'VoteTxnID':                       [3, DAT_sha256, 32],
@@ -656,9 +656,8 @@ class Action_Message(ActionBase):
     ActionPrefix = 'M1'
 
     schema = {
-        'AddressIndexes':                  [0, DAT_uint16[], 0],
-        'MessageType':                     [1, DAT_fixedchar, 2],
-        'MessagePayload':                  [2, DAT_varchar, 32]
+        'MessageType':                     [0, DAT_fixedchar, 4],
+        'MessagePayload':                  [1, DAT_varbin, 32]
     }
 
     rules = {
@@ -668,7 +667,6 @@ class Action_Message(ActionBase):
     }
 
     def init_attributes(self):
-        self.MessageType = None
         self.MessagePayload = None
 
 

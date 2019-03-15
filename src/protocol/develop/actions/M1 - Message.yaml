@@ -39,15 +39,6 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: QtyReceivingAddresses
-    label: Qty Receiving Addresses
-    description: "0-255 Message Receiving Addresses"
-    type: uint8
-    size: 1
-    example_hex: 02
-    example_value: 2
-    notes: ""
-
   - name: AddressIndexes
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
@@ -58,9 +49,9 @@ fields:
     label: Message Type
     description: "Potential for up to 65,535 different message types"
     type: fixedchar
-    size: 2
-    example_hex: "3600"
-    example_value: "6"
+    size: 4
+    example_hex: "36000000"
+    example_value: "6000"
     notes: ""
 
   - name: MessagePayload
@@ -70,8 +61,8 @@ fields:
       Issuers/Contracts can send the signifying amount of satoshis to themselves for public
       announcements or private 'notes' if encrypted. See Message Types for a full list of
       potential use cases.
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
+    type: varbin
+    # varbin size is number of bits to serialize the size of the data
     size: 32
     example_hex: "0000000c48656c6c6f20776f726c6421"
     example_value: "Hello world!"

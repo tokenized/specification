@@ -360,7 +360,7 @@ The following breaks down the construction of a Contract Formation Action. The a
             <tr>
                 <td class="c10">Voting System Name</td>
                 <td class="c10">Name</td>
-                <td class="c10">20</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Special Resolutions</td>
                 <td class="c10">eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.</td>
                 <td class="c10">varchar</td>
@@ -449,7 +449,7 @@ The following breaks down the construction of a Contract Formation Action. The a
             <tr>
                 <td class="c10">Registry Name</td>
                 <td class="c10">Name</td>
-                <td class="c10">10</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Tokenized</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. Registry X Name (eg. Coinbase, Tokenized, etc.)</td>
                 <td class="c10">varchar</td>
@@ -458,7 +458,7 @@ The following breaks down the construction of a Contract Formation Action. The a
             <tr>
                 <td class="c10">Registry URL</td>
                 <td class="c10">URL</td>
-                <td class="c10">53</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">http://registry.tokenized.com/api/3650d9/version2010</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint</td>
                 <td class="c10">varchar</td>
@@ -467,7 +467,7 @@ The following breaks down the construction of a Contract Formation Action. The a
             <tr>
                 <td class="c10">Registry Public Key</td>
                 <td class="c10">PublicKey</td>
-                <td class="c10">1</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all"></td>
                 <td class="c10">Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.</td>
                 <td class="c10">varchar</td>
@@ -502,7 +502,7 @@ The following breaks down the construction of a Contract Formation Action. The a
             <tr>
                 <td class="c10">Key Role Name</td>
                 <td class="c10">Name</td>
-                <td class="c10">14</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Satoshi Nakamoto</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)</td>
                 <td class="c10">varchar</td>

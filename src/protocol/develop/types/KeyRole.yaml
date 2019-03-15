@@ -18,7 +18,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 14
     example_hex: 0d4a616d65732042656c64696e67
     example_value: "Satoshi Nakamoto"
     notes: ""

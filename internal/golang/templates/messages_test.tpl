@@ -48,7 +48,7 @@ func Test{{.Name}}(t *testing.T) {
 	{{ end }}
 
 	// Encode message
-	initialEncoding, err := initialMessage.serialize()
+	initialEncoding, err := initialMessage.Serialize()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -57,7 +57,7 @@ func Test{{.Name}}(t *testing.T) {
 	// Decode message
 	decodedMessage := {{.Name}}{}
 
-	n, err := decodedMessage.write(initialEncoding)
+	n, err := decodedMessage.Write(initialEncoding)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -68,7 +68,7 @@ func Test{{.Name}}(t *testing.T) {
 	}
 
 	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.serialize()
+	secondEncoding, err := decodedMessage.Serialize()
 	if err != nil {
 		t.Fatal(err)
 	}

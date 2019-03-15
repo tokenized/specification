@@ -5,6 +5,7 @@
 code: '0002'
 
 metadata:
+  name: PublicMessage
   label: Public Message
   description: "Generic public message or public announcement. Sent to an address(es).  Can be used for an official issuer announcement."
 
@@ -17,10 +18,11 @@ fields:
     example_hex: 1588f8cc6a16430d
     example_value: 1551767413250187179
     notes: ""
-    
+
   - name: PublicMessage
     label: Public Message
     description: "Tokenized Ltd. announces product launch."
-    type: nvarchar32
+    type: varchar
+    size: 32
     example_value: ""
     notes: ""
