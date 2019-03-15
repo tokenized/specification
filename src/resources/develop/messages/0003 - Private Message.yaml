@@ -9,6 +9,14 @@ metadata:
   description: "Generic private message. Sent to another address(es). Encryption is to be used."
 
 fields:
+  - name: Version
+    label: Version
+    type: uint8
+    description: Payload Version
+    size: 1
+    example: 0
+    computed: true
+    
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
