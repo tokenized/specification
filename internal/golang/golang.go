@@ -12,7 +12,7 @@ func CompileProtocol(distPath string, actions parser.ProtocolActions, messages p
 	templateToFile(distPath, typs, "field_types.tpl", "field_types.go")
 }
 
-func CompileAssets(distPath string, assts parser.Assets) {
+func CompileAssets(distPath string, assts []parser.Asset) {
 	templateToFile(distPath, assts, "assets.tpl", "assets.go")
 }
 

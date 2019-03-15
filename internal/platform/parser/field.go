@@ -15,6 +15,8 @@ type Field struct {
 	ExampleValue string `yaml:"example_value"`
 	ExampleHex   string `yaml:"example_hex"`
 	Notes        string
+	Computed     bool
+	DisplayOrder int
 }
 
 func (f Field) FieldName() string {
@@ -27,10 +29,6 @@ func (f Field) FieldDescription() string {
 
 func (f Field) DescriptionAbbr() string {
 	return fmt.Sprintf(f.Description[:90])
-}
-
-func (f Field) FieldBytes() string {
-	return fmt.Sprintf("%v", f.Size)
 }
 
 func (f Field) FormType() string {

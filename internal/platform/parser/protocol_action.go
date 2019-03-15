@@ -96,14 +96,10 @@ func (m ProtocolAction) CodeNameComment() string {
 
 func (m ProtocolAction) CodeComment() string {
 	s := fmt.Sprintf("%s identifies data as a %v message.",
-		m.ActionCode(),
+		m.Code,
 		m.Name())
 
 	return reformat(s, "\t//")
-}
-
-func (m ProtocolAction) ActionCode() string {
-	return m.Code
 }
 
 func (m ProtocolAction) CodeName() string {
@@ -111,20 +107,11 @@ func (m ProtocolAction) CodeName() string {
 }
 
 func (m ProtocolAction) TypeLetter() string {
-	code := strings.ToLower(m.Code[:1])
-	return fmt.Sprintf(code)
+	return strings.ToLower(m.Code[:1])
 }
 
 func (m ProtocolAction) Name() string {
 	return strings.Replace(m.Metadata.Name, " ", "", -1)
-}
-
-func (m ProtocolAction) Label() string {
-	return fmt.Sprintf(m.Metadata.Label)
-}
-
-func (m ProtocolAction) Description() string {
-	return fmt.Sprintf(m.Metadata.Description)
 }
 
 func (m ProtocolAction) Hex() string {
