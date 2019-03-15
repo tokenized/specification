@@ -19,14 +19,8 @@ func TestAssetDefinition(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (fixedchar)
-	{
-		text := make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.AssetID = string(text)
-	}
+	// AssetID (bin)
+	// bin test not setup
 
 	// AssetAuthFlags (bin)
 	// bin test not setup
@@ -122,10 +116,8 @@ func TestAssetDefinition(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (fixedchar)
-	if initialMessage.AssetID != decodedMessage.AssetID {
-		t.Errorf("AssetID doesn't match : %s != %s", initialMessage.AssetID, decodedMessage.AssetID)
-	}
+	// AssetID (bin)
+	// bin test compare not setup
 
 	// AssetAuthFlags (bin)
 	// bin test compare not setup
@@ -185,14 +177,8 @@ func TestAssetCreation(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (fixedchar)
-	{
-		text := make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.AssetID = string(text)
-	}
+	// AssetID (bin)
+	// bin test not setup
 
 	// AssetAuthFlags (bin)
 	// bin test not setup
@@ -294,10 +280,8 @@ func TestAssetCreation(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (fixedchar)
-	if initialMessage.AssetID != decodedMessage.AssetID {
-		t.Errorf("AssetID doesn't match : %s != %s", initialMessage.AssetID, decodedMessage.AssetID)
-	}
+	// AssetID (bin)
+	// bin test compare not setup
 
 	// AssetAuthFlags (bin)
 	// bin test compare not setup
@@ -365,14 +349,8 @@ func TestAssetModification(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (fixedchar)
-	{
-		text := make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.AssetID = string(text)
-	}
+	// AssetID (bin)
+	// bin test not setup
 
 	// AssetRevision (uint)
 	// uint test not setup
@@ -425,10 +403,8 @@ func TestAssetModification(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (fixedchar)
-	if initialMessage.AssetID != decodedMessage.AssetID {
-		t.Errorf("AssetID doesn't match : %s != %s", initialMessage.AssetID, decodedMessage.AssetID)
-	}
+	// AssetID (bin)
+	// bin test compare not setup
 
 	// AssetRevision (uint)
 	// uint test compare not setup
@@ -1263,14 +1239,8 @@ func TestOrder(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (fixedchar)
-	{
-		text := make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.AssetID = string(text)
-	}
+	// AssetID (bin)
+	// bin test not setup
 
 	// ComplianceAction (fixedchar)
 	// fixedchar test not setup
@@ -1347,10 +1317,8 @@ func TestOrder(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (fixedchar)
-	if initialMessage.AssetID != decodedMessage.AssetID {
-		t.Errorf("AssetID doesn't match : %s != %s", initialMessage.AssetID, decodedMessage.AssetID)
-	}
+	// AssetID (bin)
+	// bin test compare not setup
 
 	// ComplianceAction (fixedchar)
 	// fixedchar test compare not setup
@@ -1650,14 +1618,8 @@ func TestInitiative(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (fixedchar)
-	{
-		text := make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.AssetID = string(text)
-	}
+	// AssetID (bin)
+	// bin test not setup
 
 	// VoteSystem (uint)
 	// uint test not setup
@@ -1725,10 +1687,8 @@ func TestInitiative(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (fixedchar)
-	if initialMessage.AssetID != decodedMessage.AssetID {
-		t.Errorf("AssetID doesn't match : %s != %s", initialMessage.AssetID, decodedMessage.AssetID)
-	}
+	// AssetID (bin)
+	// bin test compare not setup
 
 	// VoteSystem (uint)
 	// uint test compare not setup
@@ -1776,14 +1736,8 @@ func TestReferendum(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (fixedchar)
-	{
-		text := make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			text = append(text, byte(65+i+2))
-		}
-		initialMessage.AssetID = string(text)
-	}
+	// AssetID (bin)
+	// bin test not setup
 
 	// VoteSystem (uint)
 	// uint test not setup
@@ -1854,10 +1808,8 @@ func TestReferendum(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (fixedchar)
-	if initialMessage.AssetID != decodedMessage.AssetID {
-		t.Errorf("AssetID doesn't match : %s != %s", initialMessage.AssetID, decodedMessage.AssetID)
-	}
+	// AssetID (bin)
+	// bin test compare not setup
 
 	// VoteSystem (uint)
 	// uint test compare not setup
@@ -1949,14 +1901,8 @@ func TestBallotCast(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (fixedchar)
-	{
-		text := make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.AssetID = string(text)
-	}
+	// AssetID (bin)
+	// bin test not setup
 
 	// VoteTxnID (sha256)
 	// sha256 test not setup
@@ -2004,10 +1950,8 @@ func TestBallotCast(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (fixedchar)
-	if initialMessage.AssetID != decodedMessage.AssetID {
-		t.Errorf("AssetID doesn't match : %s != %s", initialMessage.AssetID, decodedMessage.AssetID)
-	}
+	// AssetID (bin)
+	// bin test compare not setup
 
 	// VoteTxnID (sha256)
 	// sha256 test compare not setup
@@ -2077,14 +2021,8 @@ func TestResult(t *testing.T) {
 		initialMessage.AssetType = string(text)
 	}
 
-	// AssetID (fixedchar)
-	{
-		text := make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.AssetID = string(text)
-	}
+	// AssetID (bin)
+	// bin test not setup
 
 	// Proposal (bool)
 	// bool test not setup
@@ -2149,10 +2087,8 @@ func TestResult(t *testing.T) {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
-	// AssetID (fixedchar)
-	if initialMessage.AssetID != decodedMessage.AssetID {
-		t.Errorf("AssetID doesn't match : %s != %s", initialMessage.AssetID, decodedMessage.AssetID)
-	}
+	// AssetID (bin)
+	// bin test compare not setup
 
 	// Proposal (bool)
 	// bool test compare not setup
