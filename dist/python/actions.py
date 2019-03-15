@@ -656,9 +656,8 @@ class Action_Message(ActionBase):
     ActionPrefix = 'M1'
 
     schema = {
-        'AddressIndexes':                  [0, DAT_uint16[], 0],
-        'MessageType':                     [1, DAT_fixedchar, 2],
-        'MessagePayload':                  [2, DAT_varchar, 32]
+        'MessageType':                     [0, DAT_fixedchar, 4],
+        'MessagePayload':                  [1, DAT_varbin, 32]
     }
 
     rules = {
@@ -668,7 +667,6 @@ class Action_Message(ActionBase):
     }
 
     def init_attributes(self):
-        self.MessageType = None
         self.MessagePayload = None
 
 

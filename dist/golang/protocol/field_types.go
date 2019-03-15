@@ -117,9 +117,10 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 // AssetSettlement AssetSettlement is the data required to settle an asset
 // transfer.
 type AssetSettlement struct {
-	AssetType   string          `json:"asset_type,omitempty"`  // eg. Share, Bond, Ticket. All characters must be capitalised.
-	AssetID     string          `json:"asset_id,omitempty"`    // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
-	Settlements []QuantityIndex `json:"settlements,omitempty"` // Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.
+	ContractIndex uint16          `json:"contract_index,omitempty"` // Index of input containing the contract's address for this offset
+	AssetType     string          `json:"asset_type,omitempty"`     // eg. Share, Bond, Ticket. All characters must be capitalised.
+	AssetID       string          `json:"asset_id,omitempty"`       // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
+	Settlements   []QuantityIndex `json:"settlements,omitempty"`    // Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.
 }
 
 // NewAssetSettlement returns a new AssetSettlement with defaults set.
@@ -131,6 +132,11 @@ func NewAssetSettlement() *AssetSettlement {
 // Serialize returns the byte representation of the message.
 func (m AssetSettlement) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
+
+	// ContractIndex (uint16)
+	if err := write(buf, m.ContractIndex); err != nil {
+		return nil, err
+	}
 
 	// AssetType (string)
 	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
@@ -160,6 +166,11 @@ func (m AssetSettlement) Serialize() ([]byte, error) {
 }
 
 func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
+
+	// ContractIndex (uint16)
+	if err := read(buf, &m.ContractIndex); err != nil {
+		return err
+	}
 
 	// AssetType (string)
 	{
@@ -200,6 +211,7 @@ func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
 
 // AssetTransfer AssetTransfer is the data required to transfer an asset.
 type AssetTransfer struct {
+	ContractIndex  uint16          `json:"contract_index,omitempty"`  // Index of output containing the contract's address for this offset
 	AssetType      string          `json:"asset_type,omitempty"`      // eg. Share, Bond, Ticket. All characters must be capitalised.
 	AssetID        string          `json:"asset_id,omitempty"`        // Randomly generated base58 string.  Each Asset ID should be unique.  However, a Asset ID is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type can be the leading bytes - a convention - to make it easy to identify that it is a token by humans.
 	AssetSenders   []QuantityIndex `json:"asset_senders,omitempty"`   // Each element has the value of tokens to be spent from the input address, which is referred to by the index.
@@ -215,6 +227,11 @@ func NewAssetTransfer() *AssetTransfer {
 // Serialize returns the byte representation of the message.
 func (m AssetTransfer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
+
+	// ContractIndex (uint16)
+	if err := write(buf, m.ContractIndex); err != nil {
+		return nil, err
+	}
 
 	// AssetType (string)
 	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
@@ -259,6 +276,11 @@ func (m AssetTransfer) Serialize() ([]byte, error) {
 }
 
 func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
+
+	// ContractIndex (uint16)
+	if err := read(buf, &m.ContractIndex); err != nil {
+		return err
+	}
 
 	// AssetType (string)
 	{

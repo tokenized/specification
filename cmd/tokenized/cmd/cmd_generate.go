@@ -39,9 +39,10 @@ var cmdGenerate = &cobra.Command{
 
 		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/types")))
 		actions := parser.NewProtocolActions(fieldTypes, parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/actions")))
+		messages := parser.NewProtocolMessages(fieldTypes, parser.FetchFiles(srcPath, "messages", "develop"))
 
 		// Compile languages
-		golang.CompileProtocol(distPath, actions, fieldTypes)
+		golang.CompileProtocol(distPath, actions, messages, fieldTypes)
 		python.CompileProtocol(distPath, actions, fieldTypes)
 		markdown.CompileProtocol(distPath, actions, fieldTypes)
 

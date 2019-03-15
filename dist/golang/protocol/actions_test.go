@@ -2185,9 +2185,6 @@ func TestResult(t *testing.T) {
 func TestMessage(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Message{}
-	// QtyReceivingAddresses (uint8)
-	// uint8 test not setup
-
 	// AddressIndexes (uint16[])
 	for i := 0; i < 5; i++ {
 		var item uint16
@@ -2196,15 +2193,18 @@ func TestMessage(t *testing.T) {
 
 	// MessageType (fixedchar)
 	{
-		text := make([]byte, 0, 2)
-		for i := uint64(0); i < 2; i++ {
-			text = append(text, byte(65+i+2))
+		text := make([]byte, 0, 4)
+		for i := uint64(0); i < 4; i++ {
+			text = append(text, byte(65+i+1))
 		}
 		initialMessage.MessageType = string(text)
 	}
 
-	// MessagePayload (varchar)
-	initialMessage.MessagePayload = "Text 3"
+	// MessagePayload (varbin)
+	initialMessage.MessagePayload = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.MessagePayload = append(initialMessage.MessagePayload, byte(65+i+2))
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -2241,9 +2241,6 @@ func TestMessage(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// QtyReceivingAddresses (uint8)
-	// uint8 test compare not setup
-
 	// AddressIndexes (uint16[])
 	if len(initialMessage.AddressIndexes) != len(decodedMessage.AddressIndexes) {
 		t.Errorf("AddressIndexes lengths don't match : %d != %d", len(initialMessage.AddressIndexes), len(decodedMessage.AddressIndexes))
@@ -2259,9 +2256,9 @@ func TestMessage(t *testing.T) {
 		t.Errorf("MessageType doesn't match : %s != %s", initialMessage.MessageType, decodedMessage.MessageType)
 	}
 
-	// MessagePayload (varchar)
-	if initialMessage.MessagePayload != decodedMessage.MessagePayload {
-		t.Errorf("MessagePayload doesn't match : %s != %s", initialMessage.MessagePayload, decodedMessage.MessagePayload)
+	// MessagePayload (varbin)
+	if !bytes.Equal(initialMessage.MessagePayload, decodedMessage.MessagePayload) {
+		t.Errorf("MessagePayload doesn't match : %x != %x", initialMessage.MessagePayload, decodedMessage.MessagePayload)
 	}
 }
 

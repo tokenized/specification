@@ -103,6 +103,15 @@ The following breaks down the construction of a Settlement Action. The action is
                 <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
+                <td class="t10">Contract Index</td>
+                <td class="t10">ContractIndex</td>
+                <td class="t10">2</td>
+                <td class="t10" style="word-break:break-all"></td>
+                <td class="t10">Index of input containing the contract's address for this offset</td>
+                <td class="t10">uint</td>
+                <td class="t10"></td>
+            </tr>
+            <tr>
                 <td class="t10">Asset Type</td>
                 <td class="t10">AssetType</td>
                 <td class="t10">3</td>

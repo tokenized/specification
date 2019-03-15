@@ -20,32 +20,20 @@ const (
 )
 
 // PayloadMessage is the interface for messages that are derived from
-// payloads, such as asset types.
+// payloads, such as asset types and message types.
 type PayloadMessage interface {
 	Type() string
-	serialize() ([]byte, error)
-	write(b []byte) (int, error)
-}
-
-// New returns the approriate PayloadMessage for the
-// given code.
-func New(code []byte) (PayloadMessage, error) {
-	s := string(code)
-
-	switch s {
-	case CodeShareCommon:
-		result := ShareCommon{}
-		return &result, nil
-	}
-
-	return nil, fmt.Errorf("No asset type for code %s", code)
+	Serialize() ([]byte, error)
+	Write(b []byte) (int, error)
 }
 
 // OpReturnMessage implements a base interface for all message types.
 type OpReturnMessage interface {
-	PayloadMessage
+	Type() string
 	String() string
 	PayloadMessage() (PayloadMessage, error)
+	serialize() ([]byte, error)
+	write(b []byte) (int, error)
 }
 
 // Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
@@ -128,7 +116,7 @@ func Deserialize(b []byte) (OpReturnMessage, error) {
 }
 
 // Serialize returns a complete op return script including the specified payload.
-func Serialize(msg PayloadMessage) ([]byte, error) {
+func Serialize(msg OpReturnMessage) ([]byte, error) {
 	var buf bytes.Buffer
 	var err error
 

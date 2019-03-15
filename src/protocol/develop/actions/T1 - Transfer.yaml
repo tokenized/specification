@@ -14,12 +14,12 @@ metadata:
 rules:
   fee:
   inputs:
-    - name: AssetXSenderX
-      label: Asset (token) Sending Public Address X
+    - name: AssetSenders
+      label: Asset (token) Sending Public Address. Assets[i].AssetSenders[j].Index references these inputs.
       comments:
 
   outputs:
-    - name: AssetXContract
+    - name: AssetContract
       label: Contract Public Address for Asset X
       comments: Enough for the costs of the responding action + the Contract Fee
 

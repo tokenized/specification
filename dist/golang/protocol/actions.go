@@ -92,7 +92,7 @@ const (
 	ComplianceActionReconciliation = byte('R')
 )
 
-// TypeMapping holds a mapping of message codes to message types.
+// TypeMapping holds a mapping of action codes to action types.
 func TypeMapping(code string) OpReturnMessage {
 	switch code {
 	case CodeAssetDefinition:
@@ -490,12 +490,12 @@ func (action *AssetDefinition) write(b []byte) (int, error) {
 
 // PayloadMessage returns the PayloadMessage, if any.
 func (action AssetDefinition) PayloadMessage() (PayloadMessage, error) {
-	p, err := New([]byte(action.AssetType))
-	if p == nil || err != nil {
-		return nil, err
+	p := AssetTypeMapping(action.AssetType)
+	if p == nil {
+		return nil, fmt.Errorf("Undefined asset type : %s", action.AssetType)
 	}
 
-	if _, err := p.write(action.AssetPayload); err != nil {
+	if _, err := p.Write(action.AssetPayload); err != nil {
 		return nil, err
 	}
 
@@ -868,12 +868,12 @@ func (action *AssetCreation) write(b []byte) (int, error) {
 
 // PayloadMessage returns the PayloadMessage, if any.
 func (action AssetCreation) PayloadMessage() (PayloadMessage, error) {
-	p, err := New([]byte(action.AssetType))
-	if p == nil || err != nil {
-		return nil, err
+	p := AssetTypeMapping(action.AssetType)
+	if p == nil {
+		return nil, fmt.Errorf("Undefined asset type : %s", action.AssetType)
 	}
 
-	if _, err := p.write(action.AssetPayload); err != nil {
+	if _, err := p.Write(action.AssetPayload); err != nil {
 		return nil, err
 	}
 
@@ -5018,11 +5018,10 @@ func (action Result) String() string {
 // type for easy filtering in the a user's wallet. The Message Types are
 // listed in the Message Types table.
 type Message struct {
-	Header                Header   `json:"header,omitempty"`                  // Common header data for all actions
-	QtyReceivingAddresses uint8    `json:"qty_receiving_addresses,omitempty"` // 0-255 Message Receiving Addresses
-	AddressIndexes        []uint16 `json:"address_indexes,omitempty"`         // Associates the message to a particular output by the index.
-	MessageType           string   `json:"message_type,omitempty"`            // Potential for up to 65,535 different message types
-	MessagePayload        string   `json:"message_payload,omitempty"`         // Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
+	Header         Header   `json:"header,omitempty"`          // Common header data for all actions
+	AddressIndexes []uint16 `json:"address_indexes,omitempty"` // Associates the message to a particular output by the index.
+	MessageType    string   `json:"message_type,omitempty"`    // Potential for up to 65,535 different message types
+	MessagePayload []byte   `json:"message_payload,omitempty"` // Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
 
 }
 
@@ -5049,13 +5048,6 @@ func (action *Message) read(b []byte) (int, error) {
 func (action *Message) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	// QtyReceivingAddresses (uint8)
-	// fmt.Printf("Serializing QtyReceivingAddresses\n")
-	if err := write(buf, action.QtyReceivingAddresses); err != nil {
-		return nil, err
-	}
-	// fmt.Printf("Serialized QtyReceivingAddresses : buf len %d\n", buf.Len())
-
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Serializing AddressIndexes\n")
 	if err := WriteVariableSize(buf, uint64(len(action.AddressIndexes)), 0, 8); err != nil {
@@ -5070,14 +5062,14 @@ func (action *Message) serialize() ([]byte, error) {
 
 	// MessageType (string)
 	// fmt.Printf("Serializing MessageType\n")
-	if err := WriteFixedChar(buf, action.MessageType, 2); err != nil {
+	if err := WriteFixedChar(buf, action.MessageType, 4); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized MessageType : buf len %d\n", buf.Len())
 
-	// MessagePayload (string)
+	// MessagePayload ([]byte)
 	// fmt.Printf("Serializing MessagePayload\n")
-	if err := WriteVarChar(buf, action.MessagePayload, 32); err != nil {
+	if err := WriteVarBin(buf, action.MessagePayload, 32); err != nil {
 		return nil, err
 	}
 	// fmt.Printf("Serialized MessagePayload : buf len %d\n", buf.Len())
@@ -5098,14 +5090,6 @@ func (action *Message) write(b []byte) (int, error) {
 
 	// fmt.Printf("Read Header : %d bytes remaining\n%+v\n", buf.Len(), action.Header)
 
-	// QtyReceivingAddresses (uint8)
-	// fmt.Printf("Reading QtyReceivingAddresses : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &action.QtyReceivingAddresses); err != nil {
-		return 0, err
-	}
-
-	// fmt.Printf("Read QtyReceivingAddresses : %d bytes remaining\n%+v\n", buf.Len(), action.QtyReceivingAddresses)
-
 	// AddressIndexes ([]uint16)
 	// fmt.Printf("Reading AddressIndexes : %d bytes remaining\n", buf.Len())
 	{
@@ -5125,7 +5109,7 @@ func (action *Message) write(b []byte) (int, error) {
 	// fmt.Printf("Reading MessageType : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		action.MessageType, err = ReadFixedChar(buf, 2)
+		action.MessageType, err = ReadFixedChar(buf, 4)
 		if err != nil {
 			return 0, err
 		}
@@ -5133,11 +5117,11 @@ func (action *Message) write(b []byte) (int, error) {
 
 	// fmt.Printf("Read MessageType : %d bytes remaining\n%+v\n", buf.Len(), action.MessageType)
 
-	// MessagePayload (string)
+	// MessagePayload ([]byte)
 	// fmt.Printf("Reading MessagePayload : %d bytes remaining\n", buf.Len())
 	{
 		var err error
-		action.MessagePayload, err = ReadVarChar(buf, 32)
+		action.MessagePayload, err = ReadVarBin(buf, 32)
 		if err != nil {
 			return 0, err
 		}
@@ -5151,17 +5135,25 @@ func (action *Message) write(b []byte) (int, error) {
 
 // PayloadMessage returns the PayloadMessage, if any.
 func (action Message) PayloadMessage() (PayloadMessage, error) {
-	return nil, nil
+	p := MessageTypeMapping(action.MessageType)
+	if p == nil {
+		return nil, fmt.Errorf("Undefined message type : %s", action.MessageType)
+	}
+
+	if _, err := p.Write(action.MessagePayload); err != nil {
+		return nil, err
+	}
+
+	return p, nil
 }
 
 func (action Message) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
-	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", action.QtyReceivingAddresses))
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", action.AddressIndexes))
 	vals = append(vals, fmt.Sprintf("MessageType:%#+v", action.MessageType))
-	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", action.MessagePayload))
+	vals = append(vals, fmt.Sprintf("MessagePayload:%#x", action.MessagePayload))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }

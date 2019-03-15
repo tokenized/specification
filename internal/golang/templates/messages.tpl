@@ -11,15 +11,10 @@ const (
 	{{.CodeNameComment}}
 	{{.CodeName}} = "{{.Code}}"
 {{ end }}
-
-	ComplianceActionFreeze = byte('F')
-	ComplianceActionThaw = byte('T')
-	ComplianceActionConfiscation = byte('C')
-	ComplianceActionReconciliation = byte('R')
 )
 
-// TypeMapping holds a mapping of action codes to action types.
-func TypeMapping(code string) OpReturnMessage {
+// MessageTypeMapping holds a mapping of message codes to message types.
+func MessageTypeMapping(code string) PayloadMessage {
 	switch(code) {
 {{- range . }}
 	case Code{{.Name}}:
@@ -71,8 +66,8 @@ func (action {{.Name}}) Type() string {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (action *{{.Name}}) read(b []byte) (int, error) {
-	data, err := action.serialize()
+func (action *{{.Name}}) Read(b []byte) (int, error) {
+	data, err := action.Serialize()
 
 	if err != nil {
 		return 0, err
@@ -83,8 +78,8 @@ func (action *{{.Name}}) read(b []byte) (int, error) {
 	return len(b), nil
 }
 
-// serialize returns the full OP_RETURN payload bytes.
-func (action *{{.Name}}) serialize() ([]byte, error) {
+// Serialize returns the full OP_RETURN payload bytes.
+func (action *{{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 {{ range .PayloadFields }}
 
@@ -150,8 +145,8 @@ func (action *{{.Name}}) serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// write populates the fields in {{.Name}} from the byte slice
-func (action *{{.Name}}) write(b []byte) (int, error) {
+// Write populates the fields in {{.Name}} from the byte slice
+func (action *{{.Name}}) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading {{.Name}} : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
@@ -244,24 +239,13 @@ func (action *{{.Name}}) write(b []byte) (int, error) {
 
 // PayloadMessage returns the PayloadMessage, if any.
 func (action {{.Name}}) PayloadMessage() (PayloadMessage, error) {
-{{- if .HasAssetPayload }}
-	p := AssetTypeMapping(action.AssetType)
-	if p == nil {
-		return nil, fmt.Errorf("Undefined asset type : %s", action.AssetType)
-	}
-
-	if _, err := p.Write(action.AssetPayload); err != nil {
+{{- if .HasPayloadMessage }}
+	p, err := New([]byte(action.AssetType))
+	if p == nil || err != nil {
 		return nil, err
 	}
 
-	return p, nil
-{{- else if .HasMessagePayload }}
-	p := MessageTypeMapping(action.MessageType)
-	if p == nil {
-		return nil, fmt.Errorf("Undefined message type : %s", action.MessageType)
-	}
-
-	if _, err := p.Write(action.MessagePayload); err != nil {
+	if _, err := p.write(action.AssetPayload); err != nil {
 		return nil, err
 	}
 

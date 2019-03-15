@@ -4,6 +4,12 @@ metadata:
   description: "AssetSettlement is the data required to settle an asset transfer."
 
 fields:
+  - name: ContractIndex
+    label: Contract Index
+    description: "Index of input containing the contract's address for this offset"
+    type: uint
+    size: 2
+
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket. All characters must be capitalised."

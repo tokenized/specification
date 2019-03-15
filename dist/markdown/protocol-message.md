@@ -27,15 +27,6 @@ The following breaks down the construction of a Message Action. The action is co
              </td>
         </tr>
         <tr>
-            <td class="m9">Qty Receiving Addresses</td>
-            <td class="m10">QtyReceivingAddresses</td>
-            <td class="m10">1</td>
-            <td class="m10">2</td>
-            <td class="m10">0-255 Message Receiving Addresses</td>
-            <td class="m10">uint8</td>
-            <td class="m10"></td>
-        </tr>
-        <tr>
             <td class="m9">Address Indexes</td>
             <td class="m10">AddressIndexes</td>
             <td class="m10">0</td>
@@ -47,8 +38,8 @@ The following breaks down the construction of a Message Action. The action is co
         <tr>
             <td class="m9">Message Type</td>
             <td class="m10">MessageType</td>
-            <td class="m10">2</td>
-            <td class="m10">6</td>
+            <td class="m10">4</td>
+            <td class="m10">6000</td>
             <td class="m10">Potential for up to 65,535 different message types</td>
             <td class="m10">fixedchar</td>
             <td class="m10"></td>
@@ -60,7 +51,7 @@ The following breaks down the construction of a Message Action. The action is co
             <td class="m10">Hello world!</td>
             <td class="m10"><abbr title="Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.
 ">Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signify ...</abbr></td>
-            <td class="m10">varchar</td>
+            <td class="m10">varbin</td>
             <td class="m10"></td>
         </tr>
     </table>

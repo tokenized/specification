@@ -94,7 +94,7 @@ The following breaks down the construction of a Transfer Action. The action is c
             <th class="s1">Comments</th>
        </tr>
        <tr>
-            <td class="t5">[{AssetXSenderX Asset (token) Sending Public Address X }]</td>
+            <td class="t5">[{AssetSenders Asset (token) Sending Public Address. Assets[i].AssetSenders[j].Index references these inputs. }]</td>
             <td class="t6">.</td>
             <td class="t6">.</td>
             <td class="t10">.</td>
@@ -135,6 +135,15 @@ The following breaks down the construction of a Transfer Action. The action is c
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
                 <th class="s2">Amendment Restrictions</th>
+            </tr>
+            <tr>
+                <td class="t10">Contract Index</td>
+                <td class="t10">ContractIndex</td>
+                <td class="t10">2</td>
+                <td class="t10" style="word-break:break-all"></td>
+                <td class="t10">Index of output containing the contract's address for this offset</td>
+                <td class="t10">uint</td>
+                <td class="t10"></td>
             </tr>
             <tr>
                 <td class="t10">Asset Type</td>

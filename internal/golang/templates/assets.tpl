@@ -13,6 +13,20 @@ const (
 	// Code{{.Name}} identifies data as a {{.Name}} message.
 	Code{{.Name}} = "{{.Code}}"
 {{end}})
+
+// AssetTypeMapping holds a mapping of asset codes to asset types.
+func AssetTypeMapping(code string) PayloadMessage {
+	switch(code) {
+{{- range . }}
+	case Code{{.Name}}:
+		result := {{.Name}}{}
+		return &result
+{{- end }}
+	default:
+		return nil
+	}
+}
+
 {{range .}}
 // {{.Name}} asset type.
 type {{.Name}} struct {
@@ -32,8 +46,8 @@ func (m {{.Name}}) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *{{.Name}}) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (m *{{.Name}}) Read(b []byte) (int, error) {
+	data, err := m.Serialize()
 
 	if err != nil {
 		return 0, err
@@ -45,7 +59,7 @@ func (m *{{.Name}}) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *{{.Name}}) serialize() ([]byte, error) {
+func (m *{{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 {{range .Fields}}
 
@@ -101,8 +115,8 @@ func (m *{{.Name}}) serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// write populates the fields in {{.Name}} from the byte slice
-func (m *{{.Name}}) write(b []byte) (int, error) {
+// Write populates the fields in {{.Name}} from the byte slice
+func (m *{{.Name}}) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 {{- range .Fields}}
 

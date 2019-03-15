@@ -5,7 +5,8 @@
 code: '0003'
 
 metadata:
-  label: Public Message
+  name: PrivateMessage
+  label: Private Message
   description: "Generic private message. Sent to another address(es). Encryption is to be used."
 
 fields:
@@ -17,11 +18,12 @@ fields:
     example_hex: 1588f8cc6a16430d
     example_value: 1551767413250187179
     notes: ""
-  
-  - name: PublicMessage
-    label: Public Message
+
+  - name: PrivateMessage
+    label: Private Message
     description: "Tokenized Ltd announces product launch."
-    type: nvarchar32
+    type: varbin
+    size: 32
     example_value: ""
     notes: ""
-    
+

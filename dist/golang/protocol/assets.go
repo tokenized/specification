@@ -29,6 +29,32 @@ const (
 	CodeTicketAdmission = "TIC"
 )
 
+// AssetTypeMapping holds a mapping of asset codes to asset types.
+func AssetTypeMapping(code string) PayloadMessage {
+	switch code {
+	case CodeCoupon:
+		result := Coupon{}
+		return &result
+	case CodeCurrency:
+		result := Currency{}
+		return &result
+	case CodeLoyaltyPoints:
+		result := LoyaltyPoints{}
+		return &result
+	case CodeMembership:
+		result := Membership{}
+		return &result
+	case CodeShareCommon:
+		result := ShareCommon{}
+		return &result
+	case CodeTicketAdmission:
+		result := TicketAdmission{}
+		return &result
+	default:
+		return nil
+	}
+}
+
 // Coupon asset type.
 type Coupon struct {
 	Version            uint8
@@ -53,8 +79,8 @@ func (m Coupon) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Coupon) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (m *Coupon) Read(b []byte) (int, error) {
+	data, err := m.Serialize()
 
 	if err != nil {
 		return 0, err
@@ -66,7 +92,7 @@ func (m *Coupon) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Coupon) serialize() ([]byte, error) {
+func (m *Coupon) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -111,8 +137,8 @@ func (m *Coupon) serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// write populates the fields in Coupon from the byte slice
-func (m *Coupon) write(b []byte) (int, error) {
+// Write populates the fields in Coupon from the byte slice
+func (m *Coupon) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -206,8 +232,8 @@ func (m Currency) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Currency) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (m *Currency) Read(b []byte) (int, error) {
+	data, err := m.Serialize()
 
 	if err != nil {
 		return 0, err
@@ -219,7 +245,7 @@ func (m *Currency) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Currency) serialize() ([]byte, error) {
+func (m *Currency) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -249,8 +275,8 @@ func (m *Currency) serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// write populates the fields in Currency from the byte slice
-func (m *Currency) write(b []byte) (int, error) {
+// Write populates the fields in Currency from the byte slice
+func (m *Currency) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -329,8 +355,8 @@ func (m LoyaltyPoints) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *LoyaltyPoints) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (m *LoyaltyPoints) Read(b []byte) (int, error) {
+	data, err := m.Serialize()
 
 	if err != nil {
 		return 0, err
@@ -342,7 +368,7 @@ func (m *LoyaltyPoints) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *LoyaltyPoints) serialize() ([]byte, error) {
+func (m *LoyaltyPoints) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -387,8 +413,8 @@ func (m *LoyaltyPoints) serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// write populates the fields in LoyaltyPoints from the byte slice
-func (m *LoyaltyPoints) write(b []byte) (int, error) {
+// Write populates the fields in LoyaltyPoints from the byte slice
+func (m *LoyaltyPoints) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -482,8 +508,8 @@ func (m Membership) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *Membership) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (m *Membership) Read(b []byte) (int, error) {
+	data, err := m.Serialize()
 
 	if err != nil {
 		return 0, err
@@ -495,7 +521,7 @@ func (m *Membership) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *Membership) serialize() ([]byte, error) {
+func (m *Membership) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -540,8 +566,8 @@ func (m *Membership) serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// write populates the fields in Membership from the byte slice
-func (m *Membership) write(b []byte) (int, error) {
+// Write populates the fields in Membership from the byte slice
+func (m *Membership) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -637,8 +663,8 @@ func (m ShareCommon) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *ShareCommon) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (m *ShareCommon) Read(b []byte) (int, error) {
+	data, err := m.Serialize()
 
 	if err != nil {
 		return 0, err
@@ -650,7 +676,7 @@ func (m *ShareCommon) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *ShareCommon) serialize() ([]byte, error) {
+func (m *ShareCommon) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -685,8 +711,8 @@ func (m *ShareCommon) serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// write populates the fields in ShareCommon from the byte slice
-func (m *ShareCommon) write(b []byte) (int, error) {
+// Write populates the fields in ShareCommon from the byte slice
+func (m *ShareCommon) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -775,8 +801,8 @@ func (m TicketAdmission) Len() int64 {
 
 // Read implements the io.Reader interface, writing the receiver to the
 // []byte.
-func (m *TicketAdmission) read(b []byte) (int, error) {
-	data, err := m.serialize()
+func (m *TicketAdmission) Read(b []byte) (int, error) {
+	data, err := m.Serialize()
 
 	if err != nil {
 		return 0, err
@@ -788,7 +814,7 @@ func (m *TicketAdmission) read(b []byte) (int, error) {
 }
 
 // Serialize returns the full OP_RETURN payload bytes.
-func (m *TicketAdmission) serialize() ([]byte, error) {
+func (m *TicketAdmission) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
@@ -853,8 +879,8 @@ func (m *TicketAdmission) serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-// write populates the fields in TicketAdmission from the byte slice
-func (m *TicketAdmission) write(b []byte) (int, error) {
+// Write populates the fields in TicketAdmission from the byte slice
+func (m *TicketAdmission) Write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
