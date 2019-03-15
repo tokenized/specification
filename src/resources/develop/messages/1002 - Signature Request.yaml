@@ -9,6 +9,14 @@ metadata:
   description: "Partially-signed transactions (Tokenized actions, Bitcoin, Multisig, Threshold Signatures, etc.) can be passed around on-chain to the parties (including Smart Contracts) that still have to sign the transaction.
 
 fields:
+  - name: Version
+    label: Version
+    type: uint8
+    description: Payload Version
+    size: 1
+    example: 0
+    computed: true
+    
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
