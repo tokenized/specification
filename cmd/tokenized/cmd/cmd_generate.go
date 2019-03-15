@@ -39,7 +39,7 @@ var cmdGenerate = &cobra.Command{
 
 		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/types")))
 		actions := parser.NewProtocolActions(fieldTypes, parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/actions")))
-		assetTypes := parser.NewAssets(parser.FetchFiles(srcPath, "assets", filepath.FromSlash("develop")))
+		assetTypes := parser.NewAssets(parser.FetchFiles(srcPath, "assets", "develop"))
 		messages := parser.NewProtocolMessages(fieldTypes, parser.FetchFiles(srcPath, "messages", "develop"))
 
 		// Compile languages
@@ -51,6 +51,8 @@ var cmdGenerate = &cobra.Command{
 		// Assets
 
 		assets := parser.NewAssets(parser.FetchFiles(srcPath, "assets", "develop"))
+
+		// Compile languages
 		golang.CompileAssets(distPath, assets)
 
 		return nil

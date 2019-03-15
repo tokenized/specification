@@ -43,6 +43,7 @@ func MessageTypeMapping(code string) PayloadMessage {
 // PublicMessage Generic public message or public announcement. Sent to an
 // address(es). Can be used for an official issuer announcement.
 type PublicMessage struct {
+	Version       uint8  `json:"version,omitempty"`        // Payload Version
 	Timestamp     uint64 `json:"timestamp,omitempty"`      // Timestamp in nanoseconds for when the message sender creates the transaction.
 	PublicMessage string `json:"public_message,omitempty"` // Tokenized Ltd. announces product launch.
 }
@@ -70,6 +71,13 @@ func (action *PublicMessage) Read(b []byte) (int, error) {
 func (action *PublicMessage) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
+	// fmt.Printf("Serializing Version\n")
+	if err := write(buf, action.Version); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized Version : buf len %d\n", buf.Len())
+
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
 	if err := write(buf, action.Timestamp); err != nil {
@@ -91,6 +99,14 @@ func (action *PublicMessage) Serialize() ([]byte, error) {
 func (action *PublicMessage) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading PublicMessage : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
+
+	// Version (uint8)
+	// fmt.Printf("Reading Version : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &action.Version); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
@@ -124,6 +140,7 @@ func (action PublicMessage) PayloadMessage() (PayloadMessage, error) {
 func (action PublicMessage) String() string {
 	vals := []string{}
 
+	vals = append(vals, fmt.Sprintf("Version:%v", action.Version))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 	vals = append(vals, fmt.Sprintf("PublicMessage:%#+v", action.PublicMessage))
 
@@ -133,6 +150,7 @@ func (action PublicMessage) String() string {
 // PrivateMessage Generic private message. Sent to another address(es).
 // Encryption is to be used.
 type PrivateMessage struct {
+	Version        uint8  `json:"version,omitempty"`         // Payload Version
 	Timestamp      uint64 `json:"timestamp,omitempty"`       // Timestamp in nanoseconds for when the message sender creates the transaction.
 	PrivateMessage []byte `json:"private_message,omitempty"` // Tokenized Ltd announces product launch.
 }
@@ -160,6 +178,13 @@ func (action *PrivateMessage) Read(b []byte) (int, error) {
 func (action *PrivateMessage) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
+	// fmt.Printf("Serializing Version\n")
+	if err := write(buf, action.Version); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized Version : buf len %d\n", buf.Len())
+
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
 	if err := write(buf, action.Timestamp); err != nil {
@@ -181,6 +206,14 @@ func (action *PrivateMessage) Serialize() ([]byte, error) {
 func (action *PrivateMessage) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading PrivateMessage : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
+
+	// Version (uint8)
+	// fmt.Printf("Reading Version : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &action.Version); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
@@ -214,6 +247,7 @@ func (action PrivateMessage) PayloadMessage() (PayloadMessage, error) {
 func (action PrivateMessage) String() string {
 	vals := []string{}
 
+	vals = append(vals, fmt.Sprintf("Version:%v", action.Version))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 	vals = append(vals, fmt.Sprintf("PrivateMessage:%#x", action.PrivateMessage))
 
@@ -234,6 +268,7 @@ func (action PrivateMessage) String() string {
 // the partially-signed transaction can be sent to the offeror by way of a
 // Signature Request message.
 type Offer struct {
+	Version   uint8  `json:"version,omitempty"`   // Payload Version
 	Timestamp uint64 `json:"timestamp,omitempty"` // Timestamp in nanoseconds for when the message sender creates the transaction.
 	Offer     []byte `json:"offer,omitempty"`     // Full serialized bitcoin tx containing an offer to another party, usually to exchange tokens/bitcoin. The message needs data added by another party.
 }
@@ -261,6 +296,13 @@ func (action *Offer) Read(b []byte) (int, error) {
 func (action *Offer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
+	// fmt.Printf("Serializing Version\n")
+	if err := write(buf, action.Version); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized Version : buf len %d\n", buf.Len())
+
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
 	if err := write(buf, action.Timestamp); err != nil {
@@ -282,6 +324,14 @@ func (action *Offer) Serialize() ([]byte, error) {
 func (action *Offer) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading Offer : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
+
+	// Version (uint8)
+	// fmt.Printf("Reading Version : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &action.Version); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
@@ -315,6 +365,7 @@ func (action Offer) PayloadMessage() (PayloadMessage, error) {
 func (action Offer) String() string {
 	vals := []string{}
 
+	vals = append(vals, fmt.Sprintf("Version:%v", action.Version))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 	vals = append(vals, fmt.Sprintf("Offer:%#x", action.Offer))
 
@@ -326,6 +377,7 @@ func (action Offer) String() string {
 // on-chain to the parties (including Smart Contracts) that still have to
 // sign the transaction.
 type SignatureRequest struct {
+	Version    uint8  `json:"version,omitempty"`     // Payload Version
 	Timestamp  uint64 `json:"timestamp,omitempty"`   // Timestamp in nanoseconds for when the message sender creates the transaction.
 	SigRequest []byte `json:"sig_request,omitempty"` // Full serialized bitcoin tx with multiple inputs from different wallets/users.
 }
@@ -353,6 +405,13 @@ func (action *SignatureRequest) Read(b []byte) (int, error) {
 func (action *SignatureRequest) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
+	// Version (uint8)
+	// fmt.Printf("Serializing Version\n")
+	if err := write(buf, action.Version); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized Version : buf len %d\n", buf.Len())
+
 	// Timestamp (uint64)
 	// fmt.Printf("Serializing Timestamp\n")
 	if err := write(buf, action.Timestamp); err != nil {
@@ -374,6 +433,14 @@ func (action *SignatureRequest) Serialize() ([]byte, error) {
 func (action *SignatureRequest) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading SignatureRequest : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
+
+	// Version (uint8)
+	// fmt.Printf("Reading Version : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &action.Version); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
 
 	// Timestamp (uint64)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
@@ -407,6 +474,7 @@ func (action SignatureRequest) PayloadMessage() (PayloadMessage, error) {
 func (action SignatureRequest) String() string {
 	vals := []string{}
 
+	vals = append(vals, fmt.Sprintf("Version:%v", action.Version))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 	vals = append(vals, fmt.Sprintf("SigRequest:%#x", action.SigRequest))
 
