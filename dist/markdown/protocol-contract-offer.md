@@ -71,13 +71,11 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10">Jurisdiction - Amendments can be restricted to a vote.</td>
         </tr>
         <tr>
-            <td class="c9">Contract Expiration</td>
-            <td class="c10">ContractExpiration</td>
-            <td class="c10">8</td>
-            <td class="c10"><abbr title="Wed May 09 2018 00:00:00 GMT+1000 (AEST)">Hover for example</abbr></td>
-            <td class="c10"><abbr title="All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.">All actions related to the contract will cease to work after this timestamp. The smart con ...</abbr></td>
-            <td class="c10">time</td>
-            <td class="c10">Contract Expiration - Amendments can be restricted to a vote.</td>
+            <td class="c5" colspan="7">
+                <a href="javascript:;" data-popover="type-Timestamp">
+                   Contract Expiration - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="c9">Contract URI</td>
@@ -449,10 +447,10 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <tr>
                 <td class="c10">Registry Public Key</td>
                 <td class="c10">PublicKey</td>
-                <td class="c10">8</td>
+                <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all"></td>
                 <td class="c10">Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.</td>
-                <td class="c10">varchar</td>
+                <td class="c10">PublicKeyHash</td>
                 <td class="c10"></td>
             </tr>
         </table>

@@ -45,7 +45,7 @@ func GoType(typeName string, size uint64) string {
 	case "bin":
 		return fmt.Sprintf("[%d]byte", size)
 
-	case "time", "timestamp", "pushdata_length":
+	case "pushdata_length":
 		return "uint64"
 
 	case "uint", "int", "float":
@@ -94,9 +94,6 @@ func IsInternalType(typeName string, size uint64) bool {
 		"bin",
 		"varbin",
 		"pushdata_length":
-		return false
-
-	case "time", "timestamp":
 		return false
 
 	case "uint", "uint8", "uint16", "uint32", "uint64", "int", "int8", "int16", "int32", "int64", "float", "float32", "float64":

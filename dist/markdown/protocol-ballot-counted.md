@@ -26,13 +26,11 @@ The following breaks down the construction of a Ballot Counted Action. The actio
              </td>
         </tr>
         <tr>
-            <td class="g9">Timestamp</td>
-            <td class="g10">Timestamp</td>
-            <td class="g10">8</td>
-            <td class="g10">1551767413250187179</td>
-            <td class="g10">Timestamp in nanoseconds of when the smart contract created the action.</td>
-            <td class="g10">timestamp</td>
-            <td class="g10">Cannot be changed by issuer, operator. Smart contract controls.</td>
+            <td class="g5" colspan="7">
+                <a href="javascript:;" data-popover="type-Timestamp">
+                   Timestamp - Click to show content
+                </a>
+            </td>
         </tr>
     </table>
 </div>

@@ -6,7 +6,7 @@ fields:
   - name: Address
     label: Address
     description: "Public address where the token balance will be changed."
-    type: Address
+    type: PublicKeyHash
     notes: ""
 
   - name: Quantity

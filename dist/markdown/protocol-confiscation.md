@@ -27,7 +27,7 @@ The following breaks down the construction of a Confiscation Action. The action 
         </tr>
         <tr>
             <td class="e5" colspan="7">
-                <a href="javascript:;" data-popover="type-Address">
+                <a href="javascript:;" data-popover="type-PublicKeyHash">
                    Addresses - Click to show content
                 </a>
             </td>
@@ -42,13 +42,11 @@ The following breaks down the construction of a Confiscation Action. The action 
             <td class="e10"></td>
         </tr>
         <tr>
-            <td class="e9">Timestamp</td>
-            <td class="e10">Timestamp</td>
-            <td class="e10">8</td>
-            <td class="e10">1551767413250187179</td>
-            <td class="e10">Timestamp in nanoseconds of when the smart contract created the action.</td>
-            <td class="e10">timestamp</td>
-            <td class="e10">Cannot be changed by issuer, operator. Smart contract controls.</td>
+            <td class="e5" colspan="7">
+                <a href="javascript:;" data-popover="type-Timestamp">
+                   Timestamp - Click to show content
+                </a>
+            </td>
         </tr>
     </table>
 </div>
@@ -93,32 +91,6 @@ The following breaks down the construction of a Confiscation Action. The action 
                 <th style="width:26%" class="s1">Comments</th>
                 <th style="width:5%" class="s1">Data Type</th>
                 <th class="s2">Amendment Restrictions</th>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div class="ui modal" id="type-Address">
-    <i class="close icon"></i>
-    <div class="content docs-content">
-        <table class="ui table">
-            <tr style='height:19px;'>
-                <th style="width:5%" class="s1">Label</th>
-                <th style="width:9%" class="s1">Name</th>
-                <th style="width:3%" class="s1">Bytes</th>
-                <th style="width:33%" class="s1">Example Values</th>
-                <th style="width:26%" class="s1">Comments</th>
-                <th style="width:5%" class="s1">Data Type</th>
-                <th class="s2">Amendment Restrictions</th>
-            </tr>
-            <tr>
-                <td class="e10">Public Key Hash</td>
-                <td class="e10">PKH</td>
-                <td class="e10">20</td>
-                <td class="e10" style="word-break:break-all">1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic</td>
-                <td class="e10">Public address where the token balance will be changed.</td>
-                <td class="e10">bin</td>
-                <td class="e10"></td>
             </tr>
         </table>
     </div>

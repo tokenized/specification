@@ -62,13 +62,11 @@ The following breaks down the construction of a Rejection Action. The action is 
             <td class="m10"></td>
         </tr>
         <tr>
-            <td class="m9">Timestamp</td>
-            <td class="m10">Timestamp</td>
-            <td class="m10">8</td>
-            <td class="m10">1551767413250187179</td>
-            <td class="m10">Timestamp in nanoseconds of when the smart contract created the action.</td>
-            <td class="m10">timestamp</td>
-            <td class="m10">Cannot be changed by issuer, operator. Smart contract controls.</td>
+            <td class="m5" colspan="7">
+                <a href="javascript:;" data-popover="type-Timestamp">
+                   Timestamp - Click to show content
+                </a>
+            </td>
         </tr>
     </table>
 </div>

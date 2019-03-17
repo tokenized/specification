@@ -60,8 +60,8 @@ type Coupon struct {
 	Version            uint8
 	TradingRestriction []byte
 	RedeemingEntity    string
-	IssueDate          uint64
-	ExpiryDate         uint64
+	IssueDate          Timestamp
+	ExpiryDate         Timestamp
 	Value              uint64
 	Currency           string
 	Description        string
@@ -110,12 +110,12 @@ func (m *Coupon) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// IssueDate (uint64)
+	// IssueDate (Timestamp)
 	if err := write(buf, m.IssueDate); err != nil {
 		return nil, err
 	}
 
-	// ExpiryDate (uint64)
+	// ExpiryDate (Timestamp)
 	if err := write(buf, m.ExpiryDate); err != nil {
 		return nil, err
 	}
@@ -161,13 +161,13 @@ func (m *Coupon) Write(b []byte) (int, error) {
 		}
 	}
 
-	// IssueDate (uint64)
-	if err := read(buf, &m.IssueDate); err != nil {
+	// IssueDate (Timestamp)
+	if err := m.IssueDate.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// ExpiryDate (uint64)
-	if err := read(buf, &m.ExpiryDate); err != nil {
+	// ExpiryDate (Timestamp)
+	if err := m.ExpiryDate.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -202,8 +202,8 @@ func (m Coupon) String() string {
 	vals = append(vals, fmt.Sprintf("Version:%v", m.Version))
 	vals = append(vals, fmt.Sprintf("TradingRestriction:%#x", m.TradingRestriction))
 	vals = append(vals, fmt.Sprintf("RedeemingEntity:%#+v", m.RedeemingEntity))
-	vals = append(vals, fmt.Sprintf("IssueDate:%v", m.IssueDate))
-	vals = append(vals, fmt.Sprintf("ExpiryDate:%v", m.ExpiryDate))
+	vals = append(vals, fmt.Sprintf("IssueDate:%#+v", m.IssueDate))
+	vals = append(vals, fmt.Sprintf("ExpiryDate:%#+v", m.ExpiryDate))
 	vals = append(vals, fmt.Sprintf("Value:%v", m.Value))
 	vals = append(vals, fmt.Sprintf("Currency:%#+v", m.Currency))
 	vals = append(vals, fmt.Sprintf("Description:%#+v", m.Description))
@@ -338,8 +338,8 @@ type LoyaltyPoints struct {
 	AgeRestriction      []byte
 	OfferType           byte
 	OfferName           string
-	ValidFrom           uint64
-	ExpirationTimestamp uint64
+	ValidFrom           Timestamp
+	ExpirationTimestamp Timestamp
 	Description         string
 }
 
@@ -396,12 +396,12 @@ func (m *LoyaltyPoints) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// ValidFrom (uint64)
+	// ValidFrom (Timestamp)
 	if err := write(buf, m.ValidFrom); err != nil {
 		return nil, err
 	}
 
-	// ExpirationTimestamp (uint64)
+	// ExpirationTimestamp (Timestamp)
 	if err := write(buf, m.ExpirationTimestamp); err != nil {
 		return nil, err
 	}
@@ -448,13 +448,13 @@ func (m *LoyaltyPoints) Write(b []byte) (int, error) {
 		}
 	}
 
-	// ValidFrom (uint64)
-	if err := read(buf, &m.ValidFrom); err != nil {
+	// ValidFrom (Timestamp)
+	if err := m.ValidFrom.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// ExpirationTimestamp (uint64)
-	if err := read(buf, &m.ExpirationTimestamp); err != nil {
+	// ExpirationTimestamp (Timestamp)
+	if err := m.ExpirationTimestamp.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -489,8 +489,8 @@ type Membership struct {
 	Version             uint8
 	TradingRestriction  []byte
 	AgeRestriction      []byte
-	ValidFrom           uint64
-	ExpirationTimestamp uint64
+	ValidFrom           Timestamp
+	ExpirationTimestamp Timestamp
 	ID                  string
 	MembershipType      string
 	Description         string
@@ -539,12 +539,12 @@ func (m *Membership) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// ValidFrom (uint64)
+	// ValidFrom (Timestamp)
 	if err := write(buf, m.ValidFrom); err != nil {
 		return nil, err
 	}
 
-	// ExpirationTimestamp (uint64)
+	// ExpirationTimestamp (Timestamp)
 	if err := write(buf, m.ExpirationTimestamp); err != nil {
 		return nil, err
 	}
@@ -587,13 +587,13 @@ func (m *Membership) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	// ValidFrom (uint64)
-	if err := read(buf, &m.ValidFrom); err != nil {
+	// ValidFrom (Timestamp)
+	if err := m.ValidFrom.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// ExpirationTimestamp (uint64)
-	if err := read(buf, &m.ExpirationTimestamp); err != nil {
+	// ExpirationTimestamp (Timestamp)
+	if err := m.ExpirationTimestamp.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -645,7 +645,7 @@ func (m Membership) String() string {
 type ShareCommon struct {
 	Version            uint8
 	TradingRestriction []byte
-	TransferLockout    uint64
+	TransferLockout    Timestamp
 	Ticker             string
 	ISIN               string
 	Description        string
@@ -689,7 +689,7 @@ func (m *ShareCommon) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// TransferLockout (uint64)
+	// TransferLockout (Timestamp)
 	if err := write(buf, m.TransferLockout); err != nil {
 		return nil, err
 	}
@@ -726,8 +726,8 @@ func (m *ShareCommon) Write(b []byte) (int, error) {
 		return 0, err
 	}
 
-	// TransferLockout (uint64)
-	if err := read(buf, &m.TransferLockout); err != nil {
+	// TransferLockout (Timestamp)
+	if err := m.TransferLockout.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -783,9 +783,9 @@ type TicketAdmission struct {
 	Class               string
 	Area                string
 	Seat                string
-	StartTimeDate       uint64
-	ValidFrom           uint64
-	ExpirationTimestamp uint64
+	StartTimeDate       Timestamp
+	ValidFrom           Timestamp
+	ExpirationTimestamp Timestamp
 	Description         string
 }
 
@@ -857,17 +857,17 @@ func (m *TicketAdmission) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// StartTimeDate (uint64)
+	// StartTimeDate (Timestamp)
 	if err := write(buf, m.StartTimeDate); err != nil {
 		return nil, err
 	}
 
-	// ValidFrom (uint64)
+	// ValidFrom (Timestamp)
 	if err := write(buf, m.ValidFrom); err != nil {
 		return nil, err
 	}
 
-	// ExpirationTimestamp (uint64)
+	// ExpirationTimestamp (Timestamp)
 	if err := write(buf, m.ExpirationTimestamp); err != nil {
 		return nil, err
 	}
@@ -945,18 +945,18 @@ func (m *TicketAdmission) Write(b []byte) (int, error) {
 		}
 	}
 
-	// StartTimeDate (uint64)
-	if err := read(buf, &m.StartTimeDate); err != nil {
+	// StartTimeDate (Timestamp)
+	if err := m.StartTimeDate.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// ValidFrom (uint64)
-	if err := read(buf, &m.ValidFrom); err != nil {
+	// ValidFrom (Timestamp)
+	if err := m.ValidFrom.Write(buf); err != nil {
 		return 0, err
 	}
 
-	// ExpirationTimestamp (uint64)
-	if err := read(buf, &m.ExpirationTimestamp); err != nil {
+	// ExpirationTimestamp (Timestamp)
+	if err := m.ExpirationTimestamp.Write(buf); err != nil {
 		return 0, err
 	}
 

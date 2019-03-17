@@ -43,8 +43,8 @@ func MessageTypeMapping(code string) PayloadMessage {
 // PublicMessage Generic public message or public announcement. Sent to an
 // address(es). Can be used for an official issuer announcement.
 type PublicMessage struct {
-	Timestamp     uint64 `json:"timestamp,omitempty"`      // Timestamp in nanoseconds for when the message sender creates the transaction.
-	PublicMessage string `json:"public_message,omitempty"` // Tokenized Ltd. announces product launch.
+	Timestamp     Timestamp `json:"timestamp,omitempty"`      // Timestamp in nanoseconds for when the message sender creates the transaction.
+	PublicMessage string    `json:"public_message,omitempty"` // Tokenized Ltd. announces product launch.
 }
 
 // Type returns the type identifer for this message.
@@ -70,10 +70,17 @@ func (action *PublicMessage) Read(b []byte) (int, error) {
 func (action *PublicMessage) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	// Timestamp (uint64)
+	// Timestamp (Timestamp)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, action.Timestamp); err != nil {
-		return nil, err
+	{
+		b, err := action.Timestamp.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
@@ -92,9 +99,9 @@ func (action *PublicMessage) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading PublicMessage : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
-	// Timestamp (uint64)
+	// Timestamp (Timestamp)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &action.Timestamp); err != nil {
+	if err := action.Timestamp.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -133,8 +140,8 @@ func (action PublicMessage) String() string {
 // PrivateMessage Generic private message. Sent to another address(es).
 // Encryption is to be used.
 type PrivateMessage struct {
-	Timestamp      uint64 `json:"timestamp,omitempty"`       // Timestamp in nanoseconds for when the message sender creates the transaction.
-	PrivateMessage []byte `json:"private_message,omitempty"` // Tokenized Ltd announces product launch.
+	Timestamp      Timestamp `json:"timestamp,omitempty"`       // Timestamp in nanoseconds for when the message sender creates the transaction.
+	PrivateMessage []byte    `json:"private_message,omitempty"` // Tokenized Ltd announces product launch.
 }
 
 // Type returns the type identifer for this message.
@@ -160,10 +167,17 @@ func (action *PrivateMessage) Read(b []byte) (int, error) {
 func (action *PrivateMessage) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	// Timestamp (uint64)
+	// Timestamp (Timestamp)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, action.Timestamp); err != nil {
-		return nil, err
+	{
+		b, err := action.Timestamp.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
@@ -182,9 +196,9 @@ func (action *PrivateMessage) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading PrivateMessage : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
-	// Timestamp (uint64)
+	// Timestamp (Timestamp)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &action.Timestamp); err != nil {
+	if err := action.Timestamp.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -234,8 +248,8 @@ func (action PrivateMessage) String() string {
 // the partially-signed transaction can be sent to the offeror by way of a
 // Signature Request message.
 type Offer struct {
-	Timestamp uint64 `json:"timestamp,omitempty"` // Timestamp in nanoseconds for when the message sender creates the transaction.
-	Offer     []byte `json:"offer,omitempty"`     // Full serialized bitcoin tx containing an offer to another party, usually to exchange tokens/bitcoin. The message needs data added by another party.
+	Timestamp Timestamp `json:"timestamp,omitempty"` // Timestamp in nanoseconds for when the message sender creates the transaction.
+	Offer     []byte    `json:"offer,omitempty"`     // Full serialized bitcoin tx containing an offer to another party, usually to exchange tokens/bitcoin. The message needs data added by another party.
 }
 
 // Type returns the type identifer for this message.
@@ -261,10 +275,17 @@ func (action *Offer) Read(b []byte) (int, error) {
 func (action *Offer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	// Timestamp (uint64)
+	// Timestamp (Timestamp)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, action.Timestamp); err != nil {
-		return nil, err
+	{
+		b, err := action.Timestamp.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
@@ -283,9 +304,9 @@ func (action *Offer) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading Offer : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
-	// Timestamp (uint64)
+	// Timestamp (Timestamp)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &action.Timestamp); err != nil {
+	if err := action.Timestamp.Write(buf); err != nil {
 		return 0, err
 	}
 
@@ -326,8 +347,8 @@ func (action Offer) String() string {
 // on-chain to the parties (including Smart Contracts) that still have to
 // sign the transaction.
 type SignatureRequest struct {
-	Timestamp  uint64 `json:"timestamp,omitempty"`   // Timestamp in nanoseconds for when the message sender creates the transaction.
-	SigRequest []byte `json:"sig_request,omitempty"` // Full serialized bitcoin tx with multiple inputs from different wallets/users.
+	Timestamp  Timestamp `json:"timestamp,omitempty"`   // Timestamp in nanoseconds for when the message sender creates the transaction.
+	SigRequest []byte    `json:"sig_request,omitempty"` // Full serialized bitcoin tx with multiple inputs from different wallets/users.
 }
 
 // Type returns the type identifer for this message.
@@ -353,10 +374,17 @@ func (action *SignatureRequest) Read(b []byte) (int, error) {
 func (action *SignatureRequest) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
-	// Timestamp (uint64)
+	// Timestamp (Timestamp)
 	// fmt.Printf("Serializing Timestamp\n")
-	if err := write(buf, action.Timestamp); err != nil {
-		return nil, err
+	{
+		b, err := action.Timestamp.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
 	}
 	// fmt.Printf("Serialized Timestamp : buf len %d\n", buf.Len())
 
@@ -375,9 +403,9 @@ func (action *SignatureRequest) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading SignatureRequest : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
-	// Timestamp (uint64)
+	// Timestamp (Timestamp)
 	// fmt.Printf("Reading Timestamp : %d bytes remaining\n", buf.Len())
-	if err := read(buf, &action.Timestamp); err != nil {
+	if err := action.Timestamp.Write(buf); err != nil {
 		return 0, err
 	}
 

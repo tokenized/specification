@@ -4,14 +4,13 @@ import (
 	"bytes"
 	"reflect"
 	"testing"
-	"time"
 )
 
 func TestPublicMessage(t *testing.T) {
 	// Create a randomized object
 	initialMessage := PublicMessage{}
-	// Timestamp (timestamp)
-	initialMessage.Timestamp = uint64(time.Now().UnixNano())
+	// Timestamp (Timestamp)
+	initialMessage.Timestamp = Timestamp{}
 
 	// PublicMessage (varchar)
 	initialMessage.PublicMessage = "Text 1"
@@ -51,9 +50,9 @@ func TestPublicMessage(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Timestamp (timestamp)
+	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %d != %d", initialMessage.Timestamp, decodedMessage.Timestamp)
+		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
 	// PublicMessage (varchar)
@@ -65,8 +64,8 @@ func TestPublicMessage(t *testing.T) {
 func TestPrivateMessage(t *testing.T) {
 	// Create a randomized object
 	initialMessage := PrivateMessage{}
-	// Timestamp (timestamp)
-	initialMessage.Timestamp = uint64(time.Now().UnixNano())
+	// Timestamp (Timestamp)
+	initialMessage.Timestamp = Timestamp{}
 
 	// PrivateMessage (varbin)
 	initialMessage.PrivateMessage = make([]byte, 0, 32)
@@ -109,9 +108,9 @@ func TestPrivateMessage(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Timestamp (timestamp)
+	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %d != %d", initialMessage.Timestamp, decodedMessage.Timestamp)
+		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
 	// PrivateMessage (varbin)
@@ -123,8 +122,8 @@ func TestPrivateMessage(t *testing.T) {
 func TestOffer(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Offer{}
-	// Timestamp (timestamp)
-	initialMessage.Timestamp = uint64(time.Now().UnixNano())
+	// Timestamp (Timestamp)
+	initialMessage.Timestamp = Timestamp{}
 
 	// Offer (varbin)
 	initialMessage.Offer = make([]byte, 0, 32)
@@ -167,9 +166,9 @@ func TestOffer(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Timestamp (timestamp)
+	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %d != %d", initialMessage.Timestamp, decodedMessage.Timestamp)
+		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
 	// Offer (varbin)
@@ -181,8 +180,8 @@ func TestOffer(t *testing.T) {
 func TestSignatureRequest(t *testing.T) {
 	// Create a randomized object
 	initialMessage := SignatureRequest{}
-	// Timestamp (timestamp)
-	initialMessage.Timestamp = uint64(time.Now().UnixNano())
+	// Timestamp (Timestamp)
+	initialMessage.Timestamp = Timestamp{}
 
 	// SigRequest (varbin)
 	initialMessage.SigRequest = make([]byte, 0, 32)
@@ -225,9 +224,9 @@ func TestSignatureRequest(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Timestamp (timestamp)
+	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %d != %d", initialMessage.Timestamp, decodedMessage.Timestamp)
+		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
 	// SigRequest (varbin)
