@@ -37,8 +37,7 @@ fields:
     size: 1
     example_hex: 01
     example_value: "1"
-    notes: "Entity/Contracting Party X Details
-"
+    notes: "Entity/Contracting Party X Details"
 
   - name: UnitNumber
     label: Unit Number
