@@ -117,6 +117,15 @@ fields:
     example_value: "P"
     notes: "Issuer Type - Amendments can be restricted to a vote."
 
+  - name: IssuerLEI
+    label: Issuer's Legal Entity Identifier
+    description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
+    type: string
+    size: 20
+    example_hex: 3534393330303834554b4c564d59323244533136
+    example_value: "54930084UKLVMY22DS16"
+    notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
+
   - name: IssuerLogoURL
     label: Issuer Logo URL
     description: "The URL of the Issuers logo."
@@ -132,6 +141,15 @@ fields:
     example_hex: 09546f6b656e697a6564
     example_value: "Tokenized"
     notes: ""
+
+  - name: OperatorLEI
+    label: Operator's Legal Entity Identifier
+    description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
+    type: string
+    size: 20
+    example_hex: 3534393330303834554b4c564d59323244533136
+    example_value: "54930084UKLVMY22DS16"
+    notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags
