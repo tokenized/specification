@@ -76,6 +76,24 @@ fields:
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
     notes: ""
 
+  - name: SupportingDocsFileType
+    label: Supporting Documentation File Type
+    description: "1 - 7z"
+    type: uint8
+    size: 1
+    example_hex: 01
+    example_value: "1"
+    notes: "The file type of the supporting documents ('attached') that are important to the contract."
+
+  - name: SupportingDocs
+    label: Supporting Documentation
+    description: ""
+    type: nvarchar32
+    size: 32
+    example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
+    example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
+    notes: "File of all supporting documents that are important to the contract."
+
   - name: ContractRevision
     label: Contract Revision
     description: "Counter 0 - 65,535"
