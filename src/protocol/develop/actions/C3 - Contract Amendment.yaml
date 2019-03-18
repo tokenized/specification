@@ -38,7 +38,6 @@ fields:
     label: Change Issuer Address
     description: "1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position."
     type: bool
-    size: 1
     example_hex: 01
     example_value: 1
     notes: ""
@@ -47,7 +46,6 @@ fields:
     label: Change Operator Address
     description: "1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position."
     type: bool
-    size: 1
     example_hex: 01
     example_value: 1
     notes: ""

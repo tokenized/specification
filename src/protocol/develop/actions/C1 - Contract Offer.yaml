@@ -202,7 +202,6 @@ fields:
     label: Referendum Proposal
     description: "A Referendum is permitted for Proposals (outside of smart contract scope)."
     type: bool
-    size: 1
     example_hex: 01
     example_value: "true"
     notes: "General Governance"
@@ -211,7 +210,6 @@ fields:
     label: Initiative Proposal
     description: "An initiative is permitted for Proposals (outside of smart contract scope)."
     type: bool
-    size: 1
     example_hex: 01
     example_value: true
     notes: ""
@@ -225,7 +223,6 @@ fields:
     label: Issuer Address
     description: "Physical/mailing address. Y/N, N means there is no issuer address."
     type: bool
-    size: 1
     example_hex: 0x01
     example_value: 1
     notes: "Issuer Details - Can always be amended by issuer/smart contract operator."
