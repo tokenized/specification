@@ -188,7 +188,8 @@ func Code(b []byte) (string, error) {
 	return string(b[offset : offset+2]), nil
 }
 
-// TxId represents a Bitcoin transaction ID. (SHA256 of tx data)
+// ------------------------------------------------------------------------------------------------
+// TxId represents a Bitcoin transaction ID. (Double SHA256 of tx data)
 type TxId struct {
 	data [32]byte
 }
@@ -210,6 +211,7 @@ func (id *TxId) Write(buf *bytes.Buffer) error {
 	return readLen(buf, id.data[:])
 }
 
+// ------------------------------------------------------------------------------------------------
 // PublicKeyHash represents a Bitcoin Public Key Hash. Often used as an address to receive transactions.
 type PublicKeyHash struct {
 	data [20]byte
@@ -233,6 +235,7 @@ func (hash *PublicKeyHash) Write(buf *bytes.Buffer) error {
 	return readLen(buf, hash.data[:])
 }
 
+// ------------------------------------------------------------------------------------------------
 // AssetCode represents a unique identifier for a Tokenized asset.
 type AssetCode struct {
 	data [32]byte
@@ -261,6 +264,7 @@ func (code *AssetCode) Write(buf *bytes.Buffer) error {
 	return readLen(buf, code.data[:])
 }
 
+// ------------------------------------------------------------------------------------------------
 // Timestamp represents a time in the Tokenized protocol.
 type Timestamp struct {
 	nanoseconds uint64 // nanoseconds since Unix epoch
