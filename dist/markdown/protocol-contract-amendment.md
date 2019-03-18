@@ -60,13 +60,11 @@ The following breaks down the construction of a Contract Amendment Action. The a
             </td>
         </tr>
         <tr>
-            <td class="c9">Ref Tx-ID</td>
-            <td class="c10">RefTxID</td>
-            <td class="c10">32</td>
-            <td class="c10"><abbr title="a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d">Hover for example</abbr></td>
-            <td class="c10">Tx-ID of the associated Result action (governance) that permitted the modifications.</td>
-            <td class="c10">SHA256</td>
-            <td class="c10"></td>
+            <td class="c5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Ref Tx ID - Click to show content
+                </a>
+            </td>
         </tr>
     </table>
 </div>

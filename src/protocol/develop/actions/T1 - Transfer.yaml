@@ -43,8 +43,7 @@ fields:
   - name: OfferExpiry
     label: Offer Expiry
     description: "This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins."
-    type: time
-    size: 8
+    type: Timestamp
     example_hex: 0000016331e3c200
     example_value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
     notes: ""
@@ -79,7 +78,7 @@ fields:
   - name: ExchangeFeeAddress
     label: Exchange Fee Address
     description: "Identifies the public address that the exchange fee should be paid to."
-    type: Address
+    type: PublicKeyHash
     example_hex: 31485132554c7544375435796b6175635a334b6d546f346932393932355161366963
     example_value: "1HQ2ULuD7T5ykaucZ3KmTo4i29925Qa6ic"
     notes: ""

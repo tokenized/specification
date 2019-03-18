@@ -29,24 +29,11 @@ func GoType(typeName string, size uint64) string {
 		}
 		return "string"
 
-	case "opcode":
-		return "byte"
-
-	case "sha256",
-		"SHA256":
-		return "[32]byte"
-
-	case "sha",
-		"SHA",
-		"bin[var]",
-		"varbin":
+	case "varbin":
 		return "[]byte"
 
 	case "bin":
 		return fmt.Sprintf("[%d]byte", size)
-
-	case "time", "timestamp", "pushdata_length":
-		return "uint64"
 
 	case "uint", "int", "float":
 		return fmt.Sprintf("%v%s%v", prefix, strings.ToLower(name), size*8)
@@ -81,22 +68,8 @@ func IsInternalType(typeName string, size uint64) bool {
 	case "fixedchar":
 		return false
 
-	case "opcode":
-		return false
-
-	case "sha256",
-		"SHA256":
-		return false
-
-	case "sha",
-		"SHA",
-		"bin[var]",
-		"bin",
-		"varbin",
-		"pushdata_length":
-		return false
-
-	case "time", "timestamp":
+	case "bin",
+		"varbin":
 		return false
 
 	case "uint", "uint8", "uint16", "uint32", "uint64", "int", "int8", "int16", "int32", "int64", "float", "float32", "float64":

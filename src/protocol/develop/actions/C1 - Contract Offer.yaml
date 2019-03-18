@@ -84,8 +84,7 @@ fields:
   - name: ContractExpiration
     label: Contract Expiration
     description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
-    type: time
-    size: 8
+    type: Timestamp
     example_hex: 000000005c78d0f0
     example_value: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
     notes: "Contract Expiration - Amendments can be restricted to a vote."

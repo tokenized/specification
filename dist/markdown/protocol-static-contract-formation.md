@@ -89,22 +89,18 @@ The following breaks down the construction of a Static Contract Formation Action
             <td class="c10"></td>
         </tr>
         <tr>
-            <td class="c9">Effective Date</td>
-            <td class="c10">EffectiveDate</td>
-            <td class="c10">8</td>
-            <td class="c10"><abbr title="Wed May 09 2018 00:00:00 GMT+1000 (AEST)">Hover for example</abbr></td>
-            <td class="c10">Start date of the contract.</td>
-            <td class="c10">time</td>
-            <td class="c10"></td>
+            <td class="c5" colspan="7">
+                <a href="javascript:;" data-popover="type-Timestamp">
+                   Effective Date - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
-            <td class="c9">Contract Expiration</td>
-            <td class="c10">ContractExpiration</td>
-            <td class="c10">8</td>
-            <td class="c10"><abbr title="Wed May 09 2018 00:00:00 GMT+1000 (AEST)">Hover for example</abbr></td>
-            <td class="c10"><abbr title="All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.">All actions related to the contract will cease to work after this timestamp. The smart con ...</abbr></td>
-            <td class="c10">time</td>
-            <td class="c10"></td>
+            <td class="c5" colspan="7">
+                <a href="javascript:;" data-popover="type-Timestamp">
+                   Contract Expiration - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="c9">Contract URI</td>
@@ -116,13 +112,11 @@ The following breaks down the construction of a Static Contract Formation Action
             <td class="c10"></td>
         </tr>
         <tr>
-            <td class="c9">PrevRevTxID</td>
-            <td class="c10">PrevRevTxID</td>
-            <td class="c10">32</td>
-            <td class="c10"><abbr title="3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f">Hover for example</abbr></td>
-            <td class="c10">The Tx-ID of the previous contract revision.</td>
-            <td class="c10">sha256</td>
-            <td class="c10"></td>
+            <td class="c5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   PrevRevTxID - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="c5" colspan="7">

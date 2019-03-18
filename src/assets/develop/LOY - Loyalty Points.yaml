@@ -68,16 +68,14 @@ fields:
 
   - name: ValidFrom
     label: Valid From
-    type: timestamp
-    size: 8
+    type: Timestamp
     example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
     span: right
     displayOrder: 3
 
   - name: ExpirationTimestamp
     label: Expiration Timestamp
-    type: timestamp
-    size: 8
+    type: Timestamp
     example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
     span: right
     displayOrder: 3

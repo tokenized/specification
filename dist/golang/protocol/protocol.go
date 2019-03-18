@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"time"
 )
 
 const (
@@ -187,175 +188,109 @@ func Code(b []byte) (string, error) {
 	return string(b[offset : offset+2]), nil
 }
 
-// WriteVarChar writes a variable character string
-func WriteVarChar(buf *bytes.Buffer, value string, sizeBits int) error {
-	if err := WriteVariableSize(buf, uint64(len(value)), sizeBits, 0); err != nil {
-		return err
-	}
+// ------------------------------------------------------------------------------------------------
+// TxId represents a Bitcoin transaction ID. (Double SHA256 of tx data)
+type TxId struct {
+	data [32]byte
+}
 
-	if _, err := buf.Write([]byte(value)); err != nil {
+func TxIdFromBytes(data []byte) TxId {
+	var result TxId
+	copy(result.data[:], data)
+	return result
+}
+
+// Bytes returns the byte slice for the TxId.
+func (id *TxId) Bytes() []byte { return id.data[:] }
+
+// Serialize returns a byte slice with the TxId in it.
+func (id *TxId) Serialize() ([]byte, error) { return id.data[:], nil }
+
+// Write reads a TxId from a bytes.Buffer
+func (id *TxId) Write(buf *bytes.Buffer) error {
+	return readLen(buf, id.data[:])
+}
+
+// ------------------------------------------------------------------------------------------------
+// PublicKeyHash represents a Bitcoin Public Key Hash. Often used as an address to receive transactions.
+type PublicKeyHash struct {
+	data [20]byte
+}
+
+// PublicKeyHashFromBytes returns a PublicKeyHash with the specified bytes.
+func PublicKeyHashFromBytes(data []byte) PublicKeyHash {
+	var result PublicKeyHash
+	copy(result.data[:], data)
+	return result
+}
+
+// Bytes returns a byte slice containing the PublicKeyHash.
+func (hash *PublicKeyHash) Bytes() []byte { return hash.data[:] }
+
+// Serialize returns a byte slice with the PublicKeyHash in it.
+func (hash *PublicKeyHash) Serialize() ([]byte, error) { return hash.data[:], nil }
+
+// Write reads a PublicKeyHash from a bytes.Buffer
+func (hash *PublicKeyHash) Write(buf *bytes.Buffer) error {
+	return readLen(buf, hash.data[:])
+}
+
+// ------------------------------------------------------------------------------------------------
+// AssetCode represents a unique identifier for a Tokenized asset.
+type AssetCode struct {
+	data [32]byte
+}
+
+// IsZero returns true if the AssetCode is all zeroes. (empty)
+func (id *AssetCode) IsZero() bool {
+	return bytes.Equal(id.data[:], []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+}
+
+// AssetCodeFromBytes returns a AssetCode with the specified bytes.
+func AssetCodeFromBytes(data []byte) AssetCode {
+	var result AssetCode
+	copy(result.data[:], data)
+	return result
+}
+
+// Bytes returns a byte slice containing the AssetCode.
+func (code *AssetCode) Bytes() []byte { return code.data[:] }
+
+// Serialize returns a byte slice with the AssetCode in it.
+func (code *AssetCode) Serialize() ([]byte, error) { return code.data[:], nil }
+
+// Write reads a AssetCode from a bytes.Buffer
+func (code *AssetCode) Write(buf *bytes.Buffer) error {
+	return readLen(buf, code.data[:])
+}
+
+// ------------------------------------------------------------------------------------------------
+// Timestamp represents a time in the Tokenized protocol.
+type Timestamp struct {
+	nanoseconds uint64 // nanoseconds since Unix epoch
+}
+
+// CurrentTimestamp returns a Timestamp containing the current time.
+func CurrentTimestamp() Timestamp {
+	return Timestamp{nanoseconds: uint64(time.Now().UnixNano())}
+}
+
+// Nano returns the nanoseconds since the Unix epoch for the Timestamp.
+func (time *Timestamp) Nano() uint64 { return time.nanoseconds }
+
+// Serialize returns a byte slice with the Timestamp in it.
+func (time *Timestamp) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+	if err := write(buf, &time.nanoseconds); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
+// Write reads a Timestamp from a bytes.Buffer
+func (time *Timestamp) Write(buf *bytes.Buffer) error {
+	if err := read(buf, &time.nanoseconds); err != nil {
 		return err
 	}
 	return nil
-}
-
-// ReadVarChar reads a variable character string
-func ReadVarChar(buf *bytes.Buffer, sizeBits int) (string, error) {
-	size, err := ReadVariableSize(buf, sizeBits, 0)
-	if err != nil {
-		return "", err
-	}
-
-	data := make([]byte, size)
-	err = readLen(buf, data)
-	if err != nil {
-		return "", err
-	}
-	return string(data), nil
-}
-
-// WriteFixedChar writes a fixed character string
-func WriteFixedChar(buf *bytes.Buffer, value string, size uint64) error {
-	if uint64(len(value)) > size {
-		return fmt.Errorf("FixedChar too long %d > %d", len(value), size)
-	}
-	if _, err := buf.Write([]byte(value)); err != nil {
-		return err
-	}
-
-	// Pad with zeroes
-	if uint64(len(value)) < size {
-		padCount := size - uint64(len(value))
-		empty := make([]byte, padCount)
-		for i := uint64(0); i < padCount; i++ {
-			empty[i] = 0
-		}
-
-		if _, err := buf.Write(empty); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-// ReadFixedChar reads a fixed character string
-func ReadFixedChar(buf *bytes.Buffer, size uint64) (string, error) {
-	var err error
-	data := make([]byte, size)
-	err = readLen(buf, data)
-	if err != nil {
-		return "", err
-	}
-	return string(data), nil
-}
-
-// WriteVarBin writes a variable binary value
-func WriteVarBin(buf *bytes.Buffer, value []byte, sizeBits int) error {
-	if err := WriteVariableSize(buf, uint64(len(value)), sizeBits, 0); err != nil {
-		return err
-	}
-
-	if _, err := buf.Write(value); err != nil {
-		return err
-	}
-	return nil
-}
-
-// ReadVarBin reads a variable binary value
-func ReadVarBin(buf *bytes.Buffer, sizeBits int) ([]byte, error) {
-	size, err := ReadVariableSize(buf, sizeBits, 0)
-	if err != nil {
-		return []byte{}, err
-	}
-
-	data := make([]byte, size)
-	err = readLen(buf, data)
-	if err != nil {
-		return []byte{}, err
-	}
-	return data, nil
-}
-
-// WriteFixedBin writes a fixed binary value
-func WriteFixedBin(buf *bytes.Buffer, value []byte, size uint64) error {
-	if uint64(len(value)) > size {
-		return fmt.Errorf("FixedBin too long %d > %d", len(value), size)
-	}
-	if _, err := buf.Write(value); err != nil {
-		return err
-	}
-
-	// Pad with zeroes
-	if uint64(len(value)) < size {
-		padCount := size - uint64(len(value))
-		empty := make([]byte, padCount)
-		for i := uint64(0); i < padCount; i++ {
-			empty[i] = 0
-		}
-
-		if _, err := buf.Write(empty); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-// WriteVariableSize writes a size/length to the buffer using the specified size unsigned integer.
-// defaultSizeBits is used if sizeBits is zero.
-func WriteVariableSize(buf *bytes.Buffer, size uint64, sizeBits int, defaultSizeBits int) error {
-	if sizeBits == 0 {
-		sizeBits = defaultSizeBits
-	}
-	if size >= 2<<uint64(sizeBits) {
-		return fmt.Errorf("Size beyond size bits limit (%d) : %d", (2<<uint64(sizeBits))-1, size)
-	}
-
-	var err error
-	switch sizeBits {
-	case 8:
-		err = write(buf, uint8(size))
-	case 16:
-		err = write(buf, uint16(size))
-	case 32:
-		err = write(buf, uint32(size))
-	case 64:
-		err = write(buf, uint64(size))
-	default:
-		return fmt.Errorf("Invalid variable size bits : %d", sizeBits)
-	}
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ReadVariableSize reads a size/length from the buffer using the specified size unsigned integer.
-// defaultSizeBits is used if sizeBits is zero.
-func ReadVariableSize(buf *bytes.Buffer, sizeBits int, defaultSizeBits int) (uint64, error) {
-	if sizeBits == 0 {
-		sizeBits = defaultSizeBits
-	}
-
-	var err error
-	var size uint64
-	switch sizeBits {
-	case 8:
-		var size8 uint8
-		err = read(buf, &size8)
-		size = uint64(size8)
-	case 16:
-		var size16 uint16
-		err = read(buf, &size16)
-		size = uint64(size16)
-	case 32:
-		var size32 uint32
-		err = read(buf, &size32)
-		size = uint64(size32)
-	case 64:
-		err = read(buf, &size)
-	default:
-		err = fmt.Errorf("Invalid variable size bits : %d", sizeBits)
-	}
-	return size, err
 }

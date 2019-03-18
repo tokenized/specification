@@ -34,8 +34,7 @@ fields:
 
   - name: TransferLockout
     label: TransferLockout
-    type: timestamp
-    size: 8
+    type: Timestamp
     example: 11/4/2019 18:00:00
     span: full
     displayOrder: 3

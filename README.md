@@ -33,9 +33,72 @@ Navigate to the root directory and run:
 
 The Tokenized Protocol must retain the entire definition history in order to parse legacy messages from prior versions. The working version for each definition is `develop`. Previous versions are stored in a directory that specifies that release version, for example, `v0001`.
 
-### Protocol
+## Protocol
 
-All actions related to the Tokenized Protocol.
+### Primitive Types
+
+* `int` is a signed integer. `size` is the number of bits for the integer. Valid values for `size` are 8, 16, 32, 64.
+
+* `uint` is an unsigned integer. `size` is the number of bits for the integer. Valid values for `size` are 8, 16, 32, 64.
+
+* `float` is a floating point number. `size` is the number of bits for the float. Valid values for `size` are 32 and 64.
+
+* `bool` is a boolean. `size` is 1 byte.
+
+* `bin` is fixed length binary data. `size` is the length in bytes of the data.
+
+* `varbin` is variable length binary data.
+The data is preceded by an integer that specifies the actual length in bytes.
+`size` is the number of bits used to serialize the length in bytes of the data.
+Valid values for `size` are 8, 16, 32, and 64.
+For example, a `varbin` value with a `size` of 8 will be able to contain up to 255 bytes and will be preceded by a 1 byte unsigned integer specifying the length in bytes.
+
+* `fixedchar` is fixed length text data.
+The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
+`size` is the length in bytes of the data.
+
+* `varchar` is variable length text data.
+The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
+The data is preceded by an integer that specifies the actual length in bytes.
+`size` is the number of bits used to serialize the length in bytes of the data.
+Valid values for `size` are 8, 16, 32, and 64.
+For example, a `varchar` value with a `size` of 8 will be able to contain up to 255 bytes and will be preceded by a 1 byte unsigned integer specifying the length in bytes.
+
+
+### Basic Types
+
+* `OpReturnMessage` implements a base interface for all message types.  
+Provides the ability to serialize the data as a Bitcoin OP_RETURN script and to request the variable payload data.
+
+* `PayloadMessage` is the interface for messages that are derived from payloads, such as asset types and message types.  
+Provides the ability to serialize the data.
+
+* `TxId` represents a Bitcoin transaction ID.  
+It is the double SHA256 hash of the serialized transaction.
+`size` does not need to be specified and is always 32 bytes.
+
+* `PublicKeyHash` represents a Bitcoin Public Key Hash.  
+It is the RIPEMD160 hash of the SHA256 of the serialized public key.
+Public key hashes are used as an "address" to send/receive transactions, tokens, and messages.
+`size` does not need to be specified and is always 20 bytes.
+
+* `AssetCode` represents a unique identifier for an asset/token.  
+`size` does not need to be specified and is always 32 bytes.
+
+* `Timestamp` represents a time.  
+`size` does not need to be specified and is always 8 bytes.
+
+### Arrays/Lists
+
+Arrays/Lists of objects are defined by adding `[]` at the end of the type field.
+Arrays/Lists are variable length and have an unsigned integer encoded before the objects to specify the number of items.
+`size` for lists represents the bits used to serialize the number of items in the list. Valid values are 8, 16, 32, and 64.
+The default, when size is not specified, is 8. A size of 8 means the list can contain a maximum 255 objects.
+
+### Actions
+
+**Actions** are Tokenized messages that request or confirm the creation, modification, or transfer of an object within the Tokenized protocol.
+Actions must be serialized as an OP_RETURN output in a Bitcoin transaction with Bitcoin transaction inputs and outputs from/to the appropriate parties.
 
 ### Assets
 

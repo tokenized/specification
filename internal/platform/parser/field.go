@@ -80,8 +80,7 @@ func (f Field) IsNumeric() bool {
 
 	return strings.HasPrefix(s, "uint") ||
 		strings.HasPrefix(s, "float") ||
-		strings.HasPrefix(s, "int") ||
-		s == "time"
+		strings.HasPrefix(s, "int")
 }
 
 func (f Field) IsFloat() bool {
