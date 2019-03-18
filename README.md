@@ -43,7 +43,7 @@ The Tokenized Protocol must retain the entire definition history in order to par
 
 * `float` is a floating point number. `size` is the number of bits for the float. Valid values for `size` are 32 and 64.
 
-* `bool` is a boolean. `size` is 1 byte.
+* `bool` is a boolean stored as 1 byte.
 
 * `bin` is fixed length binary data. `size` is the length in bytes of the data.
 

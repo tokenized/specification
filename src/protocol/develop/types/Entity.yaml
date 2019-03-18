@@ -35,7 +35,6 @@ fields:
     label: Entity Address
     description: "Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address."
     type: bool
-    size: 1
     example_hex: 01
     example_value: "1"
     notes: "Entity/Contracting Party X Details"

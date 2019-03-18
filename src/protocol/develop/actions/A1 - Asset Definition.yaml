@@ -59,7 +59,6 @@ fields:
     label: Transfers Permitted
     description: "1 = Transfers are permitted.  0 = Transfers are not permitted."
     type: bool
-    size: 1
     example_hex: 01
     example_value: 1
     notes: ""
@@ -77,7 +76,6 @@ fields:
     label: Enforcement Orders Permitted
     description: "1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted."
     type: bool
-    size: 1
     example_hex: 01
     example_value: 1
     notes: ""
@@ -95,7 +93,6 @@ fields:
     label: Referendum Proposal
     description: "A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless."
     type: bool
-    size: 1
     example_hex: 01
     example_value: 1
     notes: ""
@@ -104,7 +101,6 @@ fields:
     label: Initiative Proposal
     description: "An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless."
     type: bool
-    size: 1
     example_hex: 01
     example_value: 1
     notes: ""
@@ -113,7 +109,6 @@ fields:
     label: Asset Modification Governance
     description: "1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules."
     type: bool
-    size: 1
     example_hex: 01
     example_value: "1"
     notes: ""
