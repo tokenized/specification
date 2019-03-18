@@ -28,7 +28,7 @@ The following breaks down the construction of a Referendum Action. The action is
         <tr>
             <td class="g9">Asset Specific Vote</td>
             <td class="g10">AssetSpecificVote</td>
-            <td class="g10">1</td>
+            <td class="g10">0</td>
             <td class="g10">1</td>
             <td class="g10">1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No.</td>
             <td class="g10">bool</td>
@@ -62,7 +62,7 @@ The following breaks down the construction of a Referendum Action. The action is
         <tr>
             <td class="g9">Proposal</td>
             <td class="g10">Proposal</td>
-            <td class="g10">1</td>
+            <td class="g10">0</td>
             <td class="g10">0</td>
             <td class="g10"><abbr title="1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.">1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for ...</abbr></td>
             <td class="g10">bool</td>

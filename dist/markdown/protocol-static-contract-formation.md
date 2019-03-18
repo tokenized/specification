@@ -244,7 +244,7 @@ The following breaks down the construction of a Static Contract Formation Action
             <tr>
                 <td class="c10">Entity Address</td>
                 <td class="c10">Address</td>
-                <td class="c10">1</td>
+                <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all">1</td>
                 <td class="c10">Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.</td>
                 <td class="c10">bool</td>

@@ -186,7 +186,7 @@ The following breaks down the construction of a Contract Formation Action. The a
         <tr>
             <td class="c9">Referendum Proposal</td>
             <td class="c10">ReferendumProposal</td>
-            <td class="c10">1</td>
+            <td class="c10">0</td>
             <td class="c10">1</td>
             <td class="c10">A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
@@ -195,7 +195,7 @@ The following breaks down the construction of a Contract Formation Action. The a
         <tr>
             <td class="c9">Initiative Proposal</td>
             <td class="c10">InitiativeProposal</td>
-            <td class="c10">1</td>
+            <td class="c10">0</td>
             <td class="c10">0</td>
             <td class="c10">An initiative is permitted for Contract-Wide Proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
@@ -211,7 +211,7 @@ The following breaks down the construction of a Contract Formation Action. The a
         <tr>
             <td class="c9">Issuer Address</td>
             <td class="c10">IssuerAddress</td>
-            <td class="c10">1</td>
+            <td class="c10">0</td>
             <td class="c10">1</td>
             <td class="c10">Physical/mailing address. Y/N, N means there is no issuer address.</td>
             <td class="c10">bool</td>

@@ -28,7 +28,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
         <tr>
             <td class="c9">Change Issuer Address</td>
             <td class="c10">ChangeIssuerAddress</td>
-            <td class="c10">1</td>
+            <td class="c10">0</td>
             <td class="c10">1</td>
             <td class="c10"><abbr title="1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position.">1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in th ...</abbr></td>
             <td class="c10">bool</td>
@@ -37,7 +37,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
         <tr>
             <td class="c9">Change Operator Address</td>
             <td class="c10">ChangeOperatorAddress</td>
-            <td class="c10">1</td>
+            <td class="c10">0</td>
             <td class="c10">1</td>
             <td class="c10"><abbr title="1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position.">1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator ad ...</abbr></td>
             <td class="c10">bool</td>

@@ -53,7 +53,7 @@ The following breaks down the construction of a Asset Definition Action. The act
         <tr>
             <td class="a9">Transfers Permitted</td>
             <td class="a10">TransfersPermitted</td>
-            <td class="a10">1</td>
+            <td class="a10">0</td>
             <td class="a10">1</td>
             <td class="a10">1 = Transfers are permitted.  0 = Transfers are not permitted.</td>
             <td class="a10">bool</td>
@@ -71,7 +71,7 @@ The following breaks down the construction of a Asset Definition Action. The act
         <tr>
             <td class="a9">Enforcement Orders Permitted</td>
             <td class="a10">EnforcementOrdersPermitted</td>
-            <td class="a10">1</td>
+            <td class="a10">0</td>
             <td class="a10">1</td>
             <td class="a10">1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.</td>
             <td class="a10">bool</td>
@@ -89,7 +89,7 @@ The following breaks down the construction of a Asset Definition Action. The act
         <tr>
             <td class="a9">Referendum Proposal</td>
             <td class="a10">ReferendumProposal</td>
-            <td class="a10">1</td>
+            <td class="a10">0</td>
             <td class="a10">1</td>
             <td class="a10"><abbr title="A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.">A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if al ...</abbr></td>
             <td class="a10">bool</td>
@@ -98,7 +98,7 @@ The following breaks down the construction of a Asset Definition Action. The act
         <tr>
             <td class="a9">Initiative Proposal</td>
             <td class="a10">InitiativeProposal</td>
-            <td class="a10">1</td>
+            <td class="a10">0</td>
             <td class="a10">1</td>
             <td class="a10"><abbr title="An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.">An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if a ...</abbr></td>
             <td class="a10">bool</td>
@@ -107,7 +107,7 @@ The following breaks down the construction of a Asset Definition Action. The act
         <tr>
             <td class="a9">Asset Modification Governance</td>
             <td class="a10">AssetModificationGovernance</td>
-            <td class="a10">1</td>
+            <td class="a10">0</td>
             <td class="a10">1</td>
             <td class="a10"><abbr title="1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.">1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or  ...</abbr></td>
             <td class="a10">bool</td>
