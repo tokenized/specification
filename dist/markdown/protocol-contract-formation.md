@@ -315,7 +315,7 @@ The following breaks down the construction of a Contract Formation Action. The a
         <tr>
             <td class="c9">Contract Revision</td>
             <td class="c10">ContractRevision</td>
-            <td class="c10">8</td>
+            <td class="c10">4</td>
             <td class="c10">0</td>
             <td class="c10"><abbr title="Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.">Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF ...</abbr></td>
             <td class="c10">uint</td>

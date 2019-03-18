@@ -44,7 +44,7 @@ The following breaks down the construction of a Asset Modification Action. The a
         <tr>
             <td class="a9">Asset Revision</td>
             <td class="a10">AssetRevision</td>
-            <td class="a10">8</td>
+            <td class="a10">4</td>
             <td class="a10">0</td>
             <td class="a10"><abbr title="Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected. ">Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can i ...</abbr></td>
             <td class="a10">uint</td>

@@ -50,7 +50,7 @@ fields:
     label: Asset Revision
     description: "Counter. (Subfield cannot be manually changed by Asset Modification Action.  Only SC can increment by 1 with each AC action. SC will reject AM actions where the wrong asset revision has been selected. "
     type: uint
-    size: 8
+    size: 4
     example_hex: 0000000000000000
     example_value: "0"
     notes: "Cannot be Amended"

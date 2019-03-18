@@ -71,7 +71,7 @@ class Action_AssetCreation(ActionBase):
         'ContractFeeVar':                  [11, DAT_float, 4],
         'ContractFeeFixed':                [12, DAT_float, 4],
         'AssetPayload':                    [13, DAT_varbin, 16],
-        'Asset Revision':                  [14, DAT_uint, 8],
+        'Asset Revision':                  [14, DAT_uint, 4],
         'Timestamp':                       [15, DAT_Timestamp, 0]
     }
 
@@ -107,7 +107,7 @@ class Action_AssetModification(ActionBase):
 
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
-        'AssetRevision':                   [1, DAT_uint, 8],
+        'AssetRevision':                   [1, DAT_uint, 4],
         'Modifications':                   [2, DAT_Amendment[], 0],
         'RefTxID':                         [3, DAT_TxId, 0]
     }
@@ -251,7 +251,7 @@ class Action_ContractFormation(ActionBase):
         'PhoneNumber':                     [29, DAT_varchar, 8],
         'KeyRoles':                        [30, DAT_KeyRole[], 0],
         'NotableRoles':                    [31, DAT_NotableRole[], 0],
-        'ContractRevision':                [32, DAT_uint, 8],
+        'ContractRevision':                [32, DAT_uint, 4],
         'Timestamp':                       [33, DAT_Timestamp, 0]
     }
 
@@ -307,7 +307,7 @@ class Action_ContractAmendment(ActionBase):
 
     schema = {
         'ChangeOperatorAddress':           [0, DAT_bool, 0],
-        'ContractRevision':                [1, DAT_uint, 2],
+        'ContractRevision':                [1, DAT_uint, 4],
         'Amendments':                      [2, DAT_Amendment[], 0],
         'RefTxID':                         [3, DAT_TxId, 0]
     }
@@ -336,7 +336,7 @@ class Action_StaticContractFormation(ActionBase):
         'ContractFile':                    [3, DAT_varbin, 32],
         'SupportingDocsFileType':          [4, DAT_uint, 1],
         'SupportingDocs':                  [5, DAT_varchar, 32],
-        'ContractRevision':                [6, DAT_uint, 2],
+        'ContractRevision':                [6, DAT_uint, 4],
         'GoverningLaw':                    [7, DAT_fixedchar, 5],
         'Jurisdiction':                    [8, DAT_fixedchar, 5],
         'EffectiveDate':                   [9, DAT_Timestamp, 0],

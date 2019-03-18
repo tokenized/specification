@@ -161,9 +161,9 @@ The following breaks down the construction of a Asset Creation Action. The actio
         <tr>
             <td class="a9">Asset Revision</td>
             <td class="a10">Asset Revision</td>
-            <td class="a10">8</td>
+            <td class="a10">4</td>
             <td class="a10"><abbr title="0000000000000000000000000000000000000000000000000001000110111111">Hover for example</abbr></td>
-            <td class="a10">Counter 0 - 65,535</td>
+            <td class="a10">Counter 0 to (2^32)-1</td>
             <td class="a10">uint</td>
             <td class="a10"></td>
         </tr>

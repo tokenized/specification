@@ -89,9 +89,9 @@ The following breaks down the construction of a Static Contract Formation Action
         <tr>
             <td class="c9">Contract Revision</td>
             <td class="c10">ContractRevision</td>
-            <td class="c10">2</td>
+            <td class="c10">4</td>
             <td class="c10">0</td>
-            <td class="c10">Counter 0 - 65,535</td>
+            <td class="c10">Counter 0 to (2^32)-1</td>
             <td class="c10">uint</td>
             <td class="c10"></td>
         </tr>

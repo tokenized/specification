@@ -325,7 +325,7 @@ fields:
     label: Contract Revision
     description: "Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published."
     type: uint
-    size: 8
+    size: 4
     example_hex: 0000000000000000
     example_value: "0"
     notes: "Can't be changed by issuer or smart contract operator."
