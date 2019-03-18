@@ -331,7 +331,7 @@ class Action_StaticContractFormation(ActionBase):
 
     schema = {
         'ContractType':                    [0, DAT_varchar, 8],
-        'ContractCode':                    [1, DAT_bin, 32],
+        'ContractCode':                    [1, DAT_ContractCode, 0],
         'ContractFileType':                [2, DAT_uint, 1],
         'ContractFile':                    [3, DAT_varbin, 32],
         'SupportingDocsFileType':          [4, DAT_uint, 1],

@@ -265,6 +265,35 @@ func (code *AssetCode) Write(buf *bytes.Buffer) error {
 }
 
 // ------------------------------------------------------------------------------------------------
+// ContractCode represents a unique identifier for a Tokenized static contract.
+type ContractCode struct {
+	data [32]byte
+}
+
+// IsZero returns true if the ContractCode is all zeroes. (empty)
+func (id *ContractCode) IsZero() bool {
+	return bytes.Equal(id.data[:], []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+}
+
+// AssetCodeFromBytes returns a ContractCode with the specified bytes.
+func ContractCodeFromBytes(data []byte) ContractCode {
+	var result ContractCode
+	copy(result.data[:], data)
+	return result
+}
+
+// Bytes returns a byte slice containing the ContractCode.
+func (code *ContractCode) Bytes() []byte { return code.data[:] }
+
+// Serialize returns a byte slice with the ContractCode in it.
+func (code *ContractCode) Serialize() ([]byte, error) { return code.data[:], nil }
+
+// Write reads a ContractCode from a bytes.Buffer
+func (code *ContractCode) Write(buf *bytes.Buffer) error {
+	return readLen(buf, code.data[:])
+}
+
+// ------------------------------------------------------------------------------------------------
 // Timestamp represents a time in the Tokenized protocol.
 type Timestamp struct {
 	nanoseconds uint64 // nanoseconds since Unix epoch

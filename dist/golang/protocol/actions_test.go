@@ -1191,8 +1191,8 @@ func TestStaticContractFormation(t *testing.T) {
 	// ContractType (varchar)
 	initialMessage.ContractType = "Text 1"
 
-	// ContractCode (bin)
-	// bin test not setup
+	// ContractCode (ContractCode)
+	initialMessage.ContractCode = ContractCode{}
 
 	// ContractFileType (uint)
 	// uint test not setup
@@ -1292,8 +1292,10 @@ func TestStaticContractFormation(t *testing.T) {
 		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
-	// ContractCode (bin)
-	// bin test compare not setup
+	// ContractCode (ContractCode)
+	if initialMessage.ContractCode != decodedMessage.ContractCode {
+		t.Errorf("ContractCode doesn't match : %v != %v", initialMessage.ContractCode, decodedMessage.ContractCode)
+	}
 
 	// ContractFileType (uint)
 	// uint test compare not setup

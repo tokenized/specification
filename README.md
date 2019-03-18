@@ -85,6 +85,9 @@ Public key hashes are used as an "address" to send/receive transactions, tokens,
 * `AssetCode` represents a unique identifier for an asset/token.  
 `size` does not need to be specified and is always 32 bytes.
 
+* `ContractCode` represents a unique identifier for a static contract.  
+`size` does not need to be specified and is always 32 bytes.
+
 * `Timestamp` represents a time.  
 `size` does not need to be specified and is always 8 bytes.
 
