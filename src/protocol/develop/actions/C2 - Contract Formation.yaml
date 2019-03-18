@@ -59,6 +59,24 @@ fields:
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
     notes: ""
 
+  - name: SupportingDocsFileType
+    label: Supporting Documentation File Type
+    description: "1 - 7z"
+    type: uint8
+    size: 1
+    example_hex: 01
+    example_value: "1"
+    notes: "The file type of the supporting documents ('attached') that are important to the contract."
+
+  - name: SupportingDocs
+    label: Supporting Documentation
+    description: ""
+    type: nvarchar32
+    size: 32
+    example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
+    example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
+    notes: "File of all supporting documents that are important to the contract."
+
   - name: GoverningLaw
     label: Governing Law
     description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
@@ -114,6 +132,15 @@ fields:
     example_value: "P"
     notes: "Issuer Type - Amendments can be restricted to a vote."
 
+  - name: IssuerLEI
+    label: Issuer's Legal Entity Identifier
+    description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
+    type: string
+    size: 20
+    example_hex: 3534393330303834554b4c564d59323244533136
+    example_value: "54930084UKLVMY22DS16"
+    notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
+
   - name: IssuerLogoURL
     label: Issuer Logo URL
     description: "The URL of the Issuers logo."
@@ -133,6 +160,15 @@ fields:
     example_hex: 09546f6b656e697a6564
     example_value: "Tokenized"
     notes: ""
+
+  - name: OperatorLEI
+    label: Operator's Legal Entity Identifier
+    description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
+    type: string
+    size: 20
+    example_hex: 3534393330303834554b4c564d59323244533136
+    example_value: "54930084UKLVMY22DS16"
+    notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags

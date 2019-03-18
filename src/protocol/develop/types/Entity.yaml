@@ -22,6 +22,15 @@ fields:
     example_value: "P"
     notes: ""
 
+  - name: LEI
+    label: Legal Entity Identifier
+    description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
+    type: string
+    size: 20
+    example_hex: 3534393330303834554b4c564d59323244533136
+    example_value: "54930084UKLVMY22DS16"
+    notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
+
   - name: Address
     label: Entity Address
     description: "Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address."
@@ -29,8 +38,7 @@ fields:
     size: 1
     example_hex: 01
     example_value: "1"
-    notes: "Entity/Contracting Party X Details
-"
+    notes: "Entity/Contracting Party X Details"
 
   - name: UnitNumber
     label: Unit Number
