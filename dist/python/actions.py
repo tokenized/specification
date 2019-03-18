@@ -138,32 +138,36 @@ class Action_ContractOffer(ActionBase):
     schema = {
         'ContractFileType':                [0, DAT_uint, 1],
         'ContractFile':                    [1, DAT_varbin, 32],
-        'GoverningLaw':                    [2, DAT_fixedchar, 5],
-        'Jurisdiction':                    [3, DAT_fixedchar, 5],
-        'ContractExpiration':              [4, DAT_Timestamp, 0],
-        'ContractURI':                     [5, DAT_varchar, 8],
-        'IssuerName':                      [6, DAT_varchar, 8],
-        'IssuerType':                      [7, DAT_fixedchar, 1],
-        'IssuerLogoURL':                   [8, DAT_varchar, 8],
-        'ContractOperatorID':              [9, DAT_varchar, 8],
-        'ContractAuthFlags':               [10, DAT_bin, 16],
-        'VotingSystems':                   [11, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [12, DAT_uint, 8],
-        'ReferendumProposal':              [13, DAT_bool, 1],
-        'InitiativeProposal':              [14, DAT_bool, 1],
-        'Registries':                      [15, DAT_Registry[], 0],
-        'IssuerAddress':                   [16, DAT_bool, 1],
-        'UnitNumber':                      [17, DAT_varchar, 8],
-        'BuildingNumber':                  [18, DAT_varchar, 8],
-        'Street':                          [19, DAT_varchar, 16],
-        'SuburbCity':                      [20, DAT_varchar, 8],
-        'TerritoryStateProvinceCode':      [21, DAT_fixedchar, 5],
-        'CountryCode':                     [22, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [23, DAT_varchar, 8],
-        'EmailAddress':                    [24, DAT_varchar, 8],
-        'PhoneNumber':                     [25, DAT_varchar, 8],
-        'KeyRoles':                        [26, DAT_KeyRole[], 0],
-        'NotableRoles':                    [27, DAT_NotableRole[], 0]
+        'SupportingDocsFileType':          [2, DAT_uint, 1],
+        'SupportingDocs':                  [3, DAT_varchar, 32],
+        'GoverningLaw':                    [4, DAT_fixedchar, 5],
+        'Jurisdiction':                    [5, DAT_fixedchar, 5],
+        'ContractExpiration':              [6, DAT_Timestamp, 0],
+        'ContractURI':                     [7, DAT_varchar, 8],
+        'IssuerName':                      [8, DAT_varchar, 8],
+        'IssuerType':                      [9, DAT_fixedchar, 1],
+        'IssuerLEI':                       [10, DAT_fixedchar, 20],
+        'IssuerLogoURL':                   [11, DAT_varchar, 8],
+        'ContractOperatorID':              [12, DAT_varchar, 8],
+        'OperatorLEI':                     [13, DAT_fixedchar, 20],
+        'ContractAuthFlags':               [14, DAT_bin, 16],
+        'VotingSystems':                   [15, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [16, DAT_uint, 8],
+        'ReferendumProposal':              [17, DAT_bool, 1],
+        'InitiativeProposal':              [18, DAT_bool, 1],
+        'Registries':                      [19, DAT_Registry[], 0],
+        'IssuerAddress':                   [20, DAT_bool, 1],
+        'UnitNumber':                      [21, DAT_varchar, 8],
+        'BuildingNumber':                  [22, DAT_varchar, 8],
+        'Street':                          [23, DAT_varchar, 16],
+        'SuburbCity':                      [24, DAT_varchar, 8],
+        'TerritoryStateProvinceCode':      [25, DAT_fixedchar, 5],
+        'CountryCode':                     [26, DAT_fixedchar, 3],
+        'PostalZIPCode':                   [27, DAT_varchar, 8],
+        'EmailAddress':                    [28, DAT_varchar, 8],
+        'PhoneNumber':                     [29, DAT_varchar, 8],
+        'KeyRoles':                        [30, DAT_KeyRole[], 0],
+        'NotableRoles':                    [31, DAT_NotableRole[], 0]
     }
 
     rules = {
@@ -174,14 +178,18 @@ class Action_ContractOffer(ActionBase):
 
     def init_attributes(self):
         self.ContractFile = None
+        self.SupportingDocsFileType = None
+        self.SupportingDocs = None
         self.GoverningLaw = None
         self.Jurisdiction = None
         self.ContractExpiration = None
         self.ContractURI = None
         self.IssuerName = None
         self.IssuerType = None
+        self.IssuerLEI = None
         self.IssuerLogoURL = None
         self.ContractOperatorID = None
+        self.OperatorLEI = None
         self.ContractAuthFlags = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
@@ -213,34 +221,38 @@ class Action_ContractFormation(ActionBase):
     schema = {
         'ContractFileType':                [0, DAT_uint, 1],
         'ContractFile':                    [1, DAT_varbin, 32],
-        'GoverningLaw':                    [2, DAT_fixedchar, 5],
-        'Jurisdiction':                    [3, DAT_fixedchar, 5],
-        'ContractExpiration':              [4, DAT_Timestamp, 0],
-        'ContractURI':                     [5, DAT_varchar, 8],
-        'IssuerName':                      [6, DAT_varchar, 8],
-        'IssuerType':                      [7, DAT_fixedchar, 1],
-        'IssuerLogoURL':                   [8, DAT_varchar, 8],
-        'ContractOperatorID':              [9, DAT_varchar, 8],
-        'ContractAuthFlags':               [10, DAT_bin, 16],
-        'VotingSystems':                   [11, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [12, DAT_uint, 8],
-        'ReferendumProposal':              [13, DAT_bool, 1],
-        'InitiativeProposal':              [14, DAT_bool, 1],
-        'Registries':                      [15, DAT_Registry[], 0],
-        'IssuerAddress':                   [16, DAT_bool, 1],
-        'UnitNumber':                      [17, DAT_varchar, 8],
-        'BuildingNumber':                  [18, DAT_varchar, 8],
-        'Street':                          [19, DAT_varchar, 16],
-        'SuburbCity':                      [20, DAT_varchar, 8],
-        'TerritoryStateProvinceCode':      [21, DAT_fixedchar, 5],
-        'CountryCode':                     [22, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [23, DAT_varchar, 8],
-        'EmailAddress':                    [24, DAT_varchar, 8],
-        'PhoneNumber':                     [25, DAT_varchar, 8],
-        'KeyRoles':                        [26, DAT_KeyRole[], 0],
-        'NotableRoles':                    [27, DAT_NotableRole[], 0],
-        'ContractRevision':                [28, DAT_uint, 8],
-        'Timestamp':                       [29, DAT_Timestamp, 0]
+        'SupportingDocsFileType':          [2, DAT_uint, 1],
+        'SupportingDocs':                  [3, DAT_varchar, 32],
+        'GoverningLaw':                    [4, DAT_fixedchar, 5],
+        'Jurisdiction':                    [5, DAT_fixedchar, 5],
+        'ContractExpiration':              [6, DAT_Timestamp, 0],
+        'ContractURI':                     [7, DAT_varchar, 8],
+        'IssuerName':                      [8, DAT_varchar, 8],
+        'IssuerType':                      [9, DAT_fixedchar, 1],
+        'IssuerLEI':                       [10, DAT_fixedchar, 20],
+        'IssuerLogoURL':                   [11, DAT_varchar, 8],
+        'ContractOperatorID':              [12, DAT_varchar, 8],
+        'OperatorLEI':                     [13, DAT_fixedchar, 20],
+        'ContractAuthFlags':               [14, DAT_bin, 16],
+        'VotingSystems':                   [15, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [16, DAT_uint, 8],
+        'ReferendumProposal':              [17, DAT_bool, 1],
+        'InitiativeProposal':              [18, DAT_bool, 1],
+        'Registries':                      [19, DAT_Registry[], 0],
+        'IssuerAddress':                   [20, DAT_bool, 1],
+        'UnitNumber':                      [21, DAT_varchar, 8],
+        'BuildingNumber':                  [22, DAT_varchar, 8],
+        'Street':                          [23, DAT_varchar, 16],
+        'SuburbCity':                      [24, DAT_varchar, 8],
+        'TerritoryStateProvinceCode':      [25, DAT_fixedchar, 5],
+        'CountryCode':                     [26, DAT_fixedchar, 3],
+        'PostalZIPCode':                   [27, DAT_varchar, 8],
+        'EmailAddress':                    [28, DAT_varchar, 8],
+        'PhoneNumber':                     [29, DAT_varchar, 8],
+        'KeyRoles':                        [30, DAT_KeyRole[], 0],
+        'NotableRoles':                    [31, DAT_NotableRole[], 0],
+        'ContractRevision':                [32, DAT_uint, 8],
+        'Timestamp':                       [33, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -251,14 +263,18 @@ class Action_ContractFormation(ActionBase):
 
     def init_attributes(self):
         self.ContractFile = None
+        self.SupportingDocsFileType = None
+        self.SupportingDocs = None
         self.GoverningLaw = None
         self.Jurisdiction = None
         self.ContractExpiration = None
         self.ContractURI = None
         self.IssuerName = None
         self.IssuerType = None
+        self.IssuerLEI = None
         self.IssuerLogoURL = None
         self.ContractOperatorID = None
+        self.OperatorLEI = None
         self.ContractAuthFlags = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
@@ -315,16 +331,19 @@ class Action_StaticContractFormation(ActionBase):
 
     schema = {
         'ContractType':                    [0, DAT_varchar, 8],
-        'ContractFileType':                [1, DAT_uint, 1],
-        'ContractFile':                    [2, DAT_varbin, 32],
-        'ContractRevision':                [3, DAT_uint, 2],
-        'GoverningLaw':                    [4, DAT_fixedchar, 5],
-        'Jurisdiction':                    [5, DAT_fixedchar, 5],
-        'EffectiveDate':                   [6, DAT_Timestamp, 0],
-        'ContractExpiration':              [7, DAT_Timestamp, 0],
-        'ContractURI':                     [8, DAT_varchar, 8],
-        'PrevRevTxID':                     [9, DAT_TxId, 0],
-        'Entities':                        [10, DAT_Entity[], 0]
+        'ContractCode':                    [1, DAT_bin, 32],
+        'ContractFileType':                [2, DAT_uint, 1],
+        'ContractFile':                    [3, DAT_varbin, 32],
+        'SupportingDocsFileType':          [4, DAT_uint, 1],
+        'SupportingDocs':                  [5, DAT_varchar, 32],
+        'ContractRevision':                [6, DAT_uint, 2],
+        'GoverningLaw':                    [7, DAT_fixedchar, 5],
+        'Jurisdiction':                    [8, DAT_fixedchar, 5],
+        'EffectiveDate':                   [9, DAT_Timestamp, 0],
+        'ContractExpiration':              [10, DAT_Timestamp, 0],
+        'ContractURI':                     [11, DAT_varchar, 8],
+        'PrevRevTxID':                     [12, DAT_TxId, 0],
+        'Entities':                        [13, DAT_Entity[], 0]
     }
 
     rules = {
@@ -334,8 +353,11 @@ class Action_StaticContractFormation(ActionBase):
     }
 
     def init_attributes(self):
+        self.ContractCode = None
         self.ContractFileType = None
         self.ContractFile = None
+        self.SupportingDocsFileType = None
+        self.SupportingDocs = None
         self.ContractRevision = None
         self.GoverningLaw = None
         self.Jurisdiction = None

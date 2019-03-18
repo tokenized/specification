@@ -49,7 +49,7 @@ fields:
     type: bin
     size: 32
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
-    notes: 
+    notes:
 
   - name: ContractFileType
     label: Contract File Type
@@ -73,7 +73,7 @@ fields:
   - name: SupportingDocsFileType
     label: Supporting Documentation File Type
     description: "1 - 7z"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
@@ -82,7 +82,7 @@ fields:
   - name: SupportingDocs
     label: Supporting Documentation
     description: ""
-    type: nvarchar32
+    type: varchar
     size: 32
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"

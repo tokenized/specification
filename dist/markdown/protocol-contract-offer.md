@@ -53,6 +53,24 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10"></td>
         </tr>
         <tr>
+            <td class="c9">Supporting Documentation File Type</td>
+            <td class="c10">SupportingDocsFileType</td>
+            <td class="c10">1</td>
+            <td class="c10">1</td>
+            <td class="c10">1 - 7z</td>
+            <td class="c10">uint</td>
+            <td class="c10">The file type of the supporting documents ('attached') that are important to the contract.</td>
+        </tr>
+        <tr>
+            <td class="c9">Supporting Documentation</td>
+            <td class="c10">SupportingDocs</td>
+            <td class="c10">32</td>
+            <td class="c10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
+            <td class="c10"></td>
+            <td class="c10">varchar</td>
+            <td class="c10">File of all supporting documents that are important to the contract.</td>
+        </tr>
+        <tr>
             <td class="c9">Governing Law</td>
             <td class="c10">GoverningLaw</td>
             <td class="c10">5</td>
@@ -105,6 +123,15 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10">Issuer Type - Amendments can be restricted to a vote.</td>
         </tr>
         <tr>
+            <td class="c9">Issuer's Legal Entity Identifier</td>
+            <td class="c10">IssuerLEI</td>
+            <td class="c10">20</td>
+            <td class="c10">54930084UKLVMY22DS16</td>
+            <td class="c10"><abbr title="Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.">Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up o ...</abbr></td>
+            <td class="c10">fixedchar</td>
+            <td class="c10">ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier</td>
+        </tr>
+        <tr>
             <td class="c9">Issuer Logo URL</td>
             <td class="c10">IssuerLogoURL</td>
             <td class="c10">8</td>
@@ -121,6 +148,15 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10"><abbr title="Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.">Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique iden ...</abbr></td>
             <td class="c10">varchar</td>
             <td class="c10"></td>
+        </tr>
+        <tr>
+            <td class="c9">Operator's Legal Entity Identifier</td>
+            <td class="c10">OperatorLEI</td>
+            <td class="c10">20</td>
+            <td class="c10">54930084UKLVMY22DS16</td>
+            <td class="c10"><abbr title="Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.">Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up o ...</abbr></td>
+            <td class="c10">fixedchar</td>
+            <td class="c10">ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier</td>
         </tr>
         <tr>
             <td class="c9">Contract Authorization Flags</td>

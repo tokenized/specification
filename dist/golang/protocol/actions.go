@@ -1124,14 +1124,18 @@ type ContractOffer struct {
 	ContractName               string         `json:"contract_name,omitempty"`                 // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
 	ContractFileType           uint8          `json:"contract_file_type,omitempty"`            // 1 - SHA-256 Hash, 2 - Markdown
 	ContractFile               []byte         `json:"contract_file,omitempty"`                 // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	SupportingDocsFileType     uint8          `json:"supporting_docs_file_type,omitempty"`     // 1 - 7z
+	SupportingDocs             string         `json:"supporting_docs,omitempty"`               //
 	GoverningLaw               string         `json:"governing_law,omitempty"`                 // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
 	Jurisdiction               string         `json:"jurisdiction,omitempty"`                  // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
 	ContractExpiration         Timestamp      `json:"contract_expiration,omitempty"`           // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
 	ContractURI                string         `json:"contract_uri,omitempty"`                  // Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS).
 	IssuerName                 string         `json:"issuer_name,omitempty"`                   // Length 0-255 bytes. 0 is not valid.Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
 	IssuerType                 byte           `json:"issuer_type,omitempty"`                   // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	IssuerLEI                  string         `json:"issuer_lei,omitempty"`                    // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
 	IssuerLogoURL              string         `json:"issuer_logo_url,omitempty"`               // The URL of the Issuers logo.
 	ContractOperatorID         string         `json:"contract_operator_id,omitempty"`          // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
+	OperatorLEI                string         `json:"operator_lei,omitempty"`                  // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
 	ContractAuthFlags          [16]byte       `json:"contract_auth_flags,omitempty"`           // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
 	VotingSystems              []VotingSystem `json:"voting_systems,omitempty"`                // A list of voting systems.
 	RestrictedQtyAssets        uint64         `json:"restricted_qty_assets,omitempty"`         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
@@ -1218,6 +1222,20 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized ContractFile : buf len %d\n", buf.Len())
 
+	// SupportingDocsFileType (uint8)
+	// fmt.Printf("Serializing SupportingDocsFileType\n")
+	if err := write(buf, action.SupportingDocsFileType); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized SupportingDocsFileType : buf len %d\n", buf.Len())
+
+	// SupportingDocs (string)
+	// fmt.Printf("Serializing SupportingDocs\n")
+	if err := WriteVarChar(buf, action.SupportingDocs, 32); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized SupportingDocs : buf len %d\n", buf.Len())
+
 	// GoverningLaw (string)
 	// fmt.Printf("Serializing GoverningLaw\n")
 	if err := WriteFixedChar(buf, action.GoverningLaw, 5); err != nil {
@@ -1267,6 +1285,13 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized IssuerType : buf len %d\n", buf.Len())
 
+	// IssuerLEI (string)
+	// fmt.Printf("Serializing IssuerLEI\n")
+	if err := WriteFixedChar(buf, action.IssuerLEI, 20); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized IssuerLEI : buf len %d\n", buf.Len())
+
 	// IssuerLogoURL (string)
 	// fmt.Printf("Serializing IssuerLogoURL\n")
 	if err := WriteVarChar(buf, action.IssuerLogoURL, 8); err != nil {
@@ -1280,6 +1305,13 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractOperatorID : buf len %d\n", buf.Len())
+
+	// OperatorLEI (string)
+	// fmt.Printf("Serializing OperatorLEI\n")
+	if err := WriteFixedChar(buf, action.OperatorLEI, 20); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized OperatorLEI : buf len %d\n", buf.Len())
 
 	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Serializing ContractAuthFlags\n")
@@ -1495,6 +1527,26 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 
 	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFile)
 
+	// SupportingDocsFileType (uint8)
+	// fmt.Printf("Reading SupportingDocsFileType : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &action.SupportingDocsFileType); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read SupportingDocsFileType : %d bytes remaining\n%+v\n", buf.Len(), action.SupportingDocsFileType)
+
+	// SupportingDocs (string)
+	// fmt.Printf("Reading SupportingDocs : %d bytes remaining\n", buf.Len())
+	{
+		var err error
+		action.SupportingDocs, err = ReadVarChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read SupportingDocs : %d bytes remaining\n%+v\n", buf.Len(), action.SupportingDocs)
+
 	// GoverningLaw (string)
 	// fmt.Printf("Reading GoverningLaw : %d bytes remaining\n", buf.Len())
 	{
@@ -1559,6 +1611,18 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 
 	// fmt.Printf("Read IssuerType : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerType)
 
+	// IssuerLEI (string)
+	// fmt.Printf("Reading IssuerLEI : %d bytes remaining\n", buf.Len())
+	{
+		var err error
+		action.IssuerLEI, err = ReadFixedChar(buf, 20)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read IssuerLEI : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerLEI)
+
 	// IssuerLogoURL (string)
 	// fmt.Printf("Reading IssuerLogoURL : %d bytes remaining\n", buf.Len())
 	{
@@ -1582,6 +1646,18 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 	}
 
 	// fmt.Printf("Read ContractOperatorID : %d bytes remaining\n%+v\n", buf.Len(), action.ContractOperatorID)
+
+	// OperatorLEI (string)
+	// fmt.Printf("Reading OperatorLEI : %d bytes remaining\n", buf.Len())
+	{
+		var err error
+		action.OperatorLEI, err = ReadFixedChar(buf, 20)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read OperatorLEI : %d bytes remaining\n%+v\n", buf.Len(), action.OperatorLEI)
 
 	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Reading ContractAuthFlags : %d bytes remaining\n", buf.Len())
@@ -1827,14 +1903,18 @@ func (action ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", action.ContractFileType))
 	vals = append(vals, fmt.Sprintf("ContractFile:%#x", action.ContractFile))
+	vals = append(vals, fmt.Sprintf("SupportingDocsFileType:%v", action.SupportingDocsFileType))
+	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
 	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
 	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
 	vals = append(vals, fmt.Sprintf("ContractExpiration:%#+v", action.ContractExpiration))
 	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
 	vals = append(vals, fmt.Sprintf("IssuerName:%#+v", action.IssuerName))
 	vals = append(vals, fmt.Sprintf("IssuerType:%#+v", action.IssuerType))
+	vals = append(vals, fmt.Sprintf("IssuerLEI:%#+v", action.IssuerLEI))
 	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", action.IssuerLogoURL))
 	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", action.ContractOperatorID))
+	vals = append(vals, fmt.Sprintf("OperatorLEI:%#+v", action.OperatorLEI))
 	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", action.ContractAuthFlags))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
@@ -1867,14 +1947,18 @@ type ContractFormation struct {
 	ContractName               string         `json:"contract_name,omitempty"`                 // Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
 	ContractFileType           uint8          `json:"contract_file_type,omitempty"`            // 1 - SHA-256 Hash, 2 - Markdown file
 	ContractFile               []byte         `json:"contract_file,omitempty"`                 // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	SupportingDocsFileType     uint8          `json:"supporting_docs_file_type,omitempty"`     // 1 - 7z
+	SupportingDocs             string         `json:"supporting_docs,omitempty"`               //
 	GoverningLaw               string         `json:"governing_law,omitempty"`                 // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
 	Jurisdiction               string         `json:"jurisdiction,omitempty"`                  // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
 	ContractExpiration         Timestamp      `json:"contract_expiration,omitempty"`           // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
 	ContractURI                string         `json:"contract_uri,omitempty"`                  // Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
 	IssuerName                 string         `json:"issuer_name,omitempty"`                   // Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
 	IssuerType                 byte           `json:"issuer_type,omitempty"`                   // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	IssuerLEI                  string         `json:"issuer_lei,omitempty"`                    // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
 	IssuerLogoURL              string         `json:"issuer_logo_url,omitempty"`               // The URL of the Issuers logo.
 	ContractOperatorID         string         `json:"contract_operator_id,omitempty"`          // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
+	OperatorLEI                string         `json:"operator_lei,omitempty"`                  // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
 	ContractAuthFlags          [16]byte       `json:"contract_auth_flags,omitempty"`           // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
 	VotingSystems              []VotingSystem `json:"voting_systems,omitempty"`                // A list voting systems.
 	RestrictedQtyAssets        uint64         `json:"restricted_qty_assets,omitempty"`         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
@@ -1941,6 +2025,20 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized ContractFile : buf len %d\n", buf.Len())
 
+	// SupportingDocsFileType (uint8)
+	// fmt.Printf("Serializing SupportingDocsFileType\n")
+	if err := write(buf, action.SupportingDocsFileType); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized SupportingDocsFileType : buf len %d\n", buf.Len())
+
+	// SupportingDocs (string)
+	// fmt.Printf("Serializing SupportingDocs\n")
+	if err := WriteVarChar(buf, action.SupportingDocs, 32); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized SupportingDocs : buf len %d\n", buf.Len())
+
 	// GoverningLaw (string)
 	// fmt.Printf("Serializing GoverningLaw\n")
 	if err := WriteFixedChar(buf, action.GoverningLaw, 5); err != nil {
@@ -1990,6 +2088,13 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized IssuerType : buf len %d\n", buf.Len())
 
+	// IssuerLEI (string)
+	// fmt.Printf("Serializing IssuerLEI\n")
+	if err := WriteFixedChar(buf, action.IssuerLEI, 20); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized IssuerLEI : buf len %d\n", buf.Len())
+
 	// IssuerLogoURL (string)
 	// fmt.Printf("Serializing IssuerLogoURL\n")
 	if err := WriteVarChar(buf, action.IssuerLogoURL, 8); err != nil {
@@ -2003,6 +2108,13 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractOperatorID : buf len %d\n", buf.Len())
+
+	// OperatorLEI (string)
+	// fmt.Printf("Serializing OperatorLEI\n")
+	if err := WriteFixedChar(buf, action.OperatorLEI, 20); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized OperatorLEI : buf len %d\n", buf.Len())
 
 	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Serializing ContractAuthFlags\n")
@@ -2239,6 +2351,26 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 
 	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFile)
 
+	// SupportingDocsFileType (uint8)
+	// fmt.Printf("Reading SupportingDocsFileType : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &action.SupportingDocsFileType); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read SupportingDocsFileType : %d bytes remaining\n%+v\n", buf.Len(), action.SupportingDocsFileType)
+
+	// SupportingDocs (string)
+	// fmt.Printf("Reading SupportingDocs : %d bytes remaining\n", buf.Len())
+	{
+		var err error
+		action.SupportingDocs, err = ReadVarChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read SupportingDocs : %d bytes remaining\n%+v\n", buf.Len(), action.SupportingDocs)
+
 	// GoverningLaw (string)
 	// fmt.Printf("Reading GoverningLaw : %d bytes remaining\n", buf.Len())
 	{
@@ -2303,6 +2435,18 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 
 	// fmt.Printf("Read IssuerType : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerType)
 
+	// IssuerLEI (string)
+	// fmt.Printf("Reading IssuerLEI : %d bytes remaining\n", buf.Len())
+	{
+		var err error
+		action.IssuerLEI, err = ReadFixedChar(buf, 20)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read IssuerLEI : %d bytes remaining\n%+v\n", buf.Len(), action.IssuerLEI)
+
 	// IssuerLogoURL (string)
 	// fmt.Printf("Reading IssuerLogoURL : %d bytes remaining\n", buf.Len())
 	{
@@ -2326,6 +2470,18 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 	}
 
 	// fmt.Printf("Read ContractOperatorID : %d bytes remaining\n%+v\n", buf.Len(), action.ContractOperatorID)
+
+	// OperatorLEI (string)
+	// fmt.Printf("Reading OperatorLEI : %d bytes remaining\n", buf.Len())
+	{
+		var err error
+		action.OperatorLEI, err = ReadFixedChar(buf, 20)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read OperatorLEI : %d bytes remaining\n%+v\n", buf.Len(), action.OperatorLEI)
 
 	// ContractAuthFlags ([16]byte)
 	// fmt.Printf("Reading ContractAuthFlags : %d bytes remaining\n", buf.Len())
@@ -2587,14 +2743,18 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", action.ContractFileType))
 	vals = append(vals, fmt.Sprintf("ContractFile:%#x", action.ContractFile))
+	vals = append(vals, fmt.Sprintf("SupportingDocsFileType:%v", action.SupportingDocsFileType))
+	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
 	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
 	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
 	vals = append(vals, fmt.Sprintf("ContractExpiration:%#+v", action.ContractExpiration))
 	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
 	vals = append(vals, fmt.Sprintf("IssuerName:%#+v", action.IssuerName))
 	vals = append(vals, fmt.Sprintf("IssuerType:%#+v", action.IssuerType))
+	vals = append(vals, fmt.Sprintf("IssuerLEI:%#+v", action.IssuerLEI))
 	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", action.IssuerLogoURL))
 	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", action.ContractOperatorID))
+	vals = append(vals, fmt.Sprintf("OperatorLEI:%#+v", action.OperatorLEI))
 	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", action.ContractAuthFlags))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
@@ -2799,19 +2959,22 @@ func (action ContractAmendment) String() string {
 
 // StaticContractFormation Static Contract Formation Action
 type StaticContractFormation struct {
-	Header             Header    `json:"header,omitempty"`              // Common header data for all actions
-	ContractName       string    `json:"contract_name,omitempty"`       // Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
-	ContractType       string    `json:"contract_type,omitempty"`       //
-	ContractFileType   uint8     `json:"contract_file_type,omitempty"`  // 1 - SHA-256 Hash, 2 - Markdown file
-	ContractFile       []byte    `json:"contract_file,omitempty"`       // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
-	ContractRevision   uint16    `json:"contract_revision,omitempty"`   // Counter 0 - 65,535
-	GoverningLaw       string    `json:"governing_law,omitempty"`       // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-	Jurisdiction       string    `json:"jurisdiction,omitempty"`        // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
-	EffectiveDate      Timestamp `json:"effective_date,omitempty"`      // Start date of the contract.
-	ContractExpiration Timestamp `json:"contract_expiration,omitempty"` // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
-	ContractURI        string    `json:"contract_uri,omitempty"`        // Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
-	PrevRevTxID        TxId      `json:"prev_rev_tx_id,omitempty"`      // The Tx-ID of the previous contract revision.
-	Entities           []Entity  `json:"entities,omitempty"`            //
+	Header                 Header    `json:"header,omitempty"`                    // Common header data for all actions
+	ContractName           string    `json:"contract_name,omitempty"`             // Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
+	ContractType           string    `json:"contract_type,omitempty"`             //
+	ContractCode           [32]byte  `json:"contract_code,omitempty"`             // 32 randomly generated bytes.  Each Contract Code should be unique.  The Contract ID will be human facing and will be the Contract Code, with a checksum, encoded in base58 and prefixed by 'CON'. Contract ID = CON + base58(ContractCode + checksum).  Eg. Contract ID = 'CON18RDoKK7Ed5zid2FkKVy7q3rULr4tgfjr4'
+	ContractFileType       uint8     `json:"contract_file_type,omitempty"`        // 1 - SHA-256 Hash, 2 - Markdown file
+	ContractFile           []byte    `json:"contract_file,omitempty"`             // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	SupportingDocsFileType uint8     `json:"supporting_docs_file_type,omitempty"` // 1 - 7z
+	SupportingDocs         string    `json:"supporting_docs,omitempty"`           //
+	ContractRevision       uint16    `json:"contract_revision,omitempty"`         // Counter 0 - 65,535
+	GoverningLaw           string    `json:"governing_law,omitempty"`             // 5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+	Jurisdiction           string    `json:"jurisdiction,omitempty"`              // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+	EffectiveDate          Timestamp `json:"effective_date,omitempty"`            // Start date of the contract.
+	ContractExpiration     Timestamp `json:"contract_expiration,omitempty"`       // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
+	ContractURI            string    `json:"contract_uri,omitempty"`              // Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).
+	PrevRevTxID            TxId      `json:"prev_rev_tx_id,omitempty"`            // The Tx-ID of the previous contract revision.
+	Entities               []Entity  `json:"entities,omitempty"`                  //
 }
 
 // Type returns the type identifer for this message.
@@ -2851,6 +3014,13 @@ func (action *StaticContractFormation) serialize() ([]byte, error) {
 	}
 	// fmt.Printf("Serialized ContractType : buf len %d\n", buf.Len())
 
+	// ContractCode ([32]byte)
+	// fmt.Printf("Serializing ContractCode\n")
+	if err := write(buf, action.ContractCode); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized ContractCode : buf len %d\n", buf.Len())
+
 	// ContractFileType (uint8)
 	// fmt.Printf("Serializing ContractFileType\n")
 	if err := write(buf, action.ContractFileType); err != nil {
@@ -2864,6 +3034,20 @@ func (action *StaticContractFormation) serialize() ([]byte, error) {
 		return nil, err
 	}
 	// fmt.Printf("Serialized ContractFile : buf len %d\n", buf.Len())
+
+	// SupportingDocsFileType (uint8)
+	// fmt.Printf("Serializing SupportingDocsFileType\n")
+	if err := write(buf, action.SupportingDocsFileType); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized SupportingDocsFileType : buf len %d\n", buf.Len())
+
+	// SupportingDocs (string)
+	// fmt.Printf("Serializing SupportingDocs\n")
+	if err := WriteVarChar(buf, action.SupportingDocs, 32); err != nil {
+		return nil, err
+	}
+	// fmt.Printf("Serialized SupportingDocs : buf len %d\n", buf.Len())
 
 	// ContractRevision (uint16)
 	// fmt.Printf("Serializing ContractRevision\n")
@@ -2992,6 +3176,14 @@ func (action *StaticContractFormation) write(b []byte) (int, error) {
 
 	// fmt.Printf("Read ContractType : %d bytes remaining\n%+v\n", buf.Len(), action.ContractType)
 
+	// ContractCode ([32]byte)
+	// fmt.Printf("Reading ContractCode : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &action.ContractCode); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read ContractCode : %d bytes remaining\n%+v\n", buf.Len(), action.ContractCode)
+
 	// ContractFileType (uint8)
 	// fmt.Printf("Reading ContractFileType : %d bytes remaining\n", buf.Len())
 	if err := read(buf, &action.ContractFileType); err != nil {
@@ -3011,6 +3203,26 @@ func (action *StaticContractFormation) write(b []byte) (int, error) {
 	}
 
 	// fmt.Printf("Read ContractFile : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFile)
+
+	// SupportingDocsFileType (uint8)
+	// fmt.Printf("Reading SupportingDocsFileType : %d bytes remaining\n", buf.Len())
+	if err := read(buf, &action.SupportingDocsFileType); err != nil {
+		return 0, err
+	}
+
+	// fmt.Printf("Read SupportingDocsFileType : %d bytes remaining\n%+v\n", buf.Len(), action.SupportingDocsFileType)
+
+	// SupportingDocs (string)
+	// fmt.Printf("Reading SupportingDocs : %d bytes remaining\n", buf.Len())
+	{
+		var err error
+		action.SupportingDocs, err = ReadVarChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read SupportingDocs : %d bytes remaining\n%+v\n", buf.Len(), action.SupportingDocs)
 
 	// ContractRevision (uint16)
 	// fmt.Printf("Reading ContractRevision : %d bytes remaining\n", buf.Len())
@@ -3115,8 +3327,11 @@ func (action StaticContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
 	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
+	vals = append(vals, fmt.Sprintf("ContractCode:%#+v", action.ContractCode))
 	vals = append(vals, fmt.Sprintf("ContractFileType:%v", action.ContractFileType))
 	vals = append(vals, fmt.Sprintf("ContractFile:%#x", action.ContractFile))
+	vals = append(vals, fmt.Sprintf("SupportingDocsFileType:%v", action.SupportingDocsFileType))
+	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
 	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
 	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))

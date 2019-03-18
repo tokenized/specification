@@ -66,7 +66,7 @@ fields:
   - name: SupportingDocsFileType
     label: Supporting Documentation File Type
     description: "1 - 7z"
-    type: uint8
+    type: uint
     size: 1
     example_hex: 01
     example_value: "1"
@@ -75,7 +75,7 @@ fields:
   - name: SupportingDocs
     label: Supporting Documentation
     description: ""
-    type: nvarchar32
+    type: varchar
     size: 32
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
@@ -139,7 +139,7 @@ fields:
   - name: IssuerLEI
     label: Issuer's Legal Entity Identifier
     description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
-    type: string
+    type: fixedchar
     size: 20
     example_hex: 3534393330303834554b4c564d59323244533136
     example_value: "54930084UKLVMY22DS16"
@@ -168,7 +168,7 @@ fields:
   - name: OperatorLEI
     label: Operator's Legal Entity Identifier
     description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
-    type: string
+    type: fixedchar
     size: 20
     example_hex: 3534393330303834554b4c564d59323244533136
     example_value: "54930084UKLVMY22DS16"
