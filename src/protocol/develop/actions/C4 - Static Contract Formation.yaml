@@ -118,8 +118,7 @@ fields:
   - name: PrevRevTxID
     label: PrevRevTxID
     description: "The Tx-ID of the previous contract revision."
-    type: sha256
-    size: 32
+    type: TxId
     example_hex: 3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f
     example_value: "3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f"
     notes: ""

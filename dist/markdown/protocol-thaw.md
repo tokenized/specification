@@ -33,13 +33,11 @@ The following breaks down the construction of a Thaw Action. The action is const
             </td>
         </tr>
         <tr>
-            <td class="e9">Ref Txn ID</td>
-            <td class="e10">RefTxnID</td>
-            <td class="e10">32</td>
-            <td class="e10"><abbr title="f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37">Hover for example</abbr></td>
-            <td class="e10">The related freeze action.</td>
-            <td class="e10">sha256</td>
-            <td class="e10"></td>
+            <td class="e5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Ref Tx ID - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="e5" colspan="7">

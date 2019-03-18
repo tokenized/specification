@@ -42,13 +42,11 @@ The following breaks down the construction of a Ballot Cast Action. The action i
             </td>
         </tr>
         <tr>
-            <td class="g9">Vote Txn ID</td>
-            <td class="g10">VoteTxnID</td>
-            <td class="g10">32</td>
-            <td class="g10"><abbr title="f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37">Hover for example</abbr></td>
-            <td class="g10">Tx-ID of the Vote the Ballot Cast is being made for.</td>
-            <td class="g10">sha256</td>
-            <td class="g10"></td>
+            <td class="g5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Vote Tx ID - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="g9">Vote</td>

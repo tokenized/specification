@@ -98,8 +98,8 @@ The following breaks down the construction of a Initiative Action. The action is
             <td class="g10">ProposalDocumentHash</td>
             <td class="g10">32</td>
             <td class="g10"><abbr title="77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec">Hover for example</abbr></td>
-            <td class="g10">Hash of the proposal document to be distributed to voters.</td>
-            <td class="g10">sha256</td>
+            <td class="g10">SHA256 Hash of the proposal document to be distributed to voters.</td>
+            <td class="g10">bin</td>
             <td class="g10"></td>
         </tr>
         <tr>

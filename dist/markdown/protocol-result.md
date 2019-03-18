@@ -58,13 +58,11 @@ The following breaks down the construction of a Result Action. The action is con
             </td>
         </tr>
         <tr>
-            <td class="g9">Vote Txn ID</td>
-            <td class="g10">VoteTxnID</td>
-            <td class="g10">32</td>
-            <td class="g10"><abbr title="f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37">Hover for example</abbr></td>
-            <td class="g10">Link to the Vote Action txn.</td>
-            <td class="g10">sha256</td>
-            <td class="g10"></td>
+            <td class="g5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Vote Tx ID - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="g9">VoteOptionsCount</td>

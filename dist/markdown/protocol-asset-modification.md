@@ -58,13 +58,11 @@ The following breaks down the construction of a Asset Modification Action. The a
             </td>
         </tr>
         <tr>
-            <td class="a9">Ref Tx-ID</td>
-            <td class="a10">RefTxID</td>
-            <td class="a10">32</td>
-            <td class="a10"><abbr title="a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d">Hover for example</abbr></td>
-            <td class="a10">Tx-ID of the associated Result action (governance) that permitted the modifications.</td>
-            <td class="a10">sha256</td>
-            <td class="a10"></td>
+            <td class="a5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Ref Tx ID - Click to show content
+                </a>
+            </td>
         </tr>
     </table>
 </div>

@@ -109,7 +109,7 @@ class Action_AssetModification(ActionBase):
         'AssetCode':                       [0, DAT_AssetCode, 0],
         'AssetRevision':                   [1, DAT_uint, 8],
         'Modifications':                   [2, DAT_Amendment[], 0],
-        'RefTxID':                         [3, DAT_sha256, 32]
+        'RefTxID':                         [3, DAT_TxId, 0]
     }
 
     rules = {
@@ -293,7 +293,7 @@ class Action_ContractAmendment(ActionBase):
         'ChangeOperatorAddress':           [0, DAT_bool, 1],
         'ContractRevision':                [1, DAT_uint, 2],
         'Amendments':                      [2, DAT_Amendment[], 0],
-        'RefTxID':                         [3, DAT_SHA256, 32]
+        'RefTxID':                         [3, DAT_TxId, 0]
     }
 
     rules = {
@@ -323,7 +323,7 @@ class Action_StaticContractFormation(ActionBase):
         'EffectiveDate':                   [6, DAT_Timestamp, 0],
         'ContractExpiration':              [7, DAT_Timestamp, 0],
         'ContractURI':                     [8, DAT_varchar, 8],
-        'PrevRevTxID':                     [9, DAT_sha256, 32],
+        'PrevRevTxID':                     [9, DAT_TxId, 0],
         'Entities':                        [10, DAT_Entity[], 0]
     }
 
@@ -362,8 +362,8 @@ class Action_Order(ActionBase):
         'SigAlgoAddressList':              [5, DAT_uint, 1],
         'AuthorityPublicKey':              [6, DAT_varchar, 8],
         'OrderSignature':                  [7, DAT_varchar, 8],
-        'SupportingEvidenceHash':          [8, DAT_sha256, 32],
-        'RefTxnID':                        [9, DAT_sha256, 32],
+        'SupportingEvidenceTxId':          [8, DAT_TxId, 0],
+        'RefTxnID':                        [9, DAT_TxId, 0],
         'FreezePeriod':                    [10, DAT_Timestamp, 0],
         'Message':                         [11, DAT_varchar, 32]
     }
@@ -382,7 +382,7 @@ class Action_Order(ActionBase):
         self.SigAlgoAddressList = None
         self.AuthorityPublicKey = None
         self.OrderSignature = None
-        self.SupportingEvidenceHash = None
+        self.SupportingEvidenceTxId = None
         self.RefTxnID = None
         self.FreezePeriod = None
         self.Message = None
@@ -418,7 +418,7 @@ class Action_Thaw(ActionBase):
     ActionPrefix = 'E3'
 
     schema = {
-        'RefTxnID':                        [0, DAT_sha256, 32],
+        'RefTxID':                         [0, DAT_TxId, 0],
         'Timestamp':                       [1, DAT_Timestamp, 0]
     }
 
@@ -488,7 +488,7 @@ class Action_Initiative(ActionBase):
         'VoteOptions':                     [4, DAT_varchar, 8],
         'VoteMax':                         [5, DAT_uint, 1],
         'ProposalDescription':             [6, DAT_varchar, 32],
-        'ProposalDocumentHash':            [7, DAT_sha256, 32],
+        'ProposalDocumentHash':            [7, DAT_bin, 32],
         'VoteCutOffTimestamp':             [8, DAT_Timestamp, 0]
     }
 
@@ -525,7 +525,7 @@ class Action_Referendum(ActionBase):
         'VoteOptions':                     [5, DAT_varchar, 8],
         'VoteMax':                         [6, DAT_uint, 1],
         'ProposalDescription':             [7, DAT_varchar, 32],
-        'ProposalDocumentHash':            [8, DAT_sha256, 32],
+        'ProposalDocumentHash':            [8, DAT_bin, 32],
         'VoteCutOffTimestamp':             [9, DAT_Timestamp, 0]
     }
 
@@ -576,7 +576,7 @@ class Action_BallotCast(ActionBase):
 
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
-        'VoteTxnID':                       [1, DAT_sha256, 32],
+        'VoteTxID':                        [1, DAT_TxId, 0],
         'Vote':                            [2, DAT_varchar, 8]
     }
 
@@ -587,7 +587,7 @@ class Action_BallotCast(ActionBase):
     }
 
     def init_attributes(self):
-        self.VoteTxnID = None
+        self.VoteTxID = None
         self.Vote = None
 
 
@@ -621,7 +621,7 @@ class Action_Result(ActionBase):
         'AssetCode':                       [0, DAT_AssetCode, 0],
         'Proposal':                        [1, DAT_bool, 1],
         'ProposedChanges':                 [2, DAT_Amendment[], 0],
-        'VoteTxnID':                       [3, DAT_sha256, 32],
+        'VoteTxID':                        [3, DAT_TxId, 0],
         'VoteOptionsCount':                [4, DAT_uint, 1],
         'OptionXTally':                    [5, DAT_uint, 8],
         'Result':                          [6, DAT_varchar, 8],
@@ -637,7 +637,7 @@ class Action_Result(ActionBase):
     def init_attributes(self):
         self.Proposal = None
         self.ProposedChanges = None
-        self.VoteTxnID = None
+        self.VoteTxID = None
         self.VoteOptionsCount = None
         self.OptionXTally = None
         self.Result = None

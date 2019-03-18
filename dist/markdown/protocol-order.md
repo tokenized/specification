@@ -101,22 +101,18 @@ The following breaks down the construction of a Order Action. The action is cons
             <td class="e10"></td>
         </tr>
         <tr>
-            <td class="e9">Supporting Evidence Hash</td>
-            <td class="e10">SupportingEvidenceHash</td>
-            <td class="e10">32</td>
-            <td class="e10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
-            <td class="e10">SHA-256: warrant, court order, etc.</td>
-            <td class="e10">sha256</td>
-            <td class="e10"></td>
+            <td class="e5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Supporting Evidence Hash - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
-            <td class="e9">Ref Txn ID</td>
-            <td class="e10">RefTxnID</td>
-            <td class="e10">32</td>
-            <td class="e10"><abbr title="f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37">Hover for example</abbr></td>
-            <td class="e10"><abbr title="The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.">The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, ...</abbr></td>
-            <td class="e10">sha256</td>
-            <td class="e10"></td>
+            <td class="e5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Ref Txn ID - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="e5" colspan="7">

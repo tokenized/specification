@@ -112,13 +112,11 @@ The following breaks down the construction of a Static Contract Formation Action
             <td class="c10"></td>
         </tr>
         <tr>
-            <td class="c9">PrevRevTxID</td>
-            <td class="c10">PrevRevTxID</td>
-            <td class="c10">32</td>
-            <td class="c10"><abbr title="3c762af9de09dc7403132f4a21bdf8aa02f41db9de7f9dab60409ab8cc907a3f">Hover for example</abbr></td>
-            <td class="c10">The Tx-ID of the previous contract revision.</td>
-            <td class="c10">sha256</td>
-            <td class="c10"></td>
+            <td class="c5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   PrevRevTxID - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="c5" colspan="7">

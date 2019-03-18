@@ -112,8 +112,8 @@ fields:
 
   - name: ProposalDocumentHash
     label: Proposal Document Hash
-    description: "Hash of the proposal document to be distributed to voters"
-    type: sha256
+    description: "SHA256 Hash of the proposal document to be distributed to voters"
+    type: bin
     size: 32
     example_hex: 77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec
     example_value: "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec"

@@ -363,8 +363,8 @@ func TestAssetModification(t *testing.T) {
 		initialMessage.Modifications = append(initialMessage.Modifications, Amendment{})
 	}
 
-	// RefTxID (sha256)
-	// sha256 test not setup
+	// RefTxID (TxId)
+	initialMessage.RefTxID = TxId{}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -419,8 +419,10 @@ func TestAssetModification(t *testing.T) {
 		t.Errorf("Modifications lengths don't match : %d != %d", len(initialMessage.Modifications), len(decodedMessage.Modifications))
 	}
 
-	// RefTxID (sha256)
-	// sha256 test compare not setup
+	// RefTxID (TxId)
+	if initialMessage.RefTxID != decodedMessage.RefTxID {
+		t.Errorf("RefTxID doesn't match : %v != %v", initialMessage.RefTxID, decodedMessage.RefTxID)
+	}
 }
 
 func TestContractOffer(t *testing.T) {
@@ -1038,8 +1040,8 @@ func TestContractAmendment(t *testing.T) {
 		initialMessage.Amendments = append(initialMessage.Amendments, Amendment{})
 	}
 
-	// RefTxID (SHA256)
-	// SHA256 test not setup
+	// RefTxID (TxId)
+	initialMessage.RefTxID = TxId{}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1090,8 +1092,10 @@ func TestContractAmendment(t *testing.T) {
 		t.Errorf("Amendments lengths don't match : %d != %d", len(initialMessage.Amendments), len(decodedMessage.Amendments))
 	}
 
-	// RefTxID (SHA256)
-	// SHA256 test compare not setup
+	// RefTxID (TxId)
+	if initialMessage.RefTxID != decodedMessage.RefTxID {
+		t.Errorf("RefTxID doesn't match : %v != %v", initialMessage.RefTxID, decodedMessage.RefTxID)
+	}
 }
 
 func TestStaticContractFormation(t *testing.T) {
@@ -1142,8 +1146,8 @@ func TestStaticContractFormation(t *testing.T) {
 	// ContractURI (varchar)
 	initialMessage.ContractURI = "Text 9"
 
-	// PrevRevTxID (sha256)
-	// sha256 test not setup
+	// PrevRevTxID (TxId)
+	initialMessage.PrevRevTxID = TxId{}
 
 	// Entities (Entity[])
 	for i := 0; i < 2; i++ {
@@ -1231,8 +1235,10 @@ func TestStaticContractFormation(t *testing.T) {
 		t.Errorf("ContractURI doesn't match : %s != %s", initialMessage.ContractURI, decodedMessage.ContractURI)
 	}
 
-	// PrevRevTxID (sha256)
-	// sha256 test compare not setup
+	// PrevRevTxID (TxId)
+	if initialMessage.PrevRevTxID != decodedMessage.PrevRevTxID {
+		t.Errorf("PrevRevTxID doesn't match : %v != %v", initialMessage.PrevRevTxID, decodedMessage.PrevRevTxID)
+	}
 
 	// Entities (Entity[])
 	if len(initialMessage.Entities) != len(decodedMessage.Entities) {
@@ -1278,11 +1284,11 @@ func TestOrder(t *testing.T) {
 	// OrderSignature (varchar)
 	initialMessage.OrderSignature = "Text 8"
 
-	// SupportingEvidenceHash (sha256)
-	// sha256 test not setup
+	// SupportingEvidenceTxId (TxId)
+	initialMessage.SupportingEvidenceTxId = TxId{}
 
-	// RefTxnID (sha256)
-	// sha256 test not setup
+	// RefTxnID (TxId)
+	initialMessage.RefTxnID = TxId{}
 
 	// FreezePeriod (Timestamp)
 	initialMessage.FreezePeriod = Timestamp{}
@@ -1366,11 +1372,15 @@ func TestOrder(t *testing.T) {
 		t.Errorf("OrderSignature doesn't match : %s != %s", initialMessage.OrderSignature, decodedMessage.OrderSignature)
 	}
 
-	// SupportingEvidenceHash (sha256)
-	// sha256 test compare not setup
+	// SupportingEvidenceTxId (TxId)
+	if initialMessage.SupportingEvidenceTxId != decodedMessage.SupportingEvidenceTxId {
+		t.Errorf("SupportingEvidenceTxId doesn't match : %v != %v", initialMessage.SupportingEvidenceTxId, decodedMessage.SupportingEvidenceTxId)
+	}
 
-	// RefTxnID (sha256)
-	// sha256 test compare not setup
+	// RefTxnID (TxId)
+	if initialMessage.RefTxnID != decodedMessage.RefTxnID {
+		t.Errorf("RefTxnID doesn't match : %v != %v", initialMessage.RefTxnID, decodedMessage.RefTxnID)
+	}
 
 	// FreezePeriod (Timestamp)
 	if initialMessage.FreezePeriod != decodedMessage.FreezePeriod {
@@ -1448,8 +1458,8 @@ func TestThaw(t *testing.T) {
 		initialMessage.Addresses = append(initialMessage.Addresses, PublicKeyHash{})
 	}
 
-	// RefTxnID (sha256)
-	// sha256 test not setup
+	// RefTxID (TxId)
+	initialMessage.RefTxID = TxId{}
 
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
@@ -1494,8 +1504,10 @@ func TestThaw(t *testing.T) {
 		t.Errorf("Addresses lengths don't match : %d != %d", len(initialMessage.Addresses), len(decodedMessage.Addresses))
 	}
 
-	// RefTxnID (sha256)
-	// sha256 test compare not setup
+	// RefTxID (TxId)
+	if initialMessage.RefTxID != decodedMessage.RefTxID {
+		t.Errorf("RefTxID doesn't match : %v != %v", initialMessage.RefTxID, decodedMessage.RefTxID)
+	}
 
 	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {
@@ -1658,8 +1670,8 @@ func TestInitiative(t *testing.T) {
 	// ProposalDescription (varchar)
 	initialMessage.ProposalDescription = "Text 7"
 
-	// ProposalDocumentHash (sha256)
-	// sha256 test not setup
+	// ProposalDocumentHash (bin)
+	// bin test not setup
 
 	// VoteCutOffTimestamp (Timestamp)
 	initialMessage.VoteCutOffTimestamp = Timestamp{}
@@ -1733,8 +1745,8 @@ func TestInitiative(t *testing.T) {
 		t.Errorf("ProposalDescription doesn't match : %s != %s", initialMessage.ProposalDescription, decodedMessage.ProposalDescription)
 	}
 
-	// ProposalDocumentHash (sha256)
-	// sha256 test compare not setup
+	// ProposalDocumentHash (bin)
+	// bin test compare not setup
 
 	// VoteCutOffTimestamp (Timestamp)
 	if initialMessage.VoteCutOffTimestamp != decodedMessage.VoteCutOffTimestamp {
@@ -1780,8 +1792,8 @@ func TestReferendum(t *testing.T) {
 	// ProposalDescription (varchar)
 	initialMessage.ProposalDescription = "Text 8"
 
-	// ProposalDocumentHash (sha256)
-	// sha256 test not setup
+	// ProposalDocumentHash (bin)
+	// bin test not setup
 
 	// VoteCutOffTimestamp (Timestamp)
 	initialMessage.VoteCutOffTimestamp = Timestamp{}
@@ -1858,8 +1870,8 @@ func TestReferendum(t *testing.T) {
 		t.Errorf("ProposalDescription doesn't match : %s != %s", initialMessage.ProposalDescription, decodedMessage.ProposalDescription)
 	}
 
-	// ProposalDocumentHash (sha256)
-	// sha256 test compare not setup
+	// ProposalDocumentHash (bin)
+	// bin test compare not setup
 
 	// VoteCutOffTimestamp (Timestamp)
 	if initialMessage.VoteCutOffTimestamp != decodedMessage.VoteCutOffTimestamp {
@@ -1929,8 +1941,8 @@ func TestBallotCast(t *testing.T) {
 	// AssetCode (AssetCode)
 	initialMessage.AssetCode = AssetCode{}
 
-	// VoteTxnID (sha256)
-	// sha256 test not setup
+	// VoteTxID (TxId)
+	initialMessage.VoteTxID = TxId{}
 
 	// Vote (varchar)
 	initialMessage.Vote = "Text 3"
@@ -1980,8 +1992,10 @@ func TestBallotCast(t *testing.T) {
 		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
 	}
 
-	// VoteTxnID (sha256)
-	// sha256 test compare not setup
+	// VoteTxID (TxId)
+	if initialMessage.VoteTxID != decodedMessage.VoteTxID {
+		t.Errorf("VoteTxID doesn't match : %v != %v", initialMessage.VoteTxID, decodedMessage.VoteTxID)
+	}
 
 	// Vote (varchar)
 	if initialMessage.Vote != decodedMessage.Vote {
@@ -2059,8 +2073,8 @@ func TestResult(t *testing.T) {
 		initialMessage.ProposedChanges = append(initialMessage.ProposedChanges, Amendment{})
 	}
 
-	// VoteTxnID (sha256)
-	// sha256 test not setup
+	// VoteTxID (TxId)
+	initialMessage.VoteTxID = TxId{}
 
 	// VoteOptionsCount (uint)
 	// uint test not setup
@@ -2127,8 +2141,10 @@ func TestResult(t *testing.T) {
 		t.Errorf("ProposedChanges lengths don't match : %d != %d", len(initialMessage.ProposedChanges), len(decodedMessage.ProposedChanges))
 	}
 
-	// VoteTxnID (sha256)
-	// sha256 test compare not setup
+	// VoteTxID (TxId)
+	if initialMessage.VoteTxID != decodedMessage.VoteTxID {
+		t.Errorf("VoteTxID doesn't match : %v != %v", initialMessage.VoteTxID, decodedMessage.VoteTxID)
+	}
 
 	// VoteOptionsCount (uint)
 	// uint test compare not setup

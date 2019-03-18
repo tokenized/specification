@@ -59,11 +59,10 @@ fields:
     description: "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time."
     type: Amendment[]
 
-  - name: VoteTxnID
-    label: Vote Txn ID
+  - name: VoteTxID
+    label: Vote Tx ID
     description: "Link to the Vote Action txn."
-    type: sha256
-    size: 32
+    type: TxId
     example_hex: f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37
     example_value: "f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37"
     notes: ""

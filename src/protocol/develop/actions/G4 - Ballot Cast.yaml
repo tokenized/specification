@@ -46,11 +46,10 @@ fields:
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: VoteTxnID
-    label: Vote Txn ID
-    description: "Tx-ID of the Vote the Ballot Cast is being made for."
-    type: sha256
-    size: 32
+  - name: VoteTxID
+    label: Vote Tx ID
+    description: "Tx ID of the Vote the Ballot Cast is being made for."
+    type: TxId
     example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
     example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
     notes: ""

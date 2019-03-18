@@ -106,11 +106,10 @@ fields:
     example_value: ""
     notes: ""
 
-  - name: SupportingEvidenceHash
+  - name: SupportingEvidenceTxId
     label: Supporting Evidence Hash
     description: "SHA-256: warrant, court order, etc."
-    type: sha256
-    size: 32
+    type: TxId
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
     notes: ""
@@ -118,8 +117,7 @@ fields:
   - name: RefTxnID
     label: Ref Txn ID
     description: "The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield."
-    type: sha256
-    size: 32
+    type: TxId
     example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
     example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
     notes: ""
