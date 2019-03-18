@@ -86,9 +86,16 @@ const (
 	// CodeSettlement identifies data as a Settlement message.
 	CodeSettlement = "T4"
 
-	ComplianceActionFreeze         = byte('F')
-	ComplianceActionThaw           = byte('T')
-	ComplianceActionConfiscation   = byte('C')
+	// ComplianceActionFreeze identifies a freeze type
+	ComplianceActionFreeze = byte('F')
+
+	// ComplianceActionThaw identifies a thaw type
+	ComplianceActionThaw = byte('T')
+
+	// ComplianceActionConfiscation identifies a confiscation type
+	ComplianceActionConfiscation = byte('C')
+
+	// ComplianceActionReconciliation identifies a reconcilation type
 	ComplianceActionReconciliation = byte('R')
 )
 
@@ -5854,7 +5861,7 @@ func (action Removal) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Transfer A Token Owner(s) Sends, Excahnges or Swaps a token(s) or
+// Transfer A Token Owner(s) Sends, Exchanges or Swaps a token(s) or
 // Bitcoin for a token(s) or Bitcoin. Can be as simple as sending a single
 // token to a receiver. Or can be as complex as many senders sending many
 // different assets - controlled by many different smart contracts - to a

@@ -42,9 +42,9 @@ Common stock represents ownership interests in corporations.
         <tr>
             <td class="a10">TransferLockout</td>
             <td class="a9">TransferLockout</td>
-            <td class="a10">timestamp</td>
+            <td class="a10">Timestamp</td>
             <td class="a10"></td>
-            <td class="a10">8</td>
+            <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>

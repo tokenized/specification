@@ -108,9 +108,9 @@ Admission ticket
         <tr>
             <td class="a10">StartTimeDate</td>
             <td class="a9">Start Time and Date</td>
-            <td class="a10">timestamp</td>
+            <td class="a10">Timestamp</td>
             <td class="a10"></td>
-            <td class="a10">8</td>
+            <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>
@@ -119,9 +119,9 @@ Admission ticket
         <tr>
             <td class="a10">ValidFrom</td>
             <td class="a9">Valid From</td>
-            <td class="a10">timestamp</td>
+            <td class="a10">Timestamp</td>
             <td class="a10"></td>
-            <td class="a10">8</td>
+            <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>
@@ -130,9 +130,9 @@ Admission ticket
         <tr>
             <td class="a10">ExpirationTimestamp</td>
             <td class="a9">Expiration Timestamp</td>
-            <td class="a10">timestamp</td>
+            <td class="a10">Timestamp</td>
             <td class="a10"></td>
-            <td class="a10">8</td>
+            <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>

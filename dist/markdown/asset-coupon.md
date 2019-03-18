@@ -53,9 +53,9 @@ Value exchange coupon
         <tr>
             <td class="a10">IssueDate</td>
             <td class="a9">Issue Date</td>
-            <td class="a10">time</td>
+            <td class="a10">Timestamp</td>
             <td class="a10"></td>
-            <td class="a10">8</td>
+            <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>
@@ -64,9 +64,9 @@ Value exchange coupon
         <tr>
             <td class="a10">ExpiryDate</td>
             <td class="a9">Expiry Date</td>
-            <td class="a10">time</td>
+            <td class="a10">Timestamp</td>
             <td class="a10"></td>
-            <td class="a10">8</td>
+            <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>

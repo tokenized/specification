@@ -12,9 +12,16 @@ const (
 	{{.CodeName}} = "{{.Code}}"
 {{ end }}
 
+	// ComplianceActionFreeze identifies a freeze type
 	ComplianceActionFreeze = byte('F')
+
+	// ComplianceActionThaw identifies a thaw type
 	ComplianceActionThaw = byte('T')
+
+	// ComplianceActionConfiscation identifies a confiscation type
 	ComplianceActionConfiscation = byte('C')
+
+	// ComplianceActionReconciliation identifies a reconcilation type
 	ComplianceActionReconciliation = byte('R')
 )
 

@@ -773,7 +773,7 @@ class Action_Removal(ActionBase):
     def init_attributes(self):
 
 
-# A Token Owner(s) Sends, Excahnges or Swaps a token(s) or Bitcoin for a
+# A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a
 # token(s) or Bitcoin. Can be as simple as sending a single token to a
 # receiver. Or can be as complex as many senders sending many different
 # assets - controlled by many different smart contracts - to a number of
