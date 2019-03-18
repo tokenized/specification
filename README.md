@@ -104,9 +104,13 @@ Actions must be serialized as an OP_RETURN output in a Bitcoin transaction with 
 
 All asset payloads for the Asset related actions.
 
+### Messages
+
+All message payloads for the Message related message actions.
+
 ### Resources
 
-All resources and message payloads for message related actions.
+General resources used by other actions.
 
 # License
 
