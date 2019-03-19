@@ -114,13 +114,13 @@ fields:
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
     notes: ""
 
-  - name: RefTxnID
-    label: Ref Txn ID
-    description: "The settlement action that was dropped from the network.  Not applicable for Freeze, Thaw, and Confiscation orders.  Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield."
+  - name: RefTxns
+    label: Ref Txns
+    description: "The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the issuer or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield."
     type: TxId
     example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
     example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
-    notes: ""
+    notes: "Can be null."
 
   - name: FreezePeriod
     label: Freeze Period
