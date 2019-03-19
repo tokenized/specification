@@ -120,7 +120,7 @@ fields:
     type: TxId
     example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
     example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
-    notes: "Can be null."
+    notes: "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event."
 
   - name: FreezePeriod
     label: Freeze Period
