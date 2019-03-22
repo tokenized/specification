@@ -208,15 +208,6 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a6"></td>
             <td class="a6"></td>
             <td class="a10">1</td>
-            <td class="a10">Issuer's Public Address</td>
-            <td class="a10">Change (Required, minimum 546)</td>
-        </tr>
-
-       <tr>
-            <td class="a5"></td>
-            <td class="a6"></td>
-            <td class="a6"></td>
-            <td class="a10">2</td>
             <td class="a10">Contract Fee Address</td>
             <td class="a10">Contract Operator's Fee (Optional)</td>
         </tr>
