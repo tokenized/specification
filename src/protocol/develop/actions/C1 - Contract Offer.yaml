@@ -155,6 +155,11 @@ fields:
     example_value: "https://example.com/images/logo.png"
     notes: ""
 
+  - name: ContractOperatorIncluded
+    label: Contract Operator Included
+    description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding."
+    type: bool
+
   - name: ContractOperatorID
     label: Contract Operator ID
     description: "Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."

@@ -141,6 +141,15 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10"></td>
         </tr>
         <tr>
+            <td class="c9">Contract Operator Included</td>
+            <td class="c10">ContractOperatorIncluded</td>
+            <td class="c10">0</td>
+            <td class="c10"></td>
+            <td class="c10"><abbr title="If true, then the second input is a contract operator. If false, then all additional inputs are just funding.">If true, then the second input is a contract operator. If false, then all additional input ...</abbr></td>
+            <td class="c10">bool</td>
+            <td class="c10"></td>
+        </tr>
+        <tr>
             <td class="c9">Contract Operator ID</td>
             <td class="c10">ContractOperatorID</td>
             <td class="c10">8</td>
