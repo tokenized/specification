@@ -35,7 +35,7 @@ fields:
     notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
   - name: ContractName
-    label:
+    label: Contract Name
     description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
@@ -44,23 +44,33 @@ fields:
     example_value: "Tesla - Shareholder Agreement"
     notes: ""
 
-  - name: ContractFileType
-    label: Contract File Type
-    description: "1 - SHA-256 Hash, 2 - Markdown"
+  - name: BodyOfAgreementType
+    label: Body of Agreement Type
+    description: "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
     type: uint
     size: 1
     example_hex: 01
     example_value: "1"
-    notes: "Contract File - Amendments can be restricted to a vote."
+    notes: "Body of Agreement - Amendments can be restricted to a vote."
 
-  - name: ContractFile
-    label: Contract File
-    description: "SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)"
+  - name: BodyOfAgreement
+    label: Body of Agreement
+    description: "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information."
     type: varbin
     # varbin size is number of bits to serialize the size of the data
     size: 32
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
+    notes: ""
+
+  - name: ContractType
+    label: Contract Type
+    description:
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
+    example_hex: 184e6f6e2d446973636c6f737572652041677265656d656e74
+    example_value: "Shareholder Agreement"
     notes: ""
 
   - name: SupportingDocsFileType
@@ -315,15 +325,15 @@ fields:
     example_value: "0420199999"
     notes: ""
 
-  - name: KeyRoles
-    label: Key Roles
-    description: "A list of Key Roles."
-    type: KeyRole[]
+  - name: Administration
+    label: Administration
+    description: "A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc."
+    type: Administrator[]
 
-  - name: NotableRoles
-    label: Notable Roles
-    description: "A list of Notable Roles."
-    type: NotableRole[]
+  - name: Management
+    label: Management
+    description: "A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc."
+    type: Manager[]
 
 # Functions for configuring the action
 functions:
@@ -364,10 +374,10 @@ functions:
             field: IssuerAddress
             value: true
 
-    - name: AddKeyRole
-      description: Adds a key role to the contract
+    - name: AddAdministrator
+      description: Adds an Administrator (role) to the contract
       type: append
-      append_type: KeyRole
+      append_type: Administrator
       params:
           - name: roleType
             type: uint
@@ -378,10 +388,10 @@ functions:
             type: string
             field: Name
 
-    - name: AddNotableRole
-      description: Adds a notable role to the contract
+    - name: AddManager
+      description: Adds a Manager (role) to the contract
       type: append
-      append_type: NotableRole
+      append_type: Manager
       params:
           - name: roleType
             type: uint
