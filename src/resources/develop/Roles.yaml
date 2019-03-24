@@ -30,31 +30,33 @@
   - lawyer: []
 14:
   - legalGuardian: []
-15: 
+15:
+  - limitedPartner: []  
+16: 
   - manager: []
-16:
-  - managingPartner: []
 17:
-  - member: [] # (eg. shareholder)
+  - managingPartner: []
 18:
-  - partner: []
+  - member: [] # (eg. shareholder)
 19:
-  - principal: null
+  - partner: []
 20:
-  - proprietor: null
+  - principal: null
 21:
-  - protector: []
+  - proprietor: null
 22:
-  - secretary: null
+  - protector: []
 23:
-  - settlor: [] 
+  - secretary: null
 24:
-  - significantMember: [] # (eg. major shareholder)
+  - settlor: [] 
 25:
-  - smartContractOperator: []
+  - significantMember: [] # (eg. major shareholder)
 26:
-  - trader: []
+  - smartContractOperator: []
 27:
+  - trader: []
+28:
   - trustee: []
 
 
