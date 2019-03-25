@@ -1931,7 +1931,7 @@ type ContractFormation struct {
 	ContractOperatorID         string         `json:"contract_operator_id,omitempty"`          // Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.
 	OperatorLEI                string         `json:"operator_lei,omitempty"`                  // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
 	ContractAuthFlags          [16]byte       `json:"contract_auth_flags,omitempty"`           // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
-	ContractFees               []Fee          `json:"contract_fees,omitempty"`                 // The available methods of payment for action fees. One is required per action and must be included in the action request transaction. i.e. Bitcoin amount or an AUD backed token and amount.
+	ActionFee                  []Fee          `json:"action_fee,omitempty"`                    // The tokens available for payment of action fees. One is required per action and must be included in the action request transaction. i.e. Bitcoin amount or an AUD backed token and amount.
 	VotingSystems              []VotingSystem `json:"voting_systems,omitempty"`                // A list voting systems.
 	RestrictedQtyAssets        uint64         `json:"restricted_qty_assets,omitempty"`         // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	ReferendumProposal         bool           `json:"referendum_proposal,omitempty"`           // A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).
@@ -2123,13 +2123,13 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// ContractFees ([]Fee)
-	_, skip = excludes["ContractFees"]
+	// ActionFee ([]Fee)
+	_, skip = excludes["ActionFee"]
 	if !skip {
-		if err := WriteVariableSize(buf, uint64(len(action.ContractFees)), 8, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.ActionFee)), 8, 8); err != nil {
 			return nil, err
 		}
-		for _, value := range action.ContractFees {
+		for _, value := range action.ActionFee {
 			b, err := value.Serialize()
 			if err != nil {
 				return nil, err
@@ -2525,21 +2525,21 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// ContractFees ([]Fee)
-	_, skip = excludes["ContractFees"]
+	// ActionFee ([]Fee)
+	_, skip = excludes["ActionFee"]
 	if !skip {
 		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
-		action.ContractFees = make([]Fee, 0, size)
+		action.ActionFee = make([]Fee, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue Fee
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			action.ContractFees = append(action.ContractFees, newValue)
+			action.ActionFee = append(action.ActionFee, newValue)
 		}
 	}
 
@@ -2791,7 +2791,7 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("ContractOperatorID:%#+v", action.ContractOperatorID))
 	vals = append(vals, fmt.Sprintf("OperatorLEI:%#+v", action.OperatorLEI))
 	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", action.ContractAuthFlags))
-	vals = append(vals, fmt.Sprintf("ContractFees:%#+v", action.ContractFees))
+	vals = append(vals, fmt.Sprintf("ActionFee:%#+v", action.ActionFee))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))

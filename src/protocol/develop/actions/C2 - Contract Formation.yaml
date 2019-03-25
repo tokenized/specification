@@ -187,9 +187,9 @@ fields:
     example_value: "010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000"
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
-  - name: ContractFees
-    label: Contract Fees
-    description: "The available methods of payment for action fees. One is required per action and must be included in the action request transaction. i.e. Bitcoin amount or an AUD backed token and amount."
+  - name: ActionFee
+    label: Action Fee
+    description: "The tokens available for payment of action fees. One is required per action and must be included in the action request transaction. i.e. Bitcoin amount or an AUD backed token and amount."
     type: Fee[]
     size: 8
 

@@ -179,7 +179,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
         <tr>
             <td class="c5" colspan="7">
                 <a href="javascript:;" data-popover="type-Fee">
-                   Contract Fee - Click to show content
+                   Action Fee - Click to show content
                 </a>
             </td>
         </tr>

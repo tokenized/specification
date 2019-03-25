@@ -192,7 +192,7 @@ fields:
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
   - name: ActionFee
-    label: Contract Fee
+    label: Action Fee
     description: "The tokens available for payment of action fees. One is required per action and must be included in the action request transaction. i.e. Bitcoin amount or an AUD backed token and amount."
     type: Fee[]
     size: 8

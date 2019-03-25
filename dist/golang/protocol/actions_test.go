@@ -802,9 +802,9 @@ func TestContractFormation(t *testing.T) {
 	// ContractAuthFlags (bin)
 	// bin test not setup
 
-	// ContractFees (Fee[])
+	// ActionFee (Fee[])
 	for i := 0; i < 2; i++ {
-		initialMessage.ContractFees = append(initialMessage.ContractFees, Fee{})
+		initialMessage.ActionFee = append(initialMessage.ActionFee, Fee{})
 	}
 
 	// VotingSystems (VotingSystem[])
@@ -994,9 +994,9 @@ func TestContractFormation(t *testing.T) {
 	// ContractAuthFlags (bin)
 	// bin test compare not setup
 
-	// ContractFees (Fee[])
-	if len(initialMessage.ContractFees) != len(decodedMessage.ContractFees) {
-		t.Errorf("ContractFees lengths don't match : %d != %d", len(initialMessage.ContractFees), len(decodedMessage.ContractFees))
+	// ActionFee (Fee[])
+	if len(initialMessage.ActionFee) != len(decodedMessage.ActionFee) {
+		t.Errorf("ActionFee lengths don't match : %d != %d", len(initialMessage.ActionFee), len(decodedMessage.ActionFee))
 	}
 
 	// VotingSystems (VotingSystem[])

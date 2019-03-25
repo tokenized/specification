@@ -227,7 +227,7 @@ class Action_ContractFormation(ActionBase):
         'ContractOperatorID':              [13, DAT_varchar, 8],
         'OperatorLEI':                     [14, DAT_fixedchar, 20],
         'ContractAuthFlags':               [15, DAT_bin, 16],
-        'ContractFees':                    [16, DAT_Fee[], 8],
+        'ActionFee':                       [16, DAT_Fee[], 8],
         'VotingSystems':                   [17, DAT_VotingSystem[], 0],
         'RestrictedQtyAssets':             [18, DAT_uint, 8],
         'ReferendumProposal':              [19, DAT_bool, 0],
@@ -271,7 +271,7 @@ class Action_ContractFormation(ActionBase):
         self.ContractOperatorID = None
         self.OperatorLEI = None
         self.ContractAuthFlags = None
-        self.ContractFees = None
+        self.ActionFee = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
         self.ReferendumProposal = None
