@@ -133,7 +133,7 @@ fields:
     notes: "Issuer Type - Amendments can be restricted to a vote."
 
   - name: IssuerLEI
-    label: Issuer's Legal Entity Identifier
+    label: "Issuer's Legal Entity Identifier"
     description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
     type: fixedchar
     size: 20
@@ -162,7 +162,7 @@ fields:
     notes: ""
 
   - name: OperatorLEI
-    label: Operator's Legal Entity Identifier
+    label: "Operator's Legal Entity Identifier"
     description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
     type: fixedchar
     size: 20
