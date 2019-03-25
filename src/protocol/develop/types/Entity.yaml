@@ -126,12 +126,12 @@ fields:
     example_value: "0448484848"
     notes: ""
 
-  - name: KeyRoles
-    label: Key Roles
-    description: "A list of Key Roles."
-    type: KeyRole[]
+  - name: Administration
+    label: Administration
+    description: "A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc."
+    type: Administrator[]
 
-  - name: NotableRoles
-    label: Notable Roles
-    description: "A list of Notable Roles."
-    type: NotableRole[]
+  - name: Management
+    label: Management
+    description: "A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc."
+    type: Manager[]

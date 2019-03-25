@@ -2,6 +2,55 @@ package protocol
 
 import "bytes"
 
+// Administrator Administrator is used to refer to a Administration role in
+// an Entity.
+type Administrator struct {
+	Type uint8  `json:"type,omitempty"` // Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources
+	Name string `json:"name,omitempty"` // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
+}
+
+// NewAdministrator returns a new Administrator with defaults set.
+func NewAdministrator(roleType uint8, name string) *Administrator {
+	result := Administrator{}
+	result.Type = roleType
+	result.Name = name
+	return &result
+}
+
+// Serialize returns the byte representation of the message.
+func (m Administrator) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	// Type (uint8)
+	if err := write(buf, m.Type); err != nil {
+		return nil, err
+	}
+
+	// Name (string)
+	if err := WriteVarChar(buf, m.Name, 8); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
+func (m *Administrator) Write(buf *bytes.Buffer) error {
+
+	// Type (uint8)
+	if err := read(buf, &m.Type); err != nil {
+		return err
+	}
+
+	// Name (string)
+	{
+		var err error
+		m.Name, err = ReadVarChar(buf, 8)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // Amendment An Amendment is used to describe the modification of a single
 // field in a Contract or Asset, as defined in the ContractFormation and
 // AssetCreation messages.
@@ -314,21 +363,21 @@ func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
 // Entity Entity represents the details of a legal Entity, such as a public
 // or private company, government agency, or and individual.
 type Entity struct {
-	Name                       string        `json:"name,omitempty"`                          // Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
-	Type                       byte          `json:"type,omitempty"`                          // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
-	LEI                        string        `json:"lei,omitempty"`                           // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
-	Address                    bool          `json:"address,omitempty"`                       // Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
-	UnitNumber                 string        `json:"unit_number,omitempty"`                   // Issuer/Entity/Contracting Party X Address Details (eg. HQ)
-	BuildingNumber             string        `json:"building_number,omitempty"`               //
-	Street                     string        `json:"street,omitempty"`                        //
-	SuburbCity                 string        `json:"suburb_city,omitempty"`                   //
-	TerritoryStateProvinceCode string        `json:"territory_state_province_code,omitempty"` //
-	CountryCode                string        `json:"country_code,omitempty"`                  //
-	PostalZIPCode              string        `json:"postal_zip_code,omitempty"`               //
-	EmailAddress               string        `json:"email_address,omitempty"`                 // Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address
-	PhoneNumber                string        `json:"phone_number,omitempty"`                  // Length 0-50 bytes. 0 is valid. Phone Number for Entity.
-	KeyRoles                   []KeyRole     `json:"key_roles,omitempty"`                     // A list of Key Roles.
-	NotableRoles               []NotableRole `json:"notable_roles,omitempty"`                 // A list of Notable Roles.
+	Name                       string          `json:"name,omitempty"`                          // Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	Type                       byte            `json:"type,omitempty"`                          // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	LEI                        string          `json:"lei,omitempty"`                           // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
+	Address                    bool            `json:"address,omitempty"`                       // Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
+	UnitNumber                 string          `json:"unit_number,omitempty"`                   // Issuer/Entity/Contracting Party X Address Details (eg. HQ)
+	BuildingNumber             string          `json:"building_number,omitempty"`               //
+	Street                     string          `json:"street,omitempty"`                        //
+	SuburbCity                 string          `json:"suburb_city,omitempty"`                   //
+	TerritoryStateProvinceCode string          `json:"territory_state_province_code,omitempty"` //
+	CountryCode                string          `json:"country_code,omitempty"`                  //
+	PostalZIPCode              string          `json:"postal_zip_code,omitempty"`               //
+	EmailAddress               string          `json:"email_address,omitempty"`                 // Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                string          `json:"phone_number,omitempty"`                  // Length 0-50 bytes. 0 is valid. Phone Number for Entity.
+	Administration             []Administrator `json:"administration,omitempty"`                // A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc.
+	Management                 []Manager       `json:"management,omitempty"`                    // A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc.
 }
 
 // NewEntity returns a new Entity with defaults set.
@@ -406,11 +455,11 @@ func (m Entity) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// KeyRoles ([]KeyRole)
-	if err := WriteVariableSize(buf, uint64(len(m.KeyRoles)), 0, 8); err != nil {
+	// Administration ([]Administrator)
+	if err := WriteVariableSize(buf, uint64(len(m.Administration)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.KeyRoles {
+	for _, value := range m.Administration {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -421,11 +470,11 @@ func (m Entity) Serialize() ([]byte, error) {
 		}
 	}
 
-	// NotableRoles ([]NotableRole)
-	if err := WriteVariableSize(buf, uint64(len(m.NotableRoles)), 0, 8); err != nil {
+	// Management ([]Manager)
+	if err := WriteVariableSize(buf, uint64(len(m.Management)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.NotableRoles {
+	for _, value := range m.Management {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -549,37 +598,37 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 		}
 	}
 
-	// KeyRoles ([]KeyRole)
+	// Administration ([]Administrator)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return err
 		}
-		m.KeyRoles = make([]KeyRole, 0, size)
+		m.Administration = make([]Administrator, 0, size)
 		for i := uint64(0); i < size; i++ {
-			var newValue KeyRole
+			var newValue Administrator
 			if err := newValue.Write(buf); err != nil {
 				return err
 			}
 
-			m.KeyRoles = append(m.KeyRoles, newValue)
+			m.Administration = append(m.Administration, newValue)
 		}
 	}
 
-	// NotableRoles ([]NotableRole)
+	// Management ([]Manager)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return err
 		}
-		m.NotableRoles = make([]NotableRole, 0, size)
+		m.Management = make([]Manager, 0, size)
 		for i := uint64(0); i < size; i++ {
-			var newValue NotableRole
+			var newValue Manager
 			if err := newValue.Write(buf); err != nil {
 				return err
 			}
 
-			m.NotableRoles = append(m.NotableRoles, newValue)
+			m.Management = append(m.Management, newValue)
 		}
 	}
 	return nil
@@ -688,22 +737,23 @@ func (m *Header) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// KeyRole KeyRole is used to refer to a key role in an Entity.
-type KeyRole struct {
-	Type uint8  `json:"type,omitempty"` // Chairman, Director. Found in 'Roles' in Specification/Resources
+// Manager Manager is used to refer to a role that is responsible for the
+// Management of an Entity.
+type Manager struct {
+	Type uint8  `json:"type,omitempty"` // CEO, COO, CFO, etc. Found in 'Roles' in Specification/Resources
 	Name string `json:"name,omitempty"` // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
 }
 
-// NewKeyRole returns a new KeyRole with defaults set.
-func NewKeyRole(roleType uint8, name string) *KeyRole {
-	result := KeyRole{}
+// NewManager returns a new Manager with defaults set.
+func NewManager(roleType uint8, name string) *Manager {
+	result := Manager{}
 	result.Type = roleType
 	result.Name = name
 	return &result
 }
 
 // Serialize returns the byte representation of the message.
-func (m KeyRole) Serialize() ([]byte, error) {
+func (m Manager) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Type (uint8)
@@ -718,55 +768,7 @@ func (m KeyRole) Serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (m *KeyRole) Write(buf *bytes.Buffer) error {
-
-	// Type (uint8)
-	if err := read(buf, &m.Type); err != nil {
-		return err
-	}
-
-	// Name (string)
-	{
-		var err error
-		m.Name, err = ReadVarChar(buf, 8)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-// NotableRole NotableRole is used to refer to a role of note in an Entity.
-type NotableRole struct {
-	Type uint8  `json:"type,omitempty"` // Found in 'Roles' in Specification/Resources
-	Name string `json:"name,omitempty"` // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
-}
-
-// NewNotableRole returns a new NotableRole with defaults set.
-func NewNotableRole(roleType uint8, name string) *NotableRole {
-	result := NotableRole{}
-	result.Type = roleType
-	result.Name = name
-	return &result
-}
-
-// Serialize returns the byte representation of the message.
-func (m NotableRole) Serialize() ([]byte, error) {
-	buf := new(bytes.Buffer)
-
-	// Type (uint8)
-	if err := write(buf, m.Type); err != nil {
-		return nil, err
-	}
-
-	// Name (string)
-	if err := WriteVarChar(buf, m.Name, 8); err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
-}
-
-func (m *NotableRole) Write(buf *bytes.Buffer) error {
+func (m *Manager) Write(buf *bytes.Buffer) error {
 
 	// Type (uint8)
 	if err := read(buf, &m.Type); err != nil {

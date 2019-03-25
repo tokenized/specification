@@ -110,7 +110,7 @@ The following breaks down the construction of a Order Action. The action is cons
         <tr>
             <td class="e5" colspan="7">
                 <a href="javascript:;" data-popover="type-TxId">
-                   Ref Txn ID - Click to show content
+                   Ref Txns - Click to show content
                 </a>
             </td>
         </tr>

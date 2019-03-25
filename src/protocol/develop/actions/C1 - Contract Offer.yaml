@@ -393,31 +393,3 @@ functions:
             type: string
             field: IssuerAddressIncluded
             value: true
-
-    - name: AddAdministrator
-      description: Adds an Administrator (role) to the contract
-      type: append
-      append_type: Administrator
-      params:
-          - name: roleType
-            type: uint
-            size: 1
-            field: Type
-
-          - name: name
-            type: string
-            field: Name
-
-    - name: AddManager
-      description: Adds a Manager (role) to the contract
-      type: append
-      append_type: Manager
-      params:
-          - name: roleType
-            type: uint
-            size: 1
-            field: Type
-
-          - name: name
-            type: string
-            field: Name

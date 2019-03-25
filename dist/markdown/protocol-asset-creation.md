@@ -171,16 +171,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a6"></td>
             <td class="a10">0</td>
             <td class="a10">Contract Public Address</td>
-            <td class="a10">Dust Limit</td>
-        </tr>
-
-       <tr>
-            <td class="a5"></td>
-            <td class="a6"></td>
-            <td class="a6"></td>
-            <td class="a10">1</td>
-            <td class="a10">Contract Fee Address</td>
-            <td class="a10">Contract Operator's Fee (Optional)</td>
+            <td class="a10">Required so that users can monitor transactions to the contract for updates to contract/assets.</td>
         </tr>
 
     </table>

@@ -30,7 +30,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
             <td class="c10">ChangeIssuerAddress</td>
             <td class="c10">0</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr title="1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position.">1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in th ...</abbr></td>
+            <td class="c10">Used to change the issuer address.  The new issuer address must be in the input[1] position.</td>
             <td class="c10">bool</td>
             <td class="c10"></td>
         </tr>
@@ -39,7 +39,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
             <td class="c10">ChangeOperatorAddress</td>
             <td class="c10">0</td>
             <td class="c10">1</td>
-            <td class="c10"><abbr title="1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position.">1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator ad ...</abbr></td>
+            <td class="c10"><abbr title="Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless issuer is being changed too, then it is in input[2].">Used to change the smart contract operator address.  The new operator address must be in t ...</abbr></td>
             <td class="c10">bool</td>
             <td class="c10"></td>
         </tr>
@@ -98,7 +98,7 @@ The following breaks down the construction of a Contract Amendment Action. The a
        <tr>
             <td class="c5">1</td>
             <td class="c6">New Issuer Public Address</td>
-            <td class="c6">Only treated as the new Issuer address when the Change Issuer Address flag is set to Y.</td>
+            <td class="c6">Only treated as the new Issuer address when the Change Issuer Address flag is set to true.</td>
             <td class="c10"></td>
             <td class="c10"></td>
             <td class="c10"></td>

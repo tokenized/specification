@@ -124,40 +124,41 @@ class Action_ContractOffer(ActionBase):
     ActionPrefix = 'C1'
 
     schema = {
-        'ContractFileType':                [0, DAT_uint, 1],
-        'ContractFile':                    [1, DAT_varbin, 32],
-        'SupportingDocsFileType':          [2, DAT_uint, 1],
-        'SupportingDocs':                  [3, DAT_varchar, 32],
-        'GoverningLaw':                    [4, DAT_fixedchar, 5],
-        'Jurisdiction':                    [5, DAT_fixedchar, 5],
-        'ContractExpiration':              [6, DAT_Timestamp, 0],
-        'ContractURI':                     [7, DAT_varchar, 8],
-        'IssuerName':                      [8, DAT_varchar, 8],
-        'IssuerType':                      [9, DAT_fixedchar, 1],
-        'IssuerLEI':                       [10, DAT_fixedchar, 20],
-        'IssuerLogoURL':                   [11, DAT_varchar, 8],
-        'ContractOperatorIncluded':        [12, DAT_bool, 0],
-        'ContractOperatorID':              [13, DAT_varchar, 8],
-        'OperatorLEI':                     [14, DAT_fixedchar, 20],
-        'ContractAuthFlags':               [15, DAT_bin, 16],
-        'ActionFee':                       [16, DAT_Fee[], 8],
-        'VotingSystems':                   [17, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [18, DAT_uint, 8],
-        'ReferendumProposal':              [19, DAT_bool, 0],
-        'InitiativeProposal':              [20, DAT_bool, 0],
-        'Registries':                      [21, DAT_Registry[], 0],
-        'IssuerAddressIncluded':           [22, DAT_bool, 0],
-        'UnitNumber':                      [23, DAT_varchar, 8],
-        'BuildingNumber':                  [24, DAT_varchar, 8],
-        'Street':                          [25, DAT_varchar, 16],
-        'SuburbCity':                      [26, DAT_varchar, 8],
-        'TerritoryStateProvinceCode':      [27, DAT_fixedchar, 5],
-        'CountryCode':                     [28, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [29, DAT_varchar, 8],
-        'EmailAddress':                    [30, DAT_varchar, 8],
-        'PhoneNumber':                     [31, DAT_varchar, 8],
-        'KeyRoles':                        [32, DAT_KeyRole[], 0],
-        'NotableRoles':                    [33, DAT_NotableRole[], 0]
+        'BodyOfAgreementType':             [0, DAT_uint, 1],
+        'BodyOfAgreement':                 [1, DAT_varbin, 32],
+        'ContractType':                    [2, DAT_varchar, 8],
+        'SupportingDocsFileType':          [3, DAT_uint, 1],
+        'SupportingDocs':                  [4, DAT_varchar, 32],
+        'GoverningLaw':                    [5, DAT_fixedchar, 5],
+        'Jurisdiction':                    [6, DAT_fixedchar, 5],
+        'ContractExpiration':              [7, DAT_Timestamp, 0],
+        'ContractURI':                     [8, DAT_varchar, 8],
+        'IssuerName':                      [9, DAT_varchar, 8],
+        'IssuerType':                      [10, DAT_fixedchar, 1],
+        'IssuerLEI':                       [11, DAT_fixedchar, 20],
+        'IssuerLogoURL':                   [12, DAT_varchar, 8],
+        'ContractOperatorIncluded':        [13, DAT_bool, 0],
+        'ContractOperatorID':              [14, DAT_varchar, 8],
+        'OperatorLEI':                     [15, DAT_fixedchar, 20],
+        'ContractAuthFlags':               [16, DAT_bin, 16],
+        'ActionFee':                       [17, DAT_Fee[], 8],
+        'VotingSystems':                   [18, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [19, DAT_uint, 8],
+        'ReferendumProposal':              [20, DAT_bool, 0],
+        'InitiativeProposal':              [21, DAT_bool, 0],
+        'Registries':                      [22, DAT_Registry[], 0],
+        'IssuerAddressIncluded':           [23, DAT_bool, 0],
+        'UnitNumber':                      [24, DAT_varchar, 8],
+        'BuildingNumber':                  [25, DAT_varchar, 8],
+        'Street':                          [26, DAT_varchar, 16],
+        'SuburbCity':                      [27, DAT_varchar, 8],
+        'TerritoryStateProvinceCode':      [28, DAT_fixedchar, 5],
+        'CountryCode':                     [29, DAT_fixedchar, 3],
+        'PostalZIPCode':                   [30, DAT_varchar, 8],
+        'EmailAddress':                    [31, DAT_varchar, 8],
+        'PhoneNumber':                     [32, DAT_varchar, 8],
+        'Administration':                  [33, DAT_Administrator[], 0],
+        'Management':                      [34, DAT_Manager[], 0]
     }
 
     rules = {
@@ -167,7 +168,8 @@ class Action_ContractOffer(ActionBase):
     }
 
     def init_attributes(self):
-        self.ContractFile = None
+        self.BodyOfAgreement = None
+        self.ContractType = None
         self.SupportingDocsFileType = None
         self.SupportingDocs = None
         self.GoverningLaw = None
@@ -198,8 +200,8 @@ class Action_ContractOffer(ActionBase):
         self.PostalZIPCode = None
         self.EmailAddress = None
         self.PhoneNumber = None
-        self.KeyRoles = None
-        self.NotableRoles = None
+        self.Administration = None
+        self.Management = None
 
 
 # This txn is created by the Contract (smart contract/off-chain agent/token
@@ -211,42 +213,43 @@ class Action_ContractFormation(ActionBase):
     ActionPrefix = 'C2'
 
     schema = {
-        'ContractFileType':                [0, DAT_uint, 1],
-        'ContractFile':                    [1, DAT_varbin, 32],
-        'SupportingDocsFileType':          [2, DAT_uint, 1],
-        'SupportingDocs':                  [3, DAT_varchar, 32],
-        'GoverningLaw':                    [4, DAT_fixedchar, 5],
-        'Jurisdiction':                    [5, DAT_fixedchar, 5],
-        'ContractExpiration':              [6, DAT_Timestamp, 0],
-        'ContractURI':                     [7, DAT_varchar, 8],
-        'IssuerName':                      [8, DAT_varchar, 8],
-        'IssuerType':                      [9, DAT_fixedchar, 1],
-        'IssuerLEI':                       [10, DAT_fixedchar, 20],
-        'IssuerLogoURL':                   [11, DAT_varchar, 8],
-        'ContractOperatorIncluded':        [12, DAT_bool, 0],
-        'ContractOperatorID':              [13, DAT_varchar, 8],
-        'OperatorLEI':                     [14, DAT_fixedchar, 20],
-        'ContractAuthFlags':               [15, DAT_bin, 16],
-        'ActionFee':                       [16, DAT_Fee[], 8],
-        'VotingSystems':                   [17, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [18, DAT_uint, 8],
-        'ReferendumProposal':              [19, DAT_bool, 0],
-        'InitiativeProposal':              [20, DAT_bool, 0],
-        'Registries':                      [21, DAT_Registry[], 0],
-        'IssuerAddressIncluded':           [22, DAT_bool, 0],
-        'UnitNumber':                      [23, DAT_varchar, 8],
-        'BuildingNumber':                  [24, DAT_varchar, 8],
-        'Street':                          [25, DAT_varchar, 16],
-        'SuburbCity':                      [26, DAT_varchar, 8],
-        'TerritoryStateProvinceCode':      [27, DAT_fixedchar, 5],
-        'CountryCode':                     [28, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [29, DAT_varchar, 8],
-        'EmailAddress':                    [30, DAT_varchar, 8],
-        'PhoneNumber':                     [31, DAT_varchar, 8],
-        'KeyRoles':                        [32, DAT_KeyRole[], 0],
-        'NotableRoles':                    [33, DAT_NotableRole[], 0],
-        'ContractRevision':                [34, DAT_uint, 4],
-        'Timestamp':                       [35, DAT_Timestamp, 0]
+        'BodyOfAgreementType':             [0, DAT_uint, 1],
+        'BodyOfAgreement':                 [1, DAT_varbin, 32],
+        'ContractType':                    [2, DAT_varchar, 8],
+        'SupportingDocsFileType':          [3, DAT_uint, 1],
+        'SupportingDocs':                  [4, DAT_varchar, 32],
+        'GoverningLaw':                    [5, DAT_fixedchar, 5],
+        'Jurisdiction':                    [6, DAT_fixedchar, 5],
+        'ContractExpiration':              [7, DAT_Timestamp, 0],
+        'ContractURI':                     [8, DAT_varchar, 8],
+        'IssuerName':                      [9, DAT_varchar, 8],
+        'IssuerType':                      [10, DAT_fixedchar, 1],
+        'IssuerLEI':                       [11, DAT_fixedchar, 20],
+        'IssuerLogoURL':                   [12, DAT_varchar, 8],
+        'ContractOperatorIncluded':        [13, DAT_bool, 0],
+        'ContractOperatorID':              [14, DAT_varchar, 8],
+        'OperatorLEI':                     [15, DAT_fixedchar, 20],
+        'ContractAuthFlags':               [16, DAT_bin, 16],
+        'ActionFee':                       [17, DAT_Fee[], 8],
+        'VotingSystems':                   [18, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [19, DAT_uint, 8],
+        'ReferendumProposal':              [20, DAT_bool, 0],
+        'InitiativeProposal':              [21, DAT_bool, 0],
+        'Registries':                      [22, DAT_Registry[], 0],
+        'IssuerAddressIncluded':           [23, DAT_bool, 0],
+        'UnitNumber':                      [24, DAT_varchar, 8],
+        'BuildingNumber':                  [25, DAT_varchar, 8],
+        'Street':                          [26, DAT_varchar, 16],
+        'SuburbCity':                      [27, DAT_varchar, 8],
+        'TerritoryStateProvinceCode':      [28, DAT_fixedchar, 5],
+        'CountryCode':                     [29, DAT_fixedchar, 3],
+        'PostalZIPCode':                   [30, DAT_varchar, 8],
+        'EmailAddress':                    [31, DAT_varchar, 8],
+        'PhoneNumber':                     [32, DAT_varchar, 8],
+        'Administration':                  [33, DAT_Administrator[], 0],
+        'Management':                      [34, DAT_Manager[], 0],
+        'ContractRevision':                [35, DAT_uint, 4],
+        'Timestamp':                       [36, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -256,7 +259,8 @@ class Action_ContractFormation(ActionBase):
     }
 
     def init_attributes(self):
-        self.ContractFile = None
+        self.BodyOfAgreement = None
+        self.ContractType = None
         self.SupportingDocsFileType = None
         self.SupportingDocs = None
         self.GoverningLaw = None
@@ -287,8 +291,8 @@ class Action_ContractFormation(ActionBase):
         self.PostalZIPCode = None
         self.EmailAddress = None
         self.PhoneNumber = None
-        self.KeyRoles = None
-        self.NotableRoles = None
+        self.Administration = None
+        self.Management = None
         self.ContractRevision = None
         self.Timestamp = None
 
@@ -381,7 +385,7 @@ class Action_Order(ActionBase):
         'AuthorityPublicKey':              [6, DAT_varchar, 8],
         'OrderSignature':                  [7, DAT_varchar, 8],
         'SupportingEvidenceTxId':          [8, DAT_TxId, 0],
-        'RefTxnID':                        [9, DAT_TxId, 0],
+        'RefTxns':                         [9, DAT_TxId, 0],
         'FreezePeriod':                    [10, DAT_Timestamp, 0],
         'Message':                         [11, DAT_varchar, 32]
     }
@@ -401,7 +405,7 @@ class Action_Order(ActionBase):
         self.AuthorityPublicKey = None
         self.OrderSignature = None
         self.SupportingEvidenceTxId = None
-        self.RefTxnID = None
+        self.RefTxns = None
         self.FreezePeriod = None
         self.Message = None
 

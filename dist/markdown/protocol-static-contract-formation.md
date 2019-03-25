@@ -332,21 +332,21 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Key Roles</td>
-                <td class="c10">KeyRoles</td>
+                <td class="c10">Administration</td>
+                <td class="c10">Administration</td>
                 <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">A list of Key Roles.</td>
-                <td class="c10">KeyRole[]</td>
+                <td class="c10">A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc.</td>
+                <td class="c10">Administrator[]</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Notable Roles</td>
-                <td class="c10">NotableRoles</td>
+                <td class="c10">Management</td>
+                <td class="c10">Management</td>
                 <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">A list of Notable Roles.</td>
-                <td class="c10">NotableRole[]</td>
+                <td class="c10">A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc.</td>
+                <td class="c10">Manager[]</td>
                 <td class="c10"></td>
             </tr>
         </table>

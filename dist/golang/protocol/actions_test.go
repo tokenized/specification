@@ -377,26 +377,29 @@ func TestContractOffer(t *testing.T) {
 	// ContractName (varchar)
 	initialMessage.ContractName = "Text 0"
 
-	// ContractFileType (uint)
+	// BodyOfAgreementType (uint)
 	// uint test not setup
 
-	// ContractFile (varbin)
-	initialMessage.ContractFile = make([]byte, 0, 32)
+	// BodyOfAgreement (varbin)
+	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
 	for i := uint64(0); i < 32; i++ {
-		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+2))
+		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+2))
 	}
+
+	// ContractType (varchar)
+	initialMessage.ContractType = "Text 3"
 
 	// SupportingDocsFileType (uint)
 	// uint test not setup
 
 	// SupportingDocs (varchar)
-	initialMessage.SupportingDocs = "Text 4"
+	initialMessage.SupportingDocs = "Text 5"
 
 	// GoverningLaw (fixedchar)
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+5))
+			text = append(text, byte(65+i+6))
 		}
 		initialMessage.GoverningLaw = string(text)
 	}
@@ -405,7 +408,7 @@ func TestContractOffer(t *testing.T) {
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+6))
+			text = append(text, byte(65+i+7))
 		}
 		initialMessage.Jurisdiction = string(text)
 	}
@@ -414,10 +417,10 @@ func TestContractOffer(t *testing.T) {
 	initialMessage.ContractExpiration = Timestamp{}
 
 	// ContractURI (varchar)
-	initialMessage.ContractURI = "Text 8"
+	initialMessage.ContractURI = "Text 9"
 
 	// IssuerName (varchar)
-	initialMessage.IssuerName = "Text 9"
+	initialMessage.IssuerName = "Text 10"
 
 	// IssuerType (fixedchar)
 	// fixedchar test not setup
@@ -426,25 +429,25 @@ func TestContractOffer(t *testing.T) {
 	{
 		text := make([]byte, 0, 20)
 		for i := uint64(0); i < 20; i++ {
-			text = append(text, byte(65+i+11))
+			text = append(text, byte(65+i+12))
 		}
 		initialMessage.IssuerLEI = string(text)
 	}
 
 	// IssuerLogoURL (varchar)
-	initialMessage.IssuerLogoURL = "Text 12"
+	initialMessage.IssuerLogoURL = "Text 13"
 
 	// ContractOperatorIncluded (bool)
 	initialMessage.ContractOperatorIncluded = true
 
 	// ContractOperatorID (varchar)
-	initialMessage.ContractOperatorID = "Text 14"
+	initialMessage.ContractOperatorID = "Text 15"
 
 	// OperatorLEI (fixedchar)
 	{
 		text := make([]byte, 0, 20)
 		for i := uint64(0); i < 20; i++ {
-			text = append(text, byte(65+i+15))
+			text = append(text, byte(65+i+16))
 		}
 		initialMessage.OperatorLEI = string(text)
 	}
@@ -480,22 +483,22 @@ func TestContractOffer(t *testing.T) {
 	initialMessage.IssuerAddressIncluded = true
 
 	// UnitNumber (varchar)
-	initialMessage.UnitNumber = "Text 24"
+	initialMessage.UnitNumber = "Text 25"
 
 	// BuildingNumber (varchar)
-	initialMessage.BuildingNumber = "Text 25"
+	initialMessage.BuildingNumber = "Text 26"
 
 	// Street (varchar)
-	initialMessage.Street = "Text 26"
+	initialMessage.Street = "Text 27"
 
 	// SuburbCity (varchar)
-	initialMessage.SuburbCity = "Text 27"
+	initialMessage.SuburbCity = "Text 28"
 
 	// TerritoryStateProvinceCode (fixedchar)
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+28))
+			text = append(text, byte(65+i+29))
 		}
 		initialMessage.TerritoryStateProvinceCode = string(text)
 	}
@@ -504,28 +507,28 @@ func TestContractOffer(t *testing.T) {
 	{
 		text := make([]byte, 0, 3)
 		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+29))
+			text = append(text, byte(65+i+30))
 		}
 		initialMessage.CountryCode = string(text)
 	}
 
 	// PostalZIPCode (varchar)
-	initialMessage.PostalZIPCode = "Text 30"
+	initialMessage.PostalZIPCode = "Text 31"
 
 	// EmailAddress (varchar)
-	initialMessage.EmailAddress = "Text 31"
+	initialMessage.EmailAddress = "Text 32"
 
 	// PhoneNumber (varchar)
-	initialMessage.PhoneNumber = "Text 32"
+	initialMessage.PhoneNumber = "Text 33"
 
-	// KeyRoles (KeyRole[])
+	// Administration (Administrator[])
 	for i := 0; i < 2; i++ {
-		initialMessage.KeyRoles = append(initialMessage.KeyRoles, KeyRole{})
+		initialMessage.Administration = append(initialMessage.Administration, Administrator{})
 	}
 
-	// NotableRoles (NotableRole[])
+	// Management (Manager[])
 	for i := 0; i < 2; i++ {
-		initialMessage.NotableRoles = append(initialMessage.NotableRoles, NotableRole{})
+		initialMessage.Management = append(initialMessage.Management, Manager{})
 	}
 
 	// Encode message
@@ -568,12 +571,17 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("ContractName doesn't match : %s != %s", initialMessage.ContractName, decodedMessage.ContractName)
 	}
 
-	// ContractFileType (uint)
+	// BodyOfAgreementType (uint)
 	// uint test compare not setup
 
-	// ContractFile (varbin)
-	if !bytes.Equal(initialMessage.ContractFile, decodedMessage.ContractFile) {
-		t.Errorf("ContractFile doesn't match : %x != %x", initialMessage.ContractFile, decodedMessage.ContractFile)
+	// BodyOfAgreement (varbin)
+	if !bytes.Equal(initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement) {
+		t.Errorf("BodyOfAgreement doesn't match : %x != %x", initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement)
+	}
+
+	// ContractType (varchar)
+	if initialMessage.ContractType != decodedMessage.ContractType {
+		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
 	// SupportingDocsFileType (uint)
@@ -710,14 +718,14 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("PhoneNumber doesn't match : %s != %s", initialMessage.PhoneNumber, decodedMessage.PhoneNumber)
 	}
 
-	// KeyRoles (KeyRole[])
-	if len(initialMessage.KeyRoles) != len(decodedMessage.KeyRoles) {
-		t.Errorf("KeyRoles lengths don't match : %d != %d", len(initialMessage.KeyRoles), len(decodedMessage.KeyRoles))
+	// Administration (Administrator[])
+	if len(initialMessage.Administration) != len(decodedMessage.Administration) {
+		t.Errorf("Administration lengths don't match : %d != %d", len(initialMessage.Administration), len(decodedMessage.Administration))
 	}
 
-	// NotableRoles (NotableRole[])
-	if len(initialMessage.NotableRoles) != len(decodedMessage.NotableRoles) {
-		t.Errorf("NotableRoles lengths don't match : %d != %d", len(initialMessage.NotableRoles), len(decodedMessage.NotableRoles))
+	// Management (Manager[])
+	if len(initialMessage.Management) != len(decodedMessage.Management) {
+		t.Errorf("Management lengths don't match : %d != %d", len(initialMessage.Management), len(decodedMessage.Management))
 	}
 }
 
@@ -727,26 +735,29 @@ func TestContractFormation(t *testing.T) {
 	// ContractName (varchar)
 	initialMessage.ContractName = "Text 0"
 
-	// ContractFileType (uint)
+	// BodyOfAgreementType (uint)
 	// uint test not setup
 
-	// ContractFile (varbin)
-	initialMessage.ContractFile = make([]byte, 0, 32)
+	// BodyOfAgreement (varbin)
+	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
 	for i := uint64(0); i < 32; i++ {
-		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+2))
+		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+2))
 	}
+
+	// ContractType (varchar)
+	initialMessage.ContractType = "Text 3"
 
 	// SupportingDocsFileType (uint)
 	// uint test not setup
 
 	// SupportingDocs (varchar)
-	initialMessage.SupportingDocs = "Text 4"
+	initialMessage.SupportingDocs = "Text 5"
 
 	// GoverningLaw (fixedchar)
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+5))
+			text = append(text, byte(65+i+6))
 		}
 		initialMessage.GoverningLaw = string(text)
 	}
@@ -755,7 +766,7 @@ func TestContractFormation(t *testing.T) {
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+6))
+			text = append(text, byte(65+i+7))
 		}
 		initialMessage.Jurisdiction = string(text)
 	}
@@ -764,10 +775,10 @@ func TestContractFormation(t *testing.T) {
 	initialMessage.ContractExpiration = Timestamp{}
 
 	// ContractURI (varchar)
-	initialMessage.ContractURI = "Text 8"
+	initialMessage.ContractURI = "Text 9"
 
 	// IssuerName (varchar)
-	initialMessage.IssuerName = "Text 9"
+	initialMessage.IssuerName = "Text 10"
 
 	// IssuerType (fixedchar)
 	// fixedchar test not setup
@@ -776,25 +787,25 @@ func TestContractFormation(t *testing.T) {
 	{
 		text := make([]byte, 0, 20)
 		for i := uint64(0); i < 20; i++ {
-			text = append(text, byte(65+i+11))
+			text = append(text, byte(65+i+12))
 		}
 		initialMessage.IssuerLEI = string(text)
 	}
 
 	// IssuerLogoURL (varchar)
-	initialMessage.IssuerLogoURL = "Text 12"
+	initialMessage.IssuerLogoURL = "Text 13"
 
 	// ContractOperatorIncluded (bool)
 	initialMessage.ContractOperatorIncluded = true
 
 	// ContractOperatorID (varchar)
-	initialMessage.ContractOperatorID = "Text 14"
+	initialMessage.ContractOperatorID = "Text 15"
 
 	// OperatorLEI (fixedchar)
 	{
 		text := make([]byte, 0, 20)
 		for i := uint64(0); i < 20; i++ {
-			text = append(text, byte(65+i+15))
+			text = append(text, byte(65+i+16))
 		}
 		initialMessage.OperatorLEI = string(text)
 	}
@@ -830,22 +841,22 @@ func TestContractFormation(t *testing.T) {
 	initialMessage.IssuerAddressIncluded = true
 
 	// UnitNumber (varchar)
-	initialMessage.UnitNumber = "Text 24"
+	initialMessage.UnitNumber = "Text 25"
 
 	// BuildingNumber (varchar)
-	initialMessage.BuildingNumber = "Text 25"
+	initialMessage.BuildingNumber = "Text 26"
 
 	// Street (varchar)
-	initialMessage.Street = "Text 26"
+	initialMessage.Street = "Text 27"
 
 	// SuburbCity (varchar)
-	initialMessage.SuburbCity = "Text 27"
+	initialMessage.SuburbCity = "Text 28"
 
 	// TerritoryStateProvinceCode (fixedchar)
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+28))
+			text = append(text, byte(65+i+29))
 		}
 		initialMessage.TerritoryStateProvinceCode = string(text)
 	}
@@ -854,28 +865,28 @@ func TestContractFormation(t *testing.T) {
 	{
 		text := make([]byte, 0, 3)
 		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+29))
+			text = append(text, byte(65+i+30))
 		}
 		initialMessage.CountryCode = string(text)
 	}
 
 	// PostalZIPCode (varchar)
-	initialMessage.PostalZIPCode = "Text 30"
+	initialMessage.PostalZIPCode = "Text 31"
 
 	// EmailAddress (varchar)
-	initialMessage.EmailAddress = "Text 31"
+	initialMessage.EmailAddress = "Text 32"
 
 	// PhoneNumber (varchar)
-	initialMessage.PhoneNumber = "Text 32"
+	initialMessage.PhoneNumber = "Text 33"
 
-	// KeyRoles (KeyRole[])
+	// Administration (Administrator[])
 	for i := 0; i < 2; i++ {
-		initialMessage.KeyRoles = append(initialMessage.KeyRoles, KeyRole{})
+		initialMessage.Administration = append(initialMessage.Administration, Administrator{})
 	}
 
-	// NotableRoles (NotableRole[])
+	// Management (Manager[])
 	for i := 0; i < 2; i++ {
-		initialMessage.NotableRoles = append(initialMessage.NotableRoles, NotableRole{})
+		initialMessage.Management = append(initialMessage.Management, Manager{})
 	}
 
 	// ContractRevision (uint)
@@ -924,12 +935,17 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("ContractName doesn't match : %s != %s", initialMessage.ContractName, decodedMessage.ContractName)
 	}
 
-	// ContractFileType (uint)
+	// BodyOfAgreementType (uint)
 	// uint test compare not setup
 
-	// ContractFile (varbin)
-	if !bytes.Equal(initialMessage.ContractFile, decodedMessage.ContractFile) {
-		t.Errorf("ContractFile doesn't match : %x != %x", initialMessage.ContractFile, decodedMessage.ContractFile)
+	// BodyOfAgreement (varbin)
+	if !bytes.Equal(initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement) {
+		t.Errorf("BodyOfAgreement doesn't match : %x != %x", initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement)
+	}
+
+	// ContractType (varchar)
+	if initialMessage.ContractType != decodedMessage.ContractType {
+		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
 	// SupportingDocsFileType (uint)
@@ -1066,14 +1082,14 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("PhoneNumber doesn't match : %s != %s", initialMessage.PhoneNumber, decodedMessage.PhoneNumber)
 	}
 
-	// KeyRoles (KeyRole[])
-	if len(initialMessage.KeyRoles) != len(decodedMessage.KeyRoles) {
-		t.Errorf("KeyRoles lengths don't match : %d != %d", len(initialMessage.KeyRoles), len(decodedMessage.KeyRoles))
+	// Administration (Administrator[])
+	if len(initialMessage.Administration) != len(decodedMessage.Administration) {
+		t.Errorf("Administration lengths don't match : %d != %d", len(initialMessage.Administration), len(decodedMessage.Administration))
 	}
 
-	// NotableRoles (NotableRole[])
-	if len(initialMessage.NotableRoles) != len(decodedMessage.NotableRoles) {
-		t.Errorf("NotableRoles lengths don't match : %d != %d", len(initialMessage.NotableRoles), len(decodedMessage.NotableRoles))
+	// Management (Manager[])
+	if len(initialMessage.Management) != len(decodedMessage.Management) {
+		t.Errorf("Management lengths don't match : %d != %d", len(initialMessage.Management), len(decodedMessage.Management))
 	}
 
 	// ContractRevision (uint)
@@ -1371,8 +1387,8 @@ func TestOrder(t *testing.T) {
 	// SupportingEvidenceTxId (TxId)
 	initialMessage.SupportingEvidenceTxId = TxId{}
 
-	// RefTxnID (TxId)
-	initialMessage.RefTxnID = TxId{}
+	// RefTxns (TxId)
+	initialMessage.RefTxns = TxId{}
 
 	// FreezePeriod (Timestamp)
 	initialMessage.FreezePeriod = Timestamp{}
@@ -1461,9 +1477,9 @@ func TestOrder(t *testing.T) {
 		t.Errorf("SupportingEvidenceTxId doesn't match : %v != %v", initialMessage.SupportingEvidenceTxId, decodedMessage.SupportingEvidenceTxId)
 	}
 
-	// RefTxnID (TxId)
-	if initialMessage.RefTxnID != decodedMessage.RefTxnID {
-		t.Errorf("RefTxnID doesn't match : %v != %v", initialMessage.RefTxnID, decodedMessage.RefTxnID)
+	// RefTxns (TxId)
+	if initialMessage.RefTxns != decodedMessage.RefTxns {
+		t.Errorf("RefTxns doesn't match : %v != %v", initialMessage.RefTxns, decodedMessage.RefTxns)
 	}
 
 	// FreezePeriod (Timestamp)

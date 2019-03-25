@@ -35,21 +35,30 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c10"></td>
         </tr>
         <tr>
-            <td class="c9">Contract File Type</td>
-            <td class="c10">ContractFileType</td>
+            <td class="c9">Body of Agreement Type</td>
+            <td class="c10">BodyOfAgreementType</td>
             <td class="c10">1</td>
             <td class="c10">1</td>
-            <td class="c10">1 - SHA-256 Hash, 2 - Markdown file</td>
+            <td class="c10">1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format</td>
             <td class="c10">uint</td>
-            <td class="c10">Contract File - Amendments can be restricted to a vote.</td>
+            <td class="c10">Body of Agreement - Amendments can be restricted to a vote.</td>
         </tr>
         <tr>
-            <td class="c9">Contract File</td>
-            <td class="c10">ContractFile</td>
+            <td class="c9">Body of Agreement</td>
+            <td class="c10">BodyOfAgreement</td>
             <td class="c10">32</td>
             <td class="c10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
-            <td class="c10"><abbr title="SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)">SHA-256 hash of the contract file or markdown data for contract file specific to the smart ...</abbr></td>
+            <td class="c10"><abbr title="SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.">SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the ...</abbr></td>
             <td class="c10">varbin</td>
+            <td class="c10"></td>
+        </tr>
+        <tr>
+            <td class="c9">Contract Type</td>
+            <td class="c10">ContractType</td>
+            <td class="c10">8</td>
+            <td class="c10">Shareholder Agreement</td>
+            <td class="c10"></td>
+            <td class="c10">varchar</td>
             <td class="c10"></td>
         </tr>
         <tr>
@@ -316,15 +325,15 @@ The following breaks down the construction of a Contract Formation Action. The a
         </tr>
         <tr>
             <td class="c5" colspan="7">
-                <a href="javascript:;" data-popover="type-KeyRole">
-                   Key Roles - Click to show content
+                <a href="javascript:;" data-popover="type-Administrator">
+                   Administration - Click to show content
                 </a>
             </td>
         </tr>
         <tr>
             <td class="c5" colspan="7">
-                <a href="javascript:;" data-popover="type-NotableRole">
-                   Notable Roles - Click to show content
+                <a href="javascript:;" data-popover="type-Manager">
+                   Management - Click to show content
                 </a>
             </td>
         </tr>
@@ -370,7 +379,7 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c6"></td>
             <td class="c10">0</td>
             <td class="c10">Contract Public Address</td>
-            <td class="c10"></td>
+            <td class="c10">Required so that users can monitor transactions to the contract for updates to contract/assets.</td>
         </tr>
 
     </table>
@@ -581,7 +590,7 @@ The following breaks down the construction of a Contract Formation Action. The a
     </div>
 </div>
 
-<div class="ui modal" id="type-KeyRole">
+<div class="ui modal" id="type-Administrator">
     <i class="close icon"></i>
     <div class="content docs-content">
         <table class="ui table">
@@ -595,16 +604,16 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
-                <td class="c10">Key Role Type</td>
+                <td class="c10">Administrator Type</td>
                 <td class="c10">Type</td>
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">7</td>
-                <td class="c10">Chairman, Director. Found in 'Roles' in Specification/Resources</td>
+                <td class="c10">Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources</td>
                 <td class="c10">uint</td>
-                <td class="c10">7 - Chairman</td>
+                <td class="c10">7 - Chair</td>
             </tr>
             <tr>
-                <td class="c10">Key Role Name</td>
+                <td class="c10">Administrator Name</td>
                 <td class="c10">Name</td>
                 <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Satoshi Nakamoto</td>
@@ -616,7 +625,7 @@ The following breaks down the construction of a Contract Formation Action. The a
     </div>
 </div>
 
-<div class="ui modal" id="type-NotableRole">
+<div class="ui modal" id="type-Manager">
     <i class="close icon"></i>
     <div class="content docs-content">
         <table class="ui table">
@@ -630,16 +639,16 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
-                <td class="c10">Notable Role Type</td>
+                <td class="c10">Manager Type</td>
                 <td class="c10">Type</td>
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">5</td>
-                <td class="c10">Found in 'Roles' in Specification/Resources</td>
+                <td class="c10">CEO, COO, CFO, etc. Found in 'Roles' in Specification/Resources</td>
                 <td class="c10">uint</td>
                 <td class="c10">5 - CEO</td>
             </tr>
             <tr>
-                <td class="c10">Notable Role Name</td>
+                <td class="c10">Manager Name</td>
                 <td class="c10">Name</td>
                 <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Satoshi Nakamoto</td>
