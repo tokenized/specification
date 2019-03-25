@@ -81,7 +81,7 @@ fields:
   - name: SupportingDocs
     label: Supporting Documentation
     description: ""
-    type: varchar
+    type: varbin
     size: 32
     example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
     example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
@@ -123,33 +123,10 @@ fields:
     example_value: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
     notes: ""
 
-  - name: IssuerName
-    label: Issuer Name
-    description: "Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 0a5465736c6120496e632e
-    example_value: "Tesla Inc."
-    notes: ""
-
-  - name: IssuerType
-    label: Issuer Type
-    description: "P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources)."
-    type: fixedchar
-    size: 1
-    example_hex: 50
-    example_value: "P"
-    notes: "Issuer Type - Amendments can be restricted to a vote."
-
-  - name: IssuerLEI
-    label: Issuer's Legal Entity Identifier
-    description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
-    type: fixedchar
-    size: 20
-    example_hex: 3534393330303834554b4c564d59323244533136
-    example_value: "54930084UKLVMY22DS16"
-    notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
+  - name: Issuer
+    label: Issuer
+    description: "The issuer of this contract."
+    type: Entity
 
   - name: IssuerLogoURL
     label: Issuer Logo URL
@@ -166,27 +143,12 @@ fields:
     description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
     type: bool
     includes:
-      - ContractOperatorID
-      - OperatorLEI
+      - ContractOperator
 
-  - name: ContractOperatorID
-    label: Contract Operator ID
-    description: "Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 09546f6b656e697a6564
-    example_value: "Tokenized"
-    notes: ""
-
-  - name: OperatorLEI
-    label: Operator's Legal Entity Identifier
-    description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
-    type: fixedchar
-    size: 20
-    example_hex: 3534393330303834554b4c564d59323244533136
-    example_value: "54930084UKLVMY22DS16"
-    notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
+  - name: ContractOperator
+    label: Contract Operator
+    description: "An additional entity with operator access to the contract."
+    type: Entity
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags
@@ -199,8 +161,8 @@ fields:
 
   - name: ActionFee
     label: Action Fee
-    description: "The tokens available for payment of action fees. One is required per action and must be included in the action request transaction. i.e. Bitcoin amount or an AUD backed token and amount."
-    type: Fee[]
+    description: "Satoshis required to be paid to the contract for each asset action."
+    type: uint
     size: 8
 
   - name: VotingSystems
@@ -238,118 +200,6 @@ fields:
     label: Registries
     description: "A list Registries"
     type: Registry[]
-
-  - name: IssuerAddressIncluded
-    label: Issuer Address Included
-    description: "Physical/mailing address. False means the \"includes\" fields are skipped in serialization."
-    type: bool
-    includes:
-      - UnitNumber
-      - BuildingNumber
-      - Street
-      - SuburbCity
-      - TerritoryStateProvinceCode
-      - CountryCode
-      - PostalZIPCode
-    notes: "Issuer Details - Can always be amended by issuer/smart contract operator."
-
-  - name: UnitNumber
-    label: Unit Number
-    description: "Issuer Address Details (eg. HQ)"
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 0132
-    example_value: "2"
-    notes: ""
-
-  - name: BuildingNumber
-    label: Building Number
-    description: ""
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 053133353737
-    example_value: "13577"
-    notes: ""
-
-  - name: Street
-    label: Street
-    description: ""
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
-    example_hex: 000c466169726d6f6e7420417665
-    example_value: "Fairmont Ave"
-    notes: ""
-
-  - name: SuburbCity
-    label: Suburb/City
-    description: ""
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 07526f62696e6f68
-    example_value: "Robinoh"
-    notes: ""
-
-  - name: TerritoryStateProvinceCode
-    label: Territory/State/Province Code
-    description: ""
-    type: fixedchar
-    size: 5
-    example_hex: 4243000000
-    example_value: "BC"
-    notes: ""
-
-  - name: CountryCode
-    label: Country Code
-    description: ""
-    type: fixedchar
-    size: 3
-    example_hex: 555341
-    example_value: "USA"
-    notes: ""
-
-  - name: PostalZIPCode
-    label: Postal/ZIP Code
-    description: ""
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 053530323130
-    example_value: "50210"
-    notes: ""
-
-  - name: EmailAddress
-    label: Email Address
-    description: "Address for text-based communication: eg. email address, Bitcoin address"
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 136a616d657340746f6b656e697a65642e636f6d
-    example_value: "james@tokenized.com"
-    notes: ""
-
-  - name: PhoneNumber
-    label: Phone Number
-    description: "Phone Number for Entity. Max acceptable size: 50."
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 0a30343438343834383438
-    example_value: "0448484848"
-    notes: ""
-
-  - name: Administration
-    label: Administration
-    description: "A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc."
-    type: Administrator[]
-
-  - name: Management
-    label: Management
-    description: "A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc."
-    type: Manager[]
 
   - name: ContractRevision
     label: Contract Revision

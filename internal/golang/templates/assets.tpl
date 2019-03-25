@@ -76,10 +76,6 @@ func (m *{{.Name}}) Serialize() ([]byte, error) {
 	if err := WriteVarBin(buf, m.{{.Name}}, {{.Length}}); err != nil {
 		return nil, err
 	}
-{{- else if .IsPushDataLength }}
-	if err := write(buf, PushDataScript(m.{{.Name}})); err != nil {
-		return nil, err
-	}
 {{- else if .IsInternalTypeArray }}
 	if err := WriteVariableSize(buf, uint64(len(m.{{.Name}})), {{.Length}}, 8); err != nil {
 		return nil, err
@@ -143,14 +139,6 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 		m.{{.FieldName}}, err = ReadVarBin(buf, {{.Length}})
 		if err != nil {
 			return 0, err
-		}
-	}
-{{- else if .IsPushDataLength }}
-	{
-		var err error
-		m.{{.Name}}, err = ParsePushDataScript(buf)
-		if err != nil {
-			return err
 		}
 	}
 {{- else if .IsInternalTypeArray }}

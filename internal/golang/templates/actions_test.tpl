@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 {{range .}}
@@ -75,12 +77,12 @@ func Test{{.Name}}(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -120,7 +122,7 @@ func Test{{.Name}}(t *testing.T) {
 			t.Errorf("{{ $field.FieldName }} value %d doesn't match : %v != %v", i, value, decodedMessage.{{ $field.FieldName }}[i])
 		}
 	}
-		{{- else if .IsInternalType }}
+		{{- else if .IsNativeType }}
 	if initialMessage.{{ $field.FieldName }} != decodedMessage.{{ $field.FieldName }} {
 		t.Errorf("{{ $field.FieldName }} doesn't match : %v != %v", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
 	}

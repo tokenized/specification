@@ -195,12 +195,6 @@ func (action *{{.Name}}) write(b []byte) (int, error) {
 		if err != nil {
 			return 0, err
 		}
-{{- else if .IsPushDataLength }}
-		var err error
-		action.{{.Name}}, err = ParsePushDataScript(buf)
-		if err != nil {
-			return err
-		}
 {{- else if .IsInternalTypeArray }}
 		size, err := ReadVariableSize(buf, {{.Length}}, 8)
 		if err != nil {

@@ -242,8 +242,8 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier</td>
             </tr>
             <tr>
-                <td class="c10">Entity Address</td>
-                <td class="c10">Address</td>
+                <td class="c10">Address Included</td>
+                <td class="c10">AddressIncluded</td>
                 <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all">1</td>
                 <td class="c10">Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.</td>

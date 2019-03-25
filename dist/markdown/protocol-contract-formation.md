@@ -76,7 +76,7 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c10">32</td>
             <td class="c10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
             <td class="c10"></td>
-            <td class="c10">varchar</td>
+            <td class="c10">varbin</td>
             <td class="c10">File of all supporting documents that are important to the contract.</td>
         </tr>
         <tr>
@@ -114,31 +114,11 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c10"></td>
         </tr>
         <tr>
-            <td class="c9">Issuer Name</td>
-            <td class="c10">IssuerName</td>
-            <td class="c10">8</td>
-            <td class="c10">Tesla Inc.</td>
-            <td class="c10"><abbr title="Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. ">Length 0-255 bytes. 0 is not valid. Issuing entity (company, organization, individual).  C ...</abbr></td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Issuer Type</td>
-            <td class="c10">IssuerType</td>
-            <td class="c10">1</td>
-            <td class="c10">P</td>
-            <td class="c10"><abbr title="P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individua ...</abbr></td>
-            <td class="c10">fixedchar</td>
-            <td class="c10">Issuer Type - Amendments can be restricted to a vote.</td>
-        </tr>
-        <tr>
-            <td class="c9">Issuer's Legal Entity Identifier</td>
-            <td class="c10">IssuerLEI</td>
-            <td class="c10">20</td>
-            <td class="c10">54930084UKLVMY22DS16</td>
-            <td class="c10"><abbr title="Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.">Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up o ...</abbr></td>
-            <td class="c10">fixedchar</td>
-            <td class="c10">ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier</td>
+            <td class="c5" colspan="7">
+                <a href="javascript:;" data-popover="type-Entity">
+                   Issuer - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="c9">Issuer Logo URL</td>
@@ -159,22 +139,11 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c10"></td>
         </tr>
         <tr>
-            <td class="c9">Contract Operator ID</td>
-            <td class="c10">ContractOperatorID</td>
-            <td class="c10">8</td>
-            <td class="c10">Tokenized</td>
-            <td class="c10"><abbr title="Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer.">Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique iden ...</abbr></td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Operator's Legal Entity Identifier</td>
-            <td class="c10">OperatorLEI</td>
-            <td class="c10">20</td>
-            <td class="c10">54930084UKLVMY22DS16</td>
-            <td class="c10"><abbr title="Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.">Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up o ...</abbr></td>
-            <td class="c10">fixedchar</td>
-            <td class="c10">ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier</td>
+            <td class="c5" colspan="7">
+                <a href="javascript:;" data-popover="type-Entity">
+                   Contract Operator - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="c9">Contract Authorization Flags</td>
@@ -186,11 +155,13 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c10">Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.</td>
         </tr>
         <tr>
-            <td class="c5" colspan="7">
-                <a href="javascript:;" data-popover="type-Fee">
-                   Action Fee - Click to show content
-                </a>
-            </td>
+            <td class="c9">Action Fee</td>
+            <td class="c10">ActionFee</td>
+            <td class="c10">8</td>
+            <td class="c10"></td>
+            <td class="c10">Satoshis required to be paid to the contract for each asset action.</td>
+            <td class="c10">uint</td>
+            <td class="c10"></td>
         </tr>
         <tr>
             <td class="c5" colspan="7">
@@ -230,110 +201,6 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c5" colspan="7">
                 <a href="javascript:;" data-popover="type-Registry">
                    Registries - Click to show content
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="c9">Issuer Address Included</td>
-            <td class="c10">IssuerAddressIncluded</td>
-            <td class="c10">0</td>
-            <td class="c10"></td>
-            <td class="c10">Physical/mailing address. False means the "includes" fields are skipped in serialization.</td>
-            <td class="c10">bool</td>
-            <td class="c10">Issuer Details - Can always be amended by issuer/smart contract operator.</td>
-        </tr>
-        <tr>
-            <td class="c9">Unit Number</td>
-            <td class="c10">UnitNumber</td>
-            <td class="c10">8</td>
-            <td class="c10">2</td>
-            <td class="c10">Issuer Address Details (eg. HQ)</td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Building Number</td>
-            <td class="c10">BuildingNumber</td>
-            <td class="c10">8</td>
-            <td class="c10">13577</td>
-            <td class="c10"></td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Street</td>
-            <td class="c10">Street</td>
-            <td class="c10">16</td>
-            <td class="c10">Fairmont Ave</td>
-            <td class="c10"></td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Suburb/City</td>
-            <td class="c10">SuburbCity</td>
-            <td class="c10">8</td>
-            <td class="c10">Robinoh</td>
-            <td class="c10"></td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Territory/State/Province Code</td>
-            <td class="c10">TerritoryStateProvinceCode</td>
-            <td class="c10">5</td>
-            <td class="c10">BC</td>
-            <td class="c10"></td>
-            <td class="c10">fixedchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Country Code</td>
-            <td class="c10">CountryCode</td>
-            <td class="c10">3</td>
-            <td class="c10">USA</td>
-            <td class="c10"></td>
-            <td class="c10">fixedchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Postal/ZIP Code</td>
-            <td class="c10">PostalZIPCode</td>
-            <td class="c10">8</td>
-            <td class="c10">50210</td>
-            <td class="c10"></td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Email Address</td>
-            <td class="c10">EmailAddress</td>
-            <td class="c10">8</td>
-            <td class="c10">james@tokenized.com</td>
-            <td class="c10">Address for text-based communication: eg. email address, Bitcoin address</td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c9">Phone Number</td>
-            <td class="c10">PhoneNumber</td>
-            <td class="c10">8</td>
-            <td class="c10">0448484848</td>
-            <td class="c10">Phone Number for Entity. Max acceptable size: 50.</td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
-            <td class="c5" colspan="7">
-                <a href="javascript:;" data-popover="type-Administrator">
-                   Administration - Click to show content
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="c5" colspan="7">
-                <a href="javascript:;" data-popover="type-Manager">
-                   Management - Click to show content
                 </a>
             </td>
         </tr>
@@ -404,7 +271,7 @@ The following breaks down the construction of a Contract Formation Action. The a
     </div>
 </div>
 
-<div class="ui modal" id="type-Fee">
+<div class="ui modal" id="type-Entity">
     <i class="close icon"></i>
     <div class="content docs-content">
         <table class="ui table">
@@ -418,39 +285,290 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
-                <td class="c10">Contract</td>
-                <td class="c10">Contract</td>
-                <td class="c10">0</td>
-                <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">Public key hash of the contract address controlling the asset.</td>
-                <td class="c10">PublicKeyHash</td>
+                <td class="c10">Name</td>
+                <td class="c10">Name</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">Tesla Inc.</td>
+                <td class="c10">Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. </td>
+                <td class="c10">varchar</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Asset Type</td>
-                <td class="c10">AssetType</td>
-                <td class="c10">3</td>
-                <td class="c10" style="word-break:break-all">SHC</td>
-                <td class="c10">eg. Share - Common</td>
+                <td class="c10">Type</td>
+                <td class="c10">Type</td>
+                <td class="c10">1</td>
+                <td class="c10" style="word-break:break-all">P</td>
+                <td class="c10">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).</td>
                 <td class="c10">fixedchar</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Asset Code</td>
-                <td class="c10">AssetCode</td>
-                <td class="c10">0</td>
-                <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">32 randomly generated bytes.  Each Asset Code should be unique.  However, an Asset Code is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset Code = Asset Code.  An Asset Code is a human readable identifier that can be used in a similar way to a Bitcoin (BSV) address.</td>
-                <td class="c10">AssetCode</td>
-                <td class="c10">Cannot be changed by issuer, operator or smart contract.</td>
+                <td class="c10">Legal Entity Identifier</td>
+                <td class="c10">LEI</td>
+                <td class="c10">20</td>
+                <td class="c10" style="word-break:break-all">54930084UKLVMY22DS16</td>
+                <td class="c10">Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.</td>
+                <td class="c10">fixedchar</td>
+                <td class="c10">ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier</td>
             </tr>
             <tr>
-                <td class="c10">Fixed Rate</td>
-                <td class="c10">FixedRate</td>
+                <td class="c10">Address Included</td>
+                <td class="c10">AddressIncluded</td>
+                <td class="c10">0</td>
+                <td class="c10" style="word-break:break-all">1</td>
+                <td class="c10">Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.</td>
+                <td class="c10">bool</td>
+                <td class="c10">Entity/Contracting Party X Details</td>
+            </tr>
+            <tr>
+                <td class="c10">Unit Number</td>
+                <td class="c10">UnitNumber</td>
                 <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">2</td>
+                <td class="c10">Issuer/Entity/Contracting Party X Address Details (eg. HQ)</td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Building Number</td>
+                <td class="c10">BuildingNumber</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">13577</td>
+                <td class="c10"></td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Street</td>
+                <td class="c10">Street</td>
+                <td class="c10">16</td>
+                <td class="c10" style="word-break:break-all">Fairmont Ave</td>
+                <td class="c10"></td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Suburb/City</td>
+                <td class="c10">SuburbCity</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">Robinoh</td>
+                <td class="c10"></td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Territory/State/Province Code</td>
+                <td class="c10">TerritoryStateProvinceCode</td>
+                <td class="c10">5</td>
+                <td class="c10" style="word-break:break-all">BC</td>
+                <td class="c10"></td>
+                <td class="c10">fixedchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Country Code</td>
+                <td class="c10">CountryCode</td>
+                <td class="c10">3</td>
+                <td class="c10" style="word-break:break-all">USA</td>
+                <td class="c10"></td>
+                <td class="c10">fixedchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Postal/ZIP Code</td>
+                <td class="c10">PostalZIPCode</td>
+                <td class="c10">12</td>
+                <td class="c10" style="word-break:break-all">50210</td>
+                <td class="c10"></td>
+                <td class="c10">fixedchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Email Address</td>
+                <td class="c10">EmailAddress</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">satoshi@tokenized.com</td>
+                <td class="c10">Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address</td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Phone Number</td>
+                <td class="c10">PhoneNumber</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">0448484848</td>
+                <td class="c10">Length 0-50 bytes. 0 is valid. Phone Number for Entity.</td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Administration</td>
+                <td class="c10">Administration</td>
+                <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">Fixed number of tokens of specified asset required for the fee.</td>
-                <td class="c10">uint</td>
+                <td class="c10">A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc.</td>
+                <td class="c10">Administrator[]</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Management</td>
+                <td class="c10">Management</td>
+                <td class="c10">0</td>
+                <td class="c10" style="word-break:break-all"></td>
+                <td class="c10">A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc.</td>
+                <td class="c10">Manager[]</td>
+                <td class="c10"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="ui modal" id="type-Entity">
+    <i class="close icon"></i>
+    <div class="content docs-content">
+        <table class="ui table">
+            <tr style='height:19px;'>
+                <th style="width:5%" class="s1">Label</th>
+                <th style="width:9%" class="s1">Name</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
+                <th style="width:26%" class="s1">Comments</th>
+                <th style="width:5%" class="s1">Data Type</th>
+                <th class="s2">Amendment Restrictions</th>
+            </tr>
+            <tr>
+                <td class="c10">Name</td>
+                <td class="c10">Name</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">Tesla Inc.</td>
+                <td class="c10">Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. </td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Type</td>
+                <td class="c10">Type</td>
+                <td class="c10">1</td>
+                <td class="c10" style="word-break:break-all">P</td>
+                <td class="c10">P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).</td>
+                <td class="c10">fixedchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Legal Entity Identifier</td>
+                <td class="c10">LEI</td>
+                <td class="c10">20</td>
+                <td class="c10" style="word-break:break-all">54930084UKLVMY22DS16</td>
+                <td class="c10">Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.</td>
+                <td class="c10">fixedchar</td>
+                <td class="c10">ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier</td>
+            </tr>
+            <tr>
+                <td class="c10">Address Included</td>
+                <td class="c10">AddressIncluded</td>
+                <td class="c10">0</td>
+                <td class="c10" style="word-break:break-all">1</td>
+                <td class="c10">Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.</td>
+                <td class="c10">bool</td>
+                <td class="c10">Entity/Contracting Party X Details</td>
+            </tr>
+            <tr>
+                <td class="c10">Unit Number</td>
+                <td class="c10">UnitNumber</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">2</td>
+                <td class="c10">Issuer/Entity/Contracting Party X Address Details (eg. HQ)</td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Building Number</td>
+                <td class="c10">BuildingNumber</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">13577</td>
+                <td class="c10"></td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Street</td>
+                <td class="c10">Street</td>
+                <td class="c10">16</td>
+                <td class="c10" style="word-break:break-all">Fairmont Ave</td>
+                <td class="c10"></td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Suburb/City</td>
+                <td class="c10">SuburbCity</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">Robinoh</td>
+                <td class="c10"></td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Territory/State/Province Code</td>
+                <td class="c10">TerritoryStateProvinceCode</td>
+                <td class="c10">5</td>
+                <td class="c10" style="word-break:break-all">BC</td>
+                <td class="c10"></td>
+                <td class="c10">fixedchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Country Code</td>
+                <td class="c10">CountryCode</td>
+                <td class="c10">3</td>
+                <td class="c10" style="word-break:break-all">USA</td>
+                <td class="c10"></td>
+                <td class="c10">fixedchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Postal/ZIP Code</td>
+                <td class="c10">PostalZIPCode</td>
+                <td class="c10">12</td>
+                <td class="c10" style="word-break:break-all">50210</td>
+                <td class="c10"></td>
+                <td class="c10">fixedchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Email Address</td>
+                <td class="c10">EmailAddress</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">satoshi@tokenized.com</td>
+                <td class="c10">Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address</td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Phone Number</td>
+                <td class="c10">PhoneNumber</td>
+                <td class="c10">8</td>
+                <td class="c10" style="word-break:break-all">0448484848</td>
+                <td class="c10">Length 0-50 bytes. 0 is valid. Phone Number for Entity.</td>
+                <td class="c10">varchar</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Administration</td>
+                <td class="c10">Administration</td>
+                <td class="c10">0</td>
+                <td class="c10" style="word-break:break-all"></td>
+                <td class="c10">A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc.</td>
+                <td class="c10">Administrator[]</td>
+                <td class="c10"></td>
+            </tr>
+            <tr>
+                <td class="c10">Management</td>
+                <td class="c10">Management</td>
+                <td class="c10">0</td>
+                <td class="c10" style="word-break:break-all"></td>
+                <td class="c10">A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc.</td>
+                <td class="c10">Manager[]</td>
                 <td class="c10"></td>
             </tr>
         </table>
@@ -584,76 +702,6 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10" style="word-break:break-all"></td>
                 <td class="c10">Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.</td>
                 <td class="c10">PublicKeyHash</td>
-                <td class="c10"></td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div class="ui modal" id="type-Administrator">
-    <i class="close icon"></i>
-    <div class="content docs-content">
-        <table class="ui table">
-            <tr style='height:19px;'>
-                <th style="width:5%" class="s1">Label</th>
-                <th style="width:9%" class="s1">Name</th>
-                <th style="width:3%" class="s1">Bytes</th>
-                <th style="width:33%" class="s1">Example Values</th>
-                <th style="width:26%" class="s1">Comments</th>
-                <th style="width:5%" class="s1">Data Type</th>
-                <th class="s2">Amendment Restrictions</th>
-            </tr>
-            <tr>
-                <td class="c10">Administrator Type</td>
-                <td class="c10">Type</td>
-                <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">7</td>
-                <td class="c10">Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources</td>
-                <td class="c10">uint</td>
-                <td class="c10">7 - Chair</td>
-            </tr>
-            <tr>
-                <td class="c10">Administrator Name</td>
-                <td class="c10">Name</td>
-                <td class="c10">8</td>
-                <td class="c10" style="word-break:break-all">Satoshi Nakamoto</td>
-                <td class="c10">Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)</td>
-                <td class="c10">varchar</td>
-                <td class="c10"></td>
-            </tr>
-        </table>
-    </div>
-</div>
-
-<div class="ui modal" id="type-Manager">
-    <i class="close icon"></i>
-    <div class="content docs-content">
-        <table class="ui table">
-            <tr style='height:19px;'>
-                <th style="width:5%" class="s1">Label</th>
-                <th style="width:9%" class="s1">Name</th>
-                <th style="width:3%" class="s1">Bytes</th>
-                <th style="width:33%" class="s1">Example Values</th>
-                <th style="width:26%" class="s1">Comments</th>
-                <th style="width:5%" class="s1">Data Type</th>
-                <th class="s2">Amendment Restrictions</th>
-            </tr>
-            <tr>
-                <td class="c10">Manager Type</td>
-                <td class="c10">Type</td>
-                <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">5</td>
-                <td class="c10">CEO, COO, CFO, etc. Found in 'Roles' in Specification/Resources</td>
-                <td class="c10">uint</td>
-                <td class="c10">5 - CEO</td>
-            </tr>
-            <tr>
-                <td class="c10">Manager Name</td>
-                <td class="c10">Name</td>
-                <td class="c10">8</td>
-                <td class="c10" style="word-break:break-all">Satoshi Nakamoto</td>
-                <td class="c10">Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)</td>
-                <td class="c10">varchar</td>
                 <td class="c10"></td>
             </tr>
         </table>

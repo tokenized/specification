@@ -51,6 +51,20 @@ func (m *Administrator) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+func (m *Administrator) Equal(other Administrator) bool {
+
+	// Type (uint8)
+	if m.Type != other.Type {
+		return false
+	}
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+	return true
+}
+
 // Amendment An Amendment is used to describe the modification of a single
 // field in a Contract or Asset, as defined in the ContractFormation and
 // AssetCreation messages.
@@ -130,6 +144,35 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 		}
 	}
 	return nil
+}
+
+func (m *Amendment) Equal(other Amendment) bool {
+
+	// FieldIndex (uint8)
+	if m.FieldIndex != other.FieldIndex {
+		return false
+	}
+
+	// Element (uint16)
+	if m.Element != other.Element {
+		return false
+	}
+
+	// SubfieldIndex (uint8)
+	if m.SubfieldIndex != other.SubfieldIndex {
+		return false
+	}
+
+	// Operation (uint8)
+	if m.Operation != other.Operation {
+		return false
+	}
+
+	// Data (string)
+	if m.Data != other.Data {
+		return false
+	}
+	return true
 }
 
 // AssetSettlement AssetSettlement is the data required to settle an asset
@@ -228,6 +271,38 @@ func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
 		}
 	}
 	return nil
+}
+
+func (m *AssetSettlement) Equal(other AssetSettlement) bool {
+
+	// ContractIndex (uint16)
+	if m.ContractIndex != other.ContractIndex {
+		return false
+	}
+
+	// AssetType (string)
+	if m.AssetType != other.AssetType {
+		return false
+	}
+
+	// AssetCode (AssetCode)
+	if !m.AssetCode.Equal(other.AssetCode) {
+		return false
+	}
+
+	// Settlements ([]QuantityIndex)
+	if len(m.Settlements) != 0 || len(other.Settlements) != 0 {
+		if len(m.Settlements) != len(other.Settlements) {
+			return false
+		}
+
+		for i, value := range m.Settlements {
+			if !value.Equal(other.Settlements[i]) {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 // AssetTransfer AssetTransfer is the data required to transfer an asset.
@@ -360,13 +435,58 @@ func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+func (m *AssetTransfer) Equal(other AssetTransfer) bool {
+
+	// ContractIndex (uint16)
+	if m.ContractIndex != other.ContractIndex {
+		return false
+	}
+
+	// AssetType (string)
+	if m.AssetType != other.AssetType {
+		return false
+	}
+
+	// AssetCode (AssetCode)
+	if !m.AssetCode.Equal(other.AssetCode) {
+		return false
+	}
+
+	// AssetSenders ([]QuantityIndex)
+	if len(m.AssetSenders) != 0 || len(other.AssetSenders) != 0 {
+		if len(m.AssetSenders) != len(other.AssetSenders) {
+			return false
+		}
+
+		for i, value := range m.AssetSenders {
+			if !value.Equal(other.AssetSenders[i]) {
+				return false
+			}
+		}
+	}
+
+	// AssetReceivers ([]TokenReceiver)
+	if len(m.AssetReceivers) != 0 || len(other.AssetReceivers) != 0 {
+		if len(m.AssetReceivers) != len(other.AssetReceivers) {
+			return false
+		}
+
+		for i, value := range m.AssetReceivers {
+			if !value.Equal(other.AssetReceivers[i]) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
 // Entity Entity represents the details of a legal Entity, such as a public
 // or private company, government agency, or and individual.
 type Entity struct {
 	Name                       string          `json:"name,omitempty"`                          // Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
 	Type                       byte            `json:"type,omitempty"`                          // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
 	LEI                        string          `json:"lei,omitempty"`                           // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
-	Address                    bool            `json:"address,omitempty"`                       // Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
+	AddressIncluded            bool            `json:"address_included,omitempty"`              // Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
 	UnitNumber                 string          `json:"unit_number,omitempty"`                   // Issuer/Entity/Contracting Party X Address Details (eg. HQ)
 	BuildingNumber             string          `json:"building_number,omitempty"`               //
 	Street                     string          `json:"street,omitempty"`                        //
@@ -405,8 +525,8 @@ func (m Entity) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// Address (bool)
-	if err := write(buf, m.Address); err != nil {
+	// AddressIncluded (bool)
+	if err := write(buf, m.AddressIncluded); err != nil {
 		return nil, err
 	}
 
@@ -512,8 +632,8 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 		}
 	}
 
-	// Address (bool)
-	if err := read(buf, &m.Address); err != nil {
+	// AddressIncluded (bool)
+	if err := read(buf, &m.AddressIncluded); err != nil {
 		return err
 	}
 
@@ -634,86 +754,99 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// Fee Fee is the data needed to specify a fee required for a service.
-type Fee struct {
-	Contract  PublicKeyHash `json:"contract,omitempty"`   // Public key hash of the contract address controlling the asset.
-	AssetType string        `json:"asset_type,omitempty"` // eg. Share - Common
-	AssetCode AssetCode     `json:"asset_code,omitempty"` // 32 randomly generated bytes.  Each Asset Code should be unique.  However, an Asset Code is always linked to a Contract that is identified by the public address of the Contract wallet. The Asset Type + Asset Code = Asset Code.  An Asset Code is a human readable identifier that can be used in a similar way to a Bitcoin (BSV) address.
-	FixedRate uint64        `json:"fixed_rate,omitempty"` // Fixed number of tokens of specified asset required for the fee.
-}
+func (m *Entity) Equal(other Entity) bool {
 
-// NewFee returns a new Fee with defaults set.
-func NewFee() *Fee {
-	result := Fee{}
-	return &result
-}
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
 
-// Serialize returns the byte representation of the message.
-func (m Fee) Serialize() ([]byte, error) {
-	buf := new(bytes.Buffer)
+	// Type (byte)
+	if m.Type != other.Type {
+		return false
+	}
 
-	// Contract (PublicKeyHash)
-	{
-		b, err := m.Contract.Serialize()
-		if err != nil {
-			return nil, err
+	// LEI (string)
+	if m.LEI != other.LEI {
+		return false
+	}
+
+	// AddressIncluded (bool)
+	if m.AddressIncluded != other.AddressIncluded {
+		return false
+	}
+
+	// UnitNumber (string)
+	if m.UnitNumber != other.UnitNumber {
+		return false
+	}
+
+	// BuildingNumber (string)
+	if m.BuildingNumber != other.BuildingNumber {
+		return false
+	}
+
+	// Street (string)
+	if m.Street != other.Street {
+		return false
+	}
+
+	// SuburbCity (string)
+	if m.SuburbCity != other.SuburbCity {
+		return false
+	}
+
+	// TerritoryStateProvinceCode (string)
+	if m.TerritoryStateProvinceCode != other.TerritoryStateProvinceCode {
+		return false
+	}
+
+	// CountryCode (string)
+	if m.CountryCode != other.CountryCode {
+		return false
+	}
+
+	// PostalZIPCode (string)
+	if m.PostalZIPCode != other.PostalZIPCode {
+		return false
+	}
+
+	// EmailAddress (string)
+	if m.EmailAddress != other.EmailAddress {
+		return false
+	}
+
+	// PhoneNumber (string)
+	if m.PhoneNumber != other.PhoneNumber {
+		return false
+	}
+
+	// Administration ([]Administrator)
+	if len(m.Administration) != 0 || len(other.Administration) != 0 {
+		if len(m.Administration) != len(other.Administration) {
+			return false
 		}
 
-		if err := write(buf, b); err != nil {
-			return nil, err
+		for i, value := range m.Administration {
+			if !value.Equal(other.Administration[i]) {
+				return false
+			}
 		}
 	}
 
-	// AssetType (string)
-	if err := WriteFixedChar(buf, m.AssetType, 3); err != nil {
-		return nil, err
-	}
-
-	// AssetCode (AssetCode)
-	{
-		b, err := m.AssetCode.Serialize()
-		if err != nil {
-			return nil, err
+	// Management ([]Manager)
+	if len(m.Management) != 0 || len(other.Management) != 0 {
+		if len(m.Management) != len(other.Management) {
+			return false
 		}
 
-		if err := write(buf, b); err != nil {
-			return nil, err
+		for i, value := range m.Management {
+			if !value.Equal(other.Management[i]) {
+				return false
+			}
 		}
 	}
-
-	// FixedRate (uint64)
-	if err := write(buf, m.FixedRate); err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
-}
-
-func (m *Fee) Write(buf *bytes.Buffer) error {
-
-	// Contract (PublicKeyHash)
-	if err := m.Contract.Write(buf); err != nil {
-		return err
-	}
-
-	// AssetType (string)
-	{
-		var err error
-		m.AssetType, err = ReadFixedChar(buf, 3)
-		if err != nil {
-			return err
-		}
-	}
-
-	// AssetCode (AssetCode)
-	if err := m.AssetCode.Write(buf); err != nil {
-		return err
-	}
-
-	// FixedRate (uint64)
-	if err := read(buf, &m.FixedRate); err != nil {
-		return err
-	}
-	return nil
+	return true
 }
 
 // Header Header contains common details required by every Tokenized
@@ -735,6 +868,10 @@ func (m Header) Serialize() ([]byte, error) {
 
 func (m *Header) Write(buf *bytes.Buffer) error {
 	return nil
+}
+
+func (m *Header) Equal(other Header) bool {
+	return true
 }
 
 // Manager Manager is used to refer to a role that is responsible for the
@@ -786,6 +923,20 @@ func (m *Manager) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+func (m *Manager) Equal(other Manager) bool {
+
+	// Type (uint8)
+	if m.Type != other.Type {
+		return false
+	}
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+	return true
+}
+
 // QuantityIndex A QuantityIndex contains a quantity, and an index. The
 // quantity could be used to describe a number of tokens, or a value. The
 // index is used to refer to an input index position.
@@ -828,6 +979,20 @@ func (m *QuantityIndex) Write(buf *bytes.Buffer) error {
 		return err
 	}
 	return nil
+}
+
+func (m *QuantityIndex) Equal(other QuantityIndex) bool {
+
+	// Index (uint16)
+	if m.Index != other.Index {
+		return false
+	}
+
+	// Quantity (uint64)
+	if m.Quantity != other.Quantity {
+		return false
+	}
+	return true
 }
 
 // Registry A Registry defines the details of a public Registry.
@@ -898,6 +1063,25 @@ func (m *Registry) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+func (m *Registry) Equal(other Registry) bool {
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+
+	// URL (string)
+	if m.URL != other.URL {
+		return false
+	}
+
+	// PublicKey (PublicKeyHash)
+	if !m.PublicKey.Equal(other.PublicKey) {
+		return false
+	}
+	return true
+}
+
 // TargetAddress A TargetAddress defines a public address and quantity.
 type TargetAddress struct {
 	Address  PublicKeyHash `json:"address,omitempty"`  // Public address where the token balance will be changed.
@@ -945,6 +1129,20 @@ func (m *TargetAddress) Write(buf *bytes.Buffer) error {
 		return err
 	}
 	return nil
+}
+
+func (m *TargetAddress) Equal(other TargetAddress) bool {
+
+	// Address (PublicKeyHash)
+	if !m.Address.Equal(other.Address) {
+		return false
+	}
+
+	// Quantity (uint64)
+	if m.Quantity != other.Quantity {
+		return false
+	}
+	return true
 }
 
 // TokenReceiver A TokenReceiver is contains a quantity, index, and
@@ -1017,6 +1215,30 @@ func (m *TokenReceiver) Write(buf *bytes.Buffer) error {
 		}
 	}
 	return nil
+}
+
+func (m *TokenReceiver) Equal(other TokenReceiver) bool {
+
+	// Index (uint16)
+	if m.Index != other.Index {
+		return false
+	}
+
+	// Quantity (uint64)
+	if m.Quantity != other.Quantity {
+		return false
+	}
+
+	// RegistrySigAlgorithm (uint8)
+	if m.RegistrySigAlgorithm != other.RegistrySigAlgorithm {
+		return false
+	}
+
+	// RegistryConfirmationSigToken (string)
+	if m.RegistryConfirmationSigToken != other.RegistryConfirmationSigToken {
+		return false
+	}
+	return true
 }
 
 // VotingSystem A VotingSystem defines all details of a Voting System.
@@ -1133,4 +1355,48 @@ func (m *VotingSystem) Write(buf *bytes.Buffer) error {
 		}
 	}
 	return nil
+}
+
+func (m *VotingSystem) Equal(other VotingSystem) bool {
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+
+	// System ([8]byte)
+	if m.System != other.System {
+		return false
+	}
+
+	// Method (byte)
+	if m.Method != other.Method {
+		return false
+	}
+
+	// Logic (byte)
+	if m.Logic != other.Logic {
+		return false
+	}
+
+	// ThresholdPercentage (uint8)
+	if m.ThresholdPercentage != other.ThresholdPercentage {
+		return false
+	}
+
+	// VoteMultiplierPermitted (byte)
+	if m.VoteMultiplierPermitted != other.VoteMultiplierPermitted {
+		return false
+	}
+
+	// InitiativeThreshold (float32)
+	if m.InitiativeThreshold != other.InitiativeThreshold {
+		return false
+	}
+
+	// InitiativeThresholdCurrency (string)
+	if m.InitiativeThresholdCurrency != other.InitiativeThresholdCurrency {
+		return false
+	}
+	return true
 }

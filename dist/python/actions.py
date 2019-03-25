@@ -128,37 +128,22 @@ class Action_ContractOffer(ActionBase):
         'BodyOfAgreement':                 [1, DAT_varbin, 32],
         'ContractType':                    [2, DAT_varchar, 8],
         'SupportingDocsFileType':          [3, DAT_uint, 1],
-        'SupportingDocs':                  [4, DAT_varchar, 32],
+        'SupportingDocs':                  [4, DAT_varbin, 32],
         'GoverningLaw':                    [5, DAT_fixedchar, 5],
         'Jurisdiction':                    [6, DAT_fixedchar, 5],
         'ContractExpiration':              [7, DAT_Timestamp, 0],
         'ContractURI':                     [8, DAT_varchar, 8],
-        'IssuerName':                      [9, DAT_varchar, 8],
-        'IssuerType':                      [10, DAT_fixedchar, 1],
-        'IssuerLEI':                       [11, DAT_fixedchar, 20],
-        'IssuerLogoURL':                   [12, DAT_varchar, 8],
-        'ContractOperatorIncluded':        [13, DAT_bool, 0],
-        'ContractOperatorID':              [14, DAT_varchar, 8],
-        'OperatorLEI':                     [15, DAT_fixedchar, 20],
-        'ContractAuthFlags':               [16, DAT_bin, 16],
-        'ActionFee':                       [17, DAT_Fee[], 8],
-        'VotingSystems':                   [18, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [19, DAT_uint, 8],
-        'ReferendumProposal':              [20, DAT_bool, 0],
-        'InitiativeProposal':              [21, DAT_bool, 0],
-        'Registries':                      [22, DAT_Registry[], 0],
-        'IssuerAddressIncluded':           [23, DAT_bool, 0],
-        'UnitNumber':                      [24, DAT_varchar, 8],
-        'BuildingNumber':                  [25, DAT_varchar, 8],
-        'Street':                          [26, DAT_varchar, 16],
-        'SuburbCity':                      [27, DAT_varchar, 8],
-        'TerritoryStateProvinceCode':      [28, DAT_fixedchar, 5],
-        'CountryCode':                     [29, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [30, DAT_varchar, 8],
-        'EmailAddress':                    [31, DAT_varchar, 8],
-        'PhoneNumber':                     [32, DAT_varchar, 8],
-        'Administration':                  [33, DAT_Administrator[], 0],
-        'Management':                      [34, DAT_Manager[], 0]
+        'Issuer':                          [9, DAT_Entity, 0],
+        'IssuerLogoURL':                   [10, DAT_varchar, 8],
+        'ContractOperatorIncluded':        [11, DAT_bool, 0],
+        'ContractOperator':                [12, DAT_Entity, 0],
+        'ContractAuthFlags':               [13, DAT_bin, 16],
+        'ActionFee':                       [14, DAT_uint, 8],
+        'VotingSystems':                   [15, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [16, DAT_uint, 8],
+        'ReferendumProposal':              [17, DAT_bool, 0],
+        'InitiativeProposal':              [18, DAT_bool, 0],
+        'Registries':                      [19, DAT_Registry[], 0]
     }
 
     rules = {
@@ -176,13 +161,10 @@ class Action_ContractOffer(ActionBase):
         self.Jurisdiction = None
         self.ContractExpiration = None
         self.ContractURI = None
-        self.IssuerName = None
-        self.IssuerType = None
-        self.IssuerLEI = None
+        self.Issuer = None
         self.IssuerLogoURL = None
         self.ContractOperatorIncluded = None
-        self.ContractOperatorID = None
-        self.OperatorLEI = None
+        self.ContractOperator = None
         self.ContractAuthFlags = None
         self.ActionFee = None
         self.VotingSystems = None
@@ -190,18 +172,6 @@ class Action_ContractOffer(ActionBase):
         self.ReferendumProposal = None
         self.InitiativeProposal = None
         self.Registries = None
-        self.IssuerAddressIncluded = None
-        self.UnitNumber = None
-        self.BuildingNumber = None
-        self.Street = None
-        self.SuburbCity = None
-        self.TerritoryStateProvinceCode = None
-        self.CountryCode = None
-        self.PostalZIPCode = None
-        self.EmailAddress = None
-        self.PhoneNumber = None
-        self.Administration = None
-        self.Management = None
 
 
 # This txn is created by the Contract (smart contract/off-chain agent/token
@@ -217,39 +187,24 @@ class Action_ContractFormation(ActionBase):
         'BodyOfAgreement':                 [1, DAT_varbin, 32],
         'ContractType':                    [2, DAT_varchar, 8],
         'SupportingDocsFileType':          [3, DAT_uint, 1],
-        'SupportingDocs':                  [4, DAT_varchar, 32],
+        'SupportingDocs':                  [4, DAT_varbin, 32],
         'GoverningLaw':                    [5, DAT_fixedchar, 5],
         'Jurisdiction':                    [6, DAT_fixedchar, 5],
         'ContractExpiration':              [7, DAT_Timestamp, 0],
         'ContractURI':                     [8, DAT_varchar, 8],
-        'IssuerName':                      [9, DAT_varchar, 8],
-        'IssuerType':                      [10, DAT_fixedchar, 1],
-        'IssuerLEI':                       [11, DAT_fixedchar, 20],
-        'IssuerLogoURL':                   [12, DAT_varchar, 8],
-        'ContractOperatorIncluded':        [13, DAT_bool, 0],
-        'ContractOperatorID':              [14, DAT_varchar, 8],
-        'OperatorLEI':                     [15, DAT_fixedchar, 20],
-        'ContractAuthFlags':               [16, DAT_bin, 16],
-        'ActionFee':                       [17, DAT_Fee[], 8],
-        'VotingSystems':                   [18, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [19, DAT_uint, 8],
-        'ReferendumProposal':              [20, DAT_bool, 0],
-        'InitiativeProposal':              [21, DAT_bool, 0],
-        'Registries':                      [22, DAT_Registry[], 0],
-        'IssuerAddressIncluded':           [23, DAT_bool, 0],
-        'UnitNumber':                      [24, DAT_varchar, 8],
-        'BuildingNumber':                  [25, DAT_varchar, 8],
-        'Street':                          [26, DAT_varchar, 16],
-        'SuburbCity':                      [27, DAT_varchar, 8],
-        'TerritoryStateProvinceCode':      [28, DAT_fixedchar, 5],
-        'CountryCode':                     [29, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [30, DAT_varchar, 8],
-        'EmailAddress':                    [31, DAT_varchar, 8],
-        'PhoneNumber':                     [32, DAT_varchar, 8],
-        'Administration':                  [33, DAT_Administrator[], 0],
-        'Management':                      [34, DAT_Manager[], 0],
-        'ContractRevision':                [35, DAT_uint, 4],
-        'Timestamp':                       [36, DAT_Timestamp, 0]
+        'Issuer':                          [9, DAT_Entity, 0],
+        'IssuerLogoURL':                   [10, DAT_varchar, 8],
+        'ContractOperatorIncluded':        [11, DAT_bool, 0],
+        'ContractOperator':                [12, DAT_Entity, 0],
+        'ContractAuthFlags':               [13, DAT_bin, 16],
+        'ActionFee':                       [14, DAT_uint, 8],
+        'VotingSystems':                   [15, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [16, DAT_uint, 8],
+        'ReferendumProposal':              [17, DAT_bool, 0],
+        'InitiativeProposal':              [18, DAT_bool, 0],
+        'Registries':                      [19, DAT_Registry[], 0],
+        'ContractRevision':                [20, DAT_uint, 4],
+        'Timestamp':                       [21, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -267,13 +222,10 @@ class Action_ContractFormation(ActionBase):
         self.Jurisdiction = None
         self.ContractExpiration = None
         self.ContractURI = None
-        self.IssuerName = None
-        self.IssuerType = None
-        self.IssuerLEI = None
+        self.Issuer = None
         self.IssuerLogoURL = None
         self.ContractOperatorIncluded = None
-        self.ContractOperatorID = None
-        self.OperatorLEI = None
+        self.ContractOperator = None
         self.ContractAuthFlags = None
         self.ActionFee = None
         self.VotingSystems = None
@@ -281,18 +233,6 @@ class Action_ContractFormation(ActionBase):
         self.ReferendumProposal = None
         self.InitiativeProposal = None
         self.Registries = None
-        self.IssuerAddressIncluded = None
-        self.UnitNumber = None
-        self.BuildingNumber = None
-        self.Street = None
-        self.SuburbCity = None
-        self.TerritoryStateProvinceCode = None
-        self.CountryCode = None
-        self.PostalZIPCode = None
-        self.EmailAddress = None
-        self.PhoneNumber = None
-        self.Administration = None
-        self.Management = None
         self.ContractRevision = None
         self.Timestamp = None
 
