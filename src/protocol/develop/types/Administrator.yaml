@@ -1,19 +1,19 @@
 metadata:
-  name: KeyRole
-  description: "KeyRole is used to refer to a key role in an Entity."
+  name: Administrator
+  description: "Administrator is used to refer to a Administration role in an Entity."
 
 fields:
   - name: Type
-    label: Key Role Type
-    description: "Chairman, Director. Found in 'Roles' in Specification/Resources"
+    label: Administrator Type
+    description: "Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources"
     type: uint
     size: 1
     example_hex: 37
     example_value: "7"
-    notes: "7 - Chairman"
+    notes: "7 - Chair"
 
   - name: Name
-    label: Key Role Name
+    label: Administrator Name
     description: "Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)"
     type: varchar
     # varchar size is number of bits to serialize the size of the value
