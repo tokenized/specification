@@ -151,6 +151,14 @@ fields:
     example_value: "https://example.com/images/logo.png"
     notes: ""
 
+  - name: ContractOperatorIncluded
+    label: Contract Operator Included
+    description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
+    type: bool
+    includes:
+      - ContractOperatorID
+      - OperatorLEI
+
   - name: ContractOperatorID
     label: Contract Operator ID
     description: "Length 0-255 bytes. 0 is valid. Smart Contract Operator identifier. Can be any unique identifying string, including human readable names for branding/vanity purposes. Can also be null or the Issuer."
@@ -221,12 +229,18 @@ fields:
     description: "A list Registries"
     type: Registry[]
 
-  - name: IssuerAddress
-    label: Issuer Address
-    description: "Physical/mailing address. Y/N, N means there is no issuer address."
+  - name: IssuerAddressIncluded
+    label: Issuer Address Included
+    description: "Physical/mailing address. False means the \"includes\" fields are skipped in serialization."
     type: bool
-    example_hex: 01
-    example_value: 1
+    includes:
+      - UnitNumber
+      - BuildingNumber
+      - Street
+      - SuburbCity
+      - TerritoryStateProvinceCode
+      - CountryCode
+      - PostalZIPCode
     notes: "Issuer Details - Can always be amended by issuer/smart contract operator."
 
   - name: UnitNumber

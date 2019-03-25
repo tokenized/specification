@@ -146,7 +146,7 @@ class Action_ContractOffer(ActionBase):
         'ReferendumProposal':              [19, DAT_bool, 0],
         'InitiativeProposal':              [20, DAT_bool, 0],
         'Registries':                      [21, DAT_Registry[], 0],
-        'IssuerAddress':                   [22, DAT_bool, 0],
+        'IssuerAddressIncluded':           [22, DAT_bool, 0],
         'UnitNumber':                      [23, DAT_varchar, 8],
         'BuildingNumber':                  [24, DAT_varchar, 8],
         'Street':                          [25, DAT_varchar, 16],
@@ -188,7 +188,7 @@ class Action_ContractOffer(ActionBase):
         self.ReferendumProposal = None
         self.InitiativeProposal = None
         self.Registries = None
-        self.IssuerAddress = None
+        self.IssuerAddressIncluded = None
         self.UnitNumber = None
         self.BuildingNumber = None
         self.Street = None
@@ -223,29 +223,30 @@ class Action_ContractFormation(ActionBase):
         'IssuerType':                      [9, DAT_fixedchar, 1],
         'IssuerLEI':                       [10, DAT_fixedchar, 20],
         'IssuerLogoURL':                   [11, DAT_varchar, 8],
-        'ContractOperatorID':              [12, DAT_varchar, 8],
-        'OperatorLEI':                     [13, DAT_fixedchar, 20],
-        'ContractAuthFlags':               [14, DAT_bin, 16],
-        'ContractFees':                    [15, DAT_Fee[], 8],
-        'VotingSystems':                   [16, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [17, DAT_uint, 8],
-        'ReferendumProposal':              [18, DAT_bool, 0],
-        'InitiativeProposal':              [19, DAT_bool, 0],
-        'Registries':                      [20, DAT_Registry[], 0],
-        'IssuerAddress':                   [21, DAT_bool, 0],
-        'UnitNumber':                      [22, DAT_varchar, 8],
-        'BuildingNumber':                  [23, DAT_varchar, 8],
-        'Street':                          [24, DAT_varchar, 16],
-        'SuburbCity':                      [25, DAT_varchar, 8],
-        'TerritoryStateProvinceCode':      [26, DAT_fixedchar, 5],
-        'CountryCode':                     [27, DAT_fixedchar, 3],
-        'PostalZIPCode':                   [28, DAT_varchar, 8],
-        'EmailAddress':                    [29, DAT_varchar, 8],
-        'PhoneNumber':                     [30, DAT_varchar, 8],
-        'KeyRoles':                        [31, DAT_KeyRole[], 0],
-        'NotableRoles':                    [32, DAT_NotableRole[], 0],
-        'ContractRevision':                [33, DAT_uint, 4],
-        'Timestamp':                       [34, DAT_Timestamp, 0]
+        'ContractOperatorIncluded':        [12, DAT_bool, 0],
+        'ContractOperatorID':              [13, DAT_varchar, 8],
+        'OperatorLEI':                     [14, DAT_fixedchar, 20],
+        'ContractAuthFlags':               [15, DAT_bin, 16],
+        'ContractFees':                    [16, DAT_Fee[], 8],
+        'VotingSystems':                   [17, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [18, DAT_uint, 8],
+        'ReferendumProposal':              [19, DAT_bool, 0],
+        'InitiativeProposal':              [20, DAT_bool, 0],
+        'Registries':                      [21, DAT_Registry[], 0],
+        'IssuerAddressIncluded':           [22, DAT_bool, 0],
+        'UnitNumber':                      [23, DAT_varchar, 8],
+        'BuildingNumber':                  [24, DAT_varchar, 8],
+        'Street':                          [25, DAT_varchar, 16],
+        'SuburbCity':                      [26, DAT_varchar, 8],
+        'TerritoryStateProvinceCode':      [27, DAT_fixedchar, 5],
+        'CountryCode':                     [28, DAT_fixedchar, 3],
+        'PostalZIPCode':                   [29, DAT_varchar, 8],
+        'EmailAddress':                    [30, DAT_varchar, 8],
+        'PhoneNumber':                     [31, DAT_varchar, 8],
+        'KeyRoles':                        [32, DAT_KeyRole[], 0],
+        'NotableRoles':                    [33, DAT_NotableRole[], 0],
+        'ContractRevision':                [34, DAT_uint, 4],
+        'Timestamp':                       [35, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -266,6 +267,7 @@ class Action_ContractFormation(ActionBase):
         self.IssuerType = None
         self.IssuerLEI = None
         self.IssuerLogoURL = None
+        self.ContractOperatorIncluded = None
         self.ContractOperatorID = None
         self.OperatorLEI = None
         self.ContractAuthFlags = None
@@ -275,7 +277,7 @@ class Action_ContractFormation(ActionBase):
         self.ReferendumProposal = None
         self.InitiativeProposal = None
         self.Registries = None
-        self.IssuerAddress = None
+        self.IssuerAddressIncluded = None
         self.UnitNumber = None
         self.BuildingNumber = None
         self.Street = None

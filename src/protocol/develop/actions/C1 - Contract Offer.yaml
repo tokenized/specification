@@ -157,8 +157,11 @@ fields:
 
   - name: ContractOperatorIncluded
     label: Contract Operator Included
-    description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding."
+    description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
     type: bool
+    includes:
+      - ContractOperatorID
+      - OperatorLEI
 
   - name: ContractOperatorID
     label: Contract Operator ID
@@ -230,12 +233,18 @@ fields:
     description: "A list Registries"
     type: Registry[]
 
-  - name: IssuerAddress
-    label: Issuer Address
-    description: "Physical/mailing address. Y/N, N means there is no issuer address."
+  - name: IssuerAddressIncluded
+    label: Issuer Address Included
+    description: "Physical/mailing address. False means the \"includes\" fields are skipped in serialization."
     type: bool
-    example_hex: 0x01
-    example_value: 1
+    includes:
+      - UnitNumber
+      - BuildingNumber
+      - Street
+      - SuburbCity
+      - TerritoryStateProvinceCode
+      - CountryCode
+      - PostalZIPCode
     notes: "Issuer Details - Can always be amended by issuer/smart contract operator."
 
   - name: UnitNumber
@@ -308,7 +317,7 @@ fields:
 
   - name: EmailAddress
     label: Email Address
-    description: "Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address"
+    description: "Length 0-255 bytes. 0 is valid (no EmailAddress). Address for text-based communication: eg. email address, Bitcoin address"
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
@@ -372,7 +381,7 @@ functions:
 
           - name: hidden
             type: string
-            field: IssuerAddress
+            field: IssuerAddressIncluded
             value: true
 
     - name: AddKeyRole

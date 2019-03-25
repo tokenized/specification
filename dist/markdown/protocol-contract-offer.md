@@ -145,7 +145,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10">ContractOperatorIncluded</td>
             <td class="c10">0</td>
             <td class="c10"></td>
-            <td class="c10"><abbr title="If true, then the second input is a contract operator. If false, then all additional inputs are just funding.">If true, then the second input is a contract operator. If false, then all additional input ...</abbr></td>
+            <td class="c10"><abbr title="If true, then the second input is a contract operator. If false, then all additional inputs are just funding and "includes" fields are skipped in serialization.">If true, then the second input is a contract operator. If false, then all additional input ...</abbr></td>
             <td class="c10">bool</td>
             <td class="c10"></td>
         </tr>
@@ -225,11 +225,11 @@ The following breaks down the construction of a Contract Offer Action. The actio
             </td>
         </tr>
         <tr>
-            <td class="c9">Issuer Address</td>
-            <td class="c10">IssuerAddress</td>
+            <td class="c9">Issuer Address Included</td>
+            <td class="c10">IssuerAddressIncluded</td>
             <td class="c10">0</td>
-            <td class="c10">1</td>
-            <td class="c10">Physical/mailing address. Y/N, N means there is no issuer address.</td>
+            <td class="c10"></td>
+            <td class="c10">Physical/mailing address. False means the "includes" fields are skipped in serialization.</td>
             <td class="c10">bool</td>
             <td class="c10">Issuer Details - Can always be amended by issuer/smart contract operator.</td>
         </tr>
@@ -301,7 +301,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10">EmailAddress</td>
             <td class="c10">8</td>
             <td class="c10">james@tokenized.com</td>
-            <td class="c10"><abbr title="Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication: eg. email address, Bitcoin address">Length 0-255 bytes. 0 is valid (no ContactAddress). Address for text-based communication:  ...</abbr></td>
+            <td class="c10"><abbr title="Length 0-255 bytes. 0 is valid (no EmailAddress). Address for text-based communication: eg. email address, Bitcoin address">Length 0-255 bytes. 0 is valid (no EmailAddress). Address for text-based communication: eg ...</abbr></td>
             <td class="c10">varchar</td>
             <td class="c10"></td>
         </tr>

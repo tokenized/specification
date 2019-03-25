@@ -14,7 +14,9 @@ func Test{{.Name}}(t *testing.T) {
 
 	{{- range $i, $field := .PayloadFields }}
 	// {{ $field.FieldName }} ({{ $field.Type }})
-		{{- if $field.IsVarChar }}
+		{{- if eq $field.Type "bool" }}
+	initialMessage.{{ $field.FieldName }} = true
+		{{- else if $field.IsVarChar }}
 	initialMessage.{{ $field.FieldName }} = "Text {{ $i }}"
 		{{- else if $field.IsFixedChar }}
 	{

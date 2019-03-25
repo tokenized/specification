@@ -12,6 +12,7 @@ type Field struct {
 	Type         string
 	Size         uint64
 	Options      []string
+	Includes     []string
 	Required     bool
 	ExampleValue string `yaml:"example_value"`
 	ExampleHex   string `yaml:"example_hex"`
