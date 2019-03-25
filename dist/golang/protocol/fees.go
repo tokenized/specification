@@ -12,8 +12,8 @@ import (
 
 // EstimatedResponse calculates information about the contract's response to a request.
 // Returns
-//   size of response tx in bytes
-//   value of outputs of response in satoshis, including dust outputs (not including change)
+//   estimated size of response tx in bytes
+//   estimated value of outputs of response in satoshis, including dust outputs (not including change)
 //   error if there were any
 func EstimatedResponse(requestTx *wire.MsgTx, dustLimit uint64) (int, uint64, error) {
 	// Find Tokenized OP_RETURN
@@ -48,21 +48,32 @@ func EstimatedResponse(requestTx *wire.MsgTx, dustLimit uint64) (int, uint64, er
 		size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
 		value += dustLimit
 
+	case *AssetDefinition:
+		assetDefinition := AssetDefinition{}
+		response = &assetDefinition
+
+		// 1 input from contract
+		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.EstimatedInputSize
+
+		// P2PKH dust output to contract, and op return output
+		size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+		value += dustLimit
+
 	default:
 		return 0, 0, errors.New("Unsupported request type")
 	}
 
 	if err = convert(opReturn, &response); err != nil {
-		return 0, 0, errors.Wrap(err, "Failed to convert ContractOffer to ContractFormation")
+		return 0, 0, errors.Wrap(err, "Failed to convert request to response")
 	}
 
 	script, err := Serialize(response)
 	if err != nil {
-		return 0, 0, errors.Wrap(err, "Failed to convert ContractFormation")
+		return 0, 0, errors.Wrap(err, "Failed to serialize response")
 	}
 
 	// OP_RETURN output size
-	size += txbuilder.OutputBaseSize + len(txbuilder.PushDataScript(uint64(len(script)))) + len(script)
+	size += txbuilder.OutputBaseSize + wire.VarIntSerializeSize(uint64(len(script))) + len(script)
 
 	return size, value, nil
 }
