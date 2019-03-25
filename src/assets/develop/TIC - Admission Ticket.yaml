@@ -24,19 +24,12 @@ fields:
     example: 0
     computed: true
 
-  - name: TradingRestriction
-    label: Trading Restriction
-    type: polity
-    size: 5
-    example: AUS
-    span: full
-
   - name: AgeRestriction
     label: Age Restriction
     type: dropdown
-    size: 5
     example: 18+
     options:
+      - None
       - 15-18
       - 18+
       - 19+
@@ -58,7 +51,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 255
     example: Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1
     span: left
     displayOrder: 2
@@ -69,7 +61,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 255
     example: Gold Class, Platinum, VIP, Section A, etc.
     span: left
     displayOrder: 2
@@ -80,7 +71,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 255
     example: Upper Bowl
     span: left
     displayOrder: 2
@@ -91,7 +81,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 255
     example: Sec 1, Row 3, Seat 5, or A122
     span: left
     displayOrder: 2
@@ -124,7 +113,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 16
-    # size: 65,535
     example: Coingeek Conference - London (November 2018).
     span: full
     displayOrder: 1

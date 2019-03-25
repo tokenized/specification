@@ -29,17 +29,6 @@ Common stock represents ownership interests in corporations.
             <td class="a10">false</td>
         </tr>
         <tr>
-            <td class="a10">TradingRestriction</td>
-            <td class="a9">Trading Restriction</td>
-            <td class="a10">polity</td>
-            <td class="a10"></td>
-            <td class="a10">5</td>
-            <td class="a10"></td>
-            <td class="a10">false</td>
-            <td class="a10">0</td>
-            <td class="a10">false</td>
-        </tr>
-        <tr>
             <td class="a10">TransferLockout</td>
             <td class="a9">TransferLockout</td>
             <td class="a10">Timestamp</td>
@@ -77,7 +66,7 @@ Common stock represents ownership interests in corporations.
             <td class="a9">Description</td>
             <td class="a10">varchar</td>
             <td class="a10"></td>
-            <td class="a10">113</td>
+            <td class="a10">16</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>

@@ -11,6 +11,7 @@ type Field struct {
 	Description  string
 	Type         string
 	Size         uint64
+	Options      []string
 	Required     bool
 	ExampleValue string `yaml:"example_value"`
 	ExampleHex   string `yaml:"example_hex"`
@@ -98,7 +99,7 @@ func (f Field) SingularType() string {
 }
 
 func (f Field) FieldGoType() string {
-	return GoType(f.Type, f.Size)
+	return GoType(f.Type, f.Size, f.Options)
 }
 
 func (f Field) IsInternalTypeArray() bool {

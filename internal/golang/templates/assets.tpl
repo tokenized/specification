@@ -30,7 +30,7 @@ func AssetTypeMapping(code string) PayloadMessage {
 {{range .}}
 // {{.Name}} asset type.
 type {{.Name}} struct {
-{{range .Fields }}	{{.Name}} {{.FieldGoType}}
+{{range .Fields }}	{{.Name}} {{.FieldGoType}} {{ .GoTags }} // {{ .FieldDescription }}
 {{ end -}}
 }
 

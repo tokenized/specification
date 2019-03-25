@@ -96,9 +96,14 @@ func Test{{.Name}}(t *testing.T) {
 	if !bytes.Equal(initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }}) {
 		t.Errorf("{{ $field.FieldName }} doesn't match : %x != %x", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
 	}
-		{{- else if eq $field.Type "timestamp" }}
-	if initialMessage.{{ $field.FieldName }} != decodedMessage.{{ $field.FieldName }} {
-		t.Errorf("{{ $field.FieldName }} doesn't match : %d != %d", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
+		{{- else if eq $field.Type "Polity" }}
+	if len(initialMessage.{{ $field.FieldName }}.Items) != len(decodedMessage.{{ $field.FieldName }}.Items) {
+		t.Errorf("{{ $field.FieldName }} length doesn't match : %d != %d", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
+	}
+	for i, value := range initialMessage.{{ $field.FieldName }}.Items {
+		if !bytes.Equal(value[:], decodedMessage.{{ $field.FieldName }}.Items[i][:]) {
+			t.Errorf("{{ $field.FieldName }}.Items[%d] doesn't match : %s != %s", i, string(value[:]), string(decodedMessage.{{ $field.FieldName }}.Items[i][:]))
+		}
 	}
 		{{- else if .IsInternalTypeArray }}
 	if len(initialMessage.{{ $field.FieldName }}) != len(decodedMessage.{{ $field.FieldName }}) {

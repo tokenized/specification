@@ -60,13 +60,11 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10"></td>
         </tr>
         <tr>
-            <td class="a9">Trade Restrictions</td>
-            <td class="a10">TradeRestrictions</td>
-            <td class="a10">3</td>
-            <td class="a10">GBR</td>
-            <td class="a10"><abbr title="Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.">Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents on ...</abbr></td>
-            <td class="a10">fixedchar</td>
-            <td class="a10"></td>
+            <td class="a5" colspan="7">
+                <a href="javascript:;" data-popover="type-Polity">
+                   Trade Restrictions - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="a9">Enforcement Orders Permitted</td>
@@ -120,33 +118,6 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10">1000000</td>
             <td class="a10"><abbr title="Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset Codes become the non-fungible Asset Code and many Asset Codes can be associated with a particular Contract.">Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible ...</abbr></td>
             <td class="a10">uint</td>
-            <td class="a10"></td>
-        </tr>
-        <tr>
-            <td class="a9">Contract Fee Currency</td>
-            <td class="a10">ContractFeeCurrency</td>
-            <td class="a10">3</td>
-            <td class="a10">AUD</td>
-            <td class="a10">BSV, USD, AUD, EUR, etc.</td>
-            <td class="a10">fixedchar</td>
-            <td class="a10"></td>
-        </tr>
-        <tr>
-            <td class="a9">Contract Fee Var</td>
-            <td class="a10">ContractFeeVar</td>
-            <td class="a10">4</td>
-            <td class="a10">0.005</td>
-            <td class="a10">Percent of the value of the transaction</td>
-            <td class="a10">float</td>
-            <td class="a10"></td>
-        </tr>
-        <tr>
-            <td class="a9">Contract Fee Fixed</td>
-            <td class="a10">ContractFeeFixed</td>
-            <td class="a10">4</td>
-            <td class="a10">0.01</td>
-            <td class="a10">Fixed fee (payment made in BSV)</td>
-            <td class="a10">float</td>
             <td class="a10"></td>
         </tr>
         <tr>

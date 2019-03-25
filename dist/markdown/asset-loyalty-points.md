@@ -29,17 +29,6 @@ A Loyalty Point
             <td class="a10">false</td>
         </tr>
         <tr>
-            <td class="a10">TradingRestriction</td>
-            <td class="a9">Trading Restriction</td>
-            <td class="a10">polity</td>
-            <td class="a10"></td>
-            <td class="a10">5</td>
-            <td class="a10"></td>
-            <td class="a10">false</td>
-            <td class="a10">0</td>
-            <td class="a10">false</td>
-        </tr>
-        <tr>
             <td class="a10">AgeRestriction</td>
             <td class="a9">Age Restriction</td>
             <td class="a10">dropdown</td>
@@ -66,7 +55,7 @@ A Loyalty Point
             <td class="a9">Offer Name</td>
             <td class="a10">varchar</td>
             <td class="a10"></td>
-            <td class="a10">255</td>
+            <td class="a10">8</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>
