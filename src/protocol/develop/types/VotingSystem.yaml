@@ -31,8 +31,8 @@ fields:
     example_value: "A"
     notes: ""
 
-  - name: Logic
-    label: Vote Logic
+  - name: TallyLogic
+    label: Tally Logic
     description: "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) "
     type: fixedchar
     size: 1
@@ -58,20 +58,11 @@ fields:
     example_value: "Y/N"
     notes: ""
 
-  - name: InitiativeThreshold
-    label: Initiative Threshold for the Voting System
+  - name: InitiativeFee
+    label: Initiative Fee for the Voting System
     description: "Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid."
-    type: float
-    size: 4
+    type: uint
+    size: 8
     example_hex: 42c80000
     example_value: "100"
-    notes: ""
-
-  - name: InitiativeThresholdCurrency
-    label: Initiative Threshold Currency for the Voting System
-    description: "Currency.  Always paid in BSV or a currency token (CUR) at current market valuations in the currency listed. NULL is valid."
-    type: fixedchar
-    size: 3
-    example_hex: 415544
-    example_value: "AUD"
     notes: ""
