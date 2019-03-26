@@ -80,10 +80,10 @@ The following breaks down the construction of a Transfer Action. The action is c
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
-         <tr style='height:19px;'>
+       <tr style='height:19px;'>
             <th class="s0" colspan="6">Smart Contract Operator Fee: 0</th>
        </tr>
-         <tr style='height:19px;'>
+       <tr style='height:19px;'>
             <th style="width:10%" class="s0">Index (input)</th>
             <th style="width:20%" class="s1">Txn inputs</th>
             <th style="width:20%" class="s1">Comments</th>
@@ -114,8 +114,6 @@ The following breaks down the construction of a Transfer Action. The action is c
     </table>
 </div>
 
-
-
 <div class="ui modal" id="type-Header">
     <i class="close icon"></i>
     <div class="content docs-content">
@@ -129,10 +127,54 @@ The following breaks down the construction of a Transfer Action. The action is c
                 <th style="width:5%" class="s1">Data Type</th>
                 <th class="s2">Amendment Restrictions</th>
             </tr>
+            <tr>
+                <td class="t10">Protocol Identifier</td>
+                <td class="t10">ProtocolID</td>
+                <td class="t10">13</td>
+                <td class="t10">tokenized.com</td>
+                <td class="t10" style="word-break:break-all">Tokenized ID Prefix. tokenized.com</td>
+                <td class="t10">byte</td>
+                <td class="t10"></td>
+            </tr>
+            <tr>
+                <td class="t10">Push Data</td>
+                <td class="t10">OpPushdata</td>
+                <td class="t10">1</td>
+                <td class="t10">0x4d</td>
+                <td class="t10" style="word-break:break-all">PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload.</td>
+                <td class="t10">byte</td>
+                <td class="t10"></td>
+            </tr>
+            <tr>
+                <td class="t10">Length of Action Payload</td>
+                <td class="t10">LenActionPayload</td>
+                <td class="t10"></td>
+                <td class="t10">tokenized.com</td>
+                <td class="t10" style="word-break:break-all">Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4.</td>
+                <td class="t10">byte</td>
+                <td class="t10">Size depends on Action Payload.</td>
+            </tr>
+            <tr>
+                <td class="t10">Version</td>
+                <td class="t10">Version</td>
+                <td class="t10">1</td>
+                <td class="t10">0</td>
+                <td class="t10" style="word-break:break-all">255 reserved for additional versions. Tokenized protocol versioning.</td>
+                <td class="t10">uint8</td>
+                <td class="t10">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
+            </tr>
+            <tr>
+                <td class="t10">Action Prefix</td>
+                <td class="t10">ActionPrefix</td>
+                <td class="t10">2</td>
+                <td class="t10">T1</td>
+                <td class="t10" style="word-break:break-all">// T1 identifies data as a Transfer message.</td>
+                <td class="t10">string</td>
+                <td class="t10">Cannot be changed by issuer, operator or smart contract..</td>
+            </tr>
         </table>
     </div>
 </div>
-
 <div class="ui modal" id="type-AssetTransfer">
     <i class="close icon"></i>
     <div class="content docs-content">

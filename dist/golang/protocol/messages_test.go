@@ -9,8 +9,8 @@ import (
 func TestPublicMessage(t *testing.T) {
 	// Create a randomized object
 	initialMessage := PublicMessage{}
-	// Version (uint8)
-	// uint8 test not setup
+	// Version (uint)
+	// uint test not setup
 
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
@@ -53,8 +53,8 @@ func TestPublicMessage(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Version (uint8)
-	// uint8 test compare not setup
+	// Version (uint)
+	// uint test compare not setup
 
 	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {
@@ -70,8 +70,8 @@ func TestPublicMessage(t *testing.T) {
 func TestPrivateMessage(t *testing.T) {
 	// Create a randomized object
 	initialMessage := PrivateMessage{}
-	// Version (uint8)
-	// uint8 test not setup
+	// Version (uint)
+	// uint test not setup
 
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
@@ -117,8 +117,8 @@ func TestPrivateMessage(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Version (uint8)
-	// uint8 test compare not setup
+	// Version (uint)
+	// uint test compare not setup
 
 	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {
@@ -134,8 +134,8 @@ func TestPrivateMessage(t *testing.T) {
 func TestOffer(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Offer{}
-	// Version (uint8)
-	// uint8 test not setup
+	// Version (uint)
+	// uint test not setup
 
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
@@ -181,8 +181,8 @@ func TestOffer(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Version (uint8)
-	// uint8 test compare not setup
+	// Version (uint)
+	// uint test compare not setup
 
 	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {
@@ -198,8 +198,8 @@ func TestOffer(t *testing.T) {
 func TestSignatureRequest(t *testing.T) {
 	// Create a randomized object
 	initialMessage := SignatureRequest{}
-	// Version (uint8)
-	// uint8 test not setup
+	// Version (uint)
+	// uint test not setup
 
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
@@ -245,8 +245,8 @@ func TestSignatureRequest(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Version (uint8)
-	// uint8 test compare not setup
+	// Version (uint)
+	// uint test compare not setup
 
 	// Timestamp (Timestamp)
 	if initialMessage.Timestamp != decodedMessage.Timestamp {

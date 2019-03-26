@@ -61,10 +61,10 @@ The following breaks down the construction of a Message Action. The action is co
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
-         <tr style='height:19px;'>
+       <tr style='height:19px;'>
             <th class="s0" colspan="6">Smart Contract Operator Fee: 0</th>
        </tr>
-         <tr style='height:19px;'>
+       <tr style='height:19px;'>
             <th style="width:10%" class="s0">Index (input)</th>
             <th style="width:20%" class="s1">Txn inputs</th>
             <th style="width:20%" class="s1">Comments</th>
@@ -86,8 +86,6 @@ The following breaks down the construction of a Message Action. The action is co
     </table>
 </div>
 
-
-
 <div class="ui modal" id="type-Header">
     <i class="close icon"></i>
     <div class="content docs-content">
@@ -101,7 +99,51 @@ The following breaks down the construction of a Message Action. The action is co
                 <th style="width:5%" class="s1">Data Type</th>
                 <th class="s2">Amendment Restrictions</th>
             </tr>
+            <tr>
+                <td class="m10">Protocol Identifier</td>
+                <td class="m10">ProtocolID</td>
+                <td class="m10">13</td>
+                <td class="m10">tokenized.com</td>
+                <td class="m10" style="word-break:break-all">Tokenized ID Prefix. tokenized.com</td>
+                <td class="m10">byte</td>
+                <td class="m10"></td>
+            </tr>
+            <tr>
+                <td class="m10">Push Data</td>
+                <td class="m10">OpPushdata</td>
+                <td class="m10">1</td>
+                <td class="m10">0x4d</td>
+                <td class="m10" style="word-break:break-all">PACKET LENGTH, PUSHDATA1 (76), PUSHDATA2 (77), or PUSHDATA4 (78) depending on total size of action payload.</td>
+                <td class="m10">byte</td>
+                <td class="m10"></td>
+            </tr>
+            <tr>
+                <td class="m10">Length of Action Payload</td>
+                <td class="m10">LenActionPayload</td>
+                <td class="m10"></td>
+                <td class="m10">tokenized.com</td>
+                <td class="m10" style="word-break:break-all">Length of the action message (0 - 65,535 bytes). 0 if pushdata length <76B, 1 byte if PUSHDATA1 is used, 2 bytes if PUSHDATA2 and 4 bytes if PUSHDATA4.</td>
+                <td class="m10">byte</td>
+                <td class="m10">Size depends on Action Payload.</td>
+            </tr>
+            <tr>
+                <td class="m10">Version</td>
+                <td class="m10">Version</td>
+                <td class="m10">1</td>
+                <td class="m10">0</td>
+                <td class="m10" style="word-break:break-all">255 reserved for additional versions. Tokenized protocol versioning.</td>
+                <td class="m10">uint8</td>
+                <td class="m10">Can be changed by Issuer or Operator at their discretion.  Smart Contract will reject if it hasn't been updated to interpret the specified version.</td>
+            </tr>
+            <tr>
+                <td class="m10">Action Prefix</td>
+                <td class="m10">ActionPrefix</td>
+                <td class="m10">2</td>
+                <td class="m10">M1</td>
+                <td class="m10" style="word-break:break-all">// M1 identifies data as a Message message.</td>
+                <td class="m10">string</td>
+                <td class="m10">Cannot be changed by issuer, operator or smart contract..</td>
+            </tr>
         </table>
     </div>
 </div>
-

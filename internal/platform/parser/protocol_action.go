@@ -86,6 +86,20 @@ type ProtocolAction struct {
 	Functions   []Function
 }
 
+func (m ProtocolAction) FieldTypesWithoutHeader() []ProtocolType {
+	t := []ProtocolType{}
+
+	for _, ft := range m.FieldTypes {
+		if ft.Name() == "Header" {
+			continue
+		}
+
+		t = append(t, ft)
+	}
+
+	return t
+}
+
 func (m ProtocolAction) CodeNameComment() string {
 	s := fmt.Sprintf("%v identifies data as a %v message.",
 		m.CodeName(),

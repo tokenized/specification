@@ -76,8 +76,7 @@ func (m ProtocolMessage) CodeName() string {
 }
 
 func (m ProtocolMessage) TypeLetter() string {
-	code := strings.ToLower(m.Code[:1])
-	return fmt.Sprintf(code)
+	return strings.ToLower(m.Code[:1])
 }
 
 func (m ProtocolMessage) Name() string {
