@@ -15,7 +15,7 @@ import (
 //   estimated size of response tx in bytes
 //   estimated value of outputs of response in satoshis, including dust outputs (not including change)
 //   error if there were any
-func EstimatedResponse(requestTx *wire.MsgTx, dustLimit uint64) (int, uint64, error) {
+func EstimatedResponse(requestTx *wire.MsgTx, dustLimit, contractFee uint64) (int, uint64, error) {
 	// Find Tokenized OP_RETURN
 	var err error
 	var opReturn OpReturnMessage
@@ -44,8 +44,13 @@ func EstimatedResponse(requestTx *wire.MsgTx, dustLimit uint64) (int, uint64, er
 		// 1 input from contract
 		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.EstimatedInputSize
 
-		// P2PKH dust output to contract, and op return output
-		size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+		// P2PKH dust output to contract, contract fee, and op return output
+		if contractFee > 0 {
+			size += wire.VarIntSerializeSize(uint64(3)) + txbuilder.P2PKHOutputSize
+			value += contractFee
+		} else {
+			size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+		}
 		value += dustLimit
 
 	case *AssetDefinition:
@@ -56,7 +61,12 @@ func EstimatedResponse(requestTx *wire.MsgTx, dustLimit uint64) (int, uint64, er
 		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.EstimatedInputSize
 
 		// P2PKH dust output to contract, and op return output
-		size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+		if contractFee > 0 {
+			size += wire.VarIntSerializeSize(uint64(3)) + txbuilder.P2PKHOutputSize
+			value += contractFee
+		} else {
+			size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+		}
 		value += dustLimit
 
 	default:

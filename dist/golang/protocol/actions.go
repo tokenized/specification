@@ -1040,7 +1040,7 @@ type ContractOffer struct {
 	ContractOperatorIncluded bool           `json:"contract_operator_included,omitempty"` // If true, then the second input is a contract operator. If false, then all additional inputs are just funding and "includes" fields are skipped in serialization.
 	ContractOperator         Entity         `json:"contract_operator,omitempty"`          // An additional entity with operator access to the contract.
 	ContractAuthFlags        [16]byte       `json:"contract_auth_flags,omitempty"`        // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
-	ActionFee                uint64         `json:"action_fee,omitempty"`                 // Satoshis required to be paid to the contract for each asset action.
+	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list of voting systems.
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	ReferendumProposal       bool           `json:"referendum_proposal,omitempty"`        // A Referendum is permitted for Proposals (outside of smart contract scope).
@@ -1211,10 +1211,10 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		}
 	}
 
-	// ActionFee (uint64)
-	_, skip = excludes["ActionFee"]
+	// ContractFee (uint64)
+	_, skip = excludes["ContractFee"]
 	if !skip {
-		if err := write(buf, action.ActionFee); err != nil {
+		if err := write(buf, action.ContractFee); err != nil {
 			return nil, err
 		}
 	}
@@ -1434,10 +1434,10 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 		}
 	}
 
-	// ActionFee (uint64)
-	_, skip = excludes["ActionFee"]
+	// ContractFee (uint64)
+	_, skip = excludes["ContractFee"]
 	if !skip {
-		if err := read(buf, &action.ActionFee); err != nil {
+		if err := read(buf, &action.ContractFee); err != nil {
 			return 0, err
 		}
 	}
@@ -1529,7 +1529,7 @@ func (action ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("ContractOperatorIncluded:%#+v", action.ContractOperatorIncluded))
 	vals = append(vals, fmt.Sprintf("ContractOperator:%#+v", action.ContractOperator))
 	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", action.ContractAuthFlags))
-	vals = append(vals, fmt.Sprintf("ActionFee:%v", action.ActionFee))
+	vals = append(vals, fmt.Sprintf("ContractFee:%v", action.ContractFee))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))
@@ -1561,7 +1561,7 @@ type ContractFormation struct {
 	ContractOperatorIncluded bool           `json:"contract_operator_included,omitempty"` // If true, then the second input is a contract operator. If false, then all additional inputs are just funding and "includes" fields are skipped in serialization.
 	ContractOperator         Entity         `json:"contract_operator,omitempty"`          // An additional entity with operator access to the contract.
 	ContractAuthFlags        [16]byte       `json:"contract_auth_flags,omitempty"`        // Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.
-	ActionFee                uint64         `json:"action_fee,omitempty"`                 // Satoshis required to be paid to the contract for each asset action.
+	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list voting systems.
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	ReferendumProposal       bool           `json:"referendum_proposal,omitempty"`        // A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).
@@ -1734,10 +1734,10 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// ActionFee (uint64)
-	_, skip = excludes["ActionFee"]
+	// ContractFee (uint64)
+	_, skip = excludes["ContractFee"]
 	if !skip {
-		if err := write(buf, action.ActionFee); err != nil {
+		if err := write(buf, action.ContractFee); err != nil {
 			return nil, err
 		}
 	}
@@ -1978,10 +1978,10 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// ActionFee (uint64)
-	_, skip = excludes["ActionFee"]
+	// ContractFee (uint64)
+	_, skip = excludes["ContractFee"]
 	if !skip {
-		if err := read(buf, &action.ActionFee); err != nil {
+		if err := read(buf, &action.ContractFee); err != nil {
 			return 0, err
 		}
 	}
@@ -2089,7 +2089,7 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("ContractOperatorIncluded:%#+v", action.ContractOperatorIncluded))
 	vals = append(vals, fmt.Sprintf("ContractOperator:%#+v", action.ContractOperator))
 	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#+v", action.ContractAuthFlags))
-	vals = append(vals, fmt.Sprintf("ActionFee:%v", action.ActionFee))
+	vals = append(vals, fmt.Sprintf("ContractFee:%v", action.ContractFee))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))
@@ -2285,10 +2285,10 @@ func (action ContractAmendment) String() string {
 type StaticContractFormation struct {
 	Header                 Header       `json:"header,omitempty"`                    // Common header data for all actions
 	ContractName           string       `json:"contract_name,omitempty"`             // Length 0-255 bytes. Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions.
-	ContractType           string       `json:"contract_type,omitempty"`             //
 	ContractCode           ContractCode `json:"contract_code,omitempty"`             // 32 randomly generated bytes.  Each Contract Code should be unique.  The Contract ID will be human facing and will be the Contract Code, with a checksum, encoded in base58 and prefixed by 'CON'. Contract ID = CON + base58(ContractCode + checksum).  Eg. Contract ID = 'CON18RDoKK7Ed5zid2FkKVy7q3rULr4tgfjr4'
-	ContractFileType       uint8        `json:"contract_file_type,omitempty"`        // 1 - SHA-256 Hash, 2 - Markdown file
-	ContractFile           []byte       `json:"contract_file,omitempty"`             // SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)
+	BodyOfAgreementType    uint8        `json:"body_of_agreement_type,omitempty"`    // 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+	BodyOfAgreement        []byte       `json:"body_of_agreement,omitempty"`         // SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.
+	ContractType           string       `json:"contract_type,omitempty"`             //
 	SupportingDocsFileType uint8        `json:"supporting_docs_file_type,omitempty"` // 1 - 7z
 	SupportingDocs         string       `json:"supporting_docs,omitempty"`           //
 	ContractRevision       uint32       `json:"contract_revision,omitempty"`         // Counter 0 to (2^32)-1
@@ -2334,14 +2334,6 @@ func (action *StaticContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// ContractType (string)
-	_, skip = excludes["ContractType"]
-	if !skip {
-		if err := WriteVarChar(buf, action.ContractType, 8); err != nil {
-			return nil, err
-		}
-	}
-
 	// ContractCode (ContractCode)
 	_, skip = excludes["ContractCode"]
 	if !skip {
@@ -2355,18 +2347,26 @@ func (action *StaticContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// ContractFileType (uint8)
-	_, skip = excludes["ContractFileType"]
+	// BodyOfAgreementType (uint8)
+	_, skip = excludes["BodyOfAgreementType"]
 	if !skip {
-		if err := write(buf, action.ContractFileType); err != nil {
+		if err := write(buf, action.BodyOfAgreementType); err != nil {
 			return nil, err
 		}
 	}
 
-	// ContractFile ([]byte)
-	_, skip = excludes["ContractFile"]
+	// BodyOfAgreement ([]byte)
+	_, skip = excludes["BodyOfAgreement"]
 	if !skip {
-		if err := WriteVarBin(buf, action.ContractFile, 32); err != nil {
+		if err := WriteVarBin(buf, action.BodyOfAgreement, 32); err != nil {
+			return nil, err
+		}
+	}
+
+	// ContractType (string)
+	_, skip = excludes["ContractType"]
+	if !skip {
+		if err := WriteVarChar(buf, action.ContractType, 8); err != nil {
 			return nil, err
 		}
 	}
@@ -2502,16 +2502,6 @@ func (action *StaticContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// ContractType (string)
-	_, skip = excludes["ContractType"]
-	if !skip {
-		var err error
-		action.ContractType, err = ReadVarChar(buf, 8)
-		if err != nil {
-			return 0, err
-		}
-	}
-
 	// ContractCode (ContractCode)
 	_, skip = excludes["ContractCode"]
 	if !skip {
@@ -2520,19 +2510,29 @@ func (action *StaticContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// ContractFileType (uint8)
-	_, skip = excludes["ContractFileType"]
+	// BodyOfAgreementType (uint8)
+	_, skip = excludes["BodyOfAgreementType"]
 	if !skip {
-		if err := read(buf, &action.ContractFileType); err != nil {
+		if err := read(buf, &action.BodyOfAgreementType); err != nil {
 			return 0, err
 		}
 	}
 
-	// ContractFile ([]byte)
-	_, skip = excludes["ContractFile"]
+	// BodyOfAgreement ([]byte)
+	_, skip = excludes["BodyOfAgreement"]
 	if !skip {
 		var err error
-		action.ContractFile, err = ReadVarBin(buf, 32)
+		action.BodyOfAgreement, err = ReadVarBin(buf, 32)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// ContractType (string)
+	_, skip = excludes["ContractType"]
+	if !skip {
+		var err error
+		action.ContractType, err = ReadVarChar(buf, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -2649,10 +2649,10 @@ func (action StaticContractFormation) String() string {
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
 	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
-	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
 	vals = append(vals, fmt.Sprintf("ContractCode:%#+v", action.ContractCode))
-	vals = append(vals, fmt.Sprintf("ContractFileType:%v", action.ContractFileType))
-	vals = append(vals, fmt.Sprintf("ContractFile:%#x", action.ContractFile))
+	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v", action.BodyOfAgreementType))
+	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x", action.BodyOfAgreement))
+	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
 	vals = append(vals, fmt.Sprintf("SupportingDocsFileType:%v", action.SupportingDocsFileType))
 	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))

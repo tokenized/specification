@@ -138,7 +138,7 @@ class Action_ContractOffer(ActionBase):
         'ContractOperatorIncluded':        [11, DAT_bool, 0],
         'ContractOperator':                [12, DAT_Entity, 0],
         'ContractAuthFlags':               [13, DAT_bin, 16],
-        'ActionFee':                       [14, DAT_uint, 8],
+        'ContractFee':                     [14, DAT_uint, 8],
         'VotingSystems':                   [15, DAT_VotingSystem[], 0],
         'RestrictedQtyAssets':             [16, DAT_uint, 8],
         'ReferendumProposal':              [17, DAT_bool, 0],
@@ -166,7 +166,7 @@ class Action_ContractOffer(ActionBase):
         self.ContractOperatorIncluded = None
         self.ContractOperator = None
         self.ContractAuthFlags = None
-        self.ActionFee = None
+        self.ContractFee = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
         self.ReferendumProposal = None
@@ -197,7 +197,7 @@ class Action_ContractFormation(ActionBase):
         'ContractOperatorIncluded':        [11, DAT_bool, 0],
         'ContractOperator':                [12, DAT_Entity, 0],
         'ContractAuthFlags':               [13, DAT_bin, 16],
-        'ActionFee':                       [14, DAT_uint, 8],
+        'ContractFee':                     [14, DAT_uint, 8],
         'VotingSystems':                   [15, DAT_VotingSystem[], 0],
         'RestrictedQtyAssets':             [16, DAT_uint, 8],
         'ReferendumProposal':              [17, DAT_bool, 0],
@@ -227,7 +227,7 @@ class Action_ContractFormation(ActionBase):
         self.ContractOperatorIncluded = None
         self.ContractOperator = None
         self.ContractAuthFlags = None
-        self.ActionFee = None
+        self.ContractFee = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
         self.ReferendumProposal = None
@@ -270,10 +270,10 @@ class Action_StaticContractFormation(ActionBase):
     ActionPrefix = 'C4'
 
     schema = {
-        'ContractType':                    [0, DAT_varchar, 8],
-        'ContractCode':                    [1, DAT_ContractCode, 0],
-        'ContractFileType':                [2, DAT_uint, 1],
-        'ContractFile':                    [3, DAT_varbin, 32],
+        'ContractCode':                    [0, DAT_ContractCode, 0],
+        'BodyOfAgreementType':             [1, DAT_uint, 1],
+        'BodyOfAgreement':                 [2, DAT_varbin, 32],
+        'ContractType':                    [3, DAT_varchar, 8],
         'SupportingDocsFileType':          [4, DAT_uint, 1],
         'SupportingDocs':                  [5, DAT_varchar, 32],
         'ContractRevision':                [6, DAT_uint, 4],
@@ -293,9 +293,9 @@ class Action_StaticContractFormation(ActionBase):
     }
 
     def init_attributes(self):
-        self.ContractCode = None
-        self.ContractFileType = None
-        self.ContractFile = None
+        self.BodyOfAgreementType = None
+        self.BodyOfAgreement = None
+        self.ContractType = None
         self.SupportingDocsFileType = None
         self.SupportingDocs = None
         self.ContractRevision = None

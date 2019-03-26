@@ -155,8 +155,8 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10">Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.</td>
         </tr>
         <tr>
-            <td class="c9">Action Fee</td>
-            <td class="c10">ActionFee</td>
+            <td class="c9">Contract Fee</td>
+            <td class="c10">ContractFee</td>
             <td class="c10">8</td>
             <td class="c10"></td>
             <td class="c10">Satoshis required to be paid to the contract for each asset action.</td>
@@ -609,8 +609,8 @@ The following breaks down the construction of a Contract Offer Action. The actio
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Vote Logic</td>
-                <td class="c10">Logic</td>
+                <td class="c10">Tally Logic</td>
+                <td class="c10">TallyLogic</td>
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">0</td>
                 <td class="c10">0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) </td>
@@ -636,21 +636,12 @@ The following breaks down the construction of a Contract Offer Action. The actio
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Initiative Threshold for the Voting System</td>
-                <td class="c10">InitiativeThreshold</td>
-                <td class="c10">4</td>
+                <td class="c10">Initiative Fee for the Voting System</td>
+                <td class="c10">InitiativeFee</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">100</td>
                 <td class="c10">Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid.</td>
-                <td class="c10">float</td>
-                <td class="c10"></td>
-            </tr>
-            <tr>
-                <td class="c10">Initiative Threshold Currency for the Voting System</td>
-                <td class="c10">InitiativeThresholdCurrency</td>
-                <td class="c10">3</td>
-                <td class="c10" style="word-break:break-all">AUD</td>
-                <td class="c10">Currency.  Always paid in BSV or a currency token (CUR) at current market valuations in the currency listed. NULL is valid.</td>
-                <td class="c10">fixedchar</td>
+                <td class="c10">uint</td>
                 <td class="c10"></td>
             </tr>
         </table>

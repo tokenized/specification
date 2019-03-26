@@ -284,14 +284,14 @@ func (hash *PublicKeyHash) MarshalJSON() ([]byte, error) {
 // UnmarshalJSON converts from json.
 func (hash *PublicKeyHash) UnmarshalJSON(data []byte) error {
 	if len(data) < 2 {
-		return errors.New("To short for hex data")
+		return fmt.Errorf("Too short for PublicKeyHash hex data : %d", len(data))
 	}
 	n, err := hex.Decode(hash.data[:], data[1:len(data)-1])
 	if err != nil {
 		return err
 	}
 	if n != 20 {
-		return errors.New("Invalid size")
+		return fmt.Errorf("Invalid PublicKeyHash size : %d", n)
 	}
 	return nil
 }
@@ -341,14 +341,14 @@ func (code *AssetCode) MarshalJSON() ([]byte, error) {
 // UnmarshalJSON converts from json.
 func (code *AssetCode) UnmarshalJSON(data []byte) error {
 	if len(data) < 2 {
-		return errors.New("To short for hex data")
+		return fmt.Errorf("Too short for AssetCode hex data : %d", len(data))
 	}
 	n, err := hex.Decode(code.data[:], data[1:len(data)-1])
 	if err != nil {
 		return err
 	}
 	if n != 32 {
-		return errors.New("Invalid size")
+		return fmt.Errorf("Invalid AssetCode size : %d", n)
 	}
 	return nil
 }
@@ -398,14 +398,14 @@ func (code *ContractCode) MarshalJSON() ([]byte, error) {
 // UnmarshalJSON converts from json.
 func (code *ContractCode) UnmarshalJSON(data []byte) error {
 	if len(data) < 2 {
-		return errors.New("To short for hex data")
+		return fmt.Errorf("Too short for ContractCode hex data : %d", len(data))
 	}
 	n, err := hex.Decode(code.data[:], data[1:len(data)-1])
 	if err != nil {
 		return err
 	}
 	if n != 32 {
-		return errors.New("Invalid size")
+		return fmt.Errorf("Invalid ContractCode size : %d", n)
 	}
 	return nil
 }

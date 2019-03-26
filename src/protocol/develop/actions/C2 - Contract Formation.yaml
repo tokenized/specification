@@ -159,8 +159,8 @@ fields:
     example_value: "010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000"
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
-  - name: ActionFee
-    label: Action Fee
+  - name: ContractFee
+    label: Contract Fee
     description: "Satoshis required to be paid to the contract for each asset action."
     type: uint
     size: 8

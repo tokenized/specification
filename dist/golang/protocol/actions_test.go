@@ -462,7 +462,7 @@ func TestContractOffer(t *testing.T) {
 	// ContractAuthFlags (bin)
 	// bin test not setup
 
-	// ActionFee (uint)
+	// ContractFee (uint)
 	// uint test not setup
 
 	// VotingSystems (VotingSystem[])
@@ -588,9 +588,9 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("ContractAuthFlags doesn't match : %v != %v", initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags)
 	}
 
-	// ActionFee (uint)
-	if initialMessage.ActionFee != decodedMessage.ActionFee {
-		t.Errorf("ActionFee doesn't match : %v != %v", initialMessage.ActionFee, decodedMessage.ActionFee)
+	// ContractFee (uint)
+	if initialMessage.ContractFee != decodedMessage.ContractFee {
+		t.Errorf("ContractFee doesn't match : %v != %v", initialMessage.ContractFee, decodedMessage.ContractFee)
 	}
 
 	// VotingSystems (VotingSystem[])
@@ -685,7 +685,7 @@ func TestContractFormation(t *testing.T) {
 	// ContractAuthFlags (bin)
 	// bin test not setup
 
-	// ActionFee (uint)
+	// ContractFee (uint)
 	// uint test not setup
 
 	// VotingSystems (VotingSystem[])
@@ -817,9 +817,9 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("ContractAuthFlags doesn't match : %v != %v", initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags)
 	}
 
-	// ActionFee (uint)
-	if initialMessage.ActionFee != decodedMessage.ActionFee {
-		t.Errorf("ActionFee doesn't match : %v != %v", initialMessage.ActionFee, decodedMessage.ActionFee)
+	// ContractFee (uint)
+	if initialMessage.ContractFee != decodedMessage.ContractFee {
+		t.Errorf("ContractFee doesn't match : %v != %v", initialMessage.ContractFee, decodedMessage.ContractFee)
 	}
 
 	// VotingSystems (VotingSystem[])
@@ -941,20 +941,20 @@ func TestStaticContractFormation(t *testing.T) {
 	// ContractName (varchar)
 	initialMessage.ContractName = "Text 0"
 
-	// ContractType (varchar)
-	initialMessage.ContractType = "Text 1"
-
 	// ContractCode (ContractCode)
 	initialMessage.ContractCode = ContractCode{}
 
-	// ContractFileType (uint)
+	// BodyOfAgreementType (uint)
 	// uint test not setup
 
-	// ContractFile (varbin)
-	initialMessage.ContractFile = make([]byte, 0, 32)
+	// BodyOfAgreement (varbin)
+	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
 	for i := uint64(0); i < 32; i++ {
-		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+4))
+		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+3))
 	}
+
+	// ContractType (varchar)
+	initialMessage.ContractType = "Text 4"
 
 	// SupportingDocsFileType (uint)
 	// uint test not setup
@@ -1040,22 +1040,22 @@ func TestStaticContractFormation(t *testing.T) {
 		t.Errorf("ContractName doesn't match : %s != %s", initialMessage.ContractName, decodedMessage.ContractName)
 	}
 
-	// ContractType (varchar)
-	if initialMessage.ContractType != decodedMessage.ContractType {
-		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
-	}
-
 	// ContractCode (ContractCode)
 	// ContractCode test compare not setup
 
-	// ContractFileType (uint)
-	if initialMessage.ContractFileType != decodedMessage.ContractFileType {
-		t.Errorf("ContractFileType doesn't match : %v != %v", initialMessage.ContractFileType, decodedMessage.ContractFileType)
+	// BodyOfAgreementType (uint)
+	if initialMessage.BodyOfAgreementType != decodedMessage.BodyOfAgreementType {
+		t.Errorf("BodyOfAgreementType doesn't match : %v != %v", initialMessage.BodyOfAgreementType, decodedMessage.BodyOfAgreementType)
 	}
 
-	// ContractFile (varbin)
-	if !bytes.Equal(initialMessage.ContractFile, decodedMessage.ContractFile) {
-		t.Errorf("ContractFile doesn't match : %x != %x", initialMessage.ContractFile, decodedMessage.ContractFile)
+	// BodyOfAgreement (varbin)
+	if !bytes.Equal(initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement) {
+		t.Errorf("BodyOfAgreement doesn't match : %x != %x", initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement)
+	}
+
+	// ContractType (varchar)
+	if initialMessage.ContractType != decodedMessage.ContractType {
+		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
 	// SupportingDocsFileType (uint)
