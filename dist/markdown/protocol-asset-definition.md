@@ -47,7 +47,7 @@ The following breaks down the construction of a Asset Definition Action. The act
             <td class="a10">8</td>
             <td class="a10"><abbr title="0000000000000000000000000000000000000000000000000001000110111111">Hover for example</abbr></td>
             <td class="a10">Authorization Flags,  bitwise operation</td>
-            <td class="a10">bin</td>
+            <td class="a10">varbin</td>
             <td class="a10"></td>
         </tr>
         <tr>

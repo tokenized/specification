@@ -13,7 +13,7 @@ class Action_AssetDefinition(ActionBase):
 
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
-        'AssetAuthFlags':                  [1, DAT_bin, 8],
+        'AssetAuthFlags':                  [1, DAT_varbin, 8],
         'TransfersPermitted':              [2, DAT_bool, 0],
         'TradeRestrictions':               [3, DAT_Polity, 0],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
@@ -137,7 +137,7 @@ class Action_ContractOffer(ActionBase):
         'IssuerLogoURL':                   [10, DAT_varchar, 8],
         'ContractOperatorIncluded':        [11, DAT_bool, 0],
         'ContractOperator':                [12, DAT_Entity, 0],
-        'ContractAuthFlags':               [13, DAT_bin, 16],
+        'ContractAuthFlags':               [13, DAT_varbin, 16],
         'ContractFee':                     [14, DAT_uint, 8],
         'VotingSystems':                   [15, DAT_VotingSystem[], 0],
         'RestrictedQtyAssets':             [16, DAT_uint, 8],
@@ -196,7 +196,7 @@ class Action_ContractFormation(ActionBase):
         'IssuerLogoURL':                   [10, DAT_varchar, 8],
         'ContractOperatorIncluded':        [11, DAT_bool, 0],
         'ContractOperator':                [12, DAT_Entity, 0],
-        'ContractAuthFlags':               [13, DAT_bin, 16],
+        'ContractAuthFlags':               [13, DAT_varbin, 16],
         'ContractFee':                     [14, DAT_uint, 8],
         'VotingSystems':                   [15, DAT_VotingSystem[], 0],
         'RestrictedQtyAssets':             [16, DAT_uint, 8],
@@ -434,24 +434,26 @@ class Action_Reconciliation(ActionBase):
     def init_attributes(self):
 
 
-# Initiative Action - Allows Token Owners to propose an Initiative (aka
+# Proposal Action - Allows Token Issuers/Holders to propose a change (aka
 # Initiative/Shareholder vote). A significant cost - specified in the
 # Contract Formation - can be attached to this action to reduce spam, as
 # the resulting vote will be put to all token owners.
 
-class Action_Initiative(ActionBase):
+class Action_Proposal(ActionBase):
     ActionPrefix = 'G1'
 
     schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'VoteSystem':                      [1, DAT_uint, 1],
-        'Proposal':                        [2, DAT_bool, 0],
-        'ProposedChanges':                 [3, DAT_Amendment[], 0],
-        'VoteOptions':                     [4, DAT_varchar, 8],
-        'VoteMax':                         [5, DAT_uint, 1],
-        'ProposalDescription':             [6, DAT_varchar, 32],
-        'ProposalDocumentHash':            [7, DAT_bin, 32],
-        'VoteCutOffTimestamp':             [8, DAT_Timestamp, 0]
+        'AssetSpecificVote':               [0, DAT_bool, 0],
+        'AssetType':                       [1, DAT_fixedchar, 3],
+        'AssetCode':                       [2, DAT_AssetCode, 0],
+        'VoteSystem':                      [3, DAT_uint, 1],
+        'Specific':                        [4, DAT_bool, 0],
+        'ProposedAmendments':              [5, DAT_Amendment[], 0],
+        'VoteOptions':                     [6, DAT_varchar, 8],
+        'VoteMax':                         [7, DAT_uint, 1],
+        'ProposalDescription':             [8, DAT_varchar, 32],
+        'ProposalDocumentHash':            [9, DAT_bin, 32],
+        'VoteCutOffTimestamp':             [10, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -461,47 +463,11 @@ class Action_Initiative(ActionBase):
     }
 
     def init_attributes(self):
-        self.VoteSystem = None
-        self.Proposal = None
-        self.ProposedChanges = None
-        self.VoteOptions = None
-        self.VoteMax = None
-        self.ProposalDescription = None
-        self.ProposalDocumentHash = None
-        self.VoteCutOffTimestamp = None
-
-
-# Referendum Action - Issuer instructs the Contract to Initiate a Token
-# Owner Vote. Usually used for contract amendments, organizational
-# governance, etc.
-
-class Action_Referendum(ActionBase):
-    ActionPrefix = 'G2'
-
-    schema = {
-        'AssetType':                       [0, DAT_fixedchar, 3],
-        'AssetCode':                       [1, DAT_AssetCode, 0],
-        'VoteSystem':                      [2, DAT_uint, 1],
-        'Proposal':                        [3, DAT_bool, 0],
-        'ProposedChanges':                 [4, DAT_Amendment[], 0],
-        'VoteOptions':                     [5, DAT_varchar, 8],
-        'VoteMax':                         [6, DAT_uint, 1],
-        'ProposalDescription':             [7, DAT_varchar, 32],
-        'ProposalDocumentHash':            [8, DAT_bin, 32],
-        'VoteCutOffTimestamp':             [9, DAT_Timestamp, 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
+        self.AssetType = None
         self.AssetCode = None
         self.VoteSystem = None
-        self.Proposal = None
-        self.ProposedChanges = None
+        self.Specific = None
+        self.ProposedAmendments = None
         self.VoteOptions = None
         self.VoteMax = None
         self.ProposalDescription = None
@@ -513,7 +479,7 @@ class Action_Referendum(ActionBase):
 # Referendum (Issuer) or Initiative (User) Action.
 
 class Action_Vote(ActionBase):
-    ActionPrefix = 'G3'
+    ActionPrefix = 'G2'
 
     schema = {
         
@@ -534,7 +500,7 @@ class Action_Vote(ActionBase):
 # the relevant Asset Definition action.
 
 class Action_BallotCast(ActionBase):
-    ActionPrefix = 'G4'
+    ActionPrefix = 'G3'
 
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
@@ -559,7 +525,7 @@ class Action_BallotCast(ActionBase):
 # Rejection Action.
 
 class Action_BallotCounted(ActionBase):
-    ActionPrefix = 'G5'
+    ActionPrefix = 'G4'
 
     schema = {
         
@@ -577,7 +543,7 @@ class Action_BallotCounted(ActionBase):
 # Result Action - Once a vote has been completed the results are published.
 
 class Action_Result(ActionBase):
-    ActionPrefix = 'G6'
+    ActionPrefix = 'G5'
 
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
@@ -801,12 +767,11 @@ ActionClassMap = {
     'E3': Action_Thaw,
     'E4': Action_Confiscation,
     'E5': Action_Reconciliation,
-    'G1': Action_Initiative,
-    'G2': Action_Referendum,
-    'G3': Action_Vote,
-    'G4': Action_BallotCast,
-    'G5': Action_BallotCounted,
-    'G6': Action_Result,
+    'G1': Action_Proposal,
+    'G2': Action_Vote,
+    'G3': Action_BallotCast,
+    'G4': Action_BallotCounted,
+    'G5': Action_Result,
     'M1': Action_Message,
     'M2': Action_Rejection,
     'R1': Action_Establishment,

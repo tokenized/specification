@@ -37,6 +37,7 @@ test-go:
 tools:
 	go get golang.org/x/lint/golint
 	go get golang.org/x/tools/cmd/goimports
+	go get github.com/dgryski/go-bitstream
 
 prepare:
 	mkdir -p tmp

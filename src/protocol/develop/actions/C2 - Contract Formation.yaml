@@ -153,7 +153,7 @@ fields:
   - name: ContractAuthFlags
     label: Contract Authorization Flags
     description: "Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File."
-    type: bin
+    type: varbin
     size: 16
     example_hex: 492492496db6db6d249b6db6db6db6c0
     example_value: "010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000"

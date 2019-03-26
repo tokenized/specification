@@ -2,7 +2,7 @@
 # Ballot Counted Action: The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid.  If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.
 #
 
-code: G5
+code: G4
 
 metadata:
   name: BallotCounted

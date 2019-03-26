@@ -1,11 +1,11 @@
 
 
 
-# Initiative Action
+# Proposal Action
 
-Initiative Action -  Allows Token Owners to propose an Initiative (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action to reduce spam, as the resulting vote will be put to all token owners.
+Proposal Action - Allows Token Issuers/Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action to reduce spam, as the resulting vote will be put to all token owners.
 
-The following breaks down the construction of a Initiative Action. The action is constructed by building a single string from each of the elements in order.
+The following breaks down the construction of a Proposal Action. The action is constructed by building a single string from each of the elements in order.
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -24,6 +24,24 @@ The following breaks down the construction of a Initiative Action. The action is
                    Header - Click to show content
                 </a>
              </td>
+        </tr>
+        <tr>
+            <td class="g9">Initiator</td>
+            <td class="g10">Initiator</td>
+            <td class="g10">1</td>
+            <td class="g10"></td>
+            <td class="g10">Who initiated the proposal. 0 - Issuer, 1 - Holder</td>
+            <td class="g10">uint</td>
+            <td class="g10"></td>
+        </tr>
+        <tr>
+            <td class="g9">Asset Specific Vote</td>
+            <td class="g10">AssetSpecificVote</td>
+            <td class="g10">0</td>
+            <td class="g10"></td>
+            <td class="g10">1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No.</td>
+            <td class="g10">bool</td>
+            <td class="g10"></td>
         </tr>
         <tr>
             <td class="g9">Asset Type</td>
@@ -51,18 +69,18 @@ The following breaks down the construction of a Initiative Action. The action is
             <td class="g10"></td>
         </tr>
         <tr>
-            <td class="g9">Proposal</td>
-            <td class="g10">Proposal</td>
+            <td class="g9">Specific</td>
+            <td class="g10">Specific</td>
             <td class="g10">0</td>
-            <td class="g10">0</td>
-            <td class="g10"><abbr title="1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.">1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for ...</abbr></td>
+            <td class="g10"></td>
+            <td class="g10"><abbr title="When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update.">When true the ProposedAmendments field is included and specifies the exact changes to make ...</abbr></td>
             <td class="g10">bool</td>
             <td class="g10"></td>
         </tr>
         <tr>
             <td class="g5" colspan="7">
                 <a href="javascript:;" data-popover="type-Amendment">
-                   Proposed Changes - Click to show content
+                   Proposed Amendments - Click to show content
                 </a>
             </td>
         </tr>
@@ -112,7 +130,7 @@ The following breaks down the construction of a Initiative Action. The action is
     </table>
 </div>
 
-##Initiative Action Transaction Summary
+##Proposal Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -131,7 +149,7 @@ The following breaks down the construction of a Initiative Action. The action is
 
        <tr>
             <td class="g5">0</td>
-            <td class="g6">Token Owner's Public Address</td>
+            <td class="g6">Issuer/Token Owner's Public Address</td>
             <td class="g6"></td>
             <td class="g10">0</td>
             <td class="g10">Contract Public Address</td>

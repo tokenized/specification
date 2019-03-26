@@ -151,7 +151,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10">16</td>
             <td class="c10"><abbr title="010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000">Hover for example</abbr></td>
             <td class="c10"><abbr title="Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File.">Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other t ...</abbr></td>
-            <td class="c10">bin</td>
+            <td class="c10">varbin</td>
             <td class="c10">Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.</td>
         </tr>
         <tr>

@@ -49,7 +49,7 @@ fields:
   - name: AssetAuthFlags
     label: Asset Authorization Flags
     description: "Authorization Flags,  bitwise operation"
-    type: bin
+    type: varbin
     size: 8
     example_hex: 00000000000011bf
     example_value: "0000000000000000000000000000000000000000000000000001000110111111"

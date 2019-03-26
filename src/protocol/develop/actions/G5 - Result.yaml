@@ -2,7 +2,7 @@
 # Result Action: Once a vote has been completed the results are published.
 #
 
-code: G6
+code: G5
 
 metadata:
   name: Result
