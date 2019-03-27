@@ -35,6 +35,28 @@ The Tokenized Protocol must retain the entire definition history in order to par
 
 ## Protocol
 
+### Serialization
+
+This protocol's main purpose is to provide the ability to parse and create Bitcoin OP_RETURN output scripts containing Tokenized data in a consistent way.
+There are several classes of Tokenized data including actions and messages. Some of the types have different types of payloads that further specify data.
+To create an OP_RETURN script, first populate a action/message struct, then pass it into the Serialize function, which will return a Bitcoin script.
+To read an OP_RETURN script, pass the script into the Deserialize function and if it is valid, then it will return an action/message struct.
+
+#### OP_RETURN script format
+`<OP_RETURN> 0x64`
+
+`<PUSH_OP size 13> 0x0d`
+
+`<"tokenized.com"> 0x746f6b656e697a65642e636f6d`
+
+`<PUSH_OP payload size + 3>` The exact push op for the payload size depends on the payload size.
+
+`<version 1 byte> 0x01`
+
+`<payload type code 2 bytes> 0x4331`
+
+`<payload> ...`
+
 ### Primitive Types
 
 * `int` is a signed integer. `size` is the number of bits for the integer. Valid values for `size` are 8, 16, 32, 64.
@@ -67,28 +89,28 @@ For example, a `varchar` value with a `size` of 8 will be able to contain up to 
 
 ### Basic Types
 
-* `OpReturnMessage` implements a base interface for all message types.  
+* `OpReturnMessage` implements a base interface for all message types.
 Provides the ability to serialize the data as a Bitcoin OP_RETURN script and to request the variable payload data.
 
-* `PayloadMessage` is the interface for messages that are derived from payloads, such as asset types and message types.  
+* `PayloadMessage` is the interface for messages that are derived from payloads, such as asset types and message types.
 Provides the ability to serialize the data.
 
-* `TxId` represents a Bitcoin transaction ID.  
+* `TxId` represents a Bitcoin transaction ID.
 It is the double SHA256 hash of the serialized transaction.
 `size` does not need to be specified and is always 32 bytes.
 
-* `PublicKeyHash` represents a Bitcoin Public Key Hash.  
+* `PublicKeyHash` represents a Bitcoin Public Key Hash.
 It is the RIPEMD160 hash of the SHA256 of the serialized public key.
 Public key hashes are used as an "address" to send/receive transactions, tokens, and messages.
 `size` does not need to be specified and is always 20 bytes.
 
-* `AssetCode` represents a unique identifier for an asset/token.  
+* `AssetCode` represents a unique identifier for an asset/token.
 `size` does not need to be specified and is always 32 bytes.
 
-* `ContractCode` represents a unique identifier for a static contract.  
+* `ContractCode` represents a unique identifier for a static contract.
 `size` does not need to be specified and is always 32 bytes.
 
-* `Timestamp` represents a time.  
+* `Timestamp` represents a time.
 `size` does not need to be specified and is always 8 bytes.
 
 ### Arrays/Lists

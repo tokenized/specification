@@ -17,7 +17,7 @@ fields:
     size: 1
     example: 0
     computed: true
-    
+
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
@@ -26,8 +26,8 @@ fields:
     example_value: 1551767413250187179
     notes: ""
 
-  - name: SigRequest
-    label: Signature Request
+  - name: Payload
+    label: Payload
     description: "Full serialized bitcoin tx with multiple inputs from different wallets/users."
     type: varbin
     size: 32

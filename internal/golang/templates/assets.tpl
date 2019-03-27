@@ -30,7 +30,7 @@ func AssetTypeMapping(code string) PayloadMessage {
 {{range .}}
 // {{.Name}} asset type.
 type {{.Name}} struct {
-{{range .Fields }}	{{.Name}} {{.FieldGoType}}
+{{range .Fields }}	{{.Name}} {{.FieldGoType}} {{ .GoTags }} // {{ .FieldDescription }}
 {{ end -}}
 }
 
@@ -74,10 +74,6 @@ func (m *{{.Name}}) Serialize() ([]byte, error) {
 	}
 {{- else if .IsVarBin }}
 	if err := WriteVarBin(buf, m.{{.Name}}, {{.Length}}); err != nil {
-		return nil, err
-	}
-{{- else if .IsPushDataLength }}
-	if err := write(buf, PushDataScript(m.{{.Name}})); err != nil {
 		return nil, err
 	}
 {{- else if .IsInternalTypeArray }}
@@ -143,14 +139,6 @@ func (m *{{.Name}}) Write(b []byte) (int, error) {
 		m.{{.FieldName}}, err = ReadVarBin(buf, {{.Length}})
 		if err != nil {
 			return 0, err
-		}
-	}
-{{- else if .IsPushDataLength }}
-	{
-		var err error
-		m.{{.Name}}, err = ParsePushDataScript(buf)
-		if err != nil {
-			return err
 		}
 	}
 {{- else if .IsInternalTypeArray }}

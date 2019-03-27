@@ -29,5 +29,5 @@ func (c Constructor) ConstructorSetMethod() string {
 }
 
 func (c Constructor) ConstructorGoType() string {
-	return GoType(c.Type, c.Size)
+	return GoType(c.Type, c.Size, nil)
 }

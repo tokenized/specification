@@ -1,11 +1,11 @@
 
 
 
-# Referendum Action
+# Proposal Action
 
-Referendum Action -  Issuer instructs the Contract to Initiate a Token Owner Vote. Usually used for contract amendments, organizational governance, etc.
+Proposal Action - Allows Token Issuers/Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action to reduce spam, as the resulting vote will be put to all token owners.
 
-The following breaks down the construction of a Referendum Action. The action is constructed by building a single string from each of the elements in order.
+The following breaks down the construction of a Proposal Action. The action is constructed by building a single string from each of the elements in order.
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -26,10 +26,19 @@ The following breaks down the construction of a Referendum Action. The action is
              </td>
         </tr>
         <tr>
+            <td class="g9">Initiator</td>
+            <td class="g10">Initiator</td>
+            <td class="g10">1</td>
+            <td class="g10"></td>
+            <td class="g10">Who initiated the proposal. 0 - Issuer, 1 - Holder</td>
+            <td class="g10">uint</td>
+            <td class="g10"></td>
+        </tr>
+        <tr>
             <td class="g9">Asset Specific Vote</td>
             <td class="g10">AssetSpecificVote</td>
             <td class="g10">0</td>
-            <td class="g10">1</td>
+            <td class="g10"></td>
             <td class="g10">1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No.</td>
             <td class="g10">bool</td>
             <td class="g10"></td>
@@ -38,7 +47,7 @@ The following breaks down the construction of a Referendum Action. The action is
             <td class="g9">Asset Type</td>
             <td class="g10">AssetType</td>
             <td class="g10">3</td>
-            <td class="g10">RRE</td>
+            <td class="g10">SHC</td>
             <td class="g10">eg. Share, Bond, Ticket</td>
             <td class="g10">fixedchar</td>
             <td class="g10"></td>
@@ -60,18 +69,18 @@ The following breaks down the construction of a Referendum Action. The action is
             <td class="g10"></td>
         </tr>
         <tr>
-            <td class="g9">Proposal</td>
-            <td class="g10">Proposal</td>
+            <td class="g9">Specific</td>
+            <td class="g10">Specific</td>
             <td class="g10">0</td>
-            <td class="g10">0</td>
-            <td class="g10"><abbr title="1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.">1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for ...</abbr></td>
+            <td class="g10"></td>
+            <td class="g10"><abbr title="When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update.">When true the ProposedAmendments field is included and specifies the exact changes to make ...</abbr></td>
             <td class="g10">bool</td>
             <td class="g10"></td>
         </tr>
         <tr>
             <td class="g5" colspan="7">
                 <a href="javascript:;" data-popover="type-Amendment">
-                   Proposed Changes - Click to show content
+                   Proposed Amendments - Click to show content
                 </a>
             </td>
         </tr>
@@ -80,7 +89,7 @@ The following breaks down the construction of a Referendum Action. The action is
             <td class="g10">VoteOptions</td>
             <td class="g10">8</td>
             <td class="g10">ABCDEFGHIJKLMNO</td>
-            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes. Only applicable if Proposal Type is set to P for Proposal.  All other Proposal Types will be binary.  Pass/Fail.">Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical ...</abbr></td>
+            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.">Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical ...</abbr></td>
             <td class="g10">varchar</td>
             <td class="g10"></td>
         </tr>
@@ -89,7 +98,7 @@ The following breaks down the construction of a Referendum Action. The action is
             <td class="g10">VoteMax</td>
             <td class="g10">1</td>
             <td class="g10">15</td>
-            <td class="g10"><abbr title="Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)">Range: 1-15. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N ...</abbr></td>
+            <td class="g10"><abbr title="Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)">Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N  ...</abbr></td>
             <td class="g10">uint</td>
             <td class="g10"></td>
         </tr>
@@ -98,7 +107,7 @@ The following breaks down the construction of a Referendum Action. The action is
             <td class="g10">ProposalDescription</td>
             <td class="g10">32</td>
             <td class="g10">Change the name of the Contract.</td>
-            <td class="g10">Length restricted by the Bitcoin protocol. 0 is valid. Description of the vote.</td>
+            <td class="g10">Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote</td>
             <td class="g10">varchar</td>
             <td class="g10"></td>
         </tr>
@@ -107,7 +116,7 @@ The following breaks down the construction of a Referendum Action. The action is
             <td class="g10">ProposalDocumentHash</td>
             <td class="g10">32</td>
             <td class="g10"><abbr title="77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec">Hover for example</abbr></td>
-            <td class="g10">SHA256 Hash of the proposal document to be distributed to voters</td>
+            <td class="g10">SHA256 Hash of the proposal document to be distributed to voters.</td>
             <td class="g10">bin</td>
             <td class="g10"></td>
         </tr>
@@ -121,7 +130,7 @@ The following breaks down the construction of a Referendum Action. The action is
     </table>
 </div>
 
-##Referendum Action Transaction Summary
+##Proposal Action Transaction Summary
 
 <div class="ritz grid-container" dir="ltr">
     <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
@@ -140,11 +149,11 @@ The following breaks down the construction of a Referendum Action. The action is
 
        <tr>
             <td class="g5">0</td>
-            <td class="g6">Issuer's Public Address</td>
+            <td class="g6">Issuer/Token Owner's Public Address</td>
             <td class="g6"></td>
             <td class="g10">0</td>
             <td class="g10">Contract Public Address</td>
-            <td class="g10">Enough for the responding action.</td>
+            <td class="g10"></td>
         </tr>
 
        <tr>
@@ -212,8 +221,8 @@ The following breaks down the construction of a Referendum Action. The action is
                 <td class="g10">Action Prefix</td>
                 <td class="g10">ActionPrefix</td>
                 <td class="g10">2</td>
-                <td class="g10">G2</td>
-                <td class="g10" style="word-break:break-all">// G2 identifies data as a Referendum message.</td>
+                <td class="g10">G1</td>
+                <td class="g10" style="word-break:break-all">// G1 identifies data as a Initiative message.</td>
                 <td class="g10">string</td>
                 <td class="g10">Cannot be changed by issuer, operator or smart contract..</td>
             </tr>

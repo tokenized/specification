@@ -29,17 +29,6 @@ A Currency
             <td class="a10">false</td>
         </tr>
         <tr>
-            <td class="a10">TradingRestriction</td>
-            <td class="a9">Trading Restriction</td>
-            <td class="a10">polity</td>
-            <td class="a10"></td>
-            <td class="a10">5</td>
-            <td class="a10"></td>
-            <td class="a10">false</td>
-            <td class="a10">0</td>
-            <td class="a10">false</td>
-        </tr>
-        <tr>
             <td class="a10">ISOCode</td>
             <td class="a9">ISO Code</td>
             <td class="a10">fixedchar</td>
@@ -55,7 +44,7 @@ A Currency
             <td class="a9">Monetary Authority</td>
             <td class="a10">varchar</td>
             <td class="a10"></td>
-            <td class="a10">255</td>
+            <td class="a10">8</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>
@@ -66,7 +55,7 @@ A Currency
             <td class="a9">Description</td>
             <td class="a10">varchar</td>
             <td class="a10"></td>
-            <td class="a10">255</td>
+            <td class="a10">16</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>

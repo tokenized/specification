@@ -27,14 +27,6 @@ fields:
     example: 0
     computed: true
 
-  - name: TradingRestriction
-    label: Trading Restriction
-    type: polity
-    size: 5
-    example: AUS
-    span: full
-    displayOrder: 3
-
   - name: AgeRestriction
     label: Age Restriction
     type: dropdown
@@ -67,7 +59,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 255
     example: 34536457575486868
     span: right
     displayOrder: 3
@@ -77,7 +68,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 255
     example: Director, Silver, Employee
     span: right
     displayOrder: 3

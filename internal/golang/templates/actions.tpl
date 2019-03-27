@@ -93,47 +93,50 @@ func (action *{{.Name}}) read(b []byte) (int, error) {
 // serialize returns the full OP_RETURN payload bytes.
 func (action *{{.Name}}) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-{{ range .PayloadFields }}
+	excludes := make(map[string]bool)
+	var skip bool
+
+{{- range .PayloadFields }}
 
 	// {{.FieldName}} ({{.FieldGoType}})
-	// fmt.Printf("Serializing {{.FieldName}}\n")
+	_, skip = excludes["{{.FieldName}}"]
+	if !skip {
 {{- if .IsVarChar }}
-	if err := WriteVarChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
-		return nil, err
-	}
+		if err := WriteVarChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
+			return nil, err
+		}
 {{- else if .IsFixedChar }}
-	if err := WriteFixedChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
-		return nil, err
-	}
+		if err := WriteFixedChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
+			return nil, err
+		}
 {{- else if .IsVarBin }}
-	if err := WriteVarBin(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
-		return nil, err
-	}
+		if err := WriteVarBin(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
+			return nil, err
+		}
 {{- else if .IsInternalTypeArray }}
-	if err := WriteVariableSize(buf, uint64(len(action.{{.FieldName}})), {{.Length}}, 8); err != nil {
-		return nil, err
-	}
-	for _, value := range action.{{.FieldName}} {
-		b, err := value.Serialize()
-		if err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.{{.FieldName}})), {{.Length}}, 8); err != nil {
 			return nil, err
 		}
+		for _, value := range action.{{.FieldName}} {
+			b, err := value.Serialize()
+			if err != nil {
+				return nil, err
+			}
 
-		if err := write(buf, b); err != nil {
-			return nil, err
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
 		}
-	}
 {{- else if .IsNativeTypeArray }}
-	if err := WriteVariableSize(buf, uint64(len(action.{{.FieldName}})), {{.Length}}, 8); err != nil {
-		return nil, err
-	}
-	for _, value := range action.{{.FieldName}} {
-		if err := write(buf, value); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.{{.FieldName}})), {{.Length}}, 8); err != nil {
 			return nil, err
 		}
-	}
+		for _, value := range action.{{.FieldName}} {
+			if err := write(buf, value); err != nil {
+				return nil, err
+			}
+		}
 {{- else if .IsInternalType }}
-	{
 		b, err := action.{{.Name}}.Serialize()
 		if err != nil {
 			return nil, err
@@ -142,64 +145,57 @@ func (action *{{.Name}}) serialize() ([]byte, error) {
 		if err := write(buf, b); err != nil {
 			return nil, err
 		}
-	}
 {{- else if .IsBytes }}
-	if err := write(buf, pad(action.{{.FieldName}}, {{.Length}})); err != nil {
-		return nil, err
-	}
+		if err := write(buf, pad(action.{{.FieldName}}, {{.Length}})); err != nil {
+			return nil, err
+		}
 {{- else}}
-	if err := write(buf, action.{{.FieldName}}); err != nil {
-		return nil, err
-	}
+		if err := write(buf, action.{{.FieldName}}); err != nil {
+			return nil, err
+		}
 {{- end }}
-	// fmt.Printf("Serialized {{.FieldName}} : buf len %d\n", buf.Len())
+
+{{- if and (eq .FieldGoType "bool") (ne (len .Includes) 0) }}
+		if !action.{{.FieldName}} {
+{{- range $i, $value := .Includes }}
+			excludes["{{ $value }}"] = true
+{{- end }}
+		}
+{{- end }}
+	}
 {{ end }}
 	return buf.Bytes(), nil
 }
 
 // write populates the fields in {{.Name}} from the byte slice
 func (action *{{.Name}}) write(b []byte) (int, error) {
-	// fmt.Printf("Reading {{.Name}} : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
+	excludes := make(map[string]bool)
+	var skip bool
 
 {{- range .Fields }}
-
 	// {{.FieldName}} ({{.FieldGoType}})
-	// fmt.Printf("Reading {{.FieldName}} : %d bytes remaining\n", buf.Len())
+	_, skip = excludes["{{.FieldName}}"]
+	if !skip {
 {{- if .IsVarChar }}
-	{
 		var err error
 		action.{{.FieldName}}, err = ReadVarChar(buf, {{.Length}})
 		if err != nil {
 			return 0, err
 		}
-	}
 {{- else if .IsFixedChar }}
-	{
 		var err error
 		action.{{.FieldName}}, err = ReadFixedChar(buf, {{.Length}})
 		if err != nil {
 			return 0, err
 		}
-	}
 {{- else if .IsVarBin }}
-	{
 		var err error
 		action.{{.FieldName}}, err = ReadVarBin(buf, {{.Length}})
 		if err != nil {
 			return 0, err
 		}
-	}
-{{- else if .IsPushDataLength }}
-	{
-		var err error
-		action.{{.Name}}, err = ParsePushDataScript(buf)
-		if err != nil {
-			return err
-		}
-	}
 {{- else if .IsInternalTypeArray }}
-	{
 		size, err := ReadVariableSize(buf, {{.Length}}, 8)
 		if err != nil {
 			return 0, err
@@ -213,9 +209,7 @@ func (action *{{.Name}}) write(b []byte) (int, error) {
 
 			action.{{.FieldName}} = append(action.{{.FieldName}}, newValue)
 		}
-	}
 {{- else if .IsNativeTypeArray }}
-	{
 		size, err := ReadVariableSize(buf, {{.Length}}, 8)
 		if err != nil {
 			return 0, err
@@ -224,28 +218,32 @@ func (action *{{.Name}}) write(b []byte) (int, error) {
 		if err := read(buf, &action.{{.FieldName}}); err != nil {
 			return 0, err
 		}
-	}
 {{- else if .IsInternalType }}
-	if err := action.{{.FieldName}}.Write(buf); err != nil {
-		return 0, err
-	}
+		if err := action.{{.FieldName}}.Write(buf); err != nil {
+			return 0, err
+		}
 {{- else if or .IsBytes .IsData }}
-	action.{{.FieldName}} = make([]byte, {{.Length}})
-	if err := readLen(buf, action.{{.FieldName}}); err != nil {
-		return 0, err
-	}
+		action.{{.FieldName}} = make([]byte, {{.Length}})
+		if err := readLen(buf, action.{{.FieldName}}); err != nil {
+			return 0, err
+		}
 {{- else if .Trimmable }}
-	action.{{.FieldName}} = bytes.Trim(action.{{.FieldName}}, "\x00")
+		action.{{.FieldName}} = bytes.Trim(action.{{.FieldName}}, "\x00")
 {{- else }}
-	if err := read(buf, &action.{{.FieldName}}); err != nil {
-		return 0, err
-	}
+		if err := read(buf, &action.{{.FieldName}}); err != nil {
+			return 0, err
+		}
 {{- end }}
 
-	// fmt.Printf("Read {{.FieldName}} : %d bytes remaining\n%+v\n", buf.Len(), action.{{.FieldName}})
+{{- if and (eq .FieldGoType "bool") (ne (len .Includes) 0) }}
+		if !action.{{.FieldName}} {
+{{- range $i, $value := .Includes }}
+			excludes["{{ $value }}"] = true
+{{- end }}
+		}
+{{- end }}
+	}
 {{ end }}
-
-	// fmt.Printf("Read {{.Name}} : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 

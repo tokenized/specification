@@ -140,10 +140,13 @@ func TestOffer(t *testing.T) {
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
 
-	// Offer (varbin)
-	initialMessage.Offer = make([]byte, 0, 32)
+	// RefTxId (TxId)
+	initialMessage.RefTxId = TxId{}
+
+	// Payload (varbin)
+	initialMessage.Payload = make([]byte, 0, 32)
 	for i := uint64(0); i < 32; i++ {
-		initialMessage.Offer = append(initialMessage.Offer, byte(65+i+2))
+		initialMessage.Payload = append(initialMessage.Payload, byte(65+i+3))
 	}
 
 	// Encode message
@@ -189,9 +192,14 @@ func TestOffer(t *testing.T) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
-	// Offer (varbin)
-	if !bytes.Equal(initialMessage.Offer, decodedMessage.Offer) {
-		t.Errorf("Offer doesn't match : %x != %x", initialMessage.Offer, decodedMessage.Offer)
+	// RefTxId (TxId)
+	if initialMessage.RefTxId != decodedMessage.RefTxId {
+		t.Errorf("RefTxId doesn't match : %v != %v", initialMessage.RefTxId, decodedMessage.RefTxId)
+	}
+
+	// Payload (varbin)
+	if !bytes.Equal(initialMessage.Payload, decodedMessage.Payload) {
+		t.Errorf("Payload doesn't match : %x != %x", initialMessage.Payload, decodedMessage.Payload)
 	}
 }
 
@@ -204,10 +212,10 @@ func TestSignatureRequest(t *testing.T) {
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
 
-	// SigRequest (varbin)
-	initialMessage.SigRequest = make([]byte, 0, 32)
+	// Payload (varbin)
+	initialMessage.Payload = make([]byte, 0, 32)
 	for i := uint64(0); i < 32; i++ {
-		initialMessage.SigRequest = append(initialMessage.SigRequest, byte(65+i+2))
+		initialMessage.Payload = append(initialMessage.Payload, byte(65+i+2))
 	}
 
 	// Encode message
@@ -253,8 +261,8 @@ func TestSignatureRequest(t *testing.T) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
-	// SigRequest (varbin)
-	if !bytes.Equal(initialMessage.SigRequest, decodedMessage.SigRequest) {
-		t.Errorf("SigRequest doesn't match : %x != %x", initialMessage.SigRequest, decodedMessage.SigRequest)
+	// Payload (varbin)
+	if !bytes.Equal(initialMessage.Payload, decodedMessage.Payload) {
+		t.Errorf("Payload doesn't match : %x != %x", initialMessage.Payload, decodedMessage.Payload)
 	}
 }

@@ -11,6 +11,8 @@ type Field struct {
 	Description  string
 	Type         string
 	Size         uint64
+	Options      []string
+	Includes     []string
 	Required     bool
 	ExampleValue string `yaml:"example_value"`
 	ExampleHex   string `yaml:"example_hex"`
@@ -71,10 +73,6 @@ func (f Field) IsVarBin() bool {
 	return f.Type == "varbin"
 }
 
-func (f Field) IsPushDataLength() bool {
-	return f.Type == "pushdata_length"
-}
-
 func (f Field) IsNumeric() bool {
 	s := strings.ToLower(f.Type)
 
@@ -98,7 +96,7 @@ func (f Field) SingularType() string {
 }
 
 func (f Field) FieldGoType() string {
-	return GoType(f.Type, f.Size)
+	return GoType(f.Type, f.Size, f.Options)
 }
 
 func (f Field) IsInternalTypeArray() bool {
@@ -111,6 +109,10 @@ func (f Field) IsNativeTypeArray() bool {
 
 func (f Field) IsInternalType() bool {
 	return IsInternalType(f.Type, f.Size)
+}
+
+func (f Field) IsNativeType() bool {
+	return !IsInternalType(f.Type, f.Size) && !strings.HasSuffix(f.Type, "[]")
 }
 
 func (f Field) IsComplexType() bool {

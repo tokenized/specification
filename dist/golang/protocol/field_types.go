@@ -2,6 +2,69 @@ package protocol
 
 import "bytes"
 
+// Administrator Administrator is used to refer to a Administration role in
+// an Entity.
+type Administrator struct {
+	Type uint8  `json:"type,omitempty"` // Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources
+	Name string `json:"name,omitempty"` // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
+}
+
+// NewAdministrator returns a new Administrator with defaults set.
+func NewAdministrator(roleType uint8, name string) *Administrator {
+	result := Administrator{}
+	result.Type = roleType
+	result.Name = name
+	return &result
+}
+
+// Serialize returns the byte representation of the message.
+func (m Administrator) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	// Type (uint8)
+	if err := write(buf, m.Type); err != nil {
+		return nil, err
+	}
+
+	// Name (string)
+	if err := WriteVarChar(buf, m.Name, 8); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
+func (m *Administrator) Write(buf *bytes.Buffer) error {
+
+	// Type (uint8)
+	if err := read(buf, &m.Type); err != nil {
+		return err
+	}
+
+	// Name (string)
+	{
+		var err error
+		m.Name, err = ReadVarChar(buf, 8)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (m *Administrator) Equal(other Administrator) bool {
+
+	// Type (uint8)
+	if m.Type != other.Type {
+		return false
+	}
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+	return true
+}
+
 // Amendment An Amendment is used to describe the modification of a single
 // field in a Contract or Asset, as defined in the ContractFormation and
 // AssetCreation messages.
@@ -81,6 +144,35 @@ func (m *Amendment) Write(buf *bytes.Buffer) error {
 		}
 	}
 	return nil
+}
+
+func (m *Amendment) Equal(other Amendment) bool {
+
+	// FieldIndex (uint8)
+	if m.FieldIndex != other.FieldIndex {
+		return false
+	}
+
+	// Element (uint16)
+	if m.Element != other.Element {
+		return false
+	}
+
+	// SubfieldIndex (uint8)
+	if m.SubfieldIndex != other.SubfieldIndex {
+		return false
+	}
+
+	// Operation (uint8)
+	if m.Operation != other.Operation {
+		return false
+	}
+
+	// Data (string)
+	if m.Data != other.Data {
+		return false
+	}
+	return true
 }
 
 // AssetSettlement AssetSettlement is the data required to settle an asset
@@ -179,6 +271,38 @@ func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
 		}
 	}
 	return nil
+}
+
+func (m *AssetSettlement) Equal(other AssetSettlement) bool {
+
+	// ContractIndex (uint16)
+	if m.ContractIndex != other.ContractIndex {
+		return false
+	}
+
+	// AssetType (string)
+	if m.AssetType != other.AssetType {
+		return false
+	}
+
+	// AssetCode (AssetCode)
+	if !m.AssetCode.Equal(other.AssetCode) {
+		return false
+	}
+
+	// Settlements ([]QuantityIndex)
+	if len(m.Settlements) != 0 || len(other.Settlements) != 0 {
+		if len(m.Settlements) != len(other.Settlements) {
+			return false
+		}
+
+		for i, value := range m.Settlements {
+			if !value.Equal(other.Settlements[i]) {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 // AssetTransfer AssetTransfer is the data required to transfer an asset.
@@ -311,24 +435,69 @@ func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+func (m *AssetTransfer) Equal(other AssetTransfer) bool {
+
+	// ContractIndex (uint16)
+	if m.ContractIndex != other.ContractIndex {
+		return false
+	}
+
+	// AssetType (string)
+	if m.AssetType != other.AssetType {
+		return false
+	}
+
+	// AssetCode (AssetCode)
+	if !m.AssetCode.Equal(other.AssetCode) {
+		return false
+	}
+
+	// AssetSenders ([]QuantityIndex)
+	if len(m.AssetSenders) != 0 || len(other.AssetSenders) != 0 {
+		if len(m.AssetSenders) != len(other.AssetSenders) {
+			return false
+		}
+
+		for i, value := range m.AssetSenders {
+			if !value.Equal(other.AssetSenders[i]) {
+				return false
+			}
+		}
+	}
+
+	// AssetReceivers ([]TokenReceiver)
+	if len(m.AssetReceivers) != 0 || len(other.AssetReceivers) != 0 {
+		if len(m.AssetReceivers) != len(other.AssetReceivers) {
+			return false
+		}
+
+		for i, value := range m.AssetReceivers {
+			if !value.Equal(other.AssetReceivers[i]) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
 // Entity Entity represents the details of a legal Entity, such as a public
 // or private company, government agency, or and individual.
 type Entity struct {
-	Name                       string        `json:"name,omitempty"`                          // Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
-	Type                       byte          `json:"type,omitempty"`                          // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
-	LEI                        string        `json:"lei,omitempty"`                           // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
-	Address                    bool          `json:"address,omitempty"`                       // Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
-	UnitNumber                 string        `json:"unit_number,omitempty"`                   // Issuer/Entity/Contracting Party X Address Details (eg. HQ)
-	BuildingNumber             string        `json:"building_number,omitempty"`               //
-	Street                     string        `json:"street,omitempty"`                        //
-	SuburbCity                 string        `json:"suburb_city,omitempty"`                   //
-	TerritoryStateProvinceCode string        `json:"territory_state_province_code,omitempty"` //
-	CountryCode                string        `json:"country_code,omitempty"`                  //
-	PostalZIPCode              string        `json:"postal_zip_code,omitempty"`               //
-	EmailAddress               string        `json:"email_address,omitempty"`                 // Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address
-	PhoneNumber                string        `json:"phone_number,omitempty"`                  // Length 0-50 bytes. 0 is valid. Phone Number for Entity.
-	KeyRoles                   []KeyRole     `json:"key_roles,omitempty"`                     // A list of Key Roles.
-	NotableRoles               []NotableRole `json:"notable_roles,omitempty"`                 // A list of Notable Roles.
+	Name                       string          `json:"name,omitempty"`                          // Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes.
+	Type                       byte            `json:"type,omitempty"`                          // P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+	LEI                        string          `json:"lei,omitempty"`                           // Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.
+	AddressIncluded            bool            `json:"address_included,omitempty"`              // Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
+	UnitNumber                 string          `json:"unit_number,omitempty"`                   // Issuer/Entity/Contracting Party X Address Details (eg. HQ)
+	BuildingNumber             string          `json:"building_number,omitempty"`               //
+	Street                     string          `json:"street,omitempty"`                        //
+	SuburbCity                 string          `json:"suburb_city,omitempty"`                   //
+	TerritoryStateProvinceCode string          `json:"territory_state_province_code,omitempty"` //
+	CountryCode                string          `json:"country_code,omitempty"`                  //
+	PostalZIPCode              string          `json:"postal_zip_code,omitempty"`               //
+	EmailAddress               string          `json:"email_address,omitempty"`                 // Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address
+	PhoneNumber                string          `json:"phone_number,omitempty"`                  // Length 0-50 bytes. 0 is valid. Phone Number for Entity.
+	Administration             []Administrator `json:"administration,omitempty"`                // A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc.
+	Management                 []Manager       `json:"management,omitempty"`                    // A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc.
 }
 
 // NewEntity returns a new Entity with defaults set.
@@ -356,8 +525,8 @@ func (m Entity) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// Address (bool)
-	if err := write(buf, m.Address); err != nil {
+	// AddressIncluded (bool)
+	if err := write(buf, m.AddressIncluded); err != nil {
 		return nil, err
 	}
 
@@ -406,11 +575,11 @@ func (m Entity) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// KeyRoles ([]KeyRole)
-	if err := WriteVariableSize(buf, uint64(len(m.KeyRoles)), 0, 8); err != nil {
+	// Administration ([]Administrator)
+	if err := WriteVariableSize(buf, uint64(len(m.Administration)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.KeyRoles {
+	for _, value := range m.Administration {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -421,11 +590,11 @@ func (m Entity) Serialize() ([]byte, error) {
 		}
 	}
 
-	// NotableRoles ([]NotableRole)
-	if err := WriteVariableSize(buf, uint64(len(m.NotableRoles)), 0, 8); err != nil {
+	// Management ([]Manager)
+	if err := WriteVariableSize(buf, uint64(len(m.Management)), 0, 8); err != nil {
 		return nil, err
 	}
-	for _, value := range m.NotableRoles {
+	for _, value := range m.Management {
 		b, err := value.Serialize()
 		if err != nil {
 			return nil, err
@@ -463,8 +632,8 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 		}
 	}
 
-	// Address (bool)
-	if err := read(buf, &m.Address); err != nil {
+	// AddressIncluded (bool)
+	if err := read(buf, &m.AddressIncluded); err != nil {
 		return err
 	}
 
@@ -549,40 +718,135 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 		}
 	}
 
-	// KeyRoles ([]KeyRole)
+	// Administration ([]Administrator)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return err
 		}
-		m.KeyRoles = make([]KeyRole, 0, size)
+		m.Administration = make([]Administrator, 0, size)
 		for i := uint64(0); i < size; i++ {
-			var newValue KeyRole
+			var newValue Administrator
 			if err := newValue.Write(buf); err != nil {
 				return err
 			}
 
-			m.KeyRoles = append(m.KeyRoles, newValue)
+			m.Administration = append(m.Administration, newValue)
 		}
 	}
 
-	// NotableRoles ([]NotableRole)
+	// Management ([]Manager)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return err
 		}
-		m.NotableRoles = make([]NotableRole, 0, size)
+		m.Management = make([]Manager, 0, size)
 		for i := uint64(0); i < size; i++ {
-			var newValue NotableRole
+			var newValue Manager
 			if err := newValue.Write(buf); err != nil {
 				return err
 			}
 
-			m.NotableRoles = append(m.NotableRoles, newValue)
+			m.Management = append(m.Management, newValue)
 		}
 	}
 	return nil
+}
+
+func (m *Entity) Equal(other Entity) bool {
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+
+	// Type (byte)
+	if m.Type != other.Type {
+		return false
+	}
+
+	// LEI (string)
+	if m.LEI != other.LEI {
+		return false
+	}
+
+	// AddressIncluded (bool)
+	if m.AddressIncluded != other.AddressIncluded {
+		return false
+	}
+
+	// UnitNumber (string)
+	if m.UnitNumber != other.UnitNumber {
+		return false
+	}
+
+	// BuildingNumber (string)
+	if m.BuildingNumber != other.BuildingNumber {
+		return false
+	}
+
+	// Street (string)
+	if m.Street != other.Street {
+		return false
+	}
+
+	// SuburbCity (string)
+	if m.SuburbCity != other.SuburbCity {
+		return false
+	}
+
+	// TerritoryStateProvinceCode (string)
+	if m.TerritoryStateProvinceCode != other.TerritoryStateProvinceCode {
+		return false
+	}
+
+	// CountryCode (string)
+	if m.CountryCode != other.CountryCode {
+		return false
+	}
+
+	// PostalZIPCode (string)
+	if m.PostalZIPCode != other.PostalZIPCode {
+		return false
+	}
+
+	// EmailAddress (string)
+	if m.EmailAddress != other.EmailAddress {
+		return false
+	}
+
+	// PhoneNumber (string)
+	if m.PhoneNumber != other.PhoneNumber {
+		return false
+	}
+
+	// Administration ([]Administrator)
+	if len(m.Administration) != 0 || len(other.Administration) != 0 {
+		if len(m.Administration) != len(other.Administration) {
+			return false
+		}
+
+		for i, value := range m.Administration {
+			if !value.Equal(other.Administration[i]) {
+				return false
+			}
+		}
+	}
+
+	// Management ([]Manager)
+	if len(m.Management) != 0 || len(other.Management) != 0 {
+		if len(m.Management) != len(other.Management) {
+			return false
+		}
+
+		for i, value := range m.Management {
+			if !value.Equal(other.Management[i]) {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 // Header Header contains common details required by every Tokenized
@@ -606,22 +870,27 @@ func (m *Header) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// KeyRole KeyRole is used to refer to a key role in an Entity.
-type KeyRole struct {
-	Type uint8  `json:"type,omitempty"` // Chairman, Director. Found in 'Roles' in Specification/Resources
+func (m *Header) Equal(other Header) bool {
+	return true
+}
+
+// Manager Manager is used to refer to a role that is responsible for the
+// Management of an Entity.
+type Manager struct {
+	Type uint8  `json:"type,omitempty"` // CEO, COO, CFO, etc. Found in 'Roles' in Specification/Resources
 	Name string `json:"name,omitempty"` // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
 }
 
-// NewKeyRole returns a new KeyRole with defaults set.
-func NewKeyRole(roleType uint8, name string) *KeyRole {
-	result := KeyRole{}
+// NewManager returns a new Manager with defaults set.
+func NewManager(roleType uint8, name string) *Manager {
+	result := Manager{}
 	result.Type = roleType
 	result.Name = name
 	return &result
 }
 
 // Serialize returns the byte representation of the message.
-func (m KeyRole) Serialize() ([]byte, error) {
+func (m Manager) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Type (uint8)
@@ -636,7 +905,7 @@ func (m KeyRole) Serialize() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (m *KeyRole) Write(buf *bytes.Buffer) error {
+func (m *Manager) Write(buf *bytes.Buffer) error {
 
 	// Type (uint8)
 	if err := read(buf, &m.Type); err != nil {
@@ -654,52 +923,18 @@ func (m *KeyRole) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
-// NotableRole NotableRole is used to refer to a role of note in an Entity.
-type NotableRole struct {
-	Type uint8  `json:"type,omitempty"` // Found in 'Roles' in Specification/Resources
-	Name string `json:"name,omitempty"` // Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)
-}
-
-// NewNotableRole returns a new NotableRole with defaults set.
-func NewNotableRole(roleType uint8, name string) *NotableRole {
-	result := NotableRole{}
-	result.Type = roleType
-	result.Name = name
-	return &result
-}
-
-// Serialize returns the byte representation of the message.
-func (m NotableRole) Serialize() ([]byte, error) {
-	buf := new(bytes.Buffer)
+func (m *Manager) Equal(other Manager) bool {
 
 	// Type (uint8)
-	if err := write(buf, m.Type); err != nil {
-		return nil, err
+	if m.Type != other.Type {
+		return false
 	}
 
 	// Name (string)
-	if err := WriteVarChar(buf, m.Name, 8); err != nil {
-		return nil, err
+	if m.Name != other.Name {
+		return false
 	}
-	return buf.Bytes(), nil
-}
-
-func (m *NotableRole) Write(buf *bytes.Buffer) error {
-
-	// Type (uint8)
-	if err := read(buf, &m.Type); err != nil {
-		return err
-	}
-
-	// Name (string)
-	{
-		var err error
-		m.Name, err = ReadVarChar(buf, 8)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
+	return true
 }
 
 // QuantityIndex A QuantityIndex contains a quantity, and an index. The
@@ -744,6 +979,20 @@ func (m *QuantityIndex) Write(buf *bytes.Buffer) error {
 		return err
 	}
 	return nil
+}
+
+func (m *QuantityIndex) Equal(other QuantityIndex) bool {
+
+	// Index (uint16)
+	if m.Index != other.Index {
+		return false
+	}
+
+	// Quantity (uint64)
+	if m.Quantity != other.Quantity {
+		return false
+	}
+	return true
 }
 
 // Registry A Registry defines the details of a public Registry.
@@ -814,6 +1063,25 @@ func (m *Registry) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+func (m *Registry) Equal(other Registry) bool {
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+
+	// URL (string)
+	if m.URL != other.URL {
+		return false
+	}
+
+	// PublicKey (PublicKeyHash)
+	if !m.PublicKey.Equal(other.PublicKey) {
+		return false
+	}
+	return true
+}
+
 // TargetAddress A TargetAddress defines a public address and quantity.
 type TargetAddress struct {
 	Address  PublicKeyHash `json:"address,omitempty"`  // Public address where the token balance will be changed.
@@ -861,6 +1129,20 @@ func (m *TargetAddress) Write(buf *bytes.Buffer) error {
 		return err
 	}
 	return nil
+}
+
+func (m *TargetAddress) Equal(other TargetAddress) bool {
+
+	// Address (PublicKeyHash)
+	if !m.Address.Equal(other.Address) {
+		return false
+	}
+
+	// Quantity (uint64)
+	if m.Quantity != other.Quantity {
+		return false
+	}
+	return true
 }
 
 // TokenReceiver A TokenReceiver is contains a quantity, index, and
@@ -935,16 +1217,39 @@ func (m *TokenReceiver) Write(buf *bytes.Buffer) error {
 	return nil
 }
 
+func (m *TokenReceiver) Equal(other TokenReceiver) bool {
+
+	// Index (uint16)
+	if m.Index != other.Index {
+		return false
+	}
+
+	// Quantity (uint64)
+	if m.Quantity != other.Quantity {
+		return false
+	}
+
+	// RegistrySigAlgorithm (uint8)
+	if m.RegistrySigAlgorithm != other.RegistrySigAlgorithm {
+		return false
+	}
+
+	// RegistryConfirmationSigToken (string)
+	if m.RegistryConfirmationSigToken != other.RegistryConfirmationSigToken {
+		return false
+	}
+	return true
+}
+
 // VotingSystem A VotingSystem defines all details of a Voting System.
 type VotingSystem struct {
-	Name                        string  `json:"name,omitempty"`                          // eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.
-	System                      [8]byte `json:"system,omitempty"`                        // Specifies which subfield is subject to this vote system's control.
-	Method                      byte    `json:"method,omitempty"`                        // R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful.
-	Logic                       byte    `json:"logic,omitempty"`                         // 0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.)
-	ThresholdPercentage         uint8   `json:"threshold_percentage,omitempty"`          // 1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.
-	VoteMultiplierPermitted     byte    `json:"vote_multiplier_permitted,omitempty"`     // Y - Yes, N - No. Where an asset has a vote multiplier, Y must be selected here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.
-	InitiativeThreshold         float32 `json:"initiative_threshold,omitempty"`          // Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid.
-	InitiativeThresholdCurrency string  `json:"initiative_threshold_currency,omitempty"` // Currency.  Always paid in BSV or a currency token (CUR) at current market valuations in the currency listed. NULL is valid.
+	Name                    string  `json:"name,omitempty"`                      // eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.
+	System                  [8]byte `json:"system,omitempty"`                    // Specifies which subfield is subject to this vote system's control.
+	Method                  byte    `json:"method,omitempty"`                    // R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful.
+	TallyLogic              byte    `json:"tally_logic,omitempty"`               // 0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.)
+	ThresholdPercentage     uint8   `json:"threshold_percentage,omitempty"`      // 1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.
+	VoteMultiplierPermitted byte    `json:"vote_multiplier_permitted,omitempty"` // Y - Yes, N - No. Where an asset has a vote multiplier, Y must be selected here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.
+	InitiativeFee           uint64  `json:"initiative_fee,omitempty"`            // Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid.
 }
 
 // NewVotingSystem returns a new VotingSystem with defaults set.
@@ -972,8 +1277,8 @@ func (m VotingSystem) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// Logic (byte)
-	if err := write(buf, m.Logic); err != nil {
+	// TallyLogic (byte)
+	if err := write(buf, m.TallyLogic); err != nil {
 		return nil, err
 	}
 
@@ -987,13 +1292,8 @@ func (m VotingSystem) Serialize() ([]byte, error) {
 		return nil, err
 	}
 
-	// InitiativeThreshold (float32)
-	if err := write(buf, m.InitiativeThreshold); err != nil {
-		return nil, err
-	}
-
-	// InitiativeThresholdCurrency (string)
-	if err := WriteFixedChar(buf, m.InitiativeThresholdCurrency, 3); err != nil {
+	// InitiativeFee (uint64)
+	if err := write(buf, m.InitiativeFee); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
@@ -1020,8 +1320,8 @@ func (m *VotingSystem) Write(buf *bytes.Buffer) error {
 		return err
 	}
 
-	// Logic (byte)
-	if err := read(buf, &m.Logic); err != nil {
+	// TallyLogic (byte)
+	if err := read(buf, &m.TallyLogic); err != nil {
 		return err
 	}
 
@@ -1035,18 +1335,48 @@ func (m *VotingSystem) Write(buf *bytes.Buffer) error {
 		return err
 	}
 
-	// InitiativeThreshold (float32)
-	if err := read(buf, &m.InitiativeThreshold); err != nil {
+	// InitiativeFee (uint64)
+	if err := read(buf, &m.InitiativeFee); err != nil {
 		return err
 	}
-
-	// InitiativeThresholdCurrency (string)
-	{
-		var err error
-		m.InitiativeThresholdCurrency, err = ReadFixedChar(buf, 3)
-		if err != nil {
-			return err
-		}
-	}
 	return nil
+}
+
+func (m *VotingSystem) Equal(other VotingSystem) bool {
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+
+	// System ([8]byte)
+	if m.System != other.System {
+		return false
+	}
+
+	// Method (byte)
+	if m.Method != other.Method {
+		return false
+	}
+
+	// TallyLogic (byte)
+	if m.TallyLogic != other.TallyLogic {
+		return false
+	}
+
+	// ThresholdPercentage (uint8)
+	if m.ThresholdPercentage != other.ThresholdPercentage {
+		return false
+	}
+
+	// VoteMultiplierPermitted (byte)
+	if m.VoteMultiplierPermitted != other.VoteMultiplierPermitted {
+		return false
+	}
+
+	// InitiativeFee (uint64)
+	if m.InitiativeFee != other.InitiativeFee {
+		return false
+	}
+	return true
 }

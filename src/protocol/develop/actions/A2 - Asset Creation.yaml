@@ -21,15 +21,7 @@ rules:
   outputs:
     - name: Contract
       label: "Contract Public Address"
-      comments: Dust Limit
-
-    - name: Issuer
-      label: "Issuer's Public Address"
-      comments: Change (Required, minimum 546)
-
-    - name: ContractOperator
-      label: "Contract Fee Address"
-      comments: "Contract Operator's Fee (Optional)"
+      comments: "Required so that users can monitor transactions to the contract for updates to contract/assets."
 
 fields:
   - name: Header
@@ -74,8 +66,7 @@ fields:
   - name: TradeRestrictions
     label: Trade Restrictions
     description: "Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only."
-    type: fixedchar
-    size: 3
+    type: Polity
     example_hex: 474252
     example_value: "GBR"
     notes: ""
@@ -128,33 +119,6 @@ fields:
     size: 8
     example_hex: 00000000000f4240
     example_value: "1000000"
-    notes: ""
-
-  - name: ContractFeeCurrency
-    label: Contract Fee Currency
-    description: "BSV, USD, AUD, EUR, etc."
-    type: fixedchar
-    size: 3
-    example_hex: 415544
-    example_value: "AUD"
-    notes: ""
-
-  - name: ContractFeeVar
-    label: Contract Fee Var
-    description: "Percent of the value of the transaction"
-    type: float
-    size: 4
-    example_hex: 3ba3d70a
-    example_value: "0.005"
-    notes: ""
-
-  - name: ContractFeeFixed
-    label: Contract Fee Fixed
-    description: "Fixed fee (payment made in BSV)"
-    type: float
-    size: 4
-    example_hex: 3c23d70a
-    example_value: "0.01"
     notes: ""
 
   - name: AssetPayload

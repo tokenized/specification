@@ -24,19 +24,11 @@ fields:
     example: 0
     computed: true
 
-  - name: TradingRestriction
-    label: Trading Restriction
-    type: polity
-    size: 5
-    example: AUS
-    span: full
-
   - name: RedeemingEntity
     label: Redeeming Entity
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    size: 255
     example: Woolworths - Robina Town Centre
     span: full
     displayOrder: 2
@@ -77,7 +69,6 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 16
-    # size: 65,535
     example: Gift Card
     span: full
     displayOrder: 1

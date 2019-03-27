@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 {{range .}}
@@ -14,7 +16,9 @@ func Test{{.Name}}(t *testing.T) {
 
 	{{- range $i, $field := .PayloadFields }}
 	// {{ $field.FieldName }} ({{ $field.Type }})
-		{{- if $field.IsVarChar }}
+		{{- if eq $field.Type "bool" }}
+	initialMessage.{{ $field.FieldName }} = true
+		{{- else if $field.IsVarChar }}
 	initialMessage.{{ $field.FieldName }} = "Text {{ $i }}"
 		{{- else if $field.IsFixedChar }}
 	{
@@ -73,12 +77,12 @@ func Test{{.Name}}(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -96,9 +100,14 @@ func Test{{.Name}}(t *testing.T) {
 	if !bytes.Equal(initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }}) {
 		t.Errorf("{{ $field.FieldName }} doesn't match : %x != %x", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
 	}
-		{{- else if eq $field.Type "timestamp" }}
-	if initialMessage.{{ $field.FieldName }} != decodedMessage.{{ $field.FieldName }} {
-		t.Errorf("{{ $field.FieldName }} doesn't match : %d != %d", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
+		{{- else if eq $field.Type "Polity" }}
+	if len(initialMessage.{{ $field.FieldName }}.Items) != len(decodedMessage.{{ $field.FieldName }}.Items) {
+		t.Errorf("{{ $field.FieldName }} length doesn't match : %d != %d", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
+	}
+	for i, value := range initialMessage.{{ $field.FieldName }}.Items {
+		if !bytes.Equal(value[:], decodedMessage.{{ $field.FieldName }}.Items[i][:]) {
+			t.Errorf("{{ $field.FieldName }}.Items[%d] doesn't match : %s != %s", i, string(value[:]), string(decodedMessage.{{ $field.FieldName }}.Items[i][:]))
+		}
 	}
 		{{- else if .IsInternalTypeArray }}
 	if len(initialMessage.{{ $field.FieldName }}) != len(decodedMessage.{{ $field.FieldName }}) {
@@ -113,7 +122,7 @@ func Test{{.Name}}(t *testing.T) {
 			t.Errorf("{{ $field.FieldName }} value %d doesn't match : %v != %v", i, value, decodedMessage.{{ $field.FieldName }}[i])
 		}
 	}
-		{{- else if .IsInternalType }}
+		{{- else if .IsNativeType }}
 	if initialMessage.{{ $field.FieldName }} != decodedMessage.{{ $field.FieldName }} {
 		t.Errorf("{{ $field.FieldName }} doesn't match : %v != %v", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
 	}

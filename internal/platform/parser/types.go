@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func GoType(typeName string, size uint64) string {
+func GoType(typeName string, size uint64, options []string) string {
 	name := typeName
 
 	prefix := ""
@@ -15,11 +15,14 @@ func GoType(typeName string, size uint64) string {
 	}
 
 	switch name {
-	// Temporary
-	case "polity":
-		return "[]byte"
 	case "dropdown":
-		return "[]byte"
+		if len(options) < 256 {
+			return "uint8"
+		} else if len(options) < 65536 {
+			return "uint16"
+		} else {
+			return "uint32"
+		}
 
 	case "varchar":
 		return "string"

@@ -35,15 +35,6 @@ The following breaks down the construction of a Static Contract Formation Action
             <td class="c10"></td>
         </tr>
         <tr>
-            <td class="c9">Contract Type</td>
-            <td class="c10">ContractType</td>
-            <td class="c10">8</td>
-            <td class="c10">Non-Disclosure Agreement</td>
-            <td class="c10"></td>
-            <td class="c10">varchar</td>
-            <td class="c10"></td>
-        </tr>
-        <tr>
             <td class="c5" colspan="7">
                 <a href="javascript:;" data-popover="type-ContractCode">
                    Contract Code - Click to show content
@@ -51,21 +42,30 @@ The following breaks down the construction of a Static Contract Formation Action
             </td>
         </tr>
         <tr>
-            <td class="c9">Contract File Type</td>
-            <td class="c10">ContractFileType</td>
+            <td class="c9">Body of Agreement Type</td>
+            <td class="c10">BodyOfAgreementType</td>
             <td class="c10">1</td>
             <td class="c10">1</td>
-            <td class="c10">1 - SHA-256 Hash, 2 - Markdown file</td>
+            <td class="c10">1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format</td>
             <td class="c10">uint</td>
+            <td class="c10">Body of Agreement - Amendments can be restricted to a vote.</td>
+        </tr>
+        <tr>
+            <td class="c9">Body of Agreement</td>
+            <td class="c10">BodyOfAgreement</td>
+            <td class="c10">32</td>
+            <td class="c10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
+            <td class="c10"><abbr title="SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.">SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the ...</abbr></td>
+            <td class="c10">varbin</td>
             <td class="c10"></td>
         </tr>
         <tr>
-            <td class="c9">Contract File</td>
-            <td class="c10">ContractFile</td>
-            <td class="c10">32</td>
-            <td class="c10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
-            <td class="c10"><abbr title="SHA-256 hash of the contract file or markdown data for contract file specific to the smart contract and relevant Assets.  Legal and technical information. (eg. pdf)">SHA-256 hash of the contract file or markdown data for contract file specific to the smart ...</abbr></td>
-            <td class="c10">varbin</td>
+            <td class="c9">Contract Type</td>
+            <td class="c10">ContractType</td>
+            <td class="c10">8</td>
+            <td class="c10">Non-Disclosure Agreement</td>
+            <td class="c10"></td>
+            <td class="c10">varchar</td>
             <td class="c10"></td>
         </tr>
         <tr>
@@ -284,8 +284,8 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10">ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier</td>
             </tr>
             <tr>
-                <td class="c10">Entity Address</td>
-                <td class="c10">Address</td>
+                <td class="c10">Address Included</td>
+                <td class="c10">AddressIncluded</td>
                 <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all">1</td>
                 <td class="c10">Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.</td>
@@ -374,21 +374,21 @@ The following breaks down the construction of a Static Contract Formation Action
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Key Roles</td>
-                <td class="c10">KeyRoles</td>
+                <td class="c10">Administration</td>
+                <td class="c10">Administration</td>
                 <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">A list of Key Roles.</td>
-                <td class="c10">KeyRole[]</td>
+                <td class="c10">A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc.</td>
+                <td class="c10">Administrator[]</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Notable Roles</td>
-                <td class="c10">NotableRoles</td>
+                <td class="c10">Management</td>
+                <td class="c10">Management</td>
                 <td class="c10">0</td>
                 <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">A list of Notable Roles.</td>
-                <td class="c10">NotableRole[]</td>
+                <td class="c10">A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc.</td>
+                <td class="c10">Manager[]</td>
                 <td class="c10"></td>
             </tr>
         </table>

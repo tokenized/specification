@@ -60,13 +60,11 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10"></td>
         </tr>
         <tr>
-            <td class="a9">Trade Restrictions</td>
-            <td class="a10">TradeRestrictions</td>
-            <td class="a10">3</td>
-            <td class="a10">GBR</td>
-            <td class="a10"><abbr title="Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only.">Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents on ...</abbr></td>
-            <td class="a10">fixedchar</td>
-            <td class="a10"></td>
+            <td class="a5" colspan="7">
+                <a href="javascript:;" data-popover="type-Polity">
+                   Trade Restrictions - Click to show content
+                </a>
+            </td>
         </tr>
         <tr>
             <td class="a9">Enforcement Orders Permitted</td>
@@ -123,33 +121,6 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10"></td>
         </tr>
         <tr>
-            <td class="a9">Contract Fee Currency</td>
-            <td class="a10">ContractFeeCurrency</td>
-            <td class="a10">3</td>
-            <td class="a10">AUD</td>
-            <td class="a10">BSV, USD, AUD, EUR, etc.</td>
-            <td class="a10">fixedchar</td>
-            <td class="a10"></td>
-        </tr>
-        <tr>
-            <td class="a9">Contract Fee Var</td>
-            <td class="a10">ContractFeeVar</td>
-            <td class="a10">4</td>
-            <td class="a10">0.005</td>
-            <td class="a10">Percent of the value of the transaction</td>
-            <td class="a10">float</td>
-            <td class="a10"></td>
-        </tr>
-        <tr>
-            <td class="a9">Contract Fee Fixed</td>
-            <td class="a10">ContractFeeFixed</td>
-            <td class="a10">4</td>
-            <td class="a10">0.01</td>
-            <td class="a10">Fixed fee (payment made in BSV)</td>
-            <td class="a10">float</td>
-            <td class="a10"></td>
-        </tr>
-        <tr>
             <td class="a9">Asset Payload</td>
             <td class="a10">AssetPayload</td>
             <td class="a10">16</td>
@@ -200,25 +171,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a6"></td>
             <td class="a10">0</td>
             <td class="a10">Contract Public Address</td>
-            <td class="a10">Dust Limit</td>
-        </tr>
-
-       <tr>
-            <td class="a5"></td>
-            <td class="a6"></td>
-            <td class="a6"></td>
-            <td class="a10">1</td>
-            <td class="a10">Issuer's Public Address</td>
-            <td class="a10">Change (Required, minimum 546)</td>
-        </tr>
-
-       <tr>
-            <td class="a5"></td>
-            <td class="a6"></td>
-            <td class="a6"></td>
-            <td class="a10">2</td>
-            <td class="a10">Contract Fee Address</td>
-            <td class="a10">Contract Operator's Fee (Optional)</td>
+            <td class="a10">Required so that users can monitor transactions to the contract for updates to contract/assets.</td>
         </tr>
 
     </table>

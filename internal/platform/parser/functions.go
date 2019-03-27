@@ -65,5 +65,5 @@ func (p Param) ParamSetMethod() string {
 }
 
 func (p Param) ParamGoType() string {
-	return GoType(p.Type, p.Size)
+	return GoType(p.Type, p.Size, nil)
 }

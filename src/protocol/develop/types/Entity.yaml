@@ -31,13 +31,21 @@ fields:
     example_value: "54930084UKLVMY22DS16"
     notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
 
-  - name: Address
-    label: Entity Address
+  - name: AddressIncluded
+    label: Address Included
     description: "Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address."
     type: bool
     example_hex: 01
     example_value: "1"
     notes: "Entity/Contracting Party X Details"
+    includes:
+      - UnitNumber
+      - BuildingNumber
+      - Street
+      - SuburbCity
+      - TerritoryStateProvinceCode
+      - CountryCode
+      - PostalZIPCode
 
   - name: UnitNumber
     label: Unit Number
@@ -126,12 +134,12 @@ fields:
     example_value: "0448484848"
     notes: ""
 
-  - name: KeyRoles
-    label: Key Roles
-    description: "A list of Key Roles."
-    type: KeyRole[]
+  - name: Administration
+    label: Administration
+    description: "A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc."
+    type: Administrator[]
 
-  - name: NotableRoles
-    label: Notable Roles
-    description: "A list of Notable Roles."
-    type: NotableRole[]
+  - name: Management
+    label: Management
+    description: "A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc."
+    type: Manager[]

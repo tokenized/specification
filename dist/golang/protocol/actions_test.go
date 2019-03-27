@@ -2,7 +2,6 @@ package protocol
 
 import (
 	"bytes"
-	"reflect"
 	"testing"
 )
 
@@ -21,58 +20,40 @@ func TestAssetDefinition(t *testing.T) {
 	// AssetCode (AssetCode)
 	initialMessage.AssetCode = AssetCode{}
 
-	// AssetAuthFlags (bin)
-	// bin test not setup
-
-	// TransfersPermitted (bool)
-	// bool test not setup
-
-	// TradeRestrictions (fixedchar)
-	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+4))
-		}
-		initialMessage.TradeRestrictions = string(text)
+	// AssetAuthFlags (varbin)
+	initialMessage.AssetAuthFlags = make([]byte, 0, 8)
+	for i := uint64(0); i < 8; i++ {
+		initialMessage.AssetAuthFlags = append(initialMessage.AssetAuthFlags, byte(65+i+2))
 	}
 
+	// TransfersPermitted (bool)
+	initialMessage.TransfersPermitted = true
+
+	// TradeRestrictions (Polity)
+	initialMessage.TradeRestrictions = Polity{}
+
 	// EnforcementOrdersPermitted (bool)
-	// bool test not setup
+	initialMessage.EnforcementOrdersPermitted = true
 
 	// VoteMultiplier (uint)
 	// uint test not setup
 
 	// ReferendumProposal (bool)
-	// bool test not setup
+	initialMessage.ReferendumProposal = true
 
 	// InitiativeProposal (bool)
-	// bool test not setup
+	initialMessage.InitiativeProposal = true
 
 	// AssetModificationGovernance (bool)
-	// bool test not setup
+	initialMessage.AssetModificationGovernance = true
 
 	// TokenQty (uint)
 	// uint test not setup
 
-	// ContractFeeCurrency (fixedchar)
-	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+11))
-		}
-		initialMessage.ContractFeeCurrency = string(text)
-	}
-
-	// ContractFeeVar (float)
-	// float test not setup
-
-	// ContractFeeFixed (float)
-	// float test not setup
-
 	// AssetPayload (varbin)
 	initialMessage.AssetPayload = make([]byte, 0, 16)
 	for i := uint64(0); i < 16; i++ {
-		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+14))
+		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+11))
 	}
 
 	// Encode message
@@ -101,12 +82,12 @@ func TestAssetDefinition(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -116,49 +97,57 @@ func TestAssetDefinition(t *testing.T) {
 	}
 
 	// AssetCode (AssetCode)
-	if initialMessage.AssetCode != decodedMessage.AssetCode {
-		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
+	// AssetCode test compare not setup
+
+	// AssetAuthFlags (varbin)
+	if !bytes.Equal(initialMessage.AssetAuthFlags, decodedMessage.AssetAuthFlags) {
+		t.Errorf("AssetAuthFlags doesn't match : %x != %x", initialMessage.AssetAuthFlags, decodedMessage.AssetAuthFlags)
 	}
 
-	// AssetAuthFlags (bin)
-	// bin test compare not setup
-
 	// TransfersPermitted (bool)
-	// bool test compare not setup
+	if initialMessage.TransfersPermitted != decodedMessage.TransfersPermitted {
+		t.Errorf("TransfersPermitted doesn't match : %v != %v", initialMessage.TransfersPermitted, decodedMessage.TransfersPermitted)
+	}
 
-	// TradeRestrictions (fixedchar)
-	if initialMessage.TradeRestrictions != decodedMessage.TradeRestrictions {
-		t.Errorf("TradeRestrictions doesn't match : %s != %s", initialMessage.TradeRestrictions, decodedMessage.TradeRestrictions)
+	// TradeRestrictions (Polity)
+	if len(initialMessage.TradeRestrictions.Items) != len(decodedMessage.TradeRestrictions.Items) {
+		t.Errorf("TradeRestrictions length doesn't match : %d != %d", initialMessage.TradeRestrictions, decodedMessage.TradeRestrictions)
+	}
+	for i, value := range initialMessage.TradeRestrictions.Items {
+		if !bytes.Equal(value[:], decodedMessage.TradeRestrictions.Items[i][:]) {
+			t.Errorf("TradeRestrictions.Items[%d] doesn't match : %s != %s", i, string(value[:]), string(decodedMessage.TradeRestrictions.Items[i][:]))
+		}
 	}
 
 	// EnforcementOrdersPermitted (bool)
-	// bool test compare not setup
-
-	// VoteMultiplier (uint)
-	// uint test compare not setup
-
-	// ReferendumProposal (bool)
-	// bool test compare not setup
-
-	// InitiativeProposal (bool)
-	// bool test compare not setup
-
-	// AssetModificationGovernance (bool)
-	// bool test compare not setup
-
-	// TokenQty (uint)
-	// uint test compare not setup
-
-	// ContractFeeCurrency (fixedchar)
-	if initialMessage.ContractFeeCurrency != decodedMessage.ContractFeeCurrency {
-		t.Errorf("ContractFeeCurrency doesn't match : %s != %s", initialMessage.ContractFeeCurrency, decodedMessage.ContractFeeCurrency)
+	if initialMessage.EnforcementOrdersPermitted != decodedMessage.EnforcementOrdersPermitted {
+		t.Errorf("EnforcementOrdersPermitted doesn't match : %v != %v", initialMessage.EnforcementOrdersPermitted, decodedMessage.EnforcementOrdersPermitted)
 	}
 
-	// ContractFeeVar (float)
-	// float test compare not setup
+	// VoteMultiplier (uint)
+	if initialMessage.VoteMultiplier != decodedMessage.VoteMultiplier {
+		t.Errorf("VoteMultiplier doesn't match : %v != %v", initialMessage.VoteMultiplier, decodedMessage.VoteMultiplier)
+	}
 
-	// ContractFeeFixed (float)
-	// float test compare not setup
+	// ReferendumProposal (bool)
+	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
+		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	}
+
+	// InitiativeProposal (bool)
+	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
+		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	}
+
+	// AssetModificationGovernance (bool)
+	if initialMessage.AssetModificationGovernance != decodedMessage.AssetModificationGovernance {
+		t.Errorf("AssetModificationGovernance doesn't match : %v != %v", initialMessage.AssetModificationGovernance, decodedMessage.AssetModificationGovernance)
+	}
+
+	// TokenQty (uint)
+	if initialMessage.TokenQty != decodedMessage.TokenQty {
+		t.Errorf("TokenQty doesn't match : %v != %v", initialMessage.TokenQty, decodedMessage.TokenQty)
+	}
 
 	// AssetPayload (varbin)
 	if !bytes.Equal(initialMessage.AssetPayload, decodedMessage.AssetPayload) {
@@ -185,54 +174,33 @@ func TestAssetCreation(t *testing.T) {
 	// bin test not setup
 
 	// TransfersPermitted (bool)
-	// bool test not setup
+	initialMessage.TransfersPermitted = true
 
-	// TradeRestrictions (fixedchar)
-	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+4))
-		}
-		initialMessage.TradeRestrictions = string(text)
-	}
+	// TradeRestrictions (Polity)
+	initialMessage.TradeRestrictions = Polity{}
 
 	// EnforcementOrdersPermitted (bool)
-	// bool test not setup
+	initialMessage.EnforcementOrdersPermitted = true
 
 	// VoteMultiplier (uint)
 	// uint test not setup
 
 	// ReferendumProposal (bool)
-	// bool test not setup
+	initialMessage.ReferendumProposal = true
 
 	// InitiativeProposal (bool)
-	// bool test not setup
+	initialMessage.InitiativeProposal = true
 
 	// AssetModificationGovernance (bool)
-	// bool test not setup
+	initialMessage.AssetModificationGovernance = true
 
 	// TokenQty (uint)
 	// uint test not setup
 
-	// ContractFeeCurrency (fixedchar)
-	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+11))
-		}
-		initialMessage.ContractFeeCurrency = string(text)
-	}
-
-	// ContractFeeVar (float)
-	// float test not setup
-
-	// ContractFeeFixed (float)
-	// float test not setup
-
 	// AssetPayload (varbin)
 	initialMessage.AssetPayload = make([]byte, 0, 16)
 	for i := uint64(0); i < 16; i++ {
-		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+14))
+		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+11))
 	}
 
 	// AssetRevision (uint)
@@ -267,12 +235,12 @@ func TestAssetCreation(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -282,49 +250,57 @@ func TestAssetCreation(t *testing.T) {
 	}
 
 	// AssetCode (AssetCode)
-	if initialMessage.AssetCode != decodedMessage.AssetCode {
-		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
-	}
+	// AssetCode test compare not setup
 
 	// AssetAuthFlags (bin)
-	// bin test compare not setup
+	if initialMessage.AssetAuthFlags != decodedMessage.AssetAuthFlags {
+		t.Errorf("AssetAuthFlags doesn't match : %v != %v", initialMessage.AssetAuthFlags, decodedMessage.AssetAuthFlags)
+	}
 
 	// TransfersPermitted (bool)
-	// bool test compare not setup
+	if initialMessage.TransfersPermitted != decodedMessage.TransfersPermitted {
+		t.Errorf("TransfersPermitted doesn't match : %v != %v", initialMessage.TransfersPermitted, decodedMessage.TransfersPermitted)
+	}
 
-	// TradeRestrictions (fixedchar)
-	if initialMessage.TradeRestrictions != decodedMessage.TradeRestrictions {
-		t.Errorf("TradeRestrictions doesn't match : %s != %s", initialMessage.TradeRestrictions, decodedMessage.TradeRestrictions)
+	// TradeRestrictions (Polity)
+	if len(initialMessage.TradeRestrictions.Items) != len(decodedMessage.TradeRestrictions.Items) {
+		t.Errorf("TradeRestrictions length doesn't match : %d != %d", initialMessage.TradeRestrictions, decodedMessage.TradeRestrictions)
+	}
+	for i, value := range initialMessage.TradeRestrictions.Items {
+		if !bytes.Equal(value[:], decodedMessage.TradeRestrictions.Items[i][:]) {
+			t.Errorf("TradeRestrictions.Items[%d] doesn't match : %s != %s", i, string(value[:]), string(decodedMessage.TradeRestrictions.Items[i][:]))
+		}
 	}
 
 	// EnforcementOrdersPermitted (bool)
-	// bool test compare not setup
-
-	// VoteMultiplier (uint)
-	// uint test compare not setup
-
-	// ReferendumProposal (bool)
-	// bool test compare not setup
-
-	// InitiativeProposal (bool)
-	// bool test compare not setup
-
-	// AssetModificationGovernance (bool)
-	// bool test compare not setup
-
-	// TokenQty (uint)
-	// uint test compare not setup
-
-	// ContractFeeCurrency (fixedchar)
-	if initialMessage.ContractFeeCurrency != decodedMessage.ContractFeeCurrency {
-		t.Errorf("ContractFeeCurrency doesn't match : %s != %s", initialMessage.ContractFeeCurrency, decodedMessage.ContractFeeCurrency)
+	if initialMessage.EnforcementOrdersPermitted != decodedMessage.EnforcementOrdersPermitted {
+		t.Errorf("EnforcementOrdersPermitted doesn't match : %v != %v", initialMessage.EnforcementOrdersPermitted, decodedMessage.EnforcementOrdersPermitted)
 	}
 
-	// ContractFeeVar (float)
-	// float test compare not setup
+	// VoteMultiplier (uint)
+	if initialMessage.VoteMultiplier != decodedMessage.VoteMultiplier {
+		t.Errorf("VoteMultiplier doesn't match : %v != %v", initialMessage.VoteMultiplier, decodedMessage.VoteMultiplier)
+	}
 
-	// ContractFeeFixed (float)
-	// float test compare not setup
+	// ReferendumProposal (bool)
+	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
+		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	}
+
+	// InitiativeProposal (bool)
+	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
+		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	}
+
+	// AssetModificationGovernance (bool)
+	if initialMessage.AssetModificationGovernance != decodedMessage.AssetModificationGovernance {
+		t.Errorf("AssetModificationGovernance doesn't match : %v != %v", initialMessage.AssetModificationGovernance, decodedMessage.AssetModificationGovernance)
+	}
+
+	// TokenQty (uint)
+	if initialMessage.TokenQty != decodedMessage.TokenQty {
+		t.Errorf("TokenQty doesn't match : %v != %v", initialMessage.TokenQty, decodedMessage.TokenQty)
+	}
 
 	// AssetPayload (varbin)
 	if !bytes.Equal(initialMessage.AssetPayload, decodedMessage.AssetPayload) {
@@ -332,12 +308,12 @@ func TestAssetCreation(t *testing.T) {
 	}
 
 	// AssetRevision (uint)
-	// uint test compare not setup
+	if initialMessage.AssetRevision != decodedMessage.AssetRevision {
+		t.Errorf("AssetRevision doesn't match : %v != %v", initialMessage.AssetRevision, decodedMessage.AssetRevision)
+	}
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestAssetModification(t *testing.T) {
@@ -392,12 +368,12 @@ func TestAssetModification(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -407,12 +383,12 @@ func TestAssetModification(t *testing.T) {
 	}
 
 	// AssetCode (AssetCode)
-	if initialMessage.AssetCode != decodedMessage.AssetCode {
-		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
-	}
+	// AssetCode test compare not setup
 
 	// AssetRevision (uint)
-	// uint test compare not setup
+	if initialMessage.AssetRevision != decodedMessage.AssetRevision {
+		t.Errorf("AssetRevision doesn't match : %v != %v", initialMessage.AssetRevision, decodedMessage.AssetRevision)
+	}
 
 	// Modifications (Amendment[])
 	if len(initialMessage.Modifications) != len(decodedMessage.Modifications) {
@@ -420,9 +396,7 @@ func TestAssetModification(t *testing.T) {
 	}
 
 	// RefTxID (TxId)
-	if initialMessage.RefTxID != decodedMessage.RefTxID {
-		t.Errorf("RefTxID doesn't match : %v != %v", initialMessage.RefTxID, decodedMessage.RefTxID)
-	}
+	// TxId test compare not setup
 }
 
 func TestContractOffer(t *testing.T) {
@@ -431,26 +405,32 @@ func TestContractOffer(t *testing.T) {
 	// ContractName (varchar)
 	initialMessage.ContractName = "Text 0"
 
-	// ContractFileType (uint)
+	// BodyOfAgreementType (uint)
 	// uint test not setup
 
-	// ContractFile (varbin)
-	initialMessage.ContractFile = make([]byte, 0, 32)
+	// BodyOfAgreement (varbin)
+	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
 	for i := uint64(0); i < 32; i++ {
-		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+2))
+		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+2))
 	}
+
+	// ContractType (varchar)
+	initialMessage.ContractType = "Text 3"
 
 	// SupportingDocsFileType (uint)
 	// uint test not setup
 
-	// SupportingDocs (varchar)
-	initialMessage.SupportingDocs = "Text 4"
+	// SupportingDocs (varbin)
+	initialMessage.SupportingDocs = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, byte(65+i+5))
+	}
 
 	// GoverningLaw (fixedchar)
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+5))
+			text = append(text, byte(65+i+6))
 		}
 		initialMessage.GoverningLaw = string(text)
 	}
@@ -459,7 +439,7 @@ func TestContractOffer(t *testing.T) {
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+6))
+			text = append(text, byte(65+i+7))
 		}
 		initialMessage.Jurisdiction = string(text)
 	}
@@ -468,40 +448,28 @@ func TestContractOffer(t *testing.T) {
 	initialMessage.ContractExpiration = Timestamp{}
 
 	// ContractURI (varchar)
-	initialMessage.ContractURI = "Text 8"
+	initialMessage.ContractURI = "Text 9"
 
-	// IssuerName (varchar)
-	initialMessage.IssuerName = "Text 9"
-
-	// IssuerType (fixedchar)
-	// fixedchar test not setup
-
-	// IssuerLEI (fixedchar)
-	{
-		text := make([]byte, 0, 20)
-		for i := uint64(0); i < 20; i++ {
-			text = append(text, byte(65+i+11))
-		}
-		initialMessage.IssuerLEI = string(text)
-	}
+	// Issuer (Entity)
+	initialMessage.Issuer = Entity{}
 
 	// IssuerLogoURL (varchar)
-	initialMessage.IssuerLogoURL = "Text 12"
+	initialMessage.IssuerLogoURL = "Text 11"
 
-	// ContractOperatorID (varchar)
-	initialMessage.ContractOperatorID = "Text 13"
+	// ContractOperatorIncluded (bool)
+	initialMessage.ContractOperatorIncluded = true
 
-	// OperatorLEI (fixedchar)
-	{
-		text := make([]byte, 0, 20)
-		for i := uint64(0); i < 20; i++ {
-			text = append(text, byte(65+i+14))
-		}
-		initialMessage.OperatorLEI = string(text)
+	// ContractOperator (Entity)
+	initialMessage.ContractOperator = Entity{}
+
+	// ContractAuthFlags (varbin)
+	initialMessage.ContractAuthFlags = make([]byte, 0, 16)
+	for i := uint64(0); i < 16; i++ {
+		initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+14))
 	}
 
-	// ContractAuthFlags (bin)
-	// bin test not setup
+	// ContractFee (uint)
+	// uint test not setup
 
 	// VotingSystems (VotingSystem[])
 	for i := 0; i < 2; i++ {
@@ -512,66 +480,14 @@ func TestContractOffer(t *testing.T) {
 	// uint test not setup
 
 	// ReferendumProposal (bool)
-	// bool test not setup
+	initialMessage.ReferendumProposal = true
 
 	// InitiativeProposal (bool)
-	// bool test not setup
+	initialMessage.InitiativeProposal = true
 
 	// Registries (Registry[])
 	for i := 0; i < 2; i++ {
 		initialMessage.Registries = append(initialMessage.Registries, Registry{})
-	}
-
-	// IssuerAddress (bool)
-	// bool test not setup
-
-	// UnitNumber (varchar)
-	initialMessage.UnitNumber = "Text 22"
-
-	// BuildingNumber (varchar)
-	initialMessage.BuildingNumber = "Text 23"
-
-	// Street (varchar)
-	initialMessage.Street = "Text 24"
-
-	// SuburbCity (varchar)
-	initialMessage.SuburbCity = "Text 25"
-
-	// TerritoryStateProvinceCode (fixedchar)
-	{
-		text := make([]byte, 0, 5)
-		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+26))
-		}
-		initialMessage.TerritoryStateProvinceCode = string(text)
-	}
-
-	// CountryCode (fixedchar)
-	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+27))
-		}
-		initialMessage.CountryCode = string(text)
-	}
-
-	// PostalZIPCode (varchar)
-	initialMessage.PostalZIPCode = "Text 28"
-
-	// EmailAddress (varchar)
-	initialMessage.EmailAddress = "Text 29"
-
-	// PhoneNumber (varchar)
-	initialMessage.PhoneNumber = "Text 30"
-
-	// KeyRoles (KeyRole[])
-	for i := 0; i < 2; i++ {
-		initialMessage.KeyRoles = append(initialMessage.KeyRoles, KeyRole{})
-	}
-
-	// NotableRoles (NotableRole[])
-	for i := 0; i < 2; i++ {
-		initialMessage.NotableRoles = append(initialMessage.NotableRoles, NotableRole{})
 	}
 
 	// Encode message
@@ -600,12 +516,12 @@ func TestContractOffer(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -614,20 +530,29 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("ContractName doesn't match : %s != %s", initialMessage.ContractName, decodedMessage.ContractName)
 	}
 
-	// ContractFileType (uint)
-	// uint test compare not setup
+	// BodyOfAgreementType (uint)
+	if initialMessage.BodyOfAgreementType != decodedMessage.BodyOfAgreementType {
+		t.Errorf("BodyOfAgreementType doesn't match : %v != %v", initialMessage.BodyOfAgreementType, decodedMessage.BodyOfAgreementType)
+	}
 
-	// ContractFile (varbin)
-	if !bytes.Equal(initialMessage.ContractFile, decodedMessage.ContractFile) {
-		t.Errorf("ContractFile doesn't match : %x != %x", initialMessage.ContractFile, decodedMessage.ContractFile)
+	// BodyOfAgreement (varbin)
+	if !bytes.Equal(initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement) {
+		t.Errorf("BodyOfAgreement doesn't match : %x != %x", initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement)
+	}
+
+	// ContractType (varchar)
+	if initialMessage.ContractType != decodedMessage.ContractType {
+		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
 	// SupportingDocsFileType (uint)
-	// uint test compare not setup
+	if initialMessage.SupportingDocsFileType != decodedMessage.SupportingDocsFileType {
+		t.Errorf("SupportingDocsFileType doesn't match : %v != %v", initialMessage.SupportingDocsFileType, decodedMessage.SupportingDocsFileType)
+	}
 
-	// SupportingDocs (varchar)
-	if initialMessage.SupportingDocs != decodedMessage.SupportingDocs {
-		t.Errorf("SupportingDocs doesn't match : %s != %s", initialMessage.SupportingDocs, decodedMessage.SupportingDocs)
+	// SupportingDocs (varbin)
+	if !bytes.Equal(initialMessage.SupportingDocs, decodedMessage.SupportingDocs) {
+		t.Errorf("SupportingDocs doesn't match : %x != %x", initialMessage.SupportingDocs, decodedMessage.SupportingDocs)
 	}
 
 	// GoverningLaw (fixedchar)
@@ -641,45 +566,38 @@ func TestContractOffer(t *testing.T) {
 	}
 
 	// ContractExpiration (Timestamp)
-	if initialMessage.ContractExpiration != decodedMessage.ContractExpiration {
-		t.Errorf("ContractExpiration doesn't match : %v != %v", initialMessage.ContractExpiration, decodedMessage.ContractExpiration)
-	}
+	// Timestamp test compare not setup
 
 	// ContractURI (varchar)
 	if initialMessage.ContractURI != decodedMessage.ContractURI {
 		t.Errorf("ContractURI doesn't match : %s != %s", initialMessage.ContractURI, decodedMessage.ContractURI)
 	}
 
-	// IssuerName (varchar)
-	if initialMessage.IssuerName != decodedMessage.IssuerName {
-		t.Errorf("IssuerName doesn't match : %s != %s", initialMessage.IssuerName, decodedMessage.IssuerName)
-	}
-
-	// IssuerType (fixedchar)
-	// fixedchar test compare not setup
-
-	// IssuerLEI (fixedchar)
-	if initialMessage.IssuerLEI != decodedMessage.IssuerLEI {
-		t.Errorf("IssuerLEI doesn't match : %s != %s", initialMessage.IssuerLEI, decodedMessage.IssuerLEI)
-	}
+	// Issuer (Entity)
+	// Entity test compare not setup
 
 	// IssuerLogoURL (varchar)
 	if initialMessage.IssuerLogoURL != decodedMessage.IssuerLogoURL {
 		t.Errorf("IssuerLogoURL doesn't match : %s != %s", initialMessage.IssuerLogoURL, decodedMessage.IssuerLogoURL)
 	}
 
-	// ContractOperatorID (varchar)
-	if initialMessage.ContractOperatorID != decodedMessage.ContractOperatorID {
-		t.Errorf("ContractOperatorID doesn't match : %s != %s", initialMessage.ContractOperatorID, decodedMessage.ContractOperatorID)
+	// ContractOperatorIncluded (bool)
+	if initialMessage.ContractOperatorIncluded != decodedMessage.ContractOperatorIncluded {
+		t.Errorf("ContractOperatorIncluded doesn't match : %v != %v", initialMessage.ContractOperatorIncluded, decodedMessage.ContractOperatorIncluded)
 	}
 
-	// OperatorLEI (fixedchar)
-	if initialMessage.OperatorLEI != decodedMessage.OperatorLEI {
-		t.Errorf("OperatorLEI doesn't match : %s != %s", initialMessage.OperatorLEI, decodedMessage.OperatorLEI)
+	// ContractOperator (Entity)
+	// Entity test compare not setup
+
+	// ContractAuthFlags (varbin)
+	if !bytes.Equal(initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags) {
+		t.Errorf("ContractAuthFlags doesn't match : %x != %x", initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags)
 	}
 
-	// ContractAuthFlags (bin)
-	// bin test compare not setup
+	// ContractFee (uint)
+	if initialMessage.ContractFee != decodedMessage.ContractFee {
+		t.Errorf("ContractFee doesn't match : %v != %v", initialMessage.ContractFee, decodedMessage.ContractFee)
+	}
 
 	// VotingSystems (VotingSystem[])
 	if len(initialMessage.VotingSystems) != len(decodedMessage.VotingSystems) {
@@ -687,75 +605,23 @@ func TestContractOffer(t *testing.T) {
 	}
 
 	// RestrictedQtyAssets (uint)
-	// uint test compare not setup
+	if initialMessage.RestrictedQtyAssets != decodedMessage.RestrictedQtyAssets {
+		t.Errorf("RestrictedQtyAssets doesn't match : %v != %v", initialMessage.RestrictedQtyAssets, decodedMessage.RestrictedQtyAssets)
+	}
 
 	// ReferendumProposal (bool)
-	// bool test compare not setup
+	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
+		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	}
 
 	// InitiativeProposal (bool)
-	// bool test compare not setup
+	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
+		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	}
 
 	// Registries (Registry[])
 	if len(initialMessage.Registries) != len(decodedMessage.Registries) {
 		t.Errorf("Registries lengths don't match : %d != %d", len(initialMessage.Registries), len(decodedMessage.Registries))
-	}
-
-	// IssuerAddress (bool)
-	// bool test compare not setup
-
-	// UnitNumber (varchar)
-	if initialMessage.UnitNumber != decodedMessage.UnitNumber {
-		t.Errorf("UnitNumber doesn't match : %s != %s", initialMessage.UnitNumber, decodedMessage.UnitNumber)
-	}
-
-	// BuildingNumber (varchar)
-	if initialMessage.BuildingNumber != decodedMessage.BuildingNumber {
-		t.Errorf("BuildingNumber doesn't match : %s != %s", initialMessage.BuildingNumber, decodedMessage.BuildingNumber)
-	}
-
-	// Street (varchar)
-	if initialMessage.Street != decodedMessage.Street {
-		t.Errorf("Street doesn't match : %s != %s", initialMessage.Street, decodedMessage.Street)
-	}
-
-	// SuburbCity (varchar)
-	if initialMessage.SuburbCity != decodedMessage.SuburbCity {
-		t.Errorf("SuburbCity doesn't match : %s != %s", initialMessage.SuburbCity, decodedMessage.SuburbCity)
-	}
-
-	// TerritoryStateProvinceCode (fixedchar)
-	if initialMessage.TerritoryStateProvinceCode != decodedMessage.TerritoryStateProvinceCode {
-		t.Errorf("TerritoryStateProvinceCode doesn't match : %s != %s", initialMessage.TerritoryStateProvinceCode, decodedMessage.TerritoryStateProvinceCode)
-	}
-
-	// CountryCode (fixedchar)
-	if initialMessage.CountryCode != decodedMessage.CountryCode {
-		t.Errorf("CountryCode doesn't match : %s != %s", initialMessage.CountryCode, decodedMessage.CountryCode)
-	}
-
-	// PostalZIPCode (varchar)
-	if initialMessage.PostalZIPCode != decodedMessage.PostalZIPCode {
-		t.Errorf("PostalZIPCode doesn't match : %s != %s", initialMessage.PostalZIPCode, decodedMessage.PostalZIPCode)
-	}
-
-	// EmailAddress (varchar)
-	if initialMessage.EmailAddress != decodedMessage.EmailAddress {
-		t.Errorf("EmailAddress doesn't match : %s != %s", initialMessage.EmailAddress, decodedMessage.EmailAddress)
-	}
-
-	// PhoneNumber (varchar)
-	if initialMessage.PhoneNumber != decodedMessage.PhoneNumber {
-		t.Errorf("PhoneNumber doesn't match : %s != %s", initialMessage.PhoneNumber, decodedMessage.PhoneNumber)
-	}
-
-	// KeyRoles (KeyRole[])
-	if len(initialMessage.KeyRoles) != len(decodedMessage.KeyRoles) {
-		t.Errorf("KeyRoles lengths don't match : %d != %d", len(initialMessage.KeyRoles), len(decodedMessage.KeyRoles))
-	}
-
-	// NotableRoles (NotableRole[])
-	if len(initialMessage.NotableRoles) != len(decodedMessage.NotableRoles) {
-		t.Errorf("NotableRoles lengths don't match : %d != %d", len(initialMessage.NotableRoles), len(decodedMessage.NotableRoles))
 	}
 }
 
@@ -765,26 +631,32 @@ func TestContractFormation(t *testing.T) {
 	// ContractName (varchar)
 	initialMessage.ContractName = "Text 0"
 
-	// ContractFileType (uint)
+	// BodyOfAgreementType (uint)
 	// uint test not setup
 
-	// ContractFile (varbin)
-	initialMessage.ContractFile = make([]byte, 0, 32)
+	// BodyOfAgreement (varbin)
+	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
 	for i := uint64(0); i < 32; i++ {
-		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+2))
+		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+2))
 	}
+
+	// ContractType (varchar)
+	initialMessage.ContractType = "Text 3"
 
 	// SupportingDocsFileType (uint)
 	// uint test not setup
 
-	// SupportingDocs (varchar)
-	initialMessage.SupportingDocs = "Text 4"
+	// SupportingDocs (varbin)
+	initialMessage.SupportingDocs = make([]byte, 0, 32)
+	for i := uint64(0); i < 32; i++ {
+		initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, byte(65+i+5))
+	}
 
 	// GoverningLaw (fixedchar)
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+5))
+			text = append(text, byte(65+i+6))
 		}
 		initialMessage.GoverningLaw = string(text)
 	}
@@ -793,7 +665,7 @@ func TestContractFormation(t *testing.T) {
 	{
 		text := make([]byte, 0, 5)
 		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+6))
+			text = append(text, byte(65+i+7))
 		}
 		initialMessage.Jurisdiction = string(text)
 	}
@@ -802,40 +674,28 @@ func TestContractFormation(t *testing.T) {
 	initialMessage.ContractExpiration = Timestamp{}
 
 	// ContractURI (varchar)
-	initialMessage.ContractURI = "Text 8"
+	initialMessage.ContractURI = "Text 9"
 
-	// IssuerName (varchar)
-	initialMessage.IssuerName = "Text 9"
-
-	// IssuerType (fixedchar)
-	// fixedchar test not setup
-
-	// IssuerLEI (fixedchar)
-	{
-		text := make([]byte, 0, 20)
-		for i := uint64(0); i < 20; i++ {
-			text = append(text, byte(65+i+11))
-		}
-		initialMessage.IssuerLEI = string(text)
-	}
+	// Issuer (Entity)
+	initialMessage.Issuer = Entity{}
 
 	// IssuerLogoURL (varchar)
-	initialMessage.IssuerLogoURL = "Text 12"
+	initialMessage.IssuerLogoURL = "Text 11"
 
-	// ContractOperatorID (varchar)
-	initialMessage.ContractOperatorID = "Text 13"
+	// ContractOperatorIncluded (bool)
+	initialMessage.ContractOperatorIncluded = true
 
-	// OperatorLEI (fixedchar)
-	{
-		text := make([]byte, 0, 20)
-		for i := uint64(0); i < 20; i++ {
-			text = append(text, byte(65+i+14))
-		}
-		initialMessage.OperatorLEI = string(text)
+	// ContractOperator (Entity)
+	initialMessage.ContractOperator = Entity{}
+
+	// ContractAuthFlags (varbin)
+	initialMessage.ContractAuthFlags = make([]byte, 0, 16)
+	for i := uint64(0); i < 16; i++ {
+		initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+14))
 	}
 
-	// ContractAuthFlags (bin)
-	// bin test not setup
+	// ContractFee (uint)
+	// uint test not setup
 
 	// VotingSystems (VotingSystem[])
 	for i := 0; i < 2; i++ {
@@ -846,66 +706,14 @@ func TestContractFormation(t *testing.T) {
 	// uint test not setup
 
 	// ReferendumProposal (bool)
-	// bool test not setup
+	initialMessage.ReferendumProposal = true
 
 	// InitiativeProposal (bool)
-	// bool test not setup
+	initialMessage.InitiativeProposal = true
 
 	// Registries (Registry[])
 	for i := 0; i < 2; i++ {
 		initialMessage.Registries = append(initialMessage.Registries, Registry{})
-	}
-
-	// IssuerAddress (bool)
-	// bool test not setup
-
-	// UnitNumber (varchar)
-	initialMessage.UnitNumber = "Text 22"
-
-	// BuildingNumber (varchar)
-	initialMessage.BuildingNumber = "Text 23"
-
-	// Street (varchar)
-	initialMessage.Street = "Text 24"
-
-	// SuburbCity (varchar)
-	initialMessage.SuburbCity = "Text 25"
-
-	// TerritoryStateProvinceCode (fixedchar)
-	{
-		text := make([]byte, 0, 5)
-		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+26))
-		}
-		initialMessage.TerritoryStateProvinceCode = string(text)
-	}
-
-	// CountryCode (fixedchar)
-	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+27))
-		}
-		initialMessage.CountryCode = string(text)
-	}
-
-	// PostalZIPCode (varchar)
-	initialMessage.PostalZIPCode = "Text 28"
-
-	// EmailAddress (varchar)
-	initialMessage.EmailAddress = "Text 29"
-
-	// PhoneNumber (varchar)
-	initialMessage.PhoneNumber = "Text 30"
-
-	// KeyRoles (KeyRole[])
-	for i := 0; i < 2; i++ {
-		initialMessage.KeyRoles = append(initialMessage.KeyRoles, KeyRole{})
-	}
-
-	// NotableRoles (NotableRole[])
-	for i := 0; i < 2; i++ {
-		initialMessage.NotableRoles = append(initialMessage.NotableRoles, NotableRole{})
 	}
 
 	// ContractRevision (uint)
@@ -940,12 +748,12 @@ func TestContractFormation(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -954,20 +762,29 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("ContractName doesn't match : %s != %s", initialMessage.ContractName, decodedMessage.ContractName)
 	}
 
-	// ContractFileType (uint)
-	// uint test compare not setup
+	// BodyOfAgreementType (uint)
+	if initialMessage.BodyOfAgreementType != decodedMessage.BodyOfAgreementType {
+		t.Errorf("BodyOfAgreementType doesn't match : %v != %v", initialMessage.BodyOfAgreementType, decodedMessage.BodyOfAgreementType)
+	}
 
-	// ContractFile (varbin)
-	if !bytes.Equal(initialMessage.ContractFile, decodedMessage.ContractFile) {
-		t.Errorf("ContractFile doesn't match : %x != %x", initialMessage.ContractFile, decodedMessage.ContractFile)
+	// BodyOfAgreement (varbin)
+	if !bytes.Equal(initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement) {
+		t.Errorf("BodyOfAgreement doesn't match : %x != %x", initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement)
+	}
+
+	// ContractType (varchar)
+	if initialMessage.ContractType != decodedMessage.ContractType {
+		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
 	// SupportingDocsFileType (uint)
-	// uint test compare not setup
+	if initialMessage.SupportingDocsFileType != decodedMessage.SupportingDocsFileType {
+		t.Errorf("SupportingDocsFileType doesn't match : %v != %v", initialMessage.SupportingDocsFileType, decodedMessage.SupportingDocsFileType)
+	}
 
-	// SupportingDocs (varchar)
-	if initialMessage.SupportingDocs != decodedMessage.SupportingDocs {
-		t.Errorf("SupportingDocs doesn't match : %s != %s", initialMessage.SupportingDocs, decodedMessage.SupportingDocs)
+	// SupportingDocs (varbin)
+	if !bytes.Equal(initialMessage.SupportingDocs, decodedMessage.SupportingDocs) {
+		t.Errorf("SupportingDocs doesn't match : %x != %x", initialMessage.SupportingDocs, decodedMessage.SupportingDocs)
 	}
 
 	// GoverningLaw (fixedchar)
@@ -981,45 +798,38 @@ func TestContractFormation(t *testing.T) {
 	}
 
 	// ContractExpiration (Timestamp)
-	if initialMessage.ContractExpiration != decodedMessage.ContractExpiration {
-		t.Errorf("ContractExpiration doesn't match : %v != %v", initialMessage.ContractExpiration, decodedMessage.ContractExpiration)
-	}
+	// Timestamp test compare not setup
 
 	// ContractURI (varchar)
 	if initialMessage.ContractURI != decodedMessage.ContractURI {
 		t.Errorf("ContractURI doesn't match : %s != %s", initialMessage.ContractURI, decodedMessage.ContractURI)
 	}
 
-	// IssuerName (varchar)
-	if initialMessage.IssuerName != decodedMessage.IssuerName {
-		t.Errorf("IssuerName doesn't match : %s != %s", initialMessage.IssuerName, decodedMessage.IssuerName)
-	}
-
-	// IssuerType (fixedchar)
-	// fixedchar test compare not setup
-
-	// IssuerLEI (fixedchar)
-	if initialMessage.IssuerLEI != decodedMessage.IssuerLEI {
-		t.Errorf("IssuerLEI doesn't match : %s != %s", initialMessage.IssuerLEI, decodedMessage.IssuerLEI)
-	}
+	// Issuer (Entity)
+	// Entity test compare not setup
 
 	// IssuerLogoURL (varchar)
 	if initialMessage.IssuerLogoURL != decodedMessage.IssuerLogoURL {
 		t.Errorf("IssuerLogoURL doesn't match : %s != %s", initialMessage.IssuerLogoURL, decodedMessage.IssuerLogoURL)
 	}
 
-	// ContractOperatorID (varchar)
-	if initialMessage.ContractOperatorID != decodedMessage.ContractOperatorID {
-		t.Errorf("ContractOperatorID doesn't match : %s != %s", initialMessage.ContractOperatorID, decodedMessage.ContractOperatorID)
+	// ContractOperatorIncluded (bool)
+	if initialMessage.ContractOperatorIncluded != decodedMessage.ContractOperatorIncluded {
+		t.Errorf("ContractOperatorIncluded doesn't match : %v != %v", initialMessage.ContractOperatorIncluded, decodedMessage.ContractOperatorIncluded)
 	}
 
-	// OperatorLEI (fixedchar)
-	if initialMessage.OperatorLEI != decodedMessage.OperatorLEI {
-		t.Errorf("OperatorLEI doesn't match : %s != %s", initialMessage.OperatorLEI, decodedMessage.OperatorLEI)
+	// ContractOperator (Entity)
+	// Entity test compare not setup
+
+	// ContractAuthFlags (varbin)
+	if !bytes.Equal(initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags) {
+		t.Errorf("ContractAuthFlags doesn't match : %x != %x", initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags)
 	}
 
-	// ContractAuthFlags (bin)
-	// bin test compare not setup
+	// ContractFee (uint)
+	if initialMessage.ContractFee != decodedMessage.ContractFee {
+		t.Errorf("ContractFee doesn't match : %v != %v", initialMessage.ContractFee, decodedMessage.ContractFee)
+	}
 
 	// VotingSystems (VotingSystem[])
 	if len(initialMessage.VotingSystems) != len(decodedMessage.VotingSystems) {
@@ -1027,94 +837,42 @@ func TestContractFormation(t *testing.T) {
 	}
 
 	// RestrictedQtyAssets (uint)
-	// uint test compare not setup
+	if initialMessage.RestrictedQtyAssets != decodedMessage.RestrictedQtyAssets {
+		t.Errorf("RestrictedQtyAssets doesn't match : %v != %v", initialMessage.RestrictedQtyAssets, decodedMessage.RestrictedQtyAssets)
+	}
 
 	// ReferendumProposal (bool)
-	// bool test compare not setup
+	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
+		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	}
 
 	// InitiativeProposal (bool)
-	// bool test compare not setup
+	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
+		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	}
 
 	// Registries (Registry[])
 	if len(initialMessage.Registries) != len(decodedMessage.Registries) {
 		t.Errorf("Registries lengths don't match : %d != %d", len(initialMessage.Registries), len(decodedMessage.Registries))
 	}
 
-	// IssuerAddress (bool)
-	// bool test compare not setup
-
-	// UnitNumber (varchar)
-	if initialMessage.UnitNumber != decodedMessage.UnitNumber {
-		t.Errorf("UnitNumber doesn't match : %s != %s", initialMessage.UnitNumber, decodedMessage.UnitNumber)
-	}
-
-	// BuildingNumber (varchar)
-	if initialMessage.BuildingNumber != decodedMessage.BuildingNumber {
-		t.Errorf("BuildingNumber doesn't match : %s != %s", initialMessage.BuildingNumber, decodedMessage.BuildingNumber)
-	}
-
-	// Street (varchar)
-	if initialMessage.Street != decodedMessage.Street {
-		t.Errorf("Street doesn't match : %s != %s", initialMessage.Street, decodedMessage.Street)
-	}
-
-	// SuburbCity (varchar)
-	if initialMessage.SuburbCity != decodedMessage.SuburbCity {
-		t.Errorf("SuburbCity doesn't match : %s != %s", initialMessage.SuburbCity, decodedMessage.SuburbCity)
-	}
-
-	// TerritoryStateProvinceCode (fixedchar)
-	if initialMessage.TerritoryStateProvinceCode != decodedMessage.TerritoryStateProvinceCode {
-		t.Errorf("TerritoryStateProvinceCode doesn't match : %s != %s", initialMessage.TerritoryStateProvinceCode, decodedMessage.TerritoryStateProvinceCode)
-	}
-
-	// CountryCode (fixedchar)
-	if initialMessage.CountryCode != decodedMessage.CountryCode {
-		t.Errorf("CountryCode doesn't match : %s != %s", initialMessage.CountryCode, decodedMessage.CountryCode)
-	}
-
-	// PostalZIPCode (varchar)
-	if initialMessage.PostalZIPCode != decodedMessage.PostalZIPCode {
-		t.Errorf("PostalZIPCode doesn't match : %s != %s", initialMessage.PostalZIPCode, decodedMessage.PostalZIPCode)
-	}
-
-	// EmailAddress (varchar)
-	if initialMessage.EmailAddress != decodedMessage.EmailAddress {
-		t.Errorf("EmailAddress doesn't match : %s != %s", initialMessage.EmailAddress, decodedMessage.EmailAddress)
-	}
-
-	// PhoneNumber (varchar)
-	if initialMessage.PhoneNumber != decodedMessage.PhoneNumber {
-		t.Errorf("PhoneNumber doesn't match : %s != %s", initialMessage.PhoneNumber, decodedMessage.PhoneNumber)
-	}
-
-	// KeyRoles (KeyRole[])
-	if len(initialMessage.KeyRoles) != len(decodedMessage.KeyRoles) {
-		t.Errorf("KeyRoles lengths don't match : %d != %d", len(initialMessage.KeyRoles), len(decodedMessage.KeyRoles))
-	}
-
-	// NotableRoles (NotableRole[])
-	if len(initialMessage.NotableRoles) != len(decodedMessage.NotableRoles) {
-		t.Errorf("NotableRoles lengths don't match : %d != %d", len(initialMessage.NotableRoles), len(decodedMessage.NotableRoles))
-	}
-
 	// ContractRevision (uint)
-	// uint test compare not setup
+	if initialMessage.ContractRevision != decodedMessage.ContractRevision {
+		t.Errorf("ContractRevision doesn't match : %v != %v", initialMessage.ContractRevision, decodedMessage.ContractRevision)
+	}
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestContractAmendment(t *testing.T) {
 	// Create a randomized object
 	initialMessage := ContractAmendment{}
 	// ChangeIssuerAddress (bool)
-	// bool test not setup
+	initialMessage.ChangeIssuerAddress = true
 
 	// ChangeOperatorAddress (bool)
-	// bool test not setup
+	initialMessage.ChangeOperatorAddress = true
 
 	// ContractRevision (uint)
 	// uint test not setup
@@ -1153,23 +911,29 @@ func TestContractAmendment(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
 	// ChangeIssuerAddress (bool)
-	// bool test compare not setup
+	if initialMessage.ChangeIssuerAddress != decodedMessage.ChangeIssuerAddress {
+		t.Errorf("ChangeIssuerAddress doesn't match : %v != %v", initialMessage.ChangeIssuerAddress, decodedMessage.ChangeIssuerAddress)
+	}
 
 	// ChangeOperatorAddress (bool)
-	// bool test compare not setup
+	if initialMessage.ChangeOperatorAddress != decodedMessage.ChangeOperatorAddress {
+		t.Errorf("ChangeOperatorAddress doesn't match : %v != %v", initialMessage.ChangeOperatorAddress, decodedMessage.ChangeOperatorAddress)
+	}
 
 	// ContractRevision (uint)
-	// uint test compare not setup
+	if initialMessage.ContractRevision != decodedMessage.ContractRevision {
+		t.Errorf("ContractRevision doesn't match : %v != %v", initialMessage.ContractRevision, decodedMessage.ContractRevision)
+	}
 
 	// Amendments (Amendment[])
 	if len(initialMessage.Amendments) != len(decodedMessage.Amendments) {
@@ -1177,9 +941,7 @@ func TestContractAmendment(t *testing.T) {
 	}
 
 	// RefTxID (TxId)
-	if initialMessage.RefTxID != decodedMessage.RefTxID {
-		t.Errorf("RefTxID doesn't match : %v != %v", initialMessage.RefTxID, decodedMessage.RefTxID)
-	}
+	// TxId test compare not setup
 }
 
 func TestStaticContractFormation(t *testing.T) {
@@ -1188,20 +950,20 @@ func TestStaticContractFormation(t *testing.T) {
 	// ContractName (varchar)
 	initialMessage.ContractName = "Text 0"
 
-	// ContractType (varchar)
-	initialMessage.ContractType = "Text 1"
-
 	// ContractCode (ContractCode)
 	initialMessage.ContractCode = ContractCode{}
 
-	// ContractFileType (uint)
+	// BodyOfAgreementType (uint)
 	// uint test not setup
 
-	// ContractFile (varbin)
-	initialMessage.ContractFile = make([]byte, 0, 32)
+	// BodyOfAgreement (varbin)
+	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
 	for i := uint64(0); i < 32; i++ {
-		initialMessage.ContractFile = append(initialMessage.ContractFile, byte(65+i+4))
+		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+3))
 	}
+
+	// ContractType (varchar)
+	initialMessage.ContractType = "Text 4"
 
 	// SupportingDocsFileType (uint)
 	// uint test not setup
@@ -1273,12 +1035,12 @@ func TestStaticContractFormation(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -1287,26 +1049,28 @@ func TestStaticContractFormation(t *testing.T) {
 		t.Errorf("ContractName doesn't match : %s != %s", initialMessage.ContractName, decodedMessage.ContractName)
 	}
 
+	// ContractCode (ContractCode)
+	// ContractCode test compare not setup
+
+	// BodyOfAgreementType (uint)
+	if initialMessage.BodyOfAgreementType != decodedMessage.BodyOfAgreementType {
+		t.Errorf("BodyOfAgreementType doesn't match : %v != %v", initialMessage.BodyOfAgreementType, decodedMessage.BodyOfAgreementType)
+	}
+
+	// BodyOfAgreement (varbin)
+	if !bytes.Equal(initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement) {
+		t.Errorf("BodyOfAgreement doesn't match : %x != %x", initialMessage.BodyOfAgreement, decodedMessage.BodyOfAgreement)
+	}
+
 	// ContractType (varchar)
 	if initialMessage.ContractType != decodedMessage.ContractType {
 		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
-	// ContractCode (ContractCode)
-	if initialMessage.ContractCode != decodedMessage.ContractCode {
-		t.Errorf("ContractCode doesn't match : %v != %v", initialMessage.ContractCode, decodedMessage.ContractCode)
-	}
-
-	// ContractFileType (uint)
-	// uint test compare not setup
-
-	// ContractFile (varbin)
-	if !bytes.Equal(initialMessage.ContractFile, decodedMessage.ContractFile) {
-		t.Errorf("ContractFile doesn't match : %x != %x", initialMessage.ContractFile, decodedMessage.ContractFile)
-	}
-
 	// SupportingDocsFileType (uint)
-	// uint test compare not setup
+	if initialMessage.SupportingDocsFileType != decodedMessage.SupportingDocsFileType {
+		t.Errorf("SupportingDocsFileType doesn't match : %v != %v", initialMessage.SupportingDocsFileType, decodedMessage.SupportingDocsFileType)
+	}
 
 	// SupportingDocs (varchar)
 	if initialMessage.SupportingDocs != decodedMessage.SupportingDocs {
@@ -1314,7 +1078,9 @@ func TestStaticContractFormation(t *testing.T) {
 	}
 
 	// ContractRevision (uint)
-	// uint test compare not setup
+	if initialMessage.ContractRevision != decodedMessage.ContractRevision {
+		t.Errorf("ContractRevision doesn't match : %v != %v", initialMessage.ContractRevision, decodedMessage.ContractRevision)
+	}
 
 	// GoverningLaw (fixedchar)
 	if initialMessage.GoverningLaw != decodedMessage.GoverningLaw {
@@ -1327,14 +1093,10 @@ func TestStaticContractFormation(t *testing.T) {
 	}
 
 	// EffectiveDate (Timestamp)
-	if initialMessage.EffectiveDate != decodedMessage.EffectiveDate {
-		t.Errorf("EffectiveDate doesn't match : %v != %v", initialMessage.EffectiveDate, decodedMessage.EffectiveDate)
-	}
+	// Timestamp test compare not setup
 
 	// ContractExpiration (Timestamp)
-	if initialMessage.ContractExpiration != decodedMessage.ContractExpiration {
-		t.Errorf("ContractExpiration doesn't match : %v != %v", initialMessage.ContractExpiration, decodedMessage.ContractExpiration)
-	}
+	// Timestamp test compare not setup
 
 	// ContractURI (varchar)
 	if initialMessage.ContractURI != decodedMessage.ContractURI {
@@ -1342,9 +1104,7 @@ func TestStaticContractFormation(t *testing.T) {
 	}
 
 	// PrevRevTxID (TxId)
-	if initialMessage.PrevRevTxID != decodedMessage.PrevRevTxID {
-		t.Errorf("PrevRevTxID doesn't match : %v != %v", initialMessage.PrevRevTxID, decodedMessage.PrevRevTxID)
-	}
+	// TxId test compare not setup
 
 	// Entities (Entity[])
 	if len(initialMessage.Entities) != len(decodedMessage.Entities) {
@@ -1393,8 +1153,8 @@ func TestOrder(t *testing.T) {
 	// SupportingEvidenceTxId (TxId)
 	initialMessage.SupportingEvidenceTxId = TxId{}
 
-	// RefTxnID (TxId)
-	initialMessage.RefTxnID = TxId{}
+	// RefTxns (TxId)
+	initialMessage.RefTxns = TxId{}
 
 	// FreezePeriod (Timestamp)
 	initialMessage.FreezePeriod = Timestamp{}
@@ -1428,12 +1188,12 @@ func TestOrder(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -1443,12 +1203,12 @@ func TestOrder(t *testing.T) {
 	}
 
 	// AssetCode (AssetCode)
-	if initialMessage.AssetCode != decodedMessage.AssetCode {
-		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
-	}
+	// AssetCode test compare not setup
 
 	// ComplianceAction (fixedchar)
-	// fixedchar test compare not setup
+	if initialMessage.ComplianceAction != decodedMessage.ComplianceAction {
+		t.Errorf("ComplianceAction doesn't match : %v != %v", initialMessage.ComplianceAction, decodedMessage.ComplianceAction)
+	}
 
 	// TargetAddresses (TargetAddress[])
 	if len(initialMessage.TargetAddresses) != len(decodedMessage.TargetAddresses) {
@@ -1456,9 +1216,7 @@ func TestOrder(t *testing.T) {
 	}
 
 	// DepositAddress (PublicKeyHash)
-	if initialMessage.DepositAddress != decodedMessage.DepositAddress {
-		t.Errorf("DepositAddress doesn't match : %v != %v", initialMessage.DepositAddress, decodedMessage.DepositAddress)
-	}
+	// PublicKeyHash test compare not setup
 
 	// AuthorityName (varchar)
 	if initialMessage.AuthorityName != decodedMessage.AuthorityName {
@@ -1466,7 +1224,9 @@ func TestOrder(t *testing.T) {
 	}
 
 	// SigAlgoAddressList (uint)
-	// uint test compare not setup
+	if initialMessage.SigAlgoAddressList != decodedMessage.SigAlgoAddressList {
+		t.Errorf("SigAlgoAddressList doesn't match : %v != %v", initialMessage.SigAlgoAddressList, decodedMessage.SigAlgoAddressList)
+	}
 
 	// AuthorityPublicKey (varchar)
 	if initialMessage.AuthorityPublicKey != decodedMessage.AuthorityPublicKey {
@@ -1479,19 +1239,13 @@ func TestOrder(t *testing.T) {
 	}
 
 	// SupportingEvidenceTxId (TxId)
-	if initialMessage.SupportingEvidenceTxId != decodedMessage.SupportingEvidenceTxId {
-		t.Errorf("SupportingEvidenceTxId doesn't match : %v != %v", initialMessage.SupportingEvidenceTxId, decodedMessage.SupportingEvidenceTxId)
-	}
+	// TxId test compare not setup
 
-	// RefTxnID (TxId)
-	if initialMessage.RefTxnID != decodedMessage.RefTxnID {
-		t.Errorf("RefTxnID doesn't match : %v != %v", initialMessage.RefTxnID, decodedMessage.RefTxnID)
-	}
+	// RefTxns (TxId)
+	// TxId test compare not setup
 
 	// FreezePeriod (Timestamp)
-	if initialMessage.FreezePeriod != decodedMessage.FreezePeriod {
-		t.Errorf("FreezePeriod doesn't match : %v != %v", initialMessage.FreezePeriod, decodedMessage.FreezePeriod)
-	}
+	// Timestamp test compare not setup
 
 	// Message (varchar)
 	if initialMessage.Message != decodedMessage.Message {
@@ -1536,12 +1290,12 @@ func TestFreeze(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -1551,9 +1305,7 @@ func TestFreeze(t *testing.T) {
 	}
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestThaw(t *testing.T) {
@@ -1596,12 +1348,12 @@ func TestThaw(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -1611,14 +1363,10 @@ func TestThaw(t *testing.T) {
 	}
 
 	// RefTxID (TxId)
-	if initialMessage.RefTxID != decodedMessage.RefTxID {
-		t.Errorf("RefTxID doesn't match : %v != %v", initialMessage.RefTxID, decodedMessage.RefTxID)
-	}
+	// TxId test compare not setup
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestConfiscation(t *testing.T) {
@@ -1661,12 +1409,12 @@ func TestConfiscation(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -1676,12 +1424,12 @@ func TestConfiscation(t *testing.T) {
 	}
 
 	// DepositQty (uint)
-	// uint test compare not setup
+	if initialMessage.DepositQty != decodedMessage.DepositQty {
+		t.Errorf("DepositQty doesn't match : %v != %v", initialMessage.DepositQty, decodedMessage.DepositQty)
+	}
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestReconciliation(t *testing.T) {
@@ -1721,12 +1469,12 @@ func TestReconciliation(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -1736,19 +1484,23 @@ func TestReconciliation(t *testing.T) {
 	}
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
-func TestInitiative(t *testing.T) {
+func TestProposal(t *testing.T) {
 	// Create a randomized object
-	initialMessage := Initiative{}
+	initialMessage := Proposal{}
+	// Initiator (uint)
+	// uint test not setup
+
+	// AssetSpecificVote (bool)
+	initialMessage.AssetSpecificVote = true
+
 	// AssetType (fixedchar)
 	{
 		text := make([]byte, 0, 3)
 		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+0))
+			text = append(text, byte(65+i+2))
 		}
 		initialMessage.AssetType = string(text)
 	}
@@ -1759,22 +1511,22 @@ func TestInitiative(t *testing.T) {
 	// VoteSystem (uint)
 	// uint test not setup
 
-	// Proposal (bool)
-	// bool test not setup
+	// Specific (bool)
+	initialMessage.Specific = true
 
-	// ProposedChanges (Amendment[])
+	// ProposedAmendments (Amendment[])
 	for i := 0; i < 2; i++ {
-		initialMessage.ProposedChanges = append(initialMessage.ProposedChanges, Amendment{})
+		initialMessage.ProposedAmendments = append(initialMessage.ProposedAmendments, Amendment{})
 	}
 
 	// VoteOptions (varchar)
-	initialMessage.VoteOptions = "Text 5"
+	initialMessage.VoteOptions = "Text 7"
 
 	// VoteMax (uint)
 	// uint test not setup
 
 	// ProposalDescription (varchar)
-	initialMessage.ProposalDescription = "Text 7"
+	initialMessage.ProposalDescription = "Text 9"
 
 	// ProposalDocumentHash (bin)
 	// bin test not setup
@@ -1790,7 +1542,7 @@ func TestInitiative(t *testing.T) {
 	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
 
 	// Decode message
-	decodedMessage := Initiative{}
+	decodedMessage := Proposal{}
 
 	n, err := decodedMessage.write(initialEncoding)
 	if err != nil {
@@ -1808,34 +1560,46 @@ func TestInitiative(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
+	// Initiator (uint)
+	if initialMessage.Initiator != decodedMessage.Initiator {
+		t.Errorf("Initiator doesn't match : %v != %v", initialMessage.Initiator, decodedMessage.Initiator)
+	}
+
+	// AssetSpecificVote (bool)
+	if initialMessage.AssetSpecificVote != decodedMessage.AssetSpecificVote {
+		t.Errorf("AssetSpecificVote doesn't match : %v != %v", initialMessage.AssetSpecificVote, decodedMessage.AssetSpecificVote)
+	}
+
 	// AssetType (fixedchar)
 	if initialMessage.AssetType != decodedMessage.AssetType {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
 
 	// AssetCode (AssetCode)
-	if initialMessage.AssetCode != decodedMessage.AssetCode {
-		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
-	}
+	// AssetCode test compare not setup
 
 	// VoteSystem (uint)
-	// uint test compare not setup
+	if initialMessage.VoteSystem != decodedMessage.VoteSystem {
+		t.Errorf("VoteSystem doesn't match : %v != %v", initialMessage.VoteSystem, decodedMessage.VoteSystem)
+	}
 
-	// Proposal (bool)
-	// bool test compare not setup
+	// Specific (bool)
+	if initialMessage.Specific != decodedMessage.Specific {
+		t.Errorf("Specific doesn't match : %v != %v", initialMessage.Specific, decodedMessage.Specific)
+	}
 
-	// ProposedChanges (Amendment[])
-	if len(initialMessage.ProposedChanges) != len(decodedMessage.ProposedChanges) {
-		t.Errorf("ProposedChanges lengths don't match : %d != %d", len(initialMessage.ProposedChanges), len(decodedMessage.ProposedChanges))
+	// ProposedAmendments (Amendment[])
+	if len(initialMessage.ProposedAmendments) != len(decodedMessage.ProposedAmendments) {
+		t.Errorf("ProposedAmendments lengths don't match : %d != %d", len(initialMessage.ProposedAmendments), len(decodedMessage.ProposedAmendments))
 	}
 
 	// VoteOptions (varchar)
@@ -1844,7 +1608,9 @@ func TestInitiative(t *testing.T) {
 	}
 
 	// VoteMax (uint)
-	// uint test compare not setup
+	if initialMessage.VoteMax != decodedMessage.VoteMax {
+		t.Errorf("VoteMax doesn't match : %v != %v", initialMessage.VoteMax, decodedMessage.VoteMax)
+	}
 
 	// ProposalDescription (varchar)
 	if initialMessage.ProposalDescription != decodedMessage.ProposalDescription {
@@ -1852,137 +1618,12 @@ func TestInitiative(t *testing.T) {
 	}
 
 	// ProposalDocumentHash (bin)
-	// bin test compare not setup
+	if initialMessage.ProposalDocumentHash != decodedMessage.ProposalDocumentHash {
+		t.Errorf("ProposalDocumentHash doesn't match : %v != %v", initialMessage.ProposalDocumentHash, decodedMessage.ProposalDocumentHash)
+	}
 
 	// VoteCutOffTimestamp (Timestamp)
-	if initialMessage.VoteCutOffTimestamp != decodedMessage.VoteCutOffTimestamp {
-		t.Errorf("VoteCutOffTimestamp doesn't match : %v != %v", initialMessage.VoteCutOffTimestamp, decodedMessage.VoteCutOffTimestamp)
-	}
-}
-
-func TestReferendum(t *testing.T) {
-	// Create a randomized object
-	initialMessage := Referendum{}
-	// AssetSpecificVote (bool)
-	// bool test not setup
-
-	// AssetType (fixedchar)
-	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.AssetType = string(text)
-	}
-
-	// AssetCode (AssetCode)
-	initialMessage.AssetCode = AssetCode{}
-
-	// VoteSystem (uint)
-	// uint test not setup
-
-	// Proposal (bool)
-	// bool test not setup
-
-	// ProposedChanges (Amendment[])
-	for i := 0; i < 2; i++ {
-		initialMessage.ProposedChanges = append(initialMessage.ProposedChanges, Amendment{})
-	}
-
-	// VoteOptions (varchar)
-	initialMessage.VoteOptions = "Text 6"
-
-	// VoteMax (uint)
-	// uint test not setup
-
-	// ProposalDescription (varchar)
-	initialMessage.ProposalDescription = "Text 8"
-
-	// ProposalDocumentHash (bin)
-	// bin test not setup
-
-	// VoteCutOffTimestamp (Timestamp)
-	initialMessage.VoteCutOffTimestamp = Timestamp{}
-
-	// Encode message
-	initialEncoding, err := initialMessage.serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
-
-	// Decode message
-	decodedMessage := Referendum{}
-
-	n, err := decodedMessage.write(initialEncoding)
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Logf("Decoded : %d bytes", n)
-
-	if n != len(initialEncoding) {
-		t.Fatalf("got %v, want %v", n, len(initialEncoding))
-	}
-
-	// Serializing the message should give us the same bytes
-	secondEncoding, err := decodedMessage.serialize()
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
-	}
-
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
-	// }
-
-	// Compare re-serialized values
-	// AssetSpecificVote (bool)
-	// bool test compare not setup
-
-	// AssetType (fixedchar)
-	if initialMessage.AssetType != decodedMessage.AssetType {
-		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
-	}
-
-	// AssetCode (AssetCode)
-	if initialMessage.AssetCode != decodedMessage.AssetCode {
-		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
-	}
-
-	// VoteSystem (uint)
-	// uint test compare not setup
-
-	// Proposal (bool)
-	// bool test compare not setup
-
-	// ProposedChanges (Amendment[])
-	if len(initialMessage.ProposedChanges) != len(decodedMessage.ProposedChanges) {
-		t.Errorf("ProposedChanges lengths don't match : %d != %d", len(initialMessage.ProposedChanges), len(decodedMessage.ProposedChanges))
-	}
-
-	// VoteOptions (varchar)
-	if initialMessage.VoteOptions != decodedMessage.VoteOptions {
-		t.Errorf("VoteOptions doesn't match : %s != %s", initialMessage.VoteOptions, decodedMessage.VoteOptions)
-	}
-
-	// VoteMax (uint)
-	// uint test compare not setup
-
-	// ProposalDescription (varchar)
-	if initialMessage.ProposalDescription != decodedMessage.ProposalDescription {
-		t.Errorf("ProposalDescription doesn't match : %s != %s", initialMessage.ProposalDescription, decodedMessage.ProposalDescription)
-	}
-
-	// ProposalDocumentHash (bin)
-	// bin test compare not setup
-
-	// VoteCutOffTimestamp (Timestamp)
-	if initialMessage.VoteCutOffTimestamp != decodedMessage.VoteCutOffTimestamp {
-		t.Errorf("VoteCutOffTimestamp doesn't match : %v != %v", initialMessage.VoteCutOffTimestamp, decodedMessage.VoteCutOffTimestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestVote(t *testing.T) {
@@ -2017,19 +1658,17 @@ func TestVote(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestBallotCast(t *testing.T) {
@@ -2079,12 +1718,12 @@ func TestBallotCast(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2094,14 +1733,10 @@ func TestBallotCast(t *testing.T) {
 	}
 
 	// AssetCode (AssetCode)
-	if initialMessage.AssetCode != decodedMessage.AssetCode {
-		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
-	}
+	// AssetCode test compare not setup
 
 	// VoteTxID (TxId)
-	if initialMessage.VoteTxID != decodedMessage.VoteTxID {
-		t.Errorf("VoteTxID doesn't match : %v != %v", initialMessage.VoteTxID, decodedMessage.VoteTxID)
-	}
+	// TxId test compare not setup
 
 	// Vote (varchar)
 	if initialMessage.Vote != decodedMessage.Vote {
@@ -2141,19 +1776,17 @@ func TestBallotCounted(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestResult(t *testing.T) {
@@ -2172,7 +1805,7 @@ func TestResult(t *testing.T) {
 	initialMessage.AssetCode = AssetCode{}
 
 	// Proposal (bool)
-	// bool test not setup
+	initialMessage.Proposal = true
 
 	// ProposedChanges (Amendment[])
 	for i := 0; i < 2; i++ {
@@ -2220,12 +1853,12 @@ func TestResult(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2235,12 +1868,12 @@ func TestResult(t *testing.T) {
 	}
 
 	// AssetCode (AssetCode)
-	if initialMessage.AssetCode != decodedMessage.AssetCode {
-		t.Errorf("AssetCode doesn't match : %v != %v", initialMessage.AssetCode, decodedMessage.AssetCode)
-	}
+	// AssetCode test compare not setup
 
 	// Proposal (bool)
-	// bool test compare not setup
+	if initialMessage.Proposal != decodedMessage.Proposal {
+		t.Errorf("Proposal doesn't match : %v != %v", initialMessage.Proposal, decodedMessage.Proposal)
+	}
 
 	// ProposedChanges (Amendment[])
 	if len(initialMessage.ProposedChanges) != len(decodedMessage.ProposedChanges) {
@@ -2248,15 +1881,17 @@ func TestResult(t *testing.T) {
 	}
 
 	// VoteTxID (TxId)
-	if initialMessage.VoteTxID != decodedMessage.VoteTxID {
-		t.Errorf("VoteTxID doesn't match : %v != %v", initialMessage.VoteTxID, decodedMessage.VoteTxID)
-	}
+	// TxId test compare not setup
 
 	// VoteOptionsCount (uint)
-	// uint test compare not setup
+	if initialMessage.VoteOptionsCount != decodedMessage.VoteOptionsCount {
+		t.Errorf("VoteOptionsCount doesn't match : %v != %v", initialMessage.VoteOptionsCount, decodedMessage.VoteOptionsCount)
+	}
 
 	// OptionXTally (uint)
-	// uint test compare not setup
+	if initialMessage.OptionXTally != decodedMessage.OptionXTally {
+		t.Errorf("OptionXTally doesn't match : %v != %v", initialMessage.OptionXTally, decodedMessage.OptionXTally)
+	}
 
 	// Result (varchar)
 	if initialMessage.Result != decodedMessage.Result {
@@ -2264,9 +1899,7 @@ func TestResult(t *testing.T) {
 	}
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestMessage(t *testing.T) {
@@ -2319,12 +1952,12 @@ func TestMessage(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2396,17 +2029,19 @@ func TestRejection(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
 	// QtyReceivingAddresses (uint8)
-	// uint8 test compare not setup
+	if initialMessage.QtyReceivingAddresses != decodedMessage.QtyReceivingAddresses {
+		t.Errorf("QtyReceivingAddresses doesn't match : %v != %v", initialMessage.QtyReceivingAddresses, decodedMessage.QtyReceivingAddresses)
+	}
 
 	// AddressIndexes (uint16[])
 	if len(initialMessage.AddressIndexes) != len(decodedMessage.AddressIndexes) {
@@ -2419,7 +2054,9 @@ func TestRejection(t *testing.T) {
 	}
 
 	// RejectionType (uint)
-	// uint test compare not setup
+	if initialMessage.RejectionType != decodedMessage.RejectionType {
+		t.Errorf("RejectionType doesn't match : %v != %v", initialMessage.RejectionType, decodedMessage.RejectionType)
+	}
 
 	// MessagePayload (varchar)
 	if initialMessage.MessagePayload != decodedMessage.MessagePayload {
@@ -2427,9 +2064,7 @@ func TestRejection(t *testing.T) {
 	}
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }
 
 func TestEstablishment(t *testing.T) {
@@ -2464,12 +2099,12 @@ func TestEstablishment(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2511,12 +2146,12 @@ func TestAddition(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2558,12 +2193,12 @@ func TestAlteration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2605,12 +2240,12 @@ func TestRemoval(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2675,12 +2310,12 @@ func TestTransfer(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2690,9 +2325,7 @@ func TestTransfer(t *testing.T) {
 	}
 
 	// OfferExpiry (Timestamp)
-	if initialMessage.OfferExpiry != decodedMessage.OfferExpiry {
-		t.Errorf("OfferExpiry doesn't match : %v != %v", initialMessage.OfferExpiry, decodedMessage.OfferExpiry)
-	}
+	// Timestamp test compare not setup
 
 	// ExchangeFeeCurrency (fixedchar)
 	if initialMessage.ExchangeFeeCurrency != decodedMessage.ExchangeFeeCurrency {
@@ -2700,15 +2333,17 @@ func TestTransfer(t *testing.T) {
 	}
 
 	// ExchangeFeeVar (float)
-	// float test compare not setup
+	if initialMessage.ExchangeFeeVar != decodedMessage.ExchangeFeeVar {
+		t.Errorf("ExchangeFeeVar doesn't match : %v != %v", initialMessage.ExchangeFeeVar, decodedMessage.ExchangeFeeVar)
+	}
 
 	// ExchangeFeeFixed (float)
-	// float test compare not setup
+	if initialMessage.ExchangeFeeFixed != decodedMessage.ExchangeFeeFixed {
+		t.Errorf("ExchangeFeeFixed doesn't match : %v != %v", initialMessage.ExchangeFeeFixed, decodedMessage.ExchangeFeeFixed)
+	}
 
 	// ExchangeFeeAddress (PublicKeyHash)
-	if initialMessage.ExchangeFeeAddress != decodedMessage.ExchangeFeeAddress {
-		t.Errorf("ExchangeFeeAddress doesn't match : %v != %v", initialMessage.ExchangeFeeAddress, decodedMessage.ExchangeFeeAddress)
-	}
+	// PublicKeyHash test compare not setup
 }
 
 func TestSettlement(t *testing.T) {
@@ -2748,12 +2383,12 @@ func TestSettlement(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
-		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
 	}
 
-	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
-	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
 	// }
 
 	// Compare re-serialized values
@@ -2763,7 +2398,5 @@ func TestSettlement(t *testing.T) {
 	}
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
-		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
-	}
+	// Timestamp test compare not setup
 }

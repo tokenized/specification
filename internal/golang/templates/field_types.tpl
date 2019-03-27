@@ -37,10 +37,6 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 	if err := WriteVarBin(buf, m.{{.Name}}, {{.Length}}); err != nil {
 		return nil, err
 	}
-{{- else if .IsPushDataLength }}
-	if _, err := buf.Write(PushDataScript(m.{{.Name}})); err != nil {
-		return nil, err
-	}
 {{- else if .IsInternalTypeArray }}
 	if err := WriteVariableSize(buf, uint64(len(m.{{.Name}})), {{.Length}}, 8); err != nil {
 		return nil, err
@@ -115,14 +111,6 @@ func (m *{{.Name}}) Write(buf *bytes.Buffer) error {
 			return err
 		}
 	}
-{{- else if .IsPushDataLength }}
-	{
-		var err error
-		m.{{.Name}}, err = ParsePushDataScript(buf)
-		if err != nil {
-			return err
-		}
-	}
 {{- else if .IsInternalTypeArray }}
 	{
 		size, err := ReadVariableSize(buf, {{.Length}}, 8)
@@ -165,5 +153,42 @@ func (m *{{.Name}}) Write(buf *bytes.Buffer) error {
 	}
 {{- end }}{{ end }}
 	return nil
+}
+
+func (m *{{.Name}}) Equal(other {{.Name}}) bool {
+{{- range .Fields }}
+
+	// {{.Name}} ({{.FieldGoType}})
+{{- if .IsVarBin }}
+	if !bytes.Equal(m.{{.Name}}, other.{{.Name}}) {
+		return false
+	}
+{{- else if or .IsBytes .IsData }}
+	if !bytes.Equal(m.{{.Name}}, other.{{.Name}}) {
+		return false
+	}
+{{- else if .IsInternalTypeArray }}
+	if len(m.{{.Name}}) != 0 || len(other.{{.Name}}) != 0 {
+		if len(m.{{.Name}}) != len(other.{{.Name}}) {
+			return false
+		}
+
+		for i, value := range m.{{.Name}} {
+			if !value.Equal(other.{{.Name}}[i]) {
+				return false
+			}
+		}
+	}
+{{- else if .IsInternalType }}
+	if !m.{{.Name}}.Equal(other.{{.Name}}) {
+		return false
+	}
+{{- else }}
+	if m.{{.Name}} != other.{{.Name}} {
+		return false
+	}
+{{- end }}
+{{- end }}
+	return true
 }
 {{ end }}

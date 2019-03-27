@@ -17,7 +17,7 @@ fields:
     size: 1
     example: 0
     computed: true
-    
+
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
@@ -26,9 +26,15 @@ fields:
     example_value: 1551767413250187179
     notes: ""
 
-  - name: Offer
-    label: Offer
-    description: "Full serialized bitcoin tx containing an offer to another party, usually to exchange tokens/bitcoin. The message needs data added by another party."
+  - name: RefTxId
+    label: Ref Tx Id
+    description: "Tx Id of the request transaction referenced by the offer."
+    type: TxId
+    notes: "For a multi-contract settlement, the Payload will be a Settlement op return script and the RefTxId will be the id of the tx containing the Transfer."
+
+  - name: Payload
+    label: Payload
+    description: "Full serialized op return script containing an offer to another party, usually to exchange tokens/bitcoin. The message needs data added by another party."
     type: varbin
     size: 32
     notes: ""

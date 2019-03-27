@@ -20,7 +20,7 @@ rules:
 
     - name: NewIssuer
       label: New Issuer Public Address
-      comments: Only treated as the new Issuer address when the Change Issuer Address flag is set to Y.
+      comments: Only treated as the new Issuer address when the Change Issuer Address flag is set to true.
 
   outputs:
     - name: Contract
@@ -36,7 +36,7 @@ fields:
 
   - name: ChangeIssuerAddress
     label: Change Issuer Address
-    description: "1 - Yes, 0 - No.  Used to change the issuer address.  The new issuer address must be in the input[1] position."
+    description: "Used to change the issuer address.  The new issuer address must be in the input[1] position."
     type: bool
     example_hex: 01
     example_value: 1
@@ -44,7 +44,7 @@ fields:
 
   - name: ChangeOperatorAddress
     label: Change Operator Address
-    description: "1 - Yes, 0 - No.  Used to change the smart contract operator address.  The new operator address must be in the input[1] position."
+    description: "Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless issuer is being changed too, then it is in input[2]."
     type: bool
     example_hex: 01
     example_value: 1
