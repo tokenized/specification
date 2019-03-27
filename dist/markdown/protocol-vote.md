@@ -126,8 +126,8 @@ The following breaks down the construction of a Vote Action. The action is const
                 <td class="g10">Action Prefix</td>
                 <td class="g10">ActionPrefix</td>
                 <td class="g10">2</td>
-                <td class="g10">G3</td>
-                <td class="g10" style="word-break:break-all">// G3 identifies data as a Vote message.</td>
+                <td class="g10">G2</td>
+                <td class="g10" style="word-break:break-all">// G2 identifies data as a Vote message.</td>
                 <td class="g10">string</td>
                 <td class="g10">Cannot be changed by issuer, operator or smart contract..</td>
             </tr>

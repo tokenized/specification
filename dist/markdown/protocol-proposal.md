@@ -222,7 +222,7 @@ The following breaks down the construction of a Proposal Action. The action is c
                 <td class="g10">ActionPrefix</td>
                 <td class="g10">2</td>
                 <td class="g10">G1</td>
-                <td class="g10" style="word-break:break-all">// G1 identifies data as a Initiative message.</td>
+                <td class="g10" style="word-break:break-all">// G1 identifies data as a Proposal message.</td>
                 <td class="g10">string</td>
                 <td class="g10">Cannot be changed by issuer, operator or smart contract..</td>
             </tr>

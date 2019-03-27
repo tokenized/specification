@@ -6,7 +6,7 @@ BINARY_CONTRACT_CLI=tokenized
 
 GO_DIST_DIR=dist/golang/protocol
 
-all: prepare tools run-generate format lint test
+all: prepare tools run-generate format test
 
 run-win: prepare-win tools run-generate format-win
 
@@ -37,7 +37,6 @@ test-go:
 tools:
 	go get golang.org/x/lint/golint
 	go get golang.org/x/tools/cmd/goimports
-	go get github.com/dgryski/go-bitstream
 
 prepare:
 	mkdir -p tmp

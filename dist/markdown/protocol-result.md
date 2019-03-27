@@ -183,8 +183,8 @@ The following breaks down the construction of a Result Action. The action is con
                 <td class="g10">Action Prefix</td>
                 <td class="g10">ActionPrefix</td>
                 <td class="g10">2</td>
-                <td class="g10">G6</td>
-                <td class="g10" style="word-break:break-all">// G6 identifies data as a Result message.</td>
+                <td class="g10">G5</td>
+                <td class="g10" style="word-break:break-all">// G5 identifies data as a Result message.</td>
                 <td class="g10">string</td>
                 <td class="g10">Cannot be changed by issuer, operator or smart contract..</td>
             </tr>
