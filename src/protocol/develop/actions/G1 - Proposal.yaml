@@ -97,7 +97,7 @@ fields:
 
   - name: VoteMax
     label: Vote Max
-    description: "Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
+    description: "Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary). When Specific is true, only 1 is a valid value."
     type: uint
     size: 1
     example_hex: 0f

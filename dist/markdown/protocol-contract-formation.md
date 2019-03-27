@@ -180,20 +180,20 @@ The following breaks down the construction of a Contract Formation Action. The a
             <td class="c10">Qty of Assets - Amendments can be restricted to a vote.</td>
         </tr>
         <tr>
-            <td class="c9">Referendum Proposal</td>
-            <td class="c10">ReferendumProposal</td>
+            <td class="c9">Issuer Proposal</td>
+            <td class="c10">IssuerProposal</td>
             <td class="c10">0</td>
-            <td class="c10">1</td>
-            <td class="c10">A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).</td>
+            <td class="c10">true</td>
+            <td class="c10">The issuer is permitted to make proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
             <td class="c10">General Governance</td>
         </tr>
         <tr>
-            <td class="c9">Initiative Proposal</td>
-            <td class="c10">InitiativeProposal</td>
+            <td class="c9">Holder Proposal</td>
+            <td class="c10">HolderProposal</td>
             <td class="c10">0</td>
-            <td class="c10">0</td>
-            <td class="c10">An initiative is permitted for Contract-Wide Proposals (outside of smart contract scope).</td>
+            <td class="c10">true</td>
+            <td class="c10">A holder is permitted to make proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
             <td class="c10"></td>
         </tr>
@@ -649,8 +649,8 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Vote Method</td>
-                <td class="c10">Method</td>
+                <td class="c10">Vote Type</td>
+                <td class="c10">VoteType</td>
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">A</td>
                 <td class="c10">R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful.</td>

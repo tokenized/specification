@@ -479,11 +479,11 @@ func TestContractOffer(t *testing.T) {
 	// RestrictedQtyAssets (uint)
 	// uint test not setup
 
-	// ReferendumProposal (bool)
-	initialMessage.ReferendumProposal = true
+	// IssuerProposal (bool)
+	initialMessage.IssuerProposal = true
 
-	// InitiativeProposal (bool)
-	initialMessage.InitiativeProposal = true
+	// HolderProposal (bool)
+	initialMessage.HolderProposal = true
 
 	// Registries (Registry[])
 	for i := 0; i < 2; i++ {
@@ -609,14 +609,14 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("RestrictedQtyAssets doesn't match : %v != %v", initialMessage.RestrictedQtyAssets, decodedMessage.RestrictedQtyAssets)
 	}
 
-	// ReferendumProposal (bool)
-	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
-		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	// IssuerProposal (bool)
+	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
+		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
 	}
 
-	// InitiativeProposal (bool)
-	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
-		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	// HolderProposal (bool)
+	if initialMessage.HolderProposal != decodedMessage.HolderProposal {
+		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
 	// Registries (Registry[])
@@ -705,11 +705,11 @@ func TestContractFormation(t *testing.T) {
 	// RestrictedQtyAssets (uint)
 	// uint test not setup
 
-	// ReferendumProposal (bool)
-	initialMessage.ReferendumProposal = true
+	// IssuerProposal (bool)
+	initialMessage.IssuerProposal = true
 
-	// InitiativeProposal (bool)
-	initialMessage.InitiativeProposal = true
+	// HolderProposal (bool)
+	initialMessage.HolderProposal = true
 
 	// Registries (Registry[])
 	for i := 0; i < 2; i++ {
@@ -841,14 +841,14 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("RestrictedQtyAssets doesn't match : %v != %v", initialMessage.RestrictedQtyAssets, decodedMessage.RestrictedQtyAssets)
 	}
 
-	// ReferendumProposal (bool)
-	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
-		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	// IssuerProposal (bool)
+	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
+		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
 	}
 
-	// InitiativeProposal (bool)
-	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
-		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	// HolderProposal (bool)
+	if initialMessage.HolderProposal != decodedMessage.HolderProposal {
+		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
 	// Registries (Registry[])

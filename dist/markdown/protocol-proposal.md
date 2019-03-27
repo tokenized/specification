@@ -98,7 +98,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g10">VoteMax</td>
             <td class="g10">1</td>
             <td class="g10">15</td>
-            <td class="g10"><abbr title="Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)">Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N  ...</abbr></td>
+            <td class="g10"><abbr title="Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary). When Specific is true, only 1 is a valid value.">Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N  ...</abbr></td>
             <td class="g10">uint</td>
             <td class="g10"></td>
         </tr>

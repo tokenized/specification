@@ -1039,8 +1039,8 @@ type ContractOffer struct {
 	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list of voting systems.
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
-	ReferendumProposal       bool           `json:"referendum_proposal,omitempty"`        // A Referendum is permitted for Proposals (outside of smart contract scope).
-	InitiativeProposal       bool           `json:"initiative_proposal,omitempty"`        // An initiative is permitted for Proposals (outside of smart contract scope).
+	IssuerProposal           bool           `json:"issuer_proposal,omitempty"`            // An Issuer is permitted to make proposals (outside of smart contract scope).
+	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // A holder is permitted to make proposals (outside of smart contract scope).
 	Registries               []Registry     `json:"registries,omitempty"`                 // A list Registries
 }
 
@@ -1241,18 +1241,18 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		}
 	}
 
-	// ReferendumProposal (bool)
-	_, skip = excludes["ReferendumProposal"]
+	// IssuerProposal (bool)
+	_, skip = excludes["IssuerProposal"]
 	if !skip {
-		if err := write(buf, action.ReferendumProposal); err != nil {
+		if err := write(buf, action.IssuerProposal); err != nil {
 			return nil, err
 		}
 	}
 
-	// InitiativeProposal (bool)
-	_, skip = excludes["InitiativeProposal"]
+	// HolderProposal (bool)
+	_, skip = excludes["HolderProposal"]
 	if !skip {
-		if err := write(buf, action.InitiativeProposal); err != nil {
+		if err := write(buf, action.HolderProposal); err != nil {
 			return nil, err
 		}
 	}
@@ -1466,18 +1466,18 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 		}
 	}
 
-	// ReferendumProposal (bool)
-	_, skip = excludes["ReferendumProposal"]
+	// IssuerProposal (bool)
+	_, skip = excludes["IssuerProposal"]
 	if !skip {
-		if err := read(buf, &action.ReferendumProposal); err != nil {
+		if err := read(buf, &action.IssuerProposal); err != nil {
 			return 0, err
 		}
 	}
 
-	// InitiativeProposal (bool)
-	_, skip = excludes["InitiativeProposal"]
+	// HolderProposal (bool)
+	_, skip = excludes["HolderProposal"]
 	if !skip {
-		if err := read(buf, &action.InitiativeProposal); err != nil {
+		if err := read(buf, &action.HolderProposal); err != nil {
 			return 0, err
 		}
 	}
@@ -1530,8 +1530,8 @@ func (action ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("ContractFee:%v", action.ContractFee))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
-	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))
-	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", action.InitiativeProposal))
+	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
+	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
 	vals = append(vals, fmt.Sprintf("Registries:%#+v", action.Registries))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -1562,8 +1562,8 @@ type ContractFormation struct {
 	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list voting systems.
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
-	ReferendumProposal       bool           `json:"referendum_proposal,omitempty"`        // A Referendum is permitted for Contract-Wide Proposals (outside of smart contract scope).
-	InitiativeProposal       bool           `json:"initiative_proposal,omitempty"`        // An initiative is permitted for Contract-Wide Proposals (outside of smart contract scope).
+	IssuerProposal           bool           `json:"issuer_proposal,omitempty"`            // The issuer is permitted to make proposals (outside of smart contract scope).
+	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // A holder is permitted to make proposals (outside of smart contract scope).
 	Registries               []Registry     `json:"registries,omitempty"`                 // A list Registries
 	ContractRevision         uint32         `json:"contract_revision,omitempty"`          // Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.
 	Timestamp                Timestamp      `json:"timestamp,omitempty"`                  // Timestamp in nanoseconds of when the smart contract created the action.
@@ -1766,18 +1766,18 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// ReferendumProposal (bool)
-	_, skip = excludes["ReferendumProposal"]
+	// IssuerProposal (bool)
+	_, skip = excludes["IssuerProposal"]
 	if !skip {
-		if err := write(buf, action.ReferendumProposal); err != nil {
+		if err := write(buf, action.IssuerProposal); err != nil {
 			return nil, err
 		}
 	}
 
-	// InitiativeProposal (bool)
-	_, skip = excludes["InitiativeProposal"]
+	// HolderProposal (bool)
+	_, skip = excludes["HolderProposal"]
 	if !skip {
-		if err := write(buf, action.InitiativeProposal); err != nil {
+		if err := write(buf, action.HolderProposal); err != nil {
 			return nil, err
 		}
 	}
@@ -2012,18 +2012,18 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// ReferendumProposal (bool)
-	_, skip = excludes["ReferendumProposal"]
+	// IssuerProposal (bool)
+	_, skip = excludes["IssuerProposal"]
 	if !skip {
-		if err := read(buf, &action.ReferendumProposal); err != nil {
+		if err := read(buf, &action.IssuerProposal); err != nil {
 			return 0, err
 		}
 	}
 
-	// InitiativeProposal (bool)
-	_, skip = excludes["InitiativeProposal"]
+	// HolderProposal (bool)
+	_, skip = excludes["HolderProposal"]
 	if !skip {
-		if err := read(buf, &action.InitiativeProposal); err != nil {
+		if err := read(buf, &action.HolderProposal); err != nil {
 			return 0, err
 		}
 	}
@@ -2092,8 +2092,8 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("ContractFee:%v", action.ContractFee))
 	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
-	vals = append(vals, fmt.Sprintf("ReferendumProposal:%#+v", action.ReferendumProposal))
-	vals = append(vals, fmt.Sprintf("InitiativeProposal:%#+v", action.InitiativeProposal))
+	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
+	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
 	vals = append(vals, fmt.Sprintf("Registries:%#+v", action.Registries))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
@@ -3575,7 +3575,7 @@ type Proposal struct {
 	Specific             bool        `json:"specific,omitempty"`               // When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update.
 	ProposedAmendments   []Amendment `json:"proposed_amendments,omitempty"`    // Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.
 	VoteOptions          string      `json:"vote_options,omitempty"`           // Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.
-	VoteMax              uint8       `json:"vote_max,omitempty"`               // Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)
+	VoteMax              uint8       `json:"vote_max,omitempty"`               // Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary). When Specific is true, only 1 is a valid value.
 	ProposalDescription  string      `json:"proposal_description,omitempty"`   // Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote
 	ProposalDocumentHash [32]byte    `json:"proposal_document_hash,omitempty"` // SHA256 Hash of the proposal document to be distributed to voters.
 	VoteCutOffTimestamp  Timestamp   `json:"vote_cut_off_timestamp,omitempty"` // Ballot casts after this timestamp will not be included. The vote has finished.

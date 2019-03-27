@@ -141,8 +141,8 @@ class Action_ContractOffer(ActionBase):
         'ContractFee':                     [14, DAT_uint, 8],
         'VotingSystems':                   [15, DAT_VotingSystem[], 0],
         'RestrictedQtyAssets':             [16, DAT_uint, 8],
-        'ReferendumProposal':              [17, DAT_bool, 0],
-        'InitiativeProposal':              [18, DAT_bool, 0],
+        'IssuerProposal':                  [17, DAT_bool, 0],
+        'HolderProposal':                  [18, DAT_bool, 0],
         'Registries':                      [19, DAT_Registry[], 0]
     }
 
@@ -169,8 +169,8 @@ class Action_ContractOffer(ActionBase):
         self.ContractFee = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
-        self.ReferendumProposal = None
-        self.InitiativeProposal = None
+        self.IssuerProposal = None
+        self.HolderProposal = None
         self.Registries = None
 
 
@@ -200,8 +200,8 @@ class Action_ContractFormation(ActionBase):
         'ContractFee':                     [14, DAT_uint, 8],
         'VotingSystems':                   [15, DAT_VotingSystem[], 0],
         'RestrictedQtyAssets':             [16, DAT_uint, 8],
-        'ReferendumProposal':              [17, DAT_bool, 0],
-        'InitiativeProposal':              [18, DAT_bool, 0],
+        'IssuerProposal':                  [17, DAT_bool, 0],
+        'HolderProposal':                  [18, DAT_bool, 0],
         'Registries':                      [19, DAT_Registry[], 0],
         'ContractRevision':                [20, DAT_uint, 4],
         'Timestamp':                       [21, DAT_Timestamp, 0]
@@ -230,8 +230,8 @@ class Action_ContractFormation(ActionBase):
         self.ContractFee = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
-        self.ReferendumProposal = None
-        self.InitiativeProposal = None
+        self.IssuerProposal = None
+        self.HolderProposal = None
         self.Registries = None
         self.ContractRevision = None
         self.Timestamp = None
