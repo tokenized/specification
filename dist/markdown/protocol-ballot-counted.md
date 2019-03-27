@@ -3,7 +3,7 @@
 
 # Ballot Counted Action
 
-Ballot Counted Action -  The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid.  If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.
+Ballot Counted Action - The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.
 
 The following breaks down the construction of a Ballot Counted Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -24,6 +24,31 @@ The following breaks down the construction of a Ballot Counted Action. The actio
                    Header - Click to show content
                 </a>
              </td>
+        </tr>
+        <tr>
+            <td class="g5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Vote Tx ID - Click to show content
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="g9">Vote</td>
+            <td class="g10">Vote</td>
+            <td class="g10">8</td>
+            <td class="g10">A</td>
+            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal action. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference. 1st position = 1st choice. 2nd position = 2nd choice, etc. A is always Accept and B is always reject in a Y/N votes.">Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal acti ...</abbr></td>
+            <td class="g10">varchar</td>
+            <td class="g10"></td>
+        </tr>
+        <tr>
+            <td class="g9">Tokens Held</td>
+            <td class="g10">TokensHeld</td>
+            <td class="g10">8</td>
+            <td class="g10"></td>
+            <td class="g10">Number of tokens voted for in this vote.</td>
+            <td class="g10">uint</td>
+            <td class="g10"></td>
         </tr>
         <tr>
             <td class="g5" colspan="7">
@@ -57,7 +82,7 @@ The following breaks down the construction of a Ballot Counted Action. The actio
             <td class="g6">Contract Public Address</td>
             <td class="g6"></td>
             <td class="g10">0</td>
-            <td class="g10">Token Owner's Public Address</td>
+            <td class="g10">Contract Public Address</td>
             <td class="g10">Dust limit rule minimum value output of 546</td>
         </tr>
 

@@ -3,7 +3,7 @@
 
 # Proposal Action
 
-Proposal Action - Allows Token Issuers/Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action to reduce spam, as the resulting vote will be put to all token owners.
+Proposal Action - Allows Issuers/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners.
 
 The following breaks down the construction of a Proposal Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -89,7 +89,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g10">VoteOptions</td>
             <td class="g10">8</td>
             <td class="g10">ABCDEFGHIJKLMNO</td>
-            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.">Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical ...</abbr></td>
+            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option. Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB would be used for Y/N (binary) type votes. When Specific is true, only AB is a valid value.">Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option. Typical  ...</abbr></td>
             <td class="g10">varchar</td>
             <td class="g10"></td>
         </tr>
@@ -98,7 +98,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g10">VoteMax</td>
             <td class="g10">1</td>
             <td class="g10">15</td>
-            <td class="g10"><abbr title="Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary). When Specific is true, only 1 is a valid value.">Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N  ...</abbr></td>
+            <td class="g10"><abbr title="Range: 1-X. How many selections can a voter make in a Ballot Cast. 1 is selected for Y/N (binary). When Specific is true, only 1 is a valid value.">Range: 1-X. How many selections can a voter make in a Ballot Cast. 1 is selected for Y/N ( ...</abbr></td>
             <td class="g10">uint</td>
             <td class="g10"></td>
         </tr>

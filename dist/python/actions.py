@@ -18,8 +18,8 @@ class Action_AssetDefinition(ActionBase):
         'TradeRestrictions':               [3, DAT_Polity, 0],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
         'VoteMultiplier':                  [5, DAT_uint, 1],
-        'ReferendumProposal':              [6, DAT_bool, 0],
-        'InitiativeProposal':              [7, DAT_bool, 0],
+        'IssuerProposal':                  [6, DAT_bool, 0],
+        'HolderProposal':                  [7, DAT_bool, 0],
         'AssetModificationGovernance':     [8, DAT_bool, 0],
         'TokenQty':                        [9, DAT_uint, 8],
         'AssetPayload':                    [10, DAT_varbin, 16]
@@ -37,8 +37,8 @@ class Action_AssetDefinition(ActionBase):
         self.TradeRestrictions = None
         self.EnforcementOrdersPermitted = None
         self.VoteMultiplier = None
-        self.ReferendumProposal = None
-        self.InitiativeProposal = None
+        self.IssuerProposal = None
+        self.HolderProposal = None
         self.AssetModificationGovernance = None
         self.TokenQty = None
         self.AssetPayload = None
@@ -52,13 +52,13 @@ class Action_AssetCreation(ActionBase):
 
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
-        'AssetAuthFlags':                  [1, DAT_bin, 8],
+        'AssetAuthFlags':                  [1, DAT_varbin, 8],
         'TransfersPermitted':              [2, DAT_bool, 0],
         'TradeRestrictions':               [3, DAT_Polity, 0],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
         'VoteMultiplier':                  [5, DAT_uint, 1],
-        'ReferendumProposal':              [6, DAT_bool, 0],
-        'InitiativeProposal':              [7, DAT_bool, 0],
+        'IssuerProposal':                  [6, DAT_bool, 0],
+        'HolderProposal':                  [7, DAT_bool, 0],
         'AssetModificationGovernance':     [8, DAT_bool, 0],
         'TokenQty':                        [9, DAT_uint, 8],
         'AssetPayload':                    [10, DAT_varbin, 16],
@@ -78,8 +78,8 @@ class Action_AssetCreation(ActionBase):
         self.TradeRestrictions = None
         self.EnforcementOrdersPermitted = None
         self.VoteMultiplier = None
-        self.ReferendumProposal = None
-        self.InitiativeProposal = None
+        self.IssuerProposal = None
+        self.HolderProposal = None
         self.AssetModificationGovernance = None
         self.TokenQty = None
         self.AssetPayload = None
@@ -434,10 +434,11 @@ class Action_Reconciliation(ActionBase):
     def init_attributes(self):
 
 
-# Proposal Action - Allows Token Issuers/Holders to propose a change (aka
+# Proposal Action - Allows Issuers/Token Holders to propose a change (aka
 # Initiative/Shareholder vote). A significant cost - specified in the
-# Contract Formation - can be attached to this action to reduce spam, as
-# the resulting vote will be put to all token owners.
+# Contract Formation - can be attached to this action when sent from Token
+# Holders to reduce spam, as the resulting vote will be put to all token
+# owners.
 
 class Action_Proposal(ActionBase):
     ActionPrefix = 'G1'
@@ -476,7 +477,7 @@ class Action_Proposal(ActionBase):
 
 
 # Vote Action - A vote is created by the Contract in response to a valid
-# Referendum (Issuer) or Initiative (User) Action.
+# Proposal Action.
 
 class Action_Vote(ActionBase):
     ActionPrefix = 'G2'
@@ -495,17 +496,14 @@ class Action_Vote(ActionBase):
 
 
 # Ballot Cast Action - Used by Token Owners to cast their ballot (vote) on
-# proposals raised by the Issuer (Referendum) or other token holders
-# (Initiative). 1 Vote per token unless a vote multiplier is specified in
-# the relevant Asset Definition action.
+# proposals. 1 Vote per token unless a vote multiplier is specified in the
+# relevant Asset Definition action.
 
 class Action_BallotCast(ActionBase):
     ActionPrefix = 'G3'
 
     schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'VoteTxID':                        [1, DAT_TxId, 0],
-        'Vote':                            [2, DAT_varchar, 8]
+        'Vote':                            [0, DAT_varchar, 8]
     }
 
     rules = {
@@ -515,8 +513,6 @@ class Action_BallotCast(ActionBase):
     }
 
     def init_attributes(self):
-        self.VoteTxID = None
-        self.Vote = None
 
 
 # Ballot Counted Action - The smart contract will respond to a Ballot Cast
@@ -528,7 +524,9 @@ class Action_BallotCounted(ActionBase):
     ActionPrefix = 'G4'
 
     schema = {
-        
+        'Vote':                            [0, DAT_varchar, 8],
+        'TokensHeld':                      [1, DAT_uint, 8],
+        'Timestamp':                       [2, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -538,20 +536,24 @@ class Action_BallotCounted(ActionBase):
     }
 
     def init_attributes(self):
+        self.TokensHeld = None
+        self.Timestamp = None
 
 
 # Result Action - Once a vote has been completed the results are published.
+# After the result is posted, it is up to the issuer to send a
+# contract/asset amendement if appropriate.
 
 class Action_Result(ActionBase):
     ActionPrefix = 'G5'
 
     schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'Proposal':                        [1, DAT_bool, 0],
-        'ProposedChanges':                 [2, DAT_Amendment[], 0],
-        'VoteTxID':                        [3, DAT_TxId, 0],
-        'VoteOptionsCount':                [4, DAT_uint, 1],
-        'OptionXTally':                    [5, DAT_uint, 8],
+        'AssetType':                       [0, DAT_fixedchar, 3],
+        'AssetCode':                       [1, DAT_AssetCode, 0],
+        'Specific':                        [2, DAT_bool, 0],
+        'ProposedAmendments':              [3, DAT_Amendment[], 0],
+        'VoteTxID':                        [4, DAT_TxId, 0],
+        'OptionTally':                     [5, DAT_uint64[], 8],
         'Result':                          [6, DAT_varchar, 8],
         'Timestamp':                       [7, DAT_Timestamp, 0]
     }
@@ -563,11 +565,11 @@ class Action_Result(ActionBase):
     }
 
     def init_attributes(self):
-        self.Proposal = None
-        self.ProposedChanges = None
+        self.AssetCode = None
+        self.Specific = None
+        self.ProposedAmendments = None
         self.VoteTxID = None
-        self.VoteOptionsCount = None
-        self.OptionXTally = None
+        self.OptionTally = None
         self.Result = None
         self.Timestamp = None
 

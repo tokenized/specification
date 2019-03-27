@@ -1,5 +1,5 @@
 #
-# Result Action: Once a vote has been completed the results are published.
+# Result Action: Once a vote has been completed the results are published. After the result is posted, it is up to the issuer to send a contract/asset amendement if appropriate.
 #
 
 code: G5
@@ -7,8 +7,8 @@ code: G5
 metadata:
   name: Result
   label: Result Action
-  description: "Result Action -  Once a vote has been completed the results are published."
-  validation: AssetCreation
+  description: "Result Action - Once a vote has been completed the results are published. After the result is posted, it is up to the issuer to send a contract/asset amendement if appropriate."
+  validation: None
   rejection: Rejection
 
 rules:
@@ -30,6 +30,14 @@ fields:
     type: Header
     notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
+  - name: AssetSpecificVote
+    label: Asset Specific Vote
+    description: "1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No."
+    type: bool
+    includes:
+      - AssetType
+      - AssetCode
+
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket"
@@ -46,15 +54,15 @@ fields:
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: Proposal
-    label: Proposal
-    description: "1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly."
+  - name: Specific
+    label: Specific
+    description: "When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update."
     type: bool
-    example_hex: 00
-    example_value: 0
+    includes:
+      - ProposedAmendments
 
-  - name: ProposedChanges
-    label: Proposed Changes
+  - name: ProposedAmendments
+    label: Proposed Amendments
     description: "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time."
     type: Amendment[]
 
@@ -66,31 +74,18 @@ fields:
     example_value: "f2318be9fb3f73e53a29868beae46b42911c2116f979a5d3284face90746cb37"
     notes: ""
 
-  - name: VoteOptionsCount
-    label: VoteOptionsCount
-    description: "Number of Vote Options to follow."
-    type: uint
-    size: 1
-    example_hex: 01
-    example_value: "1"
-
-  - name: OptionXTally
-    label: Option X Tally
-    description: "Number of valid votes counted for Option X"
-    type: uint
+  - name: OptionTally
+    label: Option Tally
+    description: "List of number of valid votes counted for each vote option. Length is encoded like a regular list object, but must match the length of VoteOptions from the Proposal action."
+    type: uint64[]
     size: 8
-    example_hex: 0000000000000bb8
-    example_value: "3000"
-    notes: ""
 
   - name: Result
     label: Result
-    description: "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed. "
+    description: "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example_hex: 0132
-    example_value: "2"
     notes: ""
 
   - name: Timestamp

@@ -1,5 +1,5 @@
 #
-# Ballot Counted Action: The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid.  If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.
+# Ballot Counted Action: The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.
 #
 
 code: G4
@@ -7,8 +7,8 @@ code: G4
 metadata:
   name: BallotCounted
   label: Ballot Counted Action
-  description: "Ballot Counted Action -  The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid.  If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
-  validation: AssetCreation
+  description: "Ballot Counted Action - The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
+  validation: None
   rejection: Rejection
 
 rules:
@@ -19,8 +19,8 @@ rules:
       comments:
 
   outputs:
-    - name: User
-      label: "Token Owner's Public Address"
+    - name: Contract
+      label: Contract Public Address
       comments: Dust limit rule minimum value output of 546
 
 fields:
@@ -29,6 +29,30 @@ fields:
     description: "Common header data for all actions"
     type: Header
     notes: "Common header data for all actions."
+
+  - name: VoteTxID
+    label: Vote Tx ID
+    description: "Tx ID of the Vote the Ballot Cast was being made for."
+    type: TxId
+    example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
+    example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
+    notes: ""
+
+  - name: Vote
+    label: Vote
+    description: "Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal action. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference. 1st position = 1st choice. 2nd position = 2nd choice, etc. A is always Accept and B is always reject in a Y/N votes."
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
+    example_hex: 0141
+    example_value: "A"
+    notes: ""
+
+  - name: TokensHeld
+    label: Tokens Held
+    description: "Number of tokens voted for in this vote."
+    type: uint
+    size: 8
 
   - name: Timestamp
     label: Timestamp

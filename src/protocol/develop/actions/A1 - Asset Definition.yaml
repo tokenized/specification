@@ -88,20 +88,20 @@ fields:
     example_value: "3"
     notes: ""
 
-  - name: ReferendumProposal
-    label: Referendum Proposal
-    description: "A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless."
+  - name: IssuerProposal
+    label: Issuer Proposal
+    description: "An Issuer is permitted to make proposals (outside of smart contract scope)."
     type: bool
     example_hex: 01
-    example_value: 1
-    notes: ""
+    example_value: true
+    notes: "General Governance"
 
-  - name: InitiativeProposal
-    label: Initiative Proposal
-    description: "An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless."
+  - name: HolderProposal
+    label: Holder Proposal
+    description: "A holder is permitted to make proposals (outside of smart contract scope)."
     type: bool
     example_hex: 01
-    example_value: 1
+    example_value: true
     notes: ""
 
   - name: AssetModificationGovernance

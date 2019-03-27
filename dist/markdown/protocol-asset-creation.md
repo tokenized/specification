@@ -47,7 +47,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10">8</td>
             <td class="a10"><abbr title="0000000000000000000000000000000000000000000000000001000110111111">Hover for example</abbr></td>
             <td class="a10">Authorization Flags,  bitwise operation</td>
-            <td class="a10">bin</td>
+            <td class="a10">varbin</td>
             <td class="a10"></td>
         </tr>
         <tr>
@@ -85,20 +85,20 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10"></td>
         </tr>
         <tr>
-            <td class="a9">Referendum Proposal</td>
-            <td class="a10">ReferendumProposal</td>
+            <td class="a9">Issuer Proposal</td>
+            <td class="a10">IssuerProposal</td>
             <td class="a10">0</td>
-            <td class="a10">1</td>
-            <td class="a10"><abbr title="A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.">A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if al ...</abbr></td>
+            <td class="a10">true</td>
+            <td class="a10">An Issuer is permitted to make proposals (outside of smart contract scope).</td>
             <td class="a10">bool</td>
-            <td class="a10"></td>
+            <td class="a10">General Governance</td>
         </tr>
         <tr>
-            <td class="a9">Initiative Proposal</td>
-            <td class="a10">InitiativeProposal</td>
+            <td class="a9">Holder Proposal</td>
+            <td class="a10">HolderProposal</td>
             <td class="a10">0</td>
-            <td class="a10">1</td>
-            <td class="a10"><abbr title="An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.">An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if a ...</abbr></td>
+            <td class="a10">true</td>
+            <td class="a10">A holder is permitted to make proposals (outside of smart contract scope).</td>
             <td class="a10">bool</td>
             <td class="a10"></td>
         </tr>

@@ -3,7 +3,7 @@
 
 # Vote Action
 
-Vote Action -  A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action.
+Vote Action - A vote is created by the Contract in response to a valid Proposal Action.
 
 The following breaks down the construction of a Vote Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -59,15 +59,6 @@ The following breaks down the construction of a Vote Action. The action is const
             <td class="g10">0</td>
             <td class="g10">Contract Public Address</td>
             <td class="g10"></td>
-        </tr>
-
-       <tr>
-            <td class="g5"></td>
-            <td class="g6"></td>
-            <td class="g6"></td>
-            <td class="g10">1</td>
-            <td class="g10">Issuer's Public Address</td>
-            <td class="g10">Issuer gets the threshold fee.</td>
         </tr>
 
     </table>

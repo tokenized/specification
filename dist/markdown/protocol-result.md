@@ -3,7 +3,7 @@
 
 # Result Action
 
-Result Action -  Once a vote has been completed the results are published.
+Result Action - Once a vote has been completed the results are published. After the result is posted, it is up to the issuer to send a contract/asset amendement if appropriate.
 
 The following breaks down the construction of a Result Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -26,6 +26,15 @@ The following breaks down the construction of a Result Action. The action is con
              </td>
         </tr>
         <tr>
+            <td class="g9">Asset Specific Vote</td>
+            <td class="g10">AssetSpecificVote</td>
+            <td class="g10">0</td>
+            <td class="g10"></td>
+            <td class="g10">1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No.</td>
+            <td class="g10">bool</td>
+            <td class="g10"></td>
+        </tr>
+        <tr>
             <td class="g9">Asset Type</td>
             <td class="g10">AssetType</td>
             <td class="g10">3</td>
@@ -42,18 +51,18 @@ The following breaks down the construction of a Result Action. The action is con
             </td>
         </tr>
         <tr>
-            <td class="g9">Proposal</td>
-            <td class="g10">Proposal</td>
+            <td class="g9">Specific</td>
+            <td class="g10">Specific</td>
             <td class="g10">0</td>
-            <td class="g10">0</td>
-            <td class="g10"><abbr title="1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for modification. If this field is true, the subfields should be empty.  The smart contract cannot interpret the results of a vote when Proposal = 1.  All meaning is interpreted by the token owners and smart contract simply facilates the record keeping.  When Proposal = 0, the smart contract always assumes the first choice is a 'yes', or 'pass', if the threshold is met, and will process the proposed changes accordingly.">1 for a Proposal, 0 for an initiative that is requesting changes to specific subfields for ...</abbr></td>
+            <td class="g10"></td>
+            <td class="g10"><abbr title="When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update.">When true the ProposedAmendments field is included and specifies the exact changes to make ...</abbr></td>
             <td class="g10">bool</td>
             <td class="g10"></td>
         </tr>
         <tr>
             <td class="g5" colspan="7">
                 <a href="javascript:;" data-popover="type-Amendment">
-                   Proposed Changes - Click to show content
+                   Proposed Amendments - Click to show content
                 </a>
             </td>
         </tr>
@@ -65,29 +74,20 @@ The following breaks down the construction of a Result Action. The action is con
             </td>
         </tr>
         <tr>
-            <td class="g9">VoteOptionsCount</td>
-            <td class="g10">VoteOptionsCount</td>
-            <td class="g10">1</td>
-            <td class="g10">1</td>
-            <td class="g10">Number of Vote Options to follow.</td>
-            <td class="g10">uint</td>
-            <td class="g10"></td>
-        </tr>
-        <tr>
-            <td class="g9">Option X Tally</td>
-            <td class="g10">OptionXTally</td>
+            <td class="g9">Option Tally</td>
+            <td class="g10">OptionTally</td>
             <td class="g10">8</td>
-            <td class="g10">3000</td>
-            <td class="g10">Number of valid votes counted for Option X</td>
-            <td class="g10">uint</td>
+            <td class="g10"></td>
+            <td class="g10"><abbr title="List of number of valid votes counted for each vote option. Length is encoded like a regular list object, but must match the length of VoteOptions from the Proposal action.">List of number of valid votes counted for each vote option. Length is encoded like a regul ...</abbr></td>
+            <td class="g10">uint64[]</td>
             <td class="g10"></td>
         </tr>
         <tr>
             <td class="g9">Result</td>
             <td class="g10">Result</td>
             <td class="g10">8</td>
-            <td class="g10">2</td>
-            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed. ">Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw ...</abbr></td>
+            <td class="g10"></td>
+            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.">Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw ...</abbr></td>
             <td class="g10">varchar</td>
             <td class="g10"></td>
         </tr>
