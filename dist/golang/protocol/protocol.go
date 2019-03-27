@@ -37,7 +37,8 @@ type OpReturnMessage interface {
 	write(b []byte) (int, error)
 }
 
-// Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
+// Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN
+// script.
 func Deserialize(b []byte) (OpReturnMessage, error) {
 	buf := bytes.NewBuffer(b)
 
@@ -75,7 +76,8 @@ func Deserialize(b []byte) (OpReturnMessage, error) {
 		return nil, fmt.Errorf("Invalid protocol ID : %s", string(protocolID))
 	}
 
-	// Parse push op code for payload length + 3 for version and message type code
+	// Parse push op code for payload length + 3 for version and message
+	// type code
 	var payloadSize uint64
 	payloadSize, err = ParsePushDataScript(buf)
 	if err != nil {
@@ -116,7 +118,8 @@ func Deserialize(b []byte) (OpReturnMessage, error) {
 	return msg, nil
 }
 
-// Serialize returns a complete op return script including the specified payload.
+// Serialize returns a complete op return script including the specified
+// payload.
 func Serialize(msg OpReturnMessage) ([]byte, error) {
 	var buf bytes.Buffer
 	var err error
@@ -146,7 +149,8 @@ func Serialize(msg OpReturnMessage) ([]byte, error) {
 		return nil, err
 	}
 
-	// Write push op code for payload length + 3 for version and message type code
+	// Write push op code for payload length + 3 for version and message
+	// type code
 	_, err = buf.Write(PushDataScript(uint64(len(payload)) + 3))
 	if err != nil {
 		return nil, err
@@ -188,112 +192,128 @@ func Code(b []byte) (string, error) {
 	return string(b[offset : offset+2]), nil
 }
 
-// ------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
 // TxId represents a Bitcoin transaction ID. (Double SHA256 of tx data)
-type TxId struct {
-	data [32]byte
-}
+type TxId [32]byte
 
 func TxIdFromBytes(data []byte) TxId {
 	var result TxId
-	copy(result.data[:], data)
+	copy(result[:], data)
 	return result
 }
 
 // Bytes returns the byte slice for the TxId.
-func (id *TxId) Bytes() []byte { return id.data[:] }
+func (id *TxId) Bytes() []byte {
+	return id[:]
+}
 
 // Serialize returns a byte slice with the TxId in it.
-func (id *TxId) Serialize() ([]byte, error) { return id.data[:], nil }
+func (id *TxId) Serialize() ([]byte, error) {
+	return id[:], nil
+}
 
 // Write reads a TxId from a bytes.Buffer
 func (id *TxId) Write(buf *bytes.Buffer) error {
-	return readLen(buf, id.data[:])
+	return readLen(buf, id[:])
 }
 
-// ------------------------------------------------------------------------------------------------
-// PublicKeyHash represents a Bitcoin Public Key Hash. Often used as an address to receive transactions.
-type PublicKeyHash struct {
-	data [20]byte
-}
+// ----------------------------------------------------------------------------
+
+// PublicKeyHash represents a Bitcoin Public Key Hash. Often used as an
+// address to receive transactions.
+type PublicKeyHash [20]byte
 
 // PublicKeyHashFromBytes returns a PublicKeyHash with the specified bytes.
 func PublicKeyHashFromBytes(data []byte) PublicKeyHash {
 	var result PublicKeyHash
-	copy(result.data[:], data)
+	copy(result[:], data)
 	return result
 }
 
 // Bytes returns a byte slice containing the PublicKeyHash.
-func (hash *PublicKeyHash) Bytes() []byte { return hash.data[:] }
+func (hash *PublicKeyHash) Bytes() []byte { return hash[:] }
 
 // Serialize returns a byte slice with the PublicKeyHash in it.
-func (hash *PublicKeyHash) Serialize() ([]byte, error) { return hash.data[:], nil }
+func (hash *PublicKeyHash) Serialize() ([]byte, error) {
+	return hash[:], nil
+}
 
 // Write reads a PublicKeyHash from a bytes.Buffer
 func (hash *PublicKeyHash) Write(buf *bytes.Buffer) error {
-	return readLen(buf, hash.data[:])
+	return readLen(buf, hash[:])
 }
 
-// ------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+var assetCodeZero = make([]byte, 32, 32)
+
 // AssetCode represents a unique identifier for a Tokenized asset.
-type AssetCode struct {
-	data [32]byte
-}
+type AssetCode [32]byte
 
-// IsZero returns true if the AssetCode is all zeroes. (empty)
+// IsZero returns true if the AssetCode is all zeroes.
 func (id *AssetCode) IsZero() bool {
-	return bytes.Equal(id.data[:], []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+	return bytes.Equal(id[:], assetCodeZero)
 }
 
 // AssetCodeFromBytes returns a AssetCode with the specified bytes.
 func AssetCodeFromBytes(data []byte) AssetCode {
 	var result AssetCode
-	copy(result.data[:], data)
+	copy(result[:], data)
 	return result
 }
 
 // Bytes returns a byte slice containing the AssetCode.
-func (code *AssetCode) Bytes() []byte { return code.data[:] }
+func (code *AssetCode) Bytes() []byte {
+	return code[:]
+}
 
 // Serialize returns a byte slice with the AssetCode in it.
-func (code *AssetCode) Serialize() ([]byte, error) { return code.data[:], nil }
+func (code *AssetCode) Serialize() ([]byte, error) {
+	return code[:], nil
+}
 
 // Write reads a AssetCode from a bytes.Buffer
 func (code *AssetCode) Write(buf *bytes.Buffer) error {
-	return readLen(buf, code.data[:])
+	return readLen(buf, code[:])
 }
 
-// ------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+var contractCodeZero = make([]byte, 32, 32)
+
 // ContractCode represents a unique identifier for a Tokenized static contract.
-type ContractCode struct {
-	data [32]byte
-}
+type ContractCode [32]byte
 
 // IsZero returns true if the ContractCode is all zeroes. (empty)
 func (id *ContractCode) IsZero() bool {
-	return bytes.Equal(id.data[:], []byte{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+	return bytes.Equal(id[:], contractCodeZero)
 }
 
 // AssetCodeFromBytes returns a ContractCode with the specified bytes.
 func ContractCodeFromBytes(data []byte) ContractCode {
 	var result ContractCode
-	copy(result.data[:], data)
+	copy(result[:], data)
 	return result
 }
 
 // Bytes returns a byte slice containing the ContractCode.
-func (code *ContractCode) Bytes() []byte { return code.data[:] }
+func (code *ContractCode) Bytes() []byte {
+	return code[:]
+}
 
 // Serialize returns a byte slice with the ContractCode in it.
-func (code *ContractCode) Serialize() ([]byte, error) { return code.data[:], nil }
+func (code *ContractCode) Serialize() ([]byte, error) {
+	return code[:], nil
+}
 
 // Write reads a ContractCode from a bytes.Buffer
 func (code *ContractCode) Write(buf *bytes.Buffer) error {
-	return readLen(buf, code.data[:])
+	return readLen(buf, code[:])
 }
 
-// ------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
 // Timestamp represents a time in the Tokenized protocol.
 type Timestamp struct {
 	nanoseconds uint64 // nanoseconds since Unix epoch
