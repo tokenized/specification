@@ -79,9 +79,14 @@ fields:
     example_value: 1
     notes: ""
 
+  - name: VotingRights
+    label: Voting Rights
+    description: "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted."
+    type: bool
+
   - name: VoteMultiplier
     label: Vote Multiplier
-    description: "Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example."
+    description: "Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens."
     type: uint
     size: 1
     example_hex: 03

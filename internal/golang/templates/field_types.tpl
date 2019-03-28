@@ -9,16 +9,6 @@ type {{.Name}} struct {
 {{ end -}}
 }
 
-// New{{.Name}} returns a new {{.Name}} with defaults set.
-func New{{.Name}}({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .ConstructorName }} {{ .ConstructorGoType }}{{ end -}}) *{{.Name}} {
-	result := {{.Name}}{}
-	{{ range .Constructor -}}
-	result.{{ .ConstructorField -}}
-	{{ if eq .ConstructorSetMethod "=" }} = {{ .ConstructorName }}{{ else }}.{{ .ConstructorSetMethod }}({{ .ConstructorName }}){{ end }}
-	{{ end -}}
-	return &result
-}
-
 // Serialize returns the byte representation of the message.
 func (m {{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)

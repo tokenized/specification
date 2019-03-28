@@ -76,11 +76,20 @@ The following breaks down the construction of a Asset Definition Action. The act
             <td class="a10"></td>
         </tr>
         <tr>
+            <td class="a9">Voting Rights</td>
+            <td class="a10">VotingRights</td>
+            <td class="a10">0</td>
+            <td class="a10"></td>
+            <td class="a10"><abbr title="When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.">When false holders of this asset will not be able to vote for tokens of this asset even on ...</abbr></td>
+            <td class="a10">bool</td>
+            <td class="a10"></td>
+        </tr>
+        <tr>
             <td class="a9">Vote Multiplier</td>
             <td class="a10">VoteMultiplier</td>
             <td class="a10">1</td>
             <td class="a10">3</td>
-            <td class="a10"><abbr title="Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.">Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal). ...</abbr></td>
+            <td class="a10"><abbr title="Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens.">Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal). ...</abbr></td>
             <td class="a10">uint</td>
             <td class="a10"></td>
         </tr>

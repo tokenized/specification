@@ -17,12 +17,13 @@ class Action_AssetDefinition(ActionBase):
         'TransfersPermitted':              [2, DAT_bool, 0],
         'TradeRestrictions':               [3, DAT_Polity, 0],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
-        'VoteMultiplier':                  [5, DAT_uint, 1],
-        'IssuerProposal':                  [6, DAT_bool, 0],
-        'HolderProposal':                  [7, DAT_bool, 0],
-        'AssetModificationGovernance':     [8, DAT_bool, 0],
-        'TokenQty':                        [9, DAT_uint, 8],
-        'AssetPayload':                    [10, DAT_varbin, 16]
+        'VotingRights':                    [5, DAT_bool, 0],
+        'VoteMultiplier':                  [6, DAT_uint, 1],
+        'IssuerProposal':                  [7, DAT_bool, 0],
+        'HolderProposal':                  [8, DAT_bool, 0],
+        'AssetModificationGovernance':     [9, DAT_bool, 0],
+        'TokenQty':                        [10, DAT_uint, 8],
+        'AssetPayload':                    [11, DAT_varbin, 16]
     }
 
     rules = {
@@ -36,6 +37,7 @@ class Action_AssetDefinition(ActionBase):
         self.TransfersPermitted = None
         self.TradeRestrictions = None
         self.EnforcementOrdersPermitted = None
+        self.VotingRights = None
         self.VoteMultiplier = None
         self.IssuerProposal = None
         self.HolderProposal = None
@@ -524,9 +526,7 @@ class Action_BallotCounted(ActionBase):
     ActionPrefix = 'G4'
 
     schema = {
-        'Vote':                            [0, DAT_varchar, 8],
-        'TokensHeld':                      [1, DAT_uint, 8],
-        'Timestamp':                       [2, DAT_Timestamp, 0]
+        'Timestamp':                       [0, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -536,8 +536,6 @@ class Action_BallotCounted(ActionBase):
     }
 
     def init_attributes(self):
-        self.TokensHeld = None
-        self.Timestamp = None
 
 
 # Result Action - Once a vote has been completed the results are published.

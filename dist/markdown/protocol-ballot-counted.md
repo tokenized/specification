@@ -26,27 +26,11 @@ The following breaks down the construction of a Ballot Counted Action. The actio
              </td>
         </tr>
         <tr>
-            <td class="g5" colspan="7">
-                <a href="javascript:;" data-popover="type-TxId">
-                   Vote Tx ID - Click to show content
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="g9">Vote</td>
-            <td class="g10">Vote</td>
-            <td class="g10">8</td>
-            <td class="g10">A</td>
-            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal action. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference. 1st position = 1st choice. 2nd position = 2nd choice, etc. A is always Accept and B is always reject in a Y/N votes.">Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal acti ...</abbr></td>
-            <td class="g10">varchar</td>
-            <td class="g10"></td>
-        </tr>
-        <tr>
-            <td class="g9">Tokens Held</td>
-            <td class="g10">TokensHeld</td>
+            <td class="g9">Quantity</td>
+            <td class="g10">Quantity</td>
             <td class="g10">8</td>
             <td class="g10"></td>
-            <td class="g10">Number of tokens voted for in this vote.</td>
+            <td class="g10"><abbr title="Number of votes counted for this ballot. Factors in vote multipliers if there are any allowed, otherwise it is just quantity of tokens held.">Number of votes counted for this ballot. Factors in vote multipliers if there are any allo ...</abbr></td>
             <td class="g10">uint</td>
             <td class="g10"></td>
         </tr>

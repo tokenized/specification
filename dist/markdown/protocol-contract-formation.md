@@ -640,15 +640,6 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Voting System</td>
-                <td class="c10">System</td>
-                <td class="c10">8</td>
-                <td class="c10" style="word-break:break-all">1010111101011001001010101010111111011000010100010010100000010000</td>
-                <td class="c10">Specifies which subfield is subject to this vote system's control.</td>
-                <td class="c10">bin</td>
-                <td class="c10"></td>
-            </tr>
-            <tr>
                 <td class="c10">Vote Type</td>
                 <td class="c10">VoteType</td>
                 <td class="c10">1</td>
@@ -670,26 +661,26 @@ The following breaks down the construction of a Contract Formation Action. The a
                 <td class="c10">Threshold Percentage for the Voting System</td>
                 <td class="c10">ThresholdPercentage</td>
                 <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">0.75</td>
-                <td class="c10">1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.</td>
+                <td class="c10" style="word-break:break-all">75</td>
+                <td class="c10">This field is ignored when VoteType is P (Plurality). Otherwise it is the percentage of ballots required for a proposal to pass. Valid values are greater than 0 and less than 100. 75 means 75% and greater.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.</td>
                 <td class="c10">uint</td>
                 <td class="c10"></td>
             </tr>
             <tr>
                 <td class="c10">VoteMultiplierPermitted</td>
                 <td class="c10">VoteMultiplierPermitted</td>
-                <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">Y/N</td>
-                <td class="c10">Y - Yes, N - No. Where an asset has a vote multiplier, Y must be selected here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.</td>
-                <td class="c10">fixedchar</td>
+                <td class="c10">0</td>
+                <td class="c10" style="word-break:break-all"></td>
+                <td class="c10">Where an asset has a vote multiplier, true must be set here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.</td>
+                <td class="c10">bool</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Initiative Fee for the Voting System</td>
-                <td class="c10">InitiativeFee</td>
+                <td class="c10">Holder Proposal Fee for the Voting System</td>
+                <td class="c10">HolderProposalFee</td>
                 <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">100</td>
-                <td class="c10">Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid.</td>
+                <td class="c10">Token Owners must pay the fee amount to broadcast a valid Proposal.  If the Proposal action is valid, the smart contract will start a vote. 0 is valid.</td>
                 <td class="c10">uint</td>
                 <td class="c10"></td>
             </tr>
