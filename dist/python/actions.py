@@ -550,7 +550,7 @@ class Action_Result(ActionBase):
         'AssetCode':                       [1, DAT_AssetCode, 0],
         'Specific':                        [2, DAT_bool, 0],
         'ProposedAmendments':              [3, DAT_Amendment[], 0],
-        'VoteTxID':                        [4, DAT_TxId, 0],
+        'VoteTxId':                        [4, DAT_TxId, 0],
         'OptionTally':                     [5, DAT_uint64[], 8],
         'Result':                          [6, DAT_varchar, 8],
         'Timestamp':                       [7, DAT_Timestamp, 0]
@@ -566,7 +566,7 @@ class Action_Result(ActionBase):
         self.AssetCode = None
         self.Specific = None
         self.ProposedAmendments = None
-        self.VoteTxID = None
+        self.VoteTxId = None
         self.OptionTally = None
         self.Result = None
         self.Timestamp = None

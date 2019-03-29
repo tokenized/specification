@@ -1814,8 +1814,8 @@ func TestResult(t *testing.T) {
 		initialMessage.ProposedAmendments = append(initialMessage.ProposedAmendments, Amendment{})
 	}
 
-	// VoteTxID (TxId)
-	initialMessage.VoteTxID = TxId{}
+	// VoteTxId (TxId)
+	initialMessage.VoteTxId = TxId{}
 
 	// OptionTally (uint64[])
 	for i := 0; i < 5; i++ {
@@ -1887,7 +1887,7 @@ func TestResult(t *testing.T) {
 		t.Errorf("ProposedAmendments lengths don't match : %d != %d", len(initialMessage.ProposedAmendments), len(decodedMessage.ProposedAmendments))
 	}
 
-	// VoteTxID (TxId)
+	// VoteTxId (TxId)
 	// TxId test compare not setup
 
 	// OptionTally (uint64[])
