@@ -715,10 +715,10 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <tr>
                 <td class="c10">Registry Public Key</td>
                 <td class="c10">PublicKey</td>
-                <td class="c10">0</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all"></td>
                 <td class="c10">Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.</td>
-                <td class="c10">PublicKeyHash</td>
+                <td class="c10">varbin</td>
                 <td class="c10"></td>
             </tr>
         </table>

@@ -27,5 +27,6 @@ fields:
   - name: PublicKey
     label: Registry Public Key
     description: "Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry."
-    type: PublicKeyHash
+    type: varbin
+    size: 8
     notes: ""

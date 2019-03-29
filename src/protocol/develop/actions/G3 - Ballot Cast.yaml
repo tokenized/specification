@@ -15,13 +15,13 @@ rules:
   fee:
   inputs:
     - name: User
-      label: "Token Owner's Public Address"
+      label: "Token Owner's Public Key Hash"
       comments:
 
   outputs:
     - name: Contract
-      label: Contract Public Address
-      comments: Dust limit rule minimum value output of 546
+      label: Contract Public Key Hash
+      comments: Fund ballot cast response.
 
 fields:
   - name: Header

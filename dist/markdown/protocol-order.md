@@ -74,15 +74,6 @@ The following breaks down the construction of a Order Action. The action is cons
             <td class="e10"></td>
         </tr>
         <tr>
-            <td class="e9">Signature Algorithm for Address List</td>
-            <td class="e10">SigAlgoAddressList</td>
-            <td class="e10">1</td>
-            <td class="e10">1</td>
-            <td class="e10">0 = No Registry-signed Message, 1 = ECDSA+secp256k1</td>
-            <td class="e10">uint</td>
-            <td class="e10"></td>
-        </tr>
-        <tr>
             <td class="e9">Authority Public Key</td>
             <td class="e10">AuthorityPublicKey</td>
             <td class="e10">8</td>
@@ -92,27 +83,40 @@ The following breaks down the construction of a Order Action. The action is cons
             <td class="e10"></td>
         </tr>
         <tr>
+            <td class="e9">Signature Algorithm</td>
+            <td class="e10">SignatureAlgorithm</td>
+            <td class="e10">1</td>
+            <td class="e10">1</td>
+            <td class="e10">Algorithm used for order signature. 0 = No Registry-signed Message, 1 = ECDSA+secp256k1</td>
+            <td class="e10">uint</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
             <td class="e9">Authority Order Signature</td>
             <td class="e10">OrderSignature</td>
             <td class="e10">8</td>
             <td class="e10"></td>
-            <td class="e10"><abbr title="Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)">Length 0-255 bytes. Signature for a message that lists out the target addresses and deposi ...</abbr></td>
-            <td class="e10">varchar</td>
+            <td class="e10"><abbr title="Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)">Length 0-255 bytes. Signature for a message that lists out the target addresses and deposi ...</abbr></td>
+            <td class="e10">varbin</td>
             <td class="e10"></td>
         </tr>
         <tr>
-            <td class="e5" colspan="7">
-                <a href="javascript:;" data-popover="type-TxId">
-                   Supporting Evidence Hash - Click to show content
-                </a>
-            </td>
+            <td class="e9">Supporting Evidence Hash</td>
+            <td class="e10">SupportingEvidenceHash</td>
+            <td class="e10">32</td>
+            <td class="e10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
+            <td class="e10">SHA-256: warrant, court order, etc.</td>
+            <td class="e10">bin</td>
+            <td class="e10"></td>
         </tr>
         <tr>
-            <td class="e5" colspan="7">
-                <a href="javascript:;" data-popover="type-TxId">
-                   Ref Txns - Click to show content
-                </a>
-            </td>
+            <td class="e9">Ref Txs</td>
+            <td class="e10">RefTxs</td>
+            <td class="e10">32</td>
+            <td class="e10"></td>
+            <td class="e10"><abbr title="The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the issuer or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.">The request/response actions that were dropped.  The entire txn for both actions is includ ...</abbr></td>
+            <td class="e10">varbin</td>
+            <td class="e10">Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.</td>
         </tr>
         <tr>
             <td class="e5" colspan="7">
@@ -122,7 +126,7 @@ The following breaks down the construction of a Order Action. The action is cons
             </td>
         </tr>
         <tr>
-            <td class="e9">Message Period</td>
+            <td class="e9">Message</td>
             <td class="e10">Message</td>
             <td class="e10">32</td>
             <td class="e10"><abbr title="Sorry, but the court order made me.">Hover for example</abbr></td>

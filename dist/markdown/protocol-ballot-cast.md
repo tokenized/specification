@@ -63,11 +63,11 @@ The following breaks down the construction of a Ballot Cast Action. The action i
 
        <tr>
             <td class="g5">0</td>
-            <td class="g6">Token Owner's Public Address</td>
+            <td class="g6">Token Owner's Public Key Hash</td>
             <td class="g6"></td>
             <td class="g10">0</td>
-            <td class="g10">Contract Public Address</td>
-            <td class="g10">Dust limit rule minimum value output of 546</td>
+            <td class="g10">Contract Public Key Hash</td>
+            <td class="g10">Fund ballot cast response.</td>
         </tr>
 
     </table>

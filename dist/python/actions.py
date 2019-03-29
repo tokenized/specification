@@ -323,11 +323,11 @@ class Action_Order(ActionBase):
         'TargetAddresses':                 [2, DAT_TargetAddress[], 16],
         'DepositAddress':                  [3, DAT_PublicKeyHash, 0],
         'AuthorityName':                   [4, DAT_varchar, 8],
-        'SigAlgoAddressList':              [5, DAT_uint, 1],
-        'AuthorityPublicKey':              [6, DAT_varchar, 8],
-        'OrderSignature':                  [7, DAT_varchar, 8],
-        'SupportingEvidenceTxId':          [8, DAT_TxId, 0],
-        'RefTxns':                         [9, DAT_TxId, 0],
+        'AuthorityPublicKey':              [5, DAT_varchar, 8],
+        'SignatureAlgorithm':              [6, DAT_uint, 1],
+        'OrderSignature':                  [7, DAT_varbin, 8],
+        'SupportingEvidenceHash':          [8, DAT_bin, 32],
+        'RefTxs':                          [9, DAT_varbin, 32],
         'FreezePeriod':                    [10, DAT_Timestamp, 0],
         'Message':                         [11, DAT_varchar, 32]
     }
@@ -343,11 +343,11 @@ class Action_Order(ActionBase):
         self.TargetAddresses = None
         self.DepositAddress = None
         self.AuthorityName = None
-        self.SigAlgoAddressList = None
         self.AuthorityPublicKey = None
+        self.SignatureAlgorithm = None
         self.OrderSignature = None
-        self.SupportingEvidenceTxId = None
-        self.RefTxns = None
+        self.SupportingEvidenceHash = None
+        self.RefTxs = None
         self.FreezePeriod = None
         self.Message = None
 
@@ -526,7 +526,9 @@ class Action_BallotCounted(ActionBase):
     ActionPrefix = 'G4'
 
     schema = {
-        'Timestamp':                       [0, DAT_Timestamp, 0]
+        'Vote':                            [0, DAT_varchar, 8],
+        'Quantity':                        [1, DAT_uint, 8],
+        'Timestamp':                       [2, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -536,6 +538,8 @@ class Action_BallotCounted(ActionBase):
     }
 
     def init_attributes(self):
+        self.Quantity = None
+        self.Timestamp = None
 
 
 # Result Action - Once a vote has been completed the results are published.

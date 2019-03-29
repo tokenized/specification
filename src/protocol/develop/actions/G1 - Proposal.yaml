@@ -21,11 +21,11 @@ rules:
   outputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: Includes contract fee and holder proposal fee if applicable.
 
     - name: Contract
       label: Contract Public Address
-      comments: Fund the Result at Vote cut off
+      comments: Fund the Result TX at Vote cut off
 
 fields:
   - name: Header
