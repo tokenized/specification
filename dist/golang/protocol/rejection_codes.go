@@ -14,7 +14,6 @@ var (
 		RejectionCodeContractAuthFlags:          []byte("Contract Auth Flags"),
 		RejectionCodeAssetAuthFlags:             []byte("Asset Auth Flags"),
 		RejectionCodeContractExpiration:         []byte("Contract Expiration"),
-		RejectionCodeContractUpdate:             []byte("Contract Update"),
 		RejectionCodeVoteExists:                 []byte("Vote Exists"),
 		RejectionCodeVoteNotFound:               []byte("Vote Not Found"),
 		RejectionCodeVoteClosed:                 []byte("Vote Closed"),

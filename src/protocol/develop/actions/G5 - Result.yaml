@@ -34,9 +34,6 @@ fields:
     label: Asset Specific Vote
     description: "1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No."
     type: bool
-    includes:
-      - AssetType
-      - AssetCode
 
   - name: AssetType
     label: Asset Type
@@ -46,6 +43,8 @@ fields:
     example_hex: 534843
     example_value: "SHC"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AssetSpecificVote
 
   - name: AssetCode
     label: Asset Code
@@ -53,18 +52,20 @@ fields:
     type: AssetCode
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     notes: "Cannot be changed by issuer, operator or smart contract."
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AssetSpecificVote
 
   - name: Specific
     label: Specific
     description: "When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update."
     type: bool
-    includes:
-      - ProposedAmendments
 
   - name: ProposedAmendments
     label: Proposed Amendments
     description: "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time."
     type: Amendment[]
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: Specific
 
   - name: VoteTxId
     label: Vote Tx ID

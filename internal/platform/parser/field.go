@@ -5,6 +5,11 @@ import (
 	"strings"
 )
 
+type IncludeIf struct {
+	Field string
+	Values []string
+}
+
 type Field struct {
 	Name         string
 	Label        string
@@ -12,7 +17,8 @@ type Field struct {
 	Type         string
 	Size         uint64
 	Options      []string
-	Includes     []string
+	IncludeIf    IncludeIf `yaml:"include_if"`
+	IncludeIfTrue string `yaml:"include_if_true"`
 	Required     bool
 	ExampleValue string `yaml:"example_value"`
 	ExampleHex   string `yaml:"example_hex"`

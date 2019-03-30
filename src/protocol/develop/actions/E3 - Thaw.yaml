@@ -30,17 +30,9 @@ fields:
     type: Header
     notes: "Common header data for all actions."
 
-  - name: Addresses
-    label: Addresses
-    description: "Addresses holding tokens to be thawed."
-    type: PublicKeyHash[]
-    # array size is number of bits to serialize the size of the array
-    size: 16
-    notes: ""
-
-  - name: RefTxID
-    label: Ref Tx ID
-    description: "The related freeze action."
+  - name: FreezeTxID
+    label: Freeze Tx ID
+    description: "The tx id of the freeze action that is being reversed."
     type: TxId
     example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
     example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"

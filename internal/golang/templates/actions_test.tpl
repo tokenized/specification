@@ -16,39 +16,47 @@ func Test{{.Name}}(t *testing.T) {
 
 	{{- range $i, $field := .PayloadFields }}
 	// {{ $field.FieldName }} ({{ $field.Type }})
-		{{- if eq $field.Type "bool" }}
-	initialMessage.{{ $field.FieldName }} = true
-		{{- else if $field.IsVarChar }}
-	initialMessage.{{ $field.FieldName }} = "Text {{ $i }}"
-		{{- else if $field.IsFixedChar }}
+	{{- if ne (len .IncludeIfTrue) 0 }}
+	if initialMessage.{{ .IncludeIfTrue }} {
+	{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := .IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} initialMessage.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+	{{- else }}
 	{
-		text := make([]byte, 0, {{ $field.Length }})
-		for i := uint64(0); i < {{ $field.Length }}; i++ {
-			text = append(text, byte(65 + i + {{ $i }}))
+	{{- end }}
+		{{- if eq $field.Type "bool" }}
+		initialMessage.{{ $field.FieldName }} = true
+		{{- else if $field.IsVarChar }}
+		initialMessage.{{ $field.FieldName }} = "Text {{ $i }}"
+		{{- else if $field.IsFixedChar }}
+		{
+			text := make([]byte, 0, {{ $field.Length }})
+			for i := uint64(0); i < {{ $field.Length }}; i++ {
+				text = append(text, byte(65 + i + {{ $i }}))
+			}
+			initialMessage.{{ $field.FieldName }} = string(text)
 		}
-		initialMessage.{{ $field.FieldName }} = string(text)
-	}
 		{{- else if $field.IsBytes }}
-	initialMessage.{{ $field.FieldName }} = make([]byte, 0, {{ $field.Length }})
-	for i := uint64(0); i < {{ $field.Length }}; i++ {
-		initialMessage.{{ $field.FieldName }} = append(initialMessage.{{ $field.FieldName }}, byte(65 + i + {{ $i }}))
-	}
+		initialMessage.{{ $field.FieldName }} = make([]byte, 0, {{ $field.Length }})
+		for i := uint64(0); i < {{ $field.Length }}; i++ {
+			initialMessage.{{ $field.FieldName }} = append(initialMessage.{{ $field.FieldName }}, byte(65 + i + {{ $i }}))
+		}
 		{{- else if eq $field.Type "timestamp" }}
-	initialMessage.{{ $field.FieldName }} = uint64(time.Now().UnixNano())
-		{{- else if .IsInternalTypeArray }}
-	for i := 0; i < 2; i++ {
-		initialMessage.{{ $field.FieldName }} = append(initialMessage.{{ $field.FieldName }}, {{.SingularType}}{})
-	}
+		initialMessage.{{ $field.FieldName }} = uint64(time.Now().UnixNano())
+			{{- else if .IsInternalTypeArray }}
+		for i := 0; i < 2; i++ {
+			initialMessage.{{ $field.FieldName }} = append(initialMessage.{{ $field.FieldName }}, {{.SingularType}}{})
+		}
 		{{- else if .IsNativeTypeArray }}
-	for i := 0; i < 5; i++ {
-		var item {{.SingularType}}
-		initialMessage.{{ $field.FieldName }} = append(initialMessage.{{ $field.FieldName }}, item)
-	}
+		for i := 0; i < 5; i++ {
+			var item {{.SingularType}}
+			initialMessage.{{ $field.FieldName }} = append(initialMessage.{{ $field.FieldName }}, item)
+		}
 		{{- else if .IsInternalType }}
-	initialMessage.{{ $field.FieldName }} = {{.FieldGoType}}{}
+		initialMessage.{{ $field.FieldName }} = {{.FieldGoType}}{}
 		{{- else }}
-	// {{ $field.Type }} test not setup
+		// {{ $field.Type }} test not setup
 		{{- end }}
+	}
 	{{ end }}
 
 	// Encode message

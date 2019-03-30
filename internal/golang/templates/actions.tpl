@@ -93,14 +93,17 @@ func (action *{{.Name}}) read(b []byte) (int, error) {
 // serialize returns the full OP_RETURN payload bytes.
 func (action *{{.Name}}) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-	excludes := make(map[string]bool)
-	var skip bool
 
-{{- range .PayloadFields }}
-
+{{- range $f, $field := .PayloadFields }}
+{{- $fieldName := .FieldName }}
 	// {{.FieldName}} ({{.FieldGoType}})
-	_, skip = excludes["{{.FieldName}}"]
-	if !skip {
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if action.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else }}
+	{
+{{- end }}
 {{- if .IsVarChar }}
 		if err := WriteVarChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
 			return nil, err
@@ -154,14 +157,6 @@ func (action *{{.Name}}) serialize() ([]byte, error) {
 			return nil, err
 		}
 {{- end }}
-
-{{- if and (eq .FieldGoType "bool") (ne (len .Includes) 0) }}
-		if !action.{{.FieldName}} {
-{{- range $i, $value := .Includes }}
-			excludes["{{ $value }}"] = true
-{{- end }}
-		}
-{{- end }}
 	}
 {{ end }}
 	return buf.Bytes(), nil
@@ -170,13 +165,16 @@ func (action *{{.Name}}) serialize() ([]byte, error) {
 // write populates the fields in {{.Name}} from the byte slice
 func (action *{{.Name}}) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
-	excludes := make(map[string]bool)
-	var skip bool
 
-{{- range .Fields }}
+{{- range $f, $field := .PayloadFields }}
 	// {{.FieldName}} ({{.FieldGoType}})
-	_, skip = excludes["{{.FieldName}}"]
-	if !skip {
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if action.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else }}
+	{
+{{- end }}
 {{- if .IsVarChar }}
 		var err error
 		action.{{.FieldName}}, err = ReadVarChar(buf, {{.Length}})
@@ -232,14 +230,6 @@ func (action *{{.Name}}) write(b []byte) (int, error) {
 {{- else }}
 		if err := read(buf, &action.{{.FieldName}}); err != nil {
 			return 0, err
-		}
-{{- end }}
-
-{{- if and (eq .FieldGoType "bool") (ne (len .Includes) 0) }}
-		if !action.{{.FieldName}} {
-{{- range $i, $value := .Includes }}
-			excludes["{{ $value }}"] = true
-{{- end }}
 		}
 {{- end }}
 	}

@@ -27,15 +27,8 @@ The following breaks down the construction of a Thaw Action. The action is const
         </tr>
         <tr>
             <td class="e5" colspan="7">
-                <a href="javascript:;" data-popover="type-PublicKeyHash">
-                   Addresses - Click to show content
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="e5" colspan="7">
                 <a href="javascript:;" data-popover="type-TxId">
-                   Ref Tx ID - Click to show content
+                   Freeze Tx ID - Click to show content
                 </a>
             </td>
         </tr>

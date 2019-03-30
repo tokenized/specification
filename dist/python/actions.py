@@ -318,18 +318,19 @@ class Action_Order(ActionBase):
     ActionPrefix = 'E1'
 
     schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'ComplianceAction':                [1, DAT_fixedchar, 1],
+        'AssetType':                       [0, DAT_fixedchar, 3],
+        'AssetCode':                       [1, DAT_AssetCode, 0],
         'TargetAddresses':                 [2, DAT_TargetAddress[], 16],
-        'DepositAddress':                  [3, DAT_PublicKeyHash, 0],
-        'AuthorityName':                   [4, DAT_varchar, 8],
-        'AuthorityPublicKey':              [5, DAT_varchar, 8],
-        'SignatureAlgorithm':              [6, DAT_uint, 1],
-        'OrderSignature':                  [7, DAT_varbin, 8],
-        'SupportingEvidenceHash':          [8, DAT_bin, 32],
-        'RefTxs':                          [9, DAT_varbin, 32],
-        'FreezePeriod':                    [10, DAT_Timestamp, 0],
-        'Message':                         [11, DAT_varchar, 32]
+        'FreezeTxId':                      [3, DAT_TxId, 0],
+        'DepositAddress':                  [4, DAT_PublicKeyHash, 0],
+        'AuthorityName':                   [5, DAT_varchar, 8],
+        'AuthorityPublicKey':              [6, DAT_varchar, 8],
+        'SignatureAlgorithm':              [7, DAT_uint, 1],
+        'OrderSignature':                  [8, DAT_varbin, 8],
+        'SupportingEvidenceHash':          [9, DAT_bin, 32],
+        'RefTxs':                          [10, DAT_varbin, 32],
+        'FreezePeriod':                    [11, DAT_Timestamp, 0],
+        'Message':                         [12, DAT_varchar, 32]
     }
 
     rules = {
@@ -339,8 +340,9 @@ class Action_Order(ActionBase):
     }
 
     def init_attributes(self):
-        self.ComplianceAction = None
+        self.AssetCode = None
         self.TargetAddresses = None
+        self.FreezeTxId = None
         self.DepositAddress = None
         self.AuthorityName = None
         self.AuthorityPublicKey = None
@@ -362,6 +364,30 @@ class Action_Freeze(ActionBase):
     ActionPrefix = 'E2'
 
     schema = {
+        'AssetCode':                       [0, DAT_AssetCode, 0],
+        'TargetAddresses':                 [1, DAT_TargetAddress[], 16],
+        'Timestamp':                       [2, DAT_Timestamp, 0]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
+        self.TargetAddresses = None
+        self.Timestamp = None
+
+
+# Thaw Action - to be used to comply with contractual obligations or legal
+# requirements. The Alleged Offender's tokens will be unfrozen to allow
+# them to resume normal exchange and governance activities.
+
+class Action_Thaw(ActionBase):
+    ActionPrefix = 'E3'
+
+    schema = {
         'Timestamp':                       [0, DAT_Timestamp, 0]
     }
 
@@ -374,28 +400,6 @@ class Action_Freeze(ActionBase):
     def init_attributes(self):
 
 
-# Thaw Action - to be used to comply with contractual obligations or legal
-# requirements. The Alleged Offender's tokens will be unfrozen to allow
-# them to resume normal exchange and governance activities.
-
-class Action_Thaw(ActionBase):
-    ActionPrefix = 'E3'
-
-    schema = {
-        'RefTxID':                         [0, DAT_TxId, 0],
-        'Timestamp':                       [1, DAT_Timestamp, 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.Timestamp = None
-
-
 # Confiscation Action - to be used to comply with contractual obligations,
 # legal and/or issuer requirements.
 
@@ -403,8 +407,10 @@ class Action_Confiscation(ActionBase):
     ActionPrefix = 'E4'
 
     schema = {
-        'DepositQty':                      [0, DAT_uint, 8],
-        'Timestamp':                       [1, DAT_Timestamp, 0]
+        'AssetCode':                       [0, DAT_AssetCode, 0],
+        'TargetAddresses':                 [1, DAT_TargetAddress[], 16],
+        'DepositQty':                      [2, DAT_uint, 8],
+        'Timestamp':                       [3, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -414,6 +420,8 @@ class Action_Confiscation(ActionBase):
     }
 
     def init_attributes(self):
+        self.TargetAddresses = None
+        self.DepositQty = None
         self.Timestamp = None
 
 

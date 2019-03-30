@@ -26,6 +26,15 @@ The following breaks down the construction of a Order Action. The action is cons
              </td>
         </tr>
         <tr>
+            <td class="e9">Compliance Action</td>
+            <td class="e10">ComplianceAction</td>
+            <td class="e10">1</td>
+            <td class="e10">F</td>
+            <td class="e10">Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)</td>
+            <td class="e10">fixedchar</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
             <td class="e9">Asset Type</td>
             <td class="e10">AssetType</td>
             <td class="e10">3</td>
@@ -42,18 +51,16 @@ The following breaks down the construction of a Order Action. The action is cons
             </td>
         </tr>
         <tr>
-            <td class="e9">Compliance Action</td>
-            <td class="e10">ComplianceAction</td>
-            <td class="e10">1</td>
-            <td class="e10">F</td>
-            <td class="e10">Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)</td>
-            <td class="e10">fixedchar</td>
-            <td class="e10"></td>
-        </tr>
-        <tr>
             <td class="e5" colspan="7">
                 <a href="javascript:;" data-popover="type-TargetAddress">
                    Target Addresses - Click to show content
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="e5" colspan="7">
+                <a href="javascript:;" data-popover="type-TxId">
+                   Freeze Tx Id - Click to show content
                 </a>
             </td>
         </tr>
@@ -160,7 +167,7 @@ The following breaks down the construction of a Order Action. The action is cons
             <td class="e6"></td>
             <td class="e10">0</td>
             <td class="e10">Contract Public Address</td>
-            <td class="e10"></td>
+            <td class="e10">Contract fee and funding for response tx</td>
         </tr>
 
     </table>

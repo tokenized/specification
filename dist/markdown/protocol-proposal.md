@@ -149,10 +149,10 @@ The following breaks down the construction of a Proposal Action. The action is c
 
        <tr>
             <td class="g5">0</td>
-            <td class="g6">Issuer/Token Owner's Public Key Hash</td>
+            <td class="g6">Issuer/Token Owner's Public Address</td>
             <td class="g6"></td>
             <td class="g10">0</td>
-            <td class="g10">Contract Public Key Hash</td>
+            <td class="g10">Contract Public Address</td>
             <td class="g10">Includes contract fee and holder proposal fee if applicable.</td>
         </tr>
 
@@ -161,8 +161,8 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g6"></td>
             <td class="g6"></td>
             <td class="g10">1</td>
-            <td class="g10">Contract Public Key Hash</td>
-            <td class="g10">Fund the Result Tx at Vote cut off</td>
+            <td class="g10">Contract Public Address</td>
+            <td class="g10">Fund the Result TX at Vote cut off</td>
         </tr>
 
     </table>

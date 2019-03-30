@@ -146,13 +146,13 @@ fields:
     label: Contract Operator Included
     description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
     type: bool
-    includes:
-      - ContractOperator
 
   - name: ContractOperator
     label: Contract Operator
     description: "An additional entity with operator access to the contract."
     type: Entity
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: ContractOperatorIncluded
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags

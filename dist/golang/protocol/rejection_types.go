@@ -50,10 +50,6 @@ const (
 	// Contract, but the auth flags do not permit the update.
 	RejectionCodeContractExpiration
 
-	// RejectionCodeContractUpdate is sent when a CA tries to modify the
-	// Contract, but the auth flags do not permit the update.
-	RejectionCodeContractUpdate
-
 	// RejectionCodeVoteExists is returned when an existing proposal
 	// already exists.
 	RejectionCodeVoteExists
