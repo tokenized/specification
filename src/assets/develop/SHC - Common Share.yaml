@@ -33,8 +33,9 @@ fields:
     displayOrder: 3
 
   - name: Ticker
-    label: Ticker
+    label: Ticker Symbol
     type: fixedchar
+    description: Ticker symbol assigned by exchanges to represent the asset.
     size: 5
     example: AAPL
     displayOrder: 4
@@ -43,6 +44,7 @@ fields:
     label: ISIN (optional)
     type: fixedchar
     size: 12
+    description: International Securities Identification Number
     example: US0004026250
     span: full
     displayOrder: 2
@@ -52,7 +54,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 16
-    example: APPLC - Apple corp - Common share issue class C
+    example: Class C
     span: full
     displayOrder: 1
     required: true
