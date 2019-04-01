@@ -23,6 +23,14 @@ rules:
       label: Target Public Address X
       comments: If Target Public Address is the Contract Address then the entire contract is frozen.  All request actions during the Freeze period will be ignored and rejected when the contract is thawed and rebuilds.
 
+    - name: Contract
+      label: Contract Public Address
+      comments: Contract fee and change
+
+    - name: Contract Fee
+      label: Contract Fee Public Address
+      comments: Contract fee if applicable
+
 fields:
   - name: Header
     label: Header
@@ -46,12 +54,20 @@ fields:
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: TargetAddresses
-    label: Target Addresses
-    description: "Addresses and the quantities being frozen."
-    type: TargetAddress[]
+  - name: Quantities
+    label: Quantities
+    description: "Indices to addresses in outputs and the quantities being frozen. If the only address is the contract address and the asset code is zeros, then it is a contract wide freeze. If the only address is the contract address and the asset code is specified, then it is an asset wide freeze."
+    type: QuantityIndex[]
     # array size is number of bits to serialize the size of the array
     size: 16
+
+  - name: FreezePeriod
+    label: Freeze Period
+    description: "Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action."
+    type: Timestamp
+    example_hex: 00000166550ce380
+    example_value: "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)"
+    notes: ""
 
   - name: Timestamp
     label: Timestamp

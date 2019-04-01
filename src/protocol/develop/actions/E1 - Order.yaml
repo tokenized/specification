@@ -1,6 +1,9 @@
 #
 # Order Action: Issuer to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled.
-#
+# F - Freeze tokens until freeze expires of thaw action reverses it.
+# T - Thaw reverses a Freeze.
+# C - Confiscate moves tokens from specified holders to a specified deposit address.
+# R - Reconcile destroys tokens from specified holders to correct after a chain reorg has caused accidental creation of tokens.
 
 code: E1
 
@@ -32,7 +35,7 @@ fields:
 
   - name: ComplianceAction
     label: Compliance Action
-    description: "Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)"
+    description: "Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)"
     type: fixedchar
     size: 1
     example_hex: 46
@@ -71,7 +74,7 @@ fields:
 
   - name: TargetAddresses
     label: Target Addresses
-    description: "The holders and quantities that are effected by the order. Zero quantities are invalid. In a thaw order, the quantities are ignored, because the entire freeze from the FreezeTxId freeze action will be thawed."
+    description: "The holders and quantities that are effected by the order. For a contract or asset wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an asset wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed."
     type: TargetAddress[]
     # array size is number of bits to serialize the size of the array
     size: 16
@@ -93,9 +96,22 @@ fields:
       values:
         - T
 
+  - name: FreezePeriod
+    label: Freeze Period
+    description: "Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders."
+    type: Timestamp
+    example_hex: 00000166550ce380
+    example_value: "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)"
+    notes: ""
+    # include_if specifies that this field is only included in serialization if the specified field has one of the specified values.
+    include_if:
+      field: ComplianceAction
+      values:
+        - F
+
   - name: DepositAddress
     label: Deposit Address
-    description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions. For Reconciliation actions the deposit address is who receives bitcoin."
+    description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions."
     type: PublicKeyHash
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
     # include_if specifies that this field is only included in serialization if the specified field has one of the specified values.
@@ -103,7 +119,18 @@ fields:
       field: ComplianceAction
       values:
         - C
-        - R
+
+  - name: AuthorityIncluded
+    label: Authority Included
+    description: "Specifies if an authority signature is included. For Reconcialitaion actions all authority signature related fields are skipped during serialization."
+    type: bool
+    # include_if specifies that this field is only included in serialization if the specified field has one of the specified values.
+    include_if:
+      field: ComplianceAction
+      values:
+      - F
+      - T
+      - C
 
   - name: AuthorityName
     label: Authority Name
@@ -114,35 +141,39 @@ fields:
     example_hex: 2453757072656d6520616e6420446973747269637420436f75727473204272697362616e65
     example_value: "Supreme and District Courts Brisbane"
     notes: ""
+    include_if_true: AuthorityIncluded
 
   - name: AuthorityPublicKey
     label: Authority Public Key
     description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
+    type: varbin
+    # varbin size is number of bits to serialize the size of the data
     size: 8
     example_hex: 00
     example_value: ""
     notes: ""
+    include_if_true: AuthorityIncluded
 
   - name: SignatureAlgorithm
     label: Signature Algorithm
-    description: "Algorithm used for order signature. 0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
+    description: "Algorithm used for order signature. Only valid value is currently 1 = ECDSA+secp256k1"
     type: uint
     size: 1
     example_hex: 01
     example_value: 1
     notes: ""
+    include_if_true: AuthorityIncluded
 
   - name: OrderSignature
     label: Authority Order Signature
-    description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)"
+    description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Asset Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)"
     type: varbin
     # varbin size is number of bits to serialize the size of the value
     size: 8
     example_hex: 00
     example_value: ""
     notes: ""
+    include_if_true: AuthorityIncluded
 
   - name: SupportingEvidenceHash
     label: Supporting Evidence Hash
@@ -159,19 +190,23 @@ fields:
     type: varbin
     size: 32
     notes: "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event."
-
-  - name: FreezePeriod
-    label: Freeze Period
-    description: "Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders."
-    type: Timestamp
-    example_hex: 00000166550ce380
-    example_value: "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)"
-    notes: ""
     # include_if specifies that this field is only included in serialization if the specified field has one of the specified values.
     include_if:
       field: ComplianceAction
       values:
-        - F
+      - R
+
+  - name: BitcoinDispersions
+    label: Bitcoin Dispersions
+    description: "Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens."
+    type: QuantityIndex[]
+    # array size is number of bits to serialize the size of the array
+    size: 16
+    # include_if specifies that this field is only included in serialization if the specified field has one of the specified values.
+    include_if:
+      field: ComplianceAction
+      values:
+      - R
 
   - name: Message
     label: Message

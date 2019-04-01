@@ -161,7 +161,7 @@ The following breaks down the construction of a Asset Definition Action. The act
        <tr>
             <td class="a5">0</td>
             <td class="a6">Issuer's Public Address</td>
-            <td class="a6"></td>
+            <td class="a6">Contract operator is not allowed to create assets.</td>
             <td class="a10">0</td>
             <td class="a10">Contract Public Address</td>
             <td class="a10">Must include enough for the responding action.</td>

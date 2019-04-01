@@ -322,15 +322,17 @@ class Action_Order(ActionBase):
         'AssetCode':                       [1, DAT_AssetCode, 0],
         'TargetAddresses':                 [2, DAT_TargetAddress[], 16],
         'FreezeTxId':                      [3, DAT_TxId, 0],
-        'DepositAddress':                  [4, DAT_PublicKeyHash, 0],
-        'AuthorityName':                   [5, DAT_varchar, 8],
-        'AuthorityPublicKey':              [6, DAT_varchar, 8],
-        'SignatureAlgorithm':              [7, DAT_uint, 1],
-        'OrderSignature':                  [8, DAT_varbin, 8],
-        'SupportingEvidenceHash':          [9, DAT_bin, 32],
-        'RefTxs':                          [10, DAT_varbin, 32],
-        'FreezePeriod':                    [11, DAT_Timestamp, 0],
-        'Message':                         [12, DAT_varchar, 32]
+        'FreezePeriod':                    [4, DAT_Timestamp, 0],
+        'DepositAddress':                  [5, DAT_PublicKeyHash, 0],
+        'AuthorityIncluded':               [6, DAT_bool, 0],
+        'AuthorityName':                   [7, DAT_varchar, 8],
+        'AuthorityPublicKey':              [8, DAT_varbin, 8],
+        'SignatureAlgorithm':              [9, DAT_uint, 1],
+        'OrderSignature':                  [10, DAT_varbin, 8],
+        'SupportingEvidenceHash':          [11, DAT_bin, 32],
+        'RefTxs':                          [12, DAT_varbin, 32],
+        'BitcoinDispersions':              [13, DAT_QuantityIndex[], 16],
+        'Message':                         [14, DAT_varchar, 32]
     }
 
     rules = {
@@ -343,14 +345,16 @@ class Action_Order(ActionBase):
         self.AssetCode = None
         self.TargetAddresses = None
         self.FreezeTxId = None
+        self.FreezePeriod = None
         self.DepositAddress = None
+        self.AuthorityIncluded = None
         self.AuthorityName = None
         self.AuthorityPublicKey = None
         self.SignatureAlgorithm = None
         self.OrderSignature = None
         self.SupportingEvidenceHash = None
         self.RefTxs = None
-        self.FreezePeriod = None
+        self.BitcoinDispersions = None
         self.Message = None
 
 
@@ -365,8 +369,9 @@ class Action_Freeze(ActionBase):
 
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
-        'TargetAddresses':                 [1, DAT_TargetAddress[], 16],
-        'Timestamp':                       [2, DAT_Timestamp, 0]
+        'Quantities':                      [1, DAT_QuantityIndex[], 16],
+        'FreezePeriod':                    [2, DAT_Timestamp, 0],
+        'Timestamp':                       [3, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -376,7 +381,8 @@ class Action_Freeze(ActionBase):
     }
 
     def init_attributes(self):
-        self.TargetAddresses = None
+        self.Quantities = None
+        self.FreezePeriod = None
         self.Timestamp = None
 
 
@@ -408,7 +414,7 @@ class Action_Confiscation(ActionBase):
 
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
-        'TargetAddresses':                 [1, DAT_TargetAddress[], 16],
+        'Quantities':                      [1, DAT_QuantityIndex[], 16],
         'DepositQty':                      [2, DAT_uint, 8],
         'Timestamp':                       [3, DAT_Timestamp, 0]
     }
@@ -420,7 +426,7 @@ class Action_Confiscation(ActionBase):
     }
 
     def init_attributes(self):
-        self.TargetAddresses = None
+        self.Quantities = None
         self.DepositQty = None
         self.Timestamp = None
 
@@ -432,7 +438,9 @@ class Action_Reconciliation(ActionBase):
     ActionPrefix = 'E5'
 
     schema = {
-        'Timestamp':                       [0, DAT_Timestamp, 0]
+        'AssetCode':                       [0, DAT_AssetCode, 0],
+        'Quantities':                      [1, DAT_QuantityIndex[], 16],
+        'Timestamp':                       [2, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -442,6 +450,8 @@ class Action_Reconciliation(ActionBase):
     }
 
     def init_attributes(self):
+        self.Quantities = None
+        self.Timestamp = None
 
 
 # Proposal Action - Allows Issuers/Token Holders to propose a change (aka

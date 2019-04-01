@@ -6,25 +6,26 @@ import (
 )
 
 type IncludeIf struct {
-	Field string
+	Field  string
 	Values []string
 }
 
 type Field struct {
-	Name         string
-	Label        string
-	Description  string
-	Type         string
-	Size         uint64
-	Options      []string
-	IncludeIf    IncludeIf `yaml:"include_if"`
-	IncludeIfTrue string `yaml:"include_if_true"`
-	Required     bool
-	ExampleValue string `yaml:"example_value"`
-	ExampleHex   string `yaml:"example_hex"`
-	Notes        string
-	Computed     bool
-	DisplayOrder int
+	Name           string
+	Label          string
+	Description    string
+	Type           string
+	Size           uint64
+	Options        []string
+	IncludeIf      IncludeIf `yaml:"include_if"`
+	IncludeIfTrue  string    `yaml:"include_if_true"`
+	IncludeIfFalse string    `yaml:"include_if_false"`
+	Required       bool
+	ExampleValue   string `yaml:"example_value"`
+	ExampleHex     string `yaml:"example_hex"`
+	Notes          string
+	Computed       bool
+	DisplayOrder   int
 }
 
 func (f Field) FieldName() string {

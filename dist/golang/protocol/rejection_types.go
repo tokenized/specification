@@ -17,6 +17,10 @@ const (
 	// a PKH not associated with the Contract.
 	RejectionCodeIssuerAddress
 
+	// RejectionCodeOperatorAddress is sent when the message was received from
+	// a PKH that is not the issuer or operator.
+	RejectionCodeOperatorAddress
+
 	// RejectionCodeDuplicateAssetCode is sent when the issuer attempted to
 	// add a duplicate Asset Code.
 	RejectionCodeDuplicateAssetCode
@@ -107,4 +111,6 @@ const (
 	RejectionCodeContractMissingNewOperator
 
 	RejectionCodeInvalidProposal
+
+	RejectionCodeInvalidSig
 )

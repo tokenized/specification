@@ -27,6 +27,14 @@ rules:
       label: Deposit Public Address
       comments: Dust limit rule minimum value output of 546
 
+    - name: Contract
+      label: Contract Public Address
+      comments: Change
+
+    - name: Contract Fee
+      label: Contract Fee Public Address
+      comments: Contract fee if applicable
+
 fields:
   - name: Header
     label: Header
@@ -50,16 +58,16 @@ fields:
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     notes: "Cannot be changed by issuer, operator or smart contract."
 
-  - name: TargetAddresses
-    label: Target Addresses
+  - name: Quantities
+    label: Quantities
     description: "The holders effected by the confiscation and their balance remaining."
-    type: TargetAddress[]
+    type: QuantityIndex[]
     # array size is number of bits to serialize the size of the array
     size: 16
 
   - name: DepositQty
     label: Deposit Qty
-    description: "Custodian's token balance after confiscation."
+    description: "Deposit address's token balance after confiscation."
     type: uint
     size: 8
     example_hex: 0000000000002710

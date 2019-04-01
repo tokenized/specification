@@ -17,6 +17,8 @@ func (m {{.Name}}) Serialize() ([]byte, error) {
 	// {{.Name}} ({{.FieldGoType}})
 {{- if ne (len $field.IncludeIfTrue) 0 }}
 	if m.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !m.{{ $field.IncludeIfFalse }} {
 {{- else if ne (len $field.IncludeIf.Field) 0 }}
 	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} m.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
 {{- else }}
@@ -86,6 +88,8 @@ func (m *{{.Name}}) Write(buf *bytes.Buffer) error {
 	// {{.Name}} ({{.FieldGoType}})
 {{- if ne (len $field.IncludeIfTrue) 0 }}
 	if m.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !action.{{ $field.IncludeIfFalse }} {
 {{- else if ne (len $field.IncludeIf.Field) 0 }}
 	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} m.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
 {{- else }}

@@ -16,7 +16,7 @@ rules:
   inputs:
     - name: Issuer
       label: "Issuer's Public Address"
-      comments:
+      comments: Contract operator is not allowed to create assets.
 
   outputs:
     - name: Contract

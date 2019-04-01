@@ -1351,31 +1351,44 @@ func TestOrder(t *testing.T) {
 		initialMessage.FreezeTxId = TxId{}
 	}
 
+	// FreezePeriod (Timestamp)
+	if initialMessage.ComplianceAction == 'F' {
+		initialMessage.FreezePeriod = Timestamp{}
+	}
+
 	// DepositAddress (PublicKeyHash)
-	if initialMessage.ComplianceAction == 'C' || initialMessage.ComplianceAction == 'R' {
+	if initialMessage.ComplianceAction == 'C' {
 		initialMessage.DepositAddress = PublicKeyHash{}
 	}
 
-	// AuthorityName (varchar)
-	{
-		initialMessage.AuthorityName = "Text 6"
+	// AuthorityIncluded (bool)
+	if initialMessage.ComplianceAction == 'F' || initialMessage.ComplianceAction == 'T' || initialMessage.ComplianceAction == 'C' {
+		initialMessage.AuthorityIncluded = true
 	}
 
-	// AuthorityPublicKey (varchar)
-	{
-		initialMessage.AuthorityPublicKey = "Text 7"
+	// AuthorityName (varchar)
+	if initialMessage.AuthorityIncluded {
+		initialMessage.AuthorityName = "Text 8"
+	}
+
+	// AuthorityPublicKey (varbin)
+	if initialMessage.AuthorityIncluded {
+		initialMessage.AuthorityPublicKey = make([]byte, 0, 8)
+		for i := uint64(0); i < 8; i++ {
+			initialMessage.AuthorityPublicKey = append(initialMessage.AuthorityPublicKey, byte(65+i+9))
+		}
 	}
 
 	// SignatureAlgorithm (uint)
-	{
+	if initialMessage.AuthorityIncluded {
 		// uint test not setup
 	}
 
 	// OrderSignature (varbin)
-	{
+	if initialMessage.AuthorityIncluded {
 		initialMessage.OrderSignature = make([]byte, 0, 8)
 		for i := uint64(0); i < 8; i++ {
-			initialMessage.OrderSignature = append(initialMessage.OrderSignature, byte(65+i+9))
+			initialMessage.OrderSignature = append(initialMessage.OrderSignature, byte(65+i+11))
 		}
 	}
 
@@ -1385,21 +1398,23 @@ func TestOrder(t *testing.T) {
 	}
 
 	// RefTxs (varbin)
-	{
+	if initialMessage.ComplianceAction == 'R' {
 		initialMessage.RefTxs = make([]byte, 0, 32)
 		for i := uint64(0); i < 32; i++ {
-			initialMessage.RefTxs = append(initialMessage.RefTxs, byte(65+i+11))
+			initialMessage.RefTxs = append(initialMessage.RefTxs, byte(65+i+13))
 		}
 	}
 
-	// FreezePeriod (Timestamp)
-	if initialMessage.ComplianceAction == 'F' {
-		initialMessage.FreezePeriod = Timestamp{}
+	// BitcoinDispersions (QuantityIndex[])
+	if initialMessage.ComplianceAction == 'R' {
+		for i := 0; i < 2; i++ {
+			initialMessage.BitcoinDispersions = append(initialMessage.BitcoinDispersions, QuantityIndex{})
+		}
 	}
 
 	// Message (varchar)
 	{
-		initialMessage.Message = "Text 13"
+		initialMessage.Message = "Text 15"
 	}
 
 	// Encode message
@@ -1458,17 +1473,25 @@ func TestOrder(t *testing.T) {
 	// FreezeTxId (TxId)
 	// TxId test compare not setup
 
+	// FreezePeriod (Timestamp)
+	// Timestamp test compare not setup
+
 	// DepositAddress (PublicKeyHash)
 	// PublicKeyHash test compare not setup
+
+	// AuthorityIncluded (bool)
+	if initialMessage.AuthorityIncluded != decodedMessage.AuthorityIncluded {
+		t.Errorf("AuthorityIncluded doesn't match : %v != %v", initialMessage.AuthorityIncluded, decodedMessage.AuthorityIncluded)
+	}
 
 	// AuthorityName (varchar)
 	if initialMessage.AuthorityName != decodedMessage.AuthorityName {
 		t.Errorf("AuthorityName doesn't match : %s != %s", initialMessage.AuthorityName, decodedMessage.AuthorityName)
 	}
 
-	// AuthorityPublicKey (varchar)
-	if initialMessage.AuthorityPublicKey != decodedMessage.AuthorityPublicKey {
-		t.Errorf("AuthorityPublicKey doesn't match : %s != %s", initialMessage.AuthorityPublicKey, decodedMessage.AuthorityPublicKey)
+	// AuthorityPublicKey (varbin)
+	if !bytes.Equal(initialMessage.AuthorityPublicKey, decodedMessage.AuthorityPublicKey) {
+		t.Errorf("AuthorityPublicKey doesn't match : %x != %x", initialMessage.AuthorityPublicKey, decodedMessage.AuthorityPublicKey)
 	}
 
 	// SignatureAlgorithm (uint)
@@ -1491,8 +1514,10 @@ func TestOrder(t *testing.T) {
 		t.Errorf("RefTxs doesn't match : %x != %x", initialMessage.RefTxs, decodedMessage.RefTxs)
 	}
 
-	// FreezePeriod (Timestamp)
-	// Timestamp test compare not setup
+	// BitcoinDispersions (QuantityIndex[])
+	if len(initialMessage.BitcoinDispersions) != len(decodedMessage.BitcoinDispersions) {
+		t.Errorf("BitcoinDispersions lengths don't match : %d != %d", len(initialMessage.BitcoinDispersions), len(decodedMessage.BitcoinDispersions))
+	}
 
 	// Message (varchar)
 	if initialMessage.Message != decodedMessage.Message {
@@ -1519,11 +1544,16 @@ func TestFreeze(t *testing.T) {
 		initialMessage.AssetCode = AssetCode{}
 	}
 
-	// TargetAddresses (TargetAddress[])
+	// Quantities (QuantityIndex[])
 	{
 		for i := 0; i < 2; i++ {
-			initialMessage.TargetAddresses = append(initialMessage.TargetAddresses, TargetAddress{})
+			initialMessage.Quantities = append(initialMessage.Quantities, QuantityIndex{})
 		}
+	}
+
+	// FreezePeriod (Timestamp)
+	{
+		initialMessage.FreezePeriod = Timestamp{}
 	}
 
 	// Timestamp (Timestamp)
@@ -1574,10 +1604,13 @@ func TestFreeze(t *testing.T) {
 	// AssetCode (AssetCode)
 	// AssetCode test compare not setup
 
-	// TargetAddresses (TargetAddress[])
-	if len(initialMessage.TargetAddresses) != len(decodedMessage.TargetAddresses) {
-		t.Errorf("TargetAddresses lengths don't match : %d != %d", len(initialMessage.TargetAddresses), len(decodedMessage.TargetAddresses))
+	// Quantities (QuantityIndex[])
+	if len(initialMessage.Quantities) != len(decodedMessage.Quantities) {
+		t.Errorf("Quantities lengths don't match : %d != %d", len(initialMessage.Quantities), len(decodedMessage.Quantities))
 	}
+
+	// FreezePeriod (Timestamp)
+	// Timestamp test compare not setup
 
 	// Timestamp (Timestamp)
 	// Timestamp test compare not setup
@@ -1586,9 +1619,9 @@ func TestFreeze(t *testing.T) {
 func TestThaw(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Thaw{}
-	// FreezeTxID (TxId)
+	// FreezeTxId (TxId)
 	{
-		initialMessage.FreezeTxID = TxId{}
+		initialMessage.FreezeTxId = TxId{}
 	}
 
 	// Timestamp (Timestamp)
@@ -1631,7 +1664,7 @@ func TestThaw(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// FreezeTxID (TxId)
+	// FreezeTxId (TxId)
 	// TxId test compare not setup
 
 	// Timestamp (Timestamp)
@@ -1657,10 +1690,10 @@ func TestConfiscation(t *testing.T) {
 		initialMessage.AssetCode = AssetCode{}
 	}
 
-	// TargetAddresses (TargetAddress[])
+	// Quantities (QuantityIndex[])
 	{
 		for i := 0; i < 2; i++ {
-			initialMessage.TargetAddresses = append(initialMessage.TargetAddresses, TargetAddress{})
+			initialMessage.Quantities = append(initialMessage.Quantities, QuantityIndex{})
 		}
 	}
 
@@ -1717,9 +1750,9 @@ func TestConfiscation(t *testing.T) {
 	// AssetCode (AssetCode)
 	// AssetCode test compare not setup
 
-	// TargetAddresses (TargetAddress[])
-	if len(initialMessage.TargetAddresses) != len(decodedMessage.TargetAddresses) {
-		t.Errorf("TargetAddresses lengths don't match : %d != %d", len(initialMessage.TargetAddresses), len(decodedMessage.TargetAddresses))
+	// Quantities (QuantityIndex[])
+	if len(initialMessage.Quantities) != len(decodedMessage.Quantities) {
+		t.Errorf("Quantities lengths don't match : %d != %d", len(initialMessage.Quantities), len(decodedMessage.Quantities))
 	}
 
 	// DepositQty (uint)
@@ -1734,10 +1767,26 @@ func TestConfiscation(t *testing.T) {
 func TestReconciliation(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Reconciliation{}
-	// Addresses (PublicKeyHash[])
+	// AssetType (fixedchar)
+	{
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+0))
+			}
+			initialMessage.AssetType = string(text)
+		}
+	}
+
+	// AssetCode (AssetCode)
+	{
+		initialMessage.AssetCode = AssetCode{}
+	}
+
+	// Quantities (QuantityIndex[])
 	{
 		for i := 0; i < 2; i++ {
-			initialMessage.Addresses = append(initialMessage.Addresses, PublicKeyHash{})
+			initialMessage.Quantities = append(initialMessage.Quantities, QuantityIndex{})
 		}
 	}
 
@@ -1781,9 +1830,17 @@ func TestReconciliation(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Addresses (PublicKeyHash[])
-	if len(initialMessage.Addresses) != len(decodedMessage.Addresses) {
-		t.Errorf("Addresses lengths don't match : %d != %d", len(initialMessage.Addresses), len(decodedMessage.Addresses))
+	// AssetType (fixedchar)
+	if initialMessage.AssetType != decodedMessage.AssetType {
+		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
+	}
+
+	// AssetCode (AssetCode)
+	// AssetCode test compare not setup
+
+	// Quantities (QuantityIndex[])
+	if len(initialMessage.Quantities) != len(decodedMessage.Quantities) {
+		t.Errorf("Quantities lengths don't match : %d != %d", len(initialMessage.Quantities), len(decodedMessage.Quantities))
 	}
 
 	// Timestamp (Timestamp)
