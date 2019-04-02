@@ -26,16 +26,7 @@ fields:
 
   - name: AgeRestriction
     label: Age Restriction
-    type: dropdown
-    example: 18+
-    options:
-      - None
-      - 15-18
-      - 18+
-      - 19+
-      - 21+
-      - 21-30
-      - 18-
+    type: AgeRestriction
 
   - name: AdmissionType
     label: Admission Type

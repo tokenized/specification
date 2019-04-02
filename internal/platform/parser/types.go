@@ -15,14 +15,6 @@ func GoType(typeName string, size uint64, options []string) string {
 	}
 
 	switch name {
-	case "dropdown":
-		if len(options) < 256 {
-			return "uint8"
-		} else if len(options) < 65536 {
-			return "uint16"
-		} else {
-			return "uint32"
-		}
 
 	case "varchar":
 		return "string"
@@ -72,9 +64,6 @@ func IsInternalType(typeName string, size uint64) bool {
 	}
 
 	switch name {
-
-	case "dropdown":
-		return false
 
 	case "varchar":
 		return false

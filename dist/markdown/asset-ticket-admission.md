@@ -31,7 +31,7 @@ Admission ticket
         <tr>
             <td class="a10">AgeRestriction</td>
             <td class="a9">Age Restriction</td>
-            <td class="a10">dropdown</td>
+            <td class="a10">AgeRestriction</td>
             <td class="a10"></td>
             <td class="a10">0</td>
             <td class="a10"></td>

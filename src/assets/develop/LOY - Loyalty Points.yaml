@@ -25,16 +25,7 @@ fields:
 
   - name: AgeRestriction
     label: Age Restriction
-    type: dropdown
-    size: 5
-    example: 18+
-    options:
-      - 15-18
-      - 18+
-      - 19+
-      - 21+
-      - 21-30
-      - 18-
+    type: AgeRestriction
 
   - name: OfferType
     label: Offer Type
