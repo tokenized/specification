@@ -20,6 +20,8 @@ type Field struct {
 	IncludeIf      IncludeIf `yaml:"include_if"`
 	IncludeIfTrue  string    `yaml:"include_if_true"`
 	IncludeIfFalse string    `yaml:"include_if_false"`
+	IntValues         []int `yaml:"int_values"`
+	CharValues         []string `yaml:"char_values"`
 	Required       bool
 	ExampleValue   string `yaml:"example_value"`
 	ExampleHex     string `yaml:"example_hex"`

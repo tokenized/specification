@@ -38,10 +38,10 @@ The following breaks down the construction of a Message Action. The action is co
         <tr>
             <td class="m9">Message Type</td>
             <td class="m10">MessageType</td>
-            <td class="m10">4</td>
+            <td class="m10">0</td>
             <td class="m10">6000</td>
-            <td class="m10">Potential for up to 65,535 different message types</td>
-            <td class="m10">fixedchar</td>
+            <td class="m10">Potential for up to 65,535 different message types. Values from resources/Messages.yaml</td>
+            <td class="m10">MessageType</td>
             <td class="m10"></td>
         </tr>
         <tr>

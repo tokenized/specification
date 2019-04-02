@@ -41,6 +41,11 @@ fields:
     example_hex: 46
     example_value: "F"
     notes: ""
+    char_values:
+      - 'F'
+      - 'T'
+      - 'C'
+      - 'R'
 
   - name: AssetType
     label: Asset Type
@@ -163,6 +168,8 @@ fields:
     example_value: 1
     notes: ""
     include_if_true: AuthorityIncluded
+    int_values:
+      - 1
 
   - name: OrderSignature
     label: Authority Order Signature

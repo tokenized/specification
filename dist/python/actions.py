@@ -15,7 +15,7 @@ class Action_AssetDefinition(ActionBase):
         'AssetCode':                       [0, DAT_AssetCode, 0],
         'AssetAuthFlags':                  [1, DAT_varbin, 8],
         'TransfersPermitted':              [2, DAT_bool, 0],
-        'TradeRestrictions':               [3, DAT_Polity, 0],
+        'TradeRestrictions':               [3, DAT_Polities, 0],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
         'VotingRights':                    [5, DAT_bool, 0],
         'VoteMultiplier':                  [6, DAT_uint, 1],
@@ -56,7 +56,7 @@ class Action_AssetCreation(ActionBase):
         'AssetCode':                       [0, DAT_AssetCode, 0],
         'AssetAuthFlags':                  [1, DAT_varbin, 8],
         'TransfersPermitted':              [2, DAT_bool, 0],
-        'TradeRestrictions':               [3, DAT_Polity, 0],
+        'TradeRestrictions':               [3, DAT_Polities, 0],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
         'VoteMultiplier':                  [5, DAT_uint, 1],
         'IssuerProposal':                  [6, DAT_bool, 0],
@@ -606,7 +606,7 @@ class Action_Message(ActionBase):
     ActionPrefix = 'M1'
 
     schema = {
-        'MessageType':                     [0, DAT_fixedchar, 4],
+        'MessageType':                     [0, DAT_MessageType, 0],
         'MessagePayload':                  [1, DAT_varbin, 32]
     }
 
@@ -737,10 +737,8 @@ class Action_Transfer(ActionBase):
 
     schema = {
         'OfferExpiry':                     [0, DAT_Timestamp, 0],
-        'ExchangeFeeCurrency':             [1, DAT_fixedchar, 3],
-        'ExchangeFeeVar':                  [2, DAT_float, 4],
-        'ExchangeFeeFixed':                [3, DAT_float, 4],
-        'ExchangeFeeAddress':              [4, DAT_PublicKeyHash, 0]
+        'ExchangeFee':                     [1, DAT_uint, 8],
+        'ExchangeFeeAddress':              [2, DAT_PublicKeyHash, 0]
     }
 
     rules = {
@@ -750,9 +748,7 @@ class Action_Transfer(ActionBase):
     }
 
     def init_attributes(self):
-        self.ExchangeFeeCurrency = None
-        self.ExchangeFeeVar = None
-        self.ExchangeFeeFixed = None
+        self.ExchangeFee = None
         self.ExchangeFeeAddress = None
 
 

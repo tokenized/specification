@@ -241,33 +241,107 @@ func (action *{{.Name}}) write(b []byte) (int, error) {
 	return len(b) - buf.Len(), nil
 }
 
-// PayloadMessage returns the PayloadMessage, if any.
-func (action {{.Name}}) PayloadMessage() (PayloadMessage, error) {
-{{- if .HasAssetPayload }}
-	p := AssetTypeMapping(action.AssetType)
-	if p == nil {
-		return nil, fmt.Errorf("Undefined asset type : %s", action.AssetType)
-	}
+func (m *{{.Name}}) Validate() error {
+{{- range $i, $field := .PayloadFields }}
 
-	if _, err := p.Write(action.AssetPayload); err != nil {
-		return nil, err
-	}
+	// {{.Name}} ({{.FieldGoType}})
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if m.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !action.{{ $field.IncludeIfFalse }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} m.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else }}
+	{
+{{- end }}
+{{- if .IsVarChar }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("varchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if .IsFixedChar }}
+		if len(m.{{.Name}}) > {{.Length}} {
+			return fmt.Errorf("fixedchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), {{.Length}})
+		}
+{{- else if .IsVarBin }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if eq .Type "Role" }}
+		roles, err := GetRoles()
+		if err != nil {
+			return err
+		}
+		_, exists := roles[m.{{.Name}}]
+		if !exists {
+			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "MessageType" }}
+		messages, err := GetMessages()
+		if err != nil {
+			return err
+		}
+		_, exists := messages[m.{{.Name}}]
+		if !exists {
+			return fmt.Errorf("Invalid message value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Currency" }}
+		currencies, err := GetCurrencies()
+		if err != nil {
+			return err
+		}
+		_, exists := currencies[string(m.{{.Name}}[:])]
+		if !exists {
+			return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Polity" }}
+		polities, err := GetPolities()
+		if err != nil {
+			return err
+		}
+		_, exists := polities[string(m.{{.Name}}[:])]
+		if !exists {
+			return fmt.Errorf("Invalid polity value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "EntityType" }}
+		entities, err := GetEntities()
+		if err != nil {
+			return err
+		}
+		_, exists := entities[string{m.{{.Name}}}]
+		if !exists {
+			return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
+		}
+{{- else if .IsInternalTypeArray }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
 
-	return p, nil
-{{- else if .HasMessagePayload }}
-	p := MessageTypeMapping(action.MessageType)
-	if p == nil {
-		return nil, fmt.Errorf("Undefined message type : %s", action.MessageType)
+		for i, value := range m.{{.Name}} {
+			err := value.Validate()
+			if err != nil {
+				return fmt.Errorf("list field {{.Name}}[%d] is invalid : %s", i, err)
+			}
+		}
+{{- else if .IsNativeTypeArray }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if .IsInternalType }}
+		if err := m.{{.Name}}.Validate(); err != nil {
+			return fmt.Errorf("field {{.Name}} is invalid : %s", err)
+		}
+{{ else if ne (len $field.IntValues) 0 }}
+		if {{ range $j, $value := $field.IntValues }}{{ if (ne $j 0) }} &&{{ end }} m.{{$field.Name}} != {{ $value }}{{ end }} {
+			return fmt.Errorf("field {{$field.Name}} value is invalid : %d", m.{{$field.Name}})
+		}
+{{ else if ne (len $field.CharValues) 0 }}
+		if {{ range $j, $value := $field.CharValues }}{{ if (ne $j 0) }} &&{{ end }} m.{{$field.Name}} != '{{ $value }}'{{ end }} {
+			return fmt.Errorf("field {{$field.Name}} value is invalid : %d", m.{{$field.Name}})
+		}
+{{- end }}
 	}
-
-	if _, err := p.Write(action.MessagePayload); err != nil {
-		return nil, err
-	}
-
-	return p, nil
-{{ else }}
-	return nil, nil
-{{ end -}}
+{{ end }}
+	return nil
 }
 
 func (action {{.Name}}) String() string {

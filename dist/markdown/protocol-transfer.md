@@ -40,30 +40,12 @@ The following breaks down the construction of a Transfer Action. The action is c
             </td>
         </tr>
         <tr>
-            <td class="t9">Exchange Fee Currency</td>
-            <td class="t10">ExchangeFeeCurrency</td>
-            <td class="t10">3</td>
-            <td class="t10">AUD</td>
-            <td class="t10">BSV, USD, AUD, EUR, etc.</td>
-            <td class="t10">fixedchar</td>
-            <td class="t10"></td>
-        </tr>
-        <tr>
-            <td class="t9">Exchange Fee Variable</td>
-            <td class="t10">ExchangeFeeVar</td>
-            <td class="t10">4</td>
-            <td class="t10">0.005</td>
-            <td class="t10">Percent of the value of the transaction</td>
-            <td class="t10">float</td>
-            <td class="t10"></td>
-        </tr>
-        <tr>
-            <td class="t9">Exchange Fee Fixed</td>
-            <td class="t10">ExchangeFeeFixed</td>
-            <td class="t10">4</td>
+            <td class="t9">Exchange Fee</td>
+            <td class="t10">ExchangeFee</td>
+            <td class="t10">8</td>
             <td class="t10">0.01</td>
-            <td class="t10">Fixed fee</td>
-            <td class="t10">float</td>
+            <td class="t10">Fixed amount of bitcoin being paid to an exchange for facilitating a transfer.</td>
+            <td class="t10">uint</td>
             <td class="t10"></td>
         </tr>
         <tr>

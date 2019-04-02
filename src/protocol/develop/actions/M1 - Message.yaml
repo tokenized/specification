@@ -47,9 +47,8 @@ fields:
 
   - name: MessageType
     label: Message Type
-    description: "Potential for up to 65,535 different message types"
-    type: fixedchar
-    size: 4
+    description: "Potential for up to 65,535 different message types. Values from resources/Messages.yaml"
+    type: MessageType
     example_hex: "36000000"
     example_value: "6000"
     notes: ""

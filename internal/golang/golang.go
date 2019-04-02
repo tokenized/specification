@@ -4,12 +4,15 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
-func CompileProtocol(distPath string, actions parser.ProtocolActions, messages parser.ProtocolMessages, typs parser.ProtocolTypes) {
+func CompileProtocol(distPath string, actions parser.ProtocolActions, messages parser.ProtocolMessages,
+	types parser.ProtocolTypes, resources parser.ProtocolResources) {
+
 	templateToFile(distPath, actions, "actions_test.tpl", "actions_test.go")
 	templateToFile(distPath, actions, "actions.tpl", "actions.go")
 	templateToFile(distPath, messages, "messages_test.tpl", "messages_test.go")
 	templateToFile(distPath, messages, "messages.tpl", "messages.go")
-	templateToFile(distPath, typs, "field_types.tpl", "field_types.go")
+	templateToFile(distPath, types, "field_types.tpl", "field_types.go")
+	templateToFile(distPath, resources, "resources.tpl", "resources.go")
 }
 
 func CompileAssets(distPath string, assts []parser.Asset) {

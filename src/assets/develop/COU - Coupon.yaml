@@ -58,8 +58,8 @@ fields:
 
   - name: Currency
     label: Currency
-    type: fixedchar
-    size: 3
+    type: Currency
+    description: "Currency for coupon. From resources/currency."
     example: AUD
     span: right
     displayOrder: 4

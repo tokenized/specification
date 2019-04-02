@@ -39,10 +39,13 @@ fields:
     description: "Who initiated the proposal. 0 - Issuer, 1 - Holder"
     type: uint
     size: 1
+    int_values:
+      - 0
+      - 1
 
   - name: AssetSpecificVote
     label: Asset Specific Vote
-    description: "1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No."
+    description: "When true this proposal is specific to an asset and the asset type and asset code fields are serialized."
     type: bool
 
   - name: AssetType

@@ -75,9 +75,9 @@ Value exchange coupon
         <tr>
             <td class="a10">Currency</td>
             <td class="a9">Currency</td>
-            <td class="a10">fixedchar</td>
-            <td class="a10"></td>
-            <td class="a10">3</td>
+            <td class="a10">Currency</td>
+            <td class="a10">Currency for coupon. From resources/currency.</td>
+            <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>

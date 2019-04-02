@@ -1,62 +1,67 @@
-#
-# Roles (Roles that entities play in relation to their interactions with other entities.  These roles have widely-accepted tasks, rights and duties.)
-#
 
-1:
-  - accountant: []
-2:
-  - advisor: [] 
-3:
-  - agent: []
-4:
-  - beneficiary: []
-5:
-  - ceo: null
-6:
-  - cfo: null
-7:
-  - chair: null
-8:
-  - coo: null
-9:
-  - cto: null
-10:
-  - custodian: []
-11:
-  - director: []
-12:
-  - executive: []  
-13:
-  - lawyer: []
-14:
-  - legalGuardian: []
-15:
-  - limitedPartner: []  
-16: 
-  - manager: []
-17:
-  - managingPartner: []
-18:
-  - member: [] # (eg. shareholder)
-19:
-  - partner: []
-20:
-  - principal: null
-21:
-  - proprietor: null
-22:
-  - protector: []
-23:
-  - secretary: null
-24:
-  - settlor: [] 
-25:
-  - significantMember: [] # (eg. major shareholder)
-26:
-  - smartContractOperator: []
-27:
-  - trader: []
-28:
-  - trustee: []
+metadata:
+  name: Roles
+  description: "Roles that entities play in relation to their interactions with other entities.  These roles have widely-accepted tasks, rights and duties."
+  type: RoleType
+
+values:
+    1:
+      name: Accountant
+    2:
+      name: Advisor
+    3:
+      name: Agent
+    4:
+      name: Beneficiary
+    5:
+      name: CEO
+    6:
+      name: CFO
+    7:
+      name: Chair
+    8:
+      name: COO
+    9:
+      name: CTO
+    10:
+      name: Custodian
+    11:
+      name: Director
+    12:
+      name: Executive
+    13:
+      name: Lawyer
+    14:
+      name: Legal Guardian
+    15:
+      name: Limited Partner
+    16:
+      name: Manager
+    17:
+      name: Managing Partner
+    18:
+      name: Member
+      description: Shareholder
+    19:
+      name: Partner
+    20:
+      name: Principal
+    21:
+      name: Proprietor
+    22:
+      name: Protector
+    23:
+      name: Secretary
+    24:
+      name: Settlor
+    25:
+      name: Significant Member
+      description: Major Shareholder
+    26:
+      name: Smart Contract Operator
+    27:
+      name: Trader
+    28:
+      name: Trustee
 
 

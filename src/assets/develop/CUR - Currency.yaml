@@ -24,8 +24,7 @@ fields:
 
   - name: ISOCode
     label: ISO Code
-    type: fixedchar
-    size: 3
+    type: Currency
     example: AUD
     span: full
     displayOrder: 3

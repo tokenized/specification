@@ -31,9 +31,9 @@ A Currency
         <tr>
             <td class="a10">ISOCode</td>
             <td class="a9">ISO Code</td>
-            <td class="a10">fixedchar</td>
+            <td class="a10">Currency</td>
             <td class="a10"></td>
-            <td class="a10">3</td>
+            <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
             <td class="a10">0</td>

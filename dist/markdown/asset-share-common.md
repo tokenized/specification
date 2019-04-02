@@ -32,7 +32,7 @@ Common stock represents ownership interests in corporations.
             <td class="a10">TransferLockout</td>
             <td class="a9">TransferLockout</td>
             <td class="a10">Timestamp</td>
-            <td class="a10"></td>
+            <td class="a10">A period of time where the asset is unable to be transferred.  After the transfer lockout period, the assets can be transferred.</td>
             <td class="a10">0</td>
             <td class="a10"></td>
             <td class="a10">false</td>
@@ -41,9 +41,9 @@ Common stock represents ownership interests in corporations.
         </tr>
         <tr>
             <td class="a10">Ticker</td>
-            <td class="a9">Ticker</td>
+            <td class="a9">Ticker Symbol</td>
             <td class="a10">fixedchar</td>
-            <td class="a10"></td>
+            <td class="a10">Ticker symbol assigned by exchanges to represent the asset.</td>
             <td class="a10">5</td>
             <td class="a10"></td>
             <td class="a10">false</td>
@@ -54,7 +54,7 @@ Common stock represents ownership interests in corporations.
             <td class="a10">ISIN</td>
             <td class="a9">ISIN (optional)</td>
             <td class="a10">fixedchar</td>
-            <td class="a10"></td>
+            <td class="a10">International Securities Identification Number</td>
             <td class="a10">12</td>
             <td class="a10"></td>
             <td class="a10">false</td>

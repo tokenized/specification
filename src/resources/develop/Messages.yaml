@@ -1,83 +1,92 @@
-#
-# Message Action Types
-#
 
-# The Owner of the address declares the rules (message sent back to itself) by which they are willing to accept messages. Certain types of messages can be excluded, and most importantly the minimum threshold value that must be sent in order to avoid being considered spam.  Different threshold amounts can be applied to different types of messages.  The Public Key (RSA) can also be declared here.
-- code: 0
-  message: Communication Rules
+metadata:
+  name: Messages
+  description: "Message types. Used to categorize messages and assign special meaning."
+  type: MessageType
 
-# Business Name, Registration Number, Address, Communication Details (Phone/Email/etc.), Key People
-- code: 1
-  message: Commercial Profile
 
-# Public message, public announcement. Sent to another PKH or back to the same PKH.  Can be used for an official issuer annoucement.
-- code: 2
-  message: Public Message (Generic)
+values:
 
-# YA is Contract Offered to a PKH that the sender is looking to establish a secure line of communication with. Useful for establishing a secure communication channel for a business-to-business relationship such as a supplier-customer relationship.
-- code: 3
-  message: Establish Private Messaging (DH) YA (1 of 2)
+    # Public message, public announcement. Sent to another PKH or back to the same PKH.  Can be used for an official issuer annoucement.
+    2:
+      name: Public Message (Generic)
 
-# YB is Contract Offered in response to a YA message.  Both parties can now create encrypted messages that they can both read. Useful for establishing a secure communication channel for a business-to-business relationship such as a supplier-customer relationship.
-- code: 4
-  message: Establish Private Messaging (DH) YB (2 of 2)
+    # Generic private message. DH, RSA, etc.
+    3:
+      name: Private Message (Generic)
 
-# RSA public key or the like.  This message is sent back to one's self to publicly broadcast the public encryption key associated with the PKH.  This allows for permissionless and anonymous 1-way communication with the owner of the public key.
-- code: 5
-  message: Public Key
+    # A message that is meant to signal intent or specify an offer to another party (PKH).  The offer can be for a token, or for a static contract.  An offer is effectively a message with no signatures on it, and may have non-standardized communication.  "I'd like to offer you 1000 BCH for your shares in Apple."  It can be the start of a negotiation.  Likely done in a private manner after establishing a secure (DH) communication channel.
+    1001:
+      name: Offer
 
-# Generic private message. DH, RSA, etc.
-- code: 6
-  message: Private Message (Generic)
+    # A partially signed transaction or a Payment Request.  Useful for sending transactions that require multiple signatures from different contracting parties such as in the case of bitcoin multisig txns and exchange (token) actions. Also useful for static contract formation.  The Payment Request can be sent along with an Invoice.  The Invoicee can use the Payment Request to actually make the payment.
+    1002:
+      name: Signature Request
 
-# The sender sends the PKH that they want to receive all of the messages/payments to.
-- code: 7
-  message: Trading Address (PKH)
+    ###############################################################################################################################
+    #                           Message Codes below this are still in flux and should not be used.                                #
+    ###############################################################################################################################
 
-# A message that is meant to signal intent or specify an offer to another party (PKH).  The offer can be for a token, or for a static contract.  An offer is effectively a message with no signatures on it, and may have non-standardized communication.  "I'd like to offer you 1000 BCH for your shares in Apple."  It can be the start of a negotiation.  Likely done in a private manner after establishing a secure (DH) communication channel.
-- code: 8
-  message: Offer
+    # The Owner of the address declares the rules (message sent back to itself) by which they are willing to accept messages. Certain types of messages can be excluded, and most importantly the minimum threshold value that must be sent in order to avoid being considered spam.  Different threshold amounts can be applied to different types of messages.  The Public Key (RSA) can also be declared here.
+    0:
+      name: Communication Rules
 
-# A partially signed transaction or a Payment Request.  Useful for sending transactions that require multiple signatures from different contracting parties such as in the case of bitcoin multisig txns and exchange (token) actions. Also useful for static contract formation.  The Payment Request can be sent along with an Invoice.  The Invoicee can use the Payment Request to actually make the payment.
-- code: 9
-  message: Signature Request
+    # Business Name, Registration Number, Address, Communication Details (Phone/Email/etc.), Key People
+    1:
+      name: Commercial Profile
 
-# Either sent back to yourself, or accompanying a txn. Often encrypted (DH, RSA) to make a note/receipt against a particular output. DH for b2b where both parties can see the receipt/note.  RSA or the like for receipts only visible to one of the transacting parties.
-- code: 10
-  message: Receipt/Output Note
+    # YA is Contract Offered to a PKH that the sender is looking to establish a secure line of communication with. Useful for establishing a secure communication channel for a business-to-business relationship such as a supplier-customer relationship.
+    4:
+      name: Establish Private Messaging (DH) YA (1 of 2)
 
-# A quote.  Can be used to generate a Purchase Order.
-- code: 11
-  message: Quote
+    # YB is Contract Offered in response to a YA message.  Both parties can now create encrypted messages that they can both read. Useful for establishing a secure communication channel for a business-to-business relationship such as a supplier-customer relationship.
+    5:
+      name: Establish Private Messaging (DH) YB (2 of 2)
 
-# Sent by the customer to the supplier.  Often generated in response to a quote. Can be securitized with a Payable token. (Factoring/Reverse-Factoring)
-- code: 12
-  message: Purchase Order
+    # RSA public key or the like.  This message is sent back to one's self to publicly broadcast the public encryption key associated with the PKH.  This allows for permissionless and anonymous 1-way communication with the owner of the public key.
+    6:
+      name: Public Key
 
-# An official acknowledgement of a purchase order.  May include information such as ETA or material shortfalls.
-- code: 13
-  message: Purchase Order Acknowledgment
+    # The sender sends the PKH that they want to receive all of the messages/payments to.
+    7:
+      name: Trading Address (PKH)
 
-# Also known as a packing slip.  Sent to customers as an advance notice of what has been shipped.
-- code: 14
-  message: Advance Ship Notice
+    # Either sent back to yourself, or accompanying a txn. Often encrypted (DH, RSA) to make a note/receipt against a particular output. DH for b2b where both parties can see the receipt/note.  RSA or the like for receipts only visible to one of the transacting parties.
+    8:
+      name: Receipt/Output Note
 
-# An invoice. Invoices can be securitized by creating a receivable token.
-- code: 15
-  message: Invoice
+    # A quote.  Can be used to generate a Purchase Order.
+    9:
+      name: Quote
 
-# An official list of products offered by a supplier.  Can include pricing as well.
-- code: 16
-  message: Product Catalog
+    # Sent by the customer to the supplier.  Often generated in response to a quote. Can be securitized with a Payable token. (Factoring/Reverse-Factoring)
+    10:
+      name: Purchase Order
 
-# A forecast notification from the manufacturer to the relevant supplier of the qty of materials needed and the time period in which they are needed.
-- code: 17
-  message: Planning Schedule/Material Release
+    # An official acknowledgement of a purchase order.  May include information such as ETA or material shortfalls.
+    11:
+      name: Purchase Order Acknowledgment
 
-# An authorization from the manufacturer to the supplier to ship goods according to a specific short-term schedule. It provides detailed shipping requirements and adds more specific instruction to the Planning Schedule/Material Release that may have been provided earlier.
-- code: 18
-  message: Shipping Schedule
+    # Also known as a packing slip.  Sent to customers as an advance notice of what has been shipped.
+    12:
+      name: Advance Ship Notice
 
-# 
-- code: 19
-  message: Collateral Call
+    # An invoice. Invoices can be securitized by creating a receivable token.
+    13:
+      name: Invoice
+
+    # An official list of products offered by a supplier.  Can include pricing as well.
+    14:
+      name: Product Catalog
+
+    # A forecast notification from the manufacturer to the relevant supplier of the qty of materials needed and the time period in which they are needed.
+    15:
+      name: Planning Schedule/Material Release
+
+    # An authorization from the manufacturer to the supplier to ship goods according to a specific short-term schedule. It provides detailed shipping requirements and adds more specific instruction to the Planning Schedule/Material Release that may have been provided earlier.
+    16:
+      name: Shipping Schedule
+
+    #
+    17:
+      name: Collateral Call

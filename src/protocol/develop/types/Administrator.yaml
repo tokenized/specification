@@ -6,8 +6,7 @@ fields:
   - name: Type
     label: Administrator Type
     description: "Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources"
-    type: uint
-    size: 1
+    type: Role
     example_hex: 37
     example_value: "7"
     notes: "7 - Chair"

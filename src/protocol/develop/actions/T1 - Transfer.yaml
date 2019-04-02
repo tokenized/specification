@@ -48,29 +48,11 @@ fields:
     example_value: "Sun May 06 2018 06:00:00 GMT+1000 (AEST)"
     notes: ""
 
-  - name: ExchangeFeeCurrency
-    label: Exchange Fee Currency
-    description: "BSV, USD, AUD, EUR, etc."
-    type: fixedchar
-    size: 3
-    example_hex: 415544
-    example_value: "AUD"
-    notes: ""
-
-  - name: ExchangeFeeVar
-    label: Exchange Fee Variable
-    description: "Percent of the value of the transaction"
-    type: float
-    size: 4
-    example_hex: 3ba3d70a
-    example_value: "0.005"
-    notes: ""
-
-  - name: ExchangeFeeFixed
-    label: Exchange Fee Fixed
-    description: "Fixed fee"
-    type: float
-    size: 4
+  - name: ExchangeFee
+    label: Exchange Fee
+    description: "Fixed amount of bitcoin being paid to an exchange for facilitating a transfer."
+    type: uint
+    size: 8
     example_hex: 3c23d70a
     example_value: "0.01"
     notes: ""

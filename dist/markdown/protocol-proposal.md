@@ -39,7 +39,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g10">AssetSpecificVote</td>
             <td class="g10">0</td>
             <td class="g10"></td>
-            <td class="g10">1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No.</td>
+            <td class="g10"><abbr title="When true this proposal is specific to an asset and the asset type and asset code fields are serialized.">When true this proposal is specific to an asset and the asset type and asset code fields a ...</abbr></td>
             <td class="g10">bool</td>
             <td class="g10"></td>
         </tr>

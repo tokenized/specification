@@ -61,7 +61,7 @@ The following breaks down the construction of a Asset Definition Action. The act
         </tr>
         <tr>
             <td class="a5" colspan="7">
-                <a href="javascript:;" data-popover="type-Polity">
+                <a href="javascript:;" data-popover="type-Polities">
                    Trade Restrictions - Click to show content
                 </a>
             </td>
