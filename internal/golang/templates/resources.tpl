@@ -5,6 +5,31 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
+type RejectionCode struct {
+	Name string
+	Text string
+	Description string
+}
+
+var rejectionCodes map[uint8]RejectionCode
+
+func GetRejectionCodes() (map[uint8]RejectionCode, error) {
+	if rejectionCodes != nil {
+		return rejectionCodes, nil
+	}
+
+	load := struct {
+		Values map[uint8]RejectionCode
+	}{}
+
+	if err := yaml.Unmarshal([]byte(yamlRejectionCodes), &load); err != nil {
+		return nil, errors.Wrap(err, "Failed to unmarshal rejection codes yaml")
+	}
+
+	rejectionCodes = load.Values
+	return rejectionCodes, nil
+}
+
 type CurrencyType struct {
 	Name              string
 	Label             string

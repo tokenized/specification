@@ -5,7 +5,7 @@ import (
 )
 
 func CompileProtocol(distPath string, actions parser.ProtocolActions, messages parser.ProtocolMessages,
-	types parser.ProtocolTypes, resources parser.ProtocolResources) {
+	types parser.ProtocolTypes, resources parser.ProtocolResources, rejectionCodes  parser.ProtocolRejectionCodes) {
 
 	templateToFile(distPath, actions, "actions_test.tpl", "actions_test.go")
 	templateToFile(distPath, actions, "actions.tpl", "actions.go")
@@ -13,6 +13,7 @@ func CompileProtocol(distPath string, actions parser.ProtocolActions, messages p
 	templateToFile(distPath, messages, "messages.tpl", "messages.go")
 	templateToFile(distPath, types, "field_types.tpl", "field_types.go")
 	templateToFile(distPath, resources, "resources.tpl", "resources.go")
+	templateToFile(distPath, rejectionCodes, "rejection_codes.tpl", "rejection_codes.go")
 }
 
 func CompileAssets(distPath string, assts []parser.Asset) {
