@@ -114,10 +114,10 @@ The following breaks down the construction of a Asset Creation Action. The actio
         <tr>
             <td class="a9">Asset Modification Governance</td>
             <td class="a10">AssetModificationGovernance</td>
-            <td class="a10">0</td>
             <td class="a10">1</td>
-            <td class="a10"><abbr title="1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative).  The voting system specifies the voting rules.">1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or  ...</abbr></td>
-            <td class="a10">bool</td>
+            <td class="a10">1</td>
+            <td class="a10"><abbr title="1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.">1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or  ...</abbr></td>
+            <td class="a10">uint</td>
             <td class="a10"></td>
         </tr>
         <tr>

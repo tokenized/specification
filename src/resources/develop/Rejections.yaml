@@ -64,6 +64,11 @@ values:
       text: Contract Revision Incorrect
       description: The revision in a contract amendment is incorrect.
 
+    18:
+      name: ContractNotPermitted
+      text: Contract Not Permitted
+      description: Action not permitted by contract.
+
     #################################### Asset ####################################
 
     20:
@@ -90,6 +95,11 @@ values:
       name: AssetRevision
       text: Asset Revision Incorrect
       description: The revision in an asset amendment is incorrect.
+
+    25:
+      name: AssetNotPermitted
+      text: Asset Not Permitted
+      description: Action not permitted by asset.
 
     #################################### Transfer ####################################
 

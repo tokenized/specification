@@ -21,7 +21,7 @@ class Action_AssetDefinition(ActionBase):
         'VoteMultiplier':                  [6, DAT_uint, 1],
         'IssuerProposal':                  [7, DAT_bool, 0],
         'HolderProposal':                  [8, DAT_bool, 0],
-        'AssetModificationGovernance':     [9, DAT_bool, 0],
+        'AssetModificationGovernance':     [9, DAT_uint, 1],
         'TokenQty':                        [10, DAT_uint, 8],
         'AssetPayload':                    [11, DAT_varbin, 16]
     }
@@ -62,7 +62,7 @@ class Action_AssetCreation(ActionBase):
         'VoteMultiplier':                  [6, DAT_uint, 1],
         'IssuerProposal':                  [7, DAT_bool, 0],
         'HolderProposal':                  [8, DAT_bool, 0],
-        'AssetModificationGovernance':     [9, DAT_bool, 0],
+        'AssetModificationGovernance':     [9, DAT_uint, 1],
         'TokenQty':                        [10, DAT_uint, 8],
         'AssetPayload':                    [11, DAT_varbin, 16],
         'Asset Revision':                  [12, DAT_uint, 4],

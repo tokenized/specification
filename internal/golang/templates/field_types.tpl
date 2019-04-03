@@ -181,48 +181,23 @@ func (m *{{.Name}}) Validate() error {
 			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
 		}
 {{- else if eq .Type "Role" }}
-		roles, err := GetRoles()
-		if err != nil {
-			return err
-		}
-		_, exists := roles[m.{{.Name}}]
-		if !exists {
+		if GetRoleType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
 		}
 {{- else if eq .Type "MessageType" }}
-		messages, err := GetMessages()
-		if err != nil {
-			return err
-		}
-		_, exists := messages[m.{{.Name}}]
-		if !exists {
+		if GetMessageType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid message value : %d", m.{{.Name}})
 		}
 {{- else if eq .Type "Currency" }}
-		currencies, err := GetCurrencies()
-		if err != nil {
-			return err
-		}
-		_, exists := currencies[string(m.{{.Name}}[:])]
-		if !exists {
+		if GetCurrency(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
 		}
 {{- else if eq .Type "Polity" }}
-		polities, err := GetPolities()
-		if err != nil {
-			return err
-		}
-		_, exists := polities[string(m.{{.Name}}[:])]
-		if !exists {
+		if GetPolityType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid polity value : %d", m.{{.Name}})
 		}
 {{- else if eq .Type "EntityType" }}
-		entities, err := GetEntities()
-		if err != nil {
-			return err
-		}
-		_, exists := entities[string{m.{{.Name}}}]
-		if !exists {
+		if GetEntityType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
 		}
 {{- else if .IsInternalTypeArray }}

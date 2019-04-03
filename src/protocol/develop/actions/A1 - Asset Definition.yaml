@@ -112,8 +112,12 @@ fields:
 
   - name: AssetModificationGovernance
     label: Asset Modification Governance
-    description: "1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules."
-    type: bool
+    description: "1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules."
+    type: uint
+    size: 1
+    int_values:
+      - 0
+      - 1
     example_hex: 01
     example_value: "1"
     notes: ""
