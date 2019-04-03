@@ -2,7 +2,7 @@
 metadata:
   name: Polities
   description: "Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, International Organizations, etc.)"
-  type: Polity
+  type: PolityType
 
 
 values:
