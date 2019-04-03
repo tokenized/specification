@@ -61,7 +61,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
         </tr>
         <tr>
             <td class="a5" colspan="7">
-                <a href="javascript:;" data-popover="type-Polities">
+                <a href="javascript:;" data-popover="type-Polity">
                    Trade Restrictions - Click to show content
                 </a>
             </td>
@@ -72,6 +72,15 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10">0</td>
             <td class="a10">1</td>
             <td class="a10">1 = Enforcement Orders are permitted. 0 = Enforcement Orders are not permitted.</td>
+            <td class="a10">bool</td>
+            <td class="a10"></td>
+        </tr>
+        <tr>
+            <td class="a9">Voting Rights</td>
+            <td class="a10">VotingRights</td>
+            <td class="a10">0</td>
+            <td class="a10"></td>
+            <td class="a10"><abbr title="When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.">When false holders of this asset will not be able to vote for tokens of this asset even on ...</abbr></td>
             <td class="a10">bool</td>
             <td class="a10"></td>
         </tr>

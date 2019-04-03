@@ -227,7 +227,16 @@ The following breaks down the construction of a Result Action. The action is con
                 <td class="g10">SubfieldIndex</td>
                 <td class="g10">1</td>
                 <td class="g10" style="word-break:break-all">1</td>
-                <td class="g10">Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.</td>
+                <td class="g10">Index of the subfield to be amended. This only applies to specific fields containing complex types with subfields. This is used to specify which field of the object the amendment applies to.</td>
+                <td class="g10">uint</td>
+                <td class="g10">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
+            </tr>
+            <tr>
+                <td class="g10">Subfield Element</td>
+                <td class="g10">SubfieldElement</td>
+                <td class="g10">2</td>
+                <td class="g10" style="word-break:break-all">1</td>
+                <td class="g10">Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.</td>
                 <td class="g10">uint</td>
                 <td class="g10">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
             </tr>
@@ -245,8 +254,8 @@ The following breaks down the construction of a Result Action. The action is con
                 <td class="g10">Data</td>
                 <td class="g10">32</td>
                 <td class="g10" style="word-break:break-all"></td>
-                <td class="g10">New data for the amended subfield. Data type depends on the the type of the field being amended.</td>
-                <td class="g10">varchar</td>
+                <td class="g10">New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol.</td>
+                <td class="g10">varbin</td>
                 <td class="g10">The bytes should be in an format appropriate for the field being modified.</td>
             </tr>
         </table>

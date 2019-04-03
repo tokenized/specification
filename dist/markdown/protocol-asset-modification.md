@@ -53,7 +53,7 @@ The following breaks down the construction of a Asset Modification Action. The a
         <tr>
             <td class="a5" colspan="7">
                 <a href="javascript:;" data-popover="type-Amendment">
-                   Modifications - Click to show content
+                   Amendments - Click to show content
                 </a>
             </td>
         </tr>
@@ -193,7 +193,16 @@ The following breaks down the construction of a Asset Modification Action. The a
                 <td class="a10">SubfieldIndex</td>
                 <td class="a10">1</td>
                 <td class="a10" style="word-break:break-all">1</td>
-                <td class="a10">Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.</td>
+                <td class="a10">Index of the subfield to be amended. This only applies to specific fields containing complex types with subfields. This is used to specify which field of the object the amendment applies to.</td>
+                <td class="a10">uint</td>
+                <td class="a10">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
+            </tr>
+            <tr>
+                <td class="a10">Subfield Element</td>
+                <td class="a10">SubfieldElement</td>
+                <td class="a10">2</td>
+                <td class="a10" style="word-break:break-all">1</td>
+                <td class="a10">Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.</td>
                 <td class="a10">uint</td>
                 <td class="a10">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
             </tr>
@@ -211,8 +220,8 @@ The following breaks down the construction of a Asset Modification Action. The a
                 <td class="a10">Data</td>
                 <td class="a10">32</td>
                 <td class="a10" style="word-break:break-all"></td>
-                <td class="a10">New data for the amended subfield. Data type depends on the the type of the field being amended.</td>
-                <td class="a10">varchar</td>
+                <td class="a10">New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol.</td>
+                <td class="a10">varbin</td>
                 <td class="a10">The bytes should be in an format appropriate for the field being modified.</td>
             </tr>
         </table>

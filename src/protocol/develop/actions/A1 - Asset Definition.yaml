@@ -66,7 +66,8 @@ fields:
   - name: TradeRestrictions
     label: Trade Restrictions
     description: "Asset can only be traded within the trade restrictions.  Eg. AUS - Australian residents only.  EU - European Union residents only."
-    type: Polities
+    type: Polity[]
+    size: 16
     example_hex: 474252
     example_value: "GBR"
     notes: ""

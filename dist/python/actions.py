@@ -15,7 +15,7 @@ class Action_AssetDefinition(ActionBase):
         'AssetCode':                       [0, DAT_AssetCode, 0],
         'AssetAuthFlags':                  [1, DAT_varbin, 8],
         'TransfersPermitted':              [2, DAT_bool, 0],
-        'TradeRestrictions':               [3, DAT_Polities, 0],
+        'TradeRestrictions':               [3, DAT_Polity[], 16],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
         'VotingRights':                    [5, DAT_bool, 0],
         'VoteMultiplier':                  [6, DAT_uint, 1],
@@ -56,16 +56,17 @@ class Action_AssetCreation(ActionBase):
         'AssetCode':                       [0, DAT_AssetCode, 0],
         'AssetAuthFlags':                  [1, DAT_varbin, 8],
         'TransfersPermitted':              [2, DAT_bool, 0],
-        'TradeRestrictions':               [3, DAT_Polities, 0],
+        'TradeRestrictions':               [3, DAT_Polity[], 16],
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
-        'VoteMultiplier':                  [5, DAT_uint, 1],
-        'IssuerProposal':                  [6, DAT_bool, 0],
-        'HolderProposal':                  [7, DAT_bool, 0],
-        'AssetModificationGovernance':     [8, DAT_bool, 0],
-        'TokenQty':                        [9, DAT_uint, 8],
-        'AssetPayload':                    [10, DAT_varbin, 16],
-        'Asset Revision':                  [11, DAT_uint, 4],
-        'Timestamp':                       [12, DAT_Timestamp, 0]
+        'VotingRights':                    [5, DAT_bool, 0],
+        'VoteMultiplier':                  [6, DAT_uint, 1],
+        'IssuerProposal':                  [7, DAT_bool, 0],
+        'HolderProposal':                  [8, DAT_bool, 0],
+        'AssetModificationGovernance':     [9, DAT_bool, 0],
+        'TokenQty':                        [10, DAT_uint, 8],
+        'AssetPayload':                    [11, DAT_varbin, 16],
+        'Asset Revision':                  [12, DAT_uint, 4],
+        'Timestamp':                       [13, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -79,6 +80,7 @@ class Action_AssetCreation(ActionBase):
         self.TransfersPermitted = None
         self.TradeRestrictions = None
         self.EnforcementOrdersPermitted = None
+        self.VotingRights = None
         self.VoteMultiplier = None
         self.IssuerProposal = None
         self.HolderProposal = None
@@ -98,7 +100,7 @@ class Action_AssetModification(ActionBase):
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
         'AssetRevision':                   [1, DAT_uint, 4],
-        'Modifications':                   [2, DAT_Amendment[], 0],
+        'Amendments':                      [2, DAT_Amendment[], 0],
         'RefTxID':                         [3, DAT_TxId, 0]
     }
 
@@ -110,7 +112,7 @@ class Action_AssetModification(ActionBase):
 
     def init_attributes(self):
         self.AssetRevision = None
-        self.Modifications = None
+        self.Amendments = None
         self.RefTxID = None
 
 

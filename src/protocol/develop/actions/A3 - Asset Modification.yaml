@@ -55,8 +55,8 @@ fields:
     example_value: "0"
     notes: "Cannot be Amended"
 
-  - name: Modifications
-    label: Modifications
+  - name: Amendments
+    label: Amendments
     type: Amendment[]
 
   - name: RefTxID
