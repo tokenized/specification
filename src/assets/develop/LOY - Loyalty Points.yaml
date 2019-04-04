@@ -36,20 +36,6 @@ fields:
       - 21-30
       - 18-
 
-  - name: OfferType
-    label: Offer Type
-    type: fixedchar
-    size: 1
-    example: A
-    options:
-      - Air Miles (A)
-      - Dining (D)
-      - Shopping (S)
-      - Lifestyle (L)
-      - Petrol/Gas (P)
-      - Banking (B)
-      - Travel (T)
-
   - name: OfferName
     label: Offer Name
     type: varchar

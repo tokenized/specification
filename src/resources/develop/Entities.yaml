@@ -8,10 +8,12 @@ entities:
       name: individual # (Natural Person)
       label: "Individual"
       role: 
-        principal: null
-        legalGuardian: []
-        agent: [] # (granted by the principal)
-        ancillary:
+        owners:
+          principal: null
+        administrators:
+          legalGuardian: []
+          agent: [] # (granted by the principal)
+        general:
           accountant: []
           advisor: [] 
           lawyer: []
@@ -21,57 +23,62 @@ entities:
       name: publicCompany
       label: "Public Company Limited by Shares"
       roles:
-        board:
+        owners:
+          shareholder: []   
+          significantShareholder: []
+        administrators: # Board of Directors
           chairman: null
           director: []
-          secretary: null
-        officers: 
+        managers: 
           ceo: null
           coo: null
           cfo: null
           cto: null
           executive: []
-        ancillary:
+          secretary: null
+        general:
           accountant: []
           advisor: [] 
+          employee: []
           lawyer: []
           manager: []
           trader: []
-        ownership: 
-          member: []   
-          significantMember: []
     C: 
       name: privateCompany
       label: "Private Company Limited by Shares"
       roles:
-        board:
+        owners:
+          shareholder: []
+          significantShareholder: []          
+        administrators:
           chairman: null
           director: [] 
           secretary: null        
-        officers: 
+        managers: 
           ceo: null
           coo: null
           cfo: null
           cto: null   
           executive: []        
-        ancillary:
+        general:
           accountant: []
           advisor: []  
+          employee: []
           lawyer: []
           manager: []
           trader: []
-        ownership:  
-          member: []
-          significantMember: []
     L: 
       name: limitedPartnership
       label: "Limited Partnership"
       roles:
-        managingPartner: []
-        partner: []
-        ancillary: 
+        owners:
+          partner: []
+        managers:
+          managingPartner: []
+        general: 
           accountant: []
           advisor: []  
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -79,11 +86,14 @@ entities:
       name: unlimitedPartnership
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership,  )
       roles:
-        managingPartner: []
-        partner: []  
-        ancillary:   
+        owners:
+          partner: []  
+        managers:
+          managingPartner: []
+        general:   
           accountant: []
           advisor: []  
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -91,11 +101,14 @@ entities:
       name: soleProprietorship
       label: "Sole Proprietorship"
       roles:
-        proprietor: null
-        agent: [] # (granted by the proprietor)
-        ancillary:
+        owners:
+          proprietor: null
+        administrators:
+          agent: [] # (granted by the proprietor)
+        general:
           accountant: []
           advisor: []  
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -103,19 +116,21 @@ entities:
       name: statutoryCompany
       label: "Statutory Company"
       roles:
-        board:
+        administrators:
           chairman: null
           director: [] 
           secretary: null        
-        officers: 
+        managers: 
           ceo: null
           coo: null
           cfo: null
           cto: null
-          executive: []        
-        ancillary:
+          executive: []
+          secretary: null 
+        general:
           accountant: []
           advisor: []  
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -123,19 +138,20 @@ entities:
       name: nonProfitOrganization
       label: "Non-Profit Organization"
       role:  
-        board:
+        administrators:
           chairman: null
           director: [] 
           secretary: null          
-        officers: 
+        managers: 
           ceo: null
           coo: null
           cfo: null
           cto: null
           executive: []          
-        ancillary: 
+        general: 
           accountant: []
           advisor: [] 
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -150,29 +166,35 @@ entities:
       name: unitTrust
       label: "Unit Trust"
       roles:  
-        trustee: []
-        beneficiary: []
-        settlor: [] 
-        protector: []
-        ancillary: 
+        owners:
+          unitholder: []
+        administrators:
+          protector: []
+          trustee: []
+        general: 
           accountant: []
           advisor: [] 
           custodian: []
+          employee: []
           lawyer: []
           manager: []
+          settlor: [] 
           trader: []
     D:
       name: discretionaryTrust
       label: "Discretionary Trust" # (Family Trust)
       roles:
-        trustee: []
-        beneficiary: []
-        settlor: []
-        protector: []
-        ancillary: 
+        owners:
+          beneficiary: []
+        administrators:   
+          protector: []
+          trustee: []        
+        general: 
           accountant: []
           advisor: [] 
           custodian: []
+          employee: []
           lawyer: []
           manager: []
+          settlor: []
           trader: []
