@@ -25,38 +25,46 @@
 11:
   - director: []
 12:
-  - executive: []  
+  - employee: []
 13:
-  - lawyer: []
+  - executive: []  
 14:
-  - legalGuardian: []
+  - lawyer: []
 15:
+  - legalGuardian: []
+16:
   - limitedPartner: []  
-16: 
+17: 
   - manager: []
-17:
-  - managingPartner: []
 18:
-  - member: [] # (eg. shareholder)
+  - managingPartner: []
 19:
-  - partner: []
+  - member: []
 20:
-  - principal: null
+  - partner: []
 21:
-  - proprietor: null
+  - principal: null
 22:
-  - protector: []
+  - proprietor: null
 23:
-  - secretary: null
+  - protector: []
 24:
-  - settlor: [] 
+  - secretary: null
 25:
-  - significantMember: [] # (eg. major shareholder)
+  - settlor: [] 
 26:
-  - smartContractOperator: []
+  - shareholder: []
 27:
-  - trader: []
+  - significantMember: [] 
 28:
+  - significantUnitholder: []
+29:
+  - significantShareholder: []
+30:
+  - trader: []
+31:
   - trustee: []
+32:
+  - unitholder: []
 
 
