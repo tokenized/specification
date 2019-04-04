@@ -147,7 +147,7 @@ class Action_ContractOffer(ActionBase):
         'RestrictedQtyAssets':             [16, DAT_uint, 8],
         'IssuerProposal':                  [17, DAT_bool, 0],
         'HolderProposal':                  [18, DAT_bool, 0],
-        'Registries':                      [19, DAT_Registry[], 0]
+        'Registers':                       [19, DAT_Register[], 0]
     }
 
     rules = {
@@ -175,7 +175,7 @@ class Action_ContractOffer(ActionBase):
         self.RestrictedQtyAssets = None
         self.IssuerProposal = None
         self.HolderProposal = None
-        self.Registries = None
+        self.Registers = None
 
 
 # This txn is created by the Contract (smart contract/off-chain agent/token
@@ -206,7 +206,7 @@ class Action_ContractFormation(ActionBase):
         'RestrictedQtyAssets':             [16, DAT_uint, 8],
         'IssuerProposal':                  [17, DAT_bool, 0],
         'HolderProposal':                  [18, DAT_bool, 0],
-        'Registries':                      [19, DAT_Registry[], 0],
+        'Registers':                       [19, DAT_Register[], 0],
         'ContractRevision':                [20, DAT_uint, 4],
         'Timestamp':                       [21, DAT_Timestamp, 0]
     }
@@ -236,7 +236,7 @@ class Action_ContractFormation(ActionBase):
         self.RestrictedQtyAssets = None
         self.IssuerProposal = None
         self.HolderProposal = None
-        self.Registries = None
+        self.Registers = None
         self.ContractRevision = None
         self.Timestamp = None
 

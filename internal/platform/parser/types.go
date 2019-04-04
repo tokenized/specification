@@ -92,11 +92,11 @@ func IsInternalType(typeName string, size uint64) bool {
 
 func IsResource(typeName string) bool {
 	switch typeName {
-		case "Role",
-			"EntityType",
-			"Currency",
-			"MessageType":
-			return true
+	case "Role",
+		"EntityType",
+		"Currency",
+		"MessageType":
+		return true
 	}
 
 	return false

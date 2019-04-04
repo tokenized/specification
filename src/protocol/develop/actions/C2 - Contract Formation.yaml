@@ -201,10 +201,10 @@ fields:
     example_value: true
     notes: ""
 
-  - name: Registries
-    label: Registries
-    description: "A list Registries"
-    type: Registry[]
+  - name: Registers
+    label: Regisers
+    description: "A list Register"
+    type: Register[]
 
   - name: ContractRevision
     label: Contract Revision
