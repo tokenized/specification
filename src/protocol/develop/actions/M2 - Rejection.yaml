@@ -30,19 +30,17 @@ fields:
     type: Header
     notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
 
-  - name: QtyReceivingAddresses
-    label: Qty Receiving Addresses
-    description: "0-255 Message Receiving Addresses"
-    type: uint8
-    size: 1
-    example_hex: 02
-    example_value: 2
-    notes: ""
-
   - name: AddressIndexes
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
     type: uint16[]
+    example_hex: 00010002
+
+  - name: RejectAddressIndex
+    label: Reject Address Index
+    description: "The address which is believed to have caused the rejection."
+    type: uint
+    size: 2
     example_hex: 00010002
 
   - name: RejectionType

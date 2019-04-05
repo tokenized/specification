@@ -21,7 +21,7 @@ rules:
   outputs:
     - name: AssetContract
       label: Contract Public Address for Asset X
-      comments: Enough for the costs of the responding action + the Contract Fee
+      comments: Enough for the costs of the responding action, including any bitcoins being transfered, and the Contract Fee.
 
     - name: AssetXReceiverX
       label: Asset (token) Receiving Public Address X

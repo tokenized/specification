@@ -635,7 +635,7 @@ class Action_Rejection(ActionBase):
     ActionPrefix = 'M2'
 
     schema = {
-        'AddressIndexes':                  [0, DAT_uint16[], 0],
+        'RejectAddressIndex':              [0, DAT_uint, 2],
         'RejectionType':                   [1, DAT_uint, 1],
         'MessagePayload':                  [2, DAT_varchar, 32],
         'Timestamp':                       [3, DAT_Timestamp, 0]

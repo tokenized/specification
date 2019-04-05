@@ -26,21 +26,21 @@ The following breaks down the construction of a Rejection Action. The action is 
              </td>
         </tr>
         <tr>
-            <td class="m9">Qty Receiving Addresses</td>
-            <td class="m10">QtyReceivingAddresses</td>
-            <td class="m10">1</td>
-            <td class="m10">2</td>
-            <td class="m10">0-255 Message Receiving Addresses</td>
-            <td class="m10">uint8</td>
-            <td class="m10"></td>
-        </tr>
-        <tr>
             <td class="m9">Address Indexes</td>
             <td class="m10">AddressIndexes</td>
             <td class="m10">0</td>
             <td class="m10"></td>
             <td class="m10">Associates the message to a particular output by the index.</td>
             <td class="m10">uint16[]</td>
+            <td class="m10"></td>
+        </tr>
+        <tr>
+            <td class="m9">Reject Address Index</td>
+            <td class="m10">RejectAddressIndex</td>
+            <td class="m10">2</td>
+            <td class="m10"></td>
+            <td class="m10">The address which is believed to have caused the rejection.</td>
+            <td class="m10">uint</td>
             <td class="m10"></td>
         </tr>
         <tr>
