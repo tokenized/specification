@@ -5,18 +5,23 @@ import (
 )
 
 func CompileProtocol(distPath string,
-	msgs parser.ProtocolActions,
+	actions parser.ProtocolActions,
 	typs parser.ProtocolTypes,
 	assets []parser.Asset) {
 
-	for _, pm := range msgs {
-		outfile := "protocol-" + parser.KebabCase(pm.Name()) + ".md"
+	for _, action := range actions {
+		outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
 		templateToFile(distPath, pm, "action.tpl", outfile)
 	}
 
-	for _, a := range assets {
-		outfile := "asset-" + parser.KebabCase(a.Name()) + ".md"
+	for _, asset := range assets {
+		outfile := "asset-" + parser.KebabCase(asset.Name()) + ".md"
 		templateToFile(distPath, a, "asset.tpl", outfile)
+	}
+
+	for _, message := range messages {
+		outfile := "message-" + parser.KebabCase(message.Name()) + ".md"
+		templateToFile(distPath, m, "message.tpl", outfile)
 	}
 }
 
