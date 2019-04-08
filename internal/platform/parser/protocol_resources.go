@@ -33,7 +33,7 @@ type ProtocolResources []ProtocolResource
 
 type ProtocolResource struct {
 	Metadata Metadata
-	Data string
+	Data     string
 }
 
 func (m ProtocolResource) Name() string {

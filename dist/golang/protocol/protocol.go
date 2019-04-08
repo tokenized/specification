@@ -493,9 +493,14 @@ func (time *Timestamp) Nano() uint64 {
 	return time.nanoseconds
 }
 
+// Nano returns the seconds since the Unix epoch for the Timestamp.
+func (time *Timestamp) Seconds() uint32 {
+	return uint32(time.nanoseconds / 1000000000)
+}
+
 // String converts to a string
 func (t *Timestamp) String() string {
-	return time.Unix(int64(t.nanoseconds)/1000000, 0).String()
+	return time.Unix(int64(t.nanoseconds)/1000000000, 0).String()
 }
 
 // Serialize returns a byte slice with the Timestamp in it.
@@ -540,12 +545,7 @@ type Polity struct {
 
 // Validate returns an error if the value is invalid
 func (polity *Polity) Validate() error {
-	validValues, err := GetPolities()
-	if err != nil {
-		return err
-	}
-	_, exists := validValues[string(polity.data[:])]
-	if !exists {
+	if GetPolityType(string(polity.data[:])) == nil {
 		return fmt.Errorf("Invalid polity value : %s", string(polity.data[:]))
 	}
 	return nil

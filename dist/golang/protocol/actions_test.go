@@ -69,9 +69,9 @@ func TestAssetDefinition(t *testing.T) {
 		initialMessage.HolderProposal = true
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint)
 	{
-		initialMessage.AssetModificationGovernance = true
+		// uint test not setup
 	}
 
 	// TokenQty (uint)
@@ -170,7 +170,7 @@ func TestAssetDefinition(t *testing.T) {
 		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint)
 	if initialMessage.AssetModificationGovernance != decodedMessage.AssetModificationGovernance {
 		t.Errorf("AssetModificationGovernance doesn't match : %v != %v", initialMessage.AssetModificationGovernance, decodedMessage.AssetModificationGovernance)
 	}
@@ -250,9 +250,9 @@ func TestAssetCreation(t *testing.T) {
 		initialMessage.HolderProposal = true
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint)
 	{
-		initialMessage.AssetModificationGovernance = true
+		// uint test not setup
 	}
 
 	// TokenQty (uint)
@@ -361,7 +361,7 @@ func TestAssetCreation(t *testing.T) {
 		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint)
 	if initialMessage.AssetModificationGovernance != decodedMessage.AssetModificationGovernance {
 		t.Errorf("AssetModificationGovernance doesn't match : %v != %v", initialMessage.AssetModificationGovernance, decodedMessage.AssetModificationGovernance)
 	}
@@ -604,10 +604,10 @@ func TestContractOffer(t *testing.T) {
 		initialMessage.HolderProposal = true
 	}
 
-	// Registries (Registry[])
+	// Registers (Register[])
 	{
 		for i := 0; i < 2; i++ {
-			initialMessage.Registries = append(initialMessage.Registries, Registry{})
+			initialMessage.Registers = append(initialMessage.Registers, Register{})
 		}
 	}
 
@@ -740,9 +740,9 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// Registries (Registry[])
-	if len(initialMessage.Registries) != len(decodedMessage.Registries) {
-		t.Errorf("Registries lengths don't match : %d != %d", len(initialMessage.Registries), len(decodedMessage.Registries))
+	// Registers (Register[])
+	if len(initialMessage.Registers) != len(decodedMessage.Registers) {
+		t.Errorf("Registers lengths don't match : %d != %d", len(initialMessage.Registers), len(decodedMessage.Registers))
 	}
 }
 
@@ -872,10 +872,10 @@ func TestContractFormation(t *testing.T) {
 		initialMessage.HolderProposal = true
 	}
 
-	// Registries (Registry[])
+	// Registers (Register[])
 	{
 		for i := 0; i < 2; i++ {
-			initialMessage.Registries = append(initialMessage.Registries, Registry{})
+			initialMessage.Registers = append(initialMessage.Registers, Register{})
 		}
 	}
 
@@ -1018,9 +1018,9 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// Registries (Registry[])
-	if len(initialMessage.Registries) != len(decodedMessage.Registries) {
-		t.Errorf("Registries lengths don't match : %d != %d", len(initialMessage.Registries), len(decodedMessage.Registries))
+	// Registers (Register[])
+	if len(initialMessage.Registers) != len(decodedMessage.Registers) {
+		t.Errorf("Registers lengths don't match : %d != %d", len(initialMessage.Registers), len(decodedMessage.Registers))
 	}
 
 	// ContractRevision (uint)
@@ -2415,17 +2415,17 @@ func TestMessage(t *testing.T) {
 func TestRejection(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Rejection{}
-	// QtyReceivingAddresses (uint8)
-	{
-		// uint8 test not setup
-	}
-
 	// AddressIndexes (uint16[])
 	{
 		for i := 0; i < 5; i++ {
 			var item uint16
 			initialMessage.AddressIndexes = append(initialMessage.AddressIndexes, item)
 		}
+	}
+
+	// RejectAddressIndex (uint)
+	{
+		// uint test not setup
 	}
 
 	// RejectionType (uint)
@@ -2478,11 +2478,6 @@ func TestRejection(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// QtyReceivingAddresses (uint8)
-	if initialMessage.QtyReceivingAddresses != decodedMessage.QtyReceivingAddresses {
-		t.Errorf("QtyReceivingAddresses doesn't match : %v != %v", initialMessage.QtyReceivingAddresses, decodedMessage.QtyReceivingAddresses)
-	}
-
 	// AddressIndexes (uint16[])
 	if len(initialMessage.AddressIndexes) != len(decodedMessage.AddressIndexes) {
 		t.Errorf("AddressIndexes lengths don't match : %d != %d", len(initialMessage.AddressIndexes), len(decodedMessage.AddressIndexes))
@@ -2491,6 +2486,11 @@ func TestRejection(t *testing.T) {
 		if value != decodedMessage.AddressIndexes[i] {
 			t.Errorf("AddressIndexes value %d doesn't match : %v != %v", i, value, decodedMessage.AddressIndexes[i])
 		}
+	}
+
+	// RejectAddressIndex (uint)
+	if initialMessage.RejectAddressIndex != decodedMessage.RejectAddressIndex {
+		t.Errorf("RejectAddressIndex doesn't match : %v != %v", initialMessage.RejectAddressIndex, decodedMessage.RejectAddressIndex)
 	}
 
 	// RejectionType (uint)

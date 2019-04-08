@@ -5,7 +5,7 @@ import (
 )
 
 func CompileProtocol(distPath string, actions parser.ProtocolActions, messages parser.ProtocolMessages,
-	types parser.ProtocolTypes, resources parser.ProtocolResources, rejectionCodes  parser.ProtocolRejectionCodes) {
+	types parser.ProtocolTypes, resources parser.ProtocolResources, rejectionCodes parser.ProtocolRejectionCodes) {
 
 	templateToFile(distPath, actions, "actions_test.tpl", "actions_test.go")
 	templateToFile(distPath, actions, "actions.tpl", "actions.go")

@@ -18,10 +18,11 @@ type Field struct {
 	Size           uint64
 	Options        []string
 	IncludeIf      IncludeIf `yaml:"include_if"`
+	IncludeIfInt   IncludeIf `yaml:"include_if_int"`
 	IncludeIfTrue  string    `yaml:"include_if_true"`
 	IncludeIfFalse string    `yaml:"include_if_false"`
-	IntValues         []int `yaml:"int_values"`
-	CharValues         []string `yaml:"char_values"`
+	IntValues      []int     `yaml:"int_values"`
+	CharValues     []string  `yaml:"char_values"`
 	Required       bool
 	ExampleValue   string `yaml:"example_value"`
 	ExampleHex     string `yaml:"example_hex"`

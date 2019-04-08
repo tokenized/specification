@@ -194,7 +194,7 @@ type AssetDefinition struct {
 	VoteMultiplier              uint8     `json:"vote_multiplier,omitempty"`               // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens.
 	IssuerProposal              bool      `json:"issuer_proposal,omitempty"`               // An Issuer is permitted to make proposals (outside of smart contract scope).
 	HolderProposal              bool      `json:"holder_proposal,omitempty"`               // A holder is permitted to make proposals (outside of smart contract scope).
-	AssetModificationGovernance bool      `json:"asset_modification_governance,omitempty"` // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
+	AssetModificationGovernance uint8     `json:"asset_modification_governance,omitempty"` // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
 	TokenQty                    uint64    `json:"token_qty,omitempty"`                     // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset Codes become the non-fungible Asset Code and many Asset Codes can be associated with a particular Contract.
 	AssetPayload                []byte    `json:"asset_payload,omitempty"`                 // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
 }
@@ -306,7 +306,7 @@ func (action *AssetDefinition) serialize() ([]byte, error) {
 		}
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint8)
 	{
 		if err := write(buf, action.AssetModificationGovernance); err != nil {
 			return nil, err
@@ -417,7 +417,7 @@ func (action *AssetDefinition) write(b []byte) (int, error) {
 		}
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint8)
 	{
 		if err := read(buf, &action.AssetModificationGovernance); err != nil {
 			return 0, err
@@ -505,8 +505,12 @@ func (m *AssetDefinition) Validate() error {
 	{
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint8)
 	{
+		if m.AssetModificationGovernance != 0 && m.AssetModificationGovernance != 1 {
+			return fmt.Errorf("field AssetModificationGovernance value is invalid : %d", m.AssetModificationGovernance)
+		}
+
 	}
 
 	// TokenQty (uint64)
@@ -537,7 +541,7 @@ func (action AssetDefinition) String() string {
 	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", action.VoteMultiplier))
 	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%#+v", action.AssetModificationGovernance))
+	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%v", action.AssetModificationGovernance))
 	vals = append(vals, fmt.Sprintf("TokenQty:%v", action.TokenQty))
 	vals = append(vals, fmt.Sprintf("AssetPayload:%#x", action.AssetPayload))
 
@@ -558,7 +562,7 @@ type AssetCreation struct {
 	VoteMultiplier              uint8     `json:"vote_multiplier,omitempty"`               // Multiplies the vote by the integer. 1 token = 1 vote with a 1 for vote multipler (normal).  1 token = 3 votes with a multiplier of 3, for example.
 	IssuerProposal              bool      `json:"issuer_proposal,omitempty"`               // An Issuer is permitted to make proposals (outside of smart contract scope).
 	HolderProposal              bool      `json:"holder_proposal,omitempty"`               // A holder is permitted to make proposals (outside of smart contract scope).
-	AssetModificationGovernance bool      `json:"asset_modification_governance,omitempty"` // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative).  The voting system specifies the voting rules.
+	AssetModificationGovernance uint8     `json:"asset_modification_governance,omitempty"` // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
 	TokenQty                    uint64    `json:"token_qty,omitempty"`                     // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset Codes become the non-fungible Asset Code and many Asset Codes can be associated with a particular Contract.
 	AssetPayload                []byte    `json:"asset_payload,omitempty"`                 // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
 	AssetRevision               uint32    `json:"asset _revision,omitempty"`               // Counter 0 to (2^32)-1
@@ -672,7 +676,7 @@ func (action *AssetCreation) serialize() ([]byte, error) {
 		}
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint8)
 	{
 		if err := write(buf, action.AssetModificationGovernance); err != nil {
 			return nil, err
@@ -802,7 +806,7 @@ func (action *AssetCreation) write(b []byte) (int, error) {
 		}
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint8)
 	{
 		if err := read(buf, &action.AssetModificationGovernance); err != nil {
 			return 0, err
@@ -904,8 +908,12 @@ func (m *AssetCreation) Validate() error {
 	{
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint8)
 	{
+		if m.AssetModificationGovernance != 0 && m.AssetModificationGovernance != 1 {
+			return fmt.Errorf("field AssetModificationGovernance value is invalid : %d", m.AssetModificationGovernance)
+		}
+
 	}
 
 	// TokenQty (uint64)
@@ -948,7 +956,7 @@ func (action AssetCreation) String() string {
 	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", action.VoteMultiplier))
 	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%#+v", action.AssetModificationGovernance))
+	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%v", action.AssetModificationGovernance))
 	vals = append(vals, fmt.Sprintf("TokenQty:%v", action.TokenQty))
 	vals = append(vals, fmt.Sprintf("AssetPayload:%#x", action.AssetPayload))
 	vals = append(vals, fmt.Sprintf("AssetRevision:%v", action.AssetRevision))
@@ -1189,7 +1197,7 @@ type ContractOffer struct {
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	IssuerProposal           bool           `json:"issuer_proposal,omitempty"`            // An Issuer is permitted to make proposals (outside of smart contract scope).
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // A holder is permitted to make proposals (outside of smart contract scope).
-	Registries               []Registry     `json:"registries,omitempty"`                 // A list Registries
+	Registers                []Register     `json:"registers,omitempty"`                  // A list Registers that provide approval for all token transfers for all assets under the contract.
 }
 
 // Type returns the type identifer for this message.
@@ -1379,12 +1387,12 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		}
 	}
 
-	// Registries ([]Registry)
+	// Registers ([]Register)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Registries)), 0, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Registers)), 0, 8); err != nil {
 			return nil, err
 		}
-		for _, value := range action.Registries {
+		for _, value := range action.Registers {
 			b, err := value.Serialize()
 			if err != nil {
 				return nil, err
@@ -1570,20 +1578,20 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 		}
 	}
 
-	// Registries ([]Registry)
+	// Registers ([]Register)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return 0, err
 		}
-		action.Registries = make([]Registry, 0, size)
+		action.Registers = make([]Register, 0, size)
 		for i := uint64(0); i < size; i++ {
-			var newValue Registry
+			var newValue Register
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			action.Registries = append(action.Registries, newValue)
+			action.Registers = append(action.Registers, newValue)
 		}
 	}
 
@@ -1729,16 +1737,16 @@ func (m *ContractOffer) Validate() error {
 	{
 	}
 
-	// Registries ([]Registry)
+	// Registers ([]Register)
 	{
-		if len(m.Registries) > (2<<0)-1 {
-			return fmt.Errorf("list field Registries has too many items %d/%d", len(m.Registries), (2<<0)-1)
+		if len(m.Registers) > (2<<0)-1 {
+			return fmt.Errorf("list field Registers has too many items %d/%d", len(m.Registers), (2<<0)-1)
 		}
 
-		for i, value := range m.Registries {
+		for i, value := range m.Registers {
 			err := value.Validate()
 			if err != nil {
-				return fmt.Errorf("list field Registries[%d] is invalid : %s", i, err)
+				return fmt.Errorf("list field Registers[%d] is invalid : %s", i, err)
 			}
 		}
 	}
@@ -1770,7 +1778,7 @@ func (action ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("Registries:%#+v", action.Registries))
+	vals = append(vals, fmt.Sprintf("Registers:%#+v", action.Registers))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -1802,7 +1810,7 @@ type ContractFormation struct {
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	IssuerProposal           bool           `json:"issuer_proposal,omitempty"`            // The issuer is permitted to make proposals (outside of smart contract scope).
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // A holder is permitted to make proposals (outside of smart contract scope).
-	Registries               []Registry     `json:"registries,omitempty"`                 // A list Registries
+	Registers                []Register     `json:"registers,omitempty"`                  // A list Register
 	ContractRevision         uint32         `json:"contract_revision,omitempty"`          // Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published.
 	Timestamp                Timestamp      `json:"timestamp,omitempty"`                  // Timestamp in nanoseconds of when the smart contract created the action.
 }
@@ -1994,12 +2002,12 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// Registries ([]Registry)
+	// Registers ([]Register)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Registries)), 0, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Registers)), 0, 8); err != nil {
 			return nil, err
 		}
-		for _, value := range action.Registries {
+		for _, value := range action.Registers {
 			b, err := value.Serialize()
 			if err != nil {
 				return nil, err
@@ -2204,20 +2212,20 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// Registries ([]Registry)
+	// Registers ([]Register)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return 0, err
 		}
-		action.Registries = make([]Registry, 0, size)
+		action.Registers = make([]Register, 0, size)
 		for i := uint64(0); i < size; i++ {
-			var newValue Registry
+			var newValue Register
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			action.Registries = append(action.Registries, newValue)
+			action.Registers = append(action.Registers, newValue)
 		}
 	}
 
@@ -2377,16 +2385,16 @@ func (m *ContractFormation) Validate() error {
 	{
 	}
 
-	// Registries ([]Registry)
+	// Registers ([]Register)
 	{
-		if len(m.Registries) > (2<<0)-1 {
-			return fmt.Errorf("list field Registries has too many items %d/%d", len(m.Registries), (2<<0)-1)
+		if len(m.Registers) > (2<<0)-1 {
+			return fmt.Errorf("list field Registers has too many items %d/%d", len(m.Registers), (2<<0)-1)
 		}
 
-		for i, value := range m.Registries {
+		for i, value := range m.Registers {
 			err := value.Validate()
 			if err != nil {
-				return fmt.Errorf("list field Registries[%d] is invalid : %s", i, err)
+				return fmt.Errorf("list field Registers[%d] is invalid : %s", i, err)
 			}
 		}
 	}
@@ -2430,7 +2438,7 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("Registries:%#+v", action.Registries))
+	vals = append(vals, fmt.Sprintf("Registers:%#+v", action.Registers))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
@@ -5421,12 +5429,7 @@ func (m *Message) Validate() error {
 
 	// MessageType (uint16)
 	{
-		messages, err := GetMessages()
-		if err != nil {
-			return err
-		}
-		_, exists := messages[m.MessageType]
-		if !exists {
+		if GetMessageType(m.MessageType) == nil {
 			return fmt.Errorf("Invalid message value : %d", m.MessageType)
 		}
 	}
@@ -5461,12 +5464,12 @@ func (action Message) String() string {
 // to remain revenue neutral. If not enough fees are attached to pay for
 // the Contract response then the Contract will not respond.
 type Rejection struct {
-	Header                Header    `json:"header,omitempty"`                  // Common header data for all actions
-	QtyReceivingAddresses uint8     `json:"qty_receiving_addresses,omitempty"` // 0-255 Message Receiving Addresses
-	AddressIndexes        []uint16  `json:"address_indexes,omitempty"`         // Associates the message to a particular output by the index.
-	RejectionType         uint8     `json:"rejection_type,omitempty"`          // Classifies the rejection by a type.
-	MessagePayload        string    `json:"message_payload,omitempty"`         // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
-	Timestamp             Timestamp `json:"timestamp,omitempty"`               // Timestamp in nanoseconds of when the smart contract created the action.
+	Header             Header    `json:"header,omitempty"`               // Common header data for all actions
+	AddressIndexes     []uint16  `json:"address_indexes,omitempty"`      // Associates the message to a particular output by the index.
+	RejectAddressIndex uint16    `json:"reject_address_index,omitempty"` // The address which is believed to have caused the rejection.
+	RejectionType      uint8     `json:"rejection_type,omitempty"`       // Classifies the rejection by a type.
+	MessagePayload     string    `json:"message_payload,omitempty"`      // Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
+	Timestamp          Timestamp `json:"timestamp,omitempty"`            // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
 // Type returns the type identifer for this message.
@@ -5491,13 +5494,6 @@ func (action *Rejection) read(b []byte) (int, error) {
 // serialize returns the full OP_RETURN payload bytes.
 func (action *Rejection) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-	// QtyReceivingAddresses (uint8)
-	{
-		if err := write(buf, action.QtyReceivingAddresses); err != nil {
-			return nil, err
-		}
-	}
-
 	// AddressIndexes ([]uint16)
 	{
 		if err := WriteVariableSize(buf, uint64(len(action.AddressIndexes)), 0, 8); err != nil {
@@ -5507,6 +5503,13 @@ func (action *Rejection) serialize() ([]byte, error) {
 			if err := write(buf, value); err != nil {
 				return nil, err
 			}
+		}
+	}
+
+	// RejectAddressIndex (uint16)
+	{
+		if err := write(buf, action.RejectAddressIndex); err != nil {
+			return nil, err
 		}
 	}
 
@@ -5542,13 +5545,6 @@ func (action *Rejection) serialize() ([]byte, error) {
 // write populates the fields in Rejection from the byte slice
 func (action *Rejection) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
-	// QtyReceivingAddresses (uint8)
-	{
-		if err := read(buf, &action.QtyReceivingAddresses); err != nil {
-			return 0, err
-		}
-	}
-
 	// AddressIndexes ([]uint16)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
@@ -5557,6 +5553,13 @@ func (action *Rejection) write(b []byte) (int, error) {
 		}
 		action.AddressIndexes = make([]uint16, size, size)
 		if err := read(buf, &action.AddressIndexes); err != nil {
+			return 0, err
+		}
+	}
+
+	// RejectAddressIndex (uint16)
+	{
+		if err := read(buf, &action.RejectAddressIndex); err != nil {
 			return 0, err
 		}
 	}
@@ -5589,15 +5592,15 @@ func (action *Rejection) write(b []byte) (int, error) {
 
 func (m *Rejection) Validate() error {
 
-	// QtyReceivingAddresses (uint8)
-	{
-	}
-
 	// AddressIndexes ([]uint16)
 	{
 		if len(m.AddressIndexes) > (2<<0)-1 {
 			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<0)-1)
 		}
+	}
+
+	// RejectAddressIndex (uint16)
+	{
 	}
 
 	// RejectionType (uint8)
@@ -5626,8 +5629,8 @@ func (action Rejection) String() string {
 	vals := []string{}
 
 	vals = append(vals, fmt.Sprintf("Header:%#+v", action.Header))
-	vals = append(vals, fmt.Sprintf("QtyReceivingAddresses:%v", action.QtyReceivingAddresses))
 	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", action.AddressIndexes))
+	vals = append(vals, fmt.Sprintf("RejectAddressIndex:%v", action.RejectAddressIndex))
 	vals = append(vals, fmt.Sprintf("RejectionType:%v", action.RejectionType))
 	vals = append(vals, fmt.Sprintf("MessagePayload:%#+v", action.MessagePayload))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))

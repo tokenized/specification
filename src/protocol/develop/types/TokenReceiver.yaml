@@ -1,6 +1,6 @@
 metadata:
   name: TokenReceiver
-  description: "A TokenReceiver is contains a quantity, index, and registry token deails. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position. The registry token details include the type of algorithm, and the token."
+  description: "A TokenReceiver is contains a quantity, index, and register signature. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position."
 
 fields:
   - name: Index
@@ -21,21 +21,28 @@ fields:
     example_value: 100
     notes: ""
 
-  - name: RegistrySigAlgorithm
-    label: Registry Signature Algorithm
-    description: "0 = No Registry-signed Message, 1 = ECDSA+secp256k1"
+  - name: RegisterSigAlgorithm
+    label: Register Signature Algorithm
+    description: "0 = No Register-signed Message (RegisterConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has registers, then a signature is required from one of them."
     type: uint
     size: 1
     example_hex: 01
     example_value: 1
     notes: ""
+    int_values:
+      - 0
+      - 1
 
-  - name: RegistryConfirmationSigToken
-    label: Registry Confirmation Signature for Token Receiving X
-    description: "Length 0-255 bytes. IF restricted to a registry (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted registry through an API signature of [Contract Address + Asset Code + Public Address + Blockhash of the Latest Block + Block Height + Confirmed/Rejected Bool]. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field."
-    type: varchar
-    # varchar size is number of bits to serialize the size of the value
+  - name: RegisterConfirmationSig
+    label: Register Confirmation Signature
+    description: "Length 0-255 bytes. If restricted to a register (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted register through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field."
+    type: varbin
+    # varbin size is number of bits to serialize the size of the value
     size: 8
     example_hex: 584945777a4a423233734672794b4d7a78354d6642776e7431474d554b4e54516e7146385768735344317777744b4b6737426f412f35474c657535556e776172375a687452313874647a75496664584474552b7a4d484c383d
     example_value: "IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8="
     notes: ""
+    include_if_int:
+      field: RegisterSigAlgorithm
+      values:
+        - 1

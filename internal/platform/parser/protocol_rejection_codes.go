@@ -21,12 +21,12 @@ func NewProtocolRejectionCodes(filename string) ProtocolRejectionCodes {
 }
 
 type ProtocolRejectionCode struct {
-	Name string
-	Text string
+	Name        string
+	Text        string
 	Description string
 }
 
 type ProtocolRejectionCodes struct {
 	Metadata Metadata
-	Values map[uint8]ProtocolRejectionCode
+	Values   map[uint8]ProtocolRejectionCode
 }

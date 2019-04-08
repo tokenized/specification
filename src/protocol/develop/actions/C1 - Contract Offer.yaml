@@ -205,7 +205,7 @@ fields:
     example_value: true
     notes: ""
 
-  - name: Registries
-    label: Registries
-    description: "A list Registries"
-    type: Registry[]
+  - name: Registers
+    label: Registers
+    description: "A list Registers that provide approval for all token transfers for all assets under the contract."
+    type: Register[]

@@ -199,8 +199,8 @@ The following breaks down the construction of a Contract Offer Action. The actio
         </tr>
         <tr>
             <td class="c5" colspan="7">
-                <a href="javascript:;" data-popover="type-Registry">
-                   Registries - Click to show content
+                <a href="javascript:;" data-popover="type-Register">
+                   Registers - Click to show content
                 </a>
             </td>
         </tr>
@@ -681,7 +681,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
     </div>
 </div>
 
-<div class="ui modal" id="type-Registry">
+<div class="ui modal" id="type-Register">
     <i class="close icon"></i>
     <div class="content docs-content">
         <table class="ui table">
@@ -695,29 +695,29 @@ The following breaks down the construction of a Contract Offer Action. The actio
                 <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
-                <td class="c10">Registry Name</td>
+                <td class="c10">Register Name</td>
                 <td class="c10">Name</td>
                 <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Tokenized</td>
-                <td class="c10">Length 0-255 bytes. 0 is valid. Registry X Name (eg. Coinbase, Tokenized, etc.)</td>
+                <td class="c10">Length 0-255 bytes. 0 is valid. Register X Name (eg. Coinbase, Tokenized, etc.)</td>
                 <td class="c10">varchar</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Registry URL</td>
+                <td class="c10">Register URL</td>
                 <td class="c10">URL</td>
                 <td class="c10">8</td>
-                <td class="c10" style="word-break:break-all">http://registry.tokenized.com/api/3650d9/version2010</td>
+                <td class="c10" style="word-break:break-all">http://register.tokenized.com/api/3650d9/version2010</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint</td>
                 <td class="c10">varchar</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Registry Public Key</td>
+                <td class="c10">Register Public Key</td>
                 <td class="c10">PublicKey</td>
                 <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.</td>
+                <td class="c10">Length 0-255 bytes. 0 is not valid. Register Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Register.</td>
                 <td class="c10">varbin</td>
                 <td class="c10"></td>
             </tr>
