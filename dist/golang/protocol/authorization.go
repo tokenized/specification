@@ -3,7 +3,6 @@ package protocol
 import (
 	"bytes"
 
-	"github.com/dgryski/go-bitstream"
 	"github.com/pkg/errors"
 )
 

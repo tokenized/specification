@@ -81,7 +81,7 @@ The following breaks down the construction of a Transfer Action. The action is c
             <td class="t6"></td>
             <td class="t10">0</td>
             <td class="t10">Contract Public Address for Asset X</td>
-            <td class="t10">Enough for the costs of the responding action + the Contract Fee</td>
+            <td class="t10">Enough for the costs of the responding action, including any bitcoins being transfered, and the Contract Fee.</td>
         </tr>
 
        <tr>

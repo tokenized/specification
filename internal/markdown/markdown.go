@@ -7,21 +7,22 @@ import (
 func CompileProtocol(distPath string,
 	actions parser.ProtocolActions,
 	typs parser.ProtocolTypes,
-	assets []parser.Asset) {
+	assets []parser.Asset,
+	messages parser.ProtocolMessages) {
 
 	for _, action := range actions {
 		outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
-		templateToFile(distPath, pm, "action.tpl", outfile)
+		templateToFile(distPath, action, "action.tpl", outfile)
 	}
 
 	for _, asset := range assets {
 		outfile := "asset-" + parser.KebabCase(asset.Name()) + ".md"
-		templateToFile(distPath, a, "asset.tpl", outfile)
+		templateToFile(distPath, asset, "asset.tpl", outfile)
 	}
 
 	for _, message := range messages {
 		outfile := "message-" + parser.KebabCase(message.Name()) + ".md"
-		templateToFile(distPath, m, "message.tpl", outfile)
+		templateToFile(distPath, message, "message.tpl", outfile)
 	}
 }
 
