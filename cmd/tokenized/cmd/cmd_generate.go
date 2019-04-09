@@ -47,7 +47,7 @@ var cmdGenerate = &cobra.Command{
 		// Compile languages
 		golang.CompileProtocol(distPath, actions, messages, fieldTypes, resources, rejectionCodes)
 		python.CompileProtocol(distPath, actions, fieldTypes)
-		markdown.CompileProtocol(distPath, actions, fieldTypes, assetTypes)
+		markdown.CompileProtocol(distPath, actions, fieldTypes, assetTypes, messages)
 
 		// ---------------------------------------------------------------------
 		// Assets
