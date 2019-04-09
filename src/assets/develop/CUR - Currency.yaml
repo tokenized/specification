@@ -15,9 +15,8 @@ metadata:
 
 fields:
   - name: Version
-    label: Version
+    label: Payload Version
     type: uint
-    description: Payload Version
     size: 1
     example: 0
     computed: true

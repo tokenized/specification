@@ -1,6 +1,6 @@
 # Coupon
 
-Value exchange coupon
+A voucher entitling the holder to a discount off a particular product or service.
 
 
 
@@ -14,9 +14,9 @@ Value exchange coupon
             <th class="s1">Example</th>
         </tr>
         <tr>
-            <td class="a10">Version</td>
-            <td class="a10">uint</td>
             <td class="a10">Payload Version</td>
+            <td class="a10">uint</td>
+            <td class="a10"></td>
             <td class="a10">1</td>
             <td class="a10"></td>
         </tr>

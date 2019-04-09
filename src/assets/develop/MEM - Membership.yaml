@@ -54,12 +54,30 @@ fields:
     span: right
     displayOrder: 3
 
-  - name: MembershipType
-    label: MembershipType
+  - name: MembershipClass
+    label: Membership Class
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example: Director, Silver, Employee
+    example: Owner, Administrator, Manager, General, can be NULL.
+    span: right
+    displayOrder: 3
+
+  - name: RoleType
+    label: Role Type
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
+    example: Director, Partner, CEO, COO, etc., can be NULL from Roles in Resources/Roles
+    span: right
+    displayOrder: 3
+
+  - name: MembershipType
+    label: Membership Type
+    type: varchar
+    # varchar size is number of bits to serialize the size of the value
+    size: 8
+    example: Silver, Platinum, can be NULL.
     span: right
     displayOrder: 3
 
