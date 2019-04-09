@@ -6,7 +6,7 @@ code: C2
 
 metadata:
   name: ContractFormation
-  label: Contract Formation Action
+  label: Contract Formation
   description: "This txn is created by the Contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer.  The Smart Contract will execute on a server controlled by the Issuer. or a Smart Contract Operator on their behalf."
   validation: AssetCreation
   rejection: Rejection
@@ -24,12 +24,6 @@ rules:
       comments: "Required so that users can monitor transactions to the contract for updates to contract/assets."
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
   - name: ContractName
     label: Contract Name
     description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."

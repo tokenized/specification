@@ -6,8 +6,8 @@ code: A2
 
 metadata:
   name: AssetCreation
-  label: Asset Creation Action
-  description: "Asset Creation Action -  This action creates an Asset in response to the Issuer's instructions in the Definition Action."
+  label: Asset Creation
+  description: "This action creates an Asset in response to the Issuer's instructions in the Definition Action."
   validation: AssetCreation
   rejection: Rejection
 
@@ -24,12 +24,6 @@ rules:
       comments: "Required so that users can monitor transactions to the contract for updates to contract/assets."
 
 fields:
-  - name: Header
-    label: "Header"
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
   - name: AssetType
     label: Asset Type
     description: "eg. Share - Common"

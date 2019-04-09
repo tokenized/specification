@@ -6,8 +6,8 @@ code: G2
 
 metadata:
   name: Vote
-  label: Vote Action
-  description: "Vote Action - A vote is created by the Contract in response to a valid Proposal Action."
+  label: Vote
+  description: "A vote is created by the Contract in response to a valid Proposal Action."
   validation: None
   rejection: Rejection
 
@@ -24,12 +24,6 @@ rules:
       comments:
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."

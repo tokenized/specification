@@ -6,7 +6,7 @@ code: T1
 
 metadata:
   name: Transfer
-  label: Transfer Action
+  label: Transfer
   description: "A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain."
   validation: AssetCreation
   rejection: Rejection
@@ -28,12 +28,6 @@ rules:
       comments: Token Output Address X (Token Receiver).
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
   - name: Assets
     label: Assets
     description: "The Assets involved in the Transfer Action."

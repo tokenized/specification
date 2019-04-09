@@ -6,8 +6,8 @@ code: E5
 
 metadata:
   name: Reconciliation
-  label: Reconciliation Action
-  description: "Reconciliation Action -  to be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances."
+  label: Reconciliation
+  description: "To be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances."
   validation: AssetCreation
   rejection: Rejection
 
@@ -32,12 +32,6 @@ rules:
       comments: Contract fee if applicable
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket"

@@ -11,9 +11,9 @@ code: M1
 
 metadata:
   name: Message
-  label: Message Action
+  label: Message
   description: >
-    Message Action - the message action is a general purpose communication action.
+    The message action is a general purpose communication action.
     'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for
     passing partially signed txns on-chain, establishing private communication channels
     and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken
@@ -33,12 +33,6 @@ rules:
       comments: Dust limit rule minimum value output of 546
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: AddressIndexes
     label: Address Indexes
     description: "Associates the message to a particular output by the index."

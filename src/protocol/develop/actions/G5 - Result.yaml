@@ -6,8 +6,8 @@ code: G5
 
 metadata:
   name: Result
-  label: Result Action
-  description: "Result Action - Once a vote has been completed the results are published. After the result is posted, it is up to the issuer to send a contract/asset amendement if appropriate."
+  label: Result
+  description: "Once a vote has been completed the results are published. After the result is posted, it is up to the issuer to send a contract/asset amendement if appropriate."
   validation: None
   rejection: Rejection
 
@@ -24,12 +24,6 @@ rules:
       comments: Dust limit rule minimum value output of 546
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
   - name: AssetSpecificVote
     label: Asset Specific Vote
     description: "When true this proposal is specific to an asset and the asset type and asset code fields are serialized."

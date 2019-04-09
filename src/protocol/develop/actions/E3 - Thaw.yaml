@@ -6,8 +6,8 @@ code: E3
 
 metadata:
   name: Thaw
-  label: Thaw Action
-  description: "Thaw Action -  to be used to comply with contractual obligations or legal requirements.  The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities."
+  label: Thaw
+  description: "To be used to comply with contractual obligations or legal requirements.  The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities."
   validation: AssetCreation
   rejection: Rejection
 
@@ -32,12 +32,6 @@ rules:
       comments: Contract fee if applicable
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: FreezeTxId
     label: Freeze Tx Id
     description: "The tx id of the freeze action that is being reversed."

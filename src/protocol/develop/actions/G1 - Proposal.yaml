@@ -6,8 +6,8 @@ code: G1
 
 metadata:
   name: Proposal
-  label: Proposal Action
-  description: "Proposal Action - Allows Issuers/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners."
+  label: Proposal
+  description: "Allows Issuers/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners."
   validation: Contract/Asset Amendment or nothing
   rejection: Rejection
 
@@ -28,12 +28,6 @@ rules:
       comments: Fund the Result TX at Vote cut off
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
   - name: Initiator
     label: Initiator
     description: "Who initiated the proposal. 0 - Issuer, 1 - Holder"

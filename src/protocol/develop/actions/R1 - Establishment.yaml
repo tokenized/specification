@@ -6,8 +6,8 @@ code: R1
 
 metadata:
   name: Establishment
-  label: Establishment Action
-  description: "Establishment Action -  Establishes an on-chain register."
+  label: Establishment
+  description: "Establishes an on-chain register."
 
 rules:
   fee:
@@ -22,12 +22,6 @@ rules:
       comments: Sends Bitcoin back to itself less mining fees.
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: Message
     label: Message
     description:

@@ -6,8 +6,8 @@ code: A3
 
 metadata:
   name: AssetModification
-  label: Asset Modification Action
-  description: "Asset Modification Action -  Token Dilutions, Call Backs/Revocations, burning etc."
+  label: Asset Modification
+  description: "Token Dilutions, Call Backs/Revocations, burning etc."
   validation: AssetCreation
   rejection: Rejection
 
@@ -24,12 +24,6 @@ rules:
       comments: Enough for the responding action.
 
 fields:
-  - name: Header
-    label: "Header"
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
   - name: AssetType
     label: Asset Type
     description: "eg. Share - Common"

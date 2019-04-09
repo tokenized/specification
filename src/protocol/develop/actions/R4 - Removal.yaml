@@ -6,8 +6,8 @@ code: R4
 
 metadata:
   name: Removal
-  label: Removal Action
-  description: "Removal Action - Removes an entry/record from the Register."
+  label: Removal
+  description: "Removes an entry/record from the Register."
 
 rules:
   fee:
@@ -22,12 +22,6 @@ rules:
       comments:
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: Message
     label: Message
     description:

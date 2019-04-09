@@ -6,8 +6,8 @@ code: R2
 
 metadata:
   name: Addition
-  label: Addition Action
-  description: "Addition Action -  Adds an entry to the Register."
+  label: Addition
+  description: "Adds an entry to the Register."
 
 rules:
   fee:
@@ -22,12 +22,6 @@ rules:
       comments:
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: Message
     label: Message
     description:

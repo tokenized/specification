@@ -6,8 +6,8 @@ code: G4
 
 metadata:
   name: BallotCounted
-  label: Ballot Counted Action
-  description: "Ballot Counted Action - The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
+  label: Ballot Counted
+  description: "The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action."
   validation: None
   rejection: Rejection
 
@@ -24,12 +24,6 @@ rules:
       comments: Dust limit rule minimum value output of 546
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: VoteTxId
     label: Vote Tx ID
     description: "Tx ID of the Vote the Ballot Cast is being made for."

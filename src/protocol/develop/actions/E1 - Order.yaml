@@ -9,8 +9,8 @@ code: E1
 
 metadata:
   name: Order
-  label: Order Action
-  description: "Order Action -  Issuer to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled."
+  label: Order
+  description: "Issuer to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled."
   validation: AssetCreation
   rejection: Rejection
 
@@ -27,12 +27,6 @@ rules:
       comments: Contract fee and funding for response tx
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
   - name: ComplianceAction
     label: Compliance Action
     description: "Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)"

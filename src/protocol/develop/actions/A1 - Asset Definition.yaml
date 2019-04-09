@@ -6,13 +6,13 @@ code: A1
 
 metadata:
   name: AssetDefinition
-  label: Asset Definition Action
-  description: "Asset Definition Action -  This action is used by the issuer to define the properties/characteristics of the Asset (token) that it wants to create."
+  label: Asset Definition
+  description: "This action is used by the issuer to define the properties/characteristics of the Asset (token) that it wants to create."
   validation: AssetCreation
   rejection: Rejection
 
 rules:
-  fee:
+  fee: 2000
   inputs:
     - name: Issuer
       label: "Issuer's Public Address"
@@ -24,12 +24,6 @@ rules:
       comments: Must include enough for the responding action.
 
 fields:
-  - name: Header
-    label: "Header"
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by issuer or operator at their discretion."
-
   - name: AssetType
     label: Asset Type
     description: "eg. Share - Common"

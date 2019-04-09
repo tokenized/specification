@@ -6,8 +6,8 @@ code: R3
 
 metadata:
   name: Alteration
-  label: Alteration Action
-  description: "Alteration Action -  A register entry/record can be altered."
+  label: Alteration
+  description: "A register entry/record can be altered."
 
 rules:
   fee:
@@ -22,12 +22,6 @@ rules:
       comments:
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: Message
     label: Message
     description:

@@ -6,8 +6,8 @@ code: E4
 
 metadata:
   name: Confiscation
-  label: Confiscation Action
-  description: "Confiscation Action -  to be used to comply with contractual obligations, legal and/or issuer requirements."
+  label: Confiscation
+  description: "To be used to comply with contractual obligations, legal and/or issuer requirements."
   validation: AssetCreation
   rejection: Rejection
 
@@ -36,12 +36,6 @@ rules:
       comments: Contract fee if applicable
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket"

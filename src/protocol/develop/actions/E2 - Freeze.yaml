@@ -6,8 +6,8 @@ code: E2
 
 metadata:
   name: Freeze
-  label: Freeze Action
-  description: "Freeze Action -  To be used to comply with contractual/legal/issuer requirements.  The target public address(es) will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract will not respond to any actions requested by the frozen address."
+  label: Freeze
+  description: "To be used to comply with contractual/legal/issuer requirements.  The target public address(es) will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract will not respond to any actions requested by the frozen address."
   validation: AssetCreation
   rejection: Rejection
 
@@ -32,12 +32,6 @@ rules:
       comments: Contract fee if applicable
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: AssetType
     label: Asset Type
     description: "eg. Share, Bond, Ticket"
