@@ -5,35 +5,33 @@
 # be overwritten when code is regenerated.
 
 
-# Asset Definition Action - This action is used by the issuer to define the
+# This action is used by the issuer to define the
 # properties/characteristics of the Asset (token) that it wants to create.
 
 class Action_AssetDefinition(ActionBase):
     ActionPrefix = 'A1'
 
     schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'AssetAuthFlags':                  [1, DAT_varbin, 8],
-        'TransfersPermitted':              [2, DAT_bool, 0],
-        'TradeRestrictions':               [3, DAT_Polity[], 16],
-        'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
-        'VotingRights':                    [5, DAT_bool, 0],
-        'VoteMultiplier':                  [6, DAT_uint, 1],
-        'IssuerProposal':                  [7, DAT_bool, 0],
-        'HolderProposal':                  [8, DAT_bool, 0],
-        'AssetModificationGovernance':     [9, DAT_uint, 1],
-        'TokenQty':                        [10, DAT_uint, 8],
-        'AssetPayload':                    [11, DAT_varbin, 16]
+        'AssetAuthFlags':                  [0, DAT_varbin, 8],
+        'TransfersPermitted':              [1, DAT_bool, 0],
+        'TradeRestrictions':               [2, DAT_Polity[], 16],
+        'EnforcementOrdersPermitted':      [3, DAT_bool, 0],
+        'VotingRights':                    [4, DAT_bool, 0],
+        'VoteMultiplier':                  [5, DAT_uint, 1],
+        'IssuerProposal':                  [6, DAT_bool, 0],
+        'HolderProposal':                  [7, DAT_bool, 0],
+        'AssetModificationGovernance':     [8, DAT_uint, 1],
+        'TokenQty':                        [9, DAT_uint, 8],
+        'AssetPayload':                    [10, DAT_varbin, 16]
     }
 
     rules = {
-        'contractFee': 0,
+        'contractFee': 2000,
         'inputs': [ACT_CONTRACT],
         'outputs': [ACT_USER, ACT_CONTRACT]
     }
 
     def init_attributes(self):
-        self.AssetAuthFlags = None
         self.TransfersPermitted = None
         self.TradeRestrictions = None
         self.EnforcementOrdersPermitted = None
@@ -46,27 +44,26 @@ class Action_AssetDefinition(ActionBase):
         self.AssetPayload = None
 
 
-# Asset Creation Action - This action creates an Asset in response to the
-# Issuer's instructions in the Definition Action.
+# This action creates an Asset in response to the Issuer's instructions in
+# the Definition Action.
 
 class Action_AssetCreation(ActionBase):
     ActionPrefix = 'A2'
 
     schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'AssetAuthFlags':                  [1, DAT_varbin, 8],
-        'TransfersPermitted':              [2, DAT_bool, 0],
-        'TradeRestrictions':               [3, DAT_Polity[], 16],
-        'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
-        'VotingRights':                    [5, DAT_bool, 0],
-        'VoteMultiplier':                  [6, DAT_uint, 1],
-        'IssuerProposal':                  [7, DAT_bool, 0],
-        'HolderProposal':                  [8, DAT_bool, 0],
-        'AssetModificationGovernance':     [9, DAT_uint, 1],
-        'TokenQty':                        [10, DAT_uint, 8],
-        'AssetPayload':                    [11, DAT_varbin, 16],
-        'Asset Revision':                  [12, DAT_uint, 4],
-        'Timestamp':                       [13, DAT_Timestamp, 0]
+        'AssetAuthFlags':                  [0, DAT_varbin, 8],
+        'TransfersPermitted':              [1, DAT_bool, 0],
+        'TradeRestrictions':               [2, DAT_Polity[], 16],
+        'EnforcementOrdersPermitted':      [3, DAT_bool, 0],
+        'VotingRights':                    [4, DAT_bool, 0],
+        'VoteMultiplier':                  [5, DAT_uint, 1],
+        'IssuerProposal':                  [6, DAT_bool, 0],
+        'HolderProposal':                  [7, DAT_bool, 0],
+        'AssetModificationGovernance':     [8, DAT_uint, 1],
+        'TokenQty':                        [9, DAT_uint, 8],
+        'AssetPayload':                    [10, DAT_varbin, 16],
+        'Asset Revision':                  [11, DAT_uint, 4],
+        'Timestamp':                       [12, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -76,7 +73,6 @@ class Action_AssetCreation(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetAuthFlags = None
         self.TransfersPermitted = None
         self.TradeRestrictions = None
         self.EnforcementOrdersPermitted = None
@@ -91,17 +87,15 @@ class Action_AssetCreation(ActionBase):
         self.Timestamp = None
 
 
-# Asset Modification Action - Token Dilutions, Call Backs/Revocations,
-# burning etc.
+# Token Dilutions, Call Backs/Revocations, burning etc.
 
 class Action_AssetModification(ActionBase):
     ActionPrefix = 'A3'
 
     schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'AssetRevision':                   [1, DAT_uint, 4],
-        'Amendments':                      [2, DAT_Amendment[], 0],
-        'RefTxID':                         [3, DAT_TxId, 0]
+        'AssetRevision':                   [0, DAT_uint, 4],
+        'Amendments':                      [1, DAT_Amendment[], 0],
+        'RefTxID':                         [2, DAT_TxId, 0]
     }
 
     rules = {
@@ -111,43 +105,41 @@ class Action_AssetModification(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetRevision = None
         self.Amendments = None
         self.RefTxID = None
 
 
-# The Contract Offer action allows the Issuer to tell the smart contract
-# what they want the details (labels, data, T&C's, etc.) of the Contract to
-# be on-chain in a public and immutable way. The Contract Offer action
-# 'initializes' a generic smart contract that has been spun up by either
-# the Smart Contract Operator or the Issuer. This on-chain action allows
-# for the positive response from the smart contract with either a Contract
-# Formation Action or a Rejection Action.
+# Allows the Issuer to tell the smart contract what they want the details
+# (labels, data, T&C's, etc.) of the Contract to be on-chain in a public
+# and immutable way. The Contract Offer action 'initializes' a generic
+# smart contract that has been spun up by either the Smart Contract
+# Operator or the Issuer. This on-chain action allows for the positive
+# response from the smart contract with either a Contract Formation Action
+# or a Rejection Action.
 
 class Action_ContractOffer(ActionBase):
     ActionPrefix = 'C1'
 
     schema = {
-        'BodyOfAgreementType':             [0, DAT_uint, 1],
-        'BodyOfAgreement':                 [1, DAT_varbin, 32],
-        'ContractType':                    [2, DAT_varchar, 8],
-        'SupportingDocsFileType':          [3, DAT_uint, 1],
-        'SupportingDocs':                  [4, DAT_varbin, 32],
-        'GoverningLaw':                    [5, DAT_fixedchar, 5],
-        'Jurisdiction':                    [6, DAT_fixedchar, 5],
-        'ContractExpiration':              [7, DAT_Timestamp, 0],
-        'ContractURI':                     [8, DAT_varchar, 8],
-        'Issuer':                          [9, DAT_Entity, 0],
-        'IssuerLogoURL':                   [10, DAT_varchar, 8],
-        'ContractOperatorIncluded':        [11, DAT_bool, 0],
-        'ContractOperator':                [12, DAT_Entity, 0],
-        'ContractAuthFlags':               [13, DAT_varbin, 16],
-        'ContractFee':                     [14, DAT_uint, 8],
-        'VotingSystems':                   [15, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [16, DAT_uint, 8],
-        'IssuerProposal':                  [17, DAT_bool, 0],
-        'HolderProposal':                  [18, DAT_bool, 0],
-        'Registers':                       [19, DAT_Register[], 0]
+        'BodyOfAgreement':                 [0, DAT_varbin, 32],
+        'ContractType':                    [1, DAT_varchar, 8],
+        'SupportingDocsFileType':          [2, DAT_uint, 1],
+        'SupportingDocs':                  [3, DAT_varbin, 32],
+        'GoverningLaw':                    [4, DAT_fixedchar, 5],
+        'Jurisdiction':                    [5, DAT_fixedchar, 5],
+        'ContractExpiration':              [6, DAT_Timestamp, 0],
+        'ContractURI':                     [7, DAT_varchar, 8],
+        'Issuer':                          [8, DAT_Entity, 0],
+        'IssuerLogoURL':                   [9, DAT_varchar, 8],
+        'ContractOperatorIncluded':        [10, DAT_bool, 0],
+        'ContractOperator':                [11, DAT_Entity, 0],
+        'ContractAuthFlags':               [12, DAT_varbin, 16],
+        'ContractFee':                     [13, DAT_uint, 8],
+        'VotingSystems':                   [14, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [15, DAT_uint, 8],
+        'IssuerProposal':                  [16, DAT_bool, 0],
+        'HolderProposal':                  [17, DAT_bool, 0],
+        'Registers':                       [18, DAT_Register[], 0]
     }
 
     rules = {
@@ -157,7 +149,6 @@ class Action_ContractOffer(ActionBase):
     }
 
     def init_attributes(self):
-        self.BodyOfAgreement = None
         self.ContractType = None
         self.SupportingDocsFileType = None
         self.SupportingDocs = None
@@ -187,28 +178,27 @@ class Action_ContractFormation(ActionBase):
     ActionPrefix = 'C2'
 
     schema = {
-        'BodyOfAgreementType':             [0, DAT_uint, 1],
-        'BodyOfAgreement':                 [1, DAT_varbin, 32],
-        'ContractType':                    [2, DAT_varchar, 8],
-        'SupportingDocsFileType':          [3, DAT_uint, 1],
-        'SupportingDocs':                  [4, DAT_varbin, 32],
-        'GoverningLaw':                    [5, DAT_fixedchar, 5],
-        'Jurisdiction':                    [6, DAT_fixedchar, 5],
-        'ContractExpiration':              [7, DAT_Timestamp, 0],
-        'ContractURI':                     [8, DAT_varchar, 8],
-        'Issuer':                          [9, DAT_Entity, 0],
-        'IssuerLogoURL':                   [10, DAT_varchar, 8],
-        'ContractOperatorIncluded':        [11, DAT_bool, 0],
-        'ContractOperator':                [12, DAT_Entity, 0],
-        'ContractAuthFlags':               [13, DAT_varbin, 16],
-        'ContractFee':                     [14, DAT_uint, 8],
-        'VotingSystems':                   [15, DAT_VotingSystem[], 0],
-        'RestrictedQtyAssets':             [16, DAT_uint, 8],
-        'IssuerProposal':                  [17, DAT_bool, 0],
-        'HolderProposal':                  [18, DAT_bool, 0],
-        'Registers':                       [19, DAT_Register[], 0],
-        'ContractRevision':                [20, DAT_uint, 4],
-        'Timestamp':                       [21, DAT_Timestamp, 0]
+        'BodyOfAgreement':                 [0, DAT_varbin, 32],
+        'ContractType':                    [1, DAT_varchar, 8],
+        'SupportingDocsFileType':          [2, DAT_uint, 1],
+        'SupportingDocs':                  [3, DAT_varbin, 32],
+        'GoverningLaw':                    [4, DAT_fixedchar, 5],
+        'Jurisdiction':                    [5, DAT_fixedchar, 5],
+        'ContractExpiration':              [6, DAT_Timestamp, 0],
+        'ContractURI':                     [7, DAT_varchar, 8],
+        'Issuer':                          [8, DAT_Entity, 0],
+        'IssuerLogoURL':                   [9, DAT_varchar, 8],
+        'ContractOperatorIncluded':        [10, DAT_bool, 0],
+        'ContractOperator':                [11, DAT_Entity, 0],
+        'ContractAuthFlags':               [12, DAT_varbin, 16],
+        'ContractFee':                     [13, DAT_uint, 8],
+        'VotingSystems':                   [14, DAT_VotingSystem[], 0],
+        'RestrictedQtyAssets':             [15, DAT_uint, 8],
+        'IssuerProposal':                  [16, DAT_bool, 0],
+        'HolderProposal':                  [17, DAT_bool, 0],
+        'Registers':                       [18, DAT_Register[], 0],
+        'ContractRevision':                [19, DAT_uint, 4],
+        'Timestamp':                       [20, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -218,7 +208,6 @@ class Action_ContractFormation(ActionBase):
     }
 
     def init_attributes(self):
-        self.BodyOfAgreement = None
         self.ContractType = None
         self.SupportingDocsFileType = None
         self.SupportingDocs = None
@@ -241,19 +230,18 @@ class Action_ContractFormation(ActionBase):
         self.Timestamp = None
 
 
-# Contract Amendment Action - the issuer can initiate an amendment to the
-# contract establishment metadata. The ability to make an amendment to the
-# contract is restricted by the Authorization Flag set on the current
-# revision of Contract Formation action.
+# The issuer can initiate an amendment to the contract establishment
+# metadata. The ability to make an amendment to the contract is restricted
+# by the Authorization Flag set on the current revision of Contract
+# Formation action.
 
 class Action_ContractAmendment(ActionBase):
     ActionPrefix = 'C3'
 
     schema = {
-        'ChangeOperatorAddress':           [0, DAT_bool, 0],
-        'ContractRevision':                [1, DAT_uint, 4],
-        'Amendments':                      [2, DAT_Amendment[], 0],
-        'RefTxID':                         [3, DAT_TxId, 0]
+        'ContractRevision':                [0, DAT_uint, 4],
+        'Amendments':                      [1, DAT_Amendment[], 0],
+        'RefTxID':                         [2, DAT_TxId, 0]
     }
 
     rules = {
@@ -263,7 +251,6 @@ class Action_ContractAmendment(ActionBase):
     }
 
     def init_attributes(self):
-        self.ContractRevision = None
         self.Amendments = None
         self.RefTxID = None
 
@@ -274,20 +261,19 @@ class Action_StaticContractFormation(ActionBase):
     ActionPrefix = 'C4'
 
     schema = {
-        'ContractCode':                    [0, DAT_ContractCode, 0],
-        'BodyOfAgreementType':             [1, DAT_uint, 1],
-        'BodyOfAgreement':                 [2, DAT_varbin, 32],
-        'ContractType':                    [3, DAT_varchar, 8],
-        'SupportingDocsFileType':          [4, DAT_uint, 1],
-        'SupportingDocs':                  [5, DAT_varchar, 32],
-        'ContractRevision':                [6, DAT_uint, 4],
-        'GoverningLaw':                    [7, DAT_fixedchar, 5],
-        'Jurisdiction':                    [8, DAT_fixedchar, 5],
-        'EffectiveDate':                   [9, DAT_Timestamp, 0],
-        'ContractExpiration':              [10, DAT_Timestamp, 0],
-        'ContractURI':                     [11, DAT_varchar, 8],
-        'PrevRevTxID':                     [12, DAT_TxId, 0],
-        'Entities':                        [13, DAT_Entity[], 0]
+        'BodyOfAgreementType':             [0, DAT_uint, 1],
+        'BodyOfAgreement':                 [1, DAT_varbin, 32],
+        'ContractType':                    [2, DAT_varchar, 8],
+        'SupportingDocsFileType':          [3, DAT_uint, 1],
+        'SupportingDocs':                  [4, DAT_varchar, 32],
+        'ContractRevision':                [5, DAT_uint, 4],
+        'GoverningLaw':                    [6, DAT_fixedchar, 5],
+        'Jurisdiction':                    [7, DAT_fixedchar, 5],
+        'EffectiveDate':                   [8, DAT_Timestamp, 0],
+        'ContractExpiration':              [9, DAT_Timestamp, 0],
+        'ContractURI':                     [10, DAT_varchar, 8],
+        'PrevRevTxID':                     [11, DAT_TxId, 0],
+        'Entities':                        [12, DAT_Entity[], 0]
     }
 
     rules = {
@@ -297,7 +283,6 @@ class Action_StaticContractFormation(ActionBase):
     }
 
     def init_attributes(self):
-        self.BodyOfAgreementType = None
         self.BodyOfAgreement = None
         self.ContractType = None
         self.SupportingDocsFileType = None
@@ -312,29 +297,28 @@ class Action_StaticContractFormation(ActionBase):
         self.Entities = None
 
 
-# Order Action - Issuer to signal to the smart contract that the tokens
-# that a particular public address(es) owns are to be confiscated, frozen,
-# thawed or reconciled.
+# Issuer to signal to the smart contract that the tokens that a particular
+# public address(es) owns are to be confiscated, frozen, thawed or
+# reconciled.
 
 class Action_Order(ActionBase):
     ActionPrefix = 'E1'
 
     schema = {
-        'AssetType':                       [0, DAT_fixedchar, 3],
-        'AssetCode':                       [1, DAT_AssetCode, 0],
-        'TargetAddresses':                 [2, DAT_TargetAddress[], 16],
-        'FreezeTxId':                      [3, DAT_TxId, 0],
-        'FreezePeriod':                    [4, DAT_Timestamp, 0],
-        'DepositAddress':                  [5, DAT_PublicKeyHash, 0],
-        'AuthorityIncluded':               [6, DAT_bool, 0],
-        'AuthorityName':                   [7, DAT_varchar, 8],
-        'AuthorityPublicKey':              [8, DAT_varbin, 8],
-        'SignatureAlgorithm':              [9, DAT_uint, 1],
-        'OrderSignature':                  [10, DAT_varbin, 8],
-        'SupportingEvidenceHash':          [11, DAT_bin, 32],
-        'RefTxs':                          [12, DAT_varbin, 32],
-        'BitcoinDispersions':              [13, DAT_QuantityIndex[], 16],
-        'Message':                         [14, DAT_varchar, 32]
+        'AssetCode':                       [0, DAT_AssetCode, 0],
+        'TargetAddresses':                 [1, DAT_TargetAddress[], 16],
+        'FreezeTxId':                      [2, DAT_TxId, 0],
+        'FreezePeriod':                    [3, DAT_Timestamp, 0],
+        'DepositAddress':                  [4, DAT_PublicKeyHash, 0],
+        'AuthorityIncluded':               [5, DAT_bool, 0],
+        'AuthorityName':                   [6, DAT_varchar, 8],
+        'AuthorityPublicKey':              [7, DAT_varbin, 8],
+        'SignatureAlgorithm':              [8, DAT_uint, 1],
+        'OrderSignature':                  [9, DAT_varbin, 8],
+        'SupportingEvidenceHash':          [10, DAT_bin, 32],
+        'RefTxs':                          [11, DAT_varbin, 32],
+        'BitcoinDispersions':              [12, DAT_QuantityIndex[], 16],
+        'Message':                         [13, DAT_varchar, 32]
     }
 
     rules = {
@@ -344,7 +328,6 @@ class Action_Order(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetCode = None
         self.TargetAddresses = None
         self.FreezeTxId = None
         self.FreezePeriod = None
@@ -360,88 +343,17 @@ class Action_Order(ActionBase):
         self.Message = None
 
 
-# Freeze Action - To be used to comply with contractual/legal/issuer
-# requirements. The target public address(es) will be marked as frozen.
-# However the Freeze action publishes this fact to the public blockchain
-# for transparency. The Contract will not respond to any actions requested
-# by the frozen address.
+# To be used to comply with contractual/legal/issuer requirements. The
+# target public address(es) will be marked as frozen. However the Freeze
+# action publishes this fact to the public blockchain for transparency. The
+# Contract will not respond to any actions requested by the frozen address.
 
 class Action_Freeze(ActionBase):
     ActionPrefix = 'E2'
 
     schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'Quantities':                      [1, DAT_QuantityIndex[], 16],
-        'FreezePeriod':                    [2, DAT_Timestamp, 0],
-        'Timestamp':                       [3, DAT_Timestamp, 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.Quantities = None
-        self.FreezePeriod = None
-        self.Timestamp = None
-
-
-# Thaw Action - to be used to comply with contractual obligations or legal
-# requirements. The Alleged Offender's tokens will be unfrozen to allow
-# them to resume normal exchange and governance activities.
-
-class Action_Thaw(ActionBase):
-    ActionPrefix = 'E3'
-
-    schema = {
-        'Timestamp':                       [0, DAT_Timestamp, 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-
-
-# Confiscation Action - to be used to comply with contractual obligations,
-# legal and/or issuer requirements.
-
-class Action_Confiscation(ActionBase):
-    ActionPrefix = 'E4'
-
-    schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'Quantities':                      [1, DAT_QuantityIndex[], 16],
-        'DepositQty':                      [2, DAT_uint, 8],
-        'Timestamp':                       [3, DAT_Timestamp, 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.Quantities = None
-        self.DepositQty = None
-        self.Timestamp = None
-
-
-# Reconciliation Action - to be used at the direction of the issuer to fix
-# record keeping errors with bitcoin and token balances.
-
-class Action_Reconciliation(ActionBase):
-    ActionPrefix = 'E5'
-
-    schema = {
-        'AssetCode':                       [0, DAT_AssetCode, 0],
-        'Quantities':                      [1, DAT_QuantityIndex[], 16],
+        'Quantities':                      [0, DAT_QuantityIndex[], 16],
+        'FreezePeriod':                    [1, DAT_Timestamp, 0],
         'Timestamp':                       [2, DAT_Timestamp, 0]
     }
 
@@ -452,31 +364,19 @@ class Action_Reconciliation(ActionBase):
     }
 
     def init_attributes(self):
-        self.Quantities = None
+        self.FreezePeriod = None
         self.Timestamp = None
 
 
-# Proposal Action - Allows Issuers/Token Holders to propose a change (aka
-# Initiative/Shareholder vote). A significant cost - specified in the
-# Contract Formation - can be attached to this action when sent from Token
-# Holders to reduce spam, as the resulting vote will be put to all token
-# owners.
+# To be used to comply with contractual obligations or legal requirements.
+# The Alleged Offender's tokens will be unfrozen to allow them to resume
+# normal exchange and governance activities.
 
-class Action_Proposal(ActionBase):
-    ActionPrefix = 'G1'
+class Action_Thaw(ActionBase):
+    ActionPrefix = 'E3'
 
     schema = {
-        'AssetSpecificVote':               [0, DAT_bool, 0],
-        'AssetType':                       [1, DAT_fixedchar, 3],
-        'AssetCode':                       [2, DAT_AssetCode, 0],
-        'VoteSystem':                      [3, DAT_uint, 1],
-        'Specific':                        [4, DAT_bool, 0],
-        'ProposedAmendments':              [5, DAT_Amendment[], 0],
-        'VoteOptions':                     [6, DAT_varchar, 8],
-        'VoteMax':                         [7, DAT_uint, 1],
-        'ProposalDescription':             [8, DAT_varchar, 32],
-        'ProposalDocumentHash':            [9, DAT_bin, 32],
-        'VoteCutOffTimestamp':             [10, DAT_Timestamp, 0]
+        
     }
 
     rules = {
@@ -486,7 +386,81 @@ class Action_Proposal(ActionBase):
     }
 
     def init_attributes(self):
-        self.AssetType = None
+
+
+# To be used to comply with contractual obligations, legal and/or issuer
+# requirements.
+
+class Action_Confiscation(ActionBase):
+    ActionPrefix = 'E4'
+
+    schema = {
+        'Quantities':                      [0, DAT_QuantityIndex[], 16],
+        'DepositQty':                      [1, DAT_uint, 8],
+        'Timestamp':                       [2, DAT_Timestamp, 0]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
+        self.DepositQty = None
+        self.Timestamp = None
+
+
+# To be used at the direction of the issuer to fix record keeping errors
+# with bitcoin and token balances.
+
+class Action_Reconciliation(ActionBase):
+    ActionPrefix = 'E5'
+
+    schema = {
+        'Quantities':                      [0, DAT_QuantityIndex[], 16],
+        'Timestamp':                       [1, DAT_Timestamp, 0]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
+        self.Timestamp = None
+
+
+# Allows Issuers/Token Holders to propose a change (aka
+# Initiative/Shareholder vote). A significant cost - specified in the
+# Contract Formation - can be attached to this action when sent from Token
+# Holders to reduce spam, as the resulting vote will be put to all token
+# owners.
+
+class Action_Proposal(ActionBase):
+    ActionPrefix = 'G1'
+
+    schema = {
+        'AssetType':                       [0, DAT_fixedchar, 3],
+        'AssetCode':                       [1, DAT_AssetCode, 0],
+        'VoteSystem':                      [2, DAT_uint, 1],
+        'Specific':                        [3, DAT_bool, 0],
+        'ProposedAmendments':              [4, DAT_Amendment[], 0],
+        'VoteOptions':                     [5, DAT_varchar, 8],
+        'VoteMax':                         [6, DAT_uint, 1],
+        'ProposalDescription':             [7, DAT_varchar, 32],
+        'ProposalDocumentHash':            [8, DAT_bin, 32],
+        'VoteCutOffTimestamp':             [9, DAT_Timestamp, 0]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
         self.AssetCode = None
         self.VoteSystem = None
         self.Specific = None
@@ -498,8 +472,7 @@ class Action_Proposal(ActionBase):
         self.VoteCutOffTimestamp = None
 
 
-# Vote Action - A vote is created by the Contract in response to a valid
-# Proposal Action.
+# A vote is created by the Contract in response to a valid Proposal Action.
 
 class Action_Vote(ActionBase):
     ActionPrefix = 'G2'
@@ -517,15 +490,15 @@ class Action_Vote(ActionBase):
     def init_attributes(self):
 
 
-# Ballot Cast Action - Used by Token Owners to cast their ballot (vote) on
-# proposals. 1 Vote per token unless a vote multiplier is specified in the
-# relevant Asset Definition action.
+# Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per
+# token unless a vote multiplier is specified in the relevant Asset
+# Definition action.
 
 class Action_BallotCast(ActionBase):
     ActionPrefix = 'G3'
 
     schema = {
-        'Vote':                            [0, DAT_varchar, 8]
+        
     }
 
     rules = {
@@ -537,17 +510,99 @@ class Action_BallotCast(ActionBase):
     def init_attributes(self):
 
 
-# Ballot Counted Action - The smart contract will respond to a Ballot Cast
-# action with a Ballot Counted action if the Ballot Cast is valid. If the
-# Ballot Cast is not valid, then the smart contract will respond with a
-# Rejection Action.
+# The smart contract will respond to a Ballot Cast action with a Ballot
+# Counted action if the Ballot Cast is valid. If the Ballot Cast is not
+# valid, then the smart contract will respond with a Rejection Action.
 
 class Action_BallotCounted(ActionBase):
     ActionPrefix = 'G4'
 
     schema = {
-        'Vote':                            [0, DAT_varchar, 8],
-        'Quantity':                        [1, DAT_uint, 8],
+        'Quantity':                        [0, DAT_uint, 8],
+        'Timestamp':                       [1, DAT_Timestamp, 0]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
+        self.Timestamp = None
+
+
+# Once a vote has been completed the results are published. After the
+# result is posted, it is up to the issuer to send a contract/asset
+# amendement if appropriate.
+
+class Action_Result(ActionBase):
+    ActionPrefix = 'G5'
+
+    schema = {
+        'AssetCode':                       [0, DAT_AssetCode, 0],
+        'Specific':                        [1, DAT_bool, 0],
+        'ProposedAmendments':              [2, DAT_Amendment[], 0],
+        'VoteTxId':                        [3, DAT_TxId, 0],
+        'OptionTally':                     [4, DAT_uint64[], 8],
+        'Result':                          [5, DAT_varchar, 8],
+        'Timestamp':                       [6, DAT_Timestamp, 0]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
+        self.Specific = None
+        self.ProposedAmendments = None
+        self.VoteTxId = None
+        self.OptionTally = None
+        self.Result = None
+        self.Timestamp = None
+
+
+# The message action is a general purpose communication action.
+# 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be
+# used for passing partially signed txns on-chain, establishing private
+# communication channels and EDI (receipting, invoices, PO, and private
+# offers/bids). The messages are broken down by type for easy filtering in
+# the a user's wallet. The Message Types are listed in the Message Types
+# table.
+
+class Action_Message(ActionBase):
+    ActionPrefix = 'M1'
+
+    schema = {
+        'MessagePayload':                  [0, DAT_varbin, 32]
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
+
+
+# Used to reject request actions that do not comply with the Contract. If
+# money is to be returned to a User then it is used in lieu of the
+# Settlement Action to properly account for token balances. All Issuer/User
+# request Actions must be responded to by the Contract with an Action. The
+# only exception to this rule is when there is not enough fees in the first
+# Action for the Contract response action to remain revenue neutral. If not
+# enough fees are attached to pay for the Contract response then the
+# Contract will not respond.
+
+class Action_Rejection(ActionBase):
+    ActionPrefix = 'M2'
+
+    schema = {
+        'RejectionCode':                   [0, DAT_RejectionCode, 0],
+        'Message':                         [1, DAT_varchar, 16],
         'Timestamp':                       [2, DAT_Timestamp, 0]
     }
 
@@ -558,102 +613,11 @@ class Action_BallotCounted(ActionBase):
     }
 
     def init_attributes(self):
-        self.Quantity = None
-        self.Timestamp = None
-
-
-# Result Action - Once a vote has been completed the results are published.
-# After the result is posted, it is up to the issuer to send a
-# contract/asset amendement if appropriate.
-
-class Action_Result(ActionBase):
-    ActionPrefix = 'G5'
-
-    schema = {
-        'AssetType':                       [0, DAT_fixedchar, 3],
-        'AssetCode':                       [1, DAT_AssetCode, 0],
-        'Specific':                        [2, DAT_bool, 0],
-        'ProposedAmendments':              [3, DAT_Amendment[], 0],
-        'VoteTxId':                        [4, DAT_TxId, 0],
-        'OptionTally':                     [5, DAT_uint64[], 8],
-        'Result':                          [6, DAT_varchar, 8],
-        'Timestamp':                       [7, DAT_Timestamp, 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.AssetCode = None
-        self.Specific = None
-        self.ProposedAmendments = None
-        self.VoteTxId = None
-        self.OptionTally = None
-        self.Result = None
-        self.Timestamp = None
-
-
-# Message Action - the message action is a general purpose communication
-# action. 'Twitter/SMS' for Issuers/Investors/Users. The message txn can
-# also be used for passing partially signed txns on-chain, establishing
-# private communication channels and EDI (receipting, invoices, PO, and
-# private offers/bids). The messages are broken down by type for easy
-# filtering in the a user's wallet. The Message Types are listed in the
-# Message Types table.
-
-class Action_Message(ActionBase):
-    ActionPrefix = 'M1'
-
-    schema = {
-        'MessageType':                     [0, DAT_MessageType, 0],
-        'MessagePayload':                  [1, DAT_varbin, 32]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.MessagePayload = None
-
-
-# Rejection Action - used to reject request actions that do not comply with
-# the Contract. If money is to be returned to a User then it is used in
-# lieu of the Settlement Action to properly account for token balances. All
-# Issuer/User request Actions must be responded to by the Contract with an
-# Action. The only exception to this rule is when there is not enough fees
-# in the first Action for the Contract response action to remain revenue
-# neutral. If not enough fees are attached to pay for the Contract response
-# then the Contract will not respond.
-
-class Action_Rejection(ActionBase):
-    ActionPrefix = 'M2'
-
-    schema = {
-        'RejectAddressIndex':              [0, DAT_uint, 2],
-        'RejectionCode':                   [1, DAT_RejectionCode, 0],
-        'Message':                         [2, DAT_varchar, 16],
-        'Timestamp':                       [3, DAT_Timestamp, 0]
-    }
-
-    rules = {
-        'contractFee': 0,
-        'inputs': [ACT_CONTRACT],
-        'outputs': [ACT_USER, ACT_CONTRACT]
-    }
-
-    def init_attributes(self):
-        self.RejectionCode = None
         self.Message = None
         self.Timestamp = None
 
 
-# Establishment Action - Establishes an on-chain register.
+# Establishes an on-chain register.
 
 class Action_Establishment(ActionBase):
     ActionPrefix = 'R1'
@@ -671,7 +635,7 @@ class Action_Establishment(ActionBase):
     def init_attributes(self):
 
 
-# Addition Action - Adds an entry to the Register.
+# Adds an entry to the Register.
 
 class Action_Addition(ActionBase):
     ActionPrefix = 'R2'
@@ -689,7 +653,7 @@ class Action_Addition(ActionBase):
     def init_attributes(self):
 
 
-# Alteration Action - A register entry/record can be altered.
+# A register entry/record can be altered.
 
 class Action_Alteration(ActionBase):
     ActionPrefix = 'R3'
@@ -707,7 +671,7 @@ class Action_Alteration(ActionBase):
     def init_attributes(self):
 
 
-# Removal Action - Removes an entry/record from the Register.
+# Removes an entry/record from the Register.
 
 class Action_Removal(ActionBase):
     ActionPrefix = 'R4'
@@ -738,9 +702,8 @@ class Action_Transfer(ActionBase):
     ActionPrefix = 'T1'
 
     schema = {
-        'OfferExpiry':                     [0, DAT_Timestamp, 0],
-        'ExchangeFee':                     [1, DAT_uint, 8],
-        'ExchangeFeeAddress':              [2, DAT_PublicKeyHash, 0]
+        'ExchangeFee':                     [0, DAT_uint, 8],
+        'ExchangeFeeAddress':              [1, DAT_PublicKeyHash, 0]
     }
 
     rules = {
@@ -750,18 +713,17 @@ class Action_Transfer(ActionBase):
     }
 
     def init_attributes(self):
-        self.ExchangeFee = None
         self.ExchangeFeeAddress = None
 
 
-# Settlement Action - Settles the transfer request of bitcoins and tokens
-# from transfer (T1) actions.
+# Settles the transfer request of bitcoins and tokens from transfer (T1)
+# actions.
 
 class Action_Settlement(ActionBase):
     ActionPrefix = 'T2'
 
     schema = {
-        'Timestamp':                       [0, DAT_Timestamp, 0]
+        
     }
 
     rules = {

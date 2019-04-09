@@ -1,5 +1,6 @@
 metadata:
   name: TokenReceiver
+  label: Token Receiver
   description: "A TokenReceiver is contains a quantity, index, and register signature. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position."
 
 fields:

@@ -1,5 +1,6 @@
 metadata:
   name: TargetAddress
+  label: Target Address
   description: "A TargetAddress defines a public address and quantity."
 
 fields:

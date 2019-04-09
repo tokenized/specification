@@ -1,5 +1,6 @@
 metadata:
   name: Amendment
+  label: Amendment
   description: "An Amendment is used to describe the modification of a single field in a Contract or Asset, as defined in the ContractFormation and AssetCreation messages."
   notes: "Header, timestamp, and count fields that are generated or managed by the Smart Contract are included in the index of fields for consistency, although they cannot be modified on request, or in the case of a count field, there are expectations such as the count matching the number of elements in the related field. An example of a count field is VotingSystemCount in a ContractFormation, which specifies the number of VotingSystems. Indexes are zero based."
 

@@ -1,6 +1,6 @@
-
 metadata:
   name: Register
+  label: Register
   description: "A Register defines the details of a public Register."
 
 fields:

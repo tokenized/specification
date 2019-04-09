@@ -86,18 +86,8 @@ type ProtocolAction struct {
 	Functions   []Function
 }
 
-func (m ProtocolAction) FieldTypesWithoutHeader() []ProtocolType {
-	t := []ProtocolType{}
-
-	for _, ft := range m.FieldTypes {
-		if ft.Name() == "Header" {
-			continue
-		}
-
-		t = append(t, ft)
-	}
-
-	return t
+func (m ProtocolAction) URLCode() string {
+	return "action-" + KebabCase(m.Name())
 }
 
 func (m ProtocolAction) CodeNameComment() string {

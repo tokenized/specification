@@ -13,20 +13,29 @@ func Compile(
 	rejectionCodes parser.ProtocolRejectionCodes,
 	assets []parser.Asset,
 ) {
-	for _, action := range actions {
-		outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
-		templateToFile(distPath, "action.tpl", outfile, action)
-	}
 
-	for _, asset := range assets {
-		outfile := "asset-" + parser.KebabCase(asset.Name()) + ".md"
-		templateToFile(distPath, "asset.tpl", outfile, asset)
-	}
+	bundle := []interface{}{actions, types}
 
-	for _, message := range messages {
-		outfile := "message-" + parser.KebabCase(message.Name()) + ".md"
-		templateToFile(distPath, "message.tpl", outfile, message)
-	}
+	templateToFile(distPath, "protocol-actions.tpl", "protocol-actions.md", bundle)
+
+	templateToFile(distPath, "protocol-assets.tpl", "protocol-assets.md", actions)
+
+	templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", actions)
+
+	// for _, action := range actions {
+	// 	outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
+	// 	templateToFile(distPath, "action.tpl", outfile, action)
+	// }
+
+	// for _, asset := range assets {
+	// 	outfile := "asset-" + parser.KebabCase(asset.Name()) + ".md"
+	// 	templateToFile(distPath, "asset.tpl", outfile, asset)
+	// }
+
+	// for _, message := range messages {
+	// 	outfile := "message-" + parser.KebabCase(message.Name()) + ".md"
+	// 	templateToFile(distPath, "message.tpl", outfile, message)
+	// }
 }
 
 func templateToFile(distPath, tplFile, goFile string, data interface{}) {

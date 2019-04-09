@@ -1,5 +1,6 @@
 metadata:
   name: AgeRestriction
+  label: Age Restriction
   description: "Age restriction is used to specify required ages for asset ownership."
 
 fields:

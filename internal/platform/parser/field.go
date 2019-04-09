@@ -101,6 +101,10 @@ func (f Field) Length() uint64 {
 	return f.Size
 }
 
+func (f Field) TypeURLCode() string {
+	return "type-" + KebabCase(f.SingularType())
+}
+
 func (f Field) SingularType() string {
 	return strings.Replace(f.FieldGoType(), "[]", "", 1)
 }
