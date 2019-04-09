@@ -35,27 +35,28 @@ var cmdGenerate = &cobra.Command{
 		distPath := filepath.FromSlash(dir + "/dist")
 
 		// --------------------------------------------------------------------
-		// Protocol
+		// Prepare Values
 
 		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/types")))
+
 		actions := parser.NewProtocolActions(fieldTypes, parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/actions")))
-		assetTypes := parser.NewAssets(parser.FetchFiles(srcPath, "assets", "develop"))
-		messages := parser.NewProtocolMessages(fieldTypes, parser.FetchFiles(srcPath, "messages", "develop"))
-		resources := parser.NewProtocolResources(parser.FetchFiles(srcPath, "resources", "develop"))
-		rejectionCodes := parser.NewProtocolRejectionCodes(filepath.FromSlash(srcPath + "/resources/develop/Rejections.yaml"))
-
-		// Compile languages
-		golang.CompileProtocol(distPath, actions, messages, fieldTypes, resources, rejectionCodes)
-		python.CompileProtocol(distPath, actions, fieldTypes)
-		markdown.CompileProtocol(distPath, actions, fieldTypes, assetTypes, messages)
-
-		// ---------------------------------------------------------------------
-		// Assets
 
 		assets := parser.NewAssets(parser.FetchFiles(srcPath, "assets", "develop"))
 
-		// Compile languages
-		golang.CompileAssets(distPath, assets)
+		messages := parser.NewProtocolMessages(fieldTypes, parser.FetchFiles(srcPath, "messages", "develop"))
+
+		resources := parser.NewProtocolResources(parser.FetchFiles(srcPath, "resources", "develop"))
+
+		rejectionCodes := parser.NewProtocolRejectionCodes(filepath.FromSlash(srcPath + "/resources/develop/Rejections.yaml"))
+
+		// --------------------------------------------------------------------
+		// Compile Languages
+
+		golang.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+
+		python.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+
+		markdown.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
 		return nil
 	},

@@ -4,29 +4,33 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
-func CompileProtocol(distPath string,
+func Compile(
+	distPath string,
 	actions parser.ProtocolActions,
-	typs parser.ProtocolTypes,
+	messages parser.ProtocolMessages,
+	types parser.ProtocolTypes,
+	resources parser.ProtocolResources,
+	rejectionCodes parser.ProtocolRejectionCodes,
 	assets []parser.Asset,
-	messages parser.ProtocolMessages) {
-
+) {
 	for _, action := range actions {
 		outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
-		templateToFile(distPath, action, "action.tpl", outfile)
+		templateToFile(distPath, "action.tpl", outfile, action)
 	}
 
 	for _, asset := range assets {
 		outfile := "asset-" + parser.KebabCase(asset.Name()) + ".md"
-		templateToFile(distPath, asset, "asset.tpl", outfile)
+		templateToFile(distPath, "asset.tpl", outfile, asset)
 	}
 
 	for _, message := range messages {
 		outfile := "message-" + parser.KebabCase(message.Name()) + ".md"
-		templateToFile(distPath, message, "message.tpl", outfile)
+		templateToFile(distPath, "message.tpl", outfile, message)
 	}
 }
 
-func templateToFile(distPath string, data interface{}, tplFile, goFile string) {
+func templateToFile(distPath, tplFile, goFile string, data interface{}) {
+
 	tpl := "./internal/markdown/templates/" + tplFile
 
 	path := distPath + "/markdown/" + goFile
