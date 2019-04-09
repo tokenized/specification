@@ -1,5 +1,5 @@
 #
-# Vote Action: A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action.
+# Vote Action: A vote is created by the Contract in response to a valid Proposal Action.
 #
 
 code: G2
@@ -7,8 +7,8 @@ code: G2
 metadata:
   name: Vote
   label: Vote Action
-  description: "Vote Action -  A vote is created by the Contract in response to a valid Referendum (Issuer) or Initiative (User) Action."
-  validation: AssetCreation
+  description: "Vote Action - A vote is created by the Contract in response to a valid Proposal Action."
+  validation: None
   rejection: Rejection
 
 rules:
@@ -22,10 +22,6 @@ rules:
     - name: Contract
       label: Contract Public Address
       comments:
-
-    - name: Issuer
-      label: Issuer's Public Address
-      comments: Issuer gets the threshold fee.
 
 fields:
   - name: Header

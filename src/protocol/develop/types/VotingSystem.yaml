@@ -13,17 +13,8 @@ fields:
     example_value: "Special Resolutions"
     notes: ""
 
-  - name: System
-    label: Voting System
-    description: "Specifies which subfield is subject to this vote system's control."
-    type: bin
-    size: 8
-    example_hex: af592aafd8512810
-    example_value: "1010111101011001001010101010111111011000010100010010100000010000"
-    notes: ""
-
-  - name: Method
-    label: Vote Method
+  - name: VoteType
+    label: Vote Type
     description: "R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful."
     type: fixedchar
     size: 1
@@ -42,25 +33,19 @@ fields:
 
   - name: ThresholdPercentage
     label: Threshold Percentage for the Voting System
-    description: "1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it."
+    description: "This field is ignored when VoteType is P (Plurality). Otherwise it is the percentage of ballots required for a proposal to pass. Valid values are greater than 0 and less than 100. 75 means 75% and greater.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it."
     type: uint
     size: 1
-    example_hex: 00
-    example_value: "0.75"
-    notes: ""
+    example_value: "75"
 
   - name: VoteMultiplierPermitted
     label: VoteMultiplierPermitted
-    description: "Y - Yes, N - No. Where an asset has a vote multiplier, Y must be selected here for the vote multiplier to count, otherwise votes are simply treated as 1x per token."
-    type: fixedchar
-    size: 1
-    example_hex: 592f4e
-    example_value: "Y/N"
-    notes: ""
+    description: "Where an asset has a vote multiplier, true must be set here for the vote multiplier to count, otherwise votes are simply treated as 1x per token."
+    type: bool
 
-  - name: InitiativeFee
-    label: Initiative Fee for the Voting System
-    description: "Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid."
+  - name: HolderProposalFee
+    label: Holder Proposal Fee for the Voting System
+    description: "Token Owners must pay the fee amount to broadcast a valid Proposal.  If the Proposal action is valid, the smart contract will start a vote. 0 is valid."
     type: uint
     size: 8
     example_hex: 42c80000

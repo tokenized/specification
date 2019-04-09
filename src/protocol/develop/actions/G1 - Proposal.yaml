@@ -1,5 +1,5 @@
 #
-# Proposal Action: Allows Token Issuers/Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action to reduce spam, as the resulting vote will be put to all token owners.
+# Proposal Action: Allows Issuers/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners.
 #
 
 code: G1
@@ -7,7 +7,7 @@ code: G1
 metadata:
   name: Proposal
   label: Proposal Action
-  description: "Proposal Action - Allows Token Issuers/Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action to reduce spam, as the resulting vote will be put to all token owners."
+  description: "Proposal Action - Allows Issuers/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners."
   validation: Contract/Asset Amendment or nothing
   rejection: Rejection
 
@@ -21,11 +21,11 @@ rules:
   outputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: Includes contract fee and holder proposal fee if applicable.
 
     - name: Contract
       label: Contract Public Address
-      comments: Fund the Result at Vote cut off
+      comments: Fund the Result TX at Vote cut off
 
 fields:
   - name: Header
@@ -39,14 +39,14 @@ fields:
     description: "Who initiated the proposal. 0 - Issuer, 1 - Holder"
     type: uint
     size: 1
+    int_values:
+      - 0
+      - 1
 
   - name: AssetSpecificVote
     label: Asset Specific Vote
-    description: "1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No."
+    description: "When true this proposal is specific to an asset and the asset type and asset code fields are serialized."
     type: bool
-    includes:
-      - AssetType
-      - AssetCode
 
   - name: AssetType
     label: Asset Type
@@ -56,6 +56,8 @@ fields:
     example_hex: 534843
     example_value: "SHC"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AssetSpecificVote
 
   - name: AssetCode
     label: Asset Code
@@ -63,6 +65,8 @@ fields:
     type: AssetCode
     example_hex: 61706d3271737a6e686b7332337a386438337534317338303139687972693369
     notes: "Cannot be changed by issuer, operator or smart contract."
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AssetSpecificVote
 
   - name: VoteSystem
     label: Vote System
@@ -77,17 +81,17 @@ fields:
     label: Specific
     description: "When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update."
     type: bool
-    includes:
-      - ProposedAmendments
 
   - name: ProposedAmendments
     label: Proposed Amendments
     description: "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time."
     type: Amendment[]
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: Specific
 
   - name: VoteOptions
     label: Vote Options
-    description: "Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes."
+    description: "Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option. Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB would be used for Y/N (binary) type votes. When Specific is true, only AB is a valid value."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
@@ -97,7 +101,7 @@ fields:
 
   - name: VoteMax
     label: Vote Max
-    description: "Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)"
+    description: "Range: 1-X. How many selections can a voter make in a Ballot Cast. 1 is selected for Y/N (binary). When Specific is true, only 1 is a valid value."
     type: uint
     size: 1
     example_hex: 0f

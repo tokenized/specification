@@ -48,6 +48,9 @@ fields:
     example_hex: 01
     example_value: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
+    int_values:
+      - 1
+      - 2
 
   - name: BodyOfAgreement
     label: Body of Agreement
@@ -77,6 +80,8 @@ fields:
     example_hex: 01
     example_value: "1"
     notes: "The file type of the supporting documents ('attached') that are important to the contract."
+    int_values:
+      - 1
 
   - name: SupportingDocs
     label: Supporting Documentation

@@ -38,14 +38,6 @@ fields:
     example_hex: 01
     example_value: "1"
     notes: "Entity/Contracting Party X Details"
-    includes:
-      - UnitNumber
-      - BuildingNumber
-      - Street
-      - SuburbCity
-      - TerritoryStateProvinceCode
-      - CountryCode
-      - PostalZIPCode
 
   - name: UnitNumber
     label: Unit Number
@@ -56,6 +48,8 @@ fields:
     example_hex: 0132
     example_value: "2"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AddressIncluded
 
   - name: BuildingNumber
     label: Building Number
@@ -66,6 +60,8 @@ fields:
     example_hex: 053133353737
     example_value: "13577"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AddressIncluded
 
   - name: Street
     label: Street
@@ -76,6 +72,8 @@ fields:
     example_hex: 000c466169726d6f6e7420417665
     example_value: "Fairmont Ave"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AddressIncluded
 
   - name: SuburbCity
     label: Suburb/City
@@ -86,6 +84,8 @@ fields:
     example_hex: 07526f62696e6f68
     example_value: "Robinoh"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AddressIncluded
 
   - name: TerritoryStateProvinceCode
     label: Territory/State/Province Code
@@ -95,6 +95,8 @@ fields:
     example_hex: 4243000000
     example_value: "BC"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AddressIncluded
 
   - name: CountryCode
     label: Country Code
@@ -104,6 +106,8 @@ fields:
     example_hex: 555341
     example_value: "USA"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AddressIncluded
 
   - name: PostalZIPCode
     label: Postal/ZIP Code
@@ -113,6 +117,8 @@ fields:
     example_hex: 353032313000000000000000
     example_value: "50210"
     notes: ""
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: AddressIncluded
 
   - name: EmailAddress
     label: Email Address

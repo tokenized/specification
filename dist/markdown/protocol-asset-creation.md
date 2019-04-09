@@ -47,7 +47,7 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10">8</td>
             <td class="a10"><abbr title="0000000000000000000000000000000000000000000000000001000110111111">Hover for example</abbr></td>
             <td class="a10">Authorization Flags,  bitwise operation</td>
-            <td class="a10">bin</td>
+            <td class="a10">varbin</td>
             <td class="a10"></td>
         </tr>
         <tr>
@@ -76,6 +76,15 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10"></td>
         </tr>
         <tr>
+            <td class="a9">Voting Rights</td>
+            <td class="a10">VotingRights</td>
+            <td class="a10">0</td>
+            <td class="a10"></td>
+            <td class="a10"><abbr title="When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.">When false holders of this asset will not be able to vote for tokens of this asset even on ...</abbr></td>
+            <td class="a10">bool</td>
+            <td class="a10"></td>
+        </tr>
+        <tr>
             <td class="a9">Vote Multiplier</td>
             <td class="a10">VoteMultiplier</td>
             <td class="a10">1</td>
@@ -85,30 +94,30 @@ The following breaks down the construction of a Asset Creation Action. The actio
             <td class="a10"></td>
         </tr>
         <tr>
-            <td class="a9">Referendum Proposal</td>
-            <td class="a10">ReferendumProposal</td>
+            <td class="a9">Issuer Proposal</td>
+            <td class="a10">IssuerProposal</td>
             <td class="a10">0</td>
-            <td class="a10">1</td>
-            <td class="a10"><abbr title="A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by referendum restricted, then this flag is meaningless.">A Referendum is permitted for Asset-Wide Proposals (outside of smart contract scope) if al ...</abbr></td>
+            <td class="a10">true</td>
+            <td class="a10">An Issuer is permitted to make proposals (outside of smart contract scope).</td>
             <td class="a10">bool</td>
-            <td class="a10"></td>
+            <td class="a10">General Governance</td>
         </tr>
         <tr>
-            <td class="a9">Initiative Proposal</td>
-            <td class="a10">InitiativeProposal</td>
+            <td class="a9">Holder Proposal</td>
+            <td class="a10">HolderProposal</td>
             <td class="a10">0</td>
-            <td class="a10">1</td>
-            <td class="a10"><abbr title="An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if also permitted by the contract. If the contract has proposals by initiative restricted, then this flag is meaningless.">An initiative is permitted for Asset-Wide Proposals (outside of smart contract scope) if a ...</abbr></td>
+            <td class="a10">true</td>
+            <td class="a10">A holder is permitted to make proposals (outside of smart contract scope).</td>
             <td class="a10">bool</td>
             <td class="a10"></td>
         </tr>
         <tr>
             <td class="a9">Asset Modification Governance</td>
             <td class="a10">AssetModificationGovernance</td>
-            <td class="a10">0</td>
             <td class="a10">1</td>
-            <td class="a10"><abbr title="1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (all assets vote on the referendum/initiative).  The voting system specifies the voting rules.">1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or  ...</abbr></td>
-            <td class="a10">bool</td>
+            <td class="a10">1</td>
+            <td class="a10"><abbr title="1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.">1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or  ...</abbr></td>
+            <td class="a10">uint</td>
             <td class="a10"></td>
         </tr>
         <tr>

@@ -26,9 +26,25 @@ The following breaks down the construction of a Confiscation Action. The action 
              </td>
         </tr>
         <tr>
+            <td class="e9">Asset Type</td>
+            <td class="e10">AssetType</td>
+            <td class="e10">3</td>
+            <td class="e10">SHC</td>
+            <td class="e10">eg. Share, Bond, Ticket</td>
+            <td class="e10">fixedchar</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
             <td class="e5" colspan="7">
-                <a href="javascript:;" data-popover="type-PublicKeyHash">
-                   Addresses - Click to show content
+                <a href="javascript:;" data-popover="type-AssetCode">
+                   Asset Code - Click to show content
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="e5" colspan="7">
+                <a href="javascript:;" data-popover="type-QuantityIndex">
+                   Quantities - Click to show content
                 </a>
             </td>
         </tr>
@@ -37,7 +53,7 @@ The following breaks down the construction of a Confiscation Action. The action 
             <td class="e10">DepositQty</td>
             <td class="e10">8</td>
             <td class="e10">10000</td>
-            <td class="e10">Custodian's token balance after confiscation.</td>
+            <td class="e10">Deposit address's token balance after confiscation.</td>
             <td class="e10">uint</td>
             <td class="e10"></td>
         </tr>
@@ -84,6 +100,24 @@ The following breaks down the construction of a Confiscation Action. The action 
             <td class="e10">1</td>
             <td class="e10">Deposit Public Address</td>
             <td class="e10">Dust limit rule minimum value output of 546</td>
+        </tr>
+
+       <tr>
+            <td class="e5"></td>
+            <td class="e6"></td>
+            <td class="e6"></td>
+            <td class="e10">2</td>
+            <td class="e10">Contract Public Address</td>
+            <td class="e10">Change</td>
+        </tr>
+
+       <tr>
+            <td class="e5"></td>
+            <td class="e6"></td>
+            <td class="e6"></td>
+            <td class="e10">3</td>
+            <td class="e10">Contract Fee Public Address</td>
+            <td class="e10">Contract fee if applicable</td>
         </tr>
 
     </table>
@@ -150,3 +184,38 @@ The following breaks down the construction of a Confiscation Action. The action 
         </table>
     </div>
 </div>
+<div class="ui modal" id="type-QuantityIndex">
+    <i class="close icon"></i>
+    <div class="content docs-content">
+        <table class="ui table">
+            <tr style='height:19px;'>
+                <th style="width:5%" class="s1">Label</th>
+                <th style="width:9%" class="s1">Name</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
+                <th style="width:26%" class="s1">Comments</th>
+                <th style="width:5%" class="s1">Data Type</th>
+                <th class="s2">Amendment Restrictions</th>
+            </tr>
+            <tr>
+                <td class="e10">Index</td>
+                <td class="e10">Index</td>
+                <td class="e10">2</td>
+                <td class="e10" style="word-break:break-all">0</td>
+                <td class="e10">The index of the input sending the tokens</td>
+                <td class="e10">uint</td>
+                <td class="e10"></td>
+            </tr>
+            <tr>
+                <td class="e10">Quantity</td>
+                <td class="e10">Quantity</td>
+                <td class="e10">8</td>
+                <td class="e10" style="word-break:break-all">100</td>
+                <td class="e10">Number of tokens being sent</td>
+                <td class="e10">uint</td>
+                <td class="e10"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+

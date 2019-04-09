@@ -27,15 +27,8 @@ The following breaks down the construction of a Thaw Action. The action is const
         </tr>
         <tr>
             <td class="e5" colspan="7">
-                <a href="javascript:;" data-popover="type-PublicKeyHash">
-                   Addresses - Click to show content
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="e5" colspan="7">
                 <a href="javascript:;" data-popover="type-TxId">
-                   Ref Tx ID - Click to show content
+                   Freeze Tx Id - Click to show content
                 </a>
             </td>
         </tr>
@@ -73,6 +66,24 @@ The following breaks down the construction of a Thaw Action. The action is const
             <td class="e10">0</td>
             <td class="e10">Target Public Address X</td>
             <td class="e10">Can be the Contract Address for a 'Contract-wide' Thaw in response to a Contract-wide Freeze.</td>
+        </tr>
+
+       <tr>
+            <td class="e5"></td>
+            <td class="e6"></td>
+            <td class="e6"></td>
+            <td class="e10">1</td>
+            <td class="e10">Contract Public Address</td>
+            <td class="e10">Contract fee and change</td>
+        </tr>
+
+       <tr>
+            <td class="e5"></td>
+            <td class="e6"></td>
+            <td class="e6"></td>
+            <td class="e10">2</td>
+            <td class="e10">Contract Fee Public Address</td>
+            <td class="e10">Contract fee if applicable</td>
         </tr>
 
     </table>

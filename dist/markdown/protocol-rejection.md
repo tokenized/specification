@@ -26,15 +26,6 @@ The following breaks down the construction of a Rejection Action. The action is 
              </td>
         </tr>
         <tr>
-            <td class="m9">Qty Receiving Addresses</td>
-            <td class="m10">QtyReceivingAddresses</td>
-            <td class="m10">1</td>
-            <td class="m10">2</td>
-            <td class="m10">0-255 Message Receiving Addresses</td>
-            <td class="m10">uint8</td>
-            <td class="m10"></td>
-        </tr>
-        <tr>
             <td class="m9">Address Indexes</td>
             <td class="m10">AddressIndexes</td>
             <td class="m10">0</td>
@@ -44,18 +35,27 @@ The following breaks down the construction of a Rejection Action. The action is 
             <td class="m10"></td>
         </tr>
         <tr>
-            <td class="m9">Rejection Type</td>
-            <td class="m10">RejectionType</td>
-            <td class="m10">1</td>
-            <td class="m10">1</td>
-            <td class="m10">Classifies the rejection by a type.</td>
+            <td class="m9">Reject Address Index</td>
+            <td class="m10">RejectAddressIndex</td>
+            <td class="m10">2</td>
+            <td class="m10"></td>
+            <td class="m10">The address which is believed to have caused the rejection.</td>
             <td class="m10">uint</td>
             <td class="m10"></td>
         </tr>
         <tr>
-            <td class="m9">Message Payload</td>
-            <td class="m10">MessagePayload</td>
-            <td class="m10">32</td>
+            <td class="m9">Rejection Code</td>
+            <td class="m10">RejectionCode</td>
+            <td class="m10">0</td>
+            <td class="m10">1</td>
+            <td class="m10">Classifies the rejection by a type.</td>
+            <td class="m10">RejectionCode</td>
+            <td class="m10"></td>
+        </tr>
+        <tr>
+            <td class="m9">Message</td>
+            <td class="m10">Message</td>
+            <td class="m10">16</td>
             <td class="m10"><abbr title="Sorry, you don't have enough tokens.">Hover for example</abbr></td>
             <td class="m10"><abbr title="Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.">Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Mo ...</abbr></td>
             <td class="m10">varchar</td>
@@ -93,7 +93,7 @@ The following breaks down the construction of a Rejection Action. The action is 
             <td class="m6">Contract Public Address</td>
             <td class="m6"></td>
             <td class="m10">0</td>
-            <td class="m10">User's Public Address</td>
+            <td class="m10">Effected user/contract public addresses.</td>
             <td class="m10">Return the money less fees</td>
         </tr>
 

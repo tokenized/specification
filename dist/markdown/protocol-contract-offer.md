@@ -180,27 +180,27 @@ The following breaks down the construction of a Contract Offer Action. The actio
             <td class="c10">Qty of Assets - Amendments can be restricted to a vote.</td>
         </tr>
         <tr>
-            <td class="c9">Referendum Proposal</td>
-            <td class="c10">ReferendumProposal</td>
+            <td class="c9">Issuer Proposal</td>
+            <td class="c10">IssuerProposal</td>
             <td class="c10">0</td>
             <td class="c10">true</td>
-            <td class="c10">A Referendum is permitted for Proposals (outside of smart contract scope).</td>
+            <td class="c10">An Issuer is permitted to make proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
             <td class="c10">General Governance</td>
         </tr>
         <tr>
-            <td class="c9">Initiative Proposal</td>
-            <td class="c10">InitiativeProposal</td>
+            <td class="c9">Holder Proposal</td>
+            <td class="c10">HolderProposal</td>
             <td class="c10">0</td>
             <td class="c10">true</td>
-            <td class="c10">An initiative is permitted for Proposals (outside of smart contract scope).</td>
+            <td class="c10">A holder is permitted to make proposals (outside of smart contract scope).</td>
             <td class="c10">bool</td>
             <td class="c10"></td>
         </tr>
         <tr>
             <td class="c5" colspan="7">
-                <a href="javascript:;" data-popover="type-Registry">
-                   Registries - Click to show content
+                <a href="javascript:;" data-popover="type-Register">
+                   Registers - Click to show content
                 </a>
             </td>
         </tr>
@@ -633,17 +633,8 @@ The following breaks down the construction of a Contract Offer Action. The actio
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Voting System</td>
-                <td class="c10">System</td>
-                <td class="c10">8</td>
-                <td class="c10" style="word-break:break-all">1010111101011001001010101010111111011000010100010010100000010000</td>
-                <td class="c10">Specifies which subfield is subject to this vote system's control.</td>
-                <td class="c10">bin</td>
-                <td class="c10"></td>
-            </tr>
-            <tr>
-                <td class="c10">Vote Method</td>
-                <td class="c10">Method</td>
+                <td class="c10">Vote Type</td>
+                <td class="c10">VoteType</td>
                 <td class="c10">1</td>
                 <td class="c10" style="word-break:break-all">A</td>
                 <td class="c10">R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful.</td>
@@ -663,26 +654,26 @@ The following breaks down the construction of a Contract Offer Action. The actio
                 <td class="c10">Threshold Percentage for the Voting System</td>
                 <td class="c10">ThresholdPercentage</td>
                 <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">0.75</td>
-                <td class="c10">1-100 is valid for relative threshold and absolute threshold. (eg. 75 means 75% and greater). 0 & >=101 is invalid and will be rejected by the smart contract.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.</td>
+                <td class="c10" style="word-break:break-all">75</td>
+                <td class="c10">This field is ignored when VoteType is P (Plurality). Otherwise it is the percentage of ballots required for a proposal to pass. Valid values are greater than 0 and less than 100. 75 means 75% and greater.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.</td>
                 <td class="c10">uint</td>
                 <td class="c10"></td>
             </tr>
             <tr>
                 <td class="c10">VoteMultiplierPermitted</td>
                 <td class="c10">VoteMultiplierPermitted</td>
-                <td class="c10">1</td>
-                <td class="c10" style="word-break:break-all">Y/N</td>
-                <td class="c10">Y - Yes, N - No. Where an asset has a vote multiplier, Y must be selected here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.</td>
-                <td class="c10">fixedchar</td>
+                <td class="c10">0</td>
+                <td class="c10" style="word-break:break-all"></td>
+                <td class="c10">Where an asset has a vote multiplier, true must be set here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.</td>
+                <td class="c10">bool</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Initiative Fee for the Voting System</td>
-                <td class="c10">InitiativeFee</td>
+                <td class="c10">Holder Proposal Fee for the Voting System</td>
+                <td class="c10">HolderProposalFee</td>
                 <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">100</td>
-                <td class="c10">Token Owners must pay the threshold amount to broadcast a valid Initiative.  If the Initiative action is valid, the smart contract will start a vote. 0 is valid.</td>
+                <td class="c10">Token Owners must pay the fee amount to broadcast a valid Proposal.  If the Proposal action is valid, the smart contract will start a vote. 0 is valid.</td>
                 <td class="c10">uint</td>
                 <td class="c10"></td>
             </tr>
@@ -690,7 +681,7 @@ The following breaks down the construction of a Contract Offer Action. The actio
     </div>
 </div>
 
-<div class="ui modal" id="type-Registry">
+<div class="ui modal" id="type-Register">
     <i class="close icon"></i>
     <div class="content docs-content">
         <table class="ui table">
@@ -704,30 +695,30 @@ The following breaks down the construction of a Contract Offer Action. The actio
                 <th class="s2">Amendment Restrictions</th>
             </tr>
             <tr>
-                <td class="c10">Registry Name</td>
+                <td class="c10">Register Name</td>
                 <td class="c10">Name</td>
                 <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all">Tokenized</td>
-                <td class="c10">Length 0-255 bytes. 0 is valid. Registry X Name (eg. Coinbase, Tokenized, etc.)</td>
+                <td class="c10">Length 0-255 bytes. 0 is valid. Register X Name (eg. Coinbase, Tokenized, etc.)</td>
                 <td class="c10">varchar</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Registry URL</td>
+                <td class="c10">Register URL</td>
                 <td class="c10">URL</td>
                 <td class="c10">8</td>
-                <td class="c10" style="word-break:break-all">http://registry.tokenized.com/api/3650d9/version2010</td>
+                <td class="c10" style="word-break:break-all">http://register.tokenized.com/api/3650d9/version2010</td>
                 <td class="c10">Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint</td>
                 <td class="c10">varchar</td>
                 <td class="c10"></td>
             </tr>
             <tr>
-                <td class="c10">Registry Public Key</td>
+                <td class="c10">Register Public Key</td>
                 <td class="c10">PublicKey</td>
-                <td class="c10">0</td>
+                <td class="c10">8</td>
                 <td class="c10" style="word-break:break-all"></td>
-                <td class="c10">Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry.</td>
-                <td class="c10">PublicKeyHash</td>
+                <td class="c10">Length 0-255 bytes. 0 is not valid. Register Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Register.</td>
+                <td class="c10">varbin</td>
                 <td class="c10"></td>
             </tr>
         </table>

@@ -3,7 +3,7 @@
 
 # Ballot Cast Action
 
-Ballot Cast Action -  Used by Token Owners to cast their ballot (vote) on proposals raised by the Issuer (Referendum) or other token holders (Initiative). 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action.
+Ballot Cast Action - Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action.
 
 The following breaks down the construction of a Ballot Cast Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -26,22 +26,6 @@ The following breaks down the construction of a Ballot Cast Action. The action i
              </td>
         </tr>
         <tr>
-            <td class="g9">Asset Type</td>
-            <td class="g10">AssetType</td>
-            <td class="g10">3</td>
-            <td class="g10">RRE</td>
-            <td class="g10">eg. Share, Bond, Ticket</td>
-            <td class="g10">fixedchar</td>
-            <td class="g10"></td>
-        </tr>
-        <tr>
-            <td class="g5" colspan="7">
-                <a href="javascript:;" data-popover="type-AssetCode">
-                   Asset Code - Click to show content
-                </a>
-            </td>
-        </tr>
-        <tr>
             <td class="g5" colspan="7">
                 <a href="javascript:;" data-popover="type-TxId">
                    Vote Tx ID - Click to show content
@@ -53,7 +37,7 @@ The following breaks down the construction of a Ballot Cast Action. The action i
             <td class="g10">Vote</td>
             <td class="g10">8</td>
             <td class="g10">A</td>
-            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference.  1st position = 1st choice. 2nd position = 2nd choice, etc.  A is always Accept and B is always reject in a Y/N votes.">Length 1-255 bytes. 0 is not valid. Accept, Reject, Abstain, Spoiled, Multiple Choice, or  ...</abbr></td>
+            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal action. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference. 1st position = 1st choice. 2nd position = 2nd choice, etc. A is always Accept and B is always reject in a Y/N votes.">Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal acti ...</abbr></td>
             <td class="g10">varchar</td>
             <td class="g10"></td>
         </tr>
@@ -79,11 +63,11 @@ The following breaks down the construction of a Ballot Cast Action. The action i
 
        <tr>
             <td class="g5">0</td>
-            <td class="g6">Token Owner's Public Address</td>
+            <td class="g6">Token Owner's Public Key Hash</td>
             <td class="g6"></td>
             <td class="g10">0</td>
-            <td class="g10">Contract Public Address</td>
-            <td class="g10">Dust limit rule minimum value output of 546</td>
+            <td class="g10">Contract Public Key Hash</td>
+            <td class="g10">Fund ballot cast response.</td>
         </tr>
 
     </table>

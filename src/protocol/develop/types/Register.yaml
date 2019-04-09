@@ -1,12 +1,12 @@
 
 metadata:
-  name: Registry
-  description: "A Registry defines the details of a public Registry."
+  name: Register
+  description: "A Register defines the details of a public Register."
 
 fields:
   - name: Name
-    label: Registry Name
-    description: "Length 0-255 bytes. 0 is valid. Registry X Name (eg. Coinbase, Tokenized, etc.)"
+    label: Register Name
+    description: "Length 0-255 bytes. 0 is valid. Register X Name (eg. Coinbase, Tokenized, etc.)"
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
@@ -15,17 +15,18 @@ fields:
     notes: ""
 
   - name: URL
-    label: Registry URL
+    label: Register URL
     description: "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint"
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
     example_hex: 34687474703a2f2f72656769737472792e746f6b656e697a65642e636f6d2f6170692f3336353064392f76657273696f6e32303130
-    example_value: "http://registry.tokenized.com/api/3650d9/version2010"
+    example_value: "http://register.tokenized.com/api/3650d9/version2010"
     notes: ""
 
   - name: PublicKey
-    label: Registry Public Key
-    description: "Length 0-255 bytes. 0 is not valid. Registry Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Registry."
-    type: PublicKeyHash
+    label: Register Public Key
+    description: "Length 0-255 bytes. 0 is not valid. Register Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Register."
+    type: varbin
+    size: 8
     notes: ""

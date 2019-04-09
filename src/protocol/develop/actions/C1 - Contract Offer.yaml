@@ -52,6 +52,9 @@ fields:
     example_hex: 01
     example_value: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
+    int_values:
+      - 1
+      - 2
 
   - name: BodyOfAgreement
     label: Body of Agreement
@@ -81,6 +84,8 @@ fields:
     example_hex: 01
     example_value: "1"
     notes: "The file type of the supporting documents ('attached') that are important to the contract."
+    int_values:
+      - 1
 
   - name: SupportingDocs
     label: Supporting Documentation
@@ -146,13 +151,13 @@ fields:
     label: Contract Operator Included
     description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
     type: bool
-    includes:
-      - ContractOperator
 
   - name: ContractOperator
     label: Contract Operator
     description: "An additional entity with operator access to the contract."
     type: Entity
+    # include_if_true specifies that this field is only included in serialization if the specified field is true.
+    include_if_true: ContractOperatorIncluded
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags
@@ -184,23 +189,23 @@ fields:
     example_value: "1"
     notes: "Qty of Assets - Amendments can be restricted to a vote."
 
-  - name: ReferendumProposal
-    label: Referendum Proposal
-    description: "A Referendum is permitted for Proposals (outside of smart contract scope)."
+  - name: IssuerProposal
+    label: Issuer Proposal
+    description: "An Issuer is permitted to make proposals (outside of smart contract scope)."
     type: bool
     example_hex: 01
-    example_value: "true"
+    example_value: true
     notes: "General Governance"
 
-  - name: InitiativeProposal
-    label: Initiative Proposal
-    description: "An initiative is permitted for Proposals (outside of smart contract scope)."
+  - name: HolderProposal
+    label: Holder Proposal
+    description: "A holder is permitted to make proposals (outside of smart contract scope)."
     type: bool
     example_hex: 01
     example_value: true
     notes: ""
 
-  - name: Registries
-    label: Registries
-    description: "A list Registries"
-    type: Registry[]
+  - name: Registers
+    label: Registers
+    description: "A list Registers that provide approval for all token transfers for all assets under the contract."
+    type: Register[]

@@ -3,7 +3,7 @@
 
 # Proposal Action
 
-Proposal Action - Allows Token Issuers/Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action to reduce spam, as the resulting vote will be put to all token owners.
+Proposal Action - Allows Issuers/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners.
 
 The following breaks down the construction of a Proposal Action. The action is constructed by building a single string from each of the elements in order.
 
@@ -39,7 +39,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g10">AssetSpecificVote</td>
             <td class="g10">0</td>
             <td class="g10"></td>
-            <td class="g10">1 - Yes, 0 - No.  No Asset Type/AssetCode subfields for N - No.</td>
+            <td class="g10"><abbr title="When true this proposal is specific to an asset and the asset type and asset code fields are serialized.">When true this proposal is specific to an asset and the asset type and asset code fields a ...</abbr></td>
             <td class="g10">bool</td>
             <td class="g10"></td>
         </tr>
@@ -89,7 +89,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g10">VoteOptions</td>
             <td class="g10">8</td>
             <td class="g10">ABCDEFGHIJKLMNO</td>
-            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB000000000 would be chosen for Y/N (binary) type votes.">Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option.  Typical ...</abbr></td>
+            <td class="g10"><abbr title="Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option. Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB would be used for Y/N (binary) type votes. When Specific is true, only AB is a valid value.">Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option. Typical  ...</abbr></td>
             <td class="g10">varchar</td>
             <td class="g10"></td>
         </tr>
@@ -98,7 +98,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g10">VoteMax</td>
             <td class="g10">1</td>
             <td class="g10">15</td>
-            <td class="g10"><abbr title="Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N (binary)">Range: 1-X. How many selections can a voter make in a Ballot Cast.  1 is selected for Y/N  ...</abbr></td>
+            <td class="g10"><abbr title="Range: 1-X. How many selections can a voter make in a Ballot Cast. 1 is selected for Y/N (binary). When Specific is true, only 1 is a valid value.">Range: 1-X. How many selections can a voter make in a Ballot Cast. 1 is selected for Y/N ( ...</abbr></td>
             <td class="g10">uint</td>
             <td class="g10"></td>
         </tr>
@@ -153,7 +153,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g6"></td>
             <td class="g10">0</td>
             <td class="g10">Contract Public Address</td>
-            <td class="g10"></td>
+            <td class="g10">Includes contract fee and holder proposal fee if applicable.</td>
         </tr>
 
        <tr>
@@ -162,7 +162,7 @@ The following breaks down the construction of a Proposal Action. The action is c
             <td class="g6"></td>
             <td class="g10">1</td>
             <td class="g10">Contract Public Address</td>
-            <td class="g10">Fund the Result at Vote cut off</td>
+            <td class="g10">Fund the Result TX at Vote cut off</td>
         </tr>
 
     </table>
@@ -265,7 +265,16 @@ The following breaks down the construction of a Proposal Action. The action is c
                 <td class="g10">SubfieldIndex</td>
                 <td class="g10">1</td>
                 <td class="g10" style="word-break:break-all">1</td>
-                <td class="g10">Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to.</td>
+                <td class="g10">Index of the subfield to be amended. This only applies to specific fields containing complex types with subfields. This is used to specify which field of the object the amendment applies to.</td>
+                <td class="g10">uint</td>
+                <td class="g10">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
+            </tr>
+            <tr>
+                <td class="g10">Subfield Element</td>
+                <td class="g10">SubfieldElement</td>
+                <td class="g10">2</td>
+                <td class="g10" style="word-break:break-all">1</td>
+                <td class="g10">Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection.</td>
                 <td class="g10">uint</td>
                 <td class="g10">For example to specify the 2nd field of a VotingSystem, value 1 would be given.</td>
             </tr>
@@ -283,8 +292,8 @@ The following breaks down the construction of a Proposal Action. The action is c
                 <td class="g10">Data</td>
                 <td class="g10">32</td>
                 <td class="g10" style="word-break:break-all"></td>
-                <td class="g10">New data for the amended subfield. Data type depends on the the type of the field being amended.</td>
-                <td class="g10">varchar</td>
+                <td class="g10">New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol.</td>
+                <td class="g10">varbin</td>
                 <td class="g10">The bytes should be in an format appropriate for the field being modified.</td>
             </tr>
         </table>

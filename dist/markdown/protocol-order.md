@@ -26,6 +26,15 @@ The following breaks down the construction of a Order Action. The action is cons
              </td>
         </tr>
         <tr>
+            <td class="e9">Compliance Action</td>
+            <td class="e10">ComplianceAction</td>
+            <td class="e10">1</td>
+            <td class="e10">F</td>
+            <td class="e10">Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)</td>
+            <td class="e10">fixedchar</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
             <td class="e9">Asset Type</td>
             <td class="e10">AssetType</td>
             <td class="e10">3</td>
@@ -42,15 +51,6 @@ The following breaks down the construction of a Order Action. The action is cons
             </td>
         </tr>
         <tr>
-            <td class="e9">Compliance Action</td>
-            <td class="e10">ComplianceAction</td>
-            <td class="e10">1</td>
-            <td class="e10">F</td>
-            <td class="e10">Freeze (F), Thaw (T), Confiscate (C), Reconciliation (R)</td>
-            <td class="e10">fixedchar</td>
-            <td class="e10"></td>
-        </tr>
-        <tr>
             <td class="e5" colspan="7">
                 <a href="javascript:;" data-popover="type-TargetAddress">
                    Target Addresses - Click to show content
@@ -59,58 +59,8 @@ The following breaks down the construction of a Order Action. The action is cons
         </tr>
         <tr>
             <td class="e5" colspan="7">
-                <a href="javascript:;" data-popover="type-PublicKeyHash">
-                   Deposit Address - Click to show content
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="e9">Authority Name</td>
-            <td class="e10">AuthorityName</td>
-            <td class="e10">8</td>
-            <td class="e10"><abbr title="Supreme and District Courts Brisbane">Hover for example</abbr></td>
-            <td class="e10"><abbr title="Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)">Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tok ...</abbr></td>
-            <td class="e10">varchar</td>
-            <td class="e10"></td>
-        </tr>
-        <tr>
-            <td class="e9">Signature Algorithm for Address List</td>
-            <td class="e10">SigAlgoAddressList</td>
-            <td class="e10">1</td>
-            <td class="e10">1</td>
-            <td class="e10">0 = No Registry-signed Message, 1 = ECDSA+secp256k1</td>
-            <td class="e10">uint</td>
-            <td class="e10"></td>
-        </tr>
-        <tr>
-            <td class="e9">Authority Public Key</td>
-            <td class="e10">AuthorityPublicKey</td>
-            <td class="e10">8</td>
-            <td class="e10"></td>
-            <td class="e10">Length 0-255 bytes. Public Key associated with the Enforcement Authority</td>
-            <td class="e10">varchar</td>
-            <td class="e10"></td>
-        </tr>
-        <tr>
-            <td class="e9">Authority Order Signature</td>
-            <td class="e10">OrderSignature</td>
-            <td class="e10">8</td>
-            <td class="e10"></td>
-            <td class="e10"><abbr title="Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract Address, Asset Code, Compliance Action, Supporting Evidence Hash, Time Out Expiration, TargetAddress1, TargetAddress1Qty, TargetAddressX, TargetAddressXQty,...,DepositAddress)">Length 0-255 bytes. Signature for a message that lists out the target addresses and deposi ...</abbr></td>
-            <td class="e10">varchar</td>
-            <td class="e10"></td>
-        </tr>
-        <tr>
-            <td class="e5" colspan="7">
                 <a href="javascript:;" data-popover="type-TxId">
-                   Supporting Evidence Hash - Click to show content
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td class="e5" colspan="7">
-                <a href="javascript:;" data-popover="type-TxId">
-                   Ref Txns - Click to show content
+                   Freeze Tx Id - Click to show content
                 </a>
             </td>
         </tr>
@@ -122,7 +72,84 @@ The following breaks down the construction of a Order Action. The action is cons
             </td>
         </tr>
         <tr>
-            <td class="e9">Message Period</td>
+            <td class="e5" colspan="7">
+                <a href="javascript:;" data-popover="type-PublicKeyHash">
+                   Deposit Address - Click to show content
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="e9">Authority Included</td>
+            <td class="e10">AuthorityIncluded</td>
+            <td class="e10">0</td>
+            <td class="e10"></td>
+            <td class="e10"><abbr title="Specifies if an authority signature is included. For Reconcialitaion actions all authority signature related fields are skipped during serialization.">Specifies if an authority signature is included. For Reconcialitaion actions all authority ...</abbr></td>
+            <td class="e10">bool</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
+            <td class="e9">Authority Name</td>
+            <td class="e10">AuthorityName</td>
+            <td class="e10">8</td>
+            <td class="e10"><abbr title="Supreme and District Courts Brisbane">Hover for example</abbr></td>
+            <td class="e10"><abbr title="Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)">Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tok ...</abbr></td>
+            <td class="e10">varchar</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
+            <td class="e9">Authority Public Key</td>
+            <td class="e10">AuthorityPublicKey</td>
+            <td class="e10">8</td>
+            <td class="e10"></td>
+            <td class="e10">Length 0-255 bytes. Public Key associated with the Enforcement Authority</td>
+            <td class="e10">varbin</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
+            <td class="e9">Signature Algorithm</td>
+            <td class="e10">SignatureAlgorithm</td>
+            <td class="e10">1</td>
+            <td class="e10">1</td>
+            <td class="e10">Algorithm used for order signature. Only valid value is currently 1 = ECDSA+secp256k1</td>
+            <td class="e10">uint</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
+            <td class="e9">Authority Order Signature</td>
+            <td class="e10">OrderSignature</td>
+            <td class="e10">8</td>
+            <td class="e10"></td>
+            <td class="e10"><abbr title="Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Asset Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)">Length 0-255 bytes. Signature for a message that lists out the target addresses and deposi ...</abbr></td>
+            <td class="e10">varbin</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
+            <td class="e9">Supporting Evidence Hash</td>
+            <td class="e10">SupportingEvidenceHash</td>
+            <td class="e10">32</td>
+            <td class="e10"><abbr title="c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1">Hover for example</abbr></td>
+            <td class="e10">SHA-256: warrant, court order, etc.</td>
+            <td class="e10">bin</td>
+            <td class="e10"></td>
+        </tr>
+        <tr>
+            <td class="e9">Ref Txs</td>
+            <td class="e10">RefTxs</td>
+            <td class="e10">32</td>
+            <td class="e10"></td>
+            <td class="e10"><abbr title="The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the issuer or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.">The request/response actions that were dropped.  The entire txn for both actions is includ ...</abbr></td>
+            <td class="e10">varbin</td>
+            <td class="e10">Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.</td>
+        </tr>
+        <tr>
+            <td class="e5" colspan="7">
+                <a href="javascript:;" data-popover="type-QuantityIndex">
+                   Bitcoin Dispersions - Click to show content
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="e9">Message</td>
             <td class="e10">Message</td>
             <td class="e10">32</td>
             <td class="e10"><abbr title="Sorry, but the court order made me.">Hover for example</abbr></td>
@@ -156,7 +183,7 @@ The following breaks down the construction of a Order Action. The action is cons
             <td class="e6"></td>
             <td class="e10">0</td>
             <td class="e10">Contract Public Address</td>
-            <td class="e10"></td>
+            <td class="e10">Contract fee and funding for response tx</td>
         </tr>
 
     </table>
@@ -251,6 +278,41 @@ The following breaks down the construction of a Order Action. The action is cons
                 <td class="e10">8</td>
                 <td class="e10" style="word-break:break-all">10000</td>
                 <td class="e10">Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.</td>
+                <td class="e10">uint</td>
+                <td class="e10"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="ui modal" id="type-QuantityIndex">
+    <i class="close icon"></i>
+    <div class="content docs-content">
+        <table class="ui table">
+            <tr style='height:19px;'>
+                <th style="width:5%" class="s1">Label</th>
+                <th style="width:9%" class="s1">Name</th>
+                <th style="width:3%" class="s1">Bytes</th>
+                <th style="width:33%" class="s1">Example Values</th>
+                <th style="width:26%" class="s1">Comments</th>
+                <th style="width:5%" class="s1">Data Type</th>
+                <th class="s2">Amendment Restrictions</th>
+            </tr>
+            <tr>
+                <td class="e10">Index</td>
+                <td class="e10">Index</td>
+                <td class="e10">2</td>
+                <td class="e10" style="word-break:break-all">0</td>
+                <td class="e10">The index of the input sending the tokens</td>
+                <td class="e10">uint</td>
+                <td class="e10"></td>
+            </tr>
+            <tr>
+                <td class="e10">Quantity</td>
+                <td class="e10">Quantity</td>
+                <td class="e10">8</td>
+                <td class="e10" style="word-break:break-all">100</td>
+                <td class="e10">Number of tokens being sent</td>
                 <td class="e10">uint</td>
                 <td class="e10"></td>
             </tr>

@@ -24,9 +24,18 @@ fields:
 
   - name: SubfieldIndex
     label: Subfield Index
-    description: "Index of the subfield to be amended. This only applies to specific fields of an element in an array. This is used to specify which field of the array element the amendment applies to."
+    description: "Index of the subfield to be amended. This only applies to specific fields containing complex types with subfields. This is used to specify which field of the object the amendment applies to."
     type: uint
     size: 1
+    example_hex: 01
+    example_value: 1
+    notes: "For example to specify the 2nd field of a VotingSystem, value 1 would be given."
+
+  - name: SubfieldElement
+    label: Subfield Element
+    description: "Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection."
+    type: uint
+    size: 2
     example_hex: 01
     example_value: 1
     notes: "For example to specify the 2nd field of a VotingSystem, value 1 would be given."
@@ -38,10 +47,14 @@ fields:
     description: "0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract."
     example_hex: 00
     example_value: 0
+    values:
+      - 0
+      - 1
+      - 2
 
   - name: Data
     label: Data
-    description: "New data for the amended subfield. Data type depends on the the type of the field being amended."
-    type: varchar
+    description: "New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol."
+    type: varbin
     size: 32
     notes: "The bytes should be in an format appropriate for the field being modified."
