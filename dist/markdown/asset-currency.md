@@ -14,9 +14,9 @@ A Currency
             <th class="s1">Example</th>
         </tr>
         <tr>
-            <td class="a10">Version</td>
-            <td class="a10">uint</td>
             <td class="a10">Payload Version</td>
+            <td class="a10">uint</td>
+            <td class="a10"></td>
             <td class="a10">1</td>
             <td class="a10"></td>
         </tr>

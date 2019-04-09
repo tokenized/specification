@@ -49,7 +49,21 @@ A Membership
             <td class="a10"></td>
         </tr>
         <tr>
-            <td class="a10">MembershipType</td>
+            <td class="a10">Membership Class</td>
+            <td class="a10">varchar</td>
+            <td class="a10"></td>
+            <td class="a10">8</td>
+            <td class="a10"></td>
+        </tr>
+        <tr>
+            <td class="a10">Role Type</td>
+            <td class="a10">varchar</td>
+            <td class="a10"></td>
+            <td class="a10">8</td>
+            <td class="a10"></td>
+        </tr>
+        <tr>
+            <td class="a10">Membership Type</td>
             <td class="a10">varchar</td>
             <td class="a10"></td>
             <td class="a10">8</td>

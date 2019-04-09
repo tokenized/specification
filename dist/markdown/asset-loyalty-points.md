@@ -14,9 +14,9 @@ A Loyalty Point
             <th class="s1">Example</th>
         </tr>
         <tr>
-            <td class="a10">Version</td>
-            <td class="a10">uint</td>
             <td class="a10">Payload Version</td>
+            <td class="a10">uint</td>
+            <td class="a10"></td>
             <td class="a10">1</td>
             <td class="a10"></td>
         </tr>
@@ -25,13 +25,6 @@ A Loyalty Point
             <td class="a10">AgeRestriction</td>
             <td class="a10"></td>
             <td class="a10">0</td>
-            <td class="a10"></td>
-        </tr>
-        <tr>
-            <td class="a10">Offer Type</td>
-            <td class="a10">fixedchar</td>
-            <td class="a10"></td>
-            <td class="a10">1</td>
             <td class="a10"></td>
         </tr>
         <tr>
