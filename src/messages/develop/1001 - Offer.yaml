@@ -20,21 +20,15 @@ fields:
 
   - name: Timestamp
     label: Timestamp
-    description: "Timestamp in nanoseconds for when the message sender creates the transaction."
+    description: "Timestamp in nanoseconds for when the message sender created the offer."
     type: Timestamp
     example_hex: 1588f8cc6a16430d
     example_value: 1551767413250187179
     notes: ""
 
-  - name: RefTxId
-    label: Ref Tx Id
-    description: "Tx Id of the request transaction referenced by the offer."
-    type: TxId
-    notes: "For a multi-contract settlement, the Payload will be a Settlement op return script and the RefTxId will be the id of the tx containing the Transfer."
-
   - name: Payload
     label: Payload
-    description: "Full serialized op return script containing an offer to another party, usually to exchange tokens/bitcoin. The message needs data added by another party."
+    description: "Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer."
     type: varbin
     size: 32
     notes: ""

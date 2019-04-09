@@ -1,6 +1,6 @@
-# Offer
+# SettlementRequest
 
-A message that contains all of the details required for an agreement to be formed. Sent to an address(es). The Offer should have all, or nearly all, of the details required for the receiving party to accept the offer.  The Offer shall be in the form of a partially formed Bitcoin transaction with all of the relevent details (offer, consideration, offeror's payment/receipt details, etc.).  The Offer message is different to a Signature Request message in that it is missing the offeree's payment/receipt details (eg. UTXOs). If the Offer message is well received by the offeree, then the offeree can add their relevent details (eg. inputs/outputs) and sign the transaction.  If an additional signature is required from the offeror at this point, then the partially-signed transaction can be sent to the offeror by way of a Signature Request message.
+A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added.
 
 
 
@@ -25,15 +25,31 @@ A message that contains all of the details required for an agreement to be forme
         <tr>
             <td class="110">Timestamp</td>
             <td class="110">Timestamp</td>
-            <td class="110">Timestamp in nanoseconds for when the message sender created the offer.</td>
+            <td class="110">Timestamp in nanoseconds for when the message sender creates the transaction.</td>
             <td class="110">0</td>
             <td class="110">1551767413250187179</td>
             <td class="110"></td>
         </tr>
         <tr>
-            <td class="110">Payload</td>
+            <td class="110">Transfer Tx Id</td>
+            <td class="110">TxId</td>
+            <td class="110">Tx Id of the transfer request transaction that triggered this message.</td>
+            <td class="110">0</td>
+            <td class="110"></td>
+            <td class="110"></td>
+        </tr>
+        <tr>
+            <td class="110">Contract Fees</td>
+            <td class="110">TargetAddress[]</td>
+            <td class="110">Contract fees and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.</td>
+            <td class="110">8</td>
+            <td class="110"></td>
+            <td class="110"></td>
+        </tr>
+        <tr>
+            <td class="110">Settlement</td>
             <td class="110">varbin</td>
-            <td class="110">Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer.</td>
+            <td class="110">Serialized settlement OP_RETURN that needs data added by another contract.</td>
             <td class="110">32</td>
             <td class="110"></td>
             <td class="110"></td>
