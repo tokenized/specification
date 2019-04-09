@@ -51,6 +51,9 @@ func GoType(typeName string, size uint64, options []string) string {
 
 	case "Currency":
 		return "[3]byte"
+
+	case "RejectionCode":
+		return "uint8"
 	}
 
 	return fmt.Sprintf("%s%s", prefix, name)
@@ -82,7 +85,8 @@ func IsInternalType(typeName string, size uint64) bool {
 	case "Role",
 		"EntityType",
 		"Currency",
-		"MessageType":
+		"MessageType",
+		"RejectionCode":
 		return false
 
 	}
@@ -95,7 +99,8 @@ func IsResource(typeName string) bool {
 	case "Role",
 		"EntityType",
 		"Currency",
-		"MessageType":
+		"MessageType",
+		"RejectionCode":
 		return true
 	}
 

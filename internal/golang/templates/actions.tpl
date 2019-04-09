@@ -270,6 +270,10 @@ func (m *{{.Name}}) Validate() error {
 		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
 			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
 		}
+{{- else if eq .Type "RejectionCode" }}
+		if GetRejectionCode(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid rejection code value : %d", m.{{.Name}})
+		}
 {{- else if eq .Type "Role" }}
 		if GetRoleType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})

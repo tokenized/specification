@@ -124,8 +124,8 @@ The following breaks down the construction of a Settlement Action. The action is
                 <td class="t10">Action Prefix</td>
                 <td class="t10">ActionPrefix</td>
                 <td class="t10">2</td>
-                <td class="t10">T4</td>
-                <td class="t10" style="word-break:break-all">// T4 identifies data as a Settlement message.</td>
+                <td class="t10">T2</td>
+                <td class="t10" style="word-break:break-all">// T2 identifies data as a Settlement message.</td>
                 <td class="t10">string</td>
                 <td class="t10">Cannot be changed by issuer, operator or smart contract..</td>
             </tr>

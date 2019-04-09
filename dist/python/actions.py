@@ -636,8 +636,8 @@ class Action_Rejection(ActionBase):
 
     schema = {
         'RejectAddressIndex':              [0, DAT_uint, 2],
-        'RejectionType':                   [1, DAT_uint, 1],
-        'MessagePayload':                  [2, DAT_varchar, 32],
+        'RejectionCode':                   [1, DAT_RejectionCode, 0],
+        'Message':                         [2, DAT_varchar, 16],
         'Timestamp':                       [3, DAT_Timestamp, 0]
     }
 
@@ -648,8 +648,8 @@ class Action_Rejection(ActionBase):
     }
 
     def init_attributes(self):
-        self.RejectionType = None
-        self.MessagePayload = None
+        self.RejectionCode = None
+        self.Message = None
         self.Timestamp = None
 
 
@@ -758,7 +758,7 @@ class Action_Transfer(ActionBase):
 # from transfer (T1) actions.
 
 class Action_Settlement(ActionBase):
-    ActionPrefix = 'T4'
+    ActionPrefix = 'T2'
 
     schema = {
         'Timestamp':                       [0, DAT_Timestamp, 0]
@@ -799,5 +799,5 @@ ActionClassMap = {
     'R3': Action_Alteration,
     'R4': Action_Removal,
     'T1': Action_Transfer,
-    'T4': Action_Settlement
+    'T2': Action_Settlement
 }
