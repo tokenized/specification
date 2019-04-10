@@ -41,7 +41,7 @@ A message that contains a multi-contract settlement that needs settlement data a
         <tr>
             <td class="110">Contract Fees</td>
             <td class="110">TargetAddress[]</td>
-            <td class="110">Contract fees and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.</td>
+            <td class="110">Contract fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.</td>
             <td class="110">8</td>
             <td class="110"></td>
             <td class="110"></td>

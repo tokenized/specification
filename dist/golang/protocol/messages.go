@@ -348,7 +348,7 @@ type SettlementRequest struct {
 	Version      uint8           `json:"version,omitempty"`        // Payload Version
 	Timestamp    Timestamp       `json:"timestamp,omitempty"`      // Timestamp in nanoseconds for when the message sender creates the transaction.
 	TransferTxId TxId            `json:"transfer_tx_id,omitempty"` // Tx Id of the transfer request transaction that triggered this message.
-	ContractFees []TargetAddress `json:"contract_fees,omitempty"`  // Contract fees and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.
+	ContractFees []TargetAddress `json:"contract_fees,omitempty"`  // Contract fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.
 	Settlement   []byte          `json:"settlement,omitempty"`     // Serialized settlement OP_RETURN that needs data added by another contract.
 }
 
