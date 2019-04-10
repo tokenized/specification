@@ -27,14 +27,6 @@ rules:
       label: Deposit Public Address
       comments: Dust limit rule minimum value output of 546
 
-    - name: Contract
-      label: Contract Public Address
-      comments: Change
-
-    - name: Contract Fee
-      label: Contract Fee Public Address
-      comments: Contract fee if applicable
-
 fields:
   - name: Header
     label: Header
