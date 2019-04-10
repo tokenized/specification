@@ -23,14 +23,6 @@ rules:
       label: Target Public Address X
       comments: If Target Public Address is the Contract Address then the entire contract is frozen.  All request actions during the Freeze period will be ignored and rejected when the contract is thawed and rebuilds.
 
-    - name: Contract
-      label: Contract Public Address
-      comments: Contract fee and change
-
-    - name: Contract Fee
-      label: Contract Fee Public Address
-      comments: Contract fee if applicable
-
 fields:
   - name: Header
     label: Header
