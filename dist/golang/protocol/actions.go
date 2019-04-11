@@ -561,7 +561,7 @@ type AssetCreation struct {
 	AssetModificationGovernance uint8     `json:"asset_modification_governance,omitempty"` // 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
 	TokenQty                    uint64    `json:"token_qty,omitempty"`                     // Quantity of token - 0 is valid. Fungible 'shares' of the Asset. 1 is used for non-fungible tokens.  Asset Codes become the non-fungible Asset Code and many Asset Codes can be associated with a particular Contract.
 	AssetPayload                []byte    `json:"asset_payload,omitempty"`                 // Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32)
-	AssetRevision               uint32    `json:"asset _revision,omitempty"`               // Counter 0 to (2^32)-1
+	AssetRevision               uint32    `json:"asset_revision,omitempty"`                // Counter 0 to (2^32)-1
 	Timestamp                   Timestamp `json:"timestamp,omitempty"`                     // Timestamp in nanoseconds of when the smart contract created the action.
 }
 
@@ -923,7 +923,7 @@ func (m *AssetCreation) Validate() error {
 		}
 	}
 
-	// Asset Revision (uint32)
+	// AssetRevision (uint32)
 	{
 	}
 

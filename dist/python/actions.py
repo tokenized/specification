@@ -26,7 +26,7 @@ class Action_AssetDefinition(ActionBase):
     }
 
     rules = {
-        'contractFee': 2000,
+        'contractFee': 0,
         'inputs': [ACT_CONTRACT],
         'outputs': [ACT_USER, ACT_CONTRACT]
     }
@@ -62,7 +62,7 @@ class Action_AssetCreation(ActionBase):
         'AssetModificationGovernance':     [8, DAT_uint, 1],
         'TokenQty':                        [9, DAT_uint, 8],
         'AssetPayload':                    [10, DAT_varbin, 16],
-        'Asset Revision':                  [11, DAT_uint, 4],
+        'AssetRevision':                   [11, DAT_uint, 4],
         'Timestamp':                       [12, DAT_Timestamp, 0]
     }
 
@@ -83,7 +83,7 @@ class Action_AssetCreation(ActionBase):
         self.AssetModificationGovernance = None
         self.TokenQty = None
         self.AssetPayload = None
-        self.Asset Revision = None
+        self.AssetRevision = None
         self.Timestamp = None
 
 

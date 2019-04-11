@@ -10,7 +10,7 @@
 
 The following actions break down the construction of a Tokenized protocol message. The action is constructed by building a single string from each of the elements in order. Each field within the action is given a specific type, including standard types and compound types.
 
-Each message should be prefixed with common header data. See the article on [how to construct a header](#) for more details.
+Each message should be prefixed with common header data. See the [Transactions article](../concepts/transactions) for details on how to construct a header.
 
 <a name="all-actions"></a>
 ## Available Actions
@@ -86,7 +86,7 @@ Each message should be prefixed with common header data. See the article on [how
 {{end}}
 
 {{- if ne .Rules.Fee 0 }}
-> **Note**: This action requires a Smart Contract Operator Fee of at least <strong>{{.Rules.Fee}}</strong>
+> **Note**: This action requires a Smart Contract Operator Fee of at least <strong>{{.Rules.Fee}} satoshis</strong>
 {{- end }}
 
 <hr />

@@ -8,7 +8,7 @@
 
 The following actions break down the construction of a Tokenized protocol message. The action is constructed by building a single string from each of the elements in order. Each field within the action is given a specific type, including standard types and compound types.
 
-Each message should be prefixed with common header data. See the article on [how to construct a header](#) for more details.
+Each message should be prefixed with common header data. See the [Transactions article](../concepts/transactions) for details on how to construct a header.
 
 <a name="all-actions"></a>
 ## Available Actions
@@ -176,7 +176,6 @@ This action is used by the issuer to define the properties/characteristics of th
     </tr>
 </table>
 
-> **Note**: This action requires a Smart Contract Operator Fee of at least <strong>2000</strong>
 
 <hr />
 
@@ -285,7 +284,7 @@ This action creates an Asset in response to the Issuer's instructions in the Def
         <td>Payload length is dependent on the asset type. Each asset is made up of a defined set of information pertaining to the specific asset type, and may contain fields of variable length type (nvarchar8, 16, 32) </td>
     </tr>
     <tr>
-        <td>Asset Revision</td>
+        <td>AssetRevision</td>
         <td>
             uint(4)
         </td>

@@ -12,7 +12,7 @@ metadata:
   rejection: Rejection
 
 rules:
-  fee: 2000
+  fee:
   inputs:
     - name: Issuer
       label: "Issuer's Public Address"
