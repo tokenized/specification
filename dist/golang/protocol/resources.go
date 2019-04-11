@@ -3253,6 +3253,12 @@ values:
       text: Transaction Malformed
       description: The Bitcoin tx is malformed. Incorrect inputs/outputs or something similar.
 
+    3:
+      name: Timeout
+      text: Time Out
+      description: A dependency, other contract/service, has failed to complete before the smart contract's timeout.
+
+
     #################################### Contract ####################################
 
     10:
@@ -3375,6 +3381,11 @@ values:
       name: BallotAlreadyCounted
       text: Ballot Already Counted
       description: The ballot has already been counted for this address.
+
+    45:
+      name: VoteSystemNotPermitted
+      text: Vote System Not Permitted
+      description: "The voting system isn't permitted for this request."
 
     #################################### Enforcement ####################################
 

@@ -23,14 +23,6 @@ rules:
       label: Target Public Address X
       comments: 546 minimum.  If N bitcoin needs to be sent to the address, then this will be the output that receives the Bitcoin.
 
-    - name: Contract
-      label: Contract Public Address
-      comments: Change
-
-    - name: Contract Fee
-      label: Contract Fee Public Address
-      comments: Contract fee if applicable
-
 fields:
   - name: AssetType
     label: Asset Type
