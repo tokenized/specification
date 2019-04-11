@@ -23,14 +23,6 @@ rules:
       label: Target Public Address X
       comments: "Can be the Contract Address for a 'Contract-wide' Thaw in response to a Contract-wide Freeze."
 
-    - name: Contract
-      label: Contract Public Address
-      comments: Contract fee and change
-
-    - name: Contract Fee
-      label: Contract Fee Public Address
-      comments: Contract fee if applicable
-
 fields:
   - name: Header
     label: Header
