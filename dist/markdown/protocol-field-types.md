@@ -1,13 +1,10 @@
 # Protocol Field Types
 
-- [Introduction](#introduction)
+- [Primitive Types](#primitive-types)
+- [Basic Types](#basic-types)
+- [Compound Types](#compound-types)
 
-- [Field Types](#field-types)
-    - [Primitive Types](#primitive-types)
-    - [Basic Types](#basic-types)
-    - [Compound Types](#compound-types)
-
-Each field in a protocol action is assigned with a data type. Standard scalar types have a single value, these include primitive and basic types. While compound types are made up of fields that have their own types, including nested compound types.
+Each field in a protocol action is assigned with a data type. Standard scalar types have a single value, these include primitive and basic types. While [compound types](#compound-types) are made up of fields that have their own types, including nested compound types.
 
 <a name="primitive-types"></a>
 ## Primitive Types

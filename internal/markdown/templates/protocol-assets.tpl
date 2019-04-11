@@ -38,7 +38,7 @@ Asset Types are used with reference to the `AssetPayload` field found in the Ass
         <td>{{.Name}}</td>
         <td>
         {{- if .IsComplexType }}
-            <a href="#{{.TypeURLCode}}">{{.Type}}</a>
+            <a href="field-types#{{.TypeURLCode}}">{{.Type}}</a>
         {{- else}}
             {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
         {{- end}}
