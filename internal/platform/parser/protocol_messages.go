@@ -51,6 +51,14 @@ type ProtocolMessage struct {
 	Functions   []Function
 }
 
+func (m ProtocolMessage) Name() string {
+	return strings.Replace(m.Metadata.Name, " ", "", -1)
+}
+
+func (m ProtocolMessage) URLCode() string {
+	return "message-" + KebabCase(m.Name())
+}
+
 func (m ProtocolMessage) CodeNameComment() string {
 	s := fmt.Sprintf("%v identifies data as a %v message.",
 		m.CodeName(),
@@ -77,10 +85,6 @@ func (m ProtocolMessage) CodeName() string {
 
 func (m ProtocolMessage) TypeLetter() string {
 	return strings.ToLower(m.Code[:1])
-}
-
-func (m ProtocolMessage) Name() string {
-	return strings.Replace(m.Metadata.Name, " ", "", -1)
 }
 
 func (m ProtocolMessage) Label() string {

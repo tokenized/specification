@@ -1,50 +1,50 @@
+{{$messages := . -}}
+
 # Protocol Messages
 
 - [Introduction](#introduction)
-- [Smart Contracts](#smart-contracts)
-    - [Contract Operator](#contract-operator)
-- [Static Contracts](#static-contracts)
+- [Available Messages](#all-messages)
 
 <a name="introduction"></a>
 ## Introduction
 
-Bla bla bla bla bla bla bla bla blabla bla bla blabla bla bla blabla bla bla 
-blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla
-blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla
-blabla bla bla blabla bla bla blabla bla bla blabla bla bla b
+The Tokenized protocol features a complete messaging suite for all types of messaging including general purpose private and public messaging, as well as commercial, financial and legal messaging in accordance with a variety of established Electronic Data Interchange (EDI) standards. They are also used to allow smart contracts to share information and orchestrate multiple signature transactions, such as atomic swaps.
 
-Blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bl
-a blabla bla bla blabla bla bla bla
+<a name="all-messages"></a>
+## Available Messages
 
-{{- range .}}
+<div class="content-list collection-method-list" markdown="1">
+{{- range $messages }}
+- [{{.Metadata.Label}}](#{{.URLCode}})
+{{- end }}
+</div>
 
-# {{.Metadata.Name}}
+{{- range $messages}}
+
+<a name="{{.URLCode}}"></a>
+#### {{.Metadata.Label}}
 
 {{.Metadata.Description}}
 
-{{$letter := .TypeLetter}}
-
-<div class="ritz grid-container" dir="ltr">
-    <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
-         <tr style='height:19px;'>
-            <th style="width:20%" class="s1">Field</th>
-            <th style="width:10%" class="s1">Type</th>
-            <th style="width:15%" class="s1">Description</th>
-            <th style="width:20%" class="s1">Size</th>
-            <th style="width:20%" class="s1">Example</th>
-            <th class="s1">Notes</th>
-        </tr>
-{{- range .Fields}}
-        <tr>
-            <td class="{{$letter}}10">{{.Label}}</td>
-            <td class="{{$letter}}10">{{.Type}}</td>
-            <td class="{{$letter}}10">{{.Description}}</td>
-            <td class="{{$letter}}10">{{.Size}}</td>
-            <td class="{{$letter}}10">{{.ExampleValue}}</td>
-            <td class="{{$letter}}10">{{.Notes}}</td>
-        </tr>
-{{- end}}
-    </table>
-</div>
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    {{- range .Fields}}
+    <tr>
+        <td>{{.Name}}</td>
+        <td>
+        {{- if .IsComplexType }}
+            <a href="field-types#{{.TypeURLCode}}">{{.Type}}</a>
+        {{- else}}
+            {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+        {{- end}}
+        </td>
+        <td>{{.Description}} {{.Notes}}</td>
+    </tr>
+    {{- end}}
+</table>
 
 {{ end }}

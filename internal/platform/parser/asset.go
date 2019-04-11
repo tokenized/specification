@@ -39,3 +39,7 @@ type Asset struct {
 func (m Asset) Name() string {
 	return strings.Replace(m.Metadata.Name, " ", "", -1)
 }
+
+func (m Asset) URLCode() string {
+	return "action-" + KebabCase(m.Name())
+}

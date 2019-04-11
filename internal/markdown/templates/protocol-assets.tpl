@@ -1,48 +1,51 @@
+{{$assetTypes := . -}}
+
 # Protocol Assets
 
 - [Introduction](#introduction)
-- [Smart Contracts](#smart-contracts)
-    - [Contract Operator](#contract-operator)
-- [Static Contracts](#static-contracts)
+- [Available Actions](#all-assets)
 
 <a name="introduction"></a>
 ## Introduction
 
-Bla bla bla bla bla bla bla bla blabla bla bla blabla bla bla blabla bla bla 
-blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla
-blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla
-blabla bla bla blabla bla bla blabla bla bla blabla bla bla b
+Asset Types are used with reference to the `AssetPayload` field found in the Asset Definition, Asset Creation and Asset Modification actions.
 
-Blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bla blabla bla bl
-a blabla bla bla blabla bla bla bla
+<a name="all-assets"></a>
+## Available Assets
 
-{{- range .}}
+<div class="content-list collection-method-list" markdown="1">
+{{- range $assetTypes }}
+- [{{.Metadata.Label}}](#{{.URLCode}})
+{{- end }}
+</div>
 
-# {{.Metadata.Name}}
+
+{{- range $assetTypes}}
+
+<a name="{{.URLCode}}"></a>
+#### {{.Metadata.Label}}
 
 {{.Metadata.Description}}
 
-{{$letter := "a"}}
-
-<div class="ritz grid-container" dir="ltr">
-    <table class="waffle" cellspacing="0" cellpadding="0" table-layout=fixed width=100%>
-         <tr style='height:19px;'>
-            <th style="width:18%" class="s1">Field</th>
-            <th style="width:9%" class="s1">Type</th>
-            <th style="width:15%" class="s1">Description</th>
-            <th style="width:20%" class="s1">Size</th>
-            <th class="s1">Example</th>
-        </tr>
-{{- range .Fields}}
-        <tr>
-            <td class="{{$letter}}10">{{.Label}}</td>
-            <td class="{{$letter}}10">{{.Type}}</td>
-            <td class="{{$letter}}10">{{.Description}}</td>
-            <td class="{{$letter}}10">{{.Size}}</td>
-            <td class="{{$letter}}10">{{.ExampleValue}}</td>
-        </tr>
-{{- end}}
-    </table>
-</div>
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    {{- range .Fields}}
+    <tr>
+        <td>{{.Name}}</td>
+        <td>
+        {{- if .IsComplexType }}
+            <a href="#{{.TypeURLCode}}">{{.Type}}</a>
+        {{- else}}
+            {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+        {{- end}}
+        </td>
+        <td>{{.Description}} {{.Notes}}</td>
+    </tr>
+    {{- end}}
+</table>
 
 {{ end }}

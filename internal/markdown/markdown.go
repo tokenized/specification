@@ -14,13 +14,13 @@ func Compile(
 	assets []parser.Asset,
 ) {
 
-	bundle := []interface{}{actions, types}
+	templateToFile(distPath, "protocol-actions.tpl", "protocol-actions.md", actions)
 
-	templateToFile(distPath, "protocol-actions.tpl", "protocol-actions.md", bundle)
+	templateToFile(distPath, "protocol-assets.tpl", "protocol-assets.md", assets)
 
-	templateToFile(distPath, "protocol-assets.tpl", "protocol-assets.md", actions)
+	templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", messages)
 
-	templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", actions)
+	templateToFile(distPath, "protocol-field-types.tpl", "protocol-field-types.md", types)
 
 	// for _, action := range actions {
 	// 	outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
