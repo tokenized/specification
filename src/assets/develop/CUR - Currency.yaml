@@ -20,14 +20,13 @@ fields:
     type: uint
     size: 1
     example: 0
-    description: Payload Version
     computed: true
 
   - name: ISOCode
     label: ISO Code
     type: Currency
     example: AUD
-    description: eg. AUD, CAD, USD, GBP, etc.
+    description: International Organization for Standardization code for Currency.
     span: full
     displayOrder: 3
 
@@ -37,7 +36,6 @@ fields:
     # varchar size is number of bits to serialize the size of the value
     size: 8
     example: Reserve Bank of Australia
-    description: eg. Reserve Bank of Australia, etc.
     span: full
     displayOrder: 3
 
@@ -47,6 +45,5 @@ fields:
     # varchar size is number of bits to serialize the size of the value
     size: 16
     example: Australian dollar
-    description: eg. Australian dollar
     span: full
     displayOrder: 3

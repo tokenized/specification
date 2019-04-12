@@ -2608,9 +2608,14 @@ func TestAddition(t *testing.T) {
 func TestAlteration(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Alteration{}
+	// EntryTxID (TxId)
+	{
+		initialMessage.EntryTxID = TxId{}
+	}
+
 	// Message (varchar)
 	{
-		initialMessage.Message = "Text 0"
+		initialMessage.Message = "Text 1"
 	}
 
 	// Encode message
@@ -2648,6 +2653,9 @@ func TestAlteration(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
+	// EntryTxID (TxId)
+	// TxId test compare not setup
+
 	// Message (varchar)
 	if initialMessage.Message != decodedMessage.Message {
 		t.Errorf("Message doesn't match : %s != %s", initialMessage.Message, decodedMessage.Message)
@@ -2657,9 +2665,14 @@ func TestAlteration(t *testing.T) {
 func TestRemoval(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Removal{}
+	// EntryTxID (TxId)
+	{
+		initialMessage.EntryTxID = TxId{}
+	}
+
 	// Message (varchar)
 	{
-		initialMessage.Message = "Text 0"
+		initialMessage.Message = "Text 1"
 	}
 
 	// Encode message
@@ -2697,6 +2710,9 @@ func TestRemoval(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
+	// EntryTxID (TxId)
+	// TxId test compare not setup
+
 	// Message (varchar)
 	if initialMessage.Message != decodedMessage.Message {
 		t.Errorf("Message doesn't match : %s != %s", initialMessage.Message, decodedMessage.Message)

@@ -291,7 +291,7 @@ func (m Coupon) String() string {
 // Currency asset type.
 type Currency struct {
 	Version           uint8   `json:"version,omitempty"`            // The version number that this asset payload adheres to.
-	ISOCode           [3]byte `json:"iso_code,omitempty"`           //
+	ISOCode           [3]byte `json:"iso_code,omitempty"`           // International Organization for Standardization code for Currency.
 	MonetaryAuthority string  `json:"monetary_authority,omitempty"` //
 	Description       string  `json:"description,omitempty"`        //
 }

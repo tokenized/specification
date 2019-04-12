@@ -754,7 +754,7 @@ A TokenReceiver is contains a quantity, index, and register signature. The quant
         </td>
         <td>
             Length 0-255 bytes. If restricted to a register (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted register through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.
-             Example: IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8=
+            
         </td>
     </tr>
 </table>

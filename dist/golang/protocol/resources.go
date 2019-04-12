@@ -1503,12 +1503,10 @@ values:
 
 // Entities - Legal Entities & Ownership Structures
 var yamlEntities = `
-
 metadata:
   name: Entities
   description: "Legal Entities & Ownership Structures"
   type: EntityType
-
 
 values:
     I:
@@ -1516,10 +1514,12 @@ values:
       label: "Individual"
       type: Legal
       roles:
-        principal: null
-        legalGuardian: []
-        agent: [] # (granted by the principal)
-        ancillary:
+        owners:
+          principal: null
+        administrators:
+          legalGuardian: []
+          agent: [] # (granted by the principal)
+        general:
           accountant: []
           advisor: []
           lawyer: []
@@ -1530,59 +1530,64 @@ values:
       label: "Public Company Limited by Shares"
       type: Legal
       roles:
-        board:
+        owners:
+          shareholder: []
+          significantShareholder: []
+        administrators: # Board of Directors
           chairman: null
           director: []
-          secretary: null
-        officers:
+        managers: 
           ceo: null
           coo: null
           cfo: null
           cto: null
           executive: []
-        ancillary:
+          secretary: null
+        general:
           accountant: []
           advisor: []
+          employee: []
           lawyer: []
           manager: []
           trader: []
-        ownership:
-          member: []
-          significantMember: []
     C:
       name: privateCompany
       label: "Private Company Limited by Shares"
       type: Legal
       roles:
-        board:
+        owners:
+          shareholder: []
+          significantShareholder: []
+        administrators:
           chairman: null
           director: []
           secretary: null
-        officers:
+        managers: 
           ceo: null
           coo: null
           cfo: null
           cto: null
           executive: []
-        ancillary:
+        general:
           accountant: []
           advisor: []
+          employee: []
           lawyer: []
           manager: []
           trader: []
-        ownership:
-          member: []
-          significantMember: []
     L:
       name: limitedPartnership
       label: "Limited Partnership"
       type: Legal
       roles:
-        managingPartner: []
-        partner: []
-        ancillary:
+        owners:
+          partner: []
+        managers:
+          managingPartner: []
+        general: 
           accountant: []
           advisor: []
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -1591,11 +1596,14 @@ values:
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership,  )
       type: Legal
       roles:
-        managingPartner: []
-        partner: []
-        ancillary:
+        owners:
+          partner: []
+        managers:
+          managingPartner: []
+        general:
           accountant: []
           advisor: []
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -1604,11 +1612,14 @@ values:
       label: "Sole Proprietorship"
       type: Legal
       roles:
-        proprietor: null
-        agent: [] # (granted by the proprietor)
-        ancillary:
+        owners:
+          proprietor: null
+        administrators:
+          agent: [] # (granted by the proprietor)
+        general:
           accountant: []
           advisor: []
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -1617,19 +1628,21 @@ values:
       label: "Statutory Company"
       type: Legal
       roles:
-        board:
+        administrators:
           chairman: null
           director: []
           secretary: null
-        officers:
+        managers:
           ceo: null
           coo: null
           cfo: null
           cto: null
           executive: []
-        ancillary:
+          secretary: null
+        general:
           accountant: []
           advisor: []
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -1638,19 +1651,20 @@ values:
       label: "Non-Profit Organization"
       type: Legal
       role:
-        board:
+        administrators:
           chairman: null
           director: []
           secretary: null
-        officers:
+        managers:
           ceo: null
           coo: null
           cfo: null
           cto: null
           executive: []
-        ancillary:
+        general:
           accountant: []
           advisor: []
+          employee: []
           lawyer: []
           manager: []
           trader: []
@@ -1667,32 +1681,38 @@ values:
       label: "Unit Trust"
       type: Ownership
       roles:
-        trustee: []
-        beneficiary: []
-        settlor: []
-        protector: []
-        ancillary:
+        owners:
+          unitholder: []
+        administrators:
+          protector: []
+          trustee: []
+        general:
           accountant: []
           advisor: []
           custodian: []
+          employee: []
           lawyer: []
           manager: []
+          settlor: []
           trader: []
     D:
       name: discretionaryTrust
       label: "Discretionary Trust" # (Family Trust)
       type: Ownership
       roles:
-        trustee: []
-        beneficiary: []
-        settlor: []
-        protector: []
-        ancillary:
+        owners:
+          beneficiary: []
+        administrators:
+          protector: []
+          trustee: []
+        general: 
           accountant: []
           advisor: []
           custodian: []
+          employee: []
           lawyer: []
           manager: []
+          settlor: []
           trader: []
 
 `
@@ -3340,7 +3360,6 @@ values:
 // other entities. These roles have widely-accepted tasks, rights and
 // duties.
 var yamlRoles = `
-
 metadata:
   name: Roles
   description: "Roles that entities play in relation to their interactions with other entities.  These roles have widely-accepted tasks, rights and duties."
@@ -3405,7 +3424,8 @@ values:
       name: Trader
     28:
       name: Trustee
-
+    29:
+      name: Unit Holder
 
 
 `

@@ -5753,7 +5753,8 @@ func (action Addition) String() string {
 
 // Alteration A register entry/record can be altered.
 type Alteration struct {
-	Message string `json:"message,omitempty"` // A custom message to include with this action.
+	EntryTxID TxId   `json:"entry_tx_id,omitempty"` // Transaction ID of the register entry to be altered.
+	Message   string `json:"message,omitempty"`     // A custom message to include with this action.
 }
 
 // Type returns the type identifer for this message.
@@ -5778,6 +5779,18 @@ func (action *Alteration) read(b []byte) (int, error) {
 // serialize returns the full OP_RETURN payload bytes.
 func (action *Alteration) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
+	// EntryTxID (TxId)
+	{
+		b, err := action.EntryTxID.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+
 	// Message (string)
 	{
 		if err := WriteVarChar(buf, action.Message, 32); err != nil {
@@ -5791,6 +5804,13 @@ func (action *Alteration) serialize() ([]byte, error) {
 // write populates the fields in Alteration from the byte slice
 func (action *Alteration) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
+	// EntryTxID (TxId)
+	{
+		if err := action.EntryTxID.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
 	// Message (string)
 	{
 		var err error
@@ -5805,6 +5825,14 @@ func (action *Alteration) write(b []byte) (int, error) {
 
 func (m *Alteration) Validate() error {
 
+	// EntryTxID (TxId)
+	{
+		if err := m.EntryTxID.Validate(); err != nil {
+			return fmt.Errorf("field EntryTxID is invalid : %s", err)
+		}
+
+	}
+
 	// Message (string)
 	{
 		if len(m.Message) > (2<<32)-1 {
@@ -5818,6 +5846,7 @@ func (m *Alteration) Validate() error {
 func (action Alteration) String() string {
 	vals := []string{}
 
+	vals = append(vals, fmt.Sprintf("EntryTxID:%#+v", action.EntryTxID))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
@@ -5825,7 +5854,8 @@ func (action Alteration) String() string {
 
 // Removal Removes an entry/record from the Register.
 type Removal struct {
-	Message string `json:"message,omitempty"` // A custom message to include with this action.
+	EntryTxID TxId   `json:"entry_tx_id,omitempty"` // Transaction ID of the register entry to be altered.
+	Message   string `json:"message,omitempty"`     // A custom message to include with this action.
 }
 
 // Type returns the type identifer for this message.
@@ -5850,6 +5880,18 @@ func (action *Removal) read(b []byte) (int, error) {
 // serialize returns the full OP_RETURN payload bytes.
 func (action *Removal) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
+	// EntryTxID (TxId)
+	{
+		b, err := action.EntryTxID.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+
 	// Message (string)
 	{
 		if err := WriteVarChar(buf, action.Message, 32); err != nil {
@@ -5863,6 +5905,13 @@ func (action *Removal) serialize() ([]byte, error) {
 // write populates the fields in Removal from the byte slice
 func (action *Removal) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
+	// EntryTxID (TxId)
+	{
+		if err := action.EntryTxID.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
 	// Message (string)
 	{
 		var err error
@@ -5877,6 +5926,14 @@ func (action *Removal) write(b []byte) (int, error) {
 
 func (m *Removal) Validate() error {
 
+	// EntryTxID (TxId)
+	{
+		if err := m.EntryTxID.Validate(); err != nil {
+			return fmt.Errorf("field EntryTxID is invalid : %s", err)
+		}
+
+	}
+
 	// Message (string)
 	{
 		if len(m.Message) > (2<<32)-1 {
@@ -5890,6 +5947,7 @@ func (m *Removal) Validate() error {
 func (action Removal) String() string {
 	vals := []string{}
 
+	vals = append(vals, fmt.Sprintf("EntryTxID:%#+v", action.EntryTxID))
 	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))

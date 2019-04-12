@@ -132,7 +132,7 @@ A Currency
             Currency
         </td>
         <td>
-            
+            International Organization for Standardization code for Currency.
              Example: AUD
         </td>
     </tr>

@@ -2765,6 +2765,16 @@ A register entry/record can be altered.
         <th>Description</th>
     </tr>
     <tr>
+        <td>EntryTxID</td>
+        <td>
+            <a href="field-types#type-tx-id">TxId</a>
+        </td>
+        <td>
+            Transaction ID of the register entry to be altered.
+            
+        </td>
+    </tr>
+    <tr>
         <td>Message</td>
         <td>
             varchar(32)
@@ -2822,6 +2832,16 @@ Removes an entry/record from the Register.
         <th style="width:15%">Field</th>
         <th style="width:15%">Type</th>
         <th>Description</th>
+    </tr>
+    <tr>
+        <td>EntryTxID</td>
+        <td>
+            <a href="field-types#type-tx-id">TxId</a>
+        </td>
+        <td>
+            Transaction ID of the register entry to be altered.
+            
+        </td>
     </tr>
     <tr>
         <td>Message</td>
