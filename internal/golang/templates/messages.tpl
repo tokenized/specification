@@ -9,12 +9,20 @@ import (
 const (
 {{- range .}}
 	{{.CodeNameComment}}
-	{{.CodeName}} = "{{.Code}}"
+	{{.CodeName}} = {{.Code}}
 {{ end }}
 )
 
+// MessagePayload is the interface for payloads within message actions.
+type MessagePayload interface {
+	Type() uint16
+	Serialize() ([]byte, error)
+	Write(b []byte) (int, error)
+	Validate() error
+}
+
 // MessageTypeMapping holds a mapping of message codes to message types.
-func MessageTypeMapping(code string) PayloadMessage {
+func MessageTypeMapping(code uint16) MessagePayload {
 	switch(code) {
 {{- range . }}
 	case Code{{.Name}}:
@@ -60,7 +68,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 {{ end }}
 
 // Type returns the type identifer for this message.
-func (action {{.Name}}) Type() string {
+func (action {{.Name}}) Type() uint16 {
 	return Code{{.Name}}
 }
 
@@ -81,66 +89,77 @@ func (action *{{.Name}}) Read(b []byte) (int, error) {
 // Serialize returns the full OP_RETURN payload bytes.
 func (action *{{.Name}}) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-{{ range .PayloadFields }}
+{{ range $f, $field := .PayloadFields }}
 
 	// {{.FieldName}} ({{.FieldGoType}})
 	// fmt.Printf("Serializing {{.FieldName}}\n")
-{{- if .IsVarChar }}
-	if err := WriteVarChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
-		return nil, err
-	}
-{{- else if .IsFixedChar }}
-	if err := WriteFixedChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
-		return nil, err
-	}
-{{- else if .IsVarBin }}
-	if err := WriteVarBin(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
-		return nil, err
-	}
-{{- else if .IsInternalTypeArray }}
-	if err := WriteVariableSize(buf, uint64(len(action.{{.FieldName}})), {{.Length}}, 8); err != nil {
-		return nil, err
-	}
-	for _, value := range action.{{.FieldName}} {
-		b, err := value.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-{{- else if .IsNativeTypeArray }}
-	if err := WriteVariableSize(buf, uint64(len(action.{{.FieldName}})), {{.Length}}, 8); err != nil {
-		return nil, err
-	}
-	for _, value := range action.{{.FieldName}} {
-		if err := write(buf, value); err != nil {
-			return nil, err
-		}
-	}
-{{- else if .IsInternalType }}
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if action.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !action.{{ $field.IncludeIfFalse }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else if ne (len $field.IncludeIfInt.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIfInt.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIfInt.Field}} == {{ $include }}{{ end }} {
+{{- else }}
 	{
-		b, err := action.{{.Name}}.Serialize()
-		if err != nil {
-			return nil, err
-		}
-
-		if err := write(buf, b); err != nil {
-			return nil, err
-		}
-	}
-{{- else if .IsBytes }}
-	if err := write(buf, pad(action.{{.FieldName}}, {{.Length}})); err != nil {
-		return nil, err
-	}
-{{- else}}
-	if err := write(buf, action.{{.FieldName}}); err != nil {
-		return nil, err
-	}
 {{- end }}
-	// fmt.Printf("Serialized {{.FieldName}} : buf len %d\n", buf.Len())
+{{- if .IsVarChar }}
+		if err := WriteVarChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
+			return nil, err
+		}
+{{- else if .IsFixedChar }}
+		if err := WriteFixedChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
+			return nil, err
+		}
+{{- else if .IsVarBin }}
+		if err := WriteVarBin(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
+			return nil, err
+		}
+{{- else if .IsInternalTypeArray }}
+		if err := WriteVariableSize(buf, uint64(len(action.{{.FieldName}})), {{.Length}}, 8); err != nil {
+			return nil, err
+		}
+		for _, value := range action.{{.FieldName}} {
+			b, err := value.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
+		}
+{{- else if .IsNativeTypeArray }}
+		if err := WriteVariableSize(buf, uint64(len(action.{{.FieldName}})), {{.Length}}, 8); err != nil {
+			return nil, err
+		}
+		for _, value := range action.{{.FieldName}} {
+			if err := write(buf, value); err != nil {
+				return nil, err
+			}
+		}
+{{- else if .IsInternalType }}
+		{
+			b, err := action.{{.Name}}.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
+		}
+{{- else if .IsBytes }}
+		if err := write(buf, pad(action.{{.FieldName}}, {{.Length}})); err != nil {
+			return nil, err
+		}
+{{- else}}
+		if err := write(buf, action.{{.FieldName}}); err != nil {
+			return nil, err
+		}
+{{- end }}
+	}
 {{ end }}
 	return buf.Bytes(), nil
 }
@@ -150,36 +169,39 @@ func (action *{{.Name}}) Write(b []byte) (int, error) {
 	// fmt.Printf("Reading {{.Name}} : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
-{{- range .Fields }}
+{{- range $f, $field := .Fields }}
 
 	// {{.FieldName}} ({{.FieldGoType}})
-	// fmt.Printf("Reading {{.FieldName}} : %d bytes remaining\n", buf.Len())
-{{- if .IsVarChar }}
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if action.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !action.{{ $field.IncludeIfFalse }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else if ne (len $field.IncludeIfInt.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIfInt.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIfInt.Field}} == {{ $include }}{{ end }} {
+{{- else }}
 	{
+{{- end }}
+{{- if .IsVarChar }}
 		var err error
 		action.{{.FieldName}}, err = ReadVarChar(buf, {{.Length}})
 		if err != nil {
 			return 0, err
 		}
-	}
 {{- else if .IsFixedChar }}
-	{
 		var err error
 		action.{{.FieldName}}, err = ReadFixedChar(buf, {{.Length}})
 		if err != nil {
 			return 0, err
 		}
-	}
 {{- else if .IsVarBin }}
-	{
 		var err error
 		action.{{.FieldName}}, err = ReadVarBin(buf, {{.Length}})
 		if err != nil {
 			return 0, err
 		}
-	}
 {{- else if .IsInternalTypeArray }}
-	{
 		size, err := ReadVariableSize(buf, {{.Length}}, 8)
 		if err != nil {
 			return 0, err
@@ -193,9 +215,7 @@ func (action *{{.Name}}) Write(b []byte) (int, error) {
 
 			action.{{.FieldName}} = append(action.{{.FieldName}}, newValue)
 		}
-	}
 {{- else if .IsNativeTypeArray }}
-	{
 		size, err := ReadVariableSize(buf, {{.Length}}, 8)
 		if err != nil {
 			return 0, err
@@ -204,23 +224,23 @@ func (action *{{.Name}}) Write(b []byte) (int, error) {
 		if err := read(buf, &action.{{.FieldName}}); err != nil {
 			return 0, err
 		}
-	}
 {{- else if .IsInternalType }}
-	if err := action.{{.FieldName}}.Write(buf); err != nil {
-		return 0, err
-	}
+		if err := action.{{.FieldName}}.Write(buf); err != nil {
+			return 0, err
+		}
 {{- else if or .IsBytes .IsData }}
-	action.{{.FieldName}} = make([]byte, {{.Length}})
-	if err := readLen(buf, action.{{.FieldName}}); err != nil {
-		return 0, err
-	}
+		action.{{.FieldName}} = make([]byte, {{.Length}})
+		if err := readLen(buf, action.{{.FieldName}}); err != nil {
+			return 0, err
+		}
 {{- else if .Trimmable }}
-	action.{{.FieldName}} = bytes.Trim(action.{{.FieldName}}, "\x00")
+		action.{{.FieldName}} = bytes.Trim(action.{{.FieldName}}, "\x00")
 {{- else }}
-	if err := read(buf, &action.{{.FieldName}}); err != nil {
-		return 0, err
-	}
+		if err := read(buf, &action.{{.FieldName}}); err != nil {
+			return 0, err
+		}
 {{- end }}
+	}
 
 	// fmt.Printf("Read {{.FieldName}} : %d bytes remaining\n%+v\n", buf.Len(), action.{{.FieldName}})
 {{ end }}
@@ -229,22 +249,86 @@ func (action *{{.Name}}) Write(b []byte) (int, error) {
 	return len(b) - buf.Len(), nil
 }
 
-// PayloadMessage returns the PayloadMessage, if any.
-func (action {{.Name}}) PayloadMessage() (PayloadMessage, error) {
-{{- if .HasPayloadMessage }}
-	p, err := New([]byte(action.AssetType))
-	if p == nil || err != nil {
-		return nil, err
-	}
+func (m *{{.Name}}) Validate() error {
+{{- range $i, $field := .Fields }}
 
-	if _, err := p.write(action.AssetPayload); err != nil {
-		return nil, err
-	}
+	// {{.Name}} ({{.FieldGoType}})
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if m.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !action.{{ $field.IncludeIfFalse }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} m.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else }}
+	{
+{{- end }}
+{{- if .IsVarChar }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("varchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if .IsFixedChar }}
+		if len(m.{{.Name}}) > {{.Length}} {
+			return fmt.Errorf("fixedchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), {{.Length}})
+		}
+{{- else if .IsVarBin }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if eq .Type "RejectionCode" }}
+		if GetRejectionCode(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid rejection code value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Role" }}
+		if GetRoleType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "MessageType" }}
+		if GetMessageType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid message value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Currency" }}
+		if GetCurrency(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Polity" }}
+		if GetPolityType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid polity value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "EntityType" }}
+		if GetEntityType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
+		}
+{{- else if .IsInternalTypeArray }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
 
-	return p, nil
-{{ else }}
-	return nil, nil
-{{ end -}}
+		for i, value := range m.{{.Name}} {
+			err := value.Validate()
+			if err != nil {
+				return fmt.Errorf("list field {{.Name}}[%d] is invalid : %s", i, err)
+			}
+		}
+{{- else if .IsNativeTypeArray }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if .IsInternalType }}
+		if err := m.{{.Name}}.Validate(); err != nil {
+			return fmt.Errorf("field {{.Name}} is invalid : %s", err)
+		}
+{{ else if ne (len $field.IntValues) 0 }}
+		if {{ range $j, $value := $field.IntValues }}{{ if (ne $j 0) }} &&{{ end }} m.{{$field.Name}} != {{ $value }}{{ end }} {
+			return fmt.Errorf("field {{$field.Name}} value is invalid : %d", m.{{$field.Name}})
+		}
+{{ else if ne (len $field.CharValues) 0 }}
+		if {{ range $j, $value := $field.CharValues }}{{ if (ne $j 0) }} &&{{ end }} m.{{$field.Name}} != '{{ $value }}'{{ end }} {
+			return fmt.Errorf("field {{$field.Name}} value is invalid : %d", m.{{$field.Name}})
+		}
+{{- end }}
+	}
+{{ end }}
+	return nil
 }
 
 func (action {{.Name}}) String() string {

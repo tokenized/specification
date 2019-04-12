@@ -2,12 +2,12 @@
 # Settlement Action: Settles the transfer request of bitcoins and tokens from transfer (T1) actions.
 #
 
-code: T4
+code: T2
 
 metadata:
   name: Settlement
-  label: Settlement Action
-  description: "Settlement Action -  Settles the transfer request of bitcoins and tokens from transfer (T1) actions."
+  label: Settlement
+  description: "Settles the transfer request of bitcoins and tokens from transfer (T1) actions."
   validation: AssetCreation
   rejection: Rejection
 
@@ -24,12 +24,6 @@ rules:
       comments: Address X that is being settled for Asset 1.
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
   - name: Assets
     label: Assets
     description: "The Assets settled by the transfer action."
@@ -40,6 +34,4 @@ fields:
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
     notes: "Cannot be changed by issuer, operator. Smart contract controls."

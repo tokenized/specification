@@ -6,8 +6,8 @@ code: M2
 
 metadata:
   name: Rejection
-  label: Rejection Action
-  description: "Rejection Action - used to reject request actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Issuer/User request Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond."
+  label: Rejection
+  description: "Used to reject request actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Issuer/User request Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond."
   validation: AssetCreation
   rejection: Rejection
 
@@ -16,58 +16,47 @@ rules:
   inputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: "The contract that is performing this action."
 
   outputs:
-    - name: User
-      label: "User's Public Address"
-      comments: Return the money less fees
+    - name: Recipients
+      label: User / Contract public addresses
+      comments: "The affected user or contract's publid addresses. Refunds all money provided in the request action, less fees"
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions. Can be changed by Issuer or Operator at their discretion."
-
-  - name: QtyReceivingAddresses
-    label: Qty Receiving Addresses
-    description: "0-255 Message Receiving Addresses"
-    type: uint8
-    size: 1
-    example_hex: 02
-    example_value: 2
-    notes: ""
-
   - name: AddressIndexes
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
     type: uint16[]
     example_hex: 00010002
 
-  - name: RejectionType
-    label: Rejection Type
-    description: "Classifies the rejection by a type."
+  - name: RejectAddressIndex
+    label: Reject Address Index
+    description: "The address which is believed to have caused the rejection."
     type: uint
-    size: 1
+    size: 2
+    example_hex: 00010002
+
+  - name: RejectionCode
+    label: Rejection Code
+    description: "Classifies the rejection by a type."
+    type: RejectionCode
     example_hex: 01
-    example_value: "1"
+    example: "1"
     notes: ""
 
-  - name: MessagePayload
-    label: Message Payload
+  - name: Message
+    label: Message
     description: "Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
-    size: 32
+    size: 16
     example_hex: 00000024536f7272792c20796f7520646f6e2774206861766520656e6f75676820746f6b656e732e
-    example_value: "Sorry, you don't have enough tokens."
+    example: "Sorry, you don't have enough tokens."
     notes: ""
 
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
     notes: "Cannot be changed by issuer, operator. Smart contract controls."

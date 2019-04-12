@@ -6,42 +6,33 @@ code: R3
 
 metadata:
   name: Alteration
-  label: Alteration Action
-  description: "Alteration Action -  A register entry/record can be altered."
+  label: Alteration
+  description: "A register entry/record can be altered."
 
 rules:
   fee:
   inputs:
     - name: Register
-      label: "Register's Public Address"
-      comments:
+      label: "Register Public Address"
+      comments: "The address of the associated register."
 
   outputs:
     - name: Register
-      label: "Register's Public Address"
-      comments:
+      label: "Register Public Address"
+      comments: "Required so that users can monitor transactions to the register for notifications of this action."
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
   - name: EntryTxID
     label: Entry Tx ID
-    description: "Tx ID of the register entry to be altered."
+    description: "Transaction ID of the register entry to be altered."
     type: TxId
-    example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
-    example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
     notes: ""
 
   - name: Message
     label: Message
-    description:
+    description: "A custom message to include with this action."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 32
-    example_hex: 0000001c4368616e67656420436f756e747279206f66205265736964656e6365
-    example_value: "Changed Country of Residence"
+    example: "Changed Country of Residence"
     notes: ""

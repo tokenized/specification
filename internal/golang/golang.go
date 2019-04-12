@@ -4,20 +4,37 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
-func CompileProtocol(distPath string, actions parser.ProtocolActions, messages parser.ProtocolMessages, typs parser.ProtocolTypes) {
-	templateToFile(distPath, actions, "actions_test.tpl", "actions_test.go")
-	templateToFile(distPath, actions, "actions.tpl", "actions.go")
-	templateToFile(distPath, messages, "messages_test.tpl", "messages_test.go")
-	templateToFile(distPath, messages, "messages.tpl", "messages.go")
-	templateToFile(distPath, typs, "field_types.tpl", "field_types.go")
+func Compile(
+	distPath string,
+	actions parser.ProtocolActions,
+	messages parser.ProtocolMessages,
+	types parser.ProtocolTypes,
+	resources parser.ProtocolResources,
+	rejectionCodes parser.ProtocolRejectionCodes,
+	assets []parser.Asset,
+) {
+	templateToFile(distPath, "actions_test.tpl", "actions_test.go", actions)
+
+	templateToFile(distPath, "actions.tpl", "actions.go", actions)
+
+	templateToFile(distPath, "messages_test.tpl", "messages_test.go", messages)
+
+	templateToFile(distPath, "messages.tpl", "messages.go", messages)
+
+	templateToFile(distPath, "field_types.tpl", "field_types.go", types)
+
+	templateToFile(distPath, "resources.tpl", "resources.go", resources)
+
+	templateToFile(distPath, "rejection_codes.tpl", "rejection_codes.go", rejectionCodes)
+
+	templateToFile(distPath, "assets.tpl", "assets.go", assets)
 }
 
-func CompileAssets(distPath string, assts []parser.Asset) {
-	templateToFile(distPath, assts, "assets.tpl", "assets.go")
-}
+func templateToFile(distPath, tplFile, goFile string, data interface{}) {
 
-func templateToFile(distPath string, data interface{}, tplFile, goFile string) {
 	tpl := "./internal/golang/templates/" + tplFile
+
 	path := distPath + "/golang/protocol/" + goFile
+
 	parser.TemplateToFile(distPath, data, tpl, path)
 }

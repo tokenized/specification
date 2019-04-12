@@ -62,3 +62,7 @@ type ProtocolType struct {
 func (m ProtocolType) Name() string {
 	return strings.Replace(m.Metadata.Name, " ", "", -1)
 }
+
+func (m ProtocolType) URLCode() string {
+	return "type-" + KebabCase(m.Name())
+}

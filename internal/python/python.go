@@ -4,13 +4,20 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
-func CompileProtocol(distPath string, msgs parser.ProtocolActions, typs parser.ProtocolTypes) {
-
-	templateToFile(distPath, msgs, "actions.tpl", "actions.py")
-
+func Compile(
+	distPath string,
+	actions parser.ProtocolActions,
+	messages parser.ProtocolMessages,
+	types parser.ProtocolTypes,
+	resources parser.ProtocolResources,
+	rejectionCodes parser.ProtocolRejectionCodes,
+	assets []parser.Asset,
+) {
+	templateToFile(distPath, "actions.tpl", "actions.py", actions)
 }
 
-func templateToFile(distPath string, data interface{}, tplFile, goFile string) {
+func templateToFile(distPath, tplFile, goFile string, data interface{}) {
+
 	tpl := "./internal/python/templates/" + tplFile
 
 	path := distPath + "/python/" + goFile

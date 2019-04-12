@@ -1,15 +1,15 @@
 metadata:
   name: Administrator
+  label: Administrator
   description: "Administrator is used to refer to a Administration role in an Entity."
 
 fields:
   - name: Type
     label: Administrator Type
     description: "Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources"
-    type: uint
-    size: 1
+    type: Role
     example_hex: 37
-    example_value: "7"
+    example: "7"
     notes: "7 - Chair"
 
   - name: Name
@@ -19,7 +19,7 @@ fields:
     # varchar size is number of bits to serialize the size of the value
     size: 8
     example_hex: 0d4a616d65732042656c64696e67
-    example_value: "Satoshi Nakamoto"
+    example: "Satoshi Nakamoto"
     notes: ""
 
 # Constructor parameters

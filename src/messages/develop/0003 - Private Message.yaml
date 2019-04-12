@@ -2,7 +2,7 @@
 # Private Message: Generic private message. Sent to another address(es). Encryption is to be used.
 #
 
-code: '0003'
+code: 3
 
 metadata:
   name: PrivateMessage
@@ -17,13 +17,11 @@ fields:
     size: 1
     example: 0
     computed: true
-    
+
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
     type: Timestamp
-    example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
     notes: ""
 
   - name: PrivateMessage
@@ -31,6 +29,6 @@ fields:
     description: "Tokenized Ltd announces product launch."
     type: varbin
     size: 32
-    example_value: ""
+    example: ""
     notes: ""
 

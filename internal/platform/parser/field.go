@@ -5,20 +5,30 @@ import (
 	"strings"
 )
 
+type IncludeIf struct {
+	Field  string
+	Values []string
+}
+
 type Field struct {
-	Name         string
-	Label        string
-	Description  string
-	Type         string
-	Size         uint64
-	Options      []string
-	Includes     []string
-	Required     bool
-	ExampleValue string `yaml:"example_value"`
-	ExampleHex   string `yaml:"example_hex"`
-	Notes        string
-	Computed     bool
-	DisplayOrder int
+	Name           string
+	Label          string
+	Description    string
+	Type           string
+	Size           uint64
+	Options        []string
+	IncludeIf      IncludeIf `yaml:"include_if"`
+	IncludeIfInt   IncludeIf `yaml:"include_if_int"`
+	IncludeIfTrue  string    `yaml:"include_if_true"`
+	IncludeIfFalse string    `yaml:"include_if_false"`
+	IntValues      []int     `yaml:"int_values"`
+	CharValues     []string  `yaml:"char_values"`
+	Required       bool
+	Example        string `yaml:"example"`
+	ExampleHex     string `yaml:"example_hex"`
+	Notes          string
+	Computed       bool
+	DisplayOrder   int
 }
 
 func (f Field) FieldName() string {
@@ -89,6 +99,10 @@ func (f Field) IsFloat() bool {
 
 func (f Field) Length() uint64 {
 	return f.Size
+}
+
+func (f Field) TypeURLCode() string {
+	return "type-" + KebabCase(f.SingularType())
 }
 
 func (f Field) SingularType() string {

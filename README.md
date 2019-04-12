@@ -113,6 +113,9 @@ Public key hashes are used as an "address" to send/receive transactions, tokens,
 * `Timestamp` represents a time.
 `size` does not need to be specified and is always 8 bytes.
 
+* `Polity` represents a unique identifier for a nation/state/political entity.
+`size` does not need to be specified and is always 3 bytes.
+
 ### Arrays/Lists
 
 Arrays/Lists of objects are defined by adding `[]` at the end of the type field.

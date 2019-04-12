@@ -18,6 +18,7 @@ metadata:
 fields:
   - name: Version
     label: Payload Version
+    description: The version number that this asset payload adheres to.
     type: uint
     size: 1
     example: 0
@@ -25,6 +26,7 @@ fields:
 
   - name: RedeemingEntity
     label: Redeeming Entity
+    description: The entity responsible for redemption of this coupon.
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
@@ -57,8 +59,8 @@ fields:
 
   - name: Currency
     label: Currency
-    type: fixedchar
-    size: 3
+    type: Currency
+    description: "Currency for coupon. From resources/currency."
     example: AUD
     span: right
     displayOrder: 4

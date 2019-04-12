@@ -10,50 +10,81 @@ func TestAssetDefinition(t *testing.T) {
 	initialMessage := AssetDefinition{}
 	// AssetType (fixedchar)
 	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+0))
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+0))
+			}
+			initialMessage.AssetType = string(text)
 		}
-		initialMessage.AssetType = string(text)
 	}
 
 	// AssetCode (AssetCode)
-	initialMessage.AssetCode = AssetCode{}
+	{
+		initialMessage.AssetCode = AssetCode{}
+	}
 
 	// AssetAuthFlags (varbin)
-	initialMessage.AssetAuthFlags = make([]byte, 0, 8)
-	for i := uint64(0); i < 8; i++ {
-		initialMessage.AssetAuthFlags = append(initialMessage.AssetAuthFlags, byte(65+i+2))
+	{
+		initialMessage.AssetAuthFlags = make([]byte, 0, 8)
+		for i := uint64(0); i < 8; i++ {
+			initialMessage.AssetAuthFlags = append(initialMessage.AssetAuthFlags, byte(65+i+2))
+		}
 	}
 
 	// TransfersPermitted (bool)
-	initialMessage.TransfersPermitted = true
+	{
+		initialMessage.TransfersPermitted = true
+	}
 
-	// TradeRestrictions (Polity)
-	initialMessage.TradeRestrictions = Polity{}
+	// TradeRestrictions (Polity[])
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.TradeRestrictions = append(initialMessage.TradeRestrictions, Polity{})
+		}
+	}
 
 	// EnforcementOrdersPermitted (bool)
-	initialMessage.EnforcementOrdersPermitted = true
+	{
+		initialMessage.EnforcementOrdersPermitted = true
+	}
+
+	// VotingRights (bool)
+	{
+		initialMessage.VotingRights = true
+	}
 
 	// VoteMultiplier (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
-	// ReferendumProposal (bool)
-	initialMessage.ReferendumProposal = true
+	// IssuerProposal (bool)
+	{
+		initialMessage.IssuerProposal = true
+	}
 
-	// InitiativeProposal (bool)
-	initialMessage.InitiativeProposal = true
+	// HolderProposal (bool)
+	{
+		initialMessage.HolderProposal = true
+	}
 
-	// AssetModificationGovernance (bool)
-	initialMessage.AssetModificationGovernance = true
+	// AssetModificationGovernance (uint)
+	{
+		// uint test not setup
+	}
 
 	// TokenQty (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// AssetPayload (varbin)
-	initialMessage.AssetPayload = make([]byte, 0, 16)
-	for i := uint64(0); i < 16; i++ {
-		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+11))
+	{
+		initialMessage.AssetPayload = make([]byte, 0, 16)
+		for i := uint64(0); i < 16; i++ {
+			initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+12))
+		}
 	}
 
 	// Encode message
@@ -109,14 +140,9 @@ func TestAssetDefinition(t *testing.T) {
 		t.Errorf("TransfersPermitted doesn't match : %v != %v", initialMessage.TransfersPermitted, decodedMessage.TransfersPermitted)
 	}
 
-	// TradeRestrictions (Polity)
-	if len(initialMessage.TradeRestrictions.Items) != len(decodedMessage.TradeRestrictions.Items) {
-		t.Errorf("TradeRestrictions length doesn't match : %d != %d", initialMessage.TradeRestrictions, decodedMessage.TradeRestrictions)
-	}
-	for i, value := range initialMessage.TradeRestrictions.Items {
-		if !bytes.Equal(value[:], decodedMessage.TradeRestrictions.Items[i][:]) {
-			t.Errorf("TradeRestrictions.Items[%d] doesn't match : %s != %s", i, string(value[:]), string(decodedMessage.TradeRestrictions.Items[i][:]))
-		}
+	// TradeRestrictions (Polity[])
+	if len(initialMessage.TradeRestrictions) != len(decodedMessage.TradeRestrictions) {
+		t.Errorf("TradeRestrictions lengths don't match : %d != %d", len(initialMessage.TradeRestrictions), len(decodedMessage.TradeRestrictions))
 	}
 
 	// EnforcementOrdersPermitted (bool)
@@ -124,22 +150,27 @@ func TestAssetDefinition(t *testing.T) {
 		t.Errorf("EnforcementOrdersPermitted doesn't match : %v != %v", initialMessage.EnforcementOrdersPermitted, decodedMessage.EnforcementOrdersPermitted)
 	}
 
+	// VotingRights (bool)
+	if initialMessage.VotingRights != decodedMessage.VotingRights {
+		t.Errorf("VotingRights doesn't match : %v != %v", initialMessage.VotingRights, decodedMessage.VotingRights)
+	}
+
 	// VoteMultiplier (uint)
 	if initialMessage.VoteMultiplier != decodedMessage.VoteMultiplier {
 		t.Errorf("VoteMultiplier doesn't match : %v != %v", initialMessage.VoteMultiplier, decodedMessage.VoteMultiplier)
 	}
 
-	// ReferendumProposal (bool)
-	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
-		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	// IssuerProposal (bool)
+	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
+		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
 	}
 
-	// InitiativeProposal (bool)
-	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
-		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	// HolderProposal (bool)
+	if initialMessage.HolderProposal != decodedMessage.HolderProposal {
+		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint)
 	if initialMessage.AssetModificationGovernance != decodedMessage.AssetModificationGovernance {
 		t.Errorf("AssetModificationGovernance doesn't match : %v != %v", initialMessage.AssetModificationGovernance, decodedMessage.AssetModificationGovernance)
 	}
@@ -160,54 +191,92 @@ func TestAssetCreation(t *testing.T) {
 	initialMessage := AssetCreation{}
 	// AssetType (fixedchar)
 	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+0))
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+0))
+			}
+			initialMessage.AssetType = string(text)
 		}
-		initialMessage.AssetType = string(text)
 	}
 
 	// AssetCode (AssetCode)
-	initialMessage.AssetCode = AssetCode{}
+	{
+		initialMessage.AssetCode = AssetCode{}
+	}
 
-	// AssetAuthFlags (bin)
-	// bin test not setup
+	// AssetAuthFlags (varbin)
+	{
+		initialMessage.AssetAuthFlags = make([]byte, 0, 8)
+		for i := uint64(0); i < 8; i++ {
+			initialMessage.AssetAuthFlags = append(initialMessage.AssetAuthFlags, byte(65+i+2))
+		}
+	}
 
 	// TransfersPermitted (bool)
-	initialMessage.TransfersPermitted = true
+	{
+		initialMessage.TransfersPermitted = true
+	}
 
-	// TradeRestrictions (Polity)
-	initialMessage.TradeRestrictions = Polity{}
+	// TradeRestrictions (Polity[])
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.TradeRestrictions = append(initialMessage.TradeRestrictions, Polity{})
+		}
+	}
 
 	// EnforcementOrdersPermitted (bool)
-	initialMessage.EnforcementOrdersPermitted = true
+	{
+		initialMessage.EnforcementOrdersPermitted = true
+	}
+
+	// VotingRights (bool)
+	{
+		initialMessage.VotingRights = true
+	}
 
 	// VoteMultiplier (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
-	// ReferendumProposal (bool)
-	initialMessage.ReferendumProposal = true
+	// IssuerProposal (bool)
+	{
+		initialMessage.IssuerProposal = true
+	}
 
-	// InitiativeProposal (bool)
-	initialMessage.InitiativeProposal = true
+	// HolderProposal (bool)
+	{
+		initialMessage.HolderProposal = true
+	}
 
-	// AssetModificationGovernance (bool)
-	initialMessage.AssetModificationGovernance = true
+	// AssetModificationGovernance (uint)
+	{
+		// uint test not setup
+	}
 
 	// TokenQty (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// AssetPayload (varbin)
-	initialMessage.AssetPayload = make([]byte, 0, 16)
-	for i := uint64(0); i < 16; i++ {
-		initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+11))
+	{
+		initialMessage.AssetPayload = make([]byte, 0, 16)
+		for i := uint64(0); i < 16; i++ {
+			initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+12))
+		}
 	}
 
 	// AssetRevision (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -252,9 +321,9 @@ func TestAssetCreation(t *testing.T) {
 	// AssetCode (AssetCode)
 	// AssetCode test compare not setup
 
-	// AssetAuthFlags (bin)
-	if initialMessage.AssetAuthFlags != decodedMessage.AssetAuthFlags {
-		t.Errorf("AssetAuthFlags doesn't match : %v != %v", initialMessage.AssetAuthFlags, decodedMessage.AssetAuthFlags)
+	// AssetAuthFlags (varbin)
+	if !bytes.Equal(initialMessage.AssetAuthFlags, decodedMessage.AssetAuthFlags) {
+		t.Errorf("AssetAuthFlags doesn't match : %x != %x", initialMessage.AssetAuthFlags, decodedMessage.AssetAuthFlags)
 	}
 
 	// TransfersPermitted (bool)
@@ -262,14 +331,9 @@ func TestAssetCreation(t *testing.T) {
 		t.Errorf("TransfersPermitted doesn't match : %v != %v", initialMessage.TransfersPermitted, decodedMessage.TransfersPermitted)
 	}
 
-	// TradeRestrictions (Polity)
-	if len(initialMessage.TradeRestrictions.Items) != len(decodedMessage.TradeRestrictions.Items) {
-		t.Errorf("TradeRestrictions length doesn't match : %d != %d", initialMessage.TradeRestrictions, decodedMessage.TradeRestrictions)
-	}
-	for i, value := range initialMessage.TradeRestrictions.Items {
-		if !bytes.Equal(value[:], decodedMessage.TradeRestrictions.Items[i][:]) {
-			t.Errorf("TradeRestrictions.Items[%d] doesn't match : %s != %s", i, string(value[:]), string(decodedMessage.TradeRestrictions.Items[i][:]))
-		}
+	// TradeRestrictions (Polity[])
+	if len(initialMessage.TradeRestrictions) != len(decodedMessage.TradeRestrictions) {
+		t.Errorf("TradeRestrictions lengths don't match : %d != %d", len(initialMessage.TradeRestrictions), len(decodedMessage.TradeRestrictions))
 	}
 
 	// EnforcementOrdersPermitted (bool)
@@ -277,22 +341,27 @@ func TestAssetCreation(t *testing.T) {
 		t.Errorf("EnforcementOrdersPermitted doesn't match : %v != %v", initialMessage.EnforcementOrdersPermitted, decodedMessage.EnforcementOrdersPermitted)
 	}
 
+	// VotingRights (bool)
+	if initialMessage.VotingRights != decodedMessage.VotingRights {
+		t.Errorf("VotingRights doesn't match : %v != %v", initialMessage.VotingRights, decodedMessage.VotingRights)
+	}
+
 	// VoteMultiplier (uint)
 	if initialMessage.VoteMultiplier != decodedMessage.VoteMultiplier {
 		t.Errorf("VoteMultiplier doesn't match : %v != %v", initialMessage.VoteMultiplier, decodedMessage.VoteMultiplier)
 	}
 
-	// ReferendumProposal (bool)
-	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
-		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	// IssuerProposal (bool)
+	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
+		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
 	}
 
-	// InitiativeProposal (bool)
-	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
-		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	// HolderProposal (bool)
+	if initialMessage.HolderProposal != decodedMessage.HolderProposal {
+		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// AssetModificationGovernance (bool)
+	// AssetModificationGovernance (uint)
 	if initialMessage.AssetModificationGovernance != decodedMessage.AssetModificationGovernance {
 		t.Errorf("AssetModificationGovernance doesn't match : %v != %v", initialMessage.AssetModificationGovernance, decodedMessage.AssetModificationGovernance)
 	}
@@ -321,26 +390,36 @@ func TestAssetModification(t *testing.T) {
 	initialMessage := AssetModification{}
 	// AssetType (fixedchar)
 	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+0))
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+0))
+			}
+			initialMessage.AssetType = string(text)
 		}
-		initialMessage.AssetType = string(text)
 	}
 
 	// AssetCode (AssetCode)
-	initialMessage.AssetCode = AssetCode{}
+	{
+		initialMessage.AssetCode = AssetCode{}
+	}
 
 	// AssetRevision (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
-	// Modifications (Amendment[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Modifications = append(initialMessage.Modifications, Amendment{})
+	// Amendments (Amendment[])
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Amendments = append(initialMessage.Amendments, Amendment{})
+		}
 	}
 
 	// RefTxID (TxId)
-	initialMessage.RefTxID = TxId{}
+	{
+		initialMessage.RefTxID = TxId{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -390,9 +469,9 @@ func TestAssetModification(t *testing.T) {
 		t.Errorf("AssetRevision doesn't match : %v != %v", initialMessage.AssetRevision, decodedMessage.AssetRevision)
 	}
 
-	// Modifications (Amendment[])
-	if len(initialMessage.Modifications) != len(decodedMessage.Modifications) {
-		t.Errorf("Modifications lengths don't match : %d != %d", len(initialMessage.Modifications), len(decodedMessage.Modifications))
+	// Amendments (Amendment[])
+	if len(initialMessage.Amendments) != len(decodedMessage.Amendments) {
+		t.Errorf("Amendments lengths don't match : %d != %d", len(initialMessage.Amendments), len(decodedMessage.Amendments))
 	}
 
 	// RefTxID (TxId)
@@ -403,91 +482,133 @@ func TestContractOffer(t *testing.T) {
 	// Create a randomized object
 	initialMessage := ContractOffer{}
 	// ContractName (varchar)
-	initialMessage.ContractName = "Text 0"
+	{
+		initialMessage.ContractName = "Text 0"
+	}
 
 	// BodyOfAgreementType (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// BodyOfAgreement (varbin)
-	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
-	for i := uint64(0); i < 32; i++ {
-		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+2))
+	{
+		initialMessage.BodyOfAgreement = make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+2))
+		}
 	}
 
 	// ContractType (varchar)
-	initialMessage.ContractType = "Text 3"
+	{
+		initialMessage.ContractType = "Text 3"
+	}
 
 	// SupportingDocsFileType (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// SupportingDocs (varbin)
-	initialMessage.SupportingDocs = make([]byte, 0, 32)
-	for i := uint64(0); i < 32; i++ {
-		initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, byte(65+i+5))
+	{
+		initialMessage.SupportingDocs = make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, byte(65+i+5))
+		}
 	}
 
 	// GoverningLaw (fixedchar)
 	{
-		text := make([]byte, 0, 5)
-		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+6))
+		{
+			text := make([]byte, 0, 5)
+			for i := uint64(0); i < 5; i++ {
+				text = append(text, byte(65+i+6))
+			}
+			initialMessage.GoverningLaw = string(text)
 		}
-		initialMessage.GoverningLaw = string(text)
 	}
 
 	// Jurisdiction (fixedchar)
 	{
-		text := make([]byte, 0, 5)
-		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+7))
+		{
+			text := make([]byte, 0, 5)
+			for i := uint64(0); i < 5; i++ {
+				text = append(text, byte(65+i+7))
+			}
+			initialMessage.Jurisdiction = string(text)
 		}
-		initialMessage.Jurisdiction = string(text)
 	}
 
 	// ContractExpiration (Timestamp)
-	initialMessage.ContractExpiration = Timestamp{}
+	{
+		initialMessage.ContractExpiration = Timestamp{}
+	}
 
 	// ContractURI (varchar)
-	initialMessage.ContractURI = "Text 9"
+	{
+		initialMessage.ContractURI = "Text 9"
+	}
 
 	// Issuer (Entity)
-	initialMessage.Issuer = Entity{}
+	{
+		initialMessage.Issuer = Entity{}
+	}
 
 	// IssuerLogoURL (varchar)
-	initialMessage.IssuerLogoURL = "Text 11"
+	{
+		initialMessage.IssuerLogoURL = "Text 11"
+	}
 
 	// ContractOperatorIncluded (bool)
-	initialMessage.ContractOperatorIncluded = true
+	{
+		initialMessage.ContractOperatorIncluded = true
+	}
 
 	// ContractOperator (Entity)
-	initialMessage.ContractOperator = Entity{}
+	if initialMessage.ContractOperatorIncluded {
+		initialMessage.ContractOperator = Entity{}
+	}
 
 	// ContractAuthFlags (varbin)
-	initialMessage.ContractAuthFlags = make([]byte, 0, 16)
-	for i := uint64(0); i < 16; i++ {
-		initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+14))
+	{
+		initialMessage.ContractAuthFlags = make([]byte, 0, 16)
+		for i := uint64(0); i < 16; i++ {
+			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+14))
+		}
 	}
 
 	// ContractFee (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// VotingSystems (VotingSystem[])
-	for i := 0; i < 2; i++ {
-		initialMessage.VotingSystems = append(initialMessage.VotingSystems, VotingSystem{})
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.VotingSystems = append(initialMessage.VotingSystems, VotingSystem{})
+		}
 	}
 
 	// RestrictedQtyAssets (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
-	// ReferendumProposal (bool)
-	initialMessage.ReferendumProposal = true
+	// IssuerProposal (bool)
+	{
+		initialMessage.IssuerProposal = true
+	}
 
-	// InitiativeProposal (bool)
-	initialMessage.InitiativeProposal = true
+	// HolderProposal (bool)
+	{
+		initialMessage.HolderProposal = true
+	}
 
-	// Registries (Registry[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Registries = append(initialMessage.Registries, Registry{})
+	// Registers (Register[])
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Registers = append(initialMessage.Registers, Register{})
+		}
 	}
 
 	// Encode message
@@ -609,19 +730,19 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("RestrictedQtyAssets doesn't match : %v != %v", initialMessage.RestrictedQtyAssets, decodedMessage.RestrictedQtyAssets)
 	}
 
-	// ReferendumProposal (bool)
-	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
-		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	// IssuerProposal (bool)
+	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
+		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
 	}
 
-	// InitiativeProposal (bool)
-	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
-		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	// HolderProposal (bool)
+	if initialMessage.HolderProposal != decodedMessage.HolderProposal {
+		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// Registries (Registry[])
-	if len(initialMessage.Registries) != len(decodedMessage.Registries) {
-		t.Errorf("Registries lengths don't match : %d != %d", len(initialMessage.Registries), len(decodedMessage.Registries))
+	// Registers (Register[])
+	if len(initialMessage.Registers) != len(decodedMessage.Registers) {
+		t.Errorf("Registers lengths don't match : %d != %d", len(initialMessage.Registers), len(decodedMessage.Registers))
 	}
 }
 
@@ -629,98 +750,144 @@ func TestContractFormation(t *testing.T) {
 	// Create a randomized object
 	initialMessage := ContractFormation{}
 	// ContractName (varchar)
-	initialMessage.ContractName = "Text 0"
+	{
+		initialMessage.ContractName = "Text 0"
+	}
 
 	// BodyOfAgreementType (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// BodyOfAgreement (varbin)
-	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
-	for i := uint64(0); i < 32; i++ {
-		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+2))
+	{
+		initialMessage.BodyOfAgreement = make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+2))
+		}
 	}
 
 	// ContractType (varchar)
-	initialMessage.ContractType = "Text 3"
+	{
+		initialMessage.ContractType = "Text 3"
+	}
 
 	// SupportingDocsFileType (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// SupportingDocs (varbin)
-	initialMessage.SupportingDocs = make([]byte, 0, 32)
-	for i := uint64(0); i < 32; i++ {
-		initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, byte(65+i+5))
+	{
+		initialMessage.SupportingDocs = make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, byte(65+i+5))
+		}
 	}
 
 	// GoverningLaw (fixedchar)
 	{
-		text := make([]byte, 0, 5)
-		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+6))
+		{
+			text := make([]byte, 0, 5)
+			for i := uint64(0); i < 5; i++ {
+				text = append(text, byte(65+i+6))
+			}
+			initialMessage.GoverningLaw = string(text)
 		}
-		initialMessage.GoverningLaw = string(text)
 	}
 
 	// Jurisdiction (fixedchar)
 	{
-		text := make([]byte, 0, 5)
-		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+7))
+		{
+			text := make([]byte, 0, 5)
+			for i := uint64(0); i < 5; i++ {
+				text = append(text, byte(65+i+7))
+			}
+			initialMessage.Jurisdiction = string(text)
 		}
-		initialMessage.Jurisdiction = string(text)
 	}
 
 	// ContractExpiration (Timestamp)
-	initialMessage.ContractExpiration = Timestamp{}
+	{
+		initialMessage.ContractExpiration = Timestamp{}
+	}
 
 	// ContractURI (varchar)
-	initialMessage.ContractURI = "Text 9"
+	{
+		initialMessage.ContractURI = "Text 9"
+	}
 
 	// Issuer (Entity)
-	initialMessage.Issuer = Entity{}
+	{
+		initialMessage.Issuer = Entity{}
+	}
 
 	// IssuerLogoURL (varchar)
-	initialMessage.IssuerLogoURL = "Text 11"
+	{
+		initialMessage.IssuerLogoURL = "Text 11"
+	}
 
 	// ContractOperatorIncluded (bool)
-	initialMessage.ContractOperatorIncluded = true
+	{
+		initialMessage.ContractOperatorIncluded = true
+	}
 
 	// ContractOperator (Entity)
-	initialMessage.ContractOperator = Entity{}
+	if initialMessage.ContractOperatorIncluded {
+		initialMessage.ContractOperator = Entity{}
+	}
 
 	// ContractAuthFlags (varbin)
-	initialMessage.ContractAuthFlags = make([]byte, 0, 16)
-	for i := uint64(0); i < 16; i++ {
-		initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+14))
+	{
+		initialMessage.ContractAuthFlags = make([]byte, 0, 16)
+		for i := uint64(0); i < 16; i++ {
+			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+14))
+		}
 	}
 
 	// ContractFee (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// VotingSystems (VotingSystem[])
-	for i := 0; i < 2; i++ {
-		initialMessage.VotingSystems = append(initialMessage.VotingSystems, VotingSystem{})
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.VotingSystems = append(initialMessage.VotingSystems, VotingSystem{})
+		}
 	}
 
 	// RestrictedQtyAssets (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
-	// ReferendumProposal (bool)
-	initialMessage.ReferendumProposal = true
+	// IssuerProposal (bool)
+	{
+		initialMessage.IssuerProposal = true
+	}
 
-	// InitiativeProposal (bool)
-	initialMessage.InitiativeProposal = true
+	// HolderProposal (bool)
+	{
+		initialMessage.HolderProposal = true
+	}
 
-	// Registries (Registry[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Registries = append(initialMessage.Registries, Registry{})
+	// Registers (Register[])
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Registers = append(initialMessage.Registers, Register{})
+		}
 	}
 
 	// ContractRevision (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -841,19 +1008,19 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("RestrictedQtyAssets doesn't match : %v != %v", initialMessage.RestrictedQtyAssets, decodedMessage.RestrictedQtyAssets)
 	}
 
-	// ReferendumProposal (bool)
-	if initialMessage.ReferendumProposal != decodedMessage.ReferendumProposal {
-		t.Errorf("ReferendumProposal doesn't match : %v != %v", initialMessage.ReferendumProposal, decodedMessage.ReferendumProposal)
+	// IssuerProposal (bool)
+	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
+		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
 	}
 
-	// InitiativeProposal (bool)
-	if initialMessage.InitiativeProposal != decodedMessage.InitiativeProposal {
-		t.Errorf("InitiativeProposal doesn't match : %v != %v", initialMessage.InitiativeProposal, decodedMessage.InitiativeProposal)
+	// HolderProposal (bool)
+	if initialMessage.HolderProposal != decodedMessage.HolderProposal {
+		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// Registries (Registry[])
-	if len(initialMessage.Registries) != len(decodedMessage.Registries) {
-		t.Errorf("Registries lengths don't match : %d != %d", len(initialMessage.Registries), len(decodedMessage.Registries))
+	// Registers (Register[])
+	if len(initialMessage.Registers) != len(decodedMessage.Registers) {
+		t.Errorf("Registers lengths don't match : %d != %d", len(initialMessage.Registers), len(decodedMessage.Registers))
 	}
 
 	// ContractRevision (uint)
@@ -869,21 +1036,31 @@ func TestContractAmendment(t *testing.T) {
 	// Create a randomized object
 	initialMessage := ContractAmendment{}
 	// ChangeIssuerAddress (bool)
-	initialMessage.ChangeIssuerAddress = true
+	{
+		initialMessage.ChangeIssuerAddress = true
+	}
 
 	// ChangeOperatorAddress (bool)
-	initialMessage.ChangeOperatorAddress = true
+	{
+		initialMessage.ChangeOperatorAddress = true
+	}
 
 	// ContractRevision (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// Amendments (Amendment[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Amendments = append(initialMessage.Amendments, Amendment{})
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Amendments = append(initialMessage.Amendments, Amendment{})
+		}
 	}
 
 	// RefTxID (TxId)
-	initialMessage.RefTxID = TxId{}
+	{
+		initialMessage.RefTxID = TxId{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -948,65 +1125,95 @@ func TestStaticContractFormation(t *testing.T) {
 	// Create a randomized object
 	initialMessage := StaticContractFormation{}
 	// ContractName (varchar)
-	initialMessage.ContractName = "Text 0"
+	{
+		initialMessage.ContractName = "Text 0"
+	}
 
 	// ContractCode (ContractCode)
-	initialMessage.ContractCode = ContractCode{}
+	{
+		initialMessage.ContractCode = ContractCode{}
+	}
 
 	// BodyOfAgreementType (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// BodyOfAgreement (varbin)
-	initialMessage.BodyOfAgreement = make([]byte, 0, 32)
-	for i := uint64(0); i < 32; i++ {
-		initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+3))
+	{
+		initialMessage.BodyOfAgreement = make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			initialMessage.BodyOfAgreement = append(initialMessage.BodyOfAgreement, byte(65+i+3))
+		}
 	}
 
 	// ContractType (varchar)
-	initialMessage.ContractType = "Text 4"
+	{
+		initialMessage.ContractType = "Text 4"
+	}
 
 	// SupportingDocsFileType (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// SupportingDocs (varchar)
-	initialMessage.SupportingDocs = "Text 6"
+	{
+		initialMessage.SupportingDocs = "Text 6"
+	}
 
 	// ContractRevision (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// GoverningLaw (fixedchar)
 	{
-		text := make([]byte, 0, 5)
-		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+8))
+		{
+			text := make([]byte, 0, 5)
+			for i := uint64(0); i < 5; i++ {
+				text = append(text, byte(65+i+8))
+			}
+			initialMessage.GoverningLaw = string(text)
 		}
-		initialMessage.GoverningLaw = string(text)
 	}
 
 	// Jurisdiction (fixedchar)
 	{
-		text := make([]byte, 0, 5)
-		for i := uint64(0); i < 5; i++ {
-			text = append(text, byte(65+i+9))
+		{
+			text := make([]byte, 0, 5)
+			for i := uint64(0); i < 5; i++ {
+				text = append(text, byte(65+i+9))
+			}
+			initialMessage.Jurisdiction = string(text)
 		}
-		initialMessage.Jurisdiction = string(text)
 	}
 
 	// EffectiveDate (Timestamp)
-	initialMessage.EffectiveDate = Timestamp{}
+	{
+		initialMessage.EffectiveDate = Timestamp{}
+	}
 
 	// ContractExpiration (Timestamp)
-	initialMessage.ContractExpiration = Timestamp{}
+	{
+		initialMessage.ContractExpiration = Timestamp{}
+	}
 
 	// ContractURI (varchar)
-	initialMessage.ContractURI = "Text 12"
+	{
+		initialMessage.ContractURI = "Text 12"
+	}
 
 	// PrevRevTxID (TxId)
-	initialMessage.PrevRevTxID = TxId{}
+	{
+		initialMessage.PrevRevTxID = TxId{}
+	}
 
 	// Entities (Entity[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Entities = append(initialMessage.Entities, Entity{})
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Entities = append(initialMessage.Entities, Entity{})
+		}
 	}
 
 	// Encode message
@@ -1115,52 +1322,104 @@ func TestStaticContractFormation(t *testing.T) {
 func TestOrder(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Order{}
-	// AssetType (fixedchar)
+	// ComplianceAction (fixedchar)
 	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+0))
+		// fixedchar test not setup
+	}
+
+	// AssetType (fixedchar)
+	if initialMessage.ComplianceAction == 'F' || initialMessage.ComplianceAction == 'C' || initialMessage.ComplianceAction == 'R' {
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+1))
+			}
+			initialMessage.AssetType = string(text)
 		}
-		initialMessage.AssetType = string(text)
 	}
 
 	// AssetCode (AssetCode)
-	initialMessage.AssetCode = AssetCode{}
-
-	// ComplianceAction (fixedchar)
-	// fixedchar test not setup
+	if initialMessage.ComplianceAction == 'F' || initialMessage.ComplianceAction == 'C' || initialMessage.ComplianceAction == 'R' {
+		initialMessage.AssetCode = AssetCode{}
+	}
 
 	// TargetAddresses (TargetAddress[])
-	for i := 0; i < 2; i++ {
-		initialMessage.TargetAddresses = append(initialMessage.TargetAddresses, TargetAddress{})
+	if initialMessage.ComplianceAction == 'F' || initialMessage.ComplianceAction == 'C' || initialMessage.ComplianceAction == 'R' {
+		for i := 0; i < 2; i++ {
+			initialMessage.TargetAddresses = append(initialMessage.TargetAddresses, TargetAddress{})
+		}
+	}
+
+	// FreezeTxId (TxId)
+	if initialMessage.ComplianceAction == 'T' {
+		initialMessage.FreezeTxId = TxId{}
+	}
+
+	// FreezePeriod (Timestamp)
+	if initialMessage.ComplianceAction == 'F' {
+		initialMessage.FreezePeriod = Timestamp{}
 	}
 
 	// DepositAddress (PublicKeyHash)
-	initialMessage.DepositAddress = PublicKeyHash{}
+	if initialMessage.ComplianceAction == 'C' {
+		initialMessage.DepositAddress = PublicKeyHash{}
+	}
+
+	// AuthorityIncluded (bool)
+	if initialMessage.ComplianceAction == 'F' || initialMessage.ComplianceAction == 'T' || initialMessage.ComplianceAction == 'C' {
+		initialMessage.AuthorityIncluded = true
+	}
 
 	// AuthorityName (varchar)
-	initialMessage.AuthorityName = "Text 5"
+	if initialMessage.AuthorityIncluded {
+		initialMessage.AuthorityName = "Text 8"
+	}
 
-	// SigAlgoAddressList (uint)
-	// uint test not setup
+	// AuthorityPublicKey (varbin)
+	if initialMessage.AuthorityIncluded {
+		initialMessage.AuthorityPublicKey = make([]byte, 0, 8)
+		for i := uint64(0); i < 8; i++ {
+			initialMessage.AuthorityPublicKey = append(initialMessage.AuthorityPublicKey, byte(65+i+9))
+		}
+	}
 
-	// AuthorityPublicKey (varchar)
-	initialMessage.AuthorityPublicKey = "Text 7"
+	// SignatureAlgorithm (uint)
+	if initialMessage.AuthorityIncluded {
+		// uint test not setup
+	}
 
-	// OrderSignature (varchar)
-	initialMessage.OrderSignature = "Text 8"
+	// OrderSignature (varbin)
+	if initialMessage.AuthorityIncluded {
+		initialMessage.OrderSignature = make([]byte, 0, 8)
+		for i := uint64(0); i < 8; i++ {
+			initialMessage.OrderSignature = append(initialMessage.OrderSignature, byte(65+i+11))
+		}
+	}
 
-	// SupportingEvidenceTxId (TxId)
-	initialMessage.SupportingEvidenceTxId = TxId{}
+	// SupportingEvidenceHash (bin)
+	{
+		// bin test not setup
+	}
 
-	// RefTxns (TxId)
-	initialMessage.RefTxns = TxId{}
+	// RefTxs (varbin)
+	if initialMessage.ComplianceAction == 'R' {
+		initialMessage.RefTxs = make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			initialMessage.RefTxs = append(initialMessage.RefTxs, byte(65+i+13))
+		}
+	}
 
-	// FreezePeriod (Timestamp)
-	initialMessage.FreezePeriod = Timestamp{}
+	// BitcoinDispersions (QuantityIndex[])
+	if initialMessage.ComplianceAction == 'R' {
+		for i := 0; i < 2; i++ {
+			initialMessage.BitcoinDispersions = append(initialMessage.BitcoinDispersions, QuantityIndex{})
+		}
+	}
 
 	// Message (varchar)
-	initialMessage.Message = "Text 12"
+	{
+		initialMessage.Message = "Text 15"
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1197,6 +1456,11 @@ func TestOrder(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
+	// ComplianceAction (fixedchar)
+	if initialMessage.ComplianceAction != decodedMessage.ComplianceAction {
+		t.Errorf("ComplianceAction doesn't match : %v != %v", initialMessage.ComplianceAction, decodedMessage.ComplianceAction)
+	}
+
 	// AssetType (fixedchar)
 	if initialMessage.AssetType != decodedMessage.AssetType {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
@@ -1205,47 +1469,59 @@ func TestOrder(t *testing.T) {
 	// AssetCode (AssetCode)
 	// AssetCode test compare not setup
 
-	// ComplianceAction (fixedchar)
-	if initialMessage.ComplianceAction != decodedMessage.ComplianceAction {
-		t.Errorf("ComplianceAction doesn't match : %v != %v", initialMessage.ComplianceAction, decodedMessage.ComplianceAction)
-	}
-
 	// TargetAddresses (TargetAddress[])
 	if len(initialMessage.TargetAddresses) != len(decodedMessage.TargetAddresses) {
 		t.Errorf("TargetAddresses lengths don't match : %d != %d", len(initialMessage.TargetAddresses), len(decodedMessage.TargetAddresses))
 	}
 
+	// FreezeTxId (TxId)
+	// TxId test compare not setup
+
+	// FreezePeriod (Timestamp)
+	// Timestamp test compare not setup
+
 	// DepositAddress (PublicKeyHash)
 	// PublicKeyHash test compare not setup
+
+	// AuthorityIncluded (bool)
+	if initialMessage.AuthorityIncluded != decodedMessage.AuthorityIncluded {
+		t.Errorf("AuthorityIncluded doesn't match : %v != %v", initialMessage.AuthorityIncluded, decodedMessage.AuthorityIncluded)
+	}
 
 	// AuthorityName (varchar)
 	if initialMessage.AuthorityName != decodedMessage.AuthorityName {
 		t.Errorf("AuthorityName doesn't match : %s != %s", initialMessage.AuthorityName, decodedMessage.AuthorityName)
 	}
 
-	// SigAlgoAddressList (uint)
-	if initialMessage.SigAlgoAddressList != decodedMessage.SigAlgoAddressList {
-		t.Errorf("SigAlgoAddressList doesn't match : %v != %v", initialMessage.SigAlgoAddressList, decodedMessage.SigAlgoAddressList)
+	// AuthorityPublicKey (varbin)
+	if !bytes.Equal(initialMessage.AuthorityPublicKey, decodedMessage.AuthorityPublicKey) {
+		t.Errorf("AuthorityPublicKey doesn't match : %x != %x", initialMessage.AuthorityPublicKey, decodedMessage.AuthorityPublicKey)
 	}
 
-	// AuthorityPublicKey (varchar)
-	if initialMessage.AuthorityPublicKey != decodedMessage.AuthorityPublicKey {
-		t.Errorf("AuthorityPublicKey doesn't match : %s != %s", initialMessage.AuthorityPublicKey, decodedMessage.AuthorityPublicKey)
+	// SignatureAlgorithm (uint)
+	if initialMessage.SignatureAlgorithm != decodedMessage.SignatureAlgorithm {
+		t.Errorf("SignatureAlgorithm doesn't match : %v != %v", initialMessage.SignatureAlgorithm, decodedMessage.SignatureAlgorithm)
 	}
 
-	// OrderSignature (varchar)
-	if initialMessage.OrderSignature != decodedMessage.OrderSignature {
-		t.Errorf("OrderSignature doesn't match : %s != %s", initialMessage.OrderSignature, decodedMessage.OrderSignature)
+	// OrderSignature (varbin)
+	if !bytes.Equal(initialMessage.OrderSignature, decodedMessage.OrderSignature) {
+		t.Errorf("OrderSignature doesn't match : %x != %x", initialMessage.OrderSignature, decodedMessage.OrderSignature)
 	}
 
-	// SupportingEvidenceTxId (TxId)
-	// TxId test compare not setup
+	// SupportingEvidenceHash (bin)
+	if initialMessage.SupportingEvidenceHash != decodedMessage.SupportingEvidenceHash {
+		t.Errorf("SupportingEvidenceHash doesn't match : %v != %v", initialMessage.SupportingEvidenceHash, decodedMessage.SupportingEvidenceHash)
+	}
 
-	// RefTxns (TxId)
-	// TxId test compare not setup
+	// RefTxs (varbin)
+	if !bytes.Equal(initialMessage.RefTxs, decodedMessage.RefTxs) {
+		t.Errorf("RefTxs doesn't match : %x != %x", initialMessage.RefTxs, decodedMessage.RefTxs)
+	}
 
-	// FreezePeriod (Timestamp)
-	// Timestamp test compare not setup
+	// BitcoinDispersions (QuantityIndex[])
+	if len(initialMessage.BitcoinDispersions) != len(decodedMessage.BitcoinDispersions) {
+		t.Errorf("BitcoinDispersions lengths don't match : %d != %d", len(initialMessage.BitcoinDispersions), len(decodedMessage.BitcoinDispersions))
+	}
 
 	// Message (varchar)
 	if initialMessage.Message != decodedMessage.Message {
@@ -1256,13 +1532,38 @@ func TestOrder(t *testing.T) {
 func TestFreeze(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Freeze{}
-	// Addresses (PublicKeyHash[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Addresses = append(initialMessage.Addresses, PublicKeyHash{})
+	// AssetType (fixedchar)
+	{
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+0))
+			}
+			initialMessage.AssetType = string(text)
+		}
+	}
+
+	// AssetCode (AssetCode)
+	{
+		initialMessage.AssetCode = AssetCode{}
+	}
+
+	// Quantities (QuantityIndex[])
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Quantities = append(initialMessage.Quantities, QuantityIndex{})
+		}
+	}
+
+	// FreezePeriod (Timestamp)
+	{
+		initialMessage.FreezePeriod = Timestamp{}
 	}
 
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1299,10 +1600,21 @@ func TestFreeze(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Addresses (PublicKeyHash[])
-	if len(initialMessage.Addresses) != len(decodedMessage.Addresses) {
-		t.Errorf("Addresses lengths don't match : %d != %d", len(initialMessage.Addresses), len(decodedMessage.Addresses))
+	// AssetType (fixedchar)
+	if initialMessage.AssetType != decodedMessage.AssetType {
+		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
+
+	// AssetCode (AssetCode)
+	// AssetCode test compare not setup
+
+	// Quantities (QuantityIndex[])
+	if len(initialMessage.Quantities) != len(decodedMessage.Quantities) {
+		t.Errorf("Quantities lengths don't match : %d != %d", len(initialMessage.Quantities), len(decodedMessage.Quantities))
+	}
+
+	// FreezePeriod (Timestamp)
+	// Timestamp test compare not setup
 
 	// Timestamp (Timestamp)
 	// Timestamp test compare not setup
@@ -1311,16 +1623,15 @@ func TestFreeze(t *testing.T) {
 func TestThaw(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Thaw{}
-	// Addresses (PublicKeyHash[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Addresses = append(initialMessage.Addresses, PublicKeyHash{})
+	// FreezeTxId (TxId)
+	{
+		initialMessage.FreezeTxId = TxId{}
 	}
 
-	// RefTxID (TxId)
-	initialMessage.RefTxID = TxId{}
-
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1357,12 +1668,7 @@ func TestThaw(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Addresses (PublicKeyHash[])
-	if len(initialMessage.Addresses) != len(decodedMessage.Addresses) {
-		t.Errorf("Addresses lengths don't match : %d != %d", len(initialMessage.Addresses), len(decodedMessage.Addresses))
-	}
-
-	// RefTxID (TxId)
+	// FreezeTxId (TxId)
 	// TxId test compare not setup
 
 	// Timestamp (Timestamp)
@@ -1372,16 +1678,38 @@ func TestThaw(t *testing.T) {
 func TestConfiscation(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Confiscation{}
-	// Addresses (PublicKeyHash[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Addresses = append(initialMessage.Addresses, PublicKeyHash{})
+	// AssetType (fixedchar)
+	{
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+0))
+			}
+			initialMessage.AssetType = string(text)
+		}
+	}
+
+	// AssetCode (AssetCode)
+	{
+		initialMessage.AssetCode = AssetCode{}
+	}
+
+	// Quantities (QuantityIndex[])
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Quantities = append(initialMessage.Quantities, QuantityIndex{})
+		}
 	}
 
 	// DepositQty (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1418,9 +1746,17 @@ func TestConfiscation(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Addresses (PublicKeyHash[])
-	if len(initialMessage.Addresses) != len(decodedMessage.Addresses) {
-		t.Errorf("Addresses lengths don't match : %d != %d", len(initialMessage.Addresses), len(decodedMessage.Addresses))
+	// AssetType (fixedchar)
+	if initialMessage.AssetType != decodedMessage.AssetType {
+		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
+	}
+
+	// AssetCode (AssetCode)
+	// AssetCode test compare not setup
+
+	// Quantities (QuantityIndex[])
+	if len(initialMessage.Quantities) != len(decodedMessage.Quantities) {
+		t.Errorf("Quantities lengths don't match : %d != %d", len(initialMessage.Quantities), len(decodedMessage.Quantities))
 	}
 
 	// DepositQty (uint)
@@ -1435,13 +1771,33 @@ func TestConfiscation(t *testing.T) {
 func TestReconciliation(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Reconciliation{}
-	// Addresses (PublicKeyHash[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Addresses = append(initialMessage.Addresses, PublicKeyHash{})
+	// AssetType (fixedchar)
+	{
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+0))
+			}
+			initialMessage.AssetType = string(text)
+		}
+	}
+
+	// AssetCode (AssetCode)
+	{
+		initialMessage.AssetCode = AssetCode{}
+	}
+
+	// Quantities (QuantityIndex[])
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Quantities = append(initialMessage.Quantities, QuantityIndex{})
+		}
 	}
 
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1478,9 +1834,17 @@ func TestReconciliation(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// Addresses (PublicKeyHash[])
-	if len(initialMessage.Addresses) != len(decodedMessage.Addresses) {
-		t.Errorf("Addresses lengths don't match : %d != %d", len(initialMessage.Addresses), len(decodedMessage.Addresses))
+	// AssetType (fixedchar)
+	if initialMessage.AssetType != decodedMessage.AssetType {
+		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
+	}
+
+	// AssetCode (AssetCode)
+	// AssetCode test compare not setup
+
+	// Quantities (QuantityIndex[])
+	if len(initialMessage.Quantities) != len(decodedMessage.Quantities) {
+		t.Errorf("Quantities lengths don't match : %d != %d", len(initialMessage.Quantities), len(decodedMessage.Quantities))
 	}
 
 	// Timestamp (Timestamp)
@@ -1491,48 +1855,72 @@ func TestProposal(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Proposal{}
 	// Initiator (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// AssetSpecificVote (bool)
-	initialMessage.AssetSpecificVote = true
+	{
+		initialMessage.AssetSpecificVote = true
+	}
 
 	// AssetType (fixedchar)
-	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+2))
+	if initialMessage.AssetSpecificVote {
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+2))
+			}
+			initialMessage.AssetType = string(text)
 		}
-		initialMessage.AssetType = string(text)
 	}
 
 	// AssetCode (AssetCode)
-	initialMessage.AssetCode = AssetCode{}
+	if initialMessage.AssetSpecificVote {
+		initialMessage.AssetCode = AssetCode{}
+	}
 
 	// VoteSystem (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// Specific (bool)
-	initialMessage.Specific = true
+	{
+		initialMessage.Specific = true
+	}
 
 	// ProposedAmendments (Amendment[])
-	for i := 0; i < 2; i++ {
-		initialMessage.ProposedAmendments = append(initialMessage.ProposedAmendments, Amendment{})
+	if initialMessage.Specific {
+		for i := 0; i < 2; i++ {
+			initialMessage.ProposedAmendments = append(initialMessage.ProposedAmendments, Amendment{})
+		}
 	}
 
 	// VoteOptions (varchar)
-	initialMessage.VoteOptions = "Text 7"
+	{
+		initialMessage.VoteOptions = "Text 7"
+	}
 
 	// VoteMax (uint)
-	// uint test not setup
+	{
+		// uint test not setup
+	}
 
 	// ProposalDescription (varchar)
-	initialMessage.ProposalDescription = "Text 9"
+	{
+		initialMessage.ProposalDescription = "Text 9"
+	}
 
 	// ProposalDocumentHash (bin)
-	// bin test not setup
+	{
+		// bin test not setup
+	}
 
 	// VoteCutOffTimestamp (Timestamp)
-	initialMessage.VoteCutOffTimestamp = Timestamp{}
+	{
+		initialMessage.VoteCutOffTimestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1630,7 +2018,9 @@ func TestVote(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Vote{}
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1674,23 +2064,15 @@ func TestVote(t *testing.T) {
 func TestBallotCast(t *testing.T) {
 	// Create a randomized object
 	initialMessage := BallotCast{}
-	// AssetType (fixedchar)
+	// VoteTxId (TxId)
 	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+0))
-		}
-		initialMessage.AssetType = string(text)
+		initialMessage.VoteTxId = TxId{}
 	}
 
-	// AssetCode (AssetCode)
-	initialMessage.AssetCode = AssetCode{}
-
-	// VoteTxID (TxId)
-	initialMessage.VoteTxID = TxId{}
-
 	// Vote (varchar)
-	initialMessage.Vote = "Text 3"
+	{
+		initialMessage.Vote = "Text 1"
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1727,15 +2109,7 @@ func TestBallotCast(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// AssetType (fixedchar)
-	if initialMessage.AssetType != decodedMessage.AssetType {
-		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
-	}
-
-	// AssetCode (AssetCode)
-	// AssetCode test compare not setup
-
-	// VoteTxID (TxId)
+	// VoteTxId (TxId)
 	// TxId test compare not setup
 
 	// Vote (varchar)
@@ -1747,8 +2121,25 @@ func TestBallotCast(t *testing.T) {
 func TestBallotCounted(t *testing.T) {
 	// Create a randomized object
 	initialMessage := BallotCounted{}
+	// VoteTxId (TxId)
+	{
+		initialMessage.VoteTxId = TxId{}
+	}
+
+	// Vote (varchar)
+	{
+		initialMessage.Vote = "Text 1"
+	}
+
+	// Quantity (uint)
+	{
+		// uint test not setup
+	}
+
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1785,6 +2176,19 @@ func TestBallotCounted(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
+	// VoteTxId (TxId)
+	// TxId test compare not setup
+
+	// Vote (varchar)
+	if initialMessage.Vote != decodedMessage.Vote {
+		t.Errorf("Vote doesn't match : %s != %s", initialMessage.Vote, decodedMessage.Vote)
+	}
+
+	// Quantity (uint)
+	if initialMessage.Quantity != decodedMessage.Quantity {
+		t.Errorf("Quantity doesn't match : %v != %v", initialMessage.Quantity, decodedMessage.Quantity)
+	}
+
 	// Timestamp (Timestamp)
 	// Timestamp test compare not setup
 }
@@ -1792,40 +2196,61 @@ func TestBallotCounted(t *testing.T) {
 func TestResult(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Result{}
-	// AssetType (fixedchar)
+	// AssetSpecificVote (bool)
 	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+0))
+		initialMessage.AssetSpecificVote = true
+	}
+
+	// AssetType (fixedchar)
+	if initialMessage.AssetSpecificVote {
+		{
+			text := make([]byte, 0, 3)
+			for i := uint64(0); i < 3; i++ {
+				text = append(text, byte(65+i+1))
+			}
+			initialMessage.AssetType = string(text)
 		}
-		initialMessage.AssetType = string(text)
 	}
 
 	// AssetCode (AssetCode)
-	initialMessage.AssetCode = AssetCode{}
-
-	// Proposal (bool)
-	initialMessage.Proposal = true
-
-	// ProposedChanges (Amendment[])
-	for i := 0; i < 2; i++ {
-		initialMessage.ProposedChanges = append(initialMessage.ProposedChanges, Amendment{})
+	if initialMessage.AssetSpecificVote {
+		initialMessage.AssetCode = AssetCode{}
 	}
 
-	// VoteTxID (TxId)
-	initialMessage.VoteTxID = TxId{}
+	// Specific (bool)
+	{
+		initialMessage.Specific = true
+	}
 
-	// VoteOptionsCount (uint)
-	// uint test not setup
+	// ProposedAmendments (Amendment[])
+	if initialMessage.Specific {
+		for i := 0; i < 2; i++ {
+			initialMessage.ProposedAmendments = append(initialMessage.ProposedAmendments, Amendment{})
+		}
+	}
 
-	// OptionXTally (uint)
-	// uint test not setup
+	// VoteTxId (TxId)
+	{
+		initialMessage.VoteTxId = TxId{}
+	}
+
+	// OptionTally (uint64[])
+	{
+		for i := 0; i < 5; i++ {
+			var item uint64
+			initialMessage.OptionTally = append(initialMessage.OptionTally, item)
+		}
+	}
 
 	// Result (varchar)
-	initialMessage.Result = "Text 7"
+	{
+		initialMessage.Result = "Text 7"
+	}
 
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -1862,6 +2287,11 @@ func TestResult(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
+	// AssetSpecificVote (bool)
+	if initialMessage.AssetSpecificVote != decodedMessage.AssetSpecificVote {
+		t.Errorf("AssetSpecificVote doesn't match : %v != %v", initialMessage.AssetSpecificVote, decodedMessage.AssetSpecificVote)
+	}
+
 	// AssetType (fixedchar)
 	if initialMessage.AssetType != decodedMessage.AssetType {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
@@ -1870,27 +2300,27 @@ func TestResult(t *testing.T) {
 	// AssetCode (AssetCode)
 	// AssetCode test compare not setup
 
-	// Proposal (bool)
-	if initialMessage.Proposal != decodedMessage.Proposal {
-		t.Errorf("Proposal doesn't match : %v != %v", initialMessage.Proposal, decodedMessage.Proposal)
+	// Specific (bool)
+	if initialMessage.Specific != decodedMessage.Specific {
+		t.Errorf("Specific doesn't match : %v != %v", initialMessage.Specific, decodedMessage.Specific)
 	}
 
-	// ProposedChanges (Amendment[])
-	if len(initialMessage.ProposedChanges) != len(decodedMessage.ProposedChanges) {
-		t.Errorf("ProposedChanges lengths don't match : %d != %d", len(initialMessage.ProposedChanges), len(decodedMessage.ProposedChanges))
+	// ProposedAmendments (Amendment[])
+	if len(initialMessage.ProposedAmendments) != len(decodedMessage.ProposedAmendments) {
+		t.Errorf("ProposedAmendments lengths don't match : %d != %d", len(initialMessage.ProposedAmendments), len(decodedMessage.ProposedAmendments))
 	}
 
-	// VoteTxID (TxId)
+	// VoteTxId (TxId)
 	// TxId test compare not setup
 
-	// VoteOptionsCount (uint)
-	if initialMessage.VoteOptionsCount != decodedMessage.VoteOptionsCount {
-		t.Errorf("VoteOptionsCount doesn't match : %v != %v", initialMessage.VoteOptionsCount, decodedMessage.VoteOptionsCount)
+	// OptionTally (uint64[])
+	if len(initialMessage.OptionTally) != len(decodedMessage.OptionTally) {
+		t.Errorf("OptionTally lengths don't match : %d != %d", len(initialMessage.OptionTally), len(decodedMessage.OptionTally))
 	}
-
-	// OptionXTally (uint)
-	if initialMessage.OptionXTally != decodedMessage.OptionXTally {
-		t.Errorf("OptionXTally doesn't match : %v != %v", initialMessage.OptionXTally, decodedMessage.OptionXTally)
+	for i, value := range initialMessage.OptionTally {
+		if value != decodedMessage.OptionTally[i] {
+			t.Errorf("OptionTally value %d doesn't match : %v != %v", i, value, decodedMessage.OptionTally[i])
+		}
 	}
 
 	// Result (varchar)
@@ -1906,24 +2336,24 @@ func TestMessage(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Message{}
 	// AddressIndexes (uint16[])
-	for i := 0; i < 5; i++ {
-		var item uint16
-		initialMessage.AddressIndexes = append(initialMessage.AddressIndexes, item)
+	{
+		for i := 0; i < 5; i++ {
+			var item uint16
+			initialMessage.AddressIndexes = append(initialMessage.AddressIndexes, item)
+		}
 	}
 
-	// MessageType (fixedchar)
+	// MessageType (MessageType)
 	{
-		text := make([]byte, 0, 4)
-		for i := uint64(0); i < 4; i++ {
-			text = append(text, byte(65+i+1))
-		}
-		initialMessage.MessageType = string(text)
+		// MessageType test not setup
 	}
 
 	// MessagePayload (varbin)
-	initialMessage.MessagePayload = make([]byte, 0, 32)
-	for i := uint64(0); i < 32; i++ {
-		initialMessage.MessagePayload = append(initialMessage.MessagePayload, byte(65+i+2))
+	{
+		initialMessage.MessagePayload = make([]byte, 0, 32)
+		for i := uint64(0); i < 32; i++ {
+			initialMessage.MessagePayload = append(initialMessage.MessagePayload, byte(65+i+2))
+		}
 	}
 
 	// Encode message
@@ -1971,9 +2401,9 @@ func TestMessage(t *testing.T) {
 		}
 	}
 
-	// MessageType (fixedchar)
+	// MessageType (MessageType)
 	if initialMessage.MessageType != decodedMessage.MessageType {
-		t.Errorf("MessageType doesn't match : %s != %s", initialMessage.MessageType, decodedMessage.MessageType)
+		t.Errorf("MessageType doesn't match : %v != %v", initialMessage.MessageType, decodedMessage.MessageType)
 	}
 
 	// MessagePayload (varbin)
@@ -1985,23 +2415,33 @@ func TestMessage(t *testing.T) {
 func TestRejection(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Rejection{}
-	// QtyReceivingAddresses (uint8)
-	// uint8 test not setup
-
 	// AddressIndexes (uint16[])
-	for i := 0; i < 5; i++ {
-		var item uint16
-		initialMessage.AddressIndexes = append(initialMessage.AddressIndexes, item)
+	{
+		for i := 0; i < 5; i++ {
+			var item uint16
+			initialMessage.AddressIndexes = append(initialMessage.AddressIndexes, item)
+		}
 	}
 
-	// RejectionType (uint)
-	// uint test not setup
+	// RejectAddressIndex (uint)
+	{
+		// uint test not setup
+	}
 
-	// MessagePayload (varchar)
-	initialMessage.MessagePayload = "Text 3"
+	// RejectionCode (RejectionCode)
+	{
+		// RejectionCode test not setup
+	}
+
+	// Message (varchar)
+	{
+		initialMessage.Message = "Text 3"
+	}
 
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -2038,11 +2478,6 @@ func TestRejection(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// QtyReceivingAddresses (uint8)
-	if initialMessage.QtyReceivingAddresses != decodedMessage.QtyReceivingAddresses {
-		t.Errorf("QtyReceivingAddresses doesn't match : %v != %v", initialMessage.QtyReceivingAddresses, decodedMessage.QtyReceivingAddresses)
-	}
-
 	// AddressIndexes (uint16[])
 	if len(initialMessage.AddressIndexes) != len(decodedMessage.AddressIndexes) {
 		t.Errorf("AddressIndexes lengths don't match : %d != %d", len(initialMessage.AddressIndexes), len(decodedMessage.AddressIndexes))
@@ -2053,14 +2488,19 @@ func TestRejection(t *testing.T) {
 		}
 	}
 
-	// RejectionType (uint)
-	if initialMessage.RejectionType != decodedMessage.RejectionType {
-		t.Errorf("RejectionType doesn't match : %v != %v", initialMessage.RejectionType, decodedMessage.RejectionType)
+	// RejectAddressIndex (uint)
+	if initialMessage.RejectAddressIndex != decodedMessage.RejectAddressIndex {
+		t.Errorf("RejectAddressIndex doesn't match : %v != %v", initialMessage.RejectAddressIndex, decodedMessage.RejectAddressIndex)
 	}
 
-	// MessagePayload (varchar)
-	if initialMessage.MessagePayload != decodedMessage.MessagePayload {
-		t.Errorf("MessagePayload doesn't match : %s != %s", initialMessage.MessagePayload, decodedMessage.MessagePayload)
+	// RejectionCode (RejectionCode)
+	if initialMessage.RejectionCode != decodedMessage.RejectionCode {
+		t.Errorf("RejectionCode doesn't match : %v != %v", initialMessage.RejectionCode, decodedMessage.RejectionCode)
+	}
+
+	// Message (varchar)
+	if initialMessage.Message != decodedMessage.Message {
+		t.Errorf("Message doesn't match : %s != %s", initialMessage.Message, decodedMessage.Message)
 	}
 
 	// Timestamp (Timestamp)
@@ -2071,7 +2511,9 @@ func TestEstablishment(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Establishment{}
 	// Message (varchar)
-	initialMessage.Message = "Text 0"
+	{
+		initialMessage.Message = "Text 0"
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -2118,7 +2560,9 @@ func TestAddition(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Addition{}
 	// Message (varchar)
-	initialMessage.Message = "Text 0"
+	{
+		initialMessage.Message = "Text 0"
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -2165,7 +2609,9 @@ func TestAlteration(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Alteration{}
 	// Message (varchar)
-	initialMessage.Message = "Text 0"
+	{
+		initialMessage.Message = "Text 0"
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -2212,7 +2658,9 @@ func TestRemoval(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Removal{}
 	// Message (varchar)
-	initialMessage.Message = "Text 0"
+	{
+		initialMessage.Message = "Text 0"
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -2259,30 +2707,26 @@ func TestTransfer(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Transfer{}
 	// Assets (AssetTransfer[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Assets = append(initialMessage.Assets, AssetTransfer{})
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Assets = append(initialMessage.Assets, AssetTransfer{})
+		}
 	}
 
 	// OfferExpiry (Timestamp)
-	initialMessage.OfferExpiry = Timestamp{}
-
-	// ExchangeFeeCurrency (fixedchar)
 	{
-		text := make([]byte, 0, 3)
-		for i := uint64(0); i < 3; i++ {
-			text = append(text, byte(65+i+2))
-		}
-		initialMessage.ExchangeFeeCurrency = string(text)
+		initialMessage.OfferExpiry = Timestamp{}
 	}
 
-	// ExchangeFeeVar (float)
-	// float test not setup
-
-	// ExchangeFeeFixed (float)
-	// float test not setup
+	// ExchangeFee (uint)
+	{
+		// uint test not setup
+	}
 
 	// ExchangeFeeAddress (PublicKeyHash)
-	initialMessage.ExchangeFeeAddress = PublicKeyHash{}
+	{
+		initialMessage.ExchangeFeeAddress = PublicKeyHash{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
@@ -2327,19 +2771,9 @@ func TestTransfer(t *testing.T) {
 	// OfferExpiry (Timestamp)
 	// Timestamp test compare not setup
 
-	// ExchangeFeeCurrency (fixedchar)
-	if initialMessage.ExchangeFeeCurrency != decodedMessage.ExchangeFeeCurrency {
-		t.Errorf("ExchangeFeeCurrency doesn't match : %s != %s", initialMessage.ExchangeFeeCurrency, decodedMessage.ExchangeFeeCurrency)
-	}
-
-	// ExchangeFeeVar (float)
-	if initialMessage.ExchangeFeeVar != decodedMessage.ExchangeFeeVar {
-		t.Errorf("ExchangeFeeVar doesn't match : %v != %v", initialMessage.ExchangeFeeVar, decodedMessage.ExchangeFeeVar)
-	}
-
-	// ExchangeFeeFixed (float)
-	if initialMessage.ExchangeFeeFixed != decodedMessage.ExchangeFeeFixed {
-		t.Errorf("ExchangeFeeFixed doesn't match : %v != %v", initialMessage.ExchangeFeeFixed, decodedMessage.ExchangeFeeFixed)
+	// ExchangeFee (uint)
+	if initialMessage.ExchangeFee != decodedMessage.ExchangeFee {
+		t.Errorf("ExchangeFee doesn't match : %v != %v", initialMessage.ExchangeFee, decodedMessage.ExchangeFee)
 	}
 
 	// ExchangeFeeAddress (PublicKeyHash)
@@ -2350,12 +2784,16 @@ func TestSettlement(t *testing.T) {
 	// Create a randomized object
 	initialMessage := Settlement{}
 	// Assets (AssetSettlement[])
-	for i := 0; i < 2; i++ {
-		initialMessage.Assets = append(initialMessage.Assets, AssetSettlement{})
+	{
+		for i := 0; i < 2; i++ {
+			initialMessage.Assets = append(initialMessage.Assets, AssetSettlement{})
+		}
 	}
 
 	// Timestamp (Timestamp)
-	initialMessage.Timestamp = Timestamp{}
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()

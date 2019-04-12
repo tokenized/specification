@@ -1,70 +1,67 @@
-#
-# Roles (Roles that entities play in relation to their interactions with other entities.  These roles have widely-accepted tasks, rights and duties.)
-#
+metadata:
+  name: Roles
+  description: "Roles that entities play in relation to their interactions with other entities.  These roles have widely-accepted tasks, rights and duties."
+  type: RoleType
 
-1:
-  - accountant: []
-2:
-  - advisor: [] 
-3:
-  - agent: []
-4:
-  - beneficiary: []
-5:
-  - ceo: null
-6:
-  - cfo: null
-7:
-  - chair: null
-8:
-  - coo: null
-9:
-  - cto: null
-10:
-  - custodian: []
-11:
-  - director: []
-12:
-  - employee: []
-13:
-  - executive: []  
-14:
-  - lawyer: []
-15:
-  - legalGuardian: []
-16:
-  - limitedPartner: []  
-17: 
-  - manager: []
-18:
-  - managingPartner: []
-19:
-  - member: []
-20:
-  - partner: []
-21:
-  - principal: null
-22:
-  - proprietor: null
-23:
-  - protector: []
-24:
-  - secretary: null
-25:
-  - settlor: [] 
-26:
-  - shareholder: []
-27:
-  - significantMember: [] 
-28:
-  - significantUnitholder: []
-29:
-  - significantShareholder: []
-30:
-  - trader: []
-31:
-  - trustee: []
-32:
-  - unitholder: []
-
+values:
+    1:
+      name: Accountant
+    2:
+      name: Advisor
+    3:
+      name: Agent
+    4:
+      name: Beneficiary
+    5:
+      name: CEO
+    6:
+      name: CFO
+    7:
+      name: Chair
+    8:
+      name: COO
+    9:
+      name: CTO
+    10:
+      name: Custodian
+    11:
+      name: Director
+    12:
+      name: Executive
+    13:
+      name: Lawyer
+    14:
+      name: Legal Guardian
+    15:
+      name: Limited Partner
+    16:
+      name: Manager
+    17:
+      name: Managing Partner
+    18:
+      name: Member
+      description: Shareholder
+    19:
+      name: Partner
+    20:
+      name: Principal
+    21:
+      name: Proprietor
+    22:
+      name: Protector
+    23:
+      name: Secretary
+    24:
+      name: Settlor
+    25:
+      name: Significant Member
+      description: Major Shareholder
+    26:
+      name: Smart Contract Operator
+    27:
+      name: Trader
+    28:
+      name: Trustee
+    29:
+      name: Unit Holder
 

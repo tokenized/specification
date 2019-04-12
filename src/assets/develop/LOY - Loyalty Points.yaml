@@ -17,6 +17,7 @@ metadata:
 fields:
   - name: Version
     label: Payload Version
+    description: The version number that this asset payload adheres to.
     type: uint
     size: 1
     example: 0
@@ -24,16 +25,8 @@ fields:
 
   - name: AgeRestriction
     label: Age Restriction
-    type: dropdown
-    size: 5
-    example: 18+
-    options:
-      - 15-18
-      - 18+
-      - 19+
-      - 21+
-      - 21-30
-      - 18-
+    type: AgeRestriction
+    description: "Age restriction is used to specify required ages for asset ownership."
 
   - name: OfferName
     label: Offer Name

@@ -1,1264 +1,1267 @@
-#
-# Currencies
-#
 
-currencies:
+metadata:
+  name: Currencies
+  description: "Currencies"
+  type: CurrencyType
+
+
+values:
   AED:
     name: UnitedArabEmiratesDirham
     label: United Arab Emirates dirham
     symbol: "د.إ"
     fractions: 100
-    fractionalUnit: Fils
+    fractional_unit: Fils
     polity: ARE
-    monetaryAuthority: Central Bank of the United Arab Emirates
-  AFN: 
+    monetary_authority: Central Bank of the United Arab Emirates
+  AFN:
     name: AfghanAfghani
     label: Afghan afghani
     symbol: "؋"
     fractions: 100
-    fractionalUnit: Pul
+    fractional_unit: Pul
     polity: AFG
-    monetaryAuthority: Central Bank of Afghanistan
-  ALL: 
+    monetary_authority: Central Bank of Afghanistan
+  ALL:
     name: AlbanianLek
     label: Albanian lek
     symbol: "L"
     fractions: 100
-    fractionalUnit: Qindarkë
+    fractional_unit: Qindarkë
     polity: ALB
-    monetaryAuthority: Bank of Albania    
-  AMD: 
+    monetary_authority: Bank of Albania
+  AMD:
     name: ArmenianDram
     label: Armenian dram
     symbol: "֏"
     fractions: 100
-    fractionalUnit: Luma
+    fractional_unit: Luma
     polity: ARM
-    monetaryAuthority: Central Bank of the Republic of Armenia   
+    monetary_authority: Central Bank of the Republic of Armenia
   ANG:
     name: NetherlandsAntilleanGuilder
     label: Netherlands Antillean guilder
     symbol: "ƒ"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: SXM, CUW
-    monetaryAuthority: Central Bank of Curaçao and Sint Maarten 
+    monetary_authority: Central Bank of Curaçao and Sint Maarten
   AOA:
     name: AngolanKwanza
     label: Angolan kwanza
     symbol: "Kz"
     fractions: 100
-    fractionalUnit: Cêntimo
+    fractional_unit: Cêntimo
     polity: AGO
-    monetaryAuthority: Central Bank of Angola
+    monetary_authority: Central Bank of Angola
   ARS:
     name: ArgentinePeso
     label: Argentine peso
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: ARG
-    monetaryAuthority: Central Bank of Argentina 
-  AUD:	
+    monetary_authority: Central Bank of Argentina
+  AUD:
     name: AustralianDollar
-    label: Australian dollar	
+    label: Australian dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: AUS, NRU, KIR, TUV
-    monetaryAuthority: Reserve Bank of Australia
+    monetary_authority: Reserve Bank of Australia
   AWG:
     name: ArubanFlorin
     label: Aruban florin
     symbol: "ƒ"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: ABW
-    monetaryAuthority: Central Bank of Aruba
+    monetary_authority: Central Bank of Aruba
   AZN:
     name: AzerbaijaniManat
     label: Azerbaijani manat
     symbol: "₼"
     fractions: 100
-    fractionalUnit: Qəpik
+    fractional_unit: Qəpik
     polity: AZE
-    monetaryAuthority: Central Bank of Azerbaijan
+    monetary_authority: Central Bank of Azerbaijan
   BAM:
     name: BosniaHerzegovinaConvertibleMark
     label: Bosnia and Herzegovina convertible mark
     symbol: "КМ"
     fractions: 100
-    fractionalUnit: Fening
+    fractional_unit: Fening
     polity: BIH
-    monetaryAuthority: Central Bank of Bosnia and Herzegovina
+    monetary_authority: Central Bank of Bosnia and Herzegovina
   BBD:
     name: BarbadianDollar
     label: Barbadian dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: BRB
-    monetaryAuthority: Central Bank of Barbados 
+    monetary_authority: Central Bank of Barbados
   BDT:
     name: BangladeshiTaka
     label: Bangladeshi taka
     symbol: "৳"
     fractions: 100
-    fractionalUnit: Poisha
+    fractional_unit: Poisha
     polity: BGD
-    monetaryAuthority: Bangladesh Bank   
+    monetary_authority: Bangladesh Bank
   BGN:
     name: BulgarianLev
     label: Bulgarian lev
     symbol:	"лв"
     fractions: 100
-    fractionalUnit: Stotinka
+    fractional_unit: Stotinka
     polity: BGR
-    monetaryAuthority: Bulgarian National Bank   
+    monetary_authority: Bulgarian National Bank
   BHD:
     name: BahrainiDinar
     label: Bahraini dinar
     symbol:	".د.ب"
     fractions: 1000
-    fractionalUnit: Fils
+    fractional_unit: Fils
     polity: BHR
-    monetaryAuthority: Central Bank of Bahrain  
+    monetary_authority: Central Bank of Bahrain
   BIF:
     name: BurundianFranc
     label: Burundian franc
     symbol: "Fr"
     fractions: 100
-    fractionalUnit: Centime
+    fractional_unit: Centime
     polity: BDI
-    monetaryAuthority: Bank of the Republic of Burundi  
+    monetary_authority: Bank of the Republic of Burundi
   BMD:
     name: BermudianDollar
     label: Bermudian dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: BMU
-    monetaryAuthority: Bermuda Monetary Authority 
+    monetary_authority: Bermuda Monetary Authority
   BND:
     name: BruneiDollar
     label: Brunei dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Sen
+    fractional_unit: Sen
     polity: BRN
-    monetaryAuthority: Monetary Authority of Brunei Darussalam   
+    monetary_authority: Monetary Authority of Brunei Darussalam
   BOB:
     name: BolivianBoliviano
     label: Bolivian boliviano
     symbol: "Bs."
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: BOL
-    monetaryAuthority: Central Bank of Bolivia   
+    monetary_authority: Central Bank of Bolivia
   BRL:
     name: BrazilianReal
     label: Brazilian real
     symbol: "R$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: BRA
-    monetaryAuthority: Central Bank of Brazil   
+    monetary_authority: Central Bank of Brazil
   BSD:
     name: BahamianDollar
     label: Bahamian dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: BHS
-    monetaryAuthority: Central Bank of The Bahamas 
+    monetary_authority: Central Bank of The Bahamas
   BSV:
     name: Bitcoin
     label: Bitcoin SV
     symbol: "₿"
-    fractions: 100,000,000
-    fractionalUnit: Satoshis
+    fractions: 100000000
+    fractional_unit: Satoshis
     polity: null
-    monetaryAuthority: Satoshi Nakamoto   
+    monetary_authority: Satoshi Nakamoto
   BTN:
     name: BhutaneseNgultrum
     label: Bhutanese ngultrum
     symbol: "Nu."
     fractions: 100
-    fractionalUnit: Chetrum
+    fractional_unit: Chetrum
     polity: BTN
-    monetaryAuthority: Royal Monetary Authority of Bhutan
+    monetary_authority: Royal Monetary Authority of Bhutan
   BWP:
     name: BotswanaPula
     label: Botswana pula
     symbol: "P"
     fractions: 100
-    fractionalUnit: Thebe
+    fractional_unit: Thebe
     polity: BWA
-    monetaryAuthority: Bank of Botswana
+    monetary_authority: Bank of Botswana
   BYN:
     name: BelarusianRuble
     label: Belarusian ruble
     symbol: "Br"
     fractions: 100
-    fractionalUnit: Kapyeyka
+    fractional_unit: Kapyeyka
     polity: BLR
-    monetaryAuthority: National Bank of the Republic of Belarus  
+    monetary_authority: National Bank of the Republic of Belarus
   BZD:
     name: BelizeDollar
     label: Belize dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: BLZ
-    monetaryAuthority: Central Bank of Belize   
+    monetary_authority: Central Bank of Belize
   CAD:
     name: CanadianDollar
     label: Canadian dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: CAN
-    monetaryAuthority: Bank of Canada  
+    monetary_authority: Bank of Canada
   CDF:
     name: CongoleseFranc
     label: Congolese franc
     symbol: "Fr"
     fractions: 100
-    fractionalUnit: Centime
+    fractional_unit: Centime
     polity: COD
-    monetaryAuthority: Central Bank of the Congo  
+    monetary_authority: Central Bank of the Congo
   CHF:
     name: SwissFranc
     label: Swiss franc
     symbol: "Fr"
     fractions: 100
-    fractionalUnit: Rappen
+    fractional_unit: Rappen
     polity: CHE, LIE
-    monetaryAuthority: Swiss National Bank   
+    monetary_authority: Swiss National Bank
   CLP:
     name: ChileanPeso
     label: Chilean peso
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: CHL
-    monetaryAuthority: Central Bank of Chile      
+    monetary_authority: Central Bank of Chile
   CNY:
     name: ChineseYuan
     label: Chinese yuan
-    symbol: "¥" 
+    symbol: "¥"
     fractions: 100
-    fractionalUnit: Fen
+    fractional_unit: Fen
     polity: CHN
-    monetaryAuthority: People's Bank of China 
+    monetary_authority: People's Bank of China
   COP:
     name: ColombianPeso
     label: Colombian peso
-    symbol: "$" 
+    symbol: "$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: COL
-    monetaryAuthority: Bank of the Republic    
+    monetary_authority: Bank of the Republic
   CRC:
     name: CostaRicanColon
     label: Costa Rican colon
     symbol: "₡"
     fractions: 100
-    fractionalUnit: Céntimo
+    fractional_unit: Céntimo
     polity: CRI
-    monetaryAuthority: Central Bank of Costa Rica 
+    monetary_authority: Central Bank of Costa Rica
   CUC:
     name: CubanConvertiblePeso
     label: Cuban convertible peso
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: CUB
-    monetaryAuthority: Central Bank of Cuba  
+    monetary_authority: Central Bank of Cuba
   CUP:
     name: CubanConvertiblePeso
     label: Cuban convertible peso
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: CUB
-    monetaryAuthority: Central Bank of Cuba   
+    monetary_authority: Central Bank of Cuba
   CVE:
     name: CapeVerdeanEscudo
     label: Cape Verdean escudo
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: CUB
-    monetaryAuthority: Bank of Cape Verde     
+    monetary_authority: Bank of Cape Verde
   CZK:
     name: CzechKoruna
     label: Czech koruna
     symbol: "Kč"
     fractions: 100
-    fractionalUnit: Haléř
+    fractional_unit: Haléř
     polity: CZE
-    monetaryAuthority: Czech National Bank
+    monetary_authority: Czech National Bank
   DJF:
     name: DjiboutianFranc
     label: Djiboutian franc
     symbol: "Fr"
     fractions: 100
-    fractionalUnit: Centime
+    fractional_unit: Centime
     polity: DJI
-    monetaryAuthority: Central Bank of Djibouti  
+    monetary_authority: Central Bank of Djibouti
   DKK:
     name: DanishKrone
     label: Danish krone
     symbol: "kr"
     fractions: 100
-    fractionalUnit: Øre
+    fractional_unit: Øre
     polity: DNK,FRO, GRL
-    monetaryAuthority: Danmarks Nationalbank
+    monetary_authority: Danmarks Nationalbank
   DOP:
     name: DominicanPeso
     label: Dominican peso
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: DOM
-    monetaryAuthority: Central Bank of the Dominican Republic 
+    monetary_authority: Central Bank of the Dominican Republic
   DZD:
     name: AlgerianDinar
     label: Algerian dinar
     symbol: "د.ج"
     fractions: 100
-    fractionalUnit: Santeem
+    fractional_unit: Santeem
     polity: DZA
-    monetaryAuthority: Bank of Algeria   
+    monetary_authority: Bank of Algeria
   EGP:
     name: EgyptianPound
     label: Egyptian pound
     symbol: "E£"
     fractions: 100
-    fractionalUnit: Piastre
+    fractional_unit: Piastre
     polity: EGY
-    monetaryAuthority: Central Bank of Egypt  
+    monetary_authority: Central Bank of Egypt
   ERN:
     name: EritreanNakfa
     label: Eritrean nakfa
     symbol: "Nfk"
     fractions: 100
-    fractionalUnit: Piastre
+    fractional_unit: Piastre
     polity: ERI
-    monetaryAuthority: Bank of Eritrea  
+    monetary_authority: Bank of Eritrea
   ETB:
     name: EthiopianBirr
     label: Ethiopian birr
     symbol: "Br"
     fractions: 100
-    fractionalUnit: Santim
+    fractional_unit: Santim
     polity: ETH
-    monetaryAuthority: Bank of Eritrea    
+    monetary_authority: Bank of Eritrea
   EUR:
     name: Euro
     label: Euro
     symbol: "€"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: EU, ALA, AND, AUT, BEL, CYP, EST, FIN, FRA, ATF, DEU, GRC, GLP, IRL, ITA, LVA, LTU, LUX, MLT, GUF, MTQ, MYT, MCO, MNE, NLD, PRT, REU, BLM, MAF, SPM, SMR, SVK, SVN, ESP
-    monetaryAuthority: European Central Bank
+    monetary_authority: European Central Bank
   FJD:
     name: FijianDollar
     label: Fijian dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: FJI
-    monetaryAuthority: Reserve Bank of Fiji
+    monetary_authority: Reserve Bank of Fiji
   FKP:
     name: FalklandIslandsPound
     label: Falkland Islands pound
     symbol: "£"
     fractions: 100
-    fractionalUnit: Penny
+    fractional_unit: Penny
     polity: FLK
-    monetaryAuthority: Government of the Falkland Islands
+    monetary_authority: Government of the Falkland Islands
   GBP:
     name: PoundSterling
     label: Pound sterling
     symbol: "£"
     fractions: 100
-    fractionalUnit: Penny
+    fractional_unit: Penny
     polity: GBR, IOT, IMN, JEY, GGY
-    monetaryAuthority: Bank of England  
+    monetary_authority: Bank of England
   GEL:
     name: GeorgianLari
     label: Georgian lari
     symbol: "₾"
     fractions: 100
-    fractionalUnit: Tetri
+    fractional_unit: Tetri
     polity: GEO
-    monetaryAuthority: National Bank of Georgia    
+    monetary_authority: National Bank of Georgia
   GHS:
     name: GhanaianCedi
     label: Ghanaian cedi
     symbol: "₵"
     fractions: 100
-    fractionalUnit: Pesewa
+    fractional_unit: Pesewa
     polity: GHA
-    monetaryAuthority: Bank of Ghana   
+    monetary_authority: Bank of Ghana
   GIP:
     name: GibraltarPound
     label: Gibraltar pound
     symbol: "£"
     fractions: 100
-    fractionalUnit: Penny
+    fractional_unit: Penny
     polity: GIB
-    monetaryAuthority: Government of Gibraltar  
+    monetary_authority: Government of Gibraltar
   GMD:
     name: GambianDalasi
     label: Gambian dalasi
     symbol: "D"
     fractions: 100
-    fractionalUnit: Butut
+    fractional_unit: Butut
     polity: GMB
-    monetaryAuthority: Central Bank of The Gambia    
+    monetary_authority: Central Bank of The Gambia
   GNF:
     name: GuineanFranc
     label: Guinean franc
     symbol: "Fr"
     fractions: 100
-    fractionalUnit: Centime
+    fractional_unit: Centime
     polity: GNQ
-    monetaryAuthority: Government of Gibraltar     
+    monetary_authority: Government of Gibraltar
   GTQ:
     name: GuatemalanQuetzal
     label: Guatemalan quetzal
     symbol: "Q"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: GTM
-    monetaryAuthority: Bank of Guatemala  
+    monetary_authority: Bank of Guatemala
   GYD:
     name: GuyaneseDollar
     label: Guyanese dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: GUY
-    monetaryAuthority: Bank of Guyana  
+    monetary_authority: Bank of Guyana
   HKD:
     name: HongKongDollar
     label: Hong Kong dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: HKG
-    monetaryAuthority: Hong Kong Monetary Authority    
+    monetary_authority: Hong Kong Monetary Authority
   HNL:
     name: HonduranLempira
     label: Honduran lempira
     symbol: "L"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: HND
-    monetaryAuthority: Central Bank of Honduras  
+    monetary_authority: Central Bank of Honduras
   HRK:
     name: CroatianKuna
     label: Croatian kuna
     symbol: "kn"
     fractions: 100
-    fractionalUnit: Lipa
+    fractional_unit: Lipa
     polity: HRV
-    monetaryAuthority: Croatian National Bank    
+    monetary_authority: Croatian National Bank
   HTG:
     name: HaitianGourde
     label: Haitian gourde
     symbol: "G"
     fractions: 100
-    fractionalUnit: 	Centime
+    fractional_unit: 	Centime
     polity: HTI
-    monetaryAuthority: Bank of the Republic of Haiti   
+    monetary_authority: Bank of the Republic of Haiti
   HUF:
     name: HungarianForint
     label: Hungarian forint
     symbol: "Ft"
     fractions: 100
-    fractionalUnit: 	Fillér
+    fractional_unit: 	Fillér
     polity: HUN
-    monetaryAuthority: Hungarian National Bank    
+    monetary_authority: Hungarian National Bank
   IDR:
     name: IndonesianRupiah
     label: Indonesian rupiah
     symbol: "Rp"
     fractions: 100
-    fractionalUnit: 	Sen
+    fractional_unit: 	Sen
     polity: IDN
-    monetaryAuthority: Bank of Indonesia  
+    monetary_authority: Bank of Indonesia
   ILS:
     name: IsraeliNewShekel
     label: Israeli new shekel
     symbol: "₪"
     fractions: 100
-    fractionalUnit: 	Agora
+    fractional_unit: 	Agora
     polity: ISR, PSE
-    monetaryAuthority: Bank of Israel 
+    monetary_authority: Bank of Israel
   INR:
     name: IndianRupee
     label: Indian rupee
     symbol: "₹"
     fractions: 100
-    fractionalUnit: 	Paisa
+    fractional_unit: 	Paisa
     polity: IND, BTN
-    monetaryAuthority: Reserve Bank of India 
+    monetary_authority: Reserve Bank of India
   IQD:
     name: IraqiDinar
     label: Iraqi dinar
     symbol: "ع.د"
     fractions: 1000
-    fractionalUnit: 	Fils
+    fractional_unit: 	Fils
     polity: IRQ
-    monetaryAuthority: Central Bank of Iraq  
+    monetary_authority: Central Bank of Iraq
   IRR:
     name: IranianRial
     label: Iranian rial
     symbol: "﷼"
     fractions: 100
-    fractionalUnit: Dinar
+    fractional_unit: Dinar
     polity: IRN
-    monetaryAuthority: Central Bank of Iraq   
+    monetary_authority: Central Bank of Iraq
   ISK:
     name: IcelandicKrona
     label: Icelandic króna
     symbol: "kr"
     fractions: 100
-    fractionalUnit: Eyrir
+    fractional_unit: Eyrir
     polity: ISL
-    monetaryAuthority: Central Bank of Iceland  
+    monetary_authority: Central Bank of Iceland
   JMD:
     name: JamaicanDollar
     label: Jamaican dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: JAM
-    monetaryAuthority: Bank of Jamaica 
+    monetary_authority: Bank of Jamaica
   JOD:
     name: JordanianDinar
     label: Jordanian dinar
     symbol: "د.ا"
     fractions: 100
-    fractionalUnit: Piastre
+    fractional_unit: Piastre
     polity: JOR, PSE
-    monetaryAuthority: Central Bank of Jordan
+    monetary_authority: Central Bank of Jordan
   JPY:
     name: JapaneseYen
     label: Japanese yen
     symbol: "¥"
     fractions: 100
-    fractionalUnit: Sen
+    fractional_unit: Sen
     polity: JPN
-    monetaryAuthority: Bank of Japan  
+    monetary_authority: Bank of Japan
   KES:
     name: KenyanShilling
     label: Kenyan shilling
     symbol: "Sh"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: KEN
-    monetaryAuthority: Central Bank of Kenya   
+    monetary_authority: Central Bank of Kenya
   KGS:
     name: KyrgyzstaniSom
     label: Kyrgyzstani som
     symbol: "с"
     fractions: 100
-    fractionalUnit: Tyiyn
+    fractional_unit: Tyiyn
     polity: KGZ
-    monetaryAuthority: National Bank of the Kyrgyz Republic
+    monetary_authority: National Bank of the Kyrgyz Republic
   KHR:
     name: CambodianRiel
     label: Cambodian riel
     symbol: "៛"
     fractions: 100
-    fractionalUnit: Sen
+    fractional_unit: Sen
     polity: KHM
-    monetaryAuthority: National Bank of Cambodia
+    monetary_authority: National Bank of Cambodia
   KMF:
     name: ComoroFranc
     label: Comoro franc
     symbol: "Fr"
     fractions: 100
-    fractionalUnit: Sen
+    fractional_unit: Sen
     polity: COM
-    monetaryAuthority: Central Bank of the Comoros 
+    monetary_authority: Central Bank of the Comoros
   KPW:
     name: NorthKoreanWon
     label: North Korean won
     symbol: "₩"
     fractions: 100
-    fractionalUnit: Chon
+    fractional_unit: Chon
     polity: PRK
-    monetaryAuthority: Central Bank of the Democratic People's Republic of Korea
+    monetary_authority: Central Bank of the Democratic People's Republic of Korea
   KRW:
     name: SouthKoreanWon
     label: South Korean won
     symbol: "₩"
     fractions: 100
-    fractionalUnit: Jeon
+    fractional_unit: Jeon
     polity: KOR
-    monetaryAuthority: Bank of Korea
+    monetary_authority: Bank of Korea
   KWD:
     name: KuwaitiDinar
     label: Kuwaiti dinar
     symbol: "د.ك"
     fractions: 1000
-    fractionalUnit: Fils
+    fractional_unit: Fils
     polity: KWT
-    monetaryAuthority: Central Bank of Kuwait   
+    monetary_authority: Central Bank of Kuwait
   KYD:
     name: CaymanIslandsDollar
     label: Cayman Islands dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: CYM
-    monetaryAuthority: Cayman Islands Monetary Authority   
+    monetary_authority: Cayman Islands Monetary Authority
   KZT:
     name: KazakhstaniTenge
     label: Kazakhstani tenge
     symbol: "₸"
     fractions: 100
-    fractionalUnit: Tïın
+    fractional_unit: Tïın
     polity: KAZ
-    monetaryAuthority: National Bank of Kazakhstan  
+    monetary_authority: National Bank of Kazakhstan
   LAK:
     name: LaoKip
     label: Lao kip
     symbol: "₭"
     fractions: 100
-    fractionalUnit: Att
+    fractional_unit: Att
     polity: LAO
-    monetaryAuthority: Bank of the Lao People's Democratic Republic   
+    monetary_authority: Bank of the Lao People's Democratic Republic
   LBP:
     name: LebanesePound
     label: Lebanese pound
     symbol: "ل.ل"
     fractions: 100
-    fractionalUnit: Piastre
+    fractional_unit: Piastre
     polity: LBN
-    monetaryAuthority: Banque du Liban
+    monetary_authority: Banque du Liban
   LKR:
     name: SriLankanRupee
     label: Sri Lankan rupee
     symbol: "Rs"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: LKA
-    monetaryAuthority: Central Bank of Sri Lanka  
+    monetary_authority: Central Bank of Sri Lanka
   LRD:
     name: LiberianDollar
     label: Liberian dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: LBR
-    monetaryAuthority: Central Bank of Liberia   
+    monetary_authority: Central Bank of Liberia
   LSL:
     name: LesothoLoti
     label: Lesotho loti
     symbol: "L"
     fractions: 100
-    fractionalUnit: Sente
+    fractional_unit: Sente
     polity: LBR
-    monetaryAuthority: Central Bank of Lesotho  
+    monetary_authority: Central Bank of Lesotho
   LYD:
     name: LibyanDinar
     label: Libyan dinar
     symbol: "ل.د"
     fractions: 1000
-    fractionalUnit: Dirham
+    fractional_unit: Dirham
     polity: LBY
-    monetaryAuthority: Central Bank of Libya  
+    monetary_authority: Central Bank of Libya
   MAD:
     name: MoroccanDirham
     label: Moroccan dirham
     symbol: "د.م."
     fractions: 100
-    fractionalUnit: Centime
+    fractional_unit: Centime
     polity: MAR
-    monetaryAuthority: Bank Al-Maghrib   
+    monetary_authority: Bank Al-Maghrib
   MDL:
     name: MoldovanLeu
     label: Moldovan leu
     symbol: "L"
     fractions: 100
-    fractionalUnit: Ban
+    fractional_unit: Ban
     polity: MDA
-    monetaryAuthority: National Bank of Moldova   
+    monetary_authority: National Bank of Moldova
   MGA:
     name: MalagasyAriary
     label: Malagasy ariary
     symbol: "Ar"
     fractions: 5
-    fractionalUnit: Iraimbilanja
+    fractional_unit: Iraimbilanja
     polity: MDG
-    monetaryAuthority: Central Bank of Madagascar    
+    monetary_authority: Central Bank of Madagascar
   MKD:
-    name: MacedonianDenar 
+    name: MacedonianDenar
     label: Macedonian denar
     symbol: "ден"
     fractions: 100
-    fractionalUnit: Deni
+    fractional_unit: Deni
     polity: MKD
-    monetaryAuthority: National Bank of the Republic of Macedonia 
-  MMK
+    monetary_authority: National Bank of the Republic of Macedonia
+  MMK:
     name: MyanmarKyat
     label: Myanmar kyat
     symbol: "Ks"
     fractions: 100
-    fractionalUnit: Pya
+    fractional_unit: Pya
     polity: MMR
-    monetaryAuthority: Central Bank of Myanmar  
+    monetary_authority: Central Bank of Myanmar
   MNT:
     name: MongolianTogrog
     label: Mongolian tögrög
     symbol: "₮"
     fractions: 100
-    fractionalUnit: Möngö
+    fractional_unit: Möngö
     polity: MNG
-    monetaryAuthority: Bank of Mongolia   
+    monetary_authority: Bank of Mongolia
   MOP:
     name: MacanesePataca
     label: Macanese pataca
     symbol: "P"
     fractions: 100
-    fractionalUnit: Avo
+    fractional_unit: Avo
     polity: MAC
-    monetaryAuthority: Monetary Authority of Macau    
+    monetary_authority: Monetary Authority of Macau
   MRU:
     name: MauritanianOuguiya
     label: Mauritanian ouguiya
     symbol: "UM"
     fractions: 5
-    fractionalUnit: Khoums
+    fractional_unit: Khoums
     polity: MRT
-    monetaryAuthority: Central Bank of Mauritania   
+    monetary_authority: Central Bank of Mauritania
   MUR:
     name: MauritianRupee
     label: Mauritian rupee
     symbol: "₨"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: MUS
-    monetaryAuthority: Bank of Mauritius   
+    monetary_authority: Bank of Mauritius
   MVR:
     name: MaldivianRufiyaa
     label: Maldivian rufiyaa
     symbol: ".ރ"
     fractions: 100
-    fractionalUnit: Laari
+    fractional_unit: Laari
     polity: MDV
-    monetaryAuthority: Maldives Monetary Authority 
+    monetary_authority: Maldives Monetary Authority
   MWK:
     name: MalawianKwacha
     label: Malawian kwacha
     symbol: "MK"
     fractions: 100
-    fractionalUnit: Tambala
+    fractional_unit: Tambala
     polity: MWI
-    monetaryAuthority: Reserve Bank of Malawi 
+    monetary_authority: Reserve Bank of Malawi
   MXN:
     name: MexicanPeso
     label: Mexican peso
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: MEX
-    monetaryAuthority: Bank of Mexico  
+    monetary_authority: Bank of Mexico
   MYR:
     name: MalaysianRinggit
     label: Malaysian ringgit
     symbol: "RM"
     fractions: 100
-    fractionalUnit: Sen
+    fractional_unit: Sen
     polity: MYS
-    monetaryAuthority: Central Bank of Malaysia
+    monetary_authority: Central Bank of Malaysia
   MZN:
     name: MozambicanMetical
     label: Mozambican metical
     symbol: "MT"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: MOZ
-    monetaryAuthority: Bank of Mozambique 
+    monetary_authority: Bank of Mozambique
   NAD:
     name: NamibianDollar
     label: Namibian dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: NAM
-    monetaryAuthority: Bank of Namibia  
+    monetary_authority: Bank of Namibia
   NGN:
     name: NigerianNaira
     label: Nigerian naira
     symbol: "₦"
     fractions: 100
-    fractionalUnit: Kobo
+    fractional_unit: Kobo
     polity: NGA
-    monetaryAuthority: Central Bank of Nigeria  
+    monetary_authority: Central Bank of Nigeria
   NIO:
     name: NicaraguaCordoba
     label: Nicaraguan córdoba
     symbol: "C$"
     fractions: 100
-    fractionalUnit: Centavo
+    fractional_unit: Centavo
     polity: NIC
-    monetaryAuthority: Central Bank of Nicaragua  
+    monetary_authority: Central Bank of Nicaragua
   NOK:
     name: NorwegianKrone
     label: Norwegian krone
     symbol: "kr"
     fractions: 100
-    fractionalUnit: Øre
+    fractional_unit: Øre
     polity: NOR, SJM, BVT
-    monetaryAuthority: Norges Bank 
+    monetary_authority: Norges Bank
   NPR:
     name: NepaleseRupee
     label: Nepalese rupee
     symbol: "₨"
     fractions: 100
-    fractionalUnit: Paisa
+    fractional_unit: Paisa
     polity: NPL
-    monetaryAuthority: Nepal Rastra Bank  
+    monetary_authority: Nepal Rastra Bank
   NZD:
     name: NewZealandDollar
     label: New Zealand dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: NZL, COK, NIU, PCN, TKL
-    monetaryAuthority: Reserve Bank of New Zealand 
+    monetary_authority: Reserve Bank of New Zealand
   OMR:
     name: OmaniRial
     label: Omani rial
     symbol: "ر.ع."
     fractions: 1000
-    fractionalUnit: Baisa
+    fractional_unit: Baisa
     polity: OMN
-    monetaryAuthority: Central Bank of Oman
+    monetary_authority: Central Bank of Oman
   PAB:
     name: PanamanianBalboa
     label: Panamanian balboa
     symbol: "B/."
     fractions: 100
-    fractionalUnit: Centésimo
+    fractional_unit: Centésimo
     polity: PAN
-    monetaryAuthority: Central Bank of Oman  
+    monetary_authority: Central Bank of Oman
   PEN:
     name: PeruvianSol
     label: Peruvian sol
     symbol: "S/."
     fractions: 100
-    fractionalUnit: Céntimo
+    fractional_unit: Céntimo
     polity: PER
-    monetaryAuthority: Central Reserve Bank of Peru
+    monetary_authority: Central Reserve Bank of Peru
   PGK:
     name: PapuaNewGuineanKina
     label: Papua New Guinean kina
     symbol: "K"
     fractions: 100
-    fractionalUnit: Toea
+    fractional_unit: Toea
     polity: PNG
-    monetaryAuthority: Bank of Papua New Guinea 
+    monetary_authority: Bank of Papua New Guinea
   PHP:
     name: PhilippinePeso
     label: Philippine peso
     symbol: "₱"
     fractions: 100
-    fractionalUnit: Sentimo
+    fractional_unit: Sentimo
     polity: PHL
-    monetaryAuthority: Central Bank of the Philippines   
+    monetary_authority: Central Bank of the Philippines
   PKR:
     name: PakistaniRupee
     label: Pakistani rupee
     symbol: "₨"
     fractions: 100
-    fractionalUnit: Paisa
+    fractional_unit: Paisa
     polity: PAK
-    monetaryAuthority: State Bank of Pakistan   
+    monetary_authority: State Bank of Pakistan
   PLN:
     name: PolishZloty
     label: Polish złoty
     symbol: "zł"
     fractions: 100
-    fractionalUnit: Grosz
+    fractional_unit: Grosz
     polity: POL
-    monetaryAuthority: National Bank of Poland
+    monetary_authority: National Bank of Poland
   PYG:
     name: ParaguayanGuarani
     label: Paraguayan guaraní
     symbol: "₲"
     fractions: 100
-    fractionalUnit: Céntimo
+    fractional_unit: Céntimo
     polity: PRY
-    monetaryAuthority: Central Bank of Paraguay  
+    monetary_authority: Central Bank of Paraguay
   QAR:
     name: QatariRiyal
     label: Qatari riyal
     symbol: "ر.ق"
     fractions: 100
-    fractionalUnit: Dirham
+    fractional_unit: Dirham
     polity: QAT
-    monetaryAuthority: Qatar Central Bank   
+    monetary_authority: Qatar Central Bank
   RON:
     name: RomanianLeu
     label: Romanian leu
     symbol: "lei"
     fractions: 100
-    fractionalUnit: Ban
+    fractional_unit: Ban
     polity: ROU
-    monetaryAuthority: National Bank of Romania  
+    monetary_authority: National Bank of Romania
   RSD:
     name: SerbianDinar
     label: Serbian dinar
     symbol: "din"
     fractions: 100
-    fractionalUnit: Para
+    fractional_unit: Para
     polity: SRB
-    monetaryAuthority: National Bank of Serbia  
+    monetary_authority: National Bank of Serbia
   RUB:
     name: RussianRuble
     label: Russian ruble
     symbol: "₽"
     fractions: 100
-    fractionalUnit: Kopek
+    fractional_unit: Kopek
     polity: RUS
-    monetaryAuthority: Bank of Russia   
+    monetary_authority: Bank of Russia
   RWF:
     name: RwandanFranc
     label: Rwandan franc
     symbol: "Fr"
     fractions: 100
-    fractionalUnit: Centime
+    fractional_unit: Centime
     polity: RWA
-    monetaryAuthority: National Bank of Rwanda  
+    monetary_authority: National Bank of Rwanda
   SAR:
     name: SaudiRiyal
     label: Saudi riyal
     symbol: "ر.س"
     fractions: 100
-    fractionalUnit: Halala
+    fractional_unit: Halala
     polity: SAU
-    monetaryAuthority: Saudi Arabian Monetary Authority   
+    monetary_authority: Saudi Arabian Monetary Authority
   SBD:
     name: SolomonIslandDollar
     label: Solomon Islands dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: SLB
-    monetaryAuthority: Central Bank of Solomon Islands
+    monetary_authority: Central Bank of Solomon Islands
   SCR:
     name: SeychelloisRupee
     label: Seychellois rupee
     symbol: "₨"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: SYC
-    monetaryAuthority: Central Bank of Solomon Islands  
+    monetary_authority: Central Bank of Solomon Islands
   SDG:
     name: SudanesePound
     label: Sudanese pound
     symbol: "ج.س."
     fractions: 100
-    fractionalUnit: Piastre
+    fractional_unit: Piastre
     polity: SSD
-    monetaryAuthority: Bank of Sudan    
+    monetary_authority: Bank of Sudan
   SEK:
     name: SwedishKrona
     label: Swedish krona
     symbol: "kr"
     fractions: 100
-    fractionalUnit: Öre
+    fractional_unit: Öre
     polity: SWE
-    monetaryAuthority: Sveriges Riksbank  
+    monetary_authority: Sveriges Riksbank
   SGD:
     name: SingaporeDollar
     label: Singapore dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: SGP
-    monetaryAuthority: Monetary Authority of Singapore 
+    monetary_authority: Monetary Authority of Singapore
   SHP:
     name: SaintHelenaPound
     label: Saint Helena pound
     symbol: "£"
     fractions: 100
-    fractionalUnit: Penny
+    fractional_unit: Penny
     polity: SHN
-    monetaryAuthority: Government of Saint Helena   
+    monetary_authority: Government of Saint Helena
   SLL:
     name: SierraLeoneanLeone
     label: Sierra Leonean leone
     symbol: "Le"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: SLE
-    monetaryAuthority: Bank of Sierra Leone 
+    monetary_authority: Bank of Sierra Leone
   SOS:
     name: SomaliShilling
     label: Somali shilling
     symbol: "Sl"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: SOM
-    monetaryAuthority: Central Bank of Somalia   
+    monetary_authority: Central Bank of Somalia
   SRD:
     name: SurilabelseDollar
     label: Surilabelse dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: SUR
-    monetaryAuthority: Central Bank of Surilabel     
+    monetary_authority: Central Bank of Surilabel
   SSP:
     name: SouthSudanesePound
     label: South Sudanese pound
     symbol: "£"
     fractions: 100
-    fractionalUnit: Piastre
+    fractional_unit: Piastre
     polity: SSD
-    monetaryAuthority: Bank of South Sudan   
+    monetary_authority: Bank of South Sudan
   STN:
     name: SaoTomePrincipeDobra
     label: São Tomé and Príncipe dobra
     symbol: "Db"
     fractions: 100
-    fractionalUnit: Cêntimo
+    fractional_unit: Cêntimo
     polity: STP
-    monetaryAuthority: Central Bank of São Tomé and Príncipe    
+    monetary_authority: Central Bank of São Tomé and Príncipe
   SYP:
     name: SyrianPound
     label: Syrian pound
     symbol: "£"
     fractions: 100
-    fractionalUnit: Piastre
+    fractional_unit: Piastre
     polity: SYR
-    monetaryAuthority: Central Bank of Syria    
+    monetary_authority: Central Bank of Syria
   SZL:
     name: SwaziLilangeni
     label: Swazi lilangeni
     symbol: "L"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: SWZ
-    monetaryAuthority: Central Bank of Swaziland  
+    monetary_authority: Central Bank of Swaziland
   THB:
     name: ThaiBaht
     label: Thai baht
     symbol: "฿"
     fractions: 100
-    fractionalUnit: Satang
+    fractional_unit: Satang
     polity: THA
-    monetaryAuthority: Bank of Thailand   
+    monetary_authority: Bank of Thailand
   TJS:
     name: TajikistaniSomoni
     label: Tajikistani somoni
     symbol: "ЅМ"
     fractions: 100
-    fractionalUnit: Diram
+    fractional_unit: Diram
     polity: TJK
-    monetaryAuthority: National Bank of Tajikistan  
+    monetary_authority: National Bank of Tajikistan
   TMT:
     name: TurkmenistanManat
     label: Turkmenistan manat
     symbol: "m"
     fractions: 100
-    fractionalUnit: Tennesi
+    fractional_unit: Tennesi
     polity: TKM
-    monetaryAuthority: Central Bank of Turkmenistan  
+    monetary_authority: Central Bank of Turkmenistan
   TND:
     name: TunisianDinar
     label: Tunisian dinar
     symbol: "د.ت"
     fractions: 1000
-    fractionalUnit: Millime
+    fractional_unit: Millime
     polity: TUN
-    monetaryAuthority: Central Bank of Tunisia
+    monetary_authority: Central Bank of Tunisia
   TOP:
     name: TonganPaAnga
     label: Tongan paʻanga
     symbol: "T$"
     fractions: 100
-    fractionalUnit: Seniti
+    fractional_unit: Seniti
     polity: TON
-    monetaryAuthority: National Reserve Bank of Tonga
-TRY:
+    monetary_authority: National Reserve Bank of Tonga
+  TRY:
     name: TurkishLira
     label: Turkish lira
     symbol: "₺"
     fractions: 100
-    fractionalUnit: Kuruş
+    fractional_unit: Kuruş
     polity: TUR
-    monetaryAuthority: Central Bank of the Republic of Turkey
+    monetary_authority: Central Bank of the Republic of Turkey
   TTD:
     name: TrinidadTobagoDollar
     label: Trinidad and Tobago dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: TTO
-    monetaryAuthority: Central Bank of Trinidad and Tobago
+    monetary_authority: Central Bank of Trinidad and Tobago
   TWD:
     name: NewTaiwanDollar
     label: New Taiwan dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: TWN
-    monetaryAuthority: Central Bank of the Republic of China (Taiwan)
+    monetary_authority: Central Bank of the Republic of China (Taiwan)
   TZS:
     name: TanzanianShilling
     label: Tanzanian shilling
     symbol: "Sh"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: TZA
-    monetaryAuthority: Bank of Tanzania  
+    monetary_authority: Bank of Tanzania
   UAH:
     name: UkrainianHryvnia
     label: Ukrainian hryvnia
     symbol: "₴"
     fractions: 100
-    fractionalUnit: Kopiyka
+    fractional_unit: Kopiyka
     polity: UKR
-    monetaryAuthority: National Bank of Ukraine
+    monetary_authority: National Bank of Ukraine
   UGX:
     name: UgandanShilling
     label: Ugandan shilling
     symbol: "Sh"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: UGA
-    monetaryAuthority: Bank of Uganda
+    monetary_authority: Bank of Uganda
   USD:
     name: UnitedStatesDollar
     label: United States dollar
     symbol: "$"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: USA, ASM, VGB, BES, ECU, SLV, GUM, HTI, MHL, FSM, MNP, PLW, PAN, PRI, TLS, TCA, VIR, UMI
-    monetaryAuthority: Federal Reserve  
+    monetary_authority: Federal Reserve
   UYU:
     name: UruguayanPeso
     label: Uruguayan peso
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centésimo
+    fractional_unit: Centésimo
     polity: URY
-    monetaryAuthority: Central Bank of Uruguay  
+    monetary_authority: Central Bank of Uruguay
   UYU:
     name: UruguayanPeso
     label: Uruguayan peso
     symbol: "$"
     fractions: 100
-    fractionalUnit: Centésimo
+    fractional_unit: Centésimo
     polity: URY
-    monetaryAuthority: Central Bank of Uruguay   
+    monetary_authority: Central Bank of Uruguay
   UZS:
     name: UzbekistaniSom
     label: Uzbekistani soʻm
     symbol: "so'm"
     fractions: 100
-    fractionalUnit: Tiyin
+    fractional_unit: Tiyin
     polity: UZB
-    monetaryAuthority: Central Bank of the Republic of Uzbekistan    
+    monetary_authority: Central Bank of the Republic of Uzbekistan
   VES:
     name: VenezuelanBolivarSoberano
     label: Venezuelan bolívar soberano
     symbol: "Bs."
     fractions: 100
-    fractionalUnit: Céntimo
+    fractional_unit: Céntimo
     polity: VEN
-    monetaryAuthority: Central Bank of Venezuela  
+    monetary_authority: Central Bank of Venezuela
   VND:
     name: VietlabelseDong
     label: Vietlabelse đồng
     symbol: "₫"
     fractions: 100
-    fractionalUnit: Hào
+    fractional_unit: Hào
     polity: VNM
-    monetaryAuthority: State Bank of Vietnam    
+    monetary_authority: State Bank of Vietnam
   VUV:
     name: VanuatuVatu
     label: Vanuatu vatu
     symbol: "Vt"
-    fractions: none
-    fractionalUnit: none
+    fractions: 1
+    fractional_unit: ~
     polity: VUT
-    monetaryAuthority: Reserve Bank of Vanuatu
+    monetary_authority: Reserve Bank of Vanuatu
   WST:
     name: SamoanTala
     label: Samoan tālā
     symbol: "T"
     fractions: 100
-    fractionalUnit: Sene
+    fractional_unit: Sene
     polity: WSM
-    monetaryAuthority: Central Bank of Samoa  
+    monetary_authority: Central Bank of Samoa
   XAF:
     name: CentralAfricanCFAFranc
     label: Central African CFA franc
     symbol: "T"
     fractions: 100
-    fractionalUnit: Sene
+    fractional_unit: Sene
     polity: CMR, CAF, COG, TCD, GNQ, GAB
-    monetaryAuthority: Central Bank of Samoa  
-#XAG	.	Silver (one troy ounce)	
-#XAU	.	Gold (one troy ounce)	
-#XBA	.	European Composite Unit (EURCO) (bond market unit)	
-#XBB	.	European Monetary Unit (E.M.U.-6) (bond market unit)	
-#XBC	.	European Unit of Account 9 (E.U.A.-9) (bond market unit)	
-#XBD	.	European Unit of Account 17 (E.U.A.-17) (bond market unit)	
+    monetary_authority: Central Bank of Samoa
+#XAG	.	Silver (one troy ounce)
+#XAU	.	Gold (one troy ounce)
+#XBA	.	European Composite Unit (EURCO) (bond market unit)
+#XBB	.	European Monetary Unit (E.M.U.-6) (bond market unit)
+#XBC	.	European Unit of Account 9 (E.U.A.-9) (bond market unit)
+#XBD	.	European Unit of Account 17 (E.U.A.-17) (bond market unit)
   XCD:
     name: EastCaribbeanDollar
     label: East Caribbean dollar
     symbol: "$"
-  	fractions: 100
-    fractionalUnit: Cent
+    fractions: 100
+    fractional_unit: Cent
     polity:	AIA, ATG, DMA, GRD, MSR, KNA, LCA, VCT
-    monetaryAuthority: Eastern Caribbean Central Bank
+    monetary_authority: Eastern Caribbean Central Bank
 #XDR	.	Special drawing rights	International Monetary Fund
   XOF:
     name: WestAfricanCFAFranc
     label: West African CFA franc
     symbol:	"Fr"
     fractions: 100
-    fractionalUnit: Centime
+    fractional_unit: Centime
     polity: BEN, BFA, CIV, GNB, MLI, NER, SEN, TGO
-    monetaryAuthority: Central Bank of West African States
-#XPD	.	Palladium (one troy ounce)	
+    monetary_authority: Central Bank of West African States
+#XPD	.	Palladium (one troy ounce)
   XPF:
-  	0	CFP franc (franc Pacifique)	French territories of the Pacific Ocean:  French Polynesia (PF),  NewCaledonia (NC),  Wallis and Futuna (WF)
-#XPT	.	Platinum (one troy ounce)		
+#  	0	CFP franc (franc Pacifique)	French territories of the Pacific Ocean:  French Polynesia (PF),  NewCaledonia (NC),  Wallis and Futuna (WF)
+#XPT	.	Platinum (one troy ounce)
   YER:
     name: YemeniRial
     label: Yemeni rial
     symbol: "﷼"
     fractions: 100
-    fractionalUnit: Fils
+    fractional_unit: Fils
     polity: YEM
-    monetaryAuthority: Central Bank of Yemen  
+    monetary_authority: Central Bank of Yemen
   ZAR:
     name: SouthAfricanRand
     label: South African rand
     symbol: "R"
     fractions: 100
-    fractionalUnit: Cent
+    fractional_unit: Cent
     polity: ZAF
-    monetaryAuthority: South African Reserve Bank  
+    monetary_authority: South African Reserve Bank
   ZMW:
     name: ZambianKwacha
     label: Zambian kwacha
     symbol: "ZK"
     fractions: 100
-    fractionalUnit: Ngwee
+    fractional_unit: Ngwee
     polity: ZMB
-    monetaryAuthority: Bank of Zambia   
+    monetary_authority: Bank of Zambia

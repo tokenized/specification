@@ -6,8 +6,8 @@ code: E3
 
 metadata:
   name: Thaw
-  label: Thaw Action
-  description: "Thaw Action -  to be used to comply with contractual obligations or legal requirements.  The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities."
+  label: Thaw
+  description: "To be used to comply with contractual obligations or legal requirements.  The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities."
   validation: AssetCreation
   rejection: Rejection
 
@@ -16,7 +16,7 @@ rules:
   inputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: "The contract that is performing this action."
 
   outputs:
     - name: TargetX
@@ -24,32 +24,14 @@ rules:
       comments: "Can be the Contract Address for a 'Contract-wide' Thaw in response to a Contract-wide Freeze."
 
 fields:
-  - name: Header
-    label: Header
-    description: "Common header data for all actions"
-    type: Header
-    notes: "Common header data for all actions."
-
-  - name: Addresses
-    label: Addresses
-    description: "Addresses holding tokens to be thawed."
-    type: PublicKeyHash[]
-    # array size is number of bits to serialize the size of the array
-    size: 16
-    notes: ""
-
-  - name: RefTxID
-    label: Ref Tx ID
-    description: "The related freeze action."
+  - name: FreezeTxId
+    label: Freeze Tx Id
+    description: "The tx id of the freeze action that is being reversed."
     type: TxId
-    example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
-    example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
     notes: ""
 
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
     notes: "Cannot be changed by issuer, operator. Smart contract controls."

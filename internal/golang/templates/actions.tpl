@@ -93,14 +93,21 @@ func (action *{{.Name}}) read(b []byte) (int, error) {
 // serialize returns the full OP_RETURN payload bytes.
 func (action *{{.Name}}) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
-	excludes := make(map[string]bool)
-	var skip bool
 
-{{- range .PayloadFields }}
-
+{{- range $f, $field := .PayloadFields }}
+{{- $fieldName := .FieldName }}
 	// {{.FieldName}} ({{.FieldGoType}})
-	_, skip = excludes["{{.FieldName}}"]
-	if !skip {
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if action.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !action.{{ $field.IncludeIfFalse }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else if ne (len $field.IncludeIfInt.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIfInt.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIfInt.Field}} == {{ $include }}{{ end }} {
+{{- else }}
+	{
+{{- end }}
 {{- if .IsVarChar }}
 		if err := WriteVarChar(buf, action.{{.FieldName}}, {{.Length}}); err != nil {
 			return nil, err
@@ -154,14 +161,6 @@ func (action *{{.Name}}) serialize() ([]byte, error) {
 			return nil, err
 		}
 {{- end }}
-
-{{- if and (eq .FieldGoType "bool") (ne (len .Includes) 0) }}
-		if !action.{{.FieldName}} {
-{{- range $i, $value := .Includes }}
-			excludes["{{ $value }}"] = true
-{{- end }}
-		}
-{{- end }}
 	}
 {{ end }}
 	return buf.Bytes(), nil
@@ -170,13 +169,20 @@ func (action *{{.Name}}) serialize() ([]byte, error) {
 // write populates the fields in {{.Name}} from the byte slice
 func (action *{{.Name}}) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
-	excludes := make(map[string]bool)
-	var skip bool
 
-{{- range .Fields }}
+{{- range $f, $field := .PayloadFields }}
 	// {{.FieldName}} ({{.FieldGoType}})
-	_, skip = excludes["{{.FieldName}}"]
-	if !skip {
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if action.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !action.{{ $field.IncludeIfFalse }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else if ne (len $field.IncludeIfInt.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIfInt.Values }}{{ if (ne $j 0) }} ||{{ end }} action.{{$field.IncludeIfInt.Field}} == {{ $include }}{{ end }} {
+{{- else }}
+	{
+{{- end }}
 {{- if .IsVarChar }}
 		var err error
 		action.{{.FieldName}}, err = ReadVarChar(buf, {{.Length}})
@@ -234,46 +240,91 @@ func (action *{{.Name}}) write(b []byte) (int, error) {
 			return 0, err
 		}
 {{- end }}
-
-{{- if and (eq .FieldGoType "bool") (ne (len .Includes) 0) }}
-		if !action.{{.FieldName}} {
-{{- range $i, $value := .Includes }}
-			excludes["{{ $value }}"] = true
-{{- end }}
-		}
-{{- end }}
 	}
 {{ end }}
 	return len(b) - buf.Len(), nil
 }
 
-// PayloadMessage returns the PayloadMessage, if any.
-func (action {{.Name}}) PayloadMessage() (PayloadMessage, error) {
-{{- if .HasAssetPayload }}
-	p := AssetTypeMapping(action.AssetType)
-	if p == nil {
-		return nil, fmt.Errorf("Undefined asset type : %s", action.AssetType)
-	}
+func (m *{{.Name}}) Validate() error {
+{{- range $i, $field := .PayloadFields }}
 
-	if _, err := p.Write(action.AssetPayload); err != nil {
-		return nil, err
-	}
+	// {{.Name}} ({{.FieldGoType}})
+{{- if ne (len $field.IncludeIfTrue) 0 }}
+	if m.{{ $field.IncludeIfTrue }} {
+{{- else if ne (len $field.IncludeIfFalse) 0 }}
+	if !action.{{ $field.IncludeIfFalse }} {
+{{- else if ne (len $field.IncludeIf.Field) 0 }}
+	if {{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} m.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
+{{- else }}
+	{
+{{- end }}
+{{- if .IsVarChar }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("varchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if .IsFixedChar }}
+		if len(m.{{.Name}}) > {{.Length}} {
+			return fmt.Errorf("fixedchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), {{.Length}})
+		}
+{{- else if .IsVarBin }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if eq .Type "RejectionCode" }}
+		if GetRejectionCode(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid rejection code value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Role" }}
+		if GetRoleType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "MessageType" }}
+		if GetMessageType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid message value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Currency" }}
+		if GetCurrency(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Polity" }}
+		if GetPolityType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid polity value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "EntityType" }}
+		if GetEntityType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
+		}
+{{- else if .IsInternalTypeArray }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
 
-	return p, nil
-{{- else if .HasMessagePayload }}
-	p := MessageTypeMapping(action.MessageType)
-	if p == nil {
-		return nil, fmt.Errorf("Undefined message type : %s", action.MessageType)
+		for i, value := range m.{{.Name}} {
+			err := value.Validate()
+			if err != nil {
+				return fmt.Errorf("list field {{.Name}}[%d] is invalid : %s", i, err)
+			}
+		}
+{{- else if .IsNativeTypeArray }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+{{- else if .IsInternalType }}
+		if err := m.{{.Name}}.Validate(); err != nil {
+			return fmt.Errorf("field {{.Name}} is invalid : %s", err)
+		}
+{{ else if ne (len $field.IntValues) 0 }}
+		if {{ range $j, $value := $field.IntValues }}{{ if (ne $j 0) }} &&{{ end }} m.{{$field.Name}} != {{ $value }}{{ end }} {
+			return fmt.Errorf("field {{$field.Name}} value is invalid : %d", m.{{$field.Name}})
+		}
+{{ else if ne (len $field.CharValues) 0 }}
+		if {{ range $j, $value := $field.CharValues }}{{ if (ne $j 0) }} &&{{ end }} m.{{$field.Name}} != '{{ $value }}'{{ end }} {
+			return fmt.Errorf("field {{$field.Name}} value is invalid : %d", m.{{$field.Name}})
+		}
+{{- end }}
 	}
-
-	if _, err := p.Write(action.MessagePayload); err != nil {
-		return nil, err
-	}
-
-	return p, nil
-{{ else }}
-	return nil, nil
-{{ end -}}
+{{ end }}
+	return nil
 }
 
 func (action {{.Name}}) String() string {

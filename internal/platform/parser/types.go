@@ -15,14 +15,6 @@ func GoType(typeName string, size uint64, options []string) string {
 	}
 
 	switch name {
-	case "dropdown":
-		if len(options) < 256 {
-			return "uint8"
-		} else if len(options) < 65536 {
-			return "uint16"
-		} else {
-			return "uint32"
-		}
 
 	case "varchar":
 		return "string"
@@ -48,6 +40,20 @@ func GoType(typeName string, size uint64, options []string) string {
 		"header":
 		return "Header"
 
+	case "Role":
+		return "uint8"
+
+	case "MessageType":
+		return "uint16"
+
+	case "EntityType":
+		return "byte" // single character
+
+	case "Currency":
+		return "[3]byte"
+
+	case "RejectionCode":
+		return "uint8"
 	}
 
 	return fmt.Sprintf("%s%s", prefix, name)
@@ -60,11 +66,6 @@ func IsInternalType(typeName string, size uint64) bool {
 	}
 
 	switch name {
-	// Temporary
-	case "polity":
-		return false
-	case "dropdown":
-		return false
 
 	case "varchar":
 		return false
@@ -81,7 +82,27 @@ func IsInternalType(typeName string, size uint64) bool {
 	case "bool":
 		return false
 
+	case "Role",
+		"EntityType",
+		"Currency",
+		"MessageType",
+		"RejectionCode":
+		return false
+
 	}
 
 	return true
+}
+
+func IsResource(typeName string) bool {
+	switch typeName {
+	case "Role",
+		"EntityType",
+		"Currency",
+		"MessageType",
+		"RejectionCode":
+		return true
+	}
+
+	return false
 }

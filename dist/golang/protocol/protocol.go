@@ -25,21 +25,13 @@ const (
 	Version = uint8(0)
 )
 
-// PayloadMessage is the interface for messages that are derived from
-// payloads, such as asset types and message types.
-type PayloadMessage interface {
-	Type() string
-	Serialize() ([]byte, error)
-	Write(b []byte) (int, error)
-}
-
 // OpReturnMessage implements a base interface for all message types.
 type OpReturnMessage interface {
 	Type() string
 	String() string
-	PayloadMessage() (PayloadMessage, error)
 	serialize() ([]byte, error)
 	write(b []byte) (int, error)
+	Validate() error
 }
 
 // Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
@@ -199,10 +191,22 @@ type TxId struct {
 	data [32]byte
 }
 
+var zeroTxId TxId
+
 func TxIdFromBytes(data []byte) *TxId {
 	var result TxId
 	copy(result.data[:], data)
 	return &result
+}
+
+// Validate returns an error if the value is invalid
+func (id *TxId) Validate() error {
+	return nil
+}
+
+// IsZero returns true if the tx id is all zeros.
+func (id *TxId) IsZero() bool {
+	return bytes.Equal(id.data[:], zeroTxId.data[:])
 }
 
 // Equal returns true if the specified values are the same.
@@ -254,6 +258,18 @@ func (id *TxId) Set(value []byte) error {
 // PublicKeyHash represents a Bitcoin Public Key Hash. Often used as an address to receive transactions.
 type PublicKeyHash struct {
 	data [20]byte
+}
+
+var zeroPKH PublicKeyHash
+
+// Validate returns an error if the value is invalid
+func (hash *PublicKeyHash) Validate() error {
+	return nil
+}
+
+// IsZero returns true if the tx id is all zeros.
+func (hash *PublicKeyHash) IsZero() bool {
+	return bytes.Equal(hash.data[:], zeroPKH.data[:])
 }
 
 // Equal returns true if the specified values are the same.
@@ -312,6 +328,11 @@ func (hash *PublicKeyHash) UnmarshalJSON(data []byte) error {
 // AssetCode represents a unique identifier for a Tokenized asset.
 type AssetCode struct {
 	data [32]byte
+}
+
+// Validate returns an error if the value is invalid
+func (code *AssetCode) Validate() error {
+	return nil
 }
 
 // IsZero returns true if the AssetCode is all zeroes. (empty)
@@ -378,6 +399,11 @@ type ContractCode struct {
 	data [32]byte
 }
 
+// Validate returns an error if the value is invalid
+func (code *ContractCode) Validate() error {
+	return nil
+}
+
 // IsZero returns true if the ContractCode is all zeroes. (empty)
 func (code *ContractCode) IsZero() bool {
 	zero := make([]byte, 32, 32)
@@ -442,9 +468,19 @@ type Timestamp struct {
 	nanoseconds uint64 // nanoseconds since Unix epoch
 }
 
+// NewTimestamp returns a new timestamp from nanoseconds.
+func NewTimestamp(value uint64) Timestamp {
+	return Timestamp{nanoseconds: value}
+}
+
 // CurrentTimestamp returns a Timestamp containing the current time.
 func CurrentTimestamp() Timestamp {
 	return Timestamp{nanoseconds: uint64(time.Now().UnixNano())}
+}
+
+// Validate returns an error if the value is invalid
+func (time *Timestamp) Validate() error {
+	return nil
 }
 
 // Equal returns true if the specified values are the same.
@@ -457,9 +493,14 @@ func (time *Timestamp) Nano() uint64 {
 	return time.nanoseconds
 }
 
+// Nano returns the seconds since the Unix epoch for the Timestamp.
+func (time *Timestamp) Seconds() uint32 {
+	return uint32(time.nanoseconds / 1000000000)
+}
+
 // String converts to a string
-func (time *Timestamp) String() string {
-	return strconv.FormatUint(time.nanoseconds, 10)
+func (t *Timestamp) String() string {
+	return time.Unix(int64(t.nanoseconds)/1000000000, 0).String()
 }
 
 // Serialize returns a byte slice with the Timestamp in it.
@@ -497,50 +538,41 @@ func (time *Timestamp) UnmarshalJSON(data []byte) error {
 }
 
 // ------------------------------------------------------------------------------------------------
-// Polity represents list of countries in which something is valid.
+// Polity represents a country in which something is valid.
 type Polity struct {
-	Items [][3]byte
+	data [3]byte
+}
+
+// Validate returns an error if the value is invalid
+func (polity *Polity) Validate() error {
+	if GetPolityType(string(polity.data[:])) == nil {
+		return fmt.Errorf("Invalid polity value : %s", string(polity.data[:]))
+	}
+	return nil
 }
 
 // String converts to a string
 func (polity *Polity) String() string {
-	return fmt.Sprintf("%v", polity.Items)
+	return string(polity.data[:])
+}
+
+// Bytes returns a byte slice containing the ContractCode.
+func (polity *Polity) Bytes() []byte {
+	return polity.data[:]
 }
 
 // Equal returns true if the specified values are the same.
 func (polity *Polity) Equal(other Polity) bool {
-	if len(polity.Items) == 0 && len(other.Items) == 0 {
-		return true
-	}
-	if len(polity.Items) != len(other.Items) {
-		return false
-	}
-	for i, item := range polity.Items {
-		if !bytes.Equal(item[:], other.Items[i][:]) {
-			return false
-		}
-	}
-	return true
+	return !bytes.Equal(polity.data[:], other.data[:])
 }
 
 // Serialize returns a byte slice with the Polity in it.
 func (polity *Polity) Serialize() ([]byte, error) {
-	if len(polity.Items) > 65535 {
-		return nil, fmt.Errorf("Polity item count beyond limit (%d) : %d", 65535, len(polity.Items))
-	}
-
-	// Write 16 bit size
 	var buf bytes.Buffer
-	err := write(&buf, uint16(len(polity.Items)))
+
+	_, err := buf.Write(polity.data[:])
 	if err != nil {
 		return nil, err
-	}
-
-	for _, item := range polity.Items {
-		_, err := buf.Write(item[:])
-		if err != nil {
-			return nil, err
-		}
 	}
 
 	return buf.Bytes(), nil
@@ -548,62 +580,34 @@ func (polity *Polity) Serialize() ([]byte, error) {
 
 // Write reads a Polity from a bytes.Buffer
 func (polity *Polity) Write(buf *bytes.Buffer) error {
-	// Read 16 bit size
-	var size uint16
-	err := read(buf, &size)
-	if err != nil {
-		return err
-	}
-
-	polity.Items = make([][3]byte, 0, size)
-	for i := uint16(0); i < size; i++ {
-		var newItem [3]byte
-		err = readLen(buf, newItem[:])
-		if err != nil {
-			return err
-		}
-		polity.Items = append(polity.Items, newItem)
-	}
-
-	return nil
+	return readLen(buf, polity.data[:])
 }
 
 // MarshalJSON converts to json.
 func (polity *Polity) MarshalJSON() ([]byte, error) {
-	result := make([]byte, 0, 4+(len(polity.Items)*7))
-	result = append(result, '[')
-	result = append(result, ' ')
-
-	for _, item := range polity.Items {
-		result = append(result, '"')
-		result = append(result, item[:]...)
-		result = append(result, '"')
-	}
-
-	result = append(result, ' ')
-	result = append(result, ']')
+	result := make([]byte, 0, 5)
+	result = append(result, '"')
+	result = append(result, polity.data[:]...)
+	result = append(result, '"')
 	return result, nil
 }
 
 // UnmarshalJSON converts from json.
 func (polity *Polity) UnmarshalJSON(data []byte) error {
-	// Unmarshal into list of strings
-	var items []string
-	err := json.Unmarshal(data, &items)
+	// Unmarshal into string
+	var item string
+	err := json.Unmarshal(data, &item)
 	if err != nil {
 		return err
 	}
 
-	polity.Items = make([][3]byte, 0, len(items))
-	for _, item := range items {
-		if len(item) > 3 {
-			return fmt.Errorf("Polity item too long (limit 3 chars) : %s", item)
-		}
-
-		var newItem [3]byte
-		copy(newItem[:], []byte(item))
-		polity.Items = append(polity.Items, newItem)
+	if len(item) > 3 {
+		return fmt.Errorf("Polity item too long (limit 3 chars) : %s", item)
 	}
 
+	data[0] = 0
+	data[1] = 0
+	data[2] = 0
+	copy(data[:], []byte(item))
 	return nil
 }

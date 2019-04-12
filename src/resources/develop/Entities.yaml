@@ -1,13 +1,14 @@
-#
-# Entities (Legal Entities & Ownership Structures)
-#
+metadata:
+  name: Entities
+  description: "Legal Entities & Ownership Structures"
+  type: EntityType
 
-entities:
-  legalEntities:
-    I: 
+values:
+    I:
       name: individual # (Natural Person)
       label: "Individual"
-      role: 
+      type: Legal
+      roles:
         owners:
           principal: null
         administrators:
@@ -15,16 +16,17 @@ entities:
           agent: [] # (granted by the principal)
         general:
           accountant: []
-          advisor: [] 
+          advisor: []
           lawyer: []
           manager: []
           trader: []
-    P: 
+    P:
       name: publicCompany
       label: "Public Company Limited by Shares"
+      type: Legal
       roles:
         owners:
-          shareholder: []   
+          shareholder: []
           significantShareholder: []
         administrators: # Board of Directors
           chairman: null
@@ -38,38 +40,40 @@ entities:
           secretary: null
         general:
           accountant: []
-          advisor: [] 
+          advisor: []
           employee: []
           lawyer: []
           manager: []
           trader: []
-    C: 
+    C:
       name: privateCompany
       label: "Private Company Limited by Shares"
+      type: Legal
       roles:
         owners:
           shareholder: []
-          significantShareholder: []          
+          significantShareholder: []
         administrators:
           chairman: null
-          director: [] 
-          secretary: null        
+          director: []
+          secretary: null
         managers: 
           ceo: null
           coo: null
           cfo: null
-          cto: null   
-          executive: []        
+          cto: null
+          executive: []
         general:
           accountant: []
-          advisor: []  
+          advisor: []
           employee: []
           lawyer: []
           manager: []
           trader: []
-    L: 
+    L:
       name: limitedPartnership
       label: "Limited Partnership"
+      type: Legal
       roles:
         owners:
           partner: []
@@ -77,29 +81,31 @@ entities:
           managingPartner: []
         general: 
           accountant: []
-          advisor: []  
+          advisor: []
           employee: []
           lawyer: []
           manager: []
           trader: []
-    U: 
+    U:
       name: unlimitedPartnership
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership,  )
+      type: Legal
       roles:
         owners:
-          partner: []  
+          partner: []
         managers:
           managingPartner: []
-        general:   
+        general:
           accountant: []
-          advisor: []  
+          advisor: []
           employee: []
           lawyer: []
           manager: []
           trader: []
-    T: 
+    T:
       name: soleProprietorship
       label: "Sole Proprietorship"
+      type: Legal
       roles:
         owners:
           proprietor: null
@@ -107,91 +113,96 @@ entities:
           agent: [] # (granted by the proprietor)
         general:
           accountant: []
-          advisor: []  
+          advisor: []
           employee: []
           lawyer: []
           manager: []
           trader: []
-    S: 
+    S:
       name: statutoryCompany
       label: "Statutory Company"
+      type: Legal
       roles:
         administrators:
           chairman: null
-          director: [] 
-          secretary: null        
-        managers: 
+          director: []
+          secretary: null
+        managers:
           ceo: null
           coo: null
           cfo: null
           cto: null
           executive: []
-          secretary: null 
+          secretary: null
         general:
           accountant: []
-          advisor: []  
+          advisor: []
           employee: []
           lawyer: []
           manager: []
           trader: []
-    O: 
+    O:
       name: nonProfitOrganization
       label: "Non-Profit Organization"
-      role:  
+      type: Legal
+      role:
         administrators:
           chairman: null
-          director: [] 
-          secretary: null          
-        managers: 
+          director: []
+          secretary: null
+        managers:
           ceo: null
           coo: null
           cfo: null
           cto: null
-          executive: []          
-        general: 
+          executive: []
+        general:
           accountant: []
-          advisor: [] 
+          advisor: []
           employee: []
           lawyer: []
           manager: []
           trader: []
-    N: 
+    N:
       name: nationState
       label: "Nation State" # (Sovereign State)
-    G: 
+      type: Legal
+    G:
       name: governmentAgency
       label: "Government Agency"
-  ownershipStructures:  
+      type: Legal
     U:
       name: unitTrust
       label: "Unit Trust"
-      roles:  
+      type: Ownership
+      roles:
         owners:
           unitholder: []
         administrators:
           protector: []
           trustee: []
-        general: 
+        general:
           accountant: []
-          advisor: [] 
+          advisor: []
           custodian: []
           employee: []
           lawyer: []
           manager: []
-          settlor: [] 
+          settlor: []
           trader: []
     D:
       name: discretionaryTrust
       label: "Discretionary Trust" # (Family Trust)
+      type: Ownership
       roles:
         owners:
           beneficiary: []
-        administrators:   
+        administrators:
           protector: []
-          trustee: []        
+          trustee: []
         general: 
           accountant: []
-          advisor: [] 
+          advisor: []
           custodian: []
           employee: []
           lawyer: []

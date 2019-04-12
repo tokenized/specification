@@ -17,9 +17,9 @@ metadata:
 
 fields:
   - name: Version
-    label: Version
+    label: Payload Version
+    description: The version number that this asset payload adheres to.
     type: uint
-    description: Payload Version
     size: 1
     example: 0
     computed: true
@@ -27,13 +27,15 @@ fields:
   - name: TransferLockout
     label: TransferLockout
     type: Timestamp
+    description: A period of time where the asset is unable to be transferred.  After the transfer lockout period, the assets can be transferred.
     example: 11/4/2019 18:00:00
     span: full
     displayOrder: 3
 
   - name: Ticker
-    label: Ticker
+    label: Ticker Symbol
     type: fixedchar
+    description: Ticker symbol assigned by exchanges to represent the asset.
     size: 5
     example: AAPL
     displayOrder: 4
@@ -42,6 +44,7 @@ fields:
     label: ISIN (optional)
     type: fixedchar
     size: 12
+    description: International Securities Identification Number
     example: US0004026250
     span: full
     displayOrder: 2
@@ -51,7 +54,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 16
-    example: APPLC - Apple corp - Common share issue class C
+    example: Class C
     span: full
     displayOrder: 1
     required: true
