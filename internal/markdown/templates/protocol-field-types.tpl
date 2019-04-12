@@ -16,15 +16,15 @@ Each field in a protocol action is assigned with a data type. Standard scalar ty
         <th style="width:15%">Type</th>
         <th>Description</th>
    </tr>
-    <tr><td>int</td><td>is a signed integer. <code>size</code> is the number of bits for the integer. Valid values for <code>size</code> are 8, 16, 32, 64.</td></tr>
-    <tr><td>uint</td><td>is an unsigned integer. <code>size</code> is the number of bits for the integer. Valid values for <code>size</code> are 8, 16, 32, 64.</td></tr>
-    <tr><td>float</td><td>is a floating point number. <code>size</code> is the number of bits for the float. Valid values for <code>size</code> are 32 and 64.</td></tr>
-    <tr><td>bool</td><td>is a boolean stored as 1 byte.</td></tr>
-    <tr><td>bin</td><td>is fixed length binary data. <code>size</code> is the length in bytes of the data.</td></tr>
+    <tr><td>int</td><td>A signed integer. <code>size</code> is the number of bits for the integer. Valid values for <code>size</code> are 8, 16, 32, 64.</td></tr>
+    <tr><td>uint</td><td>An unsigned integer. <code>size</code> is the number of bits for the integer. Valid values for <code>size</code> are 8, 16, 32, 64.</td></tr>
+    <tr><td>float</td><td>A floating point number. <code>size</code> is the number of bits for the float. Valid values for <code>size</code> are 32 and 64.</td></tr>
+    <tr><td>bool</td><td>A boolean stored as 1 byte.</td></tr>
+    <tr><td>bin</td><td>Fixed length binary data. <code>size</code> is the length in bytes of the data.</td></tr>
     <tr>
         <td>varbin</td>
         <td>
-            is variable length binary data.
+            Variable length binary data.
             The data is preceded by an integer that specifies the actual length in bytes.
             <code>size</code> is the number of bits used to serialize the length in bytes of the data.
             Valid values for <code>size</code> are 8, 16, 32, and 64.
@@ -34,7 +34,7 @@ Each field in a protocol action is assigned with a data type. Standard scalar ty
     <tr>
         <td>fixedchar</td>
         <td>
-            is fixed length text data.
+            Fixed length text data.
             The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
             <code>size</code> is the length in bytes of the data.
         </td>
@@ -42,7 +42,7 @@ Each field in a protocol action is assigned with a data type. Standard scalar ty
     <tr>
         <td>varchar</td>
         <td>
-            is variable length text data.
+            Variable length text data.
             The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
             The data is preceded by an integer that specifies the actual length in bytes.
             <code>size</code> is the number of bits used to serialize the length in bytes of the data.
@@ -140,7 +140,11 @@ The `size` does not need to be specified and is always 32 bytes.
             {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
         {{- end}}
         </td>
-        <td>{{.Description}} {{.Notes}}</td>
+        <td>
+            {{.Description}}
+            {{.Notes}}
+            {{- if .Example }} Example: {{.Example}}{{ end }}
+        </td>
     </tr>
     {{- end}}
 </table>

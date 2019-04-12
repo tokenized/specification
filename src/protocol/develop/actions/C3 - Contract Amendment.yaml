@@ -16,16 +16,16 @@ rules:
   inputs:
     - name: Issuer
       label: "Issuer's Public Address"
-      comments:
+      comments: "This action can only come from the issuer."
 
     - name: NewIssuer
       label: New Issuer Public Address
-      comments: Only treated as the new Issuer address when the Change Issuer Address flag is set to true.
+      comments: "Only treated as the new Issuer address when the Change Issuer Address flag is set to true."
 
   outputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: "The related contract address."
 
 fields:
   - name: ChangeIssuerAddress
@@ -33,7 +33,7 @@ fields:
     description: "Used to change the issuer address.  The new issuer address must be in the input[1] position."
     type: bool
     example_hex: 01
-    example_value: 1
+    example: 1
     notes: ""
 
   - name: ChangeOperatorAddress
@@ -41,7 +41,7 @@ fields:
     description: "Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless issuer is being changed too, then it is in input[2]."
     type: bool
     example_hex: 01
-    example_value: 1
+    example: 1
     notes: ""
 
   - name: ContractRevision
@@ -50,17 +50,16 @@ fields:
     type: uint
     size: 4
     example_hex: 002a
-    example_value: 42
+    example: 42
     notes: ""
 
   - name: Amendments
     label: Amendments
     type: Amendment[]
+    description: A collection of modifications to perform on this contract.
 
   - name: RefTxID
     label: Ref Tx ID
-    description: "Tx-ID of the associated Result action (governance) that permitted the modifications."
+    description: "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details."
     type: TxId
-    example_hex: a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d
-    example_value: "a8700385d4cc62628cc34629862121f84e6237689de8e45e151dcbc8cf30b33d"
     notes: ""

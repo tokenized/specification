@@ -11,7 +11,7 @@ fields:
     # varchar size is number of bits to serialize the size of the value
     size: 8
     example_hex: 135370656369616c205265736f6c7574696f6e73
-    example_value: "Special Resolutions"
+    example: "Special Resolutions"
     notes: ""
 
   - name: VoteType
@@ -20,7 +20,7 @@ fields:
     type: fixedchar
     size: 1
     example_hex: 41
-    example_value: "A"
+    example: "A"
     notes: ""
 
   - name: TallyLogic
@@ -29,7 +29,7 @@ fields:
     type: fixedchar
     size: 1
     example_hex: 30
-    example_value: "0"
+    example: "0"
     notes: ""
 
   - name: ThresholdPercentage
@@ -37,7 +37,7 @@ fields:
     description: "This field is ignored when VoteType is P (Plurality). Otherwise it is the percentage of ballots required for a proposal to pass. Valid values are greater than 0 and less than 100. 75 means 75% and greater.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it."
     type: uint
     size: 1
-    example_value: "75"
+    example: "75"
 
   - name: VoteMultiplierPermitted
     label: VoteMultiplierPermitted
@@ -50,5 +50,5 @@ fields:
     type: uint
     size: 8
     example_hex: 42c80000
-    example_value: "100"
+    example: "100"
     notes: ""

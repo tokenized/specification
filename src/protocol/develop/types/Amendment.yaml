@@ -11,7 +11,7 @@ fields:
     type: uint
     size: 1
     example_hex: 02
-    example_value: 2
+    example: 2
     notes: "A field with a complex array type uses the same FieldIndex value for all elements. For example, in C1 the VotingSystems field is FieldIndex 16. Indexes are zero based."
 
   - name: Element
@@ -20,7 +20,7 @@ fields:
     type: uint
     size: 2
     example_hex: 0000
-    example_value: 0
+    example: 0
     notes: "To specify the 3rd VotingSystem of a Contract, the value 2 would be given. Indexes are zero based."
 
   - name: SubfieldIndex
@@ -29,7 +29,7 @@ fields:
     type: uint
     size: 1
     example_hex: 01
-    example_value: 1
+    example: 1
     notes: "For example to specify the 2nd field of a VotingSystem, value 1 would be given."
 
   - name: SubfieldElement
@@ -38,7 +38,7 @@ fields:
     type: uint
     size: 2
     example_hex: 01
-    example_value: 1
+    example: 1
     notes: "For example to specify the 2nd field of a VotingSystem, value 1 would be given."
 
   - name: Operation
@@ -47,7 +47,7 @@ fields:
     size: 1
     description: "0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract."
     example_hex: 00
-    example_value: 0
+    example: 0
     values:
       - 0
       - 1

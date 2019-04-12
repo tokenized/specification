@@ -13,21 +13,21 @@ rules:
   fee:
   inputs:
     - name: Register
-      label: "Register's Public Address"
-      comments:
+      label: "Register Public Address"
+      comments: "The address of the associated register."
 
   outputs:
     - name: Register
-      label: "Register's Public Address"
-      comments:
+      label: "Register Public Address"
+      comments: "Required so that users can monitor transactions to the register for notifications of this action."
 
 fields:
   - name: Message
     label: Message
-    description:
+    description: "A custom message to include with this action."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 32
     example_hex: 00000008757365726e616d65
-    example_value: "username"
+    example: "username"
     notes: ""

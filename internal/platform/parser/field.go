@@ -24,7 +24,7 @@ type Field struct {
 	IntValues      []int     `yaml:"int_values"`
 	CharValues     []string  `yaml:"char_values"`
 	Required       bool
-	ExampleValue   string `yaml:"example_value"`
+	Example        string `yaml:"example"`
 	ExampleHex     string `yaml:"example_hex"`
 	Notes          string
 	Computed       bool

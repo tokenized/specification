@@ -23,7 +23,7 @@ fields:
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
     type: Timestamp
     example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
+    example: 1551767413250187179
     notes: ""
 
   - name: Transaction

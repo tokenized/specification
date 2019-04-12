@@ -7,6 +7,9 @@
 
 # This action is used by the issuer to define the
 # properties/characteristics of the Asset (token) that it wants to create.
+# An asset has a unique identifier called AssetID = AssetType +
+# base58(AssetCode + checksum). An asset is always linked to a Contract
+# that is identified by the public address of the Contract wallet.
 
 class Action_AssetDefinition(ActionBase):
     ActionPrefix = 'A1'

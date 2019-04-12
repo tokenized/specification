@@ -10,7 +10,7 @@ fields:
     type: uint
     size: 2
     example_hex: 0000
-    example_value: 0
+    example: 0
     notes: ""
 
   - name: Quantity
@@ -19,7 +19,7 @@ fields:
     type: uint
     size: 8
     example_hex: 0000000000000064
-    example_value: 100
+    example: 100
     notes: ""
 
   - name: RegisterSigAlgorithm
@@ -28,7 +28,7 @@ fields:
     type: uint
     size: 1
     example_hex: 01
-    example_value: 1
+    example: 1
     notes: ""
     int_values:
       - 0
@@ -41,7 +41,7 @@ fields:
     # varbin size is number of bits to serialize the size of the value
     size: 8
     example_hex: 584945777a4a423233734672794b4d7a78354d6642776e7431474d554b4e54516e7146385768735344317777744b4b6737426f412f35474c657535556e776172375a687452313874647a75496664584474552b7a4d484c383d
-    example_value: "IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8="
+    example: "IEwzJB23sFryKMzx5MfBwnt1GMUKNTQnqF8WhsSD1wwtKKg7BoA/5GLeu5Unwar7ZhtR18tdzuIfdXDtU+zMHL8="
     notes: ""
     include_if_int:
       field: RegisterSigAlgorithm

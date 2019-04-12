@@ -17,9 +17,9 @@ metadata:
 
 fields:
   - name: Version
-    label: Version
+    label: Payload Version
+    description: The version number that this asset payload adheres to.
     type: uint
-    description: Payload Version
     size: 1
     example: 0
     computed: true
@@ -27,6 +27,7 @@ fields:
   - name: AgeRestriction
     label: Age Restriction
     type: AgeRestriction
+    description: "Age restriction is used to specify required ages for asset ownership."
 
   - name: AdmissionType
     label: Admission Type

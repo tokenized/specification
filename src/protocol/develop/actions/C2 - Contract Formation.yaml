@@ -16,7 +16,7 @@ rules:
   inputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: "The related contract address."
 
   outputs:
     - name: Contract
@@ -26,12 +26,15 @@ rules:
 fields:
   - name: ContractName
     label: Contract Name
-    description: "Can be any unique identifying string, including human readable names for branding/vanity purposes.   [Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.]. Smart contracts can be branded and specialized to suit any terms and conditions."
+    description: >
+      Can be any unique identifying string, including human readable names for branding/vanity purposes.
+      Contract identifier (instance) is the bitcoin public key hash address.
+      If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.
+      Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example_hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
-    example_value: "Tesla - Shareholder Agreement"
+    example: "Tesla - Shareholder Agreement"
     notes: ""
 
   - name: BodyOfAgreementType
@@ -40,7 +43,7 @@ fields:
     type: uint
     size: 1
     example_hex: 01
-    example_value: "1"
+    example: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
     int_values:
       - 1
@@ -52,18 +55,15 @@ fields:
     type: varbin
     # varbin size is number of bits to serialize the size of the data
     size: 32
-    example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
-    example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
     notes: ""
 
   - name: ContractType
     label: Contract Type
-    description:
+    description: "Describes the purpose of the contract."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example_hex: 184e6f6e2d446973636c6f737572652041677265656d656e74
-    example_value: "Shareholder Agreement"
+    example: "Shareholder Agreement"
     notes: ""
 
   - name: SupportingDocsFileType
@@ -72,7 +72,7 @@ fields:
     type: uint
     size: 1
     example_hex: 01
-    example_value: "1"
+    example: "1"
     notes: "The file type of the supporting documents ('attached') that are important to the contract."
     int_values:
       - 1
@@ -82,8 +82,6 @@ fields:
     description: ""
     type: varbin
     size: 32
-    example_hex: c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1
-    example_value: "c236f77c7abd7249489e7d2bb6c7e46ba3f4095956e78a584af753ece56cf6d1"
     notes: "File of all supporting documents that are important to the contract."
 
   - name: GoverningLaw
@@ -92,7 +90,7 @@ fields:
     type: fixedchar
     size: 5
     example_hex: 5553410000
-    example_value: "USA"
+    example: "USA"
     notes: "Governing Law - Amendments can be restricted to a vote."
 
   - name: Jurisdiction
@@ -101,7 +99,7 @@ fields:
     type: fixedchar
     size: 5
     example_hex: 55532d4341
-    example_value: "US-CA"
+    example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."
 
   - name: ContractExpiration
@@ -109,7 +107,7 @@ fields:
     description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
     type: Timestamp
     example_hex: 00000163400d3f00
-    example_value: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
     notes: "Contract Expiration - Amendments can be restricted to a vote."
 
   - name: ContractURI
@@ -118,8 +116,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example_hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
-    example_value: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
+    example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
     notes: ""
 
   - name: Issuer
@@ -133,8 +130,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example_hex: "2368747470733a2f2f6578616d706c652e636f6d2f696d616765732f6c6f676f2e706e67"
-    example_value: "https://example.com/images/logo.png"
+    example: "https://example.tld/images/logo.png"
     notes: ""
 
   - name: ContractOperatorIncluded
@@ -151,11 +147,9 @@ fields:
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags
-    description: "Authorization Flags aka Terms and Conditions that the smart contract can enforce.  Other terms and conditions that are out of the smart contract's control are listed in the actual Contract File."
+    description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Contract File."
     type: varbin
     size: 16
-    example_hex: 492492496db6db6d249b6db6db6db6c0
-    example_value: "010010010010010010010010010010010110110110110110110110110110110100100100100110110110110110110110110110110110110110110110110000000"
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
   - name: ContractFee
@@ -176,43 +170,41 @@ fields:
     type: uint
     size: 8
     example_hex: 0000000000000001
-    example_value: "1"
+    example: "1"
     notes: "Qty of Assets - Amendments can be restricted to a vote."
 
   - name: IssuerProposal
     label: Issuer Proposal
-    description: "The issuer is permitted to make proposals (outside of smart contract scope)."
+    description: "Set to true if an Issuer is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
-    example_value: true
+    example: true
     notes: "General Governance"
 
   - name: HolderProposal
     label: Holder Proposal
-    description: "A holder is permitted to make proposals (outside of smart contract scope)."
+    description: "Set to true if a holder is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
-    example_value: true
+    example: true
     notes: ""
 
   - name: Registers
     label: Regisers
-    description: "A list Register"
+    description: "A list of registers that provide approval for all token transfers for all assets under the contract."
     type: Register[]
 
   - name: ContractRevision
     label: Contract Revision
-    description: "Counter. Cannot be manually changed by issuer.  Can only be incremented by 1 by SC when CF action is published."
+    description: "A counter for the number of times this contract has been revised using an amendment action."
     type: uint
     size: 4
     example_hex: 0000000000000000
-    example_value: "0"
+    example: "0"
     notes: "Can't be changed by issuer or smart contract operator."
 
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
     notes: "Cannot be changed by issuer, operator. Smart contract controls."

@@ -24,13 +24,13 @@ rules:
   fee:
   inputs:
     - name: MsgSender
-      label: "Msg Sender's Public Address"
-      comments:
+      label: "Sender Public Address"
+      comments: The user sending the message.
 
   outputs:
     - name: MsgReceiverX
-      label: "Msg Receiver's Public Address"
-      comments: Dust limit rule minimum value output of 546
+      label: Receiver Public Address"
+      comments: "The recipient's address for the message, supplied by the sender."
 
 fields:
   - name: AddressIndexes
@@ -44,7 +44,7 @@ fields:
     description: "Potential for up to 65,535 different message types. Values from resources/Messages.yaml"
     type: MessageType
     example_hex: "36000000"
-    example_value: "6000"
+    example: "6000"
     notes: ""
 
   - name: MessagePayload
@@ -58,5 +58,5 @@ fields:
     # varbin size is number of bits to serialize the size of the data
     size: 32
     example_hex: "0000000c48656c6c6f20776f726c6421"
-    example_value: "Hello world!"
+    example: "Hello world!"
     notes: ""

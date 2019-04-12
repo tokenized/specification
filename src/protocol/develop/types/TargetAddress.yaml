@@ -16,5 +16,5 @@ fields:
     type: uint
     size: 8
     example_hex: 0000000000002710
-    example_value: "10000"
+    example: "10000"
     notes: ""

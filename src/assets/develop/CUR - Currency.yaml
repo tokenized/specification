@@ -16,6 +16,7 @@ metadata:
 fields:
   - name: Version
     label: Payload Version
+    description: The version number that this asset payload adheres to.
     type: uint
     size: 1
     example: 0

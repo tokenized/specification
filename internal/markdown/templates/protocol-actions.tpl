@@ -44,7 +44,11 @@ Each message should be prefixed with common header data. See the [Transactions a
             {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
         {{- end}}
         </td>
-        <td>{{.Description}} {{.Notes}}</td>
+        <td>
+            {{.Description}}
+            {{.Notes}}
+            {{- if .Example }} Example: {{.Example}}{{ end }}
+        </td>
     </tr>
     {{- end}}
 </table>

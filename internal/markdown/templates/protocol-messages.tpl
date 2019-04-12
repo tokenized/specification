@@ -42,7 +42,11 @@ The Tokenized protocol features a complete messaging suite for all types of mess
             {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
         {{- end}}
         </td>
-        <td>{{.Description}} {{.Notes}}</td>
+        <td>
+            {{.Description}}
+            {{.Notes}}
+            {{- if .Example }} Example: {{.Example}}{{ end }}
+        </td>
     </tr>
     {{- end}}
 </table>

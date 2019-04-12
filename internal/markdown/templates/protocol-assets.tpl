@@ -43,7 +43,11 @@ Asset Types are used with reference to the `AssetPayload` field found in the Ass
             {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
         {{- end}}
         </td>
-        <td>{{.Description}} {{.Notes}}</td>
+        <td>
+            {{.Description}}
+            {{.Notes}}
+            {{- if .Example }} Example: {{.Example}}{{ end }}
+        </td>
     </tr>
     {{- end}}
 </table>

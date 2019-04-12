@@ -16,18 +16,16 @@ rules:
   inputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: "The contract that is performing this action."
 
   outputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: "Required so that users can monitor transactions to the contract for notifications of this action."
 
 fields:
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
     notes: "Cannot be changed by issuer, operator. Smart contract controls."

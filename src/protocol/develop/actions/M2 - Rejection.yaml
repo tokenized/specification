@@ -16,12 +16,12 @@ rules:
   inputs:
     - name: Contract
       label: Contract Public Address
-      comments:
+      comments: "The contract that is performing this action."
 
   outputs:
     - name: Recipients
-      label: Effected user/contract public addresses.
-      comments: Return the money less fees
+      label: User / Contract public addresses
+      comments: "The affected user or contract's publid addresses. Refunds all money provided in the request action, less fees"
 
 fields:
   - name: AddressIndexes
@@ -42,7 +42,7 @@ fields:
     description: "Classifies the rejection by a type."
     type: RejectionCode
     example_hex: 01
-    example_value: "1"
+    example: "1"
     notes: ""
 
   - name: Message
@@ -52,13 +52,11 @@ fields:
     # varchar size is number of bits to serialize the size of the value
     size: 16
     example_hex: 00000024536f7272792c20796f7520646f6e2774206861766520656e6f75676820746f6b656e732e
-    example_value: "Sorry, you don't have enough tokens."
+    example: "Sorry, you don't have enough tokens."
     notes: ""
 
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    example_hex: 1588f8cc6a16430d
-    example_value: 1551767413250187179
     notes: "Cannot be changed by issuer, operator. Smart contract controls."

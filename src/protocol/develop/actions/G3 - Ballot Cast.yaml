@@ -15,21 +15,19 @@ rules:
   fee:
   inputs:
     - name: User
-      label: "Token Owner's Public Key Hash"
-      comments:
+      label: "Token Owner's Public Address"
+      comments: "The user casting the ballot for this contract."
 
   outputs:
     - name: Contract
-      label: Contract Public Key Hash
-      comments: Fund ballot cast response.
+      label: Contract Public Address
+      comments: "Funds ballot cast response."
 
 fields:
   - name: VoteTxId
     label: Vote Tx ID
     description: "Tx ID of the Vote the Ballot Cast is being made for."
     type: TxId
-    example_hex: f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37
-    example_value: "f3318be9fb3f73e53b29868beae46b42911c2116f979a5d3284face90746cb37"
     notes: ""
 
   - name: Vote
@@ -39,5 +37,5 @@ fields:
     # varchar size is number of bits to serialize the size of the value
     size: 8
     example_hex: 0141
-    example_value: "A"
+    example: "A"
     notes: ""
