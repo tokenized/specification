@@ -278,10 +278,6 @@ func (m *{{.Name}}) Validate() error {
 		if GetRoleType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
 		}
-{{- else if eq .Type "MessageType" }}
-		if GetMessageType(m.{{.Name}}) == nil {
-			return fmt.Errorf("Invalid message value : %d", m.{{.Name}})
-		}
 {{- else if eq .Type "Currency" }}
 		if GetCurrency(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})

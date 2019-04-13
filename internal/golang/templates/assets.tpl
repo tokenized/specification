@@ -241,15 +241,6 @@ func (m *{{.Name}}) Validate() error {
 		if !exists {
 			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
 		}
-{{- else if eq .Type "MessageType" }}
-		messages, err := GetMessages()
-		if err != nil {
-			return err
-		}
-		_, exists := messages[m.{{.Name}}]
-		if !exists {
-			return fmt.Errorf("Invalid message value : %d", m.{{.Name}})
-		}
 {{- else if eq .Type "Currency" }}
 		currencies, err := GetCurrencies()
 		if err != nil {

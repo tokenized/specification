@@ -159,41 +159,6 @@ func GetPolityType(pol string) *PolityType {
 	return &result
 }
 
-type MessageType struct {
-	Name string
-}
-
-var messageTypes map[uint16]MessageType
-
-func GetMessageTypes() (map[uint16]MessageType, error) {
-	if messageTypes != nil {
-		return messageTypes, nil
-	}
-
-	load := struct {
-		Values map[uint16]MessageType
-	}{}
-
-	if err := yaml.Unmarshal([]byte(yamlMessages), &load); err != nil {
-		return nil, errors.Wrap(err, "Failed to unmarshal messages yaml")
-	}
-
-	messageTypes = load.Values
-	return messageTypes, nil
-}
-
-func GetMessageType(mes uint16) *MessageType {
-	types, err := GetMessageTypes()
-	if err != nil {
-		return nil
-	}
-	result, exists := types[mes]
-	if !exists {
-		return nil
-	}
-	return &result
-}
-
 type RoleType struct {
 	Name string
 }

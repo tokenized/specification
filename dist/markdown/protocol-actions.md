@@ -732,12 +732,12 @@ Allows the Issuer to tell the smart contract what they want the details (labels,
         </td>
     </tr>
     <tr>
-        <td>Registers</td>
+        <td>Oracles</td>
         <td>
-            <a href="field-types#type-register">Register[]</a>
+            <a href="field-types#type-oracle">Oracle[]</a>
         </td>
         <td>
-            A list of registers that provide approval for all token transfers for all assets under the contract.
+            A list of oracles that provide approval for all token transfers for all assets under the contract.
             
         </td>
     </tr>
@@ -997,12 +997,12 @@ This txn is created by the Contract (smart contract/off-chain agent/token contra
         </td>
     </tr>
     <tr>
-        <td>Registers</td>
+        <td>Oracles</td>
         <td>
-            <a href="field-types#type-register">Register[]</a>
+            <a href="field-types#type-oracle">Oracle[]</a>
         </td>
         <td>
-            A list of registers that provide approval for all token transfers for all assets under the contract.
+            A list of oracles that provide approval for all token transfers for all assets under the contract.
             
         </td>
     </tr>

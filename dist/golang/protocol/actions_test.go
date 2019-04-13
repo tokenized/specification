@@ -604,10 +604,10 @@ func TestContractOffer(t *testing.T) {
 		initialMessage.HolderProposal = true
 	}
 
-	// Registers (Register[])
+	// Oracles (Oracle[])
 	{
 		for i := 0; i < 2; i++ {
-			initialMessage.Registers = append(initialMessage.Registers, Register{})
+			initialMessage.Oracles = append(initialMessage.Oracles, Oracle{})
 		}
 	}
 
@@ -740,9 +740,9 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// Registers (Register[])
-	if len(initialMessage.Registers) != len(decodedMessage.Registers) {
-		t.Errorf("Registers lengths don't match : %d != %d", len(initialMessage.Registers), len(decodedMessage.Registers))
+	// Oracles (Oracle[])
+	if len(initialMessage.Oracles) != len(decodedMessage.Oracles) {
+		t.Errorf("Oracles lengths don't match : %d != %d", len(initialMessage.Oracles), len(decodedMessage.Oracles))
 	}
 }
 
@@ -872,10 +872,10 @@ func TestContractFormation(t *testing.T) {
 		initialMessage.HolderProposal = true
 	}
 
-	// Registers (Register[])
+	// Oracles (Oracle[])
 	{
 		for i := 0; i < 2; i++ {
-			initialMessage.Registers = append(initialMessage.Registers, Register{})
+			initialMessage.Oracles = append(initialMessage.Oracles, Oracle{})
 		}
 	}
 
@@ -1018,9 +1018,9 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("HolderProposal doesn't match : %v != %v", initialMessage.HolderProposal, decodedMessage.HolderProposal)
 	}
 
-	// Registers (Register[])
-	if len(initialMessage.Registers) != len(decodedMessage.Registers) {
-		t.Errorf("Registers lengths don't match : %d != %d", len(initialMessage.Registers), len(decodedMessage.Registers))
+	// Oracles (Oracle[])
+	if len(initialMessage.Oracles) != len(decodedMessage.Oracles) {
+		t.Errorf("Oracles lengths don't match : %d != %d", len(initialMessage.Oracles), len(decodedMessage.Oracles))
 	}
 
 	// ContractRevision (uint)

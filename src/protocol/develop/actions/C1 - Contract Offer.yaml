@@ -197,7 +197,7 @@ fields:
     example: true
     notes: ""
 
-  - name: Registers
-    label: Registers
-    description: "A list of registers that provide approval for all token transfers for all assets under the contract."
-    type: Register[]
+  - name: Oracles
+    label: Oracles
+    description: "A list of oracles that provide approval for all token transfers for all assets under the contract."
+    type: Oracle[]

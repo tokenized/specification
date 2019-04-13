@@ -1192,7 +1192,7 @@ type ContractOffer struct {
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	IssuerProposal           bool           `json:"issuer_proposal,omitempty"`            // Set to true if an Issuer is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
-	Registers                []Register     `json:"registers,omitempty"`                  // A list of registers that provide approval for all token transfers for all assets under the contract.
+	Oracles                  []Oracle       `json:"oracles,omitempty"`                    // A list of oracles that provide approval for all token transfers for all assets under the contract.
 }
 
 // Type returns the type identifer for this message.
@@ -1382,12 +1382,12 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		}
 	}
 
-	// Registers ([]Register)
+	// Oracles ([]Oracle)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Registers)), 0, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Oracles)), 0, 8); err != nil {
 			return nil, err
 		}
-		for _, value := range action.Registers {
+		for _, value := range action.Oracles {
 			b, err := value.Serialize()
 			if err != nil {
 				return nil, err
@@ -1573,20 +1573,20 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 		}
 	}
 
-	// Registers ([]Register)
+	// Oracles ([]Oracle)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return 0, err
 		}
-		action.Registers = make([]Register, 0, size)
+		action.Oracles = make([]Oracle, 0, size)
 		for i := uint64(0); i < size; i++ {
-			var newValue Register
+			var newValue Oracle
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			action.Registers = append(action.Registers, newValue)
+			action.Oracles = append(action.Oracles, newValue)
 		}
 	}
 
@@ -1732,16 +1732,16 @@ func (m *ContractOffer) Validate() error {
 	{
 	}
 
-	// Registers ([]Register)
+	// Oracles ([]Oracle)
 	{
-		if len(m.Registers) > (2<<0)-1 {
-			return fmt.Errorf("list field Registers has too many items %d/%d", len(m.Registers), (2<<0)-1)
+		if len(m.Oracles) > (2<<0)-1 {
+			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<0)-1)
 		}
 
-		for i, value := range m.Registers {
+		for i, value := range m.Oracles {
 			err := value.Validate()
 			if err != nil {
-				return fmt.Errorf("list field Registers[%d] is invalid : %s", i, err)
+				return fmt.Errorf("list field Oracles[%d] is invalid : %s", i, err)
 			}
 		}
 	}
@@ -1772,7 +1772,7 @@ func (action ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("Registers:%#+v", action.Registers))
+	vals = append(vals, fmt.Sprintf("Oracles:%#+v", action.Oracles))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -1804,7 +1804,7 @@ type ContractFormation struct {
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	IssuerProposal           bool           `json:"issuer_proposal,omitempty"`            // Set to true if an Issuer is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
-	Registers                []Register     `json:"registers,omitempty"`                  // A list of registers that provide approval for all token transfers for all assets under the contract.
+	Oracles                  []Oracle       `json:"oracles,omitempty"`                    // A list of oracles that provide approval for all token transfers for all assets under the contract.
 	ContractRevision         uint32         `json:"contract_revision,omitempty"`          // A counter for the number of times this contract has been revised using an amendment action.
 	Timestamp                Timestamp      `json:"timestamp,omitempty"`                  // Timestamp in nanoseconds of when the smart contract created the action.
 }
@@ -1996,12 +1996,12 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// Registers ([]Register)
+	// Oracles ([]Oracle)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Registers)), 0, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Oracles)), 0, 8); err != nil {
 			return nil, err
 		}
-		for _, value := range action.Registers {
+		for _, value := range action.Oracles {
 			b, err := value.Serialize()
 			if err != nil {
 				return nil, err
@@ -2206,20 +2206,20 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// Registers ([]Register)
+	// Oracles ([]Oracle)
 	{
 		size, err := ReadVariableSize(buf, 0, 8)
 		if err != nil {
 			return 0, err
 		}
-		action.Registers = make([]Register, 0, size)
+		action.Oracles = make([]Oracle, 0, size)
 		for i := uint64(0); i < size; i++ {
-			var newValue Register
+			var newValue Oracle
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			action.Registers = append(action.Registers, newValue)
+			action.Oracles = append(action.Oracles, newValue)
 		}
 	}
 
@@ -2379,16 +2379,16 @@ func (m *ContractFormation) Validate() error {
 	{
 	}
 
-	// Registers ([]Register)
+	// Oracles ([]Oracle)
 	{
-		if len(m.Registers) > (2<<0)-1 {
-			return fmt.Errorf("list field Registers has too many items %d/%d", len(m.Registers), (2<<0)-1)
+		if len(m.Oracles) > (2<<0)-1 {
+			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<0)-1)
 		}
 
-		for i, value := range m.Registers {
+		for i, value := range m.Oracles {
 			err := value.Validate()
 			if err != nil {
-				return fmt.Errorf("list field Registers[%d] is invalid : %s", i, err)
+				return fmt.Errorf("list field Oracles[%d] is invalid : %s", i, err)
 			}
 		}
 	}
@@ -2431,7 +2431,7 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("Registers:%#+v", action.Registers))
+	vals = append(vals, fmt.Sprintf("Oracles:%#+v", action.Oracles))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
@@ -5398,9 +5398,6 @@ func (m *Message) Validate() error {
 
 	// MessageType (uint16)
 	{
-		if GetMessageType(m.MessageType) == nil {
-			return fmt.Errorf("Invalid message value : %d", m.MessageType)
-		}
 	}
 
 	// MessagePayload ([]byte)

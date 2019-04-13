@@ -1,7 +1,7 @@
 metadata:
   name: TokenReceiver
   label: Token Receiver
-  description: "A TokenReceiver is contains a quantity, index, and register signature. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position."
+  description: "A TokenReceiver is contains a quantity, index, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position."
 
 fields:
   - name: Index
@@ -22,9 +22,9 @@ fields:
     example: 100
     notes: ""
 
-  - name: RegisterSigAlgorithm
-    label: Register Signature Algorithm
-    description: "0 = No Register-signed Message (RegisterConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has registers, then a signature is required from one of them."
+  - name: OracleSigAlgorithm
+    label: Oracle Signature Algorithm
+    description: "0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has oracles, then a signature is required from one of them."
     type: uint
     size: 1
     example_hex: 01
@@ -34,14 +34,14 @@ fields:
       - 0
       - 1
 
-  - name: RegisterConfirmationSig
-    label: Register Confirmation Signature
-    description: "Length 0-255 bytes. If restricted to a register (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted register through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field."
+  - name: OracleConfirmationSig
+    label: Oracle Confirmation Signature
+    description: "Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field."
     type: varbin
     # varbin size is number of bits to serialize the size of the value
     size: 8
     notes: ""
     include_if_int:
-      field: RegisterSigAlgorithm
+      field: OracleSigAlgorithm
       values:
         - 1
