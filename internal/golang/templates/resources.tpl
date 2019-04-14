@@ -5,32 +5,30 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-type RejectionCode struct {
+type RejectionCodeData struct {
 	Name string
 	Text string
 	Description string
 }
 
-var rejectionTypes map[uint8]RejectionCode
+var rejectionTypes map[uint8]RejectionCodeData
 
-func GetRejectionCodes() (map[uint8]RejectionCode, error) {
+func GetRejectionCodes() (map[uint8]RejectionCodeData, error) {
 	if rejectionTypes != nil {
 		return rejectionTypes, nil
 	}
 
-	load := struct {
-		Values map[uint8]RejectionCode
-	}{}
+	var load map[uint8]RejectionCodeData
 
-	if err := yaml.Unmarshal([]byte(yamlRejectionCodes), &load); err != nil {
+	if err := yaml.Unmarshal([]byte(yamlRejections), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal rejection codes yaml")
 	}
 
-	rejectionTypes = load.Values
+	rejectionTypes = load
 	return rejectionTypes, nil
 }
 
-func GetRejectionCode(code uint8) *RejectionCode {
+func GetRejectionCode(code uint8) *RejectionCodeData {
 	types, err := GetRejectionCodes()
 	if err != nil {
 		return nil
@@ -42,7 +40,7 @@ func GetRejectionCode(code uint8) *RejectionCode {
 	return &result
 }
 
-type CurrencyType struct {
+type CurrencyTypeData struct {
 	Name              string
 	Label             string
 	Symbol            string
@@ -52,26 +50,24 @@ type CurrencyType struct {
 	MonetaryAuthority string `yaml:"monetary_authority"`
 }
 
-var currencyTypes map[string]CurrencyType
+var currencyTypes map[string]CurrencyTypeData
 
-func GetCurrencies() (map[string]CurrencyType, error) {
+func GetCurrencies() (map[string]CurrencyTypeData, error) {
 	if currencyTypes != nil {
 		return currencyTypes, nil
 	}
 
-	load := struct {
-		Values map[string]CurrencyType
-	}{}
+	var load map[string]CurrencyTypeData
 
 	if err := yaml.Unmarshal([]byte(yamlCurrencies), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal currencyTypes yaml")
 	}
 
-	currencyTypes = load.Values
+	currencyTypes = load
 	return currencyTypes, nil
 }
 
-func GetCurrency(cur string) *CurrencyType {
+func GetCurrency(cur string) *CurrencyTypeData {
 	types, err := GetCurrencies()
 	if err != nil {
 		return nil
@@ -83,32 +79,36 @@ func GetCurrency(cur string) *CurrencyType {
 	return &result
 }
 
-type EntityType struct {
+type EntityTypeData struct {
 	Name              string
 	Label             string
 	Symbol            string
 }
 
-var entityTypes map[string]EntityType
+var entityTypes map[byte]EntityTypeData
 
-func GetEntityTypes() (map[string]EntityType, error) {
+func GetEntityTypes() (map[byte]EntityTypeData, error) {
 	if entityTypes != nil {
 		return entityTypes, nil
 	}
 
-	load := struct {
-		Values map[string]EntityType
-	}{}
+	var load map[string]EntityTypeData
 
 	if err := yaml.Unmarshal([]byte(yamlEntities), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal entities yaml")
 	}
 
-	entityTypes = load.Values
+	entityTypes = make(map[byte]EntityTypeData)
+	for key, value := range load {
+		if len(key) > 1 {
+			return nil, fmt.Errorf("Entity type too long : %s", key)
+		}
+		entityTypes[byte(key[0])] = value
+	}
 	return entityTypes, nil
 }
 
-func GetEntityType(ent string) *EntityType {
+func GetEntityType(ent byte) *EntityTypeData {
 	types, err := GetEntityTypes()
 	if err != nil {
 		return nil
@@ -135,15 +135,13 @@ func GetPolityTypes() (map[string]PolityType, error) {
 		return polityTypes, nil
 	}
 
-	load := struct {
-		Values map[string]PolityType
-	}{}
+	var load map[string]PolityType
 
 	if err := yaml.Unmarshal([]byte(yamlPolities), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal polities yaml")
 	}
 
-	polityTypes = load.Values
+	polityTypes = load
 	return polityTypes, nil
 }
 
@@ -170,15 +168,13 @@ func GetRoleTypes() (map[uint8]RoleType, error) {
 		return roleTypes, nil
 	}
 
-	load := struct {
-		Values map[uint8]RoleType
-	}{}
+	var load map[uint8]RoleType
 
 	if err := yaml.Unmarshal([]byte(yamlRoles), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal roles yaml")
 	}
 
-	roleTypes = load.Values
+	roleTypes = load
 	return roleTypes, nil
 }
 

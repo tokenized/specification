@@ -3,7 +3,7 @@
 # Protocol Assets
 
 - [Introduction](#introduction)
-- [Available Actions](#all-assets)
+- [Available Assets](#all-assets)
 
 <a name="introduction"></a>
 ## Introduction

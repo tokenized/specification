@@ -53,14 +53,14 @@ fields:
     label: Value
     type: uint
     size: 8
-    example: "Denominated in the smallest unit of currency specified in the Currency subfield."
+    example: Denominated in the smallest unit of currency specified in the Currency subfield.
     span: right
     displayOrder: 4
 
   - name: Currency
     label: Currency
-    type: Currency
-    description: "Currency for coupon. From resources/currency."
+    type: CurrencyType
+    description: International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.
     example: AUD
     span: right
     displayOrder: 4

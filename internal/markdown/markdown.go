@@ -22,6 +22,8 @@ func Compile(
 
 	templateToFile(distPath, "protocol-field-types.tpl", "protocol-field-types.md", types)
 
+	templateToFile(distPath, "protocol-resources.tpl", "protocol-resources.md", resources)
+
 	// for _, action := range actions {
 	// 	outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
 	// 	templateToFile(distPath, "action.tpl", outfile, action)

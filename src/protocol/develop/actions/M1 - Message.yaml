@@ -42,7 +42,7 @@ fields:
   - name: MessageType
     label: Message Type
     description: "Potential for up to 65,535 different message types. Values from resources/Messages.yaml"
-    type: MessageType
+    type: uint16
     example_hex: "36000000"
     example: "6000"
     notes: ""

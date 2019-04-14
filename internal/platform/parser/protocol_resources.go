@@ -1,7 +1,10 @@
 package parser
 
 import (
+	"bufio"
+	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"strings"
 
@@ -19,10 +22,30 @@ func NewProtocolResources(filenames []string) ProtocolResources {
 
 		m := ProtocolResource{}
 		if err := yaml.Unmarshal(data, &m); err != nil {
-			panic(fmt.Errorf("file %v : %v", filename, err))
+			panic(fmt.Errorf("file %v : %s", filename, err))
 		}
-		m.Data = string(data)
 
+		// Strip header
+		buf := bufio.NewReader(bytes.NewBuffer(data))
+		var output bytes.Buffer
+		started := false
+		for {
+			line, _, err := buf.ReadLine()
+			if err != nil {
+				if err == io.EOF {
+					break
+				}
+				panic(fmt.Errorf("file %v : %s", filename, err))
+			}
+			if started {
+				output.Write(line)
+				output.WriteByte(byte('\n'))
+			} else if strings.HasPrefix(string(line), "values:") {
+				started = true
+			}
+		}
+
+		m.Data = string(output.Bytes())
 		items = append(items, m)
 	}
 

@@ -121,6 +121,10 @@ func (f Field) IsNativeTypeArray() bool {
 	return !f.IsInternalType() && strings.HasSuffix(f.Type, "[]")
 }
 
+func (f Field) IsResourceTypeArray() bool {
+	return IsResource(f.Type) && strings.HasSuffix(f.Type, "[]")
+}
+
 func (f Field) IsInternalType() bool {
 	return IsInternalType(f.Type, f.Size)
 }

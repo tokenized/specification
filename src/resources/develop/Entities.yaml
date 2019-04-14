@@ -1,6 +1,6 @@
 metadata:
   name: Entities
-  description: "Legal Entities & Ownership Structures"
+  description: "Legal Entities & Ownership Structures. 1 character."
   type: EntityType
 
 values:
@@ -31,7 +31,7 @@ values:
         administrators: # Board of Directors
           chairman: null
           director: []
-        managers: 
+        managers:
           ceo: null
           coo: null
           cfo: null
@@ -57,7 +57,7 @@ values:
           chairman: null
           director: []
           secretary: null
-        managers: 
+        managers:
           ceo: null
           coo: null
           cfo: null
@@ -79,7 +79,7 @@ values:
           partner: []
         managers:
           managingPartner: []
-        general: 
+        general:
           accountant: []
           advisor: []
           employee: []
@@ -200,7 +200,7 @@ values:
         administrators:
           protector: []
           trustee: []
-        general: 
+        general:
           accountant: []
           advisor: []
           custodian: []

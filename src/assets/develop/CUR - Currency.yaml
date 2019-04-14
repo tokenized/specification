@@ -24,9 +24,9 @@ fields:
 
   - name: ISOCode
     label: ISO Code
-    type: Currency
+    type: CurrencyType
     example: AUD
-    description: International Organization for Standardization code for Currency.
+    description: International Organization for Standardization code for Currency. (Specification/Resources)
     span: full
     displayOrder: 3
 

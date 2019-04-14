@@ -232,40 +232,52 @@ func (m *{{.Name}}) Validate() error {
 		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
 			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
 		}
-{{- else if eq .Type "Role" }}
-		roles, err := GetRoles()
-		if err != nil {
-			return err
+{{- else if .IsResourceTypeArray }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
 		}
-		_, exists := roles[m.{{.Name}}]
-		if !exists {
+
+		for _, value := range m.{{.Name}} {
+	{{- if eq .Type "RejectionCode[]" }}
+			if GetRejectionCode(value) == nil {
+				return fmt.Errorf("Invalid rejection code value : %d", m.{{.Name}})
+			}
+	{{- else if eq .Type "Role[]" }}
+			if GetRoleType(value) == nil {
+				return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
+			}
+	{{- else if eq .Type "CurrencyType[]" }}
+			if GetCurrency(value[:]) == nil {
+				return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
+			}
+	{{- else if eq .Type "Polity[]" }}
+			if GetPolityType(string(value[:])) == nil {
+				return fmt.Errorf("Invalid polity value : %d", m.{{.Name}})
+			}
+	{{- else if eq .Type "EntityType[]" }}
+			if GetEntityType(value) == nil {
+				return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
+			}
+	{{- end }}
+		}
+{{- else if eq .Type "RejectionCode" }}
+		if GetRejectionCode(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid rejection code value : %d", m.{{.Name}})
+		}
+{{- else if eq .Type "Role" }}
+		if GetRoleType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
 		}
-{{- else if eq .Type "Currency" }}
-		currencies, err := GetCurrencies()
-		if err != nil {
-			return err
-		}
-		_, exists := currencies[string(m.{{.Name}}[:])]
-		if !exists {
+{{- else if eq .Type "CurrencyType" }}
+		if GetCurrency(string(m.{{.Name}}[:])) == nil {
 			return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
 		}
 {{- else if eq .Type "Polity" }}
-		polities, err := GetPolities()
-		if err != nil {
-			return err
-		}
-		_, exists := polities[string(m.{{.Name}}[:])]
-		if !exists {
+		if GetPolityType(string(m.{{.Name}}[:])) == nil {
 			return fmt.Errorf("Invalid polity value : %d", m.{{.Name}})
 		}
 {{- else if eq .Type "EntityType" }}
-		entities, err := GetEntities()
-		if err != nil {
-			return err
-		}
-		_, exists := entities[string{m.{{.Name}}}]
-		if !exists {
+		if GetEntityType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
 		}
 {{- else if .IsInternalTypeArray }}

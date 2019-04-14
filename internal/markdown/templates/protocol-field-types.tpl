@@ -108,11 +108,6 @@ The `size` does not need to be specified and is always 32 bytes.
 
 `Timestamp` represents a time. `size` does not need to be specified and is always 8 bytes.
 
-<a name="type-polity"></a>
-### Polity
-
-`Polity` represents a unique identifier for a nation/state/political entity. `size` does not need to be specified and is always 3 bytes.
-
 <a name="compound-types"></a>
 ## Compound Types
 

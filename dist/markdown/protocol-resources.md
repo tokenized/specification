@@ -1,200 +1,33 @@
-package protocol
+# Protocol Resources
 
-import (
-	"fmt"
+- [Introduction](#introduction)
+- [Available Resources](#all-resources)
 
-	"github.com/pkg/errors"
-	yaml "gopkg.in/yaml.v2"
-)
+<a name="introduction"></a>
+## Introduction
 
-type RejectionCodeData struct {
-	Name        string
-	Text        string
-	Description string
-}
+Resources are used to define lists of values, like the definitions of the possible values for a type field.
 
-var rejectionTypes map[uint8]RejectionCodeData
+<a name="all-resources"></a>
+## Available Resources
 
-func GetRejectionCodes() (map[uint8]RejectionCodeData, error) {
-	if rejectionTypes != nil {
-		return rejectionTypes, nil
-	}
+<div class="content-list collection-method-list" markdown="1">
+- [Currencies](#CurrencyType)
+- [Entities](#EntityType)
+- [Polities](#Polity)
+- [Rejections](#RejectionCode)
+- [Roles](#Role)
+</div>
 
-	var load map[uint8]RejectionCodeData
+<a name="CurrencyType"></a>
+#### Currencies
 
-	if err := yaml.Unmarshal([]byte(yamlRejections), &load); err != nil {
-		return nil, errors.Wrap(err, "Failed to unmarshal rejection codes yaml")
-	}
+International Organization for Standardization code for Currency. 3 character code.
 
-	rejectionTypes = load
-	return rejectionTypes, nil
-}
+Source: https://github.com/tokenized/specification/blob/master/src/resources/develop/Currencies.yaml
 
-func GetRejectionCode(code uint8) *RejectionCodeData {
-	types, err := GetRejectionCodes()
-	if err != nil {
-		return nil
-	}
-	result, exists := types[code]
-	if !exists {
-		return nil
-	}
-	return &result
-}
-
-type CurrencyTypeData struct {
-	Name              string
-	Label             string
-	Symbol            string
-	Fractions         uint64
-	FractionalUnit    string `yaml:"fractional_unit"`
-	Polity            string
-	MonetaryAuthority string `yaml:"monetary_authority"`
-}
-
-var currencyTypes map[string]CurrencyTypeData
-
-func GetCurrencies() (map[string]CurrencyTypeData, error) {
-	if currencyTypes != nil {
-		return currencyTypes, nil
-	}
-
-	var load map[string]CurrencyTypeData
-
-	if err := yaml.Unmarshal([]byte(yamlCurrencies), &load); err != nil {
-		return nil, errors.Wrap(err, "Failed to unmarshal currencyTypes yaml")
-	}
-
-	currencyTypes = load
-	return currencyTypes, nil
-}
-
-func GetCurrency(cur string) *CurrencyTypeData {
-	types, err := GetCurrencies()
-	if err != nil {
-		return nil
-	}
-	result, exists := types[cur]
-	if !exists {
-		return nil
-	}
-	return &result
-}
-
-type EntityTypeData struct {
-	Name   string
-	Label  string
-	Symbol string
-}
-
-var entityTypes map[byte]EntityTypeData
-
-func GetEntityTypes() (map[byte]EntityTypeData, error) {
-	if entityTypes != nil {
-		return entityTypes, nil
-	}
-
-	var load map[string]EntityTypeData
-
-	if err := yaml.Unmarshal([]byte(yamlEntities), &load); err != nil {
-		return nil, errors.Wrap(err, "Failed to unmarshal entities yaml")
-	}
-
-	entityTypes = make(map[byte]EntityTypeData)
-	for key, value := range load {
-		if len(key) > 1 {
-			return nil, fmt.Errorf("Entity type too long : %s", key)
-		}
-		entityTypes[byte(key[0])] = value
-	}
-	return entityTypes, nil
-}
-
-func GetEntityType(ent byte) *EntityTypeData {
-	types, err := GetEntityTypes()
-	if err != nil {
-		return nil
-	}
-	result, exists := types[ent]
-	if !exists {
-		return nil
-	}
-	return &result
-}
-
-type PolityType struct {
-	Name          string
-	States        map[string]string
-	Flag          string
-	FiscalYear    string `yaml:"fractional_unit"`
-	GovFiscalYear string `yaml:"gov_fiscal_year"`
-}
-
-var polityTypes map[string]PolityType
-
-func GetPolityTypes() (map[string]PolityType, error) {
-	if polityTypes != nil {
-		return polityTypes, nil
-	}
-
-	var load map[string]PolityType
-
-	if err := yaml.Unmarshal([]byte(yamlPolities), &load); err != nil {
-		return nil, errors.Wrap(err, "Failed to unmarshal polities yaml")
-	}
-
-	polityTypes = load
-	return polityTypes, nil
-}
-
-func GetPolityType(pol string) *PolityType {
-	types, err := GetPolityTypes()
-	if err != nil {
-		return nil
-	}
-	result, exists := types[pol]
-	if !exists {
-		return nil
-	}
-	return &result
-}
-
-type RoleType struct {
-	Name string
-}
-
-var roleTypes map[uint8]RoleType
-
-func GetRoleTypes() (map[uint8]RoleType, error) {
-	if roleTypes != nil {
-		return roleTypes, nil
-	}
-
-	var load map[uint8]RoleType
-
-	if err := yaml.Unmarshal([]byte(yamlRoles), &load); err != nil {
-		return nil, errors.Wrap(err, "Failed to unmarshal roles yaml")
-	}
-
-	roleTypes = load
-	return roleTypes, nil
-}
-
-func GetRoleType(role uint8) *RoleType {
-	types, err := GetRoleTypes()
-	if err != nil {
-		return nil
-	}
-	result, exists := types[role]
-	if !exists {
-		return nil
-	}
-	return &result
-}
-
-// Currencies - International Organization for Standardization code for
-// Currency. 3 character code.
-var yamlCurrencies = `
+<div><button onclick="showHideYaml('CurrenciesYaml')">Show/Hide Currencies</button></div>
+<code id="CurrenciesYaml">
   AED:
     name: UnitedArabEmiratesDirham
     label: United Arab Emirates dirham
@@ -1455,10 +1288,19 @@ var yamlCurrencies = `
     polity: ZMB
     monetary_authority: Bank of Zambia
 
-`
+</code>
 
-// Entities - Legal Entities & Ownership Structures. 1 character.
-var yamlEntities = `
+
+
+<a name="EntityType"></a>
+#### Entities
+
+Legal Entities & Ownership Structures. 1 character.
+
+Source: https://github.com/tokenized/specification/blob/master/src/resources/develop/Entities.yaml
+
+<div><button onclick="showHideYaml('EntitiesYaml')">Show/Hide Entities</button></div>
+<code id="EntitiesYaml">
     I:
       name: individual # (Natural Person)
       label: "Individual"
@@ -1665,11 +1507,19 @@ var yamlEntities = `
           settlor: []
           trader: []
 
-`
+</code>
 
-// Polities - Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3),
-// Political Unions, International Organizations, etc.). 3 character code.
-var yamlPolities = `
+
+
+<a name="Polity"></a>
+#### Polities
+
+Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, International Organizations, etc.). 3 character code.
+
+Source: https://github.com/tokenized/specification/blob/master/src/resources/develop/Polities.yaml
+
+<div><button onclick="showHideYaml('PolitiesYaml')">Show/Hide Polities</button></div>
+<code id="PolitiesYaml">
   ALA:
     name: Aaland Islands
     states: ~
@@ -3088,11 +2938,19 @@ var yamlPolities = `
     states: ~
     flag: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg"
 
-`
+</code>
 
-// Rejections - Code/Text combinations returned in rejection messages when
-// a request is not accepted.
-var yamlRejections = `
+
+
+<a name="RejectionCode"></a>
+#### Rejections
+
+Code/Text combinations returned in rejection messages when a request is not accepted.
+
+Source: https://github.com/tokenized/specification/blob/master/src/resources/develop/Rejections.yaml
+
+<div><button onclick="showHideYaml('RejectionsYaml')">Show/Hide Rejections</button></div>
+<code id="RejectionsYaml">
     #################################### Basic ####################################
 
     0:
@@ -3289,12 +3147,19 @@ var yamlRejections = `
       text: Invalid Signature
       description: The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.
 
-`
+</code>
 
-// Roles - Roles that entities play in relation to their interactions with
-// other entities. These roles have widely-accepted tasks, rights and
-// duties.
-var yamlRoles = `
+
+
+<a name="Role"></a>
+#### Roles
+
+Roles that entities play in relation to their interactions with other entities.  These roles have widely-accepted tasks, rights and duties.
+
+Source: https://github.com/tokenized/specification/blob/master/src/resources/develop/Roles.yaml
+
+<div><button onclick="showHideYaml('RolesYaml')">Show/Hide Roles</button></div>
+<code id="RolesYaml">
     1:
       name: Accountant
     2:
@@ -3357,4 +3222,17 @@ var yamlRoles = `
       name: Unit Holder
 
 
-`
+</code>
+
+
+
+<script type="text/javascript">
+function showHideYaml(id) {
+  var x = document.getElementById(id);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>

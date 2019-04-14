@@ -106,11 +106,6 @@ The `size` does not need to be specified and is always 32 bytes.
 
 `Timestamp` represents a time. `size` does not need to be specified and is always 8 bytes.
 
-<a name="type-polity"></a>
-### Polity
-
-`Polity` represents a unique identifier for a nation/state/political entity. `size` does not need to be specified and is always 3 bytes.
-
 <a name="compound-types"></a>
 ## Compound Types
 
@@ -420,10 +415,10 @@ Entity represents the details of a legal Entity, such as a public or private com
     <tr>
         <td>Type</td>
         <td>
-            fixedchar(1)
+            EntityType
         </td>
         <td>
-            P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources).
+            The type of entity. (i.e Public Company, Individual) (Specification/Resources).
              Example: P
         </td>
     </tr>

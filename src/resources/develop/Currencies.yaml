@@ -1,7 +1,7 @@
 
 metadata:
   name: Currencies
-  description: "Currencies"
+  description: "International Organization for Standardization code for Currency. 3 character code."
   type: CurrencyType
 
 

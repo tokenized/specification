@@ -41,19 +41,19 @@ func GoType(typeName string, size uint64, options []string) string {
 		return "Header"
 
 	case "Role":
-		return "uint8"
-
-	case "MessageType":
-		return "uint16"
+		name = "uint8"
 
 	case "EntityType":
-		return "byte" // single character
+		name = "byte" // single character
 
-	case "Currency":
-		return "[3]byte"
+	case "Polity":
+		name = "[3]byte"
+
+	case "CurrencyType":
+		name = "[3]byte"
 
 	case "RejectionCode":
-		return "uint8"
+		name = "uint8"
 	}
 
 	return fmt.Sprintf("%s%s", prefix, name)
@@ -84,8 +84,8 @@ func IsInternalType(typeName string, size uint64) bool {
 
 	case "Role",
 		"EntityType",
-		"Currency",
-		"MessageType",
+		"Polity",
+		"CurrencyType",
 		"RejectionCode":
 		return false
 
@@ -95,11 +95,16 @@ func IsInternalType(typeName string, size uint64) bool {
 }
 
 func IsResource(typeName string) bool {
-	switch typeName {
+	name := typeName
+	if strings.HasSuffix(name, "[]") {
+		name = typeName[:len(name)-2]
+	}
+
+	switch name {
 	case "Role",
 		"EntityType",
+		"Polity",
 		"Currency",
-		"MessageType",
 		"RejectionCode":
 		return true
 	}

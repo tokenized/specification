@@ -3,6 +3,7 @@ package parser
 type Metadata struct {
 	Name        string
 	Label       string
+	Type        string
 	Description string
 	Validation  string
 	Rejection   string

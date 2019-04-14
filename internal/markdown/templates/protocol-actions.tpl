@@ -30,6 +30,14 @@ Each message should be prefixed with common header data. See the [Transactions a
 
 <table>
     <tr>
+        <th style="width:15%">Action Code</th>
+        <td>{{ .Code }}</td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
         <th style="width:15%">Field</th>
         <th style="width:15%">Type</th>
         <th>Description</th>

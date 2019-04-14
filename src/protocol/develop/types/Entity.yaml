@@ -16,9 +16,8 @@ fields:
 
   - name: Type
     label: Type
-    description: "P - Public Company Limited by Shares, C - Private Company Limited by Shares, I - Individual, L - Limited Partnership, U -Unlimited Partnership, T - Sole Proprietorship, S - Statutory Company, O - Non-Profit Organization, N - Nation State, G - Government Agency, U - Unit Trust, D - Discretionary Trust.  Found in 'Entities' (Specification/Resources)."
-    type: fixedchar
-    size: 1
+    description: "The type of entity. (i.e Public Company, Individual) (Specification/Resources)."
+    type: EntityType
     example_hex: 50
     example: "P"
     notes: ""
