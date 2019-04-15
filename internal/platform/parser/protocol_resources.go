@@ -56,9 +56,18 @@ type ProtocolResources []ProtocolResource
 
 type ProtocolResource struct {
 	Metadata Metadata
+	Values   []ProtocolResourceValue
 	Data     string
 }
 
 func (m ProtocolResource) Name() string {
 	return strings.Replace(m.Metadata.Name, " ", "", -1)
+}
+
+type ProtocolResourceValue struct {
+	Code        string
+	Name        string
+	Label       string
+	Description string
+	Metadata    Metadata
 }
