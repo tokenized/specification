@@ -1,67 +1,95 @@
 metadata:
   name: Roles
-  description: "Roles that entities play in relation to their interactions with other entities.  These roles have widely-accepted tasks, rights and duties."
-  type: Role
+  description: >
+    Roles that entities play in relation to their interactions with other entities.
+    These roles have widely-accepted tasks, rights and duties.
 
 values:
-    1:
-      name: Accountant
-    2:
-      name: Advisor
-    3:
-      name: Agent
-    4:
-      name: Beneficiary
-    5:
-      name: CEO
-    6:
-      name: CFO
-    7:
-      name: Chair
-    8:
-      name: COO
-    9:
-      name: CTO
-    10:
-      name: Custodian
-    11:
-      name: Director
-    12:
-      name: Executive
-    13:
-      name: Lawyer
-    14:
-      name: Legal Guardian
-    15:
-      name: Limited Partner
-    16:
-      name: Manager
-    17:
-      name: Managing Partner
-    18:
-      name: Member
-      description: Shareholder
-    19:
-      name: Partner
-    20:
-      name: Principal
-    21:
-      name: Proprietor
-    22:
-      name: Protector
-    23:
-      name: Secretary
-    24:
-      name: Settlor
-    25:
-      name: Significant Member
-      description: Major Shareholder
-    26:
-      name: Smart Contract Operator
-    27:
-      name: Trader
-    28:
-      name: Trustee
-    29:
-      name: Unit Holder
+  - code: 1
+    label: Accountant
 
+  - code: 2
+    label: Advisor
+
+  - code: 3
+    label: Agent
+
+  - code: 4
+    label: Beneficiary
+
+  - code: 5
+    label: CEO
+
+  - code: 6
+    label: CFO
+
+  - code: 7
+    label: Chair
+
+  - code: 8
+    label: COO
+
+  - code: 9
+    label: CTO
+
+  - code: 10
+    label: Custodian
+
+  - code: 11
+    label: Director
+
+  - code: 12
+    label: Executive
+
+  - code: 13
+    label: Lawyer
+
+  - code: 14
+    label: Legal Guardian
+
+  - code: 15
+    label: Limited Partner
+
+  - code: 16
+    label: Manager
+
+  - code: 17
+    label: Managing Partner
+
+  - code: 18
+    label: Member
+    description: Shareholder
+
+  - code: 19
+    label: Partner
+
+  - code: 20
+    label: Principal
+
+  - code: 21
+    label: Proprietor
+
+  - code: 22
+    label: Protector
+
+  - code: 23
+    label: Secretary
+
+  - code: 24
+    label: Settlor
+
+  - code: 25
+    label: Significant Member
+    description: Major Shareholder
+
+  - code: 26
+    label: Smart Contract Operator
+
+  - code: 27
+    label: Trader
+
+  - code: 28
+    label: Trustee
+
+  - code: 29
+    label: Unit Holder

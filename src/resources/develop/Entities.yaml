@@ -1,211 +1,234 @@
 metadata:
   name: Entities
-  description: "Legal Entities & Ownership Structures. 1 character."
-  type: EntityType
+  description: Legal Entities & Ownership Structures. 1 character.
 
 values:
-    I:
+
+    - code: I
       name: individual # (Natural Person)
       label: "Individual"
-      type: Legal
-      roles:
-        owners:
-          principal: null
-        administrators:
-          legalGuardian: []
-          agent: [] # (granted by the principal)
-        general:
-          accountant: []
-          advisor: []
-          lawyer: []
-          manager: []
-          trader: []
-    P:
-      name: publicCompany
+      metadata:
+        type: Legal
+        roles:
+          owners:
+            principal: null
+          administrators:
+            legalGuardian: []
+            agent: [] # (granted by the principal)
+          general:
+            accountant: []
+            advisor: []
+            lawyer: []
+            manager: []
+            trader: []
+
+    - code: P
+      name: PublicCompany
       label: "Public Company Limited by Shares"
-      type: Legal
-      roles:
-        owners:
-          shareholder: []
-          significantShareholder: []
-        administrators: # Board of Directors
-          chairman: null
-          director: []
-        managers:
-          ceo: null
-          coo: null
-          cfo: null
-          cto: null
-          executive: []
-          secretary: null
-        general:
-          accountant: []
-          advisor: []
-          employee: []
-          lawyer: []
-          manager: []
-          trader: []
-    C:
-      name: privateCompany
+      metadata:
+        type: Legal
+        roles:
+          owners:
+            shareholder: []
+            significantShareholder: []
+          administrators: # Board of Directors
+            chairman: null
+            director: []
+          managers:
+            ceo: null
+            coo: null
+            cfo: null
+            cto: null
+            executive: []
+            secretary: null
+          general:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+
+    - code: C
+      name: PrivateCompany
       label: "Private Company Limited by Shares"
-      type: Legal
-      roles:
-        owners:
-          shareholder: []
-          significantShareholder: []
-        administrators:
-          chairman: null
-          director: []
-          secretary: null
-        managers:
-          ceo: null
-          coo: null
-          cfo: null
-          cto: null
-          executive: []
-        general:
-          accountant: []
-          advisor: []
-          employee: []
-          lawyer: []
-          manager: []
-          trader: []
-    L:
-      name: limitedPartnership
+      metadata:
+        type: Legal
+        roles:
+          owners:
+            shareholder: []
+            significantShareholder: []
+          administrators:
+            chairman: null
+            director: []
+            secretary: null
+          managers:
+            ceo: null
+            coo: null
+            cfo: null
+            cto: null
+            executive: []
+          general:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+
+    - code: L
+      name: LimitedPartnership
       label: "Limited Partnership"
-      type: Legal
-      roles:
-        owners:
-          partner: []
-        managers:
-          managingPartner: []
-        general:
-          accountant: []
-          advisor: []
-          employee: []
-          lawyer: []
-          manager: []
-          trader: []
-    U:
-      name: unlimitedPartnership
+      metadata:
+        type: Legal
+        roles:
+          owners:
+            partner: []
+          managers:
+            managingPartner: []
+          general:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+
+    - code: U
+      name: UnlimitedPartnership
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership,  )
-      type: Legal
-      roles:
-        owners:
-          partner: []
-        managers:
-          managingPartner: []
-        general:
-          accountant: []
-          advisor: []
-          employee: []
-          lawyer: []
-          manager: []
-          trader: []
-    T:
-      name: soleProprietorship
+      metadata:
+        type: Legal
+        roles:
+          owners:
+            partner: []
+          managers:
+            managingPartner: []
+          general:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+
+    - code: T
+      name: SoleProprietorship
       label: "Sole Proprietorship"
-      type: Legal
-      roles:
-        owners:
-          proprietor: null
-        administrators:
-          agent: [] # (granted by the proprietor)
-        general:
-          accountant: []
-          advisor: []
-          employee: []
-          lawyer: []
-          manager: []
-          trader: []
-    S:
-      name: statutoryCompany
+      metadata:
+        type: Legal
+        roles:
+          owners:
+            proprietor: null
+          administrators:
+            agent: [] # (granted by the proprietor)
+          general:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+
+    - code: S
+      name: StatutoryCompany
       label: "Statutory Company"
-      type: Legal
-      roles:
-        administrators:
-          chairman: null
-          director: []
-          secretary: null
-        managers:
-          ceo: null
-          coo: null
-          cfo: null
-          cto: null
-          executive: []
-          secretary: null
-        general:
-          accountant: []
-          advisor: []
-          employee: []
-          lawyer: []
-          manager: []
-          trader: []
-    O:
-      name: nonProfitOrganization
+      metadata:
+        type: Legal
+        roles:
+          administrators:
+            chairman: null
+            director: []
+            secretary: null
+          managers:
+            ceo: null
+            coo: null
+            cfo: null
+            cto: null
+            executive: []
+            secretary: null
+          general:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+
+    - code: O
+      name: NonProfitOrganization
       label: "Non-Profit Organization"
-      type: Legal
-      role:
-        administrators:
-          chairman: null
-          director: []
-          secretary: null
-        managers:
-          ceo: null
-          coo: null
-          cfo: null
-          cto: null
-          executive: []
-        general:
-          accountant: []
-          advisor: []
-          employee: []
-          lawyer: []
-          manager: []
-          trader: []
-    N:
-      name: nationState
+      metadata:
+        type: Legal
+        role:
+          administrators:
+            chairman: null
+            director: []
+            secretary: null
+          managers:
+            ceo: null
+            coo: null
+            cfo: null
+            cto: null
+            executive: []
+          general:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+
+    - code: N
+      name: NationState
       label: "Nation State" # (Sovereign State)
-      type: Legal
-    G:
-      name: governmentAgency
+      metadata:
+        type: Legal
+
+    - code: G
+      name: GovernmentAgency
       label: "Government Agency"
-      type: Legal
-    U:
-      name: unitTrust
+      metadata:
+        type: Legal
+
+    - code: U
+      name: UnitTrust
       label: "Unit Trust"
-      type: Ownership
-      roles:
-        owners:
-          unitholder: []
-        administrators:
-          protector: []
-          trustee: []
-        general:
-          accountant: []
-          advisor: []
-          custodian: []
-          employee: []
-          lawyer: []
-          manager: []
-          settlor: []
-          trader: []
-    D:
-      name: discretionaryTrust
+      metadata:
+        type: Ownership
+        roles:
+          owners:
+            unitholder: []
+          administrators:
+            protector: []
+            trustee: []
+          general:
+            accountant: []
+            advisor: []
+            custodian: []
+            employee: []
+            lawyer: []
+            manager: []
+            settlor: []
+            trader: []
+
+    - code: D
+      name: DiscretionaryTrust
       label: "Discretionary Trust" # (Family Trust)
-      type: Ownership
-      roles:
-        owners:
-          beneficiary: []
-        administrators:
-          protector: []
-          trustee: []
-        general:
-          accountant: []
-          advisor: []
-          custodian: []
-          employee: []
-          lawyer: []
-          manager: []
-          settlor: []
-          trader: []
+      metadata:
+        type: Ownership
+        roles:
+          owners:
+            beneficiary: []
+          administrators:
+            protector: []
+            trustee: []
+          general:
+            accountant: []
+            advisor: []
+            custodian: []
+            employee: []
+            lawyer: []
+            manager: []
+            settlor: []
+            trader: []

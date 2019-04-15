@@ -1,805 +1,1094 @@
-
 metadata:
   name: Polities
-  description: "Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, International Organizations, etc.). 3 character code."
-  type: Polity
-
+  description: >
+    Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3),
+    Political Unions, International Organizations, etc.).
+    Based on a 3 character code.
 
 values:
-  ALA:
+  - code: ALA
     name: Aaland Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/52/Flag_of_%C3%85land.svg"
-  AFG:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/52/Flag_of_%C3%85land.svg"
+
+  - code: AFG
     name: Afghanistan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Afghanistan.svg"
-  ALB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Afghanistan.svg"
+
+  - code: ALB
     name: Albania
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg"
-  DZA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg"
+
+  - code: DZA
     name: Algeria
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg"
-  ASM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg"
+
+  - code: ASM
     name: American Samoa
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/87/Flag_of_American_Samoa.svg"
-  AND:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/87/Flag_of_American_Samoa.svg"
+
+  - code: AND
     name: Andorra
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Andorra.svg"
-  AGO:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Andorra.svg"
+
+  - code: AGO
     name: Angola
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Angola.svg"
-  AIA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Angola.svg"
+
+  - code: AIA
     name: Anguilla
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Anguilla.svg"
-  ATA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Anguilla.svg"
+
+  - code: ATA
     name: Antarctica
-    states: ~
-    flag:
-  ATG:
+    metadata:
+      states: ~
+      flag:
+
+  - code: ATG
     name: Antigua and Barbuda
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Antigua_and_Barbuda.svg"
-  ARG:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Antigua_and_Barbuda.svg"
+
+  - code: ARG
     name: Argentina
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg"
-  ARM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg"
+
+  - code: ARM
     name: Armenia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_Armenia.svg"
-  ABW:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_Armenia.svg"
+
+  - code: ABW
     name: Aruba
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Aruba.svg"
-  AU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Aruba.svg"
+
+  - code: AU
     name: African Union
-    states:
-      DZA: ~
-      AGO: ~
-      BEN: ~
-      BWA: ~
-      BFA: ~
-      BDI: ~
-      CPV: ~
-      CMR: ~
-      CAF: ~
-      TCD: ~
-      COM: ~
-      COD: ~
-      DJI: ~
-      EGY: ~
-      GNQ: ~
-      ERI: ~
-      SWZ: ~
-      ETH: ~
-      GAB: ~
-      GMB: ~
-      GHA: ~
-      GIN: ~
-      GNB: ~
-      CIV: ~
-      KEN: ~
-      LSO: ~
-      LBR: ~
-      LBY: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_the_African_Union.svg"
-  AUS:
+    metadata:
+      states:
+        DZA: ~
+        AGO: ~
+        BEN: ~
+        BWA: ~
+        BFA: ~
+        BDI: ~
+        CPV: ~
+        CMR: ~
+        CAF: ~
+        TCD: ~
+        COM: ~
+        COD: ~
+        DJI: ~
+        EGY: ~
+        GNQ: ~
+        ERI: ~
+        SWZ: ~
+        ETH: ~
+        GAB: ~
+        GMB: ~
+        GHA: ~
+        GIN: ~
+        GNB: ~
+        CIV: ~
+        KEN: ~
+        LSO: ~
+        LBR: ~
+        LBY: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_the_African_Union.svg"
+
+  - code: AUS
     name: Australia
-    states:
-      AUNSW: New South Wales
-      AUQLD: Queensland
-      AUSA: South Australia
-      AUTAS: Tasmania
-      AUVIC: Victoria
-      AUWA: Western Australia
-      AUACT: Australian Capital Territory
-      AUNT: Northern Territory
-      AUJBT: Jervis Bay Territory
-      AUCX: Christmas Island
-      AUCC: Cocos (Keening) Island
-      AUHM: Heard Island and McDonalds Islands
-      AUNF: Norfolk Island
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg"
-    fiscal_year: 0701-0630
-    gov_fiscal_year: 0701-0630
-  AUT:
+    metadata:
+      states:
+        AUNSW: New South Wales
+        AUQLD: Queensland
+        AUSA: South Australia
+        AUTAS: Tasmania
+        AUVIC: Victoria
+        AUWA: Western Australia
+        AUACT: Australian Capital Territory
+        AUNT: Northern Territory
+        AUJBT: Jervis Bay Territory
+        AUCX: Christmas Island
+        AUCC: Cocos (Keening) Island
+        AUHM: Heard Island and McDonalds Islands
+        AUNF: Norfolk Island
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg"
+      fiscal_year: 0701-0630
+      gov_fiscal_year: 0701-0630
+
+  - code: AUT
     name: Austria
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  AZE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: AZE
     name: Azerbaijan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Azerbaijan.svg"
-  BHS:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Azerbaijan.svg"
+
+  - code: BHS
     name: The Bahamas
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/93/Flag_of_the_Bahamas.svg"
-  BHR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/93/Flag_of_the_Bahamas.svg"
+
+  - code: BHR
     name: Bahrain
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Bahrain.svg"
-  BGD:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Bahrain.svg"
+
+  - code: BGD
     name: Bangladesh
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg"
-    fiscal_year: 0701-0630
-    gov_fiscal_year: 0701-0630
-  BRB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg"
+      fiscal_year: 0701-0630
+      gov_fiscal_year: 0701-0630
+
+  - code: BRB
     name: Barbados
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg"
-  BLR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg"
+
+  - code: BLR
     name: Belarus
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Belarus.svg"
-  BEL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Belarus.svg"
+
+  - code: BEL
     name: Belgium
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  BLZ:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: BLZ
     name: Belize
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg"
-  BEN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg"
+
+  - code: BEN
     name: Benin
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Benin.svg"
-  BMU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Benin.svg"
+
+  - code: BMU
     name: Bermuda
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bermuda.svg"
-  BTN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bermuda.svg"
+
+  - code: BTN
     name: Bhutan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/91/Flag_of_Bhutan.svg"
-  BOL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/91/Flag_of_Bhutan.svg"
+
+  - code: BOL
     name: Bolivia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/de/Flag_of_Bolivia_%28state%29.svg"
-  BES:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/de/Flag_of_Bolivia_%28state%29.svg"
+
+  - code: BES
     name: Bonaire, St Eustasuis and Saba
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
-  BIH:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
+
+  - code: BIH
     name: Bosnia and Herzegovina
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bosnia_and_Herzegovina.svg"
-  BWA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bosnia_and_Herzegovina.svg"
+
+  - code: BWA
     name: Botswana
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Botswana.svg"
-  BVT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Botswana.svg"
+
+  - code: BVT
     name: Bouvet Island
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
-  BRA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
+
+  - code: BRA
     name: Brazil
-    states:
-      BRAC: Acre
-      BRAL: Alagoas
-      BRAP: Amapá
-      BRAM: Amazonas
-      BRBA: Bahia
-      BRCE: Ceará
-      BRES: Espírito Santo
-      BRDF: Federal District
-      BRGO: Goiás
-      BRMA: Maranhão
-      BRMT: Mato Grosso
-      BRMS: Mato Grosso do Sul
-      BRMG: Minas Gerais
-      BRPA: Pará
-      BRPB: Paraíba
-      BRPR: Paraná
-      BRPE: Pernambuco
-      BRPI: Piauí
-      BRRJ: Rio de Janeiro
-      BRRN: Rio Grande do Norte
-      BRRS: Rio Grande do Sul
-      BRRO: Rondônia
-      BRRR: Roraima
-      BRSC: Santa Catarina
-      BRSP: São Paulo
-      BRSE: Sergipe
-      BRTO: Tocantins
-    flag: "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  IOT:
+    metadata:
+      states:
+        BRAC: Acre
+        BRAL: Alagoas
+        BRAP: Amapá
+        BRAM: Amazonas
+        BRBA: Bahia
+        BRCE: Ceará
+        BRES: Espírito Santo
+        BRDF: Federal District
+        BRGO: Goiás
+        BRMA: Maranhão
+        BRMT: Mato Grosso
+        BRMS: Mato Grosso do Sul
+        BRMG: Minas Gerais
+        BRPA: Pará
+        BRPB: Paraíba
+        BRPR: Paraná
+        BRPE: Pernambuco
+        BRPI: Piauí
+        BRRJ: Rio de Janeiro
+        BRRN: Rio Grande do Norte
+        BRRS: Rio Grande do Sul
+        BRRO: Rondônia
+        BRRR: Roraima
+        BRSC: Santa Catarina
+        BRSP: São Paulo
+        BRSE: Sergipe
+        BRTO: Tocantins
+      flag: "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: IOT
     name: British Indian Ocean Territory
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_the_British_Indian_Ocean_Territory.svg"
-  VGB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_the_British_Indian_Ocean_Territory.svg"
+
+  - code: VGB
     name: British Virgin Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/42/Flag_of_the_British_Virgin_Islands.svg"
-  BRN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/42/Flag_of_the_British_Virgin_Islands.svg"
+
+  - code: BRN
     name: Brunei
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Brunei.svg"
-  BGR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Brunei.svg"
+
+  - code: BGR
     name: Bulgaria
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg"
-  BFA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg"
+
+  - code: BFA
     name: Burkina Faso
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Burkina_Faso.svg"
-  BDI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Burkina_Faso.svg"
+
+  - code: BDI
     name: Burundi
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/50/Flag_of_Burundi.svg"
-  KHM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/50/Flag_of_Burundi.svg"
+
+  - code: KHM
     name: Cambodia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_Cambodia.svg"
-  CMR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_Cambodia.svg"
+
+  - code: CMR
     name: Cameroon
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Cameroon.svg"
-  CAN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Cameroon.svg"
+
+  - code: CAN
     name: Canada
-    states:
-      CAAB: Alberta
-      CABC: British Columbia
-      CAMB: Manitoba
-      CANB: New Brunswick
-      CANL: Newfoundland and Labrador
-      CANS: Nova Scotia
-      CAON: Ontario
-      CAPE: Prince Edward Island
-      CAQC: Quebec
-      CASK: Saskatchewan
-      CANT: Northwest Territories
-      CANU: Nunavut
-      CAYT: Yukon
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0401-0331
-  CPV:
+    metadata:
+      states:
+        CAAB: Alberta
+        CABC: British Columbia
+        CAMB: Manitoba
+        CANB: New Brunswick
+        CANL: Newfoundland and Labrador
+        CANS: Nova Scotia
+        CAON: Ontario
+        CAPE: Prince Edward Island
+        CAQC: Quebec
+        CASK: Saskatchewan
+        CANT: Northwest Territories
+        CANU: Nunavut
+        CAYT: Yukon
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0401-0331
+
+  - code: CPV
     name: Cape Verde
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Cape_Verde.svg"
-  CYM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Cape_Verde.svg"
+
+  - code: CYM
     name: Cayman Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_the_Cayman_Islands.svg"
-  CAF:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_the_Cayman_Islands.svg"
+
+  - code: CAF
     name: Central African Republic
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Central_African_Republic.svg"
-  TCD:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Central_African_Republic.svg"
+
+  - code: TCD
     name: Chad
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Flag_of_Chad.svg"
-  CHL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Flag_of_Chad.svg"
+
+  - code: CHL
     name: Chile
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/78/Flag_of_Chile.svg"
-  CHN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/78/Flag_of_Chile.svg"
+
+  - code: CHN
     name: China
-    states:
-      CNBJ: Beijing
-      CNTJ: Tianjin
-      CNHE: Hebei
-      CNSX: Shanxi
-      CNNM: Nei Mongol (mn)
-      CNLN: Liaoning
-      CNJL: Jilin
-      CNHL: Heilongjiang
-      CNSH: Shanghai
-      CNJS: Jiangsu
-      CNZJ: Zhejiang
-      CNAH: Anhui
-      CNFJ: Fujian
-      CNJX: Jiangxi
-      CNSD: Shandong
-      CNHA: Henan
-      CNHB: Hubei
-      CNHN: Hunan
-      CNGD: Guangdong
-      CNGX: Guangxi
-      CNHI: Hainan
-      CNCQ: Chongqing
-      CNSC: Sichuan
-      CNGZ: Guizhou
-      CNYN: Yunnan
-      CNXZ: Xizang
-      CNSN: Shaanxi
-      CNGS: Gansu
-      CNQH: Qinghai
-      CNNX: Ningxia
-      CNXJ: Xinjiang
-      CNTW: Taiwan
-      CNHK: Hong Kong (Xianggang)
-      CNMC: Macao (Aomen)
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  CXR:
+    metadata:
+      states:
+        CNBJ: Beijing
+        CNTJ: Tianjin
+        CNHE: Hebei
+        CNSX: Shanxi
+        CNNM: Nei Mongol (mn)
+        CNLN: Liaoning
+        CNJL: Jilin
+        CNHL: Heilongjiang
+        CNSH: Shanghai
+        CNJS: Jiangsu
+        CNZJ: Zhejiang
+        CNAH: Anhui
+        CNFJ: Fujian
+        CNJX: Jiangxi
+        CNSD: Shandong
+        CNHA: Henan
+        CNHB: Hubei
+        CNHN: Hunan
+        CNGD: Guangdong
+        CNGX: Guangxi
+        CNHI: Hainan
+        CNCQ: Chongqing
+        CNSC: Sichuan
+        CNGZ: Guizhou
+        CNYN: Yunnan
+        CNXZ: Xizang
+        CNSN: Shaanxi
+        CNGS: Gansu
+        CNQH: Qinghai
+        CNNX: Ningxia
+        CNXJ: Xinjiang
+        CNTW: Taiwan
+        CNHK: Hong Kong (Xianggang)
+        CNMC: Macao (Aomen)
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: CXR
     name: Christmas Island
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/67/Flag_of_Christmas_Island.svg"
-  CCK:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/67/Flag_of_Christmas_Island.svg"
+
+  - code: CCK
     name: Cocos Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Cocos_%28Keeling%29_Islands.svg"
-  COL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Cocos_%28Keeling%29_Islands.svg"
+
+  - code: COL
     name: Colombia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg"
-  COM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg"
+
+  - code: COM
     name: Comoros
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/94/Flag_of_the_Comoros.svg"
-  COG:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/94/Flag_of_the_Comoros.svg"
+
+  - code: COG
     name: Congo-Brazzaville
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_the_Republic_of_the_Congo.svg"
-  COD:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_the_Republic_of_the_Congo.svg"
+
+  - code: COD
     name: Congo-Kinshasa
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Democratic_Republic_of_the_Congo.svg"
-  COK:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Democratic_Republic_of_the_Congo.svg"
+
+  - code: COK
     name: Cook Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/35/Flag_of_the_Cook_Islands.svg"
-  CRI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/35/Flag_of_the_Cook_Islands.svg"
+
+  - code: CRI
     name: Costa Rica
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Costa_Rica_%28state%29.svg"
-    fiscal_year: 1001-0931
-    gov_fiscal_year: 1001-0931
-  HRV:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Costa_Rica_%28state%29.svg"
+      fiscal_year: 1001-0931
+      gov_fiscal_year: 1001-0931
+
+  - code: HRV
     name: Croatia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg"
-  CUB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg"
+
+  - code: CUB
     name: Cuba
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Flag_of_Cuba.svg"
-  CUW:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Flag_of_Cuba.svg"
+
+  - code: CUW
     name: Curacao
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_Cura%C3%A7ao.svg"
-  CYP:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_Cura%C3%A7ao.svg"
+
+  - code: CYP
     name: Cyprus
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Cyprus.svg"
-  CZE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Cyprus.svg"
+
+  - code: CZE
     name: Czech Republic
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg"
-  DNK:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg"
+
+  - code: DNK
     name: Denmark
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg"
-  DJI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg"
+
+  - code: DJI
     name: Djibouti
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_Djibouti.svg"
-  DMA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_Djibouti.svg"
+
+  - code: DMA
     name: Dominica
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Flag_of_Dominica.svg"
-  DOM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Flag_of_Dominica.svg"
+
+  - code: DOM
     name: Dominican Republic
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_the_Dominican_Republic.svg"
-  TLS:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_the_Dominican_Republic.svg"
+
+  - code: TLS
     name: East Timor
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg"
-  ECU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg"
+
+  - code: ECU
     name: Ecuador
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg"
-  EGY:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg"
+
+  - code: EGY
     name: Egypt
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"
-    fiscal_year: 0701-0630
-    gov_fiscal_year: 0701-0630
-  SLV:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"
+      fiscal_year: 0701-0630
+      gov_fiscal_year: 0701-0630
+
+  - code: SLV
     name: El Salvador
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_El_Salvador.svg"
-  GNQ:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_El_Salvador.svg"
+
+  - code: GNQ
     name: Equatorial Guinea
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Equatorial_Guinea.svg"
-  ERI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Equatorial_Guinea.svg"
+
+  - code: ERI
     name: Eritrea
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_Eritrea.svg"
-  EST:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_Eritrea.svg"
+
+  - code: EST
     name: Estonia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Estonia.svg"
-  ETH:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Estonia.svg"
+
+  - code: ETH
     name: Ethiopia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg"
-    fiscal_year: 0708-0707
-    gov_fiscal_year: 0708-0707
-  EU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg"
+      fiscal_year: 0708-0707
+      gov_fiscal_year: 0708-0707
+
+  - code: EU
     name: European Union
-    states:
-      AUT: ~
-      BEL: ~
-      BGR: ~
-      HRV: ~
-      CYP: ~
-      CZE: ~
-      DNK: ~
-      EST: ~
-      FIN: ~
-      FRA: ~
-      DEU: ~
-      GRC: ~
-      HUN: ~
-      IRL: ~
-      ITA: ~
-      LVA: ~
-      LTU: ~
-      LUX: ~
-      MLT: ~
-      NLD: ~
-      POL: ~
-      PRT: ~
-      ROU: ~
-      SVK: ~
-      SVN: ~
-      ESP: ~
-      SWE: ~
-      GBR: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg"
-  FLK:
+    metadata:
+      states:
+        AUT: ~
+        BEL: ~
+        BGR: ~
+        HRV: ~
+        CYP: ~
+        CZE: ~
+        DNK: ~
+        EST: ~
+        FIN: ~
+        FRA: ~
+        DEU: ~
+        GRC: ~
+        HUN: ~
+        IRL: ~
+        ITA: ~
+        LVA: ~
+        LTU: ~
+        LUX: ~
+        MLT: ~
+        NLD: ~
+        POL: ~
+        PRT: ~
+        ROU: ~
+        SVK: ~
+        SVN: ~
+        ESP: ~
+        SWE: ~
+        GBR: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg"
+
+  - code: FLK
     name: Falkland Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg"
-  FRO:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg"
+
+  - code: FRO
     name: Faroe Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flag_of_the_Faroe_Islands.svg"
-  FJI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flag_of_the_Faroe_Islands.svg"
+
+  - code: FJI
     name: Fiji
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Fiji.svg"
-  FIN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Fiji.svg"
+
+  - code: FIN
     name: Finland
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg"
-  FRA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg"
+
+  - code: FRA
     name: France
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
-  GUF:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+
+  - code: GUF
     name: French Guiana
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
-  PYF:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+
+  - code: PYF
     name: French Polynesia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/db/Flag_of_French_Polynesia.svg"
-  ATF:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/db/Flag_of_French_Polynesia.svg"
+
+  - code: ATF
     name: French Southern and Antarctic Lands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Flag_of_the_French_Southern_and_Antarctic_Lands.svg"
-  GAB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Flag_of_the_French_Southern_and_Antarctic_Lands.svg"
+
+  - code: GAB
     name: Gabon
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/04/Flag_of_Gabon.svg"
-  GMB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/04/Flag_of_Gabon.svg"
+
+  - code: GMB
     name: The Gambia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_The_Gambia.svg"
-  GEO:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_The_Gambia.svg"
+
+  - code: GEO
     name: Georgia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Georgia.svg"
-  DEU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Georgia.svg"
+
+  - code: DEU
     name: Germany
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  GHA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: GHA
     name: Ghana
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Ghana.svg"
-  GIB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Ghana.svg"
+
+  - code: GIB
     name: Gibraltar
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/02/Flag_of_Gibraltar.svg"
-  GRC:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/02/Flag_of_Gibraltar.svg"
+
+  - code: GRC
     name: Greece
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  GRL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: GRL
     name: Greenland
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_Greenland.svg"
-  GRD:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_Greenland.svg"
+
+  - code: GRD
     name: Grenada
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Grenada.svg"
-  GLP:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Grenada.svg"
+
+  - code: GLP
     name: Guadeloupe
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
-  GUM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+
+  - code: GUM
     name: Guam
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/07/Flag_of_Guam.svg"
-  GTM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/07/Flag_of_Guam.svg"
+
+  - code: GTM
     name: Guatemala
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg"
-  GGY:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg"
+
+  - code: GGY
     name: Guernsey
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Guernsey.svg"
-  GIN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Guernsey.svg"
+
+  - code: GIN
     name: Guinea
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_Guinea.svg"
-  GNB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_Guinea.svg"
+
+  - code: GNB
     name: Guinea-Bissau
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Guinea-Bissau.svg"
-  GUY:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Guinea-Bissau.svg"
+
+  - code: GUY
     name: Guyana
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_Guyana.svg"
-  HTI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_Guyana.svg"
+
+  - code: HTI
     name: Haiti
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Haiti.svg"
-  HMD:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Haiti.svg"
+
+  - code: HMD
     name: Heard Island and McDonald Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg"
-  HND:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg"
+
+  - code: HND
     name: Honduras
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/82/Flag_of_Honduras.svg"
-  HKG:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/82/Flag_of_Honduras.svg"
+
+  - code: HKG
     name: Hong Kong
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg"
-    fiscal_year: 0401-0331
-    gov_fiscal_year: 0401-0331
-  HUN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg"
+      fiscal_year: 0401-0331
+      gov_fiscal_year: 0401-0331
+
+  - code: HUN
     name: Hungary
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg"
-  ISL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg"
+
+  - code: ISL
     name: Iceland
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Iceland.svg"
-  IND:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Iceland.svg"
+
+  - code: IND
     name: India
-    states:
-      INAN: Andaman and Nicobar Islands
-      INAP: Andhra Pradesh
-      INAR: Arunachal Pradesh
-      INAS: Assam
-      INBR: Bihar
-      INCH: Chandigarh
-      INCT: Chhattisgarh
-      INDN: Dadra and Nagar Haveli
-      INDD: Daman and Diu
-      INDL: Delhi
-      INGA: Goa
-      INGJ: Gujarat
-      INHR: Haryana
-      INHP: Himachal Pradesh
-      INJK: Jammu and Kashmir
-      INJH: Jharkhand
-      INKA: Karnataka
-      INKL: Kerala
-      INLD: Lakshadweep
-      INMP: Madhya Pradesh
-      INMH: Maharashtra
-      INMN: Manipur
-      INML: Meghalaya
-      INMZ: Mizoram
-      INNL: Nagaland
-      INOR: Odisha (formerly known as Orissa)
-      INPY: Puducherry (Pondicherry)
-      INPB: Punjab
-      INRJ: Rajasthan
-      INSK: Sikkim
-      INTN: Tamil Nadu
-      INTG: Telangana
-      INTR: Tripura
-      INUT: Uttarakhand
-      INUP: Uttar Pradesh
-      INWB: West Bengal
-    flag: "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
-    fiscal_year: 0401-0331
-    gov_fiscal_year: 0401-0331
-  IDN:
+    metadata:
+      states:
+        INAN: Andaman and Nicobar Islands
+        INAP: Andhra Pradesh
+        INAR: Arunachal Pradesh
+        INAS: Assam
+        INBR: Bihar
+        INCH: Chandigarh
+        INCT: Chhattisgarh
+        INDN: Dadra and Nagar Haveli
+        INDD: Daman and Diu
+        INDL: Delhi
+        INGA: Goa
+        INGJ: Gujarat
+        INHR: Haryana
+        INHP: Himachal Pradesh
+        INJK: Jammu and Kashmir
+        INJH: Jharkhand
+        INKA: Karnataka
+        INKL: Kerala
+        INLD: Lakshadweep
+        INMP: Madhya Pradesh
+        INMH: Maharashtra
+        INMN: Manipur
+        INML: Meghalaya
+        INMZ: Mizoram
+        INNL: Nagaland
+        INOR: Odisha (formerly known as Orissa)
+        INPY: Puducherry (Pondicherry)
+        INPB: Punjab
+        INRJ: Rajasthan
+        INSK: Sikkim
+        INTN: Tamil Nadu
+        INTG: Telangana
+        INTR: Tripura
+        INUT: Uttarakhand
+        INUP: Uttar Pradesh
+        INWB: West Bengal
+      flag: "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
+      fiscal_year: 0401-0331
+      gov_fiscal_year: 0401-0331
+
+  - code: IDN
     name: Indonesia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  IRN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: IRN
     name: Iran
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg"
-  IRQ:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg"
+
+  - code: IRQ
     name: Iraq
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg"
-  IRL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg"
+
+  - code: IRL
     name: Ireland
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  IMN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: IMN
     name: Isle of Man
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Flag_of_the_Isle_of_Mann.svg"
-  ISR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Flag_of_the_Isle_of_Mann.svg"
+
+  - code: ISR
     name: Israel
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg"
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
-  ITA:
+
+  - code: ITA
     name: Italy
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg"
-  CIV:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg"
+
+  - code: CIV
     name: Ivory Coast
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg"
-  JAM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg"
+
+  - code: JAM
     name: Jamaica
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Jamaica.svg"
-  JPN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Jamaica.svg"
+
+  - code: JPN
     name: Japan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg"
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0401-0331
-  JEY:
+
+  - code: JEY
     name: Jersey
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Flag_of_Jersey.svg"
-  JOR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Flag_of_Jersey.svg"
+
+  - code: JOR
     name: Jordan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Flag_of_Jordan.svg"
-  KAZ:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Flag_of_Jordan.svg"
+
+  - code: KAZ
     name: Kazakhstan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg"
-  KEN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg"
+
+  - code: KEN
     name: Kenya
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg"
-  KIR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg"
+
+  - code: KIR
     name: Kiribati
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kiribati.svg"
-  KWT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kiribati.svg"
+
+  - code: KWT
     name: Kuwait
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Kuwait.svg"
-  KGZ:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Kuwait.svg"
+
+  - code: KGZ
     name: Kyrgyzstan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Flag_of_Kyrgyzstan.svg"
-  LAO:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Flag_of_Kyrgyzstan.svg"
+
+  - code: LAO
     name: Laos
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Laos.svg"
-  LVA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Laos.svg"
+
+  - code: LVA
     name: Latvia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Latvia.svg"
-  LBN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Latvia.svg"
+
+  - code: LBN
     name: Lebanon
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/59/Flag_of_Lebanon.svg"
-  LSO:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/59/Flag_of_Lebanon.svg"
+
+  - code: LSO
     name: Lesotho
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Lesotho.svg"
-  LBR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Lesotho.svg"
+
+  - code: LBR
     name: Liberia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b8/Flag_of_Liberia.svg"
-  LBY:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/b8/Flag_of_Liberia.svg"
+
+  - code: LBY
     name: Libya
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Libya.svg"
-  LIE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Libya.svg"
+
+  - code: LIE
     name: Liechtenstein
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg"
-  LTU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg"
+
+  - code: LTU
     name: Lithuania
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Lithuania.svg"
-  LUX:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Lithuania.svg"
+
+  - code: LUX
     name: Luxembourg
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/da/Flag_of_Luxembourg.svg"
-  MAC:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/da/Flag_of_Luxembourg.svg"
+
+  - code: MAC
     name: Macau
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/63/Flag_of_Macau.svg"
-  MKD:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/63/Flag_of_Macau.svg"
+
+  - code: MKD
     name: Macedonia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_Macedonia.svg"
-  MDG:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_Macedonia.svg"
+
+  - code: MDG
     name: Madagascar
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg"
-  MWI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg"
+
+  - code: MWI
     name: Malawi
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Flag_of_Malawi.svg"
-  MYS:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Flag_of_Malawi.svg"
+
+  - code: MYS
     name: Malaysia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Malaysia.svg"
-  MDV:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Malaysia.svg"
+
+  - code: MDV
     name: Maldives
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Maldives.svg"
-  MLI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Maldives.svg"
+
+  - code: MLI
     name: Mali
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Mali.svg"
-  MLT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Mali.svg"
+
+  - code: MLT
     name: Malta
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg"
-  MHL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg"
+
+  - code: MHL
     name: Marshall Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Flag_of_the_Marshall_Islands.svg"
-  MTQ:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Flag_of_the_Marshall_Islands.svg"
+
+  - code: MTQ
     name: Martinique
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
-  MRT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+
+  - code: MRT
     name: Mauritania
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/30/New_National_Flag_of_Mauritania.png"
-  MUS:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/30/New_National_Flag_of_Mauritania.png"
+
+  - code: MUS
     name: Mauritius
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Mauritius.svg"
-  MYT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Mauritius.svg"
+
+  - code: MYT
     name: Mayotte
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Mayotte_%28local%29.svg"
-  MEX:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Mayotte_%28local%29.svg"
+
+  - code: MEX
     name: Mexico
-    states:
+    metadata:
+      states:
       MXAGU: Aguascalientes
       MXBCN: Baja California
       MXBCS: Baja California Sur
@@ -832,594 +1121,806 @@ values:
       MXVER: Veracruz
       MXYUC: Yucatán
       MXZAC: Zacatecas
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg"
-  FSM:
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg"
+
+  - code: FSM
     name: Micronesia
-    states: ~
-    flag:
-  MDA:
+    metadata:
+      states: ~
+      flag:
+
+  - code: MDA
     name: Moldova
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Moldova.svg"
-  MCO:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Moldova.svg"
+
+  - code: MCO
     name: Monaco
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Flag_of_Monaco.svg"
-  MNG:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Flag_of_Monaco.svg"
+
+  - code: MNG
     name: Mongolia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Flag_of_Mongolia.svg"
-  MNE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Flag_of_Mongolia.svg"
+
+  - code: MNE
     name: Montenegro
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg"
-  MSR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg"
+
+  - code: MSR
     name: Montserrat
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Montserrat.svg"
-  MAR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Montserrat.svg"
+
+  - code: MAR
     name: Morocco
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg"
-  MOZ:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg"
+
+  - code: MOZ
     name: Mozambique
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Mozambique.svg"
-  MMR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Mozambique.svg"
+
+  - code: MMR
     name: Myanmar
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_Myanmar.svg"
-  NAM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_Myanmar.svg"
+
+  - code: NAM
     name: Namibia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Namibia.svg"
-  NRU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Namibia.svg"
+
+  - code: NRU
     name: Nauru
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/30/Flag_of_Nauru.svg"
-  NPL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/30/Flag_of_Nauru.svg"
+
+  - code: NPL
     name: Nepal
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  NLD:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: NLD
     name: Netherlands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  NCL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: NCL
     name: New Caledonia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
-  NZL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+
+  - code: NZL
     name: New Zealand
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg"
-  NIC:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg"
+
+  - code: NIC
     name: Nicaragua
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Nicaragua.svg"
-  NER:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Nicaragua.svg"
+
+  - code: NER
     name: Niger
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Flag_of_Niger.svg"
-  NGA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Flag_of_Niger.svg"
+
+  - code: NGA
     name: Nigeria
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg"
-  NIU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg"
+
+  - code: NIU
     name: Niue
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Niue.svg"
-  NFK:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Niue.svg"
+
+  - code: NFK
     name: Norfolk and Philip Island
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Norfolk_Island.svg"
-  PRK:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Norfolk_Island.svg"
+
+  - code: PRK
     name: North Korea
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_North_Korea.svg"
-  MNP:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_North_Korea.svg"
+
+  - code: MNP
     name: Northern Mariana Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Flag_of_the_Northern_Mariana_Islands.svg"
-  NOR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Flag_of_the_Northern_Mariana_Islands.svg"
+
+  - code: NOR
     name: Norway
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
-  OMN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
+
+  - code: OMN
     name: Oman
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Oman.svg"
-  PAK:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Oman.svg"
+
+  - code: PAK
     name: Pakistan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg"
-  PLW:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg"
+
+  - code: PLW
     name: Palau
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Palau.svg"
-  PSE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Palau.svg"
+
+  - code: PSE
     name: Palestinian Territory
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg"
-  PAN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg"
+
+  - code: PAN
     name: Panama
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg"
-  PNG:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg"
+
+  - code: PNG
     name: Papua New Guinea
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Flag_of_Papua_New_Guinea.svg"
-  PRY:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Flag_of_Papua_New_Guinea.svg"
+
+  - code: PRY
     name: Paraguay
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg"
-  PER:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg"
+
+  - code: PER
     name: Peru
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Peru_%28state%29.svg"
-  PHL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Peru_%28state%29.svg"
+
+  - code: PHL
     name: Philippines
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_the_Philippines.svg"
-  PCN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_the_Philippines.svg"
+
+  - code: PCN
     name: Pitcairn Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_the_Pitcairn_Islands.svg"
-  POL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_the_Pitcairn_Islands.svg"
+
+  - code: POL
     name: Poland
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg"
-  PRT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg"
+
+  - code: PRT
     name: Portugal
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg"
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
-  PRI:
+
+  - code: PRI
     name: Puerto Rico
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/28/Flag_of_Puerto_Rico.svg"
-  QAT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/28/Flag_of_Puerto_Rico.svg"
+
+  - code: QAT
     name: Qatar
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
-  REU:
+
+  - code: REU
     name: Réunion
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Flag_of_R%C3%A9union.svg"
-  ROU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Flag_of_R%C3%A9union.svg"
+
+  - code: ROU
     name: Romania
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg"
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
-  RUS:
+
+  - code: RUS
     name: Russia
-    states:
-      RUAD: Adygeya, Respublika
-      RUAL: Altay, Respublika
-      RUBA: Bashkortostan, Respublika
-      RUBU: Buryatiya, Respublika
-      RUCE: Chechenskaya Respublika
-      RUCU: Chuvashskaya Respublika
-      RUDA: Dagestan, Respublika
-      RUIN: Ingushetiya, Respublika
-      RUKB: Kabardino-Balkarskaya Respublika
-      RUKL: Kalmykiya, Respublika
-      RUKC: Karachayevo-Cherkesskaya Respubl.
-      RUKR: Kareliya, Respublika
-      RUKK: Khakasiya, Respublika
-      RUKO: Komi, Respublika
-      RUME: Mariy El, Respublika
-      RUMO: Mordoviya, Respublika
-      RUSA: Sakha, Respublika
-      RUSE: Severnaya Osetiya-Alaniya, Respubl.
-      RUTA: Tatarstan, Respublika
-      RUTY: Tyva, Respublika
-      RUUD: Udmurtskaya Respublika
-      RUALT: Altayskiy kray
-      RUKAM: Kamchatskiy kray
-      RUKHA: Khabarovskiy kray
-      RUKDA: Krasnodarskiy kray
-      RUKYA: Krasnoyarskiy kray
-      RUPER: Permskiy kray
-      RUPRI: Primorskiy kray
-      RUSTA: Stavropol"skiy kray
-      RUZAB: Zabaykal"skiy kray
-      RUAMU: Amurskaya oblast"
-      RUARK: Arkhangel"skaya oblast"
-      RUAST: Astrakhanskaya oblast"
-      RUBEL: Belgorodskaya oblast"
-      RUBRY: Bryanskaya oblast"
-      RUCHE: Chelyabinskaya oblast"
-      RUIRK: Irkutskaya oblast"
-      RUIVA: Ivanovskaya oblast"
-      RUKGD: Kaliningradskaya oblast"
-      RUKLU: Kaluzhskaya oblast"
-      RUKEM: Kemerovskaya oblast"
-      RUKIR: Kirovskaya oblast"
-      RUKOS: Kostromskaya oblast"
-      RUKGN: Kurganskaya oblast"
-      RUKRS: Kurskaya oblast"
-      RULEN: Leningradskaya oblast"
-      RULIP: Lipetskaya oblast"
-      RUMAG: Magadanskaya oblast"
-      RUMOS: Moskovskaya oblast"
-      RUMUR: Murmanskaya oblast"
-      RUNIZ: Nizhegorodskaya oblast"
-      RUNGR: Novgorodskaya oblast"
-      RUNVS: Novosibirskaya oblast"
-      RUOMS: Omskaya oblast"
-      RUORE: Orenburgskaya oblast"
-      RUORL: Orlovskaya oblast"
-      RUPNZ: Penzenskaya oblast"
-      RUPSK: Pskovskaya oblast"
-      RUROS: Rostovskaya oblast"
-      RURYA: Ryazanskaya oblast"
-      RUSAK: Sakhalinskaya oblast"
-      RUSAM: Samarskaya oblast"
-      RUSAR: Saratovskaya oblast"
-      RUSMO: Smolenskaya oblast"
-      RUSVE: Sverdlovskaya oblast"
-      RUTAM: Tambovskaya oblast"
-      RUTOM: Tomskaya oblast"
-      RUTUL: Tul"skaya oblast"
-      RUTVE: Tverskaya oblast"
-      RUTYU: Tyumenskaya oblast"
-      RUULY: Ul"yanovskaya oblast"
-      RUVLA: Vladimirskaya oblast"
-      RUVGG: Volgogradskaya oblast"
-      RUVLG: Vologodskaya oblast"
-      RUVOR: Voronezhskaya oblast"
-      RUYAR: Yaroslavskaya oblast"
-      RUMOW: Moskva (autonomous city)
-      RUSPE: Sankt-Peterburg (autonomous city)
-      RUYEV: Yevreyskaya avtonomnaya oblast"
-      RUCHU: Chukotskiy avtonomnyy okrug
-      RUKHM: Khanty-Mansiyskiy avtonomnyy okrug-Yugra
-      RUNEN: Nenetskiy avtonomnyy okrug
-      RUYAN: Yamalo-Nenetskiy avtonomnyy okrug
-    flag: "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  RWA:
+    metadata:
+      states:
+        RUAD: Adygeya, Respublika
+        RUAL: Altay, Respublika
+        RUBA: Bashkortostan, Respublika
+        RUBU: Buryatiya, Respublika
+        RUCE: Chechenskaya Respublika
+        RUCU: Chuvashskaya Respublika
+        RUDA: Dagestan, Respublika
+        RUIN: Ingushetiya, Respublika
+        RUKB: Kabardino-Balkarskaya Respublika
+        RUKL: Kalmykiya, Respublika
+        RUKC: Karachayevo-Cherkesskaya Respubl.
+        RUKR: Kareliya, Respublika
+        RUKK: Khakasiya, Respublika
+        RUKO: Komi, Respublika
+        RUME: Mariy El, Respublika
+        RUMO: Mordoviya, Respublika
+        RUSA: Sakha, Respublika
+        RUSE: Severnaya Osetiya-Alaniya, Respubl.
+        RUTA: Tatarstan, Respublika
+        RUTY: Tyva, Respublika
+        RUUD: Udmurtskaya Respublika
+        RUALT: Altayskiy kray
+        RUKAM: Kamchatskiy kray
+        RUKHA: Khabarovskiy kray
+        RUKDA: Krasnodarskiy kray
+        RUKYA: Krasnoyarskiy kray
+        RUPER: Permskiy kray
+        RUPRI: Primorskiy kray
+        RUSTA: Stavropol"skiy kray
+        RUZAB: Zabaykal"skiy kray
+        RUAMU: Amurskaya oblast"
+        RUARK: Arkhangel"skaya oblast"
+        RUAST: Astrakhanskaya oblast"
+        RUBEL: Belgorodskaya oblast"
+        RUBRY: Bryanskaya oblast"
+        RUCHE: Chelyabinskaya oblast"
+        RUIRK: Irkutskaya oblast"
+        RUIVA: Ivanovskaya oblast"
+        RUKGD: Kaliningradskaya oblast"
+        RUKLU: Kaluzhskaya oblast"
+        RUKEM: Kemerovskaya oblast"
+        RUKIR: Kirovskaya oblast"
+        RUKOS: Kostromskaya oblast"
+        RUKGN: Kurganskaya oblast"
+        RUKRS: Kurskaya oblast"
+        RULEN: Leningradskaya oblast"
+        RULIP: Lipetskaya oblast"
+        RUMAG: Magadanskaya oblast"
+        RUMOS: Moskovskaya oblast"
+        RUMUR: Murmanskaya oblast"
+        RUNIZ: Nizhegorodskaya oblast"
+        RUNGR: Novgorodskaya oblast"
+        RUNVS: Novosibirskaya oblast"
+        RUOMS: Omskaya oblast"
+        RUORE: Orenburgskaya oblast"
+        RUORL: Orlovskaya oblast"
+        RUPNZ: Penzenskaya oblast"
+        RUPSK: Pskovskaya oblast"
+        RUROS: Rostovskaya oblast"
+        RURYA: Ryazanskaya oblast"
+        RUSAK: Sakhalinskaya oblast"
+        RUSAM: Samarskaya oblast"
+        RUSAR: Saratovskaya oblast"
+        RUSMO: Smolenskaya oblast"
+        RUSVE: Sverdlovskaya oblast"
+        RUTAM: Tambovskaya oblast"
+        RUTOM: Tomskaya oblast"
+        RUTUL: Tul"skaya oblast"
+        RUTVE: Tverskaya oblast"
+        RUTYU: Tyumenskaya oblast"
+        RUULY: Ul"yanovskaya oblast"
+        RUVLA: Vladimirskaya oblast"
+        RUVGG: Volgogradskaya oblast"
+        RUVLG: Vologodskaya oblast"
+        RUVOR: Voronezhskaya oblast"
+        RUYAR: Yaroslavskaya oblast"
+        RUMOW: Moskva (autonomous city)
+        RUSPE: Sankt-Peterburg (autonomous city)
+        RUYEV: Yevreyskaya avtonomnaya oblast"
+        RUCHU: Chukotskiy avtonomnyy okrug
+        RUKHM: Khanty-Mansiyskiy avtonomnyy okrug-Yugra
+        RUNEN: Nenetskiy avtonomnyy okrug
+        RUYAN: Yamalo-Nenetskiy avtonomnyy okrug
+      flag: "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: RWA
     name: Rwanda
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Rwanda.svg"
-  SHN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Rwanda.svg"
+
+  - code: SHN
     name: Saint Helena, Ascension and Tristan da Cunha
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
-  KNA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
+
+  - code: KNA
     name: Saint Kitts and Nevis
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Saint_Kitts_and_Nevis.svg"
-  LCA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Saint_Kitts_and_Nevis.svg"
+
+  - code: LCA
     name: Saint Lucia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Saint_Lucia.svg"
-  SPM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Saint_Lucia.svg"
+
+  - code: SPM
     name: Saint Pierre and Miquelon
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
-  VCT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+
+  - code: VCT
     name: Saint Vincent and the Grenadines
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Flag_of_Saint_Vincent_and_the_Grenadines.svg"
-  BLM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Flag_of_Saint_Vincent_and_the_Grenadines.svg"
+
+  - code: BLM
     name: Saint-Barthelemy
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Saint_Barthelemy_%28local%29.svg"
-  MAF:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Saint_Barthelemy_%28local%29.svg"
+
+  - code: MAF
     name: Saint-Martin
-    states: ~
-    flag:
-  WSM:
+    metadata:
+      states: ~
+      flag:
+
+  - code: WSM
     name: Samoa
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Samoa.svg"
-  SMR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Samoa.svg"
+
+  - code: SMR
     name: San Marino
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_San_Marino.svg"
-  STP:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_San_Marino.svg"
+
+  - code: STP
     name: São Tomé and Príncipe
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Sao_Tome_and_Principe.svg"
-  SAU:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Sao_Tome_and_Principe.svg"
+
+  - code: SAU
     name: Saudi Arabia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
-  SEN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
+
+  - code: SEN
     name: Senegal
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Flag_of_Senegal.svg"
-  SRB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Flag_of_Senegal.svg"
+
+  - code: SRB
     name: Serbia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg"
-  SYC:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg"
+
+  - code: SYC
     name: Seychelles
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Seychelles.svg"
-  SLE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Seychelles.svg"
+
+  - code: SLE
     name: Sierra Leone
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Sierra_Leone.svg"
-  SGP:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Sierra_Leone.svg"
+
+  - code: SGP
     name: Singapore
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Singapore.svg"
-  SXM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Singapore.svg"
+
+  - code: SXM
     name: Sint Maarten
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Sint_Maarten.svg"
-  SVK:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Sint_Maarten.svg"
+
+  - code: SVK
     name: Slovakia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Slovakia.svg"
-  SVN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Slovakia.svg"
+
+  - code: SVN
     name: Slovenia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Flag_of_Slovenia.svg"
-  SLB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Flag_of_Slovenia.svg"
+
+  - code: SLB
     name: Solomon Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Solomon_Islands.svg"
-  SOM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Solomon_Islands.svg"
+
+  - code: SOM
     name: Somalia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_Somalia.svg"
-  ZAF:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_Somalia.svg"
+
+  - code: ZAF
     name: South Africa
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg"
-  SGS:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg"
+
+  - code: SGS
     name: South Georgia and the South Sandwich Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_South_Georgia_and_the_South_Sandwich_Islands.svg"
-  KOR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_South_Georgia_and_the_South_Sandwich_Islands.svg"
+
+  - code: KOR
     name: South Korea
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  SSD:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: SSD
     name: South Sudan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flag_of_South_Sudan.svg"
-  ESP:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flag_of_South_Sudan.svg"
+
+  - code: ESP
     name: Spain
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  LKA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: LKA
     name: Sri Lanka
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg"
-  SDN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg"
+
+  - code: SDN
     name: Sudan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Sudan.svg"
-  SUR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Sudan.svg"
+
+  - code: SUR
     name: Suriname
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Suriname.svg"
-  SJM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Suriname.svg"
+
+  - code: SJM
     name: Svalbard and Jan Mayen
-    states: ~
-    flag:
-  SWZ:
+    metadata:
+      states: ~
+      flag:
+
+  - code: SWZ
     name: Swaziland
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Eswatini.svg"
-  SWE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Eswatini.svg"
+
+  - code: SWE
     name: Sweden
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  CHE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: CHE
     name: Switzerland
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  SYR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: SYR
     name: Syria
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/5/53/Flag_of_Syria.svg"
-  TWN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/5/53/Flag_of_Syria.svg"
+
+  - code: TWN
     name: Taiwan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-  TJK:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+
+  - code: TJK
     name: Tajikistan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Tajikistan.svg"
-  TZA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Tajikistan.svg"
+
+  - code: TZA
     name: Tanzania
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tanzania.svg"
-  THA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tanzania.svg"
+
+  - code: THA
     name: Thailand
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg"
-  TGO:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg"
+
+  - code: TGO
     name: Togo
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/68/Flag_of_Togo.svg"
-  TKL:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/68/Flag_of_Togo.svg"
+
+  - code: TKL
     name: Tokelau
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Flag_of_Tokelau.svg"
-  TON:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Flag_of_Tokelau.svg"
+
+  - code: TON
     name: Tonga
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Tonga.svg"
-  TTO:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Tonga.svg"
+
+  - code: TTO
     name: Trinidad and Tobago
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Trinidad_and_Tobago.svg"
-  TUN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Trinidad_and_Tobago.svg"
+
+  - code: TUN
     name: Tunisia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Tunisia.svg"
-  TUR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Tunisia.svg"
+
+  - code: TUR
     name: Turkey
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg"
-  TKM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg"
+
+  - code: TKM
     name: Turkmenistan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Turkmenistan.svg"
-  TCA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Turkmenistan.svg"
+
+  - code: TCA
     name: Turks and Caicos Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_the_Turks_and_Caicos_Islands.svg"
-  TUV:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_the_Turks_and_Caicos_Islands.svg"
+
+  - code: TUV
     name: Tuvalu
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tuvalu.svg"
-  UGA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tuvalu.svg"
+
+  - code: UGA
     name: Uganda
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Flag_of_Uganda.svg"
-  UKR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Flag_of_Uganda.svg"
+
+  - code: UKR
     name: Ukraine
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg"
-  ARE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg"
+
+  - code: ARE
     name: United Arab Emirates
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
-  GBR:
+
+  - code: GBR
     name: United Kingdom
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
-    fiscal_year: 0406-0405
-    gov_fiscal_year: 0401-0331
-  UMI:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
+      fiscal_year: 0406-0405
+      gov_fiscal_year: 0401-0331
+
+  - code: UMI
     name: United States Minor Outlying Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
-  URY:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+
+  - code: URY
     name: Uruguay
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg"
-  VIR:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg"
+
+  - code: VIR
     name: US Virgin Islands
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_United_States_Virgin_Islands.svg"
-  USA:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_United_States_Virgin_Islands.svg"
+
+  - code: USA
     name: USA
-    states:
-      USAK: Alaska
-      USAL: Alabama
-      USAR: Arkansas
-      USAZ: Arizona
-      USCA: California
-      USCO: Colorado
-      USCT: Connecticut
-      USDC: Washington D.C.
-      USDE: Delaware
-      USFL: Florida
-      USGA: Georgia
-      USHI: Hawaii
-      USIA: Iowa
-      USID: Idaho
-      USIL: Illinois
-      USIN: Indiana
-      USKS: Kansas
-      USKY: Kentucky
-      USLA: Louisiana
-      USMA: Massachusetts
-      USMD: Maryland
-      USME: Maine
-      USMI: Michigan
-      USMN: Minnesota
-      USMO: Missouri
-      USMS: Mississippi
-      USMT: Montana
-      USNC: North Carolina
-      USND: North Dakota
-      USNE: Nebraska
-      USNH: New Hampshire
-      USNJ: New Jersey
-      USNM: New Mexico
-      USNV: Nevada
-      USNY: New York
-      USOH: Ohio
-      USOK: Oklahoma
-      USOR: Oregon
-      USPA: Pennsylvania
-      USRI: Rhode Island
-      USSC: South Carolina
-      USSD: South Dakota
-      USTN: Tennessee
-      USTX: Texas
-      USUT: Utah
-      USVA: Virginia
-      USVT: Vermont
-      USWA: Washington
-      USWI: Wisconsin
-      USWV: West Virginia
-      USWY: Wyoming
-      USAS: American Samoa
-      USGU: Guam
-      USMP: Northern Mariana Islands
-      USPR: Puerto Rico
-      USUM: United States Minor Outlying Islands
-      USVI: US Virgin Islands
-    flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
-  UZB:
+    metadata:
+      states:
+        USAK: Alaska
+        USAL: Alabama
+        USAR: Arkansas
+        USAZ: Arizona
+        USCA: California
+        USCO: Colorado
+        USCT: Connecticut
+        USDC: Washington D.C.
+        USDE: Delaware
+        USFL: Florida
+        USGA: Georgia
+        USHI: Hawaii
+        USIA: Iowa
+        USID: Idaho
+        USIL: Illinois
+        USIN: Indiana
+        USKS: Kansas
+        USKY: Kentucky
+        USLA: Louisiana
+        USMA: Massachusetts
+        USMD: Maryland
+        USME: Maine
+        USMI: Michigan
+        USMN: Minnesota
+        USMO: Missouri
+        USMS: Mississippi
+        USMT: Montana
+        USNC: North Carolina
+        USND: North Dakota
+        USNE: Nebraska
+        USNH: New Hampshire
+        USNJ: New Jersey
+        USNM: New Mexico
+        USNV: Nevada
+        USNY: New York
+        USOH: Ohio
+        USOK: Oklahoma
+        USOR: Oregon
+        USPA: Pennsylvania
+        USRI: Rhode Island
+        USSC: South Carolina
+        USSD: South Dakota
+        USTN: Tennessee
+        USTX: Texas
+        USUT: Utah
+        USVA: Virginia
+        USVT: Vermont
+        USWA: Washington
+        USWI: Wisconsin
+        USWV: West Virginia
+        USWY: Wyoming
+        USAS: American Samoa
+        USGU: Guam
+        USMP: Northern Mariana Islands
+        USPR: Puerto Rico
+        USUM: United States Minor Outlying Islands
+        USVI: US Virgin Islands
+      flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+
+  - code: UZB
     name: Uzbekistan
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Uzbekistan.svg"
-  VUT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Uzbekistan.svg"
+
+  - code: VUT
     name: Vanuatu
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_Vanuatu_%28official%29.svg"
-  VAT:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_Vanuatu_%28official%29.svg"
+
+  - code: VAT
     name: Vatican City
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_the_Vatican_City.svg"
-  VEN:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_the_Vatican_City.svg"
+
+  - code: VEN
     name: Venezuela
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Flag_of_Venezuela_%28state%29.svg"
-  VNM:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Flag_of_Venezuela_%28state%29.svg"
+
+  - code: VNM
     name: Vietnam
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg"
-  WLF:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg"
+
+  - code: WLF
     name: Wallis and Futuna
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
-  ESH:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+
+  - code: ESH
     name: Western Sahara
-    states: ~
-    flag:
-  YEM:
+    metadata:
+      states: ~
+      flag:
+
+  - code: YEM
     name: Yemen
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Yemen.svg"
-  ZMB:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Yemen.svg"
+
+  - code: ZMB
     name: Zambia
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Zambia.svg"
-  ZWE:
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Zambia.svg"
+
+  - code: ZWE
     name: Zimbabwe
-    states: ~
-    flag: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg"
+    metadata:
+      states: ~
+      flag: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg"
