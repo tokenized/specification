@@ -7,7 +7,10 @@ code: E3
 metadata:
   name: Thaw
   label: Thaw
-  description: "To be used to comply with contractual obligations or legal requirements.  The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities."
+  description: >
+    The contract responding to an Order action to thaw assets.
+    To be used to comply with contractual obligations or legal requirements.
+    The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.
   validation: AssetCreation
   rejection: Rejection
 

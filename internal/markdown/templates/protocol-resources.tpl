@@ -27,7 +27,7 @@ Resources are used to define lists of values, like the definitions of the possib
 
 {{.Metadata.Description}}
 
-Source: https://github.com/tokenized/specification/blob/master/src/resources/develop/{{.Metadata.Name}}.yaml
+[View Source File](https://github.com/tokenized/specification/blob/master/src/resources/develop/{{.Metadata.Name}}.yaml)
 
 <div class="content-list collection-method-list" markdown="1">
 {{- range .Values}}

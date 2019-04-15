@@ -7,7 +7,9 @@ code: E4
 metadata:
   name: Confiscation
   label: Confiscation
-  description: "To be used to comply with contractual obligations, legal and/or issuer requirements."
+  description: >
+    The contract responding to an Order action to confiscate assets.
+    To be used to comply with contractual obligations, legal and/or issuer requirements.
   validation: AssetCreation
   rejection: Rejection
 

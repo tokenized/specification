@@ -7,7 +7,9 @@ code: E5
 metadata:
   name: Reconciliation
   label: Reconciliation
-  description: "To be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances."
+  description: >
+    The contract responding to an Order action to reconcile assets.
+    To be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances.
   validation: AssetCreation
   rejection: Rejection
 
