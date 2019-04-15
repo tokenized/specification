@@ -59,6 +59,7 @@ fields:
     label: Trade Restrictions
     description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
     type: Polity[]
+    resource: Polities
     size: 16
     example_hex: 474252
     example: "GBR"
