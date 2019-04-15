@@ -5,7 +5,7 @@ metadata:
 values:
 
     - code: I
-      name: individual # (Natural Person)
+      name: Individual # (Natural Person)
       label: "Individual"
       metadata:
         type: Legal
