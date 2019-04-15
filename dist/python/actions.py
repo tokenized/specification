@@ -300,9 +300,9 @@ class Action_StaticContractFormation(ActionBase):
         self.Entities = None
 
 
-# Issuer to signal to the smart contract that the tokens that a particular
-# public address(es) owns are to be confiscated, frozen, thawed or
-# reconciled.
+# Used by the issuer to signal to the smart contract that the tokens that a
+# particular public address(es) owns are to be confiscated, frozen, thawed
+# or reconciled.
 
 class Action_Order(ActionBase):
     ActionPrefix = 'E1'
@@ -346,10 +346,11 @@ class Action_Order(ActionBase):
         self.Message = None
 
 
-# To be used to comply with contractual/legal/issuer requirements. The
-# target public address(es) will be marked as frozen. However the Freeze
-# action publishes this fact to the public blockchain for transparency. The
-# Contract will not respond to any actions requested by the frozen address.
+# The contract responding to an Order action to freeze assets. To be used
+# to comply with contractual/legal/issuer requirements. The target public
+# address(es) will be marked as frozen. However the Freeze action publishes
+# this fact to the public blockchain for transparency. The Contract will
+# not respond to any actions requested by the frozen address.
 
 class Action_Freeze(ActionBase):
     ActionPrefix = 'E2'
@@ -371,9 +372,10 @@ class Action_Freeze(ActionBase):
         self.Timestamp = None
 
 
-# To be used to comply with contractual obligations or legal requirements.
-# The Alleged Offender's tokens will be unfrozen to allow them to resume
-# normal exchange and governance activities.
+# The contract responding to an Order action to thaw assets. To be used to
+# comply with contractual obligations or legal requirements. The Alleged
+# Offender's tokens will be unfrozen to allow them to resume normal
+# exchange and governance activities.
 
 class Action_Thaw(ActionBase):
     ActionPrefix = 'E3'
@@ -391,7 +393,8 @@ class Action_Thaw(ActionBase):
     def init_attributes(self):
 
 
-# To be used to comply with contractual obligations, legal and/or issuer
+# The contract responding to an Order action to confiscate assets. To be
+# used to comply with contractual obligations, legal and/or issuer
 # requirements.
 
 class Action_Confiscation(ActionBase):
@@ -414,8 +417,9 @@ class Action_Confiscation(ActionBase):
         self.Timestamp = None
 
 
-# To be used at the direction of the issuer to fix record keeping errors
-# with bitcoin and token balances.
+# The contract responding to an Order action to reconcile assets. To be
+# used at the direction of the issuer to fix record keeping errors with
+# bitcoin and token balances.
 
 class Action_Reconciliation(ActionBase):
     ActionPrefix = 'E5'

@@ -6,9 +6,11 @@ import (
 )
 
 type RejectionCodeData struct {
-	Name string
-	Text string
+	Code        uint8
+	Name        string
+	Label       string
 	Description string
+	// Metadata string
 }
 
 var rejectionTypes map[uint8]RejectionCodeData
@@ -18,13 +20,16 @@ func GetRejectionCodes() (map[uint8]RejectionCodeData, error) {
 		return rejectionTypes, nil
 	}
 
-	var load map[uint8]RejectionCodeData
+	load := make([]RejectionCodeData, 0)
 
 	if err := yaml.Unmarshal([]byte(yamlRejections), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal rejection codes yaml")
 	}
 
-	rejectionTypes = load
+	rejectionTypes = make(map[uint8]RejectionCodeData)
+	for _, value := range load {
+		rejectionTypes[value.Code] = value
+	}
 	return rejectionTypes, nil
 }
 
@@ -41,33 +46,39 @@ func GetRejectionCode(code uint8) *RejectionCodeData {
 }
 
 type CurrencyTypeData struct {
-	Name              string
-	Label             string
-	Symbol            string
-	Fractions         uint64
-	FractionalUnit    string `yaml:"fractional_unit"`
-	Polity            string
-	MonetaryAuthority string `yaml:"monetary_authority"`
+	Code        string
+	Name        string
+	Label       string
+	Description string
+	// Metadata    string
 }
 
-var currencyTypes map[string]CurrencyTypeData
+var currencyTypes map[[3]byte]CurrencyTypeData
 
-func GetCurrencies() (map[string]CurrencyTypeData, error) {
+func GetCurrencies() (map[[3]byte]CurrencyTypeData, error) {
 	if currencyTypes != nil {
 		return currencyTypes, nil
 	}
 
-	var load map[string]CurrencyTypeData
+	load := make([]CurrencyTypeData, 0)
 
 	if err := yaml.Unmarshal([]byte(yamlCurrencies), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal currencyTypes yaml")
 	}
 
-	currencyTypes = load
+	currencyTypes = make(map[[3]byte]CurrencyTypeData)
+	for _, value := range load {
+		if len(value.Code) != 3 {
+			return nil, fmt.Errorf("Currency type incorrect length : %s", value.Code)
+		}
+		var code [3]byte
+		copy(code[:], []byte(value.Code))
+		currencyTypes[code] = value
+	}
 	return currencyTypes, nil
 }
 
-func GetCurrency(cur string) *CurrencyTypeData {
+func GetCurrency(cur [3]byte) *CurrencyTypeData {
 	types, err := GetCurrencies()
 	if err != nil {
 		return nil
@@ -80,9 +91,11 @@ func GetCurrency(cur string) *CurrencyTypeData {
 }
 
 type EntityTypeData struct {
-	Name              string
-	Label             string
-	Symbol            string
+	Code        string
+	Name        string
+	Label       string
+	Description string
+	// Metadata    string
 }
 
 var entityTypes map[byte]EntityTypeData
@@ -92,18 +105,18 @@ func GetEntityTypes() (map[byte]EntityTypeData, error) {
 		return entityTypes, nil
 	}
 
-	var load map[string]EntityTypeData
+	load := make([]EntityTypeData, 0)
 
 	if err := yaml.Unmarshal([]byte(yamlEntities), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal entities yaml")
 	}
 
 	entityTypes = make(map[byte]EntityTypeData)
-	for key, value := range load {
-		if len(key) > 1 {
-			return nil, fmt.Errorf("Entity type too long : %s", key)
+	for _, value := range load {
+		if len(value.Code) > 1 {
+			return nil, fmt.Errorf("Entity type too long : %s", value.Code)
 		}
-		entityTypes[byte(key[0])] = value
+		entityTypes[byte(value.Code[0])] = value
 	}
 	return entityTypes, nil
 }
@@ -121,11 +134,11 @@ func GetEntityType(ent byte) *EntityTypeData {
 }
 
 type PolityType struct {
-	Name          string
-	States        map[string]string
-	Flag          string
-	FiscalYear    string `yaml:"fractional_unit"`
-	GovFiscalYear string `yaml:"gov_fiscal_year"`
+	Code        string
+	Name        string
+	Label       string
+	Description string
+	// Metadata    string
 }
 
 var polityTypes map[string]PolityType
@@ -135,13 +148,16 @@ func GetPolityTypes() (map[string]PolityType, error) {
 		return polityTypes, nil
 	}
 
-	var load map[string]PolityType
+	load := make([]PolityType, 0)
 
 	if err := yaml.Unmarshal([]byte(yamlPolities), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal polities yaml")
 	}
 
-	polityTypes = load
+	polityTypes = make(map[string]PolityType)
+	for _, value := range load {
+		polityTypes[value.Code] = value
+	}
 	return polityTypes, nil
 }
 
@@ -158,7 +174,11 @@ func GetPolityType(pol string) *PolityType {
 }
 
 type RoleType struct {
-	Name string
+	Code        uint8
+	Name        string
+	Label       string
+	Description string
+	// Metadata    string
 }
 
 var roleTypes map[uint8]RoleType
@@ -168,13 +188,16 @@ func GetRoleTypes() (map[uint8]RoleType, error) {
 		return roleTypes, nil
 	}
 
-	var load map[uint8]RoleType
+	load := make([]RoleType, 0)
 
 	if err := yaml.Unmarshal([]byte(yamlRoles), &load); err != nil {
 		return nil, errors.Wrap(err, "Failed to unmarshal roles yaml")
 	}
 
-	roleTypes = load
+	roleTypes = make(map[uint8]RoleType)
+	for _, value := range load {
+		roleTypes[value.Code] = value
+	}
 	return roleTypes, nil
 }
 

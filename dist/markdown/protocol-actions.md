@@ -1414,7 +1414,8 @@ Static Contract Formation Action
 <a name="action-order"></a>
 #### Order
 
-Issuer to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled.
+Used by the issuer to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled.
+
 
 <table>
     <tr>
@@ -1631,7 +1632,8 @@ Issuer to signal to the smart contract that the tokens that a particular public 
 <a name="action-freeze"></a>
 #### Freeze
 
-To be used to comply with contractual/legal/issuer requirements.  The target public address(es) will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract will not respond to any actions requested by the frozen address.
+The contract responding to an Order action to freeze assets. To be used to comply with contractual/legal/issuer requirements. The target public address(es) will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The Contract will not respond to any actions requested by the frozen address.
+
 
 <table>
     <tr>
@@ -1738,7 +1740,8 @@ To be used to comply with contractual/legal/issuer requirements.  The target pub
 <a name="action-thaw"></a>
 #### Thaw
 
-To be used to comply with contractual obligations or legal requirements.  The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.
+The contract responding to an Order action to thaw assets. To be used to comply with contractual obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.
+
 
 <table>
     <tr>
@@ -1815,7 +1818,8 @@ To be used to comply with contractual obligations or legal requirements.  The Al
 <a name="action-confiscation"></a>
 #### Confiscation
 
-To be used to comply with contractual obligations, legal and/or issuer requirements.
+The contract responding to an Order action to confiscate assets. To be used to comply with contractual obligations, legal and/or issuer requirements.
+
 
 <table>
     <tr>
@@ -1927,7 +1931,8 @@ To be used to comply with contractual obligations, legal and/or issuer requireme
 <a name="action-reconciliation"></a>
 #### Reconciliation
 
-To be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances.
+The contract responding to an Order action to reconcile assets. To be used at the direction of the issuer to fix record keeping errors with bitcoin and token balances.
+
 
 <table>
     <tr>

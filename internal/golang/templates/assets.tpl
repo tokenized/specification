@@ -247,7 +247,7 @@ func (m *{{.Name}}) Validate() error {
 				return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
 			}
 	{{- else if eq .Type "CurrencyType[]" }}
-			if GetCurrency(value[:]) == nil {
+			if GetCurrency(value) == nil {
 				return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
 			}
 	{{- else if eq .Type "Polity[]" }}
@@ -269,7 +269,7 @@ func (m *{{.Name}}) Validate() error {
 			return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
 		}
 {{- else if eq .Type "CurrencyType" }}
-		if GetCurrency(string(m.{{.Name}}[:])) == nil {
+		if GetCurrency(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
 		}
 {{- else if eq .Type "Polity" }}
