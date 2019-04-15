@@ -15,34 +15,23 @@ Resources are used to define lists of values, like the definitions of the possib
 
 <div class="content-list collection-method-list" markdown="1">
 {{- range $resourceTypes }}
-- [{{.Metadata.Name}}](#{{.Metadata.Type}})
+- [{{.Metadata.Name}}](#{{.URLCode}})
 {{- end }}
 </div>
 
 
 {{- range $resourceTypes}}
 
-<a name="{{.Metadata.Type}}"></a>
+<a name="{{.URLCode}}"></a>
 #### {{.Metadata.Name}}
 
 {{.Metadata.Description}}
 
 Source: https://github.com/tokenized/specification/blob/master/src/resources/develop/{{.Metadata.Name}}.yaml
 
-<div><button onclick="showHideYaml('{{.Metadata.Name}}Yaml')">Show/Hide {{.Metadata.Name}}</button></div>
-<code id="{{.Metadata.Name}}Yaml">
-{{ .Data }}
-</code>
-
+<div class="content-list collection-method-list" markdown="1">
+{{- range .Values}}
+- {{ if .Name }}{{.Name}}{{ else }}{{.Label}}{{ end }}
+{{- end }}
+</div>
 {{ end }}
-
-<script type="text/javascript">
-function showHideYaml(id) {
-  var x = document.getElementById(id);
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-</script>

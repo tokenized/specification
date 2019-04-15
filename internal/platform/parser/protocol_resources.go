@@ -64,6 +64,10 @@ func (m ProtocolResource) Name() string {
 	return strings.Replace(m.Metadata.Name, " ", "", -1)
 }
 
+func (m ProtocolResource) URLCode() string {
+	return "resource-" + KebabCase(m.Name())
+}
+
 type ProtocolResourceValue struct {
 	Code        string
 	Name        string
