@@ -8,7 +8,6 @@ fields:
     label: Administrator Type
     description: "Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources"
     type: Role
-    resource: Roles
     example_hex: 37
     example: "7"
     notes: "7 - Chair"

@@ -8,7 +8,6 @@ fields:
     label: Manager Type
     description: "CEO, COO, CFO, etc. Found in 'Roles' in Specification/Resources"
     type: Role
-    resource: Roles
     example_hex: 35
     example: "5"
     notes: "5 - CEO"
