@@ -1,5 +1,5 @@
 #
-# Contract Offer Action: The Contract Offer action allows the Issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the Smart Contract Operator or the Issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
+# Contract Offer Action: The Contract Offer action allows the issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 #
 
 code: C1
@@ -7,7 +7,7 @@ code: C1
 metadata:
   name: ContractOffer
   label: "Contract Offer"
-  description: "Allows the Issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the Smart Contract Operator or the Issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
+  description: "Allows the issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
   validation: AssetCreation
   rejection: Rejection
 
@@ -33,7 +33,7 @@ fields:
     description: >
       Can be any unique identifying string, including human readable names for branding/vanity purposes.
       Contract identifier (instance) is the bitcoin public key hash address.
-      If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.
+      If the public address is lost, then the issuer will have to reissue the entire contract, Asset Definition and tokens with the new public address.
       Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
     # varchar size is number of bits to serialize the size of the value
@@ -92,7 +92,7 @@ fields:
 
   - name: GoverningLaw
     label: Governing Law
-    description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
     type: fixedchar
     size: 5
     example_hex: 5553410000
@@ -118,7 +118,7 @@ fields:
 
   - name: ContractURI
     label: Contract URI
-    description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS)."
+    description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS)."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
@@ -133,7 +133,7 @@ fields:
 
   - name: IssuerLogoURL
     label: Issuer Logo URL
-    description: "The URL of the Issuers logo."
+    description: "The URL of the issuer's logo."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
@@ -183,7 +183,7 @@ fields:
 
   - name: IssuerProposal
     label: Issuer Proposal
-    description: "Set to true if an Issuer is permitted to make proposals outside of the smart contract scope."
+    description: "Set to true if an issuer is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
     example: true
