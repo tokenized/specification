@@ -1,5 +1,5 @@
 #
-# Contract Formation Action:  This txn is created by the Contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer.  The Smart Contract will execute on a server controlled by the Issuer. or a Smart Contract Operator on their behalf.
+# Contract Formation Action:  This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer.  The smart contract will execute on a server controlled by the issuer, or a smart contract operator on their behalf.
 #
 
 code: C2
@@ -7,7 +7,7 @@ code: C2
 metadata:
   name: ContractFormation
   label: Contract Formation
-  description: "This txn is created by the Contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer.  The Smart Contract will execute on a server controlled by the Issuer. or a Smart Contract Operator on their behalf."
+  description: "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer.  The smart contract will execute on a server controlled by the issuer, or a smart contract operator on their behalf."
   validation: AssetCreation
   rejection: Rejection
 
@@ -29,7 +29,7 @@ fields:
     description: >
       Can be any unique identifying string, including human readable names for branding/vanity purposes.
       Contract identifier (instance) is the bitcoin public key hash address.
-      If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address.
+      If the public address is lost, then the issuer will have to reissue the entire contract, asset definition and tokens with the new public address.
       Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
     # varchar size is number of bits to serialize the size of the value
@@ -86,7 +86,7 @@ fields:
 
   - name: GoverningLaw
     label: Governing Law
-    description: "5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
     type: fixedchar
     size: 5
     example_hex: 5553410000
@@ -126,7 +126,7 @@ fields:
 
   - name: IssuerLogoURL
     label: Issuer Logo URL
-    description: "The URL of the Issuers logo."
+    description: "The URL of the issuer's logo."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
@@ -147,7 +147,7 @@ fields:
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags
-    description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Contract File."
+    description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement"
     type: varbin
     size: 16
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
