@@ -6,9 +6,9 @@
 
 
 # This action is used by the issuer to define the
-# properties/characteristics of the Asset (token) that it wants to create.
+# properties/characteristics of the asset (token) that it wants to create.
 # An asset has a unique identifier called AssetID = AssetType +
-# base58(AssetCode + checksum). An asset is always linked to a Contract
+# base58(AssetCode + checksum). An asset is always linked to a contract
 # that is identified by the public address of the Contract wallet.
 
 class Action_AssetDefinition(ActionBase):
@@ -47,7 +47,7 @@ class Action_AssetDefinition(ActionBase):
         self.AssetPayload = None
 
 
-# This action creates an Asset in response to the Issuer's instructions in
+# This action creates an asset in response to the issuer's instructions in
 # the Definition Action.
 
 class Action_AssetCreation(ActionBase):
@@ -112,11 +112,11 @@ class Action_AssetModification(ActionBase):
         self.RefTxID = None
 
 
-# Allows the Issuer to tell the smart contract what they want the details
+# Allows the issuer to tell the smart contract what they want the details
 # (labels, data, T&C's, etc.) of the Contract to be on-chain in a public
 # and immutable way. The Contract Offer action 'initializes' a generic
-# smart contract that has been spun up by either the Smart Contract
-# Operator or the Issuer. This on-chain action allows for the positive
+# smart contract that has been spun up by either the smart contract
+# operator or the issuer. This on-chain action allows for the positive
 # response from the smart contract with either a Contract Formation Action
 # or a Rejection Action.
 

@@ -44,7 +44,7 @@ Each message should be prefixed with common header data. See the [Transactions a
 <a name="action-asset-definition"></a>
 #### Asset Definition
 
-This action is used by the issuer to define the properties/characteristics of the Asset (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum). An asset is always linked to a Contract that is identified by the public address of the Contract wallet.
+This action is used by the issuer to define the properties/characteristics of the asset (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum). An asset is always linked to a contract that is identified by the public address of the Contract wallet.
 
 
 <table>
@@ -147,7 +147,7 @@ This action is used by the issuer to define the properties/characteristics of th
             bool
         </td>
         <td>
-            Set to true if an Issuer is permitted to make proposals outside of the smart contract scope.
+            Set to true if an issuer is permitted to make proposals outside of the smart contract scope.
             General Governance Example: true
         </td>
     </tr>
@@ -187,7 +187,7 @@ This action is used by the issuer to define the properties/characteristics of th
             varbin(16)
         </td>
         <td>
-            A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See Asset documentation for more details.
+            A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.
             
         </td>
     </tr>
@@ -232,7 +232,7 @@ This action is used by the issuer to define the properties/characteristics of th
 <a name="action-asset-creation"></a>
 #### Asset Creation
 
-This action creates an Asset in response to the Issuer's instructions in the Definition Action.
+This action creates an asset in response to the issuer's instructions in the Definition Action.
 
 <table>
     <tr>
@@ -334,7 +334,7 @@ This action creates an Asset in response to the Issuer's instructions in the Def
             bool
         </td>
         <td>
-            Set to true if an Issuer is permitted to make proposals outside of the smart contract scope.
+            Set to true if an issuer is permitted to make proposals outside of the smart contract scope.
             General Governance Example: true
         </td>
     </tr>
@@ -374,7 +374,7 @@ This action creates an Asset in response to the Issuer's instructions in the Def
             varbin(16)
         </td>
         <td>
-            A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See Asset documentation for more details.
+            A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.
             
         </td>
     </tr>
@@ -546,7 +546,7 @@ Token Dilutions, Call Backs/Revocations, burning etc.
 <a name="action-contract-offer"></a>
 #### Contract Offer
 
-Allows the Issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the Smart Contract Operator or the Issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
+Allows the issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 
 <table>
     <tr>
@@ -568,7 +568,7 @@ Allows the Issuer to tell the smart contract what they want the details (labels,
             varchar(8)
         </td>
         <td>
-            Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the Public Address is lost, then the issuer will have to reissue the entire contract, Asset definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.
+            Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the issuer will have to reissue the entire contract, Asset Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.
 
              Example: Tesla - Shareholder Agreement
         </td>
@@ -629,7 +629,7 @@ Allows the Issuer to tell the smart contract what they want the details (labels,
             fixedchar(5)
         </td>
         <td>
-            5 Letter Code to Identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+            5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
             Governing Law - Amendments can be restricted to a vote. Example: USA
         </td>
     </tr>
@@ -659,7 +659,7 @@ Allows the Issuer to tell the smart contract what they want the details (labels,
             varchar(8)
         </td>
         <td>
-            Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on-chain information or even a public address (DNS).
+            Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).
              Example: https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj
         </td>
     </tr>
@@ -679,7 +679,7 @@ Allows the Issuer to tell the smart contract what they want the details (labels,
             varchar(8)
         </td>
         <td>
-            The URL of the Issuers logo.
+            The URL of the issuer's logo.
              Example: https://example.com/images/logo.png
         </td>
     </tr>
@@ -749,7 +749,7 @@ Allows the Issuer to tell the smart contract what they want the details (labels,
             bool
         </td>
         <td>
-            Set to true if an Issuer is permitted to make proposals outside of the smart contract scope.
+            Set to true if an issuer is permitted to make proposals outside of the smart contract scope.
             General Governance Example: true
         </td>
     </tr>
