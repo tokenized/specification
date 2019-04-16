@@ -10,7 +10,7 @@ fields:
     type: Role
     example_hex: 37
     example: "7"
-    notes: "7 - Chair"
+    notes: ""
 
   - name: Name
     label: Administrator Name
