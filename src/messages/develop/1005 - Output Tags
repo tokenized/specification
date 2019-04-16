@@ -1,5 +1,5 @@
 #
-# Output Tag: "Users can add a tag(s) to an output of a transaction.  Can be encrypted.  Private for one party or shared by multiple parties (DH). Companies could use this for categorizing sales (eg. sold at Register 3).  People can categorize purchases (eg. groceries, entertainment, fitness, etc."
+# Output Tags: "Users can add a tag(s) to an output of a transaction.  Can be encrypted.  Private for one party or shared by multiple parties (DH). Companies could use this for categorizing sales (eg. sold at Register 3).  People can categorize purchases (eg. groceries, entertainment, fitness, etc."
 code: 1004
 
 metadata:
