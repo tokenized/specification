@@ -73,7 +73,7 @@ fields:
 
   - name: Specific
     label: Specific
-    description: "When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update."
+    description: "When true the ProposedAmendments field is included and specifies the exact changes to make to the contract/asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update."
     type: bool
 
   - name: ProposedAmendments
