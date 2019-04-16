@@ -14,7 +14,7 @@ fields:
 
   - name: Name
     label: Administrator Name
-    description: "Length 0-255 bytes. 0 is valid. Name (eg. John Alexander Smith)"
+    description: "Length 0-255 bytes. 0 is valid."
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
