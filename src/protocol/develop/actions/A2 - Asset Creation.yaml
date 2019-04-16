@@ -1,5 +1,5 @@
 #
-# Asset Creation Action: This action creates an Asset in response to the Issuer's instructions in the Definition Action.
+# Asset Creation Action: This action creates an asset in response to the issuer's instructions in the Definition Action.
 #
 
 code: A2
@@ -7,7 +7,7 @@ code: A2
 metadata:
   name: AssetCreation
   label: Asset Creation
-  description: "This action creates an Asset in response to the Issuer's instructions in the Definition Action."
+  description: "This action creates an asset in response to the issuer's instructions in the Definition Action."
   validation: AssetCreation
   rejection: Rejection
 
@@ -88,7 +88,7 @@ fields:
 
   - name: IssuerProposal
     label: Issuer Proposal
-    description: "Set to true if an Issuer is permitted to make proposals outside of the smart contract scope."
+    description: "Set to true if an issuer is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
     example: true
@@ -125,7 +125,7 @@ fields:
 
   - name: AssetPayload
     label: Asset Payload
-    description: "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See Asset documentation for more details."
+    description: "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details."
     type: varbin
     # varbin size is number of bits to serialize the size of the data
     size: 16
