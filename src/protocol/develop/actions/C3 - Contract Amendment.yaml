@@ -20,7 +20,7 @@ rules:
 
     - name: NewIssuer
       label: New Issuer Public Address
-      comments: "Only treated as the new Issuer address when the Change Issuer Address flag is set to true."
+      comments: "Only treated as the new issuer address when the Change Issuer Address flag is set to true."
 
   outputs:
     - name: Contract
