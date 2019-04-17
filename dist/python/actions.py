@@ -172,10 +172,10 @@ class Action_ContractOffer(ActionBase):
         self.Oracles = None
 
 
-# This txn is created by the Contract (smart contract/off-chain agent/token
+# This txn is created by the contract (smart contract/off-chain agent/token
 # contract) upon receipt of a valid Contract Offer Action from the issuer.
-# The Smart Contract will execute on a server controlled by the Issuer. or
-# a Smart Contract Operator on their behalf.
+# The smart contract will execute on a server controlled by the issuer, or
+# a smart contract operator on their behalf.
 
 class Action_ContractFormation(ActionBase):
     ActionPrefix = 'C2'
@@ -349,7 +349,7 @@ class Action_Order(ActionBase):
 # The contract responding to an Order action to freeze assets. To be used
 # to comply with contractual/legal/issuer requirements. The target public
 # address(es) will be marked as frozen. However the Freeze action publishes
-# this fact to the public blockchain for transparency. The Contract will
+# this fact to the public blockchain for transparency. The contract will
 # not respond to any actions requested by the frozen address.
 
 class Action_Freeze(ActionBase):

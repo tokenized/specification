@@ -102,6 +102,26 @@ func (f Field) Length() uint64 {
 }
 
 func (f Field) TypeURLCode() string {
+	if f.IsResource() {
+		typeName := f.Type
+		if strings.HasSuffix(typeName, "[]") {
+			typeName = typeName[:len(typeName)-2]
+		}
+		var name string
+		switch(typeName) {
+		case "Role":
+			name = "roles"
+		case "EntityType":
+			name = "entities"
+		case "Polity":
+			name = "polities"
+		case "CurrencyType":
+			name = "currencies"
+		case "RejectionCode":
+			name = "rejections"
+		}
+		return "resource-" + KebabCase(name)
+	}
 	return "type-" + KebabCase(f.SingularType())
 }
 
@@ -119,6 +139,10 @@ func (f Field) IsInternalTypeArray() bool {
 
 func (f Field) IsNativeTypeArray() bool {
 	return !f.IsInternalType() && strings.HasSuffix(f.Type, "[]")
+}
+
+func (f Field) IsResource() bool {
+	return IsResource(f.Type)
 }
 
 func (f Field) IsResourceTypeArray() bool {
