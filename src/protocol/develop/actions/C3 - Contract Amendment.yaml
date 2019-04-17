@@ -30,7 +30,7 @@ rules:
 fields:
   - name: ChangeIssuerAddress
     label: Change Issuer Address
-    description: "Used to change the issuer address.  The new issuer address must be in the input[1] position."
+    description: "Used to change the issuer address.  The new issuer address must be in the input[1] position. A change of an issuer or operator address requires both the operator and the issuer address to be in the inputs (both signatures) of the Contract Amendment action."
     type: bool
     example_hex: 01
     example: 1
@@ -38,7 +38,7 @@ fields:
 
   - name: ChangeOperatorAddress
     label: Change Operator Address
-    description: "Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless issuer is being changed too, then it is in input[2]."
+    description: "Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless issuer is being changed too, then it is in input[2]. A change of an issuer or operator address requires both the operator and the issuer address to be in the inputs (both signatures) of the Contract Amendment action."
     type: bool
     example_hex: 01
     example: 1
