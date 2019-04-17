@@ -1,0 +1,31 @@
+#
+# Output Metadata: "A description that accompanies the output.  It is used to describe the purpose of the transaction and any associated useful details. Often encrypted (DH, RSA) to make it private for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the like for descriptions only visible to one of the transacting parties. Optional"
+code: 1004
+
+metadata:
+  name: OutputMetadata
+  label: Output Metadata
+  description: "Metadata associated with the output. Aka Transaction details. It is used to describe the purpose of the transaction and add other relevant information. Often encrypted (DH, RSA) to make it private for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the like for descriptions only visible to one of the transacting parties. Optional"
+
+fields:
+  - name: Version
+    label: Version
+    type: uint
+    description: Payload Version
+    size: 1
+    example: 0
+    computed: true
+
+  - name: OutputDescription
+    label: Output Description
+    description: "A Description that accompanies the output. A transaction description."
+    type: varchar
+    size: 32
+    example: "eg. Invoice 3024, Pay Mike back for camping."
+    notes: "  Can be NULL"
+    
+  - name: OutputTags
+    label: Output Tags
+    description: "Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc."
+    type: OutputTag[]
+    notes: ""
