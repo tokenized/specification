@@ -1,0 +1,11 @@
+metadata:
+  name: OutputTag
+  label: Output Tag
+  description: "A tag or category of an output used to categorize and organize outputs from different transactions."
+
+fields:
+  - name: Tag
+    label: Tag
+    description: "The text of the tag."
+    type: varchar
+    size: 8
