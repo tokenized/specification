@@ -23,7 +23,7 @@ fields:
     size: 32
     example: "eg. Invoice 3024, Pay Mike back for camping."
     notes: "  Can be NULL"
-    
+
   - name: OutputTags
     label: Output Tags
     description: "Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc."
