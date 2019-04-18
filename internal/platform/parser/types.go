@@ -104,7 +104,7 @@ func IsResource(typeName string) bool {
 	case "Role",
 		"EntityType",
 		"Polity",
-		"Currency",
+		"CurrencyType",
 		"RejectionCode":
 		return true
 	}
