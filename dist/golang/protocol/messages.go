@@ -19,6 +19,9 @@ const (
 	// CodeSettlementRequest identifies data as a SettlementRequest message.
 	CodeSettlementRequest = 1003
 
+	// CodeOutputMetadata identifies data as a OutputMetadata message.
+	CodeOutputMetadata = 1004
+
 	// CodePublicMessage identifies data as a PublicMessage message.
 	CodePublicMessage = 2
 
@@ -48,6 +51,9 @@ func MessageTypeMapping(code uint16) MessagePayload {
 		return &result
 	case CodeSettlementRequest:
 		result := SettlementRequest{}
+		return &result
+	case CodeOutputMetadata:
+		result := OutputMetadata{}
 		return &result
 	case CodePublicMessage:
 		result := PublicMessage{}
@@ -707,6 +713,166 @@ func (action SettlementRequest) String() string {
 	vals = append(vals, fmt.Sprintf("TransferTxId:%#+v", action.TransferTxId))
 	vals = append(vals, fmt.Sprintf("ContractFees:%#+v", action.ContractFees))
 	vals = append(vals, fmt.Sprintf("Settlement:%#x", action.Settlement))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
+}
+
+// OutputMetadata Metadata associated with the output. Aka Transaction
+// details. It is used to describe the purpose of the transaction and add
+// other relevant information. Often encrypted (DH, RSA) to make it private
+// for one or more parties. DH for b2b where multiple parties can see the
+// description. RSA or the like for descriptions only visible to one of the
+// transacting parties. Optional
+type OutputMetadata struct {
+	Version           uint8       `json:"version,omitempty"`            // Payload Version
+	OutputDescription string      `json:"output_description,omitempty"` // A Description that accompanies the output. A transaction description.
+	OutputTags        []OutputTag `json:"output_tags,omitempty"`        // Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc.
+}
+
+// Type returns the type identifer for this message.
+func (action OutputMetadata) Type() uint16 {
+	return CodeOutputMetadata
+}
+
+// Read implements the io.Reader interface, writing the receiver to the
+// []byte.
+func (action *OutputMetadata) Read(b []byte) (int, error) {
+	data, err := action.Serialize()
+
+	if err != nil {
+		return 0, err
+	}
+
+	copy(b, data)
+
+	return len(b), nil
+}
+
+// Serialize returns the full OP_RETURN payload bytes.
+func (action *OutputMetadata) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	// Version (uint8)
+	// fmt.Printf("Serializing Version\n")
+	{
+		if err := write(buf, action.Version); err != nil {
+			return nil, err
+		}
+	}
+
+	// OutputDescription (string)
+	// fmt.Printf("Serializing OutputDescription\n")
+	{
+		if err := WriteVarChar(buf, action.OutputDescription, 32); err != nil {
+			return nil, err
+		}
+	}
+
+	// OutputTags ([]OutputTag)
+	// fmt.Printf("Serializing OutputTags\n")
+	{
+		if err := WriteVariableSize(buf, uint64(len(action.OutputTags)), 0, 8); err != nil {
+			return nil, err
+		}
+		for _, value := range action.OutputTags {
+			b, err := value.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	return buf.Bytes(), nil
+}
+
+// Write populates the fields in OutputMetadata from the byte slice
+func (action *OutputMetadata) Write(b []byte) (int, error) {
+	// fmt.Printf("Reading OutputMetadata : %d bytes\n", len(b))
+	buf := bytes.NewBuffer(b)
+
+	// Version (uint8)
+	{
+		if err := read(buf, &action.Version); err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
+
+	// OutputDescription (string)
+	{
+		var err error
+		action.OutputDescription, err = ReadVarChar(buf, 32)
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// fmt.Printf("Read OutputDescription : %d bytes remaining\n%+v\n", buf.Len(), action.OutputDescription)
+
+	// OutputTags ([]OutputTag)
+	{
+		size, err := ReadVariableSize(buf, 0, 8)
+		if err != nil {
+			return 0, err
+		}
+		action.OutputTags = make([]OutputTag, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue OutputTag
+			if err := newValue.Write(buf); err != nil {
+				return 0, err
+			}
+
+			action.OutputTags = append(action.OutputTags, newValue)
+		}
+	}
+
+	// fmt.Printf("Read OutputTags : %d bytes remaining\n%+v\n", buf.Len(), action.OutputTags)
+
+	// fmt.Printf("Read OutputMetadata : %d bytes remaining\n", buf.Len())
+	return len(b) - buf.Len(), nil
+}
+
+func (m *OutputMetadata) Validate() error {
+
+	// Version (uint8)
+	{
+	}
+
+	// OutputDescription (string)
+	{
+		if len(m.OutputDescription) > (2<<32)-1 {
+			return fmt.Errorf("varchar field OutputDescription too long %d/%d", len(m.OutputDescription), (2<<32)-1)
+		}
+	}
+
+	// OutputTags ([]OutputTag)
+	{
+		if len(m.OutputTags) > (2<<0)-1 {
+			return fmt.Errorf("list field OutputTags has too many items %d/%d", len(m.OutputTags), (2<<0)-1)
+		}
+
+		for i, value := range m.OutputTags {
+			err := value.Validate()
+			if err != nil {
+				return fmt.Errorf("list field OutputTags[%d] is invalid : %s", i, err)
+			}
+		}
+	}
+
+	return nil
+}
+
+func (action OutputMetadata) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Version:%v", action.Version))
+	vals = append(vals, fmt.Sprintf("OutputDescription:%#+v", action.OutputDescription))
+	vals = append(vals, fmt.Sprintf("OutputTags:%#+v", action.OutputTags))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }

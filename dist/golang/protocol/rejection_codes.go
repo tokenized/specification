@@ -40,6 +40,9 @@ const (
 	// ContractNotPermitted - Action not permitted by contract.
 	RejectContractNotPermitted = 18
 
+	// ContractBothOperatorsRequired - Both operators signatures are required to perform this action.
+	RejectContractBothOperatorsRequired = 19
+
 	// AssetCodeExists - The asset code specified already exists and can't be reused.
 	RejectAssetCodeExists = 20
 

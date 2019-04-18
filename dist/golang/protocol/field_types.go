@@ -1458,6 +1458,61 @@ func (m *Oracle) Equal(other Oracle) bool {
 	return true
 }
 
+// OutputTag A tag or category of an output used to categorize and organize
+// outputs from different transactions.
+type OutputTag struct {
+	Tag string `json:"tag,omitempty"` // The text of the tag.
+}
+
+// Serialize returns the byte representation of the message.
+func (m OutputTag) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	// Tag (string)
+	{
+		if err := WriteVarChar(buf, m.Tag, 8); err != nil {
+			return nil, err
+		}
+	}
+
+	return buf.Bytes(), nil
+}
+
+func (m *OutputTag) Write(buf *bytes.Buffer) error {
+
+	// Tag (string)
+	{
+		var err error
+		m.Tag, err = ReadVarChar(buf, 8)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *OutputTag) Validate() error {
+
+	// Tag (string)
+	{
+		if len(m.Tag) > (2<<8)-1 {
+			return fmt.Errorf("varchar field Tag too long %d/%d", len(m.Tag), (2<<8)-1)
+		}
+	}
+
+	return nil
+}
+
+func (m *OutputTag) Equal(other OutputTag) bool {
+
+	// Tag (string)
+	if m.Tag != other.Tag {
+		return false
+	}
+	return true
+}
+
 // QuantityIndex A QuantityIndex contains a quantity, and an index. The
 // quantity could be used to describe a number of tokens, or a value. The
 // index is used to refer to an input index position.

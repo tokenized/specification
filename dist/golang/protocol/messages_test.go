@@ -280,6 +280,69 @@ func TestSettlementRequest(t *testing.T) {
 	}
 }
 
+func TestOutputMetadata(t *testing.T) {
+	// Create a randomized object
+	initialMessage := OutputMetadata{}
+	// Version (uint)
+	// uint test not setup
+
+	// OutputDescription (varchar)
+	initialMessage.OutputDescription = "Text 1"
+
+	// OutputTags (OutputTag[])
+	for i := 0; i < 2; i++ {
+		initialMessage.OutputTags = append(initialMessage.OutputTags, OutputTag{})
+	}
+
+	// Encode message
+	initialEncoding, err := initialMessage.Serialize()
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
+
+	// Decode message
+	decodedMessage := OutputMetadata{}
+
+	n, err := decodedMessage.Write(initialEncoding)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("Decoded : %d bytes", n)
+
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
+	}
+
+	// Serializing the message should give us the same bytes
+	secondEncoding, err := decodedMessage.Serialize()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !reflect.DeepEqual(initialEncoding, secondEncoding) {
+		t.Errorf("got\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	// if !reflect.DeepEqual(initialMessage, decodedMessage) {
+	// 	t.Errorf("\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// }
+
+	// Compare re-serialized values
+	// Version (uint)
+	// uint test compare not setup
+
+	// OutputDescription (varchar)
+	if initialMessage.OutputDescription != decodedMessage.OutputDescription {
+		t.Errorf("OutputDescription doesn't match : %s != %s", initialMessage.OutputDescription, decodedMessage.OutputDescription)
+	}
+
+	// OutputTags (OutputTag[])
+	if len(initialMessage.OutputTags) != len(decodedMessage.OutputTags) {
+		t.Errorf("OutputTags lengths don't match : %d != %d", len(initialMessage.OutputTags), len(decodedMessage.OutputTags))
+	}
+}
+
 func TestPublicMessage(t *testing.T) {
 	// Create a randomized object
 	initialMessage := PublicMessage{}

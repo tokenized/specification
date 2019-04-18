@@ -4251,6 +4251,11 @@ var yamlRejections = `
     label: Contract Not Permitted
     description: Action not permitted by contract.
 
+  - code: 19
+    name: ContractBothOperatorsRequired
+    label: Contract BothOperatorsRequired
+    description: Both operators signatures are required to perform this action.
+
 #################################### Asset ####################################
 
   - code: 20
