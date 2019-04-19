@@ -194,6 +194,11 @@ fields:
     description: "A list of oracles that provide approval for all token transfers for all assets under the contract."
     type: Oracle[]
 
+  - name: MasterPKH
+    label: Master Public Key Hash
+    description: "The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key."
+    type: PublicKeyHash
+
   - name: ContractRevision
     label: Contract Revision
     description: "A counter for the number of times this contract has been revised using an amendment action."

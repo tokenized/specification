@@ -4204,6 +4204,11 @@ var yamlRejections = `
     label: Time Out
     description: A dependency, other contract/service, has failed to complete before the smart contract's timeout.
 
+  - code: 4
+    name: ContractMoved
+    label: Contract Moved
+    description: The contract has been moved to a different address. Please find the addres change message and send requests to new address.
+
 #################################### Contract ####################################
 
   - code: 10

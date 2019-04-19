@@ -623,6 +623,11 @@ func TestContractOffer(t *testing.T) {
 		}
 	}
 
+	// MasterPKH (PublicKeyHash)
+	{
+		initialMessage.MasterPKH = PublicKeyHash{}
+	}
+
 	// Encode message
 	initialEncoding, err := initialMessage.serialize()
 	if err != nil {
@@ -756,6 +761,9 @@ func TestContractOffer(t *testing.T) {
 	if len(initialMessage.Oracles) != len(decodedMessage.Oracles) {
 		t.Errorf("Oracles lengths don't match : %d != %d", len(initialMessage.Oracles), len(decodedMessage.Oracles))
 	}
+
+	// MasterPKH (PublicKeyHash)
+	// PublicKeyHash test compare not setup
 }
 
 func TestContractFormation(t *testing.T) {
@@ -889,6 +897,11 @@ func TestContractFormation(t *testing.T) {
 		for i := 0; i < 2; i++ {
 			initialMessage.Oracles = append(initialMessage.Oracles, Oracle{})
 		}
+	}
+
+	// MasterPKH (PublicKeyHash)
+	{
+		initialMessage.MasterPKH = PublicKeyHash{}
 	}
 
 	// ContractRevision (uint)
@@ -1034,6 +1047,9 @@ func TestContractFormation(t *testing.T) {
 	if len(initialMessage.Oracles) != len(decodedMessage.Oracles) {
 		t.Errorf("Oracles lengths don't match : %d != %d", len(initialMessage.Oracles), len(decodedMessage.Oracles))
 	}
+
+	// MasterPKH (PublicKeyHash)
+	// PublicKeyHash test compare not setup
 
 	// ContractRevision (uint)
 	if initialMessage.ContractRevision != decodedMessage.ContractRevision {
@@ -1329,6 +1345,61 @@ func TestStaticContractFormation(t *testing.T) {
 	if len(initialMessage.Entities) != len(decodedMessage.Entities) {
 		t.Errorf("Entities lengths don't match : %d != %d", len(initialMessage.Entities), len(decodedMessage.Entities))
 	}
+}
+
+func TestContractAddressChange(t *testing.T) {
+	// Create a randomized object
+	initialMessage := ContractAddressChange{}
+	// NewContractPKH (PublicKeyHash)
+	{
+		initialMessage.NewContractPKH = PublicKeyHash{}
+	}
+
+	// Timestamp (Timestamp)
+	{
+		initialMessage.Timestamp = Timestamp{}
+	}
+
+	// Encode message
+	initialEncoding, err := initialMessage.serialize()
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("Initial encoding : %d bytes", len(initialEncoding))
+
+	// Decode message
+	decodedMessage := ContractAddressChange{}
+
+	n, err := decodedMessage.write(initialEncoding)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Logf("Decoded : %d bytes", n)
+
+	if n != len(initialEncoding) {
+		t.Fatalf("got %v, want %v", n, len(initialEncoding))
+	}
+
+	// Serializing the message should give us the same bytes
+	secondEncoding, err := decodedMessage.serialize()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !bytes.Equal(initialEncoding, secondEncoding) {
+		t.Errorf("Encoded value doesn't match.\ngot\n%+v\nwant\n%+v", initialEncoding, secondEncoding)
+	}
+
+	// if !cmp.Equal(&initialMessage, &decodedMessage) {
+	// 	t.Errorf("Decoded value doesn't match.\ninitial : %+v\ndecoded : %+v", initialMessage, decodedMessage)
+	// }
+
+	// Compare re-serialized values
+	// NewContractPKH (PublicKeyHash)
+	// PublicKeyHash test compare not setup
+
+	// Timestamp (Timestamp)
+	// Timestamp test compare not setup
 }
 
 func TestOrder(t *testing.T) {

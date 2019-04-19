@@ -21,6 +21,7 @@ Each message should be prefixed with common header data. See the [Transactions a
 - [Contract Formation](#action-contract-formation)
 - [Contract Amendment](#action-contract-amendment)
 - [Static Contract Formation](#action-static-contract-formation)
+- [Contract Address Change](#action-contract-address-change)
 - [Order](#action-order)
 - [Freeze](#action-freeze)
 - [Thaw](#action-thaw)
@@ -773,6 +774,16 @@ Allows the issuer to tell the smart contract what they want the details (labels,
             
         </td>
     </tr>
+    <tr>
+        <td>MasterPKH</td>
+        <td>
+            <a href="field-types#type-public-key-hash">PublicKeyHash</a>
+        </td>
+        <td>
+            The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
+            
+        </td>
+    </tr>
 </table>
 
 ##### Transaction Summary
@@ -1043,6 +1054,16 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         </td>
         <td>
             A list of oracles that provide approval for all token transfers for all assets under the contract.
+            
+        </td>
+    </tr>
+    <tr>
+        <td>MasterPKH</td>
+        <td>
+            <a href="field-types#type-public-key-hash">PublicKeyHash</a>
+        </td>
+        <td>
+            The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
             
         </td>
     </tr>
@@ -1405,6 +1426,88 @@ Static Contract Formation Action
 </table>
 
 
+
+
+<hr />
+
+
+
+<a name="action-contract-address-change"></a>
+#### Contract Address Change
+
+This txn is signed by the master contract key defined in the contract formation and changes the active contract address which the contract uses to receive and respond to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.
+
+<table>
+    <tr>
+        <th style="width:15%">Action Code</th>
+        <td>C5</td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>NewContractPKH</td>
+        <td>
+            <a href="field-types#type-public-key-hash">PublicKeyHash</a>
+        </td>
+        <td>
+            The address to be used by all future requests/responses for the contract.
+            
+        </td>
+    </tr>
+    <tr>
+        <td>Timestamp</td>
+        <td>
+            <a href="field-types#type-timestamp">Timestamp</a>
+        </td>
+        <td>
+            Timestamp in nanoseconds of when the action was created.
+            
+        </td>
+    </tr>
+</table>
+
+##### Transaction Summary
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Input</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Contract Master Public Address</td>
+        <td>The contract master address.</td>
+    </tr>
+</table>
+
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Output</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Contract Public Address</td>
+        <td>Currently active, and soon to be deactivated, contract address.</td>
+    </tr>
+   <tr>
+        <td class="text-center">1</td>
+        <td>New Contract Public Address</td>
+        <td>The address the contract will use from this point forward.</td>
+    </tr>
+</table>
 
 
 <hr />

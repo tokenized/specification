@@ -13,6 +13,9 @@ const (
 	// Timeout - A dependency, other contract/service, has failed to complete before the smart contract's timeout.
 	RejectTimeout = 3
 
+	// ContractMoved - The contract has been moved to a different address. Please find the addres change message and send requests to new address.
+	RejectContractMoved = 4
+
 	// ContractExists - The contract already exists and can't be recreated.
 	RejectContractExists = 10
 

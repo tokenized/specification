@@ -142,7 +142,8 @@ class Action_ContractOffer(ActionBase):
         'RestrictedQtyAssets':             [15, DAT_uint, 8],
         'IssuerProposal':                  [16, DAT_bool, 0],
         'HolderProposal':                  [17, DAT_bool, 0],
-        'Oracles':                         [18, DAT_Oracle[], 0]
+        'Oracles':                         [18, DAT_Oracle[], 0],
+        'MasterPKH':                       [19, DAT_PublicKeyHash, 0]
     }
 
     rules = {
@@ -170,6 +171,7 @@ class Action_ContractOffer(ActionBase):
         self.IssuerProposal = None
         self.HolderProposal = None
         self.Oracles = None
+        self.MasterPKH = None
 
 
 # This txn is created by the contract (smart contract/off-chain agent/token
@@ -200,8 +202,9 @@ class Action_ContractFormation(ActionBase):
         'IssuerProposal':                  [16, DAT_bool, 0],
         'HolderProposal':                  [17, DAT_bool, 0],
         'Oracles':                         [18, DAT_Oracle[], 0],
-        'ContractRevision':                [19, DAT_uint, 4],
-        'Timestamp':                       [20, DAT_Timestamp, 0]
+        'MasterPKH':                       [19, DAT_PublicKeyHash, 0],
+        'ContractRevision':                [20, DAT_uint, 4],
+        'Timestamp':                       [21, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -229,6 +232,7 @@ class Action_ContractFormation(ActionBase):
         self.IssuerProposal = None
         self.HolderProposal = None
         self.Oracles = None
+        self.MasterPKH = None
         self.ContractRevision = None
         self.Timestamp = None
 
@@ -298,6 +302,28 @@ class Action_StaticContractFormation(ActionBase):
         self.ContractURI = None
         self.PrevRevTxID = None
         self.Entities = None
+
+
+# This txn is signed by the master contract key defined in the contract
+# formation and changes the active contract address which the contract uses
+# to receive and respond to requests. This is a worst case scenario
+# fallback to only be used when the contract private key is believed to be
+# exposed.
+
+class Action_ContractAddressChange(ActionBase):
+    ActionPrefix = 'C5'
+
+    schema = {
+        
+    }
+
+    rules = {
+        'contractFee': 0,
+        'inputs': [ACT_CONTRACT],
+        'outputs': [ACT_USER, ACT_CONTRACT]
+    }
+
+    def init_attributes(self):
 
 
 # Used by the issuer to signal to the smart contract that the tokens that a
@@ -751,6 +777,7 @@ ActionClassMap = {
     'C2': Action_ContractFormation,
     'C3': Action_ContractAmendment,
     'C4': Action_StaticContractFormation,
+    'C5': Action_ContractAddressChange,
     'E1': Action_Order,
     'E2': Action_Freeze,
     'E3': Action_Thaw,

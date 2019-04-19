@@ -29,6 +29,10 @@ const (
 	// StaticContractFormation message.
 	CodeStaticContractFormation = "C4"
 
+	// CodeContractAddressChange identifies data as a ContractAddressChange
+	// message.
+	CodeContractAddressChange = "C5"
+
 	// CodeOrder identifies data as a Order message.
 	CodeOrder = "E1"
 
@@ -119,6 +123,9 @@ func TypeMapping(code string) OpReturnMessage {
 		return &result
 	case CodeStaticContractFormation:
 		result := StaticContractFormation{}
+		return &result
+	case CodeContractAddressChange:
+		result := ContractAddressChange{}
 		return &result
 	case CodeOrder:
 		result := Order{}
@@ -1171,6 +1178,7 @@ type ContractOffer struct {
 	IssuerProposal           bool           `json:"issuer_proposal,omitempty"`            // Set to true if an issuer is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
 	Oracles                  []Oracle       `json:"oracles,omitempty"`                    // A list of oracles that provide approval for all token transfers for all assets under the contract.
+	MasterPKH                PublicKeyHash  `json:"master_pkh,omitempty"`                 // The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
 }
 
 // Type returns the type identifer for this message.
@@ -1377,6 +1385,18 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		}
 	}
 
+	// MasterPKH (PublicKeyHash)
+	{
+		b, err := action.MasterPKH.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+
 	return buf.Bytes(), nil
 }
 
@@ -1568,6 +1588,13 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 		}
 	}
 
+	// MasterPKH (PublicKeyHash)
+	{
+		if err := action.MasterPKH.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
 	return len(b) - buf.Len(), nil
 }
 
@@ -1724,6 +1751,14 @@ func (m *ContractOffer) Validate() error {
 		}
 	}
 
+	// MasterPKH (PublicKeyHash)
+	{
+		if err := m.MasterPKH.Validate(); err != nil {
+			return fmt.Errorf("field MasterPKH is invalid : %s", err)
+		}
+
+	}
+
 	return nil
 }
 
@@ -1751,6 +1786,7 @@ func (action ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
 	vals = append(vals, fmt.Sprintf("Oracles:%#+v", action.Oracles))
+	vals = append(vals, fmt.Sprintf("MasterPKH:%#+v", action.MasterPKH))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -1783,6 +1819,7 @@ type ContractFormation struct {
 	IssuerProposal           bool           `json:"issuer_proposal,omitempty"`            // Set to true if an Issuer is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
 	Oracles                  []Oracle       `json:"oracles,omitempty"`                    // A list of oracles that provide approval for all token transfers for all assets under the contract.
+	MasterPKH                PublicKeyHash  `json:"master_pkh,omitempty"`                 // The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
 	ContractRevision         uint32         `json:"contract_revision,omitempty"`          // A counter for the number of times this contract has been revised using an amendment action.
 	Timestamp                Timestamp      `json:"timestamp,omitempty"`                  // Timestamp in nanoseconds of when the smart contract created the action.
 }
@@ -1988,6 +2025,18 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 			if err := write(buf, b); err != nil {
 				return nil, err
 			}
+		}
+	}
+
+	// MasterPKH (PublicKeyHash)
+	{
+		b, err := action.MasterPKH.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
 		}
 	}
 
@@ -2201,6 +2250,13 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
+	// MasterPKH (PublicKeyHash)
+	{
+		if err := action.MasterPKH.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
 	// ContractRevision (uint32)
 	{
 		if err := read(buf, &action.ContractRevision); err != nil {
@@ -2371,6 +2427,14 @@ func (m *ContractFormation) Validate() error {
 		}
 	}
 
+	// MasterPKH (PublicKeyHash)
+	{
+		if err := m.MasterPKH.Validate(); err != nil {
+			return fmt.Errorf("field MasterPKH is invalid : %s", err)
+		}
+
+	}
+
 	// ContractRevision (uint32)
 	{
 	}
@@ -2410,6 +2474,7 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("IssuerProposal:%#+v", action.IssuerProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
 	vals = append(vals, fmt.Sprintf("Oracles:%#+v", action.Oracles))
+	vals = append(vals, fmt.Sprintf("MasterPKH:%#+v", action.MasterPKH))
 	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
@@ -3058,6 +3123,115 @@ func (action StaticContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
 	vals = append(vals, fmt.Sprintf("PrevRevTxID:%#+v", action.PrevRevTxID))
 	vals = append(vals, fmt.Sprintf("Entities:%#+v", action.Entities))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
+}
+
+// ContractAddressChange This txn is signed by the master contract key
+// defined in the contract formation and changes the active contract
+// address which the contract uses to receive and respond to requests. This
+// is a worst case scenario fallback to only be used when the contract
+// private key is believed to be exposed.
+type ContractAddressChange struct {
+	NewContractPKH PublicKeyHash `json:"new_contract_pkh,omitempty"` // The address to be used by all future requests/responses for the contract.
+	Timestamp      Timestamp     `json:"timestamp,omitempty"`        // Timestamp in nanoseconds of when the action was created.
+}
+
+// Type returns the type identifer for this message.
+func (action ContractAddressChange) Type() string {
+	return CodeContractAddressChange
+}
+
+// Read implements the io.Reader interface, writing the receiver to the
+// []byte.
+func (action *ContractAddressChange) read(b []byte) (int, error) {
+	data, err := action.serialize()
+
+	if err != nil {
+		return 0, err
+	}
+
+	copy(b, data)
+
+	return len(b), nil
+}
+
+// serialize returns the full OP_RETURN payload bytes.
+func (action *ContractAddressChange) serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+	// NewContractPKH (PublicKeyHash)
+	{
+		b, err := action.NewContractPKH.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+
+	// Timestamp (Timestamp)
+	{
+		b, err := action.Timestamp.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+
+	return buf.Bytes(), nil
+}
+
+// write populates the fields in ContractAddressChange from the byte slice
+func (action *ContractAddressChange) write(b []byte) (int, error) {
+	buf := bytes.NewBuffer(b)
+	// NewContractPKH (PublicKeyHash)
+	{
+		if err := action.NewContractPKH.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
+	// Timestamp (Timestamp)
+	{
+		if err := action.Timestamp.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
+	return len(b) - buf.Len(), nil
+}
+
+func (m *ContractAddressChange) Validate() error {
+
+	// NewContractPKH (PublicKeyHash)
+	{
+		if err := m.NewContractPKH.Validate(); err != nil {
+			return fmt.Errorf("field NewContractPKH is invalid : %s", err)
+		}
+
+	}
+
+	// Timestamp (Timestamp)
+	{
+		if err := m.Timestamp.Validate(); err != nil {
+			return fmt.Errorf("field Timestamp is invalid : %s", err)
+		}
+
+	}
+
+	return nil
+}
+
+func (action ContractAddressChange) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("NewContractPKH:%#+v", action.NewContractPKH))
+	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }

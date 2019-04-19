@@ -1,0 +1,37 @@
+#
+# Contract Address Change Action:  This txn is signed by the master contract key and changes the active contract address which the contract receives and responds to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.
+#
+
+code: C5
+
+metadata:
+  name: ContractAddressChange
+  label: Contract Address Change
+  description: This txn is signed by the master contract key defined in the contract formation and changes the active contract address which the contract uses to receive and respond to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.
+
+rules:
+  fee:
+  inputs:
+    - name: ContractMaster
+      label: Contract Master Public Address
+      comments: "The contract master address."
+
+  outputs:
+    - name: Contract
+      label: Contract Public Address
+      comments: "Currently active, and soon to be deactivated, contract address."
+
+    - name: NewContract
+      label: New Contract Public Address
+      comments: "The address the contract will use from this point forward."
+
+fields:
+  - name: NewContractPKH
+    label: New Contract PKH
+    description: The address to be used by all future requests/responses for the contract.
+    type: PublicKeyHash
+
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds of when the action was created."
+    type: Timestamp
