@@ -210,6 +210,10 @@ func (m *{{.Name}}) Validate() error {
 			if GetEntityType(value) == nil {
 				return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
 			}
+	{{- else if eq .Type "Tag[]" }}
+			if GetTagType(value) == nil {
+				return fmt.Errorf("Invalid tag type value : %c", m.{{.Name}})
+			}
 	{{- end }}
 		}
 {{- else if eq .Type "RejectionCode" }}
@@ -231,6 +235,10 @@ func (m *{{.Name}}) Validate() error {
 {{- else if eq .Type "EntityType" }}
 		if GetEntityType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
+		}
+{{- else if eq .Type "Tag" }}
+		if GetTagType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid tag type value : %c", m.{{.Name}})
 		}
 {{- else if .IsInternalTypeArray }}
 		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {

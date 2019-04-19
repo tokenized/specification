@@ -24,8 +24,16 @@ fields:
     example: "eg. Invoice 3024, Pay Mike back for camping."
     notes: "  Can be NULL"
 
-  - name: OutputTags
-    label: Output Tags
-    description: "Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc."
+  - name: Tags
+    label: Tags
+    description: "Predefined values for describing the output."
+    type: Tag[]
+    size: 1
+    notes: ""
+
+  - name: CustomTags
+    label: Custom Tags
+    description: "Free form text fields for describing the output. Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc."
     type: OutputTag[]
+    size: 1
     notes: ""

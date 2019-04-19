@@ -215,6 +215,43 @@ func GetRoleType(role uint8) *RoleType {
 	return &result
 }
 
+type TagType struct {
+	Code  uint8
+	Label string
+}
+
+var tagTypes map[uint8]TagType
+
+func GetTagTypes() (map[uint8]TagType, error) {
+	if tagTypes != nil {
+		return tagTypes, nil
+	}
+
+	load := make([]TagType, 0)
+
+	if err := yaml.Unmarshal([]byte(yamlTags), &load); err != nil {
+		return nil, errors.Wrap(err, "Failed to unmarshal tags yaml")
+	}
+
+	tagTypes = make(map[uint8]TagType)
+	for _, value := range load {
+		tagTypes[value.Code] = value
+	}
+	return tagTypes, nil
+}
+
+func GetTagType(tag uint8) *TagType {
+	types, err := GetTagTypes()
+	if err != nil {
+		return nil
+	}
+	result, exists := types[tag]
+	if !exists {
+		return nil
+	}
+	return &result
+}
+
 // Currencies - International Organization for Standardization code for
 // Currency. 3 character code.
 var yamlCurrencies = `
@@ -4480,5 +4517,97 @@ var yamlRoles = `
 
   - code: 29
     label: Unit Holder
+
+`
+
+// Tags - Predefined tags for output metadata. Multiple values can be
+// assigned to an output to describe a tx output.
+var yamlTags = `
+  - code: 1
+    label: Housing
+
+  - code: 2
+    label: Utilities
+
+  - code: 3
+    label: Food
+
+  - code: 4
+    label: Medical
+
+  - code: 5
+    label: Financial Services
+
+  - code: 6
+    label: Entertainment
+
+  - code: 7
+    label: Sales
+
+  - code: 8
+    label: Automotive
+
+  - code: 9
+    label: Transportation
+
+  - code: 10
+    label: Fitness
+
+  - code: 20
+    label: Electricity
+
+  - code: 21
+    label: Water
+
+  - code: 22
+    label: Internet
+
+  - code: 22
+    label: Medicine
+
+  - code: 23
+    label: Service
+
+  - code: 24
+    label: Repair
+
+  - code: 25
+    label: Supplies
+
+  - code: 26
+    label: Parts
+
+  - code: 27
+    label: Labor
+
+  - code: 28
+    label: Tip
+
+  - code: 29
+    label: Media
+
+  - code: 40
+    label: Music
+
+  - code: 41
+    label: Video
+
+  - code: 42
+    label: Photo
+
+  - code: 43
+    label: Audio
+
+  - code: 100
+    label: Alcohol
+
+  - code: 101
+    label: Tobacco
+
+  - code: 120
+    label: Discounted
+
+  - code: 121
+    label: Promotional
 
 `

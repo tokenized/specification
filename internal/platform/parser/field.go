@@ -98,6 +98,9 @@ func (f Field) IsFloat() bool {
 }
 
 func (f Field) Length() uint64 {
+	if strings.HasSuffix(f.Type, "[]") && f.Size == 0 {
+		return 1
+	}
 	return f.Size
 }
 
@@ -119,6 +122,8 @@ func (f Field) TypeURLCode() string {
 			name = "currencies"
 		case "RejectionCode":
 			name = "rejections"
+		case "Tag":
+			name = "tags"
 		}
 		return "resource-" + KebabCase(name)
 	}

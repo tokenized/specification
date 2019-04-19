@@ -213,6 +213,43 @@ func GetRoleType(role uint8) *RoleType {
 	return &result
 }
 
+type TagType struct {
+	Code  uint8
+	Label string
+}
+
+var tagTypes map[uint8]TagType
+
+func GetTagTypes() (map[uint8]TagType, error) {
+	if tagTypes != nil {
+		return tagTypes, nil
+	}
+
+	load := make([]TagType, 0)
+
+	if err := yaml.Unmarshal([]byte(yamlTags), &load); err != nil {
+		return nil, errors.Wrap(err, "Failed to unmarshal tags yaml")
+	}
+
+	tagTypes = make(map[uint8]TagType)
+	for _, value := range load {
+		tagTypes[value.Code] = value
+	}
+	return tagTypes, nil
+}
+
+func GetTagType(tag uint8) *TagType {
+	types, err := GetTagTypes()
+	if err != nil {
+		return nil
+	}
+	result, exists := types[tag]
+	if !exists {
+		return nil
+	}
+	return &result
+}
+
 {{range .}}
 {{comment (print .Name " - " .Metadata.Description) "//"}}
 var yaml{{ .Name }} = `

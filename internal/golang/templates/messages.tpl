@@ -92,7 +92,6 @@ func (action *{{.Name}}) Serialize() ([]byte, error) {
 {{ range $f, $field := .PayloadFields }}
 
 	// {{.FieldName}} ({{.FieldGoType}})
-	// fmt.Printf("Serializing {{.FieldName}}\n")
 {{- if ne (len $field.IncludeIfTrue) 0 }}
 	if action.{{ $field.IncludeIfTrue }} {
 {{- else if ne (len $field.IncludeIfFalse) 0 }}
@@ -166,7 +165,6 @@ func (action *{{.Name}}) Serialize() ([]byte, error) {
 
 // Write populates the fields in {{.Name}} from the byte slice
 func (action *{{.Name}}) Write(b []byte) (int, error) {
-	// fmt.Printf("Reading {{.Name}} : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 {{- range $f, $field := .Fields }}
@@ -242,10 +240,8 @@ func (action *{{.Name}}) Write(b []byte) (int, error) {
 {{- end }}
 	}
 
-	// fmt.Printf("Read {{.FieldName}} : %d bytes remaining\n%+v\n", buf.Len(), action.{{.FieldName}})
 {{ end }}
 
-	// fmt.Printf("Read {{.Name}} : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -274,6 +270,38 @@ func (m *{{.Name}}) Validate() error {
 		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
 			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
 		}
+{{- else if .IsResourceTypeArray }}
+		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		}
+
+		for _, value := range m.{{.Name}} {
+	{{- if eq .Type "RejectionCode[]" }}
+			if GetRejectionCode(value) == nil {
+				return fmt.Errorf("Invalid rejection code value : %d", m.{{.Name}})
+			}
+	{{- else if eq .Type "Role[]" }}
+			if GetRoleType(value) == nil {
+				return fmt.Errorf("Invalid role value : %d", m.{{.Name}})
+			}
+	{{- else if eq .Type "CurrencyType[]" }}
+			if GetCurrency(value) == nil {
+				return fmt.Errorf("Invalid currency value : %d", m.{{.Name}})
+			}
+	{{- else if eq .Type "Polity[]" }}
+			if GetPolityType(string(value[:])) == nil {
+				return fmt.Errorf("Invalid polity value : %d", m.{{.Name}})
+			}
+	{{- else if eq .Type "EntityType[]" }}
+			if GetEntityType(value) == nil {
+				return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
+			}
+	{{- else if eq .Type "Tag[]" }}
+			if GetTagType(value) == nil {
+				return fmt.Errorf("Invalid tag type value : %c", m.{{.Name}})
+			}
+	{{- end }}
+		}
 {{- else if eq .Type "RejectionCode" }}
 		if GetRejectionCode(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid rejection code value : %d", m.{{.Name}})
@@ -297,6 +325,10 @@ func (m *{{.Name}}) Validate() error {
 {{- else if eq .Type "EntityType" }}
 		if GetEntityType(m.{{.Name}}) == nil {
 			return fmt.Errorf("Invalid entity type value : %c", m.{{.Name}})
+		}
+{{- else if eq .Type "Tag" }}
+		if GetTagType(m.{{.Name}}) == nil {
+			return fmt.Errorf("Invalid tag type value : %c", m.{{.Name}})
 		}
 {{- else if .IsInternalTypeArray }}
 		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {

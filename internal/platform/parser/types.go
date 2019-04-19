@@ -52,7 +52,8 @@ func GoType(typeName string, size uint64, options []string) string {
 	case "CurrencyType":
 		name = "[3]byte"
 
-	case "RejectionCode":
+	case "RejectionCode",
+		"Tag":
 		name = "uint8"
 	}
 
@@ -86,7 +87,8 @@ func IsInternalType(typeName string, size uint64) bool {
 		"EntityType",
 		"Polity",
 		"CurrencyType",
-		"RejectionCode":
+		"RejectionCode",
+		"Tag":
 		return false
 
 	}
@@ -105,7 +107,8 @@ func IsResource(typeName string) bool {
 		"EntityType",
 		"Polity",
 		"CurrencyType",
-		"RejectionCode":
+		"RejectionCode",
+		"Tag":
 		return true
 	}
 

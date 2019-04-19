@@ -100,7 +100,6 @@ func (action *RevertedTx) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
-	// fmt.Printf("Serializing Version\n")
 	{
 		if err := write(buf, action.Version); err != nil {
 			return nil, err
@@ -108,7 +107,6 @@ func (action *RevertedTx) Serialize() ([]byte, error) {
 	}
 
 	// Timestamp (Timestamp)
-	// fmt.Printf("Serializing Timestamp\n")
 	{
 		{
 			b, err := action.Timestamp.Serialize()
@@ -123,7 +121,6 @@ func (action *RevertedTx) Serialize() ([]byte, error) {
 	}
 
 	// Transaction ([]byte)
-	// fmt.Printf("Serializing Transaction\n")
 	{
 		if err := WriteVarBin(buf, action.Transaction, 32); err != nil {
 			return nil, err
@@ -135,7 +132,6 @@ func (action *RevertedTx) Serialize() ([]byte, error) {
 
 // Write populates the fields in RevertedTx from the byte slice
 func (action *RevertedTx) Write(b []byte) (int, error) {
-	// fmt.Printf("Reading RevertedTx : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -145,16 +141,12 @@ func (action *RevertedTx) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
-
 	// Timestamp (Timestamp)
 	{
 		if err := action.Timestamp.Write(buf); err != nil {
 			return 0, err
 		}
 	}
-
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// Transaction ([]byte)
 	{
@@ -165,9 +157,6 @@ func (action *RevertedTx) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Transaction : %d bytes remaining\n%+v\n", buf.Len(), action.Transaction)
-
-	// fmt.Printf("Read RevertedTx : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -248,7 +237,6 @@ func (action *Offer) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
-	// fmt.Printf("Serializing Version\n")
 	{
 		if err := write(buf, action.Version); err != nil {
 			return nil, err
@@ -256,7 +244,6 @@ func (action *Offer) Serialize() ([]byte, error) {
 	}
 
 	// Timestamp (Timestamp)
-	// fmt.Printf("Serializing Timestamp\n")
 	{
 		{
 			b, err := action.Timestamp.Serialize()
@@ -271,7 +258,6 @@ func (action *Offer) Serialize() ([]byte, error) {
 	}
 
 	// Payload ([]byte)
-	// fmt.Printf("Serializing Payload\n")
 	{
 		if err := WriteVarBin(buf, action.Payload, 32); err != nil {
 			return nil, err
@@ -283,7 +269,6 @@ func (action *Offer) Serialize() ([]byte, error) {
 
 // Write populates the fields in Offer from the byte slice
 func (action *Offer) Write(b []byte) (int, error) {
-	// fmt.Printf("Reading Offer : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -293,16 +278,12 @@ func (action *Offer) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
-
 	// Timestamp (Timestamp)
 	{
 		if err := action.Timestamp.Write(buf); err != nil {
 			return 0, err
 		}
 	}
-
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// Payload ([]byte)
 	{
@@ -313,9 +294,6 @@ func (action *Offer) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Payload : %d bytes remaining\n%+v\n", buf.Len(), action.Payload)
-
-	// fmt.Printf("Read Offer : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -387,7 +365,6 @@ func (action *SignatureRequest) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
-	// fmt.Printf("Serializing Version\n")
 	{
 		if err := write(buf, action.Version); err != nil {
 			return nil, err
@@ -395,7 +372,6 @@ func (action *SignatureRequest) Serialize() ([]byte, error) {
 	}
 
 	// Timestamp (Timestamp)
-	// fmt.Printf("Serializing Timestamp\n")
 	{
 		{
 			b, err := action.Timestamp.Serialize()
@@ -410,7 +386,6 @@ func (action *SignatureRequest) Serialize() ([]byte, error) {
 	}
 
 	// Payload ([]byte)
-	// fmt.Printf("Serializing Payload\n")
 	{
 		if err := WriteVarBin(buf, action.Payload, 32); err != nil {
 			return nil, err
@@ -422,7 +397,6 @@ func (action *SignatureRequest) Serialize() ([]byte, error) {
 
 // Write populates the fields in SignatureRequest from the byte slice
 func (action *SignatureRequest) Write(b []byte) (int, error) {
-	// fmt.Printf("Reading SignatureRequest : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -432,16 +406,12 @@ func (action *SignatureRequest) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
-
 	// Timestamp (Timestamp)
 	{
 		if err := action.Timestamp.Write(buf); err != nil {
 			return 0, err
 		}
 	}
-
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// Payload ([]byte)
 	{
@@ -452,9 +422,6 @@ func (action *SignatureRequest) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Payload : %d bytes remaining\n%+v\n", buf.Len(), action.Payload)
-
-	// fmt.Printf("Read SignatureRequest : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -527,7 +494,6 @@ func (action *SettlementRequest) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
-	// fmt.Printf("Serializing Version\n")
 	{
 		if err := write(buf, action.Version); err != nil {
 			return nil, err
@@ -535,7 +501,6 @@ func (action *SettlementRequest) Serialize() ([]byte, error) {
 	}
 
 	// Timestamp (Timestamp)
-	// fmt.Printf("Serializing Timestamp\n")
 	{
 		{
 			b, err := action.Timestamp.Serialize()
@@ -550,7 +515,6 @@ func (action *SettlementRequest) Serialize() ([]byte, error) {
 	}
 
 	// TransferTxId (TxId)
-	// fmt.Printf("Serializing TransferTxId\n")
 	{
 		{
 			b, err := action.TransferTxId.Serialize()
@@ -565,7 +529,6 @@ func (action *SettlementRequest) Serialize() ([]byte, error) {
 	}
 
 	// ContractFees ([]TargetAddress)
-	// fmt.Printf("Serializing ContractFees\n")
 	{
 		if err := WriteVariableSize(buf, uint64(len(action.ContractFees)), 8, 8); err != nil {
 			return nil, err
@@ -583,7 +546,6 @@ func (action *SettlementRequest) Serialize() ([]byte, error) {
 	}
 
 	// Settlement ([]byte)
-	// fmt.Printf("Serializing Settlement\n")
 	{
 		if err := WriteVarBin(buf, action.Settlement, 32); err != nil {
 			return nil, err
@@ -595,7 +557,6 @@ func (action *SettlementRequest) Serialize() ([]byte, error) {
 
 // Write populates the fields in SettlementRequest from the byte slice
 func (action *SettlementRequest) Write(b []byte) (int, error) {
-	// fmt.Printf("Reading SettlementRequest : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -605,8 +566,6 @@ func (action *SettlementRequest) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
-
 	// Timestamp (Timestamp)
 	{
 		if err := action.Timestamp.Write(buf); err != nil {
@@ -614,16 +573,12 @@ func (action *SettlementRequest) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
-
 	// TransferTxId (TxId)
 	{
 		if err := action.TransferTxId.Write(buf); err != nil {
 			return 0, err
 		}
 	}
-
-	// fmt.Printf("Read TransferTxId : %d bytes remaining\n%+v\n", buf.Len(), action.TransferTxId)
 
 	// ContractFees ([]TargetAddress)
 	{
@@ -642,8 +597,6 @@ func (action *SettlementRequest) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read ContractFees : %d bytes remaining\n%+v\n", buf.Len(), action.ContractFees)
-
 	// Settlement ([]byte)
 	{
 		var err error
@@ -653,9 +606,6 @@ func (action *SettlementRequest) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Settlement : %d bytes remaining\n%+v\n", buf.Len(), action.Settlement)
-
-	// fmt.Printf("Read SettlementRequest : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -726,7 +676,8 @@ func (action SettlementRequest) String() string {
 type OutputMetadata struct {
 	Version           uint8       `json:"version,omitempty"`            // Payload Version
 	OutputDescription string      `json:"output_description,omitempty"` // A Description that accompanies the output. A transaction description.
-	OutputTags        []OutputTag `json:"output_tags,omitempty"`        // Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc.
+	Tags              []uint8     `json:"tags,omitempty"`               // Predefined values for describing the output.
+	CustomTags        []OutputTag `json:"custom_tags,omitempty"`        // Free form text fields for describing the output. Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc.
 }
 
 // Type returns the type identifer for this message.
@@ -753,7 +704,6 @@ func (action *OutputMetadata) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
-	// fmt.Printf("Serializing Version\n")
 	{
 		if err := write(buf, action.Version); err != nil {
 			return nil, err
@@ -761,20 +711,30 @@ func (action *OutputMetadata) Serialize() ([]byte, error) {
 	}
 
 	// OutputDescription (string)
-	// fmt.Printf("Serializing OutputDescription\n")
 	{
 		if err := WriteVarChar(buf, action.OutputDescription, 32); err != nil {
 			return nil, err
 		}
 	}
 
-	// OutputTags ([]OutputTag)
-	// fmt.Printf("Serializing OutputTags\n")
+	// Tags ([]uint8)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.OutputTags)), 0, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Tags)), 1, 8); err != nil {
 			return nil, err
 		}
-		for _, value := range action.OutputTags {
+		for _, value := range action.Tags {
+			if err := write(buf, value); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	// CustomTags ([]OutputTag)
+	{
+		if err := WriteVariableSize(buf, uint64(len(action.CustomTags)), 1, 8); err != nil {
+			return nil, err
+		}
+		for _, value := range action.CustomTags {
 			b, err := value.Serialize()
 			if err != nil {
 				return nil, err
@@ -791,7 +751,6 @@ func (action *OutputMetadata) Serialize() ([]byte, error) {
 
 // Write populates the fields in OutputMetadata from the byte slice
 func (action *OutputMetadata) Write(b []byte) (int, error) {
-	// fmt.Printf("Reading OutputMetadata : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -800,8 +759,6 @@ func (action *OutputMetadata) Write(b []byte) (int, error) {
 			return 0, err
 		}
 	}
-
-	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
 
 	// OutputDescription (string)
 	{
@@ -812,28 +769,35 @@ func (action *OutputMetadata) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read OutputDescription : %d bytes remaining\n%+v\n", buf.Len(), action.OutputDescription)
-
-	// OutputTags ([]OutputTag)
+	// Tags ([]uint8)
 	{
-		size, err := ReadVariableSize(buf, 0, 8)
+		size, err := ReadVariableSize(buf, 1, 8)
 		if err != nil {
 			return 0, err
 		}
-		action.OutputTags = make([]OutputTag, 0, size)
+		action.Tags = make([]uint8, size, size)
+		if err := read(buf, &action.Tags); err != nil {
+			return 0, err
+		}
+	}
+
+	// CustomTags ([]OutputTag)
+	{
+		size, err := ReadVariableSize(buf, 1, 8)
+		if err != nil {
+			return 0, err
+		}
+		action.CustomTags = make([]OutputTag, 0, size)
 		for i := uint64(0); i < size; i++ {
 			var newValue OutputTag
 			if err := newValue.Write(buf); err != nil {
 				return 0, err
 			}
 
-			action.OutputTags = append(action.OutputTags, newValue)
+			action.CustomTags = append(action.CustomTags, newValue)
 		}
 	}
 
-	// fmt.Printf("Read OutputTags : %d bytes remaining\n%+v\n", buf.Len(), action.OutputTags)
-
-	// fmt.Printf("Read OutputMetadata : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -850,16 +814,29 @@ func (m *OutputMetadata) Validate() error {
 		}
 	}
 
-	// OutputTags ([]OutputTag)
+	// Tags ([]uint8)
 	{
-		if len(m.OutputTags) > (2<<0)-1 {
-			return fmt.Errorf("list field OutputTags has too many items %d/%d", len(m.OutputTags), (2<<0)-1)
+		if len(m.Tags) > (2<<1)-1 {
+			return fmt.Errorf("list field Tags has too many items %d/%d", len(m.Tags), (2<<1)-1)
 		}
 
-		for i, value := range m.OutputTags {
+		for _, value := range m.Tags {
+			if GetTagType(value) == nil {
+				return fmt.Errorf("Invalid tag type value : %c", m.Tags)
+			}
+		}
+	}
+
+	// CustomTags ([]OutputTag)
+	{
+		if len(m.CustomTags) > (2<<1)-1 {
+			return fmt.Errorf("list field CustomTags has too many items %d/%d", len(m.CustomTags), (2<<1)-1)
+		}
+
+		for i, value := range m.CustomTags {
 			err := value.Validate()
 			if err != nil {
-				return fmt.Errorf("list field OutputTags[%d] is invalid : %s", i, err)
+				return fmt.Errorf("list field CustomTags[%d] is invalid : %s", i, err)
 			}
 		}
 	}
@@ -872,7 +849,8 @@ func (action OutputMetadata) String() string {
 
 	vals = append(vals, fmt.Sprintf("Version:%v", action.Version))
 	vals = append(vals, fmt.Sprintf("OutputDescription:%#+v", action.OutputDescription))
-	vals = append(vals, fmt.Sprintf("OutputTags:%#+v", action.OutputTags))
+	vals = append(vals, fmt.Sprintf("Tags:%#+v", action.Tags))
+	vals = append(vals, fmt.Sprintf("CustomTags:%#+v", action.CustomTags))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -909,7 +887,6 @@ func (action *PublicMessage) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
-	// fmt.Printf("Serializing Version\n")
 	{
 		if err := write(buf, action.Version); err != nil {
 			return nil, err
@@ -917,7 +894,6 @@ func (action *PublicMessage) Serialize() ([]byte, error) {
 	}
 
 	// Timestamp (Timestamp)
-	// fmt.Printf("Serializing Timestamp\n")
 	{
 		{
 			b, err := action.Timestamp.Serialize()
@@ -932,7 +908,6 @@ func (action *PublicMessage) Serialize() ([]byte, error) {
 	}
 
 	// PublicMessage (string)
-	// fmt.Printf("Serializing PublicMessage\n")
 	{
 		if err := WriteVarChar(buf, action.PublicMessage, 32); err != nil {
 			return nil, err
@@ -944,7 +919,6 @@ func (action *PublicMessage) Serialize() ([]byte, error) {
 
 // Write populates the fields in PublicMessage from the byte slice
 func (action *PublicMessage) Write(b []byte) (int, error) {
-	// fmt.Printf("Reading PublicMessage : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -954,16 +928,12 @@ func (action *PublicMessage) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
-
 	// Timestamp (Timestamp)
 	{
 		if err := action.Timestamp.Write(buf); err != nil {
 			return 0, err
 		}
 	}
-
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// PublicMessage (string)
 	{
@@ -974,9 +944,6 @@ func (action *PublicMessage) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read PublicMessage : %d bytes remaining\n%+v\n", buf.Len(), action.PublicMessage)
-
-	// fmt.Printf("Read PublicMessage : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 
@@ -1046,7 +1013,6 @@ func (action *PrivateMessage) Serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 
 	// Version (uint8)
-	// fmt.Printf("Serializing Version\n")
 	{
 		if err := write(buf, action.Version); err != nil {
 			return nil, err
@@ -1054,7 +1020,6 @@ func (action *PrivateMessage) Serialize() ([]byte, error) {
 	}
 
 	// Timestamp (Timestamp)
-	// fmt.Printf("Serializing Timestamp\n")
 	{
 		{
 			b, err := action.Timestamp.Serialize()
@@ -1069,7 +1034,6 @@ func (action *PrivateMessage) Serialize() ([]byte, error) {
 	}
 
 	// PrivateMessage ([]byte)
-	// fmt.Printf("Serializing PrivateMessage\n")
 	{
 		if err := WriteVarBin(buf, action.PrivateMessage, 32); err != nil {
 			return nil, err
@@ -1081,7 +1045,6 @@ func (action *PrivateMessage) Serialize() ([]byte, error) {
 
 // Write populates the fields in PrivateMessage from the byte slice
 func (action *PrivateMessage) Write(b []byte) (int, error) {
-	// fmt.Printf("Reading PrivateMessage : %d bytes\n", len(b))
 	buf := bytes.NewBuffer(b)
 
 	// Version (uint8)
@@ -1091,16 +1054,12 @@ func (action *PrivateMessage) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read Version : %d bytes remaining\n%+v\n", buf.Len(), action.Version)
-
 	// Timestamp (Timestamp)
 	{
 		if err := action.Timestamp.Write(buf); err != nil {
 			return 0, err
 		}
 	}
-
-	// fmt.Printf("Read Timestamp : %d bytes remaining\n%+v\n", buf.Len(), action.Timestamp)
 
 	// PrivateMessage ([]byte)
 	{
@@ -1111,9 +1070,6 @@ func (action *PrivateMessage) Write(b []byte) (int, error) {
 		}
 	}
 
-	// fmt.Printf("Read PrivateMessage : %d bytes remaining\n%+v\n", buf.Len(), action.PrivateMessage)
-
-	// fmt.Printf("Read PrivateMessage : %d bytes remaining\n", buf.Len())
 	return len(b) - buf.Len(), nil
 }
 

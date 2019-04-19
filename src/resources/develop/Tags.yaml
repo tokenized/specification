@@ -1,0 +1,92 @@
+metadata:
+  name: Tags
+  description: Predefined tags for output metadata. Multiple values can be assigned to an output to describe a tx output.
+  type: Tag
+
+values:
+  - code: 1
+    label: Housing
+
+  - code: 2
+    label: Utilities
+
+  - code: 3
+    label: Food
+
+  - code: 4
+    label: Medical
+
+  - code: 5
+    label: Financial Services
+
+  - code: 6
+    label: Entertainment
+
+  - code: 7
+    label: Sales
+
+  - code: 8
+    label: Automotive
+
+  - code: 9
+    label: Transportation
+
+  - code: 10
+    label: Fitness
+
+  - code: 20
+    label: Electricity
+
+  - code: 21
+    label: Water
+
+  - code: 22
+    label: Internet
+
+  - code: 22
+    label: Medicine
+
+  - code: 23
+    label: Service
+
+  - code: 24
+    label: Repair
+
+  - code: 25
+    label: Supplies
+
+  - code: 26
+    label: Parts
+
+  - code: 27
+    label: Labor
+
+  - code: 28
+    label: Tip
+
+  - code: 29
+    label: Media
+
+  - code: 40
+    label: Music
+
+  - code: 41
+    label: Video
+
+  - code: 42
+    label: Photo
+
+  - code: 43
+    label: Audio
+
+  - code: 100
+    label: Alcohol
+
+  - code: 101
+    label: Tobacco
+
+  - code: 120
+    label: Discounted
+
+  - code: 121
+    label: Promotional

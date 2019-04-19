@@ -17,6 +17,7 @@ Resources are used to define lists of values, like the definitions of the possib
 - [Polities](#resource-polities)
 - [Rejections](#resource-rejections)
 - [Roles](#resource-roles)
+- [Tags](#resource-tags)
 </div>
 
 <a name="resource-currencies"></a>
@@ -558,5 +559,45 @@ Roles that entities play in relation to their interactions with other entities. 
 - Trader
 - Trustee
 - Unit Holder
+</div>
+
+
+<a name="resource-tags"></a>
+#### Tags
+
+Predefined tags for output metadata. Multiple values can be assigned to an output to describe a tx output.
+
+[View Source File](https://github.com/tokenized/specification/blob/master/src/resources/develop/Tags.yaml)
+
+<div class="content-list collection-method-list" markdown="1">
+- Housing
+- Utilities
+- Food
+- Medical
+- Financial Services
+- Entertainment
+- Sales
+- Automotive
+- Transportation
+- Fitness
+- Electricity
+- Water
+- Internet
+- Medicine
+- Service
+- Repair
+- Supplies
+- Parts
+- Labor
+- Tip
+- Media
+- Music
+- Video
+- Photo
+- Audio
+- Alcohol
+- Tobacco
+- Discounted
+- Promotional
 </div>
 

@@ -289,9 +289,15 @@ func TestOutputMetadata(t *testing.T) {
 	// OutputDescription (varchar)
 	initialMessage.OutputDescription = "Text 1"
 
-	// OutputTags (OutputTag[])
+	// Tags (Tag[])
+	for i := 0; i < 5; i++ {
+		var item uint8
+		initialMessage.Tags = append(initialMessage.Tags, item)
+	}
+
+	// CustomTags (OutputTag[])
 	for i := 0; i < 2; i++ {
-		initialMessage.OutputTags = append(initialMessage.OutputTags, OutputTag{})
+		initialMessage.CustomTags = append(initialMessage.CustomTags, OutputTag{})
 	}
 
 	// Encode message
@@ -337,9 +343,19 @@ func TestOutputMetadata(t *testing.T) {
 		t.Errorf("OutputDescription doesn't match : %s != %s", initialMessage.OutputDescription, decodedMessage.OutputDescription)
 	}
 
-	// OutputTags (OutputTag[])
-	if len(initialMessage.OutputTags) != len(decodedMessage.OutputTags) {
-		t.Errorf("OutputTags lengths don't match : %d != %d", len(initialMessage.OutputTags), len(decodedMessage.OutputTags))
+	// Tags (Tag[])
+	if len(initialMessage.Tags) != len(decodedMessage.Tags) {
+		t.Errorf("Tags lengths don't match : %d != %d", len(initialMessage.Tags), len(decodedMessage.Tags))
+	}
+	for i, value := range initialMessage.Tags {
+		if value != decodedMessage.Tags[i] {
+			t.Errorf("Tags value %d doesn't match : %v != %v", i, value, decodedMessage.Tags[i])
+		}
+	}
+
+	// CustomTags (OutputTag[])
+	if len(initialMessage.CustomTags) != len(decodedMessage.CustomTags) {
+		t.Errorf("CustomTags lengths don't match : %d != %d", len(initialMessage.CustomTags), len(decodedMessage.CustomTags))
 	}
 }
 

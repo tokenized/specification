@@ -97,7 +97,7 @@ class Action_AssetModification(ActionBase):
 
     schema = {
         'AssetRevision':                   [0, DAT_uint, 4],
-        'Amendments':                      [1, DAT_Amendment[], 0],
+        'Amendments':                      [1, DAT_Amendment[], 1],
         'RefTxID':                         [2, DAT_TxId, 0]
     }
 
@@ -138,11 +138,11 @@ class Action_ContractOffer(ActionBase):
         'ContractOperator':                [11, DAT_Entity, 0],
         'ContractAuthFlags':               [12, DAT_varbin, 16],
         'ContractFee':                     [13, DAT_uint, 8],
-        'VotingSystems':                   [14, DAT_VotingSystem[], 0],
+        'VotingSystems':                   [14, DAT_VotingSystem[], 1],
         'RestrictedQtyAssets':             [15, DAT_uint, 8],
         'IssuerProposal':                  [16, DAT_bool, 0],
         'HolderProposal':                  [17, DAT_bool, 0],
-        'Oracles':                         [18, DAT_Oracle[], 0],
+        'Oracles':                         [18, DAT_Oracle[], 1],
         'MasterPKH':                       [19, DAT_PublicKeyHash, 0]
     }
 
@@ -197,11 +197,11 @@ class Action_ContractFormation(ActionBase):
         'ContractOperator':                [11, DAT_Entity, 0],
         'ContractAuthFlags':               [12, DAT_varbin, 16],
         'ContractFee':                     [13, DAT_uint, 8],
-        'VotingSystems':                   [14, DAT_VotingSystem[], 0],
+        'VotingSystems':                   [14, DAT_VotingSystem[], 1],
         'RestrictedQtyAssets':             [15, DAT_uint, 8],
         'IssuerProposal':                  [16, DAT_bool, 0],
         'HolderProposal':                  [17, DAT_bool, 0],
-        'Oracles':                         [18, DAT_Oracle[], 0],
+        'Oracles':                         [18, DAT_Oracle[], 1],
         'MasterPKH':                       [19, DAT_PublicKeyHash, 0],
         'ContractRevision':                [20, DAT_uint, 4],
         'Timestamp':                       [21, DAT_Timestamp, 0]
@@ -247,7 +247,7 @@ class Action_ContractAmendment(ActionBase):
 
     schema = {
         'ContractRevision':                [0, DAT_uint, 4],
-        'Amendments':                      [1, DAT_Amendment[], 0],
+        'Amendments':                      [1, DAT_Amendment[], 1],
         'RefTxID':                         [2, DAT_TxId, 0]
     }
 
@@ -280,7 +280,7 @@ class Action_StaticContractFormation(ActionBase):
         'ContractExpiration':              [9, DAT_Timestamp, 0],
         'ContractURI':                     [10, DAT_varchar, 8],
         'PrevRevTxID':                     [11, DAT_TxId, 0],
-        'Entities':                        [12, DAT_Entity[], 0]
+        'Entities':                        [12, DAT_Entity[], 1]
     }
 
     rules = {
@@ -479,7 +479,7 @@ class Action_Proposal(ActionBase):
         'AssetCode':                       [1, DAT_AssetCode, 0],
         'VoteSystem':                      [2, DAT_uint, 1],
         'Specific':                        [3, DAT_bool, 0],
-        'ProposedAmendments':              [4, DAT_Amendment[], 0],
+        'ProposedAmendments':              [4, DAT_Amendment[], 1],
         'VoteOptions':                     [5, DAT_varchar, 8],
         'VoteMax':                         [6, DAT_uint, 1],
         'ProposalDescription':             [7, DAT_varchar, 32],
@@ -575,7 +575,7 @@ class Action_Result(ActionBase):
     schema = {
         'AssetCode':                       [0, DAT_AssetCode, 0],
         'Specific':                        [1, DAT_bool, 0],
-        'ProposedAmendments':              [2, DAT_Amendment[], 0],
+        'ProposedAmendments':              [2, DAT_Amendment[], 1],
         'VoteTxId':                        [3, DAT_TxId, 0],
         'OptionTally':                     [4, DAT_uint64[], 8],
         'Result':                          [5, DAT_varchar, 8],
