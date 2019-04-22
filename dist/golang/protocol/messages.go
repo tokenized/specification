@@ -719,7 +719,7 @@ func (action *OutputMetadata) Serialize() ([]byte, error) {
 
 	// Tags ([]uint8)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Tags)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Tags)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.Tags {
@@ -731,7 +731,7 @@ func (action *OutputMetadata) Serialize() ([]byte, error) {
 
 	// CustomTags ([]OutputTag)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.CustomTags)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.CustomTags)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.CustomTags {
@@ -771,7 +771,7 @@ func (action *OutputMetadata) Write(b []byte) (int, error) {
 
 	// Tags ([]uint8)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -783,7 +783,7 @@ func (action *OutputMetadata) Write(b []byte) (int, error) {
 
 	// CustomTags ([]OutputTag)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -816,8 +816,8 @@ func (m *OutputMetadata) Validate() error {
 
 	// Tags ([]uint8)
 	{
-		if len(m.Tags) > (2<<1)-1 {
-			return fmt.Errorf("list field Tags has too many items %d/%d", len(m.Tags), (2<<1)-1)
+		if len(m.Tags) > (2<<8)-1 {
+			return fmt.Errorf("list field Tags has too many items %d/%d", len(m.Tags), (2<<8)-1)
 		}
 
 		for _, value := range m.Tags {
@@ -829,8 +829,8 @@ func (m *OutputMetadata) Validate() error {
 
 	// CustomTags ([]OutputTag)
 	{
-		if len(m.CustomTags) > (2<<1)-1 {
-			return fmt.Errorf("list field CustomTags has too many items %d/%d", len(m.CustomTags), (2<<1)-1)
+		if len(m.CustomTags) > (2<<8)-1 {
+			return fmt.Errorf("list field CustomTags has too many items %d/%d", len(m.CustomTags), (2<<8)-1)
 		}
 
 		for i, value := range m.CustomTags {

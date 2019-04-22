@@ -255,7 +255,7 @@ Metadata associated with the output. Aka Transaction details. It is used to desc
     <tr>
         <td>Tags</td>
         <td>
-            <a href="resources#resource-tags">Tag[](1)</a>
+            <a href="resources#resource-tags">Tag[]</a>
         </td>
         <td>
             Predefined values for describing the output.
@@ -265,7 +265,7 @@ Metadata associated with the output. Aka Transaction details. It is used to desc
     <tr>
         <td>CustomTags</td>
         <td>
-            <a href="field-types#type-output-tag">OutputTag[](1)</a>
+            <a href="field-types#type-output-tag">OutputTag[]</a>
         </td>
         <td>
             Free form text fields for describing the output. Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc.

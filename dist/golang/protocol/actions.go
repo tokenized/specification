@@ -1007,7 +1007,7 @@ func (action *AssetModification) serialize() ([]byte, error) {
 
 	// Amendments ([]Amendment)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Amendments)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Amendments)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.Amendments {
@@ -1065,7 +1065,7 @@ func (action *AssetModification) write(b []byte) (int, error) {
 
 	// Amendments ([]Amendment)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1113,8 +1113,8 @@ func (m *AssetModification) Validate() error {
 
 	// Amendments ([]Amendment)
 	{
-		if len(m.Amendments) > (2<<1)-1 {
-			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (2<<1)-1)
+		if len(m.Amendments) > (2<<8)-1 {
+			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (2<<8)-1)
 		}
 
 		for i, value := range m.Amendments {
@@ -1332,7 +1332,7 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 
 	// VotingSystems ([]VotingSystem)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.VotingSystems)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.VotingSystems)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.VotingSystems {
@@ -1370,7 +1370,7 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 
 	// Oracles ([]Oracle)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Oracles)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Oracles)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.Oracles {
@@ -1535,7 +1535,7 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 
 	// VotingSystems ([]VotingSystem)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1573,7 +1573,7 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 
 	// Oracles ([]Oracle)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -1713,8 +1713,8 @@ func (m *ContractOffer) Validate() error {
 
 	// VotingSystems ([]VotingSystem)
 	{
-		if len(m.VotingSystems) > (2<<1)-1 {
-			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (2<<1)-1)
+		if len(m.VotingSystems) > (2<<8)-1 {
+			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (2<<8)-1)
 		}
 
 		for i, value := range m.VotingSystems {
@@ -1739,8 +1739,8 @@ func (m *ContractOffer) Validate() error {
 
 	// Oracles ([]Oracle)
 	{
-		if len(m.Oracles) > (2<<1)-1 {
-			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<1)-1)
+		if len(m.Oracles) > (2<<8)-1 {
+			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<8)-1)
 		}
 
 		for i, value := range m.Oracles {
@@ -1975,7 +1975,7 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 
 	// VotingSystems ([]VotingSystem)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.VotingSystems)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.VotingSystems)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.VotingSystems {
@@ -2013,7 +2013,7 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 
 	// Oracles ([]Oracle)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Oracles)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Oracles)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.Oracles {
@@ -2197,7 +2197,7 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 
 	// VotingSystems ([]VotingSystem)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -2235,7 +2235,7 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 
 	// Oracles ([]Oracle)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -2389,8 +2389,8 @@ func (m *ContractFormation) Validate() error {
 
 	// VotingSystems ([]VotingSystem)
 	{
-		if len(m.VotingSystems) > (2<<1)-1 {
-			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (2<<1)-1)
+		if len(m.VotingSystems) > (2<<8)-1 {
+			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (2<<8)-1)
 		}
 
 		for i, value := range m.VotingSystems {
@@ -2415,8 +2415,8 @@ func (m *ContractFormation) Validate() error {
 
 	// Oracles ([]Oracle)
 	{
-		if len(m.Oracles) > (2<<1)-1 {
-			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<1)-1)
+		if len(m.Oracles) > (2<<8)-1 {
+			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<8)-1)
 		}
 
 		for i, value := range m.Oracles {
@@ -2538,7 +2538,7 @@ func (action *ContractAmendment) serialize() ([]byte, error) {
 
 	// Amendments ([]Amendment)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Amendments)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Amendments)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.Amendments {
@@ -2594,7 +2594,7 @@ func (action *ContractAmendment) write(b []byte) (int, error) {
 
 	// Amendments ([]Amendment)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -2635,8 +2635,8 @@ func (m *ContractAmendment) Validate() error {
 
 	// Amendments ([]Amendment)
 	{
-		if len(m.Amendments) > (2<<1)-1 {
-			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (2<<1)-1)
+		if len(m.Amendments) > (2<<8)-1 {
+			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (2<<8)-1)
 		}
 
 		for i, value := range m.Amendments {
@@ -2832,7 +2832,7 @@ func (action *StaticContractFormation) serialize() ([]byte, error) {
 
 	// Entities ([]Entity)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Entities)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Entities)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.Entities {
@@ -2967,7 +2967,7 @@ func (action *StaticContractFormation) write(b []byte) (int, error) {
 
 	// Entities ([]Entity)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -3090,8 +3090,8 @@ func (m *StaticContractFormation) Validate() error {
 
 	// Entities ([]Entity)
 	{
-		if len(m.Entities) > (2<<1)-1 {
-			return fmt.Errorf("list field Entities has too many items %d/%d", len(m.Entities), (2<<1)-1)
+		if len(m.Entities) > (2<<8)-1 {
+			return fmt.Errorf("list field Entities has too many items %d/%d", len(m.Entities), (2<<8)-1)
 		}
 
 		for i, value := range m.Entities {
@@ -4535,7 +4535,7 @@ func (action *Proposal) serialize() ([]byte, error) {
 
 	// ProposedAmendments ([]Amendment)
 	if action.Specific {
-		if err := WriteVariableSize(buf, uint64(len(action.ProposedAmendments)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.ProposedAmendments)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.ProposedAmendments {
@@ -4642,7 +4642,7 @@ func (action *Proposal) write(b []byte) (int, error) {
 
 	// ProposedAmendments ([]Amendment)
 	if action.Specific {
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -4738,8 +4738,8 @@ func (m *Proposal) Validate() error {
 
 	// ProposedAmendments ([]Amendment)
 	if m.Specific {
-		if len(m.ProposedAmendments) > (2<<1)-1 {
-			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (2<<1)-1)
+		if len(m.ProposedAmendments) > (2<<8)-1 {
+			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (2<<8)-1)
 		}
 
 		for i, value := range m.ProposedAmendments {
@@ -5207,7 +5207,7 @@ func (action *Result) serialize() ([]byte, error) {
 
 	// ProposedAmendments ([]Amendment)
 	if action.Specific {
-		if err := WriteVariableSize(buf, uint64(len(action.ProposedAmendments)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.ProposedAmendments)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.ProposedAmendments {
@@ -5303,7 +5303,7 @@ func (action *Result) write(b []byte) (int, error) {
 
 	// ProposedAmendments ([]Amendment)
 	if action.Specific {
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -5383,8 +5383,8 @@ func (m *Result) Validate() error {
 
 	// ProposedAmendments ([]Amendment)
 	if m.Specific {
-		if len(m.ProposedAmendments) > (2<<1)-1 {
-			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (2<<1)-1)
+		if len(m.ProposedAmendments) > (2<<8)-1 {
+			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (2<<8)-1)
 		}
 
 		for i, value := range m.ProposedAmendments {
@@ -5482,7 +5482,7 @@ func (action *Message) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 	// AddressIndexes ([]uint16)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.AddressIndexes)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.AddressIndexes)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.AddressIndexes {
@@ -5514,7 +5514,7 @@ func (action *Message) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 	// AddressIndexes ([]uint16)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -5547,8 +5547,8 @@ func (m *Message) Validate() error {
 
 	// AddressIndexes ([]uint16)
 	{
-		if len(m.AddressIndexes) > (2<<1)-1 {
-			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<1)-1)
+		if len(m.AddressIndexes) > (2<<8)-1 {
+			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<8)-1)
 		}
 	}
 
@@ -5616,7 +5616,7 @@ func (action *Rejection) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 	// AddressIndexes ([]uint16)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.AddressIndexes)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.AddressIndexes)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.AddressIndexes {
@@ -5667,7 +5667,7 @@ func (action *Rejection) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 	// AddressIndexes ([]uint16)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -5714,8 +5714,8 @@ func (m *Rejection) Validate() error {
 
 	// AddressIndexes ([]uint16)
 	{
-		if len(m.AddressIndexes) > (2<<1)-1 {
-			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<1)-1)
+		if len(m.AddressIndexes) > (2<<8)-1 {
+			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<8)-1)
 		}
 	}
 
@@ -6146,7 +6146,7 @@ func (action *Transfer) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 	// Assets ([]AssetTransfer)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Assets)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Assets)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.Assets {
@@ -6200,7 +6200,7 @@ func (action *Transfer) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 	// Assets ([]AssetTransfer)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -6243,8 +6243,8 @@ func (m *Transfer) Validate() error {
 
 	// Assets ([]AssetTransfer)
 	{
-		if len(m.Assets) > (2<<1)-1 {
-			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (2<<1)-1)
+		if len(m.Assets) > (2<<8)-1 {
+			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (2<<8)-1)
 		}
 
 		for i, value := range m.Assets {
@@ -6320,7 +6320,7 @@ func (action *Settlement) serialize() ([]byte, error) {
 	buf := new(bytes.Buffer)
 	// Assets ([]AssetSettlement)
 	{
-		if err := WriteVariableSize(buf, uint64(len(action.Assets)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.Assets)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range action.Assets {
@@ -6355,7 +6355,7 @@ func (action *Settlement) write(b []byte) (int, error) {
 	buf := bytes.NewBuffer(b)
 	// Assets ([]AssetSettlement)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
 		}
@@ -6384,8 +6384,8 @@ func (m *Settlement) Validate() error {
 
 	// Assets ([]AssetSettlement)
 	{
-		if len(m.Assets) > (2<<1)-1 {
-			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (2<<1)-1)
+		if len(m.Assets) > (2<<8)-1 {
+			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (2<<8)-1)
 		}
 
 		for i, value := range m.Assets {

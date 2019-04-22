@@ -378,7 +378,7 @@ func (m AssetSettlement) Serialize() ([]byte, error) {
 
 	// Settlements ([]QuantityIndex)
 	{
-		if err := WriteVariableSize(buf, uint64(len(m.Settlements)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(m.Settlements)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range m.Settlements {
@@ -423,7 +423,7 @@ func (m *AssetSettlement) Write(buf *bytes.Buffer) error {
 
 	// Settlements ([]QuantityIndex)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return err
 		}
@@ -463,8 +463,8 @@ func (m *AssetSettlement) Validate() error {
 
 	// Settlements ([]QuantityIndex)
 	{
-		if len(m.Settlements) > (2<<1)-1 {
-			return fmt.Errorf("list field Settlements has too many items %d/%d", len(m.Settlements), (2<<1)-1)
+		if len(m.Settlements) > (2<<8)-1 {
+			return fmt.Errorf("list field Settlements has too many items %d/%d", len(m.Settlements), (2<<8)-1)
 		}
 
 		for i, value := range m.Settlements {
@@ -551,7 +551,7 @@ func (m AssetTransfer) Serialize() ([]byte, error) {
 
 	// AssetSenders ([]QuantityIndex)
 	{
-		if err := WriteVariableSize(buf, uint64(len(m.AssetSenders)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(m.AssetSenders)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range m.AssetSenders {
@@ -568,7 +568,7 @@ func (m AssetTransfer) Serialize() ([]byte, error) {
 
 	// AssetReceivers ([]TokenReceiver)
 	{
-		if err := WriteVariableSize(buf, uint64(len(m.AssetReceivers)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(m.AssetReceivers)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range m.AssetReceivers {
@@ -613,7 +613,7 @@ func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
 
 	// AssetSenders ([]QuantityIndex)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return err
 		}
@@ -630,7 +630,7 @@ func (m *AssetTransfer) Write(buf *bytes.Buffer) error {
 
 	// AssetReceivers ([]TokenReceiver)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return err
 		}
@@ -670,8 +670,8 @@ func (m *AssetTransfer) Validate() error {
 
 	// AssetSenders ([]QuantityIndex)
 	{
-		if len(m.AssetSenders) > (2<<1)-1 {
-			return fmt.Errorf("list field AssetSenders has too many items %d/%d", len(m.AssetSenders), (2<<1)-1)
+		if len(m.AssetSenders) > (2<<8)-1 {
+			return fmt.Errorf("list field AssetSenders has too many items %d/%d", len(m.AssetSenders), (2<<8)-1)
 		}
 
 		for i, value := range m.AssetSenders {
@@ -684,8 +684,8 @@ func (m *AssetTransfer) Validate() error {
 
 	// AssetReceivers ([]TokenReceiver)
 	{
-		if len(m.AssetReceivers) > (2<<1)-1 {
-			return fmt.Errorf("list field AssetReceivers has too many items %d/%d", len(m.AssetReceivers), (2<<1)-1)
+		if len(m.AssetReceivers) > (2<<8)-1 {
+			return fmt.Errorf("list field AssetReceivers has too many items %d/%d", len(m.AssetReceivers), (2<<8)-1)
 		}
 
 		for i, value := range m.AssetReceivers {
@@ -861,7 +861,7 @@ func (m Entity) Serialize() ([]byte, error) {
 
 	// Administration ([]Administrator)
 	{
-		if err := WriteVariableSize(buf, uint64(len(m.Administration)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(m.Administration)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range m.Administration {
@@ -878,7 +878,7 @@ func (m Entity) Serialize() ([]byte, error) {
 
 	// Management ([]Manager)
 	{
-		if err := WriteVariableSize(buf, uint64(len(m.Management)), 1, 8); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(m.Management)), 8, 8); err != nil {
 			return nil, err
 		}
 		for _, value := range m.Management {
@@ -1013,7 +1013,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 
 	// Administration ([]Administrator)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return err
 		}
@@ -1030,7 +1030,7 @@ func (m *Entity) Write(buf *bytes.Buffer) error {
 
 	// Management ([]Manager)
 	{
-		size, err := ReadVariableSize(buf, 1, 8)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return err
 		}
@@ -1140,8 +1140,8 @@ func (m *Entity) Validate() error {
 
 	// Administration ([]Administrator)
 	{
-		if len(m.Administration) > (2<<1)-1 {
-			return fmt.Errorf("list field Administration has too many items %d/%d", len(m.Administration), (2<<1)-1)
+		if len(m.Administration) > (2<<8)-1 {
+			return fmt.Errorf("list field Administration has too many items %d/%d", len(m.Administration), (2<<8)-1)
 		}
 
 		for i, value := range m.Administration {
@@ -1154,8 +1154,8 @@ func (m *Entity) Validate() error {
 
 	// Management ([]Manager)
 	{
-		if len(m.Management) > (2<<1)-1 {
-			return fmt.Errorf("list field Management has too many items %d/%d", len(m.Management), (2<<1)-1)
+		if len(m.Management) > (2<<8)-1 {
+			return fmt.Errorf("list field Management has too many items %d/%d", len(m.Management), (2<<8)-1)
 		}
 
 		for i, value := range m.Management {

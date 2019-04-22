@@ -99,7 +99,7 @@ func (f Field) IsFloat() bool {
 
 func (f Field) Length() uint64 {
 	if strings.HasSuffix(f.Type, "[]") && f.Size == 0 {
-		return 1
+		return 8
 	}
 	return f.Size
 }
