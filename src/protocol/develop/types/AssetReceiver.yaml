@@ -1,17 +1,13 @@
 metadata:
-  name: TokenReceiver
-  label: Token Receiver
-  description: "A TokenReceiver is contains a quantity, index, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position."
+  name: AssetReceiver
+  label: AssetReceiver
+  description: "An AssetReceiver is a quantity, address, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The address is where the asset will be sent."
 
 fields:
-  - name: Index
-    label: Index
-    description: "The index of the output receiving the tokens"
-    type: uint
-    size: 2
-    example_hex: 0000
-    example: 0
-    notes: ""
+  - name: Address
+    label: Address
+    description: "The address receiving the tokens"
+    type: PublicKeyHash
 
   - name: Quantity
     label: Quantity

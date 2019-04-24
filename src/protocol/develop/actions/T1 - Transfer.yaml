@@ -23,10 +23,6 @@ rules:
       label: Contract Public Address for Asset X
       comments: Enough for the costs of the responding action, including any bitcoins being transfered, and the Contract Fee.
 
-    - name: AssetXReceiverX
-      label: Asset (token) Receiving Public Address X
-      comments: Token Output Address X (Token Receiver).
-
 fields:
   - name: Assets
     label: Assets

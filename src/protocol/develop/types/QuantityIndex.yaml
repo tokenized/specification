@@ -1,12 +1,12 @@
 metadata:
   name: QuantityIndex
   label: Quantity Index
-  description: "A QuantityIndex contains a quantity, and an index. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input index position."
+  description: "A QuantityIndex contains a quantity, and an index. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input or output index position."
 
 fields:
   - name: Index
     label: Index
-    description: "The index of the input sending the tokens"
+    description: "The index of the input/output (depending on context) sending/receiving the tokens."
     type: uint
     size: 2
     example_hex: 0000

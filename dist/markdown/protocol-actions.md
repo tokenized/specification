@@ -3273,11 +3273,6 @@ A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a token(s) 
         <td>Contract Public Address for Asset X</td>
         <td>Enough for the costs of the responding action, including any bitcoins being transfered, and the Contract Fee.</td>
     </tr>
-   <tr>
-        <td class="text-center">1</td>
-        <td>Asset (token) Receiving Public Address X</td>
-        <td>Token Output Address X (Token Receiver).</td>
-    </tr>
 </table>
 
 

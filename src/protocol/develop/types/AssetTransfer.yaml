@@ -32,6 +32,6 @@ fields:
     type: QuantityIndex[]
 
   - name: AssetReceivers
-    label: Token Receivers
-    description: "Each element has the value of tokens to be received by the output address, which is referred to by the index."
-    type: TokenReceiver[]
+    label: Asset Receivers
+    description: "Each element has the value of tokens to be received, the address, and an oracle signature if required."
+    type: AssetReceiver[]
