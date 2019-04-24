@@ -20,6 +20,9 @@ const (
 	// ProtocolID is the current protocol ID
 	ProtocolID = "tokenized.com"
 
+	// TestProtocolID is the current protocol ID for testing.
+	TestProtocolID = "test.tokenized.com"
+
 	// Version of the Tokenized protocol.
 	Version = uint8(0)
 )
@@ -34,7 +37,7 @@ type OpReturnMessage interface {
 }
 
 // Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
-func Deserialize(b []byte) (OpReturnMessage, error) {
+func Deserialize(b []byte, isTest bool) (OpReturnMessage, error) {
 	buf := bytes.NewBuffer(b)
 
 	var opCode byte
@@ -50,25 +53,31 @@ func Deserialize(b []byte) (OpReturnMessage, error) {
 		return nil, fmt.Errorf("Not an op return output : %02x", opCode)
 	}
 
-	// Parse push op code for op return protocol ID
-	err = binary.Read(buf, DefaultEndian, &opCode)
-	if err != nil {
-		return nil, err
-	}
-
-	if int(opCode) != len(ProtocolID) {
-		return nil, fmt.Errorf("Push not correct size for protocol ID : %02x", opCode)
-	}
-
 	// Parse protocol ID
-	protocolID := make([]byte, len(ProtocolID))
-	_, err = buf.Read(protocolID)
+	var protocolID string
+	if isTest {
+		protocolID = TestProtocolID
+	} else {
+		protocolID = ProtocolID
+	}
+
+	protocolIDSize, err := txbuilder.ParsePushDataScript(buf)
 	if err != nil {
 		return nil, err
 	}
 
-	if !bytes.Equal(protocolID, []byte(ProtocolID)) {
-		return nil, fmt.Errorf("Invalid protocol ID : %s", string(protocolID))
+	if int(protocolIDSize) != len(protocolID) {
+		return nil, fmt.Errorf("Push not correct size for protocol ID : %d != %d", protocolIDSize, len(protocolID))
+	}
+
+	readProtocolID := make([]byte, int(protocolIDSize))
+	_, err = buf.Read(readProtocolID)
+	if err != nil {
+		return nil, err
+	}
+
+	if !bytes.Equal(readProtocolID, []byte(protocolID)) {
+		return nil, fmt.Errorf("Invalid protocol ID : %s", string(readProtocolID))
 	}
 
 	// Parse push op code for payload length + 3 for version and message type code
@@ -113,7 +122,7 @@ func Deserialize(b []byte) (OpReturnMessage, error) {
 }
 
 // Serialize returns a complete op return script including the specified payload.
-func Serialize(msg OpReturnMessage) ([]byte, error) {
+func Serialize(msg OpReturnMessage, isTest bool) ([]byte, error) {
 	var buf bytes.Buffer
 	var err error
 
@@ -123,15 +132,22 @@ func Serialize(msg OpReturnMessage) ([]byte, error) {
 		return nil, err
 	}
 
-	// Write signature push op code
-	protocolIDSize := uint8(len(ProtocolID))
-	err = binary.Write(&buf, DefaultEndian, protocolIDSize)
+	var protocolID string
+	if isTest {
+		protocolID = TestProtocolID
+	} else {
+		protocolID = ProtocolID
+	}
+
+	// Write protocol Id push op code
+	_, err = buf.Write(txbuilder.PushDataScript(uint64(len(protocolID))))
 	if err != nil {
+		fmt.Printf("Failed to write push data : %s\n", err)
 		return nil, err
 	}
 
-	// Write protocol ID
-	_, err = buf.Write([]byte(ProtocolID))
+	// Write protocol Id
+	_, err = buf.Write([]byte(protocolID))
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +186,7 @@ func Serialize(msg OpReturnMessage) ([]byte, error) {
 }
 
 // Code returns the identifying code from the OP_RETURN payload.
-func Code(script []byte) (string, error) {
+func Code(script []byte, isTest bool) (string, error) {
 	buf := bytes.NewBuffer(script)
 
 	var opCode byte
@@ -186,25 +202,31 @@ func Code(script []byte) (string, error) {
 		return "", fmt.Errorf("Not an op return output : %02x", opCode)
 	}
 
-	// Parse push op code for op return protocol ID
-	err = binary.Read(buf, DefaultEndian, &opCode)
-	if err != nil {
-		return "", err
-	}
-
-	if int(opCode) != len(ProtocolID) {
-		return "", fmt.Errorf("Push not correct size for protocol ID : %02x", opCode)
-	}
-
 	// Parse protocol ID
-	protocolID := make([]byte, len(ProtocolID))
-	_, err = buf.Read(protocolID)
+	var protocolID string
+	if isTest {
+		protocolID = TestProtocolID
+	} else {
+		protocolID = ProtocolID
+	}
+
+	protocolIDSize, err := txbuilder.ParsePushDataScript(buf)
 	if err != nil {
 		return "", err
 	}
 
-	if !bytes.Equal(protocolID, []byte(ProtocolID)) {
-		return "", fmt.Errorf("Invalid protocol ID : %s", string(protocolID))
+	if int(protocolIDSize) != len(protocolID) {
+		return "", fmt.Errorf("Push not correct size for protocol ID : %d != %d", protocolIDSize, len(protocolID))
+	}
+
+	readProtocolID := make([]byte, int(protocolIDSize))
+	_, err = buf.Read(readProtocolID)
+	if err != nil {
+		return "", err
+	}
+
+	if !bytes.Equal(readProtocolID, []byte(protocolID)) {
+		return "", fmt.Errorf("Invalid protocol ID : %s", string(readProtocolID))
 	}
 
 	// Parse push op code for payload length + 3 for version and message type code

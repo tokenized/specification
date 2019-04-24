@@ -16,13 +16,13 @@ import (
 //   estimated size of response tx in bytes.
 //   estimated funding needed, not including contract/proposal fees.
 //   error if there were any
-func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees uint64) (int, uint64, error) {
+func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees uint64, isTest bool) (int, uint64, error) {
 	// Find Tokenized OP_RETURN
 	var err error
 	var opReturn OpReturnMessage
 	found := false
 	for _, output := range requestTx.TxOut {
-		opReturn, err = Deserialize(output.PkScript)
+		opReturn, err = Deserialize(output.PkScript, isTest)
 		if err == nil {
 			found = true
 			break
@@ -135,7 +135,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		return 0, 0, errors.Wrap(err, "Failed to convert request to response")
 	}
 
-	script, err := Serialize(response)
+	script, err := Serialize(response, isTest)
 	if err != nil {
 		return 0, 0, errors.Wrap(err, "Failed to serialize response")
 	}
