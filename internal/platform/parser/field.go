@@ -111,7 +111,7 @@ func (f Field) TypeURLCode() string {
 			typeName = typeName[:len(typeName)-2]
 		}
 		var name string
-		switch(typeName) {
+		switch typeName {
 		case "Role":
 			name = "roles"
 		case "EntityType":
