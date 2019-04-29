@@ -58,6 +58,10 @@ func ReadAuthFlags(authFlags []byte, fields, votingSystems int) ([]Permission, e
 		result = append(result, newPermission)
 	}
 
+	if buf.Len() > 0 {
+		return nil, errors.New("Bytes remaining")
+	}
+
 	return result, nil
 }
 
