@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"sort"
+	"strconv"
 	"strings"
 
 	yaml "gopkg.in/yaml.v2"
@@ -31,9 +32,17 @@ func NewProtocolMessages(fieldTypes []ProtocolType, filenames []string) Protocol
 		items = append(items, m)
 	}
 
-	// Order by action code
+	// Order by message code
 	sort.Slice(items, func(i, j int) bool {
-		return items[i].Code < items[j].Code
+		intI, err := strconv.Atoi(items[i].Code)
+		if err != nil {
+			return true
+		}
+		intJ, err := strconv.Atoi(items[j].Code)
+		if err != nil {
+			return false
+		}
+		return intI < intJ
 	})
 
 	return items

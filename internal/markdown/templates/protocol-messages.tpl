@@ -28,6 +28,13 @@ The Tokenized protocol features a complete messaging suite for all types of mess
 
 <table>
     <tr>
+        <th style="width:15%">Message Code</th>
+        <td>{{ .Code }}</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
         <th style="width:15%">Field</th>
         <th style="width:15%">Type</th>
         <th>Description</th>
