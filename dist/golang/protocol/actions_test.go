@@ -19,16 +19,11 @@ func TestAssetDefinition(t *testing.T) {
 		}
 	}
 
-	// AssetCode (AssetCode)
-	{
-		initialMessage.AssetCode = AssetCode{}
-	}
-
 	// AssetAuthFlags (varbin)
 	{
 		initialMessage.AssetAuthFlags = make([]byte, 0, 8)
 		for i := uint64(0); i < 8; i++ {
-			initialMessage.AssetAuthFlags = append(initialMessage.AssetAuthFlags, byte(65+i+2))
+			initialMessage.AssetAuthFlags = append(initialMessage.AssetAuthFlags, byte(65+i+1))
 		}
 	}
 
@@ -84,7 +79,7 @@ func TestAssetDefinition(t *testing.T) {
 	{
 		initialMessage.AssetPayload = make([]byte, 0, 16)
 		for i := uint64(0); i < 16; i++ {
-			initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+12))
+			initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+11))
 		}
 	}
 
@@ -127,9 +122,6 @@ func TestAssetDefinition(t *testing.T) {
 	if initialMessage.AssetType != decodedMessage.AssetType {
 		t.Errorf("AssetType doesn't match : %s != %s", initialMessage.AssetType, decodedMessage.AssetType)
 	}
-
-	// AssetCode (AssetCode)
-	// AssetCode test compare not setup
 
 	// AssetAuthFlags (varbin)
 	if !bytes.Equal(initialMessage.AssetAuthFlags, decodedMessage.AssetAuthFlags) {
@@ -211,11 +203,16 @@ func TestAssetCreation(t *testing.T) {
 		initialMessage.AssetCode = AssetCode{}
 	}
 
+	// AssetIndex (uint)
+	{
+		// uint test not setup
+	}
+
 	// AssetAuthFlags (varbin)
 	{
 		initialMessage.AssetAuthFlags = make([]byte, 0, 8)
 		for i := uint64(0); i < 8; i++ {
-			initialMessage.AssetAuthFlags = append(initialMessage.AssetAuthFlags, byte(65+i+2))
+			initialMessage.AssetAuthFlags = append(initialMessage.AssetAuthFlags, byte(65+i+3))
 		}
 	}
 
@@ -271,7 +268,7 @@ func TestAssetCreation(t *testing.T) {
 	{
 		initialMessage.AssetPayload = make([]byte, 0, 16)
 		for i := uint64(0); i < 16; i++ {
-			initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+12))
+			initialMessage.AssetPayload = append(initialMessage.AssetPayload, byte(65+i+13))
 		}
 	}
 
@@ -327,6 +324,11 @@ func TestAssetCreation(t *testing.T) {
 
 	// AssetCode (AssetCode)
 	// AssetCode test compare not setup
+
+	// AssetIndex (uint)
+	if initialMessage.AssetIndex != decodedMessage.AssetIndex {
+		t.Errorf("AssetIndex doesn't match : %v != %v", initialMessage.AssetIndex, decodedMessage.AssetIndex)
+	}
 
 	// AssetAuthFlags (varbin)
 	if !bytes.Equal(initialMessage.AssetAuthFlags, decodedMessage.AssetAuthFlags) {

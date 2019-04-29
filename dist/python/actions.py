@@ -15,17 +15,16 @@ class Action_AssetDefinition(ActionBase):
     ActionPrefix = 'A1'
 
     schema = {
-        'AssetAuthFlags':                  [0, DAT_varbin, 8],
-        'TransfersPermitted':              [1, DAT_bool, 0],
-        'TradeRestrictions':               [2, DAT_Polity[], 16],
-        'EnforcementOrdersPermitted':      [3, DAT_bool, 0],
-        'VotingRights':                    [4, DAT_bool, 0],
-        'VoteMultiplier':                  [5, DAT_uint, 1],
-        'IssuerProposal':                  [6, DAT_bool, 0],
-        'HolderProposal':                  [7, DAT_bool, 0],
-        'AssetModificationGovernance':     [8, DAT_uint, 1],
-        'TokenQty':                        [9, DAT_uint, 8],
-        'AssetPayload':                    [10, DAT_varbin, 16]
+        'TransfersPermitted':              [0, DAT_bool, 0],
+        'TradeRestrictions':               [1, DAT_Polity[], 16],
+        'EnforcementOrdersPermitted':      [2, DAT_bool, 0],
+        'VotingRights':                    [3, DAT_bool, 0],
+        'VoteMultiplier':                  [4, DAT_uint, 1],
+        'IssuerProposal':                  [5, DAT_bool, 0],
+        'HolderProposal':                  [6, DAT_bool, 0],
+        'AssetModificationGovernance':     [7, DAT_uint, 1],
+        'TokenQty':                        [8, DAT_uint, 8],
+        'AssetPayload':                    [9, DAT_varbin, 16]
     }
 
     rules = {
@@ -35,7 +34,6 @@ class Action_AssetDefinition(ActionBase):
     }
 
     def init_attributes(self):
-        self.TransfersPermitted = None
         self.TradeRestrictions = None
         self.EnforcementOrdersPermitted = None
         self.VotingRights = None
@@ -54,19 +52,20 @@ class Action_AssetCreation(ActionBase):
     ActionPrefix = 'A2'
 
     schema = {
-        'AssetAuthFlags':                  [0, DAT_varbin, 8],
-        'TransfersPermitted':              [1, DAT_bool, 0],
-        'TradeRestrictions':               [2, DAT_Polity[], 16],
-        'EnforcementOrdersPermitted':      [3, DAT_bool, 0],
-        'VotingRights':                    [4, DAT_bool, 0],
-        'VoteMultiplier':                  [5, DAT_uint, 1],
-        'IssuerProposal':                  [6, DAT_bool, 0],
-        'HolderProposal':                  [7, DAT_bool, 0],
-        'AssetModificationGovernance':     [8, DAT_uint, 1],
-        'TokenQty':                        [9, DAT_uint, 8],
-        'AssetPayload':                    [10, DAT_varbin, 16],
-        'AssetRevision':                   [11, DAT_uint, 4],
-        'Timestamp':                       [12, DAT_Timestamp, 0]
+        'AssetIndex':                      [0, DAT_uint, 8],
+        'AssetAuthFlags':                  [1, DAT_varbin, 8],
+        'TransfersPermitted':              [2, DAT_bool, 0],
+        'TradeRestrictions':               [3, DAT_Polity[], 16],
+        'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
+        'VotingRights':                    [5, DAT_bool, 0],
+        'VoteMultiplier':                  [6, DAT_uint, 1],
+        'IssuerProposal':                  [7, DAT_bool, 0],
+        'HolderProposal':                  [8, DAT_bool, 0],
+        'AssetModificationGovernance':     [9, DAT_uint, 1],
+        'TokenQty':                        [10, DAT_uint, 8],
+        'AssetPayload':                    [11, DAT_varbin, 16],
+        'AssetRevision':                   [12, DAT_uint, 4],
+        'Timestamp':                       [13, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -76,6 +75,7 @@ class Action_AssetCreation(ActionBase):
     }
 
     def init_attributes(self):
+        self.AssetAuthFlags = None
         self.TransfersPermitted = None
         self.TradeRestrictions = None
         self.EnforcementOrdersPermitted = None

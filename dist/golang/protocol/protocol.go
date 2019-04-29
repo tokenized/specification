@@ -2,6 +2,7 @@ package protocol
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"encoding/binary"
 	"encoding/hex"
 	"errors"
@@ -429,6 +430,19 @@ func (code *AssetCode) IsZero() bool {
 // Equal returns true if the specified asset code is the same value.
 func (code *AssetCode) Equal(other AssetCode) bool {
 	return bytes.Equal(code.data[:], other.data[:])
+}
+
+// AssetCodeFromContract generates a "unique" deterministic asset code from a contract public key
+//   hash and an asset index.
+func AssetCodeFromContract(contractPKH []byte, index uint64) *AssetCode {
+	hash256 := sha256.New()
+	hash256.Write(contractPKH)
+	binary.Write(hash256, DefaultEndian, &index)
+	hash := hash256.Sum(nil)
+
+	var result AssetCode
+	copy(result.data[:], hash)
+	return &result
 }
 
 // AssetCodeFromBytes returns a AssetCode with the specified bytes.
