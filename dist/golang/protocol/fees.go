@@ -47,28 +47,93 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		// P2PKH dust output to contract, contract fee, and op return output
 		if fees > 0 {
-			size += wire.VarIntSerializeSize(uint64(3)) + txbuilder.P2PKHOutputSize
+			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
 			value += fees
 		} else {
-			size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
 		}
 		value += dustLimit
 
 	case *AssetDefinition:
-		assetDefinition := AssetDefinition{}
-		response = &assetDefinition
+		assetCreation := AssetCreation{}
+		response = &assetCreation
 
 		// 1 input from contract
 		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.EstimatedInputSize
 
 		// P2PKH dust output to contract, and op return output
 		if fees > 0 {
-			size += wire.VarIntSerializeSize(uint64(3)) + txbuilder.P2PKHOutputSize
+			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
 			value += fees
 		} else {
-			size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
 		}
 		value += dustLimit
+
+	case *AssetModification:
+		assetCreation := AssetCreation{}
+		response = &assetCreation
+
+		// 1 input from contract
+		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.EstimatedInputSize
+
+		// P2PKH dust output to contract, and op return output
+		if fees > 0 {
+			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
+			value += fees
+		} else {
+			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
+		}
+		value += dustLimit
+
+		// TODO Need last asset creation to know size of response. Determine change in size by applying amendments.
+
+	case *Transfer:
+		settlement := Settlement{}
+		response = &settlement
+
+		// 1 input from contract
+		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.EstimatedInputSize
+
+		// P2PKH dust output to contract, and op return output
+		outputCount := 2
+		size += 2 * txbuilder.P2PKHOutputSize
+		value += dustLimit
+		if fees > 0 {
+			outputCount += 1
+			size += txbuilder.P2PKHOutputSize
+			value += fees
+		}
+
+		// Add receiver outputs needed
+		used := make(map[[20]byte]bool)
+		for _, asset := range request.Assets {
+			for _, _ = range asset.AssetSenders {
+				// hash, err := txbuilder.PubKeyHashFromP2PKHSigScript(requestTx.TxIn[sender.Index].SignatureScript)
+				// if err != nil {
+					// return 0, 0, errors.Wrap(err, "Invalid request input")
+				// }
+				// var fixedHash [20]byte
+				// copy(fixedHash[:], hash)
+				// _, exists := used[fixedHash]
+				// if !exists {
+					// used[fixedHash] = true
+					outputCount += 1
+				// }
+			}
+
+			for _, receiver := range asset.AssetReceivers {
+				var fixedHash [20]byte
+				copy(fixedHash[:], receiver.Address.Bytes())
+				_, exists := used[fixedHash]
+				if !exists {
+					used[fixedHash] = true
+					outputCount += 1
+				}
+			}
+		}
+
+		size += wire.VarIntSerializeSize(uint64(outputCount)) + (outputCount * txbuilder.P2PKHOutputSize)
 
 	case *Proposal:
 		if inputIndex == 0 {
@@ -81,10 +146,10 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 			// P2PKH dust output to contract, and op return output
 			if fees > 0 {
-				size += wire.VarIntSerializeSize(uint64(3)) + txbuilder.P2PKHOutputSize
+				size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
 				value += fees
 			} else {
-				size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+				size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
 			}
 			value += dustLimit
 		} else {
@@ -103,10 +168,10 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 			// P2PKH dust output to contract, and op return output
 			if fees > 0 {
-				size += wire.VarIntSerializeSize(uint64(3)) + txbuilder.P2PKHOutputSize
+				size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
 				value += fees
 			} else {
-				size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+				size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
 			}
 			value += dustLimit
 		}
@@ -120,10 +185,10 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		// P2PKH dust output to contract, and op return output
 		if fees > 0 {
-			size += wire.VarIntSerializeSize(uint64(3)) + txbuilder.P2PKHOutputSize
+			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
 			value += fees
 		} else {
-			size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
+			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
 		}
 		value += dustLimit
 
