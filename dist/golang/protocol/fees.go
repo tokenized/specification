@@ -54,6 +54,24 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		}
 		value += dustLimit
 
+	case *ContractAmendment:
+		contractFormation := ContractFormation{}
+		response = &contractFormation
+
+		// 1 input from contract
+		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.EstimatedInputSize
+
+		// P2PKH dust output to contract, contract fee, and op return output
+		if fees > 0 {
+			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
+			value += fees
+		} else {
+			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
+		}
+		value += dustLimit
+
+		// TODO Need last asset creation to know size of response. Determine change in size by applying amendments.
+
 	case *AssetDefinition:
 		assetCreation := AssetCreation{}
 		response = &assetCreation
@@ -111,14 +129,14 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 			for _, _ = range asset.AssetSenders {
 				// hash, err := txbuilder.PubKeyHashFromP2PKHSigScript(requestTx.TxIn[sender.Index].SignatureScript)
 				// if err != nil {
-					// return 0, 0, errors.Wrap(err, "Invalid request input")
+				// return 0, 0, errors.Wrap(err, "Invalid request input")
 				// }
 				// var fixedHash [20]byte
 				// copy(fixedHash[:], hash)
 				// _, exists := used[fixedHash]
 				// if !exists {
-					// used[fixedHash] = true
-					outputCount += 1
+				// used[fixedHash] = true
+				outputCount += 1
 				// }
 			}
 
