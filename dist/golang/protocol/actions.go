@@ -199,7 +199,7 @@ type AssetDefinition struct {
 	EnforcementOrdersPermitted  bool      `json:"enforcement_orders_permitted,omitempty"`  // Set to true if the administration is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature.
 	VotingRights                bool      `json:"voting_rights,omitempty"`                 // When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.
 	VoteMultiplier              uint8     `json:"vote_multiplier,omitempty"`               // Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens.
-	AdministrationProposal      bool      `json:"administration_proposal,omitempty"`       // Set to true if an administration is permitted to make proposals outside of the smart contract scope.
+	AdministrationProposal      bool      `json:"administration_proposal,omitempty"`       // Set to true if the administration is permitted to make proposals outside of the smart contract scope.
 	HolderProposal              bool      `json:"holder_proposal,omitempty"`               // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
 	AssetModificationGovernance uint8     `json:"asset_modification_governance,omitempty"` // Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
 	TokenQty                    uint64    `json:"token_qty,omitempty"`                     // The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.
@@ -527,7 +527,7 @@ type AssetCreation struct {
 	EnforcementOrdersPermitted  bool      `json:"enforcement_orders_permitted,omitempty"`  // Set to true if the administration is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature.
 	VotingRights                bool      `json:"voting_rights,omitempty"`                 // When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.
 	VoteMultiplier              uint8     `json:"vote_multiplier,omitempty"`               // Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens.
-	AdministrationProposal      bool      `json:"administration_proposal,omitempty"`       // Set to true if an administration is permitted to make proposals outside of the smart contract scope.
+	AdministrationProposal      bool      `json:"administration_proposal,omitempty"`       // Set to true if the administration is permitted to make proposals outside of the smart contract scope.
 	HolderProposal              bool      `json:"holder_proposal,omitempty"`               // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
 	AssetModificationGovernance uint8     `json:"asset_modification_governance,omitempty"` // Supported values: 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
 	TokenQty                    uint64    `json:"token_qty,omitempty"`                     // The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.
@@ -1166,7 +1166,7 @@ type ContractOffer struct {
 	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list of voting systems.
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
-	AdministrationProposal   bool           `json:"administration_proposal,omitempty"`    // Set to true if an administration is permitted to make proposals outside of the smart contract scope.
+	AdministrationProposal   bool           `json:"administration_proposal,omitempty"`    // Set to true if the administration is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
 	Oracles                  []Oracle       `json:"oracles,omitempty"`                    // A list of oracles that provide approval for all token transfers for all assets under the contract.
 	MasterPKH                PublicKeyHash  `json:"master_pkh,omitempty"`                 // The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
@@ -2477,8 +2477,8 @@ func (action ContractFormation) String() string {
 // contract is restricted by the Authorization Flag set on the current
 // revision of Contract Formation action.
 type ContractAmendment struct {
-	ChangeAdministrationAddress bool        `json:"change_administration_address,omitempty"` // Used to change the administration address.  The new administration address must be in the input[1] position. A change of an administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action.
-	ChangeOperatorAddress       bool        `json:"change_operator_address,omitempty"`       // Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless administration is being changed too, then it is in input[2]. A change of an administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action.
+	ChangeAdministrationAddress bool        `json:"change_administration_address,omitempty"` // Used to change the administration address.  The new administration address must be in the input[1] position. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action.
+	ChangeOperatorAddress       bool        `json:"change_operator_address,omitempty"`       // Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless the administration is being changed too, then it is in input[2]. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action.
 	ContractRevision            uint32      `json:"contract_revision,omitempty"`             // Counter 0 to (2^32)-1
 	Amendments                  []Amendment `json:"amendments,omitempty"`                    // A collection of modifications to perform on this contract.
 	RefTxID                     TxId        `json:"ref_tx_id,omitempty"`                     // The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details.
@@ -4435,8 +4435,8 @@ func (action Reconciliation) String() string {
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
-// Proposal Allows Administrations/Token Holders to propose a change (aka
-// Initiative/Shareholder vote). A significant cost - specified in the
+// Proposal Allows the Administration/Token Holders to propose a change
+// (aka Initiative/Shareholder vote). A significant cost - specified in the
 // Contract Formation - can be attached to this action when sent from Token
 // Holders to reduce spam, as the resulting vote will be put to all token
 // owners.

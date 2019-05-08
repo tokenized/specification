@@ -465,7 +465,7 @@ class Action_Reconciliation(ActionBase):
         self.Timestamp = None
 
 
-# Allows Administrations/Token Holders to propose a change (aka
+# Allows the Administration/Token Holders to propose a change (aka
 # Initiative/Shareholder vote). A significant cost - specified in the
 # Contract Formation - can be attached to this action when sent from Token
 # Holders to reduce spam, as the resulting vote will be put to all token

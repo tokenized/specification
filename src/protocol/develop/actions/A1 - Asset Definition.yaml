@@ -83,7 +83,7 @@ fields:
 
   - name: AdministrationProposal
     label: Administration Proposal
-    description: "Set to true if an administration is permitted to make proposals outside of the smart contract scope."
+    description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
     example: true

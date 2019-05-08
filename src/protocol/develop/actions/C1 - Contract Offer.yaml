@@ -16,7 +16,7 @@ rules:
   inputs:
     - name: Administration
       label: "Administration's Public Address"
-      comments: "The smart contract sets the administration public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are administration controlled according to the protocol."
+      comments: "The smart contract sets the administration's public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are controlled by the administration according to the protocol."
 
     - name: ContractOperator
       label: "Contract Operator's Public Address (Optional). Can also be used as a cold storage backup for the administration.  This is important if the administration wants to be able to change their address as changes to the administration or operator pkh in an amendment require signatures from both the administration and the operator pkhs."
@@ -183,7 +183,7 @@ fields:
 
   - name: AdministrationProposal
     label: Administration Proposal
-    description: "Set to true if an administration is permitted to make proposals outside of the smart contract scope."
+    description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
     example: true
