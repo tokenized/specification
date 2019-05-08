@@ -25,7 +25,7 @@ const (
 	// ContractAssetQtyReduction - Sent when a CA tries to reduce the number of assets below the number of assets the contract has.
 	RejectContractAssetQtyReduction = 12
 
-	// ContractFixedQuantity - Sent when the issuer attempted to increase the quantity of assets in a contract beyond the fixed quantity permitted.
+	// ContractFixedQuantity - Sent when the administration attempted to increase the quantity of assets in a contract beyond the fixed quantity permitted.
 	RejectContractFixedQuantity = 13
 
 	// ContractAuthFlags - The contract auth flags don't permit the action requested.
@@ -100,8 +100,8 @@ const (
 	// InsufficientQuantity - Insufficient token holdings to for request.
 	RejectInsufficientQuantity = 62
 
-	// NotIssuer - The requestor is not the issuer and is required to be for this request.
-	RejectNotIssuer = 70
+	// NotAdministration - The requestor is not the administration and is required to be for this request.
+	RejectNotAdministration = 70
 
 	// NotOperator - The requestor is not the operator and is required to be for this request.
 	RejectNotOperator = 71

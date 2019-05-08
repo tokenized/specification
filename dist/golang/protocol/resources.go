@@ -2066,6 +2066,7 @@ var yamlEntities = `
       label: "Individual"
       metadata:
         type: Legal
+        constitutionalDocument: null
         roles:
           owners:
             principal: null
@@ -2084,6 +2085,8 @@ var yamlEntities = `
       label: "Public Company Limited by Shares"
       metadata:
         type: Legal
+        constitutionalDocument: 
+         companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)
         roles:
           owners:
             shareholder: []
@@ -2111,6 +2114,8 @@ var yamlEntities = `
       label: "Private Company Limited by Shares"
       metadata:
         type: Legal
+        constitutionalDocument: 
+         companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
         roles:
           owners:
             shareholder: []
@@ -2138,6 +2143,8 @@ var yamlEntities = `
       label: "Limited Partnership"
       metadata:
         type: Legal
+        constitutionalDocument: 
+          partnershipAgreement: null
         roles:
           owners:
             partner: []
@@ -2153,9 +2160,11 @@ var yamlEntities = `
 
     - code: U
       name: UnlimitedPartnership
-      label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership,  )
+      label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership)
       metadata:
         type: Legal
+        constitutionalDocument: 
+          partnershipAgreement: null        
         roles:
           owners:
             partner: []
@@ -2174,6 +2183,7 @@ var yamlEntities = `
       label: "Sole Proprietorship"
       metadata:
         type: Legal
+        constitutionalDocument: null     
         roles:
           owners:
             proprietor: null
@@ -2192,6 +2202,8 @@ var yamlEntities = `
       label: "Statutory Company"
       metadata:
         type: Legal
+        constitutionalDocument: 
+         companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
         roles:
           administrators:
             chairman: null
@@ -2214,9 +2226,11 @@ var yamlEntities = `
 
     - code: O
       name: NonProfitOrganization
-      label: "Non-Profit Organization"
+      label: "Non-Profit Organization"      
       metadata:
         type: Legal
+        constitutionalDocument: 
+         organizationConstitution: null # (eg. Constitution, Memorandum of Association, Charter, sometimes Articles of Association, etc.)             
         role:
           administrators:
             chairman: null
@@ -2241,18 +2255,24 @@ var yamlEntities = `
       label: "Nation State" # (Sovereign State)
       metadata:
         type: Legal
+        constitutionalDocument: 
+         nationalConstitution: null # (eg. Constitution, Charter, etc.)       
 
     - code: G
       name: GovernmentAgency
       label: "Government Agency"
       metadata:
         type: Legal
-
+        constitutionalDocument: 
+         charter: null # (eg. Charter, etc.) 
+         
     - code: U
       name: UnitTrust
       label: "Unit Trust"
       metadata:
         type: Ownership
+        constitutionalDocument: 
+         trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)         
         roles:
           owners:
             unitholder: []
@@ -2274,6 +2294,8 @@ var yamlEntities = `
       label: "Discretionary Trust" # (Family Trust)
       metadata:
         type: Ownership
+        constitutionalDocument: 
+         trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)               
         roles:
           owners:
             beneficiary: []
@@ -4266,7 +4288,7 @@ var yamlRejections = `
   - code: 13
     name: ContractFixedQuantity
     label: Contract Fixed Quantity
-    description: Sent when the issuer attempted to increase the quantity of assets in a contract beyond the fixed quantity permitted.
+    description: Sent when the administration attempted to increase the quantity of assets in a contract beyond the fixed quantity permitted.
 
   - code: 14
     name: ContractAuthFlags
@@ -4402,9 +4424,9 @@ var yamlRejections = `
 #################################### Address ####################################
 
   - code: 70
-    name: NotIssuer
-    label: Requestor Is Not Issuer
-    description: The requestor is not the issuer and is required to be for this request.
+    name: NotAdministration
+    label: Requestor Is Not Administration
+    description: The requestor is not the administration and is required to be for this request.
 
   - code: 71
     name: NotOperator

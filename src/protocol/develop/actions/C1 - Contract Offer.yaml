@@ -1,5 +1,5 @@
 #
-# Contract Offer Action: The Contract Offer action allows the issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
+# Contract Offer Action: The Contract Offer action allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 #
 
 code: C1
@@ -7,20 +7,20 @@ code: C1
 metadata:
   name: ContractOffer
   label: "Contract Offer"
-  description: "Allows the issuer to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the issuer. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
+  description: "Allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
   validation: AssetCreation
   rejection: Rejection
 
 rules:
   fee:
   inputs:
-    - name: Issuer
-      label: "Issuer's Public Address"
-      comments: "The smart contract sets the issuer public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are issuer controlled according to the protocol."
+    - name: Administration
+      label: "Administration's Public Address"
+      comments: "The smart contract sets the administration public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are administration controlled according to the protocol."
 
     - name: ContractOperator
-      label: "Contract Operator's Public Address (Optional). Can also be used as a cold storage backup for the issuer.  This is important if the issuer wants to be able to change their address as changes to the issuer or operator pkh in an amendment require signatures from both the issuer and the operator pkhs."
-      comments: "The one exception to the rule above.  The Contract Operator can nominate a secondary controlling public address that can act on behalf of the issuer for issuer related requests. Typically this will be the Smart Contract Operator. (Optional)"
+      label: "Contract Operator's Public Address (Optional). Can also be used as a cold storage backup for the administration.  This is important if the administration wants to be able to change their address as changes to the administration or operator pkh in an amendment require signatures from both the administration and the operator pkhs."
+      comments: "The one exception to the rule above.  The Contract Operator can nominate a secondary controlling public address that can act on behalf of the administration for administration related requests. Typically this will be the Smart Contract Operator. (Optional)"
 
   outputs:
     - name: Contract
@@ -33,7 +33,7 @@ fields:
     description: >
       Can be any unique identifying string, including human readable names for branding/vanity purposes.
       Contract identifier (instance) is the bitcoin public key hash address.
-      If the public address is lost, then the issuer will have to reissue the entire contract, Asset Definition and tokens with the new public address.
+      If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address.
       Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
     # varchar size is number of bits to serialize the size of the value
@@ -181,9 +181,9 @@ fields:
     example: "1"
     notes: "Qty of Assets - Amendments can be restricted to a vote."
 
-  - name: IssuerProposal
-    label: Issuer Proposal
-    description: "Set to true if an issuer is permitted to make proposals outside of the smart contract scope."
+  - name: AdministrationProposal
+    label: Administration Proposal
+    description: "Set to true if an administration is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
     example: true

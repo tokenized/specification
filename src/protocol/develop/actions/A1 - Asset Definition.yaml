@@ -1,5 +1,5 @@
 #
-# Asset Definition Action: This action is used by the issuer to define the properties/characteristics of the Asset (token) that it wants to create.
+# Asset Definition Action: This action is used by the administration to define the properties/characteristics of the Asset (token) that it wants to create.
 #
 
 code: A1
@@ -8,7 +8,7 @@ metadata:
   name: AssetDefinition
   label: Asset Definition
   description: >
-    This action is used by the issuer to define the properties/characteristics of the asset (token) that it wants to create.
+    This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create.
     An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum).
     An asset is always linked to a contract that is identified by the public address of the Contract wallet.
   validation: AssetCreation
@@ -17,9 +17,9 @@ metadata:
 rules:
   fee:
   inputs:
-    - name: Issuer
-      label: "Issuer's Public Address"
-      comments: "This action can only come from the issuer."
+    - name: Administration
+      label: "Administration's Public Address"
+      comments: "This action can only come from the administration."
 
   outputs:
     - name: Contract
@@ -61,7 +61,7 @@ fields:
 
   - name: EnforcementOrdersPermitted
     label: Enforcement Orders Permitted
-    description: "Set to true if the issuer is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature."
+    description: "Set to true if the administration is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature."
     type: bool
     example_hex: 01
     example: 1
@@ -81,9 +81,9 @@ fields:
     example: "3"
     notes: ""
 
-  - name: IssuerProposal
-    label: Issuer Proposal
-    description: "Set to true if an issuer is permitted to make proposals outside of the smart contract scope."
+  - name: AdministrationProposal
+    label: Administration Proposal
+    description: "Set to true if an administration is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
     example: true

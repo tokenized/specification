@@ -5,7 +5,7 @@
 # be overwritten when code is regenerated.
 
 
-# This action is used by the issuer to define the
+# This action is used by the administration to define the
 # properties/characteristics of the asset (token) that it wants to create.
 # An asset has a unique identifier called AssetID = AssetType +
 # base58(AssetCode + checksum). An asset is always linked to a contract
@@ -20,7 +20,7 @@ class Action_AssetDefinition(ActionBase):
         'EnforcementOrdersPermitted':      [2, DAT_bool, 0],
         'VotingRights':                    [3, DAT_bool, 0],
         'VoteMultiplier':                  [4, DAT_uint, 1],
-        'IssuerProposal':                  [5, DAT_bool, 0],
+        'AdministrationProposal':          [5, DAT_bool, 0],
         'HolderProposal':                  [6, DAT_bool, 0],
         'AssetModificationGovernance':     [7, DAT_uint, 1],
         'TokenQty':                        [8, DAT_uint, 8],
@@ -38,15 +38,15 @@ class Action_AssetDefinition(ActionBase):
         self.EnforcementOrdersPermitted = None
         self.VotingRights = None
         self.VoteMultiplier = None
-        self.IssuerProposal = None
+        self.AdministrationProposal = None
         self.HolderProposal = None
         self.AssetModificationGovernance = None
         self.TokenQty = None
         self.AssetPayload = None
 
 
-# This action creates an asset in response to the issuer's instructions in
-# the Definition Action.
+# This action creates an asset in response to the administration's
+# instructions in the Definition Action.
 
 class Action_AssetCreation(ActionBase):
     ActionPrefix = 'A2'
@@ -59,7 +59,7 @@ class Action_AssetCreation(ActionBase):
         'EnforcementOrdersPermitted':      [4, DAT_bool, 0],
         'VotingRights':                    [5, DAT_bool, 0],
         'VoteMultiplier':                  [6, DAT_uint, 1],
-        'IssuerProposal':                  [7, DAT_bool, 0],
+        'AdministrationProposal':          [7, DAT_bool, 0],
         'HolderProposal':                  [8, DAT_bool, 0],
         'AssetModificationGovernance':     [9, DAT_uint, 1],
         'TokenQty':                        [10, DAT_uint, 8],
@@ -81,7 +81,7 @@ class Action_AssetCreation(ActionBase):
         self.EnforcementOrdersPermitted = None
         self.VotingRights = None
         self.VoteMultiplier = None
-        self.IssuerProposal = None
+        self.AdministrationProposal = None
         self.HolderProposal = None
         self.AssetModificationGovernance = None
         self.TokenQty = None
@@ -112,13 +112,13 @@ class Action_AssetModification(ActionBase):
         self.RefTxID = None
 
 
-# Allows the issuer to tell the smart contract what they want the details
-# (labels, data, T&C's, etc.) of the Contract to be on-chain in a public
-# and immutable way. The Contract Offer action 'initializes' a generic
-# smart contract that has been spun up by either the smart contract
-# operator or the issuer. This on-chain action allows for the positive
-# response from the smart contract with either a Contract Formation Action
-# or a Rejection Action.
+# Allows the administration to tell the smart contract what they want the
+# details (labels, data, T&C's, etc.) of the Contract to be on-chain in a
+# public and immutable way. The Contract Offer action 'initializes' a
+# generic smart contract that has been spun up by either the smart contract
+# operator or the administration. This on-chain action allows for the
+# positive response from the smart contract with either a Contract
+# Formation Action or a Rejection Action.
 
 class Action_ContractOffer(ActionBase):
     ActionPrefix = 'C1'
@@ -140,7 +140,7 @@ class Action_ContractOffer(ActionBase):
         'ContractFee':                     [13, DAT_uint, 8],
         'VotingSystems':                   [14, DAT_VotingSystem[], 8],
         'RestrictedQtyAssets':             [15, DAT_uint, 8],
-        'IssuerProposal':                  [16, DAT_bool, 0],
+        'AdministrationProposal':          [16, DAT_bool, 0],
         'HolderProposal':                  [17, DAT_bool, 0],
         'Oracles':                         [18, DAT_Oracle[], 8],
         'MasterPKH':                       [19, DAT_PublicKeyHash, 0]
@@ -168,16 +168,16 @@ class Action_ContractOffer(ActionBase):
         self.ContractFee = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
-        self.IssuerProposal = None
+        self.AdministrationProposal = None
         self.HolderProposal = None
         self.Oracles = None
         self.MasterPKH = None
 
 
 # This txn is created by the contract (smart contract/off-chain agent/token
-# contract) upon receipt of a valid Contract Offer Action from the issuer.
-# The smart contract will execute on a server controlled by the issuer, or
-# a smart contract operator on their behalf.
+# contract) upon receipt of a valid Contract Offer Action from the
+# administration. The smart contract will execute on a server controlled by
+# the administration, or a smart contract operator on their behalf.
 
 class Action_ContractFormation(ActionBase):
     ActionPrefix = 'C2'
@@ -199,7 +199,7 @@ class Action_ContractFormation(ActionBase):
         'ContractFee':                     [13, DAT_uint, 8],
         'VotingSystems':                   [14, DAT_VotingSystem[], 8],
         'RestrictedQtyAssets':             [15, DAT_uint, 8],
-        'IssuerProposal':                  [16, DAT_bool, 0],
+        'AdministrationProposal':          [16, DAT_bool, 0],
         'HolderProposal':                  [17, DAT_bool, 0],
         'Oracles':                         [18, DAT_Oracle[], 8],
         'MasterPKH':                       [19, DAT_PublicKeyHash, 0],
@@ -229,7 +229,7 @@ class Action_ContractFormation(ActionBase):
         self.ContractFee = None
         self.VotingSystems = None
         self.RestrictedQtyAssets = None
-        self.IssuerProposal = None
+        self.AdministrationProposal = None
         self.HolderProposal = None
         self.Oracles = None
         self.MasterPKH = None
@@ -237,10 +237,10 @@ class Action_ContractFormation(ActionBase):
         self.Timestamp = None
 
 
-# The issuer can initiate an amendment to the contract establishment
-# metadata. The ability to make an amendment to the contract is restricted
-# by the Authorization Flag set on the current revision of Contract
-# Formation action.
+# The administration can initiate an amendment to the contract
+# establishment metadata. The ability to make an amendment to the contract
+# is restricted by the Authorization Flag set on the current revision of
+# Contract Formation action.
 
 class Action_ContractAmendment(ActionBase):
     ActionPrefix = 'C3'
@@ -326,9 +326,9 @@ class Action_ContractAddressChange(ActionBase):
     def init_attributes(self):
 
 
-# Used by the issuer to signal to the smart contract that the tokens that a
-# particular public address(es) owns are to be confiscated, frozen, thawed
-# or reconciled.
+# Used by the administration to signal to the smart contract that the
+# tokens that a particular public address(es) owns are to be confiscated,
+# frozen, thawed or reconciled.
 
 class Action_Order(ActionBase):
     ActionPrefix = 'E1'
@@ -444,8 +444,8 @@ class Action_Confiscation(ActionBase):
 
 
 # The contract responding to an Order action to reconcile assets. To be
-# used at the direction of the issuer to fix record keeping errors with
-# bitcoin and token balances.
+# used at the direction of the administration to fix record keeping errors
+# with bitcoin and token balances.
 
 class Action_Reconciliation(ActionBase):
     ActionPrefix = 'E5'
@@ -465,7 +465,7 @@ class Action_Reconciliation(ActionBase):
         self.Timestamp = None
 
 
-# Allows Issuers/Token Holders to propose a change (aka
+# Allows Administrations/Token Holders to propose a change (aka
 # Initiative/Shareholder vote). A significant cost - specified in the
 # Contract Formation - can be attached to this action when sent from Token
 # Holders to reduce spam, as the resulting vote will be put to all token
@@ -566,7 +566,7 @@ class Action_BallotCounted(ActionBase):
 
 
 # Once a vote has been completed the results are published. After the
-# result is posted, it is up to the issuer to send a contract/asset
+# result is posted, it is up to the administration to send a contract/asset
 # amendement if appropriate.
 
 class Action_Result(ActionBase):
@@ -623,12 +623,12 @@ class Action_Message(ActionBase):
 
 # Used to reject request actions that do not comply with the Contract. If
 # money is to be returned to a User then it is used in lieu of the
-# Settlement Action to properly account for token balances. All Issuer/User
-# request Actions must be responded to by the Contract with an Action. The
-# only exception to this rule is when there is not enough fees in the first
-# Action for the Contract response action to remain revenue neutral. If not
-# enough fees are attached to pay for the Contract response then the
-# Contract will not respond.
+# Settlement Action to properly account for token balances. All
+# Administration/User request Actions must be responded to by the Contract
+# with an Action. The only exception to this rule is when there is not
+# enough fees in the first Action for the Contract response action to
+# remain revenue neutral. If not enough fees are attached to pay for the
+# Contract response then the Contract will not respond.
 
 class Action_Rejection(ActionBase):
     ActionPrefix = 'M2'

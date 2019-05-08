@@ -1,5 +1,5 @@
 #
-# Contract Formation Action:  This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer.  The smart contract will execute on a server controlled by the issuer, or a smart contract operator on their behalf.
+# Contract Formation Action:  This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf.
 #
 
 code: C2
@@ -7,7 +7,7 @@ code: C2
 metadata:
   name: ContractFormation
   label: Contract Formation
-  description: "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the issuer.  The smart contract will execute on a server controlled by the issuer, or a smart contract operator on their behalf."
+  description: "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf."
   validation: AssetCreation
   rejection: Rejection
 
@@ -29,7 +29,7 @@ fields:
     description: >
       Can be any unique identifying string, including human readable names for branding/vanity purposes.
       Contract identifier (instance) is the bitcoin public key hash address.
-      If the public address is lost, then the issuer will have to reissue the entire contract, asset definition and tokens with the new public address.
+      If the public address is lost, then the administration will have to reissue the entire contract, asset definition and tokens with the new public address.
       Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
     # varchar size is number of bits to serialize the size of the value
@@ -173,9 +173,9 @@ fields:
     example: "1"
     notes: "Qty of Assets - Amendments can be restricted to a vote."
 
-  - name: IssuerProposal
-    label: Issuer Proposal
-    description: "Set to true if an Issuer is permitted to make proposals outside of the smart contract scope."
+  - name: AdministrationProposal
+    label: Administration Proposal
+    description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
     type: bool
     example_hex: 01
     example: true
@@ -206,10 +206,10 @@ fields:
     size: 4
     example_hex: 0000000000000000
     example: "0"
-    notes: "Can't be changed by issuer or smart contract operator."
+    notes: "Can't be changed by administration or smart contract operator."
 
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    notes: "Cannot be changed by issuer, operator. Smart contract controls."
+    notes: "Cannot be changed by administration, operator. Smart contract controls."

@@ -55,9 +55,9 @@ func TestAssetDefinition(t *testing.T) {
 		// uint test not setup
 	}
 
-	// IssuerProposal (bool)
+	// AdministrationProposal (bool)
 	{
-		initialMessage.IssuerProposal = true
+		initialMessage.AdministrationProposal = true
 	}
 
 	// HolderProposal (bool)
@@ -158,9 +158,9 @@ func TestAssetDefinition(t *testing.T) {
 		t.Errorf("VoteMultiplier doesn't match : %v != %v", initialMessage.VoteMultiplier, decodedMessage.VoteMultiplier)
 	}
 
-	// IssuerProposal (bool)
-	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
-		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
+	// AdministrationProposal (bool)
+	if initialMessage.AdministrationProposal != decodedMessage.AdministrationProposal {
+		t.Errorf("AdministrationProposal doesn't match : %v != %v", initialMessage.AdministrationProposal, decodedMessage.AdministrationProposal)
 	}
 
 	// HolderProposal (bool)
@@ -244,9 +244,9 @@ func TestAssetCreation(t *testing.T) {
 		// uint test not setup
 	}
 
-	// IssuerProposal (bool)
+	// AdministrationProposal (bool)
 	{
-		initialMessage.IssuerProposal = true
+		initialMessage.AdministrationProposal = true
 	}
 
 	// HolderProposal (bool)
@@ -365,9 +365,9 @@ func TestAssetCreation(t *testing.T) {
 		t.Errorf("VoteMultiplier doesn't match : %v != %v", initialMessage.VoteMultiplier, decodedMessage.VoteMultiplier)
 	}
 
-	// IssuerProposal (bool)
-	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
-		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
+	// AdministrationProposal (bool)
+	if initialMessage.AdministrationProposal != decodedMessage.AdministrationProposal {
+		t.Errorf("AdministrationProposal doesn't match : %v != %v", initialMessage.AdministrationProposal, decodedMessage.AdministrationProposal)
 	}
 
 	// HolderProposal (bool)
@@ -608,9 +608,9 @@ func TestContractOffer(t *testing.T) {
 		// uint test not setup
 	}
 
-	// IssuerProposal (bool)
+	// AdministrationProposal (bool)
 	{
-		initialMessage.IssuerProposal = true
+		initialMessage.AdministrationProposal = true
 	}
 
 	// HolderProposal (bool)
@@ -749,9 +749,9 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("RestrictedQtyAssets doesn't match : %v != %v", initialMessage.RestrictedQtyAssets, decodedMessage.RestrictedQtyAssets)
 	}
 
-	// IssuerProposal (bool)
-	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
-		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
+	// AdministrationProposal (bool)
+	if initialMessage.AdministrationProposal != decodedMessage.AdministrationProposal {
+		t.Errorf("AdministrationProposal doesn't match : %v != %v", initialMessage.AdministrationProposal, decodedMessage.AdministrationProposal)
 	}
 
 	// HolderProposal (bool)
@@ -884,9 +884,9 @@ func TestContractFormation(t *testing.T) {
 		// uint test not setup
 	}
 
-	// IssuerProposal (bool)
+	// AdministrationProposal (bool)
 	{
-		initialMessage.IssuerProposal = true
+		initialMessage.AdministrationProposal = true
 	}
 
 	// HolderProposal (bool)
@@ -1035,9 +1035,9 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("RestrictedQtyAssets doesn't match : %v != %v", initialMessage.RestrictedQtyAssets, decodedMessage.RestrictedQtyAssets)
 	}
 
-	// IssuerProposal (bool)
-	if initialMessage.IssuerProposal != decodedMessage.IssuerProposal {
-		t.Errorf("IssuerProposal doesn't match : %v != %v", initialMessage.IssuerProposal, decodedMessage.IssuerProposal)
+	// AdministrationProposal (bool)
+	if initialMessage.AdministrationProposal != decodedMessage.AdministrationProposal {
+		t.Errorf("AdministrationProposal doesn't match : %v != %v", initialMessage.AdministrationProposal, decodedMessage.AdministrationProposal)
 	}
 
 	// HolderProposal (bool)
@@ -1065,9 +1065,9 @@ func TestContractFormation(t *testing.T) {
 func TestContractAmendment(t *testing.T) {
 	// Create a randomized object
 	initialMessage := ContractAmendment{}
-	// ChangeIssuerAddress (bool)
+	// ChangeAdministrationAddress (bool)
 	{
-		initialMessage.ChangeIssuerAddress = true
+		initialMessage.ChangeAdministrationAddress = true
 	}
 
 	// ChangeOperatorAddress (bool)
@@ -1127,9 +1127,9 @@ func TestContractAmendment(t *testing.T) {
 	// }
 
 	// Compare re-serialized values
-	// ChangeIssuerAddress (bool)
-	if initialMessage.ChangeIssuerAddress != decodedMessage.ChangeIssuerAddress {
-		t.Errorf("ChangeIssuerAddress doesn't match : %v != %v", initialMessage.ChangeIssuerAddress, decodedMessage.ChangeIssuerAddress)
+	// ChangeAdministrationAddress (bool)
+	if initialMessage.ChangeAdministrationAddress != decodedMessage.ChangeAdministrationAddress {
+		t.Errorf("ChangeAdministrationAddress doesn't match : %v != %v", initialMessage.ChangeAdministrationAddress, decodedMessage.ChangeAdministrationAddress)
 	}
 
 	// ChangeOperatorAddress (bool)

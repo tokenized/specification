@@ -51,7 +51,7 @@ values:
   - code: 13
     name: ContractFixedQuantity
     label: Contract Fixed Quantity
-    description: Sent when the issuer attempted to increase the quantity of assets in a contract beyond the fixed quantity permitted.
+    description: Sent when the administration attempted to increase the quantity of assets in a contract beyond the fixed quantity permitted.
 
   - code: 14
     name: ContractAuthFlags
@@ -187,9 +187,9 @@ values:
 #################################### Address ####################################
 
   - code: 70
-    name: NotIssuer
-    label: Requestor Is Not Issuer
-    description: The requestor is not the issuer and is required to be for this request.
+    name: NotAdministration
+    label: Requestor Is Not Administration
+    description: The requestor is not the administration and is required to be for this request.
 
   - code: 71
     name: NotOperator

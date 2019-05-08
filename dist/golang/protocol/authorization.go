@@ -9,10 +9,10 @@ import (
 
 // Permission represents the permissions assigned to a specific field.
 type Permission struct {
-	Permitted            bool
-	IssuerProposal       bool
-	HolderProposal       bool
-	VotingSystemsAllowed []bool
+	Permitted              bool
+	AdministrationProposal bool
+	HolderProposal         bool
+	VotingSystemsAllowed   []bool
 }
 
 // ReadAuthFlags reads raw auth flag data into an array of permission structs.
@@ -30,12 +30,12 @@ func ReadAuthFlags(authFlags []byte, fields, votingSystems int) ([]Permission, e
 		}
 		newPermission.Permitted = bool(bit)
 
-		// IssuerProposal
+		// AdministrationProposal
 		bit, err = stream.ReadBit()
 		if err != nil {
 			return nil, errors.Wrap(err, "Failed to read auth flags")
 		}
-		newPermission.IssuerProposal = bool(bit)
+		newPermission.AdministrationProposal = bool(bit)
 
 		// HolderProposal
 		bit, err = stream.ReadBit()
@@ -45,7 +45,7 @@ func ReadAuthFlags(authFlags []byte, fields, votingSystems int) ([]Permission, e
 		newPermission.HolderProposal = bool(bit)
 
 		// Voting Systems
-		if newPermission.IssuerProposal || newPermission.HolderProposal {
+		if newPermission.AdministrationProposal || newPermission.HolderProposal {
 			for j := 0; j < votingSystems; j++ {
 				bit, err = stream.ReadBit()
 				if err != nil {
@@ -78,8 +78,8 @@ func WriteAuthFlags(permissions []Permission) ([]byte, error) {
 			return nil, errors.Wrap(err, "Failed to write auth flags")
 		}
 
-		// IssuerProposal
-		err = stream.WriteBit(bitstream.Bit(permission.IssuerProposal))
+		// AdministrationProposal
+		err = stream.WriteBit(bitstream.Bit(permission.AdministrationProposal))
 		if err != nil {
 			return nil, errors.Wrap(err, "Failed to write auth flags")
 		}
@@ -91,7 +91,7 @@ func WriteAuthFlags(permissions []Permission) ([]byte, error) {
 		}
 
 		// Voting Systems
-		if permission.IssuerProposal || permission.HolderProposal {
+		if permission.AdministrationProposal || permission.HolderProposal {
 			for _, votingSystem := range permission.VotingSystemsAllowed {
 				err = stream.WriteBit(bitstream.Bit(votingSystem))
 				if err != nil {

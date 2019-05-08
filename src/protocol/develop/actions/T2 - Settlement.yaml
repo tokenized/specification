@@ -34,4 +34,4 @@ fields:
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    notes: "Cannot be changed by issuer, operator. Smart contract controls."
+    notes: "Cannot be changed by administration, operator. Smart contract controls."

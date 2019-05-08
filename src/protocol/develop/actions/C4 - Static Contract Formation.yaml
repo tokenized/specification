@@ -22,7 +22,7 @@ fields:
     description: >
         Can be any unique identifying string, including human readable names for branding/vanity purposes.
         Contract identifier (instance) is the bitcoin public address.
-        If the public address is lost, then the issuer will have to reissue the entire contract, Asset Definition and tokens with the new public address.
+        If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address.
         Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
     # varchar size is number of bits to serialize the size of the value
