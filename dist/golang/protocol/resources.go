@@ -2071,6 +2071,7 @@ var yamlEntities = `
           owners:
             principal: null
           administrators:
+            principal: null
             legalGuardian: []
             agent: [] # (granted by the principal)
           general:

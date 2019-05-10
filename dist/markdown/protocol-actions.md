@@ -2854,7 +2854,7 @@ Used to reject request actions that do not comply with the Contract. If money is
         </td>
         <td>
             Timestamp in nanoseconds of when the smart contract created the action.
-            Cannot be changed by issuer, operator. Smart contract controls.
+            Cannot be changed by the administration, operator. Smart contract controls.
         </td>
     </tr>
 </table>
