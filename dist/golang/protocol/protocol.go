@@ -19,10 +19,10 @@ const (
 	OpReturn = byte(0x6a)
 
 	// ProtocolID is the current protocol ID
-	ProtocolID = "tokenized.com"
+	ProtocolID = "tokenized"
 
 	// TestProtocolID is the current protocol ID for testing.
-	TestProtocolID = "test.tokenized.com"
+	TestProtocolID = "test.tokenized"
 
 	// Version of the Tokenized protocol.
 	Version = uint8(0)
