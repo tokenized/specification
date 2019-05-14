@@ -97,6 +97,14 @@ func (f Field) IsFloat() bool {
 	return strings.HasPrefix(f.Type, s)
 }
 
+func (f Field) IsArrayType() bool {
+	return strings.HasSuffix(f.Type, "[]")
+}
+
+func (f Field) SingularDisplayType() string {
+	return strings.Replace(f.Type, "[]", "", 1)
+}
+
 func (f Field) Length() uint64 {
 	if strings.HasSuffix(f.Type, "[]") && f.Size == 0 {
 		return 8

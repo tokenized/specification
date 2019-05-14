@@ -134,12 +134,22 @@ The `size` does not need to be specified and is always 32 bytes.
     <tr>
         <td>{{.Name}}</td>
         <td>
-        {{- if .IsResource }}
-            <a href="resources#{{.TypeURLCode}}">{{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}</a>
-        {{- else if .IsComplexType }}
-            <a href="field-types#{{.TypeURLCode}}">{{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}</a>
+        {{- if .IsArrayType }}
+          {{- if .IsResource }}
+            <a href="resources#{{.TypeURLCode}}">{{.SingularDisplayType}}[{{.Length}}]</a>
+          {{- else if .IsComplexType }}
+            <a href="field-types#{{.TypeURLCode}}">{{.SingularDisplayType}}[{{.Length}}]</a>
+          {{- else}}
+            {{.SingularDisplayType}}[{{.Length}}]
+          {{- end}}
         {{- else}}
-            {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+          {{- if .IsResource }}
+            <a href="resources#{{.TypeURLCode}}">{{.Type}}</a>{{ if ne .Length 0 }}({{.Length}}){{ end }}
+          {{- else if .IsComplexType }}
+            <a href="field-types#{{.TypeURLCode}}">{{.Type}}</a>{{ if ne .Length 0 }}({{.Length}}){{ end }}
+          {{- else}}
+            {{.Type}}{{ if ne .Length 0 }}({{.Length}}){{ end }}
+          {{- end}}
         {{- end}}
         </td>
         <td>
