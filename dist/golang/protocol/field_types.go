@@ -345,6 +345,7 @@ type AssetReceiver struct {
 	Quantity              uint64        `json:"quantity,omitempty"`                // Number of tokens to be received by address at Output X
 	OracleSigAlgorithm    uint8         `json:"oracle_sig_algorithm,omitempty"`    // 0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has oracles, then a signature is required from one of them.
 	OracleConfirmationSig []byte        `json:"oracle_confirmation_sig,omitempty"` // Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.
+	OracleSigBlockHeight  uint32        `json:"oracle_sig_block_height,omitempty"` // The block height of the block hash used in the oracle signature.
 }
 
 // Serialize returns the byte representation of the message.
@@ -384,6 +385,13 @@ func (m AssetReceiver) Serialize() ([]byte, error) {
 		}
 	}
 
+	// OracleSigBlockHeight (uint32)
+	if m.OracleSigAlgorithm == 1 {
+		if err := write(buf, m.OracleSigBlockHeight); err != nil {
+			return nil, err
+		}
+	}
+
 	return buf.Bytes(), nil
 }
 
@@ -419,6 +427,13 @@ func (m *AssetReceiver) Write(buf *bytes.Buffer) error {
 		}
 	}
 
+	// OracleSigBlockHeight (uint32)
+	if m.OracleSigAlgorithm == 1 {
+		if err := read(buf, &m.OracleSigBlockHeight); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -446,6 +461,10 @@ func (m *AssetReceiver) Validate() error {
 		}
 	}
 
+	// OracleSigBlockHeight (uint32)
+	{
+	}
+
 	return nil
 }
 
@@ -468,6 +487,11 @@ func (m *AssetReceiver) Equal(other AssetReceiver) bool {
 
 	// OracleConfirmationSig ([]byte)
 	if !bytes.Equal(m.OracleConfirmationSig, other.OracleConfirmationSig) {
+		return false
+	}
+
+	// OracleSigBlockHeight (uint32)
+	if m.OracleSigBlockHeight != other.OracleSigBlockHeight {
 		return false
 	}
 	return true
