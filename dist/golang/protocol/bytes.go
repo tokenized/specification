@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	DefaultEndian = binary.BigEndian
+	DefaultEndian = binary.LittleEndian
 )
 
 // pad returns a []byte with the given length.
