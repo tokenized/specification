@@ -92,6 +92,8 @@ values:
         roles:
           owners:
             partner: []
+          administrators:
+            partner: []
           managers:
             managingPartner: []
           general:
@@ -112,6 +114,8 @@ values:
         roles:
           owners:
             partner: []
+          administrators:
+            partner: []  
           managers:
             managingPartner: []
           general:
@@ -132,6 +136,7 @@ values:
           owners:
             proprietor: null
           administrators:
+            proprietor: null
             agent: [] # (granted by the proprietor)
           general:
             accountant: []
@@ -178,7 +183,6 @@ values:
           administrators:
             chairman: null
             director: []
-            secretary: null
           managers:
             ceo: null
             coo: null
