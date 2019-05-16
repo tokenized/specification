@@ -12,6 +12,7 @@ import (
 
 // EstimatedResponse calculates information about the contract's response to a request.
 //   fees is the sum of all contract related fees including base contract fee, proposal fee, and others.
+// WARNING: This function is inaccurate and incomplete!
 // Returns
 //   estimated size of response tx in bytes.
 //   estimated funding needed, not including contract/proposal fees.
