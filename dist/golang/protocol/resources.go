@@ -2124,13 +2124,13 @@ var yamlEntities = `
           administrators:
             chairman: null
             director: []
-            secretary: null
           managers:
             ceo: null
             coo: null
             cfo: null
             cto: null
             executive: []
+            secretary: null            
           general:
             accountant: []
             advisor: []
@@ -2148,6 +2148,8 @@ var yamlEntities = `
           partnershipAgreement: null
         roles:
           owners:
+            partner: []
+          administrators:
             partner: []
           managers:
             managingPartner: []
@@ -2169,6 +2171,8 @@ var yamlEntities = `
         roles:
           owners:
             partner: []
+          administrators:
+            partner: []  
           managers:
             managingPartner: []
           general:
@@ -2189,6 +2193,7 @@ var yamlEntities = `
           owners:
             proprietor: null
           administrators:
+            proprietor: null
             agent: [] # (granted by the proprietor)
           general:
             accountant: []
@@ -2209,7 +2214,6 @@ var yamlEntities = `
           administrators:
             chairman: null
             director: []
-            secretary: null
           managers:
             ceo: null
             coo: null
@@ -2236,13 +2240,13 @@ var yamlEntities = `
           administrators:
             chairman: null
             director: []
-            secretary: null
           managers:
             ceo: null
             coo: null
             cfo: null
             cto: null
             executive: []
+            secretary: null   
           general:
             accountant: []
             advisor: []
