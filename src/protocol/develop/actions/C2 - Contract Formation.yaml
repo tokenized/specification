@@ -66,23 +66,10 @@ fields:
     example: "Shareholder Agreement"
     notes: ""
 
-  - name: SupportingDocsFileType
-    label: Supporting Documentation File Type
-    description: "1 - 7z"
-    type: uint
-    size: 1
-    example_hex: 01
-    example: "1"
-    notes: "The file type of the supporting documents ('attached') that are important to the contract."
-    int_values:
-      - 1
-
   - name: SupportingDocs
     label: Supporting Documentation
-    description: ""
-    type: varbin
-    size: 32
-    notes: "File of all supporting documents that are important to the contract."
+    description: "Supporting documents that are important to the contract."
+    type: Document[]
 
   - name: GoverningLaw
     label: Governing Law

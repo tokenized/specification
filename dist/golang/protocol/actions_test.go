@@ -518,16 +518,10 @@ func TestContractOffer(t *testing.T) {
 		initialMessage.ContractType = "Text 3"
 	}
 
-	// SupportingDocsFileType (uint)
+	// SupportingDocs (Document[])
 	{
-		// uint test not setup
-	}
-
-	// SupportingDocs (varbin)
-	{
-		initialMessage.SupportingDocs = make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, byte(65+i+5))
+		for i := 0; i < 2; i++ {
+			initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, Document{})
 		}
 	}
 
@@ -536,7 +530,7 @@ func TestContractOffer(t *testing.T) {
 		{
 			text := make([]byte, 0, 5)
 			for i := uint64(0); i < 5; i++ {
-				text = append(text, byte(65+i+6))
+				text = append(text, byte(65+i+5))
 			}
 			initialMessage.GoverningLaw = string(text)
 		}
@@ -547,7 +541,7 @@ func TestContractOffer(t *testing.T) {
 		{
 			text := make([]byte, 0, 5)
 			for i := uint64(0); i < 5; i++ {
-				text = append(text, byte(65+i+7))
+				text = append(text, byte(65+i+6))
 			}
 			initialMessage.Jurisdiction = string(text)
 		}
@@ -560,7 +554,7 @@ func TestContractOffer(t *testing.T) {
 
 	// ContractURI (varchar)
 	{
-		initialMessage.ContractURI = "Text 9"
+		initialMessage.ContractURI = "Text 8"
 	}
 
 	// Issuer (Entity)
@@ -570,7 +564,7 @@ func TestContractOffer(t *testing.T) {
 
 	// IssuerLogoURL (varchar)
 	{
-		initialMessage.IssuerLogoURL = "Text 11"
+		initialMessage.IssuerLogoURL = "Text 10"
 	}
 
 	// ContractOperatorIncluded (bool)
@@ -587,7 +581,7 @@ func TestContractOffer(t *testing.T) {
 	{
 		initialMessage.ContractAuthFlags = make([]byte, 0, 16)
 		for i := uint64(0); i < 16; i++ {
-			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+14))
+			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+13))
 		}
 	}
 
@@ -685,14 +679,9 @@ func TestContractOffer(t *testing.T) {
 		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
-	// SupportingDocsFileType (uint)
-	if initialMessage.SupportingDocsFileType != decodedMessage.SupportingDocsFileType {
-		t.Errorf("SupportingDocsFileType doesn't match : %v != %v", initialMessage.SupportingDocsFileType, decodedMessage.SupportingDocsFileType)
-	}
-
-	// SupportingDocs (varbin)
-	if !bytes.Equal(initialMessage.SupportingDocs, decodedMessage.SupportingDocs) {
-		t.Errorf("SupportingDocs doesn't match : %x != %x", initialMessage.SupportingDocs, decodedMessage.SupportingDocs)
+	// SupportingDocs (Document[])
+	if len(initialMessage.SupportingDocs) != len(decodedMessage.SupportingDocs) {
+		t.Errorf("SupportingDocs lengths don't match : %d != %d", len(initialMessage.SupportingDocs), len(decodedMessage.SupportingDocs))
 	}
 
 	// GoverningLaw (fixedchar)
@@ -794,16 +783,10 @@ func TestContractFormation(t *testing.T) {
 		initialMessage.ContractType = "Text 3"
 	}
 
-	// SupportingDocsFileType (uint)
+	// SupportingDocs (Document[])
 	{
-		// uint test not setup
-	}
-
-	// SupportingDocs (varbin)
-	{
-		initialMessage.SupportingDocs = make([]byte, 0, 32)
-		for i := uint64(0); i < 32; i++ {
-			initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, byte(65+i+5))
+		for i := 0; i < 2; i++ {
+			initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, Document{})
 		}
 	}
 
@@ -812,7 +795,7 @@ func TestContractFormation(t *testing.T) {
 		{
 			text := make([]byte, 0, 5)
 			for i := uint64(0); i < 5; i++ {
-				text = append(text, byte(65+i+6))
+				text = append(text, byte(65+i+5))
 			}
 			initialMessage.GoverningLaw = string(text)
 		}
@@ -823,7 +806,7 @@ func TestContractFormation(t *testing.T) {
 		{
 			text := make([]byte, 0, 5)
 			for i := uint64(0); i < 5; i++ {
-				text = append(text, byte(65+i+7))
+				text = append(text, byte(65+i+6))
 			}
 			initialMessage.Jurisdiction = string(text)
 		}
@@ -836,7 +819,7 @@ func TestContractFormation(t *testing.T) {
 
 	// ContractURI (varchar)
 	{
-		initialMessage.ContractURI = "Text 9"
+		initialMessage.ContractURI = "Text 8"
 	}
 
 	// Issuer (Entity)
@@ -846,7 +829,7 @@ func TestContractFormation(t *testing.T) {
 
 	// IssuerLogoURL (varchar)
 	{
-		initialMessage.IssuerLogoURL = "Text 11"
+		initialMessage.IssuerLogoURL = "Text 10"
 	}
 
 	// ContractOperatorIncluded (bool)
@@ -863,7 +846,7 @@ func TestContractFormation(t *testing.T) {
 	{
 		initialMessage.ContractAuthFlags = make([]byte, 0, 16)
 		for i := uint64(0); i < 16; i++ {
-			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+14))
+			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+13))
 		}
 	}
 
@@ -971,14 +954,9 @@ func TestContractFormation(t *testing.T) {
 		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
-	// SupportingDocsFileType (uint)
-	if initialMessage.SupportingDocsFileType != decodedMessage.SupportingDocsFileType {
-		t.Errorf("SupportingDocsFileType doesn't match : %v != %v", initialMessage.SupportingDocsFileType, decodedMessage.SupportingDocsFileType)
-	}
-
-	// SupportingDocs (varbin)
-	if !bytes.Equal(initialMessage.SupportingDocs, decodedMessage.SupportingDocs) {
-		t.Errorf("SupportingDocs doesn't match : %x != %x", initialMessage.SupportingDocs, decodedMessage.SupportingDocs)
+	// SupportingDocs (Document[])
+	if len(initialMessage.SupportingDocs) != len(decodedMessage.SupportingDocs) {
+		t.Errorf("SupportingDocs lengths don't match : %d != %d", len(initialMessage.SupportingDocs), len(decodedMessage.SupportingDocs))
 	}
 
 	// GoverningLaw (fixedchar)

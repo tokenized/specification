@@ -904,6 +904,142 @@ func (m *AssetTransfer) Equal(other AssetTransfer) bool {
 	return true
 }
 
+// Document A file containing data.
+type Document struct {
+	Name      string `json:"name,omitempty"`      // Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid.
+	Type      string `json:"type,omitempty"`      // MIME type of the file. Length 0-255 bytes. 0 is valid.
+	Algorithm uint8  `json:"algorithm,omitempty"` // Compression/encryption algorithm used on file contents. Compression is encoded before encryption, and the reverse for decoding. 0 is no compression or encryption, 1 is AES256 encryption with no compression, 2 is LZMA2 with no encryption, 3 is LZMA2 with AES256 encryption, 4 is Deflate with no encryption, 5 is LZMA2 with AES256 encryption.
+	Contents  []byte `json:"contents,omitempty"`  // The contents of the file.
+}
+
+// Serialize returns the byte representation of the message.
+func (m Document) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	// Name (string)
+	{
+		if err := WriteVarChar(buf, m.Name, 8); err != nil {
+			return nil, err
+		}
+	}
+
+	// Type (string)
+	{
+		if err := WriteVarChar(buf, m.Type, 8); err != nil {
+			return nil, err
+		}
+	}
+
+	// Algorithm (uint8)
+	{
+		if err := write(buf, m.Algorithm); err != nil {
+			return nil, err
+		}
+	}
+
+	// Contents ([]byte)
+	{
+		if err := WriteVarBin(buf, m.Contents, 32); err != nil {
+			return nil, err
+		}
+	}
+
+	return buf.Bytes(), nil
+}
+
+func (m *Document) Write(buf *bytes.Buffer) error {
+
+	// Name (string)
+	{
+		var err error
+		m.Name, err = ReadVarChar(buf, 8)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Type (string)
+	{
+		var err error
+		m.Type, err = ReadVarChar(buf, 8)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Algorithm (uint8)
+	{
+		if err := read(buf, &m.Algorithm); err != nil {
+			return err
+		}
+	}
+
+	// Contents ([]byte)
+	{
+		var err error
+		m.Contents, err = ReadVarBin(buf, 32)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Document) Validate() error {
+
+	// Name (string)
+	{
+		if len(m.Name) > (2<<8)-1 {
+			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (2<<8)-1)
+		}
+	}
+
+	// Type (string)
+	{
+		if len(m.Type) > (2<<8)-1 {
+			return fmt.Errorf("varchar field Type too long %d/%d", len(m.Type), (2<<8)-1)
+		}
+	}
+
+	// Algorithm (uint8)
+	{
+	}
+
+	// Contents ([]byte)
+	{
+		if len(m.Contents) > (2<<32)-1 {
+			return fmt.Errorf("varbin field Contents too long %d/%d", len(m.Contents), (2<<32)-1)
+		}
+	}
+
+	return nil
+}
+
+func (m *Document) Equal(other Document) bool {
+
+	// Name (string)
+	if m.Name != other.Name {
+		return false
+	}
+
+	// Type (string)
+	if m.Type != other.Type {
+		return false
+	}
+
+	// Algorithm (uint8)
+	if m.Algorithm != other.Algorithm {
+		return false
+	}
+
+	// Contents ([]byte)
+	if !bytes.Equal(m.Contents, other.Contents) {
+		return false
+	}
+	return true
+}
+
 // Entity Entity represents the details of a legal Entity, such as a public
 // or private company, government agency, or and individual.
 type Entity struct {

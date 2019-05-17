@@ -1152,8 +1152,7 @@ type ContractOffer struct {
 	BodyOfAgreementType      uint8          `json:"body_of_agreement_type,omitempty"`     // 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
 	BodyOfAgreement          []byte         `json:"body_of_agreement,omitempty"`          // SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.
 	ContractType             string         `json:"contract_type,omitempty"`              // Describes the purpose of the contract.
-	SupportingDocsFileType   uint8          `json:"supporting_docs_file_type,omitempty"`  // 1 - 7z
-	SupportingDocs           []byte         `json:"supporting_docs,omitempty"`            //
+	SupportingDocs           []Document     `json:"supporting_docs,omitempty"`            // Supporting documents that are important to the contract.
 	GoverningLaw             string         `json:"governing_law,omitempty"`              // 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
 	Jurisdiction             string         `json:"jurisdiction,omitempty"`               // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
 	ContractExpiration       Timestamp      `json:"contract_expiration,omitempty"`        // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
@@ -1222,17 +1221,20 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		}
 	}
 
-	// SupportingDocsFileType (uint8)
+	// SupportingDocs ([]Document)
 	{
-		if err := write(buf, action.SupportingDocsFileType); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.SupportingDocs)), 8, 8); err != nil {
 			return nil, err
 		}
-	}
+		for _, value := range action.SupportingDocs {
+			b, err := value.Serialize()
+			if err != nil {
+				return nil, err
+			}
 
-	// SupportingDocs ([]byte)
-	{
-		if err := WriteVarBin(buf, action.SupportingDocs, 32); err != nil {
-			return nil, err
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -1428,19 +1430,20 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 		}
 	}
 
-	// SupportingDocsFileType (uint8)
+	// SupportingDocs ([]Document)
 	{
-		if err := read(buf, &action.SupportingDocsFileType); err != nil {
-			return 0, err
-		}
-	}
-
-	// SupportingDocs ([]byte)
-	{
-		var err error
-		action.SupportingDocs, err = ReadVarBin(buf, 32)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
+		}
+		action.SupportingDocs = make([]Document, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue Document
+			if err := newValue.Write(buf); err != nil {
+				return 0, err
+			}
+
+			action.SupportingDocs = append(action.SupportingDocs, newValue)
 		}
 	}
 
@@ -1620,18 +1623,17 @@ func (m *ContractOffer) Validate() error {
 		}
 	}
 
-	// SupportingDocsFileType (uint8)
+	// SupportingDocs ([]Document)
 	{
-		if m.SupportingDocsFileType != 1 {
-			return fmt.Errorf("field SupportingDocsFileType value is invalid : %d", m.SupportingDocsFileType)
+		if len(m.SupportingDocs) > (2<<8)-1 {
+			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (2<<8)-1)
 		}
 
-	}
-
-	// SupportingDocs ([]byte)
-	{
-		if len(m.SupportingDocs) > (2<<32)-1 {
-			return fmt.Errorf("varbin field SupportingDocs too long %d/%d", len(m.SupportingDocs), (2<<32)-1)
+		for i, value := range m.SupportingDocs {
+			err := value.Validate()
+			if err != nil {
+				return fmt.Errorf("list field SupportingDocs[%d] is invalid : %s", i, err)
+			}
 		}
 	}
 
@@ -1760,8 +1762,7 @@ func (action ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v", action.BodyOfAgreementType))
 	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x", action.BodyOfAgreement))
 	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
-	vals = append(vals, fmt.Sprintf("SupportingDocsFileType:%v", action.SupportingDocsFileType))
-	vals = append(vals, fmt.Sprintf("SupportingDocs:%#x", action.SupportingDocs))
+	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
 	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
 	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
 	vals = append(vals, fmt.Sprintf("ContractExpiration:%#+v", action.ContractExpiration))
@@ -1793,8 +1794,7 @@ type ContractFormation struct {
 	BodyOfAgreementType      uint8          `json:"body_of_agreement_type,omitempty"`     // 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
 	BodyOfAgreement          []byte         `json:"body_of_agreement,omitempty"`          // SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.
 	ContractType             string         `json:"contract_type,omitempty"`              // Describes the purpose of the contract.
-	SupportingDocsFileType   uint8          `json:"supporting_docs_file_type,omitempty"`  // 1 - 7z
-	SupportingDocs           []byte         `json:"supporting_docs,omitempty"`            //
+	SupportingDocs           []Document     `json:"supporting_docs,omitempty"`            // Supporting documents that are important to the contract.
 	GoverningLaw             string         `json:"governing_law,omitempty"`              // 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
 	Jurisdiction             string         `json:"jurisdiction,omitempty"`               // Legal proceedings/arbitration will take place using the specified Governing Law in this location.
 	ContractExpiration       Timestamp      `json:"contract_expiration,omitempty"`        // All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.
@@ -1865,17 +1865,20 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// SupportingDocsFileType (uint8)
+	// SupportingDocs ([]Document)
 	{
-		if err := write(buf, action.SupportingDocsFileType); err != nil {
+		if err := WriteVariableSize(buf, uint64(len(action.SupportingDocs)), 8, 8); err != nil {
 			return nil, err
 		}
-	}
+		for _, value := range action.SupportingDocs {
+			b, err := value.Serialize()
+			if err != nil {
+				return nil, err
+			}
 
-	// SupportingDocs ([]byte)
-	{
-		if err := WriteVarBin(buf, action.SupportingDocs, 32); err != nil {
-			return nil, err
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -2090,19 +2093,20 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// SupportingDocsFileType (uint8)
+	// SupportingDocs ([]Document)
 	{
-		if err := read(buf, &action.SupportingDocsFileType); err != nil {
-			return 0, err
-		}
-	}
-
-	// SupportingDocs ([]byte)
-	{
-		var err error
-		action.SupportingDocs, err = ReadVarBin(buf, 32)
+		size, err := ReadVariableSize(buf, 8, 8)
 		if err != nil {
 			return 0, err
+		}
+		action.SupportingDocs = make([]Document, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue Document
+			if err := newValue.Write(buf); err != nil {
+				return 0, err
+			}
+
+			action.SupportingDocs = append(action.SupportingDocs, newValue)
 		}
 	}
 
@@ -2296,18 +2300,17 @@ func (m *ContractFormation) Validate() error {
 		}
 	}
 
-	// SupportingDocsFileType (uint8)
+	// SupportingDocs ([]Document)
 	{
-		if m.SupportingDocsFileType != 1 {
-			return fmt.Errorf("field SupportingDocsFileType value is invalid : %d", m.SupportingDocsFileType)
+		if len(m.SupportingDocs) > (2<<8)-1 {
+			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (2<<8)-1)
 		}
 
-	}
-
-	// SupportingDocs ([]byte)
-	{
-		if len(m.SupportingDocs) > (2<<32)-1 {
-			return fmt.Errorf("varbin field SupportingDocs too long %d/%d", len(m.SupportingDocs), (2<<32)-1)
+		for i, value := range m.SupportingDocs {
+			err := value.Validate()
+			if err != nil {
+				return fmt.Errorf("list field SupportingDocs[%d] is invalid : %s", i, err)
+			}
 		}
 	}
 
@@ -2448,8 +2451,7 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v", action.BodyOfAgreementType))
 	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x", action.BodyOfAgreement))
 	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
-	vals = append(vals, fmt.Sprintf("SupportingDocsFileType:%v", action.SupportingDocsFileType))
-	vals = append(vals, fmt.Sprintf("SupportingDocs:%#x", action.SupportingDocs))
+	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
 	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
 	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
 	vals = append(vals, fmt.Sprintf("ContractExpiration:%#+v", action.ContractExpiration))

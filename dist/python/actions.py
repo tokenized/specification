@@ -126,24 +126,23 @@ class Action_ContractOffer(ActionBase):
     schema = {
         'BodyOfAgreement':                 [0, DAT_varbin, 32],
         'ContractType':                    [1, DAT_varchar, 8],
-        'SupportingDocsFileType':          [2, DAT_uint, 1],
-        'SupportingDocs':                  [3, DAT_varbin, 32],
-        'GoverningLaw':                    [4, DAT_fixedchar, 5],
-        'Jurisdiction':                    [5, DAT_fixedchar, 5],
-        'ContractExpiration':              [6, DAT_Timestamp, 0],
-        'ContractURI':                     [7, DAT_varchar, 8],
-        'Issuer':                          [8, DAT_Entity, 0],
-        'IssuerLogoURL':                   [9, DAT_varchar, 8],
-        'ContractOperatorIncluded':        [10, DAT_bool, 0],
-        'ContractOperator':                [11, DAT_Entity, 0],
-        'ContractAuthFlags':               [12, DAT_varbin, 16],
-        'ContractFee':                     [13, DAT_uint, 8],
-        'VotingSystems':                   [14, DAT_VotingSystem[], 8],
-        'RestrictedQtyAssets':             [15, DAT_uint, 8],
-        'AdministrationProposal':          [16, DAT_bool, 0],
-        'HolderProposal':                  [17, DAT_bool, 0],
-        'Oracles':                         [18, DAT_Oracle[], 8],
-        'MasterPKH':                       [19, DAT_PublicKeyHash, 0]
+        'SupportingDocs':                  [2, DAT_Document[], 8],
+        'GoverningLaw':                    [3, DAT_fixedchar, 5],
+        'Jurisdiction':                    [4, DAT_fixedchar, 5],
+        'ContractExpiration':              [5, DAT_Timestamp, 0],
+        'ContractURI':                     [6, DAT_varchar, 8],
+        'Issuer':                          [7, DAT_Entity, 0],
+        'IssuerLogoURL':                   [8, DAT_varchar, 8],
+        'ContractOperatorIncluded':        [9, DAT_bool, 0],
+        'ContractOperator':                [10, DAT_Entity, 0],
+        'ContractAuthFlags':               [11, DAT_varbin, 16],
+        'ContractFee':                     [12, DAT_uint, 8],
+        'VotingSystems':                   [13, DAT_VotingSystem[], 8],
+        'RestrictedQtyAssets':             [14, DAT_uint, 8],
+        'AdministrationProposal':          [15, DAT_bool, 0],
+        'HolderProposal':                  [16, DAT_bool, 0],
+        'Oracles':                         [17, DAT_Oracle[], 8],
+        'MasterPKH':                       [18, DAT_PublicKeyHash, 0]
     }
 
     rules = {
@@ -154,7 +153,6 @@ class Action_ContractOffer(ActionBase):
 
     def init_attributes(self):
         self.ContractType = None
-        self.SupportingDocsFileType = None
         self.SupportingDocs = None
         self.GoverningLaw = None
         self.Jurisdiction = None
@@ -185,26 +183,25 @@ class Action_ContractFormation(ActionBase):
     schema = {
         'BodyOfAgreement':                 [0, DAT_varbin, 32],
         'ContractType':                    [1, DAT_varchar, 8],
-        'SupportingDocsFileType':          [2, DAT_uint, 1],
-        'SupportingDocs':                  [3, DAT_varbin, 32],
-        'GoverningLaw':                    [4, DAT_fixedchar, 5],
-        'Jurisdiction':                    [5, DAT_fixedchar, 5],
-        'ContractExpiration':              [6, DAT_Timestamp, 0],
-        'ContractURI':                     [7, DAT_varchar, 8],
-        'Issuer':                          [8, DAT_Entity, 0],
-        'IssuerLogoURL':                   [9, DAT_varchar, 8],
-        'ContractOperatorIncluded':        [10, DAT_bool, 0],
-        'ContractOperator':                [11, DAT_Entity, 0],
-        'ContractAuthFlags':               [12, DAT_varbin, 16],
-        'ContractFee':                     [13, DAT_uint, 8],
-        'VotingSystems':                   [14, DAT_VotingSystem[], 8],
-        'RestrictedQtyAssets':             [15, DAT_uint, 8],
-        'AdministrationProposal':          [16, DAT_bool, 0],
-        'HolderProposal':                  [17, DAT_bool, 0],
-        'Oracles':                         [18, DAT_Oracle[], 8],
-        'MasterPKH':                       [19, DAT_PublicKeyHash, 0],
-        'ContractRevision':                [20, DAT_uint, 4],
-        'Timestamp':                       [21, DAT_Timestamp, 0]
+        'SupportingDocs':                  [2, DAT_Document[], 8],
+        'GoverningLaw':                    [3, DAT_fixedchar, 5],
+        'Jurisdiction':                    [4, DAT_fixedchar, 5],
+        'ContractExpiration':              [5, DAT_Timestamp, 0],
+        'ContractURI':                     [6, DAT_varchar, 8],
+        'Issuer':                          [7, DAT_Entity, 0],
+        'IssuerLogoURL':                   [8, DAT_varchar, 8],
+        'ContractOperatorIncluded':        [9, DAT_bool, 0],
+        'ContractOperator':                [10, DAT_Entity, 0],
+        'ContractAuthFlags':               [11, DAT_varbin, 16],
+        'ContractFee':                     [12, DAT_uint, 8],
+        'VotingSystems':                   [13, DAT_VotingSystem[], 8],
+        'RestrictedQtyAssets':             [14, DAT_uint, 8],
+        'AdministrationProposal':          [15, DAT_bool, 0],
+        'HolderProposal':                  [16, DAT_bool, 0],
+        'Oracles':                         [17, DAT_Oracle[], 8],
+        'MasterPKH':                       [18, DAT_PublicKeyHash, 0],
+        'ContractRevision':                [19, DAT_uint, 4],
+        'Timestamp':                       [20, DAT_Timestamp, 0]
     }
 
     rules = {
@@ -215,7 +212,6 @@ class Action_ContractFormation(ActionBase):
 
     def init_attributes(self):
         self.ContractType = None
-        self.SupportingDocsFileType = None
         self.SupportingDocs = None
         self.GoverningLaw = None
         self.Jurisdiction = None
