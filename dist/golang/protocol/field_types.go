@@ -344,6 +344,7 @@ type AssetReceiver struct {
 	Address               PublicKeyHash `json:"address,omitempty"`                 // The address receiving the tokens
 	Quantity              uint64        `json:"quantity,omitempty"`                // Number of tokens to be received by address at Output X
 	OracleSigAlgorithm    uint8         `json:"oracle_sig_algorithm,omitempty"`    // 0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has oracles, then a signature is required from one of them.
+	OracleIndex           uint8         `json:"oracle_index,omitempty"`            // Specifies the index into the list of oracles in the contract offer that was used to authorize this transfer.
 	OracleConfirmationSig []byte        `json:"oracle_confirmation_sig,omitempty"` // Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.
 	OracleSigBlockHeight  uint32        `json:"oracle_sig_block_height,omitempty"` // The block height of the block hash used in the oracle signature.
 }
@@ -374,6 +375,13 @@ func (m AssetReceiver) Serialize() ([]byte, error) {
 	// OracleSigAlgorithm (uint8)
 	{
 		if err := write(buf, m.OracleSigAlgorithm); err != nil {
+			return nil, err
+		}
+	}
+
+	// OracleIndex (uint8)
+	if m.OracleSigAlgorithm == 1 {
+		if err := write(buf, m.OracleIndex); err != nil {
 			return nil, err
 		}
 	}
@@ -418,6 +426,13 @@ func (m *AssetReceiver) Write(buf *bytes.Buffer) error {
 		}
 	}
 
+	// OracleIndex (uint8)
+	if m.OracleSigAlgorithm == 1 {
+		if err := read(buf, &m.OracleIndex); err != nil {
+			return err
+		}
+	}
+
 	// OracleConfirmationSig ([]byte)
 	if m.OracleSigAlgorithm == 1 {
 		var err error
@@ -454,6 +469,10 @@ func (m *AssetReceiver) Validate() error {
 	{
 	}
 
+	// OracleIndex (uint8)
+	{
+	}
+
 	// OracleConfirmationSig ([]byte)
 	{
 		if len(m.OracleConfirmationSig) > (2<<8)-1 {
@@ -482,6 +501,11 @@ func (m *AssetReceiver) Equal(other AssetReceiver) bool {
 
 	// OracleSigAlgorithm (uint8)
 	if m.OracleSigAlgorithm != other.OracleSigAlgorithm {
+		return false
+	}
+
+	// OracleIndex (uint8)
+	if m.OracleIndex != other.OracleIndex {
 		return false
 	}
 
