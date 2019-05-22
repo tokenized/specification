@@ -4273,6 +4273,11 @@ var yamlRejections = `
     label: Contract Moved
     description: The contract has been moved to a different address. Please find the addres change message and send requests to new address.
 
+  - code: 5
+    name: DoubleSpend
+    label: Double Spend
+    description: A double spend attempt has been detected.
+
 #################################### Contract ####################################
 
   - code: 10

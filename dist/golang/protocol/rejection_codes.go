@@ -16,6 +16,9 @@ const (
 	// ContractMoved - The contract has been moved to a different address. Please find the addres change message and send requests to new address.
 	RejectContractMoved = 4
 
+	// DoubleSpend - A double spend attempt has been detected.
+	RejectDoubleSpend = 5
+
 	// ContractExists - The contract already exists and can't be recreated.
 	RejectContractExists = 10
 
