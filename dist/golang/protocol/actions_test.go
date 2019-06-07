@@ -1160,14 +1160,11 @@ func TestStaticContractFormation(t *testing.T) {
 		initialMessage.ContractType = "Text 4"
 	}
 
-	// SupportingDocsFileType (uint)
+	// SupportingDocs (Document[])
 	{
-		// uint test not setup
-	}
-
-	// SupportingDocs (varchar)
-	{
-		initialMessage.SupportingDocs = "Text 6"
+		for i := 0; i < 2; i++ {
+			initialMessage.SupportingDocs = append(initialMessage.SupportingDocs, Document{})
+		}
 	}
 
 	// ContractRevision (uint)
@@ -1180,7 +1177,7 @@ func TestStaticContractFormation(t *testing.T) {
 		{
 			text := make([]byte, 0, 5)
 			for i := uint64(0); i < 5; i++ {
-				text = append(text, byte(65+i+8))
+				text = append(text, byte(65+i+7))
 			}
 			initialMessage.GoverningLaw = string(text)
 		}
@@ -1191,7 +1188,7 @@ func TestStaticContractFormation(t *testing.T) {
 		{
 			text := make([]byte, 0, 5)
 			for i := uint64(0); i < 5; i++ {
-				text = append(text, byte(65+i+9))
+				text = append(text, byte(65+i+8))
 			}
 			initialMessage.Jurisdiction = string(text)
 		}
@@ -1209,7 +1206,7 @@ func TestStaticContractFormation(t *testing.T) {
 
 	// ContractURI (varchar)
 	{
-		initialMessage.ContractURI = "Text 12"
+		initialMessage.ContractURI = "Text 11"
 	}
 
 	// PrevRevTxID (TxId)
@@ -1282,14 +1279,9 @@ func TestStaticContractFormation(t *testing.T) {
 		t.Errorf("ContractType doesn't match : %s != %s", initialMessage.ContractType, decodedMessage.ContractType)
 	}
 
-	// SupportingDocsFileType (uint)
-	if initialMessage.SupportingDocsFileType != decodedMessage.SupportingDocsFileType {
-		t.Errorf("SupportingDocsFileType doesn't match : %v != %v", initialMessage.SupportingDocsFileType, decodedMessage.SupportingDocsFileType)
-	}
-
-	// SupportingDocs (varchar)
-	if initialMessage.SupportingDocs != decodedMessage.SupportingDocs {
-		t.Errorf("SupportingDocs doesn't match : %s != %s", initialMessage.SupportingDocs, decodedMessage.SupportingDocs)
+	// SupportingDocs (Document[])
+	if len(initialMessage.SupportingDocs) != len(decodedMessage.SupportingDocs) {
+		t.Errorf("SupportingDocs lengths don't match : %d != %d", len(initialMessage.SupportingDocs), len(decodedMessage.SupportingDocs))
 	}
 
 	// ContractRevision (uint)

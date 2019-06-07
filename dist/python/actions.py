@@ -267,16 +267,15 @@ class Action_StaticContractFormation(ActionBase):
         'BodyOfAgreementType':             [0, DAT_uint, 1],
         'BodyOfAgreement':                 [1, DAT_varbin, 32],
         'ContractType':                    [2, DAT_varchar, 8],
-        'SupportingDocsFileType':          [3, DAT_uint, 1],
-        'SupportingDocs':                  [4, DAT_varchar, 32],
-        'ContractRevision':                [5, DAT_uint, 4],
-        'GoverningLaw':                    [6, DAT_fixedchar, 5],
-        'Jurisdiction':                    [7, DAT_fixedchar, 5],
-        'EffectiveDate':                   [8, DAT_Timestamp, 0],
-        'ContractExpiration':              [9, DAT_Timestamp, 0],
-        'ContractURI':                     [10, DAT_varchar, 8],
-        'PrevRevTxID':                     [11, DAT_TxId, 0],
-        'Entities':                        [12, DAT_Entity[], 8]
+        'SupportingDocs':                  [3, DAT_Document[], 8],
+        'ContractRevision':                [4, DAT_uint, 4],
+        'GoverningLaw':                    [5, DAT_fixedchar, 5],
+        'Jurisdiction':                    [6, DAT_fixedchar, 5],
+        'EffectiveDate':                   [7, DAT_Timestamp, 0],
+        'ContractExpiration':              [8, DAT_Timestamp, 0],
+        'ContractURI':                     [9, DAT_varchar, 8],
+        'PrevRevTxID':                     [10, DAT_TxId, 0],
+        'Entities':                        [11, DAT_Entity[], 8]
     }
 
     rules = {
@@ -288,7 +287,6 @@ class Action_StaticContractFormation(ActionBase):
     def init_attributes(self):
         self.BodyOfAgreement = None
         self.ContractType = None
-        self.SupportingDocsFileType = None
         self.SupportingDocs = None
         self.ContractRevision = None
         self.GoverningLaw = None

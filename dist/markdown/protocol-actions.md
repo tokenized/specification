@@ -1288,23 +1288,13 @@ Static Contract Formation Action
         </td>
     </tr>
     <tr>
-        <td>SupportingDocsFileType</td>
-        <td>
-            uint(1)
-        </td>
-        <td>
-            1 - 7z
-            The file type of the supporting documents ('attached') that are important to the contract. Example: 1
-        </td>
-    </tr>
-    <tr>
         <td>SupportingDocs</td>
         <td>
-            varchar(32)
+            <a href="field-types#type-document">Document[8]</a>
         </td>
         <td>
+            Supporting documents that are important to the contract.
             
-            File of all supporting documents that are important to the contract.
         </td>
     </tr>
     <tr>
