@@ -45,9 +45,9 @@ To read an OP_RETURN script, pass the script into the Deserialize function and i
 #### OP_RETURN script format
 `<OP_RETURN> 0x64`
 
-`<PUSH_OP size 13> 0x0d`
+`<PUSH_OP size 9> 0x09`
 
-`<"tokenized"> 0x746f6b656e697a6564` 
+`<"tokenized"> 0x746f6b656e697a6564`
 
 `<PUSH_OP payload size + 3>` The exact push op for the payload size depends on the payload size.
 
