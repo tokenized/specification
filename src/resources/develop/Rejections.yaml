@@ -43,20 +43,15 @@ values:
     label: Contract Already Exists
     description: The contract already exists and can't be recreated.
 
-  - code: 11
-    name: ContractNotDynamic
-    label: Contract Is Not Dynamic
-    description: 'Sent when a CO is received, but the contract type is not "D" (Dynamic)'
-
   - code: 12
     name: ContractAssetQtyReduction
     label: Contract Asset Quantity Reduction
-    description: Sent when a CA tries to reduce the number of assets below the number of assets the contract has.
+    description: Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.
 
   - code: 13
     name: ContractFixedQuantity
     label: Contract Fixed Quantity
-    description: Sent when the administration attempted to increase the quantity of assets in a contract beyond the fixed quantity permitted.
+    description: Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.
 
   - code: 14
     name: ContractAuthFlags

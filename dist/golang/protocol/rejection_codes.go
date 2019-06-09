@@ -22,13 +22,10 @@ const (
 	// ContractExists - The contract already exists and can't be recreated.
 	RejectContractExists = 10
 
-	// ContractNotDynamic - Sent when a CO is received, but the contract type is not "D" (Dynamic)
-	RejectContractNotDynamic = 11
-
-	// ContractAssetQtyReduction - Sent when a CA tries to reduce the number of assets below the number of assets the contract has.
+	// ContractAssetQtyReduction - Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.
 	RejectContractAssetQtyReduction = 12
 
-	// ContractFixedQuantity - Sent when the administration attempted to increase the quantity of assets in a contract beyond the fixed quantity permitted.
+	// ContractFixedQuantity - Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.
 	RejectContractFixedQuantity = 13
 
 	// ContractAuthFlags - The contract auth flags don't permit the action requested.
