@@ -10,6 +10,7 @@ import (
 	"github.com/tokenized/specification/internal/markdown"
 	"github.com/tokenized/specification/internal/platform/parser"
 	"github.com/tokenized/specification/internal/python"
+	"github.com/tokenized/specification/internal/typescript"
 
 	"github.com/spf13/cobra"
 )
@@ -57,6 +58,8 @@ var cmdGenerate = &cobra.Command{
 		python.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
 		markdown.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+
+		typescript.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
 		return nil
 	},

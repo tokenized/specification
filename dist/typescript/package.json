@@ -1,0 +1,33 @@
+{
+  "name": "tokenized",
+  "version": "0.0.0",
+  "description": "Tokenized specification",
+  "author": "Justin Laue <justin@bitboss.io>",
+  "repository": "git@github.com:BitbossIO/specification.git",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'",
+    "start": "node ./node_modules/gulp/bin/gulp.js && node dist/test.js",
+    "debug": "node ./node_modules/gulp/bin/gulp.js && node --inspect dist/test.js",
+    "debug-brk": "node ./node_modules/gulp/bin/gulp.js && node --inspect-brk dist/test.js",
+    "watch": "node ./node_modules/gulp/bin/gulp.js watch",
+    "prepare": "gulp"
+  },
+  "license": "Open BSV",
+  "devDependencies": {
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.10.4",
+    "gulp": "^4.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-tslint": "^8.1.4",
+    "gulp-typescript": "^5.0.0",
+    "mocha": "^6.0.2",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.13.0",
+    "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "@keyring/bsv": "0.0.16",
+    "sprintf-js": "^1.1.2"
+  }
+}
