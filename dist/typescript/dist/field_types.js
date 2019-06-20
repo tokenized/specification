@@ -36,7 +36,7 @@ class Administrator {
     Validate() {
         // type (uint8)
         {
-            if (!resources_1.GetRoleType(this.type)) {
+            if (!resources_1.Resources.GetRoleType(this.type)) {
                 return sprintf_js_1.sprintf('Invalid role value : %d', this.type);
             }
         }
@@ -845,7 +845,7 @@ class Entity {
         }
         // type (byte)
         {
-            if (!resources_1.GetEntityType(this.type)) {
+            if (!resources_1.Resources.GetEntityType(this.type)) {
                 return sprintf_js_1.sprintf('Invalid entity type value : %c', this.type);
             }
         }
@@ -1050,7 +1050,7 @@ class Manager {
     Validate() {
         // type (uint8)
         {
-            if (!resources_1.GetRoleType(this.type)) {
+            if (!resources_1.Resources.GetRoleType(this.type)) {
                 return sprintf_js_1.sprintf('Invalid role value : %d', this.type);
             }
         }

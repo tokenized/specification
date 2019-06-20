@@ -137,6 +137,7 @@ func Test{{.Name}}(t *testing.T) {
 		{{- else }}
 	// {{ $field.Type }} test compare not setup
 		{{- end }}
-	{{ end -}}
+	{{- end }}
 }
-{{end}}
+
+{{- end}}

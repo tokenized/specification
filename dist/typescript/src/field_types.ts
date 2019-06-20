@@ -2,7 +2,7 @@ import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
 	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
-import { GetRoleType, GetEntityType, } from './resources';
+import { Resources } from './resources';
 
 
 // Administrator Administrator is used to refer to a Administration role in
@@ -46,7 +46,7 @@ export class Administrator {
 
 		// type (uint8)
 		{
-			if (!GetRoleType(this.type)) {
+			if (!Resources.GetRoleType(this.type)) {
 				return sprintf('Invalid role value : %d', this.type);
 			}
 		}
@@ -1171,7 +1171,7 @@ export class Entity {
 
 		// type (byte)
 		{
-			if (!GetEntityType(this.type)) {
+			if (!Resources.GetEntityType(this.type)) {
 				return sprintf('Invalid entity type value : %c', this.type);
 			}
 		}
@@ -1420,7 +1420,7 @@ export class Manager {
 
 		// type (uint8)
 		{
-			if (!GetRoleType(this.type)) {
+			if (!Resources.GetRoleType(this.type)) {
 				return sprintf('Invalid role value : %d', this.type);
 			}
 		}

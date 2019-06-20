@@ -77,9 +77,10 @@ var ActionCode;
     ActionCode["ComplianceActionConfiscation"] = "C";
     // ComplianceActionReconciliation identifies a reconcilation type
     ActionCode["ComplianceActionReconciliation"] = "R";
-})(ActionCode || (ActionCode = {}));
+})(ActionCode = exports.ActionCode || (exports.ActionCode = {}));
 class OpReturnMessage {
 }
+exports.OpReturnMessage = OpReturnMessage;
 // TypeMapping holds a mapping of action codes to action types.
 function TypeMapping(code) {
     switch (code) {
@@ -153,12 +154,12 @@ class AssetDefinition {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // asset_type (string)
         {
@@ -228,7 +229,7 @@ class AssetDefinition {
         }
         // transfers_permitted (bool)
         {
-            bytes_1.read(buf, this.transfers_permitted);
+            this.transfers_permitted = bytes_1.read(buf, 'bool');
         }
         // trade_restrictions ([][3]byte)
         {
@@ -238,31 +239,31 @@ class AssetDefinition {
         }
         // enforcement_orders_permitted (bool)
         {
-            bytes_1.read(buf, this.enforcement_orders_permitted);
+            this.enforcement_orders_permitted = bytes_1.read(buf, 'bool');
         }
         // voting_rights (bool)
         {
-            bytes_1.read(buf, this.voting_rights);
+            this.voting_rights = bytes_1.read(buf, 'bool');
         }
         // vote_multiplier (uint8)
         {
-            bytes_1.read(buf, this.vote_multiplier);
+            this.vote_multiplier = bytes_1.read(buf, 'uint8');
         }
         // administration_proposal (bool)
         {
-            bytes_1.read(buf, this.administration_proposal);
+            this.administration_proposal = bytes_1.read(buf, 'bool');
         }
         // holder_proposal (bool)
         {
-            bytes_1.read(buf, this.holder_proposal);
+            this.holder_proposal = bytes_1.read(buf, 'bool');
         }
         // asset_modification_governance (uint8)
         {
-            bytes_1.read(buf, this.asset_modification_governance);
+            this.asset_modification_governance = bytes_1.read(buf, 'uint8');
         }
         // token_qty (uint64)
         {
-            bytes_1.read(buf, this.token_qty);
+            this.token_qty = bytes_1.read(buf, 'uint64');
         }
         // asset_payload ([]byte)
         {
@@ -292,7 +293,7 @@ class AssetDefinition {
                 return sprintf_js_1.sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (2 << 16) - 1);
             }
             const err = this.trade_restrictions.find((value) => {
-                if (resources_1.GetPolityType(Buffer.from(value).toString('ascii')) === null) {
+                if (resources_1.Resources.GetPolityType(Buffer.from(value).toString('ascii')) === null) {
                     return sprintf_js_1.sprintf('Invalid polity value : %d', this.trade_restrictions);
                 }
             });
@@ -348,6 +349,7 @@ class AssetDefinition {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.AssetDefinition = AssetDefinition;
 // AssetCreation This action creates an asset in response to the
 // administration's instructions in the Definition Action.
 class AssetCreation {
@@ -358,12 +360,12 @@ class AssetCreation {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // asset_type (string)
         {
@@ -449,7 +451,7 @@ class AssetCreation {
         }
         // asset_index (uint64)
         {
-            bytes_1.read(buf, this.asset_index);
+            this.asset_index = bytes_1.read(buf, 'uint64');
         }
         // asset_auth_flags ([]byte)
         {
@@ -457,7 +459,7 @@ class AssetCreation {
         }
         // transfers_permitted (bool)
         {
-            bytes_1.read(buf, this.transfers_permitted);
+            this.transfers_permitted = bytes_1.read(buf, 'bool');
         }
         // trade_restrictions ([][3]byte)
         {
@@ -467,31 +469,31 @@ class AssetCreation {
         }
         // enforcement_orders_permitted (bool)
         {
-            bytes_1.read(buf, this.enforcement_orders_permitted);
+            this.enforcement_orders_permitted = bytes_1.read(buf, 'bool');
         }
         // voting_rights (bool)
         {
-            bytes_1.read(buf, this.voting_rights);
+            this.voting_rights = bytes_1.read(buf, 'bool');
         }
         // vote_multiplier (uint8)
         {
-            bytes_1.read(buf, this.vote_multiplier);
+            this.vote_multiplier = bytes_1.read(buf, 'uint8');
         }
         // administration_proposal (bool)
         {
-            bytes_1.read(buf, this.administration_proposal);
+            this.administration_proposal = bytes_1.read(buf, 'bool');
         }
         // holder_proposal (bool)
         {
-            bytes_1.read(buf, this.holder_proposal);
+            this.holder_proposal = bytes_1.read(buf, 'bool');
         }
         // asset_modification_governance (uint8)
         {
-            bytes_1.read(buf, this.asset_modification_governance);
+            this.asset_modification_governance = bytes_1.read(buf, 'uint8');
         }
         // token_qty (uint64)
         {
-            bytes_1.read(buf, this.token_qty);
+            this.token_qty = bytes_1.read(buf, 'uint64');
         }
         // asset_payload ([]byte)
         {
@@ -499,7 +501,7 @@ class AssetCreation {
         }
         // asset_revision (uint32)
         {
-            bytes_1.read(buf, this.asset_revision);
+            this.asset_revision = bytes_1.read(buf, 'uint32');
         }
         // timestamp (Timestamp)
         {
@@ -538,7 +540,7 @@ class AssetCreation {
                 return sprintf_js_1.sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (2 << 16) - 1);
             }
             const err = this.trade_restrictions.find((value) => {
-                if (resources_1.GetPolityType(Buffer.from(value).toString('ascii')) === null) {
+                if (resources_1.Resources.GetPolityType(Buffer.from(value).toString('ascii')) === null) {
                     return sprintf_js_1.sprintf('Invalid polity value : %d', this.trade_restrictions);
                 }
             });
@@ -607,6 +609,7 @@ class AssetCreation {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.AssetCreation = AssetCreation;
 // AssetModification Token Dilutions, Call Backs/Revocations, burning etc.
 class AssetModification {
     // Type returns the type identifer for this message.
@@ -616,12 +619,12 @@ class AssetModification {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // asset_type (string)
         {
@@ -661,7 +664,7 @@ class AssetModification {
         }
         // asset_revision (uint32)
         {
-            bytes_1.read(buf, this.asset_revision);
+            this.asset_revision = bytes_1.read(buf, 'uint32');
         }
         // amendments ([]Amendment)
         {
@@ -727,6 +730,7 @@ class AssetModification {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.AssetModification = AssetModification;
 // ContractOffer Allows the administration to tell the smart contract what
 // they want the details (labels, data, T&C's, etc.) of the Contract to be
 // on-chain in a public and immutable way. The Contract Offer action
@@ -742,12 +746,12 @@ class ContractOffer {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // contract_name (string)
         {
@@ -853,7 +857,7 @@ class ContractOffer {
         }
         // body_of_agreement_type (uint8)
         {
-            bytes_1.read(buf, this.body_of_agreement_type);
+            this.body_of_agreement_type = bytes_1.read(buf, 'uint8');
         }
         // body_of_agreement ([]byte)
         {
@@ -900,7 +904,7 @@ class ContractOffer {
         }
         // contract_operator_included (bool)
         {
-            bytes_1.read(buf, this.contract_operator_included);
+            this.contract_operator_included = bytes_1.read(buf, 'bool');
         }
         // contract_operator (Entity)
         if (this.contract_operator_included) {
@@ -912,7 +916,7 @@ class ContractOffer {
         }
         // contract_fee (uint64)
         {
-            bytes_1.read(buf, this.contract_fee);
+            this.contract_fee = bytes_1.read(buf, 'uint64');
         }
         // voting_systems ([]VotingSystem)
         {
@@ -927,15 +931,15 @@ class ContractOffer {
         }
         // restricted_qty_assets (uint64)
         {
-            bytes_1.read(buf, this.restricted_qty_assets);
+            this.restricted_qty_assets = bytes_1.read(buf, 'uint64');
         }
         // administration_proposal (bool)
         {
-            bytes_1.read(buf, this.administration_proposal);
+            this.administration_proposal = bytes_1.read(buf, 'bool');
         }
         // holder_proposal (bool)
         {
-            bytes_1.read(buf, this.holder_proposal);
+            this.holder_proposal = bytes_1.read(buf, 'bool');
         }
         // oracles ([]Oracle)
         {
@@ -1116,6 +1120,7 @@ class ContractOffer {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.ContractOffer = ContractOffer;
 // ContractFormation This txn is created by the contract (smart
 // contract/off-chain agent/token contract) upon receipt of a valid
 // Contract Offer Action from the administration. The smart contract will
@@ -1129,12 +1134,12 @@ class ContractFormation {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // contract_name (string)
         {
@@ -1248,7 +1253,7 @@ class ContractFormation {
         }
         // body_of_agreement_type (uint8)
         {
-            bytes_1.read(buf, this.body_of_agreement_type);
+            this.body_of_agreement_type = bytes_1.read(buf, 'uint8');
         }
         // body_of_agreement ([]byte)
         {
@@ -1295,7 +1300,7 @@ class ContractFormation {
         }
         // contract_operator_included (bool)
         {
-            bytes_1.read(buf, this.contract_operator_included);
+            this.contract_operator_included = bytes_1.read(buf, 'bool');
         }
         // contract_operator (Entity)
         if (this.contract_operator_included) {
@@ -1307,7 +1312,7 @@ class ContractFormation {
         }
         // contract_fee (uint64)
         {
-            bytes_1.read(buf, this.contract_fee);
+            this.contract_fee = bytes_1.read(buf, 'uint64');
         }
         // voting_systems ([]VotingSystem)
         {
@@ -1322,15 +1327,15 @@ class ContractFormation {
         }
         // restricted_qty_assets (uint64)
         {
-            bytes_1.read(buf, this.restricted_qty_assets);
+            this.restricted_qty_assets = bytes_1.read(buf, 'uint64');
         }
         // administration_proposal (bool)
         {
-            bytes_1.read(buf, this.administration_proposal);
+            this.administration_proposal = bytes_1.read(buf, 'bool');
         }
         // holder_proposal (bool)
         {
-            bytes_1.read(buf, this.holder_proposal);
+            this.holder_proposal = bytes_1.read(buf, 'bool');
         }
         // oracles ([]Oracle)
         {
@@ -1349,7 +1354,7 @@ class ContractFormation {
         }
         // contract_revision (uint32)
         {
-            bytes_1.read(buf, this.contract_revision);
+            this.contract_revision = bytes_1.read(buf, 'uint32');
         }
         // timestamp (Timestamp)
         {
@@ -1530,6 +1535,7 @@ class ContractFormation {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.ContractFormation = ContractFormation;
 // ContractAmendment The administration can initiate an amendment to the
 // contract establishment metadata. The ability to make an amendment to the
 // contract is restricted by the Authorization Flag set on the current
@@ -1542,12 +1548,12 @@ class ContractAmendment {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // change_administration_address (bool)
         {
@@ -1579,15 +1585,15 @@ class ContractAmendment {
         const buf = new Buffer(b);
         // change_administration_address (bool)
         {
-            bytes_1.read(buf, this.change_administration_address);
+            this.change_administration_address = bytes_1.read(buf, 'bool');
         }
         // change_operator_address (bool)
         {
-            bytes_1.read(buf, this.change_operator_address);
+            this.change_operator_address = bytes_1.read(buf, 'bool');
         }
         // contract_revision (uint32)
         {
-            bytes_1.read(buf, this.contract_revision);
+            this.contract_revision = bytes_1.read(buf, 'uint32');
         }
         // amendments ([]Amendment)
         {
@@ -1647,6 +1653,7 @@ class ContractAmendment {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.ContractAmendment = ContractAmendment;
 // StaticContractFormation Static Contract Formation Action
 class StaticContractFormation {
     // Type returns the type identifer for this message.
@@ -1656,12 +1663,12 @@ class StaticContractFormation {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // contract_name (string)
         {
@@ -1740,7 +1747,7 @@ class StaticContractFormation {
         }
         // body_of_agreement_type (uint8)
         {
-            bytes_1.read(buf, this.body_of_agreement_type);
+            this.body_of_agreement_type = bytes_1.read(buf, 'uint8');
         }
         // body_of_agreement ([]byte)
         {
@@ -1763,7 +1770,7 @@ class StaticContractFormation {
         }
         // contract_revision (uint32)
         {
-            bytes_1.read(buf, this.contract_revision);
+            this.contract_revision = bytes_1.read(buf, 'uint32');
         }
         // governing_law (string)
         {
@@ -1919,6 +1926,7 @@ class StaticContractFormation {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.StaticContractFormation = StaticContractFormation;
 // ContractAddressChange This txn is signed by the master contract key
 // defined in the contract formation and changes the active contract
 // address which the contract uses to receive and respond to requests. This
@@ -1932,12 +1940,12 @@ class ContractAddressChange {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // new_contract_pkh (PublicKeyHash)
         {
@@ -1984,6 +1992,7 @@ class ContractAddressChange {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.ContractAddressChange = ContractAddressChange;
 // Order Used by the administration to signal to the smart contract that
 // the tokens that a particular public address(es) owns are to be
 // confiscated, frozen, thawed or reconciled.
@@ -1995,12 +2004,12 @@ class Order {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // compliance_action (byte)
         {
@@ -2079,7 +2088,7 @@ class Order {
         const buf = new Buffer(b);
         // compliance_action (byte)
         {
-            bytes_1.read(buf, this.compliance_action);
+            this.compliance_action = bytes_1.read(buf, 'byte');
         }
         // asset_type (string)
         if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
@@ -2114,7 +2123,7 @@ class Order {
         }
         // authority_included (bool)
         if (this.compliance_action === 'F' || this.compliance_action === 'T' || this.compliance_action === 'C') {
-            bytes_1.read(buf, this.authority_included);
+            this.authority_included = bytes_1.read(buf, 'bool');
         }
         // authority_name (string)
         if (this.authority_included) {
@@ -2126,7 +2135,7 @@ class Order {
         }
         // signature_algorithm (uint8)
         if (this.authority_included) {
-            bytes_1.read(buf, this.signature_algorithm);
+            this.signature_algorithm = bytes_1.read(buf, 'uint8');
         }
         // order_signature ([]byte)
         if (this.authority_included) {
@@ -2134,7 +2143,7 @@ class Order {
         }
         // supporting_evidence_hash ([32]byte)
         {
-            bytes_1.read(buf, this.supporting_evidence_hash);
+            this.supporting_evidence_hash = bytes_1.read(buf, '[32]byte');
         }
         // ref_txs ([]byte)
         if (this.compliance_action === 'R') {
@@ -2301,6 +2310,7 @@ class Order {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Order = Order;
 // Freeze The contract responding to an Order action to freeze assets. To
 // be used to comply with contractual/legal/issuer requirements. The target
 // public address(es) will be marked as frozen. However the Freeze action
@@ -2315,12 +2325,12 @@ class Freeze {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // asset_type (string)
         {
@@ -2429,6 +2439,7 @@ class Freeze {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Freeze = Freeze;
 // Thaw The contract responding to an Order action to thaw assets. To be
 // used to comply with contractual obligations or legal requirements. The
 // Alleged Offender's tokens will be unfrozen to allow them to resume
@@ -2441,12 +2452,12 @@ class Thaw {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // freeze_tx_id (TxId)
         {
@@ -2493,6 +2504,7 @@ class Thaw {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Thaw = Thaw;
 // Confiscation The contract responding to an Order action to confiscate
 // assets. To be used to comply with contractual obligations, legal and/or
 // issuer requirements.
@@ -2504,12 +2516,12 @@ class Confiscation {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // asset_type (string)
         {
@@ -2560,7 +2572,7 @@ class Confiscation {
         }
         // deposit_qty (uint64)
         {
-            bytes_1.read(buf, this.deposit_qty);
+            this.deposit_qty = bytes_1.read(buf, 'uint64');
         }
         // timestamp (Timestamp)
         {
@@ -2615,6 +2627,7 @@ class Confiscation {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Confiscation = Confiscation;
 // Reconciliation The contract responding to an Order action to reconcile
 // assets. To be used at the direction of the administration to fix record
 // keeping errors with bitcoin and token balances.
@@ -2626,12 +2639,12 @@ class Reconciliation {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // asset_type (string)
         {
@@ -2725,6 +2738,7 @@ class Reconciliation {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Reconciliation = Reconciliation;
 // Proposal Allows the Administration/Token Holders to propose a change
 // (aka Initiative/Shareholder vote). A significant cost - specified in the
 // Contract Formation - can be attached to this action when sent from Token
@@ -2738,12 +2752,12 @@ class Proposal {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // initiator (uint8)
         {
@@ -2803,11 +2817,11 @@ class Proposal {
         const buf = new Buffer(b);
         // initiator (uint8)
         {
-            bytes_1.read(buf, this.initiator);
+            this.initiator = bytes_1.read(buf, 'uint8');
         }
         // asset_specific_vote (bool)
         {
-            bytes_1.read(buf, this.asset_specific_vote);
+            this.asset_specific_vote = bytes_1.read(buf, 'bool');
         }
         // asset_type (string)
         if (this.asset_specific_vote) {
@@ -2819,11 +2833,11 @@ class Proposal {
         }
         // vote_system (uint8)
         {
-            bytes_1.read(buf, this.vote_system);
+            this.vote_system = bytes_1.read(buf, 'uint8');
         }
         // specific (bool)
         {
-            bytes_1.read(buf, this.specific);
+            this.specific = bytes_1.read(buf, 'bool');
         }
         // proposed_amendments ([]Amendment)
         if (this.specific) {
@@ -2842,7 +2856,7 @@ class Proposal {
         }
         // vote_max (uint8)
         {
-            bytes_1.read(buf, this.vote_max);
+            this.vote_max = bytes_1.read(buf, 'uint8');
         }
         // proposal_description (string)
         {
@@ -2850,7 +2864,7 @@ class Proposal {
         }
         // proposal_document_hash ([32]byte)
         {
-            bytes_1.read(buf, this.proposal_document_hash);
+            this.proposal_document_hash = bytes_1.read(buf, '[32]byte');
         }
         // vote_cut_off_timestamp (Timestamp)
         {
@@ -2945,6 +2959,7 @@ class Proposal {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Proposal = Proposal;
 // Vote A vote is created by the Contract in response to a valid Proposal
 // Action.
 class Vote {
@@ -2955,12 +2970,12 @@ class Vote {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // timestamp (Timestamp)
         {
@@ -2992,6 +3007,7 @@ class Vote {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Vote = Vote;
 // BallotCast Used by Token Owners to cast their ballot (vote) on
 // proposals. 1 Vote per token unless a vote multiplier is specified in the
 // relevant Asset Definition action.
@@ -3003,12 +3019,12 @@ class BallotCast {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // vote_tx_id (TxId)
         {
@@ -3055,6 +3071,7 @@ class BallotCast {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.BallotCast = BallotCast;
 // BallotCounted The smart contract will respond to a Ballot Cast action
 // with a Ballot Counted action if the Ballot Cast is valid. If the Ballot
 // Cast is not valid, then the smart contract will respond with a Rejection
@@ -3067,12 +3084,12 @@ class BallotCounted {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // vote_tx_id (TxId)
         {
@@ -3105,7 +3122,7 @@ class BallotCounted {
         }
         // quantity (uint64)
         {
-            bytes_1.read(buf, this.quantity);
+            this.quantity = bytes_1.read(buf, 'uint64');
         }
         // timestamp (Timestamp)
         {
@@ -3146,6 +3163,7 @@ class BallotCounted {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.BallotCounted = BallotCounted;
 // Result Once a vote has been completed the results are published. After
 // the result is posted, it is up to the administration to send a
 // contract/asset amendement if appropriate.
@@ -3157,12 +3175,12 @@ class Result {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // asset_specific_vote (bool)
         {
@@ -3215,7 +3233,7 @@ class Result {
         const buf = new Buffer(b);
         // asset_specific_vote (bool)
         {
-            bytes_1.read(buf, this.asset_specific_vote);
+            this.asset_specific_vote = bytes_1.read(buf, 'bool');
         }
         // asset_type (string)
         if (this.asset_specific_vote) {
@@ -3227,7 +3245,7 @@ class Result {
         }
         // specific (bool)
         {
-            bytes_1.read(buf, this.specific);
+            this.specific = bytes_1.read(buf, 'bool');
         }
         // proposed_amendments ([]Amendment)
         if (this.specific) {
@@ -3335,6 +3353,7 @@ class Result {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Result = Result;
 // Message The message action is a general purpose communication action.
 // 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be
 // used for passing partially signed txns on-chain, establishing private
@@ -3350,12 +3369,12 @@ class Message {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // address_indexes ([]uint16)
         {
@@ -3387,7 +3406,7 @@ class Message {
         }
         // message_type (uint16)
         {
-            bytes_1.read(buf, this.message_type);
+            this.message_type = bytes_1.read(buf, 'uint16');
         }
         // message_payload ([]byte)
         {
@@ -3421,6 +3440,7 @@ class Message {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Message = Message;
 // Rejection Used to reject request actions that do not comply with the
 // Contract. If money is to be returned to a User then it is used in lieu
 // of the Settlement Action to properly account for token balances. All
@@ -3437,12 +3457,12 @@ class Rejection {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // address_indexes ([]uint16)
         {
@@ -3482,11 +3502,11 @@ class Rejection {
         }
         // reject_address_index (uint16)
         {
-            bytes_1.read(buf, this.reject_address_index);
+            this.reject_address_index = bytes_1.read(buf, 'uint16');
         }
         // rejection_code (uint8)
         {
-            bytes_1.read(buf, this.rejection_code);
+            this.rejection_code = bytes_1.read(buf, 'uint8');
         }
         // message (string)
         {
@@ -3510,7 +3530,7 @@ class Rejection {
         }
         // RejectionCode (uint8)
         {
-            if (resources_1.GetRejectionCode(this.rejection_code) === null) {
+            if (resources_1.Resources.GetRejectionCode(this.rejection_code) === null) {
                 return sprintf_js_1.sprintf('Invalid rejection code value : %d', this.rejection_code);
             }
         }
@@ -3538,6 +3558,7 @@ class Rejection {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Rejection = Rejection;
 // Establishment Establishes an on-chain register.
 class Establishment {
     // Type returns the type identifer for this message.
@@ -3547,12 +3568,12 @@ class Establishment {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // message (string)
         {
@@ -3584,6 +3605,7 @@ class Establishment {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Establishment = Establishment;
 // Addition Adds an entry to the Register.
 class Addition {
     // Type returns the type identifer for this message.
@@ -3593,12 +3615,12 @@ class Addition {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // message (string)
         {
@@ -3630,6 +3652,7 @@ class Addition {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Addition = Addition;
 // Alteration A register entry/record can be altered.
 class Alteration {
     // Type returns the type identifer for this message.
@@ -3639,12 +3662,12 @@ class Alteration {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // entry_tx_id (TxId)
         {
@@ -3691,6 +3714,7 @@ class Alteration {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Alteration = Alteration;
 // Removal Removes an entry/record from the Register.
 class Removal {
     // Type returns the type identifer for this message.
@@ -3700,12 +3724,12 @@ class Removal {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // entry_tx_id (TxId)
         {
@@ -3752,6 +3776,7 @@ class Removal {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Removal = Removal;
 // Transfer A Token Owner(s) Sends, Exchanges or Swaps a token(s) or
 // Bitcoin for a token(s) or Bitcoin. Can be as simple as sending a single
 // token to a receiver. Or can be as complex as many senders sending many
@@ -3769,12 +3794,12 @@ class Transfer {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // assets ([]AssetTransfer)
         {
@@ -3817,7 +3842,7 @@ class Transfer {
         }
         // exchange_fee (uint64)
         {
-            bytes_1.read(buf, this.exchange_fee);
+            this.exchange_fee = bytes_1.read(buf, 'uint64');
         }
         // exchange_fee_address (PublicKeyHash)
         {
@@ -3865,6 +3890,7 @@ class Transfer {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Transfer = Transfer;
 // Settlement Settles the transfer request of bitcoins and tokens from
 // transfer (T1) actions.
 class Settlement {
@@ -3875,12 +3901,12 @@ class Settlement {
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
     read(b) {
-        const data = this.serialize();
+        const data = this.Serialize();
         b.fill(data);
         return data.length;
     }
     // serialize returns the full OP_RETURN payload bytes.
-    serialize() {
+    Serialize() {
         const buf = new util_1.default.Writer();
         // assets ([]AssetSettlement)
         {
@@ -3944,3 +3970,4 @@ class Settlement {
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
+exports.Settlement = Settlement;

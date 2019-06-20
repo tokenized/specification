@@ -10,9 +10,9 @@ import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
 	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
 	QuantityIndex, AssetTransfer, AssetSettlement } from './field_types';
-import { GetPolityType, GetRejectionCode, } from './resources';
+import { Resources } from './resources';
 
-enum ActionCode {
+export enum ActionCode {
 {{- range .}}
 	{{.CodeNameComment}}
 	{{.CodeName}} = '{{.Code}}',
@@ -31,7 +31,7 @@ enum ActionCode {
 	ComplianceActionReconciliation = 'R',
 }
 
-class OpReturnMessage {}
+export class OpReturnMessage {}
 
 
 // TypeMapping holds a mapping of action codes to action types.
@@ -49,7 +49,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 {{ range $action := . }}
 
 {{comment (print .Name " " .Metadata.Description) "//"}}
-class {{.Name}}  {
+export class {{.Name}}  {
 {{ range .Fields }}
 	{{comment (print "\t" .FieldDescription) "\t//"}}
 	{{ .SnakeCase }};{{ end -}}
@@ -87,7 +87,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 	// Read implements the io.Reader interface, writing the receiver to the
 	// []byte.
 	read(b: Buffer): number {
-		const data = this.serialize();
+		const data = this.Serialize();
 
 		b.fill(data);
 
@@ -95,7 +95,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 	}
 
 	// serialize returns the full OP_RETURN payload bytes.
-	serialize(): Buffer {
+	Serialize(): Buffer {
 		const buf = new _.Writer();
 
 
@@ -183,11 +183,11 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 {{- else if .IsInternalType }}
 			this.{{.SnakeCase}}.Write(buf);
 {{- else if or .IsBytes .IsData }}
-			this.{{.SnakeCase}} = buf.read({{.Length}});
+			this.{{.SnakeCase}} = buf.read({{.Length}}, '{{.FieldGoType}}');
 {{- else if .Trimmable }}
 			this.{{.SnakeCase}} = bytes.Trim(this.{{.SnakeCase}}, "\x00");
 {{- else }}
-			read(buf, this.{{.SnakeCase}});
+			this.{{.SnakeCase}} = read(buf, '{{.FieldGoType}}');
 {{- end }}
 		}
 {{ end }}
@@ -229,7 +229,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 
 			const err = this.{{.SnakeCase}}.find((value) => {
 {{- if eq .Type "RejectionCode[]" }}
-				if (GetRejectionCode(value) === null) {
+				if (Resources.GetRejectionCode(value) === null) {
 					return sprintf('Invalid rejection code value : %d', this.{{.SnakeCase}});
 				};
 {{- else if eq .Type "Role[]" }}
@@ -241,7 +241,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 					return sprintf('Invalid currency value : %d', this.{{.SnakeCase}});
 				}
 {{- else if eq .Type "Polity[]" }}
-				if (GetPolityType(Buffer.from(value).toString('ascii')) === null) {
+				if (Resources.GetPolityType(Buffer.from(value).toString('ascii')) === null) {
 					return sprintf('Invalid polity value : %d', this.{{.SnakeCase}});
 				}
 {{- else if eq .Type "EntityType[]" }}
@@ -256,7 +256,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 			});
 			if (err) return err;
 {{- else if eq .Type "RejectionCode" }}
-			if (GetRejectionCode(this.{{.SnakeCase}}) === null) {
+			if (Resources.GetRejectionCode(this.{{.SnakeCase}}) === null) {
 				return sprintf('Invalid rejection code value : %d', this.{{.SnakeCase}});
 			}
 {{- else if eq .Type "Role" }}
@@ -268,7 +268,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 				return sprintf('Invalid currency value : %d', this.{{.SnakeCase}});
 			}
 {{- else if eq .Type "Polity" }}
-			if (GetPolityType(Buffer.from(this.{{.SnakeCase}}).toString('ascii') === null) {
+			if (Resources.GetPolityType(Buffer.from(this.{{.SnakeCase}}).toString('ascii') === null) {
 				return sprintf('Invalid polity value : %d', this.{{.SnakeCase}});
 			}
 {{- else if eq .Type "EntityType" }}

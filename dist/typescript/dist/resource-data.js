@@ -1,9 +1,10 @@
-
-export class Data {
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class Data {
+}
 // Currencies - International Organization for Standardization code for
 // Currency. 3 character code.
-	static yamlCurrencies = `
+Data.yamlCurrencies = `
   - code: AED
     name: UnitedArabEmiratesDirham
     label: United Arab Emirates dirham
@@ -1806,9 +1807,8 @@ export class Data {
       monetary_authority: Bank of Zambia
 
 `;
-
 // Entities - Legal Entities & Ownership Structures. 1 character.
-	static yamlEntities = `
+Data.yamlEntities = `
 
     - code: I
       name: Individual # (Natural Person)
@@ -2067,11 +2067,10 @@ export class Data {
             trader: []
 
 `;
-
 // Polities - Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3),
 // Political Unions, International Organizations, etc.). Based on a 3
 // character code.
-	static yamlPolities = `
+Data.yamlPolities = `
   - code: ALA
     name: Aaland Islands
     metadata:
@@ -3992,10 +3991,9 @@ export class Data {
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg"
 
 `;
-
 // Rejections - Code/Text combinations returned in rejection messages when
 // a request is not accepted.
-	static yamlRejections = `
+Data.yamlRejections = `
 
   - code: 0
     name: Success
@@ -4200,11 +4198,10 @@ export class Data {
     description: The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.
 
 `;
-
 // Roles - Roles that entities play in relation to their interactions with
 // other entities. These roles have widely-accepted tasks, rights and
 // duties.
-	static yamlRoles = `
+Data.yamlRoles = `
   - code: 1
     label: Accountant
 
@@ -4295,10 +4292,9 @@ export class Data {
     label: Unit Holder
 
 `;
-
 // Tags - Predefined tags for output metadata. Multiple values can be
 // assigned to an output to describe a tx output.
-	static yamlTags = `
+Data.yamlTags = `
   - code: 1
     label: Housing
 
@@ -4387,5 +4383,4 @@ export class Data {
     label: Promotional
 
 `;
-
-}
+exports.Data = Data;
