@@ -15,7 +15,7 @@ func Compile(
 ) {
 	templateToFile(distPath, "actions.tpl", "actions.ts", actions)
 	templateToFile(distPath, "field_types.tpl", "field_types.ts", types)
-	templateToFile(distPath, "resources.tpl", "resources.ts", resources)
+	templateToFile(distPath, "resource-data.tpl", "resource-data.ts", resources)
 }
 
 func templateToFile(distPath, tplFile, tsFile string, data interface{}) {

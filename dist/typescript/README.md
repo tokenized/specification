@@ -1,4 +1,4 @@
-# Tokenized
+# Tokenized Typescript
 
 ***Warning*** - This library is new and changing rapidly.
 
