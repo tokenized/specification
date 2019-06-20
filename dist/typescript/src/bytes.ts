@@ -2,9 +2,19 @@ import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 
 export const write = (buf: _.Writer, value, type: string) => {
-	// TODO handle arrays
+	const regex = /\[(\w+)\]/m;
+	let m;
+	if ((m = regex.exec(type)) !== null) {
+		console.log('m:',  m[1]);
+		const subtype = type.slice(m[0].length);
+		return value.map((v) => {
+			return write(buf, v, subtype);
+		});
+	}
+
 	switch (type) {
 		case 'bool': return buf.uint8(value? 1 : 0);
+		case 'byte': return buf.uint8(value);
 		case 'uint8': return buf.uint8(value);
 		case 'uint16': return buf.uint16le(value);
 		case 'uint32': return buf.uint32le(value);
@@ -17,10 +27,20 @@ export const write = (buf: _.Writer, value, type: string) => {
 //
 // This is useful for fixed size types such as int, float etc.
 export const read = (buf: _.Reader, type: string) => {
-	// TODO handle arrays
+	const regex = /\[(\w+)\]/m;
+	let m;
+	if ((m = regex.exec(type)) !== null) {
+		console.log('m:',  m[1]);
+		const subtype = type.slice(m[0].length);
+		return [...Array(parseInt(m[1]))].map(() => {
+			return read(buf, subtype);
+		});
+	}
+
 	switch (type) {
 		case 'bool': return buf.uint8();
 		case 'uint8': return buf.uint8();
+		case 'byte': return buf.uint8();
 		case 'uint16': return buf.uint16le();
 		case 'uint32': return buf.uint32le();
 		case 'uint64': return buf.uint64le();
