@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sprintf_js_1 = require("sprintf-js");
 const util_1 = __importDefault(require("@keyring/util"));
 const bytes_1 = require("./bytes");
+const protocol_types_1 = require("../src/protocol_types");
 const field_types_1 = require("./field_types");
 const resources_1 = require("./resources");
 var ActionCode;
@@ -218,7 +219,7 @@ class AssetDefinition {
     }
     // write populates the fields in AssetDefinition from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // asset_type (string)
         {
             this.asset_type = bytes_1.ReadFixedChar(buf, 3);
@@ -440,13 +441,14 @@ class AssetCreation {
     }
     // write populates the fields in AssetCreation from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // asset_type (string)
         {
             this.asset_type = bytes_1.ReadFixedChar(buf, 3);
         }
         // asset_code (AssetCode)
         {
+            this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // asset_index (uint64)
@@ -505,6 +507,7 @@ class AssetCreation {
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -653,13 +656,14 @@ class AssetModification {
     }
     // write populates the fields in AssetModification from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // asset_type (string)
         {
             this.asset_type = bytes_1.ReadFixedChar(buf, 3);
         }
         // asset_code (AssetCode)
         {
+            this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // asset_revision (uint32)
@@ -679,6 +683,7 @@ class AssetModification {
         }
         // ref_tx_id (TxId)
         {
+            this.ref_tx_id = new protocol_types_1.TxId();
             this.ref_tx_id.Write(buf);
         }
         return b.length - buf.length;
@@ -850,7 +855,7 @@ class ContractOffer {
     }
     // write populates the fields in ContractOffer from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // contract_name (string)
         {
             this.contract_name = bytes_1.ReadVarChar(buf, 8);
@@ -888,6 +893,7 @@ class ContractOffer {
         }
         // contract_expiration (Timestamp)
         {
+            this.contract_expiration = new protocol_types_1.Timestamp();
             this.contract_expiration.Write(buf);
         }
         // contract_uri (string)
@@ -896,6 +902,7 @@ class ContractOffer {
         }
         // issuer (Entity)
         {
+            this.issuer = new field_types_1.Entity();
             this.issuer.Write(buf);
         }
         // issuer_logo_url (string)
@@ -908,6 +915,7 @@ class ContractOffer {
         }
         // contract_operator (Entity)
         if (this.contract_operator_included) {
+            this.contract_operator = new field_types_1.Entity();
             this.contract_operator.Write(buf);
         }
         // contract_auth_flags ([]byte)
@@ -954,6 +962,7 @@ class ContractOffer {
         }
         // master_pkh (PublicKeyHash)
         {
+            this.master_pkh = new protocol_types_1.PublicKeyHash();
             this.master_pkh.Write(buf);
         }
         return b.length - buf.length;
@@ -1246,7 +1255,7 @@ class ContractFormation {
     }
     // write populates the fields in ContractFormation from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // contract_name (string)
         {
             this.contract_name = bytes_1.ReadVarChar(buf, 8);
@@ -1284,6 +1293,7 @@ class ContractFormation {
         }
         // contract_expiration (Timestamp)
         {
+            this.contract_expiration = new protocol_types_1.Timestamp();
             this.contract_expiration.Write(buf);
         }
         // contract_uri (string)
@@ -1292,6 +1302,7 @@ class ContractFormation {
         }
         // issuer (Entity)
         {
+            this.issuer = new field_types_1.Entity();
             this.issuer.Write(buf);
         }
         // issuer_logo_url (string)
@@ -1304,6 +1315,7 @@ class ContractFormation {
         }
         // contract_operator (Entity)
         if (this.contract_operator_included) {
+            this.contract_operator = new field_types_1.Entity();
             this.contract_operator.Write(buf);
         }
         // contract_auth_flags ([]byte)
@@ -1350,6 +1362,7 @@ class ContractFormation {
         }
         // master_pkh (PublicKeyHash)
         {
+            this.master_pkh = new protocol_types_1.PublicKeyHash();
             this.master_pkh.Write(buf);
         }
         // contract_revision (uint32)
@@ -1358,6 +1371,7 @@ class ContractFormation {
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -1582,7 +1596,7 @@ class ContractAmendment {
     }
     // write populates the fields in ContractAmendment from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // change_administration_address (bool)
         {
             this.change_administration_address = bytes_1.read(buf, 'bool');
@@ -1608,6 +1622,7 @@ class ContractAmendment {
         }
         // ref_tx_id (TxId)
         {
+            this.ref_tx_id = new protocol_types_1.TxId();
             this.ref_tx_id.Write(buf);
         }
         return b.length - buf.length;
@@ -1736,13 +1751,14 @@ class StaticContractFormation {
     }
     // write populates the fields in StaticContractFormation from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // contract_name (string)
         {
             this.contract_name = bytes_1.ReadVarChar(buf, 8);
         }
         // contract_code (ContractCode)
         {
+            this.contract_code = new protocol_types_1.ContractCode();
             this.contract_code.Write(buf);
         }
         // body_of_agreement_type (uint8)
@@ -1782,10 +1798,12 @@ class StaticContractFormation {
         }
         // effective_date (Timestamp)
         {
+            this.effective_date = new protocol_types_1.Timestamp();
             this.effective_date.Write(buf);
         }
         // contract_expiration (Timestamp)
         {
+            this.contract_expiration = new protocol_types_1.Timestamp();
             this.contract_expiration.Write(buf);
         }
         // contract_uri (string)
@@ -1794,6 +1812,7 @@ class StaticContractFormation {
         }
         // prev_rev_tx_id (TxId)
         {
+            this.prev_rev_tx_id = new protocol_types_1.TxId();
             this.prev_rev_tx_id.Write(buf);
         }
         // entities ([]Entity)
@@ -1959,13 +1978,15 @@ class ContractAddressChange {
     }
     // write populates the fields in ContractAddressChange from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // new_contract_pkh (PublicKeyHash)
         {
+            this.new_contract_pkh = new protocol_types_1.PublicKeyHash();
             this.new_contract_pkh.Write(buf);
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -2085,7 +2106,7 @@ class Order {
     }
     // write populates the fields in Order from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // compliance_action (byte)
         {
             this.compliance_action = bytes_1.read(buf, 'byte');
@@ -2096,6 +2117,7 @@ class Order {
         }
         // asset_code (AssetCode)
         if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+            this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // target_addresses ([]TargetAddress)
@@ -2111,14 +2133,17 @@ class Order {
         }
         // freeze_tx_id (TxId)
         if (this.compliance_action === 'T') {
+            this.freeze_tx_id = new protocol_types_1.TxId();
             this.freeze_tx_id.Write(buf);
         }
         // freeze_period (Timestamp)
         if (this.compliance_action === 'F') {
+            this.freeze_period = new protocol_types_1.Timestamp();
             this.freeze_period.Write(buf);
         }
         // deposit_address (PublicKeyHash)
         if (this.compliance_action === 'C') {
+            this.deposit_address = new protocol_types_1.PublicKeyHash();
             this.deposit_address.Write(buf);
         }
         // authority_included (bool)
@@ -2359,13 +2384,14 @@ class Freeze {
     }
     // write populates the fields in Freeze from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // asset_type (string)
         {
             this.asset_type = bytes_1.ReadFixedChar(buf, 3);
         }
         // asset_code (AssetCode)
         {
+            this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // quantities ([]QuantityIndex)
@@ -2381,10 +2407,12 @@ class Freeze {
         }
         // freeze_period (Timestamp)
         {
+            this.freeze_period = new protocol_types_1.Timestamp();
             this.freeze_period.Write(buf);
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -2471,13 +2499,15 @@ class Thaw {
     }
     // write populates the fields in Thaw from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // freeze_tx_id (TxId)
         {
+            this.freeze_tx_id = new protocol_types_1.TxId();
             this.freeze_tx_id.Write(buf);
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -2550,13 +2580,14 @@ class Confiscation {
     }
     // write populates the fields in Confiscation from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // asset_type (string)
         {
             this.asset_type = bytes_1.ReadFixedChar(buf, 3);
         }
         // asset_code (AssetCode)
         {
+            this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // quantities ([]QuantityIndex)
@@ -2576,6 +2607,7 @@ class Confiscation {
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -2669,13 +2701,14 @@ class Reconciliation {
     }
     // write populates the fields in Reconciliation from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // asset_type (string)
         {
             this.asset_type = bytes_1.ReadFixedChar(buf, 3);
         }
         // asset_code (AssetCode)
         {
+            this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // quantities ([]QuantityIndex)
@@ -2691,6 +2724,7 @@ class Reconciliation {
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -2814,7 +2848,7 @@ class Proposal {
     }
     // write populates the fields in Proposal from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // initiator (uint8)
         {
             this.initiator = bytes_1.read(buf, 'uint8');
@@ -2829,6 +2863,7 @@ class Proposal {
         }
         // asset_code (AssetCode)
         if (this.asset_specific_vote) {
+            this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // vote_system (uint8)
@@ -2868,6 +2903,7 @@ class Proposal {
         }
         // vote_cut_off_timestamp (Timestamp)
         {
+            this.vote_cut_off_timestamp = new protocol_types_1.Timestamp();
             this.vote_cut_off_timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -2985,9 +3021,10 @@ class Vote {
     }
     // write populates the fields in Vote from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -3038,9 +3075,10 @@ class BallotCast {
     }
     // write populates the fields in BallotCast from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // vote_tx_id (TxId)
         {
+            this.vote_tx_id = new protocol_types_1.TxId();
             this.vote_tx_id.Write(buf);
         }
         // vote (string)
@@ -3111,9 +3149,10 @@ class BallotCounted {
     }
     // write populates the fields in BallotCounted from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // vote_tx_id (TxId)
         {
+            this.vote_tx_id = new protocol_types_1.TxId();
             this.vote_tx_id.Write(buf);
         }
         // vote (string)
@@ -3126,6 +3165,7 @@ class BallotCounted {
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -3230,7 +3270,7 @@ class Result {
     }
     // write populates the fields in Result from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // asset_specific_vote (bool)
         {
             this.asset_specific_vote = bytes_1.read(buf, 'bool');
@@ -3241,6 +3281,7 @@ class Result {
         }
         // asset_code (AssetCode)
         if (this.asset_specific_vote) {
+            this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // specific (bool)
@@ -3260,6 +3301,7 @@ class Result {
         }
         // vote_tx_id (TxId)
         {
+            this.vote_tx_id = new protocol_types_1.TxId();
             this.vote_tx_id.Write(buf);
         }
         // option_tally ([]uint64)
@@ -3274,6 +3316,7 @@ class Result {
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -3397,7 +3440,7 @@ class Message {
     }
     // write populates the fields in Message from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // address_indexes ([]uint16)
         {
             const size = bytes_1.ReadVariableSize(buf, 8, 8);
@@ -3493,7 +3536,7 @@ class Rejection {
     }
     // write populates the fields in Rejection from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // address_indexes ([]uint16)
         {
             const size = bytes_1.ReadVariableSize(buf, 8, 8);
@@ -3514,6 +3557,7 @@ class Rejection {
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;
@@ -3583,7 +3627,7 @@ class Establishment {
     }
     // write populates the fields in Establishment from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // message (string)
         {
             this.message = bytes_1.ReadVarChar(buf, 32);
@@ -3630,7 +3674,7 @@ class Addition {
     }
     // write populates the fields in Addition from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // message (string)
         {
             this.message = bytes_1.ReadVarChar(buf, 32);
@@ -3681,9 +3725,10 @@ class Alteration {
     }
     // write populates the fields in Alteration from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // entry_tx_id (TxId)
         {
+            this.entry_tx_id = new protocol_types_1.TxId();
             this.entry_tx_id.Write(buf);
         }
         // message (string)
@@ -3743,9 +3788,10 @@ class Removal {
     }
     // write populates the fields in Removal from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // entry_tx_id (TxId)
         {
+            this.entry_tx_id = new protocol_types_1.TxId();
             this.entry_tx_id.Write(buf);
         }
         // message (string)
@@ -3824,7 +3870,7 @@ class Transfer {
     }
     // write populates the fields in Transfer from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // assets ([]AssetTransfer)
         {
             // IsInternalTypeArray
@@ -3838,6 +3884,7 @@ class Transfer {
         }
         // offer_expiry (Timestamp)
         {
+            this.offer_expiry = new protocol_types_1.Timestamp();
             this.offer_expiry.Write(buf);
         }
         // exchange_fee (uint64)
@@ -3846,6 +3893,7 @@ class Transfer {
         }
         // exchange_fee_address (PublicKeyHash)
         {
+            this.exchange_fee_address = new protocol_types_1.PublicKeyHash();
             this.exchange_fee_address.Write(buf);
         }
         return b.length - buf.length;
@@ -3923,7 +3971,7 @@ class Settlement {
     }
     // write populates the fields in Settlement from the byte slice
     write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // assets ([]AssetSettlement)
         {
             // IsInternalTypeArray
@@ -3937,6 +3985,7 @@ class Settlement {
         }
         // timestamp (Timestamp)
         {
+            this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
         return b.length - buf.length;

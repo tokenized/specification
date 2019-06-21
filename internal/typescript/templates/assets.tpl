@@ -105,7 +105,7 @@ export class {{.Name}} implements AssetPayload {
 
 	// Write populates the fields in {{.Name}} from the byte slice
 	Write(b: Buffer): number {
-		const buf = new Buffer(b);
+		const buf = new _.Reader(b);
 	{{- range $f, $field := .Fields}}
 
 		// {{.Name}} ({{.FieldGoType}})

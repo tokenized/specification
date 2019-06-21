@@ -8,6 +8,7 @@ import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
 	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
+import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
 	QuantityIndex, AssetTransfer, AssetSettlement } from './field_types';
 import { Resources } from './resources';
@@ -144,8 +145,8 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 	}
 
 	// write populates the fields in {{.Name}} from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 
 {{- range $f, $field := .PayloadFields }}
 		// {{.SnakeCase}} ({{.FieldGoType}})
@@ -181,6 +182,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 			const type = '{{.FieldGoType}}'.slice(2);
 			this.{{.SnakeCase}} = [...Array(size)].map(() => read(buf, type));
 {{- else if .IsInternalType }}
+			this.{{ $field.SnakeCase }} = new {{.FieldGoType}}();
 			this.{{.SnakeCase}}.Write(buf);
 {{- else if or .IsBytes .IsData }}
 			this.{{.SnakeCase}} = buf.read({{.Length}}, '{{.FieldGoType}}');

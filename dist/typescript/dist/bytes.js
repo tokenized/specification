@@ -2,9 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sprintf_js_1 = require("sprintf-js");
 exports.write = (buf, value, type) => {
-    // TODO handle arrays
+    const regex = /\[(\w+)\]/m;
+    let m;
+    if ((m = regex.exec(type)) !== null) {
+        console.log('m:', m[1]);
+        const subtype = type.slice(m[0].length);
+        return value.map((v) => {
+            return exports.write(buf, v, subtype);
+        });
+    }
     switch (type) {
         case 'bool': return buf.uint8(value ? 1 : 0);
+        case 'byte': return buf.uint8(value);
         case 'uint8': return buf.uint8(value);
         case 'uint16': return buf.uint16le(value);
         case 'uint32': return buf.uint32le(value);
@@ -16,10 +25,19 @@ exports.write = (buf, value, type) => {
 //
 // This is useful for fixed size types such as int, float etc.
 exports.read = (buf, type) => {
-    // TODO handle arrays
+    const regex = /\[(\w+)\]/m;
+    let m;
+    if ((m = regex.exec(type)) !== null) {
+        console.log('m:', m[1]);
+        const subtype = type.slice(m[0].length);
+        return [...Array(parseInt(m[1], 10))].map(() => {
+            return exports.read(buf, subtype);
+        });
+    }
     switch (type) {
         case 'bool': return buf.uint8();
         case 'uint8': return buf.uint8();
+        case 'byte': return buf.uint8();
         case 'uint16': return buf.uint16le();
         case 'uint32': return buf.uint32le();
         case 'uint64': return buf.uint64le();
@@ -31,17 +49,19 @@ exports.WriteFixedChar = (buf, value, size) => {
     if (v.length > size) {
         throw new Error(`FixedChar too long ${value.length} > ${size}`);
     }
-    buf.Write(v);
+    buf.write(v);
     // Pad with zeroes
     if (v.length < size) {
-        buf.Write(Buffer.alloc(size - v.length));
+        buf.write(Buffer.alloc(size - v.length));
     }
     return;
 };
 // WriteVarBin writes a variable binary value
 exports.WriteVarBin = (buf, value, sizeBits) => {
-    exports.WriteVariableSize(buf, value.length, sizeBits, 0);
-    buf.write(value);
+    console.log('WriteVarBin ', value);
+    const v = Buffer.from(value);
+    exports.WriteVariableSize(buf, v.length, sizeBits, 0);
+    buf.write(v);
     return;
 };
 // WriteVariableSize writes a size/length to the buffer using the specified size unsigned integer.

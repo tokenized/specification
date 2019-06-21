@@ -93,7 +93,7 @@ class Coupon {
     }
     // Write populates the fields in Coupon from the byte slice
     Write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // Version (uint8)
         {
             this.version = bytes_1.read(buf, 'uint8');
@@ -217,7 +217,7 @@ class Currency {
     }
     // Write populates the fields in Currency from the byte slice
     Write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // Version (uint8)
         {
             this.version = bytes_1.read(buf, 'uint8');
@@ -317,7 +317,7 @@ class LoyaltyPoints {
     }
     // Write populates the fields in LoyaltyPoints from the byte slice
     Write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // Version (uint8)
         {
             this.version = bytes_1.read(buf, 'uint8');
@@ -454,7 +454,7 @@ class Membership {
     }
     // Write populates the fields in Membership from the byte slice
     Write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // Version (uint8)
         {
             this.version = bytes_1.read(buf, 'uint8');
@@ -608,7 +608,7 @@ class ShareCommon {
     }
     // Write populates the fields in ShareCommon from the byte slice
     Write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // Version (uint8)
         {
             this.version = bytes_1.read(buf, 'uint8');
@@ -740,7 +740,7 @@ class TicketAdmission {
     }
     // Write populates the fields in TicketAdmission from the byte slice
     Write(b) {
-        const buf = new Buffer(b);
+        const buf = new util_1.default.Reader(b);
         // Version (uint8)
         {
             this.version = bytes_1.read(buf, 'uint8');

@@ -8,6 +8,7 @@ import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
 	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
+import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
 	QuantityIndex, AssetTransfer, AssetSettlement } from './field_types';
 import { Resources } from './resources';
@@ -317,8 +318,8 @@ export class AssetDefinition  {
 	}
 
 	// write populates the fields in AssetDefinition from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// asset_type (string)
 		{
 			this.asset_type = ReadFixedChar(buf, 3);
@@ -653,8 +654,8 @@ export class AssetCreation  {
 	}
 
 	// write populates the fields in AssetCreation from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// asset_type (string)
 		{
 			this.asset_type = ReadFixedChar(buf, 3);
@@ -662,6 +663,7 @@ export class AssetCreation  {
 
 		// asset_code (AssetCode)
 		{
+			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
@@ -734,6 +736,7 @@ export class AssetCreation  {
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -928,8 +931,8 @@ export class AssetModification  {
 	}
 
 	// write populates the fields in AssetModification from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// asset_type (string)
 		{
 			this.asset_type = ReadFixedChar(buf, 3);
@@ -937,6 +940,7 @@ export class AssetModification  {
 
 		// asset_code (AssetCode)
 		{
+			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
@@ -960,6 +964,7 @@ export class AssetModification  {
 
 		// ref_tx_id (TxId)
 		{
+			this.ref_tx_id = new TxId();
 			this.ref_tx_id.Write(buf);
 		}
 
@@ -1244,8 +1249,8 @@ export class ContractOffer  {
 	}
 
 	// write populates the fields in ContractOffer from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// contract_name (string)
 		{
 			this.contract_name = ReadVarChar(buf, 8);
@@ -1291,6 +1296,7 @@ export class ContractOffer  {
 
 		// contract_expiration (Timestamp)
 		{
+			this.contract_expiration = new Timestamp();
 			this.contract_expiration.Write(buf);
 		}
 
@@ -1301,6 +1307,7 @@ export class ContractOffer  {
 
 		// issuer (Entity)
 		{
+			this.issuer = new Entity();
 			this.issuer.Write(buf);
 		}
 
@@ -1316,6 +1323,7 @@ export class ContractOffer  {
 
 		// contract_operator (Entity)
 		if (this.contract_operator_included) {
+			this.contract_operator = new Entity();
 			this.contract_operator.Write(buf);
 		}
 
@@ -1372,6 +1380,7 @@ export class ContractOffer  {
 
 		// master_pkh (PublicKeyHash)
 		{
+			this.master_pkh = new PublicKeyHash();
 			this.master_pkh.Write(buf);
 		}
 
@@ -1800,8 +1809,8 @@ export class ContractFormation  {
 	}
 
 	// write populates the fields in ContractFormation from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// contract_name (string)
 		{
 			this.contract_name = ReadVarChar(buf, 8);
@@ -1847,6 +1856,7 @@ export class ContractFormation  {
 
 		// contract_expiration (Timestamp)
 		{
+			this.contract_expiration = new Timestamp();
 			this.contract_expiration.Write(buf);
 		}
 
@@ -1857,6 +1867,7 @@ export class ContractFormation  {
 
 		// issuer (Entity)
 		{
+			this.issuer = new Entity();
 			this.issuer.Write(buf);
 		}
 
@@ -1872,6 +1883,7 @@ export class ContractFormation  {
 
 		// contract_operator (Entity)
 		if (this.contract_operator_included) {
+			this.contract_operator = new Entity();
 			this.contract_operator.Write(buf);
 		}
 
@@ -1928,6 +1940,7 @@ export class ContractFormation  {
 
 		// master_pkh (PublicKeyHash)
 		{
+			this.master_pkh = new PublicKeyHash();
 			this.master_pkh.Write(buf);
 		}
 
@@ -1938,6 +1951,7 @@ export class ContractFormation  {
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -2218,8 +2232,8 @@ export class ContractAmendment  {
 	}
 
 	// write populates the fields in ContractAmendment from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// change_administration_address (bool)
 		{
 			this.change_administration_address = read(buf, 'bool');
@@ -2250,6 +2264,7 @@ export class ContractAmendment  {
 
 		// ref_tx_id (TxId)
 		{
+			this.ref_tx_id = new TxId();
 			this.ref_tx_id.Write(buf);
 		}
 
@@ -2462,8 +2477,8 @@ export class StaticContractFormation  {
 	}
 
 	// write populates the fields in StaticContractFormation from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// contract_name (string)
 		{
 			this.contract_name = ReadVarChar(buf, 8);
@@ -2471,6 +2486,7 @@ export class StaticContractFormation  {
 
 		// contract_code (ContractCode)
 		{
+			this.contract_code = new ContractCode();
 			this.contract_code.Write(buf);
 		}
 
@@ -2519,11 +2535,13 @@ export class StaticContractFormation  {
 
 		// effective_date (Timestamp)
 		{
+			this.effective_date = new Timestamp();
 			this.effective_date.Write(buf);
 		}
 
 		// contract_expiration (Timestamp)
 		{
+			this.contract_expiration = new Timestamp();
 			this.contract_expiration.Write(buf);
 		}
 
@@ -2534,6 +2552,7 @@ export class StaticContractFormation  {
 
 		// prev_rev_tx_id (TxId)
 		{
+			this.prev_rev_tx_id = new TxId();
 			this.prev_rev_tx_id.Write(buf);
 		}
 
@@ -2731,15 +2750,17 @@ export class ContractAddressChange  {
 	}
 
 	// write populates the fields in ContractAddressChange from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// new_contract_pkh (PublicKeyHash)
 		{
+			this.new_contract_pkh = new PublicKeyHash();
 			this.new_contract_pkh.Write(buf);
 		}
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -2946,8 +2967,8 @@ export class Order  {
 	}
 
 	// write populates the fields in Order from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// compliance_action (byte)
 		{
 			this.compliance_action = read(buf, 'byte');
@@ -2960,6 +2981,7 @@ export class Order  {
 
 		// asset_code (AssetCode)
 		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
@@ -2978,16 +3000,19 @@ export class Order  {
 
 		// freeze_tx_id (TxId)
 		if ( this.compliance_action === 'T') {
+			this.freeze_tx_id = new TxId();
 			this.freeze_tx_id.Write(buf);
 		}
 
 		// freeze_period (Timestamp)
 		if ( this.compliance_action === 'F') {
+			this.freeze_period = new Timestamp();
 			this.freeze_period.Write(buf);
 		}
 
 		// deposit_address (PublicKeyHash)
 		if ( this.compliance_action === 'C') {
+			this.deposit_address = new PublicKeyHash();
 			this.deposit_address.Write(buf);
 		}
 
@@ -3287,8 +3312,8 @@ export class Freeze  {
 	}
 
 	// write populates the fields in Freeze from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// asset_type (string)
 		{
 			this.asset_type = ReadFixedChar(buf, 3);
@@ -3296,6 +3321,7 @@ export class Freeze  {
 
 		// asset_code (AssetCode)
 		{
+			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
@@ -3314,11 +3340,13 @@ export class Freeze  {
 
 		// freeze_period (Timestamp)
 		{
+			this.freeze_period = new Timestamp();
 			this.freeze_period.Write(buf);
 		}
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -3426,15 +3454,17 @@ export class Thaw  {
 	}
 
 	// write populates the fields in Thaw from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// freeze_tx_id (TxId)
 		{
+			this.freeze_tx_id = new TxId();
 			this.freeze_tx_id.Write(buf);
 		}
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -3537,8 +3567,8 @@ export class Confiscation  {
 	}
 
 	// write populates the fields in Confiscation from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// asset_type (string)
 		{
 			this.asset_type = ReadFixedChar(buf, 3);
@@ -3546,6 +3576,7 @@ export class Confiscation  {
 
 		// asset_code (AssetCode)
 		{
+			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
@@ -3569,6 +3600,7 @@ export class Confiscation  {
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -3692,8 +3724,8 @@ export class Reconciliation  {
 	}
 
 	// write populates the fields in Reconciliation from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// asset_type (string)
 		{
 			this.asset_type = ReadFixedChar(buf, 3);
@@ -3701,6 +3733,7 @@ export class Reconciliation  {
 
 		// asset_code (AssetCode)
 		{
+			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
@@ -3719,6 +3752,7 @@ export class Reconciliation  {
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -3911,8 +3945,8 @@ export class Proposal  {
 	}
 
 	// write populates the fields in Proposal from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// initiator (uint8)
 		{
 			this.initiator = read(buf, 'uint8');
@@ -3930,6 +3964,7 @@ export class Proposal  {
 
 		// asset_code (AssetCode)
 		if (this.asset_specific_vote) {
+			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
@@ -3978,6 +4013,7 @@ export class Proposal  {
 
 		// vote_cut_off_timestamp (Timestamp)
 		{
+			this.vote_cut_off_timestamp = new Timestamp();
 			this.vote_cut_off_timestamp.Write(buf);
 		}
 
@@ -4121,10 +4157,11 @@ export class Vote  {
 	}
 
 	// write populates the fields in Vote from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -4196,10 +4233,11 @@ export class BallotCast  {
 	}
 
 	// write populates the fields in BallotCast from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// vote_tx_id (TxId)
 		{
+			this.vote_tx_id = new TxId();
 			this.vote_tx_id.Write(buf);
 		}
 
@@ -4301,10 +4339,11 @@ export class BallotCounted  {
 	}
 
 	// write populates the fields in BallotCounted from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// vote_tx_id (TxId)
 		{
+			this.vote_tx_id = new TxId();
 			this.vote_tx_id.Write(buf);
 		}
 
@@ -4320,6 +4359,7 @@ export class BallotCounted  {
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -4481,8 +4521,8 @@ export class Result  {
 	}
 
 	// write populates the fields in Result from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// asset_specific_vote (bool)
 		{
 			this.asset_specific_vote = read(buf, 'bool');
@@ -4495,6 +4535,7 @@ export class Result  {
 
 		// asset_code (AssetCode)
 		if (this.asset_specific_vote) {
+			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
@@ -4518,6 +4559,7 @@ export class Result  {
 
 		// vote_tx_id (TxId)
 		{
+			this.vote_tx_id = new TxId();
 			this.vote_tx_id.Write(buf);
 		}
 
@@ -4535,6 +4577,7 @@ export class Result  {
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -4689,8 +4732,8 @@ export class Message  {
 	}
 
 	// write populates the fields in Message from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// address_indexes ([]uint16)
 		{
 			const size = ReadVariableSize(buf, 8, 8);
@@ -4819,8 +4862,8 @@ export class Rejection  {
 	}
 
 	// write populates the fields in Rejection from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// address_indexes ([]uint16)
 		{
 			const size = ReadVariableSize(buf, 8, 8);
@@ -4845,6 +4888,7 @@ export class Rejection  {
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 
@@ -4932,8 +4976,8 @@ export class Establishment  {
 	}
 
 	// write populates the fields in Establishment from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// message (string)
 		{
 			this.message = ReadVarChar(buf, 32);
@@ -4994,8 +5038,8 @@ export class Addition  {
 	}
 
 	// write populates the fields in Addition from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// message (string)
 		{
 			this.message = ReadVarChar(buf, 32);
@@ -5063,10 +5107,11 @@ export class Alteration  {
 	}
 
 	// write populates the fields in Alteration from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// entry_tx_id (TxId)
 		{
+			this.entry_tx_id = new TxId();
 			this.entry_tx_id.Write(buf);
 		}
 
@@ -5145,10 +5190,11 @@ export class Removal  {
 	}
 
 	// write populates the fields in Removal from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// entry_tx_id (TxId)
 		{
+			this.entry_tx_id = new TxId();
 			this.entry_tx_id.Write(buf);
 		}
 
@@ -5255,8 +5301,8 @@ export class Transfer  {
 	}
 
 	// write populates the fields in Transfer from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// assets ([]AssetTransfer)
 		{
 			// IsInternalTypeArray
@@ -5272,6 +5318,7 @@ export class Transfer  {
 
 		// offer_expiry (Timestamp)
 		{
+			this.offer_expiry = new Timestamp();
 			this.offer_expiry.Write(buf);
 		}
 
@@ -5282,6 +5329,7 @@ export class Transfer  {
 
 		// exchange_fee_address (PublicKeyHash)
 		{
+			this.exchange_fee_address = new PublicKeyHash();
 			this.exchange_fee_address.Write(buf);
 		}
 
@@ -5379,8 +5427,8 @@ export class Settlement  {
 	}
 
 	// write populates the fields in Settlement from the byte slice
-	write(b: _.Writer): number {
-		const buf = new Buffer(b);
+	write(b: Buffer): number {
+		const buf = new _.Reader(b);
 		// assets ([]AssetSettlement)
 		{
 			// IsInternalTypeArray
@@ -5396,6 +5444,7 @@ export class Settlement  {
 
 		// timestamp (Timestamp)
 		{
+			this.timestamp = new Timestamp();
 			this.timestamp.Write(buf);
 		}
 

@@ -32,7 +32,7 @@ export const read = (buf: _.Reader, type: string) => {
 	if ((m = regex.exec(type)) !== null) {
 		console.log('m:',  m[1]);
 		const subtype = type.slice(m[0].length);
-		return [...Array(parseInt(m[1]))].map(() => {
+		return [...Array(parseInt(m[1], 10))].map(() => {
 			return read(buf, subtype);
 		});
 	}
@@ -49,23 +49,25 @@ export const read = (buf: _.Reader, type: string) => {
 };
 
 export const WriteFixedChar = (buf: _.Writer, value: string, size) => {
-	const v = Buffer.from(value, 'ascii');
+	const v = value ? Buffer.from(value, 'ascii') : Buffer.from([]);
 	if (v.length > size) {
 		throw new Error(`FixedChar too long ${value.length} > ${size}`);
 	}
-	buf.Write(v);
+	buf.write(v);
 
 	// Pad with zeroes
 	if (v.length < size) {
-		buf.Write(Buffer.alloc(size - v.length));
+		buf.write(Buffer.alloc(size - v.length));
 	}
 	return;
 };
 
 // WriteVarBin writes a variable binary value
 export const WriteVarBin = (buf: _.Writer, value, sizeBits: number) => {
-	WriteVariableSize(buf, value.length, sizeBits, 0);
-	buf.write(value);
+	console.log('WriteVarBin ', value);
+	const v = Buffer.from(value || []);
+	WriteVariableSize(buf, v.length, sizeBits, 0);
+	buf.write(v);
 	return;
 };
 
@@ -75,8 +77,9 @@ export const WriteVariableSize = (buf: _.Writer, size: number, sizeBits: number,
 	if (sizeBits === 0) {
 		sizeBits = defaultSizeBits;
 	}
-	if (size >= 2<<sizeBits) {
-		throw new Error(sprintf('Size beyond size bits limit (%d) : %d', (2<<sizeBits)-1, size));
+	console.log('WriteVariableSize sizeBits', sizeBits, (2**sizeBits)-1, size);
+	if (size >= 2**sizeBits) {
+		throw new Error(sprintf('Size beyond size bits limit (%d) : %d', (2**sizeBits)-1, size));
 	}
 
 	switch (sizeBits) {
@@ -95,7 +98,7 @@ export const WriteVariableSize = (buf: _.Writer, size: number, sizeBits: number,
 
 // WriteVarChar writes a variable character string
 export const WriteVarChar = (buf: _.Writer, value: string, sizeBits: number) => {
-	const v = Buffer.from(value, 'ascii');
+	const v = value ? Buffer.from(value, 'ascii') : Buffer.from([]);
 	WriteVariableSize(buf, v.length, sizeBits, 0);
 	buf.write(v);
 };

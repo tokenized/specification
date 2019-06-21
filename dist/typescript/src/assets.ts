@@ -146,7 +146,7 @@ export class Coupon implements AssetPayload {
 
 	// Write populates the fields in Coupon from the byte slice
 	Write(b: Buffer): number {
-		const buf = new Buffer(b);
+		const buf = new _.Reader(b);
 
 		// Version (uint8)
 		{
@@ -336,7 +336,7 @@ export class Currency implements AssetPayload {
 
 	// Write populates the fields in Currency from the byte slice
 	Write(b: Buffer): number {
-		const buf = new Buffer(b);
+		const buf = new _.Reader(b);
 
 		// Version (uint8)
 		{
@@ -493,7 +493,7 @@ export class LoyaltyPoints implements AssetPayload {
 
 	// Write populates the fields in LoyaltyPoints from the byte slice
 	Write(b: Buffer): number {
-		const buf = new Buffer(b);
+		const buf = new _.Reader(b);
 
 		// Version (uint8)
 		{
@@ -712,7 +712,7 @@ export class Membership implements AssetPayload {
 
 	// Write populates the fields in Membership from the byte slice
 	Write(b: Buffer): number {
-		const buf = new Buffer(b);
+		const buf = new _.Reader(b);
 
 		// Version (uint8)
 		{
@@ -944,7 +944,7 @@ export class ShareCommon implements AssetPayload {
 
 	// Write populates the fields in ShareCommon from the byte slice
 	Write(b: Buffer): number {
-		const buf = new Buffer(b);
+		const buf = new _.Reader(b);
 
 		// Version (uint8)
 		{
@@ -1158,7 +1158,7 @@ export class TicketAdmission implements AssetPayload {
 
 	// Write populates the fields in TicketAdmission from the byte slice
 	Write(b: Buffer): number {
-		const buf = new Buffer(b);
+		const buf = new _.Reader(b);
 
 		// Version (uint8)
 		{
