@@ -2037,34 +2037,34 @@ class Order {
             bytes_1.write(buf, this.compliance_action, 'byte');
         }
         // asset_type (string)
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             bytes_1.WriteFixedChar(buf, this.asset_type, 3);
         }
         // asset_code (AssetCode)
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             buf.write(this.asset_code.Serialize());
         }
         // target_addresses ([]TargetAddress)
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             bytes_1.WriteVariableSize(buf, this.target_addresses.length, 16, 8);
             this.target_addresses.forEach((value) => {
                 buf.write(value.Serialize());
             });
         }
         // freeze_tx_id (TxId)
-        if (this.compliance_action === 'T') {
+        if (this.compliance_action === bytes_1.char('T')) {
             buf.write(this.freeze_tx_id.Serialize());
         }
         // freeze_period (Timestamp)
-        if (this.compliance_action === 'F') {
+        if (this.compliance_action === bytes_1.char('F')) {
             buf.write(this.freeze_period.Serialize());
         }
         // deposit_address (PublicKeyHash)
-        if (this.compliance_action === 'C') {
+        if (this.compliance_action === bytes_1.char('C')) {
             buf.write(this.deposit_address.Serialize());
         }
         // authority_included (bool)
-        if (this.compliance_action === 'F' || this.compliance_action === 'T' || this.compliance_action === 'C') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('T') || this.compliance_action === bytes_1.char('C')) {
             bytes_1.write(buf, this.authority_included, 'bool');
         }
         // authority_name (string)
@@ -2088,11 +2088,11 @@ class Order {
             bytes_1.write(buf, this.supporting_evidence_hash, '[32]byte');
         }
         // ref_txs ([]byte)
-        if (this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('R')) {
             bytes_1.WriteVarBin(buf, this.ref_txs, 32);
         }
         // bitcoin_dispersions ([]QuantityIndex)
-        if (this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('R')) {
             bytes_1.WriteVariableSize(buf, this.bitcoin_dispersions.length, 16, 8);
             this.bitcoin_dispersions.forEach((value) => {
                 buf.write(value.Serialize());
@@ -2112,16 +2112,16 @@ class Order {
             this.compliance_action = bytes_1.read(buf, 'byte');
         }
         // asset_type (string)
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             this.asset_type = bytes_1.ReadFixedChar(buf, 3);
         }
         // asset_code (AssetCode)
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             this.asset_code = new protocol_types_1.AssetCode();
             this.asset_code.Write(buf);
         }
         // target_addresses ([]TargetAddress)
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             // IsInternalTypeArray
             const size = bytes_1.ReadVariableSize(buf, 16, 8);
             this.target_addresses = [];
@@ -2132,22 +2132,22 @@ class Order {
             }
         }
         // freeze_tx_id (TxId)
-        if (this.compliance_action === 'T') {
+        if (this.compliance_action === bytes_1.char('T')) {
             this.freeze_tx_id = new protocol_types_1.TxId();
             this.freeze_tx_id.Write(buf);
         }
         // freeze_period (Timestamp)
-        if (this.compliance_action === 'F') {
+        if (this.compliance_action === bytes_1.char('F')) {
             this.freeze_period = new protocol_types_1.Timestamp();
             this.freeze_period.Write(buf);
         }
         // deposit_address (PublicKeyHash)
-        if (this.compliance_action === 'C') {
+        if (this.compliance_action === bytes_1.char('C')) {
             this.deposit_address = new protocol_types_1.PublicKeyHash();
             this.deposit_address.Write(buf);
         }
         // authority_included (bool)
-        if (this.compliance_action === 'F' || this.compliance_action === 'T' || this.compliance_action === 'C') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('T') || this.compliance_action === bytes_1.char('C')) {
             this.authority_included = bytes_1.read(buf, 'bool');
         }
         // authority_name (string)
@@ -2171,11 +2171,11 @@ class Order {
             this.supporting_evidence_hash = bytes_1.read(buf, '[32]byte');
         }
         // ref_txs ([]byte)
-        if (this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('R')) {
             this.ref_txs = bytes_1.ReadVarBin(buf, 32);
         }
         // bitcoin_dispersions ([]QuantityIndex)
-        if (this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('R')) {
             // IsInternalTypeArray
             const size = bytes_1.ReadVariableSize(buf, 16, 8);
             this.bitcoin_dispersions = [];
@@ -2203,21 +2203,21 @@ class Order {
         }
         // AssetType (string)
         // IncludeIf.Field
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             if (this.asset_type.length > 3) {
                 return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
             }
         }
         // AssetCode (AssetCode)
         // IncludeIf.Field
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             const err = this.asset_code.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
         }
         // TargetAddresses ([]TargetAddress)
         // IncludeIf.Field
-        if (this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             if (this.target_addresses.length > (2 << 16) - 1) {
                 return sprintf_js_1.sprintf('list field target_addresses has too many items %d/%d', this.target_addresses.length, (2 << 16) - 1);
             }
@@ -2231,28 +2231,28 @@ class Order {
         }
         // FreezeTxId (TxId)
         // IncludeIf.Field
-        if (this.compliance_action === 'T') {
+        if (this.compliance_action === bytes_1.char('T')) {
             const err = this.freeze_tx_id.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field freeze_tx_id is invalid : %s', err);
         }
         // FreezePeriod (Timestamp)
         // IncludeIf.Field
-        if (this.compliance_action === 'F') {
+        if (this.compliance_action === bytes_1.char('F')) {
             const err = this.freeze_period.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field freeze_period is invalid : %s', err);
         }
         // DepositAddress (PublicKeyHash)
         // IncludeIf.Field
-        if (this.compliance_action === 'C') {
+        if (this.compliance_action === bytes_1.char('C')) {
             const err = this.deposit_address.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field deposit_address is invalid : %s', err);
         }
         // AuthorityIncluded (bool)
         // IncludeIf.Field
-        if (this.compliance_action === 'F' || this.compliance_action === 'T' || this.compliance_action === 'C') {
+        if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('T') || this.compliance_action === bytes_1.char('C')) {
         }
         // AuthorityName (string)
         // IncludeIfTrue
@@ -2287,14 +2287,14 @@ class Order {
         }
         // RefTxs ([]byte)
         // IncludeIf.Field
-        if (this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('R')) {
             if (this.ref_txs.length > (2 << 32) - 1) {
                 return sprintf_js_1.sprintf('varbin field ref_txs too long %d/%d', this.ref_txs.length, (2 << 32) - 1);
             }
         }
         // BitcoinDispersions ([]QuantityIndex)
         // IncludeIf.Field
-        if (this.compliance_action === 'R') {
+        if (this.compliance_action === bytes_1.char('R')) {
             if (this.bitcoin_dispersions.length > (2 << 16) - 1) {
                 return sprintf_js_1.sprintf('list field bitcoin_dispersions has too many items %d/%d', this.bitcoin_dispersions.length, (2 << 16) - 1);
             }

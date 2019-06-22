@@ -7,7 +7,7 @@
 import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
-	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
+	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin, char} from './bytes';
 import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
 	QuantityIndex, AssetTransfer, AssetSettlement } from './field_types';
@@ -108,7 +108,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 {{- else if ne (len $field.IncludeIfFalse) 0 }}
 		if (!this.{{ snakecase $field.IncludeIfFalse }}) {
 {{- else if ne (len $field.IncludeIf.Field) 0 }}
-		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{ snakecase $field.IncludeIf.Field}} === '{{ $include }}'{{ end }}) {
+		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{ snakecase $field.IncludeIf.Field}} === char('{{ $include }}'){{ end }}) {
 {{- else if ne (len $field.IncludeIfInt.Field) 0 }}
 		if ({{ range $j, $include := $field.IncludeIfInt.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{ snakecase $field.IncludeIfInt.Field}} === {{ $include }}{{ end }}) {
 {{- else }}
@@ -155,7 +155,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 {{- else if ne (len $field.IncludeIfFalse) 0 }}
 		if (!this.{{ snakecase $field.IncludeIfFalse }}) {
 {{- else if ne (len $field.IncludeIf.Field) 0 }}
-		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{ snakecase $field.IncludeIf.Field}} === '{{ $include }}'{{ end }}) {
+		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{ snakecase $field.IncludeIf.Field}} === char('{{ $include }}'){{ end }}) {
 {{- else if ne (len $field.IncludeIfInt.Field) 0 }}
 		if ({{ range $j, $include := $field.IncludeIfInt.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{ snakecase $field.IncludeIfInt.Field}} === {{ $include }}{{ end }}) {
 {{- else }}
@@ -208,7 +208,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 		if (!action.{{ snakecase $field.IncludeIfFalse }}) {
 {{- else if ne (len $field.IncludeIf.Field) 0 }}
 		// IncludeIf.Field
-		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIf.Field}} === '{{ $include }}'{{ end }}) {
+		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIf.Field}} === char('{{ $include }}'){{ end }}) {
 {{- else }}
 		{
 {{- end }}

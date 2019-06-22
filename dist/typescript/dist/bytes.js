@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sprintf_js_1 = require("sprintf-js");
+exports.char = (c) => {
+    return c.charCodeAt(0);
+};
 exports.write = (buf, value, type) => {
     const regex = /\[(\w+)\]/m;
     let m;
     if ((m = regex.exec(type)) !== null) {
-        console.log('m:', m[1]);
         const subtype = type.slice(m[0].length);
         return value.map((v) => {
             return exports.write(buf, v, subtype);
@@ -28,14 +30,13 @@ exports.read = (buf, type) => {
     const regex = /\[(\w+)\]/m;
     let m;
     if ((m = regex.exec(type)) !== null) {
-        console.log('m:', m[1]);
         const subtype = type.slice(m[0].length);
         return [...Array(parseInt(m[1], 10))].map(() => {
             return exports.read(buf, subtype);
         });
     }
     switch (type) {
-        case 'bool': return buf.uint8();
+        case 'bool': return buf.uint8() ? true : false;
         case 'uint8': return buf.uint8();
         case 'byte': return buf.uint8();
         case 'uint16': return buf.uint16le();
@@ -45,7 +46,7 @@ exports.read = (buf, type) => {
     }
 };
 exports.WriteFixedChar = (buf, value, size) => {
-    const v = Buffer.from(value, 'ascii');
+    const v = value ? Buffer.from(value, 'ascii') : Buffer.from([]);
     if (v.length > size) {
         throw new Error(`FixedChar too long ${value.length} > ${size}`);
     }
@@ -58,8 +59,7 @@ exports.WriteFixedChar = (buf, value, size) => {
 };
 // WriteVarBin writes a variable binary value
 exports.WriteVarBin = (buf, value, sizeBits) => {
-    console.log('WriteVarBin ', value);
-    const v = Buffer.from(value);
+    const v = Buffer.from(value || []);
     exports.WriteVariableSize(buf, v.length, sizeBits, 0);
     buf.write(v);
     return;
@@ -70,8 +70,8 @@ exports.WriteVariableSize = (buf, size, sizeBits, defaultSizeBits) => {
     if (sizeBits === 0) {
         sizeBits = defaultSizeBits;
     }
-    if (size >= 2 << sizeBits) {
-        throw new Error(sprintf_js_1.sprintf('Size beyond size bits limit (%d) : %d', (2 << sizeBits) - 1, size));
+    if (size >= Math.pow(2, sizeBits)) {
+        throw new Error(sprintf_js_1.sprintf('Size beyond size bits limit (%d) : %d', (Math.pow(2, sizeBits)) - 1, size));
     }
     switch (sizeBits) {
         case 8:
@@ -88,7 +88,7 @@ exports.WriteVariableSize = (buf, size, sizeBits, defaultSizeBits) => {
 };
 // WriteVarChar writes a variable character string
 exports.WriteVarChar = (buf, value, sizeBits) => {
-    const v = Buffer.from(value, 'ascii');
+    const v = value ? Buffer.from(value, 'ascii') : Buffer.from([]);
     exports.WriteVariableSize(buf, v.length, sizeBits, 0);
     buf.write(v);
 };

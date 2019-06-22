@@ -1,11 +1,14 @@
 import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 
+export const char = (c: string): number => {
+	return c.charCodeAt(0);
+};
+
 export const write = (buf: _.Writer, value, type: string) => {
 	const regex = /\[(\w+)\]/m;
 	let m;
 	if ((m = regex.exec(type)) !== null) {
-		console.log('m:',  m[1]);
 		const subtype = type.slice(m[0].length);
 		return value.map((v) => {
 			return write(buf, v, subtype);
@@ -30,7 +33,6 @@ export const read = (buf: _.Reader, type: string) => {
 	const regex = /\[(\w+)\]/m;
 	let m;
 	if ((m = regex.exec(type)) !== null) {
-		console.log('m:',  m[1]);
 		const subtype = type.slice(m[0].length);
 		return [...Array(parseInt(m[1], 10))].map(() => {
 			return read(buf, subtype);
@@ -38,7 +40,7 @@ export const read = (buf: _.Reader, type: string) => {
 	}
 
 	switch (type) {
-		case 'bool': return buf.uint8();
+		case 'bool': return buf.uint8()? true : false;
 		case 'uint8': return buf.uint8();
 		case 'byte': return buf.uint8();
 		case 'uint16': return buf.uint16le();
@@ -64,7 +66,6 @@ export const WriteFixedChar = (buf: _.Writer, value: string, size) => {
 
 // WriteVarBin writes a variable binary value
 export const WriteVarBin = (buf: _.Writer, value, sizeBits: number) => {
-	console.log('WriteVarBin ', value);
 	const v = Buffer.from(value || []);
 	WriteVariableSize(buf, v.length, sizeBits, 0);
 	buf.write(v);
@@ -77,7 +78,6 @@ export const WriteVariableSize = (buf: _.Writer, size: number, sizeBits: number,
 	if (sizeBits === 0) {
 		sizeBits = defaultSizeBits;
 	}
-	console.log('WriteVariableSize sizeBits', sizeBits, (2**sizeBits)-1, size);
 	if (size >= 2**sizeBits) {
 		throw new Error(sprintf('Size beyond size bits limit (%d) : %d', (2**sizeBits)-1, size));
 	}

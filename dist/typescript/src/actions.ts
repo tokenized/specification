@@ -7,7 +7,7 @@
 import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
-	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
+	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin, char} from './bytes';
 import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
 	QuantityIndex, AssetTransfer, AssetSettlement } from './field_types';
@@ -2883,17 +2883,17 @@ export class Order  {
 		}
 
 		// asset_type (string)
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			WriteFixedChar(buf, this.asset_type, 3);
 		}
 
 		// asset_code (AssetCode)
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			buf.write(this.asset_code.Serialize());
 		}
 
 		// target_addresses ([]TargetAddress)
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			WriteVariableSize(buf, this.target_addresses.length, 16, 8);
 			this.target_addresses.forEach((value) => {
 				buf.write(value.Serialize());
@@ -2901,22 +2901,22 @@ export class Order  {
 		}
 
 		// freeze_tx_id (TxId)
-		if ( this.compliance_action === 'T') {
+		if ( this.compliance_action === char('T')) {
 			buf.write(this.freeze_tx_id.Serialize());
 		}
 
 		// freeze_period (Timestamp)
-		if ( this.compliance_action === 'F') {
+		if ( this.compliance_action === char('F')) {
 			buf.write(this.freeze_period.Serialize());
 		}
 
 		// deposit_address (PublicKeyHash)
-		if ( this.compliance_action === 'C') {
+		if ( this.compliance_action === char('C')) {
 			buf.write(this.deposit_address.Serialize());
 		}
 
 		// authority_included (bool)
-		if ( this.compliance_action === 'F' || this.compliance_action === 'T' || this.compliance_action === 'C') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('T') || this.compliance_action === char('C')) {
 			write(buf, this.authority_included, 'bool');
 		}
 
@@ -2946,12 +2946,12 @@ export class Order  {
 		}
 
 		// ref_txs ([]byte)
-		if ( this.compliance_action === 'R') {
+		if ( this.compliance_action === char('R')) {
 			WriteVarBin(buf, this.ref_txs, 32);
 		}
 
 		// bitcoin_dispersions ([]QuantityIndex)
-		if ( this.compliance_action === 'R') {
+		if ( this.compliance_action === char('R')) {
 			WriteVariableSize(buf, this.bitcoin_dispersions.length, 16, 8);
 			this.bitcoin_dispersions.forEach((value) => {
 				buf.write(value.Serialize());
@@ -2975,18 +2975,18 @@ export class Order  {
 		}
 
 		// asset_type (string)
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			this.asset_type = ReadFixedChar(buf, 3);
 		}
 
 		// asset_code (AssetCode)
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			this.asset_code = new AssetCode();
 			this.asset_code.Write(buf);
 		}
 
 		// target_addresses ([]TargetAddress)
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			// IsInternalTypeArray
 			const size = ReadVariableSize(buf, 16, 8);
 			this.target_addresses = [];
@@ -2999,25 +2999,25 @@ export class Order  {
 		}
 
 		// freeze_tx_id (TxId)
-		if ( this.compliance_action === 'T') {
+		if ( this.compliance_action === char('T')) {
 			this.freeze_tx_id = new TxId();
 			this.freeze_tx_id.Write(buf);
 		}
 
 		// freeze_period (Timestamp)
-		if ( this.compliance_action === 'F') {
+		if ( this.compliance_action === char('F')) {
 			this.freeze_period = new Timestamp();
 			this.freeze_period.Write(buf);
 		}
 
 		// deposit_address (PublicKeyHash)
-		if ( this.compliance_action === 'C') {
+		if ( this.compliance_action === char('C')) {
 			this.deposit_address = new PublicKeyHash();
 			this.deposit_address.Write(buf);
 		}
 
 		// authority_included (bool)
-		if ( this.compliance_action === 'F' || this.compliance_action === 'T' || this.compliance_action === 'C') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('T') || this.compliance_action === char('C')) {
 			this.authority_included = read(buf, 'bool');
 		}
 
@@ -3047,12 +3047,12 @@ export class Order  {
 		}
 
 		// ref_txs ([]byte)
-		if ( this.compliance_action === 'R') {
+		if ( this.compliance_action === char('R')) {
 			this.ref_txs = ReadVarBin(buf, 32);
 		}
 
 		// bitcoin_dispersions ([]QuantityIndex)
-		if ( this.compliance_action === 'R') {
+		if ( this.compliance_action === char('R')) {
 			// IsInternalTypeArray
 			const size = ReadVariableSize(buf, 16, 8);
 			this.bitcoin_dispersions = [];
@@ -3087,7 +3087,7 @@ export class Order  {
 
 		// AssetType (string)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			if (this.asset_type.length > 3) {
 				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
 			}
@@ -3095,7 +3095,7 @@ export class Order  {
 
 		// AssetCode (AssetCode)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -3103,7 +3103,7 @@ export class Order  {
 
 		// TargetAddresses ([]TargetAddress)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'F' || this.compliance_action === 'C' || this.compliance_action === 'R') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			if (this.target_addresses.length > (2 << 16) - 1) {
 				return sprintf('list field target_addresses has too many items %d/%d', this.target_addresses.length, (2 << 16) - 1);
 			}
@@ -3117,7 +3117,7 @@ export class Order  {
 
 		// FreezeTxId (TxId)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'T') {
+		if ( this.compliance_action === char('T')) {
 			const err = this.freeze_tx_id.Validate();
 			if  (err) return sprintf('field freeze_tx_id is invalid : %s', err);
 
@@ -3125,7 +3125,7 @@ export class Order  {
 
 		// FreezePeriod (Timestamp)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'F') {
+		if ( this.compliance_action === char('F')) {
 			const err = this.freeze_period.Validate();
 			if  (err) return sprintf('field freeze_period is invalid : %s', err);
 
@@ -3133,7 +3133,7 @@ export class Order  {
 
 		// DepositAddress (PublicKeyHash)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'C') {
+		if ( this.compliance_action === char('C')) {
 			const err = this.deposit_address.Validate();
 			if  (err) return sprintf('field deposit_address is invalid : %s', err);
 
@@ -3141,7 +3141,7 @@ export class Order  {
 
 		// AuthorityIncluded (bool)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'F' || this.compliance_action === 'T' || this.compliance_action === 'C') {
+		if ( this.compliance_action === char('F') || this.compliance_action === char('T') || this.compliance_action === char('C')) {
 		}
 
 		// AuthorityName (string)
@@ -3183,7 +3183,7 @@ export class Order  {
 
 		// RefTxs ([]byte)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'R') {
+		if ( this.compliance_action === char('R')) {
 			if (this.ref_txs.length > (2 << 32) - 1) {
 				return sprintf('varbin field ref_txs too long %d/%d', this.ref_txs.length, (2 << 32) - 1);
 			}
@@ -3191,7 +3191,7 @@ export class Order  {
 
 		// BitcoinDispersions ([]QuantityIndex)
 		// IncludeIf.Field
-		if ( this.compliance_action === 'R') {
+		if ( this.compliance_action === char('R')) {
 			if (this.bitcoin_dispersions.length > (2 << 16) - 1) {
 				return sprintf('list field bitcoin_dispersions has too many items %d/%d', this.bitcoin_dispersions.length, (2 << 16) - 1);
 			}

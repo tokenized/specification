@@ -2,6 +2,7 @@ import {sprintf} from 'sprintf-js';
 import BN from 'bn.js';
 import * as mocha from 'mocha';
 import * as chai from 'chai';
+import {char} from '../src/bytes';
 import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
 	QuantityIndex, AssetTransfer, AssetSettlement } from '../src/field_types';
@@ -14,7 +15,7 @@ import R from 'ramda';
 const expect = chai.expect;
 [mocha]
 
-const getArray = (type: string) => {
+const getArrayOrType = (type: string) => {
 	const regex = /\[(\w+)\]/m;
 	let m;
 	if ((m = regex.exec(type)) !== null) {
@@ -22,6 +23,8 @@ const getArray = (type: string) => {
 		const subtype = type.slice(m[0].length);
 		return [...Array(parseInt(m[1], 10))].map(() => 0);
 	}
+	if(type === 'uint64') return new BN(0);
+	return 0;
 }
 
 {{range .}}
@@ -36,7 +39,7 @@ describe('{{.Name}}', () => {
 		{{- if ne (len .IncludeIfTrue) 0 }}
 		if (initialMessage.{{snakecase .IncludeIfTrue }}) {
 		{{- else if ne (len $field.IncludeIf.Field) 0 }}
-		if ({{ range $j, $include := .IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} initialMessage.{{snakecase $field.IncludeIf.Field}} == '{{ $include }}'{{ end }}) {
+		if ({{ range $j, $include := .IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} initialMessage.{{snakecase $field.IncludeIf.Field}} == char('{{ $include }}'){{ end }}) {
 		{{- else }}
 		{
 		{{- end }}
@@ -58,7 +61,7 @@ describe('{{.Name}}', () => {
 			initialMessage.{{ $field.SnakeCase }} = [...Array(2)].map(() => new {{.SingularType}}());
 			{{- else if .IsNativeTypeArray }}
 			// IsNativeTypeArray
-			initialMessage.{{ $field.SnakeCase }} = [...Array(5)].map(() => getArray('{{.SingularType}}'));
+			initialMessage.{{ $field.SnakeCase }} = [...Array(5)].map(() => getArrayOrType('{{.SingularType}}'));
 			{{- else if .IsInternalType }}
 			initialMessage.{{ $field.SnakeCase }} = new {{.FieldGoType}}();
 			{{- else if .IsNativeType }}
@@ -66,9 +69,11 @@ describe('{{.Name}}', () => {
 				{
 			let type = '{{.FieldGoType}}';
 			if(type.startsWith('['))
-				initialMessage.{{ $field.SnakeCase }} = getArray(type);
+				initialMessage.{{ $field.SnakeCase }} = getArrayOrType(type);
+			else if(type === 'uint64')
+				initialMessage.{{ $field.SnakeCase }} = new BN(65 + {{ $i }});
 			else
-				initialMessage.{{ $field.SnakeCase }} = 1;
+				initialMessage.{{ $field.SnakeCase }} = 65 + {{ $i }};
 				}
 			{{- else }}
 			// {{ $field.Type }} test not setup
@@ -99,7 +104,7 @@ describe('{{.Name}}', () => {
 		{{- range $i, $field := .PayloadFields }}
 		// {{ $field.SnakeCase }} ({{ $field.Type }})
 			{{- if $field.IsVarChar }}
-		if (!initialMessage.{{ $field.SnakeCase }}.equals(decodedMessage.{{ $field.SnakeCase }})) {
+		if (initialMessage.{{ $field.SnakeCase }} !== (decodedMessage.{{ $field.SnakeCase }})) {
 			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %s != %s", initialMessage.{{ $field.SnakeCase }}, decodedMessage.{{ $field.SnakeCase }}));
 		}
 			{{- else if $field.IsFixedChar }}
@@ -108,7 +113,8 @@ describe('{{.Name}}', () => {
 			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %s != %s", initialMessage.{{ $field.SnakeCase }}, decodedMessage.{{ $field.SnakeCase }}));
 		}
 			{{- else if $field.IsBytes }}
-		if (!initialMessage.{{ $field.SnakeCase }}.equals(decodedMessage.{{ $field.SnakeCase }})) {
+		if ((initialMessage.{{ $field.SnakeCase }} && decodedMessage.{{ $field.SnakeCase }}) 
+				&& !initialMessage.{{ $field.SnakeCase }}.equals(decodedMessage.{{ $field.SnakeCase }})) {
 			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %x != %x", initialMessage.{{ $field.SnakeCase }}, decodedMessage.{{ $field.SnakeCase }}));
 		}
 			{{- else if eq $field.Type "Polity" }}
@@ -116,11 +122,12 @@ describe('{{.Name}}', () => {
 		let initialJson = JSON.stringify(initialMessage.{{ $field.SnakeCase }});
 		let decodedJson = JSON.stringify(decodedMessage.{{ $field.SnakeCase }});
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %s != %s", i, initialJson, decodedJson));
+			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
 			{{- else if .IsInternalTypeArray }}
-		if (initialMessage.{{ $field.SnakeCase }}.length != decodedMessage.{{ $field.SnakeCase }}.length) {
+		if ((initialMessage.{{ $field.SnakeCase }} && decodedMessage.{{ $field.SnakeCase }}) 
+				&& initialMessage.{{ $field.SnakeCase }}.length != decodedMessage.{{ $field.SnakeCase }}.length) {
 			throw new Error(sprintf("{{ $field.SnakeCase }} lengths don't match : %d != %d", initialMessage.{{ $field.SnakeCase }}.length, decodedMessage.{{ $field.SnakeCase }}.length));
 		}
 			{{- else if .IsNativeTypeArray }}
@@ -128,14 +135,18 @@ describe('{{.Name}}', () => {
 		let initialJson = JSON.stringify(initialMessage.{{ $field.SnakeCase }});
 		let decodedJson = JSON.stringify(decodedMessage.{{ $field.SnakeCase }});
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %s != %s", i, initialJson, decodedJson));
+			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
 			{{- else if .IsNativeType }}
 			// IsNativeType
-		if (initialMessage.{{ $field.SnakeCase }} != decodedMessage.{{ $field.SnakeCase }}) {
-			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %v != %v", initialMessage.{{ $field.SnakeCase }}, decodedMessage.{{ $field.SnakeCase }}));
+			{
+		let initialJson = JSON.stringify(initialMessage.{{ $field.SnakeCase }});
+		let decodedJson = JSON.stringify(decodedMessage.{{ $field.SnakeCase }});
+		if (initialJson !== decodedJson) {
+			throw new Error(sprintf("{{ $field.SnakeCase }} doesn't match : %s != %s", initialJson, decodedJson));
 		}
+			}
 			{{- else }}
 		// {{ $field.Type }} test compare not setup
 			{{- end }}

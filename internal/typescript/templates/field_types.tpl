@@ -3,13 +3,20 @@ import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
 	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
 import { Resources } from './resources';
+import { PublicKeyHash, AssetCode } from './protocol_types';
 
 {{range .}}
 {{comment (print .Name " " .Metadata.Description) "//"}}
 export class {{.Name}} {
 {{range .Fields}}
 	{{- comment (print .FieldDescription) "\t//"}}
+	{{- if .IsInternalTypeArray }}
+	{{ .SnakeCase }} = []; // {{ .FieldGoType }} {{ .GoTags }}
+	{{- else if .IsInternalType }}
+	{{ .SnakeCase }} = new {{.SingularType}}(); // {{ .FieldGoType }} {{ .GoTags }}
+	{{- else }}
 	{{ .SnakeCase }}; // {{ .FieldGoType }} {{ .GoTags }}
+	{{- end }}
 {{ end -}}
 
 	// Serialize returns the byte representation of the message.
@@ -23,7 +30,7 @@ export class {{.Name}} {
 	{{- else if ne (len $field.IncludeIfFalse) 0 }}
 		if (!this.{{ snakecase $field.IncludeIfFalse }}) {
 	{{- else if ne (len $field.IncludeIf.Field) 0 }}
-		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIf.Field}} === '{{ $include }}'{{ end }}) {
+		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIf.Field}} === char('{{ $include }}'){{ end }}) {
 	{{- else if ne (len $field.IncludeIfInt.Field) 0 }}
 		if ({{ range $j, $include := $field.IncludeIfInt.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIfInt.Field}} === {{ $include }}{{ end }}) {
 	{{- else }}
@@ -36,6 +43,7 @@ export class {{.Name}} {
 	{{- else if .IsVarBin }}
 			WriteVarBin(buf, this.{{.SnakeCase}}, {{.Length}});
 	{{- else if .IsInternalTypeArray }}
+			if (!this.{{.SnakeCase}}) this.{{.SnakeCase}} = [];
 			WriteVariableSize(buf, this.{{.SnakeCase}}.length, {{.Length}}, 8);
 			this.{{.SnakeCase}}.forEach(value => {
 				buf.write(value.Serialize());
@@ -68,7 +76,7 @@ export class {{.Name}} {
 	{{- else if ne (len $field.IncludeIfFalse) 0 }}
 		if (!action.{{ snakecase $field.IncludeIfFalse }}) {
 	{{- else if ne (len $field.IncludeIf.Field) 0 }}
-		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIf.Field}} === '{{ $include }}'{{ end }}) {
+		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIf.Field}} === char('{{ $include }}'){{ end }}) {
 	{{- else if ne (len $field.IncludeIfInt.Field) 0 }}
 		if ({{ range $j, $include := $field.IncludeIfInt.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIfInt.Field}} === {{ $include }}{{ end }}) {
 	{{- else }}
@@ -82,7 +90,7 @@ export class {{.Name}} {
 			this.{{.SnakeCase}} = ReadVarBin(buf, {{.Length}});
 	{{- else if .IsInternalTypeArray }}
 			const size = ReadVariableSize(buf, {{.Length}}, 8);
-			this.{{.SnakeCase}} = [Array(size)]
+			this.{{.SnakeCase}} = [...Array(size)]
 				.map(() => {
 					const newValue = new {{.SingularType}}();
 					newValue.Write(buf);
