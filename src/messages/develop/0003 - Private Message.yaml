@@ -2,7 +2,7 @@
 # Private Message: Generic private message. Sent to another address(es). Encryption is to be used.
 #
 
-code: 0003
+code: 3
 
 metadata:
   name: PrivateMessage
