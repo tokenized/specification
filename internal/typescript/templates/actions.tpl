@@ -12,6 +12,7 @@ import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
 	QuantityIndex, AssetTransfer, AssetSettlement } from './field_types';
 import { Resources } from './resources';
+import { OpReturnMessage } from './protocol';
 
 export enum ActionCode {
 {{- range .}}
@@ -32,9 +33,6 @@ export enum ActionCode {
 	ComplianceActionReconciliation = 'R',
 }
 
-export class OpReturnMessage {}
-
-
 // TypeMapping holds a mapping of action codes to action types.
 export function TypeMapping(code: string): OpReturnMessage {
 	switch (code) {
@@ -50,7 +48,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 {{ range $action := . }}
 
 {{comment (print .Name " " .Metadata.Description) "//"}}
-export class {{.Name}}  {
+export class {{.Name}} extends OpReturnMessage {
 {{ range .Fields }}
 	{{comment (print "\t" .FieldDescription) "\t//"}}
 	{{ .SnakeCase }};{{ end -}}
@@ -213,46 +211,54 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 		{
 {{- end }}
 {{- if .IsVarChar }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('varchar field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}})) {
+				return sprintf('varchar field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 {{- else if .IsFixedChar }}
 			if (this.{{.SnakeCase}}.length > {{.Length}}) {
 				return sprintf('fixedchar field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, {{.Length}});
 			}
 {{- else if .IsVarBin }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('varbin field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length >= (2 ** {{.Length}})) {
+				return sprintf('varbin field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 {{- else if .IsResourceTypeArray }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length >= (2 ** {{.Length}})) {
+				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 
-			const err = this.{{.SnakeCase}}.find((value) => {
+			let err = null;
+			this.{{.SnakeCase}}.find((value) => {
 {{- if eq .Type "RejectionCode[]" }}
-				if (Resources.GetRejectionCode(value) === null) {
-					return sprintf('Invalid rejection code value : %d', this.{{.SnakeCase}});
+				if (!Resources.GetRejectionCode(value)) {
+					err = sprintf('{{.SnakeCase}}: Invalid rejection code value : %d', value);
+					return true;
 				};
 {{- else if eq .Type "Role[]" }}
-				if (GetRoleType(value) === null) {
-					return sprintf('Invalid role value : %d', this.{{.SnakeCase}});
+				if (!GetRoleType(value)) {
+					err = sprintf('{{.SnakeCase}}: Invalid role value : %d', value);
+					return true;
 				}
 {{- else if eq .Type "CurrencyType[]" }}
-				if (GetCurrency(value) === null) {
-					return sprintf('Invalid currency value : %d', this.{{.SnakeCase}});
+				if (!GetCurrency(value)) {
+					err = sprintf('{{.SnakeCase}}: Invalid currency value : %d', value);
+					return true;
 				}
 {{- else if eq .Type "Polity[]" }}
-				if (Resources.GetPolityType(Buffer.from(value).toString('ascii')) === null) {
-					return sprintf('Invalid polity value : %d', this.{{.SnakeCase}});
+				const str = Buffer.from(value).toString('ascii');
+				if (!Resources.GetPolityType(str)) {
+					err = sprintf('{{.SnakeCase}}: Invalid polity value : %s', str);
+					return true;
 				}
 {{- else if eq .Type "EntityType[]" }}
-				if (GetEntityType(value) === null) {
-					return sprintf('Invalid entity type value : %c', this.{{.SnakeCase}});
+				if (!GetEntityType(value)) {
+					err = sprintf('{{.SnakeCase}}: Invalid entity type value : \'%c\'|%d', value, value);
+					return true;
 				}
 {{- else if eq .Type "Tag[]" }}
-				if (GetTagType(value) === null) {
-					return sprintf('Invalid tag type value : %c', this.{{.SnakeCase}});
+				if (!GetTagType(value)) {
+					err = sprintf('{{.SnakeCase}}: Invalid tag type value : \'%c\'|%d', value, value);
+					return true;
 				}
 {{- end }}
 			});
@@ -282,8 +288,8 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 				return sprintf('Invalid tag type value : %c', this.{{.SnakeCase}});
 			}
 {{- else if .IsInternalTypeArray }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}}) - 1) {
+				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 
 			const err = this.{{.SnakeCase}}.find((value, i) => {
@@ -292,13 +298,15 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 			});
 			if (err) return err;
 {{- else if .IsNativeTypeArray }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}}) - 1) {
+				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 {{- else if .IsInternalType }}
+			// IsInternalType
 			const err = this.{{.SnakeCase}}.Validate();
 			if  (err) return sprintf('field {{.SnakeCase}} is invalid : %s', err);
 {{ else if ne (len $field.IntValues) 0 }}
+			// $field.IntValues {{ $field.IntValues }}
 			if ({{ range $j, $value := $field.IntValues }}{{ if (ne $j 0) }} &&{{ end }} this.{{$field.SnakeCase}} !== {{ $value }}{{ end }}) {
 				return sprintf('field {{$field.SnakeCase}} value is invalid : %d', this.{{$field.SnakeCase}});
 			}

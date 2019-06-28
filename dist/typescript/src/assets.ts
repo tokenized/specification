@@ -3,6 +3,8 @@ import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadFixedChar,
 	WriteVarChar, WriteFixedChar} from './bytes';
 import { Resources } from './resources';
+import { Timestamp } from '../src/protocol_types';
+import { AgeRestriction } from '../src/field_types';
 
 
 // AssetTypeLen is the size in bytes of all asset type variants.
@@ -163,6 +165,7 @@ export class Coupon implements AssetPayload {
 
 		// IssueDate (Timestamp)
 		{
+			this.issue_date = new Timestamp();
 			this.issue_date.Write(buf);
 	
 		}
@@ -170,6 +173,7 @@ export class Coupon implements AssetPayload {
 
 		// ExpiryDate (Timestamp)
 		{
+			this.expiry_date = new Timestamp();
 			this.expiry_date.Write(buf);
 	
 		}
@@ -504,6 +508,7 @@ export class LoyaltyPoints implements AssetPayload {
 
 		// AgeRestriction (AgeRestriction)
 		{
+			this.age_restriction = new AgeRestriction();
 			this.age_restriction.Write(buf);
 	
 		}
@@ -517,6 +522,7 @@ export class LoyaltyPoints implements AssetPayload {
 
 		// ValidFrom (Timestamp)
 		{
+			this.valid_from = new Timestamp();
 			this.valid_from.Write(buf);
 	
 		}
@@ -524,6 +530,7 @@ export class LoyaltyPoints implements AssetPayload {
 
 		// ExpirationTimestamp (Timestamp)
 		{
+			this.expiration_timestamp = new Timestamp();
 			this.expiration_timestamp.Write(buf);
 	
 		}
@@ -723,6 +730,7 @@ export class Membership implements AssetPayload {
 
 		// AgeRestriction (AgeRestriction)
 		{
+			this.age_restriction = new AgeRestriction();
 			this.age_restriction.Write(buf);
 	
 		}
@@ -730,6 +738,7 @@ export class Membership implements AssetPayload {
 
 		// ValidFrom (Timestamp)
 		{
+			this.valid_from = new Timestamp();
 			this.valid_from.Write(buf);
 	
 		}
@@ -737,6 +746,7 @@ export class Membership implements AssetPayload {
 
 		// ExpirationTimestamp (Timestamp)
 		{
+			this.expiration_timestamp = new Timestamp();
 			this.expiration_timestamp.Write(buf);
 	
 		}
@@ -955,6 +965,7 @@ export class ShareCommon implements AssetPayload {
 
 		// TransferLockout (Timestamp)
 		{
+			this.transfer_lockout = new Timestamp();
 			this.transfer_lockout.Write(buf);
 	
 		}
@@ -1169,6 +1180,7 @@ export class TicketAdmission implements AssetPayload {
 
 		// AgeRestriction (AgeRestriction)
 		{
+			this.age_restriction = new AgeRestriction();
 			this.age_restriction.Write(buf);
 	
 		}
@@ -1206,6 +1218,7 @@ export class TicketAdmission implements AssetPayload {
 
 		// StartTimeDate (Timestamp)
 		{
+			this.start_time_date = new Timestamp();
 			this.start_time_date.Write(buf);
 	
 		}
@@ -1213,6 +1226,7 @@ export class TicketAdmission implements AssetPayload {
 
 		// ValidFrom (Timestamp)
 		{
+			this.valid_from = new Timestamp();
 			this.valid_from.Write(buf);
 	
 		}
@@ -1220,6 +1234,7 @@ export class TicketAdmission implements AssetPayload {
 
 		// ExpirationTimestamp (Timestamp)
 		{
+			this.expiration_timestamp = new Timestamp();
 			this.expiration_timestamp.Write(buf);
 	
 		}

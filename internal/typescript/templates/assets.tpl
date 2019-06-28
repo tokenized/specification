@@ -3,6 +3,8 @@ import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadFixedChar,
 	WriteVarChar, WriteFixedChar} from './bytes';
 import { Resources } from './resources';
+import { Timestamp } from '../src/protocol_types';
+import { AgeRestriction } from '../src/field_types';
 
 
 // AssetTypeLen is the size in bytes of all asset type variants.
@@ -139,6 +141,7 @@ export class {{.Name}} implements AssetPayload {
 			const type = '{{.FieldGoType}}'.slice(2);
 			this.{{.SnakeCase}} = [...Array(size)].map(() => read(buf, type));
 	{{ else if .IsInternalType }}
+			this.{{ $field.SnakeCase }} = new {{.FieldGoType}}();
 			this.{{.SnakeCase}}.Write(buf);
 	{{ else if or .IsBytes .IsData }}
 			this.{{.SnakeCase}} = buf.read({{.Length}}, '{{.FieldGoType}}');

@@ -76,7 +76,7 @@ describe('AssetDefinition', () => {
 		// trade_restrictions (Polity[])
 		{
 			// IsNativeTypeArray
-			initialMessage.trade_restrictions = [...Array(5)].map(() => getArrayOrType('[3]byte'));
+			initialMessage.trade_restrictions = [...Array(5)].map(() => Buffer.from('AUS', 'ascii'));
 		}
 		
 		// enforcement_orders_permitted (bool)
@@ -115,16 +115,7 @@ describe('AssetDefinition', () => {
 		
 		// asset_modification_governance (uint)
 		{
-			// IsNativeType
-				{
-			let type = 'uint8';
-			if(type.startsWith('['))
-				initialMessage.asset_modification_governance = getArrayOrType(type);
-			else if(type === 'uint64')
-				initialMessage.asset_modification_governance = new BN(65 + 9);
-			else
-				initialMessage.asset_modification_governance = 65 + 9;
-				}
+				initialMessage.asset_modification_governance = 1;
 		}
 		
 		// token_qty (uint)
@@ -155,6 +146,8 @@ describe('AssetDefinition', () => {
 		let decodedMessage = new AssetDefinition();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -283,6 +276,7 @@ describe('AssetCreation', () => {
 		// asset_code (AssetCode)
 		{
 			initialMessage.asset_code = new AssetCode();
+			
 		}
 		
 		// asset_index (uint)
@@ -313,7 +307,7 @@ describe('AssetCreation', () => {
 		// trade_restrictions (Polity[])
 		{
 			// IsNativeTypeArray
-			initialMessage.trade_restrictions = [...Array(5)].map(() => getArrayOrType('[3]byte'));
+			initialMessage.trade_restrictions = [...Array(5)].map(() => Buffer.from('AUS', 'ascii'));
 		}
 		
 		// enforcement_orders_permitted (bool)
@@ -352,16 +346,7 @@ describe('AssetCreation', () => {
 		
 		// asset_modification_governance (uint)
 		{
-			// IsNativeType
-				{
-			let type = 'uint8';
-			if(type.startsWith('['))
-				initialMessage.asset_modification_governance = getArrayOrType(type);
-			else if(type === 'uint64')
-				initialMessage.asset_modification_governance = new BN(65 + 11);
-			else
-				initialMessage.asset_modification_governance = 65 + 11;
-				}
+				initialMessage.asset_modification_governance = 1;
 		}
 		
 		// token_qty (uint)
@@ -401,6 +386,7 @@ describe('AssetCreation', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -411,6 +397,8 @@ describe('AssetCreation', () => {
 		let decodedMessage = new AssetCreation();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -561,6 +549,7 @@ describe('AssetModification', () => {
 		// asset_code (AssetCode)
 		{
 			initialMessage.asset_code = new AssetCode();
+			
 		}
 		
 		// asset_revision (uint)
@@ -586,6 +575,7 @@ describe('AssetModification', () => {
 		// ref_tx_id (TxId)
 		{
 			initialMessage.ref_tx_id = new TxId();
+			
 		}
 		
 
@@ -596,6 +586,8 @@ describe('AssetModification', () => {
 		let decodedMessage = new AssetModification();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -649,16 +641,7 @@ describe('ContractOffer', () => {
 		
 		// body_of_agreement_type (uint)
 		{
-			// IsNativeType
-				{
-			let type = 'uint8';
-			if(type.startsWith('['))
-				initialMessage.body_of_agreement_type = getArrayOrType(type);
-			else if(type === 'uint64')
-				initialMessage.body_of_agreement_type = new BN(65 + 1);
-			else
-				initialMessage.body_of_agreement_type = 65 + 1;
-				}
+				initialMessage.body_of_agreement_type = 1;
 		}
 		
 		// body_of_agreement (varbin)
@@ -695,6 +678,7 @@ describe('ContractOffer', () => {
 		// contract_expiration (Timestamp)
 		{
 			initialMessage.contract_expiration = new Timestamp();
+			
 		}
 		
 		// contract_uri (varchar)
@@ -705,6 +689,7 @@ describe('ContractOffer', () => {
 		// issuer (Entity)
 		{
 			initialMessage.issuer = new Entity();
+			
 		}
 		
 		// issuer_logo_url (varchar)
@@ -720,6 +705,7 @@ describe('ContractOffer', () => {
 		// contract_operator (Entity)
 		if (initialMessage.contract_operator_included) {
 			initialMessage.contract_operator = new Entity();
+			
 		}
 		
 		// contract_auth_flags (varbin)
@@ -781,6 +767,7 @@ describe('ContractOffer', () => {
 		// master_pkh (PublicKeyHash)
 		{
 			initialMessage.master_pkh = new PublicKeyHash();
+			
 		}
 		
 
@@ -791,6 +778,8 @@ describe('ContractOffer', () => {
 		let decodedMessage = new ContractOffer();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -934,16 +923,7 @@ describe('ContractFormation', () => {
 		
 		// body_of_agreement_type (uint)
 		{
-			// IsNativeType
-				{
-			let type = 'uint8';
-			if(type.startsWith('['))
-				initialMessage.body_of_agreement_type = getArrayOrType(type);
-			else if(type === 'uint64')
-				initialMessage.body_of_agreement_type = new BN(65 + 1);
-			else
-				initialMessage.body_of_agreement_type = 65 + 1;
-				}
+				initialMessage.body_of_agreement_type = 1;
 		}
 		
 		// body_of_agreement (varbin)
@@ -980,6 +960,7 @@ describe('ContractFormation', () => {
 		// contract_expiration (Timestamp)
 		{
 			initialMessage.contract_expiration = new Timestamp();
+			
 		}
 		
 		// contract_uri (varchar)
@@ -990,6 +971,7 @@ describe('ContractFormation', () => {
 		// issuer (Entity)
 		{
 			initialMessage.issuer = new Entity();
+			
 		}
 		
 		// issuer_logo_url (varchar)
@@ -1005,6 +987,7 @@ describe('ContractFormation', () => {
 		// contract_operator (Entity)
 		if (initialMessage.contract_operator_included) {
 			initialMessage.contract_operator = new Entity();
+			
 		}
 		
 		// contract_auth_flags (varbin)
@@ -1066,6 +1049,7 @@ describe('ContractFormation', () => {
 		// master_pkh (PublicKeyHash)
 		{
 			initialMessage.master_pkh = new PublicKeyHash();
+			
 		}
 		
 		// contract_revision (uint)
@@ -1085,6 +1069,7 @@ describe('ContractFormation', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -1095,6 +1080,8 @@ describe('ContractFormation', () => {
 		let decodedMessage = new ContractFormation();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -1275,6 +1262,7 @@ describe('ContractAmendment', () => {
 		// ref_tx_id (TxId)
 		{
 			initialMessage.ref_tx_id = new TxId();
+			
 		}
 		
 
@@ -1285,6 +1273,8 @@ describe('ContractAmendment', () => {
 		let decodedMessage = new ContractAmendment();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -1350,20 +1340,12 @@ describe('StaticContractFormation', () => {
 		// contract_code (ContractCode)
 		{
 			initialMessage.contract_code = new ContractCode();
+			
 		}
 		
 		// body_of_agreement_type (uint)
 		{
-			// IsNativeType
-				{
-			let type = 'uint8';
-			if(type.startsWith('['))
-				initialMessage.body_of_agreement_type = getArrayOrType(type);
-			else if(type === 'uint64')
-				initialMessage.body_of_agreement_type = new BN(65 + 2);
-			else
-				initialMessage.body_of_agreement_type = 65 + 2;
-				}
+				initialMessage.body_of_agreement_type = 1;
 		}
 		
 		// body_of_agreement (varbin)
@@ -1414,11 +1396,13 @@ describe('StaticContractFormation', () => {
 		// effective_date (Timestamp)
 		{
 			initialMessage.effective_date = new Timestamp();
+			
 		}
 		
 		// contract_expiration (Timestamp)
 		{
 			initialMessage.contract_expiration = new Timestamp();
+			
 		}
 		
 		// contract_uri (varchar)
@@ -1429,6 +1413,7 @@ describe('StaticContractFormation', () => {
 		// prev_rev_tx_id (TxId)
 		{
 			initialMessage.prev_rev_tx_id = new TxId();
+			
 		}
 		
 		// entities (Entity[])
@@ -1445,6 +1430,8 @@ describe('StaticContractFormation', () => {
 		let decodedMessage = new StaticContractFormation();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -1534,11 +1521,13 @@ describe('ContractAddressChange', () => {
 		// new_contract_pkh (PublicKeyHash)
 		{
 			initialMessage.new_contract_pkh = new PublicKeyHash();
+			
 		}
 		
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -1549,6 +1538,8 @@ describe('ContractAddressChange', () => {
 		let decodedMessage = new ContractAddressChange();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -1600,6 +1591,7 @@ describe('Order', () => {
 		// asset_code (AssetCode)
 		if ( initialMessage.compliance_action == char('F') || initialMessage.compliance_action == char('C') || initialMessage.compliance_action == char('R')) {
 			initialMessage.asset_code = new AssetCode();
+			
 		}
 		
 		// target_addresses (TargetAddress[])
@@ -1611,16 +1603,19 @@ describe('Order', () => {
 		// freeze_tx_id (TxId)
 		if ( initialMessage.compliance_action == char('T')) {
 			initialMessage.freeze_tx_id = new TxId();
+			
 		}
 		
 		// freeze_period (Timestamp)
 		if ( initialMessage.compliance_action == char('F')) {
 			initialMessage.freeze_period = new Timestamp();
+			
 		}
 		
 		// deposit_address (PublicKeyHash)
 		if ( initialMessage.compliance_action == char('C')) {
 			initialMessage.deposit_address = new PublicKeyHash();
+			
 		}
 		
 		// authority_included (bool)
@@ -1641,16 +1636,7 @@ describe('Order', () => {
 		
 		// signature_algorithm (uint)
 		if (initialMessage.authority_included) {
-			// IsNativeType
-				{
-			let type = 'uint8';
-			if(type.startsWith('['))
-				initialMessage.signature_algorithm = getArrayOrType(type);
-			else if(type === 'uint64')
-				initialMessage.signature_algorithm = new BN(65 + 10);
-			else
-				initialMessage.signature_algorithm = 65 + 10;
-				}
+				initialMessage.signature_algorithm = 1;
 		}
 		
 		// order_signature (varbin)
@@ -1698,6 +1684,8 @@ describe('Order', () => {
 		let decodedMessage = new Order();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -1813,6 +1801,7 @@ describe('Freeze', () => {
 		// asset_code (AssetCode)
 		{
 			initialMessage.asset_code = new AssetCode();
+			
 		}
 		
 		// quantities (QuantityIndex[])
@@ -1824,11 +1813,13 @@ describe('Freeze', () => {
 		// freeze_period (Timestamp)
 		{
 			initialMessage.freeze_period = new Timestamp();
+			
 		}
 		
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -1839,6 +1830,8 @@ describe('Freeze', () => {
 		let decodedMessage = new Freeze();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -1881,11 +1874,13 @@ describe('Thaw', () => {
 		// freeze_tx_id (TxId)
 		{
 			initialMessage.freeze_tx_id = new TxId();
+			
 		}
 		
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -1896,6 +1891,8 @@ describe('Thaw', () => {
 		let decodedMessage = new Thaw();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -1933,6 +1930,7 @@ describe('Confiscation', () => {
 		// asset_code (AssetCode)
 		{
 			initialMessage.asset_code = new AssetCode();
+			
 		}
 		
 		// quantities (QuantityIndex[])
@@ -1958,6 +1956,7 @@ describe('Confiscation', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -1968,6 +1967,8 @@ describe('Confiscation', () => {
 		let decodedMessage = new Confiscation();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2024,6 +2025,7 @@ describe('Reconciliation', () => {
 		// asset_code (AssetCode)
 		{
 			initialMessage.asset_code = new AssetCode();
+			
 		}
 		
 		// quantities (QuantityIndex[])
@@ -2035,6 +2037,7 @@ describe('Reconciliation', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -2045,6 +2048,8 @@ describe('Reconciliation', () => {
 		let decodedMessage = new Reconciliation();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2084,16 +2089,7 @@ describe('Proposal', () => {
 		let initialMessage = new Proposal();
 		// initiator (uint)
 		{
-			// IsNativeType
-				{
-			let type = 'uint8';
-			if(type.startsWith('['))
-				initialMessage.initiator = getArrayOrType(type);
-			else if(type === 'uint64')
-				initialMessage.initiator = new BN(65 + 0);
-			else
-				initialMessage.initiator = 65 + 0;
-				}
+				initialMessage.initiator = 1;
 		}
 		
 		// asset_specific_vote (bool)
@@ -2111,6 +2107,7 @@ describe('Proposal', () => {
 		// asset_code (AssetCode)
 		if (initialMessage.asset_specific_vote) {
 			initialMessage.asset_code = new AssetCode();
+			
 		}
 		
 		// vote_system (uint)
@@ -2179,6 +2176,7 @@ describe('Proposal', () => {
 		// vote_cut_off_timestamp (Timestamp)
 		{
 			initialMessage.vote_cut_off_timestamp = new Timestamp();
+			
 		}
 		
 
@@ -2189,6 +2187,8 @@ describe('Proposal', () => {
 		let decodedMessage = new Proposal();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2291,6 +2291,7 @@ describe('Vote', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -2301,6 +2302,8 @@ describe('Vote', () => {
 		let decodedMessage = new Vote();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2329,6 +2332,7 @@ describe('BallotCast', () => {
 		// vote_tx_id (TxId)
 		{
 			initialMessage.vote_tx_id = new TxId();
+			
 		}
 		
 		// vote (varchar)
@@ -2344,6 +2348,8 @@ describe('BallotCast', () => {
 		let decodedMessage = new BallotCast();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2376,6 +2382,7 @@ describe('BallotCounted', () => {
 		// vote_tx_id (TxId)
 		{
 			initialMessage.vote_tx_id = new TxId();
+			
 		}
 		
 		// vote (varchar)
@@ -2400,6 +2407,7 @@ describe('BallotCounted', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -2410,6 +2418,8 @@ describe('BallotCounted', () => {
 		let decodedMessage = new BallotCounted();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2465,6 +2475,7 @@ describe('Result', () => {
 		// asset_code (AssetCode)
 		if (initialMessage.asset_specific_vote) {
 			initialMessage.asset_code = new AssetCode();
+			
 		}
 		
 		// specific (bool)
@@ -2481,6 +2492,7 @@ describe('Result', () => {
 		// vote_tx_id (TxId)
 		{
 			initialMessage.vote_tx_id = new TxId();
+			
 		}
 		
 		// option_tally (uint64[])
@@ -2497,6 +2509,7 @@ describe('Result', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -2507,6 +2520,8 @@ describe('Result', () => {
 		let decodedMessage = new Result();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2610,6 +2625,8 @@ describe('Message', () => {
 		let decodedMessage = new Message();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2697,6 +2714,7 @@ describe('Rejection', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -2707,6 +2725,8 @@ describe('Rejection', () => {
 		let decodedMessage = new Rejection();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2775,6 +2795,8 @@ describe('Establishment', () => {
 		let decodedMessage = new Establishment();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2815,6 +2837,8 @@ describe('Addition', () => {
 		let decodedMessage = new Addition();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2845,6 +2869,7 @@ describe('Alteration', () => {
 		// entry_tx_id (TxId)
 		{
 			initialMessage.entry_tx_id = new TxId();
+			
 		}
 		
 		// message (varchar)
@@ -2860,6 +2885,8 @@ describe('Alteration', () => {
 		let decodedMessage = new Alteration();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2892,6 +2919,7 @@ describe('Removal', () => {
 		// entry_tx_id (TxId)
 		{
 			initialMessage.entry_tx_id = new TxId();
+			
 		}
 		
 		// message (varchar)
@@ -2907,6 +2935,8 @@ describe('Removal', () => {
 		let decodedMessage = new Removal();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -2945,6 +2975,7 @@ describe('Transfer', () => {
 		// offer_expiry (Timestamp)
 		{
 			initialMessage.offer_expiry = new Timestamp();
+			
 		}
 		
 		// exchange_fee (uint)
@@ -2964,6 +2995,7 @@ describe('Transfer', () => {
 		// exchange_fee_address (PublicKeyHash)
 		{
 			initialMessage.exchange_fee_address = new PublicKeyHash();
+			
 		}
 		
 
@@ -2974,6 +3006,8 @@ describe('Transfer', () => {
 		let decodedMessage = new Transfer();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 
@@ -3024,6 +3058,7 @@ describe('Settlement', () => {
 		// timestamp (Timestamp)
 		{
 			initialMessage.timestamp = new Timestamp();
+			
 		}
 		
 
@@ -3034,6 +3069,8 @@ describe('Settlement', () => {
 		let decodedMessage = new Settlement();
 
 		let n = decodedMessage.write(initialEncoding);
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		// expect(n).to.eql(initialEncoding.length);
 

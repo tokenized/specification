@@ -5,7 +5,7 @@ export const char = (c: string): number => {
 	return c.charCodeAt(0);
 };
 
-export const write = (buf: _.Writer, value, type: string) => {
+export function write (buf: _.Writer, value, type: string) {
 	const regex = /\[(\w+)\]/m;
 	let m;
 	if ((m = regex.exec(type)) !== null) {
@@ -24,12 +24,12 @@ export const write = (buf: _.Writer, value, type: string) => {
 		case 'uint64': return buf.uint64le(value);
 		default: throw new Error('Invalid type : ' + type);
 	}
-};
+}
 
 // read fills the value with the appropriate number of bytes from the buffer.
 //
 // This is useful for fixed size types such as int, float etc.
-export const read = (buf: _.Reader, type: string) => {
+export function read(buf: _.Reader, type: string) {
 	const regex = /\[(\w+)\]/m;
 	let m;
 	if ((m = regex.exec(type)) !== null) {
@@ -48,7 +48,7 @@ export const read = (buf: _.Reader, type: string) => {
 		case 'uint64': return buf.uint64le();
 		default: throw new Error('Invalid type : ' + type);
 	}
-};
+}
 
 export const WriteFixedChar = (buf: _.Writer, value: string, size) => {
 	const v = value ? Buffer.from(value, 'ascii') : Buffer.from([]);

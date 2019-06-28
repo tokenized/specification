@@ -3,6 +3,7 @@ import _ from '@keyring/util';
 import BN from 'bn.js';
 import { read, write } from './bytes';
 
+
 // ------------------------------------------------------------------------------------------------
 // TxId represents a Bitcoin transaction ID. (Double SHA256 of tx data)
 export class TxId {

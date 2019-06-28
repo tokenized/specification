@@ -19,6 +19,8 @@ func Compile(
 	templateToFile(distPath, "field_types.tpl", "field_types.ts", types)
 	templateToFile(distPath, "resource-data.tpl", "resource-data.ts", resources)
 	templateToFile(distPath, "rejection_codes.tpl", "rejection_codes.ts", rejectionCodes)
+	templateToFile(distPath, "messages.tpl", "messages.ts", messages)
+	templateToTestFile(distPath, "messages.test.tpl", "messages.test.ts", messages)
 }
 
 func templateToFile(distPath, tplFile, tsFile string, data interface{}) {

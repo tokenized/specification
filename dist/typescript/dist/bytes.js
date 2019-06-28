@@ -4,13 +4,13 @@ const sprintf_js_1 = require("sprintf-js");
 exports.char = (c) => {
     return c.charCodeAt(0);
 };
-exports.write = (buf, value, type) => {
+function write(buf, value, type) {
     const regex = /\[(\w+)\]/m;
     let m;
     if ((m = regex.exec(type)) !== null) {
         const subtype = type.slice(m[0].length);
         return value.map((v) => {
-            return exports.write(buf, v, subtype);
+            return write(buf, v, subtype);
         });
     }
     switch (type) {
@@ -22,17 +22,18 @@ exports.write = (buf, value, type) => {
         case 'uint64': return buf.uint64le(value);
         default: throw new Error('Invalid type : ' + type);
     }
-};
+}
+exports.write = write;
 // read fills the value with the appropriate number of bytes from the buffer.
 //
 // This is useful for fixed size types such as int, float etc.
-exports.read = (buf, type) => {
+function read(buf, type) {
     const regex = /\[(\w+)\]/m;
     let m;
     if ((m = regex.exec(type)) !== null) {
         const subtype = type.slice(m[0].length);
         return [...Array(parseInt(m[1], 10))].map(() => {
-            return exports.read(buf, subtype);
+            return read(buf, subtype);
         });
     }
     switch (type) {
@@ -44,7 +45,8 @@ exports.read = (buf, type) => {
         case 'uint64': return buf.uint64le();
         default: throw new Error('Invalid type : ' + type);
     }
-};
+}
+exports.read = read;
 exports.WriteFixedChar = (buf, value, size) => {
     const v = value ? Buffer.from(value, 'ascii') : Buffer.from([]);
     if (v.length > size) {
@@ -75,13 +77,13 @@ exports.WriteVariableSize = (buf, size, sizeBits, defaultSizeBits) => {
     }
     switch (sizeBits) {
         case 8:
-            return exports.write(buf, size, 'uint8');
+            return write(buf, size, 'uint8');
         case 16:
-            return exports.write(buf, size, 'uint16');
+            return write(buf, size, 'uint16');
         case 32:
-            return exports.write(buf, size, 'uint32');
+            return write(buf, size, 'uint32');
         case 64:
-            return exports.write(buf, size, 'uint64');
+            return write(buf, size, 'uint64');
         default:
             throw new Error('Invalid variable size bits : ' + sizeBits);
     }
@@ -108,10 +110,10 @@ exports.ReadVariableSize = (buf, sizeBits, defaultSizeBits) => {
         sizeBits = defaultSizeBits;
     }
     switch (sizeBits) {
-        case 8: return exports.read(buf, 'uint8');
-        case 16: return exports.read(buf, 'uint16');
-        case 32: return exports.read(buf, 'uint32');
-        case 64: return exports.read(buf, 'uint64');
+        case 8: return read(buf, 'uint8');
+        case 16: return read(buf, 'uint16');
+        case 32: return read(buf, 'uint32');
+        case 64: return read(buf, 'uint64');
         default: throw new Error('Invalid variable size bits : ' + sizeBits);
     }
 };

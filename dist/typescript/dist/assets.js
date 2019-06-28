@@ -7,6 +7,8 @@ const sprintf_js_1 = require("sprintf-js");
 const util_1 = __importDefault(require("@keyring/util"));
 const bytes_1 = require("./bytes");
 const resources_1 = require("./resources");
+const protocol_types_1 = require("../src/protocol_types");
+const field_types_1 = require("../src/field_types");
 // AssetTypeLen is the size in bytes of all asset type variants.
 const AssetTypeLen = 152;
 // CodeCoupon identifies data as a Coupon message.
@@ -104,10 +106,12 @@ class Coupon {
         }
         // IssueDate (Timestamp)
         {
+            this.issue_date = new protocol_types_1.Timestamp();
             this.issue_date.Write(buf);
         }
         // ExpiryDate (Timestamp)
         {
+            this.expiry_date = new protocol_types_1.Timestamp();
             this.expiry_date.Write(buf);
         }
         // Value (uint64)
@@ -324,6 +328,7 @@ class LoyaltyPoints {
         }
         // AgeRestriction (AgeRestriction)
         {
+            this.age_restriction = new field_types_1.AgeRestriction();
             this.age_restriction.Write(buf);
         }
         // OfferName (string)
@@ -332,10 +337,12 @@ class LoyaltyPoints {
         }
         // ValidFrom (Timestamp)
         {
+            this.valid_from = new protocol_types_1.Timestamp();
             this.valid_from.Write(buf);
         }
         // ExpirationTimestamp (Timestamp)
         {
+            this.expiration_timestamp = new protocol_types_1.Timestamp();
             this.expiration_timestamp.Write(buf);
         }
         // Description (string)
@@ -461,14 +468,17 @@ class Membership {
         }
         // AgeRestriction (AgeRestriction)
         {
+            this.age_restriction = new field_types_1.AgeRestriction();
             this.age_restriction.Write(buf);
         }
         // ValidFrom (Timestamp)
         {
+            this.valid_from = new protocol_types_1.Timestamp();
             this.valid_from.Write(buf);
         }
         // ExpirationTimestamp (Timestamp)
         {
+            this.expiration_timestamp = new protocol_types_1.Timestamp();
             this.expiration_timestamp.Write(buf);
         }
         // ID (string)
@@ -615,6 +625,7 @@ class ShareCommon {
         }
         // TransferLockout (Timestamp)
         {
+            this.transfer_lockout = new protocol_types_1.Timestamp();
             this.transfer_lockout.Write(buf);
         }
         // Ticker (string)
@@ -747,6 +758,7 @@ class TicketAdmission {
         }
         // AgeRestriction (AgeRestriction)
         {
+            this.age_restriction = new field_types_1.AgeRestriction();
             this.age_restriction.Write(buf);
         }
         // AdmissionType (string)
@@ -771,14 +783,17 @@ class TicketAdmission {
         }
         // StartTimeDate (Timestamp)
         {
+            this.start_time_date = new protocol_types_1.Timestamp();
             this.start_time_date.Write(buf);
         }
         // ValidFrom (Timestamp)
         {
+            this.valid_from = new protocol_types_1.Timestamp();
             this.valid_from.Write(buf);
         }
         // ExpirationTimestamp (Timestamp)
         {
+            this.expiration_timestamp = new protocol_types_1.Timestamp();
             this.expiration_timestamp.Write(buf);
         }
         // Description (string)

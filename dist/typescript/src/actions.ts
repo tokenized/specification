@@ -12,6 +12,7 @@ import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
 	QuantityIndex, AssetTransfer, AssetSettlement } from './field_types';
 import { Resources } from './resources';
+import { OpReturnMessage } from './protocol';
 
 export enum ActionCode {
 	// CodeAssetDefinition identifies data as a AssetDefinition message.
@@ -108,9 +109,6 @@ export enum ActionCode {
 	ComplianceActionReconciliation = 'R',
 }
 
-export class OpReturnMessage {}
-
-
 // TypeMapping holds a mapping of action codes to action types.
 export function TypeMapping(code: string): OpReturnMessage {
 	switch (code) {
@@ -178,7 +176,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 // An asset has a unique identifier called AssetID = AssetType +
 // base58(AssetCode + checksum). An asset is always linked to a contract
 // that is identified by the public address of the Contract wallet.
-export class AssetDefinition  {
+export class AssetDefinition extends OpReturnMessage {
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -396,8 +394,8 @@ export class AssetDefinition  {
 
 		// AssetAuthFlags ([]byte)
 		{
-			if (this.asset_auth_flags.length > (2 << 8) - 1) {
-				return sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (2 << 8) - 1);
+			if (this.asset_auth_flags.length >= (2 ** 8)) {
+				return sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -407,13 +405,16 @@ export class AssetDefinition  {
 
 		// TradeRestrictions ([][3]byte)
 		{
-			if (this.trade_restrictions.length > (2 << 16) - 1) {
-				return sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (2 << 16) - 1);
+			if (this.trade_restrictions.length >= (2 ** 16)) {
+				return sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (2 ** 16) - 1);
 			}
 
-			const err = this.trade_restrictions.find((value) => {
-				if (Resources.GetPolityType(Buffer.from(value).toString('ascii')) === null) {
-					return sprintf('Invalid polity value : %d', this.trade_restrictions);
+			let err = null;
+			this.trade_restrictions.find((value) => {
+				const str = Buffer.from(value).toString('ascii');
+				if (!Resources.GetPolityType(str)) {
+					err = sprintf('trade_restrictions: Invalid polity value : %s', str);
+					return true;
 				}
 			});
 			if (err) return err;
@@ -441,6 +442,7 @@ export class AssetDefinition  {
 
 		// AssetModificationGovernance (uint8)
 		{
+			// $field.IntValues [0 1]
 			if ( this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
 				return sprintf('field asset_modification_governance value is invalid : %d', this.asset_modification_governance);
 			}
@@ -453,8 +455,8 @@ export class AssetDefinition  {
 
 		// AssetPayload ([]byte)
 		{
-			if (this.asset_payload.length > (2 << 16) - 1) {
-				return sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (2 << 16) - 1);
+			if (this.asset_payload.length >= (2 ** 16)) {
+				return sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (2 ** 16) - 1);
 			}
 		}
 		return null;
@@ -481,7 +483,7 @@ export class AssetDefinition  {
 
 // AssetCreation This action creates an asset in response to the
 // administration's instructions in the Definition Action.
-export class AssetCreation  {
+export class AssetCreation extends OpReturnMessage {
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -754,6 +756,7 @@ export class AssetCreation  {
 
 		// AssetCode (AssetCode)
 		{
+			// IsInternalType
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -765,8 +768,8 @@ export class AssetCreation  {
 
 		// AssetAuthFlags ([]byte)
 		{
-			if (this.asset_auth_flags.length > (2 << 8) - 1) {
-				return sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (2 << 8) - 1);
+			if (this.asset_auth_flags.length >= (2 ** 8)) {
+				return sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -776,13 +779,16 @@ export class AssetCreation  {
 
 		// TradeRestrictions ([][3]byte)
 		{
-			if (this.trade_restrictions.length > (2 << 16) - 1) {
-				return sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (2 << 16) - 1);
+			if (this.trade_restrictions.length >= (2 ** 16)) {
+				return sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (2 ** 16) - 1);
 			}
 
-			const err = this.trade_restrictions.find((value) => {
-				if (Resources.GetPolityType(Buffer.from(value).toString('ascii')) === null) {
-					return sprintf('Invalid polity value : %d', this.trade_restrictions);
+			let err = null;
+			this.trade_restrictions.find((value) => {
+				const str = Buffer.from(value).toString('ascii');
+				if (!Resources.GetPolityType(str)) {
+					err = sprintf('trade_restrictions: Invalid polity value : %s', str);
+					return true;
 				}
 			});
 			if (err) return err;
@@ -810,6 +816,7 @@ export class AssetCreation  {
 
 		// AssetModificationGovernance (uint8)
 		{
+			// $field.IntValues [0 1]
 			if ( this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
 				return sprintf('field asset_modification_governance value is invalid : %d', this.asset_modification_governance);
 			}
@@ -822,8 +829,8 @@ export class AssetCreation  {
 
 		// AssetPayload ([]byte)
 		{
-			if (this.asset_payload.length > (2 << 16) - 1) {
-				return sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (2 << 16) - 1);
+			if (this.asset_payload.length >= (2 ** 16)) {
+				return sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (2 ** 16) - 1);
 			}
 		}
 
@@ -833,6 +840,7 @@ export class AssetCreation  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -864,7 +872,7 @@ export class AssetCreation  {
 }
 
 // AssetModification Token Dilutions, Call Backs/Revocations, burning etc.
-export class AssetModification  {
+export class AssetModification extends OpReturnMessage {
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -982,6 +990,7 @@ export class AssetModification  {
 
 		// AssetCode (AssetCode)
 		{
+			// IsInternalType
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -993,8 +1002,8 @@ export class AssetModification  {
 
 		// Amendments ([]Amendment)
 		{
-			if (this.amendments.length > (2 << 8) - 1) {
-				return sprintf('list field amendments has too many items %d/%d', this.amendments.length, (2 << 8) - 1);
+			if (this.amendments.length > (2 ** 8) - 1) {
+				return sprintf('list field amendments has too many items %d/%d', this.amendments.length, (2 ** 8) - 1);
 			}
 
 			const err = this.amendments.find((value, i) => {
@@ -1006,6 +1015,7 @@ export class AssetModification  {
 
 		// RefTxID (TxId)
 		{
+			// IsInternalType
 			const err = this.ref_tx_id.Validate();
 			if  (err) return sprintf('field ref_tx_id is invalid : %s', err);
 
@@ -1032,7 +1042,7 @@ export class AssetModification  {
 // the smart contract operator or the administration. This on-chain action
 // allows for the positive response from the smart contract with either a
 // Contract Formation Action or a Rejection Action.
-export class ContractOffer  {
+export class ContractOffer extends OpReturnMessage {
 
 	// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
@@ -1391,13 +1401,14 @@ export class ContractOffer  {
 
 		// ContractName (string)
 		{
-			if (this.contract_name.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 << 8) - 1);
+			if (this.contract_name.length > (2 ** 8)) {
+				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 ** 8) - 1);
 			}
 		}
 
 		// BodyOfAgreementType (uint8)
 		{
+			// $field.IntValues [1 2]
 			if ( this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
 				return sprintf('field body_of_agreement_type value is invalid : %d', this.body_of_agreement_type);
 			}
@@ -1406,22 +1417,22 @@ export class ContractOffer  {
 
 		// BodyOfAgreement ([]byte)
 		{
-			if (this.body_of_agreement.length > (2 << 32) - 1) {
-				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 << 32) - 1);
+			if (this.body_of_agreement.length >= (2 ** 32)) {
+				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 ** 32) - 1);
 			}
 		}
 
 		// ContractType (string)
 		{
-			if (this.contract_type.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 << 8) - 1);
+			if (this.contract_type.length > (2 ** 8)) {
+				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 ** 8) - 1);
 			}
 		}
 
 		// SupportingDocs ([]Document)
 		{
-			if (this.supporting_docs.length > (2 << 8) - 1) {
-				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 << 8) - 1);
+			if (this.supporting_docs.length > (2 ** 8) - 1) {
+				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 ** 8) - 1);
 			}
 
 			const err = this.supporting_docs.find((value, i) => {
@@ -1447,6 +1458,7 @@ export class ContractOffer  {
 
 		// ContractExpiration (Timestamp)
 		{
+			// IsInternalType
 			const err = this.contract_expiration.Validate();
 			if  (err) return sprintf('field contract_expiration is invalid : %s', err);
 
@@ -1454,13 +1466,14 @@ export class ContractOffer  {
 
 		// ContractURI (string)
 		{
-			if (this.contract_uri.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 << 8) - 1);
+			if (this.contract_uri.length > (2 ** 8)) {
+				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 ** 8) - 1);
 			}
 		}
 
 		// Issuer (Entity)
 		{
+			// IsInternalType
 			const err = this.issuer.Validate();
 			if  (err) return sprintf('field issuer is invalid : %s', err);
 
@@ -1468,8 +1481,8 @@ export class ContractOffer  {
 
 		// IssuerLogoURL (string)
 		{
-			if (this.issuer_logo_url.length > (2 << 8) - 1) {
-				return sprintf('varchar field issuer_logo_url too long %d/%d', this.issuer_logo_url.length, (2 << 8) - 1);
+			if (this.issuer_logo_url.length > (2 ** 8)) {
+				return sprintf('varchar field issuer_logo_url too long %d/%d', this.issuer_logo_url.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -1480,6 +1493,7 @@ export class ContractOffer  {
 		// ContractOperator (Entity)
 		// IncludeIfTrue
 		if (this.contract_operator_included) {
+			// IsInternalType
 			const err = this.contract_operator.Validate();
 			if  (err) return sprintf('field contract_operator is invalid : %s', err);
 
@@ -1487,8 +1501,8 @@ export class ContractOffer  {
 
 		// ContractAuthFlags ([]byte)
 		{
-			if (this.contract_auth_flags.length > (2 << 16) - 1) {
-				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 << 16) - 1);
+			if (this.contract_auth_flags.length >= (2 ** 16)) {
+				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
 			}
 		}
 
@@ -1498,8 +1512,8 @@ export class ContractOffer  {
 
 		// VotingSystems ([]VotingSystem)
 		{
-			if (this.voting_systems.length > (2 << 8) - 1) {
-				return sprintf('list field voting_systems has too many items %d/%d', this.voting_systems.length, (2 << 8) - 1);
+			if (this.voting_systems.length > (2 ** 8) - 1) {
+				return sprintf('list field voting_systems has too many items %d/%d', this.voting_systems.length, (2 ** 8) - 1);
 			}
 
 			const err = this.voting_systems.find((value, i) => {
@@ -1523,8 +1537,8 @@ export class ContractOffer  {
 
 		// Oracles ([]Oracle)
 		{
-			if (this.oracles.length > (2 << 8) - 1) {
-				return sprintf('list field oracles has too many items %d/%d', this.oracles.length, (2 << 8) - 1);
+			if (this.oracles.length > (2 ** 8) - 1) {
+				return sprintf('list field oracles has too many items %d/%d', this.oracles.length, (2 ** 8) - 1);
 			}
 
 			const err = this.oracles.find((value, i) => {
@@ -1536,6 +1550,7 @@ export class ContractOffer  {
 
 		// MasterPKH (PublicKeyHash)
 		{
+			// IsInternalType
 			const err = this.master_pkh.Validate();
 			if  (err) return sprintf('field master_pkh is invalid : %s', err);
 
@@ -1576,7 +1591,7 @@ export class ContractOffer  {
 // Contract Offer Action from the administration. The smart contract will
 // execute on a server controlled by the administration, or a smart
 // contract operator on their behalf.
-export class ContractFormation  {
+export class ContractFormation extends OpReturnMessage {
 
 	// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
@@ -1962,13 +1977,14 @@ export class ContractFormation  {
 
 		// ContractName (string)
 		{
-			if (this.contract_name.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 << 8) - 1);
+			if (this.contract_name.length > (2 ** 8)) {
+				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 ** 8) - 1);
 			}
 		}
 
 		// BodyOfAgreementType (uint8)
 		{
+			// $field.IntValues [1 2]
 			if ( this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
 				return sprintf('field body_of_agreement_type value is invalid : %d', this.body_of_agreement_type);
 			}
@@ -1977,22 +1993,22 @@ export class ContractFormation  {
 
 		// BodyOfAgreement ([]byte)
 		{
-			if (this.body_of_agreement.length > (2 << 32) - 1) {
-				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 << 32) - 1);
+			if (this.body_of_agreement.length >= (2 ** 32)) {
+				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 ** 32) - 1);
 			}
 		}
 
 		// ContractType (string)
 		{
-			if (this.contract_type.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 << 8) - 1);
+			if (this.contract_type.length > (2 ** 8)) {
+				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 ** 8) - 1);
 			}
 		}
 
 		// SupportingDocs ([]Document)
 		{
-			if (this.supporting_docs.length > (2 << 8) - 1) {
-				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 << 8) - 1);
+			if (this.supporting_docs.length > (2 ** 8) - 1) {
+				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 ** 8) - 1);
 			}
 
 			const err = this.supporting_docs.find((value, i) => {
@@ -2018,6 +2034,7 @@ export class ContractFormation  {
 
 		// ContractExpiration (Timestamp)
 		{
+			// IsInternalType
 			const err = this.contract_expiration.Validate();
 			if  (err) return sprintf('field contract_expiration is invalid : %s', err);
 
@@ -2025,13 +2042,14 @@ export class ContractFormation  {
 
 		// ContractURI (string)
 		{
-			if (this.contract_uri.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 << 8) - 1);
+			if (this.contract_uri.length > (2 ** 8)) {
+				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 ** 8) - 1);
 			}
 		}
 
 		// Issuer (Entity)
 		{
+			// IsInternalType
 			const err = this.issuer.Validate();
 			if  (err) return sprintf('field issuer is invalid : %s', err);
 
@@ -2039,8 +2057,8 @@ export class ContractFormation  {
 
 		// IssuerLogoURL (string)
 		{
-			if (this.issuer_logo_url.length > (2 << 8) - 1) {
-				return sprintf('varchar field issuer_logo_url too long %d/%d', this.issuer_logo_url.length, (2 << 8) - 1);
+			if (this.issuer_logo_url.length > (2 ** 8)) {
+				return sprintf('varchar field issuer_logo_url too long %d/%d', this.issuer_logo_url.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -2051,6 +2069,7 @@ export class ContractFormation  {
 		// ContractOperator (Entity)
 		// IncludeIfTrue
 		if (this.contract_operator_included) {
+			// IsInternalType
 			const err = this.contract_operator.Validate();
 			if  (err) return sprintf('field contract_operator is invalid : %s', err);
 
@@ -2058,8 +2077,8 @@ export class ContractFormation  {
 
 		// ContractAuthFlags ([]byte)
 		{
-			if (this.contract_auth_flags.length > (2 << 16) - 1) {
-				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 << 16) - 1);
+			if (this.contract_auth_flags.length >= (2 ** 16)) {
+				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
 			}
 		}
 
@@ -2069,8 +2088,8 @@ export class ContractFormation  {
 
 		// VotingSystems ([]VotingSystem)
 		{
-			if (this.voting_systems.length > (2 << 8) - 1) {
-				return sprintf('list field voting_systems has too many items %d/%d', this.voting_systems.length, (2 << 8) - 1);
+			if (this.voting_systems.length > (2 ** 8) - 1) {
+				return sprintf('list field voting_systems has too many items %d/%d', this.voting_systems.length, (2 ** 8) - 1);
 			}
 
 			const err = this.voting_systems.find((value, i) => {
@@ -2094,8 +2113,8 @@ export class ContractFormation  {
 
 		// Oracles ([]Oracle)
 		{
-			if (this.oracles.length > (2 << 8) - 1) {
-				return sprintf('list field oracles has too many items %d/%d', this.oracles.length, (2 << 8) - 1);
+			if (this.oracles.length > (2 ** 8) - 1) {
+				return sprintf('list field oracles has too many items %d/%d', this.oracles.length, (2 ** 8) - 1);
 			}
 
 			const err = this.oracles.find((value, i) => {
@@ -2107,6 +2126,7 @@ export class ContractFormation  {
 
 		// MasterPKH (PublicKeyHash)
 		{
+			// IsInternalType
 			const err = this.master_pkh.Validate();
 			if  (err) return sprintf('field master_pkh is invalid : %s', err);
 
@@ -2118,6 +2138,7 @@ export class ContractFormation  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -2159,7 +2180,7 @@ export class ContractFormation  {
 // contract establishment metadata. The ability to make an amendment to the
 // contract is restricted by the Authorization Flag set on the current
 // revision of Contract Formation action.
-export class ContractAmendment  {
+export class ContractAmendment extends OpReturnMessage {
 
 	// 	Used to change the administration address. The new administration
 	// address must be in the input[1] position. A change of the
@@ -2287,8 +2308,8 @@ export class ContractAmendment  {
 
 		// Amendments ([]Amendment)
 		{
-			if (this.amendments.length > (2 << 8) - 1) {
-				return sprintf('list field amendments has too many items %d/%d', this.amendments.length, (2 << 8) - 1);
+			if (this.amendments.length > (2 ** 8) - 1) {
+				return sprintf('list field amendments has too many items %d/%d', this.amendments.length, (2 ** 8) - 1);
 			}
 
 			const err = this.amendments.find((value, i) => {
@@ -2300,6 +2321,7 @@ export class ContractAmendment  {
 
 		// RefTxID (TxId)
 		{
+			// IsInternalType
 			const err = this.ref_tx_id.Validate();
 			if  (err) return sprintf('field ref_tx_id is invalid : %s', err);
 
@@ -2320,7 +2342,7 @@ export class ContractAmendment  {
 }
 
 // StaticContractFormation Static Contract Formation Action
-export class StaticContractFormation  {
+export class StaticContractFormation extends OpReturnMessage {
 
 	// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
@@ -2576,13 +2598,14 @@ export class StaticContractFormation  {
 
 		// ContractName (string)
 		{
-			if (this.contract_name.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 << 8) - 1);
+			if (this.contract_name.length > (2 ** 8)) {
+				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 ** 8) - 1);
 			}
 		}
 
 		// ContractCode (ContractCode)
 		{
+			// IsInternalType
 			const err = this.contract_code.Validate();
 			if  (err) return sprintf('field contract_code is invalid : %s', err);
 
@@ -2590,6 +2613,7 @@ export class StaticContractFormation  {
 
 		// BodyOfAgreementType (uint8)
 		{
+			// $field.IntValues [1 2]
 			if ( this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
 				return sprintf('field body_of_agreement_type value is invalid : %d', this.body_of_agreement_type);
 			}
@@ -2598,22 +2622,22 @@ export class StaticContractFormation  {
 
 		// BodyOfAgreement ([]byte)
 		{
-			if (this.body_of_agreement.length > (2 << 32) - 1) {
-				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 << 32) - 1);
+			if (this.body_of_agreement.length >= (2 ** 32)) {
+				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 ** 32) - 1);
 			}
 		}
 
 		// ContractType (string)
 		{
-			if (this.contract_type.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 << 8) - 1);
+			if (this.contract_type.length > (2 ** 8)) {
+				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 ** 8) - 1);
 			}
 		}
 
 		// SupportingDocs ([]Document)
 		{
-			if (this.supporting_docs.length > (2 << 8) - 1) {
-				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 << 8) - 1);
+			if (this.supporting_docs.length > (2 ** 8) - 1) {
+				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 ** 8) - 1);
 			}
 
 			const err = this.supporting_docs.find((value, i) => {
@@ -2643,6 +2667,7 @@ export class StaticContractFormation  {
 
 		// EffectiveDate (Timestamp)
 		{
+			// IsInternalType
 			const err = this.effective_date.Validate();
 			if  (err) return sprintf('field effective_date is invalid : %s', err);
 
@@ -2650,6 +2675,7 @@ export class StaticContractFormation  {
 
 		// ContractExpiration (Timestamp)
 		{
+			// IsInternalType
 			const err = this.contract_expiration.Validate();
 			if  (err) return sprintf('field contract_expiration is invalid : %s', err);
 
@@ -2657,13 +2683,14 @@ export class StaticContractFormation  {
 
 		// ContractURI (string)
 		{
-			if (this.contract_uri.length > (2 << 8) - 1) {
-				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 << 8) - 1);
+			if (this.contract_uri.length > (2 ** 8)) {
+				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 ** 8) - 1);
 			}
 		}
 
 		// PrevRevTxID (TxId)
 		{
+			// IsInternalType
 			const err = this.prev_rev_tx_id.Validate();
 			if  (err) return sprintf('field prev_rev_tx_id is invalid : %s', err);
 
@@ -2671,8 +2698,8 @@ export class StaticContractFormation  {
 
 		// Entities ([]Entity)
 		{
-			if (this.entities.length > (2 << 8) - 1) {
-				return sprintf('list field entities has too many items %d/%d', this.entities.length, (2 << 8) - 1);
+			if (this.entities.length > (2 ** 8) - 1) {
+				return sprintf('list field entities has too many items %d/%d', this.entities.length, (2 ** 8) - 1);
 			}
 
 			const err = this.entities.find((value, i) => {
@@ -2710,7 +2737,7 @@ export class StaticContractFormation  {
 // address which the contract uses to receive and respond to requests. This
 // is a worst case scenario fallback to only be used when the contract
 // private key is believed to be exposed.
-export class ContractAddressChange  {
+export class ContractAddressChange extends OpReturnMessage {
 
 	// 	The address to be used by all future requests/responses for the
 	// contract.
@@ -2771,6 +2798,7 @@ export class ContractAddressChange  {
 
 		// NewContractPKH (PublicKeyHash)
 		{
+			// IsInternalType
 			const err = this.new_contract_pkh.Validate();
 			if  (err) return sprintf('field new_contract_pkh is invalid : %s', err);
 
@@ -2778,6 +2806,7 @@ export class ContractAddressChange  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -2797,7 +2826,7 @@ export class ContractAddressChange  {
 // Order Used by the administration to signal to the smart contract that
 // the tokens that a particular public address(es) owns are to be
 // confiscated, frozen, thawed or reconciled.
-export class Order  {
+export class Order extends OpReturnMessage {
 
 	// 	Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)
 	compliance_action;
@@ -3096,6 +3125,7 @@ export class Order  {
 		// AssetCode (AssetCode)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
+			// IsInternalType
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -3104,8 +3134,8 @@ export class Order  {
 		// TargetAddresses ([]TargetAddress)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
-			if (this.target_addresses.length > (2 << 16) - 1) {
-				return sprintf('list field target_addresses has too many items %d/%d', this.target_addresses.length, (2 << 16) - 1);
+			if (this.target_addresses.length > (2 ** 16) - 1) {
+				return sprintf('list field target_addresses has too many items %d/%d', this.target_addresses.length, (2 ** 16) - 1);
 			}
 
 			const err = this.target_addresses.find((value, i) => {
@@ -3118,6 +3148,7 @@ export class Order  {
 		// FreezeTxId (TxId)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('T')) {
+			// IsInternalType
 			const err = this.freeze_tx_id.Validate();
 			if  (err) return sprintf('field freeze_tx_id is invalid : %s', err);
 
@@ -3126,6 +3157,7 @@ export class Order  {
 		// FreezePeriod (Timestamp)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('F')) {
+			// IsInternalType
 			const err = this.freeze_period.Validate();
 			if  (err) return sprintf('field freeze_period is invalid : %s', err);
 
@@ -3134,6 +3166,7 @@ export class Order  {
 		// DepositAddress (PublicKeyHash)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('C')) {
+			// IsInternalType
 			const err = this.deposit_address.Validate();
 			if  (err) return sprintf('field deposit_address is invalid : %s', err);
 
@@ -3147,22 +3180,23 @@ export class Order  {
 		// AuthorityName (string)
 		// IncludeIfTrue
 		if (this.authority_included) {
-			if (this.authority_name.length > (2 << 8) - 1) {
-				return sprintf('varchar field authority_name too long %d/%d', this.authority_name.length, (2 << 8) - 1);
+			if (this.authority_name.length > (2 ** 8)) {
+				return sprintf('varchar field authority_name too long %d/%d', this.authority_name.length, (2 ** 8) - 1);
 			}
 		}
 
 		// AuthorityPublicKey ([]byte)
 		// IncludeIfTrue
 		if (this.authority_included) {
-			if (this.authority_public_key.length > (2 << 8) - 1) {
-				return sprintf('varbin field authority_public_key too long %d/%d', this.authority_public_key.length, (2 << 8) - 1);
+			if (this.authority_public_key.length >= (2 ** 8)) {
+				return sprintf('varbin field authority_public_key too long %d/%d', this.authority_public_key.length, (2 ** 8) - 1);
 			}
 		}
 
 		// SignatureAlgorithm (uint8)
 		// IncludeIfTrue
 		if (this.authority_included) {
+			// $field.IntValues [1]
 			if ( this.signature_algorithm !== 1) {
 				return sprintf('field signature_algorithm value is invalid : %d', this.signature_algorithm);
 			}
@@ -3172,8 +3206,8 @@ export class Order  {
 		// OrderSignature ([]byte)
 		// IncludeIfTrue
 		if (this.authority_included) {
-			if (this.order_signature.length > (2 << 8) - 1) {
-				return sprintf('varbin field order_signature too long %d/%d', this.order_signature.length, (2 << 8) - 1);
+			if (this.order_signature.length >= (2 ** 8)) {
+				return sprintf('varbin field order_signature too long %d/%d', this.order_signature.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -3184,16 +3218,16 @@ export class Order  {
 		// RefTxs ([]byte)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('R')) {
-			if (this.ref_txs.length > (2 << 32) - 1) {
-				return sprintf('varbin field ref_txs too long %d/%d', this.ref_txs.length, (2 << 32) - 1);
+			if (this.ref_txs.length >= (2 ** 32)) {
+				return sprintf('varbin field ref_txs too long %d/%d', this.ref_txs.length, (2 ** 32) - 1);
 			}
 		}
 
 		// BitcoinDispersions ([]QuantityIndex)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('R')) {
-			if (this.bitcoin_dispersions.length > (2 << 16) - 1) {
-				return sprintf('list field bitcoin_dispersions has too many items %d/%d', this.bitcoin_dispersions.length, (2 << 16) - 1);
+			if (this.bitcoin_dispersions.length > (2 ** 16) - 1) {
+				return sprintf('list field bitcoin_dispersions has too many items %d/%d', this.bitcoin_dispersions.length, (2 ** 16) - 1);
 			}
 
 			const err = this.bitcoin_dispersions.find((value, i) => {
@@ -3205,8 +3239,8 @@ export class Order  {
 
 		// Message (string)
 		{
-			if (this.message.length > (2 << 32) - 1) {
-				return sprintf('varchar field message too long %d/%d', this.message.length, (2 << 32) - 1);
+			if (this.message.length > (2 ** 32)) {
+				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
 		return null;
@@ -3241,7 +3275,7 @@ export class Order  {
 // publishes this fact to the public blockchain for transparency. The
 // contract will not respond to any actions requested by the frozen
 // address.
-export class Freeze  {
+export class Freeze extends OpReturnMessage {
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -3364,6 +3398,7 @@ export class Freeze  {
 
 		// AssetCode (AssetCode)
 		{
+			// IsInternalType
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -3371,8 +3406,8 @@ export class Freeze  {
 
 		// Quantities ([]QuantityIndex)
 		{
-			if (this.quantities.length > (2 << 16) - 1) {
-				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 << 16) - 1);
+			if (this.quantities.length > (2 ** 16) - 1) {
+				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 ** 16) - 1);
 			}
 
 			const err = this.quantities.find((value, i) => {
@@ -3384,6 +3419,7 @@ export class Freeze  {
 
 		// FreezePeriod (Timestamp)
 		{
+			// IsInternalType
 			const err = this.freeze_period.Validate();
 			if  (err) return sprintf('field freeze_period is invalid : %s', err);
 
@@ -3391,6 +3427,7 @@ export class Freeze  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -3414,7 +3451,7 @@ export class Freeze  {
 // used to comply with contractual obligations or legal requirements. The
 // Alleged Offender's tokens will be unfrozen to allow them to resume
 // normal exchange and governance activities.
-export class Thaw  {
+export class Thaw extends OpReturnMessage {
 
 	// 	The tx id of the freeze action that is being reversed.
 	freeze_tx_id;
@@ -3475,6 +3512,7 @@ export class Thaw  {
 
 		// FreezeTxId (TxId)
 		{
+			// IsInternalType
 			const err = this.freeze_tx_id.Validate();
 			if  (err) return sprintf('field freeze_tx_id is invalid : %s', err);
 
@@ -3482,6 +3520,7 @@ export class Thaw  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -3501,7 +3540,7 @@ export class Thaw  {
 // Confiscation The contract responding to an Order action to confiscate
 // assets. To be used to comply with contractual obligations, legal and/or
 // issuer requirements.
-export class Confiscation  {
+export class Confiscation extends OpReturnMessage {
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -3618,6 +3657,7 @@ export class Confiscation  {
 
 		// AssetCode (AssetCode)
 		{
+			// IsInternalType
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -3625,8 +3665,8 @@ export class Confiscation  {
 
 		// Quantities ([]QuantityIndex)
 		{
-			if (this.quantities.length > (2 << 16) - 1) {
-				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 << 16) - 1);
+			if (this.quantities.length > (2 ** 16) - 1) {
+				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 ** 16) - 1);
 			}
 
 			const err = this.quantities.find((value, i) => {
@@ -3642,6 +3682,7 @@ export class Confiscation  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -3664,7 +3705,7 @@ export class Confiscation  {
 // Reconciliation The contract responding to an Order action to reconcile
 // assets. To be used at the direction of the administration to fix record
 // keeping errors with bitcoin and token balances.
-export class Reconciliation  {
+export class Reconciliation extends OpReturnMessage {
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -3770,6 +3811,7 @@ export class Reconciliation  {
 
 		// AssetCode (AssetCode)
 		{
+			// IsInternalType
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -3777,8 +3819,8 @@ export class Reconciliation  {
 
 		// Quantities ([]QuantityIndex)
 		{
-			if (this.quantities.length > (2 << 16) - 1) {
-				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 << 16) - 1);
+			if (this.quantities.length > (2 ** 16) - 1) {
+				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 ** 16) - 1);
 			}
 
 			const err = this.quantities.find((value, i) => {
@@ -3790,6 +3832,7 @@ export class Reconciliation  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -3813,7 +3856,7 @@ export class Reconciliation  {
 // Contract Formation - can be attached to this action when sent from Token
 // Holders to reduce spam, as the resulting vote will be put to all token
 // owners.
-export class Proposal  {
+export class Proposal extends OpReturnMessage {
 
 	// 	Who initiated the proposal. Supported values: 0 - Administration, 1 -
 	// Holder
@@ -4024,6 +4067,7 @@ export class Proposal  {
 
 		// Initiator (uint8)
 		{
+			// $field.IntValues [0 1]
 			if ( this.initiator !== 0 && this.initiator !== 1) {
 				return sprintf('field initiator value is invalid : %d', this.initiator);
 			}
@@ -4045,6 +4089,7 @@ export class Proposal  {
 		// AssetCode (AssetCode)
 		// IncludeIfTrue
 		if (this.asset_specific_vote) {
+			// IsInternalType
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -4061,8 +4106,8 @@ export class Proposal  {
 		// ProposedAmendments ([]Amendment)
 		// IncludeIfTrue
 		if (this.specific) {
-			if (this.proposed_amendments.length > (2 << 8) - 1) {
-				return sprintf('list field proposed_amendments has too many items %d/%d', this.proposed_amendments.length, (2 << 8) - 1);
+			if (this.proposed_amendments.length > (2 ** 8) - 1) {
+				return sprintf('list field proposed_amendments has too many items %d/%d', this.proposed_amendments.length, (2 ** 8) - 1);
 			}
 
 			const err = this.proposed_amendments.find((value, i) => {
@@ -4074,8 +4119,8 @@ export class Proposal  {
 
 		// VoteOptions (string)
 		{
-			if (this.vote_options.length > (2 << 8) - 1) {
-				return sprintf('varchar field vote_options too long %d/%d', this.vote_options.length, (2 << 8) - 1);
+			if (this.vote_options.length > (2 ** 8)) {
+				return sprintf('varchar field vote_options too long %d/%d', this.vote_options.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -4085,8 +4130,8 @@ export class Proposal  {
 
 		// ProposalDescription (string)
 		{
-			if (this.proposal_description.length > (2 << 32) - 1) {
-				return sprintf('varchar field proposal_description too long %d/%d', this.proposal_description.length, (2 << 32) - 1);
+			if (this.proposal_description.length > (2 ** 32)) {
+				return sprintf('varchar field proposal_description too long %d/%d', this.proposal_description.length, (2 ** 32) - 1);
 			}
 		}
 
@@ -4096,6 +4141,7 @@ export class Proposal  {
 
 		// VoteCutOffTimestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.vote_cut_off_timestamp.Validate();
 			if  (err) return sprintf('field vote_cut_off_timestamp is invalid : %s', err);
 
@@ -4124,7 +4170,7 @@ export class Proposal  {
 
 // Vote A vote is created by the Contract in response to a valid Proposal
 // Action.
-export class Vote  {
+export class Vote extends OpReturnMessage {
 
 	// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
@@ -4172,6 +4218,7 @@ export class Vote  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -4190,7 +4237,7 @@ export class Vote  {
 // BallotCast Used by Token Owners to cast their ballot (vote) on
 // proposals. 1 Vote per token unless a vote multiplier is specified in the
 // relevant Asset Definition action.
-export class BallotCast  {
+export class BallotCast extends OpReturnMessage {
 
 	// 	Tx ID of the Vote the Ballot Cast is being made for.
 	vote_tx_id;
@@ -4253,6 +4300,7 @@ export class BallotCast  {
 
 		// VoteTxId (TxId)
 		{
+			// IsInternalType
 			const err = this.vote_tx_id.Validate();
 			if  (err) return sprintf('field vote_tx_id is invalid : %s', err);
 
@@ -4260,8 +4308,8 @@ export class BallotCast  {
 
 		// Vote (string)
 		{
-			if (this.vote.length > (2 << 8) - 1) {
-				return sprintf('varchar field vote too long %d/%d', this.vote.length, (2 << 8) - 1);
+			if (this.vote.length > (2 ** 8)) {
+				return sprintf('varchar field vote too long %d/%d', this.vote.length, (2 ** 8) - 1);
 			}
 		}
 		return null;
@@ -4280,7 +4328,7 @@ export class BallotCast  {
 // with a Ballot Counted action if the Ballot Cast is valid. If the Ballot
 // Cast is not valid, then the smart contract will respond with a Rejection
 // Action.
-export class BallotCounted  {
+export class BallotCounted extends OpReturnMessage {
 
 	// 	Tx ID of the Vote the Ballot Cast is being made for.
 	vote_tx_id;
@@ -4370,6 +4418,7 @@ export class BallotCounted  {
 
 		// VoteTxId (TxId)
 		{
+			// IsInternalType
 			const err = this.vote_tx_id.Validate();
 			if  (err) return sprintf('field vote_tx_id is invalid : %s', err);
 
@@ -4377,8 +4426,8 @@ export class BallotCounted  {
 
 		// Vote (string)
 		{
-			if (this.vote.length > (2 << 8) - 1) {
-				return sprintf('varchar field vote too long %d/%d', this.vote.length, (2 << 8) - 1);
+			if (this.vote.length > (2 ** 8)) {
+				return sprintf('varchar field vote too long %d/%d', this.vote.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -4388,6 +4437,7 @@ export class BallotCounted  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -4409,7 +4459,7 @@ export class BallotCounted  {
 // Result Once a vote has been completed the results are published. After
 // the result is posted, it is up to the administration to send a
 // contract/asset amendement if appropriate.
-export class Result  {
+export class Result extends OpReturnMessage {
 
 	// 	When true this proposal is specific to an asset and the asset type and
 	// asset code fields are serialized.
@@ -4601,6 +4651,7 @@ export class Result  {
 		// AssetCode (AssetCode)
 		// IncludeIfTrue
 		if (this.asset_specific_vote) {
+			// IsInternalType
 			const err = this.asset_code.Validate();
 			if  (err) return sprintf('field asset_code is invalid : %s', err);
 
@@ -4613,8 +4664,8 @@ export class Result  {
 		// ProposedAmendments ([]Amendment)
 		// IncludeIfTrue
 		if (this.specific) {
-			if (this.proposed_amendments.length > (2 << 8) - 1) {
-				return sprintf('list field proposed_amendments has too many items %d/%d', this.proposed_amendments.length, (2 << 8) - 1);
+			if (this.proposed_amendments.length > (2 ** 8) - 1) {
+				return sprintf('list field proposed_amendments has too many items %d/%d', this.proposed_amendments.length, (2 ** 8) - 1);
 			}
 
 			const err = this.proposed_amendments.find((value, i) => {
@@ -4626,6 +4677,7 @@ export class Result  {
 
 		// VoteTxId (TxId)
 		{
+			// IsInternalType
 			const err = this.vote_tx_id.Validate();
 			if  (err) return sprintf('field vote_tx_id is invalid : %s', err);
 
@@ -4633,20 +4685,21 @@ export class Result  {
 
 		// OptionTally ([]uint64)
 		{
-			if (this.option_tally.length > (2 << 8) - 1) {
-				return sprintf('list field option_tally has too many items %d/%d', this.option_tally.length, (2 << 8) - 1);
+			if (this.option_tally.length > (2 ** 8) - 1) {
+				return sprintf('list field option_tally has too many items %d/%d', this.option_tally.length, (2 ** 8) - 1);
 			}
 		}
 
 		// Result (string)
 		{
-			if (this.result.length > (2 << 8) - 1) {
-				return sprintf('varchar field result too long %d/%d', this.result.length, (2 << 8) - 1);
+			if (this.result.length > (2 ** 8)) {
+				return sprintf('varchar field result too long %d/%d', this.result.length, (2 ** 8) - 1);
 			}
 		}
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -4677,7 +4730,7 @@ export class Result  {
 // offers/bids). The messages are broken down by type for easy filtering in
 // the a user's wallet. The Message Types are listed in the Message Types
 // table.
-export class Message  {
+export class Message extends OpReturnMessage {
 
 	// 	Associates the message to a particular output by the index.
 	address_indexes;
@@ -4758,8 +4811,8 @@ export class Message  {
 
 		// AddressIndexes ([]uint16)
 		{
-			if (this.address_indexes.length > (2 << 8) - 1) {
-				return sprintf('list field address_indexes has too many items %d/%d', this.address_indexes.length, (2 << 8) - 1);
+			if (this.address_indexes.length > (2 ** 8) - 1) {
+				return sprintf('list field address_indexes has too many items %d/%d', this.address_indexes.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -4769,8 +4822,8 @@ export class Message  {
 
 		// MessagePayload ([]byte)
 		{
-			if (this.message_payload.length > (2 << 32) - 1) {
-				return sprintf('varbin field message_payload too long %d/%d', this.message_payload.length, (2 << 32) - 1);
+			if (this.message_payload.length >= (2 ** 32)) {
+				return sprintf('varbin field message_payload too long %d/%d', this.message_payload.length, (2 ** 32) - 1);
 			}
 		}
 		return null;
@@ -4794,7 +4847,7 @@ export class Message  {
 // enough fees in the first Action for the Contract response action to
 // remain revenue neutral. If not enough fees are attached to pay for the
 // Contract response then the Contract will not respond.
-export class Rejection  {
+export class Rejection extends OpReturnMessage {
 
 	// 	Associates the message to a particular output by the index.
 	address_indexes;
@@ -4899,8 +4952,8 @@ export class Rejection  {
 
 		// AddressIndexes ([]uint16)
 		{
-			if (this.address_indexes.length > (2 << 8) - 1) {
-				return sprintf('list field address_indexes has too many items %d/%d', this.address_indexes.length, (2 << 8) - 1);
+			if (this.address_indexes.length > (2 ** 8) - 1) {
+				return sprintf('list field address_indexes has too many items %d/%d', this.address_indexes.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -4917,13 +4970,14 @@ export class Rejection  {
 
 		// Message (string)
 		{
-			if (this.message.length > (2 << 16) - 1) {
-				return sprintf('varchar field message too long %d/%d', this.message.length, (2 << 16) - 1);
+			if (this.message.length > (2 ** 16)) {
+				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 16) - 1);
 			}
 		}
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
@@ -4944,7 +4998,7 @@ export class Rejection  {
 }
 
 // Establishment Establishes an on-chain register.
-export class Establishment  {
+export class Establishment extends OpReturnMessage {
 
 	// 	A custom message to include with this action.
 	message;
@@ -4990,8 +5044,8 @@ export class Establishment  {
 
 		// Message (string)
 		{
-			if (this.message.length > (2 << 32) - 1) {
-				return sprintf('varchar field message too long %d/%d', this.message.length, (2 << 32) - 1);
+			if (this.message.length > (2 ** 32)) {
+				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
 		return null;
@@ -5006,7 +5060,7 @@ export class Establishment  {
 }
 
 // Addition Adds an entry to the Register.
-export class Addition  {
+export class Addition extends OpReturnMessage {
 
 	// 	A custom message to include with this action.
 	message;
@@ -5052,8 +5106,8 @@ export class Addition  {
 
 		// Message (string)
 		{
-			if (this.message.length > (2 << 32) - 1) {
-				return sprintf('varchar field message too long %d/%d', this.message.length, (2 << 32) - 1);
+			if (this.message.length > (2 ** 32)) {
+				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
 		return null;
@@ -5068,7 +5122,7 @@ export class Addition  {
 }
 
 // Alteration A register entry/record can be altered.
-export class Alteration  {
+export class Alteration extends OpReturnMessage {
 
 	// 	Transaction ID of the register entry to be altered.
 	entry_tx_id;
@@ -5127,6 +5181,7 @@ export class Alteration  {
 
 		// EntryTxID (TxId)
 		{
+			// IsInternalType
 			const err = this.entry_tx_id.Validate();
 			if  (err) return sprintf('field entry_tx_id is invalid : %s', err);
 
@@ -5134,8 +5189,8 @@ export class Alteration  {
 
 		// Message (string)
 		{
-			if (this.message.length > (2 << 32) - 1) {
-				return sprintf('varchar field message too long %d/%d', this.message.length, (2 << 32) - 1);
+			if (this.message.length > (2 ** 32)) {
+				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
 		return null;
@@ -5151,7 +5206,7 @@ export class Alteration  {
 }
 
 // Removal Removes an entry/record from the Register.
-export class Removal  {
+export class Removal extends OpReturnMessage {
 
 	// 	Transaction ID of the register entry to be altered.
 	entry_tx_id;
@@ -5210,6 +5265,7 @@ export class Removal  {
 
 		// EntryTxID (TxId)
 		{
+			// IsInternalType
 			const err = this.entry_tx_id.Validate();
 			if  (err) return sprintf('field entry_tx_id is invalid : %s', err);
 
@@ -5217,8 +5273,8 @@ export class Removal  {
 
 		// Message (string)
 		{
-			if (this.message.length > (2 << 32) - 1) {
-				return sprintf('varchar field message too long %d/%d', this.message.length, (2 << 32) - 1);
+			if (this.message.length > (2 ** 32)) {
+				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
 		return null;
@@ -5242,7 +5298,7 @@ export class Removal  {
 // and the corresponding settlement action, the partially signed T1 and T2
 // actions will need to be passed around on-chain with an M1 action, or
 // off-chain.
-export class Transfer  {
+export class Transfer extends OpReturnMessage {
 
 	// 	The Assets involved in the Transfer Action.
 	assets;
@@ -5340,8 +5396,8 @@ export class Transfer  {
 
 		// Assets ([]AssetTransfer)
 		{
-			if (this.assets.length > (2 << 8) - 1) {
-				return sprintf('list field assets has too many items %d/%d', this.assets.length, (2 << 8) - 1);
+			if (this.assets.length > (2 ** 8) - 1) {
+				return sprintf('list field assets has too many items %d/%d', this.assets.length, (2 ** 8) - 1);
 			}
 
 			const err = this.assets.find((value, i) => {
@@ -5353,6 +5409,7 @@ export class Transfer  {
 
 		// OfferExpiry (Timestamp)
 		{
+			// IsInternalType
 			const err = this.offer_expiry.Validate();
 			if  (err) return sprintf('field offer_expiry is invalid : %s', err);
 
@@ -5364,6 +5421,7 @@ export class Transfer  {
 
 		// ExchangeFeeAddress (PublicKeyHash)
 		{
+			// IsInternalType
 			const err = this.exchange_fee_address.Validate();
 			if  (err) return sprintf('field exchange_fee_address is invalid : %s', err);
 
@@ -5384,7 +5442,7 @@ export class Transfer  {
 
 // Settlement Settles the transfer request of bitcoins and tokens from
 // transfer (T1) actions.
-export class Settlement  {
+export class Settlement extends OpReturnMessage {
 
 	// 	The Assets settled by the transfer action.
 	assets;
@@ -5455,8 +5513,8 @@ export class Settlement  {
 
 		// Assets ([]AssetSettlement)
 		{
-			if (this.assets.length > (2 << 8) - 1) {
-				return sprintf('list field assets has too many items %d/%d', this.assets.length, (2 << 8) - 1);
+			if (this.assets.length > (2 ** 8) - 1) {
+				return sprintf('list field assets has too many items %d/%d', this.assets.length, (2 ** 8) - 1);
 			}
 
 			const err = this.assets.find((value, i) => {
@@ -5468,6 +5526,7 @@ export class Settlement  {
 
 		// Timestamp (Timestamp)
 		{
+			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 

@@ -4,13 +4,12 @@ import * as mocha from 'mocha';
 import * as chai from 'chai';
 import {char} from '../src/bytes';
 import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
-import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
-	QuantityIndex, AssetTransfer, AssetSettlement } from '../src/field_types';
+import { TargetAddress, OutputTag } from '../src/field_types';
 import {
 {{- range .}}
 	{{.Name}},
 {{- end}}
-} from '../src/actions';
+} from '../src/messages';
 import R from 'ramda';
 const expect = chai.expect;
 [mocha]
@@ -61,15 +60,13 @@ describe('{{.Name}}', () => {
 			initialMessage.{{ $field.SnakeCase }} = [...Array(2)].map(() => new {{.SingularType}}());
 			{{- else if .IsNativeTypeArray }}
 			// IsNativeTypeArray
-				{{- if eq .Type "Polity[]" }}
-			initialMessage.{{ $field.SnakeCase }} = [...Array(5)].map(() => Buffer.from('AUS', 'ascii'));
+				{{- if eq .Type "Tag[]" }}
+			initialMessage.{{ $field.SnakeCase }} = [...Array(5)].map(() => 121);
 				{{- else}}
 			initialMessage.{{ $field.SnakeCase }} = [...Array(5)].map(() => getArrayOrType('{{.SingularType}}'));
 				{{- end }}
 			{{- else if .IsInternalType }}
 			initialMessage.{{ $field.SnakeCase }} = new {{.FieldGoType}}();
-			{{ else if ne (len $field.IntValues) 0 }}
-				initialMessage.{{ $field.SnakeCase }} = 1;
 			{{- else if .IsNativeType }}
 			// IsNativeType
 				{
@@ -93,14 +90,15 @@ describe('{{.Name}}', () => {
 		// Decode message
 		let decodedMessage = new {{.Name}}();
 
-		let n = decodedMessage.write(initialEncoding);
-		let err = decodedMessage.Validate();
-		if(err) throw new Error('Error validating decoded message: ' + err);
+		let n = decodedMessage.Write(initialEncoding);
 
 		// expect(n).to.eql(initialEncoding.length);
 
 		// Serializing the message should give us the same bytes
 		let secondEncoding = decodedMessage.Serialize();
+
+		let err = decodedMessage.Validate();
+		if(err) throw new Error('Error validating decoded message: ' + err);
 
 		expect(initialEncoding).to.eql(secondEncoding);
 
