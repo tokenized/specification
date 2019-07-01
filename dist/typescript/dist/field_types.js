@@ -43,8 +43,8 @@ class Administrator {
         }
         // name (string)
         {
-            if (this.name.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (2 << 8) - 1);
+            if (this.name && this.name.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (Math.pow(2, 8)) - 1);
             }
         }
         return;
@@ -187,8 +187,8 @@ class Amendment {
         }
         // data ([]byte)
         {
-            if (this.data.length > (2 << 32) - 1) {
-                return sprintf_js_1.sprintf('varbin field data too long %d/%d', this.data.length, (2 << 32) - 1);
+            if (this.data && this.data.length > (Math.pow(2, 32)) - 1) {
+                return sprintf_js_1.sprintf('varbin field data too long %d/%d', this.data.length, (Math.pow(2, 32)) - 1);
             }
         }
         return;
@@ -304,8 +304,8 @@ class AssetReceiver {
         }
         // oracle_confirmation_sig ([]byte)
         {
-            if (this.oracle_confirmation_sig.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varbin field oracle_confirmation_sig too long %d/%d', this.oracle_confirmation_sig.length, (2 << 8) - 1);
+            if (this.oracle_confirmation_sig && this.oracle_confirmation_sig.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varbin field oracle_confirmation_sig too long %d/%d', this.oracle_confirmation_sig.length, (Math.pow(2, 8)) - 1);
             }
         }
         // oracle_sig_block_height (uint32)
@@ -423,8 +423,8 @@ class AssetSettlement {
         }
         // settlements ([]QuantityIndex)
         {
-            if (this.settlements.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('list field settlements has too many items %d/%d', this.settlements.length, (2 << 8) - 1);
+            if (this.settlements.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('list field settlements has too many items %d/%d', this.settlements.length, (Math.pow(2, 8)) - 1);
             }
             this.settlements.forEach((value, i) => {
                 const err = value.Validate();
@@ -567,8 +567,8 @@ class AssetTransfer {
         }
         // asset_senders ([]QuantityIndex)
         {
-            if (this.asset_senders.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('list field asset_senders has too many items %d/%d', this.asset_senders.length, (2 << 8) - 1);
+            if (this.asset_senders.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('list field asset_senders has too many items %d/%d', this.asset_senders.length, (Math.pow(2, 8)) - 1);
             }
             this.asset_senders.forEach((value, i) => {
                 const err = value.Validate();
@@ -579,8 +579,8 @@ class AssetTransfer {
         }
         // asset_receivers ([]AssetReceiver)
         {
-            if (this.asset_receivers.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('list field asset_receivers has too many items %d/%d', this.asset_receivers.length, (2 << 8) - 1);
+            if (this.asset_receivers.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('list field asset_receivers has too many items %d/%d', this.asset_receivers.length, (Math.pow(2, 8)) - 1);
             }
             this.asset_receivers.forEach((value, i) => {
                 const err = value.Validate();
@@ -678,14 +678,14 @@ class Document {
     Validate() {
         // name (string)
         {
-            if (this.name.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (2 << 8) - 1);
+            if (this.name && this.name.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (Math.pow(2, 8)) - 1);
             }
         }
         // type (string)
         {
-            if (this.type.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field type too long %d/%d', this.type.length, (2 << 8) - 1);
+            if (this.type && this.type.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field type too long %d/%d', this.type.length, (Math.pow(2, 8)) - 1);
             }
         }
         // algorithm (uint8)
@@ -693,8 +693,8 @@ class Document {
         }
         // contents ([]byte)
         {
-            if (this.contents.length > (2 << 32) - 1) {
-                return sprintf_js_1.sprintf('varbin field contents too long %d/%d', this.contents.length, (2 << 32) - 1);
+            if (this.contents && this.contents.length > (Math.pow(2, 32)) - 1) {
+                return sprintf_js_1.sprintf('varbin field contents too long %d/%d', this.contents.length, (Math.pow(2, 32)) - 1);
             }
         }
         return;
@@ -883,8 +883,8 @@ class Entity {
     Validate() {
         // name (string)
         {
-            if (this.name.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (2 << 8) - 1);
+            if (this.name && this.name.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (Math.pow(2, 8)) - 1);
             }
         }
         // type (byte)
@@ -904,26 +904,26 @@ class Entity {
         }
         // unit_number (string)
         if (this.address_included) {
-            if (this.unit_number.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field unit_number too long %d/%d', this.unit_number.length, (2 << 8) - 1);
+            if (this.unit_number && this.unit_number.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field unit_number too long %d/%d', this.unit_number.length, (Math.pow(2, 8)) - 1);
             }
         }
         // building_number (string)
         if (this.address_included) {
-            if (this.building_number.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field building_number too long %d/%d', this.building_number.length, (2 << 8) - 1);
+            if (this.building_number && this.building_number.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field building_number too long %d/%d', this.building_number.length, (Math.pow(2, 8)) - 1);
             }
         }
         // street (string)
         if (this.address_included) {
-            if (this.street.length > (2 << 16) - 1) {
-                return sprintf_js_1.sprintf('varchar field street too long %d/%d', this.street.length, (2 << 16) - 1);
+            if (this.street && this.street.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field street too long %d/%d', this.street.length, (Math.pow(2, 16)) - 1);
             }
         }
         // suburb_city (string)
         if (this.address_included) {
-            if (this.suburb_city.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field suburb_city too long %d/%d', this.suburb_city.length, (2 << 8) - 1);
+            if (this.suburb_city && this.suburb_city.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field suburb_city too long %d/%d', this.suburb_city.length, (Math.pow(2, 8)) - 1);
             }
         }
         // territory_state_province_code (string)
@@ -946,20 +946,20 @@ class Entity {
         }
         // email_address (string)
         {
-            if (this.email_address.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field email_address too long %d/%d', this.email_address.length, (2 << 8) - 1);
+            if (this.email_address && this.email_address.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field email_address too long %d/%d', this.email_address.length, (Math.pow(2, 8)) - 1);
             }
         }
         // phone_number (string)
         {
-            if (this.phone_number.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field phone_number too long %d/%d', this.phone_number.length, (2 << 8) - 1);
+            if (this.phone_number && this.phone_number.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field phone_number too long %d/%d', this.phone_number.length, (Math.pow(2, 8)) - 1);
             }
         }
         // administration ([]Administrator)
         {
-            if (this.administration.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('list field administration has too many items %d/%d', this.administration.length, (2 << 8) - 1);
+            if (this.administration.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('list field administration has too many items %d/%d', this.administration.length, (Math.pow(2, 8)) - 1);
             }
             this.administration.forEach((value, i) => {
                 const err = value.Validate();
@@ -970,8 +970,8 @@ class Entity {
         }
         // management ([]Manager)
         {
-            if (this.management.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('list field management has too many items %d/%d', this.management.length, (2 << 8) - 1);
+            if (this.management.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('list field management has too many items %d/%d', this.management.length, (Math.pow(2, 8)) - 1);
             }
             this.management.forEach((value, i) => {
                 const err = value.Validate();
@@ -1100,8 +1100,8 @@ class Manager {
         }
         // name (string)
         {
-            if (this.name.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (2 << 8) - 1);
+            if (this.name && this.name.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (Math.pow(2, 8)) - 1);
             }
         }
         return;
@@ -1155,20 +1155,20 @@ class Oracle {
     Validate() {
         // name (string)
         {
-            if (this.name.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (2 << 8) - 1);
+            if (this.name && this.name.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (Math.pow(2, 8)) - 1);
             }
         }
         // url (string)
         {
-            if (this.url.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field url too long %d/%d', this.url.length, (2 << 8) - 1);
+            if (this.url && this.url.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field url too long %d/%d', this.url.length, (Math.pow(2, 8)) - 1);
             }
         }
         // public_key ([]byte)
         {
-            if (this.public_key.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varbin field public_key too long %d/%d', this.public_key.length, (2 << 8) - 1);
+            if (this.public_key && this.public_key.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varbin field public_key too long %d/%d', this.public_key.length, (Math.pow(2, 8)) - 1);
             }
         }
         return;
@@ -1211,8 +1211,8 @@ class OutputTag {
     Validate() {
         // tag (string)
         {
-            if (this.tag.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field tag too long %d/%d', this.tag.length, (2 << 8) - 1);
+            if (this.tag && this.tag.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field tag too long %d/%d', this.tag.length, (Math.pow(2, 8)) - 1);
             }
         }
         return;
@@ -1390,8 +1390,8 @@ class VotingSystem {
     Validate() {
         // name (string)
         {
-            if (this.name.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (2 << 8) - 1);
+            if (this.name && this.name.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field name too long %d/%d', this.name.length, (Math.pow(2, 8)) - 1);
             }
         }
         // vote_type (byte)
