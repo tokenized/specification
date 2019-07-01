@@ -1,7 +1,6 @@
 import * as mocha from 'mocha';
 import * as chai from 'chai';
 import { read, write } from '../src/bytes';
-import R from 'ramda';
 import _ from '@keyring/util';
 const expect = chai.expect;
 [mocha]

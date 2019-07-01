@@ -2,7 +2,7 @@ import * as mocha from 'mocha';
 import * as chai from 'chai';
 import { OpReturnMessage } from '../src/protocol';
 import { AssetDefinition } from '../src/actions';
-import { AssetTypeMapping, AssetPayload, ShareCommon } from '../src/assets';
+import { AssetTypeMapping, ShareCommon } from '../src/assets';
 const expect = chai.expect;
 [mocha]
 

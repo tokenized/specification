@@ -2,15 +2,13 @@ import {sprintf} from 'sprintf-js';
 import BN from 'bn.js';
 import * as mocha from 'mocha';
 import * as chai from 'chai';
-import {char} from '../src/bytes';
-import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
+import { TxId, Timestamp } from '../src/protocol_types';
 import { TargetAddress, OutputTag } from '../src/field_types';
 import {
 {{- range .}}
 	{{.Name}},
 {{- end}}
 } from '../src/messages';
-import R from 'ramda';
 const expect = chai.expect;
 [mocha]
 
@@ -19,7 +17,8 @@ const getArrayOrType = (type: string) => {
 	let m;
 	if ((m = regex.exec(type)) !== null) {
 		console.log('m:',  m[1]);
-		const subtype = type.slice(m[0].length);
+		// const subtype = 
+		type.slice(m[0].length);
 		return [...Array(parseInt(m[1], 10))].map(() => 0);
 	}
 	if(type === 'uint64') return new BN(0);
@@ -90,7 +89,7 @@ describe('{{.Name}}', () => {
 		// Decode message
 		let decodedMessage = new {{.Name}}();
 
-		let n = decodedMessage.Write(initialEncoding);
+		decodedMessage.Write(initialEncoding);
 
 		// expect(n).to.eql(initialEncoding.length);
 

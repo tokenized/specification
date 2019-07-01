@@ -11,7 +11,6 @@ import {
 	{{.Name}},
 {{- end}}
 } from '../src/actions';
-import R from 'ramda';
 const expect = chai.expect;
 [mocha]
 
@@ -20,7 +19,8 @@ const getArrayOrType = (type: string) => {
 	let m;
 	if ((m = regex.exec(type)) !== null) {
 		console.log('m:',  m[1]);
-		const subtype = type.slice(m[0].length);
+		// const subtype = 
+		type.slice(m[0].length);
 		return [...Array(parseInt(m[1], 10))].map(() => 0);
 	}
 	if(type === 'uint64') return new BN(0);
@@ -96,7 +96,7 @@ describe('{{.Name}}', () => {
 		// Decode message
 		let decodedMessage = new {{.Name}}();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 

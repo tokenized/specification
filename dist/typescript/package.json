@@ -6,7 +6,7 @@
   "repository": "git@github.com:BitbossIO/specification.git",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'",
+    "test": "mocha --reporter spec --require ts-node/register 'test/**/*.test.ts'",
     "start": "node ./node_modules/gulp/bin/gulp.js && node dist/test.js",
     "debug": "node ./node_modules/gulp/bin/gulp.js && node --inspect dist/test.js",
     "debug-brk": "node ./node_modules/gulp/bin/gulp.js && node --inspect-brk dist/test.js",

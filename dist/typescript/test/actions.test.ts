@@ -34,7 +34,6 @@ import {
 	Transfer,
 	Settlement,
 } from '../src/actions';
-import R from 'ramda';
 const expect = chai.expect;
 [mocha]
 
@@ -43,7 +42,8 @@ const getArrayOrType = (type: string) => {
 	let m;
 	if ((m = regex.exec(type)) !== null) {
 		console.log('m:',  m[1]);
-		const subtype = type.slice(m[0].length);
+		// const subtype = 
+		type.slice(m[0].length);
 		return [...Array(parseInt(m[1], 10))].map(() => 0);
 	}
 	if(type === 'uint64') return new BN(0);
@@ -148,7 +148,7 @@ describe('AssetDefinition', () => {
 		// Decode message
 		let decodedMessage = new AssetDefinition();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -402,7 +402,7 @@ describe('AssetCreation', () => {
 		// Decode message
 		let decodedMessage = new AssetCreation();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -594,7 +594,7 @@ describe('AssetModification', () => {
 		// Decode message
 		let decodedMessage = new AssetModification();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -789,7 +789,7 @@ describe('ContractOffer', () => {
 		// Decode message
 		let decodedMessage = new ContractOffer();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -1094,7 +1094,7 @@ describe('ContractFormation', () => {
 		// Decode message
 		let decodedMessage = new ContractFormation();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -1290,7 +1290,7 @@ describe('ContractAmendment', () => {
 		// Decode message
 		let decodedMessage = new ContractAmendment();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -1450,7 +1450,7 @@ describe('StaticContractFormation', () => {
 		// Decode message
 		let decodedMessage = new StaticContractFormation();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -1561,7 +1561,7 @@ describe('ContractAddressChange', () => {
 		// Decode message
 		let decodedMessage = new ContractAddressChange();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -1710,7 +1710,7 @@ describe('Order', () => {
 		// Decode message
 		let decodedMessage = new Order();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -1859,7 +1859,7 @@ describe('Freeze', () => {
 		// Decode message
 		let decodedMessage = new Freeze();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -1923,7 +1923,7 @@ describe('Thaw', () => {
 		// Decode message
 		let decodedMessage = new Thaw();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2002,7 +2002,7 @@ describe('Confiscation', () => {
 		// Decode message
 		let decodedMessage = new Confiscation();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2086,7 +2086,7 @@ describe('Reconciliation', () => {
 		// Decode message
 		let decodedMessage = new Reconciliation();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2228,7 +2228,7 @@ describe('Proposal', () => {
 		// Decode message
 		let decodedMessage = new Proposal();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2346,7 +2346,7 @@ describe('Vote', () => {
 		// Decode message
 		let decodedMessage = new Vote();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2395,7 +2395,7 @@ describe('BallotCast', () => {
 		// Decode message
 		let decodedMessage = new BallotCast();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2468,7 +2468,7 @@ describe('BallotCounted', () => {
 		// Decode message
 		let decodedMessage = new BallotCounted();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2573,7 +2573,7 @@ describe('Result', () => {
 		// Decode message
 		let decodedMessage = new Result();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2681,7 +2681,7 @@ describe('Message', () => {
 		// Decode message
 		let decodedMessage = new Message();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2784,7 +2784,7 @@ describe('Rejection', () => {
 		// Decode message
 		let decodedMessage = new Rejection();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2857,7 +2857,7 @@ describe('Establishment', () => {
 		// Decode message
 		let decodedMessage = new Establishment();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2902,7 +2902,7 @@ describe('Addition', () => {
 		// Decode message
 		let decodedMessage = new Addition();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -2953,7 +2953,7 @@ describe('Alteration', () => {
 		// Decode message
 		let decodedMessage = new Alteration();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -3006,7 +3006,7 @@ describe('Removal', () => {
 		// Decode message
 		let decodedMessage = new Removal();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -3080,7 +3080,7 @@ describe('Transfer', () => {
 		// Decode message
 		let decodedMessage = new Transfer();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
@@ -3146,7 +3146,7 @@ describe('Settlement', () => {
 		// Decode message
 		let decodedMessage = new Settlement();
 
-		let n = decodedMessage.write(initialEncoding);
+		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
 //		if(err) throw new Error('Error validating decoded message: ' + err);
 
