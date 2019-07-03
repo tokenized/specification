@@ -3,8 +3,8 @@ import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadFixedChar,
 	WriteVarChar, WriteFixedChar} from './bytes';
 import { Resources } from './resources';
-import { Timestamp } from '../src/protocol_types';
-import { AgeRestriction } from '../src/field_types';
+import { Timestamp } from './protocol_types';
+import { AgeRestriction } from './field_types';
 
 
 // AssetTypeLen is the size in bytes of all asset type variants.

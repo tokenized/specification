@@ -7,8 +7,8 @@ const sprintf_js_1 = require("sprintf-js");
 const util_1 = __importDefault(require("@keyring/util"));
 const bytes_1 = require("./bytes");
 const resources_1 = require("./resources");
-const protocol_types_1 = require("../src/protocol_types");
-const field_types_1 = require("../src/field_types");
+const protocol_types_1 = require("./protocol_types");
+const field_types_1 = require("./field_types");
 // AssetTypeLen is the size in bytes of all asset type variants.
 const AssetTypeLen = 152;
 // CodeCoupon identifies data as a Coupon message.

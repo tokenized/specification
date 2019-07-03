@@ -2,7 +2,7 @@ import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin,
 	WriteVarChar, WriteVariableSize, WriteVarBin} from './bytes';
-import { TxId, Timestamp, } from '../src/protocol_types';
+import { TxId, Timestamp, } from './protocol_types';
 import { TargetAddress, OutputTag } from './field_types';
 import { Resources } from './resources';
 
