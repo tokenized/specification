@@ -15,8 +15,19 @@ func TestPublicMessage(t *testing.T) {
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
 
-	// PublicMessage (varchar)
-	initialMessage.PublicMessage = "Text 2"
+	// Subject (varchar)
+	initialMessage.Subject = "Text 2"
+
+	// Regarding (Output)
+	initialMessage.Regarding = Output{}
+
+	// PublicMessage (Document)
+	initialMessage.PublicMessage = Document{}
+
+	// Attachments (Document[])
+	for i := 0; i < 2; i++ {
+		initialMessage.Attachments = append(initialMessage.Attachments, Document{})
+	}
 
 	// Encode message
 	initialEncoding, err := initialMessage.Serialize()
@@ -61,9 +72,24 @@ func TestPublicMessage(t *testing.T) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
-	// PublicMessage (varchar)
-	if initialMessage.PublicMessage != decodedMessage.PublicMessage {
-		t.Errorf("PublicMessage doesn't match : %s != %s", initialMessage.PublicMessage, decodedMessage.PublicMessage)
+	// Subject (varchar)
+	if initialMessage.Subject != decodedMessage.Subject {
+		t.Errorf("Subject doesn't match : %s != %s", initialMessage.Subject, decodedMessage.Subject)
+	}
+
+	// Regarding (Output)
+	if initialMessage.Regarding != decodedMessage.Regarding {
+		t.Errorf("Regarding doesn't match : %v != %v", initialMessage.Regarding, decodedMessage.Regarding)
+	}
+
+	// PublicMessage (Document)
+	// if initialMessage.PublicMessage != decodedMessage.PublicMessage {
+	// 	t.Errorf("PublicMessage doesn't match : %v != %v", initialMessage.PublicMessage, decodedMessage.PublicMessage)
+	// }
+
+	// Attachments (Document[])
+	if len(initialMessage.Attachments) != len(decodedMessage.Attachments) {
+		t.Errorf("Attachments lengths don't match : %d != %d", len(initialMessage.Attachments), len(decodedMessage.Attachments))
 	}
 }
 
@@ -76,10 +102,18 @@ func TestPrivateMessage(t *testing.T) {
 	// Timestamp (Timestamp)
 	initialMessage.Timestamp = Timestamp{}
 
-	// PrivateMessage (varbin)
-	initialMessage.PrivateMessage = make([]byte, 0, 32)
-	for i := uint64(0); i < 32; i++ {
-		initialMessage.PrivateMessage = append(initialMessage.PrivateMessage, byte(65+i+2))
+	// Subject (varchar)
+	initialMessage.Subject = "Text 2"
+
+	// Regarding (Output)
+	initialMessage.Regarding = Output{}
+
+	// PrivateMessage (Document)
+	initialMessage.PrivateMessage = Document{}
+
+	// Attachments (Document[])
+	for i := 0; i < 2; i++ {
+		initialMessage.Attachments = append(initialMessage.Attachments, Document{})
 	}
 
 	// Encode message
@@ -125,9 +159,24 @@ func TestPrivateMessage(t *testing.T) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
-	// PrivateMessage (varbin)
-	if !bytes.Equal(initialMessage.PrivateMessage, decodedMessage.PrivateMessage) {
-		t.Errorf("PrivateMessage doesn't match : %x != %x", initialMessage.PrivateMessage, decodedMessage.PrivateMessage)
+	// Subject (varchar)
+	if initialMessage.Subject != decodedMessage.Subject {
+		t.Errorf("Subject doesn't match : %s != %s", initialMessage.Subject, decodedMessage.Subject)
+	}
+
+	// Regarding (Output)
+	if initialMessage.Regarding != decodedMessage.Regarding {
+		t.Errorf("Regarding doesn't match : %v != %v", initialMessage.Regarding, decodedMessage.Regarding)
+	}
+
+	// PrivateMessage (Document)
+	// if initialMessage.PrivateMessage != decodedMessage.PrivateMessage {
+	// 	t.Errorf("PrivateMessage doesn't match : %v != %v", initialMessage.PrivateMessage, decodedMessage.PrivateMessage)
+	// }
+
+	// Attachments (Document[])
+	if len(initialMessage.Attachments) != len(decodedMessage.Attachments) {
+		t.Errorf("Attachments lengths don't match : %d != %d", len(initialMessage.Attachments), len(decodedMessage.Attachments))
 	}
 }
 

@@ -20,19 +20,6 @@ fields:
     size: 8
     example: "application/pdf"
 
-  - name: Algorithm
-    label: Algorithm
-    description: "Compression/encryption algorithm used on file contents. Compression is encoded before encryption, and the reverse for decoding. 0 is no compression or encryption, 1 is AES256 encryption with no compression, 2 is LZMA2 with no encryption, 3 is LZMA2 with AES256 encryption, 4 is Deflate with no encryption, 5 is LZMA2 with AES256 encryption."
-    type: uint
-    size: 1
-    int_values:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-
   - name: Contents
     label: File Contents
     description: The contents of the file.

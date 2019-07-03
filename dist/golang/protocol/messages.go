@@ -69,9 +69,12 @@ func MessageTypeMapping(code uint16) MessagePayload {
 // PublicMessage Generic public message or public announcement. Sent to an
 // address(es). Can be used for an official issuer announcement.
 type PublicMessage struct {
-	Version       uint8     `json:"version,omitempty"`        // Payload Version
-	Timestamp     Timestamp `json:"timestamp,omitempty"`      // Timestamp in nanoseconds for when the message sender creates the transaction.
-	PublicMessage string    `json:"public_message,omitempty"` // Tokenized Ltd. announces product launch.
+	Version       uint8      `json:"version,omitempty"`        // Payload Version
+	Timestamp     Timestamp  `json:"timestamp,omitempty"`      // Timestamp in nanoseconds for when the message sender creates the transaction.
+	Subject       string     `json:"subject,omitempty"`        // The subject / topic of the message.
+	Regarding     Output     `json:"regarding,omitempty"`      // The output of the message that this message is regarding (responding to).
+	PublicMessage Document   `json:"public_message,omitempty"` // Tokenized Ltd. announces product launch.
+	Attachments   []Document `json:"attachments,omitempty"`    // Documents attached to the message.
 }
 
 // Type returns the type identifer for this message.
@@ -118,10 +121,55 @@ func (action *PublicMessage) Serialize() ([]byte, error) {
 		}
 	}
 
-	// PublicMessage (string)
+	// Subject (string)
 	{
-		if err := WriteVarChar(buf, action.PublicMessage, 32); err != nil {
+		if err := WriteVarChar(buf, action.Subject, 16); err != nil {
 			return nil, err
+		}
+	}
+
+	// Regarding (Output)
+	{
+		{
+			b, err := action.Regarding.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	// PublicMessage (Document)
+	{
+		{
+			b, err := action.PublicMessage.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	// Attachments ([]Document)
+	{
+		if err := WriteVariableSize(buf, uint64(len(action.Attachments)), 32, 8); err != nil {
+			return nil, err
+		}
+		for _, value := range action.Attachments {
+			b, err := value.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -146,12 +194,43 @@ func (action *PublicMessage) Write(b []byte) (int, error) {
 		}
 	}
 
-	// PublicMessage (string)
+	// Subject (string)
 	{
 		var err error
-		action.PublicMessage, err = ReadVarChar(buf, 32)
+		action.Subject, err = ReadVarChar(buf, 16)
 		if err != nil {
 			return 0, err
+		}
+	}
+
+	// Regarding (Output)
+	{
+		if err := action.Regarding.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
+	// PublicMessage (Document)
+	{
+		if err := action.PublicMessage.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
+	// Attachments ([]Document)
+	{
+		size, err := ReadVariableSize(buf, 32, 8)
+		if err != nil {
+			return 0, err
+		}
+		action.Attachments = make([]Document, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue Document
+			if err := newValue.Write(buf); err != nil {
+				return 0, err
+			}
+
+			action.Attachments = append(action.Attachments, newValue)
 		}
 	}
 
@@ -172,10 +251,40 @@ func (m *PublicMessage) Validate() error {
 
 	}
 
-	// PublicMessage (string)
+	// Subject (string)
 	{
-		if len(m.PublicMessage) > (2<<32)-1 {
-			return fmt.Errorf("varchar field PublicMessage too long %d/%d", len(m.PublicMessage), (2<<32)-1)
+		if len(m.Subject) > (2<<16)-1 {
+			return fmt.Errorf("varchar field Subject too long %d/%d", len(m.Subject), (2<<16)-1)
+		}
+	}
+
+	// Regarding (Output)
+	{
+		if err := m.Regarding.Validate(); err != nil {
+			return fmt.Errorf("field Regarding is invalid : %s", err)
+		}
+
+	}
+
+	// PublicMessage (Document)
+	{
+		if err := m.PublicMessage.Validate(); err != nil {
+			return fmt.Errorf("field PublicMessage is invalid : %s", err)
+		}
+
+	}
+
+	// Attachments ([]Document)
+	{
+		if len(m.Attachments) > (2<<32)-1 {
+			return fmt.Errorf("list field Attachments has too many items %d/%d", len(m.Attachments), (2<<32)-1)
+		}
+
+		for i, value := range m.Attachments {
+			err := value.Validate()
+			if err != nil {
+				return fmt.Errorf("list field Attachments[%d] is invalid : %s", i, err)
+			}
 		}
 	}
 
@@ -187,7 +296,10 @@ func (action PublicMessage) String() string {
 
 	vals = append(vals, fmt.Sprintf("Version:%v", action.Version))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("Subject:%#+v", action.Subject))
+	vals = append(vals, fmt.Sprintf("Regarding:%#+v", action.Regarding))
 	vals = append(vals, fmt.Sprintf("PublicMessage:%#+v", action.PublicMessage))
+	vals = append(vals, fmt.Sprintf("Attachments:%#+v", action.Attachments))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -195,9 +307,12 @@ func (action PublicMessage) String() string {
 // PrivateMessage Generic private message. Sent to another address(es).
 // Encryption is to be used.
 type PrivateMessage struct {
-	Version        uint8     `json:"version,omitempty"`         // Payload Version
-	Timestamp      Timestamp `json:"timestamp,omitempty"`       // Timestamp in nanoseconds for when the message sender creates the transaction.
-	PrivateMessage []byte    `json:"private_message,omitempty"` // Tokenized Ltd announces product launch.
+	Version        uint8      `json:"version,omitempty"`         // Payload Version
+	Timestamp      Timestamp  `json:"timestamp,omitempty"`       // Timestamp in nanoseconds for when the message sender creates the transaction.
+	Subject        string     `json:"subject,omitempty"`         // The subject / topic of the message.
+	Regarding      Output     `json:"regarding,omitempty"`       // The output of the message that this message is regarding (responding to).
+	PrivateMessage Document   `json:"private_message,omitempty"` // Tokenized Ltd announces product launch.
+	Attachments    []Document `json:"attachments,omitempty"`     // Documents attached to the message.
 }
 
 // Type returns the type identifer for this message.
@@ -244,10 +359,55 @@ func (action *PrivateMessage) Serialize() ([]byte, error) {
 		}
 	}
 
-	// PrivateMessage ([]byte)
+	// Subject (string)
 	{
-		if err := WriteVarBin(buf, action.PrivateMessage, 32); err != nil {
+		if err := WriteVarChar(buf, action.Subject, 16); err != nil {
 			return nil, err
+		}
+	}
+
+	// Regarding (Output)
+	{
+		{
+			b, err := action.Regarding.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	// PrivateMessage (Document)
+	{
+		{
+			b, err := action.PrivateMessage.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
+		}
+	}
+
+	// Attachments ([]Document)
+	{
+		if err := WriteVariableSize(buf, uint64(len(action.Attachments)), 32, 8); err != nil {
+			return nil, err
+		}
+		for _, value := range action.Attachments {
+			b, err := value.Serialize()
+			if err != nil {
+				return nil, err
+			}
+
+			if err := write(buf, b); err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -272,12 +432,43 @@ func (action *PrivateMessage) Write(b []byte) (int, error) {
 		}
 	}
 
-	// PrivateMessage ([]byte)
+	// Subject (string)
 	{
 		var err error
-		action.PrivateMessage, err = ReadVarBin(buf, 32)
+		action.Subject, err = ReadVarChar(buf, 16)
 		if err != nil {
 			return 0, err
+		}
+	}
+
+	// Regarding (Output)
+	{
+		if err := action.Regarding.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
+	// PrivateMessage (Document)
+	{
+		if err := action.PrivateMessage.Write(buf); err != nil {
+			return 0, err
+		}
+	}
+
+	// Attachments ([]Document)
+	{
+		size, err := ReadVariableSize(buf, 32, 8)
+		if err != nil {
+			return 0, err
+		}
+		action.Attachments = make([]Document, 0, size)
+		for i := uint64(0); i < size; i++ {
+			var newValue Document
+			if err := newValue.Write(buf); err != nil {
+				return 0, err
+			}
+
+			action.Attachments = append(action.Attachments, newValue)
 		}
 	}
 
@@ -298,10 +489,40 @@ func (m *PrivateMessage) Validate() error {
 
 	}
 
-	// PrivateMessage ([]byte)
+	// Subject (string)
 	{
-		if len(m.PrivateMessage) > (2<<32)-1 {
-			return fmt.Errorf("varbin field PrivateMessage too long %d/%d", len(m.PrivateMessage), (2<<32)-1)
+		if len(m.Subject) > (2<<16)-1 {
+			return fmt.Errorf("varchar field Subject too long %d/%d", len(m.Subject), (2<<16)-1)
+		}
+	}
+
+	// Regarding (Output)
+	{
+		if err := m.Regarding.Validate(); err != nil {
+			return fmt.Errorf("field Regarding is invalid : %s", err)
+		}
+
+	}
+
+	// PrivateMessage (Document)
+	{
+		if err := m.PrivateMessage.Validate(); err != nil {
+			return fmt.Errorf("field PrivateMessage is invalid : %s", err)
+		}
+
+	}
+
+	// Attachments ([]Document)
+	{
+		if len(m.Attachments) > (2<<32)-1 {
+			return fmt.Errorf("list field Attachments has too many items %d/%d", len(m.Attachments), (2<<32)-1)
+		}
+
+		for i, value := range m.Attachments {
+			err := value.Validate()
+			if err != nil {
+				return fmt.Errorf("list field Attachments[%d] is invalid : %s", i, err)
+			}
 		}
 	}
 
@@ -313,7 +534,10 @@ func (action PrivateMessage) String() string {
 
 	vals = append(vals, fmt.Sprintf("Version:%v", action.Version))
 	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
-	vals = append(vals, fmt.Sprintf("PrivateMessage:%#x", action.PrivateMessage))
+	vals = append(vals, fmt.Sprintf("Subject:%#+v", action.Subject))
+	vals = append(vals, fmt.Sprintf("Regarding:%#+v", action.Regarding))
+	vals = append(vals, fmt.Sprintf("PrivateMessage:%#+v", action.PrivateMessage))
+	vals = append(vals, fmt.Sprintf("Attachments:%#+v", action.Attachments))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }

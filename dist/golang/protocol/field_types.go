@@ -930,10 +930,9 @@ func (m *AssetTransfer) Equal(other AssetTransfer) bool {
 
 // Document A file containing data.
 type Document struct {
-	Name      string `json:"name,omitempty"`      // Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid.
-	Type      string `json:"type,omitempty"`      // MIME type of the file. Length 0-255 bytes. 0 is valid.
-	Algorithm uint8  `json:"algorithm,omitempty"` // Compression/encryption algorithm used on file contents. Compression is encoded before encryption, and the reverse for decoding. 0 is no compression or encryption, 1 is AES256 encryption with no compression, 2 is LZMA2 with no encryption, 3 is LZMA2 with AES256 encryption, 4 is Deflate with no encryption, 5 is LZMA2 with AES256 encryption.
-	Contents  []byte `json:"contents,omitempty"`  // The contents of the file.
+	Name     string `json:"name,omitempty"`     // Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid.
+	Type     string `json:"type,omitempty"`     // MIME type of the file. Length 0-255 bytes. 0 is valid.
+	Contents []byte `json:"contents,omitempty"` // The contents of the file.
 }
 
 // Serialize returns the byte representation of the message.
@@ -950,13 +949,6 @@ func (m Document) Serialize() ([]byte, error) {
 	// Type (string)
 	{
 		if err := WriteVarChar(buf, m.Type, 8); err != nil {
-			return nil, err
-		}
-	}
-
-	// Algorithm (uint8)
-	{
-		if err := write(buf, m.Algorithm); err != nil {
 			return nil, err
 		}
 	}
@@ -991,13 +983,6 @@ func (m *Document) Write(buf *bytes.Buffer) error {
 		}
 	}
 
-	// Algorithm (uint8)
-	{
-		if err := read(buf, &m.Algorithm); err != nil {
-			return err
-		}
-	}
-
 	// Contents ([]byte)
 	{
 		var err error
@@ -1026,10 +1011,6 @@ func (m *Document) Validate() error {
 		}
 	}
 
-	// Algorithm (uint8)
-	{
-	}
-
 	// Contents ([]byte)
 	{
 		if len(m.Contents) > (2<<32)-1 {
@@ -1049,11 +1030,6 @@ func (m *Document) Equal(other Document) bool {
 
 	// Type (string)
 	if m.Type != other.Type {
-		return false
-	}
-
-	// Algorithm (uint8)
-	if m.Algorithm != other.Algorithm {
 		return false
 	}
 
@@ -1773,6 +1749,87 @@ func (m *Oracle) Equal(other Oracle) bool {
 
 	// PublicKey ([]byte)
 	if !bytes.Equal(m.PublicKey, other.PublicKey) {
+		return false
+	}
+	return true
+}
+
+// Output Reference to a bitcoin transaction output.
+type Output struct {
+	TxId        TxId   `json:"tx_id,omitempty"`        //
+	OutputIndex uint32 `json:"output_index,omitempty"` // The index of the output within the referenced transaction.
+}
+
+// Serialize returns the byte representation of the message.
+func (m Output) Serialize() ([]byte, error) {
+	buf := new(bytes.Buffer)
+
+	// TxId (TxId)
+	{
+		b, err := m.TxId.Serialize()
+		if err != nil {
+			return nil, err
+		}
+
+		if err := write(buf, b); err != nil {
+			return nil, err
+		}
+	}
+
+	// OutputIndex (uint32)
+	{
+		if err := write(buf, m.OutputIndex); err != nil {
+			return nil, err
+		}
+	}
+
+	return buf.Bytes(), nil
+}
+
+func (m *Output) Write(buf *bytes.Buffer) error {
+
+	// TxId (TxId)
+	{
+		if err := m.TxId.Write(buf); err != nil {
+			return err
+		}
+	}
+
+	// OutputIndex (uint32)
+	{
+		if err := read(buf, &m.OutputIndex); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Output) Validate() error {
+
+	// TxId (TxId)
+	{
+		if err := m.TxId.Validate(); err != nil {
+			return fmt.Errorf("field TxId is invalid : %s", err)
+		}
+	}
+
+	// OutputIndex (uint32)
+	{
+	}
+
+	return nil
+}
+
+func (m *Output) Equal(other Output) bool {
+
+	// TxId (TxId)
+	if !m.TxId.Equal(other.TxId) {
+		return false
+	}
+
+	// OutputIndex (uint32)
+	if m.OutputIndex != other.OutputIndex {
 		return false
 	}
 	return true

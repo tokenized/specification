@@ -1,0 +1,21 @@
+#
+# Output provides a link to a specific output of a bitcoin transaction.
+#
+
+code: 0002
+
+metadata:
+  name: Output
+  label: Output
+  description: "Reference to a bitcoin transaction output."
+
+fields:
+  - name: TxId
+    label: TxId
+    type: TxId
+
+  - name: OutputIndex
+    label: Output Index
+    description: The index of the output within the referenced transaction.
+    type: uint
+    size: 4

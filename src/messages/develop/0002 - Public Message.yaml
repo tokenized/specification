@@ -24,10 +24,24 @@ fields:
     type: Timestamp
     notes: ""
 
+  - name: Subject
+    label: Subject
+    description: The subject / topic of the message.
+    type: varchar
+    size: 16
+
+  - name: Regarding
+    label: Regarding
+    description: The output of the message that this message is regarding (responding to).
+    type: Output
+
   - name: PublicMessage
     label: Public Message
     description: "Tokenized Ltd. announces product launch."
-    type: varchar
+    type: Document
+
+  - name: Attachments
+    label: Attachments
+    description: Documents attached to the message.
+    type: Document[]
     size: 32
-    example: ""
-    notes: ""
