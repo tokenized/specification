@@ -21,6 +21,7 @@ func Test{{.Name}}(t *testing.T) {
 	{{- else if ne (len $field.IncludeIf.Field) 0 }}
 	if {{ range $j, $include := .IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} initialMessage.{{$field.IncludeIf.Field}} == '{{ $include }}'{{ end }} {
 	{{- else }}
+		// {{ $field.Type }} test not setup
 	{
 	{{- end }}
 		{{- if eq $field.Type "bool" }}
@@ -137,6 +138,7 @@ func Test{{.Name}}(t *testing.T) {
 		{{- else }}
 	// {{ $field.Type }} test compare not setup
 		{{- end }}
-	{{ end -}}
+	{{- end }}
 }
-{{end}}
+
+{{- end}}

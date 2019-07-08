@@ -108,6 +108,9 @@ func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
 		"comment": func(str, chr string) string {
 			return reformat(html.UnescapeString(str), chr)
 		},
+		"snakecase": func(str string) string {
+			return SnakeCase(str)
+		},
 	}
 
 	tmpl := template.Must(template.New(path.Base(inFile)).Funcs(tmplFuncs).ParseFiles(inFile))
