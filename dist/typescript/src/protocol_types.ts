@@ -196,8 +196,8 @@ export class Timestamp {
 	Write(buf: _.Reader) {
 		const bn = read(buf, 'uint64');
 		this.milliseconds = bn.div(new BN(1000000)).toNumber();
-		console.log('\n\nTimestamp.Write', bn);
-		console.log('\n\nTimestamp.Write', this.milliseconds);
+		// console.log('\n\nTimestamp.Write', bn);
+		// console.log('\n\nTimestamp.Write', this.milliseconds);
 	}
 
 	// // MarshalJSON converts to json.

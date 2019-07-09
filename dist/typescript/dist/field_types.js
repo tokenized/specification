@@ -647,10 +647,6 @@ class Document {
         {
             bytes_1.WriteVarChar(buf, this.type, 8);
         }
-        // Algorithm (uint8)
-        {
-            bytes_1.write(buf, this.algorithm, 'uint8');
-        }
         // Contents ([]byte)
         {
             bytes_1.WriteVarBin(buf, this.contents, 32);
@@ -665,10 +661,6 @@ class Document {
         // Type (string)
         {
             this.type = bytes_1.ReadVarChar(buf, 8);
-        }
-        // Algorithm (uint8)
-        {
-            this.algorithm = bytes_1.read(buf, 'uint8');
         }
         // Contents ([]byte)
         {
@@ -688,9 +680,6 @@ class Document {
                 return sprintf_js_1.sprintf('varchar field type too long %d/%d', this.type.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // algorithm (uint8)
-        {
-        }
         // contents ([]byte)
         {
             if (this.contents && this.contents.length > (Math.pow(2, 32)) - 1) {
@@ -706,10 +695,6 @@ class Document {
         }
         // Type (string)
         if (this.type !== other.type) {
-            return false;
-        }
-        // Algorithm (uint8)
-        if (this.algorithm !== other.algorithm) {
             return false;
         }
         // Contents ([]byte)
@@ -1190,6 +1175,60 @@ class Oracle {
     }
 }
 exports.Oracle = Oracle;
+// Output Reference to a bitcoin transaction output.
+class Output {
+    constructor() {
+        this.tx_id = new protocol_types_1.TxId(); // TxId `json:"tx_id,omitempty"`
+    }
+    // Serialize returns the byte representation of the message.
+    Serialize() {
+        const buf = new util_1.default.Writer();
+        // TxId (TxId)
+        {
+            buf.write(this.tx_id.Serialize());
+        }
+        // OutputIndex (uint32)
+        {
+            bytes_1.write(buf, this.output_index, 'uint32');
+        }
+        return buf.buf;
+    }
+    Write(buf) {
+        // TxId (TxId)
+        {
+            this.tx_id.Write(buf);
+        }
+        // OutputIndex (uint32)
+        {
+            this.output_index = bytes_1.read(buf, 'uint32');
+        }
+    }
+    Validate() {
+        // tx_id (TxId)
+        {
+            const err = this.tx_id.Validate();
+            if (err) {
+                return sprintf_js_1.sprintf('field tx_id is invalid : %s', err);
+            }
+        }
+        // output_index (uint32)
+        {
+        }
+        return;
+    }
+    Equal(other) {
+        // TxId (TxId)
+        if (!this.tx_id.Equal(other.tx_id)) {
+            return false;
+        }
+        // OutputIndex (uint32)
+        if (this.output_index !== other.output_index) {
+            return false;
+        }
+        return true;
+    }
+}
+exports.Output = Output;
 // OutputTag A tag or category of an output used to categorize and organize
 // outputs from different transactions.
 class OutputTag {

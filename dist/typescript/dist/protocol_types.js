@@ -167,8 +167,8 @@ class Timestamp {
     Write(buf) {
         const bn = bytes_1.read(buf, 'uint64');
         this.milliseconds = bn.div(new bn_js_1.default(1000000)).toNumber();
-        console.log('\n\nTimestamp.Write', bn);
-        console.log('\n\nTimestamp.Write', this.milliseconds);
+        // console.log('\n\nTimestamp.Write', bn);
+        // console.log('\n\nTimestamp.Write', this.milliseconds);
     }
 }
 exports.Timestamp = Timestamp;
