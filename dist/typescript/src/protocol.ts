@@ -3,15 +3,6 @@ import util from '@keyring/util';
 // import BN from 'bn.js';
 import { TypeMapping } from './actions';
 
-// ProtocolID is the current protocol ID
-const ProtocolID = 'tokenized';
-
-// TestProtocolID is the current protocol ID for testing.
-const TestProtocolID = 'test.tokenized';
-
-// Version of the Tokenized protocol.
-const Version = 0;
-
 
 // OpReturn (OP_RETURN) is a script opcode is used to mark a transaction
 // output as invalid, and can be used to add data to a TX.
@@ -81,6 +72,15 @@ function PushDataScript(size: number): Buffer {
 
 // OpReturnMessage implements a base interface for all message types.
 export class OpReturnMessage {
+	// ProtocolID is the current protocol ID
+	static ProtocolID = 'tokenized';
+
+	// TestProtocolID is the current protocol ID for testing.
+	static TestProtocolID = 'test.tokenized';
+
+	// Version of the Tokenized protocol.
+	static Version = 0;
+
 	// Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
 	static Deserialize(b: Buffer, isTest: boolean = false): OpReturnMessage {
 		const buf = new util.Reader(b);
@@ -93,7 +93,7 @@ export class OpReturnMessage {
 		}
 
 		// Parse protocol ID
-		const protocolId = isTest? TestProtocolID : ProtocolID;
+		const protocolId = isTest? OpReturnMessage.TestProtocolID : OpReturnMessage.ProtocolID;
 
 		let size = ParsePushDataScript(buf);
 		if (size !== protocolId.length) {
@@ -114,7 +114,7 @@ export class OpReturnMessage {
 		// Parse version
 		const version = buf.uint8();
 
-		if (version !== Version) {
+		if (version !== OpReturnMessage.Version) {
 			throw new Error(sprintf('Unsupported version : %02x', version));
 		}
 
@@ -138,7 +138,7 @@ export class OpReturnMessage {
 		// Write OP_RETURN op code
 		buf.uint8(OP_RETURN);
 
-		const protocolId = isTest? TestProtocolID : ProtocolID;
+		const protocolId = isTest? OpReturnMessage.TestProtocolID : OpReturnMessage.ProtocolID;
 
 		// Write protocol Id push op code
 		buf.write(PushDataScript(protocolId.length));
@@ -151,7 +151,7 @@ export class OpReturnMessage {
 		buf.write(PushDataScript(payload.length + 3));
 
 		// Write version
-		buf.uint8(Version);
+		buf.uint8(OpReturnMessage.Version);
 
 		// Write message type code
 		buf.write(Buffer.from(msg.Type(), 'ascii'));
@@ -174,7 +174,7 @@ export class OpReturnMessage {
 		}
 
 		// Parse protocol ID
-		const protocolId = isTest? TestProtocolID : ProtocolID;
+		const protocolId = isTest? OpReturnMessage.TestProtocolID : OpReturnMessage.ProtocolID;
 
 		let size = ParsePushDataScript(buf);
 		if (size !== protocolId.length) {
@@ -195,7 +195,7 @@ export class OpReturnMessage {
 		// Parse version
 		const version = buf.uint8();
 
-		if (version !== Version) {
+		if (version !== OpReturnMessage.Version) {
 			throw new Error(sprintf('Unsupported version : %02x', version));
 		}
 

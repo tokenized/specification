@@ -7,12 +7,6 @@ const sprintf_js_1 = require("sprintf-js");
 const util_1 = __importDefault(require("@keyring/util"));
 // import BN from 'bn.js';
 const actions_1 = require("./actions");
-// ProtocolID is the current protocol ID
-const ProtocolID = 'tokenized';
-// TestProtocolID is the current protocol ID for testing.
-const TestProtocolID = 'test.tokenized';
-// Version of the Tokenized protocol.
-const Version = 0;
 // OpReturn (OP_RETURN) is a script opcode is used to mark a transaction
 // output as invalid, and can be used to add data to a TX.
 const OP_RETURN = 0x6a;
@@ -79,7 +73,7 @@ class OpReturnMessage {
             throw new Error(sprintf_js_1.sprintf('Not an op return output : %02x', opCode));
         }
         // Parse protocol ID
-        const protocolId = isTest ? TestProtocolID : ProtocolID;
+        const protocolId = isTest ? OpReturnMessage.TestProtocolID : OpReturnMessage.ProtocolID;
         let size = ParsePushDataScript(buf);
         if (size !== protocolId.length) {
             throw new Error(sprintf_js_1.sprintf('Push not correct size for protocol ID : %d != %d', size, protocolId.length));
@@ -95,7 +89,7 @@ class OpReturnMessage {
         // }
         // Parse version
         const version = buf.uint8();
-        if (version !== Version) {
+        if (version !== OpReturnMessage.Version) {
             throw new Error(sprintf_js_1.sprintf('Unsupported version : %02x', version));
         }
         // Parse message type code
@@ -112,7 +106,7 @@ class OpReturnMessage {
         const buf = new util_1.default.Writer();
         // Write OP_RETURN op code
         buf.uint8(OP_RETURN);
-        const protocolId = isTest ? TestProtocolID : ProtocolID;
+        const protocolId = isTest ? OpReturnMessage.TestProtocolID : OpReturnMessage.ProtocolID;
         // Write protocol Id push op code
         buf.write(PushDataScript(protocolId.length));
         // Write protocol Id
@@ -121,7 +115,7 @@ class OpReturnMessage {
         // Write push op code for payload length + 3 for version and message type code
         buf.write(PushDataScript(payload.length + 3));
         // Write version
-        buf.uint8(Version);
+        buf.uint8(OpReturnMessage.Version);
         // Write message type code
         buf.write(Buffer.from(msg.Type(), 'ascii'));
         // Write payload
@@ -137,7 +131,7 @@ class OpReturnMessage {
             throw new Error(sprintf_js_1.sprintf('Not an op return output : %02x', opCode));
         }
         // Parse protocol ID
-        const protocolId = isTest ? TestProtocolID : ProtocolID;
+        const protocolId = isTest ? OpReturnMessage.TestProtocolID : OpReturnMessage.ProtocolID;
         let size = ParsePushDataScript(buf);
         if (size !== protocolId.length) {
             throw new Error(sprintf_js_1.sprintf('Push not correct size for protocol ID : %d != %d', size, protocolId.length));
@@ -153,7 +147,7 @@ class OpReturnMessage {
         // }
         // Parse version
         const version = buf.uint8();
-        if (version !== Version) {
+        if (version !== OpReturnMessage.Version) {
             throw new Error(sprintf_js_1.sprintf('Unsupported version : %02x', version));
         }
         // Parse message type code
@@ -165,4 +159,10 @@ class OpReturnMessage {
     write(_) { return 0; }
     Validate() { return null; }
 }
+// ProtocolID is the current protocol ID
+OpReturnMessage.ProtocolID = 'tokenized';
+// TestProtocolID is the current protocol ID for testing.
+OpReturnMessage.TestProtocolID = 'test.tokenized';
+// Version of the Tokenized protocol.
+OpReturnMessage.Version = 0;
 exports.OpReturnMessage = OpReturnMessage;
