@@ -7,6 +7,7 @@ Reference for the Tokenized Protocol structure. Definitions are stored in YAML t
 - Go
 - Python
 - Markdown
+- Typescript/Javascript
 - _your language here_ (contributions welcome)
 
 ## Getting Started
