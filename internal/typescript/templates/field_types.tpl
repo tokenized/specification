@@ -3,7 +3,7 @@ import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
 	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
 import { Resources } from './resources';
-import { PublicKeyHash, AssetCode } from './protocol_types';
+import { PublicKeyHash, AssetCode, TxId } from './protocol_types';
 
 {{range .}}
 {{comment (print .Name " " .Metadata.Description) "//"}}

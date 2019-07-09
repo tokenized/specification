@@ -53,7 +53,11 @@ exports.MessageTypeMapping = MessageTypeMapping;
 class PublicMessage {
     constructor() {
         // transaction.
-        this.timestamp = new protocol_types_1.Timestamp(); // Timestamp `json:"timestamp,omitempty"`// Tokenized Ltd. announces product launch.
+        this.timestamp = new protocol_types_1.Timestamp(); // Timestamp `json:"timestamp,omitempty"`// The subject / topic of the message.
+        // to).
+        this.regarding = new field_types_1.Output(); // Output `json:"regarding,omitempty"`// Tokenized Ltd. announces product launch.
+        this.public_message = new field_types_1.Document(); // Document `json:"public_message,omitempty"`// Documents attached to the message.
+        this.attachments = []; // []Document `json:"attachments,omitempty"`
     }
     // Type returns the type identifer for this message.
     Type() {
@@ -77,9 +81,24 @@ class PublicMessage {
         {
             buf.write(this.timestamp.Serialize());
         }
-        // PublicMessage (string)
+        // Subject (string)
         {
-            bytes_1.WriteVarChar(buf, this.public_message, 32);
+            bytes_1.WriteVarChar(buf, this.subject, 16);
+        }
+        // Regarding (Output)
+        {
+            buf.write(this.regarding.Serialize());
+        }
+        // PublicMessage (Document)
+        {
+            buf.write(this.public_message.Serialize());
+        }
+        // Attachments ([]Document)
+        {
+            bytes_1.WriteVariableSize(buf, this.attachments.length, 32, 8);
+            this.attachments.forEach((value) => {
+                buf.write(value.Serialize());
+            });
         }
         return buf.buf;
     }
@@ -95,9 +114,28 @@ class PublicMessage {
             this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
-        // PublicMessage (string)
+        // Subject (string)
         {
-            this.public_message = bytes_1.ReadVarChar(buf, 32);
+            this.subject = bytes_1.ReadVarChar(buf, 16);
+        }
+        // Regarding (Output)
+        {
+            this.regarding = new field_types_1.Output();
+            this.regarding.Write(buf);
+        }
+        // PublicMessage (Document)
+        {
+            this.public_message = new field_types_1.Document();
+            this.public_message.Write(buf);
+        }
+        // Attachments ([]Document)
+        {
+            const size = bytes_1.ReadVariableSize(buf, 32, 8);
+            this.attachments = [...Array(size)].map(() => {
+                const v = new field_types_1.Document();
+                v.Write(buf);
+                return v;
+            });
         }
         return 0;
     }
@@ -111,11 +149,36 @@ class PublicMessage {
             if (err)
                 return sprintf_js_1.sprintf('field timestamp is invalid : %s', err);
         }
-        // PublicMessage (string)
+        // Subject (string)
         {
-            if (this.public_message.length > (Math.pow(2, 32)) - 1) {
-                return sprintf_js_1.sprintf('varchar field public_message too long %d/%d', this.public_message.length, (Math.pow(2, 32)) - 1);
+            if (this.subject.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field subject too long %d/%d', this.subject.length, (Math.pow(2, 16)) - 1);
             }
+        }
+        // Regarding (Output)
+        {
+            const err = this.regarding.Validate();
+            if (err)
+                return sprintf_js_1.sprintf('field regarding is invalid : %s', err);
+        }
+        // PublicMessage (Document)
+        {
+            const err = this.public_message.Validate();
+            if (err)
+                return sprintf_js_1.sprintf('field public_message is invalid : %s', err);
+        }
+        // Attachments ([]Document)
+        {
+            if (this.attachments.length > (Math.pow(2, 32)) - 1) {
+                return sprintf_js_1.sprintf('list field attachments has too many items %d/%d', this.attachments.length, (Math.pow(2, 32)) - 1);
+            }
+            const e = this.attachments.find((value, i) => {
+                const err = value.Validate();
+                if (err)
+                    return sprintf_js_1.sprintf('list field attachments[%d] is invalid : %s', i, err);
+            });
+            if (e)
+                return e;
         }
         return null;
     }
@@ -123,7 +186,10 @@ class PublicMessage {
         const vals = [];
         vals.push(sprintf_js_1.sprintf('version:%v', this.version));
         vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('subject:%#+v', this.subject));
+        vals.push(sprintf_js_1.sprintf('regarding:%#+v', this.regarding));
         vals.push(sprintf_js_1.sprintf('public_message:%#+v', this.public_message));
+        vals.push(sprintf_js_1.sprintf('attachments:%#+v', this.attachments));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }
@@ -133,7 +199,11 @@ exports.PublicMessage = PublicMessage;
 class PrivateMessage {
     constructor() {
         // transaction.
-        this.timestamp = new protocol_types_1.Timestamp(); // Timestamp `json:"timestamp,omitempty"`// Tokenized Ltd announces product launch.
+        this.timestamp = new protocol_types_1.Timestamp(); // Timestamp `json:"timestamp,omitempty"`// The subject / topic of the message.
+        // to).
+        this.regarding = new field_types_1.Output(); // Output `json:"regarding,omitempty"`// Tokenized Ltd announces product launch.
+        this.private_message = new field_types_1.Document(); // Document `json:"private_message,omitempty"`// Documents attached to the message.
+        this.attachments = []; // []Document `json:"attachments,omitempty"`
     }
     // Type returns the type identifer for this message.
     Type() {
@@ -157,9 +227,24 @@ class PrivateMessage {
         {
             buf.write(this.timestamp.Serialize());
         }
-        // PrivateMessage ([]byte)
+        // Subject (string)
         {
-            bytes_1.WriteVarBin(buf, this.private_message, 32);
+            bytes_1.WriteVarChar(buf, this.subject, 16);
+        }
+        // Regarding (Output)
+        {
+            buf.write(this.regarding.Serialize());
+        }
+        // PrivateMessage (Document)
+        {
+            buf.write(this.private_message.Serialize());
+        }
+        // Attachments ([]Document)
+        {
+            bytes_1.WriteVariableSize(buf, this.attachments.length, 32, 8);
+            this.attachments.forEach((value) => {
+                buf.write(value.Serialize());
+            });
         }
         return buf.buf;
     }
@@ -175,9 +260,28 @@ class PrivateMessage {
             this.timestamp = new protocol_types_1.Timestamp();
             this.timestamp.Write(buf);
         }
-        // PrivateMessage ([]byte)
+        // Subject (string)
         {
-            this.private_message = bytes_1.ReadVarBin(buf, 32);
+            this.subject = bytes_1.ReadVarChar(buf, 16);
+        }
+        // Regarding (Output)
+        {
+            this.regarding = new field_types_1.Output();
+            this.regarding.Write(buf);
+        }
+        // PrivateMessage (Document)
+        {
+            this.private_message = new field_types_1.Document();
+            this.private_message.Write(buf);
+        }
+        // Attachments ([]Document)
+        {
+            const size = bytes_1.ReadVariableSize(buf, 32, 8);
+            this.attachments = [...Array(size)].map(() => {
+                const v = new field_types_1.Document();
+                v.Write(buf);
+                return v;
+            });
         }
         return 0;
     }
@@ -191,11 +295,36 @@ class PrivateMessage {
             if (err)
                 return sprintf_js_1.sprintf('field timestamp is invalid : %s', err);
         }
-        // PrivateMessage ([]byte)
+        // Subject (string)
         {
-            if (this.private_message.length > (Math.pow(2, 32)) - 1) {
-                return sprintf_js_1.sprintf('varbin field private_message too long %d/%d', this.private_message.length, (Math.pow(2, 32)) - 1);
+            if (this.subject.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field subject too long %d/%d', this.subject.length, (Math.pow(2, 16)) - 1);
             }
+        }
+        // Regarding (Output)
+        {
+            const err = this.regarding.Validate();
+            if (err)
+                return sprintf_js_1.sprintf('field regarding is invalid : %s', err);
+        }
+        // PrivateMessage (Document)
+        {
+            const err = this.private_message.Validate();
+            if (err)
+                return sprintf_js_1.sprintf('field private_message is invalid : %s', err);
+        }
+        // Attachments ([]Document)
+        {
+            if (this.attachments.length > (Math.pow(2, 32)) - 1) {
+                return sprintf_js_1.sprintf('list field attachments has too many items %d/%d', this.attachments.length, (Math.pow(2, 32)) - 1);
+            }
+            const e = this.attachments.find((value, i) => {
+                const err = value.Validate();
+                if (err)
+                    return sprintf_js_1.sprintf('list field attachments[%d] is invalid : %s', i, err);
+            });
+            if (e)
+                return e;
         }
         return null;
     }
@@ -203,7 +332,10 @@ class PrivateMessage {
         const vals = [];
         vals.push(sprintf_js_1.sprintf('version:%v', this.version));
         vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
-        vals.push(sprintf_js_1.sprintf('private_message:%#x', this.private_message));
+        vals.push(sprintf_js_1.sprintf('subject:%#+v', this.subject));
+        vals.push(sprintf_js_1.sprintf('regarding:%#+v', this.regarding));
+        vals.push(sprintf_js_1.sprintf('private_message:%#+v', this.private_message));
+        vals.push(sprintf_js_1.sprintf('attachments:%#+v', this.attachments));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
 }

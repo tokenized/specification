@@ -3,7 +3,7 @@ import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
 	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin} from './bytes';
 import { Resources } from './resources';
-import { PublicKeyHash, AssetCode } from './protocol_types';
+import { PublicKeyHash, AssetCode, TxId } from './protocol_types';
 
 
 // Administrator Administrator is used to refer to a Administration role in
@@ -826,12 +826,6 @@ export class Document {
 	name; // string `json:"name,omitempty"`
 // MIME type of the file. Length 0-255 bytes. 0 is valid.
 	type; // string `json:"type,omitempty"`
-// Compression/encryption algorithm used on file contents. Compression is
-	// encoded before encryption, and the reverse for decoding. 0 is no
-	// compression or encryption, 1 is AES256 encryption with no compression,
-	// 2 is LZMA2 with no encryption, 3 is LZMA2 with AES256 encryption, 4 is
-	// Deflate with no encryption, 5 is LZMA2 with AES256 encryption.
-	algorithm; // uint8 `json:"algorithm,omitempty"`
 // The contents of the file.
 	contents; // []byte `json:"contents,omitempty"`
 // Serialize returns the byte representation of the message.
@@ -846,11 +840,6 @@ export class Document {
 		// Type (string)
 		{
 			WriteVarChar(buf, this.type, 8);
-		}
-
-		// Algorithm (uint8)
-		{
-			write(buf, this.algorithm, 'uint8');
 		}
 
 		// Contents ([]byte)
@@ -870,11 +859,6 @@ export class Document {
 		// Type (string)
 		{
 			this.type = ReadVarChar(buf, 8);
-		}
-
-		// Algorithm (uint8)
-		{
-			this.algorithm = read(buf, 'uint8');
 		}
 
 		// Contents ([]byte)
@@ -899,10 +883,6 @@ export class Document {
 			}
 		}
 
-		// algorithm (uint8)
-		{
-		}
-
 		// contents ([]byte)
 		{
 			if (this.contents && this.contents.length > (2 ** 32) - 1) {
@@ -921,11 +901,6 @@ export class Document {
 
 		// Type (string)
 		if (this.type !== other.type) {
-			return false;
-		}
-
-		// Algorithm (uint8)
-		if (this.algorithm !== other.algorithm) {
 			return false;
 		}
 
@@ -1547,6 +1522,74 @@ export class Oracle {
 
 		// PublicKey ([]byte)
 		if (!Buffer.compare(this.public_key, other.public_key)) {
+			return false;
+		}
+		return true;
+	}
+
+}
+
+
+// Output Reference to a bitcoin transaction output.
+export class Output {
+
+	tx_id = new TxId(); // TxId `json:"tx_id,omitempty"`
+// The index of the output within the referenced transaction.
+	output_index; // uint32 `json:"output_index,omitempty"`
+// Serialize returns the byte representation of the message.
+	Serialize(): Buffer {
+		const buf = new _.Writer();
+
+		// TxId (TxId)
+		{
+			buf.write(this.tx_id.Serialize());
+		}
+
+		// OutputIndex (uint32)
+		{
+			write(buf, this.output_index, 'uint32');
+		}
+		return buf.buf;
+	}
+
+	Write(buf: _.Reader) {
+
+		// TxId (TxId)
+		{
+			this.tx_id.Write(buf);
+		}
+
+		// OutputIndex (uint32)
+		{
+			this.output_index = read(buf, 'uint32');
+		}
+	}
+
+	Validate() {
+
+		// tx_id (TxId)
+		{
+			const err = this.tx_id.Validate();
+			if (err) {
+				return sprintf('field tx_id is invalid : %s', err);
+			}
+		}
+
+		// output_index (uint32)
+		{
+		}
+		return;
+	}
+
+	Equal(other: Output): boolean {
+
+		// TxId (TxId)
+		if (!this.tx_id.Equal(other.tx_id)) {
+			return false;
+		}
+
+		// OutputIndex (uint32)
+		if (this.output_index !== other.output_index) {
 			return false;
 		}
 		return true;

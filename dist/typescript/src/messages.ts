@@ -3,7 +3,7 @@ import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin,
 	WriteVarChar, WriteVariableSize, WriteVarBin} from './bytes';
 import { TxId, Timestamp, } from './protocol_types';
-import { TargetAddress, OutputTag } from './field_types';
+import { TargetAddress, OutputTag, Output, Document } from './field_types';
 import { Resources } from './resources';
 
 export enum MsgCodes {
@@ -68,8 +68,12 @@ export class PublicMessage {
 // Payload Version
 	version; // uint8 `json:"version,omitempty"`// Timestamp in nanoseconds for when the message sender creates the
 	// transaction.
-	timestamp = new Timestamp(); // Timestamp `json:"timestamp,omitempty"`// Tokenized Ltd. announces product launch.
-	public_message; // string `json:"public_message,omitempty"`
+	timestamp = new Timestamp(); // Timestamp `json:"timestamp,omitempty"`// The subject / topic of the message.
+	subject; // string `json:"subject,omitempty"`// The output of the message that this message is regarding (responding
+	// to).
+	regarding = new Output(); // Output `json:"regarding,omitempty"`// Tokenized Ltd. announces product launch.
+	public_message = new Document(); // Document `json:"public_message,omitempty"`// Documents attached to the message.
+	attachments = []; // []Document `json:"attachments,omitempty"`
 
 	
 
@@ -105,9 +109,30 @@ export class PublicMessage {
 		}
 	
 
-		// PublicMessage (string)
+		// Subject (string)
 		{
-			WriteVarChar(buf, this.public_message, 32);
+			WriteVarChar(buf, this.subject, 16);
+		}
+	
+
+		// Regarding (Output)
+		{
+			buf.write(this.regarding.Serialize());
+		}
+	
+
+		// PublicMessage (Document)
+		{
+			buf.write(this.public_message.Serialize());
+		}
+	
+
+		// Attachments ([]Document)
+		{
+			WriteVariableSize(buf, this.attachments.length, 32, 8);
+			this.attachments.forEach((value) => {
+				buf.write(value.Serialize());
+			});
 		}
 	
 		return buf.buf;
@@ -132,9 +157,37 @@ export class PublicMessage {
 
 	
 
-		// PublicMessage (string)
+		// Subject (string)
 		{
-			this.public_message = ReadVarChar(buf, 32);
+			this.subject = ReadVarChar(buf, 16);
+		}
+
+	
+
+		// Regarding (Output)
+		{
+			this.regarding = new Output();
+			this.regarding.Write(buf);
+		}
+
+	
+
+		// PublicMessage (Document)
+		{
+			this.public_message = new Document();
+			this.public_message.Write(buf);
+		}
+
+	
+
+		// Attachments ([]Document)
+		{
+			const size = ReadVariableSize(buf, 32, 8);
+			this.attachments = [...Array(size)].map(() => {
+				const v = new Document();
+				v.Write(buf);
+				return v;
+			});
 		}
 
 	
@@ -157,11 +210,41 @@ export class PublicMessage {
 		}
 	
 
-		// PublicMessage (string)
+		// Subject (string)
 		{
-			if (this.public_message.length > (2 ** 32) - 1) {
-				return sprintf('varchar field public_message too long %d/%d', this.public_message.length, (2 ** 32) - 1);
+			if (this.subject.length > (2 ** 16) - 1) {
+				return sprintf('varchar field subject too long %d/%d', this.subject.length, (2 ** 16) - 1);
 			}
+		}
+	
+
+		// Regarding (Output)
+		{
+			const err = this.regarding.Validate();
+			if (err) return sprintf('field regarding is invalid : %s', err);
+	
+		}
+	
+
+		// PublicMessage (Document)
+		{
+			const err = this.public_message.Validate();
+			if (err) return sprintf('field public_message is invalid : %s', err);
+	
+		}
+	
+
+		// Attachments ([]Document)
+		{
+			if (this.attachments.length > (2 ** 32) - 1) {
+				return sprintf('list field attachments has too many items %d/%d', this.attachments.length, (2 ** 32) - 1);
+			}
+
+			const e = this.attachments.find((value, i) => {
+				const err = value.Validate();
+				if (err) return sprintf('list field attachments[%d] is invalid : %s', i, err);
+			});
+			if (e) return e;
 		}
 	
 		return null;
@@ -172,7 +255,10 @@ export class PublicMessage {
 	
 		vals.push(sprintf('version:%v', this.version));
 		vals.push(sprintf('timestamp:%#+v', this.timestamp));
+		vals.push(sprintf('subject:%#+v', this.subject));
+		vals.push(sprintf('regarding:%#+v', this.regarding));
 		vals.push(sprintf('public_message:%#+v', this.public_message));
+		vals.push(sprintf('attachments:%#+v', this.attachments));
 
 		return sprintf('{%s}', vals.join(' '));
 	}
@@ -184,8 +270,12 @@ export class PrivateMessage {
 // Payload Version
 	version; // uint8 `json:"version,omitempty"`// Timestamp in nanoseconds for when the message sender creates the
 	// transaction.
-	timestamp = new Timestamp(); // Timestamp `json:"timestamp,omitempty"`// Tokenized Ltd announces product launch.
-	private_message; // []byte `json:"private_message,omitempty"`
+	timestamp = new Timestamp(); // Timestamp `json:"timestamp,omitempty"`// The subject / topic of the message.
+	subject; // string `json:"subject,omitempty"`// The output of the message that this message is regarding (responding
+	// to).
+	regarding = new Output(); // Output `json:"regarding,omitempty"`// Tokenized Ltd announces product launch.
+	private_message = new Document(); // Document `json:"private_message,omitempty"`// Documents attached to the message.
+	attachments = []; // []Document `json:"attachments,omitempty"`
 
 	
 
@@ -221,9 +311,30 @@ export class PrivateMessage {
 		}
 	
 
-		// PrivateMessage ([]byte)
+		// Subject (string)
 		{
-			WriteVarBin(buf, this.private_message, 32);
+			WriteVarChar(buf, this.subject, 16);
+		}
+	
+
+		// Regarding (Output)
+		{
+			buf.write(this.regarding.Serialize());
+		}
+	
+
+		// PrivateMessage (Document)
+		{
+			buf.write(this.private_message.Serialize());
+		}
+	
+
+		// Attachments ([]Document)
+		{
+			WriteVariableSize(buf, this.attachments.length, 32, 8);
+			this.attachments.forEach((value) => {
+				buf.write(value.Serialize());
+			});
 		}
 	
 		return buf.buf;
@@ -248,9 +359,37 @@ export class PrivateMessage {
 
 	
 
-		// PrivateMessage ([]byte)
+		// Subject (string)
 		{
-			this.private_message = ReadVarBin(buf, 32);
+			this.subject = ReadVarChar(buf, 16);
+		}
+
+	
+
+		// Regarding (Output)
+		{
+			this.regarding = new Output();
+			this.regarding.Write(buf);
+		}
+
+	
+
+		// PrivateMessage (Document)
+		{
+			this.private_message = new Document();
+			this.private_message.Write(buf);
+		}
+
+	
+
+		// Attachments ([]Document)
+		{
+			const size = ReadVariableSize(buf, 32, 8);
+			this.attachments = [...Array(size)].map(() => {
+				const v = new Document();
+				v.Write(buf);
+				return v;
+			});
 		}
 
 	
@@ -273,11 +412,41 @@ export class PrivateMessage {
 		}
 	
 
-		// PrivateMessage ([]byte)
+		// Subject (string)
 		{
-			if (this.private_message.length > (2 ** 32) - 1) {
-				return sprintf('varbin field private_message too long %d/%d', this.private_message.length, (2 ** 32) - 1);
+			if (this.subject.length > (2 ** 16) - 1) {
+				return sprintf('varchar field subject too long %d/%d', this.subject.length, (2 ** 16) - 1);
 			}
+		}
+	
+
+		// Regarding (Output)
+		{
+			const err = this.regarding.Validate();
+			if (err) return sprintf('field regarding is invalid : %s', err);
+	
+		}
+	
+
+		// PrivateMessage (Document)
+		{
+			const err = this.private_message.Validate();
+			if (err) return sprintf('field private_message is invalid : %s', err);
+	
+		}
+	
+
+		// Attachments ([]Document)
+		{
+			if (this.attachments.length > (2 ** 32) - 1) {
+				return sprintf('list field attachments has too many items %d/%d', this.attachments.length, (2 ** 32) - 1);
+			}
+
+			const e = this.attachments.find((value, i) => {
+				const err = value.Validate();
+				if (err) return sprintf('list field attachments[%d] is invalid : %s', i, err);
+			});
+			if (e) return e;
 		}
 	
 		return null;
@@ -288,7 +457,10 @@ export class PrivateMessage {
 	
 		vals.push(sprintf('version:%v', this.version));
 		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-		vals.push(sprintf('private_message:%#x', this.private_message));
+		vals.push(sprintf('subject:%#+v', this.subject));
+		vals.push(sprintf('regarding:%#+v', this.regarding));
+		vals.push(sprintf('private_message:%#+v', this.private_message));
+		vals.push(sprintf('attachments:%#+v', this.attachments));
 
 		return sprintf('{%s}', vals.join(' '));
 	}

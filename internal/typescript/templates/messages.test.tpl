@@ -3,7 +3,7 @@ import BN from 'bn.js';
 import * as mocha from 'mocha';
 import * as chai from 'chai';
 import { TxId, Timestamp } from '../src/protocol_types';
-import { TargetAddress, OutputTag } from '../src/field_types';
+import { TargetAddress, OutputTag, Output, Document } from '../src/field_types';
 import {
 {{- range .}}
 	{{.Name}},

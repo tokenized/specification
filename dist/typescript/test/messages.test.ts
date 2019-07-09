@@ -3,7 +3,7 @@ import BN from 'bn.js';
 import * as mocha from 'mocha';
 import * as chai from 'chai';
 import { TxId, Timestamp } from '../src/protocol_types';
-import { TargetAddress, OutputTag } from '../src/field_types';
+import { TargetAddress, OutputTag, Output, Document } from '../src/field_types';
 import {
 	PublicMessage,
 	PrivateMessage,
@@ -53,9 +53,25 @@ describe('PublicMessage', () => {
 			initialMessage.timestamp = new Timestamp();
 		}
 		
-		// public_message (varchar)
+		// subject (varchar)
 		{
-			initialMessage.public_message = "Text 2"
+			initialMessage.subject = "Text 2"
+		}
+		
+		// regarding (Output)
+		{
+			initialMessage.regarding = new Output();
+		}
+		
+		// public_message (Document)
+		{
+			initialMessage.public_message = new Document();
+		}
+		
+		// attachments (Document[])
+		{
+			// IsInternalTypeArray
+			initialMessage.attachments = [...Array(2)].map(() => new Document());
 		}
 		
 
@@ -93,9 +109,18 @@ describe('PublicMessage', () => {
 			}
 		// timestamp (Timestamp)
 		// Timestamp test compare not setup
-		// public_message (varchar)
-		if (initialMessage.public_message !== (decodedMessage.public_message)) {
-			throw new Error(sprintf("public_message doesn't match : %s != %s", initialMessage.public_message, decodedMessage.public_message));
+		// subject (varchar)
+		if (initialMessage.subject !== (decodedMessage.subject)) {
+			throw new Error(sprintf("subject doesn't match : %s != %s", initialMessage.subject, decodedMessage.subject));
+		}
+		// regarding (Output)
+		// Output test compare not setup
+		// public_message (Document)
+		// Document test compare not setup
+		// attachments (Document[])
+		if ((initialMessage.attachments && decodedMessage.attachments) 
+				&& initialMessage.attachments.length != decodedMessage.attachments.length) {
+			throw new Error(sprintf("attachments lengths don't match : %d != %d", initialMessage.attachments.length, decodedMessage.attachments.length));
 		}
 
 
@@ -126,10 +151,25 @@ describe('PrivateMessage', () => {
 			initialMessage.timestamp = new Timestamp();
 		}
 		
-		// private_message (varbin)
+		// subject (varchar)
 		{
-			initialMessage.private_message = Buffer.from([...Array(32).keys()]
-				.map(i => i + 65 + 2));
+			initialMessage.subject = "Text 2"
+		}
+		
+		// regarding (Output)
+		{
+			initialMessage.regarding = new Output();
+		}
+		
+		// private_message (Document)
+		{
+			initialMessage.private_message = new Document();
+		}
+		
+		// attachments (Document[])
+		{
+			// IsInternalTypeArray
+			initialMessage.attachments = [...Array(2)].map(() => new Document());
 		}
 		
 
@@ -167,10 +207,18 @@ describe('PrivateMessage', () => {
 			}
 		// timestamp (Timestamp)
 		// Timestamp test compare not setup
-		// private_message (varbin)
-		if ((initialMessage.private_message && decodedMessage.private_message) 
-				&& !initialMessage.private_message.equals(decodedMessage.private_message)) {
-			throw new Error(sprintf("private_message doesn't match : %x != %x", initialMessage.private_message, decodedMessage.private_message));
+		// subject (varchar)
+		if (initialMessage.subject !== (decodedMessage.subject)) {
+			throw new Error(sprintf("subject doesn't match : %s != %s", initialMessage.subject, decodedMessage.subject));
+		}
+		// regarding (Output)
+		// Output test compare not setup
+		// private_message (Document)
+		// Document test compare not setup
+		// attachments (Document[])
+		if ((initialMessage.attachments && decodedMessage.attachments) 
+				&& initialMessage.attachments.length != decodedMessage.attachments.length) {
+			throw new Error(sprintf("attachments lengths don't match : %d != %d", initialMessage.attachments.length, decodedMessage.attachments.length));
 		}
 
 
