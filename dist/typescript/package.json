@@ -1,6 +1,6 @@
 {
   "name": "@bitboss/tokenized",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Tokenized specification",
   "author": "Justin Laue <justin@bitboss.io>",
   "repository": "git@github.com:BitbossIO/specification.git",
@@ -29,7 +29,7 @@
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "@keyring/bsv": "0.0.16",
+    "@keyring/bsv": "^0.1.4",
     "ramda": "^0.26.1",
     "sprintf-js": "^1.1.2",
     "yaml": "^1.6.0"
