@@ -257,6 +257,8 @@ values:
         constitutionalDocument: 
          charter: null # (eg. Charter, etc.) 
         role:
+          members:
+          administrators:
           associates:
             accountant: []
             advisor: []
