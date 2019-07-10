@@ -16,7 +16,7 @@ type RejectionCodeData struct {
 var rejectionTypes map[uint8]RejectionCodeData
 var rejectionLock sync.Mutex
 
-func getRejectionCodes() (map[uint8]RejectionCodeData, error) {
+func GetRejectionCodes() (map[uint8]RejectionCodeData, error) {
 	if rejectionTypes != nil {
 		return rejectionTypes, nil
 	}
@@ -38,7 +38,7 @@ func GetRejectionCode(code uint8) *RejectionCodeData {
 	rejectionLock.Lock()
 	defer rejectionLock.Unlock()
 
-	types, err := getRejectionCodes()
+	types, err := GetRejectionCodes()
 	if err != nil {
 		return nil
 	}
@@ -60,7 +60,7 @@ type CurrencyTypeData struct {
 var currencyTypes map[[3]byte]CurrencyTypeData
 var currencyLock sync.Mutex
 
-func getCurrencies() (map[[3]byte]CurrencyTypeData, error) {
+func GetCurrencies() (map[[3]byte]CurrencyTypeData, error) {
 	if currencyTypes != nil {
 		return currencyTypes, nil
 	}
@@ -87,7 +87,7 @@ func GetCurrency(cur [3]byte) *CurrencyTypeData {
 	currencyLock.Lock()
 	defer currencyLock.Unlock()
 
-	types, err := getCurrencies()
+	types, err := GetCurrencies()
 	if err != nil {
 		return nil
 	}
@@ -109,7 +109,7 @@ type EntityTypeData struct {
 var entityTypes map[byte]EntityTypeData
 var entityLock sync.Mutex
 
-func getEntityTypes() (map[byte]EntityTypeData, error) {
+func GetEntityTypes() (map[byte]EntityTypeData, error) {
 	if entityTypes != nil {
 		return entityTypes, nil
 	}
@@ -134,7 +134,7 @@ func GetEntityType(ent byte) *EntityTypeData {
 	entityLock.Lock()
 	defer entityLock.Unlock()
 
-	types, err := getEntityTypes()
+	types, err := GetEntityTypes()
 	if err != nil {
 		return nil
 	}
@@ -156,7 +156,7 @@ type PolityType struct {
 var polityTypes map[string]PolityType
 var polityLock sync.Mutex
 
-func getPolityTypes() (map[string]PolityType, error) {
+func GetPolityTypes() (map[string]PolityType, error) {
 	if polityTypes != nil {
 		return polityTypes, nil
 	}
@@ -178,7 +178,7 @@ func GetPolityType(pol string) *PolityType {
 	polityLock.Lock()
 	defer polityLock.Unlock()
 
-	types, err := getPolityTypes()
+	types, err := GetPolityTypes()
 	if err != nil {
 		return nil
 	}
@@ -200,7 +200,7 @@ type RoleType struct {
 var roleTypes map[uint8]RoleType
 var roleLock sync.Mutex
 
-func getRoleTypes() (map[uint8]RoleType, error) {
+func GetRoleTypes() (map[uint8]RoleType, error) {
 	if roleTypes != nil {
 		return roleTypes, nil
 	}
@@ -222,7 +222,7 @@ func GetRoleType(role uint8) *RoleType {
 	roleLock.Lock()
 	defer roleLock.Unlock()
 
-	types, err := getRoleTypes()
+	types, err := GetRoleTypes()
 	if err != nil {
 		return nil
 	}
@@ -241,7 +241,7 @@ type TagType struct {
 var tagTypes map[uint8]TagType
 var tagLock sync.Mutex
 
-func getTagTypes() (map[uint8]TagType, error) {
+func GetTagTypes() (map[uint8]TagType, error) {
 	if tagTypes != nil {
 		return tagTypes, nil
 	}
@@ -263,7 +263,7 @@ func GetTagType(tag uint8) *TagType {
 	tagLock.Lock()
 	defer tagLock.Unlock()
 
-	types, err := getTagTypes()
+	types, err := GetTagTypes()
 	if err != nil {
 		return nil
 	}
