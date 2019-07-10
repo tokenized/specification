@@ -11,18 +11,23 @@ values:
         type: Legal
         constitutionalDocument: null
         roles:
-          owners:
+          members:
             principal: null
           administrators:
             principal: null
             legalGuardian: []
             agent: [] # (granted by the principal)
-          general:
+          managers: null
+          associates:
             accountant: []
             advisor: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:  
+            friend: []
+            governmentAgency: []
+            suppliers: []
 
     - code: P
       name: PublicCompany
@@ -32,7 +37,7 @@ values:
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)
         roles:
-          owners:
+          members:
             shareholder: []
             significantShareholder: []
           administrators: # Board of Directors
@@ -45,13 +50,17 @@ values:
             cto: null
             executive: []
             secretary: null
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []  
+            governmentAgency: []
+            supplier: []
 
     - code: C
       name: PrivateCompany
@@ -61,7 +70,7 @@ values:
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
         roles:
-          owners:
+          members:
             shareholder: []
             significantShareholder: []
           administrators:
@@ -74,13 +83,17 @@ values:
             cto: null
             executive: []
             secretary: null            
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: L
       name: LimitedPartnership
@@ -90,21 +103,25 @@ values:
         constitutionalDocument: 
           partnershipAgreement: null
         roles:
-          owners:
+          members:
             partner: []
           administrators:
             partner: []
           managers:
             managingPartner: []
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
-
-    - code: U
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
+            
+    - code: X
       name: UnlimitedPartnership
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership)
       metadata:
@@ -112,19 +129,24 @@ values:
         constitutionalDocument: 
           partnershipAgreement: null        
         roles:
-          owners:
+          members:
             partner: []
           administrators:
             partner: []  
           managers:
             managingPartner: []
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
+            contractor: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: T
       name: SoleProprietorship
@@ -133,18 +155,22 @@ values:
         type: Legal
         constitutionalDocument: null     
         roles:
-          owners:
+           members:
             proprietor: null
           administrators:
             proprietor: null
             agent: [] # (granted by the proprietor)
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: S
       name: StatutoryCompany
@@ -154,6 +180,8 @@ values:
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
         roles:
+          members:
+            nationState: null
           administrators:
             chairman: null
             director: []
@@ -164,13 +192,17 @@ values:
             cto: null
             executive: []
             secretary: null
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: O
       name: NonProfitOrganization
@@ -190,13 +222,17 @@ values:
             cto: null
             executive: []
             secretary: null   
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: N
       name: NationState
@@ -205,6 +241,13 @@ values:
         type: Legal
         constitutionalDocument: 
          nationalConstitution: null # (eg. Constitution, Charter, etc.)       
+        role:
+          members:
+            citizen: []
+          administrators:
+          managers: 
+          associates:
+          collaborators:
 
     - code: G
       name: GovernmentAgency
@@ -213,7 +256,19 @@ values:
         type: Legal
         constitutionalDocument: 
          charter: null # (eg. Charter, etc.) 
-         
+        role:
+          associates:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
+
     - code: U
       name: UnitTrust
       label: "Unit Trust"
@@ -222,12 +277,12 @@ values:
         constitutionalDocument: 
          trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)         
         roles:
-          owners:
+          members:
             unitholder: []
           administrators:
             protector: []
             trustee: []
-          general:
+          associates:
             accountant: []
             advisor: []
             custodian: []
@@ -236,6 +291,10 @@ values:
             manager: []
             settlor: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: D
       name: DiscretionaryTrust
@@ -245,12 +304,12 @@ values:
         constitutionalDocument: 
          trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)               
         roles:
-          owners:
+          members:
             beneficiary: []
           administrators:
             protector: []
             trustee: []
-          general:
+          associates:
             accountant: []
             advisor: []
             custodian: []
@@ -259,3 +318,7 @@ values:
             manager: []
             settlor: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []  
