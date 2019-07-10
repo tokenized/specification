@@ -60,10 +60,10 @@ type CurrencyTypeData struct {
 	// Metadata    string
 }
 
-var currencyTypes map[[3]byte]CurrencyTypeData
+var currencyTypes map[string]CurrencyTypeData
 var currencyLock sync.Mutex
 
-func GetCurrencies() (map[[3]byte]CurrencyTypeData, error) {
+func GetCurrencies() (map[string]CurrencyTypeData, error) {
 	if currencyTypes != nil {
 		return currencyTypes, nil
 	}
@@ -74,14 +74,12 @@ func GetCurrencies() (map[[3]byte]CurrencyTypeData, error) {
 		return nil, errors.Wrap(err, "Failed to unmarshal currencyTypes yaml")
 	}
 
-	currencyTypes = make(map[[3]byte]CurrencyTypeData)
+	currencyTypes = make(map[string]CurrencyTypeData)
 	for _, value := range load {
 		if len(value.Code) != 3 {
 			return nil, fmt.Errorf("Currency type incorrect length : %s", value.Code)
 		}
-		var code [3]byte
-		copy(code[:], []byte(value.Code))
-		currencyTypes[code] = value
+		currencyTypes[value.Code] = value
 	}
 	return currencyTypes, nil
 }
@@ -94,7 +92,9 @@ func GetCurrency(cur [3]byte) *CurrencyTypeData {
 	if err != nil {
 		return nil
 	}
-	result, exists := types[cur]
+
+	curs := string(cur[:])
+	result, exists := types[curs]
 	if !exists {
 		return nil
 	}
