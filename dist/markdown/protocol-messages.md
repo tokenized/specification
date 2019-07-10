@@ -29,7 +29,7 @@ Generic public message or public announcement. Sent to an address(es).  Can be u
 <table>
     <tr>
         <th style="width:15%">Message Code</th>
-        <td>0002</td>
+        <td>2</td>
     </tr>
 </table>
 
@@ -111,7 +111,7 @@ Generic private message. Sent to another address(es). Encryption is to be used.
 <table>
     <tr>
         <th style="width:15%">Message Code</th>
-        <td>0003</td>
+        <td>3</td>
     </tr>
 </table>
 
@@ -193,7 +193,7 @@ A message that contains a bitcoin transaction that was accepted by the network o
 <table>
     <tr>
         <th style="width:15%">Message Code</th>
-        <td>0004</td>
+        <td>4</td>
     </tr>
 </table>
 

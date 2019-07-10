@@ -8,13 +8,13 @@ import (
 
 const (
 	// CodePublicMessage identifies data as a PublicMessage message.
-	CodePublicMessage = 0002
+	CodePublicMessage = 2
 
 	// CodePrivateMessage identifies data as a PrivateMessage message.
-	CodePrivateMessage = 0003
+	CodePrivateMessage = 3
 
 	// CodeRevertedTx identifies data as a RevertedTx message.
-	CodeRevertedTx = 0004
+	CodeRevertedTx = 4
 
 	// CodeOffer identifies data as a Offer message.
 	CodeOffer = 1001

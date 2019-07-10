@@ -83,9 +83,9 @@ func TestPublicMessage(t *testing.T) {
 	}
 
 	// PublicMessage (Document)
-	// if initialMessage.PublicMessage != decodedMessage.PublicMessage {
-	// 	t.Errorf("PublicMessage doesn't match : %v != %v", initialMessage.PublicMessage, decodedMessage.PublicMessage)
-	// }
+	if initialMessage.PublicMessage != decodedMessage.PublicMessage {
+		t.Errorf("PublicMessage doesn't match : %v != %v", initialMessage.PublicMessage, decodedMessage.PublicMessage)
+	}
 
 	// Attachments (Document[])
 	if len(initialMessage.Attachments) != len(decodedMessage.Attachments) {
@@ -170,9 +170,9 @@ func TestPrivateMessage(t *testing.T) {
 	}
 
 	// PrivateMessage (Document)
-	// if initialMessage.PrivateMessage != decodedMessage.PrivateMessage {
-	// 	t.Errorf("PrivateMessage doesn't match : %v != %v", initialMessage.PrivateMessage, decodedMessage.PrivateMessage)
-	// }
+	if initialMessage.PrivateMessage != decodedMessage.PrivateMessage {
+		t.Errorf("PrivateMessage doesn't match : %v != %v", initialMessage.PrivateMessage, decodedMessage.PrivateMessage)
+	}
 
 	// Attachments (Document[])
 	if len(initialMessage.Attachments) != len(decodedMessage.Attachments) {
