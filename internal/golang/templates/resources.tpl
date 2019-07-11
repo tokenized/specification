@@ -54,7 +54,12 @@ type CurrencyTypeData struct {
 	Name        string
 	Label       string
 	Description string
-	// Metadata    string
+	Metadata    struct {
+		Symbol         string
+		Precision      int
+		Fractionals    int
+		FractionalUnit string
+	}
 }
 
 var currencyTypes map[string]CurrencyTypeData

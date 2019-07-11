@@ -9,7 +9,7 @@ export class Data {
     label: United Arab Emirates dirham
     metadata:
       symbol: "د.إ"
-      fractions: 100
+      precision: 2
       fractional_unit: Fils
       polity:
         - ARE
@@ -20,7 +20,7 @@ export class Data {
     label: Afghan afghani
     metadata:
       symbol: "؋"
-      fractions: 100
+      precision: 2
       fractional_unit: Pul
       polity:
         - AFG
@@ -31,7 +31,7 @@ export class Data {
     label: Albanian lek
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Qindarkë
       polity:
         - ALB
@@ -42,7 +42,7 @@ export class Data {
     label: Armenian dram
     metadata:
       symbol: "֏"
-      fractions: 100
+      precision: 2
       fractional_unit: Luma
       polity:
         - ARM
@@ -53,7 +53,7 @@ export class Data {
     label: Netherlands Antillean guilder
     metadata:
       symbol: "ƒ"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SXM
@@ -65,7 +65,7 @@ export class Data {
     label: Angolan kwanza
     metadata:
       symbol: "Kz"
-      fractions: 100
+      precision: 2
       fractional_unit: Cêntimo
       polity:
         - AGO
@@ -76,7 +76,7 @@ export class Data {
     label: Argentine peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - ARG
@@ -87,7 +87,7 @@ export class Data {
     label: Australian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - AUS
@@ -101,7 +101,7 @@ export class Data {
     label: Aruban florin
     metadata:
       symbol: "ƒ"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - ABW
@@ -112,7 +112,7 @@ export class Data {
     label: Azerbaijani manat
     metadata:
       symbol: "₼"
-      fractions: 100
+      precision: 2
       fractional_unit: Qəpik
       polity:
         - AZE
@@ -123,7 +123,7 @@ export class Data {
     label: Bosnia and Herzegovina convertible mark
     metadata:
       symbol: "КМ"
-      fractions: 100
+      precision: 2
       fractional_unit: Fening
       polity:
         - BIH
@@ -134,7 +134,7 @@ export class Data {
     label: Barbadian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - BRB
@@ -145,7 +145,7 @@ export class Data {
     label: Bangladeshi taka
     metadata:
       symbol: "৳"
-      fractions: 100
+      precision: 2
       fractional_unit: Poisha
       polity:
         - BGD
@@ -156,7 +156,7 @@ export class Data {
     label: Bulgarian lev
     metadata:
       symbol: "лв"
-      fractions: 100
+      precision: 2
       fractional_unit: Stotinka
       polity:
         - BGR
@@ -167,7 +167,7 @@ export class Data {
     label: Bahraini dinar
     metadata:
       symbol: ".د.ب"
-      fractions: 1000
+      precision: 1
       fractional_unit: Fils
       polity:
         - BHR
@@ -178,7 +178,7 @@ export class Data {
     label: Burundian franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - BDI
@@ -189,7 +189,7 @@ export class Data {
     label: Bermudian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - BMU
@@ -200,7 +200,7 @@ export class Data {
     label: Brunei dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - BRN
@@ -211,7 +211,7 @@ export class Data {
     label: Bolivian boliviano
     metadata:
       symbol: "Bs."
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - BOL
@@ -222,7 +222,7 @@ export class Data {
     label: Brazilian real
     metadata:
       symbol: "R$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - BRA
@@ -233,7 +233,7 @@ export class Data {
     label: Bahamian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - BHS
@@ -244,7 +244,7 @@ export class Data {
     label: Bitcoin SV
     metadata:
       symbol: "₿"
-      fractions: 100000000
+      precision: 8
       fractional_unit: Satoshis
       monetary_authority: Satoshi Nakamoto
 
@@ -253,7 +253,7 @@ export class Data {
     label: Bhutanese ngultrum
     metadata:
       symbol: "Nu."
-      fractions: 100
+      precision: 2
       fractional_unit: Chetrum
       polity:
         - BTN
@@ -264,7 +264,7 @@ export class Data {
     label: Botswana pula
     metadata:
       symbol: "P"
-      fractions: 100
+      precision: 2
       fractional_unit: Thebe
       polity:
         - BWA
@@ -275,7 +275,7 @@ export class Data {
     label: Belarusian ruble
     metadata:
       symbol: "Br"
-      fractions: 100
+      precision: 2
       fractional_unit: Kapyeyka
       polity:
         - BLR
@@ -286,7 +286,7 @@ export class Data {
     label: Belize dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - BLZ
@@ -297,7 +297,7 @@ export class Data {
     label: Canadian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - CAN
@@ -308,7 +308,7 @@ export class Data {
     label: Congolese franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - COD
@@ -319,7 +319,7 @@ export class Data {
     label: Swiss franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Rappen
       polity:
         - CHE
@@ -331,7 +331,7 @@ export class Data {
     label: Chilean peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - CHL
@@ -342,7 +342,7 @@ export class Data {
     label: Chinese yuan
     metadata:
       symbol: "¥"
-      fractions: 100
+      precision: 2
       fractional_unit: Fen
       polity:
         - CHN
@@ -353,7 +353,7 @@ export class Data {
     label: Colombian peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - COL
@@ -364,7 +364,7 @@ export class Data {
     label: Costa Rican colon
     metadata:
       symbol: "₡"
-      fractions: 100
+      precision: 2
       fractional_unit: Céntimo
       polity:
         - CRI
@@ -375,7 +375,7 @@ export class Data {
     label: Cuban convertible peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - CUB
@@ -386,7 +386,7 @@ export class Data {
     label: Cuban convertible peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - CUB
@@ -397,7 +397,7 @@ export class Data {
     label: Cape Verdean escudo
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - CUB
@@ -408,7 +408,7 @@ export class Data {
     label: Czech koruna
     metadata:
       symbol: "Kč"
-      fractions: 100
+      precision: 2
       fractional_unit: Haléř
       polity:
         - CZE
@@ -419,7 +419,7 @@ export class Data {
     label: Djiboutian franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - DJI
@@ -430,7 +430,7 @@ export class Data {
     label: Danish krone
     metadata:
       symbol: "kr"
-      fractions: 100
+      precision: 2
       fractional_unit: Øre
       polity:
         - DNK
@@ -443,7 +443,7 @@ export class Data {
     label: Dominican peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - DOM
@@ -454,7 +454,7 @@ export class Data {
     label: Algerian dinar
     metadata:
       symbol: "د.ج"
-      fractions: 100
+      precision: 2
       fractional_unit: Santeem
       polity:
         - DZA
@@ -465,7 +465,7 @@ export class Data {
     label: Egyptian pound
     metadata:
       symbol: "E£"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - EGY
@@ -476,7 +476,7 @@ export class Data {
     label: Eritrean nakfa
     metadata:
       symbol: "Nfk"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - ERI
@@ -487,7 +487,7 @@ export class Data {
     label: Ethiopian birr
     metadata:
       symbol: "Br"
-      fractions: 100
+      precision: 2
       fractional_unit: Santim
       polity:
         - ETH
@@ -498,7 +498,7 @@ export class Data {
     label: Euro
     metadata:
       symbol: "€"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - EU
@@ -542,7 +542,7 @@ export class Data {
     label: Fijian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - FJI
@@ -553,7 +553,7 @@ export class Data {
     label: Falkland Islands pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Penny
       polity:
         - FLK
@@ -564,7 +564,7 @@ export class Data {
     label: Pound sterling
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Penny
       polity:
         - GBR
@@ -579,7 +579,7 @@ export class Data {
     label: Georgian lari
     metadata:
       symbol: "₾"
-      fractions: 100
+      precision: 2
       fractional_unit: Tetri
       polity:
         - GEO
@@ -590,7 +590,7 @@ export class Data {
     label: Ghanaian cedi
     metadata:
       symbol: "₵"
-      fractions: 100
+      precision: 2
       fractional_unit: Pesewa
       polity:
         - GHA
@@ -601,7 +601,7 @@ export class Data {
     label: Gibraltar pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Penny
       polity:
         - GIB
@@ -612,7 +612,7 @@ export class Data {
     label: Gambian dalasi
     metadata:
       symbol: "D"
-      fractions: 100
+      precision: 2
       fractional_unit: Butut
       polity:
         - GMB
@@ -623,7 +623,7 @@ export class Data {
     label: Guinean franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - GNQ
@@ -634,7 +634,7 @@ export class Data {
     label: Guatemalan quetzal
     metadata:
       symbol: "Q"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - GTM
@@ -645,7 +645,7 @@ export class Data {
     label: Guyanese dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - GUY
@@ -656,7 +656,7 @@ export class Data {
     label: Hong Kong dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - HKG
@@ -667,7 +667,7 @@ export class Data {
     label: Honduran lempira
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - HND
@@ -678,7 +678,7 @@ export class Data {
     label: Croatian kuna
     metadata:
       symbol: "kn"
-      fractions: 100
+      precision: 2
       fractional_unit: Lipa
       polity:
         - HRV
@@ -689,7 +689,7 @@ export class Data {
     label: Haitian gourde
     metadata:
       symbol: "G"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Centime
       polity:
         - HTI
@@ -700,7 +700,7 @@ export class Data {
     label: Hungarian forint
     metadata:
       symbol: "Ft"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Fillér
       polity:
         - HUN
@@ -711,7 +711,7 @@ export class Data {
     label: Indonesian rupiah
     metadata:
       symbol: "Rp"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Sen
       polity:
         - IDN
@@ -722,7 +722,7 @@ export class Data {
     label: Israeli new shekel
     metadata:
       symbol: "₪"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Agora
       polity:
         - ISR
@@ -734,7 +734,7 @@ export class Data {
     label: Indian rupee
     metadata:
       symbol: "₹"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Paisa
       polity:
         - IND
@@ -746,7 +746,7 @@ export class Data {
     label: Iraqi dinar
     metadata:
       symbol: "ع.د"
-      fractions: 1000
+      precision: 1
       fractional_unit: 	Fils
       polity:
         - IRQ
@@ -757,7 +757,7 @@ export class Data {
     label: Iranian rial
     metadata:
       symbol: "﷼"
-      fractions: 100
+      precision: 2
       fractional_unit: Dinar
       polity:
         - IRN
@@ -768,7 +768,7 @@ export class Data {
     label: Icelandic króna
     metadata:
       symbol: "kr"
-      fractions: 100
+      precision: 2
       fractional_unit: Eyrir
       polity:
         - ISL
@@ -779,7 +779,7 @@ export class Data {
     label: Jamaican dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - JAM
@@ -790,7 +790,7 @@ export class Data {
     label: Jordanian dinar
     metadata:
       symbol: "د.ا"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - JOR
@@ -802,7 +802,7 @@ export class Data {
     label: Japanese yen
     metadata:
       symbol: "¥"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - JPN
@@ -813,7 +813,7 @@ export class Data {
     label: Kenyan shilling
     metadata:
       symbol: "Sh"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - KEN
@@ -824,7 +824,7 @@ export class Data {
     label: Kyrgyzstani som
     metadata:
       symbol: "с"
-      fractions: 100
+      precision: 2
       fractional_unit: Tyiyn
       polity:
         - KGZ
@@ -835,7 +835,7 @@ export class Data {
     label: Cambodian riel
     metadata:
       symbol: "៛"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - KHM
@@ -846,7 +846,7 @@ export class Data {
     label: Comoro franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - COM
@@ -857,7 +857,7 @@ export class Data {
     label: North Korean won
     metadata:
       symbol: "₩"
-      fractions: 100
+      precision: 2
       fractional_unit: Chon
       polity:
         - PRK
@@ -868,7 +868,7 @@ export class Data {
     label: South Korean won
     metadata:
       symbol: "₩"
-      fractions: 100
+      precision: 2
       fractional_unit: Jeon
       polity:
         - KOR
@@ -879,7 +879,7 @@ export class Data {
     label: Kuwaiti dinar
     metadata:
       symbol: "د.ك"
-      fractions: 1000
+      precision: 1
       fractional_unit: Fils
       polity:
         - KWT
@@ -890,7 +890,7 @@ export class Data {
     label: Cayman Islands dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - CYM
@@ -901,7 +901,7 @@ export class Data {
     label: Kazakhstani tenge
     metadata:
       symbol: "₸"
-      fractions: 100
+      precision: 2
       fractional_unit: Tïın
       polity:
         - KAZ
@@ -912,7 +912,7 @@ export class Data {
     label: Lao kip
     metadata:
       symbol: "₭"
-      fractions: 100
+      precision: 2
       fractional_unit: Att
       polity:
         - LAO
@@ -923,7 +923,7 @@ export class Data {
     label: Lebanese pound
     metadata:
       symbol: "ل.ل"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - LBN
@@ -934,7 +934,7 @@ export class Data {
     label: Sri Lankan rupee
     metadata:
       symbol: "Rs"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - LKA
@@ -945,7 +945,7 @@ export class Data {
     label: Liberian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - LBR
@@ -956,7 +956,7 @@ export class Data {
     label: Lesotho loti
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Sente
       polity:
         - LBR
@@ -967,7 +967,7 @@ export class Data {
     label: Libyan dinar
     metadata:
       symbol: "ل.د"
-      fractions: 1000
+      precision: 1
       fractional_unit: Dirham
       polity:
         - LBY
@@ -978,7 +978,7 @@ export class Data {
     label: Moroccan dirham
     metadata:
       symbol: "د.م."
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - MAR
@@ -989,7 +989,7 @@ export class Data {
     label: Moldovan leu
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Ban
       polity:
         - MDA
@@ -1000,6 +1000,7 @@ export class Data {
     label: Malagasy ariary
     metadata:
       symbol: "Ar"
+      precision: 2
       fractions: 5
       fractional_unit: Iraimbilanja
       polity:
@@ -1011,7 +1012,7 @@ export class Data {
     label: Macedonian denar
     metadata:
       symbol: "ден"
-      fractions: 100
+      precision: 2
       fractional_unit: Deni
       polity:
         - MKD
@@ -1022,7 +1023,7 @@ export class Data {
     label: Myanmar kyat
     metadata:
       symbol: "Ks"
-      fractions: 100
+      precision: 2
       fractional_unit: Pya
       polity:
         - MMR
@@ -1033,7 +1034,7 @@ export class Data {
     label: Mongolian tögrög
     metadata:
       symbol: "₮"
-      fractions: 100
+      precision: 2
       fractional_unit: Möngö
       polity:
         - MNG
@@ -1044,7 +1045,7 @@ export class Data {
     label: Macanese pataca
     metadata:
       symbol: "P"
-      fractions: 100
+      precision: 2
       fractional_unit: Avo
       polity:
         - MAC
@@ -1055,6 +1056,7 @@ export class Data {
     label: Mauritanian ouguiya
     metadata:
       symbol: "UM"
+      precision: 2
       fractions: 5
       fractional_unit: Khoums
       polity:
@@ -1066,7 +1068,7 @@ export class Data {
     label: Mauritian rupee
     metadata:
       symbol: "₨"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - MUS
@@ -1077,7 +1079,7 @@ export class Data {
     label: Maldivian rufiyaa
     metadata:
       symbol: ".ރ"
-      fractions: 100
+      precision: 2
       fractional_unit: Laari
       polity:
         - MDV
@@ -1088,7 +1090,7 @@ export class Data {
     label: Malawian kwacha
     metadata:
       symbol: "MK"
-      fractions: 100
+      precision: 2
       fractional_unit: Tambala
       polity:
         - MWI
@@ -1099,7 +1101,7 @@ export class Data {
     label: Mexican peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - MEX
@@ -1110,7 +1112,7 @@ export class Data {
     label: Malaysian ringgit
     metadata:
       symbol: "RM"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - MYS
@@ -1121,7 +1123,7 @@ export class Data {
     label: Mozambican metical
     metadata:
       symbol: "MT"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - MOZ
@@ -1132,7 +1134,7 @@ export class Data {
     label: Namibian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - NAM
@@ -1143,7 +1145,7 @@ export class Data {
     label: Nigerian naira
     metadata:
       symbol: "₦"
-      fractions: 100
+      precision: 2
       fractional_unit: Kobo
       polity:
         - NGA
@@ -1154,7 +1156,7 @@ export class Data {
     label: Nicaraguan córdoba
     metadata:
       symbol: "C$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - NIC
@@ -1165,7 +1167,7 @@ export class Data {
     label: Norwegian krone
     metadata:
       symbol: "kr"
-      fractions: 100
+      precision: 2
       fractional_unit: Øre
       polity:
         - NOR, SJM, BVT
@@ -1176,7 +1178,7 @@ export class Data {
     label: Nepalese rupee
     metadata:
       symbol: "₨"
-      fractions: 100
+      precision: 2
       fractional_unit: Paisa
       polity:
         - NPL
@@ -1187,7 +1189,7 @@ export class Data {
     label: New Zealand dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - NZL
@@ -1202,7 +1204,7 @@ export class Data {
     label: Omani rial
     metadata:
       symbol: "ر.ع."
-      fractions: 1000
+      precision: 1
       fractional_unit: Baisa
       polity:
         - OMN
@@ -1213,7 +1215,7 @@ export class Data {
     label: Panamanian balboa
     metadata:
       symbol: "B/."
-      fractions: 100
+      precision: 2
       fractional_unit: Centésimo
       polity:
         - PAN
@@ -1224,7 +1226,7 @@ export class Data {
     label: Peruvian sol
     metadata:
       symbol: "S/."
-      fractions: 100
+      precision: 2
       fractional_unit: Céntimo
       polity:
         - PER
@@ -1235,7 +1237,7 @@ export class Data {
     label: Papua New Guinean kina
     metadata:
       symbol: "K"
-      fractions: 100
+      precision: 2
       fractional_unit: Toea
       polity:
         - PNG
@@ -1246,7 +1248,7 @@ export class Data {
     label: Philippine peso
     metadata:
       symbol: "₱"
-      fractions: 100
+      precision: 2
       fractional_unit: Sentimo
       polity:
         - PHL
@@ -1257,7 +1259,7 @@ export class Data {
     label: Pakistani rupee
     metadata:
       symbol: "₨"
-      fractions: 100
+      precision: 2
       fractional_unit: Paisa
       polity:
         - PAK
@@ -1268,7 +1270,7 @@ export class Data {
     label: Polish złoty
     metadata:
       symbol: "zł"
-      fractions: 100
+      precision: 2
       fractional_unit: Grosz
       polity:
         - POL
@@ -1279,7 +1281,7 @@ export class Data {
     label: Paraguayan guaraní
     metadata:
       symbol: "₲"
-      fractions: 100
+      precision: 2
       fractional_unit: Céntimo
       polity:
         - PRY
@@ -1290,7 +1292,7 @@ export class Data {
     label: Qatari riyal
     metadata:
       symbol: "ر.ق"
-      fractions: 100
+      precision: 2
       fractional_unit: Dirham
       polity:
         - QAT
@@ -1301,7 +1303,7 @@ export class Data {
     label: Romanian leu
     metadata:
       symbol: "lei"
-      fractions: 100
+      precision: 2
       fractional_unit: Ban
       polity:
         - ROU
@@ -1312,7 +1314,7 @@ export class Data {
     label: Serbian dinar
     metadata:
       symbol: "din"
-      fractions: 100
+      precision: 2
       fractional_unit: Para
       polity:
         - SRB
@@ -1323,7 +1325,7 @@ export class Data {
     label: Russian ruble
     metadata:
       symbol: "₽"
-      fractions: 100
+      precision: 2
       fractional_unit: Kopek
       polity:
         - RUS
@@ -1334,7 +1336,7 @@ export class Data {
     label: Rwandan franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - RWA
@@ -1345,7 +1347,7 @@ export class Data {
     label: Saudi riyal
     metadata:
       symbol: "ر.س"
-      fractions: 100
+      precision: 2
       fractional_unit: Halala
       polity:
         - SAU
@@ -1356,7 +1358,7 @@ export class Data {
     label: Solomon Islands dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SLB
@@ -1367,7 +1369,7 @@ export class Data {
     label: Seychellois rupee
     metadata:
       symbol: "₨"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SYC
@@ -1378,7 +1380,7 @@ export class Data {
     label: Sudanese pound
     metadata:
       symbol: "ج.س."
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - SSD
@@ -1389,7 +1391,7 @@ export class Data {
     label: Swedish krona
     metadata:
       symbol: "kr"
-      fractions: 100
+      precision: 2
       fractional_unit: Öre
       polity:
         - SWE
@@ -1400,7 +1402,7 @@ export class Data {
     label: Singapore dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SGP
@@ -1411,7 +1413,7 @@ export class Data {
     label: Saint Helena pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Penny
       polity:
         - SHN
@@ -1422,7 +1424,7 @@ export class Data {
     label: Sierra Leonean leone
     metadata:
       symbol: "Le"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SLE
@@ -1433,7 +1435,7 @@ export class Data {
     label: Somali shilling
     metadata:
       symbol: "Sl"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SOM
@@ -1444,7 +1446,7 @@ export class Data {
     label: Surilabelse dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SUR
@@ -1455,7 +1457,7 @@ export class Data {
     label: South Sudanese pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - SSD
@@ -1466,7 +1468,7 @@ export class Data {
     label: São Tomé and Príncipe dobra
     metadata:
       symbol: "Db"
-      fractions: 100
+      precision: 2
       fractional_unit: Cêntimo
       polity:
         - STP
@@ -1477,7 +1479,7 @@ export class Data {
     label: Syrian pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - SYR
@@ -1488,7 +1490,7 @@ export class Data {
     label: Swazi lilangeni
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SWZ
@@ -1499,7 +1501,7 @@ export class Data {
     label: Thai baht
     metadata:
       symbol: "฿"
-      fractions: 100
+      precision: 2
       fractional_unit: Satang
       polity:
         - THA
@@ -1510,7 +1512,7 @@ export class Data {
     label: Tajikistani somoni
     metadata:
       symbol: "ЅМ"
-      fractions: 100
+      precision: 2
       fractional_unit: Diram
       polity:
         - TJK
@@ -1521,7 +1523,7 @@ export class Data {
     label: Turkmenistan manat
     metadata:
       symbol: "m"
-      fractions: 100
+      precision: 2
       fractional_unit: Tennesi
       polity:
         - TKM
@@ -1532,7 +1534,7 @@ export class Data {
     label: Tunisian dinar
     metadata:
       symbol: "د.ت"
-      fractions: 1000
+      precision: 1
       fractional_unit: Millime
       polity:
         - TUN
@@ -1543,7 +1545,7 @@ export class Data {
     label: Tongan paʻanga
     metadata:
       symbol: "T$"
-      fractions: 100
+      precision: 2
       fractional_unit: Seniti
       polity:
         - TON
@@ -1554,7 +1556,7 @@ export class Data {
     label: Turkish lira
     metadata:
       symbol: "₺"
-      fractions: 100
+      precision: 2
       fractional_unit: Kuruş
       polity:
         - TUR
@@ -1565,7 +1567,7 @@ export class Data {
     label: Trinidad and Tobago dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - TTO
@@ -1576,7 +1578,7 @@ export class Data {
     label: New Taiwan dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - TWN
@@ -1587,7 +1589,7 @@ export class Data {
     label: Tanzanian shilling
     metadata:
       symbol: "Sh"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - TZA
@@ -1598,7 +1600,7 @@ export class Data {
     label: Ukrainian hryvnia
     metadata:
       symbol: "₴"
-      fractions: 100
+      precision: 2
       fractional_unit: Kopiyka
       polity:
         - UKR
@@ -1609,7 +1611,7 @@ export class Data {
     label: Ugandan shilling
     metadata:
       symbol: "Sh"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - UGA
@@ -1620,7 +1622,7 @@ export class Data {
     label: United States dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - USA
@@ -1648,7 +1650,7 @@ export class Data {
     label: Uruguayan peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centésimo
       polity:
         - URY
@@ -1659,7 +1661,7 @@ export class Data {
     label: Uruguayan peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centésimo
       polity:
         - URY
@@ -1670,7 +1672,7 @@ export class Data {
     label: Uzbekistani soʻm
     metadata:
       symbol: "so'm"
-      fractions: 100
+      precision: 2
       fractional_unit: Tiyin
       polity:
         - UZB
@@ -1681,7 +1683,7 @@ export class Data {
     label: Venezuelan bolívar soberano
     metadata:
       symbol: "Bs."
-      fractions: 100
+      precision: 2
       fractional_unit: Céntimo
       polity:
         - VEN
@@ -1692,7 +1694,7 @@ export class Data {
     label: Vietlabelse đồng
     metadata:
       symbol: "₫"
-      fractions: 100
+      precision: 2
       fractional_unit: Hào
       polity:
         - VNM
@@ -1703,7 +1705,7 @@ export class Data {
     label: Vanuatu vatu
     metadata:
       symbol: "Vt"
-      fractions: 1
+      precision: 0
       fractional_unit: ~
       polity:
         - VUT
@@ -1714,7 +1716,7 @@ export class Data {
     label: Samoan tālā
     metadata:
       symbol: "T"
-      fractions: 100
+      precision: 2
       fractional_unit: Sene
       polity:
         - WSM
@@ -1725,7 +1727,7 @@ export class Data {
     label: Central African CFA franc
     metadata:
       symbol: "T"
-      fractions: 100
+      precision: 2
       fractional_unit: Sene
       polity:
         - CMR
@@ -1741,7 +1743,7 @@ export class Data {
     label: East Caribbean dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - AIA
@@ -1759,7 +1761,7 @@ export class Data {
     label: West African CFA franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - BEN
@@ -1777,7 +1779,7 @@ export class Data {
     label: Yemeni rial
     metadata:
       symbol: "﷼"
-      fractions: 100
+      precision: 2
       fractional_unit: Fils
       polity:
         - YEM
@@ -1788,7 +1790,7 @@ export class Data {
     label: South African rand
     metadata:
       symbol: "R"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - ZAF
@@ -1799,7 +1801,7 @@ export class Data {
     label: Zambian kwacha
     metadata:
       symbol: "ZK"
-      fractions: 100
+      precision: 2
       fractional_unit: Ngwee
       polity:
         - ZMB
