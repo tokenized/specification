@@ -9,10 +9,10 @@ import (
 )
 
 type RejectionCodeData struct {
-	Code        uint8
-	Name        string
-	Label       string
-	Description string
+	Code        uint8  `json:"code"`
+	Name        string `json:"name"`
+	Label       string `json:"label"`
+	Description string `json:"description"`
 	// Metadata string
 }
 
@@ -53,16 +53,16 @@ func GetRejectionCode(code uint8) *RejectionCodeData {
 }
 
 type CurrencyTypeData struct {
-	Code        string
-	Name        string
-	Label       string
-	Description string
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	Label       string `json:"label"`
+	Description string `json:"description"`
 	Metadata    struct {
-		Symbol         string
-		Precision      int
-		Fractionals    int
-		FractionalUnit string
-	}
+		Symbol          string `json:"symbol"`
+		Precision       int    `json:"precision"`
+		Fractionals     int    `json:"fractionals"`
+		Fractional_Unit string `json:"fractional_unit"`
+	} `json:"metadata"`
 }
 
 var currencyTypes map[string]CurrencyTypeData
@@ -107,10 +107,10 @@ func GetCurrency(cur [3]byte) *CurrencyTypeData {
 }
 
 type EntityTypeData struct {
-	Code        string
-	Name        string
-	Label       string
-	Description string
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	Label       string `json:"label"`
+	Description string `json:"description"`
 	// Metadata    string
 }
 
@@ -154,10 +154,10 @@ func GetEntityType(ent byte) *EntityTypeData {
 }
 
 type PolityType struct {
-	Code        string
-	Name        string
-	Label       string
-	Description string
+	Code        string `json:"code"`
+	Name        string `json:"name"`
+	Label       string `json:"label"`
+	Description string `json:"description"`
 	// Metadata    string
 }
 
@@ -198,10 +198,10 @@ func GetPolityType(pol string) *PolityType {
 }
 
 type RoleType struct {
-	Code        uint8
-	Name        string
-	Label       string
-	Description string
+	Code        uint8  `json:"code"`
+	Name        string `json:"name"`
+	Label       string `json:"label"`
+	Description string `json:"description"`
 	// Metadata    string
 }
 
@@ -242,8 +242,8 @@ func GetRoleType(role uint8) *RoleType {
 }
 
 type TagType struct {
-	Code  uint8
-	Label string
+	Code  uint8  `json:"code"`
+	Label string `json:"name"`
 }
 
 var tagTypes map[uint8]TagType
