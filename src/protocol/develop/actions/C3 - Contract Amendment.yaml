@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Administration
       label: "Administration's Public Address"
@@ -32,7 +30,7 @@ fields:
     label: Change Administration Address
     description: "Used to change the administration address.  The new administration address must be in the input[1] position. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action."
     type: bool
-    example_hex: 01
+    exampleHex: 01
     example: 1
     notes: ""
 
@@ -40,7 +38,7 @@ fields:
     label: Change Operator Address
     description: "Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless the administration is being changed too, then it is in input[2]. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action."
     type: bool
-    example_hex: 01
+    exampleHex: 01
     example: 1
     notes: ""
 
@@ -49,7 +47,7 @@ fields:
     description: "Counter 0 to (2^32)-1"
     type: uint
     size: 4
-    example_hex: 002a
+    exampleHex: 002a
     example: 42
     notes: ""
 

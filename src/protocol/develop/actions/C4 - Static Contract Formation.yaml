@@ -9,8 +9,6 @@ metadata:
   label: Static Contract Formation
   description: "Static Contract Formation Action"
 
-rules:
-  fee:
   inputs:
     - name: PartyX
       label: "Issuer or Party X Public Address"
@@ -41,10 +39,10 @@ fields:
     description: "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
     type: uint
     size: 1
-    example_hex: 01
+    exampleHex: 01
     example: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
-    int_values:
+    intValues:
       - 1
       - 2
 
@@ -62,7 +60,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example_hex: 184e6f6e2d446973636c6f737572652041677265656d656e74
+    exampleHex: 184e6f6e2d446973636c6f737572652041677265656d656e74
     example: "Non-Disclosure Agreement"
     notes: ""
 
@@ -76,7 +74,7 @@ fields:
     description: "Counter 0 to (2^32)-1"
     type: uint
     size: 4
-    example_hex: 0000
+    exampleHex: 0000
     example: "0"
     notes: ""
 
@@ -85,7 +83,7 @@ fields:
     description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
     type: fixedchar
     size: 5
-    example_hex: 5553410000
+    exampleHex: 5553410000
     example: "USA"
     notes: ""
 
@@ -94,7 +92,7 @@ fields:
     description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
     type: fixedchar
     size: 5
-    example_hex: 55532d4341
+    exampleHex: 55532d4341
     example: "US-CA"
     notes: ""
 
@@ -116,7 +114,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example_hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
+    exampleHex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
     notes: ""
 

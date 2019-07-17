@@ -14,8 +14,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Contract
       label: Contract Public Address

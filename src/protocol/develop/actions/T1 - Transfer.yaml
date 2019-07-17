@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: AssetSenders
       label: Asset Senders
@@ -41,7 +39,7 @@ fields:
     description: "Fixed amount of bitcoin being paid to an exchange for facilitating a transfer."
     type: uint
     size: 8
-    example_hex: 3c23d70a
+    exampleHex: 3c23d70a
     example: "0.01"
     notes: ""
 

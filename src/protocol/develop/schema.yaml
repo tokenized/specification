@@ -1,0 +1,88 @@
+#
+# Codec Schema
+#
+
+# Codec Name
+name: Tokenized Protocol
+
+# Unique Identifier
+code: protocol
+
+# Codec Version
+version: 1
+
+# Output Template
+template: default
+
+# Register Supported Messages
+messages:
+  - "actions/C1 - Contract Offer"
+  - "actions/C2 - Contract Formation"
+  - "actions/C3 - Contract Amendment"
+  - "actions/C4 - Static Contract Formation"
+  - "actions/C5 - Contract Address Change"
+  - "actions/A1 - Asset Definition"
+  - "actions/A2 - Asset Creation"
+  - "actions/A3 - Asset Modification"
+  - "actions/T1 - Transfer"
+  - "actions/T2 - Settlement"
+  - "actions/G1 - Proposal"
+  - "actions/G2 - Vote"
+  - "actions/G3 - Ballot Cast"
+  - "actions/G4 - Ballot Counted"
+  - "actions/G5 - Result"
+  - "actions/E1 - Order"
+  - "actions/E2 - Freeze"
+  - "actions/E3 - Thaw"
+  - "actions/E4 - Confiscation"
+  - "actions/E5 - Reconciliation"
+  - "actions/R1 - Establishment"
+  - "actions/R2 - Addition"
+  - "actions/R3 - Alteration"
+  - "actions/R4 - Removal"
+  - "actions/M1 - Message"
+  - "actions/M2 - Rejection"
+
+# Register Field Types
+fieldTypes:
+  - "types/Administrator"
+  - "types/AgeRestriction"
+  - "types/Amendment"
+  - "types/AssetReceiver"
+  - "types/AssetSettlement"
+  - "types/AssetTransfer"
+  - "types/Document"
+  - "types/Entity"
+  - "types/Manager"
+  - "types/Oracle"
+  - "types/Output"
+  - "types/OutputTag"
+  - "types/QuantityIndex"
+  - "types/TargetAddress"
+  - "types/VotingSystem"
+
+# Define Field Aliases
+fieldAliases:
+  Role:
+    type: uint
+    size: 8
+
+  EntityType:
+    type: fixedchar
+    size: 1
+
+  Polity:
+    type: fixedchar
+    size: 3
+
+  CurrencyType:
+    type: fixedchar
+    size: 3
+
+  RejectionCode:
+    type: uint
+    size: 8
+
+  Tag:
+    type: uint
+    size: 8

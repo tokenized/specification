@@ -9,8 +9,6 @@ metadata:
   label: Removal
   description: "Removes an entry/record from the Register."
 
-rules:
-  fee:
   inputs:
     - name: Register
       label: "Register Public Address"

@@ -9,8 +9,6 @@ metadata:
   label: Alteration
   description: "A register entry/record can be altered."
 
-rules:
-  fee:
   inputs:
     - name: Register
       label: "Register Public Address"

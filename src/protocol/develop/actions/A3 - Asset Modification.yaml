@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Administration
       label: "Administration's Public Address"
@@ -29,7 +27,7 @@ fields:
     description: "Three letter character that specifies the asset type."
     type: fixedchar
     size: 3
-    example_hex: 534843
+    exampleHex: 534843
     example: "SHC"
     notes: ""
 
@@ -44,7 +42,7 @@ fields:
     description: "The current revision figure to ensure the modification provided is based on the latest version."
     type: uint
     size: 4
-    example_hex: 0000000000000000
+    exampleHex: 0000000000000000
     example: "0"
     notes: "Cannot be Amended"
 

@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Contract
       label: Contract Public Address
@@ -42,10 +40,10 @@ fields:
     description: "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
     type: uint
     size: 1
-    example_hex: 01
+    exampleHex: 01
     example: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
-    int_values:
+    intValues:
       - 1
       - 2
 
@@ -76,7 +74,7 @@ fields:
     description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
     type: fixedchar
     size: 5
-    example_hex: 5553410000
+    exampleHex: 5553410000
     example: "USA"
     notes: "Governing Law - Amendments can be restricted to a vote."
 
@@ -85,7 +83,7 @@ fields:
     description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
     type: fixedchar
     size: 5
-    example_hex: 55532d4341
+    exampleHex: 55532d4341
     example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."
 
@@ -93,7 +91,7 @@ fields:
     label: Contract Expiration
     description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
     type: Timestamp
-    example_hex: 00000163400d3f00
+    exampleHex: 00000163400d3f00
     example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
     notes: "Contract Expiration - Amendments can be restricted to a vote."
 
@@ -129,8 +127,8 @@ fields:
     label: Contract Operator
     description: "An additional entity with operator access to the contract."
     type: Entity
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: ContractOperatorIncluded
+    # includeIfTrue specifies that this field is only included in serialization if the specified field is true.
+    includeIfTrue: ContractOperatorIncluded
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags
@@ -156,7 +154,7 @@ fields:
     description: "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
     type: uint
     size: 8
-    example_hex: 0000000000000001
+    exampleHex: 0000000000000001
     example: "1"
     notes: "Qty of Assets - Amendments can be restricted to a vote."
 
@@ -164,7 +162,7 @@ fields:
     label: Administration Proposal
     description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
     type: bool
-    example_hex: 01
+    exampleHex: 01
     example: true
     notes: "General Governance"
 
@@ -172,7 +170,7 @@ fields:
     label: Holder Proposal
     description: "Set to true if a holder is permitted to make proposals outside of the smart contract scope."
     type: bool
-    example_hex: 01
+    exampleHex: 01
     example: true
     notes: ""
 
@@ -191,7 +189,7 @@ fields:
     description: "A counter for the number of times this contract has been revised using an amendment action."
     type: uint
     size: 4
-    example_hex: 0000000000000000
+    exampleHex: 0000000000000000
     example: "0"
     notes: "Can't be changed by the administration or smart contract operator."
 

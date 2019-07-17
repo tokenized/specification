@@ -20,8 +20,6 @@ metadata:
     down by type for easy filtering in the a user's wallet. The Message Types are listed
     in the Message Types table.
 
-rules:
-  fee:
   inputs:
     - name: MsgSender
       label: "Sender Public Address"
@@ -37,13 +35,13 @@ fields:
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
     type: uint16[]
-    example_hex: "00010002"
+    exampleHex: "00010002"
 
   - name: MessageType
     label: Message Type
     description: "Potential for up to 65,535 different message types. Values from resources/Messages.yaml"
     type: uint16
-    example_hex: "36000000"
+    exampleHex: "36000000"
     example: "6000"
     notes: ""
 
@@ -57,6 +55,6 @@ fields:
     type: varbin
     # varbin size is number of bits to serialize the size of the data
     size: 32
-    example_hex: "0000000c48656c6c6f20776f726c6421"
+    exampleHex: "0000000c48656c6c6f20776f726c6421"
     example: "Hello world!"
     notes: ""
