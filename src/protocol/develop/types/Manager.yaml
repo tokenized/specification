@@ -21,14 +21,3 @@ fields:
     example_hex: 0d4a616d65732042656c64696e67
     example: "Satoshi Nakamoto"
     notes: ""
-
-# Constructor parameters
-constructor:
-    - name: roleType
-      type: uint
-      size: 1
-      field: Type
-
-    - name: name
-      type: string
-      field: Name
