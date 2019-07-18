@@ -46,7 +46,6 @@ messages:
 # Register Field Types
 fieldTypes:
   - "types/Administrator"
-  - "types/AgeRestriction"
   - "types/Amendment"
   - "types/AssetReceiver"
   - "types/AssetSettlement"
@@ -72,10 +71,6 @@ fieldAliases:
     size: 1
 
   Polity:
-    type: fixedchar
-    size: 3
-
-  CurrencyType:
     type: fixedchar
     size: 3
 

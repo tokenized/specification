@@ -1,0 +1,34 @@
+#
+# Codec Schema
+#
+
+# Codec Name
+name: Tokenized Asset Types
+
+# Unique Identifier
+code: assets
+
+# Codec Version
+version: 1
+
+# Output Template
+template: default
+
+# Register Supported Messages
+messages:
+  - "identity/MEM - Membership"
+  - "currency/CUR - Currency"
+  - "security/SHC - Common Share"
+  - "utility/COU - Coupon"
+  - "utility/LOY - Loyalty Points"
+  - "utility/TIC - Admission Ticket"
+
+# Register Field Types
+fieldTypes:
+  - "types/AgeRestriction"
+
+# Define Field Aliases
+fieldAliases:
+  CurrencyType:
+    type: fixedchar
+    size: 3
