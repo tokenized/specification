@@ -15,14 +15,6 @@ metadata:
     - Frequent Shopper Points
 
 fields:
-  - name: Version
-    label: Payload Version
-    description: The version number that this asset payload adheres to.
-    type: uint
-    size: 1
-    example: 0
-    computed: true
-
   - name: AgeRestriction
     label: Age Restriction
     type: AgeRestriction

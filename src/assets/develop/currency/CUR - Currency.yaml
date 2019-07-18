@@ -14,14 +14,6 @@ metadata:
     - Canadian dollar
 
 fields:
-  - name: Version
-    label: Payload Version
-    description: The version number that this asset payload adheres to.
-    type: uint
-    size: 1
-    example: 0
-    computed: true
-
   - name: ISOCode
     label: ISO Code
     type: CurrencyType
