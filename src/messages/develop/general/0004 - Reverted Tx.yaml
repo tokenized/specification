@@ -2,7 +2,7 @@
 # Reverted Tx: A message that contains a bitcoin transaction that was accepted by the network or an agent and then invalidated by a reorg, or zero conf double spend. This serves as on chain evidence of the sending party's signatures and approval for the given transaction.
 #
 
-code: 4
+code: "0004"
 
 metadata:
   name: RevertedTx
@@ -10,14 +10,6 @@ metadata:
   description: "A message that contains a bitcoin transaction that was accepted by the network or an agent and then invalidated by a reorg, or zero conf double spend. This serves as on chain evidence of the sending party's signatures and approval for the given transaction."
 
 fields:
-  - name: Version
-    label: Version
-    type: uint
-    description: Payload Version
-    size: 1
-    example: 0
-    computed: true
-
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."

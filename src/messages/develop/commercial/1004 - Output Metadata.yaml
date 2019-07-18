@@ -1,6 +1,8 @@
 #
 # Output Metadata: "A description that accompanies the output.  It is used to describe the purpose of the transaction and any associated useful details. Often encrypted (DH, RSA) to make it private for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the like for descriptions only visible to one of the transacting parties. Optional"
-code: 1004
+#
+
+code: "1004"
 
 metadata:
   name: OutputMetadata
@@ -8,14 +10,6 @@ metadata:
   description: "Metadata associated with the output. Aka Transaction details. It is used to describe the purpose of the transaction and add other relevant information. Often encrypted (DH, RSA) to make it private for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the like for descriptions only visible to one of the transacting parties. Optional"
 
 fields:
-  - name: Version
-    label: Version
-    type: uint
-    description: Payload Version
-    size: 1
-    example: 0
-    computed: true
-
   - name: OutputDescription
     label: Output Description
     description: "A Description that accompanies the output. A transaction description."

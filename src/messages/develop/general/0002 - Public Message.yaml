@@ -2,7 +2,7 @@
 # Public Message: Generic public message or public announcement. Sent to an address(es).  Can be used for an official issuer announcement.
 #
 
-code: 2
+code: "0002"
 
 metadata:
   name: PublicMessage
@@ -10,14 +10,6 @@ metadata:
   description: "Generic public message or public announcement. Sent to an address(es).  Can be used for an official issuer announcement."
 
 fields:
-  - name: Version
-    label: Version
-    type: uint
-    description: Payload Version
-    size: 1
-    example: 0
-    computed: true
-
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."

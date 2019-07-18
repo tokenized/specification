@@ -70,8 +70,6 @@ fieldTypes:
   - "types/Entity"
   - "types/Manager"
   - "types/Oracle"
-  - "types/Output"
-  - "types/OutputTag"
   - "types/QuantityIndex"
   - "types/TargetAddress"
   - "types/VotingSystem"

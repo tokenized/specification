@@ -2,7 +2,7 @@
 # Settlement Request Message: A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added.
 #
 
-code: 1003
+code: "1003"
 
 metadata:
   name: SettlementRequest
@@ -10,14 +10,6 @@ metadata:
   description: "A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added."
 
 fields:
-  - name: Version
-    label: Version
-    type: uint
-    description: Payload Version
-    size: 1
-    example: 0
-    computed: true
-
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."

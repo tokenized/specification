@@ -14,6 +14,15 @@ version: 1
 # Output Template
 template: default
 
+# Define Header Fields
+headerFields:
+  - name: Version
+    label: Payload Version
+    description: The version number that this asset payload adheres to.
+    type: uint
+    size: 8
+    example: "1"
+
 # Register Supported Messages
 messages:
   - "general/0002 - Public Message"
@@ -26,10 +35,9 @@ messages:
 
 # Register Field Types
 fieldTypes:
-  - "types/AgeRestriction"
+  - "types/Output"
+  - "types/OutputTag"
+  - "types/Document"
 
 # Define Field Aliases
-fieldAliases:
-  CurrencyType:
-    type: fixedchar
-    size: 3
+fieldAliases: []
