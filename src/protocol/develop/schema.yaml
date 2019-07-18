@@ -14,6 +14,22 @@ version: 1
 # Output Template
 template: default
 
+# Define Header Fields
+headerFields:
+  - name: Version
+    label: Version
+    description: The version number that determines the structure of the action payload and field definitions.
+    type: uint
+    size: 8
+    example: "1"
+
+  - name: ActionCode
+    label: Action Code
+    description: The Action Code that determines the expected contents of the action payload.
+    type: fixedchar
+    size: 2
+    example: "C1"
+
 # Register Supported Messages
 messages:
   - "actions/C1 - Contract Offer"

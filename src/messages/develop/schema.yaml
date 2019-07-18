@@ -1,0 +1,35 @@
+#
+# Codec Schema
+#
+
+# Codec Name
+name: Tokenized Message Types
+
+# Unique Identifier
+code: message
+
+# Codec Version
+version: 1
+
+# Output Template
+template: default
+
+# Register Supported Messages
+messages:
+  - "general/0002 - Public Message"
+  - "general/0003 - Private Message"
+  - "general/0004 - Reverted Tx"
+  - "commercial/1001 - Offer"
+  - "commercial/1002 - Signature Request"
+  - "commercial/1003 - Settlement Request"
+  - "commercial/1004 - Output Metadata"
+
+# Register Field Types
+fieldTypes:
+  - "types/AgeRestriction"
+
+# Define Field Aliases
+fieldAliases:
+  CurrencyType:
+    type: fixedchar
+    size: 3
