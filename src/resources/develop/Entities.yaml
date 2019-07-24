@@ -99,7 +99,7 @@ values:
       name: LimitedPartnership
       label: "Limited Partnership"
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: 
           partnershipAgreement: null
         roles:
@@ -125,7 +125,7 @@ values:
       name: UnlimitedPartnership
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership)
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: 
           partnershipAgreement: null        
         roles:
@@ -152,7 +152,7 @@ values:
       name: SoleProprietorship
       label: "Sole Proprietorship"
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: null     
         roles:
            members:
