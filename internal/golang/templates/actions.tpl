@@ -363,15 +363,21 @@ func (action {{.Name}}) String() string {
 	vals := []string{}
 {{ range .Fields -}}
 	{{- if eq .Type "STRING" }}
-	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%v\"", string(action.{{.FieldName}})))
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%v\"\n", string(action.{{.FieldName}})))
 	{{- else if .IsNumeric }}
-	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%v", action.{{.FieldName}}))
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%v\n", action.{{.FieldName}}))
 	{{- else if eq .Type "SHA" }}
-	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%x\"", action.{{.FieldName}}))
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%x\"\n", action.{{.FieldName}}))
 	{{- else if eq .FieldGoType "[]byte" }}
-	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#x", action.{{.FieldName}}))
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#x\n", action.{{.FieldName}}))
+	{{- else if .IsInternalTypeArray }}
+	for i, element := range action.{{.FieldName}} {
+		vals = append(vals, fmt.Sprintf("{{.FieldName}}%d:%s\n", i, element.String()))
+	}
+	{{- else if .IsInternalType }}
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%s\n", action.{{.FieldName}}.String()))
 	{{- else }}
-	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#+v", action.{{.FieldName}}))
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#+v\n", action.{{.FieldName}}))
 	{{- end }}{{ end }}
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
