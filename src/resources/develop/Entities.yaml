@@ -155,7 +155,7 @@ values:
         type: Ownership
         constitutionalDocument: null     
         roles:
-           members:
+          members:
             proprietor: null
           administrators:
             proprietor: null
