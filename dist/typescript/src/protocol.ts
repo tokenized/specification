@@ -2,7 +2,10 @@ import {sprintf} from 'sprintf-js';
 import util from '@keyring/util';
 // import BN from 'bn.js';
 import { TypeMapping } from './actions';
+import Transaction from '@keyring/transaction';
+import * as R from 'ramda';
 
+const filterData = R.filter((e: any[]) => R.is(Array, e) && e.length > 1);
 
 // OpReturn (OP_RETURN) is a script opcode is used to mark a transaction
 // output as invalid, and can be used to add data to a TX.
@@ -80,6 +83,8 @@ export class OpReturnMessage {
 
 	// Version of the Tokenized protocol.
 	static Version = 0;
+
+	static ProtocolIdHex = Buffer.from(OpReturnMessage.ProtocolID, 'ascii').toString('hex');
 
 	// Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
 	static Deserialize(b: Buffer, isTest: boolean = false): OpReturnMessage {
@@ -199,10 +204,52 @@ export class OpReturnMessage {
 			throw new Error(sprintf('Unsupported version : %02x', version));
 		}
 
-
 		// Parse message type code
 		return buf.read(2).toString('ascii');
 
+	}
+
+	static getMsg(b: Buffer): OpReturnMessage {
+			const buf = new util.Reader(b);
+			const version = buf.uint8();
+			if (version !== OpReturnMessage.Version) {
+				throw new Error(sprintf('Unsupported version : %02x', version));
+			}
+
+			// Parse message type code
+			const code = buf.read(2).toString('ascii');
+
+			const msg = TypeMapping(code);
+			if (!msg) {
+				throw new Error('Unknown code: ' + code);
+			}
+
+			msg.write(buf.read(b.length - 3));
+			return msg;
+	}
+
+	static keyringTxTokMsgs(tx: Transaction) {
+			return filterData(tx.data()).map(arr =>
+				[arr[0].toString('ascii'), OpReturnMessage.getMsg(arr[1])]);
+	}
+
+	static bitdbToTokMsgs(tx) {
+		return tx.out.filter((out: any) =>
+				out.str.includes('OP_RETURN') && out.str.includes(OpReturnMessage.ProtocolIdHex))
+			.map((out: any) => {
+				const parts = out.str.split(' ');
+				return [
+					Buffer.from(parts[1], 'hex').toString('ascii'),
+					OpReturnMessage.getMsg(Buffer.from(parts[2], 'hex')),
+					];
+			});
+	}
+
+	static addTokMsgToKeyringTx(tx: Transaction, msg: OpReturnMessage, isTest = false) {
+		return tx.data(
+			Buffer.from(isTest? OpReturnMessage.TestProtocolID : OpReturnMessage.ProtocolID, 'ascii'),
+			Buffer.concat([Buffer.from([OpReturnMessage.Version]), Buffer.from(msg.Type(), 'ascii'), msg.Serialize()])
+		);
 	}
 
 	Type(): string { return null; }
