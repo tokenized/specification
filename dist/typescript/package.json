@@ -1,6 +1,6 @@
 {
   "name": "@bitboss/tokenized",
-  "version": "0.0.4",
+  "version": "0.0.13",
   "description": "Tokenized specification",
   "author": "Justin Laue <justin@bitboss.io>",
   "repository": "git@github.com:BitbossIO/specification.git",
