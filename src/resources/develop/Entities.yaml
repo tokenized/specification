@@ -155,7 +155,7 @@ values:
         type: Legal
         constitutionalDocument: null     
         roles:
-           members:
+          members:
             proprietor: null
           administrators:
             proprietor: null
