@@ -134,8 +134,8 @@ class Coupon {
         }
         // RedeemingEntity (string)
         {
-            if (this.redeeming_entity.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field redeeming_entity too long %d/%d', this.redeeming_entity.length, (2 << 8) - 1);
+            if (this.redeeming_entity.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field redeeming_entity too long %d/%d', this.redeeming_entity.length, (Math.pow(2, 8)) - 1);
             }
         }
         // IssueDate (Timestamp)
@@ -163,8 +163,8 @@ class Coupon {
         }
         // Description (string)
         {
-            if (this.description.length > (2 << 16) - 1) {
-                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+            if (this.description.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (Math.pow(2, 16)) - 1);
             }
         }
     }
@@ -252,14 +252,14 @@ class Currency {
         }
         // MonetaryAuthority (string)
         {
-            if (this.monetary_authority.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field monetary_authority too long %d/%d', this.monetary_authority.length, (2 << 8) - 1);
+            if (this.monetary_authority.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field monetary_authority too long %d/%d', this.monetary_authority.length, (Math.pow(2, 8)) - 1);
             }
         }
         // Description (string)
         {
-            if (this.description.length > (2 << 16) - 1) {
-                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+            if (this.description.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (Math.pow(2, 16)) - 1);
             }
         }
     }
@@ -364,8 +364,8 @@ class LoyaltyPoints {
         }
         // OfferName (string)
         {
-            if (this.offer_name.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field offer_name too long %d/%d', this.offer_name.length, (2 << 8) - 1);
+            if (this.offer_name.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field offer_name too long %d/%d', this.offer_name.length, (Math.pow(2, 8)) - 1);
             }
         }
         // ValidFrom (Timestamp)
@@ -384,8 +384,8 @@ class LoyaltyPoints {
         }
         // Description (string)
         {
-            if (this.description.length > (2 << 16) - 1) {
-                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+            if (this.description.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (Math.pow(2, 16)) - 1);
             }
         }
     }
@@ -530,32 +530,32 @@ class Membership {
         }
         // ID (string)
         {
-            if (this.id.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field id too long %d/%d', this.id.length, (2 << 8) - 1);
+            if (this.id.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field id too long %d/%d', this.id.length, (Math.pow(2, 8)) - 1);
             }
         }
         // MembershipClass (string)
         {
-            if (this.membership_class.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field membership_class too long %d/%d', this.membership_class.length, (2 << 8) - 1);
+            if (this.membership_class.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field membership_class too long %d/%d', this.membership_class.length, (Math.pow(2, 8)) - 1);
             }
         }
         // RoleType (string)
         {
-            if (this.role_type.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field role_type too long %d/%d', this.role_type.length, (2 << 8) - 1);
+            if (this.role_type.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field role_type too long %d/%d', this.role_type.length, (Math.pow(2, 8)) - 1);
             }
         }
         // MembershipType (string)
         {
-            if (this.membership_type.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field membership_type too long %d/%d', this.membership_type.length, (2 << 8) - 1);
+            if (this.membership_type.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field membership_type too long %d/%d', this.membership_type.length, (Math.pow(2, 8)) - 1);
             }
         }
         // Description (string)
         {
-            if (this.description.length > (2 << 16) - 1) {
-                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+            if (this.description.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (Math.pow(2, 16)) - 1);
             }
         }
     }
@@ -667,8 +667,8 @@ class ShareCommon {
         }
         // Description (string)
         {
-            if (this.description.length > (2 << 16) - 1) {
-                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+            if (this.description.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (Math.pow(2, 16)) - 1);
             }
         }
     }
@@ -821,26 +821,26 @@ class TicketAdmission {
         }
         // Venue (string)
         {
-            if (this.venue.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field venue too long %d/%d', this.venue.length, (2 << 8) - 1);
+            if (this.venue.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field venue too long %d/%d', this.venue.length, (Math.pow(2, 8)) - 1);
             }
         }
         // Class (string)
         {
-            if (this.class.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field class too long %d/%d', this.class.length, (2 << 8) - 1);
+            if (this.class.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field class too long %d/%d', this.class.length, (Math.pow(2, 8)) - 1);
             }
         }
         // Area (string)
         {
-            if (this.area.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field area too long %d/%d', this.area.length, (2 << 8) - 1);
+            if (this.area.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field area too long %d/%d', this.area.length, (Math.pow(2, 8)) - 1);
             }
         }
         // Seat (string)
         {
-            if (this.seat.length > (2 << 8) - 1) {
-                return sprintf_js_1.sprintf('varchar field seat too long %d/%d', this.seat.length, (2 << 8) - 1);
+            if (this.seat.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('varchar field seat too long %d/%d', this.seat.length, (Math.pow(2, 8)) - 1);
             }
         }
         // StartTimeDate (Timestamp)
@@ -866,8 +866,8 @@ class TicketAdmission {
         }
         // Description (string)
         {
-            if (this.description.length > (2 << 16) - 1) {
-                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+            if (this.description.length > (Math.pow(2, 16)) - 1) {
+                return sprintf_js_1.sprintf('varchar field description too long %d/%d', this.description.length, (Math.pow(2, 16)) - 1);
             }
         }
     }
