@@ -210,8 +210,8 @@ export class Coupon implements AssetPayload {
 
 		// RedeemingEntity (string)
 		{
-			if (this.redeeming_entity.length > (2 << 8) - 1) {
-				return sprintf('varchar field redeeming_entity too long %d/%d', this.redeeming_entity.length, (2 << 8) - 1);
+			if (this.redeeming_entity.length > (2 ** 8) - 1) {
+				return sprintf('varchar field redeeming_entity too long %d/%d', this.redeeming_entity.length, (2 ** 8) - 1);
 			}
 		}
 	
@@ -251,8 +251,8 @@ export class Coupon implements AssetPayload {
 
 		// Description (string)
 		{
-			if (this.description.length > (2 << 16) - 1) {
-				return sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+			if (this.description.length > (2 ** 16) - 1) {
+				return sprintf('varchar field description too long %d/%d', this.description.length, (2 ** 16) - 1);
 			}
 		}
 	
@@ -387,16 +387,16 @@ export class Currency implements AssetPayload {
 
 		// MonetaryAuthority (string)
 		{
-			if (this.monetary_authority.length > (2 << 8) - 1) {
-				return sprintf('varchar field monetary_authority too long %d/%d', this.monetary_authority.length, (2 << 8) - 1);
+			if (this.monetary_authority.length > (2 ** 8) - 1) {
+				return sprintf('varchar field monetary_authority too long %d/%d', this.monetary_authority.length, (2 ** 8) - 1);
 			}
 		}
 	
 
 		// Description (string)
 		{
-			if (this.description.length > (2 << 16) - 1) {
-				return sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+			if (this.description.length > (2 ** 16) - 1) {
+				return sprintf('varchar field description too long %d/%d', this.description.length, (2 ** 16) - 1);
 			}
 		}
 	
@@ -563,8 +563,8 @@ export class LoyaltyPoints implements AssetPayload {
 
 		// OfferName (string)
 		{
-			if (this.offer_name.length > (2 << 8) - 1) {
-				return sprintf('varchar field offer_name too long %d/%d', this.offer_name.length, (2 << 8) - 1);
+			if (this.offer_name.length > (2 ** 8) - 1) {
+				return sprintf('varchar field offer_name too long %d/%d', this.offer_name.length, (2 ** 8) - 1);
 			}
 		}
 	
@@ -591,8 +591,8 @@ export class LoyaltyPoints implements AssetPayload {
 
 		// Description (string)
 		{
-			if (this.description.length > (2 << 16) - 1) {
-				return sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+			if (this.description.length > (2 ** 16) - 1) {
+				return sprintf('varchar field description too long %d/%d', this.description.length, (2 ** 16) - 1);
 			}
 		}
 	
@@ -823,40 +823,40 @@ export class Membership implements AssetPayload {
 
 		// ID (string)
 		{
-			if (this.id.length > (2 << 8) - 1) {
-				return sprintf('varchar field id too long %d/%d', this.id.length, (2 << 8) - 1);
+			if (this.id.length > (2 ** 8) - 1) {
+				return sprintf('varchar field id too long %d/%d', this.id.length, (2 ** 8) - 1);
 			}
 		}
 	
 
 		// MembershipClass (string)
 		{
-			if (this.membership_class.length > (2 << 8) - 1) {
-				return sprintf('varchar field membership_class too long %d/%d', this.membership_class.length, (2 << 8) - 1);
+			if (this.membership_class.length > (2 ** 8) - 1) {
+				return sprintf('varchar field membership_class too long %d/%d', this.membership_class.length, (2 ** 8) - 1);
 			}
 		}
 	
 
 		// RoleType (string)
 		{
-			if (this.role_type.length > (2 << 8) - 1) {
-				return sprintf('varchar field role_type too long %d/%d', this.role_type.length, (2 << 8) - 1);
+			if (this.role_type.length > (2 ** 8) - 1) {
+				return sprintf('varchar field role_type too long %d/%d', this.role_type.length, (2 ** 8) - 1);
 			}
 		}
 	
 
 		// MembershipType (string)
 		{
-			if (this.membership_type.length > (2 << 8) - 1) {
-				return sprintf('varchar field membership_type too long %d/%d', this.membership_type.length, (2 << 8) - 1);
+			if (this.membership_type.length > (2 ** 8) - 1) {
+				return sprintf('varchar field membership_type too long %d/%d', this.membership_type.length, (2 ** 8) - 1);
 			}
 		}
 	
 
 		// Description (string)
 		{
-			if (this.description.length > (2 << 16) - 1) {
-				return sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+			if (this.description.length > (2 ** 16) - 1) {
+				return sprintf('varchar field description too long %d/%d', this.description.length, (2 ** 16) - 1);
 			}
 		}
 	
@@ -1026,8 +1026,8 @@ export class ShareCommon implements AssetPayload {
 
 		// Description (string)
 		{
-			if (this.description.length > (2 << 16) - 1) {
-				return sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+			if (this.description.length > (2 ** 16) - 1) {
+				return sprintf('varchar field description too long %d/%d', this.description.length, (2 ** 16) - 1);
 			}
 		}
 	
@@ -1275,32 +1275,32 @@ export class TicketAdmission implements AssetPayload {
 
 		// Venue (string)
 		{
-			if (this.venue.length > (2 << 8) - 1) {
-				return sprintf('varchar field venue too long %d/%d', this.venue.length, (2 << 8) - 1);
+			if (this.venue.length > (2 ** 8) - 1) {
+				return sprintf('varchar field venue too long %d/%d', this.venue.length, (2 ** 8) - 1);
 			}
 		}
 	
 
 		// Class (string)
 		{
-			if (this.class.length > (2 << 8) - 1) {
-				return sprintf('varchar field class too long %d/%d', this.class.length, (2 << 8) - 1);
+			if (this.class.length > (2 ** 8) - 1) {
+				return sprintf('varchar field class too long %d/%d', this.class.length, (2 ** 8) - 1);
 			}
 		}
 	
 
 		// Area (string)
 		{
-			if (this.area.length > (2 << 8) - 1) {
-				return sprintf('varchar field area too long %d/%d', this.area.length, (2 << 8) - 1);
+			if (this.area.length > (2 ** 8) - 1) {
+				return sprintf('varchar field area too long %d/%d', this.area.length, (2 ** 8) - 1);
 			}
 		}
 	
 
 		// Seat (string)
 		{
-			if (this.seat.length > (2 << 8) - 1) {
-				return sprintf('varchar field seat too long %d/%d', this.seat.length, (2 << 8) - 1);
+			if (this.seat.length > (2 ** 8) - 1) {
+				return sprintf('varchar field seat too long %d/%d', this.seat.length, (2 ** 8) - 1);
 			}
 		}
 	
@@ -1337,8 +1337,8 @@ export class TicketAdmission implements AssetPayload {
 
 		// Description (string)
 		{
-			if (this.description.length > (2 << 16) - 1) {
-				return sprintf('varchar field description too long %d/%d', this.description.length, (2 << 16) - 1);
+			if (this.description.length > (2 ** 16) - 1) {
+				return sprintf('varchar field description too long %d/%d', this.description.length, (2 ** 16) - 1);
 			}
 		}
 	

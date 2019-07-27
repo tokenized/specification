@@ -169,20 +169,20 @@ export class {{.Name}} implements AssetPayload {
 		{
 	{{- end }}
 	{{- if .IsVarChar }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('varchar field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}}) - 1) {
+				return sprintf('varchar field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 	{{- else if .IsFixedChar }}
 			if (this.{{.SnakeCase}}.length > {{.Length}}) {
 				return sprintf('fixedchar field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, {{.Length}});
 			}
 	{{- else if .IsVarBin }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('varbin field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}}) - 1) {
+				return sprintf('varbin field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 	{{- else if .IsResourceTypeArray }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}}) - 1) {
+				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 
 			for _, value := range this.{{.SnakeCase}} {
@@ -237,8 +237,8 @@ export class {{.Name}} implements AssetPayload {
 				return sprintf('Invalid tag type value : %c', this.{{.SnakeCase}});
 			}
 	{{- else if .IsInternalTypeArray }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}}) - 1) {
+				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 
 			const err = this.{{.SnakeCase}}.find((value, i) => {
@@ -247,8 +247,8 @@ export class {{.Name}} implements AssetPayload {
 			});
 			if (err) return err;
 	{{- else if .IsNativeTypeArray }}
-			if (this.{{.SnakeCase}}.length > (2 << {{.Length}}) - 1) {
-				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 << {{.Length}}) - 1);
+			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}}) - 1) {
+				return sprintf('list field {{.SnakeCase}} has too many items %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
 			}
 	{{- else if .IsInternalType }}
 			const err = this.{{.SnakeCase}}.Validate();
