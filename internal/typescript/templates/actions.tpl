@@ -49,6 +49,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 {{comment (print .Name " " .Metadata.Description) "//"}}
 export class {{.Name}} extends OpReturnMessage {
+	type = ActionCode.Code{{.Name}};
+	typeStr = '{{.Name}}';
+
 {{ range .Fields }}
 	{{comment (print "\t" .FieldDescription) "\t//"}}
 	{{ .SnakeCase }};{{ end -}}
