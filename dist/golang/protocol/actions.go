@@ -1163,9 +1163,9 @@ type ContractOffer struct {
 	IssuerLogoURL            string         `json:"issuer_logo_url,omitempty"`            // The URL of the issuer's logo.
 	ContractOperatorIncluded bool           `json:"contract_operator_included,omitempty"` // If true, then the second input is a contract operator. If false, then all additional inputs are just funding and "includes" fields are skipped in serialization.
 	ContractOperator         Entity         `json:"contract_operator,omitempty"`          // An additional entity with operator access to the contract.
-	ContractAuthFlags        []byte         `json:"contract_auth_flags,omitempty"`        // A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.
 	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list of voting systems.
+	ContractAuthFlags        []byte         `json:"contract_auth_flags,omitempty"`        // A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	AdministrationProposal   bool           `json:"administration_proposal,omitempty"`    // Set to true if the administration is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
@@ -1311,13 +1311,6 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		}
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		if err := WriteVarBin(buf, action.ContractAuthFlags, 16); err != nil {
-			return nil, err
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 		if err := write(buf, action.ContractFee); err != nil {
@@ -1339,6 +1332,13 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 			if err := write(buf, b); err != nil {
 				return nil, err
 			}
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		if err := WriteVarBin(buf, action.ContractAuthFlags, 16); err != nil {
+			return nil, err
 		}
 	}
 
@@ -1513,15 +1513,6 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 		}
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		var err error
-		action.ContractAuthFlags, err = ReadVarBin(buf, 16)
-		if err != nil {
-			return 0, err
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 		if err := read(buf, &action.ContractFee); err != nil {
@@ -1543,6 +1534,15 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 			}
 
 			action.VotingSystems = append(action.VotingSystems, newValue)
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		var err error
+		action.ContractAuthFlags, err = ReadVarBin(buf, 16)
+		if err != nil {
+			return 0, err
 		}
 	}
 
@@ -1695,13 +1695,6 @@ func (m *ContractOffer) Validate() error {
 
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		if len(m.ContractAuthFlags) > (2<<16)-1 {
-			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (2<<16)-1)
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 	}
@@ -1717,6 +1710,13 @@ func (m *ContractOffer) Validate() error {
 			if err != nil {
 				return fmt.Errorf("list field VotingSystems[%d] is invalid : %s", i, err)
 			}
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		if len(m.ContractAuthFlags) > (2<<16)-1 {
+			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (2<<16)-1)
 		}
 	}
 
@@ -1775,11 +1775,11 @@ func (action ContractOffer) String() string {
 	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v\n", action.IssuerLogoURL))
 	vals = append(vals, fmt.Sprintf("ContractOperatorIncluded:%#+v\n", action.ContractOperatorIncluded))
 	vals = append(vals, fmt.Sprintf("ContractOperator:%s\n", action.ContractOperator.String()))
-	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x\n", action.ContractAuthFlags))
 	vals = append(vals, fmt.Sprintf("ContractFee:%v\n", action.ContractFee))
 	for i, element := range action.VotingSystems {
 		vals = append(vals, fmt.Sprintf("VotingSystems%d:%s\n", i, element.String()))
 	}
+	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x\n", action.ContractAuthFlags))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v\n", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v\n", action.AdministrationProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v\n", action.HolderProposal))
@@ -1811,9 +1811,9 @@ type ContractFormation struct {
 	IssuerLogoURL            string         `json:"issuer_logo_url,omitempty"`            // The URL of the issuer's logo.
 	ContractOperatorIncluded bool           `json:"contract_operator_included,omitempty"` // If true, then the second input is a contract operator. If false, then all additional inputs are just funding and "includes" fields are skipped in serialization.
 	ContractOperator         Entity         `json:"contract_operator,omitempty"`          // An additional entity with operator access to the contract.
-	ContractAuthFlags        []byte         `json:"contract_auth_flags,omitempty"`        // A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement
 	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list voting systems.
+	ContractAuthFlags        []byte         `json:"contract_auth_flags,omitempty"`        // A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	AdministrationProposal   bool           `json:"administration_proposal,omitempty"`    // Set to true if the administration is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
@@ -1961,13 +1961,6 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		if err := WriteVarBin(buf, action.ContractAuthFlags, 16); err != nil {
-			return nil, err
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 		if err := write(buf, action.ContractFee); err != nil {
@@ -1989,6 +1982,13 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 			if err := write(buf, b); err != nil {
 				return nil, err
 			}
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		if err := WriteVarBin(buf, action.ContractAuthFlags, 16); err != nil {
+			return nil, err
 		}
 	}
 
@@ -2182,15 +2182,6 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		var err error
-		action.ContractAuthFlags, err = ReadVarBin(buf, 16)
-		if err != nil {
-			return 0, err
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 		if err := read(buf, &action.ContractFee); err != nil {
@@ -2212,6 +2203,15 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 			}
 
 			action.VotingSystems = append(action.VotingSystems, newValue)
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		var err error
+		action.ContractAuthFlags, err = ReadVarBin(buf, 16)
+		if err != nil {
+			return 0, err
 		}
 	}
 
@@ -2378,13 +2378,6 @@ func (m *ContractFormation) Validate() error {
 
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		if len(m.ContractAuthFlags) > (2<<16)-1 {
-			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (2<<16)-1)
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 	}
@@ -2400,6 +2393,13 @@ func (m *ContractFormation) Validate() error {
 			if err != nil {
 				return fmt.Errorf("list field VotingSystems[%d] is invalid : %s", i, err)
 			}
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		if len(m.ContractAuthFlags) > (2<<16)-1 {
+			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (2<<16)-1)
 		}
 	}
 
@@ -2470,11 +2470,11 @@ func (action ContractFormation) String() string {
 	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v\n", action.IssuerLogoURL))
 	vals = append(vals, fmt.Sprintf("ContractOperatorIncluded:%#+v\n", action.ContractOperatorIncluded))
 	vals = append(vals, fmt.Sprintf("ContractOperator:%s\n", action.ContractOperator.String()))
-	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x\n", action.ContractAuthFlags))
 	vals = append(vals, fmt.Sprintf("ContractFee:%v\n", action.ContractFee))
 	for i, element := range action.VotingSystems {
 		vals = append(vals, fmt.Sprintf("VotingSystems%d:%s\n", i, element.String()))
 	}
+	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x\n", action.ContractAuthFlags))
 	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v\n", action.RestrictedQtyAssets))
 	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v\n", action.AdministrationProposal))
 	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v\n", action.HolderProposal))
