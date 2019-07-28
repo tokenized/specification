@@ -2100,18 +2100,23 @@ var yamlEntities = `
         type: Legal
         constitutionalDocument: null
         roles:
-          owners:
+          members:
             principal: null
           administrators:
             principal: null
             legalGuardian: []
             agent: [] # (granted by the principal)
-          general:
+          managers: null
+          associates:
             accountant: []
             advisor: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:  
+            friend: []
+            governmentAgency: []
+            suppliers: []
 
     - code: P
       name: PublicCompany
@@ -2121,7 +2126,7 @@ var yamlEntities = `
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)
         roles:
-          owners:
+          members:
             shareholder: []
             significantShareholder: []
           administrators: # Board of Directors
@@ -2134,13 +2139,17 @@ var yamlEntities = `
             cto: null
             executive: []
             secretary: null
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []  
+            governmentAgency: []
+            supplier: []
 
     - code: C
       name: PrivateCompany
@@ -2150,7 +2159,7 @@ var yamlEntities = `
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
         roles:
-          owners:
+          members:
             shareholder: []
             significantShareholder: []
           administrators:
@@ -2163,77 +2172,94 @@ var yamlEntities = `
             cto: null
             executive: []
             secretary: null            
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: L
       name: LimitedPartnership
       label: "Limited Partnership"
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: 
           partnershipAgreement: null
         roles:
-          owners:
+          members:
             partner: []
           administrators:
             partner: []
           managers:
             managingPartner: []
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
-
-    - code: U
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
+            
+    - code: X
       name: UnlimitedPartnership
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership)
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: 
           partnershipAgreement: null        
         roles:
-          owners:
+          members:
             partner: []
           administrators:
             partner: []  
           managers:
             managingPartner: []
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
+            contractor: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: T
       name: SoleProprietorship
       label: "Sole Proprietorship"
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: null     
         roles:
-          owners:
+          members:
             proprietor: null
           administrators:
             proprietor: null
             agent: [] # (granted by the proprietor)
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: S
       name: StatutoryCompany
@@ -2243,6 +2269,8 @@ var yamlEntities = `
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
         roles:
+          members:
+            nationState: null
           administrators:
             chairman: null
             director: []
@@ -2253,13 +2281,17 @@ var yamlEntities = `
             cto: null
             executive: []
             secretary: null
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: O
       name: NonProfitOrganization
@@ -2279,13 +2311,17 @@ var yamlEntities = `
             cto: null
             executive: []
             secretary: null   
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: N
       name: NationState
@@ -2294,6 +2330,13 @@ var yamlEntities = `
         type: Legal
         constitutionalDocument: 
          nationalConstitution: null # (eg. Constitution, Charter, etc.)       
+        role:
+          members:
+            citizen: []
+          administrators:
+          managers: 
+          associates:
+          collaborators:
 
     - code: G
       name: GovernmentAgency
@@ -2302,7 +2345,21 @@ var yamlEntities = `
         type: Legal
         constitutionalDocument: 
          charter: null # (eg. Charter, etc.) 
-         
+        role:
+          members:
+          administrators:
+          associates:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
+
     - code: U
       name: UnitTrust
       label: "Unit Trust"
@@ -2311,12 +2368,12 @@ var yamlEntities = `
         constitutionalDocument: 
          trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)         
         roles:
-          owners:
+          members:
             unitholder: []
           administrators:
             protector: []
             trustee: []
-          general:
+          associates:
             accountant: []
             advisor: []
             custodian: []
@@ -2325,6 +2382,10 @@ var yamlEntities = `
             manager: []
             settlor: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: D
       name: DiscretionaryTrust
@@ -2334,12 +2395,12 @@ var yamlEntities = `
         constitutionalDocument: 
          trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)               
         roles:
-          owners:
+          members:
             beneficiary: []
           administrators:
             protector: []
             trustee: []
-          general:
+          associates:
             accountant: []
             advisor: []
             custodian: []
@@ -2348,6 +2409,10 @@ var yamlEntities = `
             manager: []
             settlor: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []  
 
 `
 
