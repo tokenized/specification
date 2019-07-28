@@ -3,6 +3,7 @@ package protocol
 import (
 	"bytes"
 	"fmt"
+	"strings"
 )
 
 // Administrator Administrator is used to refer to a Administration role in
@@ -87,6 +88,15 @@ func (m *Administrator) Equal(other Administrator) bool {
 	return true
 }
 
+func (action Administrator) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Type:%#+v\n", action.Type))
+	vals = append(vals, fmt.Sprintf("Name:%#+v\n", action.Name))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
+}
+
 // AgeRestriction Age restriction is used to specify required ages for
 // asset ownership.
 type AgeRestriction struct {
@@ -159,6 +169,15 @@ func (m *AgeRestriction) Equal(other AgeRestriction) bool {
 		return false
 	}
 	return true
+}
+
+func (action AgeRestriction) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Lower:%v\n", action.Lower))
+	vals = append(vals, fmt.Sprintf("Upper:%v\n", action.Upper))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // Amendment An Amendment is used to describe the modification of a single
@@ -335,6 +354,19 @@ func (m *Amendment) Equal(other Amendment) bool {
 		return false
 	}
 	return true
+}
+
+func (action Amendment) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("FieldIndex:%v\n", action.FieldIndex))
+	vals = append(vals, fmt.Sprintf("Element:%v\n", action.Element))
+	vals = append(vals, fmt.Sprintf("SubfieldIndex:%v\n", action.SubfieldIndex))
+	vals = append(vals, fmt.Sprintf("SubfieldElement:%v\n", action.SubfieldElement))
+	vals = append(vals, fmt.Sprintf("Operation:%v\n", action.Operation))
+	vals = append(vals, fmt.Sprintf("Data:%#x\n", action.Data))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // AssetReceiver An AssetReceiver is a quantity, address, and oracle
@@ -521,6 +553,19 @@ func (m *AssetReceiver) Equal(other AssetReceiver) bool {
 	return true
 }
 
+func (action AssetReceiver) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Address:%s\n", action.Address.String()))
+	vals = append(vals, fmt.Sprintf("Quantity:%v\n", action.Quantity))
+	vals = append(vals, fmt.Sprintf("OracleSigAlgorithm:%v\n", action.OracleSigAlgorithm))
+	vals = append(vals, fmt.Sprintf("OracleIndex:%v\n", action.OracleIndex))
+	vals = append(vals, fmt.Sprintf("OracleConfirmationSig:%#x\n", action.OracleConfirmationSig))
+	vals = append(vals, fmt.Sprintf("OracleSigBlockHeight:%v\n", action.OracleSigBlockHeight))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
+}
+
 // AssetSettlement AssetSettlement is the data required to settle an asset
 // transfer.
 type AssetSettlement struct {
@@ -692,6 +737,19 @@ func (m *AssetSettlement) Equal(other AssetSettlement) bool {
 		}
 	}
 	return true
+}
+
+func (action AssetSettlement) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("ContractIndex:%v\n", action.ContractIndex))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	for i, element := range action.Settlements {
+		vals = append(vals, fmt.Sprintf("Settlements%d:%s\n", i, element.String()))
+	}
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // AssetTransfer AssetTransfer is the data required to transfer an asset.
@@ -928,6 +986,22 @@ func (m *AssetTransfer) Equal(other AssetTransfer) bool {
 	return true
 }
 
+func (action AssetTransfer) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("ContractIndex:%v\n", action.ContractIndex))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	for i, element := range action.AssetSenders {
+		vals = append(vals, fmt.Sprintf("AssetSenders%d:%s\n", i, element.String()))
+	}
+	for i, element := range action.AssetReceivers {
+		vals = append(vals, fmt.Sprintf("AssetReceivers%d:%s\n", i, element.String()))
+	}
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
+}
+
 // Document A file containing data.
 type Document struct {
 	Name     string `json:"name,omitempty"`     // Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid.
@@ -1038,6 +1112,16 @@ func (m *Document) Equal(other Document) bool {
 		return false
 	}
 	return true
+}
+
+func (action Document) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Name:%#+v\n", action.Name))
+	vals = append(vals, fmt.Sprintf("Type:%#+v\n", action.Type))
+	vals = append(vals, fmt.Sprintf("Contents:%#x\n", action.Contents))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // Entity Entity represents the details of a legal Entity, such as a public
@@ -1560,6 +1644,32 @@ func (m *Entity) Equal(other Entity) bool {
 	return true
 }
 
+func (action Entity) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Name:%#+v\n", action.Name))
+	vals = append(vals, fmt.Sprintf("Type:%#+v\n", action.Type))
+	vals = append(vals, fmt.Sprintf("LEI:%#+v\n", action.LEI))
+	vals = append(vals, fmt.Sprintf("AddressIncluded:%#+v\n", action.AddressIncluded))
+	vals = append(vals, fmt.Sprintf("UnitNumber:%#+v\n", action.UnitNumber))
+	vals = append(vals, fmt.Sprintf("BuildingNumber:%#+v\n", action.BuildingNumber))
+	vals = append(vals, fmt.Sprintf("Street:%#+v\n", action.Street))
+	vals = append(vals, fmt.Sprintf("SuburbCity:%#+v\n", action.SuburbCity))
+	vals = append(vals, fmt.Sprintf("TerritoryStateProvinceCode:%#+v\n", action.TerritoryStateProvinceCode))
+	vals = append(vals, fmt.Sprintf("CountryCode:%#+v\n", action.CountryCode))
+	vals = append(vals, fmt.Sprintf("PostalZIPCode:%#+v\n", action.PostalZIPCode))
+	vals = append(vals, fmt.Sprintf("EmailAddress:%#+v\n", action.EmailAddress))
+	vals = append(vals, fmt.Sprintf("PhoneNumber:%#+v\n", action.PhoneNumber))
+	for i, element := range action.Administration {
+		vals = append(vals, fmt.Sprintf("Administration%d:%s\n", i, element.String()))
+	}
+	for i, element := range action.Management {
+		vals = append(vals, fmt.Sprintf("Management%d:%s\n", i, element.String()))
+	}
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
+}
+
 // Manager Manager is used to refer to a role that is responsible for the
 // Management of an Entity.
 type Manager struct {
@@ -1640,6 +1750,15 @@ func (m *Manager) Equal(other Manager) bool {
 		return false
 	}
 	return true
+}
+
+func (action Manager) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Type:%#+v\n", action.Type))
+	vals = append(vals, fmt.Sprintf("Name:%#+v\n", action.Name))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // Oracle A Oracle defines the details of a public Oracle.
@@ -1754,6 +1873,16 @@ func (m *Oracle) Equal(other Oracle) bool {
 	return true
 }
 
+func (action Oracle) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Name:%#+v\n", action.Name))
+	vals = append(vals, fmt.Sprintf("URL:%#+v\n", action.URL))
+	vals = append(vals, fmt.Sprintf("PublicKey:%#x\n", action.PublicKey))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
+}
+
 // Output Reference to a bitcoin transaction output.
 type Output struct {
 	TxId        TxId   `json:"tx_id,omitempty"`        //
@@ -1835,6 +1964,15 @@ func (m *Output) Equal(other Output) bool {
 	return true
 }
 
+func (action Output) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("TxId:%s\n", action.TxId.String()))
+	vals = append(vals, fmt.Sprintf("OutputIndex:%v\n", action.OutputIndex))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
+}
+
 // OutputTag A tag or category of an output used to categorize and organize
 // outputs from different transactions.
 type OutputTag struct {
@@ -1888,6 +2026,14 @@ func (m *OutputTag) Equal(other OutputTag) bool {
 		return false
 	}
 	return true
+}
+
+func (action OutputTag) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Tag:%#+v\n", action.Tag))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // QuantityIndex A QuantityIndex contains a quantity, and an index. The
@@ -1963,6 +2109,15 @@ func (m *QuantityIndex) Equal(other QuantityIndex) bool {
 		return false
 	}
 	return true
+}
+
+func (action QuantityIndex) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Index:%v\n", action.Index))
+	vals = append(vals, fmt.Sprintf("Quantity:%v\n", action.Quantity))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // TargetAddress A TargetAddress defines a public address and quantity.
@@ -2044,6 +2199,15 @@ func (m *TargetAddress) Equal(other TargetAddress) bool {
 		return false
 	}
 	return true
+}
+
+func (action TargetAddress) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Address:%s\n", action.Address.String()))
+	vals = append(vals, fmt.Sprintf("Quantity:%v\n", action.Quantity))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 
 // VotingSystem A VotingSystem defines all details of a Voting System.
@@ -2218,4 +2382,17 @@ func (m *VotingSystem) Equal(other VotingSystem) bool {
 		return false
 	}
 	return true
+}
+
+func (action VotingSystem) String() string {
+	vals := []string{}
+
+	vals = append(vals, fmt.Sprintf("Name:%#+v\n", action.Name))
+	vals = append(vals, fmt.Sprintf("VoteType:%#+v\n", action.VoteType))
+	vals = append(vals, fmt.Sprintf("TallyLogic:%#+v\n", action.TallyLogic))
+	vals = append(vals, fmt.Sprintf("ThresholdPercentage:%v\n", action.ThresholdPercentage))
+	vals = append(vals, fmt.Sprintf("VoteMultiplierPermitted:%#+v\n", action.VoteMultiplierPermitted))
+	vals = append(vals, fmt.Sprintf("HolderProposalFee:%v\n", action.HolderProposalFee))
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }

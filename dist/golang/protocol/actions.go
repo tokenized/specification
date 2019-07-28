@@ -432,8 +432,8 @@ func (m *AssetDefinition) Validate() error {
 
 	// AssetAuthFlags ([]byte)
 	{
-		if len(m.AssetAuthFlags) > (1<<8)-1 {
-			return fmt.Errorf("varbin field AssetAuthFlags too long %d/%d", len(m.AssetAuthFlags), (1<<8)-1)
+		if len(m.AssetAuthFlags) > (2<<8)-1 {
+			return fmt.Errorf("varbin field AssetAuthFlags too long %d/%d", len(m.AssetAuthFlags), (2<<8)-1)
 		}
 	}
 
@@ -443,8 +443,8 @@ func (m *AssetDefinition) Validate() error {
 
 	// TradeRestrictions ([][3]byte)
 	{
-		if len(m.TradeRestrictions) > (1<<16)-1 {
-			return fmt.Errorf("list field TradeRestrictions has too many items %d/%d", len(m.TradeRestrictions), (1<<16)-1)
+		if len(m.TradeRestrictions) > (2<<16)-1 {
+			return fmt.Errorf("list field TradeRestrictions has too many items %d/%d", len(m.TradeRestrictions), (2<<16)-1)
 		}
 
 		for _, value := range m.TradeRestrictions {
@@ -488,8 +488,8 @@ func (m *AssetDefinition) Validate() error {
 
 	// AssetPayload ([]byte)
 	{
-		if len(m.AssetPayload) > (1<<16)-1 {
-			return fmt.Errorf("varbin field AssetPayload too long %d/%d", len(m.AssetPayload), (1<<16)-1)
+		if len(m.AssetPayload) > (2<<16)-1 {
+			return fmt.Errorf("varbin field AssetPayload too long %d/%d", len(m.AssetPayload), (2<<16)-1)
 		}
 	}
 
@@ -499,18 +499,18 @@ func (m *AssetDefinition) Validate() error {
 func (action AssetDefinition) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x", action.AssetAuthFlags))
-	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", action.TransfersPermitted))
-	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", action.TradeRestrictions))
-	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", action.EnforcementOrdersPermitted))
-	vals = append(vals, fmt.Sprintf("VotingRights:%#+v", action.VotingRights))
-	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", action.VoteMultiplier))
-	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v", action.AdministrationProposal))
-	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%v", action.AssetModificationGovernance))
-	vals = append(vals, fmt.Sprintf("TokenQty:%v", action.TokenQty))
-	vals = append(vals, fmt.Sprintf("AssetPayload:%#x", action.AssetPayload))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x\n", action.AssetAuthFlags))
+	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v\n", action.TransfersPermitted))
+	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v\n", action.TradeRestrictions))
+	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v\n", action.EnforcementOrdersPermitted))
+	vals = append(vals, fmt.Sprintf("VotingRights:%#+v\n", action.VotingRights))
+	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v\n", action.VoteMultiplier))
+	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v\n", action.AdministrationProposal))
+	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v\n", action.HolderProposal))
+	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%v\n", action.AssetModificationGovernance))
+	vals = append(vals, fmt.Sprintf("TokenQty:%v\n", action.TokenQty))
+	vals = append(vals, fmt.Sprintf("AssetPayload:%#x\n", action.AssetPayload))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -840,8 +840,8 @@ func (m *AssetCreation) Validate() error {
 
 	// AssetAuthFlags ([]byte)
 	{
-		if len(m.AssetAuthFlags) > (1<<8)-1 {
-			return fmt.Errorf("varbin field AssetAuthFlags too long %d/%d", len(m.AssetAuthFlags), (1<<8)-1)
+		if len(m.AssetAuthFlags) > (2<<8)-1 {
+			return fmt.Errorf("varbin field AssetAuthFlags too long %d/%d", len(m.AssetAuthFlags), (2<<8)-1)
 		}
 	}
 
@@ -851,8 +851,8 @@ func (m *AssetCreation) Validate() error {
 
 	// TradeRestrictions ([][3]byte)
 	{
-		if len(m.TradeRestrictions) > (1<<16)-1 {
-			return fmt.Errorf("list field TradeRestrictions has too many items %d/%d", len(m.TradeRestrictions), (1<<16)-1)
+		if len(m.TradeRestrictions) > (2<<16)-1 {
+			return fmt.Errorf("list field TradeRestrictions has too many items %d/%d", len(m.TradeRestrictions), (2<<16)-1)
 		}
 
 		for _, value := range m.TradeRestrictions {
@@ -896,8 +896,8 @@ func (m *AssetCreation) Validate() error {
 
 	// AssetPayload ([]byte)
 	{
-		if len(m.AssetPayload) > (1<<16)-1 {
-			return fmt.Errorf("varbin field AssetPayload too long %d/%d", len(m.AssetPayload), (1<<16)-1)
+		if len(m.AssetPayload) > (2<<16)-1 {
+			return fmt.Errorf("varbin field AssetPayload too long %d/%d", len(m.AssetPayload), (2<<16)-1)
 		}
 	}
 
@@ -919,22 +919,22 @@ func (m *AssetCreation) Validate() error {
 func (action AssetCreation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetCode:%#+v", action.AssetCode))
-	vals = append(vals, fmt.Sprintf("AssetIndex:%v", action.AssetIndex))
-	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x", action.AssetAuthFlags))
-	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v", action.TransfersPermitted))
-	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v", action.TradeRestrictions))
-	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v", action.EnforcementOrdersPermitted))
-	vals = append(vals, fmt.Sprintf("VotingRights:%#+v", action.VotingRights))
-	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v", action.VoteMultiplier))
-	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v", action.AdministrationProposal))
-	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%v", action.AssetModificationGovernance))
-	vals = append(vals, fmt.Sprintf("TokenQty:%v", action.TokenQty))
-	vals = append(vals, fmt.Sprintf("AssetPayload:%#x", action.AssetPayload))
-	vals = append(vals, fmt.Sprintf("AssetRevision:%v", action.AssetRevision))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	vals = append(vals, fmt.Sprintf("AssetIndex:%v\n", action.AssetIndex))
+	vals = append(vals, fmt.Sprintf("AssetAuthFlags:%#x\n", action.AssetAuthFlags))
+	vals = append(vals, fmt.Sprintf("TransfersPermitted:%#+v\n", action.TransfersPermitted))
+	vals = append(vals, fmt.Sprintf("TradeRestrictions:%#+v\n", action.TradeRestrictions))
+	vals = append(vals, fmt.Sprintf("EnforcementOrdersPermitted:%#+v\n", action.EnforcementOrdersPermitted))
+	vals = append(vals, fmt.Sprintf("VotingRights:%#+v\n", action.VotingRights))
+	vals = append(vals, fmt.Sprintf("VoteMultiplier:%v\n", action.VoteMultiplier))
+	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v\n", action.AdministrationProposal))
+	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v\n", action.HolderProposal))
+	vals = append(vals, fmt.Sprintf("AssetModificationGovernance:%v\n", action.AssetModificationGovernance))
+	vals = append(vals, fmt.Sprintf("TokenQty:%v\n", action.TokenQty))
+	vals = append(vals, fmt.Sprintf("AssetPayload:%#x\n", action.AssetPayload))
+	vals = append(vals, fmt.Sprintf("AssetRevision:%v\n", action.AssetRevision))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -1104,8 +1104,8 @@ func (m *AssetModification) Validate() error {
 
 	// Amendments ([]Amendment)
 	{
-		if len(m.Amendments) > (1<<8)-1 {
-			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (1<<8)-1)
+		if len(m.Amendments) > (2<<8)-1 {
+			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (2<<8)-1)
 		}
 
 		for i, value := range m.Amendments {
@@ -1130,11 +1130,13 @@ func (m *AssetModification) Validate() error {
 func (action AssetModification) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetCode:%#+v", action.AssetCode))
-	vals = append(vals, fmt.Sprintf("AssetRevision:%v", action.AssetRevision))
-	vals = append(vals, fmt.Sprintf("Amendments:%#+v", action.Amendments))
-	vals = append(vals, fmt.Sprintf("RefTxID:%#+v", action.RefTxID))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	vals = append(vals, fmt.Sprintf("AssetRevision:%v\n", action.AssetRevision))
+	for i, element := range action.Amendments {
+		vals = append(vals, fmt.Sprintf("Amendments%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("RefTxID:%s\n", action.RefTxID.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -1161,9 +1163,9 @@ type ContractOffer struct {
 	IssuerLogoURL            string         `json:"issuer_logo_url,omitempty"`            // The URL of the issuer's logo.
 	ContractOperatorIncluded bool           `json:"contract_operator_included,omitempty"` // If true, then the second input is a contract operator. If false, then all additional inputs are just funding and "includes" fields are skipped in serialization.
 	ContractOperator         Entity         `json:"contract_operator,omitempty"`          // An additional entity with operator access to the contract.
-	ContractAuthFlags        []byte         `json:"contract_auth_flags,omitempty"`        // A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.
 	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list of voting systems.
+	ContractAuthFlags        []byte         `json:"contract_auth_flags,omitempty"`        // A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	AdministrationProposal   bool           `json:"administration_proposal,omitempty"`    // Set to true if the administration is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
@@ -1309,13 +1311,6 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 		}
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		if err := WriteVarBin(buf, action.ContractAuthFlags, 16); err != nil {
-			return nil, err
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 		if err := write(buf, action.ContractFee); err != nil {
@@ -1337,6 +1332,13 @@ func (action *ContractOffer) serialize() ([]byte, error) {
 			if err := write(buf, b); err != nil {
 				return nil, err
 			}
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		if err := WriteVarBin(buf, action.ContractAuthFlags, 16); err != nil {
+			return nil, err
 		}
 	}
 
@@ -1511,15 +1513,6 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 		}
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		var err error
-		action.ContractAuthFlags, err = ReadVarBin(buf, 16)
-		if err != nil {
-			return 0, err
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 		if err := read(buf, &action.ContractFee); err != nil {
@@ -1541,6 +1534,15 @@ func (action *ContractOffer) write(b []byte) (int, error) {
 			}
 
 			action.VotingSystems = append(action.VotingSystems, newValue)
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		var err error
+		action.ContractAuthFlags, err = ReadVarBin(buf, 16)
+		if err != nil {
+			return 0, err
 		}
 	}
 
@@ -1596,8 +1598,8 @@ func (m *ContractOffer) Validate() error {
 
 	// ContractName (string)
 	{
-		if len(m.ContractName) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (1<<8)-1)
+		if len(m.ContractName) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (2<<8)-1)
 		}
 	}
 
@@ -1611,22 +1613,22 @@ func (m *ContractOffer) Validate() error {
 
 	// BodyOfAgreement ([]byte)
 	{
-		if len(m.BodyOfAgreement) > (1<<32)-1 {
-			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (1<<32)-1)
+		if len(m.BodyOfAgreement) > (2<<32)-1 {
+			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (2<<32)-1)
 		}
 	}
 
 	// ContractType (string)
 	{
-		if len(m.ContractType) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (1<<8)-1)
+		if len(m.ContractType) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (2<<8)-1)
 		}
 	}
 
 	// SupportingDocs ([]Document)
 	{
-		if len(m.SupportingDocs) > (1<<8)-1 {
-			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (1<<8)-1)
+		if len(m.SupportingDocs) > (2<<8)-1 {
+			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (2<<8)-1)
 		}
 
 		for i, value := range m.SupportingDocs {
@@ -1661,8 +1663,8 @@ func (m *ContractOffer) Validate() error {
 
 	// ContractURI (string)
 	{
-		if len(m.ContractURI) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (1<<8)-1)
+		if len(m.ContractURI) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (2<<8)-1)
 		}
 	}
 
@@ -1676,8 +1678,8 @@ func (m *ContractOffer) Validate() error {
 
 	// IssuerLogoURL (string)
 	{
-		if len(m.IssuerLogoURL) > (1<<8)-1 {
-			return fmt.Errorf("varchar field IssuerLogoURL too long %d/%d", len(m.IssuerLogoURL), (1<<8)-1)
+		if len(m.IssuerLogoURL) > (2<<8)-1 {
+			return fmt.Errorf("varchar field IssuerLogoURL too long %d/%d", len(m.IssuerLogoURL), (2<<8)-1)
 		}
 	}
 
@@ -1693,21 +1695,14 @@ func (m *ContractOffer) Validate() error {
 
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		if len(m.ContractAuthFlags) > (1<<16)-1 {
-			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (1<<16)-1)
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 	}
 
 	// VotingSystems ([]VotingSystem)
 	{
-		if len(m.VotingSystems) > (1<<8)-1 {
-			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (1<<8)-1)
+		if len(m.VotingSystems) > (2<<8)-1 {
+			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (2<<8)-1)
 		}
 
 		for i, value := range m.VotingSystems {
@@ -1715,6 +1710,13 @@ func (m *ContractOffer) Validate() error {
 			if err != nil {
 				return fmt.Errorf("list field VotingSystems[%d] is invalid : %s", i, err)
 			}
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		if len(m.ContractAuthFlags) > (2<<16)-1 {
+			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (2<<16)-1)
 		}
 	}
 
@@ -1732,8 +1734,8 @@ func (m *ContractOffer) Validate() error {
 
 	// Oracles ([]Oracle)
 	{
-		if len(m.Oracles) > (1<<8)-1 {
-			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (1<<8)-1)
+		if len(m.Oracles) > (2<<8)-1 {
+			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<8)-1)
 		}
 
 		for i, value := range m.Oracles {
@@ -1758,27 +1760,33 @@ func (m *ContractOffer) Validate() error {
 func (action ContractOffer) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
-	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v", action.BodyOfAgreementType))
-	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x", action.BodyOfAgreement))
-	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
-	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("ContractExpiration:%#+v", action.ContractExpiration))
-	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
-	vals = append(vals, fmt.Sprintf("Issuer:%#+v", action.Issuer))
-	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", action.IssuerLogoURL))
-	vals = append(vals, fmt.Sprintf("ContractOperatorIncluded:%#+v", action.ContractOperatorIncluded))
-	vals = append(vals, fmt.Sprintf("ContractOperator:%#+v", action.ContractOperator))
-	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x", action.ContractAuthFlags))
-	vals = append(vals, fmt.Sprintf("ContractFee:%v", action.ContractFee))
-	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
-	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
-	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v", action.AdministrationProposal))
-	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("Oracles:%#+v", action.Oracles))
-	vals = append(vals, fmt.Sprintf("MasterPKH:%#+v", action.MasterPKH))
+	vals = append(vals, fmt.Sprintf("ContractName:%#+v\n", action.ContractName))
+	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v\n", action.BodyOfAgreementType))
+	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x\n", action.BodyOfAgreement))
+	vals = append(vals, fmt.Sprintf("ContractType:%#+v\n", action.ContractType))
+	for i, element := range action.SupportingDocs {
+		vals = append(vals, fmt.Sprintf("SupportingDocs%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v\n", action.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v\n", action.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("ContractExpiration:%s\n", action.ContractExpiration.String()))
+	vals = append(vals, fmt.Sprintf("ContractURI:%#+v\n", action.ContractURI))
+	vals = append(vals, fmt.Sprintf("Issuer:%s\n", action.Issuer.String()))
+	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v\n", action.IssuerLogoURL))
+	vals = append(vals, fmt.Sprintf("ContractOperatorIncluded:%#+v\n", action.ContractOperatorIncluded))
+	vals = append(vals, fmt.Sprintf("ContractOperator:%s\n", action.ContractOperator.String()))
+	vals = append(vals, fmt.Sprintf("ContractFee:%v\n", action.ContractFee))
+	for i, element := range action.VotingSystems {
+		vals = append(vals, fmt.Sprintf("VotingSystems%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x\n", action.ContractAuthFlags))
+	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v\n", action.RestrictedQtyAssets))
+	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v\n", action.AdministrationProposal))
+	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v\n", action.HolderProposal))
+	for i, element := range action.Oracles {
+		vals = append(vals, fmt.Sprintf("Oracles%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("MasterPKH:%s\n", action.MasterPKH.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -1803,9 +1811,9 @@ type ContractFormation struct {
 	IssuerLogoURL            string         `json:"issuer_logo_url,omitempty"`            // The URL of the issuer's logo.
 	ContractOperatorIncluded bool           `json:"contract_operator_included,omitempty"` // If true, then the second input is a contract operator. If false, then all additional inputs are just funding and "includes" fields are skipped in serialization.
 	ContractOperator         Entity         `json:"contract_operator,omitempty"`          // An additional entity with operator access to the contract.
-	ContractAuthFlags        []byte         `json:"contract_auth_flags,omitempty"`        // A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement
 	ContractFee              uint64         `json:"contract_fee,omitempty"`               // Satoshis required to be paid to the contract for each asset action.
 	VotingSystems            []VotingSystem `json:"voting_systems,omitempty"`             // A list voting systems.
+	ContractAuthFlags        []byte         `json:"contract_auth_flags,omitempty"`        // A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement
 	RestrictedQtyAssets      uint64         `json:"restricted_qty_assets,omitempty"`      // Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
 	AdministrationProposal   bool           `json:"administration_proposal,omitempty"`    // Set to true if the administration is permitted to make proposals outside of the smart contract scope.
 	HolderProposal           bool           `json:"holder_proposal,omitempty"`            // Set to true if a holder is permitted to make proposals outside of the smart contract scope.
@@ -1953,13 +1961,6 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 		}
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		if err := WriteVarBin(buf, action.ContractAuthFlags, 16); err != nil {
-			return nil, err
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 		if err := write(buf, action.ContractFee); err != nil {
@@ -1981,6 +1982,13 @@ func (action *ContractFormation) serialize() ([]byte, error) {
 			if err := write(buf, b); err != nil {
 				return nil, err
 			}
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		if err := WriteVarBin(buf, action.ContractAuthFlags, 16); err != nil {
+			return nil, err
 		}
 	}
 
@@ -2174,15 +2182,6 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 		}
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		var err error
-		action.ContractAuthFlags, err = ReadVarBin(buf, 16)
-		if err != nil {
-			return 0, err
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 		if err := read(buf, &action.ContractFee); err != nil {
@@ -2204,6 +2203,15 @@ func (action *ContractFormation) write(b []byte) (int, error) {
 			}
 
 			action.VotingSystems = append(action.VotingSystems, newValue)
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		var err error
+		action.ContractAuthFlags, err = ReadVarBin(buf, 16)
+		if err != nil {
+			return 0, err
 		}
 	}
 
@@ -2273,8 +2281,8 @@ func (m *ContractFormation) Validate() error {
 
 	// ContractName (string)
 	{
-		if len(m.ContractName) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (1<<8)-1)
+		if len(m.ContractName) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (2<<8)-1)
 		}
 	}
 
@@ -2288,22 +2296,22 @@ func (m *ContractFormation) Validate() error {
 
 	// BodyOfAgreement ([]byte)
 	{
-		if len(m.BodyOfAgreement) > (1<<32)-1 {
-			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (1<<32)-1)
+		if len(m.BodyOfAgreement) > (2<<32)-1 {
+			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (2<<32)-1)
 		}
 	}
 
 	// ContractType (string)
 	{
-		if len(m.ContractType) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (1<<8)-1)
+		if len(m.ContractType) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (2<<8)-1)
 		}
 	}
 
 	// SupportingDocs ([]Document)
 	{
-		if len(m.SupportingDocs) > (1<<8)-1 {
-			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (1<<8)-1)
+		if len(m.SupportingDocs) > (2<<8)-1 {
+			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (2<<8)-1)
 		}
 
 		for i, value := range m.SupportingDocs {
@@ -2338,8 +2346,8 @@ func (m *ContractFormation) Validate() error {
 
 	// ContractURI (string)
 	{
-		if len(m.ContractURI) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (1<<8)-1)
+		if len(m.ContractURI) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (2<<8)-1)
 		}
 	}
 
@@ -2353,8 +2361,8 @@ func (m *ContractFormation) Validate() error {
 
 	// IssuerLogoURL (string)
 	{
-		if len(m.IssuerLogoURL) > (1<<8)-1 {
-			return fmt.Errorf("varchar field IssuerLogoURL too long %d/%d", len(m.IssuerLogoURL), (1<<8)-1)
+		if len(m.IssuerLogoURL) > (2<<8)-1 {
+			return fmt.Errorf("varchar field IssuerLogoURL too long %d/%d", len(m.IssuerLogoURL), (2<<8)-1)
 		}
 	}
 
@@ -2370,21 +2378,14 @@ func (m *ContractFormation) Validate() error {
 
 	}
 
-	// ContractAuthFlags ([]byte)
-	{
-		if len(m.ContractAuthFlags) > (1<<16)-1 {
-			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (1<<16)-1)
-		}
-	}
-
 	// ContractFee (uint64)
 	{
 	}
 
 	// VotingSystems ([]VotingSystem)
 	{
-		if len(m.VotingSystems) > (1<<8)-1 {
-			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (1<<8)-1)
+		if len(m.VotingSystems) > (2<<8)-1 {
+			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (2<<8)-1)
 		}
 
 		for i, value := range m.VotingSystems {
@@ -2392,6 +2393,13 @@ func (m *ContractFormation) Validate() error {
 			if err != nil {
 				return fmt.Errorf("list field VotingSystems[%d] is invalid : %s", i, err)
 			}
+		}
+	}
+
+	// ContractAuthFlags ([]byte)
+	{
+		if len(m.ContractAuthFlags) > (2<<16)-1 {
+			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (2<<16)-1)
 		}
 	}
 
@@ -2409,8 +2417,8 @@ func (m *ContractFormation) Validate() error {
 
 	// Oracles ([]Oracle)
 	{
-		if len(m.Oracles) > (1<<8)-1 {
-			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (1<<8)-1)
+		if len(m.Oracles) > (2<<8)-1 {
+			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<8)-1)
 		}
 
 		for i, value := range m.Oracles {
@@ -2447,29 +2455,35 @@ func (m *ContractFormation) Validate() error {
 func (action ContractFormation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
-	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v", action.BodyOfAgreementType))
-	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x", action.BodyOfAgreement))
-	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
-	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("ContractExpiration:%#+v", action.ContractExpiration))
-	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
-	vals = append(vals, fmt.Sprintf("Issuer:%#+v", action.Issuer))
-	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v", action.IssuerLogoURL))
-	vals = append(vals, fmt.Sprintf("ContractOperatorIncluded:%#+v", action.ContractOperatorIncluded))
-	vals = append(vals, fmt.Sprintf("ContractOperator:%#+v", action.ContractOperator))
-	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x", action.ContractAuthFlags))
-	vals = append(vals, fmt.Sprintf("ContractFee:%v", action.ContractFee))
-	vals = append(vals, fmt.Sprintf("VotingSystems:%#+v", action.VotingSystems))
-	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v", action.RestrictedQtyAssets))
-	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v", action.AdministrationProposal))
-	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v", action.HolderProposal))
-	vals = append(vals, fmt.Sprintf("Oracles:%#+v", action.Oracles))
-	vals = append(vals, fmt.Sprintf("MasterPKH:%#+v", action.MasterPKH))
-	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("ContractName:%#+v\n", action.ContractName))
+	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v\n", action.BodyOfAgreementType))
+	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x\n", action.BodyOfAgreement))
+	vals = append(vals, fmt.Sprintf("ContractType:%#+v\n", action.ContractType))
+	for i, element := range action.SupportingDocs {
+		vals = append(vals, fmt.Sprintf("SupportingDocs%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v\n", action.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v\n", action.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("ContractExpiration:%s\n", action.ContractExpiration.String()))
+	vals = append(vals, fmt.Sprintf("ContractURI:%#+v\n", action.ContractURI))
+	vals = append(vals, fmt.Sprintf("Issuer:%s\n", action.Issuer.String()))
+	vals = append(vals, fmt.Sprintf("IssuerLogoURL:%#+v\n", action.IssuerLogoURL))
+	vals = append(vals, fmt.Sprintf("ContractOperatorIncluded:%#+v\n", action.ContractOperatorIncluded))
+	vals = append(vals, fmt.Sprintf("ContractOperator:%s\n", action.ContractOperator.String()))
+	vals = append(vals, fmt.Sprintf("ContractFee:%v\n", action.ContractFee))
+	for i, element := range action.VotingSystems {
+		vals = append(vals, fmt.Sprintf("VotingSystems%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("ContractAuthFlags:%#x\n", action.ContractAuthFlags))
+	vals = append(vals, fmt.Sprintf("RestrictedQtyAssets:%v\n", action.RestrictedQtyAssets))
+	vals = append(vals, fmt.Sprintf("AdministrationProposal:%#+v\n", action.AdministrationProposal))
+	vals = append(vals, fmt.Sprintf("HolderProposal:%#+v\n", action.HolderProposal))
+	for i, element := range action.Oracles {
+		vals = append(vals, fmt.Sprintf("Oracles%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("MasterPKH:%s\n", action.MasterPKH.String()))
+	vals = append(vals, fmt.Sprintf("ContractRevision:%v\n", action.ContractRevision))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -2628,8 +2642,8 @@ func (m *ContractAmendment) Validate() error {
 
 	// Amendments ([]Amendment)
 	{
-		if len(m.Amendments) > (1<<8)-1 {
-			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (1<<8)-1)
+		if len(m.Amendments) > (2<<8)-1 {
+			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (2<<8)-1)
 		}
 
 		for i, value := range m.Amendments {
@@ -2654,11 +2668,13 @@ func (m *ContractAmendment) Validate() error {
 func (action ContractAmendment) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("ChangeAdministrationAddress:%#+v", action.ChangeAdministrationAddress))
-	vals = append(vals, fmt.Sprintf("ChangeOperatorAddress:%#+v", action.ChangeOperatorAddress))
-	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
-	vals = append(vals, fmt.Sprintf("Amendments:%#+v", action.Amendments))
-	vals = append(vals, fmt.Sprintf("RefTxID:%#+v", action.RefTxID))
+	vals = append(vals, fmt.Sprintf("ChangeAdministrationAddress:%#+v\n", action.ChangeAdministrationAddress))
+	vals = append(vals, fmt.Sprintf("ChangeOperatorAddress:%#+v\n", action.ChangeOperatorAddress))
+	vals = append(vals, fmt.Sprintf("ContractRevision:%v\n", action.ContractRevision))
+	for i, element := range action.Amendments {
+		vals = append(vals, fmt.Sprintf("Amendments%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("RefTxID:%s\n", action.RefTxID.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -2985,8 +3001,8 @@ func (m *StaticContractFormation) Validate() error {
 
 	// ContractName (string)
 	{
-		if len(m.ContractName) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (1<<8)-1)
+		if len(m.ContractName) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (2<<8)-1)
 		}
 	}
 
@@ -3008,22 +3024,22 @@ func (m *StaticContractFormation) Validate() error {
 
 	// BodyOfAgreement ([]byte)
 	{
-		if len(m.BodyOfAgreement) > (1<<32)-1 {
-			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (1<<32)-1)
+		if len(m.BodyOfAgreement) > (2<<32)-1 {
+			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (2<<32)-1)
 		}
 	}
 
 	// ContractType (string)
 	{
-		if len(m.ContractType) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (1<<8)-1)
+		if len(m.ContractType) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (2<<8)-1)
 		}
 	}
 
 	// SupportingDocs ([]Document)
 	{
-		if len(m.SupportingDocs) > (1<<8)-1 {
-			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (1<<8)-1)
+		if len(m.SupportingDocs) > (2<<8)-1 {
+			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (2<<8)-1)
 		}
 
 		for i, value := range m.SupportingDocs {
@@ -3070,8 +3086,8 @@ func (m *StaticContractFormation) Validate() error {
 
 	// ContractURI (string)
 	{
-		if len(m.ContractURI) > (1<<8)-1 {
-			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (1<<8)-1)
+		if len(m.ContractURI) > (2<<8)-1 {
+			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (2<<8)-1)
 		}
 	}
 
@@ -3085,8 +3101,8 @@ func (m *StaticContractFormation) Validate() error {
 
 	// Entities ([]Entity)
 	{
-		if len(m.Entities) > (1<<8)-1 {
-			return fmt.Errorf("list field Entities has too many items %d/%d", len(m.Entities), (1<<8)-1)
+		if len(m.Entities) > (2<<8)-1 {
+			return fmt.Errorf("list field Entities has too many items %d/%d", len(m.Entities), (2<<8)-1)
 		}
 
 		for i, value := range m.Entities {
@@ -3103,20 +3119,24 @@ func (m *StaticContractFormation) Validate() error {
 func (action StaticContractFormation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("ContractName:%#+v", action.ContractName))
-	vals = append(vals, fmt.Sprintf("ContractCode:%#+v", action.ContractCode))
-	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v", action.BodyOfAgreementType))
-	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x", action.BodyOfAgreement))
-	vals = append(vals, fmt.Sprintf("ContractType:%#+v", action.ContractType))
-	vals = append(vals, fmt.Sprintf("SupportingDocs:%#+v", action.SupportingDocs))
-	vals = append(vals, fmt.Sprintf("ContractRevision:%v", action.ContractRevision))
-	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v", action.GoverningLaw))
-	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v", action.Jurisdiction))
-	vals = append(vals, fmt.Sprintf("EffectiveDate:%#+v", action.EffectiveDate))
-	vals = append(vals, fmt.Sprintf("ContractExpiration:%#+v", action.ContractExpiration))
-	vals = append(vals, fmt.Sprintf("ContractURI:%#+v", action.ContractURI))
-	vals = append(vals, fmt.Sprintf("PrevRevTxID:%#+v", action.PrevRevTxID))
-	vals = append(vals, fmt.Sprintf("Entities:%#+v", action.Entities))
+	vals = append(vals, fmt.Sprintf("ContractName:%#+v\n", action.ContractName))
+	vals = append(vals, fmt.Sprintf("ContractCode:%s\n", action.ContractCode.String()))
+	vals = append(vals, fmt.Sprintf("BodyOfAgreementType:%v\n", action.BodyOfAgreementType))
+	vals = append(vals, fmt.Sprintf("BodyOfAgreement:%#x\n", action.BodyOfAgreement))
+	vals = append(vals, fmt.Sprintf("ContractType:%#+v\n", action.ContractType))
+	for i, element := range action.SupportingDocs {
+		vals = append(vals, fmt.Sprintf("SupportingDocs%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("ContractRevision:%v\n", action.ContractRevision))
+	vals = append(vals, fmt.Sprintf("GoverningLaw:%#+v\n", action.GoverningLaw))
+	vals = append(vals, fmt.Sprintf("Jurisdiction:%#+v\n", action.Jurisdiction))
+	vals = append(vals, fmt.Sprintf("EffectiveDate:%s\n", action.EffectiveDate.String()))
+	vals = append(vals, fmt.Sprintf("ContractExpiration:%s\n", action.ContractExpiration.String()))
+	vals = append(vals, fmt.Sprintf("ContractURI:%#+v\n", action.ContractURI))
+	vals = append(vals, fmt.Sprintf("PrevRevTxID:%s\n", action.PrevRevTxID.String()))
+	for i, element := range action.Entities {
+		vals = append(vals, fmt.Sprintf("Entities%d:%s\n", i, element.String()))
+	}
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3224,8 +3244,8 @@ func (m *ContractAddressChange) Validate() error {
 func (action ContractAddressChange) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("NewContractPKH:%#+v", action.NewContractPKH))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("NewContractPKH:%s\n", action.NewContractPKH.String()))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3605,8 +3625,8 @@ func (m *Order) Validate() error {
 
 	// TargetAddresses ([]TargetAddress)
 	if m.ComplianceAction == 'F' || m.ComplianceAction == 'C' || m.ComplianceAction == 'R' {
-		if len(m.TargetAddresses) > (1<<16)-1 {
-			return fmt.Errorf("list field TargetAddresses has too many items %d/%d", len(m.TargetAddresses), (1<<16)-1)
+		if len(m.TargetAddresses) > (2<<16)-1 {
+			return fmt.Errorf("list field TargetAddresses has too many items %d/%d", len(m.TargetAddresses), (2<<16)-1)
 		}
 
 		for i, value := range m.TargetAddresses {
@@ -3647,15 +3667,15 @@ func (m *Order) Validate() error {
 
 	// AuthorityName (string)
 	if m.AuthorityIncluded {
-		if len(m.AuthorityName) > (1<<8)-1 {
-			return fmt.Errorf("varchar field AuthorityName too long %d/%d", len(m.AuthorityName), (1<<8)-1)
+		if len(m.AuthorityName) > (2<<8)-1 {
+			return fmt.Errorf("varchar field AuthorityName too long %d/%d", len(m.AuthorityName), (2<<8)-1)
 		}
 	}
 
 	// AuthorityPublicKey ([]byte)
 	if m.AuthorityIncluded {
-		if len(m.AuthorityPublicKey) > (1<<8)-1 {
-			return fmt.Errorf("varbin field AuthorityPublicKey too long %d/%d", len(m.AuthorityPublicKey), (1<<8)-1)
+		if len(m.AuthorityPublicKey) > (2<<8)-1 {
+			return fmt.Errorf("varbin field AuthorityPublicKey too long %d/%d", len(m.AuthorityPublicKey), (2<<8)-1)
 		}
 	}
 
@@ -3669,8 +3689,8 @@ func (m *Order) Validate() error {
 
 	// OrderSignature ([]byte)
 	if m.AuthorityIncluded {
-		if len(m.OrderSignature) > (1<<8)-1 {
-			return fmt.Errorf("varbin field OrderSignature too long %d/%d", len(m.OrderSignature), (1<<8)-1)
+		if len(m.OrderSignature) > (2<<8)-1 {
+			return fmt.Errorf("varbin field OrderSignature too long %d/%d", len(m.OrderSignature), (2<<8)-1)
 		}
 	}
 
@@ -3680,15 +3700,15 @@ func (m *Order) Validate() error {
 
 	// RefTxs ([]byte)
 	if m.ComplianceAction == 'R' {
-		if len(m.RefTxs) > (1<<32)-1 {
-			return fmt.Errorf("varbin field RefTxs too long %d/%d", len(m.RefTxs), (1<<32)-1)
+		if len(m.RefTxs) > (2<<32)-1 {
+			return fmt.Errorf("varbin field RefTxs too long %d/%d", len(m.RefTxs), (2<<32)-1)
 		}
 	}
 
 	// BitcoinDispersions ([]QuantityIndex)
 	if m.ComplianceAction == 'R' {
-		if len(m.BitcoinDispersions) > (1<<16)-1 {
-			return fmt.Errorf("list field BitcoinDispersions has too many items %d/%d", len(m.BitcoinDispersions), (1<<16)-1)
+		if len(m.BitcoinDispersions) > (2<<16)-1 {
+			return fmt.Errorf("list field BitcoinDispersions has too many items %d/%d", len(m.BitcoinDispersions), (2<<16)-1)
 		}
 
 		for i, value := range m.BitcoinDispersions {
@@ -3701,8 +3721,8 @@ func (m *Order) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (1<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
+		if len(m.Message) > (2<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
 		}
 	}
 
@@ -3712,22 +3732,26 @@ func (m *Order) Validate() error {
 func (action Order) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("ComplianceAction:%#+v", action.ComplianceAction))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetCode:%#+v", action.AssetCode))
-	vals = append(vals, fmt.Sprintf("TargetAddresses:%#+v", action.TargetAddresses))
-	vals = append(vals, fmt.Sprintf("FreezeTxId:%#+v", action.FreezeTxId))
-	vals = append(vals, fmt.Sprintf("FreezePeriod:%#+v", action.FreezePeriod))
-	vals = append(vals, fmt.Sprintf("DepositAddress:%#+v", action.DepositAddress))
-	vals = append(vals, fmt.Sprintf("AuthorityIncluded:%#+v", action.AuthorityIncluded))
-	vals = append(vals, fmt.Sprintf("AuthorityName:%#+v", action.AuthorityName))
-	vals = append(vals, fmt.Sprintf("AuthorityPublicKey:%#x", action.AuthorityPublicKey))
-	vals = append(vals, fmt.Sprintf("SignatureAlgorithm:%v", action.SignatureAlgorithm))
-	vals = append(vals, fmt.Sprintf("OrderSignature:%#x", action.OrderSignature))
-	vals = append(vals, fmt.Sprintf("SupportingEvidenceHash:%#+v", action.SupportingEvidenceHash))
-	vals = append(vals, fmt.Sprintf("RefTxs:%#x", action.RefTxs))
-	vals = append(vals, fmt.Sprintf("BitcoinDispersions:%#+v", action.BitcoinDispersions))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
+	vals = append(vals, fmt.Sprintf("ComplianceAction:%#+v\n", action.ComplianceAction))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	for i, element := range action.TargetAddresses {
+		vals = append(vals, fmt.Sprintf("TargetAddresses%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("FreezeTxId:%s\n", action.FreezeTxId.String()))
+	vals = append(vals, fmt.Sprintf("FreezePeriod:%s\n", action.FreezePeriod.String()))
+	vals = append(vals, fmt.Sprintf("DepositAddress:%s\n", action.DepositAddress.String()))
+	vals = append(vals, fmt.Sprintf("AuthorityIncluded:%#+v\n", action.AuthorityIncluded))
+	vals = append(vals, fmt.Sprintf("AuthorityName:%#+v\n", action.AuthorityName))
+	vals = append(vals, fmt.Sprintf("AuthorityPublicKey:%#x\n", action.AuthorityPublicKey))
+	vals = append(vals, fmt.Sprintf("SignatureAlgorithm:%v\n", action.SignatureAlgorithm))
+	vals = append(vals, fmt.Sprintf("OrderSignature:%#x\n", action.OrderSignature))
+	vals = append(vals, fmt.Sprintf("SupportingEvidenceHash:%#+v\n", action.SupportingEvidenceHash))
+	vals = append(vals, fmt.Sprintf("RefTxs:%#x\n", action.RefTxs))
+	for i, element := range action.BitcoinDispersions {
+		vals = append(vals, fmt.Sprintf("BitcoinDispersions%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("Message:%#+v\n", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -3903,8 +3927,8 @@ func (m *Freeze) Validate() error {
 
 	// Quantities ([]QuantityIndex)
 	{
-		if len(m.Quantities) > (1<<16)-1 {
-			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (1<<16)-1)
+		if len(m.Quantities) > (2<<16)-1 {
+			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (2<<16)-1)
 		}
 
 		for i, value := range m.Quantities {
@@ -3937,11 +3961,13 @@ func (m *Freeze) Validate() error {
 func (action Freeze) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetCode:%#+v", action.AssetCode))
-	vals = append(vals, fmt.Sprintf("Quantities:%#+v", action.Quantities))
-	vals = append(vals, fmt.Sprintf("FreezePeriod:%#+v", action.FreezePeriod))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	for i, element := range action.Quantities {
+		vals = append(vals, fmt.Sprintf("Quantities%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("FreezePeriod:%s\n", action.FreezePeriod.String()))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4048,8 +4074,8 @@ func (m *Thaw) Validate() error {
 func (action Thaw) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("FreezeTxId:%#+v", action.FreezeTxId))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("FreezeTxId:%s\n", action.FreezeTxId.String()))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4217,8 +4243,8 @@ func (m *Confiscation) Validate() error {
 
 	// Quantities ([]QuantityIndex)
 	{
-		if len(m.Quantities) > (1<<16)-1 {
-			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (1<<16)-1)
+		if len(m.Quantities) > (2<<16)-1 {
+			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (2<<16)-1)
 		}
 
 		for i, value := range m.Quantities {
@@ -4247,11 +4273,13 @@ func (m *Confiscation) Validate() error {
 func (action Confiscation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetCode:%#+v", action.AssetCode))
-	vals = append(vals, fmt.Sprintf("Quantities:%#+v", action.Quantities))
-	vals = append(vals, fmt.Sprintf("DepositQty:%v", action.DepositQty))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	for i, element := range action.Quantities {
+		vals = append(vals, fmt.Sprintf("Quantities%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("DepositQty:%v\n", action.DepositQty))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4404,8 +4432,8 @@ func (m *Reconciliation) Validate() error {
 
 	// Quantities ([]QuantityIndex)
 	{
-		if len(m.Quantities) > (1<<16)-1 {
-			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (1<<16)-1)
+		if len(m.Quantities) > (2<<16)-1 {
+			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (2<<16)-1)
 		}
 
 		for i, value := range m.Quantities {
@@ -4430,10 +4458,12 @@ func (m *Reconciliation) Validate() error {
 func (action Reconciliation) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetCode:%#+v", action.AssetCode))
-	vals = append(vals, fmt.Sprintf("Quantities:%#+v", action.Quantities))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	for i, element := range action.Quantities {
+		vals = append(vals, fmt.Sprintf("Quantities%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4732,8 +4762,8 @@ func (m *Proposal) Validate() error {
 
 	// ProposedAmendments ([]Amendment)
 	if m.Specific {
-		if len(m.ProposedAmendments) > (1<<8)-1 {
-			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (1<<8)-1)
+		if len(m.ProposedAmendments) > (2<<8)-1 {
+			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (2<<8)-1)
 		}
 
 		for i, value := range m.ProposedAmendments {
@@ -4746,8 +4776,8 @@ func (m *Proposal) Validate() error {
 
 	// VoteOptions (string)
 	{
-		if len(m.VoteOptions) > (1<<8)-1 {
-			return fmt.Errorf("varchar field VoteOptions too long %d/%d", len(m.VoteOptions), (1<<8)-1)
+		if len(m.VoteOptions) > (2<<8)-1 {
+			return fmt.Errorf("varchar field VoteOptions too long %d/%d", len(m.VoteOptions), (2<<8)-1)
 		}
 	}
 
@@ -4757,8 +4787,8 @@ func (m *Proposal) Validate() error {
 
 	// ProposalDescription (string)
 	{
-		if len(m.ProposalDescription) > (1<<32)-1 {
-			return fmt.Errorf("varchar field ProposalDescription too long %d/%d", len(m.ProposalDescription), (1<<32)-1)
+		if len(m.ProposalDescription) > (2<<32)-1 {
+			return fmt.Errorf("varchar field ProposalDescription too long %d/%d", len(m.ProposalDescription), (2<<32)-1)
 		}
 	}
 
@@ -4780,18 +4810,20 @@ func (m *Proposal) Validate() error {
 func (action Proposal) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Initiator:%v", action.Initiator))
-	vals = append(vals, fmt.Sprintf("AssetSpecificVote:%#+v", action.AssetSpecificVote))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetCode:%#+v", action.AssetCode))
-	vals = append(vals, fmt.Sprintf("VoteSystem:%v", action.VoteSystem))
-	vals = append(vals, fmt.Sprintf("Specific:%#+v", action.Specific))
-	vals = append(vals, fmt.Sprintf("ProposedAmendments:%#+v", action.ProposedAmendments))
-	vals = append(vals, fmt.Sprintf("VoteOptions:%#+v", action.VoteOptions))
-	vals = append(vals, fmt.Sprintf("VoteMax:%v", action.VoteMax))
-	vals = append(vals, fmt.Sprintf("ProposalDescription:%#+v", action.ProposalDescription))
-	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#+v", action.ProposalDocumentHash))
-	vals = append(vals, fmt.Sprintf("VoteCutOffTimestamp:%#+v", action.VoteCutOffTimestamp))
+	vals = append(vals, fmt.Sprintf("Initiator:%v\n", action.Initiator))
+	vals = append(vals, fmt.Sprintf("AssetSpecificVote:%#+v\n", action.AssetSpecificVote))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	vals = append(vals, fmt.Sprintf("VoteSystem:%v\n", action.VoteSystem))
+	vals = append(vals, fmt.Sprintf("Specific:%#+v\n", action.Specific))
+	for i, element := range action.ProposedAmendments {
+		vals = append(vals, fmt.Sprintf("ProposedAmendments%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("VoteOptions:%#+v\n", action.VoteOptions))
+	vals = append(vals, fmt.Sprintf("VoteMax:%v\n", action.VoteMax))
+	vals = append(vals, fmt.Sprintf("ProposalDescription:%#+v\n", action.ProposalDescription))
+	vals = append(vals, fmt.Sprintf("ProposalDocumentHash:%#+v\n", action.ProposalDocumentHash))
+	vals = append(vals, fmt.Sprintf("VoteCutOffTimestamp:%s\n", action.VoteCutOffTimestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4868,7 +4900,7 @@ func (m *Vote) Validate() error {
 func (action Vote) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -4959,8 +4991,8 @@ func (m *BallotCast) Validate() error {
 
 	// Vote (string)
 	{
-		if len(m.Vote) > (1<<8)-1 {
-			return fmt.Errorf("varchar field Vote too long %d/%d", len(m.Vote), (1<<8)-1)
+		if len(m.Vote) > (2<<8)-1 {
+			return fmt.Errorf("varchar field Vote too long %d/%d", len(m.Vote), (2<<8)-1)
 		}
 	}
 
@@ -4970,8 +5002,8 @@ func (m *BallotCast) Validate() error {
 func (action BallotCast) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("VoteTxId:%#+v", action.VoteTxId))
-	vals = append(vals, fmt.Sprintf("Vote:%#+v", action.Vote))
+	vals = append(vals, fmt.Sprintf("VoteTxId:%s\n", action.VoteTxId.String()))
+	vals = append(vals, fmt.Sprintf("Vote:%#+v\n", action.Vote))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5098,8 +5130,8 @@ func (m *BallotCounted) Validate() error {
 
 	// Vote (string)
 	{
-		if len(m.Vote) > (1<<8)-1 {
-			return fmt.Errorf("varchar field Vote too long %d/%d", len(m.Vote), (1<<8)-1)
+		if len(m.Vote) > (2<<8)-1 {
+			return fmt.Errorf("varchar field Vote too long %d/%d", len(m.Vote), (2<<8)-1)
 		}
 	}
 
@@ -5121,10 +5153,10 @@ func (m *BallotCounted) Validate() error {
 func (action BallotCounted) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("VoteTxId:%#+v", action.VoteTxId))
-	vals = append(vals, fmt.Sprintf("Vote:%#+v", action.Vote))
-	vals = append(vals, fmt.Sprintf("Quantity:%v", action.Quantity))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("VoteTxId:%s\n", action.VoteTxId.String()))
+	vals = append(vals, fmt.Sprintf("Vote:%#+v\n", action.Vote))
+	vals = append(vals, fmt.Sprintf("Quantity:%v\n", action.Quantity))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5377,8 +5409,8 @@ func (m *Result) Validate() error {
 
 	// ProposedAmendments ([]Amendment)
 	if m.Specific {
-		if len(m.ProposedAmendments) > (1<<8)-1 {
-			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (1<<8)-1)
+		if len(m.ProposedAmendments) > (2<<8)-1 {
+			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (2<<8)-1)
 		}
 
 		for i, value := range m.ProposedAmendments {
@@ -5399,15 +5431,15 @@ func (m *Result) Validate() error {
 
 	// OptionTally ([]uint64)
 	{
-		if len(m.OptionTally) > (1<<8)-1 {
-			return fmt.Errorf("list field OptionTally has too many items %d/%d", len(m.OptionTally), (1<<8)-1)
+		if len(m.OptionTally) > (2<<8)-1 {
+			return fmt.Errorf("list field OptionTally has too many items %d/%d", len(m.OptionTally), (2<<8)-1)
 		}
 	}
 
 	// Result (string)
 	{
-		if len(m.Result) > (1<<8)-1 {
-			return fmt.Errorf("varchar field Result too long %d/%d", len(m.Result), (1<<8)-1)
+		if len(m.Result) > (2<<8)-1 {
+			return fmt.Errorf("varchar field Result too long %d/%d", len(m.Result), (2<<8)-1)
 		}
 	}
 
@@ -5425,15 +5457,17 @@ func (m *Result) Validate() error {
 func (action Result) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AssetSpecificVote:%#+v", action.AssetSpecificVote))
-	vals = append(vals, fmt.Sprintf("AssetType:%#+v", action.AssetType))
-	vals = append(vals, fmt.Sprintf("AssetCode:%#+v", action.AssetCode))
-	vals = append(vals, fmt.Sprintf("Specific:%#+v", action.Specific))
-	vals = append(vals, fmt.Sprintf("ProposedAmendments:%#+v", action.ProposedAmendments))
-	vals = append(vals, fmt.Sprintf("VoteTxId:%#+v", action.VoteTxId))
-	vals = append(vals, fmt.Sprintf("OptionTally:%v", action.OptionTally))
-	vals = append(vals, fmt.Sprintf("Result:%#+v", action.Result))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("AssetSpecificVote:%#+v\n", action.AssetSpecificVote))
+	vals = append(vals, fmt.Sprintf("AssetType:%#+v\n", action.AssetType))
+	vals = append(vals, fmt.Sprintf("AssetCode:%s\n", action.AssetCode.String()))
+	vals = append(vals, fmt.Sprintf("Specific:%#+v\n", action.Specific))
+	for i, element := range action.ProposedAmendments {
+		vals = append(vals, fmt.Sprintf("ProposedAmendments%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("VoteTxId:%s\n", action.VoteTxId.String()))
+	vals = append(vals, fmt.Sprintf("OptionTally:%v\n", action.OptionTally))
+	vals = append(vals, fmt.Sprintf("Result:%#+v\n", action.Result))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5541,8 +5575,8 @@ func (m *Message) Validate() error {
 
 	// AddressIndexes ([]uint16)
 	{
-		if len(m.AddressIndexes) > (1<<8)-1 {
-			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (1<<8)-1)
+		if len(m.AddressIndexes) > (2<<8)-1 {
+			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<8)-1)
 		}
 	}
 
@@ -5552,8 +5586,8 @@ func (m *Message) Validate() error {
 
 	// MessagePayload ([]byte)
 	{
-		if len(m.MessagePayload) > (1<<32)-1 {
-			return fmt.Errorf("varbin field MessagePayload too long %d/%d", len(m.MessagePayload), (1<<32)-1)
+		if len(m.MessagePayload) > (2<<32)-1 {
+			return fmt.Errorf("varbin field MessagePayload too long %d/%d", len(m.MessagePayload), (2<<32)-1)
 		}
 	}
 
@@ -5563,9 +5597,9 @@ func (m *Message) Validate() error {
 func (action Message) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", action.AddressIndexes))
-	vals = append(vals, fmt.Sprintf("MessageType:%v", action.MessageType))
-	vals = append(vals, fmt.Sprintf("MessagePayload:%#x", action.MessagePayload))
+	vals = append(vals, fmt.Sprintf("AddressIndexes:%v\n", action.AddressIndexes))
+	vals = append(vals, fmt.Sprintf("MessageType:%v\n", action.MessageType))
+	vals = append(vals, fmt.Sprintf("MessagePayload:%#x\n", action.MessagePayload))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5708,8 +5742,8 @@ func (m *Rejection) Validate() error {
 
 	// AddressIndexes ([]uint16)
 	{
-		if len(m.AddressIndexes) > (1<<8)-1 {
-			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (1<<8)-1)
+		if len(m.AddressIndexes) > (2<<8)-1 {
+			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<8)-1)
 		}
 	}
 
@@ -5726,8 +5760,8 @@ func (m *Rejection) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (1<<16)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<16)-1)
+		if len(m.Message) > (2<<16)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<16)-1)
 		}
 	}
 
@@ -5745,11 +5779,11 @@ func (m *Rejection) Validate() error {
 func (action Rejection) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("AddressIndexes:%v", action.AddressIndexes))
-	vals = append(vals, fmt.Sprintf("RejectAddressIndex:%v", action.RejectAddressIndex))
-	vals = append(vals, fmt.Sprintf("RejectionCode:%#+v", action.RejectionCode))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	vals = append(vals, fmt.Sprintf("AddressIndexes:%v\n", action.AddressIndexes))
+	vals = append(vals, fmt.Sprintf("RejectAddressIndex:%v\n", action.RejectAddressIndex))
+	vals = append(vals, fmt.Sprintf("RejectionCode:%#+v\n", action.RejectionCode))
+	vals = append(vals, fmt.Sprintf("Message:%#+v\n", action.Message))
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5810,8 +5844,8 @@ func (m *Establishment) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (1<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
+		if len(m.Message) > (2<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
 		}
 	}
 
@@ -5821,7 +5855,7 @@ func (m *Establishment) Validate() error {
 func (action Establishment) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
+	vals = append(vals, fmt.Sprintf("Message:%#+v\n", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5882,8 +5916,8 @@ func (m *Addition) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (1<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
+		if len(m.Message) > (2<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
 		}
 	}
 
@@ -5893,7 +5927,7 @@ func (m *Addition) Validate() error {
 func (action Addition) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
+	vals = append(vals, fmt.Sprintf("Message:%#+v\n", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -5982,8 +6016,8 @@ func (m *Alteration) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (1<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
+		if len(m.Message) > (2<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
 		}
 	}
 
@@ -5993,8 +6027,8 @@ func (m *Alteration) Validate() error {
 func (action Alteration) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("EntryTxID:%#+v", action.EntryTxID))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
+	vals = append(vals, fmt.Sprintf("EntryTxID:%s\n", action.EntryTxID.String()))
+	vals = append(vals, fmt.Sprintf("Message:%#+v\n", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -6083,8 +6117,8 @@ func (m *Removal) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (1<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
+		if len(m.Message) > (2<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
 		}
 	}
 
@@ -6094,8 +6128,8 @@ func (m *Removal) Validate() error {
 func (action Removal) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("EntryTxID:%#+v", action.EntryTxID))
-	vals = append(vals, fmt.Sprintf("Message:%#+v", action.Message))
+	vals = append(vals, fmt.Sprintf("EntryTxID:%s\n", action.EntryTxID.String()))
+	vals = append(vals, fmt.Sprintf("Message:%#+v\n", action.Message))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -6237,8 +6271,8 @@ func (m *Transfer) Validate() error {
 
 	// Assets ([]AssetTransfer)
 	{
-		if len(m.Assets) > (1<<8)-1 {
-			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (1<<8)-1)
+		if len(m.Assets) > (2<<8)-1 {
+			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (2<<8)-1)
 		}
 
 		for i, value := range m.Assets {
@@ -6275,10 +6309,12 @@ func (m *Transfer) Validate() error {
 func (action Transfer) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Assets:%#+v", action.Assets))
-	vals = append(vals, fmt.Sprintf("OfferExpiry:%#+v", action.OfferExpiry))
-	vals = append(vals, fmt.Sprintf("ExchangeFee:%v", action.ExchangeFee))
-	vals = append(vals, fmt.Sprintf("ExchangeFeeAddress:%#+v", action.ExchangeFeeAddress))
+	for i, element := range action.Assets {
+		vals = append(vals, fmt.Sprintf("Assets%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("OfferExpiry:%s\n", action.OfferExpiry.String()))
+	vals = append(vals, fmt.Sprintf("ExchangeFee:%v\n", action.ExchangeFee))
+	vals = append(vals, fmt.Sprintf("ExchangeFeeAddress:%s\n", action.ExchangeFeeAddress.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
@@ -6378,8 +6414,8 @@ func (m *Settlement) Validate() error {
 
 	// Assets ([]AssetSettlement)
 	{
-		if len(m.Assets) > (1<<8)-1 {
-			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (1<<8)-1)
+		if len(m.Assets) > (2<<8)-1 {
+			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (2<<8)-1)
 		}
 
 		for i, value := range m.Assets {
@@ -6404,8 +6440,10 @@ func (m *Settlement) Validate() error {
 func (action Settlement) String() string {
 	vals := []string{}
 
-	vals = append(vals, fmt.Sprintf("Assets:%#+v", action.Assets))
-	vals = append(vals, fmt.Sprintf("Timestamp:%#+v", action.Timestamp))
+	for i, element := range action.Assets {
+		vals = append(vals, fmt.Sprintf("Assets%d:%s\n", i, element.String()))
+	}
+	vals = append(vals, fmt.Sprintf("Timestamp:%s\n", action.Timestamp.String()))
 
 	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }

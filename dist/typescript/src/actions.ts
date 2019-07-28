@@ -1109,15 +1109,15 @@ export class ContractOffer extends OpReturnMessage {
 	contract_operator_included;
 	// 	An additional entity with operator access to the contract.
 	contract_operator;
+	// 	Satoshis required to be paid to the contract for each asset action.
+	contract_fee;
+	// 	A list of voting systems.
+	voting_systems;
 	// 	A set of switches that define the authorization rules for this
 	// contract. See the Authorization Flags documentation for more detail.
 	// Other terms and conditions that are out of the smart contract's control
 	// should be listed in the Body of Agreement.
 	contract_auth_flags;
-	// 	Satoshis required to be paid to the contract for each asset action.
-	contract_fee;
-	// 	A list of voting systems.
-	voting_systems;
 	// 	Number of Assets (non-fungible) permitted on this contract. 0 if
 	// unlimited which will display an infinity symbol in UI
 	restricted_qty_assets;
@@ -1221,11 +1221,6 @@ export class ContractOffer extends OpReturnMessage {
 			buf.write(this.contract_operator.Serialize());
 		}
 
-		// contract_auth_flags ([]byte)
-		{
-			WriteVarBin(buf, this.contract_auth_flags, 16);
-		}
-
 		// contract_fee (uint64)
 		{
 			write(buf, this.contract_fee, 'uint64');
@@ -1237,6 +1232,11 @@ export class ContractOffer extends OpReturnMessage {
 			this.voting_systems.forEach((value) => {
 				buf.write(value.Serialize());
 			});
+		}
+
+		// contract_auth_flags ([]byte)
+		{
+			WriteVarBin(buf, this.contract_auth_flags, 16);
 		}
 
 		// restricted_qty_assets (uint64)
@@ -1349,11 +1349,6 @@ export class ContractOffer extends OpReturnMessage {
 			this.contract_operator.Write(buf);
 		}
 
-		// contract_auth_flags ([]byte)
-		{
-			this.contract_auth_flags = ReadVarBin(buf, 16);
-		}
-
 		// contract_fee (uint64)
 		{
 			this.contract_fee = read(buf, 'uint64');
@@ -1370,6 +1365,11 @@ export class ContractOffer extends OpReturnMessage {
 
 				this.voting_systems.push(newValue);
 			}
+		}
+
+		// contract_auth_flags ([]byte)
+		{
+			this.contract_auth_flags = ReadVarBin(buf, 16);
 		}
 
 		// restricted_qty_assets (uint64)
@@ -1511,13 +1511,6 @@ export class ContractOffer extends OpReturnMessage {
 
 		}
 
-		// ContractAuthFlags ([]byte)
-		{
-			if (this.contract_auth_flags.length >= (2 ** 16)) {
-				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
-			}
-		}
-
 		// ContractFee (uint64)
 		{
 		}
@@ -1533,6 +1526,13 @@ export class ContractOffer extends OpReturnMessage {
 				if (err2) return sprintf('list field voting_systems[%d] is invalid : %s', i, err2);
 			});
 			if (err) return err;
+		}
+
+		// ContractAuthFlags ([]byte)
+		{
+			if (this.contract_auth_flags.length >= (2 ** 16)) {
+				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
+			}
 		}
 
 		// RestrictedQtyAssets (uint64)
@@ -1585,9 +1585,9 @@ export class ContractOffer extends OpReturnMessage {
 		vals.push(sprintf('issuer_logo_url:%#+v', this.issuer_logo_url));
 		vals.push(sprintf('contract_operator_included:%#+v', this.contract_operator_included));
 		vals.push(sprintf('contract_operator:%#+v', this.contract_operator));
-		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
 		vals.push(sprintf('contract_fee:%v', this.contract_fee));
 		vals.push(sprintf('voting_systems:%#+v', this.voting_systems));
+		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
 		vals.push(sprintf('restricted_qty_assets:%v', this.restricted_qty_assets));
 		vals.push(sprintf('administration_proposal:%#+v', this.administration_proposal));
 		vals.push(sprintf('holder_proposal:%#+v', this.holder_proposal));
@@ -1661,15 +1661,15 @@ export class ContractFormation extends OpReturnMessage {
 	contract_operator_included;
 	// 	An additional entity with operator access to the contract.
 	contract_operator;
+	// 	Satoshis required to be paid to the contract for each asset action.
+	contract_fee;
+	// 	A list voting systems.
+	voting_systems;
 	// 	A set of switches that define the authorization rules for this
 	// contract. See the Authorization Flags documentation for more detail.
 	// Other terms and conditions that are out of the smart contract's control
 	// should be listed in the Body of Agreement
 	contract_auth_flags;
-	// 	Satoshis required to be paid to the contract for each asset action.
-	contract_fee;
-	// 	A list voting systems.
-	voting_systems;
 	// 	Number of Assets (non-fungible) permitted on this contract. 0 if
 	// unlimited which will display an infinity symbol in UI
 	restricted_qty_assets;
@@ -1779,11 +1779,6 @@ export class ContractFormation extends OpReturnMessage {
 			buf.write(this.contract_operator.Serialize());
 		}
 
-		// contract_auth_flags ([]byte)
-		{
-			WriteVarBin(buf, this.contract_auth_flags, 16);
-		}
-
 		// contract_fee (uint64)
 		{
 			write(buf, this.contract_fee, 'uint64');
@@ -1795,6 +1790,11 @@ export class ContractFormation extends OpReturnMessage {
 			this.voting_systems.forEach((value) => {
 				buf.write(value.Serialize());
 			});
+		}
+
+		// contract_auth_flags ([]byte)
+		{
+			WriteVarBin(buf, this.contract_auth_flags, 16);
 		}
 
 		// restricted_qty_assets (uint64)
@@ -1917,11 +1917,6 @@ export class ContractFormation extends OpReturnMessage {
 			this.contract_operator.Write(buf);
 		}
 
-		// contract_auth_flags ([]byte)
-		{
-			this.contract_auth_flags = ReadVarBin(buf, 16);
-		}
-
 		// contract_fee (uint64)
 		{
 			this.contract_fee = read(buf, 'uint64');
@@ -1938,6 +1933,11 @@ export class ContractFormation extends OpReturnMessage {
 
 				this.voting_systems.push(newValue);
 			}
+		}
+
+		// contract_auth_flags ([]byte)
+		{
+			this.contract_auth_flags = ReadVarBin(buf, 16);
 		}
 
 		// restricted_qty_assets (uint64)
@@ -2090,13 +2090,6 @@ export class ContractFormation extends OpReturnMessage {
 
 		}
 
-		// ContractAuthFlags ([]byte)
-		{
-			if (this.contract_auth_flags.length >= (2 ** 16)) {
-				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
-			}
-		}
-
 		// ContractFee (uint64)
 		{
 		}
@@ -2112,6 +2105,13 @@ export class ContractFormation extends OpReturnMessage {
 				if (err2) return sprintf('list field voting_systems[%d] is invalid : %s', i, err2);
 			});
 			if (err) return err;
+		}
+
+		// ContractAuthFlags ([]byte)
+		{
+			if (this.contract_auth_flags.length >= (2 ** 16)) {
+				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
+			}
 		}
 
 		// RestrictedQtyAssets (uint64)
@@ -2176,9 +2176,9 @@ export class ContractFormation extends OpReturnMessage {
 		vals.push(sprintf('issuer_logo_url:%#+v', this.issuer_logo_url));
 		vals.push(sprintf('contract_operator_included:%#+v', this.contract_operator_included));
 		vals.push(sprintf('contract_operator:%#+v', this.contract_operator));
-		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
 		vals.push(sprintf('contract_fee:%v', this.contract_fee));
 		vals.push(sprintf('voting_systems:%#+v', this.voting_systems));
+		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
 		vals.push(sprintf('restricted_qty_assets:%v', this.restricted_qty_assets));
 		vals.push(sprintf('administration_proposal:%#+v', this.administration_proposal));
 		vals.push(sprintf('holder_proposal:%#+v', this.holder_proposal));

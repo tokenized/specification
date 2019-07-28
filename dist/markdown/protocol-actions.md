@@ -727,16 +727,6 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
     </tr>
     <tr>
-        <td>ContractAuthFlags</td>
-        <td>
-            varbin(16)
-        </td>
-        <td>
-            A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.
-            Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.
-        </td>
-    </tr>
-    <tr>
         <td>ContractFee</td>
         <td>
             uint(8)
@@ -754,6 +744,16 @@ Allows the administration to tell the smart contract what they want the details 
         <td>
             A list of voting systems.
             
+        </td>
+    </tr>
+    <tr>
+        <td>ContractAuthFlags</td>
+        <td>
+            varbin(16)
+        </td>
+        <td>
+            A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.
+            Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.
         </td>
     </tr>
     <tr>
@@ -1001,16 +1001,6 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         </td>
     </tr>
     <tr>
-        <td>ContractAuthFlags</td>
-        <td>
-            varbin(16)
-        </td>
-        <td>
-            A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement
-            Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.
-        </td>
-    </tr>
-    <tr>
         <td>ContractFee</td>
         <td>
             uint(8)
@@ -1028,6 +1018,16 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         <td>
             A list voting systems.
             
+        </td>
+    </tr>
+    <tr>
+        <td>ContractAuthFlags</td>
+        <td>
+            varbin(16)
+        </td>
+        <td>
+            A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement
+            Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.
         </td>
     </tr>
     <tr>
