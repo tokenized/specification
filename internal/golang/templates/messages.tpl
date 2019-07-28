@@ -259,20 +259,20 @@ func (m *{{.Name}}) Validate() error {
 	{
 {{- end }}
 {{- if .IsVarChar }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("varchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("varchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 {{- else if .IsFixedChar }}
 		if len(m.{{.Name}}) > {{.Length}} {
 			return fmt.Errorf("fixedchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), {{.Length}})
 		}
 {{- else if .IsVarBin }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 {{- else if .IsResourceTypeArray }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 
 		for _, value := range m.{{.Name}} {
@@ -331,8 +331,8 @@ func (m *{{.Name}}) Validate() error {
 			return fmt.Errorf("Invalid tag type value : %c", m.{{.Name}})
 		}
 {{- else if .IsInternalTypeArray }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 
 		for i, value := range m.{{.Name}} {
@@ -342,8 +342,8 @@ func (m *{{.Name}}) Validate() error {
 			}
 		}
 {{- else if .IsNativeTypeArray }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 {{- else if .IsInternalType }}
 		if err := m.{{.Name}}.Validate(); err != nil {

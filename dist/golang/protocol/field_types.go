@@ -65,8 +65,8 @@ func (m *Administrator) Validate() error {
 
 	// Name (string)
 	{
-		if len(m.Name) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (2<<8)-1)
+		if len(m.Name) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (1<<8)-1)
 		}
 	}
 
@@ -295,8 +295,8 @@ func (m *Amendment) Validate() error {
 
 	// Data ([]byte)
 	{
-		if len(m.Data) > (2<<32)-1 {
-			return fmt.Errorf("varbin field Data too long %d/%d", len(m.Data), (2<<32)-1)
+		if len(m.Data) > (1<<32)-1 {
+			return fmt.Errorf("varbin field Data too long %d/%d", len(m.Data), (1<<32)-1)
 		}
 	}
 
@@ -475,8 +475,8 @@ func (m *AssetReceiver) Validate() error {
 
 	// OracleConfirmationSig ([]byte)
 	{
-		if len(m.OracleConfirmationSig) > (2<<8)-1 {
-			return fmt.Errorf("varbin field OracleConfirmationSig too long %d/%d", len(m.OracleConfirmationSig), (2<<8)-1)
+		if len(m.OracleConfirmationSig) > (1<<8)-1 {
+			return fmt.Errorf("varbin field OracleConfirmationSig too long %d/%d", len(m.OracleConfirmationSig), (1<<8)-1)
 		}
 	}
 
@@ -647,8 +647,8 @@ func (m *AssetSettlement) Validate() error {
 
 	// Settlements ([]QuantityIndex)
 	{
-		if len(m.Settlements) > (2<<8)-1 {
-			return fmt.Errorf("list field Settlements has too many items %d/%d", len(m.Settlements), (2<<8)-1)
+		if len(m.Settlements) > (1<<8)-1 {
+			return fmt.Errorf("list field Settlements has too many items %d/%d", len(m.Settlements), (1<<8)-1)
 		}
 
 		for i, value := range m.Settlements {
@@ -854,8 +854,8 @@ func (m *AssetTransfer) Validate() error {
 
 	// AssetSenders ([]QuantityIndex)
 	{
-		if len(m.AssetSenders) > (2<<8)-1 {
-			return fmt.Errorf("list field AssetSenders has too many items %d/%d", len(m.AssetSenders), (2<<8)-1)
+		if len(m.AssetSenders) > (1<<8)-1 {
+			return fmt.Errorf("list field AssetSenders has too many items %d/%d", len(m.AssetSenders), (1<<8)-1)
 		}
 
 		for i, value := range m.AssetSenders {
@@ -868,8 +868,8 @@ func (m *AssetTransfer) Validate() error {
 
 	// AssetReceivers ([]AssetReceiver)
 	{
-		if len(m.AssetReceivers) > (2<<8)-1 {
-			return fmt.Errorf("list field AssetReceivers has too many items %d/%d", len(m.AssetReceivers), (2<<8)-1)
+		if len(m.AssetReceivers) > (1<<8)-1 {
+			return fmt.Errorf("list field AssetReceivers has too many items %d/%d", len(m.AssetReceivers), (1<<8)-1)
 		}
 
 		for i, value := range m.AssetReceivers {
@@ -999,22 +999,22 @@ func (m *Document) Validate() error {
 
 	// Name (string)
 	{
-		if len(m.Name) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (2<<8)-1)
+		if len(m.Name) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (1<<8)-1)
 		}
 	}
 
 	// Type (string)
 	{
-		if len(m.Type) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Type too long %d/%d", len(m.Type), (2<<8)-1)
+		if len(m.Type) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Type too long %d/%d", len(m.Type), (1<<8)-1)
 		}
 	}
 
 	// Contents ([]byte)
 	{
-		if len(m.Contents) > (2<<32)-1 {
-			return fmt.Errorf("varbin field Contents too long %d/%d", len(m.Contents), (2<<32)-1)
+		if len(m.Contents) > (1<<32)-1 {
+			return fmt.Errorf("varbin field Contents too long %d/%d", len(m.Contents), (1<<32)-1)
 		}
 	}
 
@@ -1348,8 +1348,8 @@ func (m *Entity) Validate() error {
 
 	// Name (string)
 	{
-		if len(m.Name) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (2<<8)-1)
+		if len(m.Name) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (1<<8)-1)
 		}
 	}
 
@@ -1373,29 +1373,29 @@ func (m *Entity) Validate() error {
 
 	// UnitNumber (string)
 	if m.AddressIncluded {
-		if len(m.UnitNumber) > (2<<8)-1 {
-			return fmt.Errorf("varchar field UnitNumber too long %d/%d", len(m.UnitNumber), (2<<8)-1)
+		if len(m.UnitNumber) > (1<<8)-1 {
+			return fmt.Errorf("varchar field UnitNumber too long %d/%d", len(m.UnitNumber), (1<<8)-1)
 		}
 	}
 
 	// BuildingNumber (string)
 	if m.AddressIncluded {
-		if len(m.BuildingNumber) > (2<<8)-1 {
-			return fmt.Errorf("varchar field BuildingNumber too long %d/%d", len(m.BuildingNumber), (2<<8)-1)
+		if len(m.BuildingNumber) > (1<<8)-1 {
+			return fmt.Errorf("varchar field BuildingNumber too long %d/%d", len(m.BuildingNumber), (1<<8)-1)
 		}
 	}
 
 	// Street (string)
 	if m.AddressIncluded {
-		if len(m.Street) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Street too long %d/%d", len(m.Street), (2<<16)-1)
+		if len(m.Street) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Street too long %d/%d", len(m.Street), (1<<16)-1)
 		}
 	}
 
 	// SuburbCity (string)
 	if m.AddressIncluded {
-		if len(m.SuburbCity) > (2<<8)-1 {
-			return fmt.Errorf("varchar field SuburbCity too long %d/%d", len(m.SuburbCity), (2<<8)-1)
+		if len(m.SuburbCity) > (1<<8)-1 {
+			return fmt.Errorf("varchar field SuburbCity too long %d/%d", len(m.SuburbCity), (1<<8)-1)
 		}
 	}
 
@@ -1422,22 +1422,22 @@ func (m *Entity) Validate() error {
 
 	// EmailAddress (string)
 	{
-		if len(m.EmailAddress) > (2<<8)-1 {
-			return fmt.Errorf("varchar field EmailAddress too long %d/%d", len(m.EmailAddress), (2<<8)-1)
+		if len(m.EmailAddress) > (1<<8)-1 {
+			return fmt.Errorf("varchar field EmailAddress too long %d/%d", len(m.EmailAddress), (1<<8)-1)
 		}
 	}
 
 	// PhoneNumber (string)
 	{
-		if len(m.PhoneNumber) > (2<<8)-1 {
-			return fmt.Errorf("varchar field PhoneNumber too long %d/%d", len(m.PhoneNumber), (2<<8)-1)
+		if len(m.PhoneNumber) > (1<<8)-1 {
+			return fmt.Errorf("varchar field PhoneNumber too long %d/%d", len(m.PhoneNumber), (1<<8)-1)
 		}
 	}
 
 	// Administration ([]Administrator)
 	{
-		if len(m.Administration) > (2<<8)-1 {
-			return fmt.Errorf("list field Administration has too many items %d/%d", len(m.Administration), (2<<8)-1)
+		if len(m.Administration) > (1<<8)-1 {
+			return fmt.Errorf("list field Administration has too many items %d/%d", len(m.Administration), (1<<8)-1)
 		}
 
 		for i, value := range m.Administration {
@@ -1450,8 +1450,8 @@ func (m *Entity) Validate() error {
 
 	// Management ([]Manager)
 	{
-		if len(m.Management) > (2<<8)-1 {
-			return fmt.Errorf("list field Management has too many items %d/%d", len(m.Management), (2<<8)-1)
+		if len(m.Management) > (1<<8)-1 {
+			return fmt.Errorf("list field Management has too many items %d/%d", len(m.Management), (1<<8)-1)
 		}
 
 		for i, value := range m.Management {
@@ -1620,8 +1620,8 @@ func (m *Manager) Validate() error {
 
 	// Name (string)
 	{
-		if len(m.Name) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (2<<8)-1)
+		if len(m.Name) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (1<<8)-1)
 		}
 	}
 
@@ -1713,22 +1713,22 @@ func (m *Oracle) Validate() error {
 
 	// Name (string)
 	{
-		if len(m.Name) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (2<<8)-1)
+		if len(m.Name) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (1<<8)-1)
 		}
 	}
 
 	// URL (string)
 	{
-		if len(m.URL) > (2<<8)-1 {
-			return fmt.Errorf("varchar field URL too long %d/%d", len(m.URL), (2<<8)-1)
+		if len(m.URL) > (1<<8)-1 {
+			return fmt.Errorf("varchar field URL too long %d/%d", len(m.URL), (1<<8)-1)
 		}
 	}
 
 	// PublicKey ([]byte)
 	{
-		if len(m.PublicKey) > (2<<8)-1 {
-			return fmt.Errorf("varbin field PublicKey too long %d/%d", len(m.PublicKey), (2<<8)-1)
+		if len(m.PublicKey) > (1<<8)-1 {
+			return fmt.Errorf("varbin field PublicKey too long %d/%d", len(m.PublicKey), (1<<8)-1)
 		}
 	}
 
@@ -1873,8 +1873,8 @@ func (m *OutputTag) Validate() error {
 
 	// Tag (string)
 	{
-		if len(m.Tag) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Tag too long %d/%d", len(m.Tag), (2<<8)-1)
+		if len(m.Tag) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Tag too long %d/%d", len(m.Tag), (1<<8)-1)
 		}
 	}
 
@@ -2158,8 +2158,8 @@ func (m *VotingSystem) Validate() error {
 
 	// Name (string)
 	{
-		if len(m.Name) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (2<<8)-1)
+		if len(m.Name) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Name too long %d/%d", len(m.Name), (1<<8)-1)
 		}
 	}
 

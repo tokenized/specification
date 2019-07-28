@@ -432,8 +432,8 @@ func (m *AssetDefinition) Validate() error {
 
 	// AssetAuthFlags ([]byte)
 	{
-		if len(m.AssetAuthFlags) > (2<<8)-1 {
-			return fmt.Errorf("varbin field AssetAuthFlags too long %d/%d", len(m.AssetAuthFlags), (2<<8)-1)
+		if len(m.AssetAuthFlags) > (1<<8)-1 {
+			return fmt.Errorf("varbin field AssetAuthFlags too long %d/%d", len(m.AssetAuthFlags), (1<<8)-1)
 		}
 	}
 
@@ -443,8 +443,8 @@ func (m *AssetDefinition) Validate() error {
 
 	// TradeRestrictions ([][3]byte)
 	{
-		if len(m.TradeRestrictions) > (2<<16)-1 {
-			return fmt.Errorf("list field TradeRestrictions has too many items %d/%d", len(m.TradeRestrictions), (2<<16)-1)
+		if len(m.TradeRestrictions) > (1<<16)-1 {
+			return fmt.Errorf("list field TradeRestrictions has too many items %d/%d", len(m.TradeRestrictions), (1<<16)-1)
 		}
 
 		for _, value := range m.TradeRestrictions {
@@ -488,8 +488,8 @@ func (m *AssetDefinition) Validate() error {
 
 	// AssetPayload ([]byte)
 	{
-		if len(m.AssetPayload) > (2<<16)-1 {
-			return fmt.Errorf("varbin field AssetPayload too long %d/%d", len(m.AssetPayload), (2<<16)-1)
+		if len(m.AssetPayload) > (1<<16)-1 {
+			return fmt.Errorf("varbin field AssetPayload too long %d/%d", len(m.AssetPayload), (1<<16)-1)
 		}
 	}
 
@@ -840,8 +840,8 @@ func (m *AssetCreation) Validate() error {
 
 	// AssetAuthFlags ([]byte)
 	{
-		if len(m.AssetAuthFlags) > (2<<8)-1 {
-			return fmt.Errorf("varbin field AssetAuthFlags too long %d/%d", len(m.AssetAuthFlags), (2<<8)-1)
+		if len(m.AssetAuthFlags) > (1<<8)-1 {
+			return fmt.Errorf("varbin field AssetAuthFlags too long %d/%d", len(m.AssetAuthFlags), (1<<8)-1)
 		}
 	}
 
@@ -851,8 +851,8 @@ func (m *AssetCreation) Validate() error {
 
 	// TradeRestrictions ([][3]byte)
 	{
-		if len(m.TradeRestrictions) > (2<<16)-1 {
-			return fmt.Errorf("list field TradeRestrictions has too many items %d/%d", len(m.TradeRestrictions), (2<<16)-1)
+		if len(m.TradeRestrictions) > (1<<16)-1 {
+			return fmt.Errorf("list field TradeRestrictions has too many items %d/%d", len(m.TradeRestrictions), (1<<16)-1)
 		}
 
 		for _, value := range m.TradeRestrictions {
@@ -896,8 +896,8 @@ func (m *AssetCreation) Validate() error {
 
 	// AssetPayload ([]byte)
 	{
-		if len(m.AssetPayload) > (2<<16)-1 {
-			return fmt.Errorf("varbin field AssetPayload too long %d/%d", len(m.AssetPayload), (2<<16)-1)
+		if len(m.AssetPayload) > (1<<16)-1 {
+			return fmt.Errorf("varbin field AssetPayload too long %d/%d", len(m.AssetPayload), (1<<16)-1)
 		}
 	}
 
@@ -1104,8 +1104,8 @@ func (m *AssetModification) Validate() error {
 
 	// Amendments ([]Amendment)
 	{
-		if len(m.Amendments) > (2<<8)-1 {
-			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (2<<8)-1)
+		if len(m.Amendments) > (1<<8)-1 {
+			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (1<<8)-1)
 		}
 
 		for i, value := range m.Amendments {
@@ -1596,8 +1596,8 @@ func (m *ContractOffer) Validate() error {
 
 	// ContractName (string)
 	{
-		if len(m.ContractName) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (2<<8)-1)
+		if len(m.ContractName) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (1<<8)-1)
 		}
 	}
 
@@ -1611,22 +1611,22 @@ func (m *ContractOffer) Validate() error {
 
 	// BodyOfAgreement ([]byte)
 	{
-		if len(m.BodyOfAgreement) > (2<<32)-1 {
-			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (2<<32)-1)
+		if len(m.BodyOfAgreement) > (1<<32)-1 {
+			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (1<<32)-1)
 		}
 	}
 
 	// ContractType (string)
 	{
-		if len(m.ContractType) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (2<<8)-1)
+		if len(m.ContractType) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (1<<8)-1)
 		}
 	}
 
 	// SupportingDocs ([]Document)
 	{
-		if len(m.SupportingDocs) > (2<<8)-1 {
-			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (2<<8)-1)
+		if len(m.SupportingDocs) > (1<<8)-1 {
+			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (1<<8)-1)
 		}
 
 		for i, value := range m.SupportingDocs {
@@ -1661,8 +1661,8 @@ func (m *ContractOffer) Validate() error {
 
 	// ContractURI (string)
 	{
-		if len(m.ContractURI) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (2<<8)-1)
+		if len(m.ContractURI) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (1<<8)-1)
 		}
 	}
 
@@ -1676,8 +1676,8 @@ func (m *ContractOffer) Validate() error {
 
 	// IssuerLogoURL (string)
 	{
-		if len(m.IssuerLogoURL) > (2<<8)-1 {
-			return fmt.Errorf("varchar field IssuerLogoURL too long %d/%d", len(m.IssuerLogoURL), (2<<8)-1)
+		if len(m.IssuerLogoURL) > (1<<8)-1 {
+			return fmt.Errorf("varchar field IssuerLogoURL too long %d/%d", len(m.IssuerLogoURL), (1<<8)-1)
 		}
 	}
 
@@ -1695,8 +1695,8 @@ func (m *ContractOffer) Validate() error {
 
 	// ContractAuthFlags ([]byte)
 	{
-		if len(m.ContractAuthFlags) > (2<<16)-1 {
-			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (2<<16)-1)
+		if len(m.ContractAuthFlags) > (1<<16)-1 {
+			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (1<<16)-1)
 		}
 	}
 
@@ -1706,8 +1706,8 @@ func (m *ContractOffer) Validate() error {
 
 	// VotingSystems ([]VotingSystem)
 	{
-		if len(m.VotingSystems) > (2<<8)-1 {
-			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (2<<8)-1)
+		if len(m.VotingSystems) > (1<<8)-1 {
+			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (1<<8)-1)
 		}
 
 		for i, value := range m.VotingSystems {
@@ -1732,8 +1732,8 @@ func (m *ContractOffer) Validate() error {
 
 	// Oracles ([]Oracle)
 	{
-		if len(m.Oracles) > (2<<8)-1 {
-			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<8)-1)
+		if len(m.Oracles) > (1<<8)-1 {
+			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (1<<8)-1)
 		}
 
 		for i, value := range m.Oracles {
@@ -2273,8 +2273,8 @@ func (m *ContractFormation) Validate() error {
 
 	// ContractName (string)
 	{
-		if len(m.ContractName) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (2<<8)-1)
+		if len(m.ContractName) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (1<<8)-1)
 		}
 	}
 
@@ -2288,22 +2288,22 @@ func (m *ContractFormation) Validate() error {
 
 	// BodyOfAgreement ([]byte)
 	{
-		if len(m.BodyOfAgreement) > (2<<32)-1 {
-			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (2<<32)-1)
+		if len(m.BodyOfAgreement) > (1<<32)-1 {
+			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (1<<32)-1)
 		}
 	}
 
 	// ContractType (string)
 	{
-		if len(m.ContractType) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (2<<8)-1)
+		if len(m.ContractType) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (1<<8)-1)
 		}
 	}
 
 	// SupportingDocs ([]Document)
 	{
-		if len(m.SupportingDocs) > (2<<8)-1 {
-			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (2<<8)-1)
+		if len(m.SupportingDocs) > (1<<8)-1 {
+			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (1<<8)-1)
 		}
 
 		for i, value := range m.SupportingDocs {
@@ -2338,8 +2338,8 @@ func (m *ContractFormation) Validate() error {
 
 	// ContractURI (string)
 	{
-		if len(m.ContractURI) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (2<<8)-1)
+		if len(m.ContractURI) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (1<<8)-1)
 		}
 	}
 
@@ -2353,8 +2353,8 @@ func (m *ContractFormation) Validate() error {
 
 	// IssuerLogoURL (string)
 	{
-		if len(m.IssuerLogoURL) > (2<<8)-1 {
-			return fmt.Errorf("varchar field IssuerLogoURL too long %d/%d", len(m.IssuerLogoURL), (2<<8)-1)
+		if len(m.IssuerLogoURL) > (1<<8)-1 {
+			return fmt.Errorf("varchar field IssuerLogoURL too long %d/%d", len(m.IssuerLogoURL), (1<<8)-1)
 		}
 	}
 
@@ -2372,8 +2372,8 @@ func (m *ContractFormation) Validate() error {
 
 	// ContractAuthFlags ([]byte)
 	{
-		if len(m.ContractAuthFlags) > (2<<16)-1 {
-			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (2<<16)-1)
+		if len(m.ContractAuthFlags) > (1<<16)-1 {
+			return fmt.Errorf("varbin field ContractAuthFlags too long %d/%d", len(m.ContractAuthFlags), (1<<16)-1)
 		}
 	}
 
@@ -2383,8 +2383,8 @@ func (m *ContractFormation) Validate() error {
 
 	// VotingSystems ([]VotingSystem)
 	{
-		if len(m.VotingSystems) > (2<<8)-1 {
-			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (2<<8)-1)
+		if len(m.VotingSystems) > (1<<8)-1 {
+			return fmt.Errorf("list field VotingSystems has too many items %d/%d", len(m.VotingSystems), (1<<8)-1)
 		}
 
 		for i, value := range m.VotingSystems {
@@ -2409,8 +2409,8 @@ func (m *ContractFormation) Validate() error {
 
 	// Oracles ([]Oracle)
 	{
-		if len(m.Oracles) > (2<<8)-1 {
-			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (2<<8)-1)
+		if len(m.Oracles) > (1<<8)-1 {
+			return fmt.Errorf("list field Oracles has too many items %d/%d", len(m.Oracles), (1<<8)-1)
 		}
 
 		for i, value := range m.Oracles {
@@ -2628,8 +2628,8 @@ func (m *ContractAmendment) Validate() error {
 
 	// Amendments ([]Amendment)
 	{
-		if len(m.Amendments) > (2<<8)-1 {
-			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (2<<8)-1)
+		if len(m.Amendments) > (1<<8)-1 {
+			return fmt.Errorf("list field Amendments has too many items %d/%d", len(m.Amendments), (1<<8)-1)
 		}
 
 		for i, value := range m.Amendments {
@@ -2985,8 +2985,8 @@ func (m *StaticContractFormation) Validate() error {
 
 	// ContractName (string)
 	{
-		if len(m.ContractName) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (2<<8)-1)
+		if len(m.ContractName) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractName too long %d/%d", len(m.ContractName), (1<<8)-1)
 		}
 	}
 
@@ -3008,22 +3008,22 @@ func (m *StaticContractFormation) Validate() error {
 
 	// BodyOfAgreement ([]byte)
 	{
-		if len(m.BodyOfAgreement) > (2<<32)-1 {
-			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (2<<32)-1)
+		if len(m.BodyOfAgreement) > (1<<32)-1 {
+			return fmt.Errorf("varbin field BodyOfAgreement too long %d/%d", len(m.BodyOfAgreement), (1<<32)-1)
 		}
 	}
 
 	// ContractType (string)
 	{
-		if len(m.ContractType) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (2<<8)-1)
+		if len(m.ContractType) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractType too long %d/%d", len(m.ContractType), (1<<8)-1)
 		}
 	}
 
 	// SupportingDocs ([]Document)
 	{
-		if len(m.SupportingDocs) > (2<<8)-1 {
-			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (2<<8)-1)
+		if len(m.SupportingDocs) > (1<<8)-1 {
+			return fmt.Errorf("list field SupportingDocs has too many items %d/%d", len(m.SupportingDocs), (1<<8)-1)
 		}
 
 		for i, value := range m.SupportingDocs {
@@ -3070,8 +3070,8 @@ func (m *StaticContractFormation) Validate() error {
 
 	// ContractURI (string)
 	{
-		if len(m.ContractURI) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (2<<8)-1)
+		if len(m.ContractURI) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ContractURI too long %d/%d", len(m.ContractURI), (1<<8)-1)
 		}
 	}
 
@@ -3085,8 +3085,8 @@ func (m *StaticContractFormation) Validate() error {
 
 	// Entities ([]Entity)
 	{
-		if len(m.Entities) > (2<<8)-1 {
-			return fmt.Errorf("list field Entities has too many items %d/%d", len(m.Entities), (2<<8)-1)
+		if len(m.Entities) > (1<<8)-1 {
+			return fmt.Errorf("list field Entities has too many items %d/%d", len(m.Entities), (1<<8)-1)
 		}
 
 		for i, value := range m.Entities {
@@ -3605,8 +3605,8 @@ func (m *Order) Validate() error {
 
 	// TargetAddresses ([]TargetAddress)
 	if m.ComplianceAction == 'F' || m.ComplianceAction == 'C' || m.ComplianceAction == 'R' {
-		if len(m.TargetAddresses) > (2<<16)-1 {
-			return fmt.Errorf("list field TargetAddresses has too many items %d/%d", len(m.TargetAddresses), (2<<16)-1)
+		if len(m.TargetAddresses) > (1<<16)-1 {
+			return fmt.Errorf("list field TargetAddresses has too many items %d/%d", len(m.TargetAddresses), (1<<16)-1)
 		}
 
 		for i, value := range m.TargetAddresses {
@@ -3647,15 +3647,15 @@ func (m *Order) Validate() error {
 
 	// AuthorityName (string)
 	if m.AuthorityIncluded {
-		if len(m.AuthorityName) > (2<<8)-1 {
-			return fmt.Errorf("varchar field AuthorityName too long %d/%d", len(m.AuthorityName), (2<<8)-1)
+		if len(m.AuthorityName) > (1<<8)-1 {
+			return fmt.Errorf("varchar field AuthorityName too long %d/%d", len(m.AuthorityName), (1<<8)-1)
 		}
 	}
 
 	// AuthorityPublicKey ([]byte)
 	if m.AuthorityIncluded {
-		if len(m.AuthorityPublicKey) > (2<<8)-1 {
-			return fmt.Errorf("varbin field AuthorityPublicKey too long %d/%d", len(m.AuthorityPublicKey), (2<<8)-1)
+		if len(m.AuthorityPublicKey) > (1<<8)-1 {
+			return fmt.Errorf("varbin field AuthorityPublicKey too long %d/%d", len(m.AuthorityPublicKey), (1<<8)-1)
 		}
 	}
 
@@ -3669,8 +3669,8 @@ func (m *Order) Validate() error {
 
 	// OrderSignature ([]byte)
 	if m.AuthorityIncluded {
-		if len(m.OrderSignature) > (2<<8)-1 {
-			return fmt.Errorf("varbin field OrderSignature too long %d/%d", len(m.OrderSignature), (2<<8)-1)
+		if len(m.OrderSignature) > (1<<8)-1 {
+			return fmt.Errorf("varbin field OrderSignature too long %d/%d", len(m.OrderSignature), (1<<8)-1)
 		}
 	}
 
@@ -3680,15 +3680,15 @@ func (m *Order) Validate() error {
 
 	// RefTxs ([]byte)
 	if m.ComplianceAction == 'R' {
-		if len(m.RefTxs) > (2<<32)-1 {
-			return fmt.Errorf("varbin field RefTxs too long %d/%d", len(m.RefTxs), (2<<32)-1)
+		if len(m.RefTxs) > (1<<32)-1 {
+			return fmt.Errorf("varbin field RefTxs too long %d/%d", len(m.RefTxs), (1<<32)-1)
 		}
 	}
 
 	// BitcoinDispersions ([]QuantityIndex)
 	if m.ComplianceAction == 'R' {
-		if len(m.BitcoinDispersions) > (2<<16)-1 {
-			return fmt.Errorf("list field BitcoinDispersions has too many items %d/%d", len(m.BitcoinDispersions), (2<<16)-1)
+		if len(m.BitcoinDispersions) > (1<<16)-1 {
+			return fmt.Errorf("list field BitcoinDispersions has too many items %d/%d", len(m.BitcoinDispersions), (1<<16)-1)
 		}
 
 		for i, value := range m.BitcoinDispersions {
@@ -3701,8 +3701,8 @@ func (m *Order) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (2<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
+		if len(m.Message) > (1<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
 		}
 	}
 
@@ -3903,8 +3903,8 @@ func (m *Freeze) Validate() error {
 
 	// Quantities ([]QuantityIndex)
 	{
-		if len(m.Quantities) > (2<<16)-1 {
-			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (2<<16)-1)
+		if len(m.Quantities) > (1<<16)-1 {
+			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (1<<16)-1)
 		}
 
 		for i, value := range m.Quantities {
@@ -4217,8 +4217,8 @@ func (m *Confiscation) Validate() error {
 
 	// Quantities ([]QuantityIndex)
 	{
-		if len(m.Quantities) > (2<<16)-1 {
-			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (2<<16)-1)
+		if len(m.Quantities) > (1<<16)-1 {
+			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (1<<16)-1)
 		}
 
 		for i, value := range m.Quantities {
@@ -4404,8 +4404,8 @@ func (m *Reconciliation) Validate() error {
 
 	// Quantities ([]QuantityIndex)
 	{
-		if len(m.Quantities) > (2<<16)-1 {
-			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (2<<16)-1)
+		if len(m.Quantities) > (1<<16)-1 {
+			return fmt.Errorf("list field Quantities has too many items %d/%d", len(m.Quantities), (1<<16)-1)
 		}
 
 		for i, value := range m.Quantities {
@@ -4732,8 +4732,8 @@ func (m *Proposal) Validate() error {
 
 	// ProposedAmendments ([]Amendment)
 	if m.Specific {
-		if len(m.ProposedAmendments) > (2<<8)-1 {
-			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (2<<8)-1)
+		if len(m.ProposedAmendments) > (1<<8)-1 {
+			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (1<<8)-1)
 		}
 
 		for i, value := range m.ProposedAmendments {
@@ -4746,8 +4746,8 @@ func (m *Proposal) Validate() error {
 
 	// VoteOptions (string)
 	{
-		if len(m.VoteOptions) > (2<<8)-1 {
-			return fmt.Errorf("varchar field VoteOptions too long %d/%d", len(m.VoteOptions), (2<<8)-1)
+		if len(m.VoteOptions) > (1<<8)-1 {
+			return fmt.Errorf("varchar field VoteOptions too long %d/%d", len(m.VoteOptions), (1<<8)-1)
 		}
 	}
 
@@ -4757,8 +4757,8 @@ func (m *Proposal) Validate() error {
 
 	// ProposalDescription (string)
 	{
-		if len(m.ProposalDescription) > (2<<32)-1 {
-			return fmt.Errorf("varchar field ProposalDescription too long %d/%d", len(m.ProposalDescription), (2<<32)-1)
+		if len(m.ProposalDescription) > (1<<32)-1 {
+			return fmt.Errorf("varchar field ProposalDescription too long %d/%d", len(m.ProposalDescription), (1<<32)-1)
 		}
 	}
 
@@ -4959,8 +4959,8 @@ func (m *BallotCast) Validate() error {
 
 	// Vote (string)
 	{
-		if len(m.Vote) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Vote too long %d/%d", len(m.Vote), (2<<8)-1)
+		if len(m.Vote) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Vote too long %d/%d", len(m.Vote), (1<<8)-1)
 		}
 	}
 
@@ -5098,8 +5098,8 @@ func (m *BallotCounted) Validate() error {
 
 	// Vote (string)
 	{
-		if len(m.Vote) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Vote too long %d/%d", len(m.Vote), (2<<8)-1)
+		if len(m.Vote) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Vote too long %d/%d", len(m.Vote), (1<<8)-1)
 		}
 	}
 
@@ -5377,8 +5377,8 @@ func (m *Result) Validate() error {
 
 	// ProposedAmendments ([]Amendment)
 	if m.Specific {
-		if len(m.ProposedAmendments) > (2<<8)-1 {
-			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (2<<8)-1)
+		if len(m.ProposedAmendments) > (1<<8)-1 {
+			return fmt.Errorf("list field ProposedAmendments has too many items %d/%d", len(m.ProposedAmendments), (1<<8)-1)
 		}
 
 		for i, value := range m.ProposedAmendments {
@@ -5399,15 +5399,15 @@ func (m *Result) Validate() error {
 
 	// OptionTally ([]uint64)
 	{
-		if len(m.OptionTally) > (2<<8)-1 {
-			return fmt.Errorf("list field OptionTally has too many items %d/%d", len(m.OptionTally), (2<<8)-1)
+		if len(m.OptionTally) > (1<<8)-1 {
+			return fmt.Errorf("list field OptionTally has too many items %d/%d", len(m.OptionTally), (1<<8)-1)
 		}
 	}
 
 	// Result (string)
 	{
-		if len(m.Result) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Result too long %d/%d", len(m.Result), (2<<8)-1)
+		if len(m.Result) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Result too long %d/%d", len(m.Result), (1<<8)-1)
 		}
 	}
 
@@ -5541,8 +5541,8 @@ func (m *Message) Validate() error {
 
 	// AddressIndexes ([]uint16)
 	{
-		if len(m.AddressIndexes) > (2<<8)-1 {
-			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<8)-1)
+		if len(m.AddressIndexes) > (1<<8)-1 {
+			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (1<<8)-1)
 		}
 	}
 
@@ -5552,8 +5552,8 @@ func (m *Message) Validate() error {
 
 	// MessagePayload ([]byte)
 	{
-		if len(m.MessagePayload) > (2<<32)-1 {
-			return fmt.Errorf("varbin field MessagePayload too long %d/%d", len(m.MessagePayload), (2<<32)-1)
+		if len(m.MessagePayload) > (1<<32)-1 {
+			return fmt.Errorf("varbin field MessagePayload too long %d/%d", len(m.MessagePayload), (1<<32)-1)
 		}
 	}
 
@@ -5708,8 +5708,8 @@ func (m *Rejection) Validate() error {
 
 	// AddressIndexes ([]uint16)
 	{
-		if len(m.AddressIndexes) > (2<<8)-1 {
-			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (2<<8)-1)
+		if len(m.AddressIndexes) > (1<<8)-1 {
+			return fmt.Errorf("list field AddressIndexes has too many items %d/%d", len(m.AddressIndexes), (1<<8)-1)
 		}
 	}
 
@@ -5726,8 +5726,8 @@ func (m *Rejection) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<16)-1)
+		if len(m.Message) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<16)-1)
 		}
 	}
 
@@ -5810,8 +5810,8 @@ func (m *Establishment) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (2<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
+		if len(m.Message) > (1<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
 		}
 	}
 
@@ -5882,8 +5882,8 @@ func (m *Addition) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (2<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
+		if len(m.Message) > (1<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
 		}
 	}
 
@@ -5982,8 +5982,8 @@ func (m *Alteration) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (2<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
+		if len(m.Message) > (1<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
 		}
 	}
 
@@ -6083,8 +6083,8 @@ func (m *Removal) Validate() error {
 
 	// Message (string)
 	{
-		if len(m.Message) > (2<<32)-1 {
-			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (2<<32)-1)
+		if len(m.Message) > (1<<32)-1 {
+			return fmt.Errorf("varchar field Message too long %d/%d", len(m.Message), (1<<32)-1)
 		}
 	}
 
@@ -6237,8 +6237,8 @@ func (m *Transfer) Validate() error {
 
 	// Assets ([]AssetTransfer)
 	{
-		if len(m.Assets) > (2<<8)-1 {
-			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (2<<8)-1)
+		if len(m.Assets) > (1<<8)-1 {
+			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (1<<8)-1)
 		}
 
 		for i, value := range m.Assets {
@@ -6378,8 +6378,8 @@ func (m *Settlement) Validate() error {
 
 	// Assets ([]AssetSettlement)
 	{
-		if len(m.Assets) > (2<<8)-1 {
-			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (2<<8)-1)
+		if len(m.Assets) > (1<<8)-1 {
+			return fmt.Errorf("list field Assets has too many items %d/%d", len(m.Assets), (1<<8)-1)
 		}
 
 		for i, value := range m.Assets {
