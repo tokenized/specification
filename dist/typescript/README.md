@@ -42,7 +42,7 @@ npm run test
 ```typescript
 import {
 	ContractOffer, OpReturnMessage, Permission, Timestamp, Entity, PublicKeyHash
-} from '@bitboss/tokenized';
+} from '@tokenized/tokenized';
 
 let voteSystemsAllowed = [ true, true ];
 
