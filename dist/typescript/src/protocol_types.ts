@@ -37,7 +37,7 @@ export class TxId {
 
 	// String converts to a string
 	toString(): string {
-		return sprintf('%x', this.data);
+		return this.data.toString('hex');
 	}
 
 	// Serialize returns a byte slice with the TxId in it.
