@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const yaml_1 = __importDefault(require("yaml"));
 const ramda_1 = __importDefault(require("ramda"));
-const resource_data_1 = require("./resource-data");
+const resource_data_1 = require("./resource_data");
 class RejectionCodeData {
 }
 exports.RejectionCodeData = RejectionCodeData;

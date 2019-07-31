@@ -168,13 +168,13 @@ class Timestamp {
     // Serialize returns a byte slice with the Timestamp in it.
     Serialize() {
         const buf = new util_1.default.Writer();
-        bytes_1.write(buf, new bn_js_1.default(this.milliseconds).mul(new bn_js_1.default(1000000)), 'uint64');
+        bytes_1.write(buf, new bn_js_1.default(this.milliseconds).mul(new bn_js_1.default(1000)), 'uint64');
         return buf.buf;
     }
     // Write reads a Timestamp from a bytes.Buffer
     Write(buf) {
         const bn = bytes_1.read(buf, 'uint64');
-        this.milliseconds = bn.div(new bn_js_1.default(1000000)).toNumber();
+        this.milliseconds = bn.div(new bn_js_1.default(1000)).toNumber();
         // console.log('\n\nTimestamp.Write', bn);
         // console.log('\n\nTimestamp.Write', this.milliseconds);
     }

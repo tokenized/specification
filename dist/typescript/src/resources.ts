@@ -1,6 +1,6 @@
 import YAML from 'yaml';
 import R from 'ramda';
-import { Data } from './resource-data';
+import { Data } from './resource_data';
 
 export class RejectionCodeData {
 	code: number;

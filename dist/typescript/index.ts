@@ -7,5 +7,5 @@ export * from './src/messages';
 export * from './src/protocol';
 export * from './src/protocol_types';
 export * from './src/rejection_codes';
-export * from './src/resource-data';
+export * from './src/resource_data';
 export * from './src/resources';

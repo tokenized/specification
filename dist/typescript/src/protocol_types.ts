@@ -198,14 +198,14 @@ export class Timestamp {
 	// Serialize returns a byte slice with the Timestamp in it.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		write(buf, new BN(this.milliseconds).mul(new BN(1000000)), 'uint64');
+		write(buf, new BN(this.milliseconds).mul(new BN(1000)), 'uint64');
 		return buf.buf;
 	}
 
 	// Write reads a Timestamp from a bytes.Buffer
 	Write(buf: _.Reader) {
 		const bn = read(buf, 'uint64');
-		this.milliseconds = bn.div(new BN(1000000)).toNumber();
+		this.milliseconds = bn.div(new BN(1000)).toNumber();
 		// console.log('\n\nTimestamp.Write', bn);
 		// console.log('\n\nTimestamp.Write', this.milliseconds);
 	}
