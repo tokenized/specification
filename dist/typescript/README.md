@@ -86,6 +86,21 @@ console.log("Contract Offer Hex :\n", actionData);
 console.log("Contract Offer text :\n", JSON.stringify(action));
 
 ```
+# Files
+Static
+- authorization.ts
+- bytes.ts
+- protocol_types.ts
+- protocol.ts
+- resources.ts
+
+Generated
+- actions.ts
+- assets.ts
+- field_types.ts
+- messages.ts
+- rejection_codes.ts
+- resource_data.ts
 
 # License
 
