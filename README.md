@@ -60,11 +60,11 @@ To read an OP_RETURN script, pass the script into the Deserialize function and i
 
 ### Primitive Types
 
-* `int` is a signed integer. `size` is the number of bits for the integer. Valid values for `size` are 8, 16, 32, 64.
+* `int` is a signed integer. `size` is the number of bytes for the integer. Valid values for `size` are 1, 2, 4, 8.
 
-* `uint` is an unsigned integer. `size` is the number of bits for the integer. Valid values for `size` are 8, 16, 32, 64.
+* `uint` is an unsigned integer. `size` is the number of bytes for the integer. Valid values for `size` are 1, 2, 4, 8.
 
-* `float` is a floating point number. `size` is the number of bits for the float. Valid values for `size` are 32 and 64.
+* `float` is a floating point number. `size` is the number of bytes for the float. Valid values for `size` are 4 and 8.
 
 * `bool` is a boolean stored as 1 byte.
 
