@@ -333,10 +333,8 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 		vals.push(sprintf('{{.SnakeCase}}:%v', this.{{.SnakeCase}}));
 		{{- else if eq .Type "SHA" }}
 		vals.push(sprintf('{{.SnakeCase}}:\"%x\"', this.{{.SnakeCase}}));
-		{{- else if eq .FieldGoType "[]byte" }}
-		vals.push(sprintf('{{.SnakeCase}}:%#x', this.{{.SnakeCase}}));
 		{{- else }}
-		vals.push(sprintf('{{.SnakeCase}}:%#+v', this.{{.SnakeCase}}));
+		vals.push(sprintf('{{.SnakeCase}}:%s', this.{{.SnakeCase}}.toString()));
 		{{- end }}{{ end }}
 
 		return sprintf('{%s}', vals.join(' '));
