@@ -8,13 +8,10 @@ fields:
     label: Address
     description: "Public address where the token balance will be changed."
     type: PublicKeyHash
-    notes: ""
 
   - name: Quantity
     label: Quantity
     description: "Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used."
     type: uint
     size: 8
-    example_hex: 0000000000002710
     example: "10000"
-    notes: ""

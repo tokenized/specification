@@ -26,22 +26,18 @@ fields:
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
     type: uint16[]
-    exampleHex: 00010002
 
   - name: RejectAddressIndex
     label: Reject Address Index
     description: "The address which is believed to have caused the rejection."
     type: uint
     size: 2
-    exampleHex: 00010002
 
   - name: RejectionCode
     label: Rejection Code
     description: "Classifies the rejection by a type."
     type: RejectionCode
-    exampleHex: 01
     example: "1"
-    notes: ""
 
   - name: Message
     label: Message
@@ -49,9 +45,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 16
-    exampleHex: 00000024536f7272792c20796f7520646f6e2774206861766520656e6f75676820746f6b656e732e
     example: "Sorry, you don't have enough tokens."
-    notes: ""
 
   - name: Timestamp
     label: Timestamp

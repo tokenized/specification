@@ -30,7 +30,6 @@ fields:
     description: "Three letter character that specifies the asset type."
     type: fixedchar
     size: 3
-    exampleHex: 434f55
     example: "COU"
 
   - name: AssetAuthFlags
@@ -38,32 +37,25 @@ fields:
     description: "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail."
     type: varbin
     size: 8
-    notes: ""
 
   - name: TransfersPermitted
     label: Transfers Permitted
     description: "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers."
     type: bool
-    exampleHex: 01
     example: 1
-    notes: ""
 
   - name: TradeRestrictions
     label: Trade Restrictions
     description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
     type: Polity[]
     size: 16
-    exampleHex: 474252
     example: "GBR"
-    notes: ""
 
   - name: EnforcementOrdersPermitted
     label: Enforcement Orders Permitted
     description: "Set to true if the administration is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature."
     type: bool
-    exampleHex: 01
     example: 1
-    notes: ""
 
   - name: VotingRights
     label: Voting Rights
@@ -75,15 +67,12 @@ fields:
     description: "Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens."
     type: uint
     size: 1
-    exampleHex: 03
     example: "3"
-    notes: ""
 
   - name: AdministrationProposal
     label: Administration Proposal
     description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
     type: bool
-    exampleHex: 01
     example: true
     notes: "General Governance"
 
@@ -91,9 +80,7 @@ fields:
     label: Holder Proposal
     description: "Set to true if a holder is permitted to make proposals outside of the smart contract scope."
     type: bool
-    exampleHex: 01
     example: true
-    notes: ""
 
   - name: AssetModificationGovernance
     label: Asset Modification Governance
@@ -103,9 +90,7 @@ fields:
     intValues:
       - 0
       - 1
-    exampleHex: 01
     example: "1"
-    notes: ""
 
   - name: TokenQty
     label: Token Quantity
@@ -113,7 +98,6 @@ fields:
     type: uint
     size: 8
     example: "1000000"
-    notes: ""
 
   - name: AssetPayload
     label: Asset Payload
@@ -121,4 +105,3 @@ fields:
     type: varbin
     # varbin size is number of bits to serialize the size of the data
     size: 16
-    notes: ""

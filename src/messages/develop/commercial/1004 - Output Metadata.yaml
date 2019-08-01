@@ -22,10 +22,8 @@ fields:
     label: Tags
     description: "Predefined values for describing the output."
     type: Tag[]
-    notes: ""
 
   - name: CustomTags
     label: Custom Tags
     description: "Free form text fields for describing the output. Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc."
     type: OutputTag[]
-    notes: ""

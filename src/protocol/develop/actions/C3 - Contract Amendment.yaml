@@ -30,26 +30,20 @@ fields:
     label: Change Administration Address
     description: "Used to change the administration address.  The new administration address must be in the input[1] position. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action."
     type: bool
-    exampleHex: 01
     example: 1
-    notes: ""
 
   - name: ChangeOperatorAddress
     label: Change Operator Address
     description: "Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless the administration is being changed too, then it is in input[2]. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action."
     type: bool
-    exampleHex: 01
     example: 1
-    notes: ""
 
   - name: ContractRevision
     label: Contract Revision
     description: "Counter 0 to (2^32)-1"
     type: uint
     size: 4
-    exampleHex: 002a
     example: 42
-    notes: ""
 
   - name: Amendments
     label: Amendments
@@ -60,4 +54,3 @@ fields:
     label: Ref Tx ID
     description: "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details."
     type: TxId
-    notes: ""

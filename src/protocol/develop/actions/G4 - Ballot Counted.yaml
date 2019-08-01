@@ -26,7 +26,6 @@ fields:
     label: Vote Tx ID
     description: "Tx ID of the Vote the Ballot Cast is being made for."
     type: TxId
-    notes: ""
 
   - name: Vote
     label: Vote
@@ -34,9 +33,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    exampleHex: 0141
     example: "A"
-    notes: ""
 
   - name: Quantity
     label: Quantity

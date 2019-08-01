@@ -26,4 +26,3 @@ fields:
     type: varbin
     # varbin size is number of bits to serialize the size of the data
     size: 32
-    notes: ""

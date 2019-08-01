@@ -14,7 +14,6 @@ fields:
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
     type: Timestamp
-    notes: ""
 
   - name: TransferTxId
     label: Transfer Tx Id
@@ -32,4 +31,3 @@ fields:
     description: "Serialized settlement OP_RETURN that needs data added by another contract."
     type: varbin
     size: 32
-    notes: ""

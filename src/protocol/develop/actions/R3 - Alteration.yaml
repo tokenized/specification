@@ -24,7 +24,6 @@ fields:
     label: Entry Tx ID
     description: "Transaction ID of the register entry to be altered."
     type: TxId
-    notes: ""
 
   - name: Message
     label: Message
@@ -33,4 +32,3 @@ fields:
     # varchar size is number of bits to serialize the size of the value
     size: 32
     example: "Changed Country of Residence"
-    notes: ""

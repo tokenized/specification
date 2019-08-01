@@ -14,11 +14,9 @@ fields:
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
     type: Timestamp
-    notes: ""
 
   - name: Transaction
     label: Transaction
     description: "Serialized bitcoin transaction that was reverted/invalidated after being accepted."
     type: varbin
     size: 32
-    notes: ""

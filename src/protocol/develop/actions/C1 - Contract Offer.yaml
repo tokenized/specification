@@ -40,16 +40,13 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    exampleHex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
     example: "Tesla - Shareholder Agreement"
-    notes: ""
 
   - name: BodyOfAgreementType
     label: Body of Agreement Type
     description: "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
     type: uint
     size: 1
-    exampleHex: 01
     example: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
     intValues:
@@ -62,7 +59,6 @@ fields:
     type: varbin
     # varbin size is number of bits to serialize the size of the data
     size: 32
-    notes: ""
 
   - name: ContractType
     label: Contract Type
@@ -70,9 +66,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    exampleHex: 184e6f6e2d446973636c6f737572652041677265656d656e74
     example: "Shareholder Agreement"
-    notes: ""
 
   - name: SupportingDocs
     label: Supporting Documentation
@@ -84,7 +78,6 @@ fields:
     description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
     type: fixedchar
     size: 5
-    exampleHex: 5553410000
     example: "USA"
     notes: "Governing Law - Amendments can be restricted to a vote."
 
@@ -93,7 +86,6 @@ fields:
     description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
     type: fixedchar
     size: 5
-    exampleHex: 55532d4341
     example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."
 
@@ -101,7 +93,6 @@ fields:
     label: Contract Expiration
     description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
     type: Timestamp
-    exampleHex: 000000005c78d0f0
     example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
     notes: "Contract Expiration - Amendments can be restricted to a vote."
 
@@ -111,9 +102,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    exampleHex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
-    notes: ""
 
   - name: Issuer
     label: Issuer
@@ -126,9 +115,7 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    exampleHex: "2368747470733a2f2f6578616d706c652e636f6d2f696d616765732f6c6f676f2e706e67"
     example: "https://example.com/images/logo.png"
-    notes: ""
 
   - name: ContractOperatorIncluded
     label: Contract Operator Included
@@ -159,14 +146,12 @@ fields:
     label: Voting Systems
     description: "A list of voting systems."
     type: VotingSystem[]
-    notes: ""
 
   - name: RestrictedQtyAssets
     label: Restricted Qty of Assets
     description: "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
     type: uint
     size: 8
-    exampleHex: 0000000000000001
     example: "1"
     notes: "Qty of Assets - Amendments can be restricted to a vote."
 
@@ -174,7 +159,6 @@ fields:
     label: Administration Proposal
     description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
     type: bool
-    exampleHex: 01
     example: true
     notes: "General Governance"
 
@@ -182,9 +166,7 @@ fields:
     label: Holder Proposal
     description: "Set to true if a holder is permitted to make proposals outside of the smart contract scope."
     type: bool
-    exampleHex: 01
     example: true
-    notes: ""
 
   - name: Oracles
     label: Oracles

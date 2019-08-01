@@ -10,27 +10,21 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 8
-    example_hex: 135370656369616c205265736f6c7574696f6e73
     example: "Special Resolutions"
-    notes: ""
 
   - name: VoteType
     label: Vote Type
     description: "R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful. Plurality means the most favoured option is selected, regardless of the number of votes cast or the percentage relative to other choices."
     type: fixedchar
     size: 1
-    example_hex: 41
     example: "A"
-    notes: ""
 
   - name: TallyLogic
     label: Tally Logic
     description: "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) "
     type: fixedchar
     size: 1
-    example_hex: 30
     example: "0"
-    notes: ""
 
   - name: ThresholdPercentage
     label: Threshold Percentage for the Voting System
@@ -49,6 +43,4 @@ fields:
     description: "Token Owners must pay the fee amount to broadcast a valid Proposal.  If the Proposal action is valid, the smart contract will start a vote. 0 is valid."
     type: uint
     size: 8
-    example_hex: 42c80000
     example: "100"
-    notes: ""

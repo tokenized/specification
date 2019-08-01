@@ -14,18 +14,14 @@ fields:
     description: "Number of tokens to be received by address at Output X"
     type: uint
     size: 8
-    example_hex: 0000000000000064
     example: 100
-    notes: ""
 
   - name: OracleSigAlgorithm
     label: Oracle Signature Algorithm
     description: "0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has oracles, then a signature is required from one of them."
     type: uint
     size: 1
-    example_hex: 01
     example: 1
-    notes: ""
     int_values:
       - 0
       - 1
@@ -46,7 +42,6 @@ fields:
     type: varbin
     # varbin size is number of bits to serialize the size of the value
     size: 8
-    notes: ""
     include_if_int:
       field: OracleSigAlgorithm
       values:

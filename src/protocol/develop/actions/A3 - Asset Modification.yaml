@@ -27,9 +27,7 @@ fields:
     description: "Three letter character that specifies the asset type."
     type: fixedchar
     size: 3
-    exampleHex: 534843
     example: "SHC"
-    notes: ""
 
   - name: AssetCode
     label: Asset Code
@@ -42,7 +40,6 @@ fields:
     description: "The current revision figure to ensure the modification provided is based on the latest version."
     type: uint
     size: 4
-    exampleHex: 0000000000000000
     example: "0"
     notes: "Cannot be Amended"
 
@@ -55,4 +52,3 @@ fields:
     label: Ref Tx ID
     description: "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details."
     type: TxId
-    notes: ""

@@ -29,7 +29,6 @@ fields:
     label: Freeze Tx Id
     description: "The tx id of the freeze action that is being reversed."
     type: TxId
-    notes: ""
 
   - name: Timestamp
     label: Timestamp

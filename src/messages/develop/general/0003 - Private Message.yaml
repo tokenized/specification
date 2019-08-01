@@ -14,7 +14,6 @@ fields:
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
     type: Timestamp
-    notes: ""
 
   - name: Subject
     label: Subject

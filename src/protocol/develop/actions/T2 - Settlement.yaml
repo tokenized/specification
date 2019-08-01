@@ -26,7 +26,6 @@ fields:
     label: Assets
     description: "The Assets settled by the transfer action."
     type: AssetSettlement[]
-    notes: ""
 
   - name: Timestamp
     label: Timestamp

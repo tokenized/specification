@@ -14,11 +14,9 @@ fields:
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender created the offer."
     type: Timestamp
-    notes: ""
 
   - name: Payload
     label: Payload
     description: "Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer."
     type: varbin
     size: 32
-    notes: ""

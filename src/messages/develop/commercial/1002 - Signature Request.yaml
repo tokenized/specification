@@ -14,11 +14,9 @@ fields:
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
     type: Timestamp
-    notes: ""
 
   - name: Payload
     label: Payload
     description: "Full serialized bitcoin tx with multiple inputs from different wallets/users."
     type: varbin
     size: 32
-    notes: ""

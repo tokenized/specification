@@ -26,6 +26,4 @@ fields:
     type: varchar
     # varchar size is number of bits to serialize the size of the value
     size: 32
-    exampleHex: 00000008757365726e616d65
     example: "username"
-    notes: ""
