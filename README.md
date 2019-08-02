@@ -16,7 +16,7 @@ To build the project from source, clone the GitHub repo and in a command line te
 
     mkdir -p $GOPATH/src/github.com/tokenized
     cd $GOPATH/src/github.com/tokenized
-    git clone git@github.com:tokenized/specification
+    git clone git@github.com:tokenized/specification.git
     cd specification
 
 Navigate to the root directory and run:
