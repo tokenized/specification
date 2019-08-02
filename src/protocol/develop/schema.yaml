@@ -102,10 +102,10 @@ fieldAliases:
     type: uint
     size: 8
 
-  Address:
+  - name: Address
     type: varbin
     size: 1
 
-  AssetCode:
+  - name: AssetCode
     type: bin
     size: 32
