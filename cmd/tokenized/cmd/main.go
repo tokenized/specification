@@ -6,6 +6,7 @@ import (
 
 const (
 	FlagDebugMode = "debug"
+	FlagTestMode  = "test"
 )
 
 var scCmd = &cobra.Command{

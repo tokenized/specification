@@ -17,10 +17,10 @@ var cmdDecode = &cobra.Command{
 
 		raw := args[0]
 
-		debugMode, _ := c.Flags().GetBool(FlagDebugMode)
+		testMode, _ := c.Flags().GetBool(FlagTestMode)
 
-		if debugMode {
-			fmt.Println("Debug mode enabled!")
+		if testMode {
+			fmt.Println("Test mode enabled!")
 		}
 
 		b, err := hex.DecodeString(raw)
@@ -28,7 +28,7 @@ var cmdDecode = &cobra.Command{
 			panic(err)
 		}
 
-		m, err := protocol.Deserialize(b, true)
+		m, err := protocol.Deserialize(b, testMode)
 		if err != nil {
 			panic(err)
 		}
@@ -50,5 +50,5 @@ var cmdDecode = &cobra.Command{
 }
 
 func init() {
-	cmdDecode.Flags().Bool(FlagDebugMode, false, "Debug mode")
+	cmdDecode.Flags().Bool(FlagTestMode, false, "Test mode")
 }
