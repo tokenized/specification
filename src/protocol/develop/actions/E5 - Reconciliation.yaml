@@ -2,7 +2,7 @@
 # Reconciliation Action: to be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.
 #
 
-id: E5
+code: E5
 
 metadata:
   name: Reconciliation

@@ -2,7 +2,7 @@
 # SHC - Security
 #
 
-id: SHC
+code: SHC
 
 metadata:
   name: ShareCommon

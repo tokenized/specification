@@ -2,7 +2,7 @@
 # LOY - Loyalty Points
 #
 
-id: LOY
+code: LOY
 
 metadata:
   name: LoyaltyPoints

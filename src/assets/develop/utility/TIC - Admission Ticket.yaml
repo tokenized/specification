@@ -2,7 +2,7 @@
 # TIC - Admission Ticket
 #
 
-id: TIC
+code: TIC
 
 metadata:
   name: TicketAdmission

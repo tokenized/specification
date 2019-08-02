@@ -2,7 +2,7 @@
 # Freeze Action: To be used to comply with contractual/legal/issuer requirements.  The target public address(es) will be marked as frozen.  However the Freeze action publishes this fact to the public blockchain for transparency. The Contract will not respond to any actions requested by the frozen address.
 #
 
-id: E2
+code: E2
 
 metadata:
   name: Freeze

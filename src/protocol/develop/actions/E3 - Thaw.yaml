@@ -2,7 +2,7 @@
 # Thaw Action: to be used to comply with contractual obligations, legal requirements, or issuer requirements.  The target address(es) tokens will be unfrozen to allow them to resume normal exchange and governance activities.
 #
 
-id: E3
+code: E3
 
 metadata:
   name: Thaw

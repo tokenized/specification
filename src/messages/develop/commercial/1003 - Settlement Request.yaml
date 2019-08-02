@@ -2,7 +2,7 @@
 # Settlement Request Message: A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added.
 #
 
-id: 1003
+code: 1003
 
 metadata:
   name: SettlementRequest

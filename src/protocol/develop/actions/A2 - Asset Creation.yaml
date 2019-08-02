@@ -2,7 +2,7 @@
 # Asset Creation Action: This action creates an asset in response to the administration's instructions in the Definition Action.
 #
 
-id: A2
+code: A2
 
 metadata:
   name: AssetCreation

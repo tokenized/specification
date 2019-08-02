@@ -6,35 +6,19 @@
 name: Tokenized Asset Types
 
 # Unique Identifier
-code: assets
-
-# Codec Version
-version: 1
+package: assets
 
 # Output Template
 template: default
 
-# Message ID
-id:
+# Codec Version
+version: 1
+
+# Message Code used to determine which type of message is encoded.
+code:
     name: AssetType
     type: fixedchar
     size: 3
-
-# Define Header Fields
-headerFields:
-  - name: Version
-    label: Payload Version
-    description: The version number that this asset payload adheres to.
-    type: uint
-    size: 8
-    example: 1
-
-  - name: AssetType
-    label: Asset Type
-    description: The Asset Type that determines the expected contents of the asset payload.
-    type: fixedchar
-    size: 3
-    example: "SHC"
 
 # Register Supported Messages
 messages:

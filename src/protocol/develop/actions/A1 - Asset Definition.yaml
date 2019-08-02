@@ -2,7 +2,7 @@
 # Asset Definition Action: This action is used by the administration to define the properties/characteristics of the Asset (token) that it wants to create.
 #
 
-id: A1
+code: A1
 
 metadata:
   name: AssetDefinition

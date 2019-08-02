@@ -2,7 +2,7 @@
 # Removal Action: Removes an entry/record from the Register.
 #
 
-id: R4
+code: R4
 
 metadata:
   name: Removal

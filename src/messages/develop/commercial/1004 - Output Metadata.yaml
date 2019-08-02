@@ -2,7 +2,7 @@
 # Output Metadata: "A description that accompanies the output.  It is used to describe the purpose of the transaction and any associated useful details. Often encrypted (DH, RSA) to make it private for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the like for descriptions only visible to one of the transacting parties. Optional"
 #
 
-id: 1004
+code: 1004
 
 metadata:
   name: OutputMetadata

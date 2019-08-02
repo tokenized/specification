@@ -2,7 +2,7 @@
 # Addition Action: Adds an entry to the Register.
 #
 
-id: R2
+code: R2
 
 metadata:
   name: Addition

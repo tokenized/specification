@@ -6,16 +6,16 @@
 name: Tokenized Message Types
 
 # Unique Identifier
-code: messages
-
-# Codec Version
-version: 1
+package: messages
 
 # Output Template
 template: default
 
-# Message ID
-id:
+# Codec Version
+version: 1
+
+# Message Code used to determine which type of message is encoded.
+code:
     name: MessageCode
     type: uint
     size: 2

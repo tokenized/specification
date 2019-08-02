@@ -6,35 +6,19 @@
 name: Tokenized Protocol
 
 # Unique Identifier
-code: actions
-
-# Codec Version
-version: 1
+package: actions
 
 # Output Template
 template: default
 
-# Message ID
-id:
+# Codec Version
+version: 1
+
+# Message Code used to determine which type of message is encoded.
+code:
     name: ActionCode
     type: fixedchar
     size: 2
-
-# Define Header Fields
-headerFields:
-  - name: Version
-    label: Version
-    description: The version number that determines the structure of the action payload and field definitions.
-    type: uint
-    size: 8
-    example: 1
-
-  - name: ActionCode
-    label: Action Code
-    description: The Action Code that determines the expected contents of the action payload.
-    type: fixedchar
-    size: 2
-    example: "C1"
 
 # Register Supported Messages
 messages:

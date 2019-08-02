@@ -2,10 +2,10 @@
 # Static Contract Formation Action:
 #
 
-id: C4
+code: C4
 
 metadata:
-  name: StaticContract Formation
+  name: StaticContractFormation
   label: Static Contract Formation
   description: "Static Contract Formation Action"
 

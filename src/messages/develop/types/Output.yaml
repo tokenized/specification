@@ -2,7 +2,7 @@
 # Output provides a link to a specific output of a bitcoin transaction.
 #
 
-id: 0002
+code: 0002
 
 metadata:
   name: Output
