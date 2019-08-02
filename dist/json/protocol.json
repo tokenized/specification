@@ -1,0 +1,2683 @@
+{
+  "code": "actions",
+  "fieldAliases": [
+    {
+      "name": "Role",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "name": "EntityType",
+      "size": 1,
+      "type": "fixedchar"
+    },
+    {
+      "name": "Polity",
+      "size": 3,
+      "type": "fixedchar"
+    },
+    {
+      "name": "RejectionCode",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "name": "Tag",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "name": "Address",
+      "size": 1,
+      "type": "varbin"
+    },
+    {
+      "name": "AssetCode",
+      "size": 32,
+      "type": "bin"
+    }
+  ],
+  "fieldTypes": [
+    {
+      "fields": [
+        {
+          "description": "Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources",
+          "example": "7",
+          "label": "Administrator Type",
+          "name": "Type",
+          "type": "Role"
+        },
+        {
+          "description": "Length 0-255 bytes. 0 is valid.",
+          "example": "Satoshi Nakamoto",
+          "label": "Administrator Name",
+          "name": "Name",
+          "size": 1,
+          "type": "varchar"
+        }
+      ],
+      "metadata": {
+        "description": "Administrator is used to refer to a Administration role in an Entity.",
+        "label": "Administrator",
+        "name": "Administrator"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Index of the field to be amended.",
+          "example": 2,
+          "label": "Field Index",
+          "name": "FieldIndex",
+          "notes": "A field with a complex array type uses the same FieldIndex value for all elements. For example, in C1 the VotingSystems field is FieldIndex 16. Indexes are zero based.",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value \u003e 0 for a simple type will result in a Rejection.",
+          "example": 0,
+          "label": "Element",
+          "name": "Element",
+          "notes": "To specify the 3rd VotingSystem of a Contract, the value 2 would be given. Indexes are zero based.",
+          "size": 2,
+          "type": "uint"
+        },
+        {
+          "description": "Index of the subfield to be amended. This only applies to specific fields containing complex types with subfields. This is used to specify which field of the object the amendment applies to.",
+          "example": 1,
+          "label": "Subfield Index",
+          "name": "SubfieldIndex",
+          "notes": "For example to specify the 2nd field of a VotingSystem, value 1 would be given.",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value \u003e 0 for a simple type will result in a Rejection.",
+          "example": 1,
+          "label": "Subfield Element",
+          "name": "SubfieldElement",
+          "notes": "For example to specify the 2nd field of a VotingSystem, value 1 would be given.",
+          "size": 2,
+          "type": "uint"
+        },
+        {
+          "description": "0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.",
+          "example": 0,
+          "label": "Operation",
+          "name": "Operation",
+          "size": 1,
+          "type": "uint",
+          "values": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "description": "New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol.",
+          "label": "Data",
+          "name": "Data",
+          "notes": "The bytes should be in an format appropriate for the field being modified.",
+          "size": 4,
+          "type": "varbin"
+        }
+      ],
+      "metadata": {
+        "description": "An Amendment is used to describe the modification of a single field in a Contract or Asset, as defined in the ContractFormation and AssetCreation messages.",
+        "label": "Amendment",
+        "name": "Amendment",
+        "notes": "Header, timestamp, and count fields that are generated or managed by the Smart Contract are included in the index of fields for consistency, although they cannot be modified on request, or in the case of a count field, there are expectations such as the count matching the number of elements in the related field. An example of a count field is VotingSystemCount in a ContractFormation, which specifies the number of VotingSystems. Indexes are zero based."
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "The address receiving the tokens",
+          "label": "Address",
+          "name": "Address",
+          "type": "PublicKeyHash"
+        },
+        {
+          "description": "Number of tokens to be received by address at Output X",
+          "example": 100,
+          "label": "Quantity",
+          "name": "Quantity",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has oracles, then a signature is required from one of them.",
+          "example": 1,
+          "int_values": [
+            0,
+            1
+          ],
+          "label": "Oracle Signature Algorithm",
+          "name": "OracleSigAlgorithm",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Specifies the index into the list of oracles in the contract offer that was used to authorize this transfer.",
+          "include_if_int": {
+            "field": "OracleSigAlgorithm",
+            "values": [
+              1
+            ]
+          },
+          "label": "Oracle Index",
+          "name": "OracleIndex",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.",
+          "include_if_int": {
+            "field": "OracleSigAlgorithm",
+            "values": [
+              1
+            ]
+          },
+          "label": "Oracle Confirmation Signature",
+          "name": "OracleConfirmationSig",
+          "size": 1,
+          "type": "varbin"
+        },
+        {
+          "description": "The block height of the block hash used in the oracle signature.",
+          "include_if_int": {
+            "field": "OracleSigAlgorithm",
+            "values": [
+              1
+            ]
+          },
+          "label": "Oracle Signature Block height",
+          "name": "OracleSigBlockHeight",
+          "size": 4,
+          "type": "uint"
+        }
+      ],
+      "metadata": {
+        "description": "An AssetReceiver is a quantity, address, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The address is where the asset will be sent.",
+        "label": "AssetReceiver",
+        "name": "AssetReceiver"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Index of input containing the contract's address for this offset",
+          "label": "Contract Index",
+          "name": "ContractIndex",
+          "size": 2,
+          "type": "uint"
+        },
+        {
+          "description": "Three letter character that specifies the asset type. Example: COU",
+          "example": "SHC",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.",
+          "label": "Settlements[]",
+          "name": "Settlements",
+          "type": "QuantityIndex[]"
+        }
+      ],
+      "metadata": {
+        "description": "AssetSettlement is the data required to settle an asset transfer.",
+        "label": "Asset Settlement",
+        "name": "AssetSettlement"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Index of output containing the contract's address for this offset",
+          "label": "Contract Index",
+          "name": "ContractIndex",
+          "size": 2,
+          "type": "uint"
+        },
+        {
+          "description": "Three letter character that specifies the asset type. Example: COU",
+          "example": "SHC",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "Each element has the value of tokens to be spent from the input address, which is referred to by the index.",
+          "label": "Asset Senders",
+          "name": "AssetSenders",
+          "type": "QuantityIndex[]"
+        },
+        {
+          "description": "Each element has the value of tokens to be received, the address, and an oracle signature if required.",
+          "label": "Asset Receivers",
+          "name": "AssetReceivers",
+          "type": "AssetReceiver[]"
+        }
+      ],
+      "metadata": {
+        "description": "AssetTransfer is the data required to transfer an asset.",
+        "label": "Asset Transfer",
+        "name": "AssetTransfer"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid.",
+          "example": "Agreement.pdf",
+          "label": "Document Name",
+          "name": "Name",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "MIME type of the file. Length 0-255 bytes. 0 is valid. ",
+          "example": "application/pdf",
+          "label": "MIME Type",
+          "name": "Type",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "The contents of the file.",
+          "label": "File Contents",
+          "name": "Contents",
+          "size": 4,
+          "type": "varbin"
+        }
+      ],
+      "metadata": {
+        "description": "A file containing data.",
+        "label": "Document",
+        "name": "Document"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. ",
+          "example": "Tesla Inc.",
+          "label": "Name",
+          "name": "Name",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "The type of entity. (i.e Public Company, Individual) (Specification/Resources).",
+          "example": "P",
+          "label": "Type",
+          "name": "Type",
+          "type": "EntityType"
+        },
+        {
+          "description": "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs.",
+          "example": "54930084UKLVMY22DS16",
+          "label": "Legal Entity Identifier",
+          "name": "LEI",
+          "notes": "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier",
+          "size": 20,
+          "type": "fixedchar"
+        },
+        {
+          "description": "Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.",
+          "example": "1",
+          "label": "Address Included",
+          "name": "AddressIncluded",
+          "notes": "Entity/Contracting Party X Details",
+          "type": "bool"
+        },
+        {
+          "description": "Issuer/Entity/Contracting Party X Address Details (eg. HQ)",
+          "example": "2",
+          "include_if_true": "AddressIncluded",
+          "label": "Unit Number",
+          "name": "UnitNumber",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "",
+          "example": "13577",
+          "include_if_true": "AddressIncluded",
+          "label": "Building Number",
+          "name": "BuildingNumber",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "",
+          "example": "Fairmont Ave",
+          "include_if_true": "AddressIncluded",
+          "label": "Street",
+          "name": "Street",
+          "size": 2,
+          "type": "varchar"
+        },
+        {
+          "description": "",
+          "example": "Robinoh",
+          "include_if_true": "AddressIncluded",
+          "label": "Suburb/City",
+          "name": "SuburbCity",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "",
+          "example": "BC",
+          "include_if_true": "AddressIncluded",
+          "label": "Territory/State/Province Code",
+          "name": "TerritoryStateProvinceCode",
+          "size": 5,
+          "type": "fixedchar"
+        },
+        {
+          "description": "",
+          "example": "USA",
+          "include_if_true": "AddressIncluded",
+          "label": "Country Code",
+          "name": "CountryCode",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "",
+          "example": "50210",
+          "include_if_true": "AddressIncluded",
+          "label": "Postal/ZIP Code",
+          "name": "PostalZIPCode",
+          "size": 12,
+          "type": "fixedchar"
+        },
+        {
+          "description": "Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address",
+          "example": "satoshi@tokenized.com",
+          "label": "Email Address",
+          "name": "EmailAddress",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Length 0-50 bytes. 0 is valid. Phone Number for Entity.",
+          "example": "0448484848",
+          "label": "Phone Number",
+          "name": "PhoneNumber",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc.",
+          "label": "Administration",
+          "name": "Administration",
+          "type": "Administrator[]"
+        },
+        {
+          "description": "A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc.",
+          "label": "Management",
+          "name": "Management",
+          "type": "Manager[]"
+        }
+      ],
+      "metadata": {
+        "description": "Entity represents the details of a legal Entity, such as a public or private company, government agency, or and individual.",
+        "label": "Entity",
+        "name": "Entity"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "CEO, COO, CFO, etc. Found in 'Roles' in Specification/Resources",
+          "example": "5",
+          "label": "Manager Type",
+          "name": "Type",
+          "type": "Role"
+        },
+        {
+          "description": "Length 0-255 bytes. 0 is valid.",
+          "example": "Satoshi Nakamoto",
+          "label": "Manager Name",
+          "name": "Name",
+          "size": 1,
+          "type": "varchar"
+        }
+      ],
+      "metadata": {
+        "description": "Manager is used to refer to a role that is responsible for the Management of an Entity.",
+        "label": "Manager",
+        "name": "Manager"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Length 0-255 bytes. 0 is valid. Oracle X Name (eg. Coinbase, Tokenized, etc.)",
+          "example": "Tokenized",
+          "label": "Oracle Name",
+          "name": "Name",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint",
+          "example": "http://oracle.tokenized.com/api/3650d9/version2010",
+          "label": "Oracle URL",
+          "name": "URL",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle.",
+          "label": "Oracle Public Key",
+          "name": "PublicKey",
+          "size": 1,
+          "type": "varbin"
+        }
+      ],
+      "metadata": {
+        "description": "A Oracle defines the details of a public Oracle.",
+        "label": "Oracle",
+        "name": "Oracle"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "The index of the input/output (depending on context) sending/receiving the tokens.",
+          "example": 0,
+          "label": "Index",
+          "name": "Index",
+          "size": 2,
+          "type": "uint"
+        },
+        {
+          "description": "Number of tokens being sent",
+          "example": 100,
+          "label": "Quantity",
+          "name": "Quantity",
+          "size": 8,
+          "type": "uint"
+        }
+      ],
+      "metadata": {
+        "description": "A QuantityIndex contains a quantity, and an index. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input or output index position.",
+        "label": "Quantity Index",
+        "name": "QuantityIndex"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Public address where the token balance will be changed.",
+          "label": "Address",
+          "name": "Address",
+          "type": "PublicKeyHash"
+        },
+        {
+          "description": "Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.",
+          "example": "10000",
+          "label": "Quantity",
+          "name": "Quantity",
+          "size": 8,
+          "type": "uint"
+        }
+      ],
+      "metadata": {
+        "description": "A TargetAddress defines a public address and quantity.",
+        "label": "Target Address",
+        "name": "TargetAddress"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.",
+          "example": "Special Resolutions",
+          "label": "Voting System Name",
+          "name": "Name",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "R - Relative Threshold, A - Absolute Threshold, P - Plurality,  (Relative Threshold means the number of counted votes must exceed the threshold % of total ballots cast.  Abstentations/spoiled votes do not detract from the liklihood of a vote passing as they are not included in the denominator.  Absolute Threshold requires the number of ballots counted to exceed the threshold value when compared to the total outstanding tokens.  Abstentations/spoiled votes detract from the liklihood of the vote passing.  For example, in an absolute threshold vote, if the threshold was 50% and 51% of the total outstanding tokens did not vote, then the vote cannot pass.  50% of all tokens would have had to vote for one vote option for the vote to be successful. Plurality means the most favoured option is selected, regardless of the number of votes cast or the percentage relative to other choices.",
+          "example": "A",
+          "label": "Vote Type",
+          "name": "VoteType",
+          "size": 1,
+          "type": "fixedchar"
+        },
+        {
+          "description": "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) ",
+          "example": "0",
+          "label": "Tally Logic",
+          "name": "TallyLogic",
+          "size": 1,
+          "type": "fixedchar"
+        },
+        {
+          "description": "This field is ignored when VoteType is P (Plurality). Otherwise it is the percentage of ballots required for a proposal to pass. Valid values are greater than 0 and less than 100. 75 means 75% and greater.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.",
+          "example": "75",
+          "label": "Threshold Percentage for the Voting System",
+          "name": "ThresholdPercentage",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Where an asset has a vote multiplier, true must be set here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.",
+          "label": "VoteMultiplierPermitted",
+          "name": "VoteMultiplierPermitted",
+          "type": "bool"
+        },
+        {
+          "description": "Token Owners must pay the fee amount to broadcast a valid Proposal.  If the Proposal action is valid, the smart contract will start a vote. 0 is valid.",
+          "example": "100",
+          "label": "Holder Proposal Fee for the Voting System",
+          "name": "HolderProposalFee",
+          "size": 8,
+          "type": "uint"
+        }
+      ],
+      "metadata": {
+        "description": "A VotingSystem defines all details of a Voting System.",
+        "label": "Voting System",
+        "name": "VotingSystem"
+      }
+    }
+  ],
+  "headerFields": [
+    {
+      "description": "The version number that determines the structure of the action payload and field definitions.",
+      "example": 1,
+      "label": "Version",
+      "name": "Version",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "description": "The Action Code that determines the expected contents of the action payload.",
+      "example": "C1",
+      "label": "Action Code",
+      "name": "ActionCode",
+      "size": 2,
+      "type": "fixedchar"
+    }
+  ],
+  "id": {
+    "name": "ActionCode",
+    "size": 2,
+    "type": "fixedchar"
+  },
+  "messages": [
+    {
+      "fields": [
+        {
+          "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
+          "example": "Tesla - Shareholder Agreement",
+          "label": "Contract Name",
+          "name": "ContractName",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "example": "1",
+          "intValues": [
+            1,
+            2
+          ],
+          "label": "Body of Agreement Type",
+          "name": "BodyOfAgreementType",
+          "notes": "Body of Agreement - Amendments can be restricted to a vote.",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
+          "label": "Body of Agreement",
+          "name": "BodyOfAgreement",
+          "size": 4,
+          "type": "varbin"
+        },
+        {
+          "description": "Describes the purpose of the contract.",
+          "example": "Shareholder Agreement",
+          "label": "Contract Type",
+          "name": "ContractType",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Supporting documents that are important to the contract.",
+          "label": "Supporting Documentation",
+          "name": "SupportingDocs",
+          "type": "Document[]"
+        },
+        {
+          "description": "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.",
+          "example": "USA",
+          "label": "Governing Law",
+          "name": "GoverningLaw",
+          "notes": "Governing Law - Amendments can be restricted to a vote.",
+          "size": 5,
+          "type": "fixedchar"
+        },
+        {
+          "description": "Legal proceedings/arbitration will take place using the specified Governing Law in this location.",
+          "example": "US-CA",
+          "label": "Jurisdiction",
+          "name": "Jurisdiction",
+          "notes": "Jurisdiction - Amendments can be restricted to a vote.",
+          "size": 5,
+          "type": "fixedchar"
+        },
+        {
+          "description": "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.",
+          "example": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+          "label": "Contract Expiration",
+          "name": "ContractExpiration",
+          "notes": "Contract Expiration - Amendments can be restricted to a vote.",
+          "type": "Timestamp"
+        },
+        {
+          "description": "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).",
+          "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+          "label": "Contract URI",
+          "name": "ContractURI",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "The issuer of this contract.",
+          "label": "Issuer",
+          "name": "Issuer",
+          "type": "Entity"
+        },
+        {
+          "description": "The URL of the issuer's logo.",
+          "example": "https://example.com/images/logo.png",
+          "label": "Issuer Logo URL",
+          "name": "IssuerLogoURL",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization.",
+          "label": "Contract Operator Included",
+          "name": "ContractOperatorIncluded",
+          "type": "bool"
+        },
+        {
+          "description": "An additional entity with operator access to the contract.",
+          "includeIfTrue": "ContractOperatorIncluded",
+          "label": "Contract Operator",
+          "name": "ContractOperator",
+          "type": "Entity"
+        },
+        {
+          "description": "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.",
+          "label": "Contract Authorization Flags",
+          "name": "ContractAuthFlags",
+          "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
+          "size": 16,
+          "type": "varbin"
+        },
+        {
+          "description": "Satoshis required to be paid to the contract for each asset action.",
+          "label": "Contract Fee",
+          "name": "ContractFee",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "A list of voting systems.",
+          "label": "Voting Systems",
+          "name": "VotingSystems",
+          "type": "VotingSystem[]"
+        },
+        {
+          "description": "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
+          "example": "1",
+          "label": "Restricted Qty of Assets",
+          "name": "RestrictedQtyAssets",
+          "notes": "Qty of Assets - Amendments can be restricted to a vote.",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "Set to true if the administration is permitted to make proposals outside of the smart contract scope.",
+          "example": true,
+          "label": "Administration Proposal",
+          "name": "AdministrationProposal",
+          "notes": "General Governance",
+          "type": "bool"
+        },
+        {
+          "description": "Set to true if a holder is permitted to make proposals outside of the smart contract scope.",
+          "example": true,
+          "label": "Holder Proposal",
+          "name": "HolderProposal",
+          "type": "bool"
+        },
+        {
+          "description": "A list of oracles that provide approval for all token transfers for all assets under the contract.",
+          "label": "Oracles",
+          "name": "Oracles",
+          "type": "Oracle[]"
+        },
+        {
+          "description": "The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.",
+          "label": "Master Public Key Hash",
+          "name": "MasterPKH",
+          "type": "PublicKeyHash"
+        }
+      ],
+      "id": "C1",
+      "metadata": {
+        "description": "Allows the administration to tell the smart contract what they want the details (labels, data, T\u0026C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.",
+        "inputs": [
+          {
+            "comments": "The smart contract sets the administration's public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are controlled by the administration according to the protocol.",
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          },
+          {
+            "comments": "Can also be used as a cold storage backup for the issuer. This is important if the issuer wants to be able to change their address as changes to the issuer or operator pkh in an amendment require signatures from both the issuer and the operator pkhs. The one exception to this rule, the Contract Operator can nominate a secondary controlling public address that can act on behalf of the issuer for issuer related requests. Typically this will be the Smart Contract Operator.\n",
+            "label": "Contract Operator's Public Address (Optional)",
+            "name": "ContractOperator"
+          }
+        ],
+        "label": "Contract Offer",
+        "name": "ContractOffer",
+        "outputs": [
+          {
+            "comments": "A contract address that has no other contract associated to it already.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the administration will have to reissue the entire contract, asset definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
+          "example": "Tesla - Shareholder Agreement",
+          "label": "Contract Name",
+          "name": "ContractName",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "example": "1",
+          "intValues": [
+            1,
+            2
+          ],
+          "label": "Body of Agreement Type",
+          "name": "BodyOfAgreementType",
+          "notes": "Body of Agreement - Amendments can be restricted to a vote.",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
+          "label": "Body of Agreement",
+          "name": "BodyOfAgreement",
+          "size": 4,
+          "type": "varbin"
+        },
+        {
+          "description": "Describes the purpose of the contract.",
+          "example": "Shareholder Agreement",
+          "label": "Contract Type",
+          "name": "ContractType",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Supporting documents that are important to the contract.",
+          "label": "Supporting Documentation",
+          "name": "SupportingDocs",
+          "type": "Document[]"
+        },
+        {
+          "description": "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.",
+          "example": "USA",
+          "label": "Governing Law",
+          "name": "GoverningLaw",
+          "notes": "Governing Law - Amendments can be restricted to a vote.",
+          "size": 5,
+          "type": "fixedchar"
+        },
+        {
+          "description": "Legal proceedings/arbitration will take place using the specified Governing Law in this location.",
+          "example": "US-CA",
+          "label": "Jurisdiction",
+          "name": "Jurisdiction",
+          "notes": "Jurisdiction - Amendments can be restricted to a vote.",
+          "size": 5,
+          "type": "fixedchar"
+        },
+        {
+          "description": "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.",
+          "example": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+          "label": "Contract Expiration",
+          "name": "ContractExpiration",
+          "notes": "Contract Expiration - Amendments can be restricted to a vote.",
+          "type": "Timestamp"
+        },
+        {
+          "description": "Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).",
+          "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+          "label": "Contract URI",
+          "name": "ContractURI",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "The issuer of this contract.",
+          "label": "Issuer",
+          "name": "Issuer",
+          "type": "Entity"
+        },
+        {
+          "description": "The URL of the issuer's logo.",
+          "example": "https://example.tld/images/logo.png",
+          "label": "Issuer Logo URL",
+          "name": "IssuerLogoURL",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization.",
+          "label": "Contract Operator Included",
+          "name": "ContractOperatorIncluded",
+          "type": "bool"
+        },
+        {
+          "description": "An additional entity with operator access to the contract.",
+          "includeIfTrue": "ContractOperatorIncluded",
+          "label": "Contract Operator",
+          "name": "ContractOperator",
+          "type": "Entity"
+        },
+        {
+          "description": "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement",
+          "label": "Contract Authorization Flags",
+          "name": "ContractAuthFlags",
+          "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
+          "size": 2,
+          "type": "varbin"
+        },
+        {
+          "description": "Satoshis required to be paid to the contract for each asset action.",
+          "label": "Contract Fee",
+          "name": "ContractFee",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "A list voting systems.",
+          "label": "Voting Systems",
+          "name": "VotingSystems",
+          "type": "VotingSystem[]"
+        },
+        {
+          "description": "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
+          "example": "1",
+          "label": "Restricted Qty of Assets",
+          "name": "RestrictedQtyAssets",
+          "notes": "Qty of Assets - Amendments can be restricted to a vote.",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "Set to true if the administration is permitted to make proposals outside of the smart contract scope.",
+          "example": true,
+          "label": "Administration Proposal",
+          "name": "AdministrationProposal",
+          "notes": "General Governance",
+          "type": "bool"
+        },
+        {
+          "description": "Set to true if a holder is permitted to make proposals outside of the smart contract scope.",
+          "example": true,
+          "label": "Holder Proposal",
+          "name": "HolderProposal",
+          "type": "bool"
+        },
+        {
+          "description": "A list of oracles that provide approval for all token transfers for all assets under the contract.",
+          "label": "Oracles",
+          "name": "Oracles",
+          "type": "Oracle[]"
+        },
+        {
+          "description": "The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.",
+          "label": "Master Public Key Hash",
+          "name": "MasterPKH",
+          "type": "PublicKeyHash"
+        },
+        {
+          "description": "A counter for the number of times this contract has been revised using an amendment action.",
+          "example": "0",
+          "label": "Contract Revision",
+          "name": "ContractRevision",
+          "notes": "Can't be changed by the administration or smart contract operator.",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "C2",
+      "metadata": {
+        "description": "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf.",
+        "inputs": [
+          {
+            "comments": "The related contract address.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Contract Formation",
+        "name": "ContractFormation",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the contract for updates to contract/assets.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Used to change the administration address.  The new administration address must be in the input[1] position. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action.",
+          "example": 1,
+          "label": "Change Administration Address",
+          "name": "ChangeAdministrationAddress",
+          "type": "bool"
+        },
+        {
+          "description": "Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless the administration is being changed too, then it is in input[2]. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action.",
+          "example": 1,
+          "label": "Change Operator Address",
+          "name": "ChangeOperatorAddress",
+          "type": "bool"
+        },
+        {
+          "description": "Counter 0 to (2^32)-1",
+          "example": 42,
+          "label": "Contract Revision",
+          "name": "ContractRevision",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "A collection of modifications to perform on this contract.",
+          "label": "Amendments",
+          "name": "Amendments",
+          "type": "Amendment[]"
+        },
+        {
+          "description": "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details.",
+          "label": "Ref Tx ID",
+          "name": "RefTxID",
+          "type": "TxId"
+        }
+      ],
+      "id": "C3",
+      "metadata": {
+        "description": "The administration can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action.",
+        "inputs": [
+          {
+            "comments": "This action can only come from the administration.",
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          },
+          {
+            "comments": "Only treated as the new administration address when the Change Administration Address flag is set to true.",
+            "label": "New Administration Public Address",
+            "name": "NewAdministration"
+          }
+        ],
+        "label": "Contract Amendment",
+        "name": "ContractAmendment",
+        "outputs": [
+          {
+            "comments": "The related contract address.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public address. If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
+          "example": "Tesla - Shareholder Agreement",
+          "label": "Contract Name",
+          "name": "ContractName",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "32 randomly generated bytes. Each Contract Code should be unique. The Contract ID will be human facing and will be the Contract Code, with a checksum, encoded in base58 and prefixed by 'CON'. Contract ID = CON + base58(ContractCode + checksum).  Eg. Contract ID = 'CON18RDoKK7Ed5zid2FkKVy7q3rULr4tgfjr4'",
+          "label": "Contract Code",
+          "name": "ContractCode",
+          "notes": null,
+          "type": "ContractCode"
+        },
+        {
+          "description": "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "example": "1",
+          "intValues": [
+            1,
+            2
+          ],
+          "label": "Body of Agreement Type",
+          "name": "BodyOfAgreementType",
+          "notes": "Body of Agreement - Amendments can be restricted to a vote.",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
+          "label": "Body of Agreement",
+          "name": "BodyOfAgreement",
+          "size": 4,
+          "type": "varbin"
+        },
+        {
+          "description": "Describes the purpose of the contract.",
+          "example": "Non-Disclosure Agreement",
+          "label": "Contract Type",
+          "name": "ContractType",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Supporting documents that are important to the contract.",
+          "label": "Supporting Documentation",
+          "name": "SupportingDocs",
+          "type": "Document[]"
+        },
+        {
+          "description": "Counter 0 to (2^32)-1",
+          "example": "0",
+          "label": "Contract Revision",
+          "name": "ContractRevision",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.",
+          "example": "USA",
+          "label": "Governing Law",
+          "name": "GoverningLaw",
+          "size": 5,
+          "type": "fixedchar"
+        },
+        {
+          "description": "Legal proceedings/arbitration will take place using the specified Governing Law in this location.",
+          "example": "US-CA",
+          "label": "Jurisdiction",
+          "name": "Jurisdiction",
+          "size": 5,
+          "type": "fixedchar"
+        },
+        {
+          "description": "Start date of the contract.",
+          "label": "Effective Date",
+          "name": "EffectiveDate",
+          "type": "Timestamp"
+        },
+        {
+          "description": "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.",
+          "label": "Contract Expiration",
+          "name": "ContractExpiration",
+          "type": "Timestamp"
+        },
+        {
+          "description": "Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the Asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on chain information or even a public address (DNS).",
+          "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+          "label": "Contract URI",
+          "name": "ContractURI",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "The Tx-ID of the previous contract revision.",
+          "label": "PrevRevTxID",
+          "name": "PrevRevTxID",
+          "type": "TxId"
+        },
+        {
+          "description": "A list of legal entities associated with this contract.",
+          "label": "Entities",
+          "name": "Entities",
+          "type": "Entity[]"
+        }
+      ],
+      "id": "C4",
+      "metadata": {
+        "description": "Static Contract Formation Action",
+        "inputs": [
+          {
+            "comments": "Any number of involved parties with this contract.",
+            "label": "Issuer or Party X Public Address",
+            "name": "PartyX"
+          }
+        ],
+        "label": "Static Contract Formation",
+        "name": "StaticContract Formation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "The address to be used by all future requests/responses for the contract.",
+          "label": "New Contract PKH",
+          "name": "NewContractPKH",
+          "type": "PublicKeyHash"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the action was created.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "C5",
+      "metadata": {
+        "description": "This txn is signed by the master contract key defined in the contract formation and changes the active contract address which the contract uses to receive and respond to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.",
+        "inputs": [
+          {
+            "comments": "The contract master address.",
+            "label": "Contract Master Public Address",
+            "name": "ContractMaster"
+          }
+        ],
+        "label": "Contract Address Change",
+        "name": "ContractAddressChange",
+        "outputs": [
+          {
+            "comments": "Currently active, and soon to be deactivated, contract address.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          },
+          {
+            "comments": "The address the contract will use from this point forward.",
+            "label": "New Contract Public Address",
+            "name": "NewContract"
+          }
+        ]
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
+          "label": "Asset Authorization Flags",
+          "name": "AssetAuthFlags",
+          "size": 1,
+          "type": "varbin"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "example": 1,
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        },
+        {
+          "description": "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
+          "example": "GBR",
+          "label": "Trade Restrictions",
+          "name": "TradeRestrictions",
+          "size": 2,
+          "type": "Polity[]"
+        },
+        {
+          "description": "Set to true if the administration is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature.",
+          "example": 1,
+          "label": "Enforcement Orders Permitted",
+          "name": "EnforcementOrdersPermitted",
+          "type": "bool"
+        },
+        {
+          "description": "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.",
+          "label": "Voting Rights",
+          "name": "VotingRights",
+          "type": "bool"
+        },
+        {
+          "description": "Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens.",
+          "example": "3",
+          "label": "Vote Multiplier",
+          "name": "VoteMultiplier",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Set to true if the administration is permitted to make proposals outside of the smart contract scope.",
+          "example": true,
+          "label": "Administration Proposal",
+          "name": "AdministrationProposal",
+          "notes": "General Governance",
+          "type": "bool"
+        },
+        {
+          "description": "Set to true if a holder is permitted to make proposals outside of the smart contract scope.",
+          "example": true,
+          "label": "Holder Proposal",
+          "name": "HolderProposal",
+          "type": "bool"
+        },
+        {
+          "description": "Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
+          "example": "1",
+          "intValues": [
+            0,
+            1
+          ],
+          "label": "Asset Modification Governance",
+          "name": "AssetModificationGovernance",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
+          "example": "1000000",
+          "label": "Token Quantity",
+          "name": "TokenQty",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.",
+          "label": "Asset Payload",
+          "name": "AssetPayload",
+          "size": 2,
+          "type": "varbin"
+        }
+      ],
+      "id": "A1",
+      "metadata": {
+        "description": "This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum). An asset is always linked to a contract that is identified by the public address of the Contract wallet.\n",
+        "inputs": [
+          {
+            "comments": "This action can only come from the administration.",
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          }
+        ],
+        "label": "Asset Definition",
+        "name": "AssetDefinition",
+        "outputs": [
+          {
+            "comments": "The contract that this asset should be assigned to. Must include enough for the responding action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "The index of the asset within the contract. First asset is zero, second is one. Used to derive the asset code.",
+          "label": "Asset Index",
+          "name": "AssetIndex",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
+          "label": "Asset Authorization Flags",
+          "name": "AssetAuthFlags",
+          "size": 1,
+          "type": "varbin"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "example": 1,
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        },
+        {
+          "description": "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
+          "example": "GBR",
+          "label": "Trade Restrictions",
+          "name": "TradeRestrictions",
+          "size": 2,
+          "type": "Polity[]"
+        },
+        {
+          "description": "Set to true if the administration is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature.",
+          "example": 1,
+          "label": "Enforcement Orders Permitted",
+          "name": "EnforcementOrdersPermitted",
+          "type": "bool"
+        },
+        {
+          "description": "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.",
+          "label": "Voting Rights",
+          "name": "VotingRights",
+          "type": "bool"
+        },
+        {
+          "description": "Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens.",
+          "example": "3",
+          "label": "Vote Multiplier",
+          "name": "VoteMultiplier",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Set to true if the administration is permitted to make proposals outside of the smart contract scope.",
+          "example": true,
+          "label": "Administration Proposal",
+          "name": "AdministrationProposal",
+          "notes": "General Governance",
+          "type": "bool"
+        },
+        {
+          "description": "Set to true if a holder is permitted to make proposals outside of the smart contract scope.",
+          "example": true,
+          "label": "Holder Proposal",
+          "name": "HolderProposal",
+          "type": "bool"
+        },
+        {
+          "description": "Supported values: 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
+          "example": "1",
+          "intValues": [
+            0,
+            1
+          ],
+          "label": "Asset Modification Governance",
+          "name": "AssetModificationGovernance",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
+          "example": "1000000",
+          "label": "Token Quantity",
+          "name": "TokenQty",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.",
+          "label": "Asset Payload",
+          "name": "AssetPayload",
+          "size": 2,
+          "type": "varbin"
+        },
+        {
+          "description": "A counter for the number of times this asset has been revised using a modification action.",
+          "label": "Asset Revision",
+          "name": "AssetRevision",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration or operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "A2",
+      "metadata": {
+        "description": "This action creates an asset in response to the administration's instructions in the Definition Action.",
+        "inputs": [
+          {
+            "comments": "The contract that this asset was assigned to.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Asset Creation",
+        "name": "AssetCreation",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the contract for updates to contract/assets.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Three letter character that specifies the asset type.",
+          "example": "SHC",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "The current revision figure to ensure the modification provided is based on the latest version.",
+          "example": "0",
+          "label": "Asset Revision",
+          "name": "AssetRevision",
+          "notes": "Cannot be Amended",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "A collection of modifications to perform on this asset.",
+          "label": "Amendments",
+          "name": "Amendments",
+          "type": "Amendment[]"
+        },
+        {
+          "description": "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details.",
+          "label": "Ref Tx ID",
+          "name": "RefTxID",
+          "type": "TxId"
+        }
+      ],
+      "id": "A3",
+      "metadata": {
+        "description": "Token Dilutions, Call Backs/Revocations, burning etc.",
+        "inputs": [
+          {
+            "comments": "This action can only come from the administration.",
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          }
+        ],
+        "label": "Asset Modification",
+        "name": "AssetModification",
+        "outputs": [
+          {
+            "comments": "The contract that this asset currently belongs to. Must include enough for the responding action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "The Assets involved in the Transfer Action.",
+          "label": "Assets",
+          "name": "Assets",
+          "type": "AssetTransfer[]"
+        },
+        {
+          "description": "This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins.",
+          "label": "Offer Expiry",
+          "name": "OfferExpiry",
+          "type": "Timestamp"
+        },
+        {
+          "description": "Fixed amount of bitcoin being paid to an exchange for facilitating a transfer.",
+          "example": "0.01",
+          "label": "Exchange Fee",
+          "name": "ExchangeFee",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "Identifies the public address that the exchange fee should be paid to.",
+          "label": "Exchange Fee Address",
+          "name": "ExchangeFeeAddress",
+          "type": "PublicKeyHash"
+        }
+      ],
+      "id": "T1",
+      "metadata": {
+        "description": "A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.",
+        "inputs": [
+          {
+            "comments": "Asset (token) Sending Public Address. Assets[i].AssetSenders[j].Index references these inputs.",
+            "label": "Asset Senders",
+            "name": "AssetSenders"
+          }
+        ],
+        "label": "Transfer",
+        "name": "Transfer",
+        "outputs": [
+          {
+            "comments": "Enough for the costs of the responding action, including any bitcoins being transfered, and the Contract Fee.",
+            "label": "Contract Public Address for Asset X",
+            "name": "AssetContract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "The Assets settled by the transfer action.",
+          "label": "Assets",
+          "name": "Assets",
+          "type": "AssetSettlement[]"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "T2",
+      "metadata": {
+        "description": "Settles the transfer request of bitcoins and tokens from transfer (T1) actions.",
+        "inputs": [
+          {
+            "comments": "Contract (Asset X) in response to a transfer action with Asset X being sent to another address(es).",
+            "label": "Contract Public Address (Asset X)",
+            "name": "AssetXContract"
+          }
+        ],
+        "label": "Settlement",
+        "name": "Settlement",
+        "outputs": [
+          {
+            "comments": "Address X that is being settled for Asset 1.",
+            "label": "Asset 1 Settlement Address X",
+            "name": "AssetXSettlementAddressX"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Who initiated the proposal. Supported values: 0 - Administration, 1 - Holder",
+          "intValues": [
+            0,
+            1
+          ],
+          "label": "Initiator",
+          "name": "Initiator",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "When true this proposal is specific to an asset and the asset type and asset code fields are serialized.",
+          "label": "Asset Specific Vote",
+          "name": "AssetSpecificVote",
+          "type": "bool"
+        },
+        {
+          "description": "Three letter character that specifies the asset type.",
+          "example": "SHC",
+          "includeIfTrue": "AssetSpecificVote",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "includeIfTrue": "AssetSpecificVote",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "X for Vote System X. (1-255, 0 is not valid.)",
+          "example": "1",
+          "label": "Vote System",
+          "name": "VoteSystem",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "When true the ProposedAmendments field is included and specifies the exact changes to make to the contract/asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update.",
+          "label": "Specific",
+          "name": "Specific",
+          "type": "bool"
+        },
+        {
+          "description": "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.",
+          "includeIfTrue": "Specific",
+          "label": "Proposed Amendments",
+          "name": "ProposedAmendments",
+          "type": "Amendment[]"
+        },
+        {
+          "description": "Length 1-255 bytes. 0 is not valid. Each byte allows for a different vote option. Typical votes will likely be multiple choice or Y/N. Vote instances are identified by the Tx-ID. AB would be used for Y/N (binary) type votes. When Specific is true, only AB is a valid value.",
+          "example": "ABCDEFGHIJKLMNO",
+          "label": "Vote Options",
+          "name": "VoteOptions",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Range: 1-X. How many selections can a voter make in a Ballot Cast. 1 is selected for Y/N (binary). When Specific is true, only 1 is a valid value.",
+          "example": "15",
+          "label": "Vote Max",
+          "name": "VoteMax",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote",
+          "example": "Change the name of the Contract.",
+          "label": "Proposal Description",
+          "name": "ProposalDescription",
+          "size": 4,
+          "type": "varchar"
+        },
+        {
+          "description": "SHA256 Hash of the proposal document to be distributed to voters.",
+          "example": "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec",
+          "label": "Proposal Document Hash",
+          "name": "ProposalDocumentHash",
+          "size": 32,
+          "type": "bin"
+        },
+        {
+          "description": "Ballot casts after this timestamp will not be included. The vote has finished.",
+          "label": "Vote Cut-Off Timestamp",
+          "name": "VoteCutOffTimestamp",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "G1",
+      "metadata": {
+        "description": "Allows the Administration/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners.",
+        "inputs": [
+          {
+            "comments": "The user making the proposal for this contract.",
+            "label": "Operator / Token Owner's Public Address",
+            "name": "User"
+          }
+        ],
+        "label": "Proposal",
+        "name": "Proposal",
+        "outputs": [
+          {
+            "comments": "Includes contract fee and holder proposal fee if applicable.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          },
+          {
+            "comments": "Fund the Result TX at Vote cut off",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "Contract/Asset Amendment or nothing"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "G2",
+      "metadata": {
+        "description": "A vote is created by the Contract in response to a valid Proposal Action.",
+        "inputs": [
+          {
+            "comments": "The contract that is performing this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Vote",
+        "name": "Vote",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the contract for notifications of this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "None"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Tx ID of the Vote the Ballot Cast is being made for.",
+          "label": "Vote Tx ID",
+          "name": "VoteTxId",
+          "type": "TxId"
+        },
+        {
+          "description": "Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal action. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference. 1st position = 1st choice. 2nd position = 2nd choice, etc. A is always Accept and B is always reject in a Y/N votes.",
+          "example": "A",
+          "label": "Vote",
+          "name": "Vote",
+          "size": 1,
+          "type": "varchar"
+        }
+      ],
+      "id": "G3",
+      "metadata": {
+        "description": "Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action.",
+        "inputs": [
+          {
+            "comments": "The user casting the ballot for this contract.",
+            "label": "Token Owner's Public Address",
+            "name": "User"
+          }
+        ],
+        "label": "Ballot Cast",
+        "name": "BallotCast",
+        "outputs": [
+          {
+            "comments": "Funds ballot cast response.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "BallotCounted"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Tx ID of the Vote the Ballot Cast is being made for.",
+          "label": "Vote Tx ID",
+          "name": "VoteTxId",
+          "type": "TxId"
+        },
+        {
+          "description": "Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal action. Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order of preference. 1st position = 1st choice. 2nd position = 2nd choice, etc. A is always Accept and B is always reject in a Y/N votes.",
+          "example": "A",
+          "label": "Vote",
+          "name": "Vote",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Number of votes counted for this ballot. Factors in vote multipliers if there are any allowed, otherwise it is just quantity of tokens held.",
+          "label": "Quantity",
+          "name": "Quantity",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "G4",
+      "metadata": {
+        "description": "The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.",
+        "inputs": [
+          {
+            "comments": "The contract that is performing this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Ballot Counted",
+        "name": "BallotCounted",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the contract for notifications of this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "None"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "When true this proposal is specific to an asset and the asset type and asset code fields are serialized.",
+          "label": "Asset Specific Vote",
+          "name": "AssetSpecificVote",
+          "type": "bool"
+        },
+        {
+          "description": "Three letter character that specifies the asset type.",
+          "example": "SHC",
+          "includeIfTrue": "AssetSpecificVote",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "includeIfTrue": "AssetSpecificVote",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "When true the ProposedAmendments field is included and specifies the exact changes to make to the Contract/Asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update.",
+          "label": "Specific",
+          "name": "Specific",
+          "type": "bool"
+        },
+        {
+          "description": "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.",
+          "includeIfTrue": "Specific",
+          "label": "Proposed Amendments",
+          "name": "ProposedAmendments",
+          "type": "Amendment[]"
+        },
+        {
+          "description": "Link to the Vote Action txn.",
+          "label": "Vote Tx ID",
+          "name": "VoteTxId",
+          "type": "TxId"
+        },
+        {
+          "description": "List of number of valid votes counted for each vote option. Length is encoded like a regular list object, but must match the length of VoteOptions from the Proposal action.",
+          "label": "Option Tally",
+          "name": "OptionTally",
+          "size": 1,
+          "type": "uint64[]"
+        },
+        {
+          "description": "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.",
+          "label": "Result",
+          "name": "Result",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "G5",
+      "metadata": {
+        "description": "Once a vote has been completed the results are published. After the result is posted, it is up to the administration to send a contract/asset amendement if appropriate.",
+        "inputs": [
+          {
+            "comments": "The contract that is performing this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Result",
+        "name": "Result",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the contract for notifications of this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "None"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)",
+          "example": "F",
+          "label": "Compliance Action",
+          "name": "ComplianceAction",
+          "options": [
+            "F",
+            "T",
+            "C",
+            "R"
+          ],
+          "size": 1,
+          "type": "fixedchar"
+        },
+        {
+          "description": "Three letter character that specifies the asset type.",
+          "example": "SHC",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "F",
+              "C",
+              "R"
+            ]
+          },
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "F",
+              "C",
+              "R"
+            ]
+          },
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "The holders and quantities that are effected by the order. For a contract or asset wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an asset wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed.",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "F",
+              "C",
+              "R"
+            ]
+          },
+          "label": "Target Addresses",
+          "name": "TargetAddresses",
+          "size": 2,
+          "type": "TargetAddress[]"
+        },
+        {
+          "description": "The tx id of the freeze action that is being thawed. Only serialized for thaw orders.",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "T"
+            ]
+          },
+          "label": "Freeze Tx Id",
+          "name": "FreezeTxId",
+          "type": "TxId"
+        },
+        {
+          "description": "Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.",
+          "example": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "F"
+            ]
+          },
+          "label": "Freeze Period",
+          "name": "FreezePeriod",
+          "type": "Timestamp"
+        },
+        {
+          "description": "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions.",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "C"
+            ]
+          },
+          "label": "Deposit Address",
+          "name": "DepositAddress",
+          "notes": "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes.",
+          "type": "PublicKeyHash"
+        },
+        {
+          "description": "Specifies if an authority signature is included. For Reconcialitaion actions all authority signature related fields are skipped during serialization.",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "F",
+              "T",
+              "C"
+            ]
+          },
+          "label": "Authority Included",
+          "name": "AuthorityIncluded",
+          "type": "bool"
+        },
+        {
+          "description": "Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)",
+          "example": "Supreme and District Courts Brisbane",
+          "includeIfTrue": "AuthorityIncluded",
+          "label": "Authority Name",
+          "name": "AuthorityName",
+          "size": 1,
+          "type": "varchar"
+        },
+        {
+          "description": "Length 0-255 bytes. Public Key associated with the Enforcement Authority",
+          "example": "",
+          "includeIfTrue": "AuthorityIncluded",
+          "label": "Authority Public Key",
+          "name": "AuthorityPublicKey",
+          "size": 1,
+          "type": "varbin"
+        },
+        {
+          "description": "Algorithm used for order signature. Only valid value is currently 1 = ECDSA+secp256k1",
+          "example": 1,
+          "includeIfTrue": "AuthorityIncluded",
+          "intValues": [
+            1
+          ],
+          "label": "Signature Algorithm",
+          "name": "SignatureAlgorithm",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Asset Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)",
+          "example": "",
+          "includeIfTrue": "AuthorityIncluded",
+          "label": "Authority Order Signature",
+          "name": "OrderSignature",
+          "size": 1,
+          "type": "varbin"
+        },
+        {
+          "description": "SHA-256: warrant, court order, etc.",
+          "label": "Supporting Evidence Hash",
+          "name": "SupportingEvidenceHash",
+          "size": 32,
+          "type": "bin"
+        },
+        {
+          "description": "The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "R"
+            ]
+          },
+          "label": "Ref Txs",
+          "name": "RefTxs",
+          "notes": "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.",
+          "size": 4,
+          "type": "varbin"
+        },
+        {
+          "description": "Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens.",
+          "includeIf": {
+            "field": "ComplianceAction",
+            "values": [
+              "R"
+            ]
+          },
+          "label": "Bitcoin Dispersions",
+          "name": "BitcoinDispersions",
+          "size": 2,
+          "type": "QuantityIndex[]"
+        },
+        {
+          "description": "A message to include with the enforcement order.",
+          "example": "Compelled by a court order.",
+          "label": "Message",
+          "name": "Message",
+          "size": 4,
+          "type": "varchar"
+        }
+      ],
+      "id": "E1",
+      "metadata": {
+        "description": "Used by the administration to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled.\n",
+        "inputs": [
+          {
+            "comments": "This action can only come from the administration.",
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          }
+        ],
+        "label": "Order",
+        "name": "Order",
+        "outputs": [
+          {
+            "comments": "Contract fee and funding for response transaction.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Three letter character that specifies the asset type.",
+          "example": "SHC",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "Indices to addresses in outputs and the quantities being frozen. If the only address is the contract address and the asset code is zeros, then it is a contract wide freeze. If the only address is the contract address and the asset code is specified, then it is an asset wide freeze.",
+          "label": "Quantities",
+          "name": "Quantities",
+          "size": 2,
+          "type": "QuantityIndex[]"
+        },
+        {
+          "description": "Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action.",
+          "label": "Freeze Period",
+          "name": "FreezePeriod",
+          "type": "Timestamp"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "E2",
+      "metadata": {
+        "description": "The contract responding to an Order action to freeze assets. To be used to comply with contractual/legal/issuer requirements. The target public address(es) will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The contract will not respond to any actions requested by the frozen address.\n",
+        "inputs": [
+          {
+            "comments": "The contract that is performing this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Freeze",
+        "name": "Freeze",
+        "outputs": [
+          {
+            "comments": "If Target Public Address is the Contract Address then the entire contract is frozen.  All request actions during the Freeze period will be ignored and rejected when the contract is thawed and rebuilds.",
+            "label": "Target Public Address X",
+            "name": "TargetX"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "The tx id of the freeze action that is being reversed.",
+          "label": "Freeze Tx Id",
+          "name": "FreezeTxId",
+          "type": "TxId"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "E3",
+      "metadata": {
+        "description": "The contract responding to an Order action to thaw assets. To be used to comply with contractual obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.\n",
+        "inputs": [
+          {
+            "comments": "The contract that is performing this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Thaw",
+        "name": "Thaw",
+        "outputs": [
+          {
+            "comments": "Can be the Contract Address for a 'Contract-wide' Thaw in response to a Contract-wide Freeze.",
+            "label": "Target Public Address X",
+            "name": "TargetX"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Three letter character that specifies the asset type.",
+          "example": "SHC",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "The holders effected by the confiscation and their balance remaining.",
+          "label": "Quantities",
+          "name": "Quantities",
+          "size": 2,
+          "type": "QuantityIndex[]"
+        },
+        {
+          "description": "Deposit address's token balance after confiscation.",
+          "example": "10000",
+          "label": "Deposit Qty",
+          "name": "DepositQty",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "E4",
+      "metadata": {
+        "description": "The contract responding to an Order action to confiscate assets. To be used to comply with contractual obligations, legal and/or issuer requirements.\n",
+        "inputs": [
+          {
+            "comments": "The contract that is performing this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Confiscation",
+        "name": "Confiscation",
+        "outputs": [
+          {
+            "comments": "Can be the Contract Address for a 'Contract-wide' Confiscation.",
+            "label": "Target Public Address X",
+            "name": "TargetX"
+          },
+          {
+            "comments": "Dust limit rule minimum value output of 546",
+            "label": "Deposit Public Address",
+            "name": null
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Three letter character that specifies the asset type.",
+          "example": "SHC",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "size": 3,
+          "type": "fixedchar"
+        },
+        {
+          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
+          "label": "Asset Code",
+          "name": "AssetCode",
+          "notes": "Cannot be changed by the administration, operator or smart contract.",
+          "type": "AssetCode"
+        },
+        {
+          "description": "The holders effected by the reconciliation and their balance remaining.",
+          "label": "Quantities",
+          "name": "Quantities",
+          "size": 2,
+          "type": "QuantityIndex[]"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "E5",
+      "metadata": {
+        "description": "The contract responding to an Order action to reconcile assets. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.\n",
+        "inputs": [
+          {
+            "comments": "The contract that is performing this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Reconciliation",
+        "name": "Reconciliation",
+        "outputs": [
+          {
+            "comments": "546 minimum.  If N bitcoin needs to be sent to the address, then this will be the output that receives the Bitcoin.",
+            "label": "Target Public Address X",
+            "name": "TargetX"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "A custom message to include with this action.",
+          "example": "North America Whitelist",
+          "label": "Message",
+          "name": "Message",
+          "size": 4,
+          "type": "varchar"
+        }
+      ],
+      "id": "R1",
+      "metadata": {
+        "description": "Establishes an on-chain register.",
+        "inputs": [
+          {
+            "comments": "The address of the associated register.",
+            "label": "Register Public Address",
+            "name": "Register"
+          }
+        ],
+        "label": "Establishment",
+        "name": "Establishment",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the register for notifications of this action.",
+            "label": "Register Public Address",
+            "name": "Register"
+          }
+        ]
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "A custom message to include with this action.",
+          "example": "username",
+          "label": "Message",
+          "name": "Message",
+          "size": 4,
+          "type": "varchar"
+        }
+      ],
+      "id": "R2",
+      "metadata": {
+        "description": "Adds an entry to the Register.",
+        "inputs": [
+          {
+            "comments": "The address of the associated register.",
+            "label": "Register Public Address",
+            "name": "Register"
+          }
+        ],
+        "label": "Addition",
+        "name": "Addition",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the register for notifications of this action.",
+            "label": "Register Public Address",
+            "name": "Register"
+          }
+        ]
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Transaction ID of the register entry to be altered.",
+          "label": "Entry Tx ID",
+          "name": "EntryTxID",
+          "type": "TxId"
+        },
+        {
+          "description": "A custom message to include with this action.",
+          "example": "Changed Country of Residence",
+          "label": "Message",
+          "name": "Message",
+          "size": 4,
+          "type": "varchar"
+        }
+      ],
+      "id": "R3",
+      "metadata": {
+        "description": "A register entry/record can be altered.",
+        "inputs": [
+          {
+            "comments": "The address of the associated register.",
+            "label": "Register Public Address",
+            "name": "Register"
+          }
+        ],
+        "label": "Alteration",
+        "name": "Alteration",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the register for notifications of this action.",
+            "label": "Register Public Address",
+            "name": "Register"
+          }
+        ]
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Transaction ID of the register entry to be altered.",
+          "label": "Entry Tx ID",
+          "name": "EntryTxID",
+          "type": "TxId"
+        },
+        {
+          "description": "A custom message to include with this action.",
+          "example": "Removed due to violation of company policy.",
+          "label": "Message",
+          "name": "Message",
+          "size": 4,
+          "type": "varchar"
+        }
+      ],
+      "id": "R4",
+      "metadata": {
+        "description": "Removes an entry/record from the Register.",
+        "inputs": [
+          {
+            "comments": "The address of the associated register.",
+            "label": "Register Public Address",
+            "name": "Register"
+          }
+        ],
+        "label": "Removal",
+        "name": "Removal",
+        "outputs": [
+          {
+            "comments": "Required so that users can monitor transactions to the register for notifications of this action.",
+            "label": "Register Public Address",
+            "name": "Register"
+          }
+        ]
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Associates the message to a particular output by the index.",
+          "label": "Address Indexes",
+          "name": "AddressIndexes",
+          "type": "uint16[]"
+        },
+        {
+          "description": "Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.\n",
+          "example": "Hello world!",
+          "label": "Message Payload",
+          "name": "MessagePayload",
+          "size": 4,
+          "type": "varbin"
+        }
+      ],
+      "id": "M1",
+      "metadata": {
+        "description": "The message action is a general purpose communication action. 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken down by type for easy filtering in the a user's wallet. The Message Types are listed in the Message Types table.\n",
+        "inputs": [
+          {
+            "comments": "The user sending the message.",
+            "label": "Sender Public Address",
+            "name": "MsgSender"
+          }
+        ],
+        "label": "Message",
+        "name": "Message",
+        "outputs": [
+          {
+            "comments": "The recipient's address for the message, supplied by the sender.",
+            "label": "Receiver Public Address\"",
+            "name": "MsgReceiverX"
+          }
+        ]
+      }
+    },
+    {
+      "fields": [
+        {
+          "description": "Associates the message to a particular output by the index.",
+          "label": "Address Indexes",
+          "name": "AddressIndexes",
+          "type": "uint16[]"
+        },
+        {
+          "description": "The address which is believed to have caused the rejection.",
+          "label": "Reject Address Index",
+          "name": "RejectAddressIndex",
+          "size": 2,
+          "type": "uint"
+        },
+        {
+          "description": "Classifies the rejection by a type.",
+          "example": "1",
+          "label": "Rejection Code",
+          "name": "RejectionCode",
+          "type": "RejectionCode"
+        },
+        {
+          "description": "Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.",
+          "example": "Sorry, you don't have enough tokens.",
+          "label": "Message",
+          "name": "Message",
+          "size": 2,
+          "type": "varchar"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "id": "M2",
+      "metadata": {
+        "description": "Used to reject request actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Administration/User request Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond.",
+        "inputs": [
+          {
+            "comments": "The contract that is performing this action.",
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "label": "Rejection",
+        "name": "Rejection",
+        "outputs": [
+          {
+            "comments": "The affected user or contract's publid addresses. Refunds all money provided in the request action, less fees",
+            "label": "User / Contract public addresses",
+            "name": "Recipients"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "AssetCreation"
+      }
+    }
+  ],
+  "name": "Tokenized Protocol",
+  "template": "default",
+  "version": 1
+}
