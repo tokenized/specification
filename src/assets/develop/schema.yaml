@@ -51,6 +51,6 @@ fieldTypes:
 
 # Define Field Aliases
 fieldAliases:
-  CurrencyType:
+  - name: CurrencyType
     type: fixedchar
     size: 3

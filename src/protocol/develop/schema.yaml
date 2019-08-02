@@ -82,23 +82,23 @@ fieldTypes:
 
 # Define Field Aliases
 fieldAliases:
-  Role:
+  - name: Role
     type: uint
     size: 8
 
-  EntityType:
+  - name: EntityType
     type: fixedchar
     size: 1
 
-  Polity:
+  - name: Polity
     type: fixedchar
     size: 3
 
-  RejectionCode:
+  - name: RejectionCode
     type: uint
     size: 8
 
-  Tag:
+  - name: Tag
     type: uint
     size: 8
 
