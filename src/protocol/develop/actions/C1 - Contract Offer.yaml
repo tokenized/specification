@@ -2,7 +2,7 @@
 # Contract Offer Action: The Contract Offer action allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 #
 
-code: C1
+id: C1
 
 metadata:
   name: ContractOffer
@@ -38,8 +38,8 @@ fields:
       If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address.
       Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Tesla - Shareholder Agreement"
 
   - name: BodyOfAgreementType
@@ -57,15 +57,15 @@ fields:
     label: Body of Agreement
     description: "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information."
     type: varbin
-    # varbin size is number of bits to serialize the size of the data
-    size: 32
+    # varbin size is number of bytes to serialize the size of the data
+    size: 4
 
   - name: ContractType
     label: Contract Type
     description: "Describes the purpose of the contract."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Shareholder Agreement"
 
   - name: SupportingDocs
@@ -100,8 +100,8 @@ fields:
     label: Contract URI
     description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS)."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
 
   - name: Issuer
@@ -113,8 +113,8 @@ fields:
     label: Issuer Logo URL
     description: "The URL of the issuer's logo."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "https://example.com/images/logo.png"
 
   - name: ContractOperatorIncluded

@@ -2,7 +2,7 @@
 # Asset Definition Action: This action is used by the administration to define the properties/characteristics of the Asset (token) that it wants to create.
 #
 
-code: A1
+id: A1
 
 metadata:
   name: AssetDefinition
@@ -25,18 +25,11 @@ metadata:
       comments: "The contract that this asset should be assigned to. Must include enough for the responding action."
 
 fields:
-  - name: AssetType
-    label: Asset Type
-    description: "Three letter character that specifies the asset type."
-    type: fixedchar
-    size: 3
-    example: "COU"
-
   - name: AssetAuthFlags
     label: Asset Authorization Flags
     description: "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail."
     type: varbin
-    size: 8
+    size: 1
 
   - name: TransfersPermitted
     label: Transfers Permitted
@@ -48,7 +41,7 @@ fields:
     label: Trade Restrictions
     description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
     type: Polity[]
-    size: 16
+    size: 2
     example: "GBR"
 
   - name: EnforcementOrdersPermitted
@@ -103,5 +96,5 @@ fields:
     label: Asset Payload
     description: "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details."
     type: varbin
-    # varbin size is number of bits to serialize the size of the data
-    size: 16
+    # varbin size is number of bytes to serialize the size of the data
+    size: 2

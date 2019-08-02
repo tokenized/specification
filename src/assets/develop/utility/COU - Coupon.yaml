@@ -2,7 +2,7 @@
 # COU - Coupon
 #
 
-code: COU
+id: COU
 
 metadata:
   name: Coupon
@@ -20,8 +20,8 @@ fields:
     label: Redeeming Entity
     description: The entity responsible for redemption of this coupon.
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Woolworths - Robina Town Centre
     span: full
     displayOrder: 2
@@ -60,8 +60,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: Gift Card
     span: full
     displayOrder: 1

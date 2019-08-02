@@ -2,7 +2,7 @@
 # Private Message: Generic private message. Sent to another address(es). Encryption is to be used.
 #
 
-code: "0003"
+id: 0003
 
 metadata:
   name: PrivateMessage
@@ -19,7 +19,7 @@ fields:
     label: Subject
     description: The subject / topic of the message.
     type: varchar
-    size: 16
+    size: 2
 
   - name: Regarding
     label: Regarding
@@ -35,4 +35,4 @@ fields:
     label: Attachments
     description: Documents attached to the message.
     type: Document[]
-    size: 32
+    size: 4

@@ -8,8 +8,8 @@ fields:
     label: Name
     description: "Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Tesla Inc."
 
   - name: Type
@@ -37,8 +37,8 @@ fields:
     label: Unit Number
     description: "Issuer/Entity/Contracting Party X Address Details (eg. HQ)"
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "2"
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
@@ -47,8 +47,8 @@ fields:
     label: Building Number
     description: ""
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "13577"
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
@@ -57,8 +57,8 @@ fields:
     label: Street
     description: ""
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: "Fairmont Ave"
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
@@ -67,8 +67,8 @@ fields:
     label: Suburb/City
     description: ""
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Robinoh"
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
@@ -104,16 +104,16 @@ fields:
     label: Email Address
     description: "Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address"
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "satoshi@tokenized.com"
 
   - name: PhoneNumber
     label: Phone Number
     description: "Length 0-50 bytes. 0 is valid. Phone Number for Entity."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "0448484848"
 
   - name: Administration

@@ -2,7 +2,7 @@
 # Public Message: Generic public message or public announcement. Sent to an address(es).  Can be used for an official issuer announcement.
 #
 
-code: "0002"
+id: 0002
 
 metadata:
   name: PublicMessage
@@ -19,7 +19,7 @@ fields:
     label: Subject
     description: The subject / topic of the message.
     type: varchar
-    size: 16
+    size: 2
 
   - name: Regarding
     label: Regarding
@@ -35,4 +35,4 @@ fields:
     label: Attachments
     description: Documents attached to the message.
     type: Document[]
-    size: 32
+    size: 4

@@ -2,7 +2,7 @@
 # LOY - Loyalty Points
 #
 
-code: LOY
+id: LOY
 
 metadata:
   name: LoyaltyPoints
@@ -23,8 +23,8 @@ fields:
   - name: OfferName
     label: Offer Name
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Qantas Frequent Flyer Points
     options:
 
@@ -45,8 +45,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: Coingeek Conference - London (November 2018).
     span: full
     displayOrder: 1

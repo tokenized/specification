@@ -52,5 +52,5 @@ fields:
     label: Data
     description: "New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol."
     type: varbin
-    size: 32
+    size: 4
     notes: "The bytes should be in an format appropriate for the field being modified."

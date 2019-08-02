@@ -6,13 +6,19 @@
 name: Tokenized Message Types
 
 # Unique Identifier
-code: message
+code: messages
 
 # Codec Version
 version: 1
 
 # Output Template
 template: default
+
+# Message ID
+id:
+    name: MessageCode
+    type: uint
+    size: 2
 
 # Define Header Fields
 headerFields:
@@ -21,7 +27,14 @@ headerFields:
     description: The version number that this asset payload adheres to.
     type: uint
     size: 8
-    example: "1"
+    example: 1
+
+  - name: MessageCode
+    label: Message Code
+    description: The Message Code that determines the expected contents of the message payload.
+    type: uint
+    size: 2
+    example: 1001
 
 # Register Supported Messages
 messages:
@@ -40,4 +53,4 @@ fieldTypes:
   - "types/Document"
 
 # Define Field Aliases
-fieldAliases: []
+fieldAliases:

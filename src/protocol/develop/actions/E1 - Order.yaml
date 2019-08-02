@@ -5,7 +5,7 @@
 # C - Confiscate moves tokens from specified holders to a specified deposit address.
 # R - Reconcile destroys tokens from specified holders to correct after a chain reorg has caused accidental creation of tokens.
 
-code: E1
+id: E1
 
 metadata:
   name: Order
@@ -70,7 +70,7 @@ fields:
     description: "The holders and quantities that are effected by the order. For a contract or asset wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an asset wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed."
     type: TargetAddress[]
     # array size is number of bits to serialize the size of the array
-    size: 16
+    size: 2
     # includeIf specifies that this field is only included in serialization if the specified field has one of the specified values.
     includeIf:
       field: ComplianceAction
@@ -127,8 +127,8 @@ fields:
     label: Authority Name
     description: "Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)"
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Supreme and District Courts Brisbane"
     includeIfTrue: AuthorityIncluded
 
@@ -136,8 +136,8 @@ fields:
     label: Authority Public Key
     description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
     type: varbin
-    # varbin size is number of bits to serialize the size of the data
-    size: 8
+    # varbin size is number of bytes to serialize the size of the data
+    size: 1
     example: ""
     includeIfTrue: AuthorityIncluded
 
@@ -155,8 +155,8 @@ fields:
     label: Authority Order Signature
     description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Asset Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)"
     type: varbin
-    # varbin size is number of bits to serialize the size of the value
-    size: 8
+    # varbin size is number of bytes to serialize the size of the value
+    size: 1
     example: ""
     includeIfTrue: AuthorityIncluded
 
@@ -170,7 +170,7 @@ fields:
     label: Ref Txs
     description: "The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield."
     type: varbin
-    size: 32
+    size: 4
     notes: "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event."
     # includeIf specifies that this field is only included in serialization if the specified field has one of the specified values.
     includeIf:
@@ -183,7 +183,7 @@ fields:
     description: "Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens."
     type: QuantityIndex[]
     # array size is number of bits to serialize the size of the array
-    size: 16
+    size: 2
     # includeIf specifies that this field is only included in serialization if the specified field has one of the specified values.
     includeIf:
       field: ComplianceAction
@@ -194,6 +194,6 @@ fields:
     label: Message
     description: "A message to include with the enforcement order."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 32
+    # varchar size is number of bytes to serialize the size of the value
+    size: 4
     example: "Compelled by a court order."

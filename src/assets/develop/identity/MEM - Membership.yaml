@@ -2,7 +2,7 @@
 # MEM - Membership
 #
 
-code: MEM
+id: MEM
 
 metadata:
   name: Membership
@@ -41,8 +41,8 @@ fields:
   - name: ID
     label: ID
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: 34536457575486868
     span: right
     displayOrder: 3
@@ -50,8 +50,8 @@ fields:
   - name: MembershipClass
     label: Membership Class
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Owner, Administrator, Manager, General, can be NULL.
     span: right
     displayOrder: 3
@@ -59,8 +59,8 @@ fields:
   - name: RoleType
     label: Role Type
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Director, Partner, CEO, COO, etc., can be NULL from Roles in Resources/Roles
     span: right
     displayOrder: 3
@@ -68,8 +68,8 @@ fields:
   - name: MembershipType
     label: Membership Type
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Silver, Platinum, can be NULL.
     span: right
     displayOrder: 3
@@ -77,8 +77,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: Rights and duties listed.
     span: full
     displayOrder: 1

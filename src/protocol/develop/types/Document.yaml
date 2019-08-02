@@ -8,21 +8,21 @@ fields:
     label: Document Name
     description: "Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Agreement.pdf"
 
   - name: Type
     label: MIME Type
     description: "MIME type of the file. Length 0-255 bytes. 0 is valid. "
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "application/pdf"
 
   - name: Contents
     label: File Contents
     description: The contents of the file.
     type: varbin
-    # varbin size is number of bits to serialize the size of the data
-    size: 32
+    # varbin size is number of bytes to serialize the size of the data
+    size: 4

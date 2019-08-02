@@ -2,7 +2,7 @@
 # Settlement Action: Settles the transfer request of bitcoins and tokens from transfer (T1) actions.
 #
 
-code: T2
+id: T2
 
 metadata:
   name: Settlement

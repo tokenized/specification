@@ -2,7 +2,7 @@
 # Output Metadata: "A description that accompanies the output.  It is used to describe the purpose of the transaction and any associated useful details. Often encrypted (DH, RSA) to make it private for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the like for descriptions only visible to one of the transacting parties. Optional"
 #
 
-code: "1004"
+id: 1004
 
 metadata:
   name: OutputMetadata
@@ -14,7 +14,7 @@ fields:
     label: Output Description
     description: "A Description that accompanies the output. A transaction description."
     type: varchar
-    size: 32
+    size: 4
     example: "eg. Invoice 3024, Pay Mike back for camping."
     notes: "  Can be NULL"
 

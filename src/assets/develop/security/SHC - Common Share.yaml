@@ -2,7 +2,7 @@
 # SHC - Security
 #
 
-code: SHC
+id: SHC
 
 metadata:
   name: ShareCommon
@@ -44,8 +44,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: Class C
     span: full
     displayOrder: 1

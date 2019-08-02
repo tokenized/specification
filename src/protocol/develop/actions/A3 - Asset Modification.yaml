@@ -2,7 +2,7 @@
 # Asset Modification Action: Token Dilutions, Call Backs/Revocations, Burning, Trade Restrictions, etc.
 #
 
-code: A3
+id: A3
 
 metadata:
   name: AssetModification

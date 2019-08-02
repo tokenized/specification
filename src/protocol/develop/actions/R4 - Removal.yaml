@@ -2,7 +2,7 @@
 # Removal Action: Removes an entry/record from the Register.
 #
 
-code: R4
+id: R4
 
 metadata:
   name: Removal
@@ -29,6 +29,6 @@ fields:
     label: Message
     description: "A custom message to include with this action."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 32
+    # varchar size is number of bytes to serialize the size of the value
+    size: 4
     example: "Removed due to violation of company policy."

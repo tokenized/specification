@@ -2,7 +2,7 @@
 # CUR - Currency
 #
 
-code: CUR
+id: CUR
 
 metadata:
   name: Currency
@@ -25,8 +25,8 @@ fields:
   - name: MonetaryAuthority
     label: Monetary Authority
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Reserve Bank of Australia
     span: full
     displayOrder: 3
@@ -34,8 +34,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: Australian dollar
     span: full
     displayOrder: 3

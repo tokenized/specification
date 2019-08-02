@@ -2,7 +2,7 @@
 # Alteration Action: A register entry/record can be altered.
 #
 
-code: R3
+id: R3
 
 metadata:
   name: Alteration
@@ -29,6 +29,6 @@ fields:
     label: Message
     description: "A custom message to include with this action."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 32
+    # varchar size is number of bytes to serialize the size of the value
+    size: 4
     example: "Changed Country of Residence"

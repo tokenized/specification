@@ -2,7 +2,7 @@
 # Result Action: Once a vote has been completed the results are published. After the result is posted, it is up to the administration to send a contract/asset amendement if appropriate.
 #
 
-code: G5
+id: G5
 
 metadata:
   name: Result
@@ -65,14 +65,14 @@ fields:
     label: Option Tally
     description: "List of number of valid votes counted for each vote option. Length is encoded like a regular list object, but must match the length of VoteOptions from the Proposal action."
     type: uint64[]
-    size: 8
+    size: 1
 
   - name: Result
     label: Result
     description: "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
 
   - name: Timestamp
     label: Timestamp

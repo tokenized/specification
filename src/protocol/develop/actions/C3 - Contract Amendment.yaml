@@ -2,7 +2,7 @@
 # Contract Amendment Action: the administration can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action.
 #
 
-code: C3
+id: C3
 
 metadata:
   name: ContractAmendment

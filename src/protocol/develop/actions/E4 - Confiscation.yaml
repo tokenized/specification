@@ -2,7 +2,7 @@
 # Confiscation Action: to be used to comply with contractual obligations, legal and/or issuer requirements.
 #
 
-code: E4
+id: E4
 
 metadata:
   name: Confiscation
@@ -46,7 +46,7 @@ fields:
     description: "The holders effected by the confiscation and their balance remaining."
     type: QuantityIndex[]
     # array size is number of bits to serialize the size of the array
-    size: 16
+    size: 2
 
   - name: DepositQty
     label: Deposit Qty

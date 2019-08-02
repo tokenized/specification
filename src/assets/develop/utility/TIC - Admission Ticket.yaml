@@ -2,7 +2,7 @@
 # TIC - Admission Ticket
 #
 
-code: TIC
+id: TIC
 
 metadata:
   name: TicketAdmission
@@ -33,8 +33,8 @@ fields:
   - name: Venue
     label: Venue
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1
     span: left
     displayOrder: 2
@@ -43,8 +43,8 @@ fields:
   - name: Class
     label: Class
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Gold Class, Platinum, VIP, Section A, etc.
     span: left
     displayOrder: 2
@@ -53,8 +53,8 @@ fields:
   - name: Area
     label: Area
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Upper Bowl
     span: left
     displayOrder: 2
@@ -63,8 +63,8 @@ fields:
   - name: Seat
     label: Seat
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Sec 1, Row 3, Seat 5, or A122
     span: left
     displayOrder: 2
@@ -95,8 +95,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: Coingeek Conference - London (November 2018).
     span: full
     displayOrder: 1

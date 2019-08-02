@@ -6,13 +6,19 @@
 name: Tokenized Protocol
 
 # Unique Identifier
-code: protocol
+code: actions
 
 # Codec Version
 version: 1
 
 # Output Template
 template: default
+
+# Message ID
+id:
+    name: ActionCode
+    type: fixedchar
+    size: 2
 
 # Define Header Fields
 headerFields:
@@ -21,7 +27,7 @@ headerFields:
     description: The version number that determines the structure of the action payload and field definitions.
     type: uint
     size: 8
-    example: "1"
+    example: 1
 
   - name: ActionCode
     label: Action Code
@@ -95,3 +101,11 @@ fieldAliases:
   Tag:
     type: uint
     size: 8
+
+  Address:
+    type: varbin
+    size: 1
+
+  AssetCode:
+    type: bin
+    size: 32
