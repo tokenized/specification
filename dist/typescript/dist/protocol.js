@@ -2,11 +2,20 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const sprintf_js_1 = require("sprintf-js");
 const util_1 = __importDefault(require("@keyring/util"));
 // import BN from 'bn.js';
 const actions_1 = require("./actions");
+const R = __importStar(require("ramda"));
+const filterData = R.filter((e) => R.is(Array, e) && e.length > 1);
 // OpReturn (OP_RETURN) is a script opcode is used to mark a transaction
 // output as invalid, and can be used to add data to a TX.
 const OP_RETURN = 0x6a;
@@ -153,6 +162,37 @@ class OpReturnMessage {
         // Parse message type code
         return buf.read(2).toString('ascii');
     }
+    static getMsg(b) {
+        const buf = new util_1.default.Reader(b);
+        const version = buf.uint8();
+        if (version !== OpReturnMessage.Version) {
+            throw new Error(sprintf_js_1.sprintf('Unsupported version : %02x', version));
+        }
+        // Parse message type code
+        const code = buf.read(2).toString('ascii');
+        const msg = actions_1.TypeMapping(code);
+        if (!msg) {
+            throw new Error('Unknown code: ' + code);
+        }
+        msg.write(buf.read(b.length - 3));
+        return msg;
+    }
+    static keyringTxTokMsgs(tx) {
+        return filterData(tx.data()).map(arr => [arr[0].toString('ascii'), OpReturnMessage.getMsg(arr[1])]);
+    }
+    static bitdbToTokMsgs(tx) {
+        return tx.out.filter((out) => out.str.includes('OP_RETURN') && out.str.includes(OpReturnMessage.ProtocolIdHex))
+            .map((out) => {
+            const parts = out.str.split(' ');
+            return [
+                Buffer.from(parts[1], 'hex').toString('ascii'),
+                OpReturnMessage.getMsg(Buffer.from(parts[2], 'hex')),
+            ];
+        });
+    }
+    static addTokMsgToKeyringTx(tx, msg, isTest = false) {
+        return tx.data(Buffer.from(isTest ? OpReturnMessage.TestProtocolID : OpReturnMessage.ProtocolID, 'ascii'), Buffer.concat([Buffer.from([OpReturnMessage.Version]), Buffer.from(msg.Type(), 'ascii'), msg.Serialize()]));
+    }
     Type() { return null; }
     String() { return null; }
     Serialize() { return null; }
@@ -165,4 +205,5 @@ OpReturnMessage.ProtocolID = 'tokenized';
 OpReturnMessage.TestProtocolID = 'test.tokenized';
 // Version of the Tokenized protocol.
 OpReturnMessage.Version = 0;
+OpReturnMessage.ProtocolIdHex = Buffer.from(OpReturnMessage.ProtocolID, 'ascii').toString('hex');
 exports.OpReturnMessage = OpReturnMessage;

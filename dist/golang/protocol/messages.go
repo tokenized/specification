@@ -253,8 +253,8 @@ func (m *PublicMessage) Validate() error {
 
 	// Subject (string)
 	{
-		if len(m.Subject) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Subject too long %d/%d", len(m.Subject), (2<<16)-1)
+		if len(m.Subject) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Subject too long %d/%d", len(m.Subject), (1<<16)-1)
 		}
 	}
 
@@ -276,8 +276,8 @@ func (m *PublicMessage) Validate() error {
 
 	// Attachments ([]Document)
 	{
-		if len(m.Attachments) > (2<<32)-1 {
-			return fmt.Errorf("list field Attachments has too many items %d/%d", len(m.Attachments), (2<<32)-1)
+		if len(m.Attachments) > (1<<32)-1 {
+			return fmt.Errorf("list field Attachments has too many items %d/%d", len(m.Attachments), (1<<32)-1)
 		}
 
 		for i, value := range m.Attachments {
@@ -491,8 +491,8 @@ func (m *PrivateMessage) Validate() error {
 
 	// Subject (string)
 	{
-		if len(m.Subject) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Subject too long %d/%d", len(m.Subject), (2<<16)-1)
+		if len(m.Subject) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Subject too long %d/%d", len(m.Subject), (1<<16)-1)
 		}
 	}
 
@@ -514,8 +514,8 @@ func (m *PrivateMessage) Validate() error {
 
 	// Attachments ([]Document)
 	{
-		if len(m.Attachments) > (2<<32)-1 {
-			return fmt.Errorf("list field Attachments has too many items %d/%d", len(m.Attachments), (2<<32)-1)
+		if len(m.Attachments) > (1<<32)-1 {
+			return fmt.Errorf("list field Attachments has too many items %d/%d", len(m.Attachments), (1<<32)-1)
 		}
 
 		for i, value := range m.Attachments {
@@ -652,8 +652,8 @@ func (m *RevertedTx) Validate() error {
 
 	// Transaction ([]byte)
 	{
-		if len(m.Transaction) > (2<<32)-1 {
-			return fmt.Errorf("varbin field Transaction too long %d/%d", len(m.Transaction), (2<<32)-1)
+		if len(m.Transaction) > (1<<32)-1 {
+			return fmt.Errorf("varbin field Transaction too long %d/%d", len(m.Transaction), (1<<32)-1)
 		}
 	}
 
@@ -789,8 +789,8 @@ func (m *Offer) Validate() error {
 
 	// Payload ([]byte)
 	{
-		if len(m.Payload) > (2<<32)-1 {
-			return fmt.Errorf("varbin field Payload too long %d/%d", len(m.Payload), (2<<32)-1)
+		if len(m.Payload) > (1<<32)-1 {
+			return fmt.Errorf("varbin field Payload too long %d/%d", len(m.Payload), (1<<32)-1)
 		}
 	}
 
@@ -917,8 +917,8 @@ func (m *SignatureRequest) Validate() error {
 
 	// Payload ([]byte)
 	{
-		if len(m.Payload) > (2<<32)-1 {
-			return fmt.Errorf("varbin field Payload too long %d/%d", len(m.Payload), (2<<32)-1)
+		if len(m.Payload) > (1<<32)-1 {
+			return fmt.Errorf("varbin field Payload too long %d/%d", len(m.Payload), (1<<32)-1)
 		}
 	}
 
@@ -1109,8 +1109,8 @@ func (m *SettlementRequest) Validate() error {
 
 	// ContractFees ([]TargetAddress)
 	{
-		if len(m.ContractFees) > (2<<8)-1 {
-			return fmt.Errorf("list field ContractFees has too many items %d/%d", len(m.ContractFees), (2<<8)-1)
+		if len(m.ContractFees) > (1<<8)-1 {
+			return fmt.Errorf("list field ContractFees has too many items %d/%d", len(m.ContractFees), (1<<8)-1)
 		}
 
 		for i, value := range m.ContractFees {
@@ -1123,8 +1123,8 @@ func (m *SettlementRequest) Validate() error {
 
 	// Settlement ([]byte)
 	{
-		if len(m.Settlement) > (2<<32)-1 {
-			return fmt.Errorf("varbin field Settlement too long %d/%d", len(m.Settlement), (2<<32)-1)
+		if len(m.Settlement) > (1<<32)-1 {
+			return fmt.Errorf("varbin field Settlement too long %d/%d", len(m.Settlement), (1<<32)-1)
 		}
 	}
 
@@ -1285,15 +1285,15 @@ func (m *OutputMetadata) Validate() error {
 
 	// OutputDescription (string)
 	{
-		if len(m.OutputDescription) > (2<<32)-1 {
-			return fmt.Errorf("varchar field OutputDescription too long %d/%d", len(m.OutputDescription), (2<<32)-1)
+		if len(m.OutputDescription) > (1<<32)-1 {
+			return fmt.Errorf("varchar field OutputDescription too long %d/%d", len(m.OutputDescription), (1<<32)-1)
 		}
 	}
 
 	// Tags ([]uint8)
 	{
-		if len(m.Tags) > (2<<8)-1 {
-			return fmt.Errorf("list field Tags has too many items %d/%d", len(m.Tags), (2<<8)-1)
+		if len(m.Tags) > (1<<8)-1 {
+			return fmt.Errorf("list field Tags has too many items %d/%d", len(m.Tags), (1<<8)-1)
 		}
 
 		for _, value := range m.Tags {
@@ -1305,8 +1305,8 @@ func (m *OutputMetadata) Validate() error {
 
 	// CustomTags ([]OutputTag)
 	{
-		if len(m.CustomTags) > (2<<8)-1 {
-			return fmt.Errorf("list field CustomTags has too many items %d/%d", len(m.CustomTags), (2<<8)-1)
+		if len(m.CustomTags) > (1<<8)-1 {
+			return fmt.Errorf("list field CustomTags has too many items %d/%d", len(m.CustomTags), (1<<8)-1)
 		}
 
 		for i, value := range m.CustomTags {

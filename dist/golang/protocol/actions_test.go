@@ -589,15 +589,6 @@ func TestContractOffer(t *testing.T) {
 		initialMessage.ContractOperator = Entity{}
 	}
 
-	// ContractAuthFlags (varbin)
-	// varbin test not setup
-	{
-		initialMessage.ContractAuthFlags = make([]byte, 0, 16)
-		for i := uint64(0); i < 16; i++ {
-			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+13))
-		}
-	}
-
 	// ContractFee (uint)
 	// uint test not setup
 	{
@@ -609,6 +600,15 @@ func TestContractOffer(t *testing.T) {
 	{
 		for i := 0; i < 2; i++ {
 			initialMessage.VotingSystems = append(initialMessage.VotingSystems, VotingSystem{})
+		}
+	}
+
+	// ContractAuthFlags (varbin)
+	// varbin test not setup
+	{
+		initialMessage.ContractAuthFlags = make([]byte, 0, 16)
+		for i := uint64(0); i < 16; i++ {
+			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+15))
 		}
 	}
 
@@ -725,10 +725,6 @@ func TestContractOffer(t *testing.T) {
 	}
 	// ContractOperator (Entity)
 	// Entity test compare not setup
-	// ContractAuthFlags (varbin)
-	if !bytes.Equal(initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags) {
-		t.Errorf("ContractAuthFlags doesn't match : %x != %x", initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags)
-	}
 	// ContractFee (uint)
 	if initialMessage.ContractFee != decodedMessage.ContractFee {
 		t.Errorf("ContractFee doesn't match : %v != %v", initialMessage.ContractFee, decodedMessage.ContractFee)
@@ -736,6 +732,10 @@ func TestContractOffer(t *testing.T) {
 	// VotingSystems (VotingSystem[])
 	if len(initialMessage.VotingSystems) != len(decodedMessage.VotingSystems) {
 		t.Errorf("VotingSystems lengths don't match : %d != %d", len(initialMessage.VotingSystems), len(decodedMessage.VotingSystems))
+	}
+	// ContractAuthFlags (varbin)
+	if !bytes.Equal(initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags) {
+		t.Errorf("ContractAuthFlags doesn't match : %x != %x", initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags)
 	}
 	// RestrictedQtyAssets (uint)
 	if initialMessage.RestrictedQtyAssets != decodedMessage.RestrictedQtyAssets {
@@ -853,15 +853,6 @@ func TestContractFormation(t *testing.T) {
 		initialMessage.ContractOperator = Entity{}
 	}
 
-	// ContractAuthFlags (varbin)
-	// varbin test not setup
-	{
-		initialMessage.ContractAuthFlags = make([]byte, 0, 16)
-		for i := uint64(0); i < 16; i++ {
-			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+13))
-		}
-	}
-
 	// ContractFee (uint)
 	// uint test not setup
 	{
@@ -873,6 +864,15 @@ func TestContractFormation(t *testing.T) {
 	{
 		for i := 0; i < 2; i++ {
 			initialMessage.VotingSystems = append(initialMessage.VotingSystems, VotingSystem{})
+		}
+	}
+
+	// ContractAuthFlags (varbin)
+	// varbin test not setup
+	{
+		initialMessage.ContractAuthFlags = make([]byte, 0, 16)
+		for i := uint64(0); i < 16; i++ {
+			initialMessage.ContractAuthFlags = append(initialMessage.ContractAuthFlags, byte(65+i+15))
 		}
 	}
 
@@ -1001,10 +1001,6 @@ func TestContractFormation(t *testing.T) {
 	}
 	// ContractOperator (Entity)
 	// Entity test compare not setup
-	// ContractAuthFlags (varbin)
-	if !bytes.Equal(initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags) {
-		t.Errorf("ContractAuthFlags doesn't match : %x != %x", initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags)
-	}
 	// ContractFee (uint)
 	if initialMessage.ContractFee != decodedMessage.ContractFee {
 		t.Errorf("ContractFee doesn't match : %v != %v", initialMessage.ContractFee, decodedMessage.ContractFee)
@@ -1012,6 +1008,10 @@ func TestContractFormation(t *testing.T) {
 	// VotingSystems (VotingSystem[])
 	if len(initialMessage.VotingSystems) != len(decodedMessage.VotingSystems) {
 		t.Errorf("VotingSystems lengths don't match : %d != %d", len(initialMessage.VotingSystems), len(decodedMessage.VotingSystems))
+	}
+	// ContractAuthFlags (varbin)
+	if !bytes.Equal(initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags) {
+		t.Errorf("ContractAuthFlags doesn't match : %x != %x", initialMessage.ContractAuthFlags, decodedMessage.ContractAuthFlags)
 	}
 	// RestrictedQtyAssets (uint)
 	if initialMessage.RestrictedQtyAssets != decodedMessage.RestrictedQtyAssets {

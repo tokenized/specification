@@ -36,7 +36,7 @@ class TxId {
     }
     // String converts to a string
     toString() {
-        return sprintf_js_1.sprintf('%x', this.data);
+        return this.data.toString('hex');
     }
     // Serialize returns a byte slice with the TxId in it.
     Serialize() {
@@ -66,9 +66,9 @@ class AssetCode {
         this.data = Buffer.alloc(32, 0);
     }
     static fromBytes(data) {
-        const txid = new TxId();
-        txid.data = Buffer.from(data);
-        return txid;
+        const code = new AssetCode();
+        code.data = Buffer.from(data);
+        return code;
     }
     static fromContract(contractPKH, index) {
         // TODO
@@ -117,6 +117,14 @@ class AssetCode {
     UnmarshalJSON(data) {
         this.data = Buffer.from(data, 'hex');
     }
+    // MarshalJSON converts to json.
+    toJSON() {
+        return `${this.data.toString('hex')}`;
+    }
+    // UnmarshalJSON converts from json.
+    fromJSON(data) {
+        this.data = Buffer.from(data, 'hex');
+    }
     // Set sets the value specified
     Set(value) {
         this.data = Buffer.from(value);
@@ -160,13 +168,13 @@ class Timestamp {
     // Serialize returns a byte slice with the Timestamp in it.
     Serialize() {
         const buf = new util_1.default.Writer();
-        bytes_1.write(buf, new bn_js_1.default(this.milliseconds).mul(new bn_js_1.default(1000000)), 'uint64');
+        bytes_1.write(buf, new bn_js_1.default(this.milliseconds).mul(new bn_js_1.default(1000)), 'uint64');
         return buf.buf;
     }
     // Write reads a Timestamp from a bytes.Buffer
     Write(buf) {
         const bn = bytes_1.read(buf, 'uint64');
-        this.milliseconds = bn.div(new bn_js_1.default(1000000)).toNumber();
+        this.milliseconds = bn.div(new bn_js_1.default(1000)).toNumber();
         // console.log('\n\nTimestamp.Write', bn);
         // console.log('\n\nTimestamp.Write', this.milliseconds);
     }
@@ -177,9 +185,9 @@ class ContractCode {
         this.data = Buffer.alloc(32, 0);
     }
     static fromBytes(data) {
-        const txid = new TxId();
-        txid.data = Buffer.from(data);
-        return txid;
+        const code = new ContractCode();
+        code.data = Buffer.from(data);
+        return code;
     }
     // Validate returns an error if the value is invalid
     Validate() {
@@ -228,9 +236,14 @@ class PublicKeyHash {
         this.data = Buffer.alloc(20, 0);
     }
     static fromBytes(data) {
-        const txid = new TxId();
-        txid.data = Buffer.from(data);
-        return txid;
+        const pkh = new PublicKeyHash();
+        pkh.data = Buffer.from(data);
+        return pkh;
+    }
+    static fromStr(addr) {
+        const pkh = new PublicKeyHash();
+        pkh.data = Buffer.from(util_1.default.addr.from(addr).hash);
+        return pkh;
     }
     // Validate returns an error if the value is invalid
     Validate() {
@@ -247,6 +260,12 @@ class PublicKeyHash {
     // Bytes returns the byte slice for the TxId.
     Bytes() {
         return this.data;
+    }
+    toJSON() {
+        return this.format();
+    }
+    format() {
+        return util_1.default.addr.format(this.data);
     }
     // String converts to a string
     toString() {

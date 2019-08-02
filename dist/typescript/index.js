@@ -12,5 +12,5 @@ __export(require("./dist/messages"));
 __export(require("./dist/protocol"));
 __export(require("./dist/protocol_types"));
 __export(require("./dist/rejection_codes"));
-__export(require("./dist/resource-data"));
+__export(require("./dist/resource_data"));
 __export(require("./dist/resources"));

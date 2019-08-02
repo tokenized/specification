@@ -104,6 +104,13 @@ func Test{{.Name}}(t *testing.T) {
 	if len(initialMessage.{{ $field.FieldName }}) != len(decodedMessage.{{ $field.FieldName }}) {
 		t.Errorf("{{ $field.FieldName }} lengths don't match : %d != %d", len(initialMessage.{{ $field.FieldName }}), len(decodedMessage.{{ $field.FieldName }}))
 	}
+	if len(initialMessage.{{ $field.FieldName }}) != 0 {
+		for i, value := range initialMessage.{{ $field.FieldName }} {
+			if !value.Equal(decodedMessage.{{ $field.FieldName }}[i]) {
+				t.Errorf("{{ $field.FieldName }}[%d] doesn't match : %v != %v", i, value, decodedMessage.{{ $field.FieldName }}[i])
+			}
+		}
+	}
 		{{- else if .IsNativeTypeArray }}
 	if len(initialMessage.{{ $field.FieldName }}) != len(decodedMessage.{{ $field.FieldName }}) {
 		t.Errorf("{{ $field.FieldName }} lengths don't match : %d != %d", len(initialMessage.{{ $field.FieldName }}), len(decodedMessage.{{ $field.FieldName }}))
@@ -114,7 +121,7 @@ func Test{{.Name}}(t *testing.T) {
 		}
 	}
 		{{- else if .IsInternalType }}
-	if initialMessage.{{ $field.FieldName }} != decodedMessage.{{ $field.FieldName }} {
+	if !initialMessage.{{ $field.FieldName }}.Equal(decodedMessage.{{ $field.FieldName }}) {
 		t.Errorf("{{ $field.FieldName }} doesn't match : %v != %v", initialMessage.{{ $field.FieldName }}, decodedMessage.{{ $field.FieldName }})
 	}
 		{{- else }}

@@ -68,7 +68,7 @@ func TestPublicMessage(t *testing.T) {
 	// uint test compare not setup
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
+	if !initialMessage.Timestamp.Equal(decodedMessage.Timestamp) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
@@ -78,18 +78,25 @@ func TestPublicMessage(t *testing.T) {
 	}
 
 	// Regarding (Output)
-	if initialMessage.Regarding != decodedMessage.Regarding {
+	if !initialMessage.Regarding.Equal(decodedMessage.Regarding) {
 		t.Errorf("Regarding doesn't match : %v != %v", initialMessage.Regarding, decodedMessage.Regarding)
 	}
 
 	// PublicMessage (Document)
-	if initialMessage.PublicMessage != decodedMessage.PublicMessage {
+	if !initialMessage.PublicMessage.Equal(decodedMessage.PublicMessage) {
 		t.Errorf("PublicMessage doesn't match : %v != %v", initialMessage.PublicMessage, decodedMessage.PublicMessage)
 	}
 
 	// Attachments (Document[])
 	if len(initialMessage.Attachments) != len(decodedMessage.Attachments) {
 		t.Errorf("Attachments lengths don't match : %d != %d", len(initialMessage.Attachments), len(decodedMessage.Attachments))
+	}
+	if len(initialMessage.Attachments) != 0 {
+		for i, value := range initialMessage.Attachments {
+			if !value.Equal(decodedMessage.Attachments[i]) {
+				t.Errorf("Attachments[%d] doesn't match : %v != %v", i, value, decodedMessage.Attachments[i])
+			}
+		}
 	}
 }
 
@@ -155,7 +162,7 @@ func TestPrivateMessage(t *testing.T) {
 	// uint test compare not setup
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
+	if !initialMessage.Timestamp.Equal(decodedMessage.Timestamp) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
@@ -165,18 +172,25 @@ func TestPrivateMessage(t *testing.T) {
 	}
 
 	// Regarding (Output)
-	if initialMessage.Regarding != decodedMessage.Regarding {
+	if !initialMessage.Regarding.Equal(decodedMessage.Regarding) {
 		t.Errorf("Regarding doesn't match : %v != %v", initialMessage.Regarding, decodedMessage.Regarding)
 	}
 
 	// PrivateMessage (Document)
-	if initialMessage.PrivateMessage != decodedMessage.PrivateMessage {
+	if !initialMessage.PrivateMessage.Equal(decodedMessage.PrivateMessage) {
 		t.Errorf("PrivateMessage doesn't match : %v != %v", initialMessage.PrivateMessage, decodedMessage.PrivateMessage)
 	}
 
 	// Attachments (Document[])
 	if len(initialMessage.Attachments) != len(decodedMessage.Attachments) {
 		t.Errorf("Attachments lengths don't match : %d != %d", len(initialMessage.Attachments), len(decodedMessage.Attachments))
+	}
+	if len(initialMessage.Attachments) != 0 {
+		for i, value := range initialMessage.Attachments {
+			if !value.Equal(decodedMessage.Attachments[i]) {
+				t.Errorf("Attachments[%d] doesn't match : %v != %v", i, value, decodedMessage.Attachments[i])
+			}
+		}
 	}
 }
 
@@ -234,7 +248,7 @@ func TestRevertedTx(t *testing.T) {
 	// uint test compare not setup
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
+	if !initialMessage.Timestamp.Equal(decodedMessage.Timestamp) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
@@ -298,7 +312,7 @@ func TestOffer(t *testing.T) {
 	// uint test compare not setup
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
+	if !initialMessage.Timestamp.Equal(decodedMessage.Timestamp) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
@@ -362,7 +376,7 @@ func TestSignatureRequest(t *testing.T) {
 	// uint test compare not setup
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
+	if !initialMessage.Timestamp.Equal(decodedMessage.Timestamp) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
@@ -434,18 +448,25 @@ func TestSettlementRequest(t *testing.T) {
 	// uint test compare not setup
 
 	// Timestamp (Timestamp)
-	if initialMessage.Timestamp != decodedMessage.Timestamp {
+	if !initialMessage.Timestamp.Equal(decodedMessage.Timestamp) {
 		t.Errorf("Timestamp doesn't match : %v != %v", initialMessage.Timestamp, decodedMessage.Timestamp)
 	}
 
 	// TransferTxId (TxId)
-	if initialMessage.TransferTxId != decodedMessage.TransferTxId {
+	if !initialMessage.TransferTxId.Equal(decodedMessage.TransferTxId) {
 		t.Errorf("TransferTxId doesn't match : %v != %v", initialMessage.TransferTxId, decodedMessage.TransferTxId)
 	}
 
 	// ContractFees (TargetAddress[])
 	if len(initialMessage.ContractFees) != len(decodedMessage.ContractFees) {
 		t.Errorf("ContractFees lengths don't match : %d != %d", len(initialMessage.ContractFees), len(decodedMessage.ContractFees))
+	}
+	if len(initialMessage.ContractFees) != 0 {
+		for i, value := range initialMessage.ContractFees {
+			if !value.Equal(decodedMessage.ContractFees[i]) {
+				t.Errorf("ContractFees[%d] doesn't match : %v != %v", i, value, decodedMessage.ContractFees[i])
+			}
+		}
 	}
 
 	// Settlement (varbin)
@@ -530,5 +551,12 @@ func TestOutputMetadata(t *testing.T) {
 	// CustomTags (OutputTag[])
 	if len(initialMessage.CustomTags) != len(decodedMessage.CustomTags) {
 		t.Errorf("CustomTags lengths don't match : %d != %d", len(initialMessage.CustomTags), len(decodedMessage.CustomTags))
+	}
+	if len(initialMessage.CustomTags) != 0 {
+		for i, value := range initialMessage.CustomTags {
+			if !value.Equal(decodedMessage.CustomTags[i]) {
+				t.Errorf("CustomTags[%d] doesn't match : %v != %v", i, value, decodedMessage.CustomTags[i])
+			}
+		}
 	}
 }

@@ -37,7 +37,7 @@ export class TxId {
 
 	// String converts to a string
 	toString(): string {
-		return sprintf('%x', this.data);
+		return this.data.toString('hex');
 	}
 
 	// Serialize returns a byte slice with the TxId in it.
@@ -71,10 +71,10 @@ const zeroTxId = new TxId();
 export class AssetCode {
 	data = Buffer.alloc(32, 0);
 
-	static fromBytes(data: Buffer): TxId {
-		const txid = new TxId();
-		txid.data = Buffer.from(data);
-		return txid;
+	static fromBytes(data: Buffer): AssetCode {
+		const code = new AssetCode();
+		code.data = Buffer.from(data);
+		return code;
 	}
 
 	static fromContract(contractPKH: Buffer, index: number): AssetCode {
@@ -135,6 +135,16 @@ export class AssetCode {
 		this.data = Buffer.from(data, 'hex');
 	}
 
+	// MarshalJSON converts to json.
+	toJSON(): string {
+		return `${this.data.toString('hex')}`;
+	}
+
+	// UnmarshalJSON converts from json.
+	fromJSON(data: string) {
+		this.data = Buffer.from(data, 'hex');
+	}
+
 	// Set sets the value specified
 	Set(value: Buffer) {
 		this.data = Buffer.from(value);
@@ -188,14 +198,14 @@ export class Timestamp {
 	// Serialize returns a byte slice with the Timestamp in it.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		write(buf, new BN(this.milliseconds).mul(new BN(1000000)), 'uint64');
+		write(buf, new BN(this.milliseconds).mul(new BN(1000)), 'uint64');
 		return buf.buf;
 	}
 
 	// Write reads a Timestamp from a bytes.Buffer
 	Write(buf: _.Reader) {
 		const bn = read(buf, 'uint64');
-		this.milliseconds = bn.div(new BN(1000000)).toNumber();
+		this.milliseconds = bn.div(new BN(1000)).toNumber();
 		// console.log('\n\nTimestamp.Write', bn);
 		// console.log('\n\nTimestamp.Write', this.milliseconds);
 	}
@@ -222,10 +232,10 @@ export class Timestamp {
 export class ContractCode {
 	data = Buffer.alloc(32, 0);
 
-	static fromBytes(data: Buffer): TxId {
-		const txid = new TxId();
-		txid.data = Buffer.from(data);
-		return txid;
+	static fromBytes(data: Buffer): ContractCode {
+		const code = new ContractCode();
+		code.data = Buffer.from(data);
+		return code;
 	}
 
 	// Validate returns an error if the value is invalid
@@ -282,10 +292,15 @@ export class ContractCode {
 export class PublicKeyHash {
 	data = Buffer.alloc(20, 0);
 
-	static fromBytes(data: Buffer): TxId {
-		const txid = new TxId();
-		txid.data = Buffer.from(data);
-		return txid;
+	static fromBytes(data: Buffer): PublicKeyHash {
+		const pkh = new PublicKeyHash();
+		pkh.data = Buffer.from(data);
+		return pkh;
+	}
+	static fromStr(addr: string): PublicKeyHash {
+		const pkh = new PublicKeyHash();
+		pkh.data = Buffer.from(_.addr.from(addr).hash);
+		return pkh;
 	}
 
 	// Validate returns an error if the value is invalid
@@ -306,6 +321,14 @@ export class PublicKeyHash {
 	// Bytes returns the byte slice for the TxId.
 	Bytes(): Buffer {
 		return this.data;
+	}
+
+	toJSON() {
+		return this.format();
+	}
+
+	format() {
+		return _.addr.format(this.data);
 	}
 
 	// String converts to a string

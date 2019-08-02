@@ -146,6 +146,11 @@ exports.TypeMapping = TypeMapping;
 // base58(AssetCode + checksum). An asset is always linked to a contract
 // that is identified by the public address of the Contract wallet.
 class AssetDefinition extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeAssetDefinition;
+        this.typeStr = 'AssetDefinition';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeAssetDefinition;
@@ -356,6 +361,11 @@ exports.AssetDefinition = AssetDefinition;
 // AssetCreation This action creates an asset in response to the
 // administration's instructions in the Definition Action.
 class AssetCreation extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeAssetCreation;
+        this.typeStr = 'AssetCreation';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeAssetCreation;
@@ -623,6 +633,11 @@ class AssetCreation extends protocol_1.OpReturnMessage {
 exports.AssetCreation = AssetCreation;
 // AssetModification Token Dilutions, Call Backs/Revocations, burning etc.
 class AssetModification extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeAssetModification;
+        this.typeStr = 'AssetModification';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeAssetModification;
@@ -754,6 +769,11 @@ exports.AssetModification = AssetModification;
 // allows for the positive response from the smart contract with either a
 // Contract Formation Action or a Rejection Action.
 class ContractOffer extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeContractOffer;
+        this.typeStr = 'ContractOffer';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeContractOffer;
@@ -1151,6 +1171,11 @@ exports.ContractOffer = ContractOffer;
 // execute on a server controlled by the administration, or a smart
 // contract operator on their behalf.
 class ContractFormation extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeContractFormation;
+        this.typeStr = 'ContractFormation';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeContractFormation;
@@ -1576,6 +1601,11 @@ exports.ContractFormation = ContractFormation;
 // contract is restricted by the Authorization Flag set on the current
 // revision of Contract Formation action.
 class ContractAmendment extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeContractAmendment;
+        this.typeStr = 'ContractAmendment';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeContractAmendment;
@@ -1693,6 +1723,11 @@ class ContractAmendment extends protocol_1.OpReturnMessage {
 exports.ContractAmendment = ContractAmendment;
 // StaticContractFormation Static Contract Formation Action
 class StaticContractFormation extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeStaticContractFormation;
+        this.typeStr = 'StaticContractFormation';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeStaticContractFormation;
@@ -1979,6 +2014,11 @@ exports.StaticContractFormation = StaticContractFormation;
 // is a worst case scenario fallback to only be used when the contract
 // private key is believed to be exposed.
 class ContractAddressChange extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeContractAddressChange;
+        this.typeStr = 'ContractAddressChange';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeContractAddressChange;
@@ -2047,6 +2087,11 @@ exports.ContractAddressChange = ContractAddressChange;
 // the tokens that a particular public address(es) owns are to be
 // confiscated, frozen, thawed or reconciled.
 class Order extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeOrder;
+        this.typeStr = 'Order';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeOrder;
@@ -2377,6 +2422,11 @@ exports.Order = Order;
 // contract will not respond to any actions requested by the frozen
 // address.
 class Freeze extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeFreeze;
+        this.typeStr = 'Freeze';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeFreeze;
@@ -2510,6 +2560,11 @@ exports.Freeze = Freeze;
 // Alleged Offender's tokens will be unfrozen to allow them to resume
 // normal exchange and governance activities.
 class Thaw extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeThaw;
+        this.typeStr = 'Thaw';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeThaw;
@@ -2578,6 +2633,11 @@ exports.Thaw = Thaw;
 // assets. To be used to comply with contractual obligations, legal and/or
 // issuer requirements.
 class Confiscation extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeConfiscation;
+        this.typeStr = 'Confiscation';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeConfiscation;
@@ -2705,6 +2765,11 @@ exports.Confiscation = Confiscation;
 // assets. To be used at the direction of the administration to fix record
 // keeping errors with bitcoin and token balances.
 class Reconciliation extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeReconciliation;
+        this.typeStr = 'Reconciliation';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeReconciliation;
@@ -2822,6 +2887,11 @@ exports.Reconciliation = Reconciliation;
 // Holders to reduce spam, as the resulting vote will be put to all token
 // owners.
 class Proposal extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeProposal;
+        this.typeStr = 'Proposal';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeProposal;
@@ -3045,6 +3115,11 @@ exports.Proposal = Proposal;
 // Vote A vote is created by the Contract in response to a valid Proposal
 // Action.
 class Vote extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeVote;
+        this.typeStr = 'Vote';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeVote;
@@ -3096,6 +3171,11 @@ exports.Vote = Vote;
 // proposals. 1 Vote per token unless a vote multiplier is specified in the
 // relevant Asset Definition action.
 class BallotCast extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeBallotCast;
+        this.typeStr = 'BallotCast';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeBallotCast;
@@ -3163,6 +3243,11 @@ exports.BallotCast = BallotCast;
 // Cast is not valid, then the smart contract will respond with a Rejection
 // Action.
 class BallotCounted extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeBallotCounted;
+        this.typeStr = 'BallotCounted';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeBallotCounted;
@@ -3258,6 +3343,11 @@ exports.BallotCounted = BallotCounted;
 // the result is posted, it is up to the administration to send a
 // contract/asset amendement if appropriate.
 class Result extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeResult;
+        this.typeStr = 'Result';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeResult;
@@ -3458,6 +3548,11 @@ exports.Result = Result;
 // the a user's wallet. The Message Types are listed in the Message Types
 // table.
 class Message extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeMessage;
+        this.typeStr = 'Message';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeMessage;
@@ -3546,6 +3641,11 @@ exports.Message = Message;
 // remain revenue neutral. If not enough fees are attached to pay for the
 // Contract response then the Contract will not respond.
 class Rejection extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeRejection;
+        this.typeStr = 'Rejection';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeRejection;
@@ -3659,6 +3759,11 @@ class Rejection extends protocol_1.OpReturnMessage {
 exports.Rejection = Rejection;
 // Establishment Establishes an on-chain register.
 class Establishment extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeEstablishment;
+        this.typeStr = 'Establishment';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeEstablishment;
@@ -3706,6 +3811,11 @@ class Establishment extends protocol_1.OpReturnMessage {
 exports.Establishment = Establishment;
 // Addition Adds an entry to the Register.
 class Addition extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeAddition;
+        this.typeStr = 'Addition';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeAddition;
@@ -3753,6 +3863,11 @@ class Addition extends protocol_1.OpReturnMessage {
 exports.Addition = Addition;
 // Alteration A register entry/record can be altered.
 class Alteration extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeAlteration;
+        this.typeStr = 'Alteration';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeAlteration;
@@ -3817,6 +3932,11 @@ class Alteration extends protocol_1.OpReturnMessage {
 exports.Alteration = Alteration;
 // Removal Removes an entry/record from the Register.
 class Removal extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeRemoval;
+        this.typeStr = 'Removal';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeRemoval;
@@ -3889,6 +4009,11 @@ exports.Removal = Removal;
 // actions will need to be passed around on-chain with an M1 action, or
 // off-chain.
 class Transfer extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeTransfer;
+        this.typeStr = 'Transfer';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeTransfer;
@@ -4000,6 +4125,11 @@ exports.Transfer = Transfer;
 // Settlement Settles the transfer request of bitcoins and tokens from
 // transfer (T1) actions.
 class Settlement extends protocol_1.OpReturnMessage {
+    constructor() {
+        super(...arguments);
+        this.type = ActionCode.CodeSettlement;
+        this.typeStr = 'Settlement';
+    }
     // Type returns the type identifer for this message.
     Type() {
         return ActionCode.CodeSettlement;

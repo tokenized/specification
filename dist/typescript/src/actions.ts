@@ -177,6 +177,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 // base58(AssetCode + checksum). An asset is always linked to a contract
 // that is identified by the public address of the Contract wallet.
 export class AssetDefinition extends OpReturnMessage {
+	type = ActionCode.CodeAssetDefinition;
+	typeStr = 'AssetDefinition';
+
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -484,6 +487,9 @@ export class AssetDefinition extends OpReturnMessage {
 // AssetCreation This action creates an asset in response to the
 // administration's instructions in the Definition Action.
 export class AssetCreation extends OpReturnMessage {
+	type = ActionCode.CodeAssetCreation;
+	typeStr = 'AssetCreation';
+
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -873,6 +879,9 @@ export class AssetCreation extends OpReturnMessage {
 
 // AssetModification Token Dilutions, Call Backs/Revocations, burning etc.
 export class AssetModification extends OpReturnMessage {
+	type = ActionCode.CodeAssetModification;
+	typeStr = 'AssetModification';
+
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -1043,6 +1052,9 @@ export class AssetModification extends OpReturnMessage {
 // allows for the positive response from the smart contract with either a
 // Contract Formation Action or a Rejection Action.
 export class ContractOffer extends OpReturnMessage {
+	type = ActionCode.CodeContractOffer;
+	typeStr = 'ContractOffer';
+
 
 	// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
@@ -1097,15 +1109,15 @@ export class ContractOffer extends OpReturnMessage {
 	contract_operator_included;
 	// 	An additional entity with operator access to the contract.
 	contract_operator;
+	// 	Satoshis required to be paid to the contract for each asset action.
+	contract_fee;
+	// 	A list of voting systems.
+	voting_systems;
 	// 	A set of switches that define the authorization rules for this
 	// contract. See the Authorization Flags documentation for more detail.
 	// Other terms and conditions that are out of the smart contract's control
 	// should be listed in the Body of Agreement.
 	contract_auth_flags;
-	// 	Satoshis required to be paid to the contract for each asset action.
-	contract_fee;
-	// 	A list of voting systems.
-	voting_systems;
 	// 	Number of Assets (non-fungible) permitted on this contract. 0 if
 	// unlimited which will display an infinity symbol in UI
 	restricted_qty_assets;
@@ -1209,11 +1221,6 @@ export class ContractOffer extends OpReturnMessage {
 			buf.write(this.contract_operator.Serialize());
 		}
 
-		// contract_auth_flags ([]byte)
-		{
-			WriteVarBin(buf, this.contract_auth_flags, 16);
-		}
-
 		// contract_fee (uint64)
 		{
 			write(buf, this.contract_fee, 'uint64');
@@ -1225,6 +1232,11 @@ export class ContractOffer extends OpReturnMessage {
 			this.voting_systems.forEach((value) => {
 				buf.write(value.Serialize());
 			});
+		}
+
+		// contract_auth_flags ([]byte)
+		{
+			WriteVarBin(buf, this.contract_auth_flags, 16);
 		}
 
 		// restricted_qty_assets (uint64)
@@ -1337,11 +1349,6 @@ export class ContractOffer extends OpReturnMessage {
 			this.contract_operator.Write(buf);
 		}
 
-		// contract_auth_flags ([]byte)
-		{
-			this.contract_auth_flags = ReadVarBin(buf, 16);
-		}
-
 		// contract_fee (uint64)
 		{
 			this.contract_fee = read(buf, 'uint64');
@@ -1358,6 +1365,11 @@ export class ContractOffer extends OpReturnMessage {
 
 				this.voting_systems.push(newValue);
 			}
+		}
+
+		// contract_auth_flags ([]byte)
+		{
+			this.contract_auth_flags = ReadVarBin(buf, 16);
 		}
 
 		// restricted_qty_assets (uint64)
@@ -1499,13 +1511,6 @@ export class ContractOffer extends OpReturnMessage {
 
 		}
 
-		// ContractAuthFlags ([]byte)
-		{
-			if (this.contract_auth_flags.length >= (2 ** 16)) {
-				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
-			}
-		}
-
 		// ContractFee (uint64)
 		{
 		}
@@ -1521,6 +1526,13 @@ export class ContractOffer extends OpReturnMessage {
 				if (err2) return sprintf('list field voting_systems[%d] is invalid : %s', i, err2);
 			});
 			if (err) return err;
+		}
+
+		// ContractAuthFlags ([]byte)
+		{
+			if (this.contract_auth_flags.length >= (2 ** 16)) {
+				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
+			}
 		}
 
 		// RestrictedQtyAssets (uint64)
@@ -1573,9 +1585,9 @@ export class ContractOffer extends OpReturnMessage {
 		vals.push(sprintf('issuer_logo_url:%#+v', this.issuer_logo_url));
 		vals.push(sprintf('contract_operator_included:%#+v', this.contract_operator_included));
 		vals.push(sprintf('contract_operator:%#+v', this.contract_operator));
-		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
 		vals.push(sprintf('contract_fee:%v', this.contract_fee));
 		vals.push(sprintf('voting_systems:%#+v', this.voting_systems));
+		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
 		vals.push(sprintf('restricted_qty_assets:%v', this.restricted_qty_assets));
 		vals.push(sprintf('administration_proposal:%#+v', this.administration_proposal));
 		vals.push(sprintf('holder_proposal:%#+v', this.holder_proposal));
@@ -1592,6 +1604,9 @@ export class ContractOffer extends OpReturnMessage {
 // execute on a server controlled by the administration, or a smart
 // contract operator on their behalf.
 export class ContractFormation extends OpReturnMessage {
+	type = ActionCode.CodeContractFormation;
+	typeStr = 'ContractFormation';
+
 
 	// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
@@ -1646,15 +1661,15 @@ export class ContractFormation extends OpReturnMessage {
 	contract_operator_included;
 	// 	An additional entity with operator access to the contract.
 	contract_operator;
+	// 	Satoshis required to be paid to the contract for each asset action.
+	contract_fee;
+	// 	A list voting systems.
+	voting_systems;
 	// 	A set of switches that define the authorization rules for this
 	// contract. See the Authorization Flags documentation for more detail.
 	// Other terms and conditions that are out of the smart contract's control
 	// should be listed in the Body of Agreement
 	contract_auth_flags;
-	// 	Satoshis required to be paid to the contract for each asset action.
-	contract_fee;
-	// 	A list voting systems.
-	voting_systems;
 	// 	Number of Assets (non-fungible) permitted on this contract. 0 if
 	// unlimited which will display an infinity symbol in UI
 	restricted_qty_assets;
@@ -1764,11 +1779,6 @@ export class ContractFormation extends OpReturnMessage {
 			buf.write(this.contract_operator.Serialize());
 		}
 
-		// contract_auth_flags ([]byte)
-		{
-			WriteVarBin(buf, this.contract_auth_flags, 16);
-		}
-
 		// contract_fee (uint64)
 		{
 			write(buf, this.contract_fee, 'uint64');
@@ -1780,6 +1790,11 @@ export class ContractFormation extends OpReturnMessage {
 			this.voting_systems.forEach((value) => {
 				buf.write(value.Serialize());
 			});
+		}
+
+		// contract_auth_flags ([]byte)
+		{
+			WriteVarBin(buf, this.contract_auth_flags, 16);
 		}
 
 		// restricted_qty_assets (uint64)
@@ -1902,11 +1917,6 @@ export class ContractFormation extends OpReturnMessage {
 			this.contract_operator.Write(buf);
 		}
 
-		// contract_auth_flags ([]byte)
-		{
-			this.contract_auth_flags = ReadVarBin(buf, 16);
-		}
-
 		// contract_fee (uint64)
 		{
 			this.contract_fee = read(buf, 'uint64');
@@ -1923,6 +1933,11 @@ export class ContractFormation extends OpReturnMessage {
 
 				this.voting_systems.push(newValue);
 			}
+		}
+
+		// contract_auth_flags ([]byte)
+		{
+			this.contract_auth_flags = ReadVarBin(buf, 16);
 		}
 
 		// restricted_qty_assets (uint64)
@@ -2075,13 +2090,6 @@ export class ContractFormation extends OpReturnMessage {
 
 		}
 
-		// ContractAuthFlags ([]byte)
-		{
-			if (this.contract_auth_flags.length >= (2 ** 16)) {
-				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
-			}
-		}
-
 		// ContractFee (uint64)
 		{
 		}
@@ -2097,6 +2105,13 @@ export class ContractFormation extends OpReturnMessage {
 				if (err2) return sprintf('list field voting_systems[%d] is invalid : %s', i, err2);
 			});
 			if (err) return err;
+		}
+
+		// ContractAuthFlags ([]byte)
+		{
+			if (this.contract_auth_flags.length >= (2 ** 16)) {
+				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
+			}
 		}
 
 		// RestrictedQtyAssets (uint64)
@@ -2161,9 +2176,9 @@ export class ContractFormation extends OpReturnMessage {
 		vals.push(sprintf('issuer_logo_url:%#+v', this.issuer_logo_url));
 		vals.push(sprintf('contract_operator_included:%#+v', this.contract_operator_included));
 		vals.push(sprintf('contract_operator:%#+v', this.contract_operator));
-		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
 		vals.push(sprintf('contract_fee:%v', this.contract_fee));
 		vals.push(sprintf('voting_systems:%#+v', this.voting_systems));
+		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
 		vals.push(sprintf('restricted_qty_assets:%v', this.restricted_qty_assets));
 		vals.push(sprintf('administration_proposal:%#+v', this.administration_proposal));
 		vals.push(sprintf('holder_proposal:%#+v', this.holder_proposal));
@@ -2181,6 +2196,9 @@ export class ContractFormation extends OpReturnMessage {
 // contract is restricted by the Authorization Flag set on the current
 // revision of Contract Formation action.
 export class ContractAmendment extends OpReturnMessage {
+	type = ActionCode.CodeContractAmendment;
+	typeStr = 'ContractAmendment';
+
 
 	// 	Used to change the administration address. The new administration
 	// address must be in the input[1] position. A change of the
@@ -2343,6 +2361,9 @@ export class ContractAmendment extends OpReturnMessage {
 
 // StaticContractFormation Static Contract Formation Action
 export class StaticContractFormation extends OpReturnMessage {
+	type = ActionCode.CodeStaticContractFormation;
+	typeStr = 'StaticContractFormation';
+
 
 	// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
@@ -2738,6 +2759,9 @@ export class StaticContractFormation extends OpReturnMessage {
 // is a worst case scenario fallback to only be used when the contract
 // private key is believed to be exposed.
 export class ContractAddressChange extends OpReturnMessage {
+	type = ActionCode.CodeContractAddressChange;
+	typeStr = 'ContractAddressChange';
+
 
 	// 	The address to be used by all future requests/responses for the
 	// contract.
@@ -2827,6 +2851,9 @@ export class ContractAddressChange extends OpReturnMessage {
 // the tokens that a particular public address(es) owns are to be
 // confiscated, frozen, thawed or reconciled.
 export class Order extends OpReturnMessage {
+	type = ActionCode.CodeOrder;
+	typeStr = 'Order';
+
 
 	// 	Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)
 	compliance_action;
@@ -3276,6 +3303,9 @@ export class Order extends OpReturnMessage {
 // contract will not respond to any actions requested by the frozen
 // address.
 export class Freeze extends OpReturnMessage {
+	type = ActionCode.CodeFreeze;
+	typeStr = 'Freeze';
+
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -3452,6 +3482,9 @@ export class Freeze extends OpReturnMessage {
 // Alleged Offender's tokens will be unfrozen to allow them to resume
 // normal exchange and governance activities.
 export class Thaw extends OpReturnMessage {
+	type = ActionCode.CodeThaw;
+	typeStr = 'Thaw';
+
 
 	// 	The tx id of the freeze action that is being reversed.
 	freeze_tx_id;
@@ -3541,6 +3574,9 @@ export class Thaw extends OpReturnMessage {
 // assets. To be used to comply with contractual obligations, legal and/or
 // issuer requirements.
 export class Confiscation extends OpReturnMessage {
+	type = ActionCode.CodeConfiscation;
+	typeStr = 'Confiscation';
+
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -3706,6 +3742,9 @@ export class Confiscation extends OpReturnMessage {
 // assets. To be used at the direction of the administration to fix record
 // keeping errors with bitcoin and token balances.
 export class Reconciliation extends OpReturnMessage {
+	type = ActionCode.CodeReconciliation;
+	typeStr = 'Reconciliation';
+
 
 	// 	Three letter character that specifies the asset type.
 	asset_type;
@@ -3857,6 +3896,9 @@ export class Reconciliation extends OpReturnMessage {
 // Holders to reduce spam, as the resulting vote will be put to all token
 // owners.
 export class Proposal extends OpReturnMessage {
+	type = ActionCode.CodeProposal;
+	typeStr = 'Proposal';
+
 
 	// 	Who initiated the proposal. Supported values: 0 - Administration, 1 -
 	// Holder
@@ -4171,6 +4213,9 @@ export class Proposal extends OpReturnMessage {
 // Vote A vote is created by the Contract in response to a valid Proposal
 // Action.
 export class Vote extends OpReturnMessage {
+	type = ActionCode.CodeVote;
+	typeStr = 'Vote';
+
 
 	// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
@@ -4238,6 +4283,9 @@ export class Vote extends OpReturnMessage {
 // proposals. 1 Vote per token unless a vote multiplier is specified in the
 // relevant Asset Definition action.
 export class BallotCast extends OpReturnMessage {
+	type = ActionCode.CodeBallotCast;
+	typeStr = 'BallotCast';
+
 
 	// 	Tx ID of the Vote the Ballot Cast is being made for.
 	vote_tx_id;
@@ -4329,6 +4377,9 @@ export class BallotCast extends OpReturnMessage {
 // Cast is not valid, then the smart contract will respond with a Rejection
 // Action.
 export class BallotCounted extends OpReturnMessage {
+	type = ActionCode.CodeBallotCounted;
+	typeStr = 'BallotCounted';
+
 
 	// 	Tx ID of the Vote the Ballot Cast is being made for.
 	vote_tx_id;
@@ -4460,6 +4511,9 @@ export class BallotCounted extends OpReturnMessage {
 // the result is posted, it is up to the administration to send a
 // contract/asset amendement if appropriate.
 export class Result extends OpReturnMessage {
+	type = ActionCode.CodeResult;
+	typeStr = 'Result';
+
 
 	// 	When true this proposal is specific to an asset and the asset type and
 	// asset code fields are serialized.
@@ -4731,6 +4785,9 @@ export class Result extends OpReturnMessage {
 // the a user's wallet. The Message Types are listed in the Message Types
 // table.
 export class Message extends OpReturnMessage {
+	type = ActionCode.CodeMessage;
+	typeStr = 'Message';
+
 
 	// 	Associates the message to a particular output by the index.
 	address_indexes;
@@ -4848,6 +4905,9 @@ export class Message extends OpReturnMessage {
 // remain revenue neutral. If not enough fees are attached to pay for the
 // Contract response then the Contract will not respond.
 export class Rejection extends OpReturnMessage {
+	type = ActionCode.CodeRejection;
+	typeStr = 'Rejection';
+
 
 	// 	Associates the message to a particular output by the index.
 	address_indexes;
@@ -4999,6 +5059,9 @@ export class Rejection extends OpReturnMessage {
 
 // Establishment Establishes an on-chain register.
 export class Establishment extends OpReturnMessage {
+	type = ActionCode.CodeEstablishment;
+	typeStr = 'Establishment';
+
 
 	// 	A custom message to include with this action.
 	message;
@@ -5061,6 +5124,9 @@ export class Establishment extends OpReturnMessage {
 
 // Addition Adds an entry to the Register.
 export class Addition extends OpReturnMessage {
+	type = ActionCode.CodeAddition;
+	typeStr = 'Addition';
+
 
 	// 	A custom message to include with this action.
 	message;
@@ -5123,6 +5189,9 @@ export class Addition extends OpReturnMessage {
 
 // Alteration A register entry/record can be altered.
 export class Alteration extends OpReturnMessage {
+	type = ActionCode.CodeAlteration;
+	typeStr = 'Alteration';
+
 
 	// 	Transaction ID of the register entry to be altered.
 	entry_tx_id;
@@ -5207,6 +5276,9 @@ export class Alteration extends OpReturnMessage {
 
 // Removal Removes an entry/record from the Register.
 export class Removal extends OpReturnMessage {
+	type = ActionCode.CodeRemoval;
+	typeStr = 'Removal';
+
 
 	// 	Transaction ID of the register entry to be altered.
 	entry_tx_id;
@@ -5299,6 +5371,9 @@ export class Removal extends OpReturnMessage {
 // actions will need to be passed around on-chain with an M1 action, or
 // off-chain.
 export class Transfer extends OpReturnMessage {
+	type = ActionCode.CodeTransfer;
+	typeStr = 'Transfer';
+
 
 	// 	The Assets involved in the Transfer Action.
 	assets;
@@ -5443,6 +5518,9 @@ export class Transfer extends OpReturnMessage {
 // Settlement Settles the transfer request of bitcoins and tokens from
 // transfer (T1) actions.
 export class Settlement extends OpReturnMessage {
+	type = ActionCode.CodeSettlement;
+	typeStr = 'Settlement';
+
 
 	// 	The Assets settled by the transfer action.
 	assets;

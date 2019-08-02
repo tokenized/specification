@@ -1,16 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class Data {
-}
+
+export class Data {
+
 // Currencies - International Organization for Standardization code for
 // Currency. 3 character code.
-Data.yamlCurrencies = `
+	static yamlCurrencies = `
   - code: AED
     name: UnitedArabEmiratesDirham
     label: United Arab Emirates dirham
     metadata:
       symbol: "د.إ"
-      fractions: 100
+      precision: 2
       fractional_unit: Fils
       polity:
         - ARE
@@ -21,7 +20,7 @@ Data.yamlCurrencies = `
     label: Afghan afghani
     metadata:
       symbol: "؋"
-      fractions: 100
+      precision: 2
       fractional_unit: Pul
       polity:
         - AFG
@@ -32,7 +31,7 @@ Data.yamlCurrencies = `
     label: Albanian lek
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Qindarkë
       polity:
         - ALB
@@ -43,7 +42,7 @@ Data.yamlCurrencies = `
     label: Armenian dram
     metadata:
       symbol: "֏"
-      fractions: 100
+      precision: 2
       fractional_unit: Luma
       polity:
         - ARM
@@ -54,7 +53,7 @@ Data.yamlCurrencies = `
     label: Netherlands Antillean guilder
     metadata:
       symbol: "ƒ"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SXM
@@ -66,7 +65,7 @@ Data.yamlCurrencies = `
     label: Angolan kwanza
     metadata:
       symbol: "Kz"
-      fractions: 100
+      precision: 2
       fractional_unit: Cêntimo
       polity:
         - AGO
@@ -77,7 +76,7 @@ Data.yamlCurrencies = `
     label: Argentine peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - ARG
@@ -88,7 +87,7 @@ Data.yamlCurrencies = `
     label: Australian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - AUS
@@ -102,7 +101,7 @@ Data.yamlCurrencies = `
     label: Aruban florin
     metadata:
       symbol: "ƒ"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - ABW
@@ -113,7 +112,7 @@ Data.yamlCurrencies = `
     label: Azerbaijani manat
     metadata:
       symbol: "₼"
-      fractions: 100
+      precision: 2
       fractional_unit: Qəpik
       polity:
         - AZE
@@ -124,7 +123,7 @@ Data.yamlCurrencies = `
     label: Bosnia and Herzegovina convertible mark
     metadata:
       symbol: "КМ"
-      fractions: 100
+      precision: 2
       fractional_unit: Fening
       polity:
         - BIH
@@ -135,7 +134,7 @@ Data.yamlCurrencies = `
     label: Barbadian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - BRB
@@ -146,7 +145,7 @@ Data.yamlCurrencies = `
     label: Bangladeshi taka
     metadata:
       symbol: "৳"
-      fractions: 100
+      precision: 2
       fractional_unit: Poisha
       polity:
         - BGD
@@ -157,7 +156,7 @@ Data.yamlCurrencies = `
     label: Bulgarian lev
     metadata:
       symbol: "лв"
-      fractions: 100
+      precision: 2
       fractional_unit: Stotinka
       polity:
         - BGR
@@ -168,7 +167,7 @@ Data.yamlCurrencies = `
     label: Bahraini dinar
     metadata:
       symbol: ".د.ب"
-      fractions: 1000
+      precision: 1
       fractional_unit: Fils
       polity:
         - BHR
@@ -179,7 +178,7 @@ Data.yamlCurrencies = `
     label: Burundian franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - BDI
@@ -190,7 +189,7 @@ Data.yamlCurrencies = `
     label: Bermudian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - BMU
@@ -201,7 +200,7 @@ Data.yamlCurrencies = `
     label: Brunei dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - BRN
@@ -212,7 +211,7 @@ Data.yamlCurrencies = `
     label: Bolivian boliviano
     metadata:
       symbol: "Bs."
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - BOL
@@ -223,7 +222,7 @@ Data.yamlCurrencies = `
     label: Brazilian real
     metadata:
       symbol: "R$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - BRA
@@ -234,7 +233,7 @@ Data.yamlCurrencies = `
     label: Bahamian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - BHS
@@ -245,7 +244,7 @@ Data.yamlCurrencies = `
     label: Bitcoin SV
     metadata:
       symbol: "₿"
-      fractions: 100000000
+      precision: 8
       fractional_unit: Satoshis
       monetary_authority: Satoshi Nakamoto
 
@@ -254,7 +253,7 @@ Data.yamlCurrencies = `
     label: Bhutanese ngultrum
     metadata:
       symbol: "Nu."
-      fractions: 100
+      precision: 2
       fractional_unit: Chetrum
       polity:
         - BTN
@@ -265,7 +264,7 @@ Data.yamlCurrencies = `
     label: Botswana pula
     metadata:
       symbol: "P"
-      fractions: 100
+      precision: 2
       fractional_unit: Thebe
       polity:
         - BWA
@@ -276,7 +275,7 @@ Data.yamlCurrencies = `
     label: Belarusian ruble
     metadata:
       symbol: "Br"
-      fractions: 100
+      precision: 2
       fractional_unit: Kapyeyka
       polity:
         - BLR
@@ -287,7 +286,7 @@ Data.yamlCurrencies = `
     label: Belize dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - BLZ
@@ -298,7 +297,7 @@ Data.yamlCurrencies = `
     label: Canadian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - CAN
@@ -309,7 +308,7 @@ Data.yamlCurrencies = `
     label: Congolese franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - COD
@@ -320,7 +319,7 @@ Data.yamlCurrencies = `
     label: Swiss franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Rappen
       polity:
         - CHE
@@ -332,7 +331,7 @@ Data.yamlCurrencies = `
     label: Chilean peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - CHL
@@ -343,7 +342,7 @@ Data.yamlCurrencies = `
     label: Chinese yuan
     metadata:
       symbol: "¥"
-      fractions: 100
+      precision: 2
       fractional_unit: Fen
       polity:
         - CHN
@@ -354,7 +353,7 @@ Data.yamlCurrencies = `
     label: Colombian peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - COL
@@ -365,7 +364,7 @@ Data.yamlCurrencies = `
     label: Costa Rican colon
     metadata:
       symbol: "₡"
-      fractions: 100
+      precision: 2
       fractional_unit: Céntimo
       polity:
         - CRI
@@ -376,7 +375,7 @@ Data.yamlCurrencies = `
     label: Cuban convertible peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - CUB
@@ -387,7 +386,7 @@ Data.yamlCurrencies = `
     label: Cuban convertible peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - CUB
@@ -398,7 +397,7 @@ Data.yamlCurrencies = `
     label: Cape Verdean escudo
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - CUB
@@ -409,7 +408,7 @@ Data.yamlCurrencies = `
     label: Czech koruna
     metadata:
       symbol: "Kč"
-      fractions: 100
+      precision: 2
       fractional_unit: Haléř
       polity:
         - CZE
@@ -420,7 +419,7 @@ Data.yamlCurrencies = `
     label: Djiboutian franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - DJI
@@ -431,7 +430,7 @@ Data.yamlCurrencies = `
     label: Danish krone
     metadata:
       symbol: "kr"
-      fractions: 100
+      precision: 2
       fractional_unit: Øre
       polity:
         - DNK
@@ -444,7 +443,7 @@ Data.yamlCurrencies = `
     label: Dominican peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - DOM
@@ -455,7 +454,7 @@ Data.yamlCurrencies = `
     label: Algerian dinar
     metadata:
       symbol: "د.ج"
-      fractions: 100
+      precision: 2
       fractional_unit: Santeem
       polity:
         - DZA
@@ -466,7 +465,7 @@ Data.yamlCurrencies = `
     label: Egyptian pound
     metadata:
       symbol: "E£"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - EGY
@@ -477,7 +476,7 @@ Data.yamlCurrencies = `
     label: Eritrean nakfa
     metadata:
       symbol: "Nfk"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - ERI
@@ -488,7 +487,7 @@ Data.yamlCurrencies = `
     label: Ethiopian birr
     metadata:
       symbol: "Br"
-      fractions: 100
+      precision: 2
       fractional_unit: Santim
       polity:
         - ETH
@@ -499,7 +498,7 @@ Data.yamlCurrencies = `
     label: Euro
     metadata:
       symbol: "€"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - EU
@@ -543,7 +542,7 @@ Data.yamlCurrencies = `
     label: Fijian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - FJI
@@ -554,7 +553,7 @@ Data.yamlCurrencies = `
     label: Falkland Islands pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Penny
       polity:
         - FLK
@@ -565,7 +564,7 @@ Data.yamlCurrencies = `
     label: Pound sterling
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Penny
       polity:
         - GBR
@@ -580,7 +579,7 @@ Data.yamlCurrencies = `
     label: Georgian lari
     metadata:
       symbol: "₾"
-      fractions: 100
+      precision: 2
       fractional_unit: Tetri
       polity:
         - GEO
@@ -591,7 +590,7 @@ Data.yamlCurrencies = `
     label: Ghanaian cedi
     metadata:
       symbol: "₵"
-      fractions: 100
+      precision: 2
       fractional_unit: Pesewa
       polity:
         - GHA
@@ -602,7 +601,7 @@ Data.yamlCurrencies = `
     label: Gibraltar pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Penny
       polity:
         - GIB
@@ -613,7 +612,7 @@ Data.yamlCurrencies = `
     label: Gambian dalasi
     metadata:
       symbol: "D"
-      fractions: 100
+      precision: 2
       fractional_unit: Butut
       polity:
         - GMB
@@ -624,7 +623,7 @@ Data.yamlCurrencies = `
     label: Guinean franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - GNQ
@@ -635,7 +634,7 @@ Data.yamlCurrencies = `
     label: Guatemalan quetzal
     metadata:
       symbol: "Q"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - GTM
@@ -646,7 +645,7 @@ Data.yamlCurrencies = `
     label: Guyanese dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - GUY
@@ -657,7 +656,7 @@ Data.yamlCurrencies = `
     label: Hong Kong dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - HKG
@@ -668,7 +667,7 @@ Data.yamlCurrencies = `
     label: Honduran lempira
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - HND
@@ -679,7 +678,7 @@ Data.yamlCurrencies = `
     label: Croatian kuna
     metadata:
       symbol: "kn"
-      fractions: 100
+      precision: 2
       fractional_unit: Lipa
       polity:
         - HRV
@@ -690,7 +689,7 @@ Data.yamlCurrencies = `
     label: Haitian gourde
     metadata:
       symbol: "G"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Centime
       polity:
         - HTI
@@ -701,7 +700,7 @@ Data.yamlCurrencies = `
     label: Hungarian forint
     metadata:
       symbol: "Ft"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Fillér
       polity:
         - HUN
@@ -712,7 +711,7 @@ Data.yamlCurrencies = `
     label: Indonesian rupiah
     metadata:
       symbol: "Rp"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Sen
       polity:
         - IDN
@@ -723,7 +722,7 @@ Data.yamlCurrencies = `
     label: Israeli new shekel
     metadata:
       symbol: "₪"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Agora
       polity:
         - ISR
@@ -735,7 +734,7 @@ Data.yamlCurrencies = `
     label: Indian rupee
     metadata:
       symbol: "₹"
-      fractions: 100
+      precision: 2
       fractional_unit: 	Paisa
       polity:
         - IND
@@ -747,7 +746,7 @@ Data.yamlCurrencies = `
     label: Iraqi dinar
     metadata:
       symbol: "ع.د"
-      fractions: 1000
+      precision: 1
       fractional_unit: 	Fils
       polity:
         - IRQ
@@ -758,7 +757,7 @@ Data.yamlCurrencies = `
     label: Iranian rial
     metadata:
       symbol: "﷼"
-      fractions: 100
+      precision: 2
       fractional_unit: Dinar
       polity:
         - IRN
@@ -769,7 +768,7 @@ Data.yamlCurrencies = `
     label: Icelandic króna
     metadata:
       symbol: "kr"
-      fractions: 100
+      precision: 2
       fractional_unit: Eyrir
       polity:
         - ISL
@@ -780,7 +779,7 @@ Data.yamlCurrencies = `
     label: Jamaican dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - JAM
@@ -791,7 +790,7 @@ Data.yamlCurrencies = `
     label: Jordanian dinar
     metadata:
       symbol: "د.ا"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - JOR
@@ -803,7 +802,7 @@ Data.yamlCurrencies = `
     label: Japanese yen
     metadata:
       symbol: "¥"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - JPN
@@ -814,7 +813,7 @@ Data.yamlCurrencies = `
     label: Kenyan shilling
     metadata:
       symbol: "Sh"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - KEN
@@ -825,7 +824,7 @@ Data.yamlCurrencies = `
     label: Kyrgyzstani som
     metadata:
       symbol: "с"
-      fractions: 100
+      precision: 2
       fractional_unit: Tyiyn
       polity:
         - KGZ
@@ -836,7 +835,7 @@ Data.yamlCurrencies = `
     label: Cambodian riel
     metadata:
       symbol: "៛"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - KHM
@@ -847,7 +846,7 @@ Data.yamlCurrencies = `
     label: Comoro franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - COM
@@ -858,7 +857,7 @@ Data.yamlCurrencies = `
     label: North Korean won
     metadata:
       symbol: "₩"
-      fractions: 100
+      precision: 2
       fractional_unit: Chon
       polity:
         - PRK
@@ -869,7 +868,7 @@ Data.yamlCurrencies = `
     label: South Korean won
     metadata:
       symbol: "₩"
-      fractions: 100
+      precision: 2
       fractional_unit: Jeon
       polity:
         - KOR
@@ -880,7 +879,7 @@ Data.yamlCurrencies = `
     label: Kuwaiti dinar
     metadata:
       symbol: "د.ك"
-      fractions: 1000
+      precision: 1
       fractional_unit: Fils
       polity:
         - KWT
@@ -891,7 +890,7 @@ Data.yamlCurrencies = `
     label: Cayman Islands dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - CYM
@@ -902,7 +901,7 @@ Data.yamlCurrencies = `
     label: Kazakhstani tenge
     metadata:
       symbol: "₸"
-      fractions: 100
+      precision: 2
       fractional_unit: Tïın
       polity:
         - KAZ
@@ -913,7 +912,7 @@ Data.yamlCurrencies = `
     label: Lao kip
     metadata:
       symbol: "₭"
-      fractions: 100
+      precision: 2
       fractional_unit: Att
       polity:
         - LAO
@@ -924,7 +923,7 @@ Data.yamlCurrencies = `
     label: Lebanese pound
     metadata:
       symbol: "ل.ل"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - LBN
@@ -935,7 +934,7 @@ Data.yamlCurrencies = `
     label: Sri Lankan rupee
     metadata:
       symbol: "Rs"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - LKA
@@ -946,7 +945,7 @@ Data.yamlCurrencies = `
     label: Liberian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - LBR
@@ -957,7 +956,7 @@ Data.yamlCurrencies = `
     label: Lesotho loti
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Sente
       polity:
         - LBR
@@ -968,7 +967,7 @@ Data.yamlCurrencies = `
     label: Libyan dinar
     metadata:
       symbol: "ل.د"
-      fractions: 1000
+      precision: 1
       fractional_unit: Dirham
       polity:
         - LBY
@@ -979,7 +978,7 @@ Data.yamlCurrencies = `
     label: Moroccan dirham
     metadata:
       symbol: "د.م."
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - MAR
@@ -990,7 +989,7 @@ Data.yamlCurrencies = `
     label: Moldovan leu
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Ban
       polity:
         - MDA
@@ -1001,6 +1000,7 @@ Data.yamlCurrencies = `
     label: Malagasy ariary
     metadata:
       symbol: "Ar"
+      precision: 2
       fractions: 5
       fractional_unit: Iraimbilanja
       polity:
@@ -1012,7 +1012,7 @@ Data.yamlCurrencies = `
     label: Macedonian denar
     metadata:
       symbol: "ден"
-      fractions: 100
+      precision: 2
       fractional_unit: Deni
       polity:
         - MKD
@@ -1023,7 +1023,7 @@ Data.yamlCurrencies = `
     label: Myanmar kyat
     metadata:
       symbol: "Ks"
-      fractions: 100
+      precision: 2
       fractional_unit: Pya
       polity:
         - MMR
@@ -1034,7 +1034,7 @@ Data.yamlCurrencies = `
     label: Mongolian tögrög
     metadata:
       symbol: "₮"
-      fractions: 100
+      precision: 2
       fractional_unit: Möngö
       polity:
         - MNG
@@ -1045,7 +1045,7 @@ Data.yamlCurrencies = `
     label: Macanese pataca
     metadata:
       symbol: "P"
-      fractions: 100
+      precision: 2
       fractional_unit: Avo
       polity:
         - MAC
@@ -1056,6 +1056,7 @@ Data.yamlCurrencies = `
     label: Mauritanian ouguiya
     metadata:
       symbol: "UM"
+      precision: 2
       fractions: 5
       fractional_unit: Khoums
       polity:
@@ -1067,7 +1068,7 @@ Data.yamlCurrencies = `
     label: Mauritian rupee
     metadata:
       symbol: "₨"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - MUS
@@ -1078,7 +1079,7 @@ Data.yamlCurrencies = `
     label: Maldivian rufiyaa
     metadata:
       symbol: ".ރ"
-      fractions: 100
+      precision: 2
       fractional_unit: Laari
       polity:
         - MDV
@@ -1089,7 +1090,7 @@ Data.yamlCurrencies = `
     label: Malawian kwacha
     metadata:
       symbol: "MK"
-      fractions: 100
+      precision: 2
       fractional_unit: Tambala
       polity:
         - MWI
@@ -1100,7 +1101,7 @@ Data.yamlCurrencies = `
     label: Mexican peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - MEX
@@ -1111,7 +1112,7 @@ Data.yamlCurrencies = `
     label: Malaysian ringgit
     metadata:
       symbol: "RM"
-      fractions: 100
+      precision: 2
       fractional_unit: Sen
       polity:
         - MYS
@@ -1122,7 +1123,7 @@ Data.yamlCurrencies = `
     label: Mozambican metical
     metadata:
       symbol: "MT"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - MOZ
@@ -1133,7 +1134,7 @@ Data.yamlCurrencies = `
     label: Namibian dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - NAM
@@ -1144,7 +1145,7 @@ Data.yamlCurrencies = `
     label: Nigerian naira
     metadata:
       symbol: "₦"
-      fractions: 100
+      precision: 2
       fractional_unit: Kobo
       polity:
         - NGA
@@ -1155,7 +1156,7 @@ Data.yamlCurrencies = `
     label: Nicaraguan córdoba
     metadata:
       symbol: "C$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centavo
       polity:
         - NIC
@@ -1166,7 +1167,7 @@ Data.yamlCurrencies = `
     label: Norwegian krone
     metadata:
       symbol: "kr"
-      fractions: 100
+      precision: 2
       fractional_unit: Øre
       polity:
         - NOR, SJM, BVT
@@ -1177,7 +1178,7 @@ Data.yamlCurrencies = `
     label: Nepalese rupee
     metadata:
       symbol: "₨"
-      fractions: 100
+      precision: 2
       fractional_unit: Paisa
       polity:
         - NPL
@@ -1188,7 +1189,7 @@ Data.yamlCurrencies = `
     label: New Zealand dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - NZL
@@ -1203,7 +1204,7 @@ Data.yamlCurrencies = `
     label: Omani rial
     metadata:
       symbol: "ر.ع."
-      fractions: 1000
+      precision: 1
       fractional_unit: Baisa
       polity:
         - OMN
@@ -1214,7 +1215,7 @@ Data.yamlCurrencies = `
     label: Panamanian balboa
     metadata:
       symbol: "B/."
-      fractions: 100
+      precision: 2
       fractional_unit: Centésimo
       polity:
         - PAN
@@ -1225,7 +1226,7 @@ Data.yamlCurrencies = `
     label: Peruvian sol
     metadata:
       symbol: "S/."
-      fractions: 100
+      precision: 2
       fractional_unit: Céntimo
       polity:
         - PER
@@ -1236,7 +1237,7 @@ Data.yamlCurrencies = `
     label: Papua New Guinean kina
     metadata:
       symbol: "K"
-      fractions: 100
+      precision: 2
       fractional_unit: Toea
       polity:
         - PNG
@@ -1247,7 +1248,7 @@ Data.yamlCurrencies = `
     label: Philippine peso
     metadata:
       symbol: "₱"
-      fractions: 100
+      precision: 2
       fractional_unit: Sentimo
       polity:
         - PHL
@@ -1258,7 +1259,7 @@ Data.yamlCurrencies = `
     label: Pakistani rupee
     metadata:
       symbol: "₨"
-      fractions: 100
+      precision: 2
       fractional_unit: Paisa
       polity:
         - PAK
@@ -1269,7 +1270,7 @@ Data.yamlCurrencies = `
     label: Polish złoty
     metadata:
       symbol: "zł"
-      fractions: 100
+      precision: 2
       fractional_unit: Grosz
       polity:
         - POL
@@ -1280,7 +1281,7 @@ Data.yamlCurrencies = `
     label: Paraguayan guaraní
     metadata:
       symbol: "₲"
-      fractions: 100
+      precision: 2
       fractional_unit: Céntimo
       polity:
         - PRY
@@ -1291,7 +1292,7 @@ Data.yamlCurrencies = `
     label: Qatari riyal
     metadata:
       symbol: "ر.ق"
-      fractions: 100
+      precision: 2
       fractional_unit: Dirham
       polity:
         - QAT
@@ -1302,7 +1303,7 @@ Data.yamlCurrencies = `
     label: Romanian leu
     metadata:
       symbol: "lei"
-      fractions: 100
+      precision: 2
       fractional_unit: Ban
       polity:
         - ROU
@@ -1313,7 +1314,7 @@ Data.yamlCurrencies = `
     label: Serbian dinar
     metadata:
       symbol: "din"
-      fractions: 100
+      precision: 2
       fractional_unit: Para
       polity:
         - SRB
@@ -1324,7 +1325,7 @@ Data.yamlCurrencies = `
     label: Russian ruble
     metadata:
       symbol: "₽"
-      fractions: 100
+      precision: 2
       fractional_unit: Kopek
       polity:
         - RUS
@@ -1335,7 +1336,7 @@ Data.yamlCurrencies = `
     label: Rwandan franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - RWA
@@ -1346,7 +1347,7 @@ Data.yamlCurrencies = `
     label: Saudi riyal
     metadata:
       symbol: "ر.س"
-      fractions: 100
+      precision: 2
       fractional_unit: Halala
       polity:
         - SAU
@@ -1357,7 +1358,7 @@ Data.yamlCurrencies = `
     label: Solomon Islands dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SLB
@@ -1368,7 +1369,7 @@ Data.yamlCurrencies = `
     label: Seychellois rupee
     metadata:
       symbol: "₨"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SYC
@@ -1379,7 +1380,7 @@ Data.yamlCurrencies = `
     label: Sudanese pound
     metadata:
       symbol: "ج.س."
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - SSD
@@ -1390,7 +1391,7 @@ Data.yamlCurrencies = `
     label: Swedish krona
     metadata:
       symbol: "kr"
-      fractions: 100
+      precision: 2
       fractional_unit: Öre
       polity:
         - SWE
@@ -1401,7 +1402,7 @@ Data.yamlCurrencies = `
     label: Singapore dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SGP
@@ -1412,7 +1413,7 @@ Data.yamlCurrencies = `
     label: Saint Helena pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Penny
       polity:
         - SHN
@@ -1423,7 +1424,7 @@ Data.yamlCurrencies = `
     label: Sierra Leonean leone
     metadata:
       symbol: "Le"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SLE
@@ -1434,7 +1435,7 @@ Data.yamlCurrencies = `
     label: Somali shilling
     metadata:
       symbol: "Sl"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SOM
@@ -1445,7 +1446,7 @@ Data.yamlCurrencies = `
     label: Surilabelse dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SUR
@@ -1456,7 +1457,7 @@ Data.yamlCurrencies = `
     label: South Sudanese pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - SSD
@@ -1467,7 +1468,7 @@ Data.yamlCurrencies = `
     label: São Tomé and Príncipe dobra
     metadata:
       symbol: "Db"
-      fractions: 100
+      precision: 2
       fractional_unit: Cêntimo
       polity:
         - STP
@@ -1478,7 +1479,7 @@ Data.yamlCurrencies = `
     label: Syrian pound
     metadata:
       symbol: "£"
-      fractions: 100
+      precision: 2
       fractional_unit: Piastre
       polity:
         - SYR
@@ -1489,7 +1490,7 @@ Data.yamlCurrencies = `
     label: Swazi lilangeni
     metadata:
       symbol: "L"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - SWZ
@@ -1500,7 +1501,7 @@ Data.yamlCurrencies = `
     label: Thai baht
     metadata:
       symbol: "฿"
-      fractions: 100
+      precision: 2
       fractional_unit: Satang
       polity:
         - THA
@@ -1511,7 +1512,7 @@ Data.yamlCurrencies = `
     label: Tajikistani somoni
     metadata:
       symbol: "ЅМ"
-      fractions: 100
+      precision: 2
       fractional_unit: Diram
       polity:
         - TJK
@@ -1522,7 +1523,7 @@ Data.yamlCurrencies = `
     label: Turkmenistan manat
     metadata:
       symbol: "m"
-      fractions: 100
+      precision: 2
       fractional_unit: Tennesi
       polity:
         - TKM
@@ -1533,7 +1534,7 @@ Data.yamlCurrencies = `
     label: Tunisian dinar
     metadata:
       symbol: "د.ت"
-      fractions: 1000
+      precision: 1
       fractional_unit: Millime
       polity:
         - TUN
@@ -1544,7 +1545,7 @@ Data.yamlCurrencies = `
     label: Tongan paʻanga
     metadata:
       symbol: "T$"
-      fractions: 100
+      precision: 2
       fractional_unit: Seniti
       polity:
         - TON
@@ -1555,7 +1556,7 @@ Data.yamlCurrencies = `
     label: Turkish lira
     metadata:
       symbol: "₺"
-      fractions: 100
+      precision: 2
       fractional_unit: Kuruş
       polity:
         - TUR
@@ -1566,7 +1567,7 @@ Data.yamlCurrencies = `
     label: Trinidad and Tobago dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - TTO
@@ -1577,7 +1578,7 @@ Data.yamlCurrencies = `
     label: New Taiwan dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - TWN
@@ -1588,7 +1589,7 @@ Data.yamlCurrencies = `
     label: Tanzanian shilling
     metadata:
       symbol: "Sh"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - TZA
@@ -1599,7 +1600,7 @@ Data.yamlCurrencies = `
     label: Ukrainian hryvnia
     metadata:
       symbol: "₴"
-      fractions: 100
+      precision: 2
       fractional_unit: Kopiyka
       polity:
         - UKR
@@ -1610,7 +1611,7 @@ Data.yamlCurrencies = `
     label: Ugandan shilling
     metadata:
       symbol: "Sh"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - UGA
@@ -1621,7 +1622,7 @@ Data.yamlCurrencies = `
     label: United States dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - USA
@@ -1649,7 +1650,7 @@ Data.yamlCurrencies = `
     label: Uruguayan peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centésimo
       polity:
         - URY
@@ -1660,7 +1661,7 @@ Data.yamlCurrencies = `
     label: Uruguayan peso
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Centésimo
       polity:
         - URY
@@ -1671,7 +1672,7 @@ Data.yamlCurrencies = `
     label: Uzbekistani soʻm
     metadata:
       symbol: "so'm"
-      fractions: 100
+      precision: 2
       fractional_unit: Tiyin
       polity:
         - UZB
@@ -1682,7 +1683,7 @@ Data.yamlCurrencies = `
     label: Venezuelan bolívar soberano
     metadata:
       symbol: "Bs."
-      fractions: 100
+      precision: 2
       fractional_unit: Céntimo
       polity:
         - VEN
@@ -1693,7 +1694,7 @@ Data.yamlCurrencies = `
     label: Vietlabelse đồng
     metadata:
       symbol: "₫"
-      fractions: 100
+      precision: 2
       fractional_unit: Hào
       polity:
         - VNM
@@ -1704,7 +1705,7 @@ Data.yamlCurrencies = `
     label: Vanuatu vatu
     metadata:
       symbol: "Vt"
-      fractions: 1
+      precision: 0
       fractional_unit: ~
       polity:
         - VUT
@@ -1715,7 +1716,7 @@ Data.yamlCurrencies = `
     label: Samoan tālā
     metadata:
       symbol: "T"
-      fractions: 100
+      precision: 2
       fractional_unit: Sene
       polity:
         - WSM
@@ -1726,7 +1727,7 @@ Data.yamlCurrencies = `
     label: Central African CFA franc
     metadata:
       symbol: "T"
-      fractions: 100
+      precision: 2
       fractional_unit: Sene
       polity:
         - CMR
@@ -1742,7 +1743,7 @@ Data.yamlCurrencies = `
     label: East Caribbean dollar
     metadata:
       symbol: "$"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - AIA
@@ -1760,7 +1761,7 @@ Data.yamlCurrencies = `
     label: West African CFA franc
     metadata:
       symbol: "Fr"
-      fractions: 100
+      precision: 2
       fractional_unit: Centime
       polity:
         - BEN
@@ -1778,7 +1779,7 @@ Data.yamlCurrencies = `
     label: Yemeni rial
     metadata:
       symbol: "﷼"
-      fractions: 100
+      precision: 2
       fractional_unit: Fils
       polity:
         - YEM
@@ -1789,7 +1790,7 @@ Data.yamlCurrencies = `
     label: South African rand
     metadata:
       symbol: "R"
-      fractions: 100
+      precision: 2
       fractional_unit: Cent
       polity:
         - ZAF
@@ -1800,15 +1801,16 @@ Data.yamlCurrencies = `
     label: Zambian kwacha
     metadata:
       symbol: "ZK"
-      fractions: 100
+      precision: 2
       fractional_unit: Ngwee
       polity:
         - ZMB
       monetary_authority: Bank of Zambia
 
 `;
+
 // Entities - Legal Entities & Ownership Structures. 1 character.
-Data.yamlEntities = `
+	static yamlEntities = `
 
     - code: I
       name: Individual # (Natural Person)
@@ -1817,18 +1819,23 @@ Data.yamlEntities = `
         type: Legal
         constitutionalDocument: null
         roles:
-          owners:
+          members:
             principal: null
           administrators:
             principal: null
             legalGuardian: []
             agent: [] # (granted by the principal)
-          general:
+          managers: null
+          associates:
             accountant: []
             advisor: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:  
+            friend: []
+            governmentAgency: []
+            suppliers: []
 
     - code: P
       name: PublicCompany
@@ -1838,7 +1845,7 @@ Data.yamlEntities = `
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)
         roles:
-          owners:
+          members:
             shareholder: []
             significantShareholder: []
           administrators: # Board of Directors
@@ -1851,13 +1858,17 @@ Data.yamlEntities = `
             cto: null
             executive: []
             secretary: null
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []  
+            governmentAgency: []
+            supplier: []
 
     - code: C
       name: PrivateCompany
@@ -1867,7 +1878,7 @@ Data.yamlEntities = `
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
         roles:
-          owners:
+          members:
             shareholder: []
             significantShareholder: []
           administrators:
@@ -1880,77 +1891,94 @@ Data.yamlEntities = `
             cto: null
             executive: []
             secretary: null            
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: L
       name: LimitedPartnership
       label: "Limited Partnership"
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: 
           partnershipAgreement: null
         roles:
-          owners:
+          members:
             partner: []
           administrators:
             partner: []
           managers:
             managingPartner: []
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
-
-    - code: U
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
+            
+    - code: X
       name: UnlimitedPartnership
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership)
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: 
           partnershipAgreement: null        
         roles:
-          owners:
+          members:
             partner: []
           administrators:
             partner: []  
           managers:
             managingPartner: []
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
+            contractor: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: T
       name: SoleProprietorship
       label: "Sole Proprietorship"
       metadata:
-        type: Legal
+        type: Ownership
         constitutionalDocument: null     
         roles:
-          owners:
+          members:
             proprietor: null
           administrators:
             proprietor: null
             agent: [] # (granted by the proprietor)
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: S
       name: StatutoryCompany
@@ -1960,6 +1988,8 @@ Data.yamlEntities = `
         constitutionalDocument: 
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
         roles:
+          members:
+            nationState: null
           administrators:
             chairman: null
             director: []
@@ -1970,13 +2000,17 @@ Data.yamlEntities = `
             cto: null
             executive: []
             secretary: null
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: O
       name: NonProfitOrganization
@@ -1996,13 +2030,17 @@ Data.yamlEntities = `
             cto: null
             executive: []
             secretary: null   
-          general:
+          associates:
             accountant: []
             advisor: []
             employee: []
             lawyer: []
             manager: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: N
       name: NationState
@@ -2011,6 +2049,13 @@ Data.yamlEntities = `
         type: Legal
         constitutionalDocument: 
          nationalConstitution: null # (eg. Constitution, Charter, etc.)       
+        role:
+          members:
+            citizen: []
+          administrators:
+          managers: 
+          associates:
+          collaborators:
 
     - code: G
       name: GovernmentAgency
@@ -2019,7 +2064,21 @@ Data.yamlEntities = `
         type: Legal
         constitutionalDocument: 
          charter: null # (eg. Charter, etc.) 
-         
+        role:
+          members:
+          administrators:
+          associates:
+            accountant: []
+            advisor: []
+            employee: []
+            lawyer: []
+            manager: []
+            trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
+
     - code: U
       name: UnitTrust
       label: "Unit Trust"
@@ -2028,12 +2087,12 @@ Data.yamlEntities = `
         constitutionalDocument: 
          trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)         
         roles:
-          owners:
+          members:
             unitholder: []
           administrators:
             protector: []
             trustee: []
-          general:
+          associates:
             accountant: []
             advisor: []
             custodian: []
@@ -2042,6 +2101,10 @@ Data.yamlEntities = `
             manager: []
             settlor: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []
 
     - code: D
       name: DiscretionaryTrust
@@ -2051,12 +2114,12 @@ Data.yamlEntities = `
         constitutionalDocument: 
          trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)               
         roles:
-          owners:
+          members:
             beneficiary: []
           administrators:
             protector: []
             trustee: []
-          general:
+          associates:
             accountant: []
             advisor: []
             custodian: []
@@ -2065,12 +2128,17 @@ Data.yamlEntities = `
             manager: []
             settlor: []
             trader: []
+          collaborators:
+            customer: []
+            governmentAgency: []
+            supplier: []  
 
 `;
+
 // Polities - Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3),
 // Political Unions, International Organizations, etc.). Based on a 3
 // character code.
-Data.yamlPolities = `
+	static yamlPolities = `
   - code: ALA
     name: Aaland Islands
     metadata:
@@ -3991,9 +4059,10 @@ Data.yamlPolities = `
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg"
 
 `;
+
 // Rejections - Code/Text combinations returned in rejection messages when
 // a request is not accepted.
-Data.yamlRejections = `
+	static yamlRejections = `
 
   - code: 0
     name: Success
@@ -4198,10 +4267,11 @@ Data.yamlRejections = `
     description: The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.
 
 `;
+
 // Roles - Roles that entities play in relation to their interactions with
 // other entities. These roles have widely-accepted tasks, rights and
 // duties.
-Data.yamlRoles = `
+	static yamlRoles = `
   - code: 1
     label: Accountant
 
@@ -4292,9 +4362,10 @@ Data.yamlRoles = `
     label: Unit Holder
 
 `;
+
 // Tags - Predefined tags for output metadata. Multiple values can be
 // assigned to an output to describe a tx output.
-Data.yamlTags = `
+	static yamlTags = `
   - code: 1
     label: Housing
 
@@ -4383,4 +4454,5 @@ Data.yamlTags = `
     label: Promotional
 
 `;
-exports.Data = Data;
+
+}

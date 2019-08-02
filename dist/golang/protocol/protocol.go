@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/tokenized/smart-contract/pkg/txbuilder"
+	"github.com/tokenized/smart-contract/pkg/bitcoin"
 )
 
 const (
@@ -62,7 +62,7 @@ func Deserialize(b []byte, isTest bool) (OpReturnMessage, error) {
 		protocolID = ProtocolID
 	}
 
-	protocolIDSize, err := txbuilder.ParsePushDataScript(buf)
+	protocolIDSize, err := bitcoin.ParsePushDataScript(buf)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func Deserialize(b []byte, isTest bool) (OpReturnMessage, error) {
 
 	// Parse push op code for payload length + 3 for version and message type code
 	var payloadSize uint64
-	payloadSize, err = txbuilder.ParsePushDataScript(buf)
+	payloadSize, err = bitcoin.ParsePushDataScript(buf)
 	if err != nil {
 		return nil, err
 	}
@@ -141,7 +141,7 @@ func Serialize(msg OpReturnMessage, isTest bool) ([]byte, error) {
 	}
 
 	// Write protocol Id push op code
-	_, err = buf.Write(txbuilder.PushDataScript(uint64(len(protocolID))))
+	_, err = buf.Write(bitcoin.PushDataScript(uint64(len(protocolID))))
 	if err != nil {
 		fmt.Printf("Failed to write push data : %s\n", err)
 		return nil, err
@@ -160,7 +160,7 @@ func Serialize(msg OpReturnMessage, isTest bool) ([]byte, error) {
 	}
 
 	// Write push op code for payload length + 3 for version and message type code
-	_, err = buf.Write(txbuilder.PushDataScript(uint64(len(payload)) + 3))
+	_, err = buf.Write(bitcoin.PushDataScript(uint64(len(payload)) + 3))
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func Code(script []byte, isTest bool) (string, error) {
 		protocolID = ProtocolID
 	}
 
-	protocolIDSize, err := txbuilder.ParsePushDataScript(buf)
+	protocolIDSize, err := bitcoin.ParsePushDataScript(buf)
 	if err != nil {
 		return "", err
 	}
@@ -232,7 +232,7 @@ func Code(script []byte, isTest bool) (string, error) {
 
 	// Parse push op code for payload length + 3 for version and message type code
 	var payloadSize uint64
-	payloadSize, err = txbuilder.ParsePushDataScript(buf)
+	payloadSize, err = bitcoin.ParsePushDataScript(buf)
 	if err != nil {
 		return "", err
 	}

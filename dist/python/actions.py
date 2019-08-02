@@ -135,9 +135,9 @@ class Action_ContractOffer(ActionBase):
         'IssuerLogoURL':                   [8, DAT_varchar, 8],
         'ContractOperatorIncluded':        [9, DAT_bool, 0],
         'ContractOperator':                [10, DAT_Entity, 0],
-        'ContractAuthFlags':               [11, DAT_varbin, 16],
-        'ContractFee':                     [12, DAT_uint, 8],
-        'VotingSystems':                   [13, DAT_VotingSystem[], 8],
+        'ContractFee':                     [11, DAT_uint, 8],
+        'VotingSystems':                   [12, DAT_VotingSystem[], 8],
+        'ContractAuthFlags':               [13, DAT_varbin, 16],
         'RestrictedQtyAssets':             [14, DAT_uint, 8],
         'AdministrationProposal':          [15, DAT_bool, 0],
         'HolderProposal':                  [16, DAT_bool, 0],
@@ -162,9 +162,9 @@ class Action_ContractOffer(ActionBase):
         self.IssuerLogoURL = None
         self.ContractOperatorIncluded = None
         self.ContractOperator = None
-        self.ContractAuthFlags = None
         self.ContractFee = None
         self.VotingSystems = None
+        self.ContractAuthFlags = None
         self.RestrictedQtyAssets = None
         self.AdministrationProposal = None
         self.HolderProposal = None
@@ -192,9 +192,9 @@ class Action_ContractFormation(ActionBase):
         'IssuerLogoURL':                   [8, DAT_varchar, 8],
         'ContractOperatorIncluded':        [9, DAT_bool, 0],
         'ContractOperator':                [10, DAT_Entity, 0],
-        'ContractAuthFlags':               [11, DAT_varbin, 16],
-        'ContractFee':                     [12, DAT_uint, 8],
-        'VotingSystems':                   [13, DAT_VotingSystem[], 8],
+        'ContractFee':                     [11, DAT_uint, 8],
+        'VotingSystems':                   [12, DAT_VotingSystem[], 8],
+        'ContractAuthFlags':               [13, DAT_varbin, 16],
         'RestrictedQtyAssets':             [14, DAT_uint, 8],
         'AdministrationProposal':          [15, DAT_bool, 0],
         'HolderProposal':                  [16, DAT_bool, 0],
@@ -221,9 +221,9 @@ class Action_ContractFormation(ActionBase):
         self.IssuerLogoURL = None
         self.ContractOperatorIncluded = None
         self.ContractOperator = None
-        self.ContractAuthFlags = None
         self.ContractFee = None
         self.VotingSystems = None
+        self.ContractAuthFlags = None
         self.RestrictedQtyAssets = None
         self.AdministrationProposal = None
         self.HolderProposal = None

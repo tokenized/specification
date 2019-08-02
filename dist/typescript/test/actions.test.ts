@@ -717,12 +717,6 @@ describe('ContractOffer', () => {
 			
 		}
 		
-		// contract_auth_flags (varbin)
-		{
-			initialMessage.contract_auth_flags = Buffer.from([...Array(16).keys()]
-				.map(i => i + 65 + 13));
-		}
-		
 		// contract_fee (uint)
 		{
 			// IsNativeType
@@ -731,9 +725,9 @@ describe('ContractOffer', () => {
 			if(type.startsWith('['))
 				initialMessage.contract_fee = getArrayOrType(type);
 			else if(type === 'uint64')
-				initialMessage.contract_fee = new BN(65 + 14);
+				initialMessage.contract_fee = new BN(65 + 13);
 			else
-				initialMessage.contract_fee = 65 + 14;
+				initialMessage.contract_fee = 65 + 13;
 				}
 		}
 		
@@ -741,6 +735,12 @@ describe('ContractOffer', () => {
 		{
 			// IsInternalTypeArray
 			initialMessage.voting_systems = [...Array(2)].map(() => new VotingSystem());
+		}
+		
+		// contract_auth_flags (varbin)
+		{
+			initialMessage.contract_auth_flags = Buffer.from([...Array(16).keys()]
+				.map(i => i + 65 + 15));
 		}
 		
 		// restricted_qty_assets (uint)
@@ -865,11 +865,6 @@ describe('ContractOffer', () => {
 			}
 		// contract_operator (Entity)
 		// Entity test compare not setup
-		// contract_auth_flags (varbin)
-		if ((initialMessage.contract_auth_flags && decodedMessage.contract_auth_flags) 
-				&& !initialMessage.contract_auth_flags.equals(decodedMessage.contract_auth_flags)) {
-			throw new Error(sprintf("contract_auth_flags doesn't match : %x != %x", initialMessage.contract_auth_flags, decodedMessage.contract_auth_flags));
-		}
 		// contract_fee (uint)
 			// IsNativeType
 			{
@@ -883,6 +878,11 @@ describe('ContractOffer', () => {
 		if ((initialMessage.voting_systems && decodedMessage.voting_systems) 
 				&& initialMessage.voting_systems.length != decodedMessage.voting_systems.length) {
 			throw new Error(sprintf("voting_systems lengths don't match : %d != %d", initialMessage.voting_systems.length, decodedMessage.voting_systems.length));
+		}
+		// contract_auth_flags (varbin)
+		if ((initialMessage.contract_auth_flags && decodedMessage.contract_auth_flags) 
+				&& !initialMessage.contract_auth_flags.equals(decodedMessage.contract_auth_flags)) {
+			throw new Error(sprintf("contract_auth_flags doesn't match : %x != %x", initialMessage.contract_auth_flags, decodedMessage.contract_auth_flags));
 		}
 		// restricted_qty_assets (uint)
 			// IsNativeType
@@ -1002,12 +1002,6 @@ describe('ContractFormation', () => {
 			
 		}
 		
-		// contract_auth_flags (varbin)
-		{
-			initialMessage.contract_auth_flags = Buffer.from([...Array(16).keys()]
-				.map(i => i + 65 + 13));
-		}
-		
 		// contract_fee (uint)
 		{
 			// IsNativeType
@@ -1016,9 +1010,9 @@ describe('ContractFormation', () => {
 			if(type.startsWith('['))
 				initialMessage.contract_fee = getArrayOrType(type);
 			else if(type === 'uint64')
-				initialMessage.contract_fee = new BN(65 + 14);
+				initialMessage.contract_fee = new BN(65 + 13);
 			else
-				initialMessage.contract_fee = 65 + 14;
+				initialMessage.contract_fee = 65 + 13;
 				}
 		}
 		
@@ -1026,6 +1020,12 @@ describe('ContractFormation', () => {
 		{
 			// IsInternalTypeArray
 			initialMessage.voting_systems = [...Array(2)].map(() => new VotingSystem());
+		}
+		
+		// contract_auth_flags (varbin)
+		{
+			initialMessage.contract_auth_flags = Buffer.from([...Array(16).keys()]
+				.map(i => i + 65 + 15));
 		}
 		
 		// restricted_qty_assets (uint)
@@ -1170,11 +1170,6 @@ describe('ContractFormation', () => {
 			}
 		// contract_operator (Entity)
 		// Entity test compare not setup
-		// contract_auth_flags (varbin)
-		if ((initialMessage.contract_auth_flags && decodedMessage.contract_auth_flags) 
-				&& !initialMessage.contract_auth_flags.equals(decodedMessage.contract_auth_flags)) {
-			throw new Error(sprintf("contract_auth_flags doesn't match : %x != %x", initialMessage.contract_auth_flags, decodedMessage.contract_auth_flags));
-		}
 		// contract_fee (uint)
 			// IsNativeType
 			{
@@ -1188,6 +1183,11 @@ describe('ContractFormation', () => {
 		if ((initialMessage.voting_systems && decodedMessage.voting_systems) 
 				&& initialMessage.voting_systems.length != decodedMessage.voting_systems.length) {
 			throw new Error(sprintf("voting_systems lengths don't match : %d != %d", initialMessage.voting_systems.length, decodedMessage.voting_systems.length));
+		}
+		// contract_auth_flags (varbin)
+		if ((initialMessage.contract_auth_flags && decodedMessage.contract_auth_flags) 
+				&& !initialMessage.contract_auth_flags.equals(decodedMessage.contract_auth_flags)) {
+			throw new Error(sprintf("contract_auth_flags doesn't match : %x != %x", initialMessage.contract_auth_flags, decodedMessage.contract_auth_flags));
 		}
 		// restricted_qty_assets (uint)
 			// IsNativeType

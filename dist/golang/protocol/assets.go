@@ -227,8 +227,8 @@ func (m *Coupon) Validate() error {
 
 	// RedeemingEntity (string)
 	{
-		if len(m.RedeemingEntity) > (2<<8)-1 {
-			return fmt.Errorf("varchar field RedeemingEntity too long %d/%d", len(m.RedeemingEntity), (2<<8)-1)
+		if len(m.RedeemingEntity) > (1<<8)-1 {
+			return fmt.Errorf("varchar field RedeemingEntity too long %d/%d", len(m.RedeemingEntity), (1<<8)-1)
 		}
 	}
 
@@ -261,8 +261,8 @@ func (m *Coupon) Validate() error {
 
 	// Description (string)
 	{
-		if len(m.Description) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (2<<16)-1)
+		if len(m.Description) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (1<<16)-1)
 		}
 	}
 
@@ -406,15 +406,15 @@ func (m *Currency) Validate() error {
 
 	// MonetaryAuthority (string)
 	{
-		if len(m.MonetaryAuthority) > (2<<8)-1 {
-			return fmt.Errorf("varchar field MonetaryAuthority too long %d/%d", len(m.MonetaryAuthority), (2<<8)-1)
+		if len(m.MonetaryAuthority) > (1<<8)-1 {
+			return fmt.Errorf("varchar field MonetaryAuthority too long %d/%d", len(m.MonetaryAuthority), (1<<8)-1)
 		}
 	}
 
 	// Description (string)
 	{
-		if len(m.Description) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (2<<16)-1)
+		if len(m.Description) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (1<<16)-1)
 		}
 	}
 
@@ -588,8 +588,8 @@ func (m *LoyaltyPoints) Validate() error {
 
 	// OfferName (string)
 	{
-		if len(m.OfferName) > (2<<8)-1 {
-			return fmt.Errorf("varchar field OfferName too long %d/%d", len(m.OfferName), (2<<8)-1)
+		if len(m.OfferName) > (1<<8)-1 {
+			return fmt.Errorf("varchar field OfferName too long %d/%d", len(m.OfferName), (1<<8)-1)
 		}
 	}
 
@@ -611,8 +611,8 @@ func (m *LoyaltyPoints) Validate() error {
 
 	// Description (string)
 	{
-		if len(m.Description) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (2<<16)-1)
+		if len(m.Description) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (1<<16)-1)
 		}
 	}
 
@@ -855,36 +855,36 @@ func (m *Membership) Validate() error {
 
 	// ID (string)
 	{
-		if len(m.ID) > (2<<8)-1 {
-			return fmt.Errorf("varchar field ID too long %d/%d", len(m.ID), (2<<8)-1)
+		if len(m.ID) > (1<<8)-1 {
+			return fmt.Errorf("varchar field ID too long %d/%d", len(m.ID), (1<<8)-1)
 		}
 	}
 
 	// MembershipClass (string)
 	{
-		if len(m.MembershipClass) > (2<<8)-1 {
-			return fmt.Errorf("varchar field MembershipClass too long %d/%d", len(m.MembershipClass), (2<<8)-1)
+		if len(m.MembershipClass) > (1<<8)-1 {
+			return fmt.Errorf("varchar field MembershipClass too long %d/%d", len(m.MembershipClass), (1<<8)-1)
 		}
 	}
 
 	// RoleType (string)
 	{
-		if len(m.RoleType) > (2<<8)-1 {
-			return fmt.Errorf("varchar field RoleType too long %d/%d", len(m.RoleType), (2<<8)-1)
+		if len(m.RoleType) > (1<<8)-1 {
+			return fmt.Errorf("varchar field RoleType too long %d/%d", len(m.RoleType), (1<<8)-1)
 		}
 	}
 
 	// MembershipType (string)
 	{
-		if len(m.MembershipType) > (2<<8)-1 {
-			return fmt.Errorf("varchar field MembershipType too long %d/%d", len(m.MembershipType), (2<<8)-1)
+		if len(m.MembershipType) > (1<<8)-1 {
+			return fmt.Errorf("varchar field MembershipType too long %d/%d", len(m.MembershipType), (1<<8)-1)
 		}
 	}
 
 	// Description (string)
 	{
-		if len(m.Description) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (2<<16)-1)
+		if len(m.Description) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (1<<16)-1)
 		}
 	}
 
@@ -1062,8 +1062,8 @@ func (m *ShareCommon) Validate() error {
 
 	// Description (string)
 	{
-		if len(m.Description) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (2<<16)-1)
+		if len(m.Description) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (1<<16)-1)
 		}
 	}
 
@@ -1329,29 +1329,29 @@ func (m *TicketAdmission) Validate() error {
 
 	// Venue (string)
 	{
-		if len(m.Venue) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Venue too long %d/%d", len(m.Venue), (2<<8)-1)
+		if len(m.Venue) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Venue too long %d/%d", len(m.Venue), (1<<8)-1)
 		}
 	}
 
 	// Class (string)
 	{
-		if len(m.Class) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Class too long %d/%d", len(m.Class), (2<<8)-1)
+		if len(m.Class) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Class too long %d/%d", len(m.Class), (1<<8)-1)
 		}
 	}
 
 	// Area (string)
 	{
-		if len(m.Area) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Area too long %d/%d", len(m.Area), (2<<8)-1)
+		if len(m.Area) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Area too long %d/%d", len(m.Area), (1<<8)-1)
 		}
 	}
 
 	// Seat (string)
 	{
-		if len(m.Seat) > (2<<8)-1 {
-			return fmt.Errorf("varchar field Seat too long %d/%d", len(m.Seat), (2<<8)-1)
+		if len(m.Seat) > (1<<8)-1 {
+			return fmt.Errorf("varchar field Seat too long %d/%d", len(m.Seat), (1<<8)-1)
 		}
 	}
 
@@ -1381,8 +1381,8 @@ func (m *TicketAdmission) Validate() error {
 
 	// Description (string)
 	{
-		if len(m.Description) > (2<<16)-1 {
-			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (2<<16)-1)
+		if len(m.Description) > (1<<16)-1 {
+			return fmt.Errorf("varchar field Description too long %d/%d", len(m.Description), (1<<16)-1)
 		}
 	}
 

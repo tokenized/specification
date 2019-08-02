@@ -173,20 +173,20 @@ func (m *{{.Name}}) Validate() error {
 	{
 {{- end }}
 {{- if .IsVarChar }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("varchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("varchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 {{- else if .IsFixedChar }}
 		if len(m.{{.Name}}) > {{.Length}} {
 			return fmt.Errorf("fixedchar field {{.Name}} too long %d/%d", len(m.{{.Name}}), {{.Length}})
 		}
 {{- else if .IsVarBin }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("varbin field {{.Name}} too long %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 {{- else if .IsResourceTypeArray }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 
 		for _, value := range m.{{.Name}} {
@@ -241,8 +241,8 @@ func (m *{{.Name}}) Validate() error {
 			return fmt.Errorf("Invalid tag type value : %c", m.{{.Name}})
 		}
 {{- else if .IsInternalTypeArray }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 
 		for i, value := range m.{{.Name}} {
@@ -252,8 +252,8 @@ func (m *{{.Name}}) Validate() error {
 			}
 		}
 {{- else if .IsNativeTypeArray }}
-		if len(m.{{.Name}}) > (2 << {{.Length}}) - 1 {
-			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (2 << {{.Length}}) - 1)
+		if len(m.{{.Name}}) > (1 << {{.Length}}) - 1 {
+			return fmt.Errorf("list field {{.Name}} has too many items %d/%d", len(m.{{.Name}}), (1 << {{.Length}}) - 1)
 		}
 {{- else if .IsInternalType }}
 		if err := m.{{.Name}}.Validate(); err != nil {
@@ -300,5 +300,29 @@ func (m *{{.Name}}) Equal(other {{.Name}}) bool {
 {{- end }}
 {{- end }}
 	return true
+}
+
+func (action {{.Name}}) String() string {
+	vals := []string{}
+{{ range .Fields -}}
+	{{- if eq .Type "STRING" }}
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%v\"\n", string(action.{{.FieldName}})))
+	{{- else if .IsNumeric }}
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%v\n", action.{{.FieldName}}))
+	{{- else if eq .Type "SHA" }}
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:\"%x\"\n", action.{{.FieldName}}))
+	{{- else if eq .FieldGoType "[]byte" }}
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#x\n", action.{{.FieldName}}))
+	{{- else if .IsInternalTypeArray }}
+	for i, element := range action.{{.FieldName}} {
+		vals = append(vals, fmt.Sprintf("{{.FieldName}}%d:%s\n", i, element.String()))
+	}
+	{{- else if .IsInternalType }}
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%s\n", action.{{.FieldName}}.String()))
+	{{- else }}
+	vals = append(vals, fmt.Sprintf("{{.FieldName}}:%#+v\n", action.{{.FieldName}}))
+	{{- end }}{{ end }}
+
+	return fmt.Sprintf("{%s}", strings.Join(vals, " "))
 }
 {{ end }}

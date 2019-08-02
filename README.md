@@ -44,7 +44,7 @@ To create an OP_RETURN script, first populate a action/message struct, then pass
 To read an OP_RETURN script, pass the script into the Deserialize function and if it is valid, then it will return an action/message struct.
 
 #### OP_RETURN script format
-`<OP_RETURN> 0x64`
+`<OP_RETURN> 0x6a`
 
 `<PUSH_OP size 9> 0x09`
 
