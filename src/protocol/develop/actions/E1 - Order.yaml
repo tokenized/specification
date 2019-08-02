@@ -32,7 +32,7 @@ fields:
     type: fixedchar
     size: 1
     example: "F"
-    charValues:
+    options:
       - 'F'
       - 'T'
       - 'C'
