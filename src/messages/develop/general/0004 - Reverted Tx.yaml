@@ -3,11 +3,9 @@
 #
 
 code: 0004
-
-metadata:
-  name: RevertedTx
-  label: Reverted Tx
-  description: "A message that contains a bitcoin transaction that was accepted by the network or an agent and then invalidated by a reorg, or zero conf double spend. This serves as on chain evidence of the sending party's signatures and approval for the given transaction."
+name: RevertedTx
+label: Reverted Tx
+description: "A message that contains a bitcoin transaction that was accepted by the network or an agent and then invalidated by a reorg, or zero conf double spend. This serves as on chain evidence of the sending party's signatures and approval for the given transaction."
 
 fields:
   - name: Timestamp

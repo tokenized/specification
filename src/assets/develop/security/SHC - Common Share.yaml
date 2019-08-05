@@ -3,13 +3,13 @@
 #
 
 code: SHC
+name: ShareCommon
+label: Share - Common
+description: Common stock represents ownership interests in companies.
 
 metadata:
-  name: ShareCommon
-  label: Share - Common
   kind: Security
   category: Equity Security
-  description: Common stock represents ownership interests in companies.
   examples:
     - Tesla Shareholders Agreement
     - Bitmain Shareholder Agreement

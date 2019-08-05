@@ -3,11 +3,11 @@
 #
 
 code: A3
+name: AssetModification
+label: Asset Modification
+description: "Token Dilutions, Call Backs/Revocations, burning etc."
 
 metadata:
-  name: AssetModification
-  label: Asset Modification
-  description: "Token Dilutions, Call Backs/Revocations, burning etc."
   validation: AssetCreation
   rejection: Rejection
 

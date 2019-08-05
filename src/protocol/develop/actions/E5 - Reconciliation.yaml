@@ -3,13 +3,13 @@
 #
 
 code: E5
+name: Reconciliation
+label: Reconciliation
+description: >
+  The contract responding to an Order action to reconcile assets.
+  To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.
 
 metadata:
-  name: Reconciliation
-  label: Reconciliation
-  description: >
-    The contract responding to an Order action to reconcile assets.
-    To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.
   validation: AssetCreation
   rejection: Rejection
 

@@ -3,11 +3,11 @@
 #
 
 code: G5
+name: Result
+label: Result
+description: "Once a vote has been completed the results are published. After the result is posted, it is up to the administration to send a contract/asset amendement if appropriate."
 
 metadata:
-  name: Result
-  label: Result
-  description: "Once a vote has been completed the results are published. After the result is posted, it is up to the administration to send a contract/asset amendement if appropriate."
   validation: None
   rejection: Rejection
 

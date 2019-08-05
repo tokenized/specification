@@ -3,11 +3,9 @@
 #
 
 code: 0003
-
-metadata:
-  name: PrivateMessage
-  label: Private Message
-  description: "Generic private message. Sent to another address(es). Encryption is to be used."
+name: PrivateMessage
+label: Private Message
+description: "Generic private message. Sent to another address(es). Encryption is to be used."
 
 fields:
   - name: Timestamp

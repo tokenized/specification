@@ -1,6 +1,6 @@
-metadata:
-  name: Entities
-  description: Legal Entities & Ownership Structures. 1 character.
+
+name: Entities
+description: Legal Entities & Ownership Structures. 1 character.
 
 values:
 
@@ -24,7 +24,7 @@ values:
             lawyer: []
             manager: []
             trader: []
-          collaborators:  
+          collaborators:
             friend: []
             governmentAgency: []
             suppliers: []
@@ -34,7 +34,7 @@ values:
       label: "Public Company Limited by Shares"
       metadata:
         type: Legal
-        constitutionalDocument: 
+        constitutionalDocument:
          companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)
         roles:
           members:
@@ -58,7 +58,7 @@ values:
             manager: []
             trader: []
           collaborators:
-            customer: []  
+            customer: []
             governmentAgency: []
             supplier: []
 
@@ -67,8 +67,8 @@ values:
       label: "Private Company Limited by Shares"
       metadata:
         type: Legal
-        constitutionalDocument: 
-         companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
+        constitutionalDocument:
+         companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)
         roles:
           members:
             shareholder: []
@@ -82,7 +82,7 @@ values:
             cfo: null
             cto: null
             executive: []
-            secretary: null            
+            secretary: null
           associates:
             accountant: []
             advisor: []
@@ -100,7 +100,7 @@ values:
       label: "Limited Partnership"
       metadata:
         type: Legal
-        constitutionalDocument: 
+        constitutionalDocument:
           partnershipAgreement: null
         roles:
           members:
@@ -120,19 +120,19 @@ values:
             customer: []
             governmentAgency: []
             supplier: []
-            
+
     - code: X
       name: UnlimitedPartnership
       label: "Unlimited Partnership" # (General Partnership, Marriage, Civil Union, Common Law Marriage, Domestic Partnership)
       metadata:
         type: Legal
-        constitutionalDocument: 
-          partnershipAgreement: null        
+        constitutionalDocument:
+          partnershipAgreement: null
         roles:
           members:
             partner: []
           administrators:
-            partner: []  
+            partner: []
           managers:
             managingPartner: []
           associates:
@@ -153,7 +153,7 @@ values:
       label: "Sole Proprietorship"
       metadata:
         type: Legal
-        constitutionalDocument: null     
+        constitutionalDocument: null
         roles:
            members:
             proprietor: null
@@ -177,8 +177,8 @@ values:
       label: "Statutory Company"
       metadata:
         type: Legal
-        constitutionalDocument: 
-         companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)        
+        constitutionalDocument:
+         companyConstitution: null # (eg. Memorandum of Association, Charter, sometimes Articles of Association, etc.)
         roles:
           members:
             nationState: null
@@ -206,11 +206,11 @@ values:
 
     - code: O
       name: NonProfitOrganization
-      label: "Non-Profit Organization"      
+      label: "Non-Profit Organization"
       metadata:
         type: Legal
-        constitutionalDocument: 
-         organizationConstitution: null # (eg. Constitution, Memorandum of Association, Charter, sometimes Articles of Association, etc.)             
+        constitutionalDocument:
+         organizationConstitution: null # (eg. Constitution, Memorandum of Association, Charter, sometimes Articles of Association, etc.)
         role:
           administrators:
             chairman: null
@@ -221,7 +221,7 @@ values:
             cfo: null
             cto: null
             executive: []
-            secretary: null   
+            secretary: null
           associates:
             accountant: []
             advisor: []
@@ -239,13 +239,13 @@ values:
       label: "Nation State" # (Sovereign State)
       metadata:
         type: Legal
-        constitutionalDocument: 
-         nationalConstitution: null # (eg. Constitution, Charter, etc.)       
+        constitutionalDocument:
+         nationalConstitution: null # (eg. Constitution, Charter, etc.)
         role:
           members:
             citizen: []
           administrators:
-          managers: 
+          managers:
           associates:
           collaborators:
 
@@ -254,8 +254,8 @@ values:
       label: "Government Agency"
       metadata:
         type: Legal
-        constitutionalDocument: 
-         charter: null # (eg. Charter, etc.) 
+        constitutionalDocument:
+         charter: null # (eg. Charter, etc.)
         role:
           members:
           administrators:
@@ -276,8 +276,8 @@ values:
       label: "Unit Trust"
       metadata:
         type: Ownership
-        constitutionalDocument: 
-         trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)         
+        constitutionalDocument:
+         trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)
         roles:
           members:
             unitholder: []
@@ -303,8 +303,8 @@ values:
       label: "Discretionary Trust" # (Family Trust)
       metadata:
         type: Ownership
-        constitutionalDocument: 
-         trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)               
+        constitutionalDocument:
+         trustDeed: null # (eg. Trust Deed, Trust Instrument, etc.)
         roles:
           members:
             beneficiary: []
@@ -323,4 +323,4 @@ values:
           collaborators:
             customer: []
             governmentAgency: []
-            supplier: []  
+            supplier: []

@@ -3,11 +3,11 @@
 #
 
 code: C2
+name: ContractFormation
+label: Contract Formation
+description: "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf."
 
 metadata:
-  name: ContractFormation
-  label: Contract Formation
-  description: "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf."
   validation: AssetCreation
   rejection: Rejection
 

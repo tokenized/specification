@@ -3,12 +3,12 @@
 #
 
 code: LOY
+name: LoyaltyPoints
+label: Loyalty Points
+description: A Loyalty Point
 
 metadata:
-  name: LoyaltyPoints
-  label: Loyalty Points
   kind: Utility
-  description: A Loyalty Point
   examples:
     - Burger Prince Dollars
     - Air Kilometers

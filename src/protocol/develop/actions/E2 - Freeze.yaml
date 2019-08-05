@@ -3,16 +3,16 @@
 #
 
 code: E2
+name: Freeze
+label: Freeze
+description: >
+  The contract responding to an Order action to freeze assets.
+  To be used to comply with contractual/legal/issuer requirements.
+  The target public address(es) will be marked as frozen.
+  However the Freeze action publishes this fact to the public blockchain for transparency.
+  The contract will not respond to any actions requested by the frozen address.
 
 metadata:
-  name: Freeze
-  label: Freeze
-  description: >
-    The contract responding to an Order action to freeze assets.
-    To be used to comply with contractual/legal/issuer requirements.
-    The target public address(es) will be marked as frozen.
-    However the Freeze action publishes this fact to the public blockchain for transparency.
-    The contract will not respond to any actions requested by the frozen address.
   validation: AssetCreation
   rejection: Rejection
 

@@ -3,12 +3,11 @@
 #
 
 code: C5
+name: ContractAddressChange
+label: Contract Address Change
+description: This txn is signed by the master contract key defined in the contract formation and changes the active contract address which the contract uses to receive and respond to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.
 
 metadata:
-  name: ContractAddressChange
-  label: Contract Address Change
-  description: This txn is signed by the master contract key defined in the contract formation and changes the active contract address which the contract uses to receive and respond to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.
-
   inputs:
     - name: ContractMaster
       label: Contract Master Public Address

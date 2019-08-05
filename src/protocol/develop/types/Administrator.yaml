@@ -1,7 +1,7 @@
-metadata:
-  name: Administrator
-  label: Administrator
-  description: "Administrator is used to refer to a Administration role in an Entity."
+
+name: Administrator
+label: Administrator
+description: "Administrator is used to refer to a Administration role in an Entity."
 
 fields:
   - name: Type

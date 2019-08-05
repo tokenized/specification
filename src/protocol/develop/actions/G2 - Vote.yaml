@@ -3,11 +3,11 @@
 #
 
 code: G2
+name: Vote
+label: Vote
+description: "A vote is created by the Contract in response to a valid Proposal Action."
 
 metadata:
-  name: Vote
-  label: Vote
-  description: "A vote is created by the Contract in response to a valid Proposal Action."
   validation: None
   rejection: Rejection
 

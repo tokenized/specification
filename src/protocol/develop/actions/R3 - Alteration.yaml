@@ -3,12 +3,11 @@
 #
 
 code: R3
+name: Alteration
+label: Alteration
+description: "A register entry/record can be altered."
 
 metadata:
-  name: Alteration
-  label: Alteration
-  description: "A register entry/record can be altered."
-
   inputs:
     - name: Register
       label: "Register Public Address"

@@ -1,7 +1,7 @@
-metadata:
-  name: Manager
-  label: Manager
-  description: "Manager is used to refer to a role that is responsible for the Management of an Entity."
+
+name: Manager
+label: Manager
+description: "Manager is used to refer to a role that is responsible for the Management of an Entity."
 
 fields:
   - name: Type

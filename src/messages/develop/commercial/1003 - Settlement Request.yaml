@@ -3,11 +3,9 @@
 #
 
 code: 1003
-
-metadata:
-  name: SettlementRequest
-  label: Settlement Request
-  description: "A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added."
+name: SettlementRequest
+label: Settlement Request
+description: "A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added."
 
 fields:
   - name: Timestamp

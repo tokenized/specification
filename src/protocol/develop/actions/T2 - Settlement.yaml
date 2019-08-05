@@ -3,11 +3,11 @@
 #
 
 code: T2
+name: Settlement
+label: Settlement
+description: "Settles the transfer request of bitcoins and tokens from transfer (T1) actions."
 
 metadata:
-  name: Settlement
-  label: Settlement
-  description: "Settles the transfer request of bitcoins and tokens from transfer (T1) actions."
   validation: AssetCreation
   rejection: Rejection
 

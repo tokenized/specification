@@ -3,13 +3,13 @@
 #
 
 code: TIC
+name: TicketAdmission
+label: Ticket (Admission)
+description: Admission ticket
 
 metadata:
-  name: TicketAdmission
-  label: Ticket (Admission)
   kind: Utility
   category: Ticket
-  description: Admission ticket
   examples:
     - Freddie Mercury Concert
     - Bitcoin Conference

@@ -3,12 +3,11 @@
 #
 
 code: R2
+name: Addition
+label: Addition
+description: "Adds an entry to the Register."
 
 metadata:
-  name: Addition
-  label: Addition
-  description: "Adds an entry to the Register."
-
   inputs:
     - name: Register
       label: "Register Public Address"

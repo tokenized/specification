@@ -3,12 +3,12 @@
 #
 
 code: MEM
+name: Membership
+label: Membership
+description: A Membership
 
 metadata:
-  name: Membership
-  label: Membership
   kind: Identity
-  description: A Membership
   examples:
     - Director on the Board of a Company or Organization
     - Employee

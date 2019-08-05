@@ -3,12 +3,11 @@
 #
 
 code: R4
+name: Removal
+label: Removal
+description: "Removes an entry/record from the Register."
 
 metadata:
-  name: Removal
-  label: Removal
-  description: "Removes an entry/record from the Register."
-
   inputs:
     - name: Register
       label: "Register Public Address"

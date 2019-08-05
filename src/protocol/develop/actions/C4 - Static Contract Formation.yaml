@@ -3,12 +3,11 @@
 #
 
 code: C4
+name: StaticContractFormation
+label: Static Contract Formation
+description: "Static Contract Formation Action"
 
 metadata:
-  name: StaticContractFormation
-  label: Static Contract Formation
-  description: "Static Contract Formation Action"
-
   inputs:
     - name: PartyX
       label: "Issuer or Party X Public Address"

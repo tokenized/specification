@@ -1,7 +1,7 @@
-metadata:
-  name: Document
-  label: Document
-  description: "A file containing data."
+
+name: Document
+label: Document
+description: "A file containing data."
 
 fields:
   - name: Name

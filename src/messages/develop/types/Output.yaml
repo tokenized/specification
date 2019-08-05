@@ -3,11 +3,9 @@
 #
 
 code: 0002
-
-metadata:
-  name: Output
-  label: Output
-  description: "Reference to a bitcoin transaction output."
+name: Output
+label: Output
+description: "Reference to a bitcoin transaction output."
 
 fields:
   - name: TxId
