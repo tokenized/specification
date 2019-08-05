@@ -24,6 +24,7 @@ fields:
     label: Entry Tx ID
     description: "Transaction ID of the register entry to be altered."
     type: TxId
+    example: "32e5f04df806f0844fe4e4eb4792384b0a882b4fe3d7de7f402645bcc5e39ebd"
 
   - name: Message
     label: Message

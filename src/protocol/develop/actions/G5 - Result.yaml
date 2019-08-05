@@ -60,6 +60,7 @@ fields:
     label: Vote Tx ID
     description: "Link to the Vote Action txn."
     type: TxId
+    example: "f13386211d04591ffee918b8506236688f3ced9b1dfde77142bfc24a5e29b2bd"
 
   - name: OptionTally
     label: Option Tally

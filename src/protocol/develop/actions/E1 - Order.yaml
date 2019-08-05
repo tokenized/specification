@@ -83,6 +83,7 @@ fields:
     label: Freeze Tx Id
     description: "The tx id of the freeze action that is being thawed. Only serialized for thaw orders."
     type: TxId
+    example: "74bc2ff786617f1bf861792421721d2a2ac9b78cac4dfec6c4d8dff9a6ded68d"
     # includeIf specifies that this field is only included in serialization if the specified field has one of the specified values.
     includeIf:
       field: ComplianceAction

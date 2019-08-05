@@ -107,6 +107,7 @@ fields:
     label: PrevRevTxID
     description: "The Tx-ID of the previous contract revision."
     type: TxId
+    example: "331951dc89e46f6ec81740a53519eef8929c8ac5887127ea019646f85748d06a"
 
   - name: Entities
     label: Entities

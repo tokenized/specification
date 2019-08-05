@@ -54,3 +54,4 @@ fields:
     label: Ref Tx ID
     description: "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details."
     type: TxId
+    example: "8a2e8c1c1869cdc1804cca859a84de43618d908f20798a1b84eae5158544d5f7"

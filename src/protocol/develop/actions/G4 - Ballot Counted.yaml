@@ -26,6 +26,7 @@ fields:
     label: Vote Tx ID
     description: "Tx ID of the Vote the Ballot Cast is being made for."
     type: TxId
+    example: "36e7e17fabd50421894a9bb25c7b9a728b395c45d22c669d5c0a5c9e7ae3d4bd"
 
   - name: Vote
     label: Vote
