@@ -110,3 +110,4 @@ fields:
     label: Vote Cut-Off Timestamp
     description: "Ballot casts after this timestamp will not be included. The vote has finished."
     type: Timestamp
+    example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"

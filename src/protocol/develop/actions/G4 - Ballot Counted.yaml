@@ -46,4 +46,5 @@ fields:
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
+    example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
     notes: "Cannot be changed by the administration, operator. Smart contract controls."
