@@ -43,3 +43,4 @@ fields:
     label: Exchange Fee Address
     description: "Identifies the public address that the exchange fee should be paid to."
     type: PublicKeyHash
+    example: "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e"

@@ -28,6 +28,7 @@ fields:
     label: New Contract PKH
     description: The address to be used by all future requests/responses for the contract.
     type: PublicKeyHash
+    example: "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e"
 
   - name: Timestamp
     label: Timestamp

@@ -176,6 +176,7 @@ fields:
     label: Master Public Key Hash
     description: "The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key."
     type: PublicKeyHash
+    example: "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e"
 
   - name: ContractRevision
     label: Contract Revision

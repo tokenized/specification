@@ -106,6 +106,7 @@ fields:
     description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions."
     type: PublicKeyHash
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
+    example: "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e"
     # includeIf specifies that this field is only included in serialization if the specified field has one of the specified values.
     includeIf:
       field: ComplianceAction
