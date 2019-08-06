@@ -2,7 +2,7 @@
 # Establishment Action: Establishes an on-chain register.
 #
 
-id: R1
+code: R1
 
 metadata:
   name: Establishment

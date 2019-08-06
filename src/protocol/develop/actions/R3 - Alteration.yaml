@@ -2,7 +2,7 @@
 # Alteration Action: A register entry/record can be altered.
 #
 
-id: R3
+code: R3
 
 metadata:
   name: Alteration

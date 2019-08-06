@@ -2,7 +2,7 @@
 # Static Contract Formation Action:
 #
 
-id: C4
+code: C4
 
 metadata:
   name: StaticContractFormation

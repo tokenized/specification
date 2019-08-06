@@ -2,7 +2,7 @@
 # Contract Address Change Action:  This txn is signed by the master contract key and changes the active contract address which the contract receives and responds to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.
 #
 
-id: C5
+code: C5
 
 metadata:
   name: ContractAddressChange

@@ -2,7 +2,7 @@
 # Confiscation Action: to be used to comply with contractual obligations, legal and/or issuer requirements.
 #
 
-id: E4
+code: E4
 
 metadata:
   name: Confiscation

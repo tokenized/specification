@@ -5,7 +5,7 @@
 # C - Confiscate moves tokens from specified holders to a specified deposit address.
 # R - Reconcile destroys tokens from specified holders to correct after a chain reorg has caused accidental creation of tokens.
 
-id: E1
+code: E1
 
 metadata:
   name: Order

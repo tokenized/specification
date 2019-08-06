@@ -7,7 +7,7 @@
 # in the Message Types table.
 #
 
-id: M1
+code: M1
 
 metadata:
   name: Message
