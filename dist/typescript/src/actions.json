@@ -1,0 +1,463 @@
+[
+  {
+    "name": "AssetDefinition",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "A1"
+      },
+      "actionContents": {
+        "AdministrationProposal": "true",
+        "AssetAuthFlags": "NO EXAMPLE",
+        "AssetModificationGovernance": "1",
+        "AssetPayload": "NO EXAMPLE",
+        "EnforcementOrdersPermitted": "1",
+        "HolderProposal": "true",
+        "TokenQty": "1000000",
+        "TradeRestrictions": "GBR",
+        "TransfersPermitted": "1",
+        "VoteMultiplier": "3",
+        "VotingRights": "NO EXAMPLE"
+      }
+    }
+  },
+  {
+    "name": "AssetCreation",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "A2"
+      },
+      "actionContents": {
+        "AdministrationProposal": "true",
+        "AssetAuthFlags": "NO EXAMPLE",
+        "AssetCode": "NO EXAMPLE",
+        "AssetIndex": "8",
+        "AssetModificationGovernance": "1",
+        "AssetPayload": "NO EXAMPLE",
+        "AssetRevision": "4",
+        "EnforcementOrdersPermitted": "1",
+        "HolderProposal": "true",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "TokenQty": "1000000",
+        "TradeRestrictions": "GBR",
+        "TransfersPermitted": "1",
+        "VoteMultiplier": "3",
+        "VotingRights": "NO EXAMPLE"
+      }
+    }
+  },
+  {
+    "name": "AssetModification",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "A3"
+      },
+      "actionContents": {
+        "Amendments": "NO EXAMPLE",
+        "AssetCode": "NO EXAMPLE",
+        "AssetRevision": "0",
+        "AssetType": "SHC",
+        "RefTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+      }
+    }
+  },
+  {
+    "name": "ContractOffer",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "C1"
+      },
+      "actionContents": {
+        "AdministrationProposal": "true",
+        "BodyOfAgreement": "NO EXAMPLE",
+        "BodyOfAgreementType": "1",
+        "ContractAuthFlags": "NO EXAMPLE",
+        "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "ContractFee": "8",
+        "ContractName": "Tesla - Shareholder Agreement",
+        "ContractOperator": "NO EXAMPLE",
+        "ContractOperatorIncluded": "NO EXAMPLE",
+        "ContractType": "Shareholder Agreement",
+        "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+        "GoverningLaw": "USA",
+        "HolderProposal": "true",
+        "Issuer": "NO EXAMPLE",
+        "IssuerLogoURL": "https://example.com/images/logo.png",
+        "Jurisdiction": "US-CA",
+        "MasterPKH": "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e",
+        "Oracles": "NO EXAMPLE",
+        "RestrictedQtyAssets": "1",
+        "SupportingDocs": "NO EXAMPLE",
+        "VotingSystems": "NO EXAMPLE"
+      }
+    }
+  },
+  {
+    "name": "ContractFormation",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "C2"
+      },
+      "actionContents": {
+        "AdministrationProposal": "true",
+        "BodyOfAgreement": "NO EXAMPLE",
+        "BodyOfAgreementType": "1",
+        "ContractAuthFlags": "NO EXAMPLE",
+        "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "ContractFee": "8",
+        "ContractName": "Tesla - Shareholder Agreement",
+        "ContractOperator": "NO EXAMPLE",
+        "ContractOperatorIncluded": "NO EXAMPLE",
+        "ContractRevision": "0",
+        "ContractType": "Shareholder Agreement",
+        "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+        "GoverningLaw": "USA",
+        "HolderProposal": "true",
+        "Issuer": "NO EXAMPLE",
+        "IssuerLogoURL": "https://example.tld/images/logo.png",
+        "Jurisdiction": "US-CA",
+        "MasterPKH": "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e",
+        "Oracles": "NO EXAMPLE",
+        "RestrictedQtyAssets": "1",
+        "SupportingDocs": "NO EXAMPLE",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "VotingSystems": "NO EXAMPLE"
+      }
+    }
+  },
+  {
+    "name": "ContractAmendment",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "C3"
+      },
+      "actionContents": {
+        "Amendments": "NO EXAMPLE",
+        "ChangeAdministrationAddress": "1",
+        "ChangeOperatorAddress": "1",
+        "ContractRevision": "42",
+        "RefTxID": "8a2e8c1c1869cdc1804cca859a84de43618d908f20798a1b84eae5158544d5f7"
+      }
+    }
+  },
+  {
+    "name": "StaticContractFormation",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "C4"
+      },
+      "actionContents": {
+        "BodyOfAgreement": "NO EXAMPLE",
+        "BodyOfAgreementType": "1",
+        "ContractCode": "NO EXAMPLE",
+        "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "ContractName": "Tesla - Shareholder Agreement",
+        "ContractRevision": "0",
+        "ContractType": "Non-Disclosure Agreement",
+        "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+        "EffectiveDate": "NO EXAMPLE",
+        "Entities": "NO EXAMPLE",
+        "GoverningLaw": "USA",
+        "Jurisdiction": "US-CA",
+        "PrevRevTxID": "331951dc89e46f6ec81740a53519eef8929c8ac5887127ea019646f85748d06a",
+        "SupportingDocs": "NO EXAMPLE"
+      }
+    }
+  },
+  {
+    "name": "ContractAddressChange",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "C5"
+      },
+      "actionContents": {
+        "NewContractPKH": "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      }
+    }
+  },
+  {
+    "name": "Order",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "E1"
+      },
+      "actionContents": {
+        "AssetCode": "NO EXAMPLE",
+        "AssetType": "SHC",
+        "AuthorityIncluded": "NO EXAMPLE",
+        "AuthorityName": "Supreme and District Courts Brisbane",
+        "AuthorityPublicKey": "NO EXAMPLE",
+        "BitcoinDispersions": "NO EXAMPLE",
+        "ComplianceAction": "F",
+        "DepositAddress": "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e",
+        "FreezePeriod": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
+        "FreezeTxId": "74bc2ff786617f1bf861792421721d2a2ac9b78cac4dfec6c4d8dff9a6ded68d",
+        "Message": "Compelled by a court order.",
+        "OrderSignature": "NO EXAMPLE",
+        "RefTxs": "NO EXAMPLE",
+        "SignatureAlgorithm": "1",
+        "SupportingEvidenceHash": "NO EXAMPLE",
+        "TargetAddresses": "NO EXAMPLE"
+      }
+    }
+  },
+  {
+    "name": "Freeze",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "E2"
+      },
+      "actionContents": {
+        "AssetCode": "NO EXAMPLE",
+        "AssetType": "SHC",
+        "FreezePeriod": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "Quantities": "NO EXAMPLE",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      }
+    }
+  },
+  {
+    "name": "Thaw",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "E3"
+      },
+      "actionContents": {
+        "FreezeTxId": "0687d033d1d4a687ed7ae51e3e9af54aa1373abec813621ca236f686360ee2bd",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      }
+    }
+  },
+  {
+    "name": "Confiscation",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "E4"
+      },
+      "actionContents": {
+        "AssetCode": "NO EXAMPLE",
+        "AssetType": "SHC",
+        "DepositQty": "10000",
+        "Quantities": "NO EXAMPLE",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      }
+    }
+  },
+  {
+    "name": "Reconciliation",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "E5"
+      },
+      "actionContents": {
+        "AssetCode": "NO EXAMPLE",
+        "AssetType": "SHC",
+        "Quantities": "NO EXAMPLE",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      }
+    }
+  },
+  {
+    "name": "Proposal",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "G1"
+      },
+      "actionContents": {
+        "AssetCode": "NO EXAMPLE",
+        "AssetSpecificVote": "NO EXAMPLE",
+        "AssetType": "SHC",
+        "Initiator": "1",
+        "ProposalDescription": "Change the name of the Contract.",
+        "ProposalDocumentHash": "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec",
+        "ProposedAmendments": "NO EXAMPLE",
+        "Specific": "NO EXAMPLE",
+        "VoteCutOffTimestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "VoteMax": "15",
+        "VoteOptions": "ABCDEFGHIJKLMNO",
+        "VoteSystem": "1"
+      }
+    }
+  },
+  {
+    "name": "Vote",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "G2"
+      },
+      "actionContents": {
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      }
+    }
+  },
+  {
+    "name": "BallotCast",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "G3"
+      },
+      "actionContents": {
+        "Vote": "A",
+        "VoteTxId": "1fd7e476c66ac9c7521693684eda6802196127004e81c34117fe8a7a0c2bb9bd"
+      }
+    }
+  },
+  {
+    "name": "BallotCounted",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "G4"
+      },
+      "actionContents": {
+        "Quantity": "8",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "Vote": "A",
+        "VoteTxId": "36e7e17fabd50421894a9bb25c7b9a728b395c45d22c669d5c0a5c9e7ae3d4bd"
+      }
+    }
+  },
+  {
+    "name": "Result",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "G5"
+      },
+      "actionContents": {
+        "AssetCode": "NO EXAMPLE",
+        "AssetSpecificVote": "NO EXAMPLE",
+        "AssetType": "SHC",
+        "OptionTally": "NO EXAMPLE",
+        "ProposedAmendments": "NO EXAMPLE",
+        "Result": "NO EXAMPLE",
+        "Specific": "NO EXAMPLE",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+        "VoteTxId": "f13386211d04591ffee918b8506236688f3ced9b1dfde77142bfc24a5e29b2bd"
+      }
+    }
+  },
+  {
+    "name": "Message",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "M1"
+      },
+      "actionContents": {
+        "AddressIndexes": "NO EXAMPLE",
+        "MessagePayload": "Hello world!"
+      }
+    }
+  },
+  {
+    "name": "Rejection",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "M2"
+      },
+      "actionContents": {
+        "AddressIndexes": "NO EXAMPLE",
+        "Message": "Sorry, you don't have enough tokens.",
+        "RejectAddressIndex": "2",
+        "RejectionCode": "1",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      }
+    }
+  },
+  {
+    "name": "Establishment",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "R1"
+      },
+      "actionContents": {
+        "Message": "North America Whitelist"
+      }
+    }
+  },
+  {
+    "name": "Addition",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "R2"
+      },
+      "actionContents": {
+        "Message": "username"
+      }
+    }
+  },
+  {
+    "name": "Alteration",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "R3"
+      },
+      "actionContents": {
+        "EntryTxID": "32e5f04df806f0844fe4e4eb4792384b0a882b4fe3d7de7f402645bcc5e39ebd",
+        "Message": "Changed Country of Residence"
+      }
+    }
+  },
+  {
+    "name": "Removal",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "R4"
+      },
+      "actionContents": {
+        "EntryTxID": "73d38290624d02e1e0a91734c7f1df289dc02f8dca9814f03e60c1025baa8dbd",
+        "Message": "Removed due to violation of company policy."
+      }
+    }
+  },
+  {
+    "name": "Transfer",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "T1"
+      },
+      "actionContents": {
+        "Assets": "NO EXAMPLE",
+        "ExchangeFee": "0.01",
+        "ExchangeFeeAddress": "5afe5ca1ab1e5e771eab1eca5cadab1eda7aba5e",
+        "OfferExpiry": "NO EXAMPLE"
+      }
+    }
+  },
+  {
+    "name": "Settlement",
+    "sample": {
+      "header": {
+        "version": 1,
+        "actionCode": "T2"
+      },
+      "actionContents": {
+        "Assets": "NO EXAMPLE",
+        "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      }
+    }
+  }
+]
