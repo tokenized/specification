@@ -57,6 +57,7 @@ var cmdGenerate = &cobra.Command{
 		golang.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
 		json.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		json.CompileExamples(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
 		markdown.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
