@@ -31,6 +31,7 @@ fields:
     label: Offer Expiry
     description: "This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins."
     type: Timestamp
+    example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
 
   - name: ExchangeFee
     label: Exchange Fee
