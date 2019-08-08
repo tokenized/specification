@@ -3,6 +3,7 @@
 #
 
 code: G4
+version: 1
 
 metadata:
   name: BallotCounted

@@ -3,6 +3,7 @@
 #
 
 code: E2
+version: 1
 
 metadata:
   name: Freeze

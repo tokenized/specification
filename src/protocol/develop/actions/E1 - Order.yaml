@@ -6,6 +6,7 @@
 # R - Reconcile destroys tokens from specified holders to correct after a chain reorg has caused accidental creation of tokens.
 
 code: E1
+version: 1
 
 metadata:
   name: Order

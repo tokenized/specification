@@ -3,6 +3,7 @@
 #
 
 code: G3
+version: 1
 
 metadata:
   name: BallotCast

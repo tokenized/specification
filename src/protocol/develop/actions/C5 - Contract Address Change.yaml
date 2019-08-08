@@ -3,6 +3,7 @@
 #
 
 code: C5
+version: 1
 
 metadata:
   name: ContractAddressChange

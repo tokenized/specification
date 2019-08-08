@@ -3,6 +3,7 @@
 #
 
 code: E4
+version: 1
 
 metadata:
   name: Confiscation

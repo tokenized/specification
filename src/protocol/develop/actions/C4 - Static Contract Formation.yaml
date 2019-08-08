@@ -3,6 +3,7 @@
 #
 
 code: C4
+version: 1
 
 metadata:
   name: StaticContractFormation

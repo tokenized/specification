@@ -3,6 +3,7 @@
 #
 
 code: C3
+version: 1
 
 metadata:
   name: ContractAmendment

@@ -3,6 +3,7 @@
 #
 
 code: R1
+version: 1
 
 metadata:
   name: Establishment

@@ -3,6 +3,7 @@
 #
 
 code: R4
+version: 1
 
 metadata:
   name: Removal

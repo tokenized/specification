@@ -78,6 +78,7 @@ type ProtocolActions []ProtocolAction
 
 type ProtocolAction struct {
 	Code        string
+	Version     uint64
 	Metadata    Metadata
 	Rules       Rules
 	Fields      []Field

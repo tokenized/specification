@@ -3,6 +3,7 @@
 #
 
 code: E3
+version: 1
 
 metadata:
   name: Thaw

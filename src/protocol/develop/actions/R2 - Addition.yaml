@@ -3,6 +3,7 @@
 #
 
 code: R2
+version: 1
 
 metadata:
   name: Addition

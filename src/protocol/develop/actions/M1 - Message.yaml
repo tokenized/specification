@@ -8,6 +8,7 @@
 #
 
 code: M1
+version: 1
 
 metadata:
   name: Message

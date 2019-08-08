@@ -3,6 +3,7 @@
 #
 
 code: G2
+version: 1
 
 metadata:
   name: Vote
