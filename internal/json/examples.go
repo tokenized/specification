@@ -64,9 +64,9 @@ func assembleActionExamples(distPath, jsonFile string, actions parser.ProtocolAc
 		for _, field := range action.Fields {
 			fieldName := lowerFirstCharacter(field.FieldName())
 			fieldTypeName := field.Type
+			var fieldErr error
 
 			if field.Example != "" {
-				var fieldErr error
 				if field.IsNativeType() {
 					if contents[fieldName], fieldErr = exampleForNativeType(field.Example, fieldTypeName, field.Size); fieldErr != nil {
 						return fieldErr
@@ -81,7 +81,11 @@ func assembleActionExamples(distPath, jsonFile string, actions parser.ProtocolAc
 				continue
 			}
 
-			if field.IsNativeType() {
+			if field.IsInternalTypeArray() {
+				if contents[fieldName], fieldErr = exampleForInternalTypeArray(field.SingularType(), types); fieldErr != nil {
+					return fieldErr
+				}
+			} else if field.IsNativeType() {
 				contents[fieldName] = fmt.Sprintf("NO EXAMPLE (%s) - native type", fieldTypeName)
 			} else if field.IsInternalType() {
 				contents[fieldName] = fmt.Sprintf("NO EXAMPLE (%s) - internal type", fieldTypeName)
@@ -110,6 +114,54 @@ func assembleActionExamples(distPath, jsonFile string, actions parser.ProtocolAc
 	}
 
 	return nil
+}
+
+func exampleForInternalType(example string, singularTypeName string) (interface{}, error) {
+	switch singularTypeName {
+	case "uint16":
+		{
+			first, err := strconv.ParseUint(example, 10, 16)
+			if err != nil {
+				return nil, err
+			}
+			return []uint16{uint16(first)}, nil
+		}
+	case "uint64":
+		{
+			first, err := strconv.ParseUint(example, 10, 64)
+			if err != nil {
+				return nil, err
+			}
+			return []uint64{first}, nil
+		}
+	default:
+		return example, nil
+	}
+}
+
+func exampleForInternalTypeArray(singularTypeName string, types parser.ProtocolTypes) (interface{}, error) {
+	switch singularTypeName {
+	case "QuantityIndex":
+		{
+			example := make(map[string]interface{})
+			var errExample error
+			for _, protocolType := range types {
+				if protocolType.Name() == singularTypeName {
+					for _, field := range protocolType.Fields {
+						if example[lowerFirstCharacter(field.Name)], errExample = exampleForInternalType(field.Example, field.Type); errExample != nil {
+							return nil, errExample
+						}
+
+					}
+					return []map[string]interface{}{example}, nil
+				}
+			}
+
+			return nil, fmt.Errorf("internal type (%s) not found for array", singularTypeName)
+		}
+	default:
+		return fmt.Sprintf("NO EXAMPLE (%s) - internal type array", singularTypeName), nil
+	}
 }
 
 func exampleForNativeType(example string, typeName string, size uint64) (interface{}, error) {
