@@ -81,6 +81,7 @@ func assembleActionExamples(distPath, jsonFile string, actions parser.ProtocolAc
 				continue
 			}
 
+			fmt.Println(fmt.Sprintf("Type %s IsInternalTypeArray(): %t", fieldTypeName, field.IsInternalTypeArray()))
 			if field.IsInternalTypeArray() {
 				if contents[fieldName], fieldErr = exampleForInternalTypeArray(field.SingularType(), types); fieldErr != nil {
 					return fieldErr
@@ -116,8 +117,8 @@ func assembleActionExamples(distPath, jsonFile string, actions parser.ProtocolAc
 	return nil
 }
 
-func exampleForInternalType(example string, singularTypeName string) (interface{}, error) {
-	switch singularTypeName {
+func exampleForInternalType(example string, typeName string) (interface{}, error) {
+	switch typeName {
 	case "uint16":
 		{
 			first, err := strconv.ParseUint(example, 10, 16)
@@ -140,10 +141,36 @@ func exampleForInternalType(example string, singularTypeName string) (interface{
 }
 
 func exampleForInternalTypeArray(singularTypeName string, types parser.ProtocolTypes) (interface{}, error) {
+	example := make(map[string]interface{})
+
 	switch singularTypeName {
+	case "AssetSettlement":
+		{
+			for _, protocolType := range types {
+				if protocolType.Name() == singularTypeName {
+					for _, field := range protocolType.Fields {
+						camelCaseFieldName := lowerFirstCharacter(field.Name)
+						var errExample error
+						if field.IsInternalTypeArray() {
+							if example[camelCaseFieldName], errExample = exampleForInternalTypeArray(field.SingularType(), types); errExample != nil {
+								return nil, errExample
+							}
+						} else {
+							if example[camelCaseFieldName], errExample = exampleForInternalType(field.Example, field.Type); errExample != nil {
+								return nil, errExample
+							}
+						}
+
+					}
+					return []map[string]interface{}{example}, nil
+				}
+			}
+			return nil, fmt.Errorf("NO EXAMPLE (%s) - not found for internal type array", singularTypeName)
+		}
+
 	case "QuantityIndex":
 		{
-			example := make(map[string]interface{})
+
 			var errExample error
 			for _, protocolType := range types {
 				if protocolType.Name() == singularTypeName {
