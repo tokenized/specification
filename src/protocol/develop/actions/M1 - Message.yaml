@@ -36,6 +36,7 @@ fields:
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
     type: uint16[]
+    example: 1
 
   - name: MessagePayload
     label: Message Payload

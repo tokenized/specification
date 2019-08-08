@@ -119,6 +119,7 @@ fields:
     label: Authority Included
     description: "Specifies if an authority signature is included. For Reconcialitaion actions all authority signature related fields are skipped during serialization."
     type: bool
+    example: true
     # includeIf specifies that this field is only included in serialization if the specified field has one of the specified values.
     includeIf:
       field: ComplianceAction
@@ -141,8 +142,9 @@ fields:
     description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
     type: varbin
     # varbin size is number of bytes to serialize the size of the data
+    # TODO: Make this a fixed-length compressed public key type.
     size: 1
-    example: ""
+    example: "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021"
     includeIfTrue: AuthorityIncluded
 
   - name: SignatureAlgorithm

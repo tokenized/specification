@@ -55,6 +55,7 @@ fields:
     label: Voting Rights
     description: "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted."
     type: bool
+    example: "true"
 
   - name: VoteMultiplier
     label: Vote Multiplier

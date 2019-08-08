@@ -40,6 +40,7 @@ fields:
     label: Asset Specific Vote
     description: "When true this proposal is specific to an asset and the asset type and asset code fields are serialized."
     type: bool
+    example: true
 
   - name: AssetType
     label: Asset Type
@@ -69,6 +70,7 @@ fields:
     label: Specific
     description: "When true the ProposedAmendments field is included and specifies the exact changes to make to the contract/asset on chain. When false this is just a general proposal like a strategy/direction and doesn't result in any on chain update."
     type: bool
+    example: true
 
   - name: ProposedAmendments
     label: Proposed Amendments

@@ -42,6 +42,7 @@ fields:
     description: "Number of votes counted for this ballot. Factors in vote multipliers if there are any allowed, otherwise it is just quantity of tokens held."
     type: uint
     size: 8
+    example: 8901234567
 
   - name: Timestamp
     label: Timestamp

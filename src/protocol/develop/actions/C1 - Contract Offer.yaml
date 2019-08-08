@@ -122,6 +122,7 @@ fields:
     label: Contract Operator Included
     description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
     type: bool
+    example: true
 
   - name: ContractOperator
     label: Contract Operator

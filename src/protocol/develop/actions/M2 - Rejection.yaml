@@ -27,12 +27,14 @@ fields:
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
     type: uint16[]
+    example: 1
 
   - name: RejectAddressIndex
     label: Reject Address Index
     description: "The address which is believed to have caused the rejection."
     type: uint
     size: 2
+    example: 3
 
   - name: RejectionCode
     label: Rejection Code
