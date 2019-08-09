@@ -2,7 +2,7 @@
 # Settlement Action: Settles the transfer request of bitcoins and tokens from transfer (T1) actions.
 #
 
-code: T2
+id: T2
 
 metadata:
   name: Settlement
@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: AssetXContract
       label: Contract Public Address (Asset X)
@@ -28,7 +26,6 @@ fields:
     label: Assets
     description: "The Assets settled by the transfer action."
     type: AssetSettlement[]
-    notes: ""
 
   - name: Timestamp
     label: Timestamp

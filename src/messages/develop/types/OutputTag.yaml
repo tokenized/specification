@@ -8,4 +8,4 @@ fields:
     label: Tag
     description: "The text of the tag."
     type: varchar
-    size: 8
+    size: 1

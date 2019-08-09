@@ -2,7 +2,7 @@
 # Contract Formation Action:  This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf.
 #
 
-code: C2
+id: C2
 
 metadata:
   name: ContractFormation
@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Contract
       label: Contract Public Address
@@ -32,20 +30,18 @@ fields:
       If the public address is lost, then the administration will have to reissue the entire contract, asset definition and tokens with the new public address.
       Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Tesla - Shareholder Agreement"
-    notes: ""
 
   - name: BodyOfAgreementType
     label: Body of Agreement Type
     description: "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
     type: uint
     size: 1
-    example_hex: 01
     example: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
-    int_values:
+    intValues:
       - 1
       - 2
 
@@ -53,18 +49,16 @@ fields:
     label: Body of Agreement
     description: "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information."
     type: varbin
-    # varbin size is number of bits to serialize the size of the data
-    size: 32
-    notes: ""
+    # varbin size is number of bytes to serialize the size of the data
+    size: 4
 
   - name: ContractType
     label: Contract Type
     description: "Describes the purpose of the contract."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Shareholder Agreement"
-    notes: ""
 
   - name: SupportingDocs
     label: Supporting Documentation
@@ -76,7 +70,6 @@ fields:
     description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
     type: fixedchar
     size: 5
-    example_hex: 5553410000
     example: "USA"
     notes: "Governing Law - Amendments can be restricted to a vote."
 
@@ -85,7 +78,6 @@ fields:
     description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
     type: fixedchar
     size: 5
-    example_hex: 55532d4341
     example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."
 
@@ -93,7 +85,6 @@ fields:
     label: Contract Expiration
     description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate smart contract running costs. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
     type: Timestamp
-    example_hex: 00000163400d3f00
     example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
     notes: "Contract Expiration - Amendments can be restricted to a vote."
 
@@ -101,10 +92,9 @@ fields:
     label: Contract URI
     description: "Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
-    notes: ""
 
   - name: Issuer
     label: Issuer
@@ -115,10 +105,9 @@ fields:
     label: Issuer Logo URL
     description: "The URL of the issuer's logo."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "https://example.tld/images/logo.png"
-    notes: ""
 
   - name: ContractOperatorIncluded
     label: Contract Operator Included
@@ -129,8 +118,15 @@ fields:
     label: Contract Operator
     description: "An additional entity with operator access to the contract."
     type: Entity
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: ContractOperatorIncluded
+    # includeIfTrue specifies that this field is only included in serialization if the specified field is true.
+    includeIfTrue: ContractOperatorIncluded
+
+  - name: ContractAuthFlags
+    label: Contract Authorization Flags
+    description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement"
+    type: varbin
+    size: 2
+    notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
   - name: ContractFee
     label: Contract Fee
@@ -142,7 +138,6 @@ fields:
     label: Voting Systems
     description: "A list voting systems."
     type: VotingSystem[]
-    notes: ""
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags
@@ -156,7 +151,6 @@ fields:
     description: "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
     type: uint
     size: 8
-    example_hex: 0000000000000001
     example: "1"
     notes: "Qty of Assets - Amendments can be restricted to a vote."
 
@@ -164,7 +158,6 @@ fields:
     label: Administration Proposal
     description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
     type: bool
-    example_hex: 01
     example: true
     notes: "General Governance"
 
@@ -172,9 +165,7 @@ fields:
     label: Holder Proposal
     description: "Set to true if a holder is permitted to make proposals outside of the smart contract scope."
     type: bool
-    example_hex: 01
     example: true
-    notes: ""
 
   - name: Oracles
     label: Oracles
@@ -191,7 +182,6 @@ fields:
     description: "A counter for the number of times this contract has been revised using an amendment action."
     type: uint
     size: 4
-    example_hex: 0000000000000000
     example: "0"
     notes: "Can't be changed by the administration or smart contract operator."
 

@@ -1,0 +1,38 @@
+#
+# Private Message: Generic private message. Sent to another address(es). Encryption is to be used.
+#
+
+id: 0003
+
+metadata:
+  name: PrivateMessage
+  label: Private Message
+  description: "Generic private message. Sent to another address(es). Encryption is to be used."
+
+fields:
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds for when the message sender creates the transaction."
+    type: Timestamp
+
+  - name: Subject
+    label: Subject
+    description: The subject / topic of the message.
+    type: varchar
+    size: 2
+
+  - name: Regarding
+    label: Regarding
+    description: The output of the message that this message is regarding (responding to).
+    type: Output
+
+  - name: PrivateMessage
+    label: Private Message
+    description: "Tokenized Ltd announces product launch."
+    type: Document
+
+  - name: Attachments
+    label: Attachments
+    description: Documents attached to the message.
+    type: Document[]
+    size: 4

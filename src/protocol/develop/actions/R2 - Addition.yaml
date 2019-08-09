@@ -2,15 +2,13 @@
 # Addition Action: Adds an entry to the Register.
 #
 
-code: R2
+id: R2
 
 metadata:
   name: Addition
   label: Addition
   description: "Adds an entry to the Register."
 
-rules:
-  fee:
   inputs:
     - name: Register
       label: "Register Public Address"
@@ -26,8 +24,6 @@ fields:
     label: Message
     description: "A custom message to include with this action."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 32
-    example_hex: 00000008757365726e616d65
+    # varchar size is number of bytes to serialize the size of the value
+    size: 4
     example: "username"
-    notes: ""

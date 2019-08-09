@@ -2,7 +2,7 @@
 # Asset Modification Action: Token Dilutions, Call Backs/Revocations, Burning, Trade Restrictions, etc.
 #
 
-code: A3
+id: A3
 
 metadata:
   name: AssetModification
@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Administration
       label: "Administration's Public Address"
@@ -29,9 +27,7 @@ fields:
     description: "Three letter character that specifies the asset type."
     type: fixedchar
     size: 3
-    example_hex: 534843
     example: "SHC"
-    notes: ""
 
   - name: AssetCode
     label: Asset Code
@@ -44,7 +40,6 @@ fields:
     description: "The current revision figure to ensure the modification provided is based on the latest version."
     type: uint
     size: 4
-    example_hex: 0000000000000000
     example: "0"
     notes: "Cannot be Amended"
 
@@ -57,4 +52,3 @@ fields:
     label: Ref Tx ID
     description: "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details."
     type: TxId
-    notes: ""

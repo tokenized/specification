@@ -2,15 +2,13 @@
 # Alteration Action: A register entry/record can be altered.
 #
 
-code: R3
+id: R3
 
 metadata:
   name: Alteration
   label: Alteration
   description: "A register entry/record can be altered."
 
-rules:
-  fee:
   inputs:
     - name: Register
       label: "Register Public Address"
@@ -26,13 +24,11 @@ fields:
     label: Entry Tx ID
     description: "Transaction ID of the register entry to be altered."
     type: TxId
-    notes: ""
 
   - name: Message
     label: Message
     description: "A custom message to include with this action."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 32
+    # varchar size is number of bytes to serialize the size of the value
+    size: 4
     example: "Changed Country of Residence"
-    notes: ""

@@ -2,7 +2,7 @@
 # CUR - Currency
 #
 
-code: CUR
+id: CUR
 
 metadata:
   name: Currency
@@ -14,14 +14,6 @@ metadata:
     - Canadian dollar
 
 fields:
-  - name: Version
-    label: Payload Version
-    description: The version number that this asset payload adheres to.
-    type: uint
-    size: 1
-    example: 0
-    computed: true
-
   - name: ISOCode
     label: ISO Code
     type: CurrencyType
@@ -33,8 +25,8 @@ fields:
   - name: MonetaryAuthority
     label: Monetary Authority
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Reserve Bank of Australia
     span: full
     displayOrder: 3
@@ -42,8 +34,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: Australian dollar
     span: full
     displayOrder: 3

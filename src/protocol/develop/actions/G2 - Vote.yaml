@@ -2,7 +2,7 @@
 # Vote Action: A vote is created by the Contract in response to a valid Proposal Action.
 #
 
-code: G2
+id: G2
 
 metadata:
   name: Vote
@@ -11,8 +11,6 @@ metadata:
   validation: None
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Contract
       label: Contract Public Address

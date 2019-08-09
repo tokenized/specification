@@ -2,7 +2,7 @@
 # Transfer Action: A Token Owner(s) transfers a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.
 #
 
-code: T1
+id: T1
 
 metadata:
   name: Transfer
@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: AssetSenders
       label: Asset Senders
@@ -28,25 +26,20 @@ fields:
     label: Assets
     description: "The Assets involved in the Transfer Action."
     type: AssetTransfer[]
-    notes: ""
 
   - name: OfferExpiry
     label: Offer Expiry
     description: "This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins."
     type: Timestamp
-    notes: ""
 
   - name: ExchangeFee
     label: Exchange Fee
     description: "Fixed amount of bitcoin being paid to an exchange for facilitating a transfer."
     type: uint
     size: 8
-    example_hex: 3c23d70a
     example: "0.01"
-    notes: ""
 
   - name: ExchangeFeeAddress
     label: Exchange Fee Address
     description: "Identifies the public address that the exchange fee should be paid to."
     type: PublicKeyHash
-    notes: ""

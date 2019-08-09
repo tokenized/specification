@@ -8,26 +8,21 @@ fields:
     label: Name
     description: "Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 0a5465736c6120496e632e
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Tesla Inc."
-    notes: ""
 
   - name: Type
     label: Type
     description: "The type of entity. (i.e Public Company, Individual) (Specification/Resources)."
     type: EntityType
-    example_hex: 50
     example: "P"
-    notes: ""
 
   - name: LEI
     label: Legal Entity Identifier
     description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
     type: fixedchar
     size: 20
-    example_hex: 3534393330303834554b4c564d59323244533136
     example: "54930084UKLVMY22DS16"
     notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
 
@@ -35,7 +30,6 @@ fields:
     label: Address Included
     description: "Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address."
     type: bool
-    example_hex: 01
     example: "1"
     notes: "Entity/Contracting Party X Details"
 
@@ -43,11 +37,9 @@ fields:
     label: Unit Number
     description: "Issuer/Entity/Contracting Party X Address Details (eg. HQ)"
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 0132
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "2"
-    notes: ""
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
 
@@ -55,11 +47,9 @@ fields:
     label: Building Number
     description: ""
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 053133353737
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "13577"
-    notes: ""
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
 
@@ -67,11 +57,9 @@ fields:
     label: Street
     description: ""
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
-    example_hex: 000c466169726d6f6e7420417665
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: "Fairmont Ave"
-    notes: ""
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
 
@@ -79,11 +67,9 @@ fields:
     label: Suburb/City
     description: ""
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 07526f62696e6f68
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Robinoh"
-    notes: ""
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
 
@@ -92,9 +78,7 @@ fields:
     description: ""
     type: fixedchar
     size: 5
-    example_hex: 4243000000
     example: "BC"
-    notes: ""
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
 
@@ -103,9 +87,7 @@ fields:
     description: ""
     type: fixedchar
     size: 3
-    example_hex: 555341
     example: "USA"
-    notes: ""
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
 
@@ -114,9 +96,7 @@ fields:
     description: ""
     type: fixedchar
     size: 12
-    example_hex: 353032313000000000000000
     example: "50210"
-    notes: ""
     # include_if_true specifies that this field is only included in serialization if the specified field is true.
     include_if_true: AddressIncluded
 
@@ -124,21 +104,17 @@ fields:
     label: Email Address
     description: "Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address"
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 136a616d657340746f6b656e697a65642e636f6d
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "satoshi@tokenized.com"
-    notes: ""
 
   - name: PhoneNumber
     label: Phone Number
     description: "Length 0-50 bytes. 0 is valid. Phone Number for Entity."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 0a30343438343834383438
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "0448484848"
-    notes: ""
 
   - name: Administration
     label: Administration

@@ -8,25 +8,20 @@ fields:
     label: Oracle Name
     description: "Length 0-255 bytes. 0 is valid. Oracle X Name (eg. Coinbase, Tokenized, etc.)"
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 09546f6b656e697a6564
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Tokenized"
-    notes: ""
 
   - name: URL
     label: Oracle URL
     description: "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint"
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 34687474703a2f2f72656769737472792e746f6b656e697a65642e636f6d2f6170692f3336353064392f76657273696f6e32303130
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "http://oracle.tokenized.com/api/3650d9/version2010"
-    notes: ""
 
   - name: PublicKey
     label: Oracle Public Key
     description: "Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle."
     type: varbin
-    size: 8
-    notes: ""
+    size: 1

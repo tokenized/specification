@@ -1,0 +1,56 @@
+#
+# Codec Schema
+#
+
+# Codec Name
+name: Tokenized Asset Types
+
+# Unique Identifier
+code: assets
+
+# Codec Version
+version: 1
+
+# Output Template
+template: default
+
+# Message ID
+id:
+    name: AssetType
+    type: fixedchar
+    size: 3
+
+# Define Header Fields
+headerFields:
+  - name: Version
+    label: Payload Version
+    description: The version number that this asset payload adheres to.
+    type: uint
+    size: 8
+    example: 1
+
+  - name: AssetType
+    label: Asset Type
+    description: The Asset Type that determines the expected contents of the asset payload.
+    type: fixedchar
+    size: 3
+    example: "SHC"
+
+# Register Supported Messages
+messages:
+  - "identity/MEM - Membership"
+  - "currency/CUR - Currency"
+  - "security/SHC - Common Share"
+  - "utility/COU - Coupon"
+  - "utility/LOY - Loyalty Points"
+  - "utility/TIC - Admission Ticket"
+
+# Register Field Types
+fieldTypes:
+  - "types/AgeRestriction"
+
+# Define Field Aliases
+fieldAliases:
+  - name: CurrencyType
+    type: fixedchar
+    size: 3

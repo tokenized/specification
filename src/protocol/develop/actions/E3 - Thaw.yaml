@@ -2,7 +2,7 @@
 # Thaw Action: to be used to comply with contractual obligations, legal requirements, or issuer requirements.  The target address(es) tokens will be unfrozen to allow them to resume normal exchange and governance activities.
 #
 
-code: E3
+id: E3
 
 metadata:
   name: Thaw
@@ -14,8 +14,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Contract
       label: Contract Public Address
@@ -31,7 +29,6 @@ fields:
     label: Freeze Tx Id
     description: "The tx id of the freeze action that is being reversed."
     type: TxId
-    notes: ""
 
   - name: Timestamp
     label: Timestamp

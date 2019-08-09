@@ -2,7 +2,7 @@
 # Contract Offer Action: The Contract Offer action allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 #
 
-code: C1
+id: C1
 
 metadata:
   name: ContractOffer
@@ -11,8 +11,6 @@ metadata:
   validation: AssetCreation
   rejection: Rejection
 
-rules:
-  fee:
   inputs:
     - name: Administration
       label: "Administration's Public Address"
@@ -40,21 +38,18 @@ fields:
       If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address.
       Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 1d5465736c61202d205368617265686f6c6465722041677265656d656e74
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Tesla - Shareholder Agreement"
-    notes: ""
 
   - name: BodyOfAgreementType
     label: Body of Agreement Type
     description: "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
     type: uint
     size: 1
-    example_hex: 01
     example: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
-    int_values:
+    intValues:
       - 1
       - 2
 
@@ -62,19 +57,16 @@ fields:
     label: Body of Agreement
     description: "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information."
     type: varbin
-    # varbin size is number of bits to serialize the size of the data
-    size: 32
-    notes: ""
+    # varbin size is number of bytes to serialize the size of the data
+    size: 4
 
   - name: ContractType
     label: Contract Type
     description: "Describes the purpose of the contract."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 184e6f6e2d446973636c6f737572652041677265656d656e74
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "Shareholder Agreement"
-    notes: ""
 
   - name: SupportingDocs
     label: Supporting Documentation
@@ -86,7 +78,6 @@ fields:
     description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
     type: fixedchar
     size: 5
-    example_hex: 5553410000
     example: "USA"
     notes: "Governing Law - Amendments can be restricted to a vote."
 
@@ -95,7 +86,6 @@ fields:
     description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
     type: fixedchar
     size: 5
-    example_hex: 55532d4341
     example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."
 
@@ -103,7 +93,6 @@ fields:
     label: Contract Expiration
     description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
     type: Timestamp
-    example_hex: 000000005c78d0f0
     example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
     notes: "Contract Expiration - Amendments can be restricted to a vote."
 
@@ -111,11 +100,9 @@ fields:
     label: Contract URI
     description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS)."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: 3468747470733a2f2f746f6b656e697a65642e636f6d2f436f6e74726163742f3371656f534367374a6d66536e4a65734a466f6a6a
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
-    notes: ""
 
   - name: Issuer
     label: Issuer
@@ -126,11 +113,9 @@ fields:
     label: Issuer Logo URL
     description: "The URL of the issuer's logo."
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
-    example_hex: "2368747470733a2f2f6578616d706c652e636f6d2f696d616765732f6c6f676f2e706e67"
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: "https://example.com/images/logo.png"
-    notes: ""
 
   - name: ContractOperatorIncluded
     label: Contract Operator Included
@@ -141,8 +126,8 @@ fields:
     label: Contract Operator
     description: "An additional entity with operator access to the contract."
     type: Entity
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: ContractOperatorIncluded
+    # includeIfTrue specifies that this field is only included in serialization if the specified field is true.
+    includeIfTrue: ContractOperatorIncluded
 
   - name: ContractFee
     label: Contract Fee
@@ -154,7 +139,6 @@ fields:
     label: Voting Systems
     description: "A list of voting systems."
     type: VotingSystem[]
-    notes: ""
 
   - name: ContractAuthFlags
     label: Contract Authorization Flags
@@ -168,7 +152,6 @@ fields:
     description: "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
     type: uint
     size: 8
-    example_hex: 0000000000000001
     example: "1"
     notes: "Qty of Assets - Amendments can be restricted to a vote."
 
@@ -176,7 +159,6 @@ fields:
     label: Administration Proposal
     description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
     type: bool
-    example_hex: 01
     example: true
     notes: "General Governance"
 
@@ -184,9 +166,7 @@ fields:
     label: Holder Proposal
     description: "Set to true if a holder is permitted to make proposals outside of the smart contract scope."
     type: bool
-    example_hex: 01
     example: true
-    notes: ""
 
   - name: Oracles
     label: Oracles

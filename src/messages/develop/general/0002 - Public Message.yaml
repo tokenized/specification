@@ -1,47 +1,38 @@
 #
-# Private Message: Generic private message. Sent to another address(es). Encryption is to be used.
+# Public Message: Generic public message or public announcement. Sent to an address(es).  Can be used for an official issuer announcement.
 #
 
-code: 3
+id: 0002
 
 metadata:
-  name: PrivateMessage
-  label: Private Message
-  description: "Generic private message. Sent to another address(es). Encryption is to be used."
+  name: PublicMessage
+  label: Public Message
+  description: "Generic public message or public announcement. Sent to an address(es).  Can be used for an official issuer announcement."
 
 fields:
-  - name: Version
-    label: Version
-    type: uint
-    description: Payload Version
-    size: 1
-    example: 0
-    computed: true
-
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds for when the message sender creates the transaction."
     type: Timestamp
-    notes: ""
 
   - name: Subject
     label: Subject
     description: The subject / topic of the message.
     type: varchar
-    size: 16
+    size: 2
 
   - name: Regarding
     label: Regarding
     description: The output of the message that this message is regarding (responding to).
     type: Output
 
-  - name: PrivateMessage
-    label: Private Message
-    description: "Tokenized Ltd announces product launch."
+  - name: PublicMessage
+    label: Public Message
+    description: "Tokenized Ltd. announces product launch."
     type: Document
 
   - name: Attachments
     label: Attachments
     description: Documents attached to the message.
     type: Document[]
-    size: 32
+    size: 4

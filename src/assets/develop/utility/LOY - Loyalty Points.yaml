@@ -2,7 +2,7 @@
 # LOY - Loyalty Points
 #
 
-code: LOY
+id: LOY
 
 metadata:
   name: LoyaltyPoints
@@ -15,14 +15,6 @@ metadata:
     - Frequent Shopper Points
 
 fields:
-  - name: Version
-    label: Payload Version
-    description: The version number that this asset payload adheres to.
-    type: uint
-    size: 1
-    example: 0
-    computed: true
-
   - name: AgeRestriction
     label: Age Restriction
     type: AgeRestriction
@@ -31,8 +23,8 @@ fields:
   - name: OfferName
     label: Offer Name
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 8
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
     example: Qantas Frequent Flyer Points
     options:
 
@@ -53,8 +45,8 @@ fields:
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bits to serialize the size of the value
-    size: 16
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
     example: Coingeek Conference - London (November 2018).
     span: full
     displayOrder: 1
