@@ -31,6 +31,7 @@ fields:
     description: "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail."
     type: varbin
     size: 1
+    example: "0101000"
 
   - name: TransfersPermitted
     label: Transfers Permitted

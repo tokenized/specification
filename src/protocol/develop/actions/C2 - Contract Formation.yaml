@@ -129,6 +129,7 @@ fields:
     description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement"
     type: varbin
     size: 2
+    example: "0101000"
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
   - name: ContractFee
@@ -148,6 +149,7 @@ fields:
     description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement"
     type: varbin
     size: 16
+    example: "0101000"
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
   - name: RestrictedQtyAssets
