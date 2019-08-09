@@ -8,6 +8,7 @@ fields:
     label: Address
     description: "Public address where the token balance will be changed."
     type: PublicKeyHash
+    example: "0102030405060708090a0b0c0d0e0f1011121314"
 
   - name: Quantity
     label: Quantity

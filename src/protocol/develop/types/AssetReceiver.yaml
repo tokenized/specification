@@ -8,6 +8,7 @@ fields:
     label: Address
     description: "The address receiving the tokens"
     type: PublicKeyHash
+    example: "0102030405060708090a0b0c0d0e0f1011121314"
 
   - name: Quantity
     label: Quantity
@@ -31,6 +32,7 @@ fields:
     description: Specifies the index into the list of oracles in the contract offer that was used to authorize this transfer.
     type: uint
     size: 1
+    example: 1
     include_if_int:
       field: OracleSigAlgorithm
       values:
@@ -42,6 +44,7 @@ fields:
     type: varbin
     # varbin size is number of bytes to serialize the size of the value
     size: 1
+    example: "1fa743904ad9c0bd5c5f457ffae9d897cd3bbbb3625cca639e6e48951966c0e4865ee0fbad730a82be1a986940440bef2b159ae0029494b95d114d846ac3b8d6aa"
     include_if_int:
       field: OracleSigAlgorithm
       values:
@@ -52,6 +55,7 @@ fields:
     description: The block height of the block hash used in the oracle signature.
     type: uint
     size: 4
+    example: 594733
     include_if_int:
       field: OracleSigAlgorithm
       values:

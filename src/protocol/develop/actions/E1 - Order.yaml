@@ -163,7 +163,7 @@ fields:
     type: varbin
     # varbin size is number of bytes to serialize the size of the value
     size: 1
-    example: ""
+    example: "1fa743904ad9c0bd5c5f457ffae9d897cd3bbbb3625cca639e6e48951966c0e4865ee0fbad730a82be1a986940440bef2b159ae0029494b95d114d846ac3b8d6aa"
     includeIfTrue: AuthorityIncluded
 
   - name: SupportingEvidenceHash
@@ -171,6 +171,7 @@ fields:
     description: "SHA-256: warrant, court order, etc."
     type: bin
     size: 32
+    example: "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
 
   - name: RefTxs
     label: Ref Txs
@@ -178,6 +179,7 @@ fields:
     type: varbin
     size: 4
     notes: "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event."
+    example: "01000000036a569bf7775331d68bd4f95b0d8c583f9d67927cf054a1fd015215683323a8f010000006bd83045022100f8decf58f1411683bc4207f3f07c32d2bbfbe342562c50af18582248aecbf9b4022038b6e7d86bd8e256337662cf377b0885a779eb4fe3b9748c4d8dbd91393b7ed84121035ee01a014b2834743f182b96285289f64196769881ebf4f428c60465e84fd669fefffffff3c52f9e78377cacd88a0f008a3b4b839a17504a4f9851cbf217d9f1621e8a94010000006a473044022025dbc4b33ced2ffc4e6c494689f53bbe45f28b1d93868419422dca16582e20f402202c2820670421d0655216d0a096b3c0096b919579a65d81ae51c9c37150bf26634121035ee01a014b2834743f182b96285289f64196769881ebf4f428c60465e84fd669feffffffcb9696041cf2684cec74710e93522fa363bd3f666f79a1ae45de8e49a484e69c000000006a473044022063fbdafe29d69cd838f9c5881f0f25b4cd7ca92cb4b616fb92f6018c7e2ed0730220051e90ff3f8cd2dff0a2fd687f433532f0114216c74782ba7fc6675bed4ad7ba4121035ee01a014b2834743f182b96285289f64196769881ebf4f428c60465e84fd669feffffff0200a89c13460200001976a9144c53b4336ae1ad17122a0f425fd2689552dd107388ac58a15159c70200001976a914eb248bdc12a70ac423a00ba870a9f0f5c438dc6c88ac2b130900"
     # includeIf specifies that this field is only included in serialization if the specified field has one of the specified values.
     includeIf:
       field: ComplianceAction

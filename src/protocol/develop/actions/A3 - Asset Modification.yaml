@@ -42,7 +42,7 @@ fields:
     description: "The current revision figure to ensure the modification provided is based on the latest version."
     type: uint
     size: 4
-    example: "0"
+    example: 0
     notes: "Cannot be Amended"
 
   - name: Amendments
