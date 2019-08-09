@@ -2,12 +2,12 @@
 # Asset Creation Action: This action creates an asset in response to the administration's instructions in the Definition Action.
 #
 
-id: A2
+code: A2
+name: AssetCreation
+label: Asset Creation
+description: "This action creates an asset in response to the administration's instructions in the Definition Action."
 
 metadata:
-  name: AssetCreation
-  label: Asset Creation
-  description: "This action creates an asset in response to the administration's instructions in the Definition Action."
   validation: AssetCreation
   rejection: Rejection
 

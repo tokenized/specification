@@ -1,7 +1,7 @@
-metadata:
-  name: AssetTransfer
-  label: Asset Transfer
-  description: "AssetTransfer is the data required to transfer an asset."
+
+name: AssetTransfer
+label: Asset Transfer
+description: "AssetTransfer is the data required to transfer an asset."
 
 fields:
   - name: ContractIndex

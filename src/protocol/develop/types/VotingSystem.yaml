@@ -1,7 +1,7 @@
-metadata:
-  name: VotingSystem
-  label: Voting System
-  description: "A VotingSystem defines all details of a Voting System."
+
+name: VotingSystem
+label: Voting System
+description: "A VotingSystem defines all details of a Voting System."
 
 fields:
   - name: Name

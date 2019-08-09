@@ -1,7 +1,7 @@
-metadata:
-  name: OutputTag
-  label: Output Tag
-  description: "A tag or category of an output used to categorize and organize outputs from different transactions."
+
+name: OutputTag
+label: Output Tag
+description: "A tag or category of an output used to categorize and organize outputs from different transactions."
 
 fields:
   - name: Tag

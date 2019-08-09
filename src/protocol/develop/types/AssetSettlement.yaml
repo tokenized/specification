@@ -1,7 +1,7 @@
-metadata:
-  name: AssetSettlement
-  label: Asset Settlement
-  description: "AssetSettlement is the data required to settle an asset transfer."
+
+name: AssetSettlement
+label: Asset Settlement
+description: "AssetSettlement is the data required to settle an asset transfer."
 
 fields:
   - name: ContractIndex

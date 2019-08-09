@@ -2,13 +2,12 @@
 # Establishment Action: Establishes an on-chain register.
 #
 
-id: R1
+code: R1
+name: Establishment
+label: Establishment
+description: "Establishes an on-chain register."
 
 metadata:
-  name: Establishment
-  label: Establishment
-  description: "Establishes an on-chain register."
-
   inputs:
     - name: Register
       label: "Register Public Address"

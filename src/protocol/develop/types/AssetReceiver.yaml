@@ -1,7 +1,7 @@
-metadata:
-  name: AssetReceiver
-  label: AssetReceiver
-  description: "An AssetReceiver is a quantity, address, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The address is where the asset will be sent."
+
+name: AssetReceiver
+label: AssetReceiver
+description: "An AssetReceiver is a quantity, address, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The address is where the asset will be sent."
 
 fields:
   - name: Address

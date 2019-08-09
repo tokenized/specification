@@ -2,14 +2,14 @@
 # Confiscation Action: to be used to comply with contractual obligations, legal and/or issuer requirements.
 #
 
-id: E4
+code: E4
+name: Confiscation
+label: Confiscation
+description: >
+  The contract responding to an Order action to confiscate assets.
+  To be used to comply with contractual obligations, legal and/or issuer requirements.
 
 metadata:
-  name: Confiscation
-  label: Confiscation
-  description: >
-    The contract responding to an Order action to confiscate assets.
-    To be used to comply with contractual obligations, legal and/or issuer requirements.
   validation: AssetCreation
   rejection: Rejection
 

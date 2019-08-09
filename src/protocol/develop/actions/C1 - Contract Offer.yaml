@@ -2,12 +2,12 @@
 # Contract Offer Action: The Contract Offer action allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 #
 
-id: C1
+code: C1
+name: ContractOffer
+label: "Contract Offer"
+description: "Allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
 
 metadata:
-  name: ContractOffer
-  label: "Contract Offer"
-  description: "Allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
   validation: AssetCreation
   rejection: Rejection
 
@@ -144,7 +144,7 @@ fields:
     label: Contract Authorization Flags
     description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement."
     type: varbin
-    size: 16
+    size: 2
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
   - name: RestrictedQtyAssets

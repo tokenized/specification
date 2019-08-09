@@ -2,13 +2,13 @@
 # Ballot Cast Action: Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action.
 #
 
-id: G3
+code: G3
+name: BallotCast
+label: Ballot Cast
+description: "Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action."
 
 metadata:
-  name: BallotCast
-  label: Ballot Cast
-  description: "Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action."
-  validation: BallotCounted
+  nvalidation: BallotCounted
   rejection: Rejection
 
   inputs:

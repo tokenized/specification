@@ -1,8 +1,8 @@
-metadata:
-  name: Roles
-  description: >
-    Roles that entities play in relation to their interactions with other entities.
-    These roles have widely-accepted tasks, rights and duties.
+
+name: Roles
+description: >
+Roles that entities play in relation to their interactions with other entities.
+These roles have widely-accepted tasks, rights and duties.
 
 values:
   - code: 1

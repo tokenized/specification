@@ -2,14 +2,14 @@
 # COU - Coupon
 #
 
-id: COU
+code: COU
+name: Coupon
+label: Coupon
+description: A voucher entitling the holder to a discount on a particular product or service.
 
 metadata:
-  name: Coupon
-  label: Coupon
   kind: Utility
   category: Coupons
-  description: A voucher entitling the holder to a discount on a particular product or service.
   examples:
     - Sale Price Discount
     - Kickstarter Campaign

@@ -2,15 +2,15 @@
 # Asset Definition Action: This action is used by the administration to define the properties/characteristics of the Asset (token) that it wants to create.
 #
 
-id: A1
+code: A1
+name: AssetDefinition
+label: Asset Definition
+description: >
+  This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create.
+  An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum).
+  An asset is always linked to a contract that is identified by the public address of the Contract wallet.
 
 metadata:
-  name: AssetDefinition
-  label: Asset Definition
-  description: >
-    This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create.
-    An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum).
-    An asset is always linked to a contract that is identified by the public address of the Contract wallet.
   validation: AssetCreation
   rejection: Rejection
 

@@ -2,12 +2,12 @@
 # Proposal Action: Allows the Administration/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners.
 #
 
-id: G1
+code: G1
+name: Proposal
+label: Proposal
+description: "Allows the Administration/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners."
 
 metadata:
-  name: Proposal
-  label: Proposal
-  description: "Allows the Administration/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners."
   validation: Contract/Asset Amendment or nothing
   rejection: Rejection
 

@@ -1,7 +1,7 @@
-metadata:
-  name: Entity
-  label: Entity
-  description: "Entity represents the details of a legal Entity, such as a public or private company, government agency, or and individual."
+
+name: Entity
+label: Entity
+description: "Entity represents the details of a legal Entity, such as a public or private company, government agency, or and individual."
 
 fields:
   - name: Name

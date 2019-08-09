@@ -1,7 +1,7 @@
-metadata:
-  name: Oracle
-  label: Oracle
-  description: "A Oracle defines the details of a public Oracle."
+
+name: Oracle
+label: Oracle
+description: "A Oracle defines the details of a public Oracle."
 
 fields:
   - name: Name
