@@ -1,6 +1,7 @@
 [
   {
     "code": "A1",
+    "label": "Asset Definition",
     "name": "AssetDefinition",
     "sample": {
       "header": {
@@ -24,6 +25,7 @@
   },
   {
     "code": "A2",
+    "label": "Asset Creation",
     "name": "AssetCreation",
     "sample": {
       "header": {
@@ -51,6 +53,7 @@
   },
   {
     "code": "A3",
+    "label": "Asset Modification",
     "name": "AssetModification",
     "sample": {
       "header": {
@@ -79,6 +82,7 @@
   },
   {
     "code": "C1",
+    "label": "Contract Offer",
     "name": "ContractOffer",
     "sample": {
       "header": {
@@ -203,6 +207,7 @@
   },
   {
     "code": "C2",
+    "label": "Contract Formation",
     "name": "ContractFormation",
     "sample": {
       "header": {
@@ -329,6 +334,7 @@
   },
   {
     "code": "C3",
+    "label": "Contract Amendment",
     "name": "ContractAmendment",
     "sample": {
       "header": {
@@ -357,6 +363,7 @@
   },
   {
     "code": "C4",
+    "label": "Static Contract Formation",
     "name": "StaticContractFormation",
     "sample": {
       "header": {
@@ -425,6 +432,7 @@
   },
   {
     "code": "C5",
+    "label": "Contract Address Change",
     "name": "ContractAddressChange",
     "sample": {
       "header": {
@@ -439,6 +447,7 @@
   },
   {
     "code": "E1",
+    "label": "Order",
     "name": "Order",
     "sample": {
       "header": {
@@ -481,6 +490,7 @@
   },
   {
     "code": "E2",
+    "label": "Freeze",
     "name": "Freeze",
     "sample": {
       "header": {
@@ -505,6 +515,7 @@
   },
   {
     "code": "E3",
+    "label": "Thaw",
     "name": "Thaw",
     "sample": {
       "header": {
@@ -519,6 +530,7 @@
   },
   {
     "code": "E4",
+    "label": "Confiscation",
     "name": "Confiscation",
     "sample": {
       "header": {
@@ -543,6 +555,7 @@
   },
   {
     "code": "E5",
+    "label": "Reconciliation",
     "name": "Reconciliation",
     "sample": {
       "header": {
@@ -566,6 +579,7 @@
   },
   {
     "code": "G1",
+    "label": "Proposal",
     "name": "Proposal",
     "sample": {
       "header": {
@@ -601,6 +615,7 @@
   },
   {
     "code": "G2",
+    "label": "Vote",
     "name": "Vote",
     "sample": {
       "header": {
@@ -614,6 +629,7 @@
   },
   {
     "code": "G3",
+    "label": "Ballot Cast",
     "name": "BallotCast",
     "sample": {
       "header": {
@@ -628,6 +644,7 @@
   },
   {
     "code": "G4",
+    "label": "Ballot Counted",
     "name": "BallotCounted",
     "sample": {
       "header": {
@@ -644,6 +661,7 @@
   },
   {
     "code": "G5",
+    "label": "Result",
     "name": "Result",
     "sample": {
       "header": {
@@ -678,6 +696,7 @@
   },
   {
     "code": "M1",
+    "label": "Message",
     "name": "Message",
     "sample": {
       "header": {
@@ -694,6 +713,7 @@
   },
   {
     "code": "M2",
+    "label": "Rejection",
     "name": "Rejection",
     "sample": {
       "header": {
@@ -713,6 +733,7 @@
   },
   {
     "code": "R1",
+    "label": "Establishment",
     "name": "Establishment",
     "sample": {
       "header": {
@@ -726,6 +747,7 @@
   },
   {
     "code": "R2",
+    "label": "Addition",
     "name": "Addition",
     "sample": {
       "header": {
@@ -739,6 +761,7 @@
   },
   {
     "code": "R3",
+    "label": "Alteration",
     "name": "Alteration",
     "sample": {
       "header": {
@@ -753,6 +776,7 @@
   },
   {
     "code": "R4",
+    "label": "Removal",
     "name": "Removal",
     "sample": {
       "header": {
@@ -767,6 +791,7 @@
   },
   {
     "code": "T1",
+    "label": "Transfer",
     "name": "Transfer",
     "sample": {
       "header": {
@@ -811,6 +836,7 @@
   },
   {
     "code": "T2",
+    "label": "Settlement",
     "name": "Settlement",
     "sample": {
       "header": {

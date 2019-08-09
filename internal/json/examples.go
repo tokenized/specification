@@ -38,6 +38,7 @@ type actionHeader struct {
 
 type example struct {
 	Code   string     `json:"code"`
+	Label  string     `json:"label"`
 	Name   string     `json:"name"`
 	Sample sampleJSON `json:"sample"`
 }
@@ -64,8 +65,8 @@ func assembleActionExamples(distPath, jsonFile string, actions parser.ProtocolAc
 		}
 		contents := make(map[string]interface{})
 
-		if action.Code == "C1" {
-			fmt.Println("Action is C1.")
+		if action.Code == "C2" {
+			fmt.Println(fmt.Sprintf("Action is %s.", action.Code))
 		}
 
 		for _, field := range action.Fields {
@@ -112,8 +113,9 @@ func assembleActionExamples(distPath, jsonFile string, actions parser.ProtocolAc
 		}
 
 		top[actionIndex] = example{
-			Code: action.Code,
-			Name: action.Metadata.Name,
+			Code:  action.Code,
+			Label: action.Metadata.Label,
+			Name:  action.Metadata.Name,
 			Sample: sampleJSON{
 				Header:         header,
 				ActionContents: contents,
@@ -203,7 +205,6 @@ func exampleForNativeType(example string, typeName string, size uint64) (interfa
 				return nil, err
 			}
 			return exampleUint, nil
-
 		}
 
 	default:
