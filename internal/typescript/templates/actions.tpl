@@ -47,38 +47,39 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 {{ range $action := . }}
 
-{{comment (print .Name " " .Metadata.Description) "//"}}
-export class {{.Name}} extends OpReturnMessage {
-	type = ActionCode.Code{{.Name}};
-	typeStr = '{{.Name}}';
+	{{comment (print .Name " " .Metadata.Description) "//"}}
+	export class {{.Name}} extends OpReturnMessage {
+		type = ActionCode.Code{{.Name}};
+		typeStr = '{{.Name}}';
 
-{{ range .Fields }}
-	{{comment (print "\t" .FieldDescription) "\t//"}}
-	{{ .SnakeCase }};{{ end -}}
-
-{{ if .Constructor -}}
-// New{{.Name}} returns a new {{.Name}} with specified values set.
-constructor ({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .ConstructorName }} {{ .ConstructorGoType }}{{ end -}}) *{{.Name}} {
-	result := {{.Name}}{}
-	{{ range .Constructor -}}
-	result.{{ .ConstructorField -}}
-	{{ if eq .ConstructorSetMethod "=" }} = {{ .ConstructorName }}{{ else }}.{{ .ConstructorSetMethod }}({{ .ConstructorName }}){{ end }}
+	{{ range .Fields }}
+		{{comment (print "\t" .FieldDescription) "\t//"}}
+		{{ .SnakeCase }};
 	{{ end -}}
-	return &result
-}
-{{ end -}}
 
-{{ range .Functions }}// {{.FunctionName}} {{ .FunctionDescription }}.
-func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .FunctionParams }}{{if ne .ParamName "hidden"}}{{if $i}}, {{end}}{{ .ParamName }} {{ .ParamGoType }}{{ end -}}{{ end -}}) {
-{{ if eq .FunctionType "set" -}}
-	{{ range .FunctionParams -}}
-	action.{{ .ParamField -}}
-	{{ if eq .ParamSetMethod "=" }} = {{ .ParamValue }}{{ else }}.{{ .ParamSetMethod }}({{ .ParamValue }}){{ end }}
+	{{ if .Constructor -}}
+	// New{{.Name}} returns a new {{.Name}} with specified values set.
+	constructor ({{ range $i, $c := .Constructor }}{{if $i}}, {{end}}{{ .ConstructorName }} {{ .ConstructorGoType }}{{ end -}}) *{{.Name}} {
+		result := {{.Name}}{}
+		{{ range .Constructor -}}
+		result.{{ .ConstructorField -}}
+		{{ if eq .ConstructorSetMethod "=" }} = {{ .ConstructorName }}{{ else }}.{{ .ConstructorSetMethod }}({{ .ConstructorName }}){{ end }}
+		{{ end -}}
+		return &result
+	}
 	{{ end -}}
-{{ else if eq .FunctionType "append" -}}
-	action.{{ .FunctionAppendType }}s = append(action.{{ .FunctionAppendType }}s, *New{{ .FunctionAppendType }}({{ range $i, $param := .FunctionParams }}{{if $i}}, {{end}}{{ .ParamName }}{{ end }}))
-{{ end -}}
-}
+
+	{{ range .Functions }}// {{.FunctionName}} {{ .FunctionDescription }}.
+	func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .FunctionParams }}{{if ne .ParamName "hidden"}}{{if $i}}, {{end}}{{ .ParamName }} {{ .ParamGoType }}{{ end -}}{{ end -}}) {
+	{{ if eq .FunctionType "set" -}}
+		{{ range .FunctionParams -}}
+		action.{{ .ParamField -}}
+		{{ if eq .ParamSetMethod "=" }} = {{ .ParamValue }}{{ else }}.{{ .ParamSetMethod }}({{ .ParamValue }}){{ end }}
+		{{ end -}}
+	{{ else if eq .FunctionType "append" -}}
+		action.{{ .FunctionAppendType }}s = append(action.{{ .FunctionAppendType }}s, *New{{ .FunctionAppendType }}({{ range $i, $param := .FunctionParams }}{{if $i}}, {{end}}{{ .ParamName }}{{ end }}))
+	{{ end -}}
+	}
 {{ end }}
 
 	// Type returns the type identifer for this message.
@@ -197,7 +198,7 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 {{- range $i, $field := .PayloadFields }}
 
 		// {{.Name}} ({{.FieldGoType}})
@@ -336,6 +337,35 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 		{{- end }}{{ end }}
 
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for {{ .Name }}.', e);
+			throw e;
+		}
+
+		{{- range .Fields }}
+		  {{- if eq .Type "STRING" }}
+		this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }};
+		  {{- if eq .Type "varchar" }}
+		this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }};
+		  {{- else if .IsInternalTypeArray }}
+		// this.{{ .SnakeCase }} ({{ .Type }})	
+		  {{- else if .IsInternalType }}
+		this.{{ .SnakeCase }} = new {{ .Type }}();
+		this.{{ .SnakeCase }}.fromJSON(JSON.stringify(parsed.{{ camelcase .Name }}));
+		  {{- else if .IsNumeric }}
+		this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }};
+		  {{- else }}
+		// this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }} ({{ .Type }})
+		  {{- end }}
+		{{ end }}
+
+		return this.Validate();
 	}
 }
 {{- end }}
