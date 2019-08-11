@@ -351,7 +351,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		{{- range .Fields }}
 		  {{- if eq .Type "STRING" }}
 		this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }};
-		  {{- if eq .Type "varchar" }}
+		  {{- else if eq .Type "varchar" }}
 		this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }};
 		  {{- else if .IsInternalTypeArray }}
 		// this.{{ .SnakeCase }} ({{ .Type }})	
