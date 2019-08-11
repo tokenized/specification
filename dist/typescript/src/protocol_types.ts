@@ -171,7 +171,13 @@ export class Timestamp {
 	}
 
 	// Validate returns an error if the value is invalid
-	Validate(): string {
+	Validate(): string | null {
+		if (this.milliseconds < 0) {
+			return 'Timestamp is too early.';
+		}
+		if (this.milliseconds > Number.MAX_SAFE_INTEGER) {
+			return 'Timestamp is too late.';
+		}
 		return null;
 	}
 
@@ -210,6 +216,12 @@ export class Timestamp {
 		// console.log('\n\nTimestamp.Write', this.milliseconds);
 	}
 
+	fromJSON(json: string): string | null {
+		const parsed = JSON.parse(json);
+		this.milliseconds = Date.parse(parsed);
+
+		return this.Validate();
+	}
 	// // MarshalJSON converts to json.
 	// MarshalJSON() ([]byte, error) {
 	// 	return []byte(strconv.FormatUint(time.nanoseconds, 10)), nil
