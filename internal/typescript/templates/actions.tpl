@@ -211,9 +211,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 {{- else if ne (len $field.IncludeIf.Field) 0 }}
 		// IncludeIf.Field
 		if ({{ range $j, $include := $field.IncludeIf.Values }}{{ if (ne $j 0) }} ||{{ end }} this.{{snakecase $field.IncludeIf.Field}} === char('{{ $include }}'){{ end }}) {
-{{- else }}
+{{- else }} 
 		{
-{{- end }}
+{{- end }} 
 {{- if .IsVarChar }}
 			if (this.{{.SnakeCase}}.length > (2 ** {{.Length}})) {
 				return sprintf('varchar field {{.SnakeCase}} too long %d/%d', this.{{.SnakeCase}}.length, (2 ** {{.Length}}) - 1);
@@ -322,7 +322,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 {{- end }}
 		}
 	{{- end }}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
@@ -335,7 +335,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 			{{- else }}
 			vals.push(sprintf('{{.SnakeCase}}:%s', this.{{.SnakeCase}}.toString()));
 		{{- end }}{{ end }}
-
+	
 		return sprintf('{%s}', vals.join(' '));
 	}
 
@@ -364,9 +364,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }} ({{ .Type }})
 		  {{- end }}
 		{{ end }}
-
 		return this.Validate();
 	}
 }
 {{- end }}
-
