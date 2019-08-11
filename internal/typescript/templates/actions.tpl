@@ -326,17 +326,13 @@ func (action *{{ $action.Name }}) {{.FunctionName}}({{ range $i, $c := .Function
 
 	toString(): string {
 		const vals: string[] = [];
-	{{- range .Fields -}}
-		{{- if eq .Type "STRING" }}
-		vals.push(sprintf('{{.SnakeCase}}:\"%v\"', string(this.{{.SnakeCase}})));
-		{{- else if .IsNumeric }}
-		vals.push(sprintf('{{.SnakeCase}}:%v', this.{{.SnakeCase}}));
-		{{- else if eq .Type "SHA" }}
-		vals.push(sprintf('{{.SnakeCase}}:\"%x\"', this.{{.SnakeCase}}));
-		{{- else if eq .FieldGoType "[]byte" }}
-		vals.push(sprintf('{{.SnakeCase}}:%#x', this.{{.SnakeCase}}));
-		{{- else }}
-		vals.push(sprintf('{{.SnakeCase}}:%#+v', this.{{.SnakeCase}}));
+		{{- range .Fields -}}
+			{{- if eq .Type "STRING" }}
+			vals.push(sprintf('{{.SnakeCase}}:\"%s\"', this.{{.SnakeCase}}));
+			{{- else if .IsNumeric }}
+			vals.push(sprintf('{{.SnakeCase}}:%d', this.{{.SnakeCase}}));
+			{{- else }}
+			vals.push(sprintf('{{.SnakeCase}}:%s', this.{{.SnakeCase}}.toString()));
 		{{- end }}{{ end }}
 
 		return sprintf('{%s}', vals.join(' '));
