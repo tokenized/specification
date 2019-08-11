@@ -354,14 +354,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 		  {{- else if eq .Type "varchar" }}
 		this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }};
 		  {{- else if .IsInternalTypeArray }}
-		// this.{{ .SnakeCase }} ({{ .Type }})	
+		// TODO: this.{{ .SnakeCase }} ({{ .Type }})	
 		  {{- else if .IsInternalType }}
 		this.{{ .SnakeCase }} = new {{ .Type }}();
 		this.{{ .SnakeCase }}.fromJSON(JSON.stringify(parsed.{{ camelcase .Name }}));
 		  {{- else if .IsNumeric }}
 		this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }};
 		  {{- else }}
-		// this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }} ({{ .Type }})
+		// TODO: this.{{ .SnakeCase }} = parsed.{{ camelcase .Name }} ({{ .Type }})
 		  {{- end }}
 		{{ end }}
 		return this.Validate();

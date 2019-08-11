@@ -80,6 +80,10 @@ func reformat(s string, prefix string) string {
 	return strings.TrimSpace(strings.Join(lines, "\n"))
 }
 
+func CamelCase(str string) string {
+	return strings.ToLower(str[0:1]) + str[1:]
+}
+
 func SnakeCase(str string) string {
 	result := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
 	result = matchAllCap.ReplaceAllString(result, "${1}_${2}")
@@ -110,6 +114,9 @@ func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
 		},
 		"snakecase": func(str string) string {
 			return SnakeCase(str)
+		},
+		"camelcase": func(str string) string {
+			return CamelCase(str)
 		},
 	}
 
