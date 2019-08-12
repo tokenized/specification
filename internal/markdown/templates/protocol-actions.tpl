@@ -1,4 +1,4 @@
-{{$actions := . -}}
+{{$actions := .Messages -}}
 
 # Protocol Actions
 

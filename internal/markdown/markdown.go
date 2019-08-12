@@ -1,43 +1,25 @@
 package markdown
 
 import (
-	"github.com/tokenized/specification/internal/platform/parser"
+	"github.com/tokenized/specification/internal/platform/parser2"
 )
 
 func Compile(
 	distPath string,
-	actions parser.ProtocolActions,
-	messages parser.ProtocolMessages,
-	types parser.ProtocolTypes,
-	resources parser.ProtocolResources,
-	rejectionCodes parser.ProtocolRejectionCodes,
-	assets []parser.Asset,
+	actions parser2.Schema,
+	assets parser2.Schema,
+	messages parser2.Schema,
 ) {
 
 	templateToFile(distPath, "protocol-actions.tpl", "protocol-actions.md", actions)
 
-	templateToFile(distPath, "protocol-assets.tpl", "protocol-assets.md", assets)
+	// templateToFile(distPath, "protocol-assets.tpl", "protocol-assets.md", assets)
 
-	templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", messages)
+	// templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", messages)
 
-	templateToFile(distPath, "protocol-field-types.tpl", "protocol-field-types.md", types)
+	// templateToFile(distPath, "protocol-field-types.tpl", "protocol-field-types.md", types)
 
-	templateToFile(distPath, "protocol-resources.tpl", "protocol-resources.md", resources)
-
-	// for _, action := range actions {
-	// 	outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
-	// 	templateToFile(distPath, "action.tpl", outfile, action)
-	// }
-
-	// for _, asset := range assets {
-	// 	outfile := "asset-" + parser.KebabCase(asset.Name()) + ".md"
-	// 	templateToFile(distPath, "asset.tpl", outfile, asset)
-	// }
-
-	// for _, message := range messages {
-	// 	outfile := "message-" + parser.KebabCase(message.Name()) + ".md"
-	// 	templateToFile(distPath, "message.tpl", outfile, message)
-	// }
+	// templateToFile(distPath, "protocol-resources.tpl", "protocol-resources.md", resources)
 }
 
 func templateToFile(distPath, tplFile, goFile string, data interface{}) {
@@ -46,5 +28,5 @@ func templateToFile(distPath, tplFile, goFile string, data interface{}) {
 
 	path := distPath + "/markdown/" + goFile
 
-	parser.TemplateToFile(distPath, data, tpl, path)
+	parser2.TemplateToFile(distPath, data, tpl, path)
 }

@@ -8,23 +8,8 @@ name: Tokenized Protocol
 # Unique Identifier
 package: actions
 
-# Output Template
-template: default
-
 # Codec Version
 version: 1
-
-# Version type must be an unsigned integer type, but can vary in size.
-# The type can not be changed between versions.
-versionType:
-    type: uint
-    size: 1
-
-# Message Code used to determine which type of message is encoded.
-code:
-    name: ActionCode
-    type: fixedchar
-    size: 2
 
 # Register Supported Messages
 messages:
