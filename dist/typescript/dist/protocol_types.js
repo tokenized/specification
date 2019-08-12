@@ -147,6 +147,12 @@ class Timestamp {
     }
     // Validate returns an error if the value is invalid
     Validate() {
+        if (this.milliseconds < 0) {
+            return 'Timestamp is too early.';
+        }
+        if (this.milliseconds > Number.MAX_SAFE_INTEGER) {
+            return 'Timestamp is too late.';
+        }
         return null;
     }
     // Equal returns true if the specified values are the same.
@@ -177,6 +183,11 @@ class Timestamp {
         this.milliseconds = bn.div(new bn_js_1.default(1000)).toNumber();
         // console.log('\n\nTimestamp.Write', bn);
         // console.log('\n\nTimestamp.Write', this.milliseconds);
+    }
+    fromJSON(json) {
+        const parsed = JSON.parse(json);
+        this.milliseconds = Date.parse(parsed);
+        return this.Validate();
     }
 }
 exports.Timestamp = Timestamp;
