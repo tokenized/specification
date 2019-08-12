@@ -171,66 +171,78 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 
 
-// AssetDefinition This action is used by the administration to define the
+	// AssetDefinition This action is used by the administration to define the
 // properties/characteristics of the asset (token) that it wants to create.
 // An asset has a unique identifier called AssetID = AssetType +
 // base58(AssetCode + checksum). An asset is always linked to a contract
 // that is identified by the public address of the Contract wallet.
-export class AssetDefinition extends OpReturnMessage {
-	type = ActionCode.CodeAssetDefinition;
-	typeStr = 'AssetDefinition';
+	export class AssetDefinition extends OpReturnMessage {
+		type = ActionCode.CodeAssetDefinition;
+		typeStr = 'AssetDefinition';
 
-
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A set of switches that define the authorization rules for this asset.
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A set of switches that define the authorization rules for this asset.
 	// See the Authorization Flags documentation for more detail.
-	asset_auth_flags;
-	// 	Set to true if transfers are permitted between two parties, otherwise
+		asset_auth_flags;
+	
+		// 	Set to true if transfers are permitted between two parties, otherwise
 	// set to false to prevent peer-to-peer transfers.
-	transfers_permitted;
-	// 	If specified, the asset can only be traded within the specified trade
+		transfers_permitted;
+	
+		// 	If specified, the asset can only be traded within the specified trade
 	// restriction zone. For example, AUS would restrict to Australian
 	// residents only.
-	trade_restrictions;
-	// 	Set to true if the administration is permitted to make enforcement
+		trade_restrictions;
+	
+		// 	Set to true if the administration is permitted to make enforcement
 	// orders on user tokens and balances, otherwise set to false to disable
 	// this feature.
-	enforcement_orders_permitted;
-	// 	When false holders of this asset will not be able to vote for tokens
+		enforcement_orders_permitted;
+	
+		// 	When false holders of this asset will not be able to vote for tokens
 	// of this asset even on voting systems in which vote multiplers are not
 	// permitted.
-	voting_rights;
-	// 	Multiplies a vote by the specified integer. Where 1 token is equal to
+		voting_rights;
+	
+		// 	Multiplies a vote by the specified integer. Where 1 token is equal to
 	// 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a
 	// multiplier of 3, for example. If zero, then holders of this asset don't
 	// get any votes for their tokens.
-	vote_multiplier;
-	// 	Set to true if the administration is permitted to make proposals
+		vote_multiplier;
+	
+		// 	Set to true if the administration is permitted to make proposals
 	// outside of the smart contract scope.
-	administration_proposal;
-	// 	Set to true if a holder is permitted to make proposals outside of the
+		administration_proposal;
+	
+		// 	Set to true if a holder is permitted to make proposals outside of the
 	// smart contract scope.
-	holder_proposal;
-	// 	Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide
+		holder_proposal;
+	
+		// 	Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide
 	// Asset Governance. If a referendum or initiative is used to propose a
 	// modification to a subfield controlled by the asset auth flags, then the
 	// vote will either be a contract-wide vote (all assets vote on the
 	// referendum/initiative) or an asset-wide vote (only this asset votes on
 	// the referendum/initiative) depending on the value in this subfield. The
 	// voting system specifies the voting rules.
-	asset_modification_governance;
-	// 	The number of tokens to issue with this asset. Set to greater than
+		asset_modification_governance;
+	
+		// 	The number of tokens to issue with this asset. Set to greater than
 	// zero for fungible tokens. If the value is 1 then it becomes a
 	// non-fungible token, where the contract would have many assets. Set to 0
 	// to represent a placeholder asset, where tokens are to be issued later,
 	// or to represent a decomissioned asset where all tokens have been
 	// revoked.
-	token_qty;
-	// 	A custom payload that contains meta data about this asset. Payload
+		token_qty;
+	
+		// 	A custom payload that contains meta data about this asset. Payload
 	// structure and length is dependent on the asset type chosen. See asset
 	// documentation for more details.
-	asset_payload;
+		asset_payload;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -386,27 +398,27 @@ export class AssetDefinition extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AssetType (string)
+		// AssetType (string) 
 		{
 			if (this.asset_type.length > 3) {
 				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
 			}
 		}
 
-		// AssetAuthFlags ([]byte)
+		// AssetAuthFlags ([]byte) 
 		{
 			if (this.asset_auth_flags.length >= (2 ** 8)) {
 				return sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (2 ** 8) - 1);
 			}
 		}
 
-		// TransfersPermitted (bool)
+		// TransfersPermitted (bool) 
 		{
 		}
 
-		// TradeRestrictions ([][3]byte)
+		// TradeRestrictions ([][3]byte) 
 		{
 			if (this.trade_restrictions.length >= (2 ** 16)) {
 				return sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (2 ** 16) - 1);
@@ -423,27 +435,27 @@ export class AssetDefinition extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// EnforcementOrdersPermitted (bool)
+		// EnforcementOrdersPermitted (bool) 
 		{
 		}
 
-		// VotingRights (bool)
+		// VotingRights (bool) 
 		{
 		}
 
-		// VoteMultiplier (uint8)
+		// VoteMultiplier (uint8) 
 		{
 		}
 
-		// AdministrationProposal (bool)
+		// AdministrationProposal (bool) 
 		{
 		}
 
-		// HolderProposal (bool)
+		// HolderProposal (bool) 
 		{
 		}
 
-		// AssetModificationGovernance (uint8)
+		// AssetModificationGovernance (uint8) 
 		{
 			// $field.IntValues [0 1]
 			if ( this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
@@ -452,108 +464,159 @@ export class AssetDefinition extends OpReturnMessage {
 
 		}
 
-		// TokenQty (uint64)
+		// TokenQty (uint64) 
 		{
 		}
 
-		// AssetPayload ([]byte)
+		// AssetPayload ([]byte) 
 		{
 			if (this.asset_payload.length >= (2 ** 16)) {
 				return sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (2 ** 16) - 1);
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_auth_flags:%#x', this.asset_auth_flags));
-		vals.push(sprintf('transfers_permitted:%#+v', this.transfers_permitted));
-		vals.push(sprintf('trade_restrictions:%#+v', this.trade_restrictions));
-		vals.push(sprintf('enforcement_orders_permitted:%#+v', this.enforcement_orders_permitted));
-		vals.push(sprintf('voting_rights:%#+v', this.voting_rights));
-		vals.push(sprintf('vote_multiplier:%v', this.vote_multiplier));
-		vals.push(sprintf('administration_proposal:%#+v', this.administration_proposal));
-		vals.push(sprintf('holder_proposal:%#+v', this.holder_proposal));
-		vals.push(sprintf('asset_modification_governance:%v', this.asset_modification_governance));
-		vals.push(sprintf('token_qty:%v', this.token_qty));
-		vals.push(sprintf('asset_payload:%#x', this.asset_payload));
-
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_auth_flags:%s', this.asset_auth_flags.toString()));
+			vals.push(sprintf('transfers_permitted:%s', this.transfers_permitted.toString()));
+			vals.push(sprintf('trade_restrictions:%s', this.trade_restrictions.toString()));
+			vals.push(sprintf('enforcement_orders_permitted:%s', this.enforcement_orders_permitted.toString()));
+			vals.push(sprintf('voting_rights:%s', this.voting_rights.toString()));
+			vals.push(sprintf('vote_multiplier:%d', this.vote_multiplier));
+			vals.push(sprintf('administration_proposal:%s', this.administration_proposal.toString()));
+			vals.push(sprintf('holder_proposal:%s', this.holder_proposal.toString()));
+			vals.push(sprintf('asset_modification_governance:%d', this.asset_modification_governance));
+			vals.push(sprintf('token_qty:%d', this.token_qty));
+			vals.push(sprintf('asset_payload:%s', this.asset_payload.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for AssetDefinition.', e);
+			throw e;
+		}
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		// this.asset_auth_flags = parsed.assetAuthFlags (varbin)
+		
+		// this.transfers_permitted = parsed.transfersPermitted (bool)
+		
+		// this.trade_restrictions = parsed.tradeRestrictions (Polity[])
+		
+		// this.enforcement_orders_permitted = parsed.enforcementOrdersPermitted (bool)
+		
+		// this.voting_rights = parsed.votingRights (bool)
+		
+		this.vote_multiplier = parsed.voteMultiplier;
+		
+		// this.administration_proposal = parsed.administrationProposal (bool)
+		
+		// this.holder_proposal = parsed.holderProposal (bool)
+		
+		this.asset_modification_governance = parsed.assetModificationGovernance;
+		
+		this.token_qty = parsed.tokenQty;
+		
+		// this.asset_payload = parsed.assetPayload (varbin)
+		
+		return this.Validate();
 	}
 }
 
-// AssetCreation This action creates an asset in response to the
+	// AssetCreation This action creates an asset in response to the
 // administration's instructions in the Definition Action.
-export class AssetCreation extends OpReturnMessage {
-	type = ActionCode.CodeAssetCreation;
-	typeStr = 'AssetCreation';
+	export class AssetCreation extends OpReturnMessage {
+		type = ActionCode.CodeAssetCreation;
+		typeStr = 'AssetCreation';
 
-
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A unique code that is used to identify the asset. It is generated by
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A unique code that is used to identify the asset. It is generated by
 	// hashing the contract public key hash and the asset index.
 	// SHA256(contract PKH + asset index)
-	asset_code;
-	// 	The index of the asset within the contract. First asset is zero,
+		asset_code;
+	
+		// 	The index of the asset within the contract. First asset is zero,
 	// second is one. Used to derive the asset code.
-	asset_index;
-	// 	A set of switches that define the authorization rules for this asset.
+		asset_index;
+	
+		// 	A set of switches that define the authorization rules for this asset.
 	// See the Authorization Flags documentation for more detail.
-	asset_auth_flags;
-	// 	Set to true if transfers are permitted between two parties, otherwise
+		asset_auth_flags;
+	
+		// 	Set to true if transfers are permitted between two parties, otherwise
 	// set to false to prevent peer-to-peer transfers.
-	transfers_permitted;
-	// 	If specified, the asset can only be traded within the specified trade
+		transfers_permitted;
+	
+		// 	If specified, the asset can only be traded within the specified trade
 	// restriction zone. For example, AUS would restrict to Australian
 	// residents only.
-	trade_restrictions;
-	// 	Set to true if the administration is permitted to make enforcement
+		trade_restrictions;
+	
+		// 	Set to true if the administration is permitted to make enforcement
 	// orders on user tokens and balances, otherwise set to false to disable
 	// this feature.
-	enforcement_orders_permitted;
-	// 	When false holders of this asset will not be able to vote for tokens
+		enforcement_orders_permitted;
+	
+		// 	When false holders of this asset will not be able to vote for tokens
 	// of this asset even on voting systems in which vote multiplers are not
 	// permitted.
-	voting_rights;
-	// 	Multiplies a vote by the specified integer. Where 1 token is equal to
+		voting_rights;
+	
+		// 	Multiplies a vote by the specified integer. Where 1 token is equal to
 	// 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a
 	// multiplier of 3, for example. If zero, then holders of this asset don't
 	// get any votes for their tokens.
-	vote_multiplier;
-	// 	Set to true if the administration is permitted to make proposals
+		vote_multiplier;
+	
+		// 	Set to true if the administration is permitted to make proposals
 	// outside of the smart contract scope.
-	administration_proposal;
-	// 	Set to true if a holder is permitted to make proposals outside of the
+		administration_proposal;
+	
+		// 	Set to true if a holder is permitted to make proposals outside of the
 	// smart contract scope.
-	holder_proposal;
-	// 	Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide
+		holder_proposal;
+	
+		// 	Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide
 	// Asset Governance. If a referendum or initiative is used to propose a
 	// modification to a subfield controlled by the asset auth flags, then the
 	// vote will either be a contract-wide vote (all assets vote on the
 	// referendum/initiative) or an asset-wide vote (only this asset votes on
 	// the referendum/initiative) depending on the value in this subfield. The
 	// voting system specifies the voting rules.
-	asset_modification_governance;
-	// 	The number of tokens to issue with this asset. Set to greater than
+		asset_modification_governance;
+	
+		// 	The number of tokens to issue with this asset. Set to greater than
 	// zero for fungible tokens. If the value is 1 then it becomes a
 	// non-fungible token, where the contract would have many assets. Set to 0
 	// to represent a placeholder asset, where tokens are to be issued later,
 	// or to represent a decomissioned asset where all tokens have been
 	// revoked.
-	token_qty;
-	// 	A custom payload that contains meta data about this asset. Payload
+		token_qty;
+	
+		// 	A custom payload that contains meta data about this asset. Payload
 	// structure and length is dependent on the asset type chosen. See asset
 	// documentation for more details.
-	asset_payload;
-	// 	A counter for the number of times this asset has been revised using a
+		asset_payload;
+	
+		// 	A counter for the number of times this asset has been revised using a
 	// modification action.
-	asset_revision;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+		asset_revision;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -751,16 +814,16 @@ export class AssetCreation extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AssetType (string)
+		// AssetType (string) 
 		{
 			if (this.asset_type.length > 3) {
 				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode)
+		// AssetCode (AssetCode) 
 		{
 			// IsInternalType
 			const err = this.asset_code.Validate();
@@ -768,22 +831,22 @@ export class AssetCreation extends OpReturnMessage {
 
 		}
 
-		// AssetIndex (uint64)
+		// AssetIndex (uint64) 
 		{
 		}
 
-		// AssetAuthFlags ([]byte)
+		// AssetAuthFlags ([]byte) 
 		{
 			if (this.asset_auth_flags.length >= (2 ** 8)) {
 				return sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (2 ** 8) - 1);
 			}
 		}
 
-		// TransfersPermitted (bool)
+		// TransfersPermitted (bool) 
 		{
 		}
 
-		// TradeRestrictions ([][3]byte)
+		// TradeRestrictions ([][3]byte) 
 		{
 			if (this.trade_restrictions.length >= (2 ** 16)) {
 				return sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (2 ** 16) - 1);
@@ -800,27 +863,27 @@ export class AssetCreation extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// EnforcementOrdersPermitted (bool)
+		// EnforcementOrdersPermitted (bool) 
 		{
 		}
 
-		// VotingRights (bool)
+		// VotingRights (bool) 
 		{
 		}
 
-		// VoteMultiplier (uint8)
+		// VoteMultiplier (uint8) 
 		{
 		}
 
-		// AdministrationProposal (bool)
+		// AdministrationProposal (bool) 
 		{
 		}
 
-		// HolderProposal (bool)
+		// HolderProposal (bool) 
 		{
 		}
 
-		// AssetModificationGovernance (uint8)
+		// AssetModificationGovernance (uint8) 
 		{
 			// $field.IntValues [0 1]
 			if ( this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
@@ -829,74 +892,124 @@ export class AssetCreation extends OpReturnMessage {
 
 		}
 
-		// TokenQty (uint64)
+		// TokenQty (uint64) 
 		{
 		}
 
-		// AssetPayload ([]byte)
+		// AssetPayload ([]byte) 
 		{
 			if (this.asset_payload.length >= (2 ** 16)) {
 				return sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (2 ** 16) - 1);
 			}
 		}
 
-		// AssetRevision (uint32)
+		// AssetRevision (uint32) 
 		{
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_code:%#+v', this.asset_code));
-		vals.push(sprintf('asset_index:%v', this.asset_index));
-		vals.push(sprintf('asset_auth_flags:%#x', this.asset_auth_flags));
-		vals.push(sprintf('transfers_permitted:%#+v', this.transfers_permitted));
-		vals.push(sprintf('trade_restrictions:%#+v', this.trade_restrictions));
-		vals.push(sprintf('enforcement_orders_permitted:%#+v', this.enforcement_orders_permitted));
-		vals.push(sprintf('voting_rights:%#+v', this.voting_rights));
-		vals.push(sprintf('vote_multiplier:%v', this.vote_multiplier));
-		vals.push(sprintf('administration_proposal:%#+v', this.administration_proposal));
-		vals.push(sprintf('holder_proposal:%#+v', this.holder_proposal));
-		vals.push(sprintf('asset_modification_governance:%v', this.asset_modification_governance));
-		vals.push(sprintf('token_qty:%v', this.token_qty));
-		vals.push(sprintf('asset_payload:%#x', this.asset_payload));
-		vals.push(sprintf('asset_revision:%v', this.asset_revision));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('asset_index:%d', this.asset_index));
+			vals.push(sprintf('asset_auth_flags:%s', this.asset_auth_flags.toString()));
+			vals.push(sprintf('transfers_permitted:%s', this.transfers_permitted.toString()));
+			vals.push(sprintf('trade_restrictions:%s', this.trade_restrictions.toString()));
+			vals.push(sprintf('enforcement_orders_permitted:%s', this.enforcement_orders_permitted.toString()));
+			vals.push(sprintf('voting_rights:%s', this.voting_rights.toString()));
+			vals.push(sprintf('vote_multiplier:%d', this.vote_multiplier));
+			vals.push(sprintf('administration_proposal:%s', this.administration_proposal.toString()));
+			vals.push(sprintf('holder_proposal:%s', this.holder_proposal.toString()));
+			vals.push(sprintf('asset_modification_governance:%d', this.asset_modification_governance));
+			vals.push(sprintf('token_qty:%d', this.token_qty));
+			vals.push(sprintf('asset_payload:%s', this.asset_payload.toString()));
+			vals.push(sprintf('asset_revision:%d', this.asset_revision));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for AssetCreation.', e);
+			throw e;
+		}
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		this.asset_code = new AssetCode();
+		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		
+		this.asset_index = parsed.assetIndex;
+		
+		// this.asset_auth_flags = parsed.assetAuthFlags (varbin)
+		
+		// this.transfers_permitted = parsed.transfersPermitted (bool)
+		
+		// this.trade_restrictions = parsed.tradeRestrictions (Polity[])
+		
+		// this.enforcement_orders_permitted = parsed.enforcementOrdersPermitted (bool)
+		
+		// this.voting_rights = parsed.votingRights (bool)
+		
+		this.vote_multiplier = parsed.voteMultiplier;
+		
+		// this.administration_proposal = parsed.administrationProposal (bool)
+		
+		// this.holder_proposal = parsed.holderProposal (bool)
+		
+		this.asset_modification_governance = parsed.assetModificationGovernance;
+		
+		this.token_qty = parsed.tokenQty;
+		
+		// this.asset_payload = parsed.assetPayload (varbin)
+		
+		this.asset_revision = parsed.assetRevision;
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// AssetModification Token Dilutions, Call Backs/Revocations, burning etc.
-export class AssetModification extends OpReturnMessage {
-	type = ActionCode.CodeAssetModification;
-	typeStr = 'AssetModification';
+	// AssetModification Token Dilutions, Call Backs/Revocations, burning etc.
+	export class AssetModification extends OpReturnMessage {
+		type = ActionCode.CodeAssetModification;
+		typeStr = 'AssetModification';
 
-
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A unique code that is used to identify the asset. It is generated by
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A unique code that is used to identify the asset. It is generated by
 	// hashing the contract public key hash and the asset index.
 	// SHA256(contract PKH + asset index)
-	asset_code;
-	// 	The current revision figure to ensure the modification provided is
+		asset_code;
+	
+		// 	The current revision figure to ensure the modification provided is
 	// based on the latest version.
-	asset_revision;
-	// 	A collection of modifications to perform on this asset.
-	amendments;
-	// 	The Bitcoin transaction ID of the associated result action that
+		asset_revision;
+	
+		// 	A collection of modifications to perform on this asset.
+		amendments;
+	
+		// 	The Bitcoin transaction ID of the associated result action that
 	// permitted the modifications. See Governance for more details.
-	ref_tx_id;
+		ref_tx_id;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -988,16 +1101,16 @@ export class AssetModification extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AssetType (string)
+		// AssetType (string) 
 		{
 			if (this.asset_type.length > 3) {
 				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode)
+		// AssetCode (AssetCode) 
 		{
 			// IsInternalType
 			const err = this.asset_code.Validate();
@@ -1005,11 +1118,11 @@ export class AssetModification extends OpReturnMessage {
 
 		}
 
-		// AssetRevision (uint32)
+		// AssetRevision (uint32) 
 		{
 		}
 
-		// Amendments ([]Amendment)
+		// Amendments ([]Amendment) 
 		{
 			if (this.amendments.length > (2 ** 8) - 1) {
 				return sprintf('list field amendments has too many items %d/%d', this.amendments.length, (2 ** 8) - 1);
@@ -1022,67 +1135,97 @@ export class AssetModification extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// RefTxID (TxId)
+		// RefTxID (TxId) 
 		{
 			// IsInternalType
 			const err = this.ref_tx_id.Validate();
 			if  (err) return sprintf('field ref_tx_id is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_code:%#+v', this.asset_code));
-		vals.push(sprintf('asset_revision:%v', this.asset_revision));
-		vals.push(sprintf('amendments:%#+v', this.amendments));
-		vals.push(sprintf('ref_tx_id:%#+v', this.ref_tx_id));
-
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('asset_revision:%d', this.asset_revision));
+			vals.push(sprintf('amendments:%s', this.amendments.toString()));
+			vals.push(sprintf('ref_tx_id:%s', this.ref_tx_id.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for AssetModification.', e);
+			throw e;
+		}
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		this.asset_code = new AssetCode();
+		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		
+		this.asset_revision = parsed.assetRevision;
+		
+		// this.amendments (Amendment[])
+		
+		this.ref_tx_id = new TxId();
+		this.ref_tx_id.fromJSON(JSON.stringify(parsed.refTxID));
+		
+		return this.Validate();
 	}
 }
 
-// ContractOffer Allows the administration to tell the smart contract what
+	// ContractOffer Allows the administration to tell the smart contract what
 // they want the details (labels, data, T&C's, etc.) of the Contract to be
 // on-chain in a public and immutable way. The Contract Offer action
 // 'initializes' a generic smart contract that has been spun up by either
 // the smart contract operator or the administration. This on-chain action
 // allows for the positive response from the smart contract with either a
 // Contract Formation Action or a Rejection Action.
-export class ContractOffer extends OpReturnMessage {
-	type = ActionCode.CodeContractOffer;
-	typeStr = 'ContractOffer';
+	export class ContractOffer extends OpReturnMessage {
+		type = ActionCode.CodeContractOffer;
+		typeStr = 'ContractOffer';
 
-
-	// 	Can be any unique identifying string, including human readable names
+	
+		// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
 	// bitcoin public key hash address. If the public address is lost, then
 	// the administration will have to reissue the entire contract, Asset
 	// Definition and tokens with the new public address. Smart contracts can
 	// be branded and specialized to suit any terms and conditions.
-	contract_name;
-	// 	1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
-	body_of_agreement_type;
-	// 	SHA-256 hash of the body of the agreement (full contract in pdf format
+		contract_name;
+	
+		// 	1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+		body_of_agreement_type;
+	
+		// 	SHA-256 hash of the body of the agreement (full contract in pdf format
 	// or the like) or the full terms and conditions of an agreement in the
 	// Tokenized Body of Agreement format. This is specific to the smart
 	// contract and relevant Assets. Legal and technical information.
-	body_of_agreement;
-	// 	Describes the purpose of the contract.
-	contract_type;
-	// 	Supporting documents that are important to the contract.
-	supporting_docs;
-	// 	5 Letter Code to identify which governing law the contract will adhere
+		body_of_agreement;
+	
+		// 	Describes the purpose of the contract.
+		contract_type;
+	
+		// 	Supporting documents that are important to the contract.
+		supporting_docs;
+	
+		// 	5 Letter Code to identify which governing law the contract will adhere
 	// to. Disputes are to be settled by this law in the jurisdiction
 	// specified below. Private dispute resolution organizations can be used
 	// as well. A custom code just needs to be defined.
-	governing_law;
-	// 	Legal proceedings/arbitration will take place using the specified
+		governing_law;
+	
+		// 	Legal proceedings/arbitration will take place using the specified
 	// Governing Law in this location.
-	jurisdiction;
-	// 	All actions related to the contract will cease to work after this
+		jurisdiction;
+	
+		// 	All actions related to the contract will cease to work after this
 	// timestamp. The smart contract will stop running. This will allow many
 	// token use cases to be able to calculate total smart contract running
 	// costs for the entire life of the contract. Eg. an issuer is creating
@@ -1090,50 +1233,64 @@ export class ContractOffer extends OpReturnMessage {
 	// facilitate exchange and send transactions up until the 6th of June.
 	// Wallets can use this to forget tokens that are no longer valid - or at
 	// least store them in an 'Expired' folder.
-	contract_expiration;
-	// 	Points to an information page that also has a copy of the Contract.
+		contract_expiration;
+	
+		// 	Points to an information page that also has a copy of the Contract.
 	// Anyone can go to the website to have a look at the price/token,
 	// information about the issuer (company), information about the asset,
 	// legal information, etc. There will also be a way for token owners to
 	// vote on this page and contact details with the issuer/tokenized
 	// companies. Could be a IPv6/IPv4, or txn-id for on-chain information or
 	// even a public address (DNS).
-	contract_uri;
-	// 	The issuer of this contract.
-	issuer;
-	// 	The URL of the issuer's logo.
-	issuer_logo_url;
-	// 	If true, then the second input is a contract operator. If false, then
+		contract_uri;
+	
+		// 	The issuer of this contract.
+		issuer;
+	
+		// 	The URL of the issuer's logo.
+		issuer_logo_url;
+	
+		// 	If true, then the second input is a contract operator. If false, then
 	// all additional inputs are just funding and "includes" fields are
 	// skipped in serialization.
-	contract_operator_included;
-	// 	An additional entity with operator access to the contract.
-	contract_operator;
-	// 	Satoshis required to be paid to the contract for each asset action.
-	contract_fee;
-	// 	A list of voting systems.
-	voting_systems;
-	// 	A set of switches that define the authorization rules for this
+		contract_operator_included;
+	
+		// 	An additional entity with operator access to the contract.
+		contract_operator;
+	
+		// 	Satoshis required to be paid to the contract for each asset action.
+		contract_fee;
+	
+		// 	A list of voting systems.
+		voting_systems;
+	
+		// 	A set of switches that define the authorization rules for this
 	// contract. See the Authorization Flags documentation for more detail.
 	// Other terms and conditions that are out of the smart contract's control
 	// should be listed in the Body of Agreement.
-	contract_auth_flags;
-	// 	Number of Assets (non-fungible) permitted on this contract. 0 if
+		contract_auth_flags;
+	
+		// 	Number of Assets (non-fungible) permitted on this contract. 0 if
 	// unlimited which will display an infinity symbol in UI
-	restricted_qty_assets;
-	// 	Set to true if the administration is permitted to make proposals
+		restricted_qty_assets;
+	
+		// 	Set to true if the administration is permitted to make proposals
 	// outside of the smart contract scope.
-	administration_proposal;
-	// 	Set to true if a holder is permitted to make proposals outside of the
+		administration_proposal;
+	
+		// 	Set to true if a holder is permitted to make proposals outside of the
 	// smart contract scope.
-	holder_proposal;
-	// 	A list of oracles that provide approval for all token transfers for
+		holder_proposal;
+	
+		// 	A list of oracles that provide approval for all token transfers for
 	// all assets under the contract.
-	oracles;
-	// 	The public key hash of the contract's master key. This key has the
+		oracles;
+	
+		// 	The public key hash of the contract's master key. This key has the
 	// ability to change the active contract address in case of a security
 	// failure with the active contract key.
-	master_pkh;
+		master_pkh;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -1409,16 +1566,16 @@ export class ContractOffer extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// ContractName (string)
+		// ContractName (string) 
 		{
 			if (this.contract_name.length > (2 ** 8)) {
 				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 ** 8) - 1);
 			}
 		}
 
-		// BodyOfAgreementType (uint8)
+		// BodyOfAgreementType (uint8) 
 		{
 			// $field.IntValues [1 2]
 			if ( this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
@@ -1427,21 +1584,21 @@ export class ContractOffer extends OpReturnMessage {
 
 		}
 
-		// BodyOfAgreement ([]byte)
+		// BodyOfAgreement ([]byte) 
 		{
 			if (this.body_of_agreement.length >= (2 ** 32)) {
 				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 ** 32) - 1);
 			}
 		}
 
-		// ContractType (string)
+		// ContractType (string) 
 		{
 			if (this.contract_type.length > (2 ** 8)) {
 				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 ** 8) - 1);
 			}
 		}
 
-		// SupportingDocs ([]Document)
+		// SupportingDocs ([]Document) 
 		{
 			if (this.supporting_docs.length > (2 ** 8) - 1) {
 				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 ** 8) - 1);
@@ -1454,21 +1611,21 @@ export class ContractOffer extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// GoverningLaw (string)
+		// GoverningLaw (string) 
 		{
 			if (this.governing_law.length > 5) {
 				return sprintf('fixedchar field governing_law too long %d/%d', this.governing_law.length, 5);
 			}
 		}
 
-		// Jurisdiction (string)
+		// Jurisdiction (string) 
 		{
 			if (this.jurisdiction.length > 5) {
 				return sprintf('fixedchar field jurisdiction too long %d/%d', this.jurisdiction.length, 5);
 			}
 		}
 
-		// ContractExpiration (Timestamp)
+		// ContractExpiration (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.contract_expiration.Validate();
@@ -1476,14 +1633,14 @@ export class ContractOffer extends OpReturnMessage {
 
 		}
 
-		// ContractURI (string)
+		// ContractURI (string) 
 		{
 			if (this.contract_uri.length > (2 ** 8)) {
 				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 ** 8) - 1);
 			}
 		}
 
-		// Issuer (Entity)
+		// Issuer (Entity) 
 		{
 			// IsInternalType
 			const err = this.issuer.Validate();
@@ -1491,14 +1648,14 @@ export class ContractOffer extends OpReturnMessage {
 
 		}
 
-		// IssuerLogoURL (string)
+		// IssuerLogoURL (string) 
 		{
 			if (this.issuer_logo_url.length > (2 ** 8)) {
 				return sprintf('varchar field issuer_logo_url too long %d/%d', this.issuer_logo_url.length, (2 ** 8) - 1);
 			}
 		}
 
-		// ContractOperatorIncluded (bool)
+		// ContractOperatorIncluded (bool) 
 		{
 		}
 
@@ -1511,11 +1668,11 @@ export class ContractOffer extends OpReturnMessage {
 
 		}
 
-		// ContractFee (uint64)
+		// ContractFee (uint64) 
 		{
 		}
 
-		// VotingSystems ([]VotingSystem)
+		// VotingSystems ([]VotingSystem) 
 		{
 			if (this.voting_systems.length > (2 ** 8) - 1) {
 				return sprintf('list field voting_systems has too many items %d/%d', this.voting_systems.length, (2 ** 8) - 1);
@@ -1528,26 +1685,26 @@ export class ContractOffer extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// ContractAuthFlags ([]byte)
+		// ContractAuthFlags ([]byte) 
 		{
 			if (this.contract_auth_flags.length >= (2 ** 16)) {
 				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
 			}
 		}
 
-		// RestrictedQtyAssets (uint64)
+		// RestrictedQtyAssets (uint64) 
 		{
 		}
 
-		// AdministrationProposal (bool)
+		// AdministrationProposal (bool) 
 		{
 		}
 
-		// HolderProposal (bool)
+		// HolderProposal (bool) 
 		{
 		}
 
-		// Oracles ([]Oracle)
+		// Oracles ([]Oracle) 
 		{
 			if (this.oracles.length > (2 ** 8) - 1) {
 				return sprintf('list field oracles has too many items %d/%d', this.oracles.length, (2 ** 8) - 1);
@@ -1560,89 +1717,154 @@ export class ContractOffer extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// MasterPKH (PublicKeyHash)
+		// MasterPKH (PublicKeyHash) 
 		{
 			// IsInternalType
 			const err = this.master_pkh.Validate();
 			if  (err) return sprintf('field master_pkh is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('contract_name:%#+v', this.contract_name));
-		vals.push(sprintf('body_of_agreement_type:%v', this.body_of_agreement_type));
-		vals.push(sprintf('body_of_agreement:%#x', this.body_of_agreement));
-		vals.push(sprintf('contract_type:%#+v', this.contract_type));
-		vals.push(sprintf('supporting_docs:%#+v', this.supporting_docs));
-		vals.push(sprintf('governing_law:%#+v', this.governing_law));
-		vals.push(sprintf('jurisdiction:%#+v', this.jurisdiction));
-		vals.push(sprintf('contract_expiration:%#+v', this.contract_expiration));
-		vals.push(sprintf('contract_uri:%#+v', this.contract_uri));
-		vals.push(sprintf('issuer:%#+v', this.issuer));
-		vals.push(sprintf('issuer_logo_url:%#+v', this.issuer_logo_url));
-		vals.push(sprintf('contract_operator_included:%#+v', this.contract_operator_included));
-		vals.push(sprintf('contract_operator:%#+v', this.contract_operator));
-		vals.push(sprintf('contract_fee:%v', this.contract_fee));
-		vals.push(sprintf('voting_systems:%#+v', this.voting_systems));
-		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
-		vals.push(sprintf('restricted_qty_assets:%v', this.restricted_qty_assets));
-		vals.push(sprintf('administration_proposal:%#+v', this.administration_proposal));
-		vals.push(sprintf('holder_proposal:%#+v', this.holder_proposal));
-		vals.push(sprintf('oracles:%#+v', this.oracles));
-		vals.push(sprintf('master_pkh:%#+v', this.master_pkh));
-
+			vals.push(sprintf('contract_name:%s', this.contract_name.toString()));
+			vals.push(sprintf('body_of_agreement_type:%d', this.body_of_agreement_type));
+			vals.push(sprintf('body_of_agreement:%s', this.body_of_agreement.toString()));
+			vals.push(sprintf('contract_type:%s', this.contract_type.toString()));
+			vals.push(sprintf('supporting_docs:%s', this.supporting_docs.toString()));
+			vals.push(sprintf('governing_law:%s', this.governing_law.toString()));
+			vals.push(sprintf('jurisdiction:%s', this.jurisdiction.toString()));
+			vals.push(sprintf('contract_expiration:%s', this.contract_expiration.toString()));
+			vals.push(sprintf('contract_uri:%s', this.contract_uri.toString()));
+			vals.push(sprintf('issuer:%s', this.issuer.toString()));
+			vals.push(sprintf('issuer_logo_url:%s', this.issuer_logo_url.toString()));
+			vals.push(sprintf('contract_operator_included:%s', this.contract_operator_included.toString()));
+			vals.push(sprintf('contract_operator:%s', this.contract_operator.toString()));
+			vals.push(sprintf('contract_fee:%d', this.contract_fee));
+			vals.push(sprintf('voting_systems:%s', this.voting_systems.toString()));
+			vals.push(sprintf('contract_auth_flags:%s', this.contract_auth_flags.toString()));
+			vals.push(sprintf('restricted_qty_assets:%d', this.restricted_qty_assets));
+			vals.push(sprintf('administration_proposal:%s', this.administration_proposal.toString()));
+			vals.push(sprintf('holder_proposal:%s', this.holder_proposal.toString()));
+			vals.push(sprintf('oracles:%s', this.oracles.toString()));
+			vals.push(sprintf('master_pkh:%s', this.master_pkh.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for ContractOffer.', e);
+			throw e;
+		}
+		this.contract_name = parsed.contractName;
+		
+		this.body_of_agreement_type = parsed.bodyOfAgreementType;
+		
+		// this.body_of_agreement = parsed.bodyOfAgreement (varbin)
+		
+		this.contract_type = parsed.contractType;
+		
+		// this.supporting_docs (Document[])
+		
+		// this.governing_law = parsed.governingLaw (fixedchar)
+		
+		// this.jurisdiction = parsed.jurisdiction (fixedchar)
+		
+		this.contract_expiration = new Timestamp();
+		this.contract_expiration.fromJSON(JSON.stringify(parsed.contractExpiration));
+		
+		this.contract_uri = parsed.contractURI;
+		
+		this.issuer = new Entity();
+		this.issuer.fromJSON(JSON.stringify(parsed.issuer));
+		
+		this.issuer_logo_url = parsed.issuerLogoURL;
+		
+		// this.contract_operator_included = parsed.contractOperatorIncluded (bool)
+		
+		this.contract_operator = new Entity();
+		this.contract_operator.fromJSON(JSON.stringify(parsed.contractOperator));
+		
+		this.contract_fee = parsed.contractFee;
+		
+		// this.voting_systems (VotingSystem[])
+		
+		// this.contract_auth_flags = parsed.contractAuthFlags (varbin)
+		
+		this.restricted_qty_assets = parsed.restrictedQtyAssets;
+		
+		// this.administration_proposal = parsed.administrationProposal (bool)
+		
+		// this.holder_proposal = parsed.holderProposal (bool)
+		
+		// this.oracles (Oracle[])
+		
+		this.master_pkh = new PublicKeyHash();
+		this.master_pkh.fromJSON(JSON.stringify(parsed.masterPKH));
+		
+		return this.Validate();
 	}
 }
 
-// ContractFormation This txn is created by the contract (smart
+	// ContractFormation This txn is created by the contract (smart
 // contract/off-chain agent/token contract) upon receipt of a valid
 // Contract Offer Action from the administration. The smart contract will
 // execute on a server controlled by the administration, or a smart
 // contract operator on their behalf.
-export class ContractFormation extends OpReturnMessage {
-	type = ActionCode.CodeContractFormation;
-	typeStr = 'ContractFormation';
+	export class ContractFormation extends OpReturnMessage {
+		type = ActionCode.CodeContractFormation;
+		typeStr = 'ContractFormation';
 
-
-	// 	Can be any unique identifying string, including human readable names
+	
+		// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
 	// bitcoin public key hash address. If the public address is lost, then
 	// the administration will have to reissue the entire contract, asset
 	// definition and tokens with the new public address. Smart contracts can
 	// be branded and specialized to suit any terms and conditions.
-	contract_name;
-	// 	1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
-	body_of_agreement_type;
-	// 	SHA-256 hash of the body of the agreement (full contract in pdf format
+		contract_name;
+	
+		// 	1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+		body_of_agreement_type;
+	
+		// 	SHA-256 hash of the body of the agreement (full contract in pdf format
 	// or the like) or the full terms and conditions of an agreement in the
 	// Tokenized Body of Agreement format. This is specific to the smart
 	// contract and relevant Assets. Legal and technical information.
-	body_of_agreement;
-	// 	Describes the purpose of the contract.
-	contract_type;
-	// 	Supporting documents that are important to the contract.
-	supporting_docs;
-	// 	5 Letter Code to identify which governing law the contract will adhere
+		body_of_agreement;
+	
+		// 	Describes the purpose of the contract.
+		contract_type;
+	
+		// 	Supporting documents that are important to the contract.
+		supporting_docs;
+	
+		// 	5 Letter Code to identify which governing law the contract will adhere
 	// to. Disputes are to be settled by this law in the jurisdiction
 	// specified below. Private dispute resolution organizations can be used
 	// as well. A custom code just needs to be defined.
-	governing_law;
-	// 	Legal proceedings/arbitration will take place using the specified
+		governing_law;
+	
+		// 	Legal proceedings/arbitration will take place using the specified
 	// Governing Law in this location.
-	jurisdiction;
-	// 	All actions related to the contract will cease to work after this
+		jurisdiction;
+	
+		// 	All actions related to the contract will cease to work after this
 	// timestamp. The smart contract will stop running. This will allow many
 	// token use cases to be able to calculate smart contract running costs.
 	// Eg. an issuer is creating tickets for an event on the 5th of June 2018.
 	// The smart contract will facilitate exchange and send transactions up
 	// until the 6th of June. Wallets can use this to forget tokens that are
 	// no longer valid - or at least store them in an 'Expired' folder.
-	contract_expiration;
-	// 	Length 0-255 bytes. 0 is valid. Points to an information page that
+		contract_expiration;
+	
+		// 	Length 0-255 bytes. 0 is valid. Points to an information page that
 	// also has a copy of the Contract. Anyone can go to the website to have a
 	// look at the price/token, information about the Issuer (company),
 	// information about the Asset, legal information, etc. There will also be
@@ -1650,48 +1872,63 @@ export class ContractFormation extends OpReturnMessage {
 	// the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address
 	// (hash) or txn-id for on chain information or even a public address
 	// (DNS).
-	contract_uri;
-	// 	The issuer of this contract.
-	issuer;
-	// 	The URL of the issuer's logo.
-	issuer_logo_url;
-	// 	If true, then the second input is a contract operator. If false, then
+		contract_uri;
+	
+		// 	The issuer of this contract.
+		issuer;
+	
+		// 	The URL of the issuer's logo.
+		issuer_logo_url;
+	
+		// 	If true, then the second input is a contract operator. If false, then
 	// all additional inputs are just funding and "includes" fields are
 	// skipped in serialization.
-	contract_operator_included;
-	// 	An additional entity with operator access to the contract.
-	contract_operator;
-	// 	Satoshis required to be paid to the contract for each asset action.
-	contract_fee;
-	// 	A list voting systems.
-	voting_systems;
-	// 	A set of switches that define the authorization rules for this
+		contract_operator_included;
+	
+		// 	An additional entity with operator access to the contract.
+		contract_operator;
+	
+		// 	Satoshis required to be paid to the contract for each asset action.
+		contract_fee;
+	
+		// 	A list voting systems.
+		voting_systems;
+	
+		// 	A set of switches that define the authorization rules for this
 	// contract. See the Authorization Flags documentation for more detail.
 	// Other terms and conditions that are out of the smart contract's control
 	// should be listed in the Body of Agreement
-	contract_auth_flags;
-	// 	Number of Assets (non-fungible) permitted on this contract. 0 if
+		contract_auth_flags;
+	
+		// 	Number of Assets (non-fungible) permitted on this contract. 0 if
 	// unlimited which will display an infinity symbol in UI
-	restricted_qty_assets;
-	// 	Set to true if the administration is permitted to make proposals
+		restricted_qty_assets;
+	
+		// 	Set to true if the administration is permitted to make proposals
 	// outside of the smart contract scope.
-	administration_proposal;
-	// 	Set to true if a holder is permitted to make proposals outside of the
+		administration_proposal;
+	
+		// 	Set to true if a holder is permitted to make proposals outside of the
 	// smart contract scope.
-	holder_proposal;
-	// 	A list of oracles that provide approval for all token transfers for
+		holder_proposal;
+	
+		// 	A list of oracles that provide approval for all token transfers for
 	// all assets under the contract.
-	oracles;
-	// 	The public key hash of the contract's master key. This key has the
+		oracles;
+	
+		// 	The public key hash of the contract's master key. This key has the
 	// ability to change the active contract address in case of a security
 	// failure with the active contract key.
-	master_pkh;
-	// 	A counter for the number of times this contract has been revised using
+		master_pkh;
+	
+		// 	A counter for the number of times this contract has been revised using
 	// an amendment action.
-	contract_revision;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+		contract_revision;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -1988,16 +2225,16 @@ export class ContractFormation extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// ContractName (string)
+		// ContractName (string) 
 		{
 			if (this.contract_name.length > (2 ** 8)) {
 				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 ** 8) - 1);
 			}
 		}
 
-		// BodyOfAgreementType (uint8)
+		// BodyOfAgreementType (uint8) 
 		{
 			// $field.IntValues [1 2]
 			if ( this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
@@ -2006,21 +2243,21 @@ export class ContractFormation extends OpReturnMessage {
 
 		}
 
-		// BodyOfAgreement ([]byte)
+		// BodyOfAgreement ([]byte) 
 		{
 			if (this.body_of_agreement.length >= (2 ** 32)) {
 				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 ** 32) - 1);
 			}
 		}
 
-		// ContractType (string)
+		// ContractType (string) 
 		{
 			if (this.contract_type.length > (2 ** 8)) {
 				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 ** 8) - 1);
 			}
 		}
 
-		// SupportingDocs ([]Document)
+		// SupportingDocs ([]Document) 
 		{
 			if (this.supporting_docs.length > (2 ** 8) - 1) {
 				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 ** 8) - 1);
@@ -2033,21 +2270,21 @@ export class ContractFormation extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// GoverningLaw (string)
+		// GoverningLaw (string) 
 		{
 			if (this.governing_law.length > 5) {
 				return sprintf('fixedchar field governing_law too long %d/%d', this.governing_law.length, 5);
 			}
 		}
 
-		// Jurisdiction (string)
+		// Jurisdiction (string) 
 		{
 			if (this.jurisdiction.length > 5) {
 				return sprintf('fixedchar field jurisdiction too long %d/%d', this.jurisdiction.length, 5);
 			}
 		}
 
-		// ContractExpiration (Timestamp)
+		// ContractExpiration (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.contract_expiration.Validate();
@@ -2055,14 +2292,14 @@ export class ContractFormation extends OpReturnMessage {
 
 		}
 
-		// ContractURI (string)
+		// ContractURI (string) 
 		{
 			if (this.contract_uri.length > (2 ** 8)) {
 				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 ** 8) - 1);
 			}
 		}
 
-		// Issuer (Entity)
+		// Issuer (Entity) 
 		{
 			// IsInternalType
 			const err = this.issuer.Validate();
@@ -2070,14 +2307,14 @@ export class ContractFormation extends OpReturnMessage {
 
 		}
 
-		// IssuerLogoURL (string)
+		// IssuerLogoURL (string) 
 		{
 			if (this.issuer_logo_url.length > (2 ** 8)) {
 				return sprintf('varchar field issuer_logo_url too long %d/%d', this.issuer_logo_url.length, (2 ** 8) - 1);
 			}
 		}
 
-		// ContractOperatorIncluded (bool)
+		// ContractOperatorIncluded (bool) 
 		{
 		}
 
@@ -2090,11 +2327,11 @@ export class ContractFormation extends OpReturnMessage {
 
 		}
 
-		// ContractFee (uint64)
+		// ContractFee (uint64) 
 		{
 		}
 
-		// VotingSystems ([]VotingSystem)
+		// VotingSystems ([]VotingSystem) 
 		{
 			if (this.voting_systems.length > (2 ** 8) - 1) {
 				return sprintf('list field voting_systems has too many items %d/%d', this.voting_systems.length, (2 ** 8) - 1);
@@ -2107,26 +2344,26 @@ export class ContractFormation extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// ContractAuthFlags ([]byte)
+		// ContractAuthFlags ([]byte) 
 		{
 			if (this.contract_auth_flags.length >= (2 ** 16)) {
 				return sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (2 ** 16) - 1);
 			}
 		}
 
-		// RestrictedQtyAssets (uint64)
+		// RestrictedQtyAssets (uint64) 
 		{
 		}
 
-		// AdministrationProposal (bool)
+		// AdministrationProposal (bool) 
 		{
 		}
 
-		// HolderProposal (bool)
+		// HolderProposal (bool) 
 		{
 		}
 
-		// Oracles ([]Oracle)
+		// Oracles ([]Oracle) 
 		{
 			if (this.oracles.length > (2 ** 8) - 1) {
 				return sprintf('list field oracles has too many items %d/%d', this.oracles.length, (2 ** 8) - 1);
@@ -2139,7 +2376,7 @@ export class ContractFormation extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// MasterPKH (PublicKeyHash)
+		// MasterPKH (PublicKeyHash) 
 		{
 			// IsInternalType
 			const err = this.master_pkh.Validate();
@@ -2147,79 +2384,146 @@ export class ContractFormation extends OpReturnMessage {
 
 		}
 
-		// ContractRevision (uint32)
+		// ContractRevision (uint32) 
 		{
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('contract_name:%#+v', this.contract_name));
-		vals.push(sprintf('body_of_agreement_type:%v', this.body_of_agreement_type));
-		vals.push(sprintf('body_of_agreement:%#x', this.body_of_agreement));
-		vals.push(sprintf('contract_type:%#+v', this.contract_type));
-		vals.push(sprintf('supporting_docs:%#+v', this.supporting_docs));
-		vals.push(sprintf('governing_law:%#+v', this.governing_law));
-		vals.push(sprintf('jurisdiction:%#+v', this.jurisdiction));
-		vals.push(sprintf('contract_expiration:%#+v', this.contract_expiration));
-		vals.push(sprintf('contract_uri:%#+v', this.contract_uri));
-		vals.push(sprintf('issuer:%#+v', this.issuer));
-		vals.push(sprintf('issuer_logo_url:%#+v', this.issuer_logo_url));
-		vals.push(sprintf('contract_operator_included:%#+v', this.contract_operator_included));
-		vals.push(sprintf('contract_operator:%#+v', this.contract_operator));
-		vals.push(sprintf('contract_fee:%v', this.contract_fee));
-		vals.push(sprintf('voting_systems:%#+v', this.voting_systems));
-		vals.push(sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
-		vals.push(sprintf('restricted_qty_assets:%v', this.restricted_qty_assets));
-		vals.push(sprintf('administration_proposal:%#+v', this.administration_proposal));
-		vals.push(sprintf('holder_proposal:%#+v', this.holder_proposal));
-		vals.push(sprintf('oracles:%#+v', this.oracles));
-		vals.push(sprintf('master_pkh:%#+v', this.master_pkh));
-		vals.push(sprintf('contract_revision:%v', this.contract_revision));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('contract_name:%s', this.contract_name.toString()));
+			vals.push(sprintf('body_of_agreement_type:%d', this.body_of_agreement_type));
+			vals.push(sprintf('body_of_agreement:%s', this.body_of_agreement.toString()));
+			vals.push(sprintf('contract_type:%s', this.contract_type.toString()));
+			vals.push(sprintf('supporting_docs:%s', this.supporting_docs.toString()));
+			vals.push(sprintf('governing_law:%s', this.governing_law.toString()));
+			vals.push(sprintf('jurisdiction:%s', this.jurisdiction.toString()));
+			vals.push(sprintf('contract_expiration:%s', this.contract_expiration.toString()));
+			vals.push(sprintf('contract_uri:%s', this.contract_uri.toString()));
+			vals.push(sprintf('issuer:%s', this.issuer.toString()));
+			vals.push(sprintf('issuer_logo_url:%s', this.issuer_logo_url.toString()));
+			vals.push(sprintf('contract_operator_included:%s', this.contract_operator_included.toString()));
+			vals.push(sprintf('contract_operator:%s', this.contract_operator.toString()));
+			vals.push(sprintf('contract_fee:%d', this.contract_fee));
+			vals.push(sprintf('voting_systems:%s', this.voting_systems.toString()));
+			vals.push(sprintf('contract_auth_flags:%s', this.contract_auth_flags.toString()));
+			vals.push(sprintf('restricted_qty_assets:%d', this.restricted_qty_assets));
+			vals.push(sprintf('administration_proposal:%s', this.administration_proposal.toString()));
+			vals.push(sprintf('holder_proposal:%s', this.holder_proposal.toString()));
+			vals.push(sprintf('oracles:%s', this.oracles.toString()));
+			vals.push(sprintf('master_pkh:%s', this.master_pkh.toString()));
+			vals.push(sprintf('contract_revision:%d', this.contract_revision));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for ContractFormation.', e);
+			throw e;
+		}
+		this.contract_name = parsed.contractName;
+		
+		this.body_of_agreement_type = parsed.bodyOfAgreementType;
+		
+		// this.body_of_agreement = parsed.bodyOfAgreement (varbin)
+		
+		this.contract_type = parsed.contractType;
+		
+		// this.supporting_docs (Document[])
+		
+		// this.governing_law = parsed.governingLaw (fixedchar)
+		
+		// this.jurisdiction = parsed.jurisdiction (fixedchar)
+		
+		this.contract_expiration = new Timestamp();
+		this.contract_expiration.fromJSON(JSON.stringify(parsed.contractExpiration));
+		
+		this.contract_uri = parsed.contractURI;
+		
+		this.issuer = new Entity();
+		this.issuer.fromJSON(JSON.stringify(parsed.issuer));
+		
+		this.issuer_logo_url = parsed.issuerLogoURL;
+		
+		// this.contract_operator_included = parsed.contractOperatorIncluded (bool)
+		
+		this.contract_operator = new Entity();
+		this.contract_operator.fromJSON(JSON.stringify(parsed.contractOperator));
+		
+		this.contract_fee = parsed.contractFee;
+		
+		// this.voting_systems (VotingSystem[])
+		
+		// this.contract_auth_flags = parsed.contractAuthFlags (varbin)
+		
+		this.restricted_qty_assets = parsed.restrictedQtyAssets;
+		
+		// this.administration_proposal = parsed.administrationProposal (bool)
+		
+		// this.holder_proposal = parsed.holderProposal (bool)
+		
+		// this.oracles (Oracle[])
+		
+		this.master_pkh = new PublicKeyHash();
+		this.master_pkh.fromJSON(JSON.stringify(parsed.masterPKH));
+		
+		this.contract_revision = parsed.contractRevision;
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// ContractAmendment The administration can initiate an amendment to the
+	// ContractAmendment The administration can initiate an amendment to the
 // contract establishment metadata. The ability to make an amendment to the
 // contract is restricted by the Authorization Flag set on the current
 // revision of Contract Formation action.
-export class ContractAmendment extends OpReturnMessage {
-	type = ActionCode.CodeContractAmendment;
-	typeStr = 'ContractAmendment';
+	export class ContractAmendment extends OpReturnMessage {
+		type = ActionCode.CodeContractAmendment;
+		typeStr = 'ContractAmendment';
 
-
-	// 	Used to change the administration address. The new administration
+	
+		// 	Used to change the administration address. The new administration
 	// address must be in the input[1] position. A change of the
 	// administration or operator address requires both the operator and the
 	// administration address to be in the inputs (both signatures) of the
 	// Contract Amendment action.
-	change_administration_address;
-	// 	Used to change the smart contract operator address. The new operator
+		change_administration_address;
+	
+		// 	Used to change the smart contract operator address. The new operator
 	// address must be in the input[1] position, unless the administration is
 	// being changed too, then it is in input[2]. A change of the
 	// administration or operator address requires both the operator and the
 	// administration address to be in the inputs (both signatures) of the
 	// Contract Amendment action.
-	change_operator_address;
-	// 	Counter 0 to (2^32)-1
-	contract_revision;
-	// 	A collection of modifications to perform on this contract.
-	amendments;
-	// 	The Bitcoin transaction ID of the associated result action that
+		change_operator_address;
+	
+		// 	Counter 0 to (2^32)-1
+		contract_revision;
+	
+		// 	A collection of modifications to perform on this contract.
+		amendments;
+	
+		// 	The Bitcoin transaction ID of the associated result action that
 	// permitted the modifications. See Governance for more details.
-	ref_tx_id;
+		ref_tx_id;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -2310,21 +2614,21 @@ export class ContractAmendment extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// ChangeAdministrationAddress (bool)
+		// ChangeAdministrationAddress (bool) 
 		{
 		}
 
-		// ChangeOperatorAddress (bool)
+		// ChangeOperatorAddress (bool) 
 		{
 		}
 
-		// ContractRevision (uint32)
+		// ContractRevision (uint32) 
 		{
 		}
 
-		// Amendments ([]Amendment)
+		// Amendments ([]Amendment) 
 		{
 			if (this.amendments.length > (2 ** 8) - 1) {
 				return sprintf('list field amendments has too many items %d/%d', this.amendments.length, (2 ** 8) - 1);
@@ -2337,90 +2641,126 @@ export class ContractAmendment extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// RefTxID (TxId)
+		// RefTxID (TxId) 
 		{
 			// IsInternalType
 			const err = this.ref_tx_id.Validate();
 			if  (err) return sprintf('field ref_tx_id is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('change_administration_address:%#+v', this.change_administration_address));
-		vals.push(sprintf('change_operator_address:%#+v', this.change_operator_address));
-		vals.push(sprintf('contract_revision:%v', this.contract_revision));
-		vals.push(sprintf('amendments:%#+v', this.amendments));
-		vals.push(sprintf('ref_tx_id:%#+v', this.ref_tx_id));
-
+			vals.push(sprintf('change_administration_address:%s', this.change_administration_address.toString()));
+			vals.push(sprintf('change_operator_address:%s', this.change_operator_address.toString()));
+			vals.push(sprintf('contract_revision:%d', this.contract_revision));
+			vals.push(sprintf('amendments:%s', this.amendments.toString()));
+			vals.push(sprintf('ref_tx_id:%s', this.ref_tx_id.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for ContractAmendment.', e);
+			throw e;
+		}
+		// this.change_administration_address = parsed.changeAdministrationAddress (bool)
+		
+		// this.change_operator_address = parsed.changeOperatorAddress (bool)
+		
+		this.contract_revision = parsed.contractRevision;
+		
+		// this.amendments (Amendment[])
+		
+		this.ref_tx_id = new TxId();
+		this.ref_tx_id.fromJSON(JSON.stringify(parsed.refTxID));
+		
+		return this.Validate();
 	}
 }
 
-// StaticContractFormation Static Contract Formation Action
-export class StaticContractFormation extends OpReturnMessage {
-	type = ActionCode.CodeStaticContractFormation;
-	typeStr = 'StaticContractFormation';
+	// StaticContractFormation Static Contract Formation Action
+	export class StaticContractFormation extends OpReturnMessage {
+		type = ActionCode.CodeStaticContractFormation;
+		typeStr = 'StaticContractFormation';
 
-
-	// 	Can be any unique identifying string, including human readable names
+	
+		// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
 	// bitcoin public address. If the public address is lost, then the
 	// administration will have to reissue the entire contract, Asset
 	// Definition and tokens with the new public address. Smart contracts can
 	// be branded and specialized to suit any terms and conditions.
-	contract_name;
-	// 	32 randomly generated bytes. Each Contract Code should be unique. The
+		contract_name;
+	
+		// 	32 randomly generated bytes. Each Contract Code should be unique. The
 	// Contract ID will be human facing and will be the Contract Code, with a
 	// checksum, encoded in base58 and prefixed by 'CON'. Contract ID = CON +
 	// base58(ContractCode + checksum). Eg. Contract ID =
 	// 'CON18RDoKK7Ed5zid2FkKVy7q3rULr4tgfjr4'
-	contract_code;
-	// 	1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
-	body_of_agreement_type;
-	// 	SHA-256 hash of the body of the agreement (full contract in pdf format
+		contract_code;
+	
+		// 	1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+		body_of_agreement_type;
+	
+		// 	SHA-256 hash of the body of the agreement (full contract in pdf format
 	// or the like) or the full terms and conditions of an agreement in the
 	// Tokenized Body of Agreement format. This is specific to the smart
 	// contract and relevant Assets. Legal and technical information.
-	body_of_agreement;
-	// 	Describes the purpose of the contract.
-	contract_type;
-	// 	Supporting documents that are important to the contract.
-	supporting_docs;
-	// 	Counter 0 to (2^32)-1
-	contract_revision;
-	// 	5 Letter Code to identify which governing law the contract will adhere
+		body_of_agreement;
+	
+		// 	Describes the purpose of the contract.
+		contract_type;
+	
+		// 	Supporting documents that are important to the contract.
+		supporting_docs;
+	
+		// 	Counter 0 to (2^32)-1
+		contract_revision;
+	
+		// 	5 Letter Code to identify which governing law the contract will adhere
 	// to. Disputes are to be settled by this law in the jurisdiction
 	// specified below. Private dispute resolution organizations can be used
 	// as well. A custom code just needs to be defined.
-	governing_law;
-	// 	Legal proceedings/arbitration will take place using the specified
+		governing_law;
+	
+		// 	Legal proceedings/arbitration will take place using the specified
 	// Governing Law in this location.
-	jurisdiction;
-	// 	Start date of the contract.
-	effective_date;
-	// 	All actions related to the contract will cease to work after this
+		jurisdiction;
+	
+		// 	Start date of the contract.
+		effective_date;
+	
+		// 	All actions related to the contract will cease to work after this
 	// timestamp. The smart contract will stop running. This will allow many
 	// token use cases to be able to calculate smart contract running costs.
 	// Eg. an issuer is creating tickets for an event on the 5th of June 2018.
 	// The smart contract will facilitate exchange and send transactions up
 	// until the 6th of June. Wallets can use this to forget tokens that are
 	// no longer valid - or at least store them in an 'Expired' folder.
-	contract_expiration;
-	// 	Length 0-255 bytes. Points to an information page that also has a copy
+		contract_expiration;
+	
+		// 	Length 0-255 bytes. Points to an information page that also has a copy
 	// of the Contract. Anyone can go to the website to have a look at the
 	// price/token, information about the issuer (company), information about
 	// the Asset, legal information, etc. There will also be a way for token
 	// owners to vote on this page and contact details with the
 	// issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on
 	// chain information or even a public address (DNS).
-	contract_uri;
-	// 	The Tx-ID of the previous contract revision.
-	prev_rev_tx_id;
-	// 	A list of legal entities associated with this contract.
-	entities;
+		contract_uri;
+	
+		// 	The Tx-ID of the previous contract revision.
+		prev_rev_tx_id;
+	
+		// 	A list of legal entities associated with this contract.
+		entities;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -2615,16 +2955,16 @@ export class StaticContractFormation extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// ContractName (string)
+		// ContractName (string) 
 		{
 			if (this.contract_name.length > (2 ** 8)) {
 				return sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (2 ** 8) - 1);
 			}
 		}
 
-		// ContractCode (ContractCode)
+		// ContractCode (ContractCode) 
 		{
 			// IsInternalType
 			const err = this.contract_code.Validate();
@@ -2632,7 +2972,7 @@ export class StaticContractFormation extends OpReturnMessage {
 
 		}
 
-		// BodyOfAgreementType (uint8)
+		// BodyOfAgreementType (uint8) 
 		{
 			// $field.IntValues [1 2]
 			if ( this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
@@ -2641,21 +2981,21 @@ export class StaticContractFormation extends OpReturnMessage {
 
 		}
 
-		// BodyOfAgreement ([]byte)
+		// BodyOfAgreement ([]byte) 
 		{
 			if (this.body_of_agreement.length >= (2 ** 32)) {
 				return sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (2 ** 32) - 1);
 			}
 		}
 
-		// ContractType (string)
+		// ContractType (string) 
 		{
 			if (this.contract_type.length > (2 ** 8)) {
 				return sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (2 ** 8) - 1);
 			}
 		}
 
-		// SupportingDocs ([]Document)
+		// SupportingDocs ([]Document) 
 		{
 			if (this.supporting_docs.length > (2 ** 8) - 1) {
 				return sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (2 ** 8) - 1);
@@ -2668,25 +3008,25 @@ export class StaticContractFormation extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// ContractRevision (uint32)
+		// ContractRevision (uint32) 
 		{
 		}
 
-		// GoverningLaw (string)
+		// GoverningLaw (string) 
 		{
 			if (this.governing_law.length > 5) {
 				return sprintf('fixedchar field governing_law too long %d/%d', this.governing_law.length, 5);
 			}
 		}
 
-		// Jurisdiction (string)
+		// Jurisdiction (string) 
 		{
 			if (this.jurisdiction.length > 5) {
 				return sprintf('fixedchar field jurisdiction too long %d/%d', this.jurisdiction.length, 5);
 			}
 		}
 
-		// EffectiveDate (Timestamp)
+		// EffectiveDate (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.effective_date.Validate();
@@ -2694,7 +3034,7 @@ export class StaticContractFormation extends OpReturnMessage {
 
 		}
 
-		// ContractExpiration (Timestamp)
+		// ContractExpiration (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.contract_expiration.Validate();
@@ -2702,14 +3042,14 @@ export class StaticContractFormation extends OpReturnMessage {
 
 		}
 
-		// ContractURI (string)
+		// ContractURI (string) 
 		{
 			if (this.contract_uri.length > (2 ** 8)) {
 				return sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (2 ** 8) - 1);
 			}
 		}
 
-		// PrevRevTxID (TxId)
+		// PrevRevTxID (TxId) 
 		{
 			// IsInternalType
 			const err = this.prev_rev_tx_id.Validate();
@@ -2717,7 +3057,7 @@ export class StaticContractFormation extends OpReturnMessage {
 
 		}
 
-		// Entities ([]Entity)
+		// Entities ([]Entity) 
 		{
 			if (this.entities.length > (2 ** 8) - 1) {
 				return sprintf('list field entities has too many items %d/%d', this.entities.length, (2 ** 8) - 1);
@@ -2729,45 +3069,90 @@ export class StaticContractFormation extends OpReturnMessage {
 			});
 			if (err) return err;
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('contract_name:%#+v', this.contract_name));
-		vals.push(sprintf('contract_code:%#+v', this.contract_code));
-		vals.push(sprintf('body_of_agreement_type:%v', this.body_of_agreement_type));
-		vals.push(sprintf('body_of_agreement:%#x', this.body_of_agreement));
-		vals.push(sprintf('contract_type:%#+v', this.contract_type));
-		vals.push(sprintf('supporting_docs:%#+v', this.supporting_docs));
-		vals.push(sprintf('contract_revision:%v', this.contract_revision));
-		vals.push(sprintf('governing_law:%#+v', this.governing_law));
-		vals.push(sprintf('jurisdiction:%#+v', this.jurisdiction));
-		vals.push(sprintf('effective_date:%#+v', this.effective_date));
-		vals.push(sprintf('contract_expiration:%#+v', this.contract_expiration));
-		vals.push(sprintf('contract_uri:%#+v', this.contract_uri));
-		vals.push(sprintf('prev_rev_tx_id:%#+v', this.prev_rev_tx_id));
-		vals.push(sprintf('entities:%#+v', this.entities));
-
+			vals.push(sprintf('contract_name:%s', this.contract_name.toString()));
+			vals.push(sprintf('contract_code:%s', this.contract_code.toString()));
+			vals.push(sprintf('body_of_agreement_type:%d', this.body_of_agreement_type));
+			vals.push(sprintf('body_of_agreement:%s', this.body_of_agreement.toString()));
+			vals.push(sprintf('contract_type:%s', this.contract_type.toString()));
+			vals.push(sprintf('supporting_docs:%s', this.supporting_docs.toString()));
+			vals.push(sprintf('contract_revision:%d', this.contract_revision));
+			vals.push(sprintf('governing_law:%s', this.governing_law.toString()));
+			vals.push(sprintf('jurisdiction:%s', this.jurisdiction.toString()));
+			vals.push(sprintf('effective_date:%s', this.effective_date.toString()));
+			vals.push(sprintf('contract_expiration:%s', this.contract_expiration.toString()));
+			vals.push(sprintf('contract_uri:%s', this.contract_uri.toString()));
+			vals.push(sprintf('prev_rev_tx_id:%s', this.prev_rev_tx_id.toString()));
+			vals.push(sprintf('entities:%s', this.entities.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for StaticContractFormation.', e);
+			throw e;
+		}
+		this.contract_name = parsed.contractName;
+		
+		this.contract_code = new ContractCode();
+		this.contract_code.fromJSON(JSON.stringify(parsed.contractCode));
+		
+		this.body_of_agreement_type = parsed.bodyOfAgreementType;
+		
+		// this.body_of_agreement = parsed.bodyOfAgreement (varbin)
+		
+		this.contract_type = parsed.contractType;
+		
+		// this.supporting_docs (Document[])
+		
+		this.contract_revision = parsed.contractRevision;
+		
+		// this.governing_law = parsed.governingLaw (fixedchar)
+		
+		// this.jurisdiction = parsed.jurisdiction (fixedchar)
+		
+		this.effective_date = new Timestamp();
+		this.effective_date.fromJSON(JSON.stringify(parsed.effectiveDate));
+		
+		this.contract_expiration = new Timestamp();
+		this.contract_expiration.fromJSON(JSON.stringify(parsed.contractExpiration));
+		
+		this.contract_uri = parsed.contractURI;
+		
+		this.prev_rev_tx_id = new TxId();
+		this.prev_rev_tx_id.fromJSON(JSON.stringify(parsed.prevRevTxID));
+		
+		// this.entities (Entity[])
+		
+		return this.Validate();
 	}
 }
 
-// ContractAddressChange This txn is signed by the master contract key
+	// ContractAddressChange This txn is signed by the master contract key
 // defined in the contract formation and changes the active contract
 // address which the contract uses to receive and respond to requests. This
 // is a worst case scenario fallback to only be used when the contract
 // private key is believed to be exposed.
-export class ContractAddressChange extends OpReturnMessage {
-	type = ActionCode.CodeContractAddressChange;
-	typeStr = 'ContractAddressChange';
+	export class ContractAddressChange extends OpReturnMessage {
+		type = ActionCode.CodeContractAddressChange;
+		typeStr = 'ContractAddressChange';
 
-
-	// 	The address to be used by all future requests/responses for the
+	
+		// 	The address to be used by all future requests/responses for the
 	// contract.
-	new_contract_pkh;
-	// 	Timestamp in nanoseconds of when the action was created.
-	timestamp;
+		new_contract_pkh;
+	
+		// 	Timestamp in nanoseconds of when the action was created.
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -2818,9 +3203,9 @@ export class ContractAddressChange extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// NewContractPKH (PublicKeyHash)
+		// NewContractPKH (PublicKeyHash) 
 		{
 			// IsInternalType
 			const err = this.new_contract_pkh.Validate();
@@ -2828,79 +3213,109 @@ export class ContractAddressChange extends OpReturnMessage {
 
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('new_contract_pkh:%#+v', this.new_contract_pkh));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('new_contract_pkh:%s', this.new_contract_pkh.toString()));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for ContractAddressChange.', e);
+			throw e;
+		}
+		this.new_contract_pkh = new PublicKeyHash();
+		this.new_contract_pkh.fromJSON(JSON.stringify(parsed.newContractPKH));
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Order Used by the administration to signal to the smart contract that
+	// Order Used by the administration to signal to the smart contract that
 // the tokens that a particular public address(es) owns are to be
 // confiscated, frozen, thawed or reconciled.
-export class Order extends OpReturnMessage {
-	type = ActionCode.CodeOrder;
-	typeStr = 'Order';
+	export class Order extends OpReturnMessage {
+		type = ActionCode.CodeOrder;
+		typeStr = 'Order';
 
-
-	// 	Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)
-	compliance_action;
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A unique code that is used to identify the asset. It is generated by
+	
+		// 	Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)
+		compliance_action;
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A unique code that is used to identify the asset. It is generated by
 	// hashing the contract public key hash and the asset index.
 	// SHA256(contract PKH + asset index)
-	asset_code;
-	// 	The holders and quantities that are effected by the order. For a
+		asset_code;
+	
+		// 	The holders and quantities that are effected by the order. For a
 	// contract or asset wide freeze only the contract address is specified.
 	// Zero quantities are invalid unless it is for the contract address in an
 	// asset wide or contract wide freeze. In a thaw order this field is not
 	// serialized, because the entire freeze from the FreezeTxId freeze action
 	// will be thawed.
-	target_addresses;
-	// 	The tx id of the freeze action that is being thawed. Only serialized
+		target_addresses;
+	
+		// 	The tx id of the freeze action that is being thawed. Only serialized
 	// for thaw orders.
-	freeze_tx_id;
-	// 	Used for a 'time out'. Tokens are automatically unfrozen after the
+		freeze_tx_id;
+	
+		// 	Used for a 'time out'. Tokens are automatically unfrozen after the
 	// expiration timestamp without requiring a Thaw Action. Null value for
 	// Thaw, Confiscation and Reconciallitaion orders.
-	freeze_period;
-	// 	The public address for confiscated tokens to be deposited in. Null for
+		freeze_period;
+	
+		// 	The public address for confiscated tokens to be deposited in. Null for
 	// Freeze, Thaw, actions.
-	deposit_address;
-	// 	Specifies if an authority signature is included. For Reconcialitaion
+		deposit_address;
+	
+		// 	Specifies if an authority signature is included. For Reconcialitaion
 	// actions all authority signature related fields are skipped during
 	// serialization.
-	authority_included;
-	// 	Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland
+		authority_included;
+	
+		// 	Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland
 	// Police Service, Tokenized, etc.)
-	authority_name;
-	// 	Length 0-255 bytes. Public Key associated with the Enforcement
+		authority_name;
+	
+		// 	Length 0-255 bytes. Public Key associated with the Enforcement
 	// Authority
-	authority_public_key;
-	// 	Algorithm used for order signature. Only valid value is currently 1 =
+		authority_public_key;
+	
+		// 	Algorithm used for order signature. Only valid value is currently 1 =
 	// ECDSA+secp256k1
-	signature_algorithm;
-	// 	Length 0-255 bytes. Signature for a message that lists out the target
+		signature_algorithm;
+	
+		// 	Length 0-255 bytes. Signature for a message that lists out the target
 	// addresses and deposit address. Signature of (Contract PKH, Compliance
 	// Action, Authority Name, Asset Code, Supporting Evidence Hash,
 	// FreezePeriod, TargetAddresses, and DepositAddress)
-	order_signature;
-	// 	SHA-256: warrant, court order, etc.
-	supporting_evidence_hash;
-	// 	The request/response actions that were dropped. The entire txn for
+		order_signature;
+	
+		// 	SHA-256: warrant, court order, etc.
+		supporting_evidence_hash;
+	
+		// 	The request/response actions that were dropped. The entire txn for
 	// both actions is included as evidence that the actions were accepted
 	// into the mempool at one point and that the senders (token/Bitcoin)
 	// signed their intent to transfer. The management of this record keeping
@@ -2908,12 +3323,15 @@ export class Order extends OpReturnMessage {
 	// the integrity of the state of the tokens. Only applicable for
 	// reconcilliation actions. No subfield when F, T, R is selected as the
 	// Compliance Action subfield.
-	ref_txs;
-	// 	Index of address in TargetAddresses and amount of bitcoin (in
+		ref_txs;
+	
+		// 	Index of address in TargetAddresses and amount of bitcoin (in
 	// satoshis) they are receiving in exchange for their tokens.
-	bitcoin_dispersions;
-	// 	A message to include with the enforcement order.
-	message;
+		bitcoin_dispersions;
+	
+		// 	A message to include with the enforcement order.
+		message;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -3128,9 +3546,9 @@ export class Order extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// ComplianceAction (byte)
+		// ComplianceAction (byte) 
 		{
 			if ( this.compliance_action !== 'F'
 			&& this.compliance_action !== 'T'
@@ -3238,7 +3656,7 @@ export class Order extends OpReturnMessage {
 			}
 		}
 
-		// SupportingEvidenceHash ([32]byte)
+		// SupportingEvidenceHash ([32]byte) 
 		{
 		}
 
@@ -3264,67 +3682,119 @@ export class Order extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// Message (string)
+		// Message (string) 
 		{
 			if (this.message.length > (2 ** 32)) {
 				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('compliance_action:%#+v', this.compliance_action));
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_code:%#+v', this.asset_code));
-		vals.push(sprintf('target_addresses:%#+v', this.target_addresses));
-		vals.push(sprintf('freeze_tx_id:%#+v', this.freeze_tx_id));
-		vals.push(sprintf('freeze_period:%#+v', this.freeze_period));
-		vals.push(sprintf('deposit_address:%#+v', this.deposit_address));
-		vals.push(sprintf('authority_included:%#+v', this.authority_included));
-		vals.push(sprintf('authority_name:%#+v', this.authority_name));
-		vals.push(sprintf('authority_public_key:%#x', this.authority_public_key));
-		vals.push(sprintf('signature_algorithm:%v', this.signature_algorithm));
-		vals.push(sprintf('order_signature:%#x', this.order_signature));
-		vals.push(sprintf('supporting_evidence_hash:%#+v', this.supporting_evidence_hash));
-		vals.push(sprintf('ref_txs:%#x', this.ref_txs));
-		vals.push(sprintf('bitcoin_dispersions:%#+v', this.bitcoin_dispersions));
-		vals.push(sprintf('message:%#+v', this.message));
-
+			vals.push(sprintf('compliance_action:%s', this.compliance_action.toString()));
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('target_addresses:%s', this.target_addresses.toString()));
+			vals.push(sprintf('freeze_tx_id:%s', this.freeze_tx_id.toString()));
+			vals.push(sprintf('freeze_period:%s', this.freeze_period.toString()));
+			vals.push(sprintf('deposit_address:%s', this.deposit_address.toString()));
+			vals.push(sprintf('authority_included:%s', this.authority_included.toString()));
+			vals.push(sprintf('authority_name:%s', this.authority_name.toString()));
+			vals.push(sprintf('authority_public_key:%s', this.authority_public_key.toString()));
+			vals.push(sprintf('signature_algorithm:%d', this.signature_algorithm));
+			vals.push(sprintf('order_signature:%s', this.order_signature.toString()));
+			vals.push(sprintf('supporting_evidence_hash:%s', this.supporting_evidence_hash.toString()));
+			vals.push(sprintf('ref_txs:%s', this.ref_txs.toString()));
+			vals.push(sprintf('bitcoin_dispersions:%s', this.bitcoin_dispersions.toString()));
+			vals.push(sprintf('message:%s', this.message.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Order.', e);
+			throw e;
+		}
+		// this.compliance_action = parsed.complianceAction (fixedchar)
+		
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		this.asset_code = new AssetCode();
+		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		
+		// this.target_addresses (TargetAddress[])
+		
+		this.freeze_tx_id = new TxId();
+		this.freeze_tx_id.fromJSON(JSON.stringify(parsed.freezeTxId));
+		
+		this.freeze_period = new Timestamp();
+		this.freeze_period.fromJSON(JSON.stringify(parsed.freezePeriod));
+		
+		this.deposit_address = new PublicKeyHash();
+		this.deposit_address.fromJSON(JSON.stringify(parsed.depositAddress));
+		
+		// this.authority_included = parsed.authorityIncluded (bool)
+		
+		this.authority_name = parsed.authorityName;
+		
+		// this.authority_public_key = parsed.authorityPublicKey (varbin)
+		
+		this.signature_algorithm = parsed.signatureAlgorithm;
+		
+		// this.order_signature = parsed.orderSignature (varbin)
+		
+		// this.supporting_evidence_hash = parsed.supportingEvidenceHash (bin)
+		
+		// this.ref_txs = parsed.refTxs (varbin)
+		
+		// this.bitcoin_dispersions (QuantityIndex[])
+		
+		this.message = parsed.message;
+		
+		return this.Validate();
 	}
 }
 
-// Freeze The contract responding to an Order action to freeze assets. To
+	// Freeze The contract responding to an Order action to freeze assets. To
 // be used to comply with contractual/legal/issuer requirements. The target
 // public address(es) will be marked as frozen. However the Freeze action
 // publishes this fact to the public blockchain for transparency. The
 // contract will not respond to any actions requested by the frozen
 // address.
-export class Freeze extends OpReturnMessage {
-	type = ActionCode.CodeFreeze;
-	typeStr = 'Freeze';
+	export class Freeze extends OpReturnMessage {
+		type = ActionCode.CodeFreeze;
+		typeStr = 'Freeze';
 
-
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A unique code that is used to identify the asset. It is generated by
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A unique code that is used to identify the asset. It is generated by
 	// hashing the contract public key hash and the asset index.
 	// SHA256(contract PKH + asset index)
-	asset_code;
-	// 	Indices to addresses in outputs and the quantities being frozen. If
+		asset_code;
+	
+		// 	Indices to addresses in outputs and the quantities being frozen. If
 	// the only address is the contract address and the asset code is zeros,
 	// then it is a contract wide freeze. If the only address is the contract
 	// address and the asset code is specified, then it is an asset wide
 	// freeze.
-	quantities;
-	// 	Used for a 'time out'. Tokens are automatically unfrozen after the
+		quantities;
+	
+		// 	Used for a 'time out'. Tokens are automatically unfrozen after the
 	// expiration timestamp without requiring a Thaw Action.
-	freeze_period;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+		freeze_period;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -3417,16 +3887,16 @@ export class Freeze extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AssetType (string)
+		// AssetType (string) 
 		{
 			if (this.asset_type.length > 3) {
 				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode)
+		// AssetCode (AssetCode) 
 		{
 			// IsInternalType
 			const err = this.asset_code.Validate();
@@ -3434,7 +3904,7 @@ export class Freeze extends OpReturnMessage {
 
 		}
 
-		// Quantities ([]QuantityIndex)
+		// Quantities ([]QuantityIndex) 
 		{
 			if (this.quantities.length > (2 ** 16) - 1) {
 				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 ** 16) - 1);
@@ -3447,7 +3917,7 @@ export class Freeze extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// FreezePeriod (Timestamp)
+		// FreezePeriod (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.freeze_period.Validate();
@@ -3455,42 +3925,68 @@ export class Freeze extends OpReturnMessage {
 
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_code:%#+v', this.asset_code));
-		vals.push(sprintf('quantities:%#+v', this.quantities));
-		vals.push(sprintf('freeze_period:%#+v', this.freeze_period));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('quantities:%s', this.quantities.toString()));
+			vals.push(sprintf('freeze_period:%s', this.freeze_period.toString()));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Freeze.', e);
+			throw e;
+		}
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		this.asset_code = new AssetCode();
+		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		
+		// this.quantities (QuantityIndex[])
+		
+		this.freeze_period = new Timestamp();
+		this.freeze_period.fromJSON(JSON.stringify(parsed.freezePeriod));
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Thaw The contract responding to an Order action to thaw assets. To be
+	// Thaw The contract responding to an Order action to thaw assets. To be
 // used to comply with contractual obligations or legal requirements. The
 // Alleged Offender's tokens will be unfrozen to allow them to resume
 // normal exchange and governance activities.
-export class Thaw extends OpReturnMessage {
-	type = ActionCode.CodeThaw;
-	typeStr = 'Thaw';
+	export class Thaw extends OpReturnMessage {
+		type = ActionCode.CodeThaw;
+		typeStr = 'Thaw';
 
-
-	// 	The tx id of the freeze action that is being reversed.
-	freeze_tx_id;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+	
+		// 	The tx id of the freeze action that is being reversed.
+		freeze_tx_id;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -3541,9 +4037,9 @@ export class Thaw extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// FreezeTxId (TxId)
+		// FreezeTxId (TxId) 
 		{
 			// IsInternalType
 			const err = this.freeze_tx_id.Validate();
@@ -3551,46 +4047,68 @@ export class Thaw extends OpReturnMessage {
 
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('freeze_tx_id:%#+v', this.freeze_tx_id));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('freeze_tx_id:%s', this.freeze_tx_id.toString()));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Thaw.', e);
+			throw e;
+		}
+		this.freeze_tx_id = new TxId();
+		this.freeze_tx_id.fromJSON(JSON.stringify(parsed.freezeTxId));
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Confiscation The contract responding to an Order action to confiscate
+	// Confiscation The contract responding to an Order action to confiscate
 // assets. To be used to comply with contractual obligations, legal and/or
 // issuer requirements.
-export class Confiscation extends OpReturnMessage {
-	type = ActionCode.CodeConfiscation;
-	typeStr = 'Confiscation';
+	export class Confiscation extends OpReturnMessage {
+		type = ActionCode.CodeConfiscation;
+		typeStr = 'Confiscation';
 
-
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A unique code that is used to identify the asset. It is generated by
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A unique code that is used to identify the asset. It is generated by
 	// hashing the contract public key hash and the asset index.
 	// SHA256(contract PKH + asset index)
-	asset_code;
-	// 	The holders effected by the confiscation and their balance remaining.
-	quantities;
-	// 	Deposit address's token balance after confiscation.
-	deposit_qty;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+		asset_code;
+	
+		// 	The holders effected by the confiscation and their balance remaining.
+		quantities;
+	
+		// 	Deposit address's token balance after confiscation.
+		deposit_qty;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -3682,16 +4200,16 @@ export class Confiscation extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AssetType (string)
+		// AssetType (string) 
 		{
 			if (this.asset_type.length > 3) {
 				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode)
+		// AssetCode (AssetCode) 
 		{
 			// IsInternalType
 			const err = this.asset_code.Validate();
@@ -3699,7 +4217,7 @@ export class Confiscation extends OpReturnMessage {
 
 		}
 
-		// Quantities ([]QuantityIndex)
+		// Quantities ([]QuantityIndex) 
 		{
 			if (this.quantities.length > (2 ** 16) - 1) {
 				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 ** 16) - 1);
@@ -3712,52 +4230,79 @@ export class Confiscation extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// DepositQty (uint64)
+		// DepositQty (uint64) 
 		{
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_code:%#+v', this.asset_code));
-		vals.push(sprintf('quantities:%#+v', this.quantities));
-		vals.push(sprintf('deposit_qty:%v', this.deposit_qty));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('quantities:%s', this.quantities.toString()));
+			vals.push(sprintf('deposit_qty:%d', this.deposit_qty));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Confiscation.', e);
+			throw e;
+		}
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		this.asset_code = new AssetCode();
+		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		
+		// this.quantities (QuantityIndex[])
+		
+		this.deposit_qty = parsed.depositQty;
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Reconciliation The contract responding to an Order action to reconcile
+	// Reconciliation The contract responding to an Order action to reconcile
 // assets. To be used at the direction of the administration to fix record
 // keeping errors with bitcoin and token balances.
-export class Reconciliation extends OpReturnMessage {
-	type = ActionCode.CodeReconciliation;
-	typeStr = 'Reconciliation';
+	export class Reconciliation extends OpReturnMessage {
+		type = ActionCode.CodeReconciliation;
+		typeStr = 'Reconciliation';
 
-
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A unique code that is used to identify the asset. It is generated by
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A unique code that is used to identify the asset. It is generated by
 	// hashing the contract public key hash and the asset index.
 	// SHA256(contract PKH + asset index)
-	asset_code;
-	// 	The holders effected by the reconciliation and their balance
+		asset_code;
+	
+		// 	The holders effected by the reconciliation and their balance
 	// remaining.
-	quantities;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+		quantities;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -3839,16 +4384,16 @@ export class Reconciliation extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AssetType (string)
+		// AssetType (string) 
 		{
 			if (this.asset_type.length > 3) {
 				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode)
+		// AssetCode (AssetCode) 
 		{
 			// IsInternalType
 			const err = this.asset_code.Validate();
@@ -3856,7 +4401,7 @@ export class Reconciliation extends OpReturnMessage {
 
 		}
 
-		// Quantities ([]QuantityIndex)
+		// Quantities ([]QuantityIndex) 
 		{
 			if (this.quantities.length > (2 ** 16) - 1) {
 				return sprintf('list field quantities has too many items %d/%d', this.quantities.length, (2 ** 16) - 1);
@@ -3869,81 +4414,114 @@ export class Reconciliation extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_code:%#+v', this.asset_code));
-		vals.push(sprintf('quantities:%#+v', this.quantities));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('quantities:%s', this.quantities.toString()));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Reconciliation.', e);
+			throw e;
+		}
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		this.asset_code = new AssetCode();
+		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		
+		// this.quantities (QuantityIndex[])
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Proposal Allows the Administration/Token Holders to propose a change
+	// Proposal Allows the Administration/Token Holders to propose a change
 // (aka Initiative/Shareholder vote). A significant cost - specified in the
 // Contract Formation - can be attached to this action when sent from Token
 // Holders to reduce spam, as the resulting vote will be put to all token
 // owners.
-export class Proposal extends OpReturnMessage {
-	type = ActionCode.CodeProposal;
-	typeStr = 'Proposal';
+	export class Proposal extends OpReturnMessage {
+		type = ActionCode.CodeProposal;
+		typeStr = 'Proposal';
 
-
-	// 	Who initiated the proposal. Supported values: 0 - Administration, 1 -
+	
+		// 	Who initiated the proposal. Supported values: 0 - Administration, 1 -
 	// Holder
-	initiator;
-	// 	When true this proposal is specific to an asset and the asset type and
+		initiator;
+	
+		// 	When true this proposal is specific to an asset and the asset type and
 	// asset code fields are serialized.
-	asset_specific_vote;
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A unique code that is used to identify the asset. It is generated by
+		asset_specific_vote;
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A unique code that is used to identify the asset. It is generated by
 	// hashing the contract public key hash and the asset index.
 	// SHA256(contract PKH + asset index)
-	asset_code;
-	// 	X for Vote System X. (1-255, 0 is not valid.)
-	vote_system;
-	// 	When true the ProposedAmendments field is included and specifies the
+		asset_code;
+	
+		// 	X for Vote System X. (1-255, 0 is not valid.)
+		vote_system;
+	
+		// 	When true the ProposedAmendments field is included and specifies the
 	// exact changes to make to the contract/asset on chain. When false this
 	// is just a general proposal like a strategy/direction and doesn't result
 	// in any on chain update.
-	specific;
-	// 	Each element contains details of which fields to modify, or delete.
+		specific;
+	
+		// 	Each element contains details of which fields to modify, or delete.
 	// Because the number of fields in a Contract and Asset is dynamic due to
 	// some fields being able to be repeated, the index value of the field
 	// needs to be calculated against the Contract or Asset the changes are to
 	// apply to. In the event of a Vote being created from this Initiative,
 	// the changes will be applied to the version of the Contract or Asset at
 	// that time.
-	proposed_amendments;
-	// 	Length 1-255 bytes. 0 is not valid. Each byte allows for a different
+		proposed_amendments;
+	
+		// 	Length 1-255 bytes. 0 is not valid. Each byte allows for a different
 	// vote option. Typical votes will likely be multiple choice or Y/N. Vote
 	// instances are identified by the Tx-ID. AB would be used for Y/N
 	// (binary) type votes. When Specific is true, only AB is a valid value.
-	vote_options;
-	// 	Range: 1-X. How many selections can a voter make in a Ballot Cast. 1
+		vote_options;
+	
+		// 	Range: 1-X. How many selections can a voter make in a Ballot Cast. 1
 	// is selected for Y/N (binary). When Specific is true, only 1 is a valid
 	// value.
-	vote_max;
-	// 	Length restricted by the Bitcoin protocol. 0 is valid. Description or
+		vote_max;
+	
+		// 	Length restricted by the Bitcoin protocol. 0 is valid. Description or
 	// details of the vote
-	proposal_description;
-	// 	SHA256 Hash of the proposal document to be distributed to voters.
-	proposal_document_hash;
-	// 	Ballot casts after this timestamp will not be included. The vote has
+		proposal_description;
+	
+		// 	SHA256 Hash of the proposal document to be distributed to voters.
+		proposal_document_hash;
+	
+		// 	Ballot casts after this timestamp will not be included. The vote has
 	// finished.
-	vote_cut_off_timestamp;
+		vote_cut_off_timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -4105,9 +4683,9 @@ export class Proposal extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// Initiator (uint8)
+		// Initiator (uint8) 
 		{
 			// $field.IntValues [0 1]
 			if ( this.initiator !== 0 && this.initiator !== 1) {
@@ -4116,7 +4694,7 @@ export class Proposal extends OpReturnMessage {
 
 		}
 
-		// AssetSpecificVote (bool)
+		// AssetSpecificVote (bool) 
 		{
 		}
 
@@ -4137,11 +4715,11 @@ export class Proposal extends OpReturnMessage {
 
 		}
 
-		// VoteSystem (uint8)
+		// VoteSystem (uint8) 
 		{
 		}
 
-		// Specific (bool)
+		// Specific (bool) 
 		{
 		}
 
@@ -4159,67 +4737,105 @@ export class Proposal extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// VoteOptions (string)
+		// VoteOptions (string) 
 		{
 			if (this.vote_options.length > (2 ** 8)) {
 				return sprintf('varchar field vote_options too long %d/%d', this.vote_options.length, (2 ** 8) - 1);
 			}
 		}
 
-		// VoteMax (uint8)
+		// VoteMax (uint8) 
 		{
 		}
 
-		// ProposalDescription (string)
+		// ProposalDescription (string) 
 		{
 			if (this.proposal_description.length > (2 ** 32)) {
 				return sprintf('varchar field proposal_description too long %d/%d', this.proposal_description.length, (2 ** 32) - 1);
 			}
 		}
 
-		// ProposalDocumentHash ([32]byte)
+		// ProposalDocumentHash ([32]byte) 
 		{
 		}
 
-		// VoteCutOffTimestamp (Timestamp)
+		// VoteCutOffTimestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.vote_cut_off_timestamp.Validate();
 			if  (err) return sprintf('field vote_cut_off_timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('initiator:%v', this.initiator));
-		vals.push(sprintf('asset_specific_vote:%#+v', this.asset_specific_vote));
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_code:%#+v', this.asset_code));
-		vals.push(sprintf('vote_system:%v', this.vote_system));
-		vals.push(sprintf('specific:%#+v', this.specific));
-		vals.push(sprintf('proposed_amendments:%#+v', this.proposed_amendments));
-		vals.push(sprintf('vote_options:%#+v', this.vote_options));
-		vals.push(sprintf('vote_max:%v', this.vote_max));
-		vals.push(sprintf('proposal_description:%#+v', this.proposal_description));
-		vals.push(sprintf('proposal_document_hash:%#+v', this.proposal_document_hash));
-		vals.push(sprintf('vote_cut_off_timestamp:%#+v', this.vote_cut_off_timestamp));
-
+			vals.push(sprintf('initiator:%d', this.initiator));
+			vals.push(sprintf('asset_specific_vote:%s', this.asset_specific_vote.toString()));
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('vote_system:%d', this.vote_system));
+			vals.push(sprintf('specific:%s', this.specific.toString()));
+			vals.push(sprintf('proposed_amendments:%s', this.proposed_amendments.toString()));
+			vals.push(sprintf('vote_options:%s', this.vote_options.toString()));
+			vals.push(sprintf('vote_max:%d', this.vote_max));
+			vals.push(sprintf('proposal_description:%s', this.proposal_description.toString()));
+			vals.push(sprintf('proposal_document_hash:%s', this.proposal_document_hash.toString()));
+			vals.push(sprintf('vote_cut_off_timestamp:%s', this.vote_cut_off_timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Proposal.', e);
+			throw e;
+		}
+		this.initiator = parsed.initiator;
+		
+		// this.asset_specific_vote = parsed.assetSpecificVote (bool)
+		
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		this.asset_code = new AssetCode();
+		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		
+		this.vote_system = parsed.voteSystem;
+		
+		// this.specific = parsed.specific (bool)
+		
+		// this.proposed_amendments (Amendment[])
+		
+		this.vote_options = parsed.voteOptions;
+		
+		this.vote_max = parsed.voteMax;
+		
+		this.proposal_description = parsed.proposalDescription;
+		
+		// this.proposal_document_hash = parsed.proposalDocumentHash (bin)
+		
+		this.vote_cut_off_timestamp = new Timestamp();
+		this.vote_cut_off_timestamp.fromJSON(JSON.stringify(parsed.voteCutOffTimestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Vote A vote is created by the Contract in response to a valid Proposal
+	// Vote A vote is created by the Contract in response to a valid Proposal
 // Action.
-export class Vote extends OpReturnMessage {
-	type = ActionCode.CodeVote;
-	typeStr = 'Vote';
+	export class Vote extends OpReturnMessage {
+		type = ActionCode.CodeVote;
+		typeStr = 'Vote';
 
-
-	// 	Timestamp in nanoseconds of when the smart contract created the
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -4259,42 +4875,58 @@ export class Vote extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Vote.', e);
+			throw e;
+		}
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// BallotCast Used by Token Owners to cast their ballot (vote) on
+	// BallotCast Used by Token Owners to cast their ballot (vote) on
 // proposals. 1 Vote per token unless a vote multiplier is specified in the
 // relevant Asset Definition action.
-export class BallotCast extends OpReturnMessage {
-	type = ActionCode.CodeBallotCast;
-	typeStr = 'BallotCast';
+	export class BallotCast extends OpReturnMessage {
+		type = ActionCode.CodeBallotCast;
+		typeStr = 'BallotCast';
 
-
-	// 	Tx ID of the Vote the Ballot Cast is being made for.
-	vote_tx_id;
-	// 	Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value
+	
+		// 	Tx ID of the Vote the Ballot Cast is being made for.
+		vote_tx_id;
+	
+		// 	Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value
 	// from the Proposal action. Accept, Reject, Abstain, Spoiled, Multiple
 	// Choice, or Preference List. 15 options total. Order of preference. 1st
 	// position = 1st choice. 2nd position = 2nd choice, etc. A is always
 	// Accept and B is always reject in a Y/N votes.
-	vote;
+		vote;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -4344,9 +4976,9 @@ export class BallotCast extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// VoteTxId (TxId)
+		// VoteTxId (TxId) 
 		{
 			// IsInternalType
 			const err = this.vote_tx_id.Validate();
@@ -4354,47 +4986,67 @@ export class BallotCast extends OpReturnMessage {
 
 		}
 
-		// Vote (string)
+		// Vote (string) 
 		{
 			if (this.vote.length > (2 ** 8)) {
 				return sprintf('varchar field vote too long %d/%d', this.vote.length, (2 ** 8) - 1);
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('vote_tx_id:%#+v', this.vote_tx_id));
-		vals.push(sprintf('vote:%#+v', this.vote));
-
+			vals.push(sprintf('vote_tx_id:%s', this.vote_tx_id.toString()));
+			vals.push(sprintf('vote:%s', this.vote.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for BallotCast.', e);
+			throw e;
+		}
+		this.vote_tx_id = new TxId();
+		this.vote_tx_id.fromJSON(JSON.stringify(parsed.voteTxId));
+		
+		this.vote = parsed.vote;
+		
+		return this.Validate();
 	}
 }
 
-// BallotCounted The smart contract will respond to a Ballot Cast action
+	// BallotCounted The smart contract will respond to a Ballot Cast action
 // with a Ballot Counted action if the Ballot Cast is valid. If the Ballot
 // Cast is not valid, then the smart contract will respond with a Rejection
 // Action.
-export class BallotCounted extends OpReturnMessage {
-	type = ActionCode.CodeBallotCounted;
-	typeStr = 'BallotCounted';
+	export class BallotCounted extends OpReturnMessage {
+		type = ActionCode.CodeBallotCounted;
+		typeStr = 'BallotCounted';
 
-
-	// 	Tx ID of the Vote the Ballot Cast is being made for.
-	vote_tx_id;
-	// 	Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value
+	
+		// 	Tx ID of the Vote the Ballot Cast is being made for.
+		vote_tx_id;
+	
+		// 	Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value
 	// from the Proposal action. Accept, Reject, Abstain, Spoiled, Multiple
 	// Choice, or Preference List. 15 options total. Order of preference. 1st
 	// position = 1st choice. 2nd position = 2nd choice, etc. A is always
 	// Accept and B is always reject in a Y/N votes.
-	vote;
-	// 	Number of votes counted for this ballot. Factors in vote multipliers
+		vote;
+	
+		// 	Number of votes counted for this ballot. Factors in vote multipliers
 	// if there are any allowed, otherwise it is just quantity of tokens held.
-	quantity;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+		quantity;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -4465,9 +5117,9 @@ export class BallotCounted extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// VoteTxId (TxId)
+		// VoteTxId (TxId) 
 		{
 			// IsInternalType
 			const err = this.vote_tx_id.Validate();
@@ -4475,80 +5127,110 @@ export class BallotCounted extends OpReturnMessage {
 
 		}
 
-		// Vote (string)
+		// Vote (string) 
 		{
 			if (this.vote.length > (2 ** 8)) {
 				return sprintf('varchar field vote too long %d/%d', this.vote.length, (2 ** 8) - 1);
 			}
 		}
 
-		// Quantity (uint64)
+		// Quantity (uint64) 
 		{
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('vote_tx_id:%#+v', this.vote_tx_id));
-		vals.push(sprintf('vote:%#+v', this.vote));
-		vals.push(sprintf('quantity:%v', this.quantity));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('vote_tx_id:%s', this.vote_tx_id.toString()));
+			vals.push(sprintf('vote:%s', this.vote.toString()));
+			vals.push(sprintf('quantity:%d', this.quantity));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for BallotCounted.', e);
+			throw e;
+		}
+		this.vote_tx_id = new TxId();
+		this.vote_tx_id.fromJSON(JSON.stringify(parsed.voteTxId));
+		
+		this.vote = parsed.vote;
+		
+		this.quantity = parsed.quantity;
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Result Once a vote has been completed the results are published. After
+	// Result Once a vote has been completed the results are published. After
 // the result is posted, it is up to the administration to send a
 // contract/asset amendement if appropriate.
-export class Result extends OpReturnMessage {
-	type = ActionCode.CodeResult;
-	typeStr = 'Result';
+	export class Result extends OpReturnMessage {
+		type = ActionCode.CodeResult;
+		typeStr = 'Result';
 
-
-	// 	When true this proposal is specific to an asset and the asset type and
+	
+		// 	When true this proposal is specific to an asset and the asset type and
 	// asset code fields are serialized.
-	asset_specific_vote;
-	// 	Three letter character that specifies the asset type.
-	asset_type;
-	// 	A unique code that is used to identify the asset. It is generated by
+		asset_specific_vote;
+	
+		// 	Three letter character that specifies the asset type.
+		asset_type;
+	
+		// 	A unique code that is used to identify the asset. It is generated by
 	// hashing the contract public key hash and the asset index.
 	// SHA256(contract PKH + asset index)
-	asset_code;
-	// 	When true the ProposedAmendments field is included and specifies the
+		asset_code;
+	
+		// 	When true the ProposedAmendments field is included and specifies the
 	// exact changes to make to the Contract/Asset on chain. When false this
 	// is just a general proposal like a strategy/direction and doesn't result
 	// in any on chain update.
-	specific;
-	// 	Each element contains details of which fields to modify, or delete.
+		specific;
+	
+		// 	Each element contains details of which fields to modify, or delete.
 	// Because the number of fields in a Contract and Asset is dynamic due to
 	// some fields being able to be repeated, the index value of the field
 	// needs to be calculated against the Contract or Asset the changes are to
 	// apply to. In the event of a Vote being created from this Initiative,
 	// the changes will be applied to the version of the Contract or Asset at
 	// that time.
-	proposed_amendments;
-	// 	Link to the Vote Action txn.
-	vote_tx_id;
-	// 	List of number of valid votes counted for each vote option. Length is
+		proposed_amendments;
+	
+		// 	Link to the Vote Action txn.
+		vote_tx_id;
+	
+		// 	List of number of valid votes counted for each vote option. Length is
 	// encoded like a regular list object, but must match the length of
 	// VoteOptions from the Proposal action.
-	option_tally;
-	// 	Length 1-255 bytes. 0 is not valid. The Option with the most votes. In
+		option_tally;
+	
+		// 	Length 1-255 bytes. 0 is not valid. The Option with the most votes. In
 	// the event of a draw for 1st place, all winning options are listed.
-	result;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+		result;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -4688,9 +5370,9 @@ export class Result extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AssetSpecificVote (bool)
+		// AssetSpecificVote (bool) 
 		{
 		}
 
@@ -4711,7 +5393,7 @@ export class Result extends OpReturnMessage {
 
 		}
 
-		// Specific (bool)
+		// Specific (bool) 
 		{
 		}
 
@@ -4729,7 +5411,7 @@ export class Result extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// VoteTxId (TxId)
+		// VoteTxId (TxId) 
 		{
 			// IsInternalType
 			const err = this.vote_tx_id.Validate();
@@ -4737,68 +5419,103 @@ export class Result extends OpReturnMessage {
 
 		}
 
-		// OptionTally ([]uint64)
+		// OptionTally ([]uint64) 
 		{
 			if (this.option_tally.length > (2 ** 8) - 1) {
 				return sprintf('list field option_tally has too many items %d/%d', this.option_tally.length, (2 ** 8) - 1);
 			}
 		}
 
-		// Result (string)
+		// Result (string) 
 		{
 			if (this.result.length > (2 ** 8)) {
 				return sprintf('varchar field result too long %d/%d', this.result.length, (2 ** 8) - 1);
 			}
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('asset_specific_vote:%#+v', this.asset_specific_vote));
-		vals.push(sprintf('asset_type:%#+v', this.asset_type));
-		vals.push(sprintf('asset_code:%#+v', this.asset_code));
-		vals.push(sprintf('specific:%#+v', this.specific));
-		vals.push(sprintf('proposed_amendments:%#+v', this.proposed_amendments));
-		vals.push(sprintf('vote_tx_id:%#+v', this.vote_tx_id));
-		vals.push(sprintf('option_tally:%v', this.option_tally));
-		vals.push(sprintf('result:%#+v', this.result));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('asset_specific_vote:%s', this.asset_specific_vote.toString()));
+			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
+			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('specific:%s', this.specific.toString()));
+			vals.push(sprintf('proposed_amendments:%s', this.proposed_amendments.toString()));
+			vals.push(sprintf('vote_tx_id:%s', this.vote_tx_id.toString()));
+			vals.push(sprintf('option_tally:%d', this.option_tally));
+			vals.push(sprintf('result:%s', this.result.toString()));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Result.', e);
+			throw e;
+		}
+		// this.asset_specific_vote = parsed.assetSpecificVote (bool)
+		
+		// this.asset_type = parsed.assetType (fixedchar)
+		
+		this.asset_code = new AssetCode();
+		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		
+		// this.specific = parsed.specific (bool)
+		
+		// this.proposed_amendments (Amendment[])
+		
+		this.vote_tx_id = new TxId();
+		this.vote_tx_id.fromJSON(JSON.stringify(parsed.voteTxId));
+		
+		this.option_tally = parsed.optionTally;
+		
+		this.result = parsed.result;
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Message The message action is a general purpose communication action.
+	// Message The message action is a general purpose communication action.
 // 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be
 // used for passing partially signed txns on-chain, establishing private
 // communication channels and EDI (receipting, invoices, PO, and private
 // offers/bids). The messages are broken down by type for easy filtering in
 // the a user's wallet. The Message Types are listed in the Message Types
 // table.
-export class Message extends OpReturnMessage {
-	type = ActionCode.CodeMessage;
-	typeStr = 'Message';
+	export class Message extends OpReturnMessage {
+		type = ActionCode.CodeMessage;
+		typeStr = 'Message';
 
-
-	// 	Associates the message to a particular output by the index.
-	address_indexes;
-	// 	Potential for up to 65,535 different message types. Values from
+	
+		// 	Associates the message to a particular output by the index.
+		address_indexes;
+	
+		// 	Potential for up to 65,535 different message types. Values from
 	// resources/Messages.yaml
-	message_type;
-	// 	Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts
+		message_type;
+	
+		// 	Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts
 	// can send the signifying amount of satoshis to themselves for public
 	// announcements or private 'notes' if encrypted. See Message Types for a
 	// full list of potential use cases.
-	message_payload;
+		message_payload;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -4864,39 +5581,56 @@ export class Message extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AddressIndexes ([]uint16)
+		// AddressIndexes ([]uint16) 
 		{
 			if (this.address_indexes.length > (2 ** 8) - 1) {
 				return sprintf('list field address_indexes has too many items %d/%d', this.address_indexes.length, (2 ** 8) - 1);
 			}
 		}
 
-		// MessageType (uint16)
+		// MessageType (uint16) 
 		{
 		}
 
-		// MessagePayload ([]byte)
+		// MessagePayload ([]byte) 
 		{
 			if (this.message_payload.length >= (2 ** 32)) {
 				return sprintf('varbin field message_payload too long %d/%d', this.message_payload.length, (2 ** 32) - 1);
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('address_indexes:%v', this.address_indexes));
-		vals.push(sprintf('message_type:%v', this.message_type));
-		vals.push(sprintf('message_payload:%#x', this.message_payload));
-
+			vals.push(sprintf('address_indexes:%d', this.address_indexes));
+			vals.push(sprintf('message_type:%d', this.message_type));
+			vals.push(sprintf('message_payload:%s', this.message_payload.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Message.', e);
+			throw e;
+		}
+		this.address_indexes = parsed.addressIndexes;
+		
+		this.message_type = parsed.messageType;
+		
+		// this.message_payload = parsed.messagePayload (varbin)
+		
+		return this.Validate();
 	}
 }
 
-// Rejection Used to reject request actions that do not comply with the
+	// Rejection Used to reject request actions that do not comply with the
 // Contract. If money is to be returned to a User then it is used in lieu
 // of the Settlement Action to properly account for token balances. All
 // Administration/User request Actions must be responded to by the Contract
@@ -4904,24 +5638,29 @@ export class Message extends OpReturnMessage {
 // enough fees in the first Action for the Contract response action to
 // remain revenue neutral. If not enough fees are attached to pay for the
 // Contract response then the Contract will not respond.
-export class Rejection extends OpReturnMessage {
-	type = ActionCode.CodeRejection;
-	typeStr = 'Rejection';
+	export class Rejection extends OpReturnMessage {
+		type = ActionCode.CodeRejection;
+		typeStr = 'Rejection';
 
-
-	// 	Associates the message to a particular output by the index.
-	address_indexes;
-	// 	The address which is believed to have caused the rejection.
-	reject_address_index;
-	// 	Classifies the rejection by a type.
-	rejection_code;
-	// 	Length 0-65,535 bytes. Message that explains the reasoning for a
+	
+		// 	Associates the message to a particular output by the index.
+		address_indexes;
+	
+		// 	The address which is believed to have caused the rejection.
+		reject_address_index;
+	
+		// 	Classifies the rejection by a type.
+		rejection_code;
+	
+		// 	Length 0-65,535 bytes. Message that explains the reasoning for a
 	// rejection, if needed. Most rejection types will be captured by the
 	// Rejection Type Subfield.
-	message;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+		message;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -5008,63 +5747,86 @@ export class Rejection extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// AddressIndexes ([]uint16)
+		// AddressIndexes ([]uint16) 
 		{
 			if (this.address_indexes.length > (2 ** 8) - 1) {
 				return sprintf('list field address_indexes has too many items %d/%d', this.address_indexes.length, (2 ** 8) - 1);
 			}
 		}
 
-		// RejectAddressIndex (uint16)
+		// RejectAddressIndex (uint16) 
 		{
 		}
 
-		// RejectionCode (uint8)
+		// RejectionCode (uint8) 
 		{
 			if (Resources.GetRejectionCode(this.rejection_code) === null) {
 				return sprintf('Invalid rejection code value : %d', this.rejection_code);
 			}
 		}
 
-		// Message (string)
+		// Message (string) 
 		{
 			if (this.message.length > (2 ** 16)) {
 				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 16) - 1);
 			}
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('address_indexes:%v', this.address_indexes));
-		vals.push(sprintf('reject_address_index:%v', this.reject_address_index));
-		vals.push(sprintf('rejection_code:%#+v', this.rejection_code));
-		vals.push(sprintf('message:%#+v', this.message));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('address_indexes:%d', this.address_indexes));
+			vals.push(sprintf('reject_address_index:%d', this.reject_address_index));
+			vals.push(sprintf('rejection_code:%s', this.rejection_code.toString()));
+			vals.push(sprintf('message:%s', this.message.toString()));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Rejection.', e);
+			throw e;
+		}
+		this.address_indexes = parsed.addressIndexes;
+		
+		this.reject_address_index = parsed.rejectAddressIndex;
+		
+		// this.rejection_code = parsed.rejectionCode (RejectionCode)
+		
+		this.message = parsed.message;
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
 	}
 }
 
-// Establishment Establishes an on-chain register.
-export class Establishment extends OpReturnMessage {
-	type = ActionCode.CodeEstablishment;
-	typeStr = 'Establishment';
+	// Establishment Establishes an on-chain register.
+	export class Establishment extends OpReturnMessage {
+		type = ActionCode.CodeEstablishment;
+		typeStr = 'Establishment';
 
-
-	// 	A custom message to include with this action.
-	message;
+	
+		// 	A custom message to include with this action.
+		message;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -5103,33 +5865,47 @@ export class Establishment extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// Message (string)
+		// Message (string) 
 		{
 			if (this.message.length > (2 ** 32)) {
 				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('message:%#+v', this.message));
-
+			vals.push(sprintf('message:%s', this.message.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Establishment.', e);
+			throw e;
+		}
+		this.message = parsed.message;
+		
+		return this.Validate();
 	}
 }
 
-// Addition Adds an entry to the Register.
-export class Addition extends OpReturnMessage {
-	type = ActionCode.CodeAddition;
-	typeStr = 'Addition';
+	// Addition Adds an entry to the Register.
+	export class Addition extends OpReturnMessage {
+		type = ActionCode.CodeAddition;
+		typeStr = 'Addition';
 
-
-	// 	A custom message to include with this action.
-	message;
+	
+		// 	A custom message to include with this action.
+		message;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -5168,35 +5944,50 @@ export class Addition extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// Message (string)
+		// Message (string) 
 		{
 			if (this.message.length > (2 ** 32)) {
 				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('message:%#+v', this.message));
-
+			vals.push(sprintf('message:%s', this.message.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Addition.', e);
+			throw e;
+		}
+		this.message = parsed.message;
+		
+		return this.Validate();
 	}
 }
 
-// Alteration A register entry/record can be altered.
-export class Alteration extends OpReturnMessage {
-	type = ActionCode.CodeAlteration;
-	typeStr = 'Alteration';
+	// Alteration A register entry/record can be altered.
+	export class Alteration extends OpReturnMessage {
+		type = ActionCode.CodeAlteration;
+		typeStr = 'Alteration';
 
-
-	// 	Transaction ID of the register entry to be altered.
-	entry_tx_id;
-	// 	A custom message to include with this action.
-	message;
+	
+		// 	Transaction ID of the register entry to be altered.
+		entry_tx_id;
+	
+		// 	A custom message to include with this action.
+		message;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -5246,9 +6037,9 @@ export class Alteration extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// EntryTxID (TxId)
+		// EntryTxID (TxId) 
 		{
 			// IsInternalType
 			const err = this.entry_tx_id.Validate();
@@ -5256,34 +6047,52 @@ export class Alteration extends OpReturnMessage {
 
 		}
 
-		// Message (string)
+		// Message (string) 
 		{
 			if (this.message.length > (2 ** 32)) {
 				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('entry_tx_id:%#+v', this.entry_tx_id));
-		vals.push(sprintf('message:%#+v', this.message));
-
+			vals.push(sprintf('entry_tx_id:%s', this.entry_tx_id.toString()));
+			vals.push(sprintf('message:%s', this.message.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Alteration.', e);
+			throw e;
+		}
+		this.entry_tx_id = new TxId();
+		this.entry_tx_id.fromJSON(JSON.stringify(parsed.entryTxID));
+		
+		this.message = parsed.message;
+		
+		return this.Validate();
 	}
 }
 
-// Removal Removes an entry/record from the Register.
-export class Removal extends OpReturnMessage {
-	type = ActionCode.CodeRemoval;
-	typeStr = 'Removal';
+	// Removal Removes an entry/record from the Register.
+	export class Removal extends OpReturnMessage {
+		type = ActionCode.CodeRemoval;
+		typeStr = 'Removal';
 
-
-	// 	Transaction ID of the register entry to be altered.
-	entry_tx_id;
-	// 	A custom message to include with this action.
-	message;
+	
+		// 	Transaction ID of the register entry to be altered.
+		entry_tx_id;
+	
+		// 	A custom message to include with this action.
+		message;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -5333,9 +6142,9 @@ export class Removal extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// EntryTxID (TxId)
+		// EntryTxID (TxId) 
 		{
 			// IsInternalType
 			const err = this.entry_tx_id.Validate();
@@ -5343,25 +6152,41 @@ export class Removal extends OpReturnMessage {
 
 		}
 
-		// Message (string)
+		// Message (string) 
 		{
 			if (this.message.length > (2 ** 32)) {
 				return sprintf('varchar field message too long %d/%d', this.message.length, (2 ** 32) - 1);
 			}
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('entry_tx_id:%#+v', this.entry_tx_id));
-		vals.push(sprintf('message:%#+v', this.message));
-
+			vals.push(sprintf('entry_tx_id:%s', this.entry_tx_id.toString()));
+			vals.push(sprintf('message:%s', this.message.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Removal.', e);
+			throw e;
+		}
+		this.entry_tx_id = new TxId();
+		this.entry_tx_id.fromJSON(JSON.stringify(parsed.entryTxID));
+		
+		this.message = parsed.message;
+		
+		return this.Validate();
 	}
 }
 
-// Transfer A Token Owner(s) Sends, Exchanges or Swaps a token(s) or
+	// Transfer A Token Owner(s) Sends, Exchanges or Swaps a token(s) or
 // Bitcoin for a token(s) or Bitcoin. Can be as simple as sending a single
 // token to a receiver. Or can be as complex as many senders sending many
 // different assets - controlled by many different smart contracts - to a
@@ -5370,22 +6195,26 @@ export class Removal extends OpReturnMessage {
 // and the corresponding settlement action, the partially signed T1 and T2
 // actions will need to be passed around on-chain with an M1 action, or
 // off-chain.
-export class Transfer extends OpReturnMessage {
-	type = ActionCode.CodeTransfer;
-	typeStr = 'Transfer';
+	export class Transfer extends OpReturnMessage {
+		type = ActionCode.CodeTransfer;
+		typeStr = 'Transfer';
 
-
-	// 	The Assets involved in the Transfer Action.
-	assets;
-	// 	This prevents any party from holding on to the partially signed
+	
+		// 	The Assets involved in the Transfer Action.
+		assets;
+	
+		// 	This prevents any party from holding on to the partially signed
 	// message as a form of an option. Eg. the exchange at this price is valid
 	// for 30 mins.
-	offer_expiry;
-	// 	Fixed amount of bitcoin being paid to an exchange for facilitating a
+		offer_expiry;
+	
+		// 	Fixed amount of bitcoin being paid to an exchange for facilitating a
 	// transfer.
-	exchange_fee;
-	// 	Identifies the public address that the exchange fee should be paid to.
-	exchange_fee_address;
+		exchange_fee;
+	
+		// 	Identifies the public address that the exchange fee should be paid to.
+		exchange_fee_address;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -5467,9 +6296,9 @@ export class Transfer extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// Assets ([]AssetTransfer)
+		// Assets ([]AssetTransfer) 
 		{
 			if (this.assets.length > (2 ** 8) - 1) {
 				return sprintf('list field assets has too many items %d/%d', this.assets.length, (2 ** 8) - 1);
@@ -5482,7 +6311,7 @@ export class Transfer extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// OfferExpiry (Timestamp)
+		// OfferExpiry (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.offer_expiry.Validate();
@@ -5490,43 +6319,66 @@ export class Transfer extends OpReturnMessage {
 
 		}
 
-		// ExchangeFee (uint64)
+		// ExchangeFee (uint64) 
 		{
 		}
 
-		// ExchangeFeeAddress (PublicKeyHash)
+		// ExchangeFeeAddress (PublicKeyHash) 
 		{
 			// IsInternalType
 			const err = this.exchange_fee_address.Validate();
 			if  (err) return sprintf('field exchange_fee_address is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('assets:%#+v', this.assets));
-		vals.push(sprintf('offer_expiry:%#+v', this.offer_expiry));
-		vals.push(sprintf('exchange_fee:%v', this.exchange_fee));
-		vals.push(sprintf('exchange_fee_address:%#+v', this.exchange_fee_address));
-
+			vals.push(sprintf('assets:%s', this.assets.toString()));
+			vals.push(sprintf('offer_expiry:%s', this.offer_expiry.toString()));
+			vals.push(sprintf('exchange_fee:%d', this.exchange_fee));
+			vals.push(sprintf('exchange_fee_address:%s', this.exchange_fee_address.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
+	}
+
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Transfer.', e);
+			throw e;
+		}
+		// this.assets (AssetTransfer[])
+		
+		this.offer_expiry = new Timestamp();
+		this.offer_expiry.fromJSON(JSON.stringify(parsed.offerExpiry));
+		
+		this.exchange_fee = parsed.exchangeFee;
+		
+		this.exchange_fee_address = new PublicKeyHash();
+		this.exchange_fee_address.fromJSON(JSON.stringify(parsed.exchangeFeeAddress));
+		
+		return this.Validate();
 	}
 }
 
-// Settlement Settles the transfer request of bitcoins and tokens from
+	// Settlement Settles the transfer request of bitcoins and tokens from
 // transfer (T1) actions.
-export class Settlement extends OpReturnMessage {
-	type = ActionCode.CodeSettlement;
-	typeStr = 'Settlement';
+	export class Settlement extends OpReturnMessage {
+		type = ActionCode.CodeSettlement;
+		typeStr = 'Settlement';
 
-
-	// 	The Assets settled by the transfer action.
-	assets;
-	// 	Timestamp in nanoseconds of when the smart contract created the
+	
+		// 	The Assets settled by the transfer action.
+		assets;
+	
+		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
-	timestamp;
+		timestamp;
+	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
@@ -5587,9 +6439,9 @@ export class Settlement extends OpReturnMessage {
 		return b.length - buf.length;
 	}
 
-	Validate(): string {
+	Validate(): string | null {
 
-		// Assets ([]AssetSettlement)
+		// Assets ([]AssetSettlement) 
 		{
 			if (this.assets.length > (2 ** 8) - 1) {
 				return sprintf('list field assets has too many items %d/%d', this.assets.length, (2 ** 8) - 1);
@@ -5602,22 +6454,37 @@ export class Settlement extends OpReturnMessage {
 			if (err) return err;
 		}
 
-		// Timestamp (Timestamp)
+		// Timestamp (Timestamp) 
 		{
 			// IsInternalType
 			const err = this.timestamp.Validate();
 			if  (err) return sprintf('field timestamp is invalid : %s', err);
 
 		}
-		return null;
+		return null; 
 	}
 
 	toString(): string {
 		const vals: string[] = [];
-		vals.push(sprintf('assets:%#+v', this.assets));
-		vals.push(sprintf('timestamp:%#+v', this.timestamp));
-
+			vals.push(sprintf('assets:%s', this.assets.toString()));
+			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
+	
 		return sprintf('{%s}', vals.join(' '));
 	}
-}
 
+	parse(json: string): string | null {
+		let parsed: any;
+		try {
+			parsed = JSON.parse(json);
+		} catch (e) {
+			console.error('Failed to parse JSON for Settlement.', e);
+			throw e;
+		}
+		// this.assets (AssetSettlement[])
+		
+		this.timestamp = new Timestamp();
+		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+		
+		return this.Validate();
+	}
+}
