@@ -11,16 +11,8 @@ metadata:
     kind: Utility
 
 fields:
-  - name: Version
-    label: Payload Version
-    description: The version number that this asset payload adheres to.
-    type: uint
-    size: 1
-    example: 0
-    computed: true
-
   - name: CurrencyCode
-    label: Currency
+    label: Currency Code
     type: CurrencyType
     example: AUD
     description: International Organization for Standardization code for Currency. (Specification/Resources)
