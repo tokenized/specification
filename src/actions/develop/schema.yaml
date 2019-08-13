@@ -40,6 +40,13 @@ messages:
   - "actions/M1 - Message"
   - "actions/M2 - Rejection"
 
+resources:
+  - "../../resources/develop/Entities"
+  - "../../resources/develop/Polities"
+  - "../../resources/develop/Roles"
+  - "../../resources/develop/Rejections"
+  - "../../resources/develop/Tags"
+
 # Register Field Types
 fieldTypes:
   - "types/Administrator"
@@ -60,22 +67,27 @@ fieldAliases:
   - name: Role
     type: uint
     size: 8
+    resource: Roles
 
   - name: EntityType
     type: fixedchar
     size: 1
+    resource: Entities
 
   - name: Polity
     type: fixedchar
     size: 3
+    resource: Polities
 
   - name: RejectionCode
     type: uint
     size: 8
+    resource: Rejections
 
   - name: Tag
     type: uint
     size: 8
+    resource: Tags
 
   - name: Address
     type: varbin
