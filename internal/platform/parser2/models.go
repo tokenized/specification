@@ -12,12 +12,12 @@ type Schema struct {
 }
 
 type Message struct {
-	Code        string                 `yaml:"code"`
-	Name        string                 `yaml:"name"`
-	Label       string                 `yaml:"label"`
-	Description string                 `yaml:"description"`
-	MetaData    map[string]interface{} `yaml:"metadata"`
-	Fields      []Field                `yaml:"fields"`
+	Code        string   `yaml:"code"`
+	Name        string   `yaml:"name"`
+	Label       string   `yaml:"label"`
+	Description string   `yaml:"description"`
+	MetaData    MetaData `yaml:"metadata"`
+	Fields      []Field  `yaml:"fields"`
 }
 
 type FieldType struct {
@@ -28,14 +28,21 @@ type FieldType struct {
 	Fields      []Field                `yaml:"fields"`
 }
 
-type Field struct {
-	Name        string
-	Label       string
-	Description string
-	Type        string
-	Size        int
-	Example     string
-	Notes       string
-	IsAlias     bool
-	IsFullType  bool
+type MetaData struct {
+	Validation string   `yaml:"validation"`
+	Rejection  string   `yaml:"rejection"`
+	Inputs     []Input  `yaml:"inputs"`
+	Outputs    []Output `yaml:"outputs"`
+}
+
+type Input struct {
+	Name     string `yaml:"name"`
+	Label    string `yaml:"label"`
+	Comments string `yaml:"comments"`
+}
+
+type Output struct {
+	Name     string `yaml:"name"`
+	Label    string `yaml:"label"`
+	Comments string `yaml:"comments"`
 }

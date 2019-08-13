@@ -2,6 +2,9 @@ package parser2
 
 import (
 	"fmt"
+	"html"
+	"html/template"
+	"math"
 	"regexp"
 	"strings"
 )
@@ -10,6 +13,29 @@ var (
 	strMatchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
 	strMatchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
 )
+
+func MakeTemplateFuncs() template.FuncMap {
+	return template.FuncMap{
+		"minus": func(a, b int) int {
+			return a - b
+		},
+		"padding": func(str string, size int) string {
+			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
+		},
+		"comment": func(str, chr string) string {
+			return StrComment(html.UnescapeString(str), chr)
+		},
+		"snakecase": func(str string) string {
+			return StrSnakeCase(str)
+		},
+		"kebabcase": func(str string) string {
+			return StrKebabCase(str)
+		},
+		"camelcase": func(str string) string {
+			return StrCamelCase(str)
+		},
+	}
+}
 
 func StrComment(s string, prefix string) string {
 	parts := strings.Split(s, " ")

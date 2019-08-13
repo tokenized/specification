@@ -7,23 +7,23 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/tokenized/specification/internal/platform/parser2"
+
 	"github.com/ghodss/yaml"
-	"github.com/tokenized/specification/internal/platform/parser"
 )
 
 // Compile converts a codec schema from YAML to JSON in raw format
 func Compile(
 	distPath string,
-	actions parser.ProtocolActions,
-	messages parser.ProtocolMessages,
-	types parser.ProtocolTypes,
-	resources parser.ProtocolResources,
-	rejectionCodes parser.ProtocolRejectionCodes,
-	assets []parser.Asset,
+	actions parser2.Schema,
+	assets parser2.Schema,
+	messages parser2.Schema,
 ) {
 
+	schemaToFile(distPath, "actions/develop/schema.yaml", "protocol.json")
+
 	schemaToFile(distPath, "assets/develop/schema.yaml", "assets.json")
-	schemaToFile(distPath, "protocol/develop/schema.yaml", "protocol.json")
+
 	schemaToFile(distPath, "messages/develop/schema.yaml", "messages.json")
 
 	// TODO handle resources

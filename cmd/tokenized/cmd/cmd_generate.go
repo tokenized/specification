@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/tokenized/specification/internal/json"
 	"github.com/tokenized/specification/internal/markdown"
 	"github.com/tokenized/specification/internal/platform/parser2"
 
@@ -35,15 +36,20 @@ var cmdGenerate = &cobra.Command{
 		// --------------------------------------------------------------------
 		// Prepare Schemas
 
-		actions, _ := parser2.NewSchema(filepath.FromSlash(srcPath + "/actions/develop"))
+		actions, err := parser2.NewSchema(filepath.FromSlash(srcPath + "/actions/develop"))
+		if err != nil {
+			log.Fatal(err)
+		}
 
-		assets, _ := parser2.NewSchema(filepath.FromSlash(srcPath + "/assets/develop"))
+		assets, err := parser2.NewSchema(filepath.FromSlash(srcPath + "/assets/develop"))
+		if err != nil {
+			log.Fatal(err)
+		}
 
-		messages, _ := parser2.NewSchema(filepath.FromSlash(srcPath + "/messages/develop"))
-
-		// fmt.Printf("%+v", actions)
-		// fmt.Printf("%+v", assets)
-		// fmt.Printf("%+v", messages)
+		messages, err := parser2.NewSchema(filepath.FromSlash(srcPath + "/messages/develop"))
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		// --------------------------------------------------------------------
 		// Prepare Values
@@ -65,7 +71,7 @@ var cmdGenerate = &cobra.Command{
 
 		// golang.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
-		// json.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		json.Compile(distPath, *actions, *assets, *messages)
 
 		markdown.Compile(distPath, *actions, *assets, *messages)
 

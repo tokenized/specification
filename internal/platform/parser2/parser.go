@@ -2,13 +2,10 @@ package parser2
 
 import (
 	"fmt"
-	"html"
 	"html/template"
-	"math"
 	"os"
 	"path"
 	"path/filepath"
-	"strings"
 
 	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
@@ -20,7 +17,7 @@ func NewSchema(path string) (*Schema, error) {
 	// 1. Resulting Schema
 	schemaFilePath := filepath.Join(path, "schema.yaml")
 	var result Schema
-	if err := UnmarshalFile(schemaFilePath, &result); err != nil {
+	if err := unmarshalFile(schemaFilePath, &result); err != nil {
 		return nil, err
 	}
 
@@ -29,7 +26,8 @@ func NewSchema(path string) (*Schema, error) {
 	for _, spath := range result.MessagePaths {
 		messageFilePath := filepath.Join(path, spath+".yaml")
 		var message Message
-		UnmarshalFile(messageFilePath, &message)
+		unmarshalFile(messageFilePath, &message)
+		postProcessFields(message.Fields, result.FieldAliases)
 		messages = append(messages, message)
 	}
 	result.Messages = messages
@@ -39,7 +37,8 @@ func NewSchema(path string) (*Schema, error) {
 	for _, spath := range result.FieldTypePaths {
 		typeFilePath := filepath.Join(path, spath+".yaml")
 		var fieldType FieldType
-		UnmarshalFile(typeFilePath, &fieldType)
+		unmarshalFile(typeFilePath, &fieldType)
+		postProcessFields(fieldType.Fields, result.FieldAliases)
 		fieldTypes = append(fieldTypes, fieldType)
 	}
 	result.FieldTypes = fieldTypes
@@ -47,8 +46,27 @@ func NewSchema(path string) (*Schema, error) {
 	return &result, nil
 }
 
-// UnmarshalFile
-func UnmarshalFile(filename string, v interface{}) error {
+// postProcessFields applies defaults, attaches alias information and detects compound fields.
+func postProcessFields(fields []Field, aliases []Field) {
+	for i, field := range fields {
+		if field.IsList() && field.Size == 0 {
+			fields[i].Size = 1
+		}
+		for _, alias := range aliases {
+			if alias.Name == field.Type {
+				fields[i].IsAlias = true
+				fields[i].AliasField = &alias
+				break
+			}
+		}
+		if !field.IsPrimitive() {
+			fields[i].IsCompoundType = true
+		}
+	}
+}
+
+// unmarshalFile
+func unmarshalFile(filename string, v interface{}) error {
 	file, err := os.Open(filename)
 	if err != nil {
 		return errors.Wrap(err, fmt.Sprintf("Failed to open file %s", filename))
@@ -64,31 +82,17 @@ func UnmarshalFile(filename string, v interface{}) error {
 	return nil
 }
 
+// TemplateToFile renders a template to a file
 func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
 	f, err := os.Create(outFile)
 	if err != nil {
 		panic(err)
 	}
 
-	tmplFuncs := template.FuncMap{
-		"minus": func(a, b int) int {
-			return a - b
-		},
-		"padding": func(str string, size int) string {
-			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
-		},
-		"comment": func(str, chr string) string {
-			return StrComment(html.UnescapeString(str), chr)
-		},
-		"snakecase": func(str string) string {
-			return StrSnakeCase(str)
-		},
-		"camelcase": func(str string) string {
-			return StrCamelCase(str)
-		},
-	}
+	tmplFuncs := MakeTemplateFuncs()
 
 	tmpl := template.Must(template.New(path.Base(inFile)).Funcs(tmplFuncs).ParseFiles(inFile))
+
 	if err := tmpl.Execute(f, data); err != nil {
 		panic(err)
 	}

@@ -13,9 +13,9 @@ func Compile(
 
 	templateToFile(distPath, "protocol-actions.tpl", "protocol-actions.md", actions)
 
-	// templateToFile(distPath, "protocol-assets.tpl", "protocol-assets.md", assets)
+	templateToFile(distPath, "protocol-assets.tpl", "protocol-assets.md", assets)
 
-	// templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", messages)
+	templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", messages)
 
 	// templateToFile(distPath, "protocol-field-types.tpl", "protocol-field-types.md", types)
 
