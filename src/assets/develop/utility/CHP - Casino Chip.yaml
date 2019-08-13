@@ -1,0 +1,44 @@
+#
+# CHP - Casino Chip
+#
+
+code: CHP
+name: CasinoChip
+label: Casino Chip
+description: Casino Chip
+
+metadata:
+    kind: Utility
+
+fields:
+  - name: Version
+    label: Payload Version
+    description: The version number that this asset payload adheres to.
+    type: uint
+    size: 1
+    example: 0
+    computed: true
+
+  - name: CurrencyCode
+    label: Currency
+    type: CurrencyType
+    example: AUD
+    description: International Organization for Standardization code for Currency. (Specification/Resources)
+    span: full
+
+  - name: AgeRestriction
+    label: Age Restriction
+    type: AgeRestriction
+    description: "Age restriction is used to specify required ages for asset ownership."
+
+  - name: ValidFrom
+    label: Valid From
+    type: Timestamp
+    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    span: right
+
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
+    type: Timestamp
+    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    span: right

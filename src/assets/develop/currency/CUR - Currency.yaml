@@ -14,13 +14,12 @@ metadata:
     - Canadian dollar
 
 fields:
-  - name: ISOCode
-    label: ISO Code
+  - name: CurrencyCode
+    label: Currency Code
     type: CurrencyType
     example: AUD
     description: International Organization for Standardization code for Currency. (Specification/Resources)
     span: full
-    displayOrder: 3
 
   - name: MonetaryAuthority
     label: Monetary Authority
@@ -29,7 +28,6 @@ fields:
     size: 1
     example: Reserve Bank of Australia
     span: full
-    displayOrder: 3
 
   - name: Description
     label: Description
@@ -38,4 +36,3 @@ fields:
     size: 2
     example: Australian dollar
     span: full
-    displayOrder: 3
