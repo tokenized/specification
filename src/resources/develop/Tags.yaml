@@ -1,6 +1,8 @@
 
 name: Tags
-description: Predefined tags for output metadata. Multiple values can be assigned to an output to describe a tx output.
+description: >
+    Predefined tags for output metadata.
+    Multiple values can be assigned to an output to describe a tx output.
 
 metadata:
   type: Tag
