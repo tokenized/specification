@@ -454,5 +454,6 @@
   ],
   "name": "Tokenized Asset Types",
   "package": "assets",
+  "resources": null,
   "version": 1
 }

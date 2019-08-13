@@ -43,6 +43,7 @@ func schemaToFile(distPath, schemaFile, jsonFile string) {
 	basePath := filepath.Dir(inPath)
 	schemaObj["messages"] = replaceFileRefs(basePath, schemaObj["messages"])
 	schemaObj["fieldTypes"] = replaceFileRefs(basePath, schemaObj["fieldTypes"])
+	schemaObj["resources"] = replaceFileRefs(basePath, schemaObj["resources"])
 
 	// Beautify JSON
 	body, err := json.MarshalIndent(schemaObj, "", "  ")

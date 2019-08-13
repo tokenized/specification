@@ -21,6 +21,9 @@ messages:
   - "commercial/1003 - Settlement Request"
   - "commercial/1004 - Output Metadata"
 
+# Register Resources
+resources: []
+
 # Register Field Types
 fieldTypes:
   - "types/Output"
@@ -28,4 +31,4 @@ fieldTypes:
   - "types/Document"
 
 # Define Field Aliases
-fieldAliases:
+fieldAliases: []

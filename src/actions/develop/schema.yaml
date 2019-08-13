@@ -40,6 +40,7 @@ messages:
   - "actions/M1 - Message"
   - "actions/M2 - Rejection"
 
+# Register Resources
 resources:
   - "../../resources/develop/Entities"
   - "../../resources/develop/Polities"

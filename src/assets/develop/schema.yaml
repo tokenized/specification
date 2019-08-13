@@ -20,6 +20,9 @@ messages:
   - "utility/LOY - Loyalty Points"
   - "utility/TIC - Admission Ticket"
 
+# Register Resources
+resources: []
+
 # Register Field Types
 fieldTypes:
   - "types/AgeRestriction"

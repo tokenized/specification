@@ -1,5 +1,5 @@
 {
-  "fieldAliases": null,
+  "fieldAliases": [],
   "fieldTypes": [
     {
       "code": 2,
@@ -276,5 +276,6 @@
   ],
   "name": "Tokenized Message Types",
   "package": "messages",
+  "resources": null,
   "version": 1
 }
