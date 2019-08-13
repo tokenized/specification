@@ -1,5 +1,4 @@
 {
-  "code": "actions",
   "fieldAliases": [
     {
       "name": "Role",
@@ -39,6 +38,7 @@
   ],
   "fieldTypes": [
     {
+      "description": "Administrator is used to refer to a Administration role in an Entity.",
       "fields": [
         {
           "description": "Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources",
@@ -56,13 +56,11 @@
           "type": "varchar"
         }
       ],
-      "metadata": {
-        "description": "Administrator is used to refer to a Administration role in an Entity.",
-        "label": "Administrator",
-        "name": "Administrator"
-      }
+      "label": "Administrator",
+      "name": "Administrator"
     },
     {
+      "description": "An Amendment is used to describe the modification of a single field in a Contract or Asset, as defined in the ContractFormation and AssetCreation messages.",
       "fields": [
         {
           "description": "Index of the field to be amended.",
@@ -122,14 +120,14 @@
           "type": "varbin"
         }
       ],
+      "label": "Amendment",
       "metadata": {
-        "description": "An Amendment is used to describe the modification of a single field in a Contract or Asset, as defined in the ContractFormation and AssetCreation messages.",
-        "label": "Amendment",
-        "name": "Amendment",
         "notes": "Header, timestamp, and count fields that are generated or managed by the Smart Contract are included in the index of fields for consistency, although they cannot be modified on request, or in the case of a count field, there are expectations such as the count matching the number of elements in the related field. An example of a count field is VotingSystemCount in a ContractFormation, which specifies the number of VotingSystems. Indexes are zero based."
-      }
+      },
+      "name": "Amendment"
     },
     {
+      "description": "An AssetReceiver is a quantity, address, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The address is where the asset will be sent.",
       "fields": [
         {
           "description": "The address receiving the tokens",
@@ -197,13 +195,11 @@
           "type": "uint"
         }
       ],
-      "metadata": {
-        "description": "An AssetReceiver is a quantity, address, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The address is where the asset will be sent.",
-        "label": "AssetReceiver",
-        "name": "AssetReceiver"
-      }
+      "label": "AssetReceiver",
+      "name": "AssetReceiver"
     },
     {
+      "description": "AssetSettlement is the data required to settle an asset transfer.",
       "fields": [
         {
           "description": "Index of input containing the contract's address for this offset",
@@ -234,13 +230,11 @@
           "type": "QuantityIndex[]"
         }
       ],
-      "metadata": {
-        "description": "AssetSettlement is the data required to settle an asset transfer.",
-        "label": "Asset Settlement",
-        "name": "AssetSettlement"
-      }
+      "label": "Asset Settlement",
+      "name": "AssetSettlement"
     },
     {
+      "description": "AssetTransfer is the data required to transfer an asset.",
       "fields": [
         {
           "description": "Index of output containing the contract's address for this offset",
@@ -277,13 +271,11 @@
           "type": "AssetReceiver[]"
         }
       ],
-      "metadata": {
-        "description": "AssetTransfer is the data required to transfer an asset.",
-        "label": "Asset Transfer",
-        "name": "AssetTransfer"
-      }
+      "label": "Asset Transfer",
+      "name": "AssetTransfer"
     },
     {
+      "description": "A file containing data.",
       "fields": [
         {
           "description": "Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid.",
@@ -309,13 +301,11 @@
           "type": "varbin"
         }
       ],
-      "metadata": {
-        "description": "A file containing data.",
-        "label": "Document",
-        "name": "Document"
-      }
+      "label": "Document",
+      "name": "Document"
     },
     {
+      "description": "Entity represents the details of a legal Entity, such as a public or private company, government agency, or and individual.",
       "fields": [
         {
           "description": "Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. ",
@@ -441,13 +431,11 @@
           "type": "Manager[]"
         }
       ],
-      "metadata": {
-        "description": "Entity represents the details of a legal Entity, such as a public or private company, government agency, or and individual.",
-        "label": "Entity",
-        "name": "Entity"
-      }
+      "label": "Entity",
+      "name": "Entity"
     },
     {
+      "description": "Manager is used to refer to a role that is responsible for the Management of an Entity.",
       "fields": [
         {
           "description": "CEO, COO, CFO, etc. Found in 'Roles' in Specification/Resources",
@@ -465,13 +453,11 @@
           "type": "varchar"
         }
       ],
-      "metadata": {
-        "description": "Manager is used to refer to a role that is responsible for the Management of an Entity.",
-        "label": "Manager",
-        "name": "Manager"
-      }
+      "label": "Manager",
+      "name": "Manager"
     },
     {
+      "description": "A Oracle defines the details of a public Oracle.",
       "fields": [
         {
           "description": "Length 0-255 bytes. 0 is valid. Oracle X Name (eg. Coinbase, Tokenized, etc.)",
@@ -497,13 +483,11 @@
           "type": "varbin"
         }
       ],
-      "metadata": {
-        "description": "A Oracle defines the details of a public Oracle.",
-        "label": "Oracle",
-        "name": "Oracle"
-      }
+      "label": "Oracle",
+      "name": "Oracle"
     },
     {
+      "description": "A QuantityIndex contains a quantity, and an index. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input or output index position.",
       "fields": [
         {
           "description": "The index of the input/output (depending on context) sending/receiving the tokens.",
@@ -522,13 +506,11 @@
           "type": "uint"
         }
       ],
-      "metadata": {
-        "description": "A QuantityIndex contains a quantity, and an index. The quantity could be used to describe a number of tokens, or a value. The index is used to refer to an input or output index position.",
-        "label": "Quantity Index",
-        "name": "QuantityIndex"
-      }
+      "label": "Quantity Index",
+      "name": "QuantityIndex"
     },
     {
+      "description": "A TargetAddress defines a public address and quantity.",
       "fields": [
         {
           "description": "Public address where the token balance will be changed.",
@@ -545,13 +527,11 @@
           "type": "uint"
         }
       ],
-      "metadata": {
-        "description": "A TargetAddress defines a public address and quantity.",
-        "label": "Target Address",
-        "name": "TargetAddress"
-      }
+      "label": "Target Address",
+      "name": "TargetAddress"
     },
     {
+      "description": "A VotingSystem defines all details of a Voting System.",
       "fields": [
         {
           "description": "eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc.",
@@ -600,38 +580,14 @@
           "type": "uint"
         }
       ],
-      "metadata": {
-        "description": "A VotingSystem defines all details of a Voting System.",
-        "label": "Voting System",
-        "name": "VotingSystem"
-      }
+      "label": "Voting System",
+      "name": "VotingSystem"
     }
   ],
-  "headerFields": [
-    {
-      "description": "The version number that determines the structure of the action payload and field definitions.",
-      "example": 1,
-      "label": "Version",
-      "name": "Version",
-      "size": 8,
-      "type": "uint"
-    },
-    {
-      "description": "The Action Code that determines the expected contents of the action payload.",
-      "example": "C1",
-      "label": "Action Code",
-      "name": "ActionCode",
-      "size": 2,
-      "type": "fixedchar"
-    }
-  ],
-  "id": {
-    "name": "ActionCode",
-    "size": 2,
-    "type": "fixedchar"
-  },
   "messages": [
     {
+      "code": "C1",
+      "description": "Allows the administration to tell the smart contract what they want the details (labels, data, T\u0026C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.",
       "fields": [
         {
           "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
@@ -737,14 +693,6 @@
           "type": "Entity"
         },
         {
-          "description": "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.",
-          "label": "Contract Authorization Flags",
-          "name": "ContractAuthFlags",
-          "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
-          "size": 16,
-          "type": "varbin"
-        },
-        {
           "description": "Satoshis required to be paid to the contract for each asset action.",
           "label": "Contract Fee",
           "name": "ContractFee",
@@ -756,6 +704,14 @@
           "label": "Voting Systems",
           "name": "VotingSystems",
           "type": "VotingSystem[]"
+        },
+        {
+          "description": "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.",
+          "label": "Contract Authorization Flags",
+          "name": "ContractAuthFlags",
+          "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
+          "size": 2,
+          "type": "varbin"
         },
         {
           "description": "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
@@ -794,9 +750,8 @@
           "type": "PublicKeyHash"
         }
       ],
-      "id": "C1",
+      "label": "Contract Offer",
       "metadata": {
-        "description": "Allows the administration to tell the smart contract what they want the details (labels, data, T\u0026C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.",
         "inputs": [
           {
             "comments": "The smart contract sets the administration's public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are controlled by the administration according to the protocol.",
@@ -809,8 +764,6 @@
             "name": "ContractOperator"
           }
         ],
-        "label": "Contract Offer",
-        "name": "ContractOffer",
         "outputs": [
           {
             "comments": "A contract address that has no other contract associated to it already.",
@@ -820,9 +773,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "ContractOffer"
     },
     {
+      "code": "C2",
+      "description": "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf.",
       "fields": [
         {
           "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the administration will have to reissue the entire contract, asset definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
@@ -928,14 +884,6 @@
           "type": "Entity"
         },
         {
-          "description": "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement",
-          "label": "Contract Authorization Flags",
-          "name": "ContractAuthFlags",
-          "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
-          "size": 2,
-          "type": "varbin"
-        },
-        {
           "description": "Satoshis required to be paid to the contract for each asset action.",
           "label": "Contract Fee",
           "name": "ContractFee",
@@ -947,6 +895,14 @@
           "label": "Voting Systems",
           "name": "VotingSystems",
           "type": "VotingSystem[]"
+        },
+        {
+          "description": "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement",
+          "label": "Contract Authorization Flags",
+          "name": "ContractAuthFlags",
+          "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
+          "size": 2,
+          "type": "varbin"
         },
         {
           "description": "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
@@ -1001,9 +957,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "C2",
+      "label": "Contract Formation",
       "metadata": {
-        "description": "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf.",
         "inputs": [
           {
             "comments": "The related contract address.",
@@ -1011,8 +966,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Contract Formation",
-        "name": "ContractFormation",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the contract for updates to contract/assets.",
@@ -1022,9 +975,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "ContractFormation"
     },
     {
+      "code": "C3",
+      "description": "The administration can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action.",
       "fields": [
         {
           "description": "Used to change the administration address.  The new administration address must be in the input[1] position. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action.",
@@ -1061,9 +1017,8 @@
           "type": "TxId"
         }
       ],
-      "id": "C3",
+      "label": "Contract Amendment",
       "metadata": {
-        "description": "The administration can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action.",
         "inputs": [
           {
             "comments": "This action can only come from the administration.",
@@ -1076,8 +1031,6 @@
             "name": "NewAdministration"
           }
         ],
-        "label": "Contract Amendment",
-        "name": "ContractAmendment",
         "outputs": [
           {
             "comments": "The related contract address.",
@@ -1087,9 +1040,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "ContractAmendment"
     },
     {
+      "code": "C4",
+      "description": "Static Contract Formation Action",
       "fields": [
         {
           "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public address. If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
@@ -1197,21 +1153,21 @@
           "type": "Entity[]"
         }
       ],
-      "id": "C4",
+      "label": "Static Contract Formation",
       "metadata": {
-        "description": "Static Contract Formation Action",
         "inputs": [
           {
             "comments": "Any number of involved parties with this contract.",
             "label": "Issuer or Party X Public Address",
             "name": "PartyX"
           }
-        ],
-        "label": "Static Contract Formation",
-        "name": "StaticContract Formation"
-      }
+        ]
+      },
+      "name": "StaticContractFormation"
     },
     {
+      "code": "C5",
+      "description": "This txn is signed by the master contract key defined in the contract formation and changes the active contract address which the contract uses to receive and respond to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.",
       "fields": [
         {
           "description": "The address to be used by all future requests/responses for the contract.",
@@ -1226,9 +1182,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "C5",
+      "label": "Contract Address Change",
       "metadata": {
-        "description": "This txn is signed by the master contract key defined in the contract formation and changes the active contract address which the contract uses to receive and respond to requests. This is a worst case scenario fallback to only be used when the contract private key is believed to be exposed.",
         "inputs": [
           {
             "comments": "The contract master address.",
@@ -1236,8 +1191,6 @@
             "name": "ContractMaster"
           }
         ],
-        "label": "Contract Address Change",
-        "name": "ContractAddressChange",
         "outputs": [
           {
             "comments": "Currently active, and soon to be deactivated, contract address.",
@@ -1250,9 +1203,12 @@
             "name": "NewContract"
           }
         ]
-      }
+      },
+      "name": "ContractAddressChange"
     },
     {
+      "code": "A1",
+      "description": "This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum). An asset is always linked to a contract that is identified by the public address of the Contract wallet.\n",
       "fields": [
         {
           "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
@@ -1340,9 +1296,8 @@
           "type": "varbin"
         }
       ],
-      "id": "A1",
+      "label": "Asset Definition",
       "metadata": {
-        "description": "This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum). An asset is always linked to a contract that is identified by the public address of the Contract wallet.\n",
         "inputs": [
           {
             "comments": "This action can only come from the administration.",
@@ -1350,8 +1305,6 @@
             "name": "Administration"
           }
         ],
-        "label": "Asset Definition",
-        "name": "AssetDefinition",
         "outputs": [
           {
             "comments": "The contract that this asset should be assigned to. Must include enough for the responding action.",
@@ -1361,9 +1314,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "AssetDefinition"
     },
     {
+      "code": "A2",
+      "description": "This action creates an asset in response to the administration's instructions in the Definition Action.",
       "fields": [
         {
           "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
@@ -1479,9 +1435,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "A2",
+      "label": "Asset Creation",
       "metadata": {
-        "description": "This action creates an asset in response to the administration's instructions in the Definition Action.",
         "inputs": [
           {
             "comments": "The contract that this asset was assigned to.",
@@ -1489,8 +1444,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Asset Creation",
-        "name": "AssetCreation",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the contract for updates to contract/assets.",
@@ -1500,9 +1453,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "AssetCreation"
     },
     {
+      "code": "A3",
+      "description": "Token Dilutions, Call Backs/Revocations, burning etc.",
       "fields": [
         {
           "description": "Three letter character that specifies the asset type.",
@@ -1541,9 +1497,8 @@
           "type": "TxId"
         }
       ],
-      "id": "A3",
+      "label": "Asset Modification",
       "metadata": {
-        "description": "Token Dilutions, Call Backs/Revocations, burning etc.",
         "inputs": [
           {
             "comments": "This action can only come from the administration.",
@@ -1551,8 +1506,6 @@
             "name": "Administration"
           }
         ],
-        "label": "Asset Modification",
-        "name": "AssetModification",
         "outputs": [
           {
             "comments": "The contract that this asset currently belongs to. Must include enough for the responding action.",
@@ -1562,9 +1515,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "AssetModification"
     },
     {
+      "code": "T1",
+      "description": "A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.",
       "fields": [
         {
           "description": "The Assets involved in the Transfer Action.",
@@ -1593,9 +1549,8 @@
           "type": "PublicKeyHash"
         }
       ],
-      "id": "T1",
+      "label": "Transfer",
       "metadata": {
-        "description": "A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.",
         "inputs": [
           {
             "comments": "Asset (token) Sending Public Address. Assets[i].AssetSenders[j].Index references these inputs.",
@@ -1603,8 +1558,6 @@
             "name": "AssetSenders"
           }
         ],
-        "label": "Transfer",
-        "name": "Transfer",
         "outputs": [
           {
             "comments": "Enough for the costs of the responding action, including any bitcoins being transfered, and the Contract Fee.",
@@ -1614,9 +1567,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "Transfer"
     },
     {
+      "code": "T2",
+      "description": "Settles the transfer request of bitcoins and tokens from transfer (T1) actions.",
       "fields": [
         {
           "description": "The Assets settled by the transfer action.",
@@ -1632,9 +1588,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "T2",
+      "label": "Settlement",
       "metadata": {
-        "description": "Settles the transfer request of bitcoins and tokens from transfer (T1) actions.",
         "inputs": [
           {
             "comments": "Contract (Asset X) in response to a transfer action with Asset X being sent to another address(es).",
@@ -1642,8 +1597,6 @@
             "name": "AssetXContract"
           }
         ],
-        "label": "Settlement",
-        "name": "Settlement",
         "outputs": [
           {
             "comments": "Address X that is being settled for Asset 1.",
@@ -1653,9 +1606,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "Settlement"
     },
     {
+      "code": "G1",
+      "description": "Allows the Administration/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners.",
       "fields": [
         {
           "description": "Who initiated the proposal. Supported values: 0 - Administration, 1 - Holder",
@@ -1751,9 +1707,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "G1",
+      "label": "Proposal",
       "metadata": {
-        "description": "Allows the Administration/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners.",
         "inputs": [
           {
             "comments": "The user making the proposal for this contract.",
@@ -1761,8 +1716,6 @@
             "name": "User"
           }
         ],
-        "label": "Proposal",
-        "name": "Proposal",
         "outputs": [
           {
             "comments": "Includes contract fee and holder proposal fee if applicable.",
@@ -1777,9 +1730,12 @@
         ],
         "rejection": "Rejection",
         "validation": "Contract/Asset Amendment or nothing"
-      }
+      },
+      "name": "Proposal"
     },
     {
+      "code": "G2",
+      "description": "A vote is created by the Contract in response to a valid Proposal Action.",
       "fields": [
         {
           "description": "Timestamp in nanoseconds of when the smart contract created the action.",
@@ -1789,9 +1745,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "G2",
+      "label": "Vote",
       "metadata": {
-        "description": "A vote is created by the Contract in response to a valid Proposal Action.",
         "inputs": [
           {
             "comments": "The contract that is performing this action.",
@@ -1799,8 +1754,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Vote",
-        "name": "Vote",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the contract for notifications of this action.",
@@ -1810,9 +1763,12 @@
         ],
         "rejection": "Rejection",
         "validation": "None"
-      }
+      },
+      "name": "Vote"
     },
     {
+      "code": "G3",
+      "description": "Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action.",
       "fields": [
         {
           "description": "Tx ID of the Vote the Ballot Cast is being made for.",
@@ -1829,9 +1785,8 @@
           "type": "varchar"
         }
       ],
-      "id": "G3",
+      "label": "Ballot Cast",
       "metadata": {
-        "description": "Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action.",
         "inputs": [
           {
             "comments": "The user casting the ballot for this contract.",
@@ -1839,8 +1794,7 @@
             "name": "User"
           }
         ],
-        "label": "Ballot Cast",
-        "name": "BallotCast",
+        "nvalidation": "BallotCounted",
         "outputs": [
           {
             "comments": "Funds ballot cast response.",
@@ -1848,11 +1802,13 @@
             "name": "Contract"
           }
         ],
-        "rejection": "Rejection",
-        "validation": "BallotCounted"
-      }
+        "rejection": "Rejection"
+      },
+      "name": "BallotCast"
     },
     {
+      "code": "G4",
+      "description": "The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.",
       "fields": [
         {
           "description": "Tx ID of the Vote the Ballot Cast is being made for.",
@@ -1883,9 +1839,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "G4",
+      "label": "Ballot Counted",
       "metadata": {
-        "description": "The smart contract will respond to a Ballot Cast action with a Ballot Counted action if the Ballot Cast is valid. If the Ballot Cast is not valid, then the smart contract will respond with a Rejection Action.",
         "inputs": [
           {
             "comments": "The contract that is performing this action.",
@@ -1893,8 +1848,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Ballot Counted",
-        "name": "BallotCounted",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the contract for notifications of this action.",
@@ -1904,9 +1857,12 @@
         ],
         "rejection": "Rejection",
         "validation": "None"
-      }
+      },
+      "name": "BallotCounted"
     },
     {
+      "code": "G5",
+      "description": "Once a vote has been completed the results are published. After the result is posted, it is up to the administration to send a contract/asset amendement if appropriate.",
       "fields": [
         {
           "description": "When true this proposal is specific to an asset and the asset type and asset code fields are serialized.",
@@ -1972,9 +1928,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "G5",
+      "label": "Result",
       "metadata": {
-        "description": "Once a vote has been completed the results are published. After the result is posted, it is up to the administration to send a contract/asset amendement if appropriate.",
         "inputs": [
           {
             "comments": "The contract that is performing this action.",
@@ -1982,8 +1937,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Result",
-        "name": "Result",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the contract for notifications of this action.",
@@ -1993,9 +1946,12 @@
         ],
         "rejection": "Rejection",
         "validation": "None"
-      }
+      },
+      "name": "Result"
     },
     {
+      "code": "E1",
+      "description": "Used by the administration to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled.",
       "fields": [
         {
           "description": "Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)",
@@ -2191,9 +2147,8 @@
           "type": "varchar"
         }
       ],
-      "id": "E1",
+      "label": "Order",
       "metadata": {
-        "description": "Used by the administration to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled.\n",
         "inputs": [
           {
             "comments": "This action can only come from the administration.",
@@ -2201,8 +2156,6 @@
             "name": "Administration"
           }
         ],
-        "label": "Order",
-        "name": "Order",
         "outputs": [
           {
             "comments": "Contract fee and funding for response transaction.",
@@ -2212,9 +2165,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "Order"
     },
     {
+      "code": "E2",
+      "description": "The contract responding to an Order action to freeze assets. To be used to comply with contractual/legal/issuer requirements. The target public address(es) will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The contract will not respond to any actions requested by the frozen address.\n",
       "fields": [
         {
           "description": "Three letter character that specifies the asset type.",
@@ -2252,9 +2208,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "E2",
+      "label": "Freeze",
       "metadata": {
-        "description": "The contract responding to an Order action to freeze assets. To be used to comply with contractual/legal/issuer requirements. The target public address(es) will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The contract will not respond to any actions requested by the frozen address.\n",
         "inputs": [
           {
             "comments": "The contract that is performing this action.",
@@ -2262,8 +2217,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Freeze",
-        "name": "Freeze",
         "outputs": [
           {
             "comments": "If Target Public Address is the Contract Address then the entire contract is frozen.  All request actions during the Freeze period will be ignored and rejected when the contract is thawed and rebuilds.",
@@ -2273,9 +2226,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "Freeze"
     },
     {
+      "code": "E3",
+      "description": "The contract responding to an Order action to thaw assets. To be used to comply with contractual obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.\n",
       "fields": [
         {
           "description": "The tx id of the freeze action that is being reversed.",
@@ -2291,9 +2247,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "E3",
+      "label": "Thaw",
       "metadata": {
-        "description": "The contract responding to an Order action to thaw assets. To be used to comply with contractual obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.\n",
         "inputs": [
           {
             "comments": "The contract that is performing this action.",
@@ -2301,8 +2256,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Thaw",
-        "name": "Thaw",
         "outputs": [
           {
             "comments": "Can be the Contract Address for a 'Contract-wide' Thaw in response to a Contract-wide Freeze.",
@@ -2312,9 +2265,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "Thaw"
     },
     {
+      "code": "E4",
+      "description": "The contract responding to an Order action to confiscate assets. To be used to comply with contractual obligations, legal and/or issuer requirements.\n",
       "fields": [
         {
           "description": "Three letter character that specifies the asset type.",
@@ -2354,9 +2310,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "E4",
+      "label": "Confiscation",
       "metadata": {
-        "description": "The contract responding to an Order action to confiscate assets. To be used to comply with contractual obligations, legal and/or issuer requirements.\n",
         "inputs": [
           {
             "comments": "The contract that is performing this action.",
@@ -2364,8 +2319,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Confiscation",
-        "name": "Confiscation",
         "outputs": [
           {
             "comments": "Can be the Contract Address for a 'Contract-wide' Confiscation.",
@@ -2380,9 +2333,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "Confiscation"
     },
     {
+      "code": "E5",
+      "description": "The contract responding to an Order action to reconcile assets. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.\n",
       "fields": [
         {
           "description": "Three letter character that specifies the asset type.",
@@ -2414,9 +2370,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "E5",
+      "label": "Reconciliation",
       "metadata": {
-        "description": "The contract responding to an Order action to reconcile assets. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.\n",
         "inputs": [
           {
             "comments": "The contract that is performing this action.",
@@ -2424,8 +2379,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Reconciliation",
-        "name": "Reconciliation",
         "outputs": [
           {
             "comments": "546 minimum.  If N bitcoin needs to be sent to the address, then this will be the output that receives the Bitcoin.",
@@ -2435,9 +2388,12 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "Reconciliation"
     },
     {
+      "code": "R1",
+      "description": "Establishes an on-chain register.",
       "fields": [
         {
           "description": "A custom message to include with this action.",
@@ -2448,9 +2404,8 @@
           "type": "varchar"
         }
       ],
-      "id": "R1",
+      "label": "Establishment",
       "metadata": {
-        "description": "Establishes an on-chain register.",
         "inputs": [
           {
             "comments": "The address of the associated register.",
@@ -2458,8 +2413,6 @@
             "name": "Register"
           }
         ],
-        "label": "Establishment",
-        "name": "Establishment",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the register for notifications of this action.",
@@ -2467,9 +2420,12 @@
             "name": "Register"
           }
         ]
-      }
+      },
+      "name": "Establishment"
     },
     {
+      "code": "R2",
+      "description": "Adds an entry to the Register.",
       "fields": [
         {
           "description": "A custom message to include with this action.",
@@ -2480,9 +2436,8 @@
           "type": "varchar"
         }
       ],
-      "id": "R2",
+      "label": "Addition",
       "metadata": {
-        "description": "Adds an entry to the Register.",
         "inputs": [
           {
             "comments": "The address of the associated register.",
@@ -2490,8 +2445,6 @@
             "name": "Register"
           }
         ],
-        "label": "Addition",
-        "name": "Addition",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the register for notifications of this action.",
@@ -2499,9 +2452,12 @@
             "name": "Register"
           }
         ]
-      }
+      },
+      "name": "Addition"
     },
     {
+      "code": "R3",
+      "description": "A register entry/record can be altered.",
       "fields": [
         {
           "description": "Transaction ID of the register entry to be altered.",
@@ -2518,9 +2474,8 @@
           "type": "varchar"
         }
       ],
-      "id": "R3",
+      "label": "Alteration",
       "metadata": {
-        "description": "A register entry/record can be altered.",
         "inputs": [
           {
             "comments": "The address of the associated register.",
@@ -2528,8 +2483,6 @@
             "name": "Register"
           }
         ],
-        "label": "Alteration",
-        "name": "Alteration",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the register for notifications of this action.",
@@ -2537,9 +2490,12 @@
             "name": "Register"
           }
         ]
-      }
+      },
+      "name": "Alteration"
     },
     {
+      "code": "R4",
+      "description": "Removes an entry/record from the Register.",
       "fields": [
         {
           "description": "Transaction ID of the register entry to be altered.",
@@ -2556,9 +2512,8 @@
           "type": "varchar"
         }
       ],
-      "id": "R4",
+      "label": "Removal",
       "metadata": {
-        "description": "Removes an entry/record from the Register.",
         "inputs": [
           {
             "comments": "The address of the associated register.",
@@ -2566,8 +2521,6 @@
             "name": "Register"
           }
         ],
-        "label": "Removal",
-        "name": "Removal",
         "outputs": [
           {
             "comments": "Required so that users can monitor transactions to the register for notifications of this action.",
@@ -2575,9 +2528,12 @@
             "name": "Register"
           }
         ]
-      }
+      },
+      "name": "Removal"
     },
     {
+      "code": "M1",
+      "description": "The message action is a general purpose communication action. 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken down by type for easy filtering in the a user's wallet. The Message Types are listed in the Message Types table.\n",
       "fields": [
         {
           "description": "Associates the message to a particular output by the index.",
@@ -2594,9 +2550,8 @@
           "type": "varbin"
         }
       ],
-      "id": "M1",
+      "label": "Message",
       "metadata": {
-        "description": "The message action is a general purpose communication action. 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken down by type for easy filtering in the a user's wallet. The Message Types are listed in the Message Types table.\n",
         "inputs": [
           {
             "comments": "The user sending the message.",
@@ -2604,8 +2559,6 @@
             "name": "MsgSender"
           }
         ],
-        "label": "Message",
-        "name": "Message",
         "outputs": [
           {
             "comments": "The recipient's address for the message, supplied by the sender.",
@@ -2613,9 +2566,12 @@
             "name": "MsgReceiverX"
           }
         ]
-      }
+      },
+      "name": "Message"
     },
     {
+      "code": "M2",
+      "description": "Used to reject request actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Administration/User request Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond.",
       "fields": [
         {
           "description": "Associates the message to a particular output by the index.",
@@ -2653,9 +2609,8 @@
           "type": "Timestamp"
         }
       ],
-      "id": "M2",
+      "label": "Rejection",
       "metadata": {
-        "description": "Used to reject request actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Administration/User request Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond.",
         "inputs": [
           {
             "comments": "The contract that is performing this action.",
@@ -2663,8 +2618,6 @@
             "name": "Contract"
           }
         ],
-        "label": "Rejection",
-        "name": "Rejection",
         "outputs": [
           {
             "comments": "The affected user or contract's publid addresses. Refunds all money provided in the request action, less fees",
@@ -2674,10 +2627,11 @@
         ],
         "rejection": "Rejection",
         "validation": "AssetCreation"
-      }
+      },
+      "name": "Rejection"
     }
   ],
   "name": "Tokenized Protocol",
-  "template": "default",
+  "package": "actions",
   "version": 1
 }
