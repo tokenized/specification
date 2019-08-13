@@ -2,26 +2,31 @@
   "fieldAliases": [
     {
       "name": "Role",
+      "resource": "Roles",
       "size": 8,
       "type": "uint"
     },
     {
       "name": "EntityType",
+      "resource": "Entities",
       "size": 1,
       "type": "fixedchar"
     },
     {
       "name": "Polity",
+      "resource": "Polities",
       "size": 3,
       "type": "fixedchar"
     },
     {
       "name": "RejectionCode",
+      "resource": "Rejections",
       "size": 8,
       "type": "uint"
     },
     {
       "name": "Tag",
+      "resource": "Tags",
       "size": 8,
       "type": "uint"
     },
@@ -2633,5 +2638,12 @@
   ],
   "name": "Tokenized Protocol",
   "package": "actions",
+  "resources": [
+    "../../resources/develop/Entities",
+    "../../resources/develop/Polities",
+    "../../resources/develop/Roles",
+    "../../resources/develop/Rejections",
+    "../../resources/develop/Tags"
+  ],
   "version": 1
 }

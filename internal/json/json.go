@@ -14,7 +14,7 @@ import (
 
 // Compile converts a codec schema from YAML to JSON in raw format
 func Compile(
-	distPath string,
+	srcPath, distPath string,
 	actions parser2.Schema,
 	assets parser2.Schema,
 	messages parser2.Schema,

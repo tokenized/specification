@@ -2,9 +2,7 @@ package parser2
 
 import (
 	"fmt"
-	"html/template"
 	"os"
-	"path"
 	"path/filepath"
 
 	"github.com/pkg/errors"
@@ -32,7 +30,17 @@ func NewSchema(path string) (*Schema, error) {
 	}
 	result.Messages = messages
 
-	// 3. Schema Field Types
+	// 3. Schema Resources
+	var resources []Resource
+	for _, spath := range result.ResourcePaths {
+		resourceFilePath := filepath.Join(path, spath+".yaml")
+		var resource Resource
+		unmarshalFile(resourceFilePath, &resource)
+		resources = append(resources, resource)
+	}
+	result.Resources = resources
+
+	// 4. Schema Field Types
 	var fieldTypes []FieldType
 	for _, spath := range result.FieldTypePaths {
 		typeFilePath := filepath.Join(path, spath+".yaml")
@@ -80,20 +88,4 @@ func unmarshalFile(filename string, v interface{}) error {
 	}
 
 	return nil
-}
-
-// TemplateToFile renders a template to a file
-func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
-	f, err := os.Create(outFile)
-	if err != nil {
-		panic(err)
-	}
-
-	tmplFuncs := MakeTemplateFuncs()
-
-	tmpl := template.Must(template.New(path.Base(inFile)).Funcs(tmplFuncs).ParseFiles(inFile))
-
-	if err := tmpl.Execute(f, data); err != nil {
-		panic(err)
-	}
 }

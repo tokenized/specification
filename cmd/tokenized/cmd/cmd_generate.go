@@ -52,28 +52,13 @@ var cmdGenerate = &cobra.Command{
 		}
 
 		// --------------------------------------------------------------------
-		// Prepare Values
-
-		// fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/types")))
-
-		// actions := parser.NewProtocolActions(fieldTypes, parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/actions")))
-
-		// assets := parser.NewAssets(parser.FetchFiles(srcPath, "assets", "develop"))
-
-		// messages := parser.NewProtocolMessages(fieldTypes, parser.FetchFiles(srcPath, "messages", "develop"))
-
-		// resources := parser.NewProtocolResources(parser.FetchFiles(srcPath, "resources", "develop"))
-
-		// rejectionCodes := parser.NewProtocolRejectionCodes(filepath.FromSlash(srcPath + "/resources/develop/Rejections.yaml"))
-
-		// --------------------------------------------------------------------
 		// Compile Languages
 
 		// golang.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
-		json.Compile(distPath, *actions, *assets, *messages)
+		json.Compile(srcPath, distPath, *actions, *assets, *messages)
 
-		markdown.Compile(distPath, *actions, *assets, *messages)
+		markdown.Compile(srcPath, distPath, *actions, *assets, *messages)
 
 		// python.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
 
