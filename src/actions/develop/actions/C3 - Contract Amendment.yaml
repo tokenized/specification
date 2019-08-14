@@ -1,0 +1,56 @@
+#
+# Contract Amendment Action: the administration can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action.
+#
+
+code: C3
+name: ContractAmendment
+label: Contract Amendment
+description: "The administration can initiate an amendment to the contract establishment metadata. The ability to make an amendment to the contract is restricted by the Authorization Flag set on the current revision of Contract Formation action."
+
+metadata:
+  validation: AssetCreation
+  rejection: Rejection
+
+  inputs:
+    - name: Administration
+      label: "Administration's Public Address"
+      comments: "This action can only come from the administration."
+
+    - name: NewAdministration
+      label: New Administration Public Address
+      comments: "Only treated as the new administration address when the Change Administration Address flag is set to true."
+
+  outputs:
+    - name: Contract
+      label: Contract Public Address
+      comments: "The related contract address."
+
+fields:
+  - name: ChangeAdministrationAddress
+    label: Change Administration Address
+    description: "Used to change the administration address.  The new administration address must be in the input[1] position. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action."
+    type: bool
+    example: 1
+
+  - name: ChangeOperatorAddress
+    label: Change Operator Address
+    description: "Used to change the smart contract operator address.  The new operator address must be in the input[1] position, unless the administration is being changed too, then it is in input[2]. A change of the administration or operator address requires both the operator and the administration address to be in the inputs (both signatures) of the Contract Amendment action."
+    type: bool
+    example: 1
+
+  - name: ContractRevision
+    label: Contract Revision
+    description: "Counter 0 to (2^32)-1"
+    type: uint
+    size: 4
+    example: 42
+
+  - name: Amendments
+    label: Amendments
+    type: Amendment[]
+    description: A collection of modifications to perform on this contract.
+
+  - name: RefTxID
+    label: Ref Tx ID
+    description: "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details."
+    type: TxId

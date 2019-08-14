@@ -1,0 +1,34 @@
+#
+# Settlement Action: Settles the transfer request of bitcoins and tokens from transfer (T1) actions.
+#
+
+code: T2
+name: Settlement
+label: Settlement
+description: "Settles the transfer request of bitcoins and tokens from transfer (T1) actions."
+
+metadata:
+  validation: AssetCreation
+  rejection: Rejection
+
+  inputs:
+    - name: AssetXContract
+      label: Contract Public Address (Asset X)
+      comments: Contract (Asset X) in response to a transfer action with Asset X being sent to another address(es).
+
+  outputs:
+    - name: AssetXSettlementAddressX
+      label: "Asset 1 Settlement Address X"
+      comments: Address X that is being settled for Asset 1.
+
+fields:
+  - name: Assets
+    label: Assets
+    description: "The Assets settled by the transfer action."
+    type: AssetSettlement[]
+
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds of when the smart contract created the action."
+    type: Timestamp
+    notes: "Cannot be changed by the administration, operator. Smart contract controls."

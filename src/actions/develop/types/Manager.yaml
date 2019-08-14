@@ -1,0 +1,19 @@
+
+name: Manager
+label: Manager
+description: "Manager is used to refer to a role that is responsible for the Management of an Entity."
+
+fields:
+  - name: Type
+    label: Manager Type
+    description: "CEO, COO, CFO, etc. Found in 'Roles' in Specification/Resources"
+    type: Role
+    example: "5"
+
+  - name: Name
+    label: Manager Name
+    description: "Length 0-255 bytes. 0 is valid."
+    type: varchar
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
+    example: "Satoshi Nakamoto"

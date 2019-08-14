@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package messages;
+
+// Action - Public Message (0002)
+message PublicMessageAction {
+    uint64 Timestamp                               = 1;   // Timestamp
+    string Subject                                 = 2;   // varchar
+    OutputField Regarding                          = 3;   // Output
+    DocumentField PublicMessage                    = 4;   // Document
+    repeated DocumentField Attachments             = 5;   // Document[]
+}
+
+// Action - Private Message (0003)
+message PrivateMessageAction {
+    uint64 Timestamp                               = 1;   // Timestamp
+    string Subject                                 = 2;   // varchar
+    OutputField Regarding                          = 3;   // Output
+    DocumentField PrivateMessage                   = 4;   // Document
+    repeated DocumentField Attachments             = 5;   // Document[]
+}
+
+// Action - Reverted Tx (0004)
+message RevertedTxAction {
+    uint64 Timestamp                               = 1;   // Timestamp
+    bytes Transaction                              = 2;   // varbin
+}
+
+// Action - Offer (1001)
+message OfferAction {
+    uint64 Timestamp                               = 1;   // Timestamp
+    bytes Payload                                  = 2;   // varbin
+}
+
+// Action - Signature Request (1002)
+message SignatureRequestAction {
+    uint64 Timestamp                               = 1;   // Timestamp
+    bytes Payload                                  = 2;   // varbin
+}
+
+// Action - Settlement Request (1003)
+message SettlementRequestAction {
+    uint64 Timestamp                               = 1;   // Timestamp
+    bytes TransferTxId                             = 2;   // TxId
+    repeated TargetAddressField ContractFees       = 3;   // TargetAddress[]
+    bytes Settlement                               = 4;   // varbin
+}
+
+// Action - Output Metadata (1004)
+message OutputMetadataAction {
+    string OutputDescription                       = 1;   // varchar
+    repeated uint64 Tags                           = 2;   // Tag[]
+    repeated OutputTagField CustomTags             = 3;   // OutputTag[]
+}
+
+
+// Field - Output
+message OutputField {
+    bytes TxId                                     = 1;   // TxId
+    uint32 OutputIndex                             = 2;   // uint
+}
+
+// Field - Output Tag
+message OutputTagField {
+    string Tag                                     = 1;   // varchar
+}
+
+// Field - Document
+message DocumentField {
+    string Name                                    = 1;   // varchar
+    string Type                                    = 2;   // varchar
+    bytes Contents                                 = 3;   // varbin
+}
+
+// Field - Target Address
+message TargetAddressField {
+    bytes Address                                  = 1;   // PublicKeyHash
+    uint64 Quantity                                = 2;   // uint
+}
+

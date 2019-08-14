@@ -1,10 +1,12 @@
-{{$actions := . -}}
+{{$actions := .Messages -}}
+{{$fieldTypes := .FieldTypes -}}
 
 # Protocol Actions
 
 - [Introduction](#introduction)
 - [Header Fields](#header-fields)
 - [Available Actions](#all-actions)
+- [Field Types](#field-types)
 
 <a name="introduction"></a>
 ## Introduction
@@ -49,21 +51,21 @@ Every protocol action is prepended with a header that specifies the necessary de
 
 <div class="content-list collection-method-list" markdown="1">
 {{- range $actions }}
-- [{{.Metadata.Label}}](#{{.URLCode}})
+- [{{.Label}}](#action-{{kebabcase .Name}})
 {{- end }}
 </div>
 
 {{- range $actions}}
 
-<a name="{{.URLCode}}"></a>
-#### {{.Metadata.Label}}
+<a name="action-{{kebabcase .Name}}"></a>
+#### {{.Label}}
 
-{{.Metadata.Description}}
+{{.Description}}
 
 <table>
     <tr>
         <th style="width:15%">Action Code</th>
-        <td>{{ .Code }}</td>
+        <td>{{.Code}}</td>
     </tr>
 </table>
 
@@ -75,46 +77,46 @@ Every protocol action is prepended with a header that specifies the necessary de
         <th>Description</th>
     </tr>
     {{- range .Fields}}
-    <tr>
-        <td>{{.Name}}</td>
-        <td>
-        {{- if .IsArrayType }}
-          {{- if .IsResource }}
-            <a href="resources#{{.TypeURLCode}}">{{.SingularDisplayType}}[{{.Length}}]</a>
-          {{- else if .IsComplexType }}
-            <a href="field-types#{{.TypeURLCode}}">{{.SingularDisplayType}}[{{.Length}}]</a>
-          {{- else}}
-            {{.SingularDisplayType}}[{{.Length}}]
-          {{- end}}
-        {{- else}}
-          {{- if .IsResource }}
-            <a href="resources#{{.TypeURLCode}}">{{.Type}}</a>{{ if ne .Length 0 }}({{.Length}}){{ end }}
-          {{- else if .IsComplexType }}
-            <a href="field-types#{{.TypeURLCode}}">{{.Type}}</a>{{ if ne .Length 0 }}({{.Length}}){{ end }}
-          {{- else}}
-            {{.Type}}{{ if ne .Length 0 }}({{.Length}}){{ end }}
-          {{- end}}
-        {{- end}}
-        </td>
-        <td>
-            {{.Description}}
-            {{.Notes}}
-            {{- if .Example }} Example: {{.Example}}{{ end }}
-        </td>
-    </tr>
+        <tr>
+            <td>{{.Name}}</td>
+            <td>
+            {{- if .IsList }}
+              {{- if .IsAlias }}
+                <a href="#alias-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+              {{- else if .IsCompoundType }}
+                <a href="#type-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+              {{- else}}
+                {{.BaseType}}[{{.Size}}]
+              {{- end}}
+            {{- else}}
+              {{- if .IsAlias }}
+                <a href="#alias-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- else if .IsCompoundType }}
+                <a href="#type-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- else}}
+                {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- end}}
+            {{- end}}
+            </td>
+            <td>
+                {{.Description}}
+                {{.Notes}}
+                {{- if .Example }} Example: {{.Example}}{{ end }}
+            </td>
+        </tr>
     {{- end}}
 </table>
 
 ##### Transaction Summary
 
-{{if .Rules.Inputs}}
+{{if .MetaData.Inputs}}
 <table>
    <tr>
         <th style="width:5%" class="text-center">Index</th>
         <th style="width:30%">Input</th>
         <th>Description</th>
    </tr>
-    {{- range $index, $val := .Rules.Inputs}}
+    {{- range $index, $val := .MetaData.Inputs}}
    <tr>
         <td class="text-center">{{$index}}</td>
         <td>{{$val.Label}}</td>
@@ -124,14 +126,14 @@ Every protocol action is prepended with a header that specifies the necessary de
 </table>
 {{end}}
 
-{{if .Rules.Outputs}}
+{{if .MetaData.Outputs}}
 <table>
    <tr>
         <th style="width:5%" class="text-center">Index</th>
         <th style="width:30%">Output</th>
         <th>Description</th>
    </tr>
-    {{- range $index, $val := .Rules.Outputs}}
+    {{- range $index, $val := .MetaData.Outputs}}
    <tr>
         <td class="text-center">{{$index}}</td>
         <td>{{$val.Label}}</td>
@@ -141,10 +143,63 @@ Every protocol action is prepended with a header that specifies the necessary de
 </table>
 {{end}}
 
-{{- if ne .Rules.Fee 0 }}
-> **Note**: This action requires a Smart Contract Operator Fee of at least <strong>{{.Rules.Fee}} satoshis</strong>
-{{- end }}
-
 <hr />
+
+{{end}}
+
+
+
+<a name="field-types"></a>
+## Field Types
+
+<div class="content-list collection-method-list" markdown="1">
+{{- range $fieldTypes }}
+- [{{.Label}}](#type-{{kebabcase .Name}})
+{{- end }}
+</div>
+
+{{range $fieldTypes}}
+
+<a name="type-{{kebabcase .Name}}"></a>
+### {{.Label}}
+
+{{.Description}}
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    {{- range .Fields}}
+        <tr>
+            <td>{{.Name}}</td>
+            <td>
+            {{- if .IsList }}
+              {{- if .IsAlias }}
+                <a href="#alias-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+              {{- else if .IsCompoundType }}
+                <a href="#type-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+              {{- else}}
+                {{.BaseType}}[{{.Size}}]
+              {{- end}}
+            {{- else}}
+              {{- if .IsAlias }}
+                <a href="#alias-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- else if .IsCompoundType }}
+                <a href="#type-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- else}}
+                {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- end}}
+            {{- end}}
+            </td>
+            <td>
+                {{.Description}}
+                {{.Notes}}
+                {{- if .Example }} Example: {{.Example}}{{ end }}
+            </td>
+        </tr>
+    {{- end}}
+</table>
 
 {{end}}

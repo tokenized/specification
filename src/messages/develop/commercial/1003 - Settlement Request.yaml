@@ -1,0 +1,31 @@
+#
+# Settlement Request Message: A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added.
+#
+
+code: 1003
+name: SettlementRequest
+label: Settlement Request
+description: "A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added."
+
+fields:
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds for when the message sender creates the transaction."
+    type: Timestamp
+
+  - name: TransferTxId
+    label: Transfer Tx Id
+    description: "Tx Id of the transfer request transaction that triggered this message."
+    type: TxId
+
+  - name: ContractFees
+    label: Contract Fees
+    description: "Contract fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added."
+    type: TargetAddress[]
+    size: 1
+
+  - name: Settlement
+    label: Settlement
+    description: "Serialized settlement OP_RETURN that needs data added by another contract."
+    type: varbin
+    size: 4

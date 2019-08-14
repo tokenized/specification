@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package assets;
+
+// Action - Membership (MEM)
+message MembershipAction {
+    AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
+    uint64 ValidFrom                               = 2;   // Timestamp
+    uint64 ExpirationTimestamp                     = 3;   // Timestamp
+    string ID                                      = 4;   // varchar
+    string MembershipClass                         = 5;   // varchar
+    string RoleType                                = 6;   // varchar
+    string MembershipType                          = 7;   // varchar
+    string Description                             = 8;   // varchar
+}
+
+// Action - Currency (CUR)
+message CurrencyAction {
+    string ISOCode                                 = 1;   // CurrencyType
+    string MonetaryAuthority                       = 2;   // varchar
+    string Description                             = 3;   // varchar
+}
+
+// Action - Share - Common (SHC)
+message ShareCommonAction {
+    uint64 TransferLockout                         = 1;   // Timestamp
+    string Ticker                                  = 2;   // fixedchar
+    string ISIN                                    = 3;   // fixedchar
+    string Description                             = 4;   // varchar
+}
+
+// Action - Coupon (COU)
+message CouponAction {
+    string RedeemingEntity                         = 1;   // varchar
+    uint64 IssueDate                               = 2;   // Timestamp
+    uint64 ExpiryDate                              = 3;   // Timestamp
+    uint64 Value                                   = 4;   // uint
+    string Currency                                = 5;   // CurrencyType
+    string Description                             = 6;   // varchar
+}
+
+// Action - Loyalty Points (LOY)
+message LoyaltyPointsAction {
+    AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
+    string OfferName                               = 2;   // varchar
+    uint64 ValidFrom                               = 3;   // Timestamp
+    uint64 ExpirationTimestamp                     = 4;   // Timestamp
+    string Description                             = 5;   // varchar
+}
+
+// Action - Ticket (Admission) (TIC)
+message TicketAdmissionAction {
+    AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
+    string AdmissionType                           = 2;   // fixedchar
+    string Venue                                   = 3;   // varchar
+    string Class                                   = 4;   // varchar
+    string Area                                    = 5;   // varchar
+    string Seat                                    = 6;   // varchar
+    uint64 StartTimeDate                           = 7;   // Timestamp
+    uint64 ValidFrom                               = 8;   // Timestamp
+    uint64 ExpirationTimestamp                     = 9;   // Timestamp
+    string Description                             = 10;   // varchar
+}
+
+
+// Field - Age Restriction
+message AgeRestrictionField {
+    uint32 Lower                                   = 1;   // uint
+    uint32 Upper                                   = 2;   // uint
+}
+

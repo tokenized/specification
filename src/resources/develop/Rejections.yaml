@@ -1,7 +1,9 @@
+
+name: Rejections
+description: "Code/Text combinations returned in rejection messages when a request is not accepted."
+
 metadata:
-  name: Rejections
-  description: "Code/Text combinations returned in rejection messages when a request is not accepted."
-  type: RejectionCode
+    type: RejectionCode
 
 #################################### Basic ####################################
 values:

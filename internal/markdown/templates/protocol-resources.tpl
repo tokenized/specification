@@ -15,19 +15,19 @@ Resources are used to define lists of values, like the definitions of the possib
 
 <div class="content-list collection-method-list" markdown="1">
 {{- range $resourceTypes }}
-- [{{.Metadata.Name}}](#{{.URLCode}})
+- [{{.Name}}](#resource-{{kebabcase .Name}})
 {{- end }}
 </div>
 
 
 {{- range $resourceTypes}}
 
-<a name="{{.URLCode}}"></a>
-#### {{.Metadata.Name}}
+<a name="resource-{{kebabcase .Name}}"></a>
+#### {{.Name}}
 
-{{.Metadata.Description}}
+{{.Description}}
 
-[View Source File](https://github.com/tokenized/specification/blob/master/src/resources/develop/{{.Metadata.Name}}.yaml)
+[View Source File](https://github.com/tokenized/specification/blob/master/src/resources/develop/{{.Name}}.yaml)
 
 <div class="content-list collection-method-list" markdown="1">
 {{- range .Values}}

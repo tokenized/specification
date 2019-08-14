@@ -1,0 +1,18 @@
+
+name: AgeRestriction
+label: Age Restriction
+description: "Age restriction is used to specify required ages for asset ownership."
+
+fields:
+
+  - name: Lower
+    label: Lower Age Limit
+    description: "The lowest age valid to own asset. Zero for no restriction."
+    type: uint
+    size: 1
+
+  - name: Upper
+    label: Upper Age Limit
+    description: "The highest age valid to own asset. Zero for no restriction."
+    type: uint
+    size: 1

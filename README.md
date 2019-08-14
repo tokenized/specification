@@ -72,9 +72,9 @@ To read an OP_RETURN script, pass the script into the Deserialize function and i
 
 * `varbin` is variable length binary data.
 The data is preceded by an integer that specifies the actual length in bytes.
-`size` is the number of bits used to serialize the length in bytes of the data.
-Valid values for `size` are 8, 16, 32, and 64.
-For example, a `varbin` value with a `size` of 8 will be able to contain up to 255 bytes and will be preceded by a 1 byte unsigned integer specifying the length in bytes.
+`size` is the number of bytes used to serialize the length in bytes of the data.
+Valid values for `size` are 1, 2, 4, and 8.
+For example, a `varbin` value with a `size` of 1 will be able to contain up to 255 bytes and will be preceded by a 1 byte unsigned integer specifying the length in bytes.
 
 * `fixedchar` is fixed length text data.
 The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
@@ -83,9 +83,9 @@ The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BO
 * `varchar` is variable length text data.
 The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
 The data is preceded by an integer that specifies the actual length in bytes.
-`size` is the number of bits used to serialize the length in bytes of the data.
-Valid values for `size` are 8, 16, 32, and 64.
-For example, a `varchar` value with a `size` of 8 will be able to contain up to 255 bytes and will be preceded by a 1 byte unsigned integer specifying the length in bytes.
+`size` is the number of bytes used to serialize the length in bytes of the data.
+Valid values for `size` are 1, 2, 4, and 8.
+For example, a `varchar` value with a `size` of 1 will be able to contain up to 255 bytes and will be preceded by a 1 byte unsigned integer specifying the length in bytes.
 
 
 ### Basic Types
@@ -121,8 +121,8 @@ Public key hashes are used as an "address" to send/receive transactions, tokens,
 
 Arrays/Lists of objects are defined by adding `[]` at the end of the type field.
 Arrays/Lists are variable length and have an unsigned integer encoded before the objects to specify the number of items.
-`size` for lists represents the bits used to serialize the number of items in the list. Valid values are 8, 16, 32, and 64.
-The default, when size is not specified, is 8. A size of 8 means the list can contain a maximum 255 objects.
+`size` for lists represents the bits used to serialize the number of items in the list. Valid values are 1, 2, 4, and 8.
+The default, when size is not specified, is 1. A size of 1 means the list can contain a maximum 255 objects.
 
 ### Actions
 

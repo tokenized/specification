@@ -1,0 +1,103 @@
+#
+# TIC - Admission Ticket
+#
+
+code: TIC
+name: TicketAdmission
+label: Ticket (Admission)
+description: Admission ticket
+
+metadata:
+  kind: Utility
+  category: Ticket
+  examples:
+    - Freddie Mercury Concert
+    - Bitcoin Conference
+    - Zoo Park Entry
+
+fields:
+  - name: AgeRestriction
+    label: Age Restriction
+    type: AgeRestriction
+    description: "Age restriction is used to specify required ages for asset ownership."
+
+  - name: AdmissionType
+    label: Admission Type
+    type: fixedchar
+    size: 3
+    example: MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition
+    span: left
+    displayOrder: 2
+    default: now
+
+  - name: Venue
+    label: Venue
+    type: varchar
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
+    example: Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1
+    span: left
+    displayOrder: 2
+    default: now
+
+  - name: Class
+    label: Class
+    type: varchar
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
+    example: Gold Class, Platinum, VIP, Section A, etc.
+    span: left
+    displayOrder: 2
+    default: now
+
+  - name: Area
+    label: Area
+    type: varchar
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
+    example: Upper Bowl
+    span: left
+    displayOrder: 2
+    default: now
+
+  - name: Seat
+    label: Seat
+    type: varchar
+    # varchar size is number of bytes to serialize the size of the value
+    size: 1
+    example: Sec 1, Row 3, Seat 5, or A122
+    span: left
+    displayOrder: 2
+    default: now
+
+  - name: StartTimeDate
+    label: Start Time and Date
+    type: Timestamp
+    example: Mon Nov 05 2018 09:00:00 GMT+1000 (AEST)
+    span: left
+    displayOrder: 2
+    default: now
+
+  - name: ValidFrom
+    label: Valid From
+    type: Timestamp
+    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 3
+
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
+    type: Timestamp
+    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    span: right
+    displayOrder: 3
+
+  - name: Description
+    label: Description
+    type: varchar
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
+    example: Coingeek Conference - London (November 2018).
+    span: full
+    displayOrder: 1
+    required: true

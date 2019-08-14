@@ -2,119 +2,91 @@ package parser
 
 import (
 	"fmt"
-	"html"
-	"math"
 	"os"
-	"path"
 	"path/filepath"
-	"regexp"
-	"strings"
-	"text/template"
+
+	"github.com/pkg/errors"
+	"gopkg.in/yaml.v2"
 )
 
-var (
-	matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
-	matchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
-)
+// NewSchema creates a Schema from a directory.
+func NewSchema(path string) (*Schema, error) {
 
-func FetchFiles(srcPath, packageName, version string) []string {
-
-	dir := filepath.FromSlash(srcPath + "/" + packageName + "/" + version)
-	filenames := []string{}
-
-	fn := func(path string, fileInfo os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		if !strings.HasSuffix(path, ".yaml") {
-			return nil
-		}
-
-		// Do not go in to sub directories
-		if filepath.Dir(path) != dir {
-			return nil
-		}
-
-		filenames = append(filenames, path)
-
-		return nil
+	// 1. Resulting Schema
+	schemaFilePath := filepath.Join(path, "schema.yaml")
+	var result Schema
+	if err := unmarshalFile(schemaFilePath, &result); err != nil {
+		return nil, err
 	}
 
-	if err := filepath.Walk(dir, fn); err != nil {
-		panic(err)
+	// 2. Schema Messages
+	var messages []Message
+	for _, spath := range result.MessagePaths {
+		messageFilePath := filepath.Join(path, spath+".yaml")
+		var message Message
+		unmarshalFile(messageFilePath, &message)
+		postProcessFields(message.Fields, result.FieldAliases)
+		messages = append(messages, message)
 	}
+	result.Messages = messages
 
-	return filenames
+	// 3. Schema Resources
+	var resources []Resource
+	for _, spath := range result.ResourcePaths {
+		resourceFilePath := filepath.Join(path, spath+".yaml")
+		var resource Resource
+		unmarshalFile(resourceFilePath, &resource)
+		resources = append(resources, resource)
+	}
+	result.Resources = resources
+
+	// 4. Schema Field Types
+	var fieldTypes []FieldType
+	for _, spath := range result.FieldTypePaths {
+		typeFilePath := filepath.Join(path, spath+".yaml")
+		var fieldType FieldType
+		unmarshalFile(typeFilePath, &fieldType)
+		postProcessFields(fieldType.Fields, result.FieldAliases)
+		fieldTypes = append(fieldTypes, fieldType)
+	}
+	result.FieldTypes = fieldTypes
+
+	return &result, nil
 }
 
-func reformat(s string, prefix string) string {
-	parts := strings.Split(s, " ")
-
-	lines := []string{}
-
-	line := prefix
-
-	for _, p := range parts {
-		if len(p) == 0 {
-			continue
+// postProcessFields applies defaults, attaches alias information and detects compound fields.
+func postProcessFields(fields []Field, aliases []Field) {
+	for i, field := range fields {
+		if field.IsList() && field.Size == 0 {
+			fields[i].Size = 1
 		}
-
-		if len(line)+len(p) > 74 {
-			// line length exceeded. Add the line to our lines
-			lines = append(lines, line)
-
-			// start a new line
-			line = prefix
+		for _, alias := range aliases {
+			baseType := field.BaseType()
+			if alias.Name == baseType {
+				fields[i].IsAlias = true
+				fields[i].AliasField = &alias
+				break
+			}
 		}
-
-		// append the word to the line
-		line = fmt.Sprintf("%v %v", line, p)
+		if !field.IsPrimitive() {
+			fields[i].IsCompoundType = true
+		}
 	}
-
-	// make sure to append any remaining non-empty line
-	if line != prefix {
-		lines = append(lines, line)
-	}
-
-	return strings.TrimSpace(strings.Join(lines, "\n"))
 }
 
-func SnakeCase(str string) string {
-	result := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
-	result = matchAllCap.ReplaceAllString(result, "${1}_${2}")
-	return strings.ToLower(result)
-}
-
-func KebabCase(str string) string {
-	result := matchFirstCap.ReplaceAllString(str, "${1}-${2}")
-	result = matchAllCap.ReplaceAllString(result, "${1}-${2}")
-	return strings.ToLower(result)
-}
-
-func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
-	f, err := os.Create(outFile)
+// unmarshalFile
+func unmarshalFile(filename string, v interface{}) error {
+	file, err := os.Open(filename)
 	if err != nil {
-		panic(err)
+		return errors.Wrap(err, fmt.Sprintf("Failed to open file %s", filename))
 	}
 
-	tmplFuncs := template.FuncMap{
-		"minus": func(a, b int) int {
-			return a - b
-		},
-		"padding": func(str string, size int) string {
-			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
-		},
-		"comment": func(str, chr string) string {
-			return reformat(html.UnescapeString(str), chr)
-		},
-		"snakecase": func(str string) string {
-			return SnakeCase(str)
-		},
+	// Decode message from yaml
+	decoder := yaml.NewDecoder(file)
+
+	if err := decoder.Decode(v); err != nil {
+		return errors.Wrap(err, fmt.Sprintf("Failed to yaml unmarshal file %s", filename))
 	}
 
-	tmpl := template.Must(template.New(path.Base(inFile)).Funcs(tmplFuncs).ParseFiles(inFile))
-	if err := tmpl.Execute(f, data); err != nil {
-		panic(err)
-	}
+	return nil
 }

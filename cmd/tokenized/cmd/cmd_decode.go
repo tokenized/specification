@@ -1,11 +1,6 @@
 package cmd
 
 import (
-	"encoding/hex"
-	"fmt"
-
-	"github.com/tokenized/specification/dist/golang/protocol"
-
 	"github.com/spf13/cobra"
 )
 
@@ -14,37 +9,37 @@ var cmdDecode = &cobra.Command{
 	Short: "Decode a message",
 	Args:  cobra.MinimumNArgs(1),
 	RunE: func(c *cobra.Command, args []string) error {
+		/*
+			raw := args[0]
 
-		raw := args[0]
+			testMode, _ := c.Flags().GetBool(FlagTestMode)
 
-		testMode, _ := c.Flags().GetBool(FlagTestMode)
+			if testMode {
+				fmt.Println("Test mode enabled!")
+			}
 
-		if testMode {
-			fmt.Println("Test mode enabled!")
-		}
+			b, err := hex.DecodeString(raw)
+			if err != nil {
+				panic(err)
+			}
 
-		b, err := hex.DecodeString(raw)
-		if err != nil {
-			panic(err)
-		}
+			m, err := protocol.Deserialize(b, testMode)
+			if err != nil {
+				panic(err)
+			}
 
-		m, err := protocol.Deserialize(b, testMode)
-		if err != nil {
-			panic(err)
-		}
+			fmt.Printf("message (string)\n%#s\n\n", m)
+			fmt.Printf("message (struct)\n%#+v\n\n", m)
 
-		fmt.Printf("message (string)\n%#s\n\n", m)
-		fmt.Printf("message (struct)\n%#+v\n\n", m)
+			// TODO: Asset payloads
 
-		// TODO: Asset payloads
+			// p := m.Type()
+			// if err != nil {
+			// 	panic(err)
+			// }
 
-		// p := m.Type()
-		// if err != nil {
-		// 	panic(err)
-		// }
-
-		// fmt.Printf("payload (struct)\n%#+v\n", p)
-
+			// fmt.Printf("payload (struct)\n%#+v\n", p)
+		*/
 		return nil
 	},
 }

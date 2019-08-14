@@ -1,0 +1,52 @@
+#
+# SHC - Security
+#
+
+code: SHC
+name: ShareCommon
+label: Share - Common
+description: Common stock represents ownership interests in companies.
+
+metadata:
+  kind: Security
+  category: Equity Security
+  examples:
+    - Tesla Shareholders Agreement
+    - Bitmain Shareholder Agreement
+    - Antpool Investment Agreement
+
+fields:
+  - name: TransferLockout
+    label: TransferLockout
+    type: Timestamp
+    description: A period of time where the asset is unable to be transferred.  After the transfer lockout period, the assets can be transferred.
+    example: 11/4/2019 18:00:00
+    span: full
+    displayOrder: 3
+
+  - name: Ticker
+    label: Ticker Symbol
+    type: fixedchar
+    description: Ticker symbol assigned by exchanges to represent the asset.
+    size: 5
+    example: AAPL
+    displayOrder: 4
+
+  - name: ISIN
+    label: ISIN (optional)
+    type: fixedchar
+    size: 12
+    description: International Securities Identification Number
+    example: US0004026250
+    span: full
+    displayOrder: 2
+
+  - name: Description
+    label: Description
+    type: varchar
+    # varchar size is number of bytes to serialize the size of the value
+    size: 2
+    example: Class C
+    span: full
+    displayOrder: 1
+    required: true

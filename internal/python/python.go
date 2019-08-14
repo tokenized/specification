@@ -5,22 +5,10 @@ import (
 )
 
 func Compile(
-	distPath string,
-	actions parser.ProtocolActions,
-	messages parser.ProtocolMessages,
-	types parser.ProtocolTypes,
-	resources parser.ProtocolResources,
-	rejectionCodes parser.ProtocolRejectionCodes,
-	assets []parser.Asset,
+	srcPath, distPath string,
+	actions parser.Schema,
+	assets parser.Schema,
+	messages parser.Schema,
 ) {
-	templateToFile(distPath, "actions.tpl", "actions.py", actions)
-}
-
-func templateToFile(distPath, tplFile, goFile string, data interface{}) {
-
-	tpl := "./internal/python/templates/" + tplFile
-
-	path := distPath + "/python/" + goFile
-
-	parser.TemplateToFile(distPath, data, tpl, path)
+	// TODO
 }
