@@ -61,7 +61,8 @@ func postProcessFields(fields []Field, aliases []Field) {
 			fields[i].Size = 1
 		}
 		for _, alias := range aliases {
-			if alias.Name == field.Type {
+			baseType := field.BaseType()
+			if alias.Name == baseType {
 				fields[i].IsAlias = true
 				fields[i].AliasField = &alias
 				break

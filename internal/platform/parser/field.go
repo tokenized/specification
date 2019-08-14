@@ -1,6 +1,8 @@
 package parser
 
-import "strings"
+import (
+	"strings"
+)
 
 // Field defines the expected properties of a field definition in the specification YAML.
 type Field struct {
@@ -62,12 +64,30 @@ func (f *Field) ProtobufType() string {
 	// TODO: Convert more to proto
 	baseType := f.BaseType()
 
+	if f.AliasField != nil {
+		return pbt + f.AliasField.ProtobufType()
+	}
+
 	switch baseType {
 	case "varchar", "fixedchar":
 		baseType = "string"
 
 	case "bin", "varbin":
 		baseType = "bytes"
+
+	case "uint":
+		if f.Size > 4 {
+			baseType = "uint64"
+		} else {
+			baseType = "uint32"
+		}
+
+	case "int":
+		if f.Size > 4 {
+			baseType = "int64"
+		} else {
+			baseType = "int32"
+		}
 	}
 
 	if f.IsCompoundType {

@@ -19,6 +19,9 @@ func MakeTemplateFuncs() template.FuncMap {
 		"minus": func(a, b int) int {
 			return a - b
 		},
+		"add": func(a, b int) int {
+			return a + b
+		},
 		"padding": func(str string, size int) string {
 			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
 		},

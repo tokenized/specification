@@ -4,6 +4,11 @@
       "name": "CurrencyType",
       "size": 3,
       "type": "fixedchar"
+    },
+    {
+      "name": "Timestamp",
+      "size": 8,
+      "type": "uint"
     }
   ],
   "fieldTypes": [

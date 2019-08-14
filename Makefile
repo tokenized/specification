@@ -10,9 +10,16 @@ all: prepare tools run-generate format test
 
 run-win: prepare-win tools run-generate format-win
 
-run-generate:
+protobuf:
+	protoc --proto_path=dist/protobuf --go_out=plugins=grpc:dist/golang/protobuf/actions --js_out=library=actions,binary:dist/typescript/protobuf/actions dist/protobuf/actions.proto
+	protoc --proto_path=dist/protobuf --go_out=plugins=grpc:dist/golang/protobuf/assets --js_out=library=assets,binary:dist/typescript/protobuf/assets dist/protobuf/assets.proto
+	protoc --proto_path=dist/protobuf --go_out=plugins=grpc:dist/golang/protobuf/messages --js_out=library=messages,binary:dist/typescript/protobuf/messages dist/protobuf/messages.proto
+
+generate-code:
 	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
 	goimports -w $(GO_DIST_DIR)
+
+run-generate: generate-code protobuf
 
 dist-cli:
 	$(GO_DIST) -o dist/$(BINARY_CONTRACT_CLI) cmd/$(BINARY_CONTRACT_CLI)/main.go

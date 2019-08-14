@@ -3,13 +3,13 @@
 
 syntax = "proto3";
 
-package protoc;
+package {{.Package}};
 {{ range $messages }}
 // Action - {{.Label}} ({{.Code}})
 message {{.Name}}Action {
 {{- range $i, $a := .Fields}}
     {{ .ProtobufType }} {{.Name}}
-    {{- padding (print .Name .ProtobufType) 45}} = {{$i}};
+    {{- padding (print .Name .ProtobufType) 45}} = {{add $i 1}};
     {{- padding (print $i) 3}} // {{.Type}}
 {{- end}}
 }
@@ -19,7 +19,7 @@ message {{.Name}}Action {
 message {{.Name}}Field {
 {{- range $i, $a := .Fields}}
     {{ .ProtobufType }} {{.Name}}
-    {{- padding (print .Name .ProtobufType) 45}} = {{$i}};
+    {{- padding (print .Name .ProtobufType) 45}} = {{add $i 1}};
     {{- padding (print $i) 3}} // {{.Type}}
 {{- end}}
 }

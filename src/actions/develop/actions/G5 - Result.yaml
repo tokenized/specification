@@ -64,8 +64,8 @@ fields:
   - name: OptionTally
     label: Option Tally
     description: "List of number of valid votes counted for each vote option. Length is encoded like a regular list object, but must match the length of VoteOptions from the Proposal action."
-    type: uint64[]
-    size: 1
+    type: uint[]
+    size: 8
 
   - name: Result
     label: Result

@@ -29,6 +29,23 @@ fieldTypes:
   - "types/Output"
   - "types/OutputTag"
   - "types/Document"
+  - "types/TargetAddress"
 
 # Define Field Aliases
-fieldAliases: []
+fieldAliases:
+  - name: Tag
+    type: uint
+    size: 8
+    resource: Tags
+
+  - name: PublicKeyHash
+    type: varbin
+    size: 1
+
+  - name: Timestamp
+    type: uint
+    size: 8
+
+  - name: TxId
+    type: bin
+    size: 32

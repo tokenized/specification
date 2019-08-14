@@ -1,71 +1,71 @@
 syntax = "proto3";
 
-package protoc;
+package assets;
 
 // Action - Membership (MEM)
 message MembershipAction {
-    AgeRestrictionField AgeRestriction             = 0;   // AgeRestriction
-    TimestampField ValidFrom                       = 1;   // Timestamp
-    TimestampField ExpirationTimestamp             = 2;   // Timestamp
-    string ID                                      = 3;   // varchar
-    string MembershipClass                         = 4;   // varchar
-    string RoleType                                = 5;   // varchar
-    string MembershipType                          = 6;   // varchar
-    string Description                             = 7;   // varchar
+    AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
+    uint64 ValidFrom                               = 2;   // Timestamp
+    uint64 ExpirationTimestamp                     = 3;   // Timestamp
+    string ID                                      = 4;   // varchar
+    string MembershipClass                         = 5;   // varchar
+    string RoleType                                = 6;   // varchar
+    string MembershipType                          = 7;   // varchar
+    string Description                             = 8;   // varchar
 }
 
 // Action - Currency (CUR)
 message CurrencyAction {
-    CurrencyTypeField ISOCode                      = 0;   // CurrencyType
-    string MonetaryAuthority                       = 1;   // varchar
-    string Description                             = 2;   // varchar
+    string ISOCode                                 = 1;   // CurrencyType
+    string MonetaryAuthority                       = 2;   // varchar
+    string Description                             = 3;   // varchar
 }
 
 // Action - Share - Common (SHC)
 message ShareCommonAction {
-    TimestampField TransferLockout                 = 0;   // Timestamp
-    string Ticker                                  = 1;   // fixedchar
-    string ISIN                                    = 2;   // fixedchar
-    string Description                             = 3;   // varchar
+    uint64 TransferLockout                         = 1;   // Timestamp
+    string Ticker                                  = 2;   // fixedchar
+    string ISIN                                    = 3;   // fixedchar
+    string Description                             = 4;   // varchar
 }
 
 // Action - Coupon (COU)
 message CouponAction {
-    string RedeemingEntity                         = 0;   // varchar
-    TimestampField IssueDate                       = 1;   // Timestamp
-    TimestampField ExpiryDate                      = 2;   // Timestamp
-    uint Value                                     = 3;   // uint
-    CurrencyTypeField Currency                     = 4;   // CurrencyType
-    string Description                             = 5;   // varchar
+    string RedeemingEntity                         = 1;   // varchar
+    uint64 IssueDate                               = 2;   // Timestamp
+    uint64 ExpiryDate                              = 3;   // Timestamp
+    uint64 Value                                   = 4;   // uint
+    string Currency                                = 5;   // CurrencyType
+    string Description                             = 6;   // varchar
 }
 
 // Action - Loyalty Points (LOY)
 message LoyaltyPointsAction {
-    AgeRestrictionField AgeRestriction             = 0;   // AgeRestriction
-    string OfferName                               = 1;   // varchar
-    TimestampField ValidFrom                       = 2;   // Timestamp
-    TimestampField ExpirationTimestamp             = 3;   // Timestamp
-    string Description                             = 4;   // varchar
+    AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
+    string OfferName                               = 2;   // varchar
+    uint64 ValidFrom                               = 3;   // Timestamp
+    uint64 ExpirationTimestamp                     = 4;   // Timestamp
+    string Description                             = 5;   // varchar
 }
 
 // Action - Ticket (Admission) (TIC)
 message TicketAdmissionAction {
-    AgeRestrictionField AgeRestriction             = 0;   // AgeRestriction
-    string AdmissionType                           = 1;   // fixedchar
-    string Venue                                   = 2;   // varchar
-    string Class                                   = 3;   // varchar
-    string Area                                    = 4;   // varchar
-    string Seat                                    = 5;   // varchar
-    TimestampField StartTimeDate                   = 6;   // Timestamp
-    TimestampField ValidFrom                       = 7;   // Timestamp
-    TimestampField ExpirationTimestamp             = 8;   // Timestamp
-    string Description                             = 9;   // varchar
+    AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
+    string AdmissionType                           = 2;   // fixedchar
+    string Venue                                   = 3;   // varchar
+    string Class                                   = 4;   // varchar
+    string Area                                    = 5;   // varchar
+    string Seat                                    = 6;   // varchar
+    uint64 StartTimeDate                           = 7;   // Timestamp
+    uint64 ValidFrom                               = 8;   // Timestamp
+    uint64 ExpirationTimestamp                     = 9;   // Timestamp
+    string Description                             = 10;   // varchar
 }
 
 
 // Field - Age Restriction
 message AgeRestrictionField {
-    uint Lower                                     = 0;   // uint
-    uint Upper                                     = 1;   // uint
+    uint32 Lower                                   = 1;   // uint
+    uint32 Upper                                   = 2;   // uint
 }
 

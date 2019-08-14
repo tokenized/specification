@@ -36,7 +36,27 @@
       "type": "varbin"
     },
     {
+      "name": "ContractCode",
+      "size": 32,
+      "type": "bin"
+    },
+    {
       "name": "AssetCode",
+      "size": 32,
+      "type": "bin"
+    },
+    {
+      "name": "Timestamp",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "name": "PublicKeyHash",
+      "size": 1,
+      "type": "varbin"
+    },
+    {
+      "name": "TxId",
       "size": 32,
       "type": "bin"
     }
@@ -1915,8 +1935,8 @@
           "description": "List of number of valid votes counted for each vote option. Length is encoded like a regular list object, but must match the length of VoteOptions from the Proposal action.",
           "label": "Option Tally",
           "name": "OptionTally",
-          "size": 1,
-          "type": "uint64[]"
+          "size": 8,
+          "type": "uint[]"
         },
         {
           "description": "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.",
@@ -2544,7 +2564,8 @@
           "description": "Associates the message to a particular output by the index.",
           "label": "Address Indexes",
           "name": "AddressIndexes",
-          "type": "uint16[]"
+          "size": 2,
+          "type": "uint[]"
         },
         {
           "description": "Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.\n",
@@ -2582,7 +2603,8 @@
           "description": "Associates the message to a particular output by the index.",
           "label": "Address Indexes",
           "name": "AddressIndexes",
-          "type": "uint16[]"
+          "size": 2,
+          "type": "uint[]"
         },
         {
           "description": "The address which is believed to have caused the rejection.",

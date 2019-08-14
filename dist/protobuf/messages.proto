@@ -1,74 +1,80 @@
 syntax = "proto3";
 
-package protoc;
+package messages;
 
 // Action - Public Message (0002)
 message PublicMessageAction {
-    TimestampField Timestamp                       = 0;   // Timestamp
-    string Subject                                 = 1;   // varchar
-    OutputField Regarding                          = 2;   // Output
-    DocumentField PublicMessage                    = 3;   // Document
-    repeated DocumentField Attachments             = 4;   // Document[]
+    uint64 Timestamp                               = 1;   // Timestamp
+    string Subject                                 = 2;   // varchar
+    OutputField Regarding                          = 3;   // Output
+    DocumentField PublicMessage                    = 4;   // Document
+    repeated DocumentField Attachments             = 5;   // Document[]
 }
 
 // Action - Private Message (0003)
 message PrivateMessageAction {
-    TimestampField Timestamp                       = 0;   // Timestamp
-    string Subject                                 = 1;   // varchar
-    OutputField Regarding                          = 2;   // Output
-    DocumentField PrivateMessage                   = 3;   // Document
-    repeated DocumentField Attachments             = 4;   // Document[]
+    uint64 Timestamp                               = 1;   // Timestamp
+    string Subject                                 = 2;   // varchar
+    OutputField Regarding                          = 3;   // Output
+    DocumentField PrivateMessage                   = 4;   // Document
+    repeated DocumentField Attachments             = 5;   // Document[]
 }
 
 // Action - Reverted Tx (0004)
 message RevertedTxAction {
-    TimestampField Timestamp                       = 0;   // Timestamp
-    bytes Transaction                              = 1;   // varbin
+    uint64 Timestamp                               = 1;   // Timestamp
+    bytes Transaction                              = 2;   // varbin
 }
 
 // Action - Offer (1001)
 message OfferAction {
-    TimestampField Timestamp                       = 0;   // Timestamp
-    bytes Payload                                  = 1;   // varbin
+    uint64 Timestamp                               = 1;   // Timestamp
+    bytes Payload                                  = 2;   // varbin
 }
 
 // Action - Signature Request (1002)
 message SignatureRequestAction {
-    TimestampField Timestamp                       = 0;   // Timestamp
-    bytes Payload                                  = 1;   // varbin
+    uint64 Timestamp                               = 1;   // Timestamp
+    bytes Payload                                  = 2;   // varbin
 }
 
 // Action - Settlement Request (1003)
 message SettlementRequestAction {
-    TimestampField Timestamp                       = 0;   // Timestamp
-    TxIdField TransferTxId                         = 1;   // TxId
-    repeated TargetAddressField ContractFees       = 2;   // TargetAddress[]
-    bytes Settlement                               = 3;   // varbin
+    uint64 Timestamp                               = 1;   // Timestamp
+    bytes TransferTxId                             = 2;   // TxId
+    repeated TargetAddressField ContractFees       = 3;   // TargetAddress[]
+    bytes Settlement                               = 4;   // varbin
 }
 
 // Action - Output Metadata (1004)
 message OutputMetadataAction {
-    string OutputDescription                       = 0;   // varchar
-    repeated TagField Tags                         = 1;   // Tag[]
-    repeated OutputTagField CustomTags             = 2;   // OutputTag[]
+    string OutputDescription                       = 1;   // varchar
+    repeated uint64 Tags                           = 2;   // Tag[]
+    repeated OutputTagField CustomTags             = 3;   // OutputTag[]
 }
 
 
 // Field - Output
 message OutputField {
-    TxIdField TxId                                 = 0;   // TxId
-    uint OutputIndex                               = 1;   // uint
+    bytes TxId                                     = 1;   // TxId
+    uint32 OutputIndex                             = 2;   // uint
 }
 
 // Field - Output Tag
 message OutputTagField {
-    string Tag                                     = 0;   // varchar
+    string Tag                                     = 1;   // varchar
 }
 
 // Field - Document
 message DocumentField {
-    string Name                                    = 0;   // varchar
-    string Type                                    = 1;   // varchar
-    bytes Contents                                 = 2;   // varbin
+    string Name                                    = 1;   // varchar
+    string Type                                    = 2;   // varchar
+    bytes Contents                                 = 3;   // varbin
+}
+
+// Field - Target Address
+message TargetAddressField {
+    bytes Address                                  = 1;   // PublicKeyHash
+    uint64 Quantity                                = 2;   // uint
 }
 

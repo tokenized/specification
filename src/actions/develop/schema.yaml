@@ -94,6 +94,22 @@ fieldAliases:
     type: varbin
     size: 1
 
+  - name: ContractCode
+    type: bin
+    size: 32
+
   - name: AssetCode
+    type: bin
+    size: 32
+
+  - name: Timestamp
+    type: uint
+    size: 8
+
+  - name: PublicKeyHash
+    type: varbin
+    size: 1
+
+  - name: TxId
     type: bin
     size: 32

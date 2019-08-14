@@ -45,7 +45,7 @@ A Membership
         <tr>
             <td>ValidFrom</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 
@@ -55,7 +55,7 @@ A Membership
         <tr>
             <td>ExpirationTimestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 
@@ -175,7 +175,7 @@ Common stock represents ownership interests in companies.
         <tr>
             <td>TransferLockout</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 A period of time where the asset is unable to be transferred.  After the transfer lockout period, the assets can be transferred.
@@ -240,7 +240,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <tr>
             <td>IssueDate</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 
@@ -250,7 +250,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <tr>
             <td>ExpiryDate</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 
@@ -325,7 +325,7 @@ A Loyalty Point
         <tr>
             <td>ValidFrom</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 
@@ -335,7 +335,7 @@ A Loyalty Point
         <tr>
             <td>ExpirationTimestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 
@@ -430,7 +430,7 @@ Admission ticket
         <tr>
             <td>StartTimeDate</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 
@@ -440,7 +440,7 @@ Admission ticket
         <tr>
             <td>ValidFrom</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 
@@ -450,7 +450,7 @@ Admission ticket
         <tr>
             <td>ExpirationTimestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 

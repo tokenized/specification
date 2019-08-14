@@ -25,7 +25,8 @@ fields:
   - name: AddressIndexes
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
-    type: uint16[]
+    type: uint[]
+    size: 2
 
   - name: RejectAddressIndex
     label: Reject Address Index

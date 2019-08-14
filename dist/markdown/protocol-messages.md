@@ -42,7 +42,7 @@ Generic public message or public announcement. Sent to an address(es).  Can be u
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -114,7 +114,7 @@ Generic private message. Sent to another address(es). Encryption is to be used.
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -186,7 +186,7 @@ A message that contains a bitcoin transaction that was accepted by the network o
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -228,7 +228,7 @@ A message that contains all of the details required for an agreement to be forme
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender created the offer.
@@ -270,7 +270,7 @@ Partially-signed transactions (Tokenized actions, Bitcoin, Multisig, Threshold S
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -312,7 +312,7 @@ A message that contains a multi-contract settlement that needs settlement data a
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#type-timestamp">Timestamp</a>
+                <a href="#alias-timestamp">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -322,7 +322,7 @@ A message that contains a multi-contract settlement that needs settlement data a
         <tr>
             <td>TransferTxId</td>
             <td>
-                <a href="#type-tx-id">TxId</a>
+                <a href="#alias-tx-id">TxId</a>
             </td>
             <td>
                 Tx Id of the transfer request transaction that triggered this message.
@@ -384,7 +384,7 @@ Metadata associated with the output. Aka Transaction details. It is used to desc
         <tr>
             <td>Tags</td>
             <td>
-                <a href="#type-tag">Tag[1]</a>
+                <a href="#alias-tag">Tag[1]</a>
             </td>
             <td>
                 Predefined values for describing the output.

@@ -1,5 +1,27 @@
 {
-  "fieldAliases": [],
+  "fieldAliases": [
+    {
+      "name": "Tag",
+      "resource": "Tags",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "name": "PublicKeyHash",
+      "size": 1,
+      "type": "varbin"
+    },
+    {
+      "name": "Timestamp",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "name": "TxId",
+      "size": 32,
+      "type": "bin"
+    }
+  ],
   "fieldTypes": [
     {
       "code": 2,
@@ -64,6 +86,27 @@
       ],
       "label": "Document",
       "name": "Document"
+    },
+    {
+      "description": "A TargetAddress defines a public address and quantity.",
+      "fields": [
+        {
+          "description": "Public address where the token balance will be changed.",
+          "label": "Address",
+          "name": "Address",
+          "type": "PublicKeyHash"
+        },
+        {
+          "description": "Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.",
+          "example": "10000",
+          "label": "Quantity",
+          "name": "Quantity",
+          "size": 8,
+          "type": "uint"
+        }
+      ],
+      "label": "Target Address",
+      "name": "TargetAddress"
     }
   ],
   "messages": [
