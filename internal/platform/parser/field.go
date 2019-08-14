@@ -53,6 +53,24 @@ func (f *Field) BaseType() string {
 	return strings.Replace(f.Type, "[]", "", 1)
 }
 
+func (f *Field) ProtobufType() string {
+	pbt := ""
+	if f.IsList() {
+		pbt += "repeated "
+	}
+
+	// TODO: Convert to proto
+	baseType := f.BaseType()
+
+	if f.IsCompoundType {
+		pbt += baseType + "Field"
+	} else {
+		pbt += baseType
+	}
+
+	return pbt
+}
+
 /*
 // HasVariableSize returns true if the field is variable in length.
 func (f *Field) HasVariableSize() bool {

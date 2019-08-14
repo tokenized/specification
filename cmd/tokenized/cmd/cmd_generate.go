@@ -10,6 +10,7 @@ import (
 	"github.com/tokenized/specification/internal/json"
 	"github.com/tokenized/specification/internal/markdown"
 	"github.com/tokenized/specification/internal/platform/parser"
+	"github.com/tokenized/specification/internal/protobuf"
 	"github.com/tokenized/specification/internal/python"
 	"github.com/tokenized/specification/internal/typescript"
 
@@ -56,6 +57,8 @@ var cmdGenerate = &cobra.Command{
 
 		// --------------------------------------------------------------------
 		// Compile Languages
+
+		protobuf.Compile(srcPath, distPath, *actions, *assets, *messages)
 
 		golang.Compile(srcPath, distPath, *actions, *assets, *messages)
 
