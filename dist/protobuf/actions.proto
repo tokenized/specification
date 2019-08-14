@@ -4,22 +4,22 @@ package protoc;
 
 // Action - Contract Offer (C1)
 message ContractOfferAction {
-    varchar ContractName                           = 0;   // varchar
+    string ContractName                            = 0;   // varchar
     uint BodyOfAgreementType                       = 1;   // uint
-    varbin BodyOfAgreement                         = 2;   // varbin
-    varchar ContractType                           = 3;   // varchar
+    bytes BodyOfAgreement                          = 2;   // varbin
+    string ContractType                            = 3;   // varchar
     repeated DocumentField SupportingDocs          = 4;   // Document[]
-    fixedchar GoverningLaw                         = 5;   // fixedchar
-    fixedchar Jurisdiction                         = 6;   // fixedchar
+    string GoverningLaw                            = 5;   // fixedchar
+    string Jurisdiction                            = 6;   // fixedchar
     TimestampField ContractExpiration              = 7;   // Timestamp
-    varchar ContractURI                            = 8;   // varchar
+    string ContractURI                             = 8;   // varchar
     EntityField Issuer                             = 9;   // Entity
-    varchar IssuerLogoURL                          = 10;  // varchar
+    string IssuerLogoURL                           = 10;  // varchar
     bool ContractOperatorIncluded                  = 11;  // bool
     EntityField ContractOperator                   = 12;  // Entity
     uint ContractFee                               = 13;  // uint
     repeated VotingSystemField VotingSystems       = 14;  // VotingSystem[]
-    varbin ContractAuthFlags                       = 15;  // varbin
+    bytes ContractAuthFlags                        = 15;  // varbin
     uint RestrictedQtyAssets                       = 16;  // uint
     bool AdministrationProposal                    = 17;  // bool
     bool HolderProposal                            = 18;  // bool
@@ -29,22 +29,22 @@ message ContractOfferAction {
 
 // Action - Contract Formation (C2)
 message ContractFormationAction {
-    varchar ContractName                           = 0;   // varchar
+    string ContractName                            = 0;   // varchar
     uint BodyOfAgreementType                       = 1;   // uint
-    varbin BodyOfAgreement                         = 2;   // varbin
-    varchar ContractType                           = 3;   // varchar
+    bytes BodyOfAgreement                          = 2;   // varbin
+    string ContractType                            = 3;   // varchar
     repeated DocumentField SupportingDocs          = 4;   // Document[]
-    fixedchar GoverningLaw                         = 5;   // fixedchar
-    fixedchar Jurisdiction                         = 6;   // fixedchar
+    string GoverningLaw                            = 5;   // fixedchar
+    string Jurisdiction                            = 6;   // fixedchar
     TimestampField ContractExpiration              = 7;   // Timestamp
-    varchar ContractURI                            = 8;   // varchar
+    string ContractURI                             = 8;   // varchar
     EntityField Issuer                             = 9;   // Entity
-    varchar IssuerLogoURL                          = 10;  // varchar
+    string IssuerLogoURL                           = 10;  // varchar
     bool ContractOperatorIncluded                  = 11;  // bool
     EntityField ContractOperator                   = 12;  // Entity
     uint ContractFee                               = 13;  // uint
     repeated VotingSystemField VotingSystems       = 14;  // VotingSystem[]
-    varbin ContractAuthFlags                       = 15;  // varbin
+    bytes ContractAuthFlags                        = 15;  // varbin
     uint RestrictedQtyAssets                       = 16;  // uint
     bool AdministrationProposal                    = 17;  // bool
     bool HolderProposal                            = 18;  // bool
@@ -65,18 +65,18 @@ message ContractAmendmentAction {
 
 // Action - Static Contract Formation (C4)
 message StaticContractFormationAction {
-    varchar ContractName                           = 0;   // varchar
+    string ContractName                            = 0;   // varchar
     ContractCodeField ContractCode                 = 1;   // ContractCode
     uint BodyOfAgreementType                       = 2;   // uint
-    varbin BodyOfAgreement                         = 3;   // varbin
-    varchar ContractType                           = 4;   // varchar
+    bytes BodyOfAgreement                          = 3;   // varbin
+    string ContractType                            = 4;   // varchar
     repeated DocumentField SupportingDocs          = 5;   // Document[]
     uint ContractRevision                          = 6;   // uint
-    fixedchar GoverningLaw                         = 7;   // fixedchar
-    fixedchar Jurisdiction                         = 8;   // fixedchar
+    string GoverningLaw                            = 7;   // fixedchar
+    string Jurisdiction                            = 8;   // fixedchar
     TimestampField EffectiveDate                   = 9;   // Timestamp
     TimestampField ContractExpiration              = 10;  // Timestamp
-    varchar ContractURI                            = 11;  // varchar
+    string ContractURI                             = 11;  // varchar
     TxIdField PrevRevTxID                          = 12;  // TxId
     repeated EntityField Entities                  = 13;  // Entity[]
 }
@@ -89,7 +89,7 @@ message ContractAddressChangeAction {
 
 // Action - Asset Definition (A1)
 message AssetDefinitionAction {
-    varbin AssetAuthFlags                          = 0;   // varbin
+    bytes AssetAuthFlags                           = 0;   // varbin
     bool TransfersPermitted                        = 1;   // bool
     repeated PolityField TradeRestrictions         = 2;   // Polity[]
     bool EnforcementOrdersPermitted                = 3;   // bool
@@ -99,14 +99,14 @@ message AssetDefinitionAction {
     bool HolderProposal                            = 7;   // bool
     uint AssetModificationGovernance               = 8;   // uint
     uint TokenQty                                  = 9;   // uint
-    varbin AssetPayload                            = 10;  // varbin
+    bytes AssetPayload                             = 10;  // varbin
 }
 
 // Action - Asset Creation (A2)
 message AssetCreationAction {
     AssetCodeField AssetCode                       = 0;   // AssetCode
     uint AssetIndex                                = 1;   // uint
-    varbin AssetAuthFlags                          = 2;   // varbin
+    bytes AssetAuthFlags                           = 2;   // varbin
     bool TransfersPermitted                        = 3;   // bool
     repeated PolityField TradeRestrictions         = 4;   // Polity[]
     bool EnforcementOrdersPermitted                = 5;   // bool
@@ -116,14 +116,14 @@ message AssetCreationAction {
     bool HolderProposal                            = 9;   // bool
     uint AssetModificationGovernance               = 10;  // uint
     uint TokenQty                                  = 11;  // uint
-    varbin AssetPayload                            = 12;  // varbin
+    bytes AssetPayload                             = 12;  // varbin
     uint AssetRevision                             = 13;  // uint
     TimestampField Timestamp                       = 14;  // Timestamp
 }
 
 // Action - Asset Modification (A3)
 message AssetModificationAction {
-    fixedchar AssetType                            = 0;   // fixedchar
+    string AssetType                               = 0;   // fixedchar
     AssetCodeField AssetCode                       = 1;   // AssetCode
     uint AssetRevision                             = 2;   // uint
     repeated AmendmentField Amendments             = 3;   // Amendment[]
@@ -148,15 +148,15 @@ message SettlementAction {
 message ProposalAction {
     uint Initiator                                 = 0;   // uint
     bool AssetSpecificVote                         = 1;   // bool
-    fixedchar AssetType                            = 2;   // fixedchar
+    string AssetType                               = 2;   // fixedchar
     AssetCodeField AssetCode                       = 3;   // AssetCode
     uint VoteSystem                                = 4;   // uint
     bool Specific                                  = 5;   // bool
     repeated AmendmentField ProposedAmendments     = 6;   // Amendment[]
-    varchar VoteOptions                            = 7;   // varchar
+    string VoteOptions                             = 7;   // varchar
     uint VoteMax                                   = 8;   // uint
-    varchar ProposalDescription                    = 9;   // varchar
-    bin ProposalDocumentHash                       = 10;  // bin
+    string ProposalDescription                     = 9;   // varchar
+    bytes ProposalDocumentHash                     = 10;  // bin
     TimestampField VoteCutOffTimestamp             = 11;  // Timestamp
 }
 
@@ -168,13 +168,13 @@ message VoteAction {
 // Action - Ballot Cast (G3)
 message BallotCastAction {
     TxIdField VoteTxId                             = 0;   // TxId
-    varchar Vote                                   = 1;   // varchar
+    string Vote                                    = 1;   // varchar
 }
 
 // Action - Ballot Counted (G4)
 message BallotCountedAction {
     TxIdField VoteTxId                             = 0;   // TxId
-    varchar Vote                                   = 1;   // varchar
+    string Vote                                    = 1;   // varchar
     uint Quantity                                  = 2;   // uint
     TimestampField Timestamp                       = 3;   // Timestamp
 }
@@ -182,39 +182,39 @@ message BallotCountedAction {
 // Action - Result (G5)
 message ResultAction {
     bool AssetSpecificVote                         = 0;   // bool
-    fixedchar AssetType                            = 1;   // fixedchar
+    string AssetType                               = 1;   // fixedchar
     AssetCodeField AssetCode                       = 2;   // AssetCode
     bool Specific                                  = 3;   // bool
     repeated AmendmentField ProposedAmendments     = 4;   // Amendment[]
     TxIdField VoteTxId                             = 5;   // TxId
     repeated uint64Field OptionTally               = 6;   // uint64[]
-    varchar Result                                 = 7;   // varchar
+    string Result                                  = 7;   // varchar
     TimestampField Timestamp                       = 8;   // Timestamp
 }
 
 // Action - Order (E1)
 message OrderAction {
-    fixedchar ComplianceAction                     = 0;   // fixedchar
-    fixedchar AssetType                            = 1;   // fixedchar
+    string ComplianceAction                        = 0;   // fixedchar
+    string AssetType                               = 1;   // fixedchar
     AssetCodeField AssetCode                       = 2;   // AssetCode
     repeated TargetAddressField TargetAddresses    = 3;   // TargetAddress[]
     TxIdField FreezeTxId                           = 4;   // TxId
     TimestampField FreezePeriod                    = 5;   // Timestamp
     PublicKeyHashField DepositAddress              = 6;   // PublicKeyHash
     bool AuthorityIncluded                         = 7;   // bool
-    varchar AuthorityName                          = 8;   // varchar
-    varbin AuthorityPublicKey                      = 9;   // varbin
+    string AuthorityName                           = 8;   // varchar
+    bytes AuthorityPublicKey                       = 9;   // varbin
     uint SignatureAlgorithm                        = 10;  // uint
-    varbin OrderSignature                          = 11;  // varbin
-    bin SupportingEvidenceHash                     = 12;  // bin
-    varbin RefTxs                                  = 13;  // varbin
+    bytes OrderSignature                           = 11;  // varbin
+    bytes SupportingEvidenceHash                   = 12;  // bin
+    bytes RefTxs                                   = 13;  // varbin
     repeated QuantityIndexField BitcoinDispersions = 14;  // QuantityIndex[]
-    varchar Message                                = 15;  // varchar
+    string Message                                 = 15;  // varchar
 }
 
 // Action - Freeze (E2)
 message FreezeAction {
-    fixedchar AssetType                            = 0;   // fixedchar
+    string AssetType                               = 0;   // fixedchar
     AssetCodeField AssetCode                       = 1;   // AssetCode
     repeated QuantityIndexField Quantities         = 2;   // QuantityIndex[]
     TimestampField FreezePeriod                    = 3;   // Timestamp
@@ -229,7 +229,7 @@ message ThawAction {
 
 // Action - Confiscation (E4)
 message ConfiscationAction {
-    fixedchar AssetType                            = 0;   // fixedchar
+    string AssetType                               = 0;   // fixedchar
     AssetCodeField AssetCode                       = 1;   // AssetCode
     repeated QuantityIndexField Quantities         = 2;   // QuantityIndex[]
     uint DepositQty                                = 3;   // uint
@@ -238,7 +238,7 @@ message ConfiscationAction {
 
 // Action - Reconciliation (E5)
 message ReconciliationAction {
-    fixedchar AssetType                            = 0;   // fixedchar
+    string AssetType                               = 0;   // fixedchar
     AssetCodeField AssetCode                       = 1;   // AssetCode
     repeated QuantityIndexField Quantities         = 2;   // QuantityIndex[]
     TimestampField Timestamp                       = 3;   // Timestamp
@@ -246,30 +246,30 @@ message ReconciliationAction {
 
 // Action - Establishment (R1)
 message EstablishmentAction {
-    varchar Message                                = 0;   // varchar
+    string Message                                 = 0;   // varchar
 }
 
 // Action - Addition (R2)
 message AdditionAction {
-    varchar Message                                = 0;   // varchar
+    string Message                                 = 0;   // varchar
 }
 
 // Action - Alteration (R3)
 message AlterationAction {
     TxIdField EntryTxID                            = 0;   // TxId
-    varchar Message                                = 1;   // varchar
+    string Message                                 = 1;   // varchar
 }
 
 // Action - Removal (R4)
 message RemovalAction {
     TxIdField EntryTxID                            = 0;   // TxId
-    varchar Message                                = 1;   // varchar
+    string Message                                 = 1;   // varchar
 }
 
 // Action - Message (M1)
 message MessageAction {
     repeated uint16Field AddressIndexes            = 0;   // uint16[]
-    varbin MessagePayload                          = 1;   // varbin
+    bytes MessagePayload                           = 1;   // varbin
 }
 
 // Action - Rejection (M2)
@@ -277,7 +277,7 @@ message RejectionAction {
     repeated uint16Field AddressIndexes            = 0;   // uint16[]
     uint RejectAddressIndex                        = 1;   // uint
     RejectionCodeField RejectionCode               = 2;   // RejectionCode
-    varchar Message                                = 3;   // varchar
+    string Message                                 = 3;   // varchar
     TimestampField Timestamp                       = 4;   // Timestamp
 }
 
@@ -285,7 +285,7 @@ message RejectionAction {
 // Field - Administrator
 message AdministratorField {
     RoleField Type                                 = 0;   // Role
-    varchar Name                                   = 1;   // varchar
+    string Name                                    = 1;   // varchar
 }
 
 // Field - Amendment
@@ -295,7 +295,7 @@ message AmendmentField {
     uint SubfieldIndex                             = 2;   // uint
     uint SubfieldElement                           = 3;   // uint
     uint Operation                                 = 4;   // uint
-    varbin Data                                    = 5;   // varbin
+    bytes Data                                     = 5;   // varbin
 }
 
 // Field - AssetReceiver
@@ -304,14 +304,14 @@ message AssetReceiverField {
     uint Quantity                                  = 1;   // uint
     uint OracleSigAlgorithm                        = 2;   // uint
     uint OracleIndex                               = 3;   // uint
-    varbin OracleConfirmationSig                   = 4;   // varbin
+    bytes OracleConfirmationSig                    = 4;   // varbin
     uint OracleSigBlockHeight                      = 5;   // uint
 }
 
 // Field - Asset Settlement
 message AssetSettlementField {
     uint ContractIndex                             = 0;   // uint
-    fixedchar AssetType                            = 1;   // fixedchar
+    string AssetType                               = 1;   // fixedchar
     AssetCodeField AssetCode                       = 2;   // AssetCode
     repeated QuantityIndexField Settlements        = 3;   // QuantityIndex[]
 }
@@ -319,7 +319,7 @@ message AssetSettlementField {
 // Field - Asset Transfer
 message AssetTransferField {
     uint ContractIndex                             = 0;   // uint
-    fixedchar AssetType                            = 1;   // fixedchar
+    string AssetType                               = 1;   // fixedchar
     AssetCodeField AssetCode                       = 2;   // AssetCode
     repeated QuantityIndexField AssetSenders       = 3;   // QuantityIndex[]
     repeated AssetReceiverField AssetReceivers     = 4;   // AssetReceiver[]
@@ -327,26 +327,26 @@ message AssetTransferField {
 
 // Field - Document
 message DocumentField {
-    varchar Name                                   = 0;   // varchar
-    varchar Type                                   = 1;   // varchar
-    varbin Contents                                = 2;   // varbin
+    string Name                                    = 0;   // varchar
+    string Type                                    = 1;   // varchar
+    bytes Contents                                 = 2;   // varbin
 }
 
 // Field - Entity
 message EntityField {
-    varchar Name                                   = 0;   // varchar
+    string Name                                    = 0;   // varchar
     EntityTypeField Type                           = 1;   // EntityType
-    fixedchar LEI                                  = 2;   // fixedchar
+    string LEI                                     = 2;   // fixedchar
     bool AddressIncluded                           = 3;   // bool
-    varchar UnitNumber                             = 4;   // varchar
-    varchar BuildingNumber                         = 5;   // varchar
-    varchar Street                                 = 6;   // varchar
-    varchar SuburbCity                             = 7;   // varchar
-    fixedchar TerritoryStateProvinceCode           = 8;   // fixedchar
-    fixedchar CountryCode                          = 9;   // fixedchar
-    fixedchar PostalZIPCode                        = 10;  // fixedchar
-    varchar EmailAddress                           = 11;  // varchar
-    varchar PhoneNumber                            = 12;  // varchar
+    string UnitNumber                              = 4;   // varchar
+    string BuildingNumber                          = 5;   // varchar
+    string Street                                  = 6;   // varchar
+    string SuburbCity                              = 7;   // varchar
+    string TerritoryStateProvinceCode              = 8;   // fixedchar
+    string CountryCode                             = 9;   // fixedchar
+    string PostalZIPCode                           = 10;  // fixedchar
+    string EmailAddress                            = 11;  // varchar
+    string PhoneNumber                             = 12;  // varchar
     repeated AdministratorField Administration     = 13;  // Administrator[]
     repeated ManagerField Management               = 14;  // Manager[]
 }
@@ -354,14 +354,14 @@ message EntityField {
 // Field - Manager
 message ManagerField {
     RoleField Type                                 = 0;   // Role
-    varchar Name                                   = 1;   // varchar
+    string Name                                    = 1;   // varchar
 }
 
 // Field - Oracle
 message OracleField {
-    varchar Name                                   = 0;   // varchar
-    varchar URL                                    = 1;   // varchar
-    varbin PublicKey                               = 2;   // varbin
+    string Name                                    = 0;   // varchar
+    string URL                                     = 1;   // varchar
+    bytes PublicKey                                = 2;   // varbin
 }
 
 // Field - Quantity Index
@@ -378,9 +378,9 @@ message TargetAddressField {
 
 // Field - Voting System
 message VotingSystemField {
-    varchar Name                                   = 0;   // varchar
-    fixedchar VoteType                             = 1;   // fixedchar
-    fixedchar TallyLogic                           = 2;   // fixedchar
+    string Name                                    = 0;   // varchar
+    string VoteType                                = 1;   // fixedchar
+    string TallyLogic                              = 2;   // fixedchar
     uint ThresholdPercentage                       = 3;   // uint
     bool VoteMultiplierPermitted                   = 4;   // bool
     uint HolderProposalFee                         = 5;   // uint

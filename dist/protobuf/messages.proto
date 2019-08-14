@@ -5,7 +5,7 @@ package protoc;
 // Action - Public Message (0002)
 message PublicMessageAction {
     TimestampField Timestamp                       = 0;   // Timestamp
-    varchar Subject                                = 1;   // varchar
+    string Subject                                 = 1;   // varchar
     OutputField Regarding                          = 2;   // Output
     DocumentField PublicMessage                    = 3;   // Document
     repeated DocumentField Attachments             = 4;   // Document[]
@@ -14,7 +14,7 @@ message PublicMessageAction {
 // Action - Private Message (0003)
 message PrivateMessageAction {
     TimestampField Timestamp                       = 0;   // Timestamp
-    varchar Subject                                = 1;   // varchar
+    string Subject                                 = 1;   // varchar
     OutputField Regarding                          = 2;   // Output
     DocumentField PrivateMessage                   = 3;   // Document
     repeated DocumentField Attachments             = 4;   // Document[]
@@ -23,19 +23,19 @@ message PrivateMessageAction {
 // Action - Reverted Tx (0004)
 message RevertedTxAction {
     TimestampField Timestamp                       = 0;   // Timestamp
-    varbin Transaction                             = 1;   // varbin
+    bytes Transaction                              = 1;   // varbin
 }
 
 // Action - Offer (1001)
 message OfferAction {
     TimestampField Timestamp                       = 0;   // Timestamp
-    varbin Payload                                 = 1;   // varbin
+    bytes Payload                                  = 1;   // varbin
 }
 
 // Action - Signature Request (1002)
 message SignatureRequestAction {
     TimestampField Timestamp                       = 0;   // Timestamp
-    varbin Payload                                 = 1;   // varbin
+    bytes Payload                                  = 1;   // varbin
 }
 
 // Action - Settlement Request (1003)
@@ -43,12 +43,12 @@ message SettlementRequestAction {
     TimestampField Timestamp                       = 0;   // Timestamp
     TxIdField TransferTxId                         = 1;   // TxId
     repeated TargetAddressField ContractFees       = 2;   // TargetAddress[]
-    varbin Settlement                              = 3;   // varbin
+    bytes Settlement                               = 3;   // varbin
 }
 
 // Action - Output Metadata (1004)
 message OutputMetadataAction {
-    varchar OutputDescription                      = 0;   // varchar
+    string OutputDescription                       = 0;   // varchar
     repeated TagField Tags                         = 1;   // Tag[]
     repeated OutputTagField CustomTags             = 2;   // OutputTag[]
 }
@@ -62,13 +62,13 @@ message OutputField {
 
 // Field - Output Tag
 message OutputTagField {
-    varchar Tag                                    = 0;   // varchar
+    string Tag                                     = 0;   // varchar
 }
 
 // Field - Document
 message DocumentField {
-    varchar Name                                   = 0;   // varchar
-    varchar Type                                   = 1;   // varchar
-    varbin Contents                                = 2;   // varbin
+    string Name                                    = 0;   // varchar
+    string Type                                    = 1;   // varchar
+    bytes Contents                                 = 2;   // varbin
 }
 

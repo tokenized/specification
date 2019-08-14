@@ -59,8 +59,16 @@ func (f *Field) ProtobufType() string {
 		pbt += "repeated "
 	}
 
-	// TODO: Convert to proto
+	// TODO: Convert more to proto
 	baseType := f.BaseType()
+
+	switch baseType {
+	case "varchar", "fixedchar":
+		baseType = "string"
+
+	case "bin", "varbin":
+		baseType = "bytes"
+	}
 
 	if f.IsCompoundType {
 		pbt += baseType + "Field"

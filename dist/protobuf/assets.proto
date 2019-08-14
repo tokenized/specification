@@ -7,59 +7,59 @@ message MembershipAction {
     AgeRestrictionField AgeRestriction             = 0;   // AgeRestriction
     TimestampField ValidFrom                       = 1;   // Timestamp
     TimestampField ExpirationTimestamp             = 2;   // Timestamp
-    varchar ID                                     = 3;   // varchar
-    varchar MembershipClass                        = 4;   // varchar
-    varchar RoleType                               = 5;   // varchar
-    varchar MembershipType                         = 6;   // varchar
-    varchar Description                            = 7;   // varchar
+    string ID                                      = 3;   // varchar
+    string MembershipClass                         = 4;   // varchar
+    string RoleType                                = 5;   // varchar
+    string MembershipType                          = 6;   // varchar
+    string Description                             = 7;   // varchar
 }
 
 // Action - Currency (CUR)
 message CurrencyAction {
     CurrencyTypeField ISOCode                      = 0;   // CurrencyType
-    varchar MonetaryAuthority                      = 1;   // varchar
-    varchar Description                            = 2;   // varchar
+    string MonetaryAuthority                       = 1;   // varchar
+    string Description                             = 2;   // varchar
 }
 
 // Action - Share - Common (SHC)
 message ShareCommonAction {
     TimestampField TransferLockout                 = 0;   // Timestamp
-    fixedchar Ticker                               = 1;   // fixedchar
-    fixedchar ISIN                                 = 2;   // fixedchar
-    varchar Description                            = 3;   // varchar
+    string Ticker                                  = 1;   // fixedchar
+    string ISIN                                    = 2;   // fixedchar
+    string Description                             = 3;   // varchar
 }
 
 // Action - Coupon (COU)
 message CouponAction {
-    varchar RedeemingEntity                        = 0;   // varchar
+    string RedeemingEntity                         = 0;   // varchar
     TimestampField IssueDate                       = 1;   // Timestamp
     TimestampField ExpiryDate                      = 2;   // Timestamp
     uint Value                                     = 3;   // uint
     CurrencyTypeField Currency                     = 4;   // CurrencyType
-    varchar Description                            = 5;   // varchar
+    string Description                             = 5;   // varchar
 }
 
 // Action - Loyalty Points (LOY)
 message LoyaltyPointsAction {
     AgeRestrictionField AgeRestriction             = 0;   // AgeRestriction
-    varchar OfferName                              = 1;   // varchar
+    string OfferName                               = 1;   // varchar
     TimestampField ValidFrom                       = 2;   // Timestamp
     TimestampField ExpirationTimestamp             = 3;   // Timestamp
-    varchar Description                            = 4;   // varchar
+    string Description                             = 4;   // varchar
 }
 
 // Action - Ticket (Admission) (TIC)
 message TicketAdmissionAction {
     AgeRestrictionField AgeRestriction             = 0;   // AgeRestriction
-    fixedchar AdmissionType                        = 1;   // fixedchar
-    varchar Venue                                  = 2;   // varchar
-    varchar Class                                  = 3;   // varchar
-    varchar Area                                   = 4;   // varchar
-    varchar Seat                                   = 5;   // varchar
+    string AdmissionType                           = 1;   // fixedchar
+    string Venue                                   = 2;   // varchar
+    string Class                                   = 3;   // varchar
+    string Area                                    = 4;   // varchar
+    string Seat                                    = 5;   // varchar
     TimestampField StartTimeDate                   = 6;   // Timestamp
     TimestampField ValidFrom                       = 7;   // Timestamp
     TimestampField ExpirationTimestamp             = 8;   // Timestamp
-    varchar Description                            = 9;   // varchar
+    string Description                             = 9;   // varchar
 }
 
 
