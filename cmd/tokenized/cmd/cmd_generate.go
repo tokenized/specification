@@ -6,9 +6,12 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/tokenized/specification/internal/golang"
 	"github.com/tokenized/specification/internal/json"
 	"github.com/tokenized/specification/internal/markdown"
 	"github.com/tokenized/specification/internal/platform/parser2"
+	"github.com/tokenized/specification/internal/python"
+	"github.com/tokenized/specification/internal/typescript"
 
 	"github.com/spf13/cobra"
 )
@@ -54,15 +57,15 @@ var cmdGenerate = &cobra.Command{
 		// --------------------------------------------------------------------
 		// Compile Languages
 
-		// golang.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		golang.Compile(srcPath, distPath, *actions, *assets, *messages)
 
 		json.Compile(srcPath, distPath, *actions, *assets, *messages)
 
 		markdown.Compile(srcPath, distPath, *actions, *assets, *messages)
 
-		// python.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		python.Compile(srcPath, distPath, *actions, *assets, *messages)
 
-		// typescript.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		typescript.Compile(srcPath, distPath, *actions, *assets, *messages)
 
 		return nil
 	},

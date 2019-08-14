@@ -1,26 +1,14 @@
 package python
 
 import (
-	"github.com/tokenized/specification/internal/platform/parser"
+	"github.com/tokenized/specification/internal/platform/parser2"
 )
 
 func Compile(
-	distPath string,
-	actions parser.ProtocolActions,
-	messages parser.ProtocolMessages,
-	types parser.ProtocolTypes,
-	resources parser.ProtocolResources,
-	rejectionCodes parser.ProtocolRejectionCodes,
-	assets []parser.Asset,
+	srcPath, distPath string,
+	actions parser2.Schema,
+	assets parser2.Schema,
+	messages parser2.Schema,
 ) {
-	templateToFile(distPath, "actions.tpl", "actions.py", actions)
-}
-
-func templateToFile(distPath, tplFile, goFile string, data interface{}) {
-
-	tpl := "./internal/python/templates/" + tplFile
-
-	path := distPath + "/python/" + goFile
-
-	parser.TemplateToFile(distPath, data, tpl, path)
+	// TODO
 }
