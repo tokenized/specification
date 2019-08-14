@@ -1,34 +1,64 @@
 package parser
 
-type Metadata struct {
-	Name        string
-	Label       string
-	Type        string
-	Description string
-	Validation  string
-	Rejection   string
+// Schema represents a group of messages and their dependencies
+type Schema struct {
+	Name           string      `yaml:"name"`
+	Package        string      `yaml:"package"`
+	Version        uint64      `yaml:"version"`
+	MessagePaths   []string    `yaml:"messages"`
+	ResourcePaths  []string    `yaml:"resources"`
+	FieldTypePaths []string    `yaml:"fieldTypes"`
+	Messages       []Message   `yaml:"-"`
+	Resources      []Resource  `yaml:"-"`
+	FieldTypes     []FieldType `yaml:"-"`
+	FieldAliases   []Field     `yaml:"fieldAliases"`
 }
 
-// Rules are the TX input/output rules for the Transaction.
-type Rules struct {
-	Fee     int64
-	Inputs  []RuleInputOutput
-	Outputs []RuleInputOutput
+// Message represents a protocol action, message or asset
+type Message struct {
+	Code        string  `yaml:"code"`
+	Name        string  `yaml:"name"`
+	Label       string  `yaml:"label"`
+	Description string  `yaml:"description"`
+	Fields      []Field `yaml:"fields"`
+
+	MetaData struct {
+		Validation string `yaml:"validation"`
+		Rejection  string `yaml:"rejection"`
+		Inputs     []struct {
+			Name     string `yaml:"name"`
+			Label    string `yaml:"label"`
+			Comments string `yaml:"comments"`
+		} `yaml:"inputs"`
+		Outputs []struct {
+			Name     string `yaml:"name"`
+			Label    string `yaml:"label"`
+			Comments string `yaml:"comments"`
+		} `yaml:"outputs"`
+	} `yaml:"metadata"`
 }
 
-// RuleInputOutput can represent a TX input or output.
-type RuleInputOutput struct {
-	Name     string
-	Label    string
-	Comments string
+// FieldType is a compound field type definition provided by the schema
+type FieldType struct {
+	Name        string                 `yaml:"name"`
+	Label       string                 `yaml:"label"`
+	Description string                 `yaml:"description"`
+	Fields      []Field                `yaml:"fields"`
+	MetaData    map[string]interface{} `yaml:"metadata"`
 }
 
-// ruleRow exists as a presentation helper that wraps a pair of
-// RuleInputOutput structs together for the purpose of being able to render
-// them together as a single row.
-type ruleRow struct {
-	InputIndex  string
-	Input       RuleInputOutput
-	OutputIndex string
-	Output      RuleInputOutput
+// Resource is a standalone group of resource definitions provided by the schema
+type Resource struct {
+	Name        string                 `yaml:"name"`
+	Description string                 `yaml:"description"`
+	Values      []ResourceValue        `yaml:"values"`
+	MetaData    map[string]interface{} `yaml:"metadata"`
+}
+
+// ResourceValue is the value of a resource inside a resource group
+type ResourceValue struct {
+	Code     string                 `yaml:"code"`
+	Name     string                 `yaml:"name"`
+	Label    string                 `yaml:"label"`
+	MetaData map[string]interface{} `yaml:"metadata"`
 }

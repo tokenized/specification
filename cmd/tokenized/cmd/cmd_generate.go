@@ -9,7 +9,7 @@ import (
 	"github.com/tokenized/specification/internal/golang"
 	"github.com/tokenized/specification/internal/json"
 	"github.com/tokenized/specification/internal/markdown"
-	"github.com/tokenized/specification/internal/platform/parser2"
+	"github.com/tokenized/specification/internal/platform/parser"
 	"github.com/tokenized/specification/internal/python"
 	"github.com/tokenized/specification/internal/typescript"
 
@@ -39,17 +39,17 @@ var cmdGenerate = &cobra.Command{
 		// --------------------------------------------------------------------
 		// Prepare Schemas
 
-		actions, err := parser2.NewSchema(filepath.FromSlash(srcPath + "/actions/develop"))
+		actions, err := parser.NewSchema(filepath.FromSlash(srcPath + "/actions/develop"))
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		assets, err := parser2.NewSchema(filepath.FromSlash(srcPath + "/assets/develop"))
+		assets, err := parser.NewSchema(filepath.FromSlash(srcPath + "/assets/develop"))
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		messages, err := parser2.NewSchema(filepath.FromSlash(srcPath + "/messages/develop"))
+		messages, err := parser.NewSchema(filepath.FromSlash(srcPath + "/messages/develop"))
 		if err != nil {
 			log.Fatal(err)
 		}
