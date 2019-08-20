@@ -31,7 +31,7 @@ fields:
     description: "Who initiated the proposal. Supported values: 0 - Administration, 1 - Holder"
     type: uint
     size: 1
-    intValues:
+    options:
       - 0
       - 1
 

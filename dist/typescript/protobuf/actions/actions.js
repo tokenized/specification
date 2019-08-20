@@ -11432,7 +11432,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.EntityField.repeatedFields_ = [14,15];
+proto.actions.EntityField.repeatedFields_ = [13,14];
 
 
 
@@ -11465,7 +11465,6 @@ proto.actions.EntityField.toObject = function(includeInstance, msg) {
     name: msg.getName(),
     type: msg.getType(),
     lei: msg.getLei(),
-    addressincluded: msg.getAddressincluded(),
     unitnumber: msg.getUnitnumber(),
     buildingnumber: msg.getBuildingnumber(),
     street: msg.getStreet(),
@@ -11528,52 +11527,48 @@ proto.actions.EntityField.deserializeBinaryFromReader = function(msg, reader) {
       msg.setLei(value);
       break;
     case 4:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setAddressincluded(value);
-      break;
-    case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setUnitnumber(value);
       break;
-    case 6:
+    case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setBuildingnumber(value);
       break;
-    case 7:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setStreet(value);
       break;
-    case 8:
+    case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setSuburbcity(value);
       break;
-    case 9:
+    case 8:
       var value = /** @type {string} */ (reader.readString());
       msg.setTerritorystateprovincecode(value);
       break;
-    case 10:
+    case 9:
       var value = /** @type {string} */ (reader.readString());
       msg.setCountrycode(value);
       break;
-    case 11:
+    case 10:
       var value = /** @type {string} */ (reader.readString());
       msg.setPostalzipcode(value);
       break;
-    case 12:
+    case 11:
       var value = /** @type {string} */ (reader.readString());
       msg.setEmailaddress(value);
       break;
-    case 13:
+    case 12:
       var value = /** @type {string} */ (reader.readString());
       msg.setPhonenumber(value);
       break;
-    case 14:
+    case 13:
       var value = new proto.actions.AdministratorField;
       reader.readMessage(value,proto.actions.AdministratorField.deserializeBinaryFromReader);
       msg.getAdministrationList().push(value);
       msg.setAdministrationList(msg.getAdministrationList());
       break;
-    case 15:
+    case 14:
       var value = new proto.actions.ManagerField;
       reader.readMessage(value,proto.actions.ManagerField.deserializeBinaryFromReader);
       msg.getManagementList().push(value);
@@ -11638,80 +11633,73 @@ proto.actions.EntityField.prototype.serializeBinaryToWriter = function (writer) 
       f
     );
   }
-  f = this.getAddressincluded();
-  if (f) {
-    writer.writeBool(
-      4,
-      f
-    );
-  }
   f = this.getUnitnumber();
   if (f.length > 0) {
     writer.writeString(
-      5,
+      4,
       f
     );
   }
   f = this.getBuildingnumber();
   if (f.length > 0) {
     writer.writeString(
-      6,
+      5,
       f
     );
   }
   f = this.getStreet();
   if (f.length > 0) {
     writer.writeString(
-      7,
+      6,
       f
     );
   }
   f = this.getSuburbcity();
   if (f.length > 0) {
     writer.writeString(
-      8,
+      7,
       f
     );
   }
   f = this.getTerritorystateprovincecode();
   if (f.length > 0) {
     writer.writeString(
-      9,
+      8,
       f
     );
   }
   f = this.getCountrycode();
   if (f.length > 0) {
     writer.writeString(
-      10,
+      9,
       f
     );
   }
   f = this.getPostalzipcode();
   if (f.length > 0) {
     writer.writeString(
-      11,
+      10,
       f
     );
   }
   f = this.getEmailaddress();
   if (f.length > 0) {
     writer.writeString(
-      12,
+      11,
       f
     );
   }
   f = this.getPhonenumber();
   if (f.length > 0) {
     writer.writeString(
-      13,
+      12,
       f
     );
   }
   f = this.getAdministrationList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      14,
+      13,
       f,
       proto.actions.AdministratorField.serializeBinaryToWriter
     );
@@ -11719,7 +11707,7 @@ proto.actions.EntityField.prototype.serializeBinaryToWriter = function (writer) 
   f = this.getManagementList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      15,
+      14,
       f,
       proto.actions.ManagerField.serializeBinaryToWriter
     );
@@ -11782,172 +11770,155 @@ proto.actions.EntityField.prototype.setLei = function(value) {
 
 
 /**
- * optional bool AddressIncluded = 4;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.EntityField.prototype.getAddressincluded = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 4, false));
-};
-
-
-/** @param {boolean} value  */
-proto.actions.EntityField.prototype.setAddressincluded = function(value) {
-  jspb.Message.setField(this, 4, value);
-};
-
-
-/**
- * optional string UnitNumber = 5;
+ * optional string UnitNumber = 4;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getUnitnumber = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 5, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 4, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setUnitnumber = function(value) {
-  jspb.Message.setField(this, 5, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional string BuildingNumber = 6;
+ * optional string BuildingNumber = 5;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getBuildingnumber = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 5, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setBuildingnumber = function(value) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
 /**
- * optional string Street = 7;
+ * optional string Street = 6;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getStreet = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 7, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setStreet = function(value) {
-  jspb.Message.setField(this, 7, value);
+  jspb.Message.setField(this, 6, value);
 };
 
 
 /**
- * optional string SuburbCity = 8;
+ * optional string SuburbCity = 7;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getSuburbcity = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 8, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 7, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setSuburbcity = function(value) {
-  jspb.Message.setField(this, 8, value);
+  jspb.Message.setField(this, 7, value);
 };
 
 
 /**
- * optional string TerritoryStateProvinceCode = 9;
+ * optional string TerritoryStateProvinceCode = 8;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getTerritorystateprovincecode = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 9, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 8, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setTerritorystateprovincecode = function(value) {
-  jspb.Message.setField(this, 9, value);
+  jspb.Message.setField(this, 8, value);
 };
 
 
 /**
- * optional string CountryCode = 10;
+ * optional string CountryCode = 9;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getCountrycode = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 10, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 9, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setCountrycode = function(value) {
-  jspb.Message.setField(this, 10, value);
+  jspb.Message.setField(this, 9, value);
 };
 
 
 /**
- * optional string PostalZIPCode = 11;
+ * optional string PostalZIPCode = 10;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getPostalzipcode = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 11, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 10, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setPostalzipcode = function(value) {
-  jspb.Message.setField(this, 11, value);
+  jspb.Message.setField(this, 10, value);
 };
 
 
 /**
- * optional string EmailAddress = 12;
+ * optional string EmailAddress = 11;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getEmailaddress = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 12, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 11, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setEmailaddress = function(value) {
-  jspb.Message.setField(this, 12, value);
+  jspb.Message.setField(this, 11, value);
 };
 
 
 /**
- * optional string PhoneNumber = 13;
+ * optional string PhoneNumber = 12;
  * @return {string}
  */
 proto.actions.EntityField.prototype.getPhonenumber = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 13, ""));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 12, ""));
 };
 
 
 /** @param {string} value  */
 proto.actions.EntityField.prototype.setPhonenumber = function(value) {
-  jspb.Message.setField(this, 13, value);
+  jspb.Message.setField(this, 12, value);
 };
 
 
 /**
- * repeated AdministratorField Administration = 14;
+ * repeated AdministratorField Administration = 13;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AdministratorField>}
  */
 proto.actions.EntityField.prototype.getAdministrationList = function() {
   return /** @type{!Array.<!proto.actions.AdministratorField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.AdministratorField, 14));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.AdministratorField, 13));
 };
 
 
 /** @param {Array.<!proto.actions.AdministratorField>} value  */
 proto.actions.EntityField.prototype.setAdministrationList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 14, value);
+  jspb.Message.setRepeatedWrapperField(this, 13, value);
 };
 
 
@@ -11957,20 +11928,20 @@ proto.actions.EntityField.prototype.clearAdministrationList = function() {
 
 
 /**
- * repeated ManagerField Management = 15;
+ * repeated ManagerField Management = 14;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.ManagerField>}
  */
 proto.actions.EntityField.prototype.getManagementList = function() {
   return /** @type{!Array.<!proto.actions.ManagerField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.ManagerField, 15));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.ManagerField, 14));
 };
 
 
 /** @param {Array.<!proto.actions.ManagerField>} value  */
 proto.actions.EntityField.prototype.setManagementList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 15, value);
+  jspb.Message.setRepeatedWrapperField(this, 14, value);
 };
 
 

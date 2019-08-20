@@ -24,28 +24,17 @@ fields:
     example: "54930084UKLVMY22DS16"
     notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
 
-  - name: AddressIncluded
-    label: Address Included
-    description: "Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address."
-    type: bool
-    example: "1"
-    notes: "Entity/Contracting Party X Details"
-
   - name: UnitNumber
     label: Unit Number
     description: "Issuer/Entity/Contracting Party X Address Details (eg. HQ)"
     type: varchar
     example: "2"
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: AddressIncluded
 
   - name: BuildingNumber
     label: Building Number
     description: ""
     type: varchar
     example: "13577"
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: AddressIncluded
 
   - name: Street
     label: Street
@@ -53,16 +42,12 @@ fields:
     type: varchar
     varSize: small
     example: "Fairmont Ave"
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: AddressIncluded
 
   - name: SuburbCity
     label: Suburb/City
     description: ""
     type: varchar
     example: "Robinoh"
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: AddressIncluded
 
   - name: TerritoryStateProvinceCode
     label: Territory/State/Province Code
@@ -70,8 +55,6 @@ fields:
     type: fixedchar
     size: 5
     example: "BC"
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: AddressIncluded
 
   - name: CountryCode
     label: Country Code
@@ -79,8 +62,6 @@ fields:
     type: fixedchar
     size: 3
     example: "USA"
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: AddressIncluded
 
   - name: PostalZIPCode
     label: Postal/ZIP Code
@@ -88,8 +69,6 @@ fields:
     type: fixedchar
     size: 12
     example: "50210"
-    # include_if_true specifies that this field is only included in serialization if the specified field is true.
-    include_if_true: AddressIncluded
 
   - name: EmailAddress
     label: Email Address

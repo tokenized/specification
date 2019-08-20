@@ -130,13 +130,13 @@
           "example": 0,
           "label": "Operation",
           "name": "Operation",
-          "size": 1,
-          "type": "uint",
-          "values": [
+          "options": [
             0,
             1,
             2
-          ]
+          ],
+          "size": 1,
+          "type": "uint"
         },
         {
           "description": "New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol.",
@@ -173,23 +173,17 @@
         {
           "description": "0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has oracles, then a signature is required from one of them.",
           "example": 1,
-          "int_values": [
+          "label": "Oracle Signature Algorithm",
+          "name": "OracleSigAlgorithm",
+          "options": [
             0,
             1
           ],
-          "label": "Oracle Signature Algorithm",
-          "name": "OracleSigAlgorithm",
           "size": 1,
           "type": "uint"
         },
         {
           "description": "Specifies the index into the list of oracles in the contract offer that was used to authorize this transfer.",
-          "include_if_int": {
-            "field": "OracleSigAlgorithm",
-            "values": [
-              1
-            ]
-          },
           "label": "Oracle Index",
           "name": "OracleIndex",
           "size": 1,
@@ -197,24 +191,12 @@
         },
         {
           "description": "Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.",
-          "include_if_int": {
-            "field": "OracleSigAlgorithm",
-            "values": [
-              1
-            ]
-          },
           "label": "Oracle Confirmation Signature",
           "name": "OracleConfirmationSig",
           "type": "varbin"
         },
         {
           "description": "The block height of the block hash used in the oracle signature.",
-          "include_if_int": {
-            "field": "OracleSigAlgorithm",
-            "values": [
-              1
-            ]
-          },
           "label": "Oracle Signature Block height",
           "name": "OracleSigBlockHeight",
           "size": 4,
@@ -355,17 +337,8 @@
           "type": "fixedchar"
         },
         {
-          "description": "Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.",
-          "example": "1",
-          "label": "Address Included",
-          "name": "AddressIncluded",
-          "notes": "Entity/Contracting Party X Details",
-          "type": "bool"
-        },
-        {
           "description": "Issuer/Entity/Contracting Party X Address Details (eg. HQ)",
           "example": "2",
-          "include_if_true": "AddressIncluded",
           "label": "Unit Number",
           "name": "UnitNumber",
           "type": "varchar"
@@ -373,7 +346,6 @@
         {
           "description": "",
           "example": "13577",
-          "include_if_true": "AddressIncluded",
           "label": "Building Number",
           "name": "BuildingNumber",
           "type": "varchar"
@@ -381,7 +353,6 @@
         {
           "description": "",
           "example": "Fairmont Ave",
-          "include_if_true": "AddressIncluded",
           "label": "Street",
           "name": "Street",
           "type": "varchar",
@@ -390,7 +361,6 @@
         {
           "description": "",
           "example": "Robinoh",
-          "include_if_true": "AddressIncluded",
           "label": "Suburb/City",
           "name": "SuburbCity",
           "type": "varchar"
@@ -398,7 +368,6 @@
         {
           "description": "",
           "example": "BC",
-          "include_if_true": "AddressIncluded",
           "label": "Territory/State/Province Code",
           "name": "TerritoryStateProvinceCode",
           "size": 5,
@@ -407,7 +376,6 @@
         {
           "description": "",
           "example": "USA",
-          "include_if_true": "AddressIncluded",
           "label": "Country Code",
           "name": "CountryCode",
           "size": 3,
@@ -416,7 +384,6 @@
         {
           "description": "",
           "example": "50210",
-          "include_if_true": "AddressIncluded",
           "label": "Postal/ZIP Code",
           "name": "PostalZIPCode",
           "size": 12,
@@ -612,13 +579,13 @@
         {
           "description": "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
           "example": "1",
-          "intValues": [
-            1,
-            2
-          ],
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
           "notes": "Body of Agreement - Amendments can be restricted to a vote.",
+          "options": [
+            1,
+            2
+          ],
           "size": 1,
           "type": "uint"
         },
@@ -799,13 +766,13 @@
         {
           "description": "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
           "example": "1",
-          "intValues": [
-            1,
-            2
-          ],
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
           "notes": "Body of Agreement - Amendments can be restricted to a vote.",
+          "options": [
+            1,
+            2
+          ],
           "size": 1,
           "type": "uint"
         },
@@ -1069,13 +1036,13 @@
         {
           "description": "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
           "example": "1",
-          "intValues": [
-            1,
-            2
-          ],
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
           "notes": "Body of Agreement - Amendments can be restricted to a vote.",
+          "options": [
+            1,
+            2
+          ],
           "size": 1,
           "type": "uint"
         },
@@ -1274,12 +1241,12 @@
         {
           "description": "Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
           "example": "1",
-          "intValues": [
+          "label": "Asset Modification Governance",
+          "name": "AssetModificationGovernance",
+          "options": [
             0,
             1
           ],
-          "label": "Asset Modification Governance",
-          "name": "AssetModificationGovernance",
           "size": 1,
           "type": "uint"
         },
@@ -1405,12 +1372,12 @@
         {
           "description": "Supported values: 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
           "example": "1",
-          "intValues": [
+          "label": "Asset Modification Governance",
+          "name": "AssetModificationGovernance",
+          "options": [
             0,
             1
           ],
-          "label": "Asset Modification Governance",
-          "name": "AssetModificationGovernance",
           "size": 1,
           "type": "uint"
         },
@@ -1630,12 +1597,12 @@
       "fields": [
         {
           "description": "Who initiated the proposal. Supported values: 0 - Administration, 1 - Holder",
-          "intValues": [
+          "label": "Initiator",
+          "name": "Initiator",
+          "options": [
             0,
             1
           ],
-          "label": "Initiator",
-          "name": "Initiator",
           "size": 1,
           "type": "uint"
         },
@@ -1981,14 +1948,6 @@
         {
           "description": "Three letter character that specifies the asset type.",
           "example": "SHC",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "F",
-              "C",
-              "R"
-            ]
-          },
           "label": "Asset Type",
           "name": "AssetType",
           "size": 3,
@@ -1996,14 +1955,6 @@
         },
         {
           "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "F",
-              "C",
-              "R"
-            ]
-          },
           "label": "Asset Code",
           "name": "AssetCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
@@ -2011,14 +1962,6 @@
         },
         {
           "description": "The holders and quantities that are effected by the order. For a contract or asset wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an asset wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed.",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "F",
-              "C",
-              "R"
-            ]
-          },
           "label": "Target Addresses",
           "listSize": "medium",
           "name": "TargetAddresses",
@@ -2026,12 +1969,6 @@
         },
         {
           "description": "The tx id of the freeze action that is being thawed. Only serialized for thaw orders.",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "T"
-            ]
-          },
           "label": "Freeze Tx Id",
           "name": "FreezeTxId",
           "type": "TxId"
@@ -2039,24 +1976,12 @@
         {
           "description": "Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.",
           "example": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "F"
-            ]
-          },
           "label": "Freeze Period",
           "name": "FreezePeriod",
           "type": "Timestamp"
         },
         {
           "description": "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions.",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "C"
-            ]
-          },
           "label": "Deposit Address",
           "name": "DepositAddress",
           "notes": "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes.",
@@ -2064,14 +1989,6 @@
         },
         {
           "description": "Specifies if an authority signature is included. For Reconcialitaion actions all authority signature related fields are skipped during serialization.",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "F",
-              "T",
-              "C"
-            ]
-          },
           "label": "Authority Included",
           "name": "AuthorityIncluded",
           "type": "bool"
@@ -2096,11 +2013,11 @@
           "description": "Algorithm used for order signature. Only valid value is currently 1 = ECDSA+secp256k1",
           "example": 1,
           "includeIfTrue": "AuthorityIncluded",
-          "intValues": [
-            1
-          ],
           "label": "Signature Algorithm",
           "name": "SignatureAlgorithm",
+          "options": [
+            1
+          ],
           "size": 1,
           "type": "uint"
         },
@@ -2121,12 +2038,6 @@
         },
         {
           "description": "The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "R"
-            ]
-          },
           "label": "Ref Txs",
           "name": "RefTxs",
           "notes": "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.",
@@ -2135,12 +2046,6 @@
         },
         {
           "description": "Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens.",
-          "includeIf": {
-            "field": "ComplianceAction",
-            "values": [
-              "R"
-            ]
-          },
           "label": "Bitcoin Dispersions",
           "listSize": "small",
           "name": "BitcoinDispersions",

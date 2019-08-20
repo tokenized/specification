@@ -340,18 +340,17 @@ message EntityField {
     string Name                                    = 1;   // varchar
     string Type                                    = 2;   // EntityType
     string LEI                                     = 3;   // fixedchar
-    bool AddressIncluded                           = 4;   // bool
-    string UnitNumber                              = 5;   // varchar
-    string BuildingNumber                          = 6;   // varchar
-    string Street                                  = 7;   // varchar
-    string SuburbCity                              = 8;   // varchar
-    string TerritoryStateProvinceCode              = 9;   // fixedchar
-    string CountryCode                             = 10;   // fixedchar
-    string PostalZIPCode                           = 11;  // fixedchar
-    string EmailAddress                            = 12;  // varchar
-    string PhoneNumber                             = 13;  // varchar
-    repeated AdministratorField Administration     = 14;  // Administrator[]
-    repeated ManagerField Management               = 15;  // Manager[]
+    string UnitNumber                              = 4;   // varchar
+    string BuildingNumber                          = 5;   // varchar
+    string Street                                  = 6;   // varchar
+    string SuburbCity                              = 7;   // varchar
+    string TerritoryStateProvinceCode              = 8;   // fixedchar
+    string CountryCode                             = 9;   // fixedchar
+    string PostalZIPCode                           = 10;   // fixedchar
+    string EmailAddress                            = 11;  // varchar
+    string PhoneNumber                             = 12;  // varchar
+    repeated AdministratorField Administration     = 13;  // Administrator[]
+    repeated ManagerField Management               = 14;  // Manager[]
 }
 
 // Field - Manager

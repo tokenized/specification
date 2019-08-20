@@ -11,6 +11,12 @@ const (
     max4ByteInteger = 4294967295
 )
 
+{{ define "ListValues" -}}
+{{- range $i, $v := . -}}
+{{ if gt $i 0 }}, {{ end }}{{ $v }}
+{{- end -}}
+{{- end }}
+
 {{ define "ValidateField" -}}
     // Field {{ .Name }} - {{ .BaseType }}
     {{- if .IsList }}
@@ -89,7 +95,18 @@ const (
         }
         {{- end }}
     {{- else if eq .BaseType "uint" }}
-        {{- if le .BaseSize 1 }}
+		{{- if gt (len .Options) 0 }}
+		found{{ .Name }} := false
+		for _, v := range []{{ .GoType }}{ {{ template "ListValues" .Options }} } {
+			if a.{{ .Name }} == v {
+				found{{ .Name }} = true
+				break
+			}
+		}
+		if !found{{ .Name }} {
+			return fmt.Errorf("{{ .Name }} value not within options {{ .Options }} : %d", a.{{ .Name }})
+		}
+        {{- else if le .BaseSize 1 }}
         if a.{{ .Name }} > uint32(max1ByteInteger) {
             return fmt.Errorf("uint over max value : %d > %d", a.{{ .Name }}, max1ByteInteger)
         }

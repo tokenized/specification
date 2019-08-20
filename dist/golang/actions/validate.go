@@ -21,8 +21,15 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field BodyOfAgreementType - uint
-	if a.BodyOfAgreementType > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.BodyOfAgreementType, max1ByteInteger)
+	foundBodyOfAgreementType := false
+	for _, v := range []uint32{1, 2} {
+		if a.BodyOfAgreementType == v {
+			foundBodyOfAgreementType = true
+			break
+		}
+	}
+	if !foundBodyOfAgreementType {
+		return fmt.Errorf("BodyOfAgreementType value not within options [1 2] : %d", a.BodyOfAgreementType)
 	}
 
 	// Field BodyOfAgreement - varbin
@@ -127,8 +134,15 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field BodyOfAgreementType - uint
-	if a.BodyOfAgreementType > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.BodyOfAgreementType, max1ByteInteger)
+	foundBodyOfAgreementType := false
+	for _, v := range []uint32{1, 2} {
+		if a.BodyOfAgreementType == v {
+			foundBodyOfAgreementType = true
+			break
+		}
+	}
+	if !foundBodyOfAgreementType {
+		return fmt.Errorf("BodyOfAgreementType value not within options [1 2] : %d", a.BodyOfAgreementType)
 	}
 
 	// Field BodyOfAgreement - varbin
@@ -273,8 +287,15 @@ func (a *StaticContractFormation) Validate() error {
 	}
 
 	// Field BodyOfAgreementType - uint
-	if a.BodyOfAgreementType > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.BodyOfAgreementType, max1ByteInteger)
+	foundBodyOfAgreementType := false
+	for _, v := range []uint32{1, 2} {
+		if a.BodyOfAgreementType == v {
+			foundBodyOfAgreementType = true
+			break
+		}
+	}
+	if !foundBodyOfAgreementType {
+		return fmt.Errorf("BodyOfAgreementType value not within options [1 2] : %d", a.BodyOfAgreementType)
 	}
 
 	// Field BodyOfAgreement - varbin
@@ -391,8 +412,15 @@ func (a *AssetDefinition) Validate() error {
 	// Field HolderProposal - bool
 
 	// Field AssetModificationGovernance - uint
-	if a.AssetModificationGovernance > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.AssetModificationGovernance, max1ByteInteger)
+	foundAssetModificationGovernance := false
+	for _, v := range []uint32{0, 1} {
+		if a.AssetModificationGovernance == v {
+			foundAssetModificationGovernance = true
+			break
+		}
+	}
+	if !foundAssetModificationGovernance {
+		return fmt.Errorf("AssetModificationGovernance value not within options [0 1] : %d", a.AssetModificationGovernance)
 	}
 
 	// Field TokenQty - uint
@@ -456,8 +484,15 @@ func (a *AssetCreation) Validate() error {
 	// Field HolderProposal - bool
 
 	// Field AssetModificationGovernance - uint
-	if a.AssetModificationGovernance > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.AssetModificationGovernance, max1ByteInteger)
+	foundAssetModificationGovernance := false
+	for _, v := range []uint32{0, 1} {
+		if a.AssetModificationGovernance == v {
+			foundAssetModificationGovernance = true
+			break
+		}
+	}
+	if !foundAssetModificationGovernance {
+		return fmt.Errorf("AssetModificationGovernance value not within options [0 1] : %d", a.AssetModificationGovernance)
 	}
 
 	// Field TokenQty - uint
@@ -571,8 +606,15 @@ func (a *Proposal) Validate() error {
 	}
 
 	// Field Initiator - uint
-	if a.Initiator > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.Initiator, max1ByteInteger)
+	foundInitiator := false
+	for _, v := range []uint32{0, 1} {
+		if a.Initiator == v {
+			foundInitiator = true
+			break
+		}
+	}
+	if !foundInitiator {
+		return fmt.Errorf("Initiator value not within options [0 1] : %d", a.Initiator)
 	}
 
 	// Field AssetSpecificVote - bool
@@ -795,8 +837,15 @@ func (a *Order) Validate() error {
 	}
 
 	// Field SignatureAlgorithm - uint
-	if a.SignatureAlgorithm > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.SignatureAlgorithm, max1ByteInteger)
+	foundSignatureAlgorithm := false
+	for _, v := range []uint32{1} {
+		if a.SignatureAlgorithm == v {
+			foundSignatureAlgorithm = true
+			break
+		}
+	}
+	if !foundSignatureAlgorithm {
+		return fmt.Errorf("SignatureAlgorithm value not within options [1] : %d", a.SignatureAlgorithm)
 	}
 
 	// Field OrderSignature - varbin
@@ -1110,8 +1159,15 @@ func (a *AmendmentField) Validate() error {
 	}
 
 	// Field Operation - uint
-	if a.Operation > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.Operation, max1ByteInteger)
+	foundOperation := false
+	for _, v := range []uint32{0, 1, 2} {
+		if a.Operation == v {
+			foundOperation = true
+			break
+		}
+	}
+	if !foundOperation {
+		return fmt.Errorf("Operation value not within options [0 1 2] : %d", a.Operation)
 	}
 
 	// Field Data - varbin
@@ -1135,8 +1191,15 @@ func (a *AssetReceiverField) Validate() error {
 	// Field Quantity - uint
 
 	// Field OracleSigAlgorithm - uint
-	if a.OracleSigAlgorithm > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.OracleSigAlgorithm, max1ByteInteger)
+	foundOracleSigAlgorithm := false
+	for _, v := range []uint32{0, 1} {
+		if a.OracleSigAlgorithm == v {
+			foundOracleSigAlgorithm = true
+			break
+		}
+	}
+	if !foundOracleSigAlgorithm {
+		return fmt.Errorf("OracleSigAlgorithm value not within options [0 1] : %d", a.OracleSigAlgorithm)
 	}
 
 	// Field OracleIndex - uint
@@ -1278,8 +1341,6 @@ func (a *EntityField) Validate() error {
 		return fmt.Errorf("Fixed width field LEI wrong size : %d should be %d",
 			len(a.LEI), 20)
 	}
-
-	// Field AddressIncluded - bool
 
 	// Field UnitNumber - varchar
 	if len(a.UnitNumber) > max1ByteInteger {

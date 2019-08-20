@@ -3778,16 +3778,6 @@ Entity represents the details of a legal Entity, such as a public or private com
             </td>
         </tr>
         <tr>
-            <td>AddressIncluded</td>
-            <td>
-                bool
-            </td>
-            <td>
-                Registered/Physical/mailing address(HQ). Y-1/N-0, N means there is no issuer address.
-                Entity/Contracting Party X Details Example: 1
-            </td>
-        </tr>
-        <tr>
             <td>UnitNumber</td>
             <td>
                 varchar(tiny)

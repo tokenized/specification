@@ -1,21 +1,13 @@
 package messages
 
 import (
-	"bytes"
-	"encoding/binary"
 	"testing"
 )
-
-func codeBytes(code int) []byte {
-	var buf bytes.Buffer
-	binary.Write(&buf, binary.LittleEndian, uint16(code))
-	return buf.Bytes()
-}
 
 func TestEmptyDeserialize(t *testing.T) {
 	var ok bool
 	// PublicMessage identifies a payload as a PublicMessage message.
-	messagePublicMessage, err := Deserialize(codeBytes(CodePublicMessage), nil)
+	messagePublicMessage, err := Deserialize(CodePublicMessage, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for PublicMessage : %s", err)
 	}
@@ -25,7 +17,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// PrivateMessage identifies a payload as a PrivateMessage message.
-	messagePrivateMessage, err := Deserialize(codeBytes(CodePrivateMessage), nil)
+	messagePrivateMessage, err := Deserialize(CodePrivateMessage, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for PrivateMessage : %s", err)
 	}
@@ -35,7 +27,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// RevertedTx identifies a payload as a RevertedTx message.
-	messageRevertedTx, err := Deserialize(codeBytes(CodeRevertedTx), nil)
+	messageRevertedTx, err := Deserialize(CodeRevertedTx, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for RevertedTx : %s", err)
 	}
@@ -45,7 +37,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Offer identifies a payload as a Offer message.
-	messageOffer, err := Deserialize(codeBytes(CodeOffer), nil)
+	messageOffer, err := Deserialize(CodeOffer, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Offer : %s", err)
 	}
@@ -55,7 +47,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// SignatureRequest identifies a payload as a SignatureRequest message.
-	messageSignatureRequest, err := Deserialize(codeBytes(CodeSignatureRequest), nil)
+	messageSignatureRequest, err := Deserialize(CodeSignatureRequest, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for SignatureRequest : %s", err)
 	}
@@ -65,7 +57,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// SettlementRequest identifies a payload as a SettlementRequest message.
-	messageSettlementRequest, err := Deserialize(codeBytes(CodeSettlementRequest), nil)
+	messageSettlementRequest, err := Deserialize(CodeSettlementRequest, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for SettlementRequest : %s", err)
 	}
@@ -75,7 +67,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// OutputMetadata identifies a payload as a OutputMetadata message.
-	messageOutputMetadata, err := Deserialize(codeBytes(CodeOutputMetadata), nil)
+	messageOutputMetadata, err := Deserialize(CodeOutputMetadata, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for OutputMetadata : %s", err)
 	}

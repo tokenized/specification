@@ -1557,11 +1557,6 @@ func (l *EntityField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("LEI string mismatched")
 	}
 
-	// Field AddressIncluded - bool
-	if l.AddressIncluded != r.AddressIncluded {
-		return false // fmt.Errorf("AddressIncluded boolean mismatched")
-	}
-
 	// Field UnitNumber - varchar
 	if l.UnitNumber != r.UnitNumber {
 		return false // fmt.Errorf("UnitNumber string mismatched")
