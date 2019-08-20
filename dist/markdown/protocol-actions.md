@@ -122,7 +122,7 @@ Allows the administration to tell the smart contract what they want the details 
         <tr>
             <td>BodyOfAgreement</td>
             <td>
-                varbin(tiny)
+                varbin(medium)
             </td>
             <td>
                 SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.
@@ -252,7 +252,7 @@ Allows the administration to tell the smart contract what they want the details 
         <tr>
             <td>ContractAuthFlags</td>
             <td>
-                varbin(tiny)
+                varbin(small)
             </td>
             <td>
                 A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract&#39;s control should be listed in the Body of Agreement.
@@ -396,7 +396,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         <tr>
             <td>BodyOfAgreement</td>
             <td>
-                varbin(tiny)
+                varbin(medium)
             </td>
             <td>
                 SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.
@@ -526,7 +526,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         <tr>
             <td>ContractAuthFlags</td>
             <td>
-                varbin(tiny)
+                varbin(small)
             </td>
             <td>
                 A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract&#39;s control should be listed in the Body of Agreement
@@ -806,7 +806,7 @@ Static Contract Formation Action
         <tr>
             <td>BodyOfAgreement</td>
             <td>
-                varbin(tiny)
+                varbin(medium)
             </td>
             <td>
                 SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.
@@ -960,7 +960,7 @@ This txn is signed by the master contract key defined in the contract formation 
         <tr>
             <td>NewContractAddress</td>
             <td>
-                varbin(tiny)
+                varbin(small)
             </td>
             <td>
                 The address to be used by all future requests/responses for the contract.
@@ -1043,7 +1043,7 @@ This action is used by the administration to define the properties/characteristi
         <tr>
             <td>AssetAuthFlags</td>
             <td>
-                varbin(tiny)
+                varbin(small)
             </td>
             <td>
                 A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.
@@ -1063,7 +1063,7 @@ This action is used by the administration to define the properties/characteristi
         <tr>
             <td>TradeRestrictions</td>
             <td>
-                <a href="#alias-fixedchar">fixedchar(3)[tiny]</a>
+                <a href="#alias-fixedchar">fixedchar(3)[small]</a>
             </td>
             <td>
                 If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
@@ -1153,7 +1153,7 @@ This action is used by the administration to define the properties/characteristi
         <tr>
             <td>AssetPayload</td>
             <td>
-                varbin(tiny)
+                varbin(small)
             </td>
             <td>
                 A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.
@@ -1240,7 +1240,7 @@ This action creates an asset in response to the administration&#39;s instruction
         <tr>
             <td>AssetAuthFlags</td>
             <td>
-                varbin(tiny)
+                varbin(small)
             </td>
             <td>
                 A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.
@@ -1260,7 +1260,7 @@ This action creates an asset in response to the administration&#39;s instruction
         <tr>
             <td>TradeRestrictions</td>
             <td>
-                <a href="#alias-fixedchar">fixedchar(3)[tiny]</a>
+                <a href="#alias-fixedchar">fixedchar(3)[small]</a>
             </td>
             <td>
                 If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
@@ -1350,7 +1350,7 @@ This action creates an asset in response to the administration&#39;s instruction
         <tr>
             <td>AssetPayload</td>
             <td>
-                varbin(tiny)
+                varbin(small)
             </td>
             <td>
                 A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.
@@ -1808,7 +1808,7 @@ Allows the Administration/Token Holders to propose a change (aka Initiative/Shar
         <tr>
             <td>ProposalDescription</td>
             <td>
-                varchar(tiny)
+                varchar(medium)
             </td>
             <td>
                 Length restricted by the Bitcoin protocol. 0 is valid. Description or details of the vote
@@ -2318,7 +2318,7 @@ Used by the administration to signal to the smart contract that the tokens that 
         <tr>
             <td>TargetAddresses</td>
             <td>
-                <a href="#type-target-address">TargetAddress[tiny]</a>
+                <a href="#type-target-address">TargetAddress[medium]</a>
             </td>
             <td>
                 The holders and quantities that are effected by the order. For a contract or asset wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an asset wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed.
@@ -2418,7 +2418,7 @@ Used by the administration to signal to the smart contract that the tokens that 
         <tr>
             <td>RefTxs</td>
             <td>
-                varbin(tiny)
+                varbin(medium)
             </td>
             <td>
                 The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
@@ -2428,7 +2428,7 @@ Used by the administration to signal to the smart contract that the tokens that 
         <tr>
             <td>BitcoinDispersions</td>
             <td>
-                <a href="#type-quantity-index">QuantityIndex[tiny]</a>
+                <a href="#type-quantity-index">QuantityIndex[small]</a>
             </td>
             <td>
                 Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens.
@@ -2438,7 +2438,7 @@ Used by the administration to signal to the smart contract that the tokens that 
         <tr>
             <td>Message</td>
             <td>
-                varchar(tiny)
+                varchar(medium)
             </td>
             <td>
                 A message to include with the enforcement order.
@@ -2526,7 +2526,7 @@ The contract responding to an Order action to freeze assets. To be used to compl
         <tr>
             <td>Quantities</td>
             <td>
-                <a href="#type-quantity-index">QuantityIndex[tiny]</a>
+                <a href="#type-quantity-index">QuantityIndex[small]</a>
             </td>
             <td>
                 Indices to addresses in outputs and the quantities being frozen. If the only address is the contract address and the asset code is zeros, then it is a contract wide freeze. If the only address is the contract address and the asset code is specified, then it is an asset wide freeze.
@@ -2712,7 +2712,7 @@ The contract responding to an Order action to confiscate assets. To be used to c
         <tr>
             <td>Quantities</td>
             <td>
-                <a href="#type-quantity-index">QuantityIndex[tiny]</a>
+                <a href="#type-quantity-index">QuantityIndex[small]</a>
             </td>
             <td>
                 The holders effected by the confiscation and their balance remaining.
@@ -2825,7 +2825,7 @@ The contract responding to an Order action to reconcile assets. To be used at th
         <tr>
             <td>Quantities</td>
             <td>
-                <a href="#type-quantity-index">QuantityIndex[tiny]</a>
+                <a href="#type-quantity-index">QuantityIndex[small]</a>
             </td>
             <td>
                 The holders effected by the reconciliation and their balance remaining.
@@ -2902,7 +2902,7 @@ Establishes an on-chain register.
         <tr>
             <td>Message</td>
             <td>
-                varchar(tiny)
+                varchar(medium)
             </td>
             <td>
                 A custom message to include with this action.
@@ -2969,7 +2969,7 @@ Adds an entry to the Register.
         <tr>
             <td>Message</td>
             <td>
-                varchar(tiny)
+                varchar(medium)
             </td>
             <td>
                 A custom message to include with this action.
@@ -3046,7 +3046,7 @@ A register entry/record can be altered.
         <tr>
             <td>Message</td>
             <td>
-                varchar(tiny)
+                varchar(medium)
             </td>
             <td>
                 A custom message to include with this action.
@@ -3123,7 +3123,7 @@ Removes an entry/record from the Register.
         <tr>
             <td>Message</td>
             <td>
-                varchar(tiny)
+                varchar(medium)
             </td>
             <td>
                 A custom message to include with this action.
@@ -3211,7 +3211,7 @@ The message action is a general purpose communication action. &#39;Twitter/SMS&#
         <tr>
             <td>MessagePayload</td>
             <td>
-                varbin(tiny)
+                varbin(medium)
             </td>
             <td>
                 Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private &#39;notes&#39; if encrypted. See Message Types for a full list of potential use cases.
@@ -3309,7 +3309,7 @@ Used to reject request actions that do not comply with the Contract. If money is
         <tr>
             <td>Message</td>
             <td>
-                varchar(tiny)
+                varchar(small)
             </td>
             <td>
                 Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield.
@@ -3485,7 +3485,7 @@ An Amendment is used to describe the modification of a single field in a Contrac
         <tr>
             <td>Data</td>
             <td>
-                varbin(tiny)
+                varbin(medium)
             </td>
             <td>
                 New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol.
@@ -3725,7 +3725,7 @@ A file containing data.
         <tr>
             <td>Contents</td>
             <td>
-                varbin(tiny)
+                varbin(medium)
             </td>
             <td>
                 The contents of the file.
@@ -3810,7 +3810,7 @@ Entity represents the details of a legal Entity, such as a public or private com
         <tr>
             <td>Street</td>
             <td>
-                varchar(tiny)
+                varchar(small)
             </td>
             <td>
                 

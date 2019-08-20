@@ -27,8 +27,8 @@ func (a *PublicMessage) Validate() error {
 	// Field PublicMessage - Document
 
 	// Field Attachments - Document
-	if len(a.Attachments) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.Attachments), max1ByteInteger)
+	if len(a.Attachments) > max4ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Attachments), max4ByteInteger)
 	}
 	for i, v := range a.Attachments {
 		if err := v.Validate(); err != nil {
@@ -56,8 +56,8 @@ func (a *PrivateMessage) Validate() error {
 	// Field PrivateMessage - Document
 
 	// Field Attachments - Document
-	if len(a.Attachments) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.Attachments), max1ByteInteger)
+	if len(a.Attachments) > max4ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Attachments), max4ByteInteger)
 	}
 	for i, v := range a.Attachments {
 		if err := v.Validate(); err != nil {
@@ -127,8 +127,8 @@ func (a *SettlementRequest) Validate() error {
 	}
 
 	// Field ContractFees - TargetAddress
-	if len(a.ContractFees) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.ContractFees), max1ByteInteger)
+	if len(a.ContractFees) > max2ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.ContractFees), max2ByteInteger)
 	}
 	for i, v := range a.ContractFees {
 		if err := v.Validate(); err != nil {

@@ -82,7 +82,7 @@ Generic public message or public announcement. Sent to an address(es).  Can be u
         <tr>
             <td>Attachments</td>
             <td>
-                <a href="#type-document">Document[1]</a>
+                <a href="#type-document">Document[0]</a>
             </td>
             <td>
                 Documents attached to the message.
@@ -154,7 +154,7 @@ Generic private message. Sent to another address(es). Encryption is to be used.
         <tr>
             <td>Attachments</td>
             <td>
-                <a href="#type-document">Document[1]</a>
+                <a href="#type-document">Document[0]</a>
             </td>
             <td>
                 Documents attached to the message.
@@ -332,7 +332,7 @@ A message that contains a multi-contract settlement that needs settlement data a
         <tr>
             <td>ContractFees</td>
             <td>
-                <a href="#type-target-address">TargetAddress[1]</a>
+                <a href="#type-target-address">TargetAddress[0]</a>
             </td>
             <td>
                 Contract fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.
@@ -384,7 +384,7 @@ Metadata associated with the output. Aka Transaction details. It is used to desc
         <tr>
             <td>Tags</td>
             <td>
-                <a href="#alias-uint">uint[1]</a>
+                <a href="#alias-uint">uint[0]</a>
             </td>
             <td>
                 Predefined values for describing the output.
@@ -394,7 +394,7 @@ Metadata associated with the output. Aka Transaction details. It is used to desc
         <tr>
             <td>CustomTags</td>
             <td>
-                <a href="#type-output-tag">OutputTag[1]</a>
+                <a href="#type-output-tag">OutputTag[0]</a>
             </td>
             <td>
                 Free form text fields for describing the output. Groceries, Moomba Gas Compressor Project, Cash Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy Smith, etc.

@@ -57,9 +57,6 @@ func NewSchema(path string) (*Schema, error) {
 // postProcessFields applies defaults, attaches alias information and detects compound fields.
 func postProcessFields(fields []Field, aliases []Field) {
 	for i, field := range fields {
-		if field.IsList() && field.Size == 0 {
-			fields[i].Size = 1
-		}
 		for _, alias := range aliases {
 			baseType := field.BaseType()
 			if alias.Name == baseType {

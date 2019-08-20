@@ -367,8 +367,8 @@ func (a *AssetDefinition) Validate() error {
 	// Field TransfersPermitted - bool
 
 	// Field TradeRestrictions - fixedchar
-	if len(a.TradeRestrictions) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.TradeRestrictions), max1ByteInteger)
+	if len(a.TradeRestrictions) > max2ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.TradeRestrictions), max2ByteInteger)
 	}
 	for i, v := range a.TradeRestrictions {
 		if len(v) != 0 && len(v) != 3 {
@@ -432,8 +432,8 @@ func (a *AssetCreation) Validate() error {
 	// Field TransfersPermitted - bool
 
 	// Field TradeRestrictions - fixedchar
-	if len(a.TradeRestrictions) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.TradeRestrictions), max1ByteInteger)
+	if len(a.TradeRestrictions) > max2ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.TradeRestrictions), max2ByteInteger)
 	}
 	for i, v := range a.TradeRestrictions {
 		if len(v) != 0 && len(v) != 3 {
@@ -760,8 +760,8 @@ func (a *Order) Validate() error {
 	}
 
 	// Field TargetAddresses - TargetAddress
-	if len(a.TargetAddresses) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.TargetAddresses), max1ByteInteger)
+	if len(a.TargetAddresses) > max4ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.TargetAddresses), max4ByteInteger)
 	}
 	for i, v := range a.TargetAddresses {
 		if err := v.Validate(); err != nil {
@@ -816,8 +816,8 @@ func (a *Order) Validate() error {
 	}
 
 	// Field BitcoinDispersions - QuantityIndex
-	if len(a.BitcoinDispersions) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.BitcoinDispersions), max1ByteInteger)
+	if len(a.BitcoinDispersions) > max2ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.BitcoinDispersions), max2ByteInteger)
 	}
 	for i, v := range a.BitcoinDispersions {
 		if err := v.Validate(); err != nil {
@@ -851,8 +851,8 @@ func (a *Freeze) Validate() error {
 	}
 
 	// Field Quantities - QuantityIndex
-	if len(a.Quantities) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.Quantities), max1ByteInteger)
+	if len(a.Quantities) > max2ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Quantities), max2ByteInteger)
 	}
 	for i, v := range a.Quantities {
 		if err := v.Validate(); err != nil {
@@ -901,8 +901,8 @@ func (a *Confiscation) Validate() error {
 	}
 
 	// Field Quantities - QuantityIndex
-	if len(a.Quantities) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.Quantities), max1ByteInteger)
+	if len(a.Quantities) > max2ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Quantities), max2ByteInteger)
 	}
 	for i, v := range a.Quantities {
 		if err := v.Validate(); err != nil {
@@ -935,8 +935,8 @@ func (a *Reconciliation) Validate() error {
 	}
 
 	// Field Quantities - QuantityIndex
-	if len(a.Quantities) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.Quantities), max1ByteInteger)
+	if len(a.Quantities) > max2ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Quantities), max2ByteInteger)
 	}
 	for i, v := range a.Quantities {
 		if err := v.Validate(); err != nil {

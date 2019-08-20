@@ -11,14 +11,14 @@ type Field struct {
 	Description    string   `yaml:"description"`
 	Notes          string   `yaml:"notes"`
 	Type           string   `yaml:"type"`
-	Size           int      `yaml: "size"`
-	ListSize       string   `yaml: "listSize"`
-	VarSize        string   `yaml: "varSize"`
-	Example        string   `yaml: "example"`
-	Options        []string `yaml: "options`
-	Resource       string   `yaml: "resource`
-	IsAlias        bool     `yaml: "is_alias"`
-	IsCompoundType bool     `yaml: "is_compound_type"`
+	Size           int      `yaml:"size"`
+	ListSize       string   `yaml:"listSize"`
+	VarSize        string   `yaml:"varSize"`
+	Example        string   `yaml:"example"`
+	Options        []string `yaml:"options`
+	Resource       string   `yaml:"resource`
+	IsAlias        bool     `yaml:"is_alias"`
+	IsCompoundType bool     `yaml:"is_compound_type"`
 	AliasField     *Field
 }
 
@@ -62,6 +62,9 @@ func (f *Field) BaseType() string {
 
 // BaseSize returns the size of the field's base type, the alias type if there is one.
 func (f *Field) BaseSize() int {
+	if f.Size != 0 {
+		return f.Size
+	}
 	if f.AliasField != nil {
 		return f.AliasField.BaseSize()
 	}
@@ -73,6 +76,9 @@ func (f *Field) BaseSize() int {
 
 // BaseListSize returns the list size of the field's base type, the alias type if there is one.
 func (f *Field) BaseListSize() string {
+	if len(f.ListSize) != 0 {
+		return f.ListSize
+	}
 	if f.AliasField != nil {
 		return f.AliasField.BaseListSize()
 	}
