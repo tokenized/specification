@@ -12,6 +12,8 @@ type Field struct {
 	Notes          string   `yaml:"notes"`
 	Type           string   `yaml:"type"`
 	Size           int      `yaml: "size"`
+	ListSize       string   `yaml: "listSize"`
+	VarSize        string   `yaml: "varSize"`
 	Example        string   `yaml: "example"`
 	Options        []string `yaml: "options`
 	Resource       string   `yaml: "resource`
@@ -52,7 +54,43 @@ func (f *Field) IsList() bool {
 
 // BaseType returns the base type of the field, with no modifiers like list type.
 func (f *Field) BaseType() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseType()
+	}
 	return strings.Replace(f.Type, "[]", "", 1)
+}
+
+// BaseSize returns the size of the field's base type, the alias type if there is one.
+func (f *Field) BaseSize() int {
+	if f.AliasField != nil {
+		return f.AliasField.BaseSize()
+	}
+	if f.Size == 0 {
+		return 1
+	}
+	return f.Size
+}
+
+// BaseListSize returns the list size of the field's base type, the alias type if there is one.
+func (f *Field) BaseListSize() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseListSize()
+	}
+	if len(f.ListSize) == 0 {
+		return "tiny"
+	}
+	return f.ListSize
+}
+
+// BaseVarSize returns the variable size of the field's base type, the alias type if there is one.
+func (f *Field) BaseVarSize() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseVarSize()
+	}
+	if len(f.VarSize) == 0 {
+		return "tiny"
+	}
+	return f.VarSize
 }
 
 func (f *Field) ProtobufType() string {
@@ -61,7 +99,6 @@ func (f *Field) ProtobufType() string {
 		pbt += "repeated "
 	}
 
-	// TODO: Convert more to proto
 	baseType := f.BaseType()
 
 	if f.AliasField != nil {

@@ -8,7 +8,6 @@
     },
     {
       "name": "PublicKeyHash",
-      "size": 1,
       "type": "varbin"
     },
     {
@@ -40,8 +39,8 @@
           "type": "uint"
         }
       ],
-      "label": "Output",
-      "name": "Output"
+      "label": "Outpoint",
+      "name": "Outpoint"
     },
     {
       "description": "A tag or category of an output used to categorize and organize outputs from different transactions.",
@@ -50,7 +49,6 @@
           "description": "The text of the tag.",
           "label": "Tag",
           "name": "Tag",
-          "size": 1,
           "type": "varchar"
         }
       ],
@@ -65,7 +63,6 @@
           "example": "Agreement.pdf",
           "label": "Document Name",
           "name": "Name",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -73,15 +70,14 @@
           "example": "application/pdf",
           "label": "MIME Type",
           "name": "Type",
-          "size": 1,
           "type": "varchar"
         },
         {
           "description": "The contents of the file.",
           "label": "File Contents",
           "name": "Contents",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
       "label": "Document",
@@ -124,14 +120,14 @@
           "description": "The subject / topic of the message.",
           "label": "Subject",
           "name": "Subject",
-          "size": 2,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         },
         {
           "description": "The output of the message that this message is regarding (responding to).",
           "label": "Regarding",
           "name": "Regarding",
-          "type": "Output"
+          "type": "Outpoint"
         },
         {
           "description": "Tokenized Ltd. announces product launch.",
@@ -142,8 +138,8 @@
         {
           "description": "Documents attached to the message.",
           "label": "Attachments",
+          "listSize": "medium",
           "name": "Attachments",
-          "size": 4,
           "type": "Document[]"
         }
       ],
@@ -164,14 +160,14 @@
           "description": "The subject / topic of the message.",
           "label": "Subject",
           "name": "Subject",
-          "size": 2,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         },
         {
           "description": "The output of the message that this message is regarding (responding to).",
           "label": "Regarding",
           "name": "Regarding",
-          "type": "Output"
+          "type": "Outpoint"
         },
         {
           "description": "Tokenized Ltd announces product launch.",
@@ -182,8 +178,8 @@
         {
           "description": "Documents attached to the message.",
           "label": "Attachments",
+          "listSize": "medium",
           "name": "Attachments",
-          "size": 4,
           "type": "Document[]"
         }
       ],
@@ -204,8 +200,8 @@
           "description": "Serialized bitcoin transaction that was reverted/invalidated after being accepted.",
           "label": "Transaction",
           "name": "Transaction",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
       "label": "Reverted Tx",
@@ -225,8 +221,8 @@
           "description": "Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer.",
           "label": "Payload",
           "name": "Payload",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
       "label": "Offer",
@@ -246,8 +242,8 @@
           "description": "Full serialized bitcoin tx with multiple inputs from different wallets/users.",
           "label": "Payload",
           "name": "Payload",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
       "label": "Signature Request",
@@ -272,16 +268,16 @@
         {
           "description": "Contract fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.",
           "label": "Contract Fees",
+          "listSize": "small",
           "name": "ContractFees",
-          "size": 1,
           "type": "TargetAddress[]"
         },
         {
           "description": "Serialized settlement OP_RETURN that needs data added by another contract.",
           "label": "Settlement",
           "name": "Settlement",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
       "label": "Settlement Request",
@@ -297,8 +293,8 @@
           "label": "Output Description",
           "name": "OutputDescription",
           "notes": "  Can be NULL",
-          "size": 4,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "medium"
         },
         {
           "description": "Predefined values for describing the output.",

@@ -26,7 +26,7 @@ resources: []
 
 # Register Field Types
 fieldTypes:
-  - "types/Output"
+  - "types/Outpoint"
   - "types/OutputTag"
   - "types/Document"
   - "types/TargetAddress"
@@ -40,7 +40,6 @@ fieldAliases:
 
   - name: PublicKeyHash
     type: varbin
-    size: 1
 
   - name: Timestamp
     type: uint

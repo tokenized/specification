@@ -26,7 +26,7 @@ fields:
     label: Address Indexes
     description: "Associates the message to a particular output by the index."
     type: uint[]
-    size: 2
+    size: 4
 
   - name: RejectAddressIndex
     label: Reject Address Index
@@ -44,8 +44,7 @@ fields:
     label: Message
     description: "Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most rejection types will be captured by the Rejection Type Subfield."
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 2
+    varSize: small
     example: "Sorry, you don't have enough tokens."
 
   - name: Timestamp

@@ -42,7 +42,7 @@ Generic public message or public announcement. Sent to an address(es).  Can be u
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -52,7 +52,7 @@ Generic public message or public announcement. Sent to an address(es).  Can be u
         <tr>
             <td>Subject</td>
             <td>
-                varchar(2)
+                varchar
             </td>
             <td>
                 The subject / topic of the message.
@@ -62,7 +62,7 @@ Generic public message or public announcement. Sent to an address(es).  Can be u
         <tr>
             <td>Regarding</td>
             <td>
-                <a href="#type-output">Output</a>
+                <a href="#type-outpoint">Outpoint</a>
             </td>
             <td>
                 The output of the message that this message is regarding (responding to).
@@ -82,7 +82,7 @@ Generic public message or public announcement. Sent to an address(es).  Can be u
         <tr>
             <td>Attachments</td>
             <td>
-                <a href="#type-document">Document[4]</a>
+                <a href="#type-document">Document[1]</a>
             </td>
             <td>
                 Documents attached to the message.
@@ -114,7 +114,7 @@ Generic private message. Sent to another address(es). Encryption is to be used.
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -124,7 +124,7 @@ Generic private message. Sent to another address(es). Encryption is to be used.
         <tr>
             <td>Subject</td>
             <td>
-                varchar(2)
+                varchar
             </td>
             <td>
                 The subject / topic of the message.
@@ -134,7 +134,7 @@ Generic private message. Sent to another address(es). Encryption is to be used.
         <tr>
             <td>Regarding</td>
             <td>
-                <a href="#type-output">Output</a>
+                <a href="#type-outpoint">Outpoint</a>
             </td>
             <td>
                 The output of the message that this message is regarding (responding to).
@@ -154,7 +154,7 @@ Generic private message. Sent to another address(es). Encryption is to be used.
         <tr>
             <td>Attachments</td>
             <td>
-                <a href="#type-document">Document[4]</a>
+                <a href="#type-document">Document[1]</a>
             </td>
             <td>
                 Documents attached to the message.
@@ -186,7 +186,7 @@ A message that contains a bitcoin transaction that was accepted by the network o
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -196,7 +196,7 @@ A message that contains a bitcoin transaction that was accepted by the network o
         <tr>
             <td>Transaction</td>
             <td>
-                varbin(4)
+                varbin
             </td>
             <td>
                 Serialized bitcoin transaction that was reverted/invalidated after being accepted.
@@ -228,7 +228,7 @@ A message that contains all of the details required for an agreement to be forme
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender created the offer.
@@ -238,7 +238,7 @@ A message that contains all of the details required for an agreement to be forme
         <tr>
             <td>Payload</td>
             <td>
-                varbin(4)
+                varbin
             </td>
             <td>
                 Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer.
@@ -270,7 +270,7 @@ Partially-signed transactions (Tokenized actions, Bitcoin, Multisig, Threshold S
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -280,7 +280,7 @@ Partially-signed transactions (Tokenized actions, Bitcoin, Multisig, Threshold S
         <tr>
             <td>Payload</td>
             <td>
-                varbin(4)
+                varbin
             </td>
             <td>
                 Full serialized bitcoin tx with multiple inputs from different wallets/users.
@@ -312,7 +312,7 @@ A message that contains a multi-contract settlement that needs settlement data a
         <tr>
             <td>Timestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 Timestamp in nanoseconds for when the message sender creates the transaction.
@@ -322,7 +322,7 @@ A message that contains a multi-contract settlement that needs settlement data a
         <tr>
             <td>TransferTxId</td>
             <td>
-                <a href="#alias-tx-id">TxId</a>
+                <a href="#alias-bin">TxId</a>
             </td>
             <td>
                 Tx Id of the transfer request transaction that triggered this message.
@@ -342,7 +342,7 @@ A message that contains a multi-contract settlement that needs settlement data a
         <tr>
             <td>Settlement</td>
             <td>
-                varbin(4)
+                varbin
             </td>
             <td>
                 Serialized settlement OP_RETURN that needs data added by another contract.
@@ -374,7 +374,7 @@ Metadata associated with the output. Aka Transaction details. It is used to desc
         <tr>
             <td>OutputDescription</td>
             <td>
-                varchar(4)
+                varchar
             </td>
             <td>
                 A Description that accompanies the output. A transaction description.
@@ -384,7 +384,7 @@ Metadata associated with the output. Aka Transaction details. It is used to desc
         <tr>
             <td>Tags</td>
             <td>
-                <a href="#alias-tag">Tag[1]</a>
+                <a href="#alias-uint">uint[1]</a>
             </td>
             <td>
                 Predefined values for describing the output.

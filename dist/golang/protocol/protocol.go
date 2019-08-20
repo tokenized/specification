@@ -5,19 +5,20 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 	"encoding/hex"
-	"errors"
 	"fmt"
 	"strconv"
 	"time"
 
+	"github.com/tokenized/envelope/pkg/golang/envelope"
+	"github.com/tokenized/envelope/pkg/golang/envelope/v0"
 	"github.com/tokenized/smart-contract/pkg/bitcoin"
+	"github.com/tokenized/specification/dist/golang/actions"
+
+	"github.com/golang/protobuf/proto"
+	"github.com/pkg/errors"
 )
 
 const (
-	// OpReturn (OP_RETURN) is a script opcode is used to mark a transaction
-	// output as invalid, and can be used to add data to a TX.
-	OpReturn = byte(0x6a)
-
 	// ProtocolID is the current protocol ID
 	ProtocolID = "tokenized"
 
@@ -25,235 +26,191 @@ const (
 	TestProtocolID = "test.tokenized"
 
 	// Version of the Tokenized protocol.
-	Version = uint8(0)
+	Version = uint64(0)
 )
 
-// OpReturnMessage implements a base interface for all message types.
-type OpReturnMessage interface {
-	Type() string
-	String() string
-	serialize() ([]byte, error)
-	write(b []byte) (int, error)
-	Validate() error
-}
+var (
+	ErrNotTokenized   = errors.New("Not Tokenized")
+	ErrUnknownVersion = errors.New("Unknown Version")
+)
 
-// Deserialize returns a message, as an OpReturnMessage, from the OP_RETURN script.
-func Deserialize(b []byte, isTest bool) (OpReturnMessage, error) {
-	buf := bytes.NewBuffer(b)
-
-	var opCode byte
-	var err error
-
-	// Parse OP_RETURN op code
-	err = binary.Read(buf, DefaultEndian, &opCode)
-	if err != nil {
-		return nil, err
-	}
-
-	if opCode != OpReturn {
-		return nil, fmt.Errorf("Not an op return output : %02x", opCode)
-	}
-
-	// Parse protocol ID
-	var protocolID string
+func GetProtocolID(isTest bool) []byte {
 	if isTest {
-		protocolID = TestProtocolID
+		return []byte(TestProtocolID)
 	} else {
-		protocolID = ProtocolID
+		return []byte(ProtocolID)
 	}
-
-	protocolIDSize, err := bitcoin.ParsePushDataScriptSize(buf)
-	if err != nil {
-		return nil, err
-	}
-
-	if int(protocolIDSize) != len(protocolID) {
-		return nil, fmt.Errorf("Push not correct size for protocol ID : %d != %d", protocolIDSize, len(protocolID))
-	}
-
-	readProtocolID := make([]byte, int(protocolIDSize))
-	_, err = buf.Read(readProtocolID)
-	if err != nil {
-		return nil, err
-	}
-
-	if !bytes.Equal(readProtocolID, []byte(protocolID)) {
-		return nil, fmt.Errorf("Invalid protocol ID : %s", string(readProtocolID))
-	}
-
-	// Parse push op code for payload length + 3 for version and message type code
-	var payloadSize uint64
-	payloadSize, err = bitcoin.ParsePushDataScriptSize(buf)
-	if err != nil {
-		return nil, err
-	}
-
-	if uint64(buf.Len()) < payloadSize {
-		return nil, fmt.Errorf("Payload push op code is too large for message : %d", payloadSize)
-	}
-
-	// Parse version
-	var version uint8
-	err = binary.Read(buf, DefaultEndian, &version)
-	if err != nil {
-		return nil, err
-	}
-
-	if version != Version {
-		return nil, fmt.Errorf("Unsupported version : %02x", version)
-	}
-
-	// Parse message type code
-	code := make([]byte, 2)
-	_, err = buf.Read(code)
-	if err != nil {
-		return nil, err
-	}
-
-	msg := TypeMapping(string(code))
-	if msg == nil {
-		return nil, fmt.Errorf("Unknown code : %s", code)
-	}
-
-	if _, err := msg.write(b[len(b)-buf.Len():]); err != nil {
-		return nil, err
-	}
-
-	return msg, nil
 }
 
-// Serialize returns a complete op return script including the specified payload.
-func Serialize(msg OpReturnMessage, isTest bool) ([]byte, error) {
+// Serialize serializes an action into a Tokenized OP_RETURN script.
+func Serialize(action actions.Action, isTest bool) ([]byte, error) {
+	payload, err := proto.Marshal(action)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to serialize action")
+	}
+	message := v0.NewMessage(GetProtocolID(isTest), Version, payload)
+	message.SetPayloadIdentifier([]byte(action.Code()))
 	var buf bytes.Buffer
-	var err error
-
-	// Write OP_RETURN op code
-	err = binary.Write(&buf, DefaultEndian, OpReturn)
+	err = message.Serialize(&buf)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "Failed to serialize action envelope")
 	}
-
-	var protocolID string
-	if isTest {
-		protocolID = TestProtocolID
-	} else {
-		protocolID = ProtocolID
-	}
-
-	// Write protocol Id
-	err = bitcoin.WritePushDataScript(&buf, []byte(protocolID))
-	if err != nil {
-		return nil, err
-	}
-
-	var payload []byte
-	payload, err = msg.serialize()
-	if err != nil {
-		return nil, err
-	}
-
-	// Write push op code for payload length + 3 for version and message type code
-	_, err = buf.Write(bitcoin.PushDataScriptSize(uint64(len(payload)) + 3))
-	if err != nil {
-		return nil, err
-	}
-
-	// Write version
-	err = binary.Write(&buf, DefaultEndian, Version)
-	if err != nil {
-		return nil, err
-	}
-
-	// Write message type code
-	_, err = buf.Write([]byte(msg.Type()))
-	if err != nil {
-		return nil, err
-	}
-
-	// Write payload
-	_, err = buf.Write(payload)
-	if err != nil {
-		return nil, err
-	}
-
 	return buf.Bytes(), nil
 }
 
-// Code returns the identifying code from the OP_RETURN payload.
-func Code(script []byte, isTest bool) (string, error) {
-	buf := bytes.NewBuffer(script)
-
-	var opCode byte
-	var err error
-
-	// Parse OP_RETURN op code
-	err = binary.Read(buf, DefaultEndian, &opCode)
-	if err != nil {
-		return "", err
+// Deserialize reads an action from a Tokenized OP_RETURN script.
+func Deserialize(script []byte, isTest bool) (actions.Action, error) {
+	buf := bytes.NewReader(script)
+	message, err := envelope.Deserialize(buf)
+	if err == envelope.ErrNotEnvelope {
+		return nil, ErrNotTokenized
+	} else if err != nil {
+		return nil, err
 	}
 
-	if opCode != OpReturn {
-		return "", fmt.Errorf("Not an op return output : %02x", opCode)
+	if !bytes.Equal(message.PayloadProtocol(), GetProtocolID(isTest)) {
+		return nil, ErrNotTokenized
 	}
 
-	// Parse protocol ID
-	var protocolID string
-	if isTest {
-		protocolID = TestProtocolID
-	} else {
-		protocolID = ProtocolID
+	if message.PayloadVersion() != Version {
+		return nil, ErrUnknownVersion
 	}
 
-	protocolIDSize, err := bitcoin.ParsePushDataScriptSize(buf)
-	if err != nil {
-		return "", err
-	}
-
-	if int(protocolIDSize) != len(protocolID) {
-		return "", fmt.Errorf("Push not correct size for protocol ID : %d != %d", protocolIDSize, len(protocolID))
-	}
-
-	readProtocolID := make([]byte, int(protocolIDSize))
-	_, err = buf.Read(readProtocolID)
-	if err != nil {
-		return "", err
-	}
-
-	if !bytes.Equal(readProtocolID, []byte(protocolID)) {
-		return "", fmt.Errorf("Invalid protocol ID : %s", string(readProtocolID))
-	}
-
-	// Parse push op code for payload length + 3 for version and message type code
-	var payloadSize uint64
-	payloadSize, err = bitcoin.ParsePushDataScriptSize(buf)
-	if err != nil {
-		return "", err
-	}
-
-	if uint64(buf.Len()) < payloadSize {
-		return "", fmt.Errorf("Payload push op code is too large for message : %d", payloadSize)
-	}
-
-	// Parse version
-	var version uint8
-	err = binary.Read(buf, DefaultEndian, &version)
-	if err != nil {
-		return "", err
-	}
-
-	if version != Version {
-		return "", fmt.Errorf("Unsupported version : %02x", version)
-	}
-
-	// Parse message type code
-	code := make([]byte, 2)
-	_, err = buf.Read(code)
-	if err != nil {
-		return "", err
-	}
-
-	return string(code), nil
+	return actions.Deserialize(message.PayloadIdentifier(), message.Payload())
 }
+
+// Serialize returns a complete op return script including the specified payload.
+// func Serialize(msg OpReturnMessage, isTest bool) ([]byte, error) {
+// 	var buf bytes.Buffer
+// 	var err error
+//
+// 	// Write OP_RETURN op code
+// 	err = binary.Write(&buf, DefaultEndian, OpReturn)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	var protocolID string
+// 	if isTest {
+// 		protocolID = TestProtocolID
+// 	} else {
+// 		protocolID = ProtocolID
+// 	}
+//
+// 	// Write protocol Id
+// 	err = bitcoin.WritePushDataScript(&buf, []byte(protocolID))
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	var payload []byte
+// 	payload, err = msg.serialize()
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	// Write push op code for payload length + 3 for version and message type code
+// 	_, err = buf.Write(bitcoin.PushDataScriptSize(uint64(len(payload)) + 3))
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	// Write version
+// 	err = binary.Write(&buf, DefaultEndian, Version)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	// Write message type code
+// 	_, err = buf.Write([]byte(msg.Type()))
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	// Write payload
+// 	_, err = buf.Write(payload)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+//
+// 	return buf.Bytes(), nil
+// }
+//
+// // Code returns the identifying code from the OP_RETURN payload.
+// func Code(script []byte, isTest bool) (string, error) {
+// 	buf := bytes.NewBuffer(script)
+//
+// 	var opCode byte
+// 	var err error
+//
+// 	// Parse OP_RETURN op code
+// 	err = binary.Read(buf, DefaultEndian, &opCode)
+// 	if err != nil {
+// 		return "", err
+// 	}
+//
+// 	if opCode != OpReturn {
+// 		return "", fmt.Errorf("Not an op return output : %02x", opCode)
+// 	}
+//
+// 	// Parse protocol ID
+// 	var protocolID string
+// 	if isTest {
+// 		protocolID = TestProtocolID
+// 	} else {
+// 		protocolID = ProtocolID
+// 	}
+//
+// 	protocolIDSize, err := bitcoin.ParsePushDataScriptSize(buf)
+// 	if err != nil {
+// 		return "", err
+// 	}
+//
+// 	if int(protocolIDSize) != len(protocolID) {
+// 		return "", fmt.Errorf("Push not correct size for protocol ID : %d != %d", protocolIDSize, len(protocolID))
+// 	}
+//
+// 	readProtocolID := make([]byte, int(protocolIDSize))
+// 	_, err = buf.Read(readProtocolID)
+// 	if err != nil {
+// 		return "", err
+// 	}
+//
+// 	if !bytes.Equal(readProtocolID, []byte(protocolID)) {
+// 		return "", fmt.Errorf("Invalid protocol ID : %s", string(readProtocolID))
+// 	}
+//
+// 	// Parse push op code for payload length + 3 for version and message type code
+// 	var payloadSize uint64
+// 	payloadSize, err = bitcoin.ParsePushDataScriptSize(buf)
+// 	if err != nil {
+// 		return "", err
+// 	}
+//
+// 	if uint64(buf.Len()) < payloadSize {
+// 		return "", fmt.Errorf("Payload push op code is too large for message : %d", payloadSize)
+// 	}
+//
+// 	// Parse version
+// 	var version uint8
+// 	err = binary.Read(buf, DefaultEndian, &version)
+// 	if err != nil {
+// 		return "", err
+// 	}
+//
+// 	if version != Version {
+// 		return "", fmt.Errorf("Unsupported version : %02x", version)
+// 	}
+//
+// 	// Parse message type code
+// 	code := make([]byte, 2)
+// 	_, err = buf.Read(code)
+// 	if err != nil {
+// 		return "", err
+// 	}
+//
+// 	return string(code), nil
+// }
 
 // ------------------------------------------------------------------------------------------------
 // TxId represents a Bitcoin transaction ID. (Double SHA256 of tx data)
@@ -269,6 +226,14 @@ func TxIdFromBytes(data []byte) *TxId {
 	return &result
 }
 
+func DeserializeTxId(buf *bytes.Reader) (*TxId, error) {
+	var result TxId
+	if _, err := buf.Read(result.data[:]); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
 // Validate returns an error if the value is invalid
 func (id *TxId) Validate() error {
 	return nil
@@ -276,16 +241,25 @@ func (id *TxId) Validate() error {
 
 // IsZero returns true if the tx id is all zeros.
 func (id *TxId) IsZero() bool {
+	if id == nil {
+		return true
+	}
 	return bytes.Equal(id.data[:], zeroTxId.data[:])
 }
 
 // Equal returns true if the specified values are the same.
 func (id *TxId) Equal(other TxId) bool {
+	if id == nil {
+		return id == nil
+	}
 	return bytes.Equal(id.data[:], other.data[:])
 }
 
 // Bytes returns the byte slice for the TxId.
 func (id *TxId) Bytes() []byte {
+	if id == nil {
+		return nil
+	}
 	return id.data[:]
 }
 
@@ -294,14 +268,10 @@ func (id *TxId) String() string {
 	return fmt.Sprintf("%x", id.data[:])
 }
 
-// Serialize returns a byte slice with the TxId in it.
-func (id *TxId) Serialize() ([]byte, error) {
-	return id.data[:], nil
-}
-
-// Write reads a TxId from a bytes.Buffer
-func (id *TxId) Write(buf *bytes.Buffer) error {
-	return readLen(buf, id.data[:])
+// Serialize serializes a txid into a buffer.
+func (id *TxId) Serialize(buf *bytes.Buffer) error {
+	_, err := buf.Write(id.data[:])
+	return err
 }
 
 // MarshalJSON converts to json.
@@ -335,73 +305,77 @@ func (id *TxId) Set(value []byte) error {
 
 // ------------------------------------------------------------------------------------------------
 // PublicKeyHash represents a Bitcoin Public Key Hash. Often used as an address to receive transactions.
-type PublicKeyHash struct {
-	data [20]byte
-}
-
-var zeroPKH PublicKeyHash
-
-// Validate returns an error if the value is invalid
-func (hash *PublicKeyHash) Validate() error {
-	return nil
-}
-
-// IsZero returns true if the tx id is all zeros.
-func (hash *PublicKeyHash) IsZero() bool {
-	return bytes.Equal(hash.data[:], zeroPKH.data[:])
-}
-
-// Equal returns true if the specified values are the same.
-func (hash *PublicKeyHash) Equal(other PublicKeyHash) bool {
-	return bytes.Equal(hash.data[:], other.data[:])
-}
-
-// PublicKeyHashFromBytes returns a PublicKeyHash with the specified bytes.
-func PublicKeyHashFromBytes(data []byte) *PublicKeyHash {
-	var result PublicKeyHash
-	copy(result.data[:], data)
-	return &result
-}
-
-// Bytes returns a byte slice containing the PublicKeyHash.
-func (hash *PublicKeyHash) Bytes() []byte {
-	return hash.data[:]
-}
-
-// String converts to a string
-func (hash *PublicKeyHash) String() string {
-	return fmt.Sprintf("%x", hash.data[:])
-}
-
-// Serialize returns a byte slice with the PublicKeyHash in it.
-func (hash *PublicKeyHash) Serialize() ([]byte, error) {
-	return hash.data[:], nil
-}
-
-// Write reads a PublicKeyHash from a bytes.Buffer
-func (hash *PublicKeyHash) Write(buf *bytes.Buffer) error {
-	return readLen(buf, hash.data[:])
-}
-
-// MarshalJSON converts to json.
-func (hash *PublicKeyHash) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf("\"%x\"", hash.data)), nil
-}
-
-// UnmarshalJSON converts from json.
-func (hash *PublicKeyHash) UnmarshalJSON(data []byte) error {
-	if len(data) < 2 {
-		return fmt.Errorf("Too short for PublicKeyHash hex data : %d", len(data))
-	}
-	n, err := hex.Decode(hash.data[:], data[1:len(data)-1])
-	if err != nil {
-		return err
-	}
-	if n != 20 {
-		return fmt.Errorf("Invalid PublicKeyHash size : %d", n)
-	}
-	return nil
-}
+// type PublicKeyHash struct {
+// 	data [20]byte
+// }
+//
+// var zeroPKH PublicKeyHash
+//
+// // Validate returns an error if the value is invalid
+// func (hash *PublicKeyHash) Validate() error {
+// 	return nil
+// }
+//
+// // IsZero returns true if the tx id is all zeros.
+// func (hash *PublicKeyHash) IsZero() bool {
+// 	return bytes.Equal(hash.data[:], zeroPKH.data[:])
+// }
+//
+// // Equal returns true if the specified values are the same.
+// func (hash *PublicKeyHash) Equal(other PublicKeyHash) bool {
+// 	return bytes.Equal(hash.data[:], other.data[:])
+// }
+//
+// // PublicKeyHashFromBytes returns a PublicKeyHash with the specified bytes.
+// func PublicKeyHashFromBytes(data []byte) *PublicKeyHash {
+// 	var result PublicKeyHash
+// 	copy(result.data[:], data)
+// 	return &result
+// }
+//
+// func DeserializePublicKeyHash(buf *bytes.Reader) (*PublicKeyHash, error) {
+// 	var result PublicKeyHash
+// 	if _, err := buf.Read(result.data[:]); err != nil {
+// 		return nil, err
+// 	}
+// 	return &result, nil
+// }
+//
+// // Bytes returns a byte slice containing the PublicKeyHash.
+// func (hash *PublicKeyHash) Bytes() []byte {
+// 	return hash.data[:]
+// }
+//
+// // String converts to a string
+// func (hash *PublicKeyHash) String() string {
+// 	return fmt.Sprintf("%x", hash.data[:])
+// }
+//
+// // Serialize serializes a PublicKeyHash into a buffer.
+// func (hash *PublicKeyHash) Serialize(buf *bytes.Buffer) error {
+//	_, err := buf.Write(hash.data[:])
+//	return err
+// }
+//
+// // MarshalJSON converts to json.
+// func (hash *PublicKeyHash) MarshalJSON() ([]byte, error) {
+// 	return []byte(fmt.Sprintf("\"%x\"", hash.data)), nil
+// }
+//
+// // UnmarshalJSON converts from json.
+// func (hash *PublicKeyHash) UnmarshalJSON(data []byte) error {
+// 	if len(data) < 2 {
+// 		return fmt.Errorf("Too short for PublicKeyHash hex data : %d", len(data))
+// 	}
+// 	n, err := hex.Decode(hash.data[:], data[1:len(data)-1])
+// 	if err != nil {
+// 		return err
+// 	}
+// 	if n != 20 {
+// 		return fmt.Errorf("Invalid PublicKeyHash size : %d", n)
+// 	}
+// 	return nil
+// }
 
 // ------------------------------------------------------------------------------------------------
 // AssetCode represents a unique identifier for a Tokenized asset.
@@ -416,6 +390,9 @@ func (code *AssetCode) Validate() error {
 
 // IsZero returns true if the AssetCode is all zeroes. (empty)
 func (code *AssetCode) IsZero() bool {
+	if code == nil {
+		return true
+	}
 	zero := make([]byte, 32, 32)
 	return bytes.Equal(code.data[:], zero)
 }
@@ -427,9 +404,9 @@ func (code *AssetCode) Equal(other AssetCode) bool {
 
 // AssetCodeFromContract generates a "unique" deterministic asset code from a contract public key
 //   hash and an asset index.
-func AssetCodeFromContract(contractPKH []byte, index uint64) *AssetCode {
+func AssetCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) *AssetCode {
 	hash256 := sha256.New()
-	hash256.Write(contractPKH)
+	hash256.Write(contractAddress.Bytes())
 	binary.Write(hash256, DefaultEndian, &index)
 	hash := hash256.Sum(nil)
 
@@ -445,8 +422,19 @@ func AssetCodeFromBytes(data []byte) *AssetCode {
 	return &result
 }
 
+func DeserializeAssetCode(buf *bytes.Reader) (*AssetCode, error) {
+	var result AssetCode
+	if _, err := buf.Read(result.data[:]); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
 // Bytes returns a byte slice containing the AssetCode.
 func (code *AssetCode) Bytes() []byte {
+	if code == nil {
+		return nil
+	}
 	return code.data[:]
 }
 
@@ -455,14 +443,10 @@ func (code *AssetCode) String() string {
 	return fmt.Sprintf("%x", code.data[:])
 }
 
-// Serialize returns a byte slice with the AssetCode in it.
-func (code *AssetCode) Serialize() ([]byte, error) {
-	return code.data[:], nil
-}
-
-// Write reads a AssetCode from a bytes.Buffer
-func (code *AssetCode) Write(buf *bytes.Buffer) error {
-	return readLen(buf, code.data[:])
+// Serialize serializes an asset code into a buffer.
+func (code *AssetCode) Serialize(buf *bytes.Buffer) error {
+	_, err := buf.Write(code.data[:])
+	return err
 }
 
 // MarshalJSON converts to json.
@@ -498,6 +482,9 @@ func (code *ContractCode) Validate() error {
 
 // IsZero returns true if the ContractCode is all zeroes. (empty)
 func (code *ContractCode) IsZero() bool {
+	if code == nil {
+		return true
+	}
 	zero := make([]byte, 32, 32)
 	return bytes.Equal(code.data[:], zero)
 }
@@ -514,8 +501,19 @@ func ContractCodeFromBytes(data []byte) *ContractCode {
 	return &result
 }
 
+func DeserializeContractCode(buf *bytes.Reader) (*ContractCode, error) {
+	var result ContractCode
+	if _, err := buf.Read(result.data[:]); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
+
 // Bytes returns a byte slice containing the ContractCode.
 func (code *ContractCode) Bytes() []byte {
+	if code == nil {
+		return nil
+	}
 	return code.data[:]
 }
 
@@ -524,14 +522,10 @@ func (code *ContractCode) String() string {
 	return fmt.Sprintf("%x", code.data[:])
 }
 
-// Serialize returns a byte slice with the ContractCode in it.
-func (code *ContractCode) Serialize() ([]byte, error) {
-	return code.data[:], nil
-}
-
-// Write reads a ContractCode from a bytes.Buffer
-func (code *ContractCode) Write(buf *bytes.Buffer) error {
-	return readLen(buf, code.data[:])
+// Serialize serializes a contract code into a buffer.
+func (code *ContractCode) Serialize(buf *bytes.Buffer) error {
+	_, err := buf.Write(code.data[:])
+	return err
 }
 
 // MarshalJSON converts to json.
@@ -565,6 +559,14 @@ func NewTimestamp(value uint64) Timestamp {
 	return Timestamp{nanoseconds: value}
 }
 
+func DeserializeTimestamp(buf *bytes.Reader) (Timestamp, error) {
+	var result Timestamp
+	if err := binary.Read(buf, DefaultEndian, &result.nanoseconds); err != nil {
+		return result, err
+	}
+	return result, nil
+}
+
 // CurrentTimestamp returns a Timestamp containing the current time.
 func CurrentTimestamp() Timestamp {
 	return Timestamp{nanoseconds: uint64(time.Now().UnixNano())}
@@ -595,18 +597,9 @@ func (t *Timestamp) String() string {
 	return time.Unix(int64(t.nanoseconds)/1000000000, 0).String()
 }
 
-// Serialize returns a byte slice with the Timestamp in it.
-func (time *Timestamp) Serialize() ([]byte, error) {
-	buf := new(bytes.Buffer)
-	if err := write(buf, &time.nanoseconds); err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
-}
-
-// Write reads a Timestamp from a bytes.Buffer
-func (time *Timestamp) Write(buf *bytes.Buffer) error {
-	if err := read(buf, &time.nanoseconds); err != nil {
+// Serialize serializes a timestamp into a buffer.
+func (time *Timestamp) Serialize(buf *bytes.Buffer) error {
+	if err := binary.Write(buf, DefaultEndian, &time.nanoseconds); err != nil {
 		return err
 	}
 	return nil

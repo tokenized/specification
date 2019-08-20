@@ -23,10 +23,11 @@ metadata:
       comments: "The address the contract will use from this point forward."
 
 fields:
-  - name: NewContractPKH
-    label: New Contract PKH
+  - name: NewContractAddress
+    label: New Contract Address
     description: The address to be used by all future requests/responses for the contract.
-    type: PublicKeyHash
+    type: varbin
+    varSize: small
 
   - name: Timestamp
     label: Timestamp

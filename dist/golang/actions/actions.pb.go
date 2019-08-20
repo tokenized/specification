@@ -5,8 +5,9 @@ package actions
 
 import (
 	fmt "fmt"
-	proto "github.com/golang/protobuf/proto"
 	math "math"
+
+	proto "github.com/golang/protobuf/proto"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -20,8 +21,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Action - Contract Offer (C1)
-type ContractOfferAction struct {
+// Message - Contract Offer (C1)
+type ContractOffer struct {
 	ContractName             string               `protobuf:"bytes,1,opt,name=ContractName,json=contractName,proto3" json:"ContractName,omitempty"`
 	BodyOfAgreementType      uint32               `protobuf:"varint,2,opt,name=BodyOfAgreementType,json=bodyOfAgreementType,proto3" json:"BodyOfAgreementType,omitempty"`
 	BodyOfAgreement          []byte               `protobuf:"bytes,3,opt,name=BodyOfAgreement,json=bodyOfAgreement,proto3" json:"BodyOfAgreement,omitempty"`
@@ -48,180 +49,180 @@ type ContractOfferAction struct {
 	XXX_sizecache            int32                `json:"-"`
 }
 
-func (m *ContractOfferAction) Reset()         { *m = ContractOfferAction{} }
-func (m *ContractOfferAction) String() string { return proto.CompactTextString(m) }
-func (*ContractOfferAction) ProtoMessage()    {}
-func (*ContractOfferAction) Descriptor() ([]byte, []int) {
+func (m *ContractOffer) Reset()         { *m = ContractOffer{} }
+func (m *ContractOffer) String() string { return proto.CompactTextString(m) }
+func (*ContractOffer) ProtoMessage()    {}
+func (*ContractOffer) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{0}
 }
 
-func (m *ContractOfferAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ContractOfferAction.Unmarshal(m, b)
+func (m *ContractOffer) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ContractOffer.Unmarshal(m, b)
 }
-func (m *ContractOfferAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ContractOfferAction.Marshal(b, m, deterministic)
+func (m *ContractOffer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ContractOffer.Marshal(b, m, deterministic)
 }
-func (m *ContractOfferAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ContractOfferAction.Merge(m, src)
+func (m *ContractOffer) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContractOffer.Merge(m, src)
 }
-func (m *ContractOfferAction) XXX_Size() int {
-	return xxx_messageInfo_ContractOfferAction.Size(m)
+func (m *ContractOffer) XXX_Size() int {
+	return xxx_messageInfo_ContractOffer.Size(m)
 }
-func (m *ContractOfferAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ContractOfferAction.DiscardUnknown(m)
+func (m *ContractOffer) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContractOffer.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ContractOfferAction proto.InternalMessageInfo
+var xxx_messageInfo_ContractOffer proto.InternalMessageInfo
 
-func (m *ContractOfferAction) GetContractName() string {
+func (m *ContractOffer) GetContractName() string {
 	if m != nil {
 		return m.ContractName
 	}
 	return ""
 }
 
-func (m *ContractOfferAction) GetBodyOfAgreementType() uint32 {
+func (m *ContractOffer) GetBodyOfAgreementType() uint32 {
 	if m != nil {
 		return m.BodyOfAgreementType
 	}
 	return 0
 }
 
-func (m *ContractOfferAction) GetBodyOfAgreement() []byte {
+func (m *ContractOffer) GetBodyOfAgreement() []byte {
 	if m != nil {
 		return m.BodyOfAgreement
 	}
 	return nil
 }
 
-func (m *ContractOfferAction) GetContractType() string {
+func (m *ContractOffer) GetContractType() string {
 	if m != nil {
 		return m.ContractType
 	}
 	return ""
 }
 
-func (m *ContractOfferAction) GetSupportingDocs() []*DocumentField {
+func (m *ContractOffer) GetSupportingDocs() []*DocumentField {
 	if m != nil {
 		return m.SupportingDocs
 	}
 	return nil
 }
 
-func (m *ContractOfferAction) GetGoverningLaw() string {
+func (m *ContractOffer) GetGoverningLaw() string {
 	if m != nil {
 		return m.GoverningLaw
 	}
 	return ""
 }
 
-func (m *ContractOfferAction) GetJurisdiction() string {
+func (m *ContractOffer) GetJurisdiction() string {
 	if m != nil {
 		return m.Jurisdiction
 	}
 	return ""
 }
 
-func (m *ContractOfferAction) GetContractExpiration() uint64 {
+func (m *ContractOffer) GetContractExpiration() uint64 {
 	if m != nil {
 		return m.ContractExpiration
 	}
 	return 0
 }
 
-func (m *ContractOfferAction) GetContractURI() string {
+func (m *ContractOffer) GetContractURI() string {
 	if m != nil {
 		return m.ContractURI
 	}
 	return ""
 }
 
-func (m *ContractOfferAction) GetIssuer() *EntityField {
+func (m *ContractOffer) GetIssuer() *EntityField {
 	if m != nil {
 		return m.Issuer
 	}
 	return nil
 }
 
-func (m *ContractOfferAction) GetIssuerLogoURL() string {
+func (m *ContractOffer) GetIssuerLogoURL() string {
 	if m != nil {
 		return m.IssuerLogoURL
 	}
 	return ""
 }
 
-func (m *ContractOfferAction) GetContractOperatorIncluded() bool {
+func (m *ContractOffer) GetContractOperatorIncluded() bool {
 	if m != nil {
 		return m.ContractOperatorIncluded
 	}
 	return false
 }
 
-func (m *ContractOfferAction) GetContractOperator() *EntityField {
+func (m *ContractOffer) GetContractOperator() *EntityField {
 	if m != nil {
 		return m.ContractOperator
 	}
 	return nil
 }
 
-func (m *ContractOfferAction) GetContractFee() uint64 {
+func (m *ContractOffer) GetContractFee() uint64 {
 	if m != nil {
 		return m.ContractFee
 	}
 	return 0
 }
 
-func (m *ContractOfferAction) GetVotingSystems() []*VotingSystemField {
+func (m *ContractOffer) GetVotingSystems() []*VotingSystemField {
 	if m != nil {
 		return m.VotingSystems
 	}
 	return nil
 }
 
-func (m *ContractOfferAction) GetContractAuthFlags() []byte {
+func (m *ContractOffer) GetContractAuthFlags() []byte {
 	if m != nil {
 		return m.ContractAuthFlags
 	}
 	return nil
 }
 
-func (m *ContractOfferAction) GetRestrictedQtyAssets() uint64 {
+func (m *ContractOffer) GetRestrictedQtyAssets() uint64 {
 	if m != nil {
 		return m.RestrictedQtyAssets
 	}
 	return 0
 }
 
-func (m *ContractOfferAction) GetAdministrationProposal() bool {
+func (m *ContractOffer) GetAdministrationProposal() bool {
 	if m != nil {
 		return m.AdministrationProposal
 	}
 	return false
 }
 
-func (m *ContractOfferAction) GetHolderProposal() bool {
+func (m *ContractOffer) GetHolderProposal() bool {
 	if m != nil {
 		return m.HolderProposal
 	}
 	return false
 }
 
-func (m *ContractOfferAction) GetOracles() []*OracleField {
+func (m *ContractOffer) GetOracles() []*OracleField {
 	if m != nil {
 		return m.Oracles
 	}
 	return nil
 }
 
-func (m *ContractOfferAction) GetMasterPKH() []byte {
+func (m *ContractOffer) GetMasterPKH() []byte {
 	if m != nil {
 		return m.MasterPKH
 	}
 	return nil
 }
 
-// Action - Contract Formation (C2)
-type ContractFormationAction struct {
+// Message - Contract Formation (C2)
+type ContractFormation struct {
 	ContractName             string               `protobuf:"bytes,1,opt,name=ContractName,json=contractName,proto3" json:"ContractName,omitempty"`
 	BodyOfAgreementType      uint32               `protobuf:"varint,2,opt,name=BodyOfAgreementType,json=bodyOfAgreementType,proto3" json:"BodyOfAgreementType,omitempty"`
 	BodyOfAgreement          []byte               `protobuf:"bytes,3,opt,name=BodyOfAgreement,json=bodyOfAgreement,proto3" json:"BodyOfAgreement,omitempty"`
@@ -250,194 +251,194 @@ type ContractFormationAction struct {
 	XXX_sizecache            int32                `json:"-"`
 }
 
-func (m *ContractFormationAction) Reset()         { *m = ContractFormationAction{} }
-func (m *ContractFormationAction) String() string { return proto.CompactTextString(m) }
-func (*ContractFormationAction) ProtoMessage()    {}
-func (*ContractFormationAction) Descriptor() ([]byte, []int) {
+func (m *ContractFormation) Reset()         { *m = ContractFormation{} }
+func (m *ContractFormation) String() string { return proto.CompactTextString(m) }
+func (*ContractFormation) ProtoMessage()    {}
+func (*ContractFormation) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{1}
 }
 
-func (m *ContractFormationAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ContractFormationAction.Unmarshal(m, b)
+func (m *ContractFormation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ContractFormation.Unmarshal(m, b)
 }
-func (m *ContractFormationAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ContractFormationAction.Marshal(b, m, deterministic)
+func (m *ContractFormation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ContractFormation.Marshal(b, m, deterministic)
 }
-func (m *ContractFormationAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ContractFormationAction.Merge(m, src)
+func (m *ContractFormation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContractFormation.Merge(m, src)
 }
-func (m *ContractFormationAction) XXX_Size() int {
-	return xxx_messageInfo_ContractFormationAction.Size(m)
+func (m *ContractFormation) XXX_Size() int {
+	return xxx_messageInfo_ContractFormation.Size(m)
 }
-func (m *ContractFormationAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ContractFormationAction.DiscardUnknown(m)
+func (m *ContractFormation) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContractFormation.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ContractFormationAction proto.InternalMessageInfo
+var xxx_messageInfo_ContractFormation proto.InternalMessageInfo
 
-func (m *ContractFormationAction) GetContractName() string {
+func (m *ContractFormation) GetContractName() string {
 	if m != nil {
 		return m.ContractName
 	}
 	return ""
 }
 
-func (m *ContractFormationAction) GetBodyOfAgreementType() uint32 {
+func (m *ContractFormation) GetBodyOfAgreementType() uint32 {
 	if m != nil {
 		return m.BodyOfAgreementType
 	}
 	return 0
 }
 
-func (m *ContractFormationAction) GetBodyOfAgreement() []byte {
+func (m *ContractFormation) GetBodyOfAgreement() []byte {
 	if m != nil {
 		return m.BodyOfAgreement
 	}
 	return nil
 }
 
-func (m *ContractFormationAction) GetContractType() string {
+func (m *ContractFormation) GetContractType() string {
 	if m != nil {
 		return m.ContractType
 	}
 	return ""
 }
 
-func (m *ContractFormationAction) GetSupportingDocs() []*DocumentField {
+func (m *ContractFormation) GetSupportingDocs() []*DocumentField {
 	if m != nil {
 		return m.SupportingDocs
 	}
 	return nil
 }
 
-func (m *ContractFormationAction) GetGoverningLaw() string {
+func (m *ContractFormation) GetGoverningLaw() string {
 	if m != nil {
 		return m.GoverningLaw
 	}
 	return ""
 }
 
-func (m *ContractFormationAction) GetJurisdiction() string {
+func (m *ContractFormation) GetJurisdiction() string {
 	if m != nil {
 		return m.Jurisdiction
 	}
 	return ""
 }
 
-func (m *ContractFormationAction) GetContractExpiration() uint64 {
+func (m *ContractFormation) GetContractExpiration() uint64 {
 	if m != nil {
 		return m.ContractExpiration
 	}
 	return 0
 }
 
-func (m *ContractFormationAction) GetContractURI() string {
+func (m *ContractFormation) GetContractURI() string {
 	if m != nil {
 		return m.ContractURI
 	}
 	return ""
 }
 
-func (m *ContractFormationAction) GetIssuer() *EntityField {
+func (m *ContractFormation) GetIssuer() *EntityField {
 	if m != nil {
 		return m.Issuer
 	}
 	return nil
 }
 
-func (m *ContractFormationAction) GetIssuerLogoURL() string {
+func (m *ContractFormation) GetIssuerLogoURL() string {
 	if m != nil {
 		return m.IssuerLogoURL
 	}
 	return ""
 }
 
-func (m *ContractFormationAction) GetContractOperatorIncluded() bool {
+func (m *ContractFormation) GetContractOperatorIncluded() bool {
 	if m != nil {
 		return m.ContractOperatorIncluded
 	}
 	return false
 }
 
-func (m *ContractFormationAction) GetContractOperator() *EntityField {
+func (m *ContractFormation) GetContractOperator() *EntityField {
 	if m != nil {
 		return m.ContractOperator
 	}
 	return nil
 }
 
-func (m *ContractFormationAction) GetContractFee() uint64 {
+func (m *ContractFormation) GetContractFee() uint64 {
 	if m != nil {
 		return m.ContractFee
 	}
 	return 0
 }
 
-func (m *ContractFormationAction) GetVotingSystems() []*VotingSystemField {
+func (m *ContractFormation) GetVotingSystems() []*VotingSystemField {
 	if m != nil {
 		return m.VotingSystems
 	}
 	return nil
 }
 
-func (m *ContractFormationAction) GetContractAuthFlags() []byte {
+func (m *ContractFormation) GetContractAuthFlags() []byte {
 	if m != nil {
 		return m.ContractAuthFlags
 	}
 	return nil
 }
 
-func (m *ContractFormationAction) GetRestrictedQtyAssets() uint64 {
+func (m *ContractFormation) GetRestrictedQtyAssets() uint64 {
 	if m != nil {
 		return m.RestrictedQtyAssets
 	}
 	return 0
 }
 
-func (m *ContractFormationAction) GetAdministrationProposal() bool {
+func (m *ContractFormation) GetAdministrationProposal() bool {
 	if m != nil {
 		return m.AdministrationProposal
 	}
 	return false
 }
 
-func (m *ContractFormationAction) GetHolderProposal() bool {
+func (m *ContractFormation) GetHolderProposal() bool {
 	if m != nil {
 		return m.HolderProposal
 	}
 	return false
 }
 
-func (m *ContractFormationAction) GetOracles() []*OracleField {
+func (m *ContractFormation) GetOracles() []*OracleField {
 	if m != nil {
 		return m.Oracles
 	}
 	return nil
 }
 
-func (m *ContractFormationAction) GetMasterPKH() []byte {
+func (m *ContractFormation) GetMasterPKH() []byte {
 	if m != nil {
 		return m.MasterPKH
 	}
 	return nil
 }
 
-func (m *ContractFormationAction) GetContractRevision() uint32 {
+func (m *ContractFormation) GetContractRevision() uint32 {
 	if m != nil {
 		return m.ContractRevision
 	}
 	return 0
 }
 
-func (m *ContractFormationAction) GetTimestamp() uint64 {
+func (m *ContractFormation) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Contract Amendment (C3)
-type ContractAmendmentAction struct {
+// Message - Contract Amendment (C3)
+type ContractAmendment struct {
 	ChangeAdministrationAddress bool              `protobuf:"varint,1,opt,name=ChangeAdministrationAddress,json=changeAdministrationAddress,proto3" json:"ChangeAdministrationAddress,omitempty"`
 	ChangeOperatorAddress       bool              `protobuf:"varint,2,opt,name=ChangeOperatorAddress,json=changeOperatorAddress,proto3" json:"ChangeOperatorAddress,omitempty"`
 	ContractRevision            uint32            `protobuf:"varint,3,opt,name=ContractRevision,json=contractRevision,proto3" json:"ContractRevision,omitempty"`
@@ -448,68 +449,68 @@ type ContractAmendmentAction struct {
 	XXX_sizecache               int32             `json:"-"`
 }
 
-func (m *ContractAmendmentAction) Reset()         { *m = ContractAmendmentAction{} }
-func (m *ContractAmendmentAction) String() string { return proto.CompactTextString(m) }
-func (*ContractAmendmentAction) ProtoMessage()    {}
-func (*ContractAmendmentAction) Descriptor() ([]byte, []int) {
+func (m *ContractAmendment) Reset()         { *m = ContractAmendment{} }
+func (m *ContractAmendment) String() string { return proto.CompactTextString(m) }
+func (*ContractAmendment) ProtoMessage()    {}
+func (*ContractAmendment) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{2}
 }
 
-func (m *ContractAmendmentAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ContractAmendmentAction.Unmarshal(m, b)
+func (m *ContractAmendment) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ContractAmendment.Unmarshal(m, b)
 }
-func (m *ContractAmendmentAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ContractAmendmentAction.Marshal(b, m, deterministic)
+func (m *ContractAmendment) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ContractAmendment.Marshal(b, m, deterministic)
 }
-func (m *ContractAmendmentAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ContractAmendmentAction.Merge(m, src)
+func (m *ContractAmendment) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContractAmendment.Merge(m, src)
 }
-func (m *ContractAmendmentAction) XXX_Size() int {
-	return xxx_messageInfo_ContractAmendmentAction.Size(m)
+func (m *ContractAmendment) XXX_Size() int {
+	return xxx_messageInfo_ContractAmendment.Size(m)
 }
-func (m *ContractAmendmentAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ContractAmendmentAction.DiscardUnknown(m)
+func (m *ContractAmendment) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContractAmendment.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ContractAmendmentAction proto.InternalMessageInfo
+var xxx_messageInfo_ContractAmendment proto.InternalMessageInfo
 
-func (m *ContractAmendmentAction) GetChangeAdministrationAddress() bool {
+func (m *ContractAmendment) GetChangeAdministrationAddress() bool {
 	if m != nil {
 		return m.ChangeAdministrationAddress
 	}
 	return false
 }
 
-func (m *ContractAmendmentAction) GetChangeOperatorAddress() bool {
+func (m *ContractAmendment) GetChangeOperatorAddress() bool {
 	if m != nil {
 		return m.ChangeOperatorAddress
 	}
 	return false
 }
 
-func (m *ContractAmendmentAction) GetContractRevision() uint32 {
+func (m *ContractAmendment) GetContractRevision() uint32 {
 	if m != nil {
 		return m.ContractRevision
 	}
 	return 0
 }
 
-func (m *ContractAmendmentAction) GetAmendments() []*AmendmentField {
+func (m *ContractAmendment) GetAmendments() []*AmendmentField {
 	if m != nil {
 		return m.Amendments
 	}
 	return nil
 }
 
-func (m *ContractAmendmentAction) GetRefTxID() []byte {
+func (m *ContractAmendment) GetRefTxID() []byte {
 	if m != nil {
 		return m.RefTxID
 	}
 	return nil
 }
 
-// Action - Static Contract Formation (C4)
-type StaticContractFormationAction struct {
+// Message - Static Contract Formation (C4)
+type StaticContractFormation struct {
 	ContractName         string           `protobuf:"bytes,1,opt,name=ContractName,json=contractName,proto3" json:"ContractName,omitempty"`
 	ContractCode         []byte           `protobuf:"bytes,2,opt,name=ContractCode,json=contractCode,proto3" json:"ContractCode,omitempty"`
 	BodyOfAgreementType  uint32           `protobuf:"varint,3,opt,name=BodyOfAgreementType,json=bodyOfAgreementType,proto3" json:"BodyOfAgreementType,omitempty"`
@@ -529,179 +530,179 @@ type StaticContractFormationAction struct {
 	XXX_sizecache        int32            `json:"-"`
 }
 
-func (m *StaticContractFormationAction) Reset()         { *m = StaticContractFormationAction{} }
-func (m *StaticContractFormationAction) String() string { return proto.CompactTextString(m) }
-func (*StaticContractFormationAction) ProtoMessage()    {}
-func (*StaticContractFormationAction) Descriptor() ([]byte, []int) {
+func (m *StaticContractFormation) Reset()         { *m = StaticContractFormation{} }
+func (m *StaticContractFormation) String() string { return proto.CompactTextString(m) }
+func (*StaticContractFormation) ProtoMessage()    {}
+func (*StaticContractFormation) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{3}
 }
 
-func (m *StaticContractFormationAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_StaticContractFormationAction.Unmarshal(m, b)
+func (m *StaticContractFormation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_StaticContractFormation.Unmarshal(m, b)
 }
-func (m *StaticContractFormationAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_StaticContractFormationAction.Marshal(b, m, deterministic)
+func (m *StaticContractFormation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_StaticContractFormation.Marshal(b, m, deterministic)
 }
-func (m *StaticContractFormationAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_StaticContractFormationAction.Merge(m, src)
+func (m *StaticContractFormation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_StaticContractFormation.Merge(m, src)
 }
-func (m *StaticContractFormationAction) XXX_Size() int {
-	return xxx_messageInfo_StaticContractFormationAction.Size(m)
+func (m *StaticContractFormation) XXX_Size() int {
+	return xxx_messageInfo_StaticContractFormation.Size(m)
 }
-func (m *StaticContractFormationAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_StaticContractFormationAction.DiscardUnknown(m)
+func (m *StaticContractFormation) XXX_DiscardUnknown() {
+	xxx_messageInfo_StaticContractFormation.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_StaticContractFormationAction proto.InternalMessageInfo
+var xxx_messageInfo_StaticContractFormation proto.InternalMessageInfo
 
-func (m *StaticContractFormationAction) GetContractName() string {
+func (m *StaticContractFormation) GetContractName() string {
 	if m != nil {
 		return m.ContractName
 	}
 	return ""
 }
 
-func (m *StaticContractFormationAction) GetContractCode() []byte {
+func (m *StaticContractFormation) GetContractCode() []byte {
 	if m != nil {
 		return m.ContractCode
 	}
 	return nil
 }
 
-func (m *StaticContractFormationAction) GetBodyOfAgreementType() uint32 {
+func (m *StaticContractFormation) GetBodyOfAgreementType() uint32 {
 	if m != nil {
 		return m.BodyOfAgreementType
 	}
 	return 0
 }
 
-func (m *StaticContractFormationAction) GetBodyOfAgreement() []byte {
+func (m *StaticContractFormation) GetBodyOfAgreement() []byte {
 	if m != nil {
 		return m.BodyOfAgreement
 	}
 	return nil
 }
 
-func (m *StaticContractFormationAction) GetContractType() string {
+func (m *StaticContractFormation) GetContractType() string {
 	if m != nil {
 		return m.ContractType
 	}
 	return ""
 }
 
-func (m *StaticContractFormationAction) GetSupportingDocs() []*DocumentField {
+func (m *StaticContractFormation) GetSupportingDocs() []*DocumentField {
 	if m != nil {
 		return m.SupportingDocs
 	}
 	return nil
 }
 
-func (m *StaticContractFormationAction) GetContractRevision() uint32 {
+func (m *StaticContractFormation) GetContractRevision() uint32 {
 	if m != nil {
 		return m.ContractRevision
 	}
 	return 0
 }
 
-func (m *StaticContractFormationAction) GetGoverningLaw() string {
+func (m *StaticContractFormation) GetGoverningLaw() string {
 	if m != nil {
 		return m.GoverningLaw
 	}
 	return ""
 }
 
-func (m *StaticContractFormationAction) GetJurisdiction() string {
+func (m *StaticContractFormation) GetJurisdiction() string {
 	if m != nil {
 		return m.Jurisdiction
 	}
 	return ""
 }
 
-func (m *StaticContractFormationAction) GetEffectiveDate() uint64 {
+func (m *StaticContractFormation) GetEffectiveDate() uint64 {
 	if m != nil {
 		return m.EffectiveDate
 	}
 	return 0
 }
 
-func (m *StaticContractFormationAction) GetContractExpiration() uint64 {
+func (m *StaticContractFormation) GetContractExpiration() uint64 {
 	if m != nil {
 		return m.ContractExpiration
 	}
 	return 0
 }
 
-func (m *StaticContractFormationAction) GetContractURI() string {
+func (m *StaticContractFormation) GetContractURI() string {
 	if m != nil {
 		return m.ContractURI
 	}
 	return ""
 }
 
-func (m *StaticContractFormationAction) GetPrevRevTxID() []byte {
+func (m *StaticContractFormation) GetPrevRevTxID() []byte {
 	if m != nil {
 		return m.PrevRevTxID
 	}
 	return nil
 }
 
-func (m *StaticContractFormationAction) GetEntities() []*EntityField {
+func (m *StaticContractFormation) GetEntities() []*EntityField {
 	if m != nil {
 		return m.Entities
 	}
 	return nil
 }
 
-// Action - Contract Address Change (C5)
-type ContractAddressChangeAction struct {
-	NewContractPKH       []byte   `protobuf:"bytes,1,opt,name=NewContractPKH,json=newContractPKH,proto3" json:"NewContractPKH,omitempty"`
+// Message - Contract Address Change (C5)
+type ContractAddressChange struct {
+	NewContractAddress   []byte   `protobuf:"bytes,1,opt,name=NewContractAddress,json=newContractAddress,proto3" json:"NewContractAddress,omitempty"`
 	Timestamp            uint64   `protobuf:"varint,2,opt,name=Timestamp,json=timestamp,proto3" json:"Timestamp,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ContractAddressChangeAction) Reset()         { *m = ContractAddressChangeAction{} }
-func (m *ContractAddressChangeAction) String() string { return proto.CompactTextString(m) }
-func (*ContractAddressChangeAction) ProtoMessage()    {}
-func (*ContractAddressChangeAction) Descriptor() ([]byte, []int) {
+func (m *ContractAddressChange) Reset()         { *m = ContractAddressChange{} }
+func (m *ContractAddressChange) String() string { return proto.CompactTextString(m) }
+func (*ContractAddressChange) ProtoMessage()    {}
+func (*ContractAddressChange) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{4}
 }
 
-func (m *ContractAddressChangeAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ContractAddressChangeAction.Unmarshal(m, b)
+func (m *ContractAddressChange) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ContractAddressChange.Unmarshal(m, b)
 }
-func (m *ContractAddressChangeAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ContractAddressChangeAction.Marshal(b, m, deterministic)
+func (m *ContractAddressChange) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ContractAddressChange.Marshal(b, m, deterministic)
 }
-func (m *ContractAddressChangeAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ContractAddressChangeAction.Merge(m, src)
+func (m *ContractAddressChange) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContractAddressChange.Merge(m, src)
 }
-func (m *ContractAddressChangeAction) XXX_Size() int {
-	return xxx_messageInfo_ContractAddressChangeAction.Size(m)
+func (m *ContractAddressChange) XXX_Size() int {
+	return xxx_messageInfo_ContractAddressChange.Size(m)
 }
-func (m *ContractAddressChangeAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ContractAddressChangeAction.DiscardUnknown(m)
+func (m *ContractAddressChange) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContractAddressChange.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ContractAddressChangeAction proto.InternalMessageInfo
+var xxx_messageInfo_ContractAddressChange proto.InternalMessageInfo
 
-func (m *ContractAddressChangeAction) GetNewContractPKH() []byte {
+func (m *ContractAddressChange) GetNewContractAddress() []byte {
 	if m != nil {
-		return m.NewContractPKH
+		return m.NewContractAddress
 	}
 	return nil
 }
 
-func (m *ContractAddressChangeAction) GetTimestamp() uint64 {
+func (m *ContractAddressChange) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Asset Definition (A1)
-type AssetDefinitionAction struct {
+// Message - Asset Definition (A1)
+type AssetDefinition struct {
 	AssetAuthFlags              []byte   `protobuf:"bytes,1,opt,name=AssetAuthFlags,json=assetAuthFlags,proto3" json:"AssetAuthFlags,omitempty"`
 	TransfersPermitted          bool     `protobuf:"varint,2,opt,name=TransfersPermitted,json=transfersPermitted,proto3" json:"TransfersPermitted,omitempty"`
 	TradeRestrictions           []string `protobuf:"bytes,3,rep,name=TradeRestrictions,json=tradeRestrictions,proto3" json:"TradeRestrictions,omitempty"`
@@ -712,116 +713,124 @@ type AssetDefinitionAction struct {
 	HolderProposal              bool     `protobuf:"varint,8,opt,name=HolderProposal,json=holderProposal,proto3" json:"HolderProposal,omitempty"`
 	AssetModificationGovernance uint32   `protobuf:"varint,9,opt,name=AssetModificationGovernance,json=assetModificationGovernance,proto3" json:"AssetModificationGovernance,omitempty"`
 	TokenQty                    uint64   `protobuf:"varint,10,opt,name=TokenQty,json=tokenQty,proto3" json:"TokenQty,omitempty"`
-	AssetPayload                []byte   `protobuf:"bytes,11,opt,name=AssetPayload,json=assetPayload,proto3" json:"AssetPayload,omitempty"`
+	AssetType                   string   `protobuf:"bytes,11,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
+	AssetPayload                []byte   `protobuf:"bytes,12,opt,name=AssetPayload,json=assetPayload,proto3" json:"AssetPayload,omitempty"`
 	XXX_NoUnkeyedLiteral        struct{} `json:"-"`
 	XXX_unrecognized            []byte   `json:"-"`
 	XXX_sizecache               int32    `json:"-"`
 }
 
-func (m *AssetDefinitionAction) Reset()         { *m = AssetDefinitionAction{} }
-func (m *AssetDefinitionAction) String() string { return proto.CompactTextString(m) }
-func (*AssetDefinitionAction) ProtoMessage()    {}
-func (*AssetDefinitionAction) Descriptor() ([]byte, []int) {
+func (m *AssetDefinition) Reset()         { *m = AssetDefinition{} }
+func (m *AssetDefinition) String() string { return proto.CompactTextString(m) }
+func (*AssetDefinition) ProtoMessage()    {}
+func (*AssetDefinition) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{5}
 }
 
-func (m *AssetDefinitionAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AssetDefinitionAction.Unmarshal(m, b)
+func (m *AssetDefinition) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AssetDefinition.Unmarshal(m, b)
 }
-func (m *AssetDefinitionAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AssetDefinitionAction.Marshal(b, m, deterministic)
+func (m *AssetDefinition) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AssetDefinition.Marshal(b, m, deterministic)
 }
-func (m *AssetDefinitionAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AssetDefinitionAction.Merge(m, src)
+func (m *AssetDefinition) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AssetDefinition.Merge(m, src)
 }
-func (m *AssetDefinitionAction) XXX_Size() int {
-	return xxx_messageInfo_AssetDefinitionAction.Size(m)
+func (m *AssetDefinition) XXX_Size() int {
+	return xxx_messageInfo_AssetDefinition.Size(m)
 }
-func (m *AssetDefinitionAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_AssetDefinitionAction.DiscardUnknown(m)
+func (m *AssetDefinition) XXX_DiscardUnknown() {
+	xxx_messageInfo_AssetDefinition.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AssetDefinitionAction proto.InternalMessageInfo
+var xxx_messageInfo_AssetDefinition proto.InternalMessageInfo
 
-func (m *AssetDefinitionAction) GetAssetAuthFlags() []byte {
+func (m *AssetDefinition) GetAssetAuthFlags() []byte {
 	if m != nil {
 		return m.AssetAuthFlags
 	}
 	return nil
 }
 
-func (m *AssetDefinitionAction) GetTransfersPermitted() bool {
+func (m *AssetDefinition) GetTransfersPermitted() bool {
 	if m != nil {
 		return m.TransfersPermitted
 	}
 	return false
 }
 
-func (m *AssetDefinitionAction) GetTradeRestrictions() []string {
+func (m *AssetDefinition) GetTradeRestrictions() []string {
 	if m != nil {
 		return m.TradeRestrictions
 	}
 	return nil
 }
 
-func (m *AssetDefinitionAction) GetEnforcementOrdersPermitted() bool {
+func (m *AssetDefinition) GetEnforcementOrdersPermitted() bool {
 	if m != nil {
 		return m.EnforcementOrdersPermitted
 	}
 	return false
 }
 
-func (m *AssetDefinitionAction) GetVotingRights() bool {
+func (m *AssetDefinition) GetVotingRights() bool {
 	if m != nil {
 		return m.VotingRights
 	}
 	return false
 }
 
-func (m *AssetDefinitionAction) GetVoteMultiplier() uint32 {
+func (m *AssetDefinition) GetVoteMultiplier() uint32 {
 	if m != nil {
 		return m.VoteMultiplier
 	}
 	return 0
 }
 
-func (m *AssetDefinitionAction) GetAdministrationProposal() bool {
+func (m *AssetDefinition) GetAdministrationProposal() bool {
 	if m != nil {
 		return m.AdministrationProposal
 	}
 	return false
 }
 
-func (m *AssetDefinitionAction) GetHolderProposal() bool {
+func (m *AssetDefinition) GetHolderProposal() bool {
 	if m != nil {
 		return m.HolderProposal
 	}
 	return false
 }
 
-func (m *AssetDefinitionAction) GetAssetModificationGovernance() uint32 {
+func (m *AssetDefinition) GetAssetModificationGovernance() uint32 {
 	if m != nil {
 		return m.AssetModificationGovernance
 	}
 	return 0
 }
 
-func (m *AssetDefinitionAction) GetTokenQty() uint64 {
+func (m *AssetDefinition) GetTokenQty() uint64 {
 	if m != nil {
 		return m.TokenQty
 	}
 	return 0
 }
 
-func (m *AssetDefinitionAction) GetAssetPayload() []byte {
+func (m *AssetDefinition) GetAssetType() string {
+	if m != nil {
+		return m.AssetType
+	}
+	return ""
+}
+
+func (m *AssetDefinition) GetAssetPayload() []byte {
 	if m != nil {
 		return m.AssetPayload
 	}
 	return nil
 }
 
-// Action - Asset Creation (A2)
-type AssetCreationAction struct {
+// Message - Asset Creation (A2)
+type AssetCreation struct {
 	AssetCode                   []byte   `protobuf:"bytes,1,opt,name=AssetCode,json=assetCode,proto3" json:"AssetCode,omitempty"`
 	AssetIndex                  uint64   `protobuf:"varint,2,opt,name=AssetIndex,json=assetIndex,proto3" json:"AssetIndex,omitempty"`
 	AssetAuthFlags              []byte   `protobuf:"bytes,3,opt,name=AssetAuthFlags,json=assetAuthFlags,proto3" json:"AssetAuthFlags,omitempty"`
@@ -834,146 +843,154 @@ type AssetCreationAction struct {
 	HolderProposal              bool     `protobuf:"varint,10,opt,name=HolderProposal,json=holderProposal,proto3" json:"HolderProposal,omitempty"`
 	AssetModificationGovernance uint32   `protobuf:"varint,11,opt,name=AssetModificationGovernance,json=assetModificationGovernance,proto3" json:"AssetModificationGovernance,omitempty"`
 	TokenQty                    uint64   `protobuf:"varint,12,opt,name=TokenQty,json=tokenQty,proto3" json:"TokenQty,omitempty"`
-	AssetPayload                []byte   `protobuf:"bytes,13,opt,name=AssetPayload,json=assetPayload,proto3" json:"AssetPayload,omitempty"`
-	AssetRevision               uint32   `protobuf:"varint,14,opt,name=AssetRevision,json=assetRevision,proto3" json:"AssetRevision,omitempty"`
-	Timestamp                   uint64   `protobuf:"varint,15,opt,name=Timestamp,json=timestamp,proto3" json:"Timestamp,omitempty"`
+	AssetType                   string   `protobuf:"bytes,13,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
+	AssetPayload                []byte   `protobuf:"bytes,14,opt,name=AssetPayload,json=assetPayload,proto3" json:"AssetPayload,omitempty"`
+	AssetRevision               uint32   `protobuf:"varint,15,opt,name=AssetRevision,json=assetRevision,proto3" json:"AssetRevision,omitempty"`
+	Timestamp                   uint64   `protobuf:"varint,16,opt,name=Timestamp,json=timestamp,proto3" json:"Timestamp,omitempty"`
 	XXX_NoUnkeyedLiteral        struct{} `json:"-"`
 	XXX_unrecognized            []byte   `json:"-"`
 	XXX_sizecache               int32    `json:"-"`
 }
 
-func (m *AssetCreationAction) Reset()         { *m = AssetCreationAction{} }
-func (m *AssetCreationAction) String() string { return proto.CompactTextString(m) }
-func (*AssetCreationAction) ProtoMessage()    {}
-func (*AssetCreationAction) Descriptor() ([]byte, []int) {
+func (m *AssetCreation) Reset()         { *m = AssetCreation{} }
+func (m *AssetCreation) String() string { return proto.CompactTextString(m) }
+func (*AssetCreation) ProtoMessage()    {}
+func (*AssetCreation) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{6}
 }
 
-func (m *AssetCreationAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AssetCreationAction.Unmarshal(m, b)
+func (m *AssetCreation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AssetCreation.Unmarshal(m, b)
 }
-func (m *AssetCreationAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AssetCreationAction.Marshal(b, m, deterministic)
+func (m *AssetCreation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AssetCreation.Marshal(b, m, deterministic)
 }
-func (m *AssetCreationAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AssetCreationAction.Merge(m, src)
+func (m *AssetCreation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AssetCreation.Merge(m, src)
 }
-func (m *AssetCreationAction) XXX_Size() int {
-	return xxx_messageInfo_AssetCreationAction.Size(m)
+func (m *AssetCreation) XXX_Size() int {
+	return xxx_messageInfo_AssetCreation.Size(m)
 }
-func (m *AssetCreationAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_AssetCreationAction.DiscardUnknown(m)
+func (m *AssetCreation) XXX_DiscardUnknown() {
+	xxx_messageInfo_AssetCreation.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AssetCreationAction proto.InternalMessageInfo
+var xxx_messageInfo_AssetCreation proto.InternalMessageInfo
 
-func (m *AssetCreationAction) GetAssetCode() []byte {
+func (m *AssetCreation) GetAssetCode() []byte {
 	if m != nil {
 		return m.AssetCode
 	}
 	return nil
 }
 
-func (m *AssetCreationAction) GetAssetIndex() uint64 {
+func (m *AssetCreation) GetAssetIndex() uint64 {
 	if m != nil {
 		return m.AssetIndex
 	}
 	return 0
 }
 
-func (m *AssetCreationAction) GetAssetAuthFlags() []byte {
+func (m *AssetCreation) GetAssetAuthFlags() []byte {
 	if m != nil {
 		return m.AssetAuthFlags
 	}
 	return nil
 }
 
-func (m *AssetCreationAction) GetTransfersPermitted() bool {
+func (m *AssetCreation) GetTransfersPermitted() bool {
 	if m != nil {
 		return m.TransfersPermitted
 	}
 	return false
 }
 
-func (m *AssetCreationAction) GetTradeRestrictions() []string {
+func (m *AssetCreation) GetTradeRestrictions() []string {
 	if m != nil {
 		return m.TradeRestrictions
 	}
 	return nil
 }
 
-func (m *AssetCreationAction) GetEnforcementOrdersPermitted() bool {
+func (m *AssetCreation) GetEnforcementOrdersPermitted() bool {
 	if m != nil {
 		return m.EnforcementOrdersPermitted
 	}
 	return false
 }
 
-func (m *AssetCreationAction) GetVotingRights() bool {
+func (m *AssetCreation) GetVotingRights() bool {
 	if m != nil {
 		return m.VotingRights
 	}
 	return false
 }
 
-func (m *AssetCreationAction) GetVoteMultiplier() uint32 {
+func (m *AssetCreation) GetVoteMultiplier() uint32 {
 	if m != nil {
 		return m.VoteMultiplier
 	}
 	return 0
 }
 
-func (m *AssetCreationAction) GetAdministrationProposal() bool {
+func (m *AssetCreation) GetAdministrationProposal() bool {
 	if m != nil {
 		return m.AdministrationProposal
 	}
 	return false
 }
 
-func (m *AssetCreationAction) GetHolderProposal() bool {
+func (m *AssetCreation) GetHolderProposal() bool {
 	if m != nil {
 		return m.HolderProposal
 	}
 	return false
 }
 
-func (m *AssetCreationAction) GetAssetModificationGovernance() uint32 {
+func (m *AssetCreation) GetAssetModificationGovernance() uint32 {
 	if m != nil {
 		return m.AssetModificationGovernance
 	}
 	return 0
 }
 
-func (m *AssetCreationAction) GetTokenQty() uint64 {
+func (m *AssetCreation) GetTokenQty() uint64 {
 	if m != nil {
 		return m.TokenQty
 	}
 	return 0
 }
 
-func (m *AssetCreationAction) GetAssetPayload() []byte {
+func (m *AssetCreation) GetAssetType() string {
+	if m != nil {
+		return m.AssetType
+	}
+	return ""
+}
+
+func (m *AssetCreation) GetAssetPayload() []byte {
 	if m != nil {
 		return m.AssetPayload
 	}
 	return nil
 }
 
-func (m *AssetCreationAction) GetAssetRevision() uint32 {
+func (m *AssetCreation) GetAssetRevision() uint32 {
 	if m != nil {
 		return m.AssetRevision
 	}
 	return 0
 }
 
-func (m *AssetCreationAction) GetTimestamp() uint64 {
+func (m *AssetCreation) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Asset Modification (A3)
-type AssetModificationAction struct {
+// Message - Asset Modification (A3)
+type AssetModification struct {
 	AssetType            string            `protobuf:"bytes,1,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
 	AssetCode            []byte            `protobuf:"bytes,2,opt,name=AssetCode,json=assetCode,proto3" json:"AssetCode,omitempty"`
 	AssetRevision        uint32            `protobuf:"varint,3,opt,name=AssetRevision,json=assetRevision,proto3" json:"AssetRevision,omitempty"`
@@ -984,68 +1001,68 @@ type AssetModificationAction struct {
 	XXX_sizecache        int32             `json:"-"`
 }
 
-func (m *AssetModificationAction) Reset()         { *m = AssetModificationAction{} }
-func (m *AssetModificationAction) String() string { return proto.CompactTextString(m) }
-func (*AssetModificationAction) ProtoMessage()    {}
-func (*AssetModificationAction) Descriptor() ([]byte, []int) {
+func (m *AssetModification) Reset()         { *m = AssetModification{} }
+func (m *AssetModification) String() string { return proto.CompactTextString(m) }
+func (*AssetModification) ProtoMessage()    {}
+func (*AssetModification) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{7}
 }
 
-func (m *AssetModificationAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AssetModificationAction.Unmarshal(m, b)
+func (m *AssetModification) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AssetModification.Unmarshal(m, b)
 }
-func (m *AssetModificationAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AssetModificationAction.Marshal(b, m, deterministic)
+func (m *AssetModification) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AssetModification.Marshal(b, m, deterministic)
 }
-func (m *AssetModificationAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AssetModificationAction.Merge(m, src)
+func (m *AssetModification) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AssetModification.Merge(m, src)
 }
-func (m *AssetModificationAction) XXX_Size() int {
-	return xxx_messageInfo_AssetModificationAction.Size(m)
+func (m *AssetModification) XXX_Size() int {
+	return xxx_messageInfo_AssetModification.Size(m)
 }
-func (m *AssetModificationAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_AssetModificationAction.DiscardUnknown(m)
+func (m *AssetModification) XXX_DiscardUnknown() {
+	xxx_messageInfo_AssetModification.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AssetModificationAction proto.InternalMessageInfo
+var xxx_messageInfo_AssetModification proto.InternalMessageInfo
 
-func (m *AssetModificationAction) GetAssetType() string {
+func (m *AssetModification) GetAssetType() string {
 	if m != nil {
 		return m.AssetType
 	}
 	return ""
 }
 
-func (m *AssetModificationAction) GetAssetCode() []byte {
+func (m *AssetModification) GetAssetCode() []byte {
 	if m != nil {
 		return m.AssetCode
 	}
 	return nil
 }
 
-func (m *AssetModificationAction) GetAssetRevision() uint32 {
+func (m *AssetModification) GetAssetRevision() uint32 {
 	if m != nil {
 		return m.AssetRevision
 	}
 	return 0
 }
 
-func (m *AssetModificationAction) GetAmendments() []*AmendmentField {
+func (m *AssetModification) GetAmendments() []*AmendmentField {
 	if m != nil {
 		return m.Amendments
 	}
 	return nil
 }
 
-func (m *AssetModificationAction) GetRefTxID() []byte {
+func (m *AssetModification) GetRefTxID() []byte {
 	if m != nil {
 		return m.RefTxID
 	}
 	return nil
 }
 
-// Action - Transfer (T1)
-type TransferAction struct {
+// Message - Transfer (T1)
+type Transfer struct {
 	Assets               []*AssetTransferField `protobuf:"bytes,1,rep,name=Assets,json=assets,proto3" json:"Assets,omitempty"`
 	OfferExpiry          uint64                `protobuf:"varint,2,opt,name=OfferExpiry,json=offerExpiry,proto3" json:"OfferExpiry,omitempty"`
 	ExchangeFee          uint64                `protobuf:"varint,3,opt,name=ExchangeFee,json=exchangeFee,proto3" json:"ExchangeFee,omitempty"`
@@ -1055,61 +1072,61 @@ type TransferAction struct {
 	XXX_sizecache        int32                 `json:"-"`
 }
 
-func (m *TransferAction) Reset()         { *m = TransferAction{} }
-func (m *TransferAction) String() string { return proto.CompactTextString(m) }
-func (*TransferAction) ProtoMessage()    {}
-func (*TransferAction) Descriptor() ([]byte, []int) {
+func (m *Transfer) Reset()         { *m = Transfer{} }
+func (m *Transfer) String() string { return proto.CompactTextString(m) }
+func (*Transfer) ProtoMessage()    {}
+func (*Transfer) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{8}
 }
 
-func (m *TransferAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TransferAction.Unmarshal(m, b)
+func (m *Transfer) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Transfer.Unmarshal(m, b)
 }
-func (m *TransferAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TransferAction.Marshal(b, m, deterministic)
+func (m *Transfer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Transfer.Marshal(b, m, deterministic)
 }
-func (m *TransferAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TransferAction.Merge(m, src)
+func (m *Transfer) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Transfer.Merge(m, src)
 }
-func (m *TransferAction) XXX_Size() int {
-	return xxx_messageInfo_TransferAction.Size(m)
+func (m *Transfer) XXX_Size() int {
+	return xxx_messageInfo_Transfer.Size(m)
 }
-func (m *TransferAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_TransferAction.DiscardUnknown(m)
+func (m *Transfer) XXX_DiscardUnknown() {
+	xxx_messageInfo_Transfer.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_TransferAction proto.InternalMessageInfo
+var xxx_messageInfo_Transfer proto.InternalMessageInfo
 
-func (m *TransferAction) GetAssets() []*AssetTransferField {
+func (m *Transfer) GetAssets() []*AssetTransferField {
 	if m != nil {
 		return m.Assets
 	}
 	return nil
 }
 
-func (m *TransferAction) GetOfferExpiry() uint64 {
+func (m *Transfer) GetOfferExpiry() uint64 {
 	if m != nil {
 		return m.OfferExpiry
 	}
 	return 0
 }
 
-func (m *TransferAction) GetExchangeFee() uint64 {
+func (m *Transfer) GetExchangeFee() uint64 {
 	if m != nil {
 		return m.ExchangeFee
 	}
 	return 0
 }
 
-func (m *TransferAction) GetExchangeFeeAddress() []byte {
+func (m *Transfer) GetExchangeFeeAddress() []byte {
 	if m != nil {
 		return m.ExchangeFeeAddress
 	}
 	return nil
 }
 
-// Action - Settlement (T2)
-type SettlementAction struct {
+// Message - Settlement (T2)
+type Settlement struct {
 	Assets               []*AssetSettlementField `protobuf:"bytes,1,rep,name=Assets,json=assets,proto3" json:"Assets,omitempty"`
 	Timestamp            uint64                  `protobuf:"varint,2,opt,name=Timestamp,json=timestamp,proto3" json:"Timestamp,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
@@ -1117,47 +1134,47 @@ type SettlementAction struct {
 	XXX_sizecache        int32                   `json:"-"`
 }
 
-func (m *SettlementAction) Reset()         { *m = SettlementAction{} }
-func (m *SettlementAction) String() string { return proto.CompactTextString(m) }
-func (*SettlementAction) ProtoMessage()    {}
-func (*SettlementAction) Descriptor() ([]byte, []int) {
+func (m *Settlement) Reset()         { *m = Settlement{} }
+func (m *Settlement) String() string { return proto.CompactTextString(m) }
+func (*Settlement) ProtoMessage()    {}
+func (*Settlement) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{9}
 }
 
-func (m *SettlementAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SettlementAction.Unmarshal(m, b)
+func (m *Settlement) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Settlement.Unmarshal(m, b)
 }
-func (m *SettlementAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SettlementAction.Marshal(b, m, deterministic)
+func (m *Settlement) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Settlement.Marshal(b, m, deterministic)
 }
-func (m *SettlementAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SettlementAction.Merge(m, src)
+func (m *Settlement) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Settlement.Merge(m, src)
 }
-func (m *SettlementAction) XXX_Size() int {
-	return xxx_messageInfo_SettlementAction.Size(m)
+func (m *Settlement) XXX_Size() int {
+	return xxx_messageInfo_Settlement.Size(m)
 }
-func (m *SettlementAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_SettlementAction.DiscardUnknown(m)
+func (m *Settlement) XXX_DiscardUnknown() {
+	xxx_messageInfo_Settlement.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_SettlementAction proto.InternalMessageInfo
+var xxx_messageInfo_Settlement proto.InternalMessageInfo
 
-func (m *SettlementAction) GetAssets() []*AssetSettlementField {
+func (m *Settlement) GetAssets() []*AssetSettlementField {
 	if m != nil {
 		return m.Assets
 	}
 	return nil
 }
 
-func (m *SettlementAction) GetTimestamp() uint64 {
+func (m *Settlement) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Proposal (G1)
-type ProposalAction struct {
+// Message - Proposal (G1)
+type Proposal struct {
 	Initiator            uint32            `protobuf:"varint,1,opt,name=Initiator,json=initiator,proto3" json:"Initiator,omitempty"`
 	AssetSpecificVote    bool              `protobuf:"varint,2,opt,name=AssetSpecificVote,json=assetSpecificVote,proto3" json:"AssetSpecificVote,omitempty"`
 	AssetType            string            `protobuf:"bytes,3,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
@@ -1175,157 +1192,157 @@ type ProposalAction struct {
 	XXX_sizecache        int32             `json:"-"`
 }
 
-func (m *ProposalAction) Reset()         { *m = ProposalAction{} }
-func (m *ProposalAction) String() string { return proto.CompactTextString(m) }
-func (*ProposalAction) ProtoMessage()    {}
-func (*ProposalAction) Descriptor() ([]byte, []int) {
+func (m *Proposal) Reset()         { *m = Proposal{} }
+func (m *Proposal) String() string { return proto.CompactTextString(m) }
+func (*Proposal) ProtoMessage()    {}
+func (*Proposal) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{10}
 }
 
-func (m *ProposalAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ProposalAction.Unmarshal(m, b)
+func (m *Proposal) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Proposal.Unmarshal(m, b)
 }
-func (m *ProposalAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ProposalAction.Marshal(b, m, deterministic)
+func (m *Proposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Proposal.Marshal(b, m, deterministic)
 }
-func (m *ProposalAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ProposalAction.Merge(m, src)
+func (m *Proposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Proposal.Merge(m, src)
 }
-func (m *ProposalAction) XXX_Size() int {
-	return xxx_messageInfo_ProposalAction.Size(m)
+func (m *Proposal) XXX_Size() int {
+	return xxx_messageInfo_Proposal.Size(m)
 }
-func (m *ProposalAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ProposalAction.DiscardUnknown(m)
+func (m *Proposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_Proposal.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ProposalAction proto.InternalMessageInfo
+var xxx_messageInfo_Proposal proto.InternalMessageInfo
 
-func (m *ProposalAction) GetInitiator() uint32 {
+func (m *Proposal) GetInitiator() uint32 {
 	if m != nil {
 		return m.Initiator
 	}
 	return 0
 }
 
-func (m *ProposalAction) GetAssetSpecificVote() bool {
+func (m *Proposal) GetAssetSpecificVote() bool {
 	if m != nil {
 		return m.AssetSpecificVote
 	}
 	return false
 }
 
-func (m *ProposalAction) GetAssetType() string {
+func (m *Proposal) GetAssetType() string {
 	if m != nil {
 		return m.AssetType
 	}
 	return ""
 }
 
-func (m *ProposalAction) GetAssetCode() []byte {
+func (m *Proposal) GetAssetCode() []byte {
 	if m != nil {
 		return m.AssetCode
 	}
 	return nil
 }
 
-func (m *ProposalAction) GetVoteSystem() uint32 {
+func (m *Proposal) GetVoteSystem() uint32 {
 	if m != nil {
 		return m.VoteSystem
 	}
 	return 0
 }
 
-func (m *ProposalAction) GetSpecific() bool {
+func (m *Proposal) GetSpecific() bool {
 	if m != nil {
 		return m.Specific
 	}
 	return false
 }
 
-func (m *ProposalAction) GetProposedAmendments() []*AmendmentField {
+func (m *Proposal) GetProposedAmendments() []*AmendmentField {
 	if m != nil {
 		return m.ProposedAmendments
 	}
 	return nil
 }
 
-func (m *ProposalAction) GetVoteOptions() string {
+func (m *Proposal) GetVoteOptions() string {
 	if m != nil {
 		return m.VoteOptions
 	}
 	return ""
 }
 
-func (m *ProposalAction) GetVoteMax() uint32 {
+func (m *Proposal) GetVoteMax() uint32 {
 	if m != nil {
 		return m.VoteMax
 	}
 	return 0
 }
 
-func (m *ProposalAction) GetProposalDescription() string {
+func (m *Proposal) GetProposalDescription() string {
 	if m != nil {
 		return m.ProposalDescription
 	}
 	return ""
 }
 
-func (m *ProposalAction) GetProposalDocumentHash() []byte {
+func (m *Proposal) GetProposalDocumentHash() []byte {
 	if m != nil {
 		return m.ProposalDocumentHash
 	}
 	return nil
 }
 
-func (m *ProposalAction) GetVoteCutOffTimestamp() uint64 {
+func (m *Proposal) GetVoteCutOffTimestamp() uint64 {
 	if m != nil {
 		return m.VoteCutOffTimestamp
 	}
 	return 0
 }
 
-// Action - Vote (G2)
-type VoteAction struct {
+// Message - Vote (G2)
+type Vote struct {
 	Timestamp            uint64   `protobuf:"varint,1,opt,name=Timestamp,json=timestamp,proto3" json:"Timestamp,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *VoteAction) Reset()         { *m = VoteAction{} }
-func (m *VoteAction) String() string { return proto.CompactTextString(m) }
-func (*VoteAction) ProtoMessage()    {}
-func (*VoteAction) Descriptor() ([]byte, []int) {
+func (m *Vote) Reset()         { *m = Vote{} }
+func (m *Vote) String() string { return proto.CompactTextString(m) }
+func (*Vote) ProtoMessage()    {}
+func (*Vote) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{11}
 }
 
-func (m *VoteAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_VoteAction.Unmarshal(m, b)
+func (m *Vote) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Vote.Unmarshal(m, b)
 }
-func (m *VoteAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_VoteAction.Marshal(b, m, deterministic)
+func (m *Vote) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Vote.Marshal(b, m, deterministic)
 }
-func (m *VoteAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_VoteAction.Merge(m, src)
+func (m *Vote) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Vote.Merge(m, src)
 }
-func (m *VoteAction) XXX_Size() int {
-	return xxx_messageInfo_VoteAction.Size(m)
+func (m *Vote) XXX_Size() int {
+	return xxx_messageInfo_Vote.Size(m)
 }
-func (m *VoteAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_VoteAction.DiscardUnknown(m)
+func (m *Vote) XXX_DiscardUnknown() {
+	xxx_messageInfo_Vote.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_VoteAction proto.InternalMessageInfo
+var xxx_messageInfo_Vote proto.InternalMessageInfo
 
-func (m *VoteAction) GetTimestamp() uint64 {
+func (m *Vote) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Ballot Cast (G3)
-type BallotCastAction struct {
+// Message - Ballot Cast (G3)
+type BallotCast struct {
 	VoteTxId             []byte   `protobuf:"bytes,1,opt,name=VoteTxId,json=voteTxId,proto3" json:"VoteTxId,omitempty"`
 	Vote                 string   `protobuf:"bytes,2,opt,name=Vote,json=vote,proto3" json:"Vote,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1333,47 +1350,47 @@ type BallotCastAction struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *BallotCastAction) Reset()         { *m = BallotCastAction{} }
-func (m *BallotCastAction) String() string { return proto.CompactTextString(m) }
-func (*BallotCastAction) ProtoMessage()    {}
-func (*BallotCastAction) Descriptor() ([]byte, []int) {
+func (m *BallotCast) Reset()         { *m = BallotCast{} }
+func (m *BallotCast) String() string { return proto.CompactTextString(m) }
+func (*BallotCast) ProtoMessage()    {}
+func (*BallotCast) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{12}
 }
 
-func (m *BallotCastAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_BallotCastAction.Unmarshal(m, b)
+func (m *BallotCast) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BallotCast.Unmarshal(m, b)
 }
-func (m *BallotCastAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_BallotCastAction.Marshal(b, m, deterministic)
+func (m *BallotCast) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BallotCast.Marshal(b, m, deterministic)
 }
-func (m *BallotCastAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BallotCastAction.Merge(m, src)
+func (m *BallotCast) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BallotCast.Merge(m, src)
 }
-func (m *BallotCastAction) XXX_Size() int {
-	return xxx_messageInfo_BallotCastAction.Size(m)
+func (m *BallotCast) XXX_Size() int {
+	return xxx_messageInfo_BallotCast.Size(m)
 }
-func (m *BallotCastAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_BallotCastAction.DiscardUnknown(m)
+func (m *BallotCast) XXX_DiscardUnknown() {
+	xxx_messageInfo_BallotCast.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_BallotCastAction proto.InternalMessageInfo
+var xxx_messageInfo_BallotCast proto.InternalMessageInfo
 
-func (m *BallotCastAction) GetVoteTxId() []byte {
+func (m *BallotCast) GetVoteTxId() []byte {
 	if m != nil {
 		return m.VoteTxId
 	}
 	return nil
 }
 
-func (m *BallotCastAction) GetVote() string {
+func (m *BallotCast) GetVote() string {
 	if m != nil {
 		return m.Vote
 	}
 	return ""
 }
 
-// Action - Ballot Counted (G4)
-type BallotCountedAction struct {
+// Message - Ballot Counted (G4)
+type BallotCounted struct {
 	VoteTxId             []byte   `protobuf:"bytes,1,opt,name=VoteTxId,json=voteTxId,proto3" json:"VoteTxId,omitempty"`
 	Vote                 string   `protobuf:"bytes,2,opt,name=Vote,json=vote,proto3" json:"Vote,omitempty"`
 	Quantity             uint64   `protobuf:"varint,3,opt,name=Quantity,json=quantity,proto3" json:"Quantity,omitempty"`
@@ -1383,61 +1400,61 @@ type BallotCountedAction struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *BallotCountedAction) Reset()         { *m = BallotCountedAction{} }
-func (m *BallotCountedAction) String() string { return proto.CompactTextString(m) }
-func (*BallotCountedAction) ProtoMessage()    {}
-func (*BallotCountedAction) Descriptor() ([]byte, []int) {
+func (m *BallotCounted) Reset()         { *m = BallotCounted{} }
+func (m *BallotCounted) String() string { return proto.CompactTextString(m) }
+func (*BallotCounted) ProtoMessage()    {}
+func (*BallotCounted) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{13}
 }
 
-func (m *BallotCountedAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_BallotCountedAction.Unmarshal(m, b)
+func (m *BallotCounted) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BallotCounted.Unmarshal(m, b)
 }
-func (m *BallotCountedAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_BallotCountedAction.Marshal(b, m, deterministic)
+func (m *BallotCounted) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BallotCounted.Marshal(b, m, deterministic)
 }
-func (m *BallotCountedAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BallotCountedAction.Merge(m, src)
+func (m *BallotCounted) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BallotCounted.Merge(m, src)
 }
-func (m *BallotCountedAction) XXX_Size() int {
-	return xxx_messageInfo_BallotCountedAction.Size(m)
+func (m *BallotCounted) XXX_Size() int {
+	return xxx_messageInfo_BallotCounted.Size(m)
 }
-func (m *BallotCountedAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_BallotCountedAction.DiscardUnknown(m)
+func (m *BallotCounted) XXX_DiscardUnknown() {
+	xxx_messageInfo_BallotCounted.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_BallotCountedAction proto.InternalMessageInfo
+var xxx_messageInfo_BallotCounted proto.InternalMessageInfo
 
-func (m *BallotCountedAction) GetVoteTxId() []byte {
+func (m *BallotCounted) GetVoteTxId() []byte {
 	if m != nil {
 		return m.VoteTxId
 	}
 	return nil
 }
 
-func (m *BallotCountedAction) GetVote() string {
+func (m *BallotCounted) GetVote() string {
 	if m != nil {
 		return m.Vote
 	}
 	return ""
 }
 
-func (m *BallotCountedAction) GetQuantity() uint64 {
+func (m *BallotCounted) GetQuantity() uint64 {
 	if m != nil {
 		return m.Quantity
 	}
 	return 0
 }
 
-func (m *BallotCountedAction) GetTimestamp() uint64 {
+func (m *BallotCounted) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Result (G5)
-type ResultAction struct {
+// Message - Result (G5)
+type Result struct {
 	AssetSpecificVote    bool              `protobuf:"varint,1,opt,name=AssetSpecificVote,json=assetSpecificVote,proto3" json:"AssetSpecificVote,omitempty"`
 	AssetType            string            `protobuf:"bytes,2,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
 	AssetCode            []byte            `protobuf:"bytes,3,opt,name=AssetCode,json=assetCode,proto3" json:"AssetCode,omitempty"`
@@ -1452,96 +1469,96 @@ type ResultAction struct {
 	XXX_sizecache        int32             `json:"-"`
 }
 
-func (m *ResultAction) Reset()         { *m = ResultAction{} }
-func (m *ResultAction) String() string { return proto.CompactTextString(m) }
-func (*ResultAction) ProtoMessage()    {}
-func (*ResultAction) Descriptor() ([]byte, []int) {
+func (m *Result) Reset()         { *m = Result{} }
+func (m *Result) String() string { return proto.CompactTextString(m) }
+func (*Result) ProtoMessage()    {}
+func (*Result) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{14}
 }
 
-func (m *ResultAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ResultAction.Unmarshal(m, b)
+func (m *Result) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Result.Unmarshal(m, b)
 }
-func (m *ResultAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ResultAction.Marshal(b, m, deterministic)
+func (m *Result) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Result.Marshal(b, m, deterministic)
 }
-func (m *ResultAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ResultAction.Merge(m, src)
+func (m *Result) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Result.Merge(m, src)
 }
-func (m *ResultAction) XXX_Size() int {
-	return xxx_messageInfo_ResultAction.Size(m)
+func (m *Result) XXX_Size() int {
+	return xxx_messageInfo_Result.Size(m)
 }
-func (m *ResultAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ResultAction.DiscardUnknown(m)
+func (m *Result) XXX_DiscardUnknown() {
+	xxx_messageInfo_Result.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ResultAction proto.InternalMessageInfo
+var xxx_messageInfo_Result proto.InternalMessageInfo
 
-func (m *ResultAction) GetAssetSpecificVote() bool {
+func (m *Result) GetAssetSpecificVote() bool {
 	if m != nil {
 		return m.AssetSpecificVote
 	}
 	return false
 }
 
-func (m *ResultAction) GetAssetType() string {
+func (m *Result) GetAssetType() string {
 	if m != nil {
 		return m.AssetType
 	}
 	return ""
 }
 
-func (m *ResultAction) GetAssetCode() []byte {
+func (m *Result) GetAssetCode() []byte {
 	if m != nil {
 		return m.AssetCode
 	}
 	return nil
 }
 
-func (m *ResultAction) GetSpecific() bool {
+func (m *Result) GetSpecific() bool {
 	if m != nil {
 		return m.Specific
 	}
 	return false
 }
 
-func (m *ResultAction) GetProposedAmendments() []*AmendmentField {
+func (m *Result) GetProposedAmendments() []*AmendmentField {
 	if m != nil {
 		return m.ProposedAmendments
 	}
 	return nil
 }
 
-func (m *ResultAction) GetVoteTxId() []byte {
+func (m *Result) GetVoteTxId() []byte {
 	if m != nil {
 		return m.VoteTxId
 	}
 	return nil
 }
 
-func (m *ResultAction) GetOptionTally() []uint64 {
+func (m *Result) GetOptionTally() []uint64 {
 	if m != nil {
 		return m.OptionTally
 	}
 	return nil
 }
 
-func (m *ResultAction) GetResult() string {
+func (m *Result) GetResult() string {
 	if m != nil {
 		return m.Result
 	}
 	return ""
 }
 
-func (m *ResultAction) GetTimestamp() uint64 {
+func (m *Result) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Order (E1)
-type OrderAction struct {
+// Message - Order (E1)
+type Order struct {
 	ComplianceAction       string                `protobuf:"bytes,1,opt,name=ComplianceAction,json=complianceAction,proto3" json:"ComplianceAction,omitempty"`
 	AssetType              string                `protobuf:"bytes,2,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
 	AssetCode              []byte                `protobuf:"bytes,3,opt,name=AssetCode,json=assetCode,proto3" json:"AssetCode,omitempty"`
@@ -1563,145 +1580,145 @@ type OrderAction struct {
 	XXX_sizecache          int32                 `json:"-"`
 }
 
-func (m *OrderAction) Reset()         { *m = OrderAction{} }
-func (m *OrderAction) String() string { return proto.CompactTextString(m) }
-func (*OrderAction) ProtoMessage()    {}
-func (*OrderAction) Descriptor() ([]byte, []int) {
+func (m *Order) Reset()         { *m = Order{} }
+func (m *Order) String() string { return proto.CompactTextString(m) }
+func (*Order) ProtoMessage()    {}
+func (*Order) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{15}
 }
 
-func (m *OrderAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_OrderAction.Unmarshal(m, b)
+func (m *Order) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Order.Unmarshal(m, b)
 }
-func (m *OrderAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_OrderAction.Marshal(b, m, deterministic)
+func (m *Order) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Order.Marshal(b, m, deterministic)
 }
-func (m *OrderAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_OrderAction.Merge(m, src)
+func (m *Order) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Order.Merge(m, src)
 }
-func (m *OrderAction) XXX_Size() int {
-	return xxx_messageInfo_OrderAction.Size(m)
+func (m *Order) XXX_Size() int {
+	return xxx_messageInfo_Order.Size(m)
 }
-func (m *OrderAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_OrderAction.DiscardUnknown(m)
+func (m *Order) XXX_DiscardUnknown() {
+	xxx_messageInfo_Order.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_OrderAction proto.InternalMessageInfo
+var xxx_messageInfo_Order proto.InternalMessageInfo
 
-func (m *OrderAction) GetComplianceAction() string {
+func (m *Order) GetComplianceAction() string {
 	if m != nil {
 		return m.ComplianceAction
 	}
 	return ""
 }
 
-func (m *OrderAction) GetAssetType() string {
+func (m *Order) GetAssetType() string {
 	if m != nil {
 		return m.AssetType
 	}
 	return ""
 }
 
-func (m *OrderAction) GetAssetCode() []byte {
+func (m *Order) GetAssetCode() []byte {
 	if m != nil {
 		return m.AssetCode
 	}
 	return nil
 }
 
-func (m *OrderAction) GetTargetAddresses() []*TargetAddressField {
+func (m *Order) GetTargetAddresses() []*TargetAddressField {
 	if m != nil {
 		return m.TargetAddresses
 	}
 	return nil
 }
 
-func (m *OrderAction) GetFreezeTxId() []byte {
+func (m *Order) GetFreezeTxId() []byte {
 	if m != nil {
 		return m.FreezeTxId
 	}
 	return nil
 }
 
-func (m *OrderAction) GetFreezePeriod() uint64 {
+func (m *Order) GetFreezePeriod() uint64 {
 	if m != nil {
 		return m.FreezePeriod
 	}
 	return 0
 }
 
-func (m *OrderAction) GetDepositAddress() []byte {
+func (m *Order) GetDepositAddress() []byte {
 	if m != nil {
 		return m.DepositAddress
 	}
 	return nil
 }
 
-func (m *OrderAction) GetAuthorityIncluded() bool {
+func (m *Order) GetAuthorityIncluded() bool {
 	if m != nil {
 		return m.AuthorityIncluded
 	}
 	return false
 }
 
-func (m *OrderAction) GetAuthorityName() string {
+func (m *Order) GetAuthorityName() string {
 	if m != nil {
 		return m.AuthorityName
 	}
 	return ""
 }
 
-func (m *OrderAction) GetAuthorityPublicKey() []byte {
+func (m *Order) GetAuthorityPublicKey() []byte {
 	if m != nil {
 		return m.AuthorityPublicKey
 	}
 	return nil
 }
 
-func (m *OrderAction) GetSignatureAlgorithm() uint32 {
+func (m *Order) GetSignatureAlgorithm() uint32 {
 	if m != nil {
 		return m.SignatureAlgorithm
 	}
 	return 0
 }
 
-func (m *OrderAction) GetOrderSignature() []byte {
+func (m *Order) GetOrderSignature() []byte {
 	if m != nil {
 		return m.OrderSignature
 	}
 	return nil
 }
 
-func (m *OrderAction) GetSupportingEvidenceHash() []byte {
+func (m *Order) GetSupportingEvidenceHash() []byte {
 	if m != nil {
 		return m.SupportingEvidenceHash
 	}
 	return nil
 }
 
-func (m *OrderAction) GetRefTxs() []byte {
+func (m *Order) GetRefTxs() []byte {
 	if m != nil {
 		return m.RefTxs
 	}
 	return nil
 }
 
-func (m *OrderAction) GetBitcoinDispersions() []*QuantityIndexField {
+func (m *Order) GetBitcoinDispersions() []*QuantityIndexField {
 	if m != nil {
 		return m.BitcoinDispersions
 	}
 	return nil
 }
 
-func (m *OrderAction) GetMessage() string {
+func (m *Order) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
 	return ""
 }
 
-// Action - Freeze (E2)
-type FreezeAction struct {
+// Message - Freeze (E2)
+type Freeze struct {
 	AssetType            string                `protobuf:"bytes,1,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
 	AssetCode            []byte                `protobuf:"bytes,2,opt,name=AssetCode,json=assetCode,proto3" json:"AssetCode,omitempty"`
 	Quantities           []*QuantityIndexField `protobuf:"bytes,3,rep,name=Quantities,json=quantities,proto3" json:"Quantities,omitempty"`
@@ -1712,68 +1729,68 @@ type FreezeAction struct {
 	XXX_sizecache        int32                 `json:"-"`
 }
 
-func (m *FreezeAction) Reset()         { *m = FreezeAction{} }
-func (m *FreezeAction) String() string { return proto.CompactTextString(m) }
-func (*FreezeAction) ProtoMessage()    {}
-func (*FreezeAction) Descriptor() ([]byte, []int) {
+func (m *Freeze) Reset()         { *m = Freeze{} }
+func (m *Freeze) String() string { return proto.CompactTextString(m) }
+func (*Freeze) ProtoMessage()    {}
+func (*Freeze) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{16}
 }
 
-func (m *FreezeAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_FreezeAction.Unmarshal(m, b)
+func (m *Freeze) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Freeze.Unmarshal(m, b)
 }
-func (m *FreezeAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_FreezeAction.Marshal(b, m, deterministic)
+func (m *Freeze) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Freeze.Marshal(b, m, deterministic)
 }
-func (m *FreezeAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_FreezeAction.Merge(m, src)
+func (m *Freeze) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Freeze.Merge(m, src)
 }
-func (m *FreezeAction) XXX_Size() int {
-	return xxx_messageInfo_FreezeAction.Size(m)
+func (m *Freeze) XXX_Size() int {
+	return xxx_messageInfo_Freeze.Size(m)
 }
-func (m *FreezeAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_FreezeAction.DiscardUnknown(m)
+func (m *Freeze) XXX_DiscardUnknown() {
+	xxx_messageInfo_Freeze.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_FreezeAction proto.InternalMessageInfo
+var xxx_messageInfo_Freeze proto.InternalMessageInfo
 
-func (m *FreezeAction) GetAssetType() string {
+func (m *Freeze) GetAssetType() string {
 	if m != nil {
 		return m.AssetType
 	}
 	return ""
 }
 
-func (m *FreezeAction) GetAssetCode() []byte {
+func (m *Freeze) GetAssetCode() []byte {
 	if m != nil {
 		return m.AssetCode
 	}
 	return nil
 }
 
-func (m *FreezeAction) GetQuantities() []*QuantityIndexField {
+func (m *Freeze) GetQuantities() []*QuantityIndexField {
 	if m != nil {
 		return m.Quantities
 	}
 	return nil
 }
 
-func (m *FreezeAction) GetFreezePeriod() uint64 {
+func (m *Freeze) GetFreezePeriod() uint64 {
 	if m != nil {
 		return m.FreezePeriod
 	}
 	return 0
 }
 
-func (m *FreezeAction) GetTimestamp() uint64 {
+func (m *Freeze) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Thaw (E3)
-type ThawAction struct {
+// Message - Thaw (E3)
+type Thaw struct {
 	FreezeTxId           []byte   `protobuf:"bytes,1,opt,name=FreezeTxId,json=freezeTxId,proto3" json:"FreezeTxId,omitempty"`
 	Timestamp            uint64   `protobuf:"varint,2,opt,name=Timestamp,json=timestamp,proto3" json:"Timestamp,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -1781,47 +1798,47 @@ type ThawAction struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ThawAction) Reset()         { *m = ThawAction{} }
-func (m *ThawAction) String() string { return proto.CompactTextString(m) }
-func (*ThawAction) ProtoMessage()    {}
-func (*ThawAction) Descriptor() ([]byte, []int) {
+func (m *Thaw) Reset()         { *m = Thaw{} }
+func (m *Thaw) String() string { return proto.CompactTextString(m) }
+func (*Thaw) ProtoMessage()    {}
+func (*Thaw) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{17}
 }
 
-func (m *ThawAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ThawAction.Unmarshal(m, b)
+func (m *Thaw) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Thaw.Unmarshal(m, b)
 }
-func (m *ThawAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ThawAction.Marshal(b, m, deterministic)
+func (m *Thaw) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Thaw.Marshal(b, m, deterministic)
 }
-func (m *ThawAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ThawAction.Merge(m, src)
+func (m *Thaw) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Thaw.Merge(m, src)
 }
-func (m *ThawAction) XXX_Size() int {
-	return xxx_messageInfo_ThawAction.Size(m)
+func (m *Thaw) XXX_Size() int {
+	return xxx_messageInfo_Thaw.Size(m)
 }
-func (m *ThawAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ThawAction.DiscardUnknown(m)
+func (m *Thaw) XXX_DiscardUnknown() {
+	xxx_messageInfo_Thaw.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ThawAction proto.InternalMessageInfo
+var xxx_messageInfo_Thaw proto.InternalMessageInfo
 
-func (m *ThawAction) GetFreezeTxId() []byte {
+func (m *Thaw) GetFreezeTxId() []byte {
 	if m != nil {
 		return m.FreezeTxId
 	}
 	return nil
 }
 
-func (m *ThawAction) GetTimestamp() uint64 {
+func (m *Thaw) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Confiscation (E4)
-type ConfiscationAction struct {
+// Message - Confiscation (E4)
+type Confiscation struct {
 	AssetType            string                `protobuf:"bytes,1,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
 	AssetCode            []byte                `protobuf:"bytes,2,opt,name=AssetCode,json=assetCode,proto3" json:"AssetCode,omitempty"`
 	Quantities           []*QuantityIndexField `protobuf:"bytes,3,rep,name=Quantities,json=quantities,proto3" json:"Quantities,omitempty"`
@@ -1832,68 +1849,68 @@ type ConfiscationAction struct {
 	XXX_sizecache        int32                 `json:"-"`
 }
 
-func (m *ConfiscationAction) Reset()         { *m = ConfiscationAction{} }
-func (m *ConfiscationAction) String() string { return proto.CompactTextString(m) }
-func (*ConfiscationAction) ProtoMessage()    {}
-func (*ConfiscationAction) Descriptor() ([]byte, []int) {
+func (m *Confiscation) Reset()         { *m = Confiscation{} }
+func (m *Confiscation) String() string { return proto.CompactTextString(m) }
+func (*Confiscation) ProtoMessage()    {}
+func (*Confiscation) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{18}
 }
 
-func (m *ConfiscationAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ConfiscationAction.Unmarshal(m, b)
+func (m *Confiscation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Confiscation.Unmarshal(m, b)
 }
-func (m *ConfiscationAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ConfiscationAction.Marshal(b, m, deterministic)
+func (m *Confiscation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Confiscation.Marshal(b, m, deterministic)
 }
-func (m *ConfiscationAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ConfiscationAction.Merge(m, src)
+func (m *Confiscation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Confiscation.Merge(m, src)
 }
-func (m *ConfiscationAction) XXX_Size() int {
-	return xxx_messageInfo_ConfiscationAction.Size(m)
+func (m *Confiscation) XXX_Size() int {
+	return xxx_messageInfo_Confiscation.Size(m)
 }
-func (m *ConfiscationAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ConfiscationAction.DiscardUnknown(m)
+func (m *Confiscation) XXX_DiscardUnknown() {
+	xxx_messageInfo_Confiscation.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ConfiscationAction proto.InternalMessageInfo
+var xxx_messageInfo_Confiscation proto.InternalMessageInfo
 
-func (m *ConfiscationAction) GetAssetType() string {
+func (m *Confiscation) GetAssetType() string {
 	if m != nil {
 		return m.AssetType
 	}
 	return ""
 }
 
-func (m *ConfiscationAction) GetAssetCode() []byte {
+func (m *Confiscation) GetAssetCode() []byte {
 	if m != nil {
 		return m.AssetCode
 	}
 	return nil
 }
 
-func (m *ConfiscationAction) GetQuantities() []*QuantityIndexField {
+func (m *Confiscation) GetQuantities() []*QuantityIndexField {
 	if m != nil {
 		return m.Quantities
 	}
 	return nil
 }
 
-func (m *ConfiscationAction) GetDepositQty() uint64 {
+func (m *Confiscation) GetDepositQty() uint64 {
 	if m != nil {
 		return m.DepositQty
 	}
 	return 0
 }
 
-func (m *ConfiscationAction) GetTimestamp() uint64 {
+func (m *Confiscation) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Reconciliation (E5)
-type ReconciliationAction struct {
+// Message - Reconciliation (E5)
+type Reconciliation struct {
 	AssetType            string                `protobuf:"bytes,1,opt,name=AssetType,json=assetType,proto3" json:"AssetType,omitempty"`
 	AssetCode            []byte                `protobuf:"bytes,2,opt,name=AssetCode,json=assetCode,proto3" json:"AssetCode,omitempty"`
 	Quantities           []*QuantityIndexField `protobuf:"bytes,3,rep,name=Quantities,json=quantities,proto3" json:"Quantities,omitempty"`
@@ -1903,141 +1920,141 @@ type ReconciliationAction struct {
 	XXX_sizecache        int32                 `json:"-"`
 }
 
-func (m *ReconciliationAction) Reset()         { *m = ReconciliationAction{} }
-func (m *ReconciliationAction) String() string { return proto.CompactTextString(m) }
-func (*ReconciliationAction) ProtoMessage()    {}
-func (*ReconciliationAction) Descriptor() ([]byte, []int) {
+func (m *Reconciliation) Reset()         { *m = Reconciliation{} }
+func (m *Reconciliation) String() string { return proto.CompactTextString(m) }
+func (*Reconciliation) ProtoMessage()    {}
+func (*Reconciliation) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{19}
 }
 
-func (m *ReconciliationAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReconciliationAction.Unmarshal(m, b)
+func (m *Reconciliation) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Reconciliation.Unmarshal(m, b)
 }
-func (m *ReconciliationAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReconciliationAction.Marshal(b, m, deterministic)
+func (m *Reconciliation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Reconciliation.Marshal(b, m, deterministic)
 }
-func (m *ReconciliationAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReconciliationAction.Merge(m, src)
+func (m *Reconciliation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Reconciliation.Merge(m, src)
 }
-func (m *ReconciliationAction) XXX_Size() int {
-	return xxx_messageInfo_ReconciliationAction.Size(m)
+func (m *Reconciliation) XXX_Size() int {
+	return xxx_messageInfo_Reconciliation.Size(m)
 }
-func (m *ReconciliationAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReconciliationAction.DiscardUnknown(m)
+func (m *Reconciliation) XXX_DiscardUnknown() {
+	xxx_messageInfo_Reconciliation.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ReconciliationAction proto.InternalMessageInfo
+var xxx_messageInfo_Reconciliation proto.InternalMessageInfo
 
-func (m *ReconciliationAction) GetAssetType() string {
+func (m *Reconciliation) GetAssetType() string {
 	if m != nil {
 		return m.AssetType
 	}
 	return ""
 }
 
-func (m *ReconciliationAction) GetAssetCode() []byte {
+func (m *Reconciliation) GetAssetCode() []byte {
 	if m != nil {
 		return m.AssetCode
 	}
 	return nil
 }
 
-func (m *ReconciliationAction) GetQuantities() []*QuantityIndexField {
+func (m *Reconciliation) GetQuantities() []*QuantityIndexField {
 	if m != nil {
 		return m.Quantities
 	}
 	return nil
 }
 
-func (m *ReconciliationAction) GetTimestamp() uint64 {
+func (m *Reconciliation) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
 	return 0
 }
 
-// Action - Establishment (R1)
-type EstablishmentAction struct {
+// Message - Establishment (R1)
+type Establishment struct {
 	Message              string   `protobuf:"bytes,1,opt,name=Message,json=message,proto3" json:"Message,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *EstablishmentAction) Reset()         { *m = EstablishmentAction{} }
-func (m *EstablishmentAction) String() string { return proto.CompactTextString(m) }
-func (*EstablishmentAction) ProtoMessage()    {}
-func (*EstablishmentAction) Descriptor() ([]byte, []int) {
+func (m *Establishment) Reset()         { *m = Establishment{} }
+func (m *Establishment) String() string { return proto.CompactTextString(m) }
+func (*Establishment) ProtoMessage()    {}
+func (*Establishment) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{20}
 }
 
-func (m *EstablishmentAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EstablishmentAction.Unmarshal(m, b)
+func (m *Establishment) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Establishment.Unmarshal(m, b)
 }
-func (m *EstablishmentAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EstablishmentAction.Marshal(b, m, deterministic)
+func (m *Establishment) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Establishment.Marshal(b, m, deterministic)
 }
-func (m *EstablishmentAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EstablishmentAction.Merge(m, src)
+func (m *Establishment) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Establishment.Merge(m, src)
 }
-func (m *EstablishmentAction) XXX_Size() int {
-	return xxx_messageInfo_EstablishmentAction.Size(m)
+func (m *Establishment) XXX_Size() int {
+	return xxx_messageInfo_Establishment.Size(m)
 }
-func (m *EstablishmentAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_EstablishmentAction.DiscardUnknown(m)
+func (m *Establishment) XXX_DiscardUnknown() {
+	xxx_messageInfo_Establishment.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_EstablishmentAction proto.InternalMessageInfo
+var xxx_messageInfo_Establishment proto.InternalMessageInfo
 
-func (m *EstablishmentAction) GetMessage() string {
+func (m *Establishment) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
 	return ""
 }
 
-// Action - Addition (R2)
-type AdditionAction struct {
+// Message - Addition (R2)
+type Addition struct {
 	Message              string   `protobuf:"bytes,1,opt,name=Message,json=message,proto3" json:"Message,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *AdditionAction) Reset()         { *m = AdditionAction{} }
-func (m *AdditionAction) String() string { return proto.CompactTextString(m) }
-func (*AdditionAction) ProtoMessage()    {}
-func (*AdditionAction) Descriptor() ([]byte, []int) {
+func (m *Addition) Reset()         { *m = Addition{} }
+func (m *Addition) String() string { return proto.CompactTextString(m) }
+func (*Addition) ProtoMessage()    {}
+func (*Addition) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{21}
 }
 
-func (m *AdditionAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AdditionAction.Unmarshal(m, b)
+func (m *Addition) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Addition.Unmarshal(m, b)
 }
-func (m *AdditionAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AdditionAction.Marshal(b, m, deterministic)
+func (m *Addition) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Addition.Marshal(b, m, deterministic)
 }
-func (m *AdditionAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AdditionAction.Merge(m, src)
+func (m *Addition) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Addition.Merge(m, src)
 }
-func (m *AdditionAction) XXX_Size() int {
-	return xxx_messageInfo_AdditionAction.Size(m)
+func (m *Addition) XXX_Size() int {
+	return xxx_messageInfo_Addition.Size(m)
 }
-func (m *AdditionAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_AdditionAction.DiscardUnknown(m)
+func (m *Addition) XXX_DiscardUnknown() {
+	xxx_messageInfo_Addition.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AdditionAction proto.InternalMessageInfo
+var xxx_messageInfo_Addition proto.InternalMessageInfo
 
-func (m *AdditionAction) GetMessage() string {
+func (m *Addition) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
 	return ""
 }
 
-// Action - Alteration (R3)
-type AlterationAction struct {
+// Message - Alteration (R3)
+type Alteration struct {
 	EntryTxID            []byte   `protobuf:"bytes,1,opt,name=EntryTxID,json=entryTxID,proto3" json:"EntryTxID,omitempty"`
 	Message              string   `protobuf:"bytes,2,opt,name=Message,json=message,proto3" json:"Message,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2045,47 +2062,47 @@ type AlterationAction struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *AlterationAction) Reset()         { *m = AlterationAction{} }
-func (m *AlterationAction) String() string { return proto.CompactTextString(m) }
-func (*AlterationAction) ProtoMessage()    {}
-func (*AlterationAction) Descriptor() ([]byte, []int) {
+func (m *Alteration) Reset()         { *m = Alteration{} }
+func (m *Alteration) String() string { return proto.CompactTextString(m) }
+func (*Alteration) ProtoMessage()    {}
+func (*Alteration) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{22}
 }
 
-func (m *AlterationAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AlterationAction.Unmarshal(m, b)
+func (m *Alteration) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Alteration.Unmarshal(m, b)
 }
-func (m *AlterationAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AlterationAction.Marshal(b, m, deterministic)
+func (m *Alteration) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Alteration.Marshal(b, m, deterministic)
 }
-func (m *AlterationAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AlterationAction.Merge(m, src)
+func (m *Alteration) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Alteration.Merge(m, src)
 }
-func (m *AlterationAction) XXX_Size() int {
-	return xxx_messageInfo_AlterationAction.Size(m)
+func (m *Alteration) XXX_Size() int {
+	return xxx_messageInfo_Alteration.Size(m)
 }
-func (m *AlterationAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_AlterationAction.DiscardUnknown(m)
+func (m *Alteration) XXX_DiscardUnknown() {
+	xxx_messageInfo_Alteration.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_AlterationAction proto.InternalMessageInfo
+var xxx_messageInfo_Alteration proto.InternalMessageInfo
 
-func (m *AlterationAction) GetEntryTxID() []byte {
+func (m *Alteration) GetEntryTxID() []byte {
 	if m != nil {
 		return m.EntryTxID
 	}
 	return nil
 }
 
-func (m *AlterationAction) GetMessage() string {
+func (m *Alteration) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
 	return ""
 }
 
-// Action - Removal (R4)
-type RemovalAction struct {
+// Message - Removal (R4)
+type Removal struct {
 	EntryTxID            []byte   `protobuf:"bytes,1,opt,name=EntryTxID,json=entryTxID,proto3" json:"EntryTxID,omitempty"`
 	Message              string   `protobuf:"bytes,2,opt,name=Message,json=message,proto3" json:"Message,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2093,98 +2110,106 @@ type RemovalAction struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RemovalAction) Reset()         { *m = RemovalAction{} }
-func (m *RemovalAction) String() string { return proto.CompactTextString(m) }
-func (*RemovalAction) ProtoMessage()    {}
-func (*RemovalAction) Descriptor() ([]byte, []int) {
+func (m *Removal) Reset()         { *m = Removal{} }
+func (m *Removal) String() string { return proto.CompactTextString(m) }
+func (*Removal) ProtoMessage()    {}
+func (*Removal) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{23}
 }
 
-func (m *RemovalAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RemovalAction.Unmarshal(m, b)
+func (m *Removal) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Removal.Unmarshal(m, b)
 }
-func (m *RemovalAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RemovalAction.Marshal(b, m, deterministic)
+func (m *Removal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Removal.Marshal(b, m, deterministic)
 }
-func (m *RemovalAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RemovalAction.Merge(m, src)
+func (m *Removal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Removal.Merge(m, src)
 }
-func (m *RemovalAction) XXX_Size() int {
-	return xxx_messageInfo_RemovalAction.Size(m)
+func (m *Removal) XXX_Size() int {
+	return xxx_messageInfo_Removal.Size(m)
 }
-func (m *RemovalAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_RemovalAction.DiscardUnknown(m)
+func (m *Removal) XXX_DiscardUnknown() {
+	xxx_messageInfo_Removal.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RemovalAction proto.InternalMessageInfo
+var xxx_messageInfo_Removal proto.InternalMessageInfo
 
-func (m *RemovalAction) GetEntryTxID() []byte {
+func (m *Removal) GetEntryTxID() []byte {
 	if m != nil {
 		return m.EntryTxID
 	}
 	return nil
 }
 
-func (m *RemovalAction) GetMessage() string {
+func (m *Removal) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
 	return ""
 }
 
-// Action - Message (M1)
-type MessageAction struct {
+// Message - Message (M1)
+type Message struct {
 	AddressIndexes       []uint32 `protobuf:"varint,1,rep,packed,name=AddressIndexes,json=addressIndexes,proto3" json:"AddressIndexes,omitempty"`
-	MessagePayload       []byte   `protobuf:"bytes,2,opt,name=MessagePayload,json=messagePayload,proto3" json:"MessagePayload,omitempty"`
+	MessageCode          uint32   `protobuf:"varint,2,opt,name=MessageCode,json=messageCode,proto3" json:"MessageCode,omitempty"`
+	MessagePayload       []byte   `protobuf:"bytes,3,opt,name=MessagePayload,json=messagePayload,proto3" json:"MessagePayload,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *MessageAction) Reset()         { *m = MessageAction{} }
-func (m *MessageAction) String() string { return proto.CompactTextString(m) }
-func (*MessageAction) ProtoMessage()    {}
-func (*MessageAction) Descriptor() ([]byte, []int) {
+func (m *Message) Reset()         { *m = Message{} }
+func (m *Message) String() string { return proto.CompactTextString(m) }
+func (*Message) ProtoMessage()    {}
+func (*Message) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{24}
 }
 
-func (m *MessageAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_MessageAction.Unmarshal(m, b)
+func (m *Message) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Message.Unmarshal(m, b)
 }
-func (m *MessageAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_MessageAction.Marshal(b, m, deterministic)
+func (m *Message) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Message.Marshal(b, m, deterministic)
 }
-func (m *MessageAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MessageAction.Merge(m, src)
+func (m *Message) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Message.Merge(m, src)
 }
-func (m *MessageAction) XXX_Size() int {
-	return xxx_messageInfo_MessageAction.Size(m)
+func (m *Message) XXX_Size() int {
+	return xxx_messageInfo_Message.Size(m)
 }
-func (m *MessageAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_MessageAction.DiscardUnknown(m)
+func (m *Message) XXX_DiscardUnknown() {
+	xxx_messageInfo_Message.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MessageAction proto.InternalMessageInfo
+var xxx_messageInfo_Message proto.InternalMessageInfo
 
-func (m *MessageAction) GetAddressIndexes() []uint32 {
+func (m *Message) GetAddressIndexes() []uint32 {
 	if m != nil {
 		return m.AddressIndexes
 	}
 	return nil
 }
 
-func (m *MessageAction) GetMessagePayload() []byte {
+func (m *Message) GetMessageCode() uint32 {
+	if m != nil {
+		return m.MessageCode
+	}
+	return 0
+}
+
+func (m *Message) GetMessagePayload() []byte {
 	if m != nil {
 		return m.MessagePayload
 	}
 	return nil
 }
 
-// Action - Rejection (M2)
-type RejectionAction struct {
+// Message - Rejection (M2)
+type Rejection struct {
 	AddressIndexes       []uint32 `protobuf:"varint,1,rep,packed,name=AddressIndexes,json=addressIndexes,proto3" json:"AddressIndexes,omitempty"`
 	RejectAddressIndex   uint32   `protobuf:"varint,2,opt,name=RejectAddressIndex,json=rejectAddressIndex,proto3" json:"RejectAddressIndex,omitempty"`
-	RejectionCode        uint64   `protobuf:"varint,3,opt,name=RejectionCode,json=rejectionCode,proto3" json:"RejectionCode,omitempty"`
+	RejectionCode        uint32   `protobuf:"varint,3,opt,name=RejectionCode,json=rejectionCode,proto3" json:"RejectionCode,omitempty"`
 	Message              string   `protobuf:"bytes,4,opt,name=Message,json=message,proto3" json:"Message,omitempty"`
 	Timestamp            uint64   `protobuf:"varint,5,opt,name=Timestamp,json=timestamp,proto3" json:"Timestamp,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -2192,60 +2217,60 @@ type RejectionAction struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *RejectionAction) Reset()         { *m = RejectionAction{} }
-func (m *RejectionAction) String() string { return proto.CompactTextString(m) }
-func (*RejectionAction) ProtoMessage()    {}
-func (*RejectionAction) Descriptor() ([]byte, []int) {
+func (m *Rejection) Reset()         { *m = Rejection{} }
+func (m *Rejection) String() string { return proto.CompactTextString(m) }
+func (*Rejection) ProtoMessage()    {}
+func (*Rejection) Descriptor() ([]byte, []int) {
 	return fileDescriptor_eeb49063df94c2b8, []int{25}
 }
 
-func (m *RejectionAction) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RejectionAction.Unmarshal(m, b)
+func (m *Rejection) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Rejection.Unmarshal(m, b)
 }
-func (m *RejectionAction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RejectionAction.Marshal(b, m, deterministic)
+func (m *Rejection) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Rejection.Marshal(b, m, deterministic)
 }
-func (m *RejectionAction) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RejectionAction.Merge(m, src)
+func (m *Rejection) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Rejection.Merge(m, src)
 }
-func (m *RejectionAction) XXX_Size() int {
-	return xxx_messageInfo_RejectionAction.Size(m)
+func (m *Rejection) XXX_Size() int {
+	return xxx_messageInfo_Rejection.Size(m)
 }
-func (m *RejectionAction) XXX_DiscardUnknown() {
-	xxx_messageInfo_RejectionAction.DiscardUnknown(m)
+func (m *Rejection) XXX_DiscardUnknown() {
+	xxx_messageInfo_Rejection.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_RejectionAction proto.InternalMessageInfo
+var xxx_messageInfo_Rejection proto.InternalMessageInfo
 
-func (m *RejectionAction) GetAddressIndexes() []uint32 {
+func (m *Rejection) GetAddressIndexes() []uint32 {
 	if m != nil {
 		return m.AddressIndexes
 	}
 	return nil
 }
 
-func (m *RejectionAction) GetRejectAddressIndex() uint32 {
+func (m *Rejection) GetRejectAddressIndex() uint32 {
 	if m != nil {
 		return m.RejectAddressIndex
 	}
 	return 0
 }
 
-func (m *RejectionAction) GetRejectionCode() uint64 {
+func (m *Rejection) GetRejectionCode() uint32 {
 	if m != nil {
 		return m.RejectionCode
 	}
 	return 0
 }
 
-func (m *RejectionAction) GetMessage() string {
+func (m *Rejection) GetMessage() string {
 	if m != nil {
 		return m.Message
 	}
 	return ""
 }
 
-func (m *RejectionAction) GetTimestamp() uint64 {
+func (m *Rejection) GetTimestamp() uint64 {
 	if m != nil {
 		return m.Timestamp
 	}
@@ -2254,7 +2279,7 @@ func (m *RejectionAction) GetTimestamp() uint64 {
 
 // Field - Administrator
 type AdministratorField struct {
-	Type                 uint64   `protobuf:"varint,1,opt,name=Type,json=type,proto3" json:"Type,omitempty"`
+	Type                 uint32   `protobuf:"varint,1,opt,name=Type,json=type,proto3" json:"Type,omitempty"`
 	Name                 string   `protobuf:"bytes,2,opt,name=Name,json=name,proto3" json:"Name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -2286,7 +2311,7 @@ func (m *AdministratorField) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AdministratorField proto.InternalMessageInfo
 
-func (m *AdministratorField) GetType() uint64 {
+func (m *AdministratorField) GetType() uint32 {
 	if m != nil {
 		return m.Type
 	}
@@ -2806,7 +2831,7 @@ func (m *EntityField) GetManagement() []*ManagerField {
 
 // Field - Manager
 type ManagerField struct {
-	Type                 uint64   `protobuf:"varint,1,opt,name=Type,json=type,proto3" json:"Type,omitempty"`
+	Type                 uint32   `protobuf:"varint,1,opt,name=Type,json=type,proto3" json:"Type,omitempty"`
 	Name                 string   `protobuf:"bytes,2,opt,name=Name,json=name,proto3" json:"Name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -2838,7 +2863,7 @@ func (m *ManagerField) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ManagerField proto.InternalMessageInfo
 
-func (m *ManagerField) GetType() uint64 {
+func (m *ManagerField) GetType() uint32 {
 	if m != nil {
 		return m.Type
 	}
@@ -3008,7 +3033,7 @@ func (m *TargetAddressField) GetQuantity() uint64 {
 type VotingSystemField struct {
 	Name                    string   `protobuf:"bytes,1,opt,name=Name,json=name,proto3" json:"Name,omitempty"`
 	VoteType                string   `protobuf:"bytes,2,opt,name=VoteType,json=voteType,proto3" json:"VoteType,omitempty"`
-	TallyLogic              string   `protobuf:"bytes,3,opt,name=TallyLogic,json=tallyLogic,proto3" json:"TallyLogic,omitempty"`
+	TallyLogic              uint32   `protobuf:"varint,3,opt,name=TallyLogic,json=tallyLogic,proto3" json:"TallyLogic,omitempty"`
 	ThresholdPercentage     uint32   `protobuf:"varint,4,opt,name=ThresholdPercentage,json=thresholdPercentage,proto3" json:"ThresholdPercentage,omitempty"`
 	VoteMultiplierPermitted bool     `protobuf:"varint,5,opt,name=VoteMultiplierPermitted,json=voteMultiplierPermitted,proto3" json:"VoteMultiplierPermitted,omitempty"`
 	HolderProposalFee       uint64   `protobuf:"varint,6,opt,name=HolderProposalFee,json=holderProposalFee,proto3" json:"HolderProposalFee,omitempty"`
@@ -3056,11 +3081,11 @@ func (m *VotingSystemField) GetVoteType() string {
 	return ""
 }
 
-func (m *VotingSystemField) GetTallyLogic() string {
+func (m *VotingSystemField) GetTallyLogic() uint32 {
 	if m != nil {
 		return m.TallyLogic
 	}
-	return ""
+	return 0
 }
 
 func (m *VotingSystemField) GetThresholdPercentage() uint32 {
@@ -3085,32 +3110,32 @@ func (m *VotingSystemField) GetHolderProposalFee() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*ContractOfferAction)(nil), "actions.ContractOfferAction")
-	proto.RegisterType((*ContractFormationAction)(nil), "actions.ContractFormationAction")
-	proto.RegisterType((*ContractAmendmentAction)(nil), "actions.ContractAmendmentAction")
-	proto.RegisterType((*StaticContractFormationAction)(nil), "actions.StaticContractFormationAction")
-	proto.RegisterType((*ContractAddressChangeAction)(nil), "actions.ContractAddressChangeAction")
-	proto.RegisterType((*AssetDefinitionAction)(nil), "actions.AssetDefinitionAction")
-	proto.RegisterType((*AssetCreationAction)(nil), "actions.AssetCreationAction")
-	proto.RegisterType((*AssetModificationAction)(nil), "actions.AssetModificationAction")
-	proto.RegisterType((*TransferAction)(nil), "actions.TransferAction")
-	proto.RegisterType((*SettlementAction)(nil), "actions.SettlementAction")
-	proto.RegisterType((*ProposalAction)(nil), "actions.ProposalAction")
-	proto.RegisterType((*VoteAction)(nil), "actions.VoteAction")
-	proto.RegisterType((*BallotCastAction)(nil), "actions.BallotCastAction")
-	proto.RegisterType((*BallotCountedAction)(nil), "actions.BallotCountedAction")
-	proto.RegisterType((*ResultAction)(nil), "actions.ResultAction")
-	proto.RegisterType((*OrderAction)(nil), "actions.OrderAction")
-	proto.RegisterType((*FreezeAction)(nil), "actions.FreezeAction")
-	proto.RegisterType((*ThawAction)(nil), "actions.ThawAction")
-	proto.RegisterType((*ConfiscationAction)(nil), "actions.ConfiscationAction")
-	proto.RegisterType((*ReconciliationAction)(nil), "actions.ReconciliationAction")
-	proto.RegisterType((*EstablishmentAction)(nil), "actions.EstablishmentAction")
-	proto.RegisterType((*AdditionAction)(nil), "actions.AdditionAction")
-	proto.RegisterType((*AlterationAction)(nil), "actions.AlterationAction")
-	proto.RegisterType((*RemovalAction)(nil), "actions.RemovalAction")
-	proto.RegisterType((*MessageAction)(nil), "actions.MessageAction")
-	proto.RegisterType((*RejectionAction)(nil), "actions.RejectionAction")
+	proto.RegisterType((*ContractOffer)(nil), "actions.ContractOffer")
+	proto.RegisterType((*ContractFormation)(nil), "actions.ContractFormation")
+	proto.RegisterType((*ContractAmendment)(nil), "actions.ContractAmendment")
+	proto.RegisterType((*StaticContractFormation)(nil), "actions.StaticContractFormation")
+	proto.RegisterType((*ContractAddressChange)(nil), "actions.ContractAddressChange")
+	proto.RegisterType((*AssetDefinition)(nil), "actions.AssetDefinition")
+	proto.RegisterType((*AssetCreation)(nil), "actions.AssetCreation")
+	proto.RegisterType((*AssetModification)(nil), "actions.AssetModification")
+	proto.RegisterType((*Transfer)(nil), "actions.Transfer")
+	proto.RegisterType((*Settlement)(nil), "actions.Settlement")
+	proto.RegisterType((*Proposal)(nil), "actions.Proposal")
+	proto.RegisterType((*Vote)(nil), "actions.Vote")
+	proto.RegisterType((*BallotCast)(nil), "actions.BallotCast")
+	proto.RegisterType((*BallotCounted)(nil), "actions.BallotCounted")
+	proto.RegisterType((*Result)(nil), "actions.Result")
+	proto.RegisterType((*Order)(nil), "actions.Order")
+	proto.RegisterType((*Freeze)(nil), "actions.Freeze")
+	proto.RegisterType((*Thaw)(nil), "actions.Thaw")
+	proto.RegisterType((*Confiscation)(nil), "actions.Confiscation")
+	proto.RegisterType((*Reconciliation)(nil), "actions.Reconciliation")
+	proto.RegisterType((*Establishment)(nil), "actions.Establishment")
+	proto.RegisterType((*Addition)(nil), "actions.Addition")
+	proto.RegisterType((*Alteration)(nil), "actions.Alteration")
+	proto.RegisterType((*Removal)(nil), "actions.Removal")
+	proto.RegisterType((*Message)(nil), "actions.Message")
+	proto.RegisterType((*Rejection)(nil), "actions.Rejection")
 	proto.RegisterType((*AdministratorField)(nil), "actions.AdministratorField")
 	proto.RegisterType((*AmendmentField)(nil), "actions.AmendmentField")
 	proto.RegisterType((*AssetReceiverField)(nil), "actions.AssetReceiverField")
@@ -3128,175 +3153,175 @@ func init() {
 func init() { proto.RegisterFile("actions.proto", fileDescriptor_eeb49063df94c2b8) }
 
 var fileDescriptor_eeb49063df94c2b8 = []byte{
-	// 2717 bytes of a gzipped FileDescriptorProto
+	// 2706 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x5a, 0x4b, 0x6f, 0x23, 0xc7,
-	0x11, 0xc6, 0x88, 0x94, 0x48, 0x16, 0x1f, 0x92, 0x5a, 0xd2, 0xee, 0x40, 0x6b, 0x1b, 0x02, 0x61,
-	0x18, 0x82, 0x61, 0x6c, 0x0c, 0xbf, 0x12, 0xe4, 0xe1, 0xac, 0x56, 0xa2, 0xbc, 0x5a, 0x6b, 0x2d,
-	0xed, 0x90, 0xeb, 0x43, 0x2e, 0x41, 0x6b, 0xa6, 0x48, 0xb6, 0x3d, 0x9c, 0xa1, 0x7b, 0x9a, 0xb4,
-	0x98, 0x4b, 0x6e, 0xb9, 0xf8, 0x92, 0x3f, 0x91, 0x63, 0xce, 0x41, 0xe0, 0x1f, 0x10, 0x04, 0x09,
-	0x02, 0xe4, 0x94, 0x9f, 0x90, 0x73, 0xee, 0x09, 0x10, 0xf4, 0x63, 0xde, 0x94, 0x56, 0xda, 0x75,
-	0x82, 0x04, 0xd8, 0x9b, 0xa6, 0xaa, 0xfa, 0x51, 0xd5, 0x5f, 0x7d, 0x55, 0xdd, 0x14, 0xb4, 0xa9,
-	0x2b, 0x58, 0x18, 0x44, 0xf7, 0xa7, 0x3c, 0x14, 0x21, 0xa9, 0x99, 0xcf, 0xee, 0xdf, 0x6a, 0xb0,
-	0x75, 0x18, 0x06, 0x82, 0x53, 0x57, 0x9c, 0x0d, 0x87, 0xc8, 0x0f, 0x94, 0x82, 0x74, 0xa1, 0x15,
-	0x8b, 0x3f, 0xa3, 0x13, 0xb4, 0xad, 0x3d, 0x6b, 0xbf, 0xe1, 0xb4, 0xdc, 0x8c, 0x8c, 0xbc, 0x0b,
-	0x5b, 0x0f, 0x43, 0x6f, 0x71, 0x36, 0x3c, 0x18, 0x71, 0xc4, 0x09, 0x06, 0x62, 0xb0, 0x98, 0xa2,
-	0xbd, 0xb2, 0x67, 0xed, 0xb7, 0x9d, 0xad, 0x8b, 0xb2, 0x8a, 0xec, 0xc3, 0x7a, 0x61, 0x84, 0x5d,
-	0xd9, 0xb3, 0xf6, 0x5b, 0xce, 0x7a, 0xc1, 0x3a, 0xbb, 0xbe, 0x9a, 0xb4, 0x9a, 0x5f, 0x5f, 0xcd,
-	0xf6, 0x31, 0x74, 0xfa, 0xb3, 0xe9, 0x34, 0xe4, 0x82, 0x05, 0xa3, 0xa3, 0xd0, 0x8d, 0xec, 0xd5,
-	0xbd, 0xca, 0x7e, 0xf3, 0xbd, 0x3b, 0xf7, 0x63, 0x67, 0x8f, 0x42, 0x77, 0x26, 0xa7, 0x3b, 0x66,
-	0xe8, 0x7b, 0x4e, 0x27, 0xca, 0x59, 0xcb, 0x35, 0x3e, 0x09, 0xe7, 0xc8, 0x03, 0x16, 0x8c, 0x4e,
-	0xe9, 0xd7, 0xf6, 0x9a, 0x5e, 0x63, 0x94, 0x91, 0x49, 0x9b, 0xc7, 0x33, 0xce, 0x22, 0x8f, 0xa9,
-	0x29, 0xed, 0x9a, 0xb6, 0xf9, 0x22, 0x23, 0x23, 0xf7, 0x81, 0xc4, 0x7b, 0xed, 0x5d, 0x4e, 0x19,
-	0xa7, 0xca, 0xb2, 0xbe, 0x67, 0xed, 0x57, 0x1d, 0xe2, 0x96, 0x34, 0x64, 0x0f, 0x9a, 0xb1, 0xfd,
-	0x33, 0xe7, 0xc4, 0x6e, 0xa8, 0x29, 0x9b, 0x6e, 0x2a, 0x22, 0xef, 0xc0, 0xda, 0x49, 0x14, 0xcd,
-	0x90, 0xdb, 0xb0, 0x67, 0xed, 0x37, 0xdf, 0xdb, 0x4e, 0x3c, 0xea, 0x05, 0x82, 0x89, 0x85, 0xf6,
-	0x67, 0x8d, 0x29, 0x1b, 0xf2, 0x26, 0xb4, 0xb5, 0xf5, 0x69, 0x38, 0x0a, 0x9f, 0x39, 0xa7, 0x76,
-	0x53, 0xcd, 0xd8, 0x66, 0x59, 0x21, 0xf9, 0x21, 0xd8, 0xc9, 0x41, 0x4f, 0x91, 0x53, 0x11, 0xf2,
-	0x93, 0xc0, 0xf5, 0x67, 0x1e, 0x7a, 0x76, 0x6b, 0xcf, 0xda, 0xaf, 0x3b, 0xb6, 0x7b, 0x85, 0x9e,
-	0x3c, 0x80, 0x8d, 0xe2, 0x58, 0xbb, 0x7d, 0xcd, 0xce, 0x36, 0x8a, 0x33, 0x65, 0x7d, 0x3e, 0x46,
-	0xb4, 0x3b, 0x2a, 0x38, 0x89, 0xcf, 0xc7, 0x88, 0xe4, 0x01, 0xb4, 0x3f, 0x0f, 0xe5, 0xd9, 0xf4,
-	0x17, 0x91, 0xc0, 0x49, 0x64, 0xaf, 0xab, 0xc3, 0xdc, 0x4d, 0x16, 0xc8, 0x6a, 0xf5, 0x32, 0xed,
-	0x79, 0x76, 0x00, 0x79, 0x07, 0x36, 0xe3, 0x35, 0x0e, 0x66, 0x62, 0x7c, 0xec, 0xd3, 0x51, 0x64,
-	0x6f, 0x28, 0x7c, 0x6d, 0xba, 0x45, 0x85, 0x44, 0xaf, 0x83, 0x91, 0xe0, 0xcc, 0x15, 0xe8, 0x3d,
-	0x15, 0x8b, 0x83, 0x28, 0x42, 0x11, 0xd9, 0x9b, 0x6a, 0x67, 0x5b, 0xbc, 0xac, 0x22, 0x1f, 0xc1,
-	0x9d, 0x03, 0x6f, 0xc2, 0x02, 0x16, 0x09, 0x7d, 0x92, 0xe7, 0x3c, 0x9c, 0x86, 0x11, 0xf5, 0x6d,
-	0xa2, 0xe2, 0x77, 0x87, 0x2e, 0xd5, 0x92, 0xb7, 0xa0, 0xf3, 0x28, 0xf4, 0x3d, 0xe4, 0x89, 0xfd,
-	0x96, 0xb2, 0xef, 0x8c, 0x73, 0x52, 0x72, 0x1f, 0x6a, 0x67, 0x9c, 0xba, 0x3e, 0x46, 0xf6, 0xb6,
-	0xf2, 0x3d, 0x0d, 0xae, 0x96, 0x6b, 0xaf, 0x6b, 0xa1, 0x36, 0x22, 0xaf, 0x41, 0xe3, 0x09, 0x8d,
-	0x04, 0xf2, 0xf3, 0x4f, 0x1f, 0xd9, 0x3b, 0xca, 0xcf, 0xc6, 0x24, 0x16, 0x74, 0x7f, 0x53, 0x87,
-	0xbb, 0x49, 0xc8, 0x43, 0x3e, 0x51, 0x7b, 0x7a, 0x95, 0xdd, 0xaf, 0xb2, 0xfb, 0x55, 0x76, 0xff,
-	0xff, 0x67, 0x37, 0x79, 0x3b, 0x3d, 0x33, 0x07, 0xe7, 0x2c, 0x92, 0x98, 0xbc, 0xa3, 0x52, 0x33,
-	0x39, 0x9d, 0x58, 0x2e, 0x67, 0x1a, 0xb0, 0x09, 0x46, 0x82, 0x4e, 0xa6, 0xf6, 0x5d, 0x15, 0x81,
-	0x86, 0x88, 0x05, 0xdd, 0x5f, 0xaf, 0xa4, 0x3c, 0x71, 0x30, 0xc1, 0xc0, 0x93, 0x29, 0x65, 0x78,
-	0xe2, 0x01, 0xdc, 0x3b, 0x1c, 0xd3, 0x60, 0x84, 0xf9, 0xc8, 0x1c, 0x78, 0x1e, 0xc7, 0x28, 0x52,
-	0xb4, 0x51, 0x77, 0xee, 0xb9, 0x57, 0x9b, 0x90, 0x0f, 0x60, 0x47, 0xcf, 0x10, 0x63, 0x25, 0x1e,
-	0xbb, 0xa2, 0xc6, 0xee, 0xb8, 0xcb, 0x94, 0x4b, 0xbd, 0xab, 0x5c, 0xe1, 0xdd, 0xf7, 0x01, 0x92,
-	0x6d, 0x47, 0x76, 0x55, 0x85, 0xf6, 0x6e, 0x12, 0xda, 0x44, 0xa5, 0xa3, 0x0b, 0x34, 0x31, 0x25,
-	0x36, 0xd4, 0x1c, 0x1c, 0x0e, 0x2e, 0x4f, 0x8e, 0xec, 0x55, 0x15, 0xde, 0x1a, 0xd7, 0x9f, 0xdd,
-	0xbf, 0x57, 0xe1, 0xf5, 0xbe, 0xa0, 0x82, 0xb9, 0x2f, 0x43, 0xa0, 0x19, 0x9b, 0xc3, 0xd0, 0xd3,
-	0xcc, 0xd9, 0x4a, 0x6d, 0xa4, 0xec, 0x2a, 0x92, 0xad, 0xdc, 0x8a, 0x64, 0xab, 0x37, 0x23, 0xd9,
-	0xd5, 0x1b, 0x91, 0xec, 0xda, 0xad, 0x48, 0x76, 0xd9, 0x41, 0xd5, 0xae, 0x38, 0xa8, 0x22, 0x21,
-	0xd7, 0x6f, 0x40, 0xc8, 0x8d, 0x25, 0x84, 0xfc, 0x26, 0xb4, 0x7b, 0xc3, 0x21, 0xba, 0x82, 0xcd,
-	0xf1, 0x88, 0x0a, 0x54, 0x2c, 0x5a, 0x75, 0xda, 0x98, 0x15, 0x5e, 0x41, 0xdb, 0xcd, 0x9b, 0xd2,
-	0x76, 0xab, 0x4c, 0xdb, 0x7b, 0xd0, 0x3c, 0xe7, 0x38, 0x77, 0x70, 0xae, 0x30, 0xd3, 0x56, 0x51,
-	0x6f, 0x4e, 0x53, 0x11, 0x79, 0x17, 0xea, 0x8a, 0x27, 0x19, 0x46, 0x76, 0xa7, 0x90, 0xe3, 0x59,
-	0x02, 0xad, 0xa3, 0xb1, 0xea, 0xba, 0x70, 0x2f, 0xc9, 0x3d, 0x8d, 0x7d, 0x93, 0x6f, 0xda, 0xd5,
-	0xb7, 0xa0, 0xf3, 0x19, 0x7e, 0x1d, 0x5b, 0x48, 0x22, 0xb0, 0xd4, 0xaa, 0x9d, 0x20, 0x27, 0xcd,
-	0x67, 0xf8, 0x4a, 0x31, 0xc3, 0xbf, 0xa9, 0xc2, 0x8e, 0x22, 0xb9, 0x23, 0x1c, 0xb2, 0x80, 0x65,
-	0x60, 0xfc, 0x16, 0x74, 0x94, 0x22, 0x25, 0x54, 0x33, 0x3f, 0xcd, 0x49, 0x65, 0x30, 0x07, 0x9c,
-	0x06, 0xd1, 0x10, 0x79, 0x74, 0x8e, 0x7c, 0xc2, 0x84, 0x40, 0xcf, 0xa4, 0x30, 0x11, 0x25, 0x8d,
-	0xe4, 0xea, 0x01, 0xa7, 0x1e, 0xc6, 0x14, 0x2c, 0x23, 0x60, 0x57, 0xf6, 0x2a, 0xfb, 0x0d, 0x67,
-	0x53, 0x14, 0x15, 0xe4, 0x63, 0xd8, 0xed, 0x05, 0xc3, 0x90, 0xbb, 0x0a, 0xb7, 0x67, 0xdc, 0xcb,
-	0xad, 0x52, 0x55, 0xab, 0xec, 0xe2, 0x95, 0x16, 0x12, 0x34, 0xba, 0x7a, 0x38, 0x6c, 0x34, 0x16,
-	0x91, 0x02, 0x7a, 0xdd, 0x69, 0xcd, 0x33, 0x32, 0xe9, 0xe9, 0xe7, 0xa1, 0xc0, 0x27, 0x33, 0x5f,
-	0xb0, 0xa9, 0xcf, 0x90, 0xab, 0x7e, 0xa0, 0xed, 0x74, 0xe6, 0x39, 0xe9, 0x35, 0x55, 0xa0, 0x76,
-	0xcb, 0x2a, 0x50, 0x5f, 0x5a, 0x05, 0x1e, 0xc0, 0x3d, 0x15, 0xf1, 0x27, 0xa1, 0xc7, 0x86, 0xcc,
-	0x55, 0x93, 0xe8, 0xac, 0xa0, 0x81, 0x8b, 0x0a, 0xef, 0x6d, 0xe7, 0x1e, 0xbd, 0xda, 0x84, 0xec,
-	0x42, 0x7d, 0x10, 0x7e, 0x89, 0xc1, 0x53, 0xb1, 0x30, 0xc8, 0xaf, 0x0b, 0xf3, 0x2d, 0x23, 0xa1,
-	0x66, 0x3f, 0xa7, 0x0b, 0x3f, 0xa4, 0x9e, 0x82, 0x7b, 0xcb, 0x69, 0xd1, 0x8c, 0xac, 0xfb, 0xcd,
-	0x2a, 0x6c, 0x29, 0xa3, 0x43, 0x8e, 0x59, 0x4a, 0x7b, 0x0d, 0x1a, 0x5a, 0x2c, 0xb9, 0x4a, 0xc3,
-	0xa0, 0x41, 0x63, 0x01, 0x79, 0x03, 0x40, 0x69, 0x4f, 0x02, 0x0f, 0x2f, 0x0d, 0xc4, 0x80, 0x26,
-	0x92, 0x25, 0x48, 0xaa, 0xdc, 0x02, 0x49, 0xd5, 0xdb, 0x21, 0x69, 0xf5, 0xc5, 0x90, 0xb4, 0x76,
-	0x6b, 0x24, 0xd5, 0x6e, 0x84, 0xa4, 0xfa, 0x2d, 0x91, 0xd4, 0xb8, 0x25, 0x92, 0xe0, 0x45, 0x90,
-	0xd4, 0xbc, 0x1d, 0x92, 0x5a, 0xcf, 0x41, 0x52, 0xbb, 0x8c, 0x24, 0x49, 0xc4, 0xca, 0x26, 0x61,
-	0xfe, 0x8e, 0x5a, 0xb3, 0x4d, 0xb3, 0xc2, 0x3c, 0x37, 0xad, 0x17, 0xb9, 0xe9, 0x2f, 0x16, 0xdc,
-	0x2d, 0xb9, 0x51, 0x40, 0xa4, 0xaa, 0x5e, 0xba, 0xc2, 0x6a, 0x44, 0xaa, 0xd2, 0x95, 0xc3, 0xeb,
-	0x4a, 0x11, 0xaf, 0xa5, 0xbd, 0x55, 0x96, 0xed, 0xed, 0x3f, 0xd0, 0x3b, 0xfc, 0xde, 0x82, 0x4e,
-	0x8c, 0x70, 0xe3, 0xc7, 0xfb, 0xb0, 0x66, 0xda, 0x4f, 0x4b, 0xad, 0x70, 0x2f, 0x5d, 0x41, 0x79,
-	0x63, 0xac, 0x4d, 0xdb, 0x4f, 0x75, 0x3b, 0xba, 0x07, 0x4d, 0xf5, 0x1e, 0xa3, 0x4a, 0xd4, 0xc2,
-	0x64, 0x5c, 0x33, 0x4c, 0x45, 0xd2, 0xa2, 0x77, 0xa9, 0xfb, 0x27, 0xd9, 0x74, 0x57, 0xb4, 0x05,
-	0xa6, 0x22, 0x99, 0x6c, 0x19, 0x8b, 0xb8, 0xf3, 0xd2, 0xed, 0x02, 0xc1, 0x92, 0xa6, 0x3b, 0x82,
-	0x8d, 0x3e, 0x0a, 0xe1, 0x63, 0xa6, 0x05, 0xfc, 0xb0, 0xb0, 0xf9, 0xd7, 0xf3, 0x9b, 0x4f, 0xed,
-	0xf3, 0xdb, 0xbf, 0xbe, 0x22, 0xfd, 0xa3, 0x02, 0x9d, 0x18, 0xc8, 0xe9, 0x61, 0x9f, 0xc8, 0xda,
-	0xa4, 0x6e, 0x1f, 0x96, 0x3a, 0xac, 0x06, 0x8b, 0x05, 0x92, 0x06, 0xf4, 0x72, 0x53, 0x74, 0x25,
-	0x4c, 0x64, 0x06, 0x9a, 0xfa, 0xb3, 0x49, 0x8b, 0x8a, 0x3c, 0x70, 0x2a, 0xd7, 0x02, 0xa7, 0xba,
-	0x84, 0xe8, 0xe4, 0x1c, 0xfa, 0xd6, 0xa1, 0x0e, 0xb7, 0xed, 0xc0, 0x3c, 0x91, 0xc8, 0xa4, 0x89,
-	0xd7, 0x32, 0x84, 0x52, 0x8f, 0xcc, 0x37, 0xf9, 0x04, 0x88, 0xf6, 0x0a, 0xbd, 0x0c, 0xac, 0x6a,
-	0xd7, 0xc3, 0x8a, 0x4c, 0x4b, 0x43, 0xe4, 0xd1, 0xca, 0x4d, 0x9c, 0x4d, 0x35, 0xdf, 0xe9, 0x4e,
-	0xa9, 0x39, 0x4f, 0x45, 0x12, 0x80, 0x8a, 0x85, 0xe8, 0xa5, 0xa9, 0x19, 0xb5, 0xb9, 0xfe, 0x94,
-	0x2d, 0x65, 0x1c, 0xda, 0x23, 0x8c, 0x5c, 0xce, 0xd4, 0x08, 0x45, 0x22, 0x0d, 0x67, 0x6b, 0x5a,
-	0x56, 0x91, 0xf7, 0x60, 0x3b, 0x19, 0x61, 0xba, 0xbd, 0x47, 0x34, 0x1a, 0x9b, 0xea, 0xb1, 0x3d,
-	0x5d, 0xa2, 0x93, 0xab, 0xc8, 0xf5, 0x0f, 0x67, 0xe2, 0x6c, 0x38, 0x4c, 0x4f, 0x5a, 0xd3, 0xc8,
-	0xd6, 0xbc, 0xac, 0xea, 0xbe, 0xad, 0x03, 0x9b, 0x1e, 0x77, 0x3a, 0xca, 0x2a, 0xe2, 0xe3, 0x21,
-	0x6c, 0x3c, 0xa4, 0xbe, 0x1f, 0x8a, 0x43, 0x1a, 0xc5, 0x40, 0xdc, 0x85, 0xba, 0x1c, 0x3f, 0xb8,
-	0x3c, 0xf1, 0x4c, 0x79, 0xaa, 0xcf, 0xcd, 0x37, 0x21, 0x50, 0x4d, 0x10, 0xd1, 0x70, 0xaa, 0x52,
-	0xde, 0xfd, 0x25, 0x6c, 0x99, 0x39, 0xc2, 0x59, 0x20, 0xd0, 0x7b, 0xb1, 0x69, 0xa4, 0xfd, 0xd3,
-	0x19, 0x55, 0xcd, 0x9b, 0x49, 0xb1, 0xfa, 0x57, 0xe6, 0x3b, 0xef, 0x44, 0xb5, 0xe8, 0xc4, 0x5f,
-	0x57, 0xa0, 0xe5, 0x60, 0x34, 0xf3, 0x63, 0x0f, 0x96, 0x82, 0xd8, 0xba, 0x11, 0x88, 0x57, 0xae,
-	0x05, 0x71, 0xa5, 0x08, 0xe2, 0x2c, 0x48, 0xab, 0x37, 0x02, 0xe9, 0xea, 0xed, 0x41, 0x9a, 0x8d,
-	0xe4, 0x5a, 0x21, 0x92, 0x92, 0xbd, 0x14, 0xb8, 0x06, 0xd4, 0xf7, 0x17, 0x2a, 0x05, 0x24, 0x7b,
-	0xa5, 0x22, 0x72, 0x07, 0xd6, 0x74, 0x70, 0x0c, 0xba, 0xd7, 0xb8, 0xfa, 0xca, 0xc7, 0xb4, 0x51,
-	0x8c, 0xe9, 0xb7, 0xab, 0xd0, 0x54, 0x45, 0xdb, 0x84, 0x54, 0xdd, 0x3f, 0x26, 0x53, 0x9f, 0xc9,
-	0x82, 0xa6, 0x65, 0xa6, 0x52, 0x6c, 0xb8, 0x05, 0xf9, 0x4b, 0x05, 0xb4, 0x07, 0xeb, 0x03, 0xca,
-	0x47, 0x18, 0x77, 0xe9, 0x18, 0x57, 0x8b, 0x94, 0xcb, 0x73, 0x7a, 0x1d, 0xb5, 0x75, 0x91, 0x1f,
-	0x23, 0xc9, 0xe5, 0x98, 0x23, 0xfe, 0x42, 0x07, 0x4d, 0x57, 0x0e, 0x18, 0x26, 0x12, 0x59, 0x75,
-	0xb5, 0xfe, 0x1c, 0x39, 0x0b, 0x75, 0x58, 0xab, 0x4e, 0x6b, 0x98, 0x91, 0xc9, 0xfe, 0xe0, 0x08,
-	0xa7, 0x61, 0xc4, 0xe2, 0x79, 0x55, 0x97, 0xd2, 0x72, 0x3a, 0x5e, 0x4e, 0xaa, 0xd0, 0x36, 0x13,
-	0xe3, 0x90, 0x33, 0xb1, 0x48, 0x9e, 0x82, 0xea, 0x06, 0x6d, 0x45, 0x85, 0xaa, 0x97, 0xb1, 0x50,
-	0xdd, 0x68, 0xf5, 0xcd, 0xab, 0x4d, 0xb3, 0x42, 0x59, 0x50, 0x12, 0xab, 0xf3, 0xd9, 0x85, 0xcf,
-	0xdc, 0x4f, 0x51, 0x77, 0xa1, 0x2d, 0x87, 0xd0, 0x92, 0x46, 0xda, 0xf7, 0xd9, 0x28, 0xa0, 0x62,
-	0xc6, 0xf1, 0xc0, 0x1f, 0x49, 0xed, 0x78, 0x62, 0x5a, 0x13, 0x12, 0x95, 0x34, 0xd2, 0x37, 0x75,
-	0xba, 0xc9, 0x20, 0x45, 0x28, 0x2d, 0xa7, 0x13, 0xe6, 0xa4, 0xb2, 0xb7, 0x4a, 0xaf, 0xad, 0xbd,
-	0x39, 0xf3, 0x30, 0x70, 0x51, 0x71, 0x96, 0xee, 0x53, 0xee, 0x44, 0x4b, 0xb5, 0x1a, 0x74, 0xc3,
-	0xc1, 0x65, 0xa4, 0x5a, 0x95, 0x96, 0x04, 0x9d, 0xfc, 0x22, 0x9f, 0x02, 0x79, 0xc8, 0x84, 0x1b,
-	0xb2, 0xe0, 0x88, 0x45, 0x53, 0xe4, 0x91, 0xa2, 0xdd, 0xf5, 0xc2, 0x09, 0xc7, 0x3c, 0xa0, 0x3a,
-	0x5e, 0x93, 0x17, 0x17, 0xa5, 0x61, 0x92, 0x9a, 0x9f, 0x60, 0x14, 0xd1, 0x11, 0xaa, 0xe7, 0xa9,
-	0x86, 0x53, 0x9b, 0xe8, 0xcf, 0xee, 0x1f, 0xad, 0xf8, 0x7c, 0xbf, 0x83, 0x0e, 0xe7, 0x47, 0x00,
-	0x66, 0x43, 0xf2, 0xba, 0x59, 0x79, 0xfe, 0x5e, 0xe1, 0xab, 0xc4, 0xbc, 0x04, 0xb4, 0xea, 0x12,
-	0xa0, 0xe5, 0x32, 0x71, 0xb5, 0x98, 0x89, 0x8f, 0x01, 0x06, 0x63, 0xfa, 0xb5, 0x71, 0x24, 0x0f,
-	0x6c, 0xab, 0x04, 0xec, 0xeb, 0xdb, 0x81, 0x3f, 0x59, 0xea, 0xb2, 0x3e, 0x64, 0xd1, 0x77, 0xd6,
-	0xff, 0xbd, 0x54, 0x74, 0xde, 0x00, 0x30, 0x29, 0x26, 0x5b, 0x63, 0x1d, 0x1b, 0xf0, 0x12, 0xc9,
-	0x73, 0x22, 0xf3, 0x5b, 0x0b, 0xb6, 0x1d, 0x74, 0xc3, 0xc0, 0x65, 0x3e, 0xfb, 0x9f, 0xf0, 0xe7,
-	0xfa, 0x3a, 0xf5, 0x3d, 0xd8, 0xea, 0x45, 0x82, 0x5e, 0xf8, 0x2c, 0x1a, 0x67, 0x1a, 0xbf, 0x0c,
-	0x8c, 0xad, 0x3c, 0x8c, 0xdf, 0x86, 0xce, 0x81, 0xe7, 0x65, 0xdf, 0x11, 0xae, 0xb6, 0x7d, 0x0c,
-	0x1b, 0x07, 0xbe, 0x40, 0x5e, 0x88, 0x43, 0x2f, 0x10, 0x7c, 0xa1, 0xda, 0x67, 0x73, 0xd3, 0xc4,
-	0x58, 0x90, 0x9d, 0x6b, 0x25, 0x3f, 0xd7, 0x27, 0xd0, 0x76, 0x70, 0x12, 0xce, 0xb3, 0x3d, 0xe3,
-	0x0b, 0x4d, 0xf4, 0x73, 0x68, 0x1b, 0x4d, 0xe6, 0x1d, 0x44, 0xd3, 0xa6, 0x8a, 0x20, 0xea, 0x66,
-	0xb7, 0xed, 0x74, 0x68, 0x4e, 0x2a, 0xed, 0xcc, 0xc0, 0xf8, 0x5e, 0xa4, 0x0f, 0xaa, 0x33, 0xc9,
-	0x49, 0xbb, 0x7f, 0xb0, 0x60, 0xdd, 0xc1, 0x2f, 0xd0, 0x2d, 0xbc, 0xb5, 0xdc, 0x64, 0x8d, 0xfb,
-	0x40, 0xf4, 0xd0, 0xac, 0xb5, 0xf9, 0xd9, 0x85, 0xf0, 0x92, 0x46, 0x32, 0x77, 0xb2, 0x54, 0x52,
-	0xbc, 0xaa, 0x4e, 0x9b, 0x67, 0x85, 0xd9, 0x60, 0x54, 0x73, 0xc1, 0x78, 0x0e, 0x98, 0x7f, 0x0c,
-	0x24, 0x73, 0x8b, 0x0d, 0xf5, 0x25, 0x45, 0x36, 0x4a, 0x09, 0x88, 0xab, 0x4e, 0x55, 0x48, 0xfc,
-	0x12, 0xa8, 0xaa, 0xc2, 0x61, 0x9a, 0xa7, 0x80, 0x4e, 0xb0, 0xfb, 0x67, 0x0b, 0x3a, 0xf9, 0x4e,
-	0x42, 0x31, 0x85, 0xfc, 0x43, 0xbb, 0xa5, 0x1b, 0x7d, 0x18, 0x26, 0x12, 0xb9, 0xd1, 0x9e, 0xbe,
-	0x50, 0x18, 0x9f, 0x6b, 0xa8, 0x3f, 0xa5, 0xa3, 0xfd, 0xd9, 0x45, 0x6a, 0x1a, 0x5f, 0xe9, 0xa2,
-	0xac, 0x90, 0xec, 0xc3, 0x7a, 0x6c, 0x15, 0xcf, 0x53, 0x55, 0x76, 0xeb, 0x51, 0x5e, 0x2c, 0x1d,
-	0xd7, 0xef, 0xce, 0xb2, 0x69, 0xd0, 0x8d, 0x7e, 0x23, 0x8c, 0x05, 0xd2, 0x9d, 0x23, 0x2a, 0xa8,
-	0xe9, 0x6c, 0xaa, 0x1e, 0x15, 0xb4, 0xfb, 0xab, 0x15, 0x20, 0xe6, 0x56, 0xe9, 0x22, 0x9b, 0x9b,
-	0x2b, 0x9b, 0xdc, 0x72, 0xf6, 0x45, 0xbc, 0xe5, 0xd4, 0xcc, 0x91, 0xe6, 0x9a, 0xc7, 0x95, 0x42,
-	0xf3, 0x78, 0x1f, 0x88, 0x7e, 0xf7, 0xef, 0xb3, 0x51, 0x5a, 0x1b, 0xb5, 0x4f, 0x24, 0x2c, 0x69,
-	0x54, 0x4b, 0xa5, 0xa4, 0xda, 0x79, 0xed, 0x54, 0x33, 0x4c, 0x45, 0xe4, 0x03, 0xd8, 0xd1, 0x16,
-	0x8a, 0x4b, 0xcd, 0x83, 0x75, 0x9f, 0x8d, 0x4c, 0xa3, 0xb1, 0x13, 0x2e, 0x53, 0xca, 0xee, 0x3f,
-	0xd9, 0xc7, 0x43, 0x3f, 0x74, 0xbf, 0x7c, 0x84, 0x6c, 0x34, 0x16, 0xe6, 0x7d, 0x6c, 0x3b, 0x5c,
-	0xa2, 0xeb, 0xfe, 0xce, 0x82, 0xed, 0x65, 0xd7, 0x3f, 0x79, 0x46, 0xf1, 0xbb, 0x64, 0xf6, 0x80,
-	0xdb, 0x6e, 0x56, 0xf8, 0x52, 0x9d, 0xd8, 0x4f, 0xa0, 0x99, 0x2e, 0x5a, 0xee, 0xc2, 0x96, 0x30,
-	0x61, 0x33, 0x4a, 0xed, 0xbb, 0xff, 0xb4, 0xcc, 0x11, 0xe6, 0x6e, 0xdd, 0xff, 0x85, 0x7d, 0xff,
-	0xd4, 0x3c, 0xa8, 0xf4, 0x31, 0xf0, 0x90, 0xdf, 0x68, 0xe3, 0xfa, 0xb5, 0xc5, 0x0c, 0x20, 0x87,
-	0xe6, 0x85, 0x2d, 0xc6, 0x5e, 0xdc, 0xb3, 0x17, 0x5e, 0x13, 0x72, 0xd0, 0x34, 0xcf, 0x6f, 0xc9,
-	0x90, 0x6e, 0x1f, 0xda, 0xb9, 0x07, 0xfd, 0x24, 0x6b, 0xad, 0x34, 0x6b, 0x93, 0xec, 0x36, 0x99,
-	0xac, 0xb2, 0x7b, 0x17, 0xea, 0x32, 0x40, 0x2a, 0xe6, 0xda, 0xb7, 0xba, 0x6b, 0xbe, 0xbb, 0xdf,
-	0x56, 0xa1, 0x99, 0x79, 0xde, 0xbe, 0xf1, 0x9c, 0x1b, 0x50, 0x39, 0xed, 0x9d, 0x98, 0x0b, 0x7a,
-	0xc5, 0xef, 0x9d, 0xc8, 0xe4, 0x4d, 0xb8, 0xcd, 0x74, 0xac, 0xfa, 0xfa, 0xb2, 0x4e, 0xf3, 0x62,
-	0x49, 0x23, 0xcf, 0x02, 0x26, 0x3e, 0x9b, 0x4d, 0x2e, 0x90, 0x9b, 0x9f, 0x36, 0x60, 0x96, 0x48,
-	0x24, 0xdb, 0x3e, 0x9c, 0x31, 0xdf, 0x63, 0xc1, 0xc8, 0xd8, 0xe8, 0xdf, 0x7f, 0x3b, 0x17, 0x39,
-	0xa9, 0xec, 0x08, 0xfb, 0x82, 0x23, 0x0a, 0xf3, 0xdb, 0xef, 0x5a, 0xa4, 0xbe, 0xe4, 0xfc, 0xfd,
-	0xd9, 0xc5, 0x8c, 0x5f, 0x1c, 0xca, 0xdc, 0xd5, 0x57, 0x14, 0x88, 0x12, 0x09, 0xf9, 0x18, 0x76,
-	0x07, 0xc8, 0x39, 0x13, 0x21, 0x5f, 0xf4, 0x05, 0x15, 0x78, 0xce, 0xc3, 0x39, 0x0b, 0x5c, 0x54,
-	0xa7, 0xaf, 0x9b, 0xe7, 0x5d, 0x71, 0xa5, 0x85, 0xfe, 0xb9, 0x61, 0x26, 0x6b, 0x95, 0x1a, 0x00,
-	0xf1, 0xcf, 0x0d, 0x89, 0x48, 0x42, 0xf2, 0x3c, 0x8c, 0x04, 0xf5, 0x7f, 0x76, 0x72, 0xae, 0x6c,
-	0xcc, 0xef, 0xbe, 0xd3, 0xac, 0x50, 0x36, 0x72, 0xbd, 0x09, 0x65, 0x7e, 0x4c, 0x40, 0xfa, 0x77,
-	0x8b, 0x16, 0x66, 0x64, 0xea, 0x87, 0x8b, 0x71, 0x18, 0xa0, 0x09, 0x44, 0x5b, 0xaf, 0x35, 0x4d,
-	0x45, 0x0a, 0x5b, 0xb9, 0xd7, 0x48, 0xf3, 0xf3, 0x45, 0x06, 0x5b, 0xa5, 0x22, 0x20, 0x0b, 0x57,
-	0x76, 0x08, 0xf9, 0x10, 0xe0, 0x09, 0x0d, 0xe8, 0x48, 0x93, 0xae, 0x6e, 0x9e, 0x77, 0x92, 0x09,
-	0xb4, 0xca, 0x0c, 0x85, 0x49, 0x62, 0xd8, 0xfd, 0x08, 0x5a, 0x59, 0xdd, 0x8d, 0x6b, 0xcb, 0xd3,
-	0x98, 0x0f, 0xaf, 0x06, 0xdd, 0x06, 0x54, 0x9e, 0x39, 0xa7, 0x66, 0x54, 0x65, 0xe6, 0x9c, 0xca,
-	0x1c, 0x4d, 0xef, 0x2d, 0x26, 0x47, 0xa7, 0xb1, 0xa0, 0x7b, 0x0c, 0xa4, 0x9c, 0x86, 0x64, 0x1b,
-	0x56, 0xb3, 0x9c, 0xb0, 0xca, 0x14, 0x17, 0x5c, 0x43, 0xed, 0xdd, 0xc7, 0x40, 0xca, 0xb7, 0xc1,
-	0x17, 0x2b, 0x13, 0xdd, 0x7f, 0x59, 0xb0, 0x59, 0xfa, 0x6d, 0x7c, 0xa9, 0xb7, 0xf1, 0x7d, 0x3c,
-	0x4d, 0x33, 0x7d, 0x1f, 0x97, 0x01, 0x7c, 0x03, 0x40, 0x5d, 0xbb, 0x4f, 0xc3, 0x11, 0x73, 0x4d,
-	0xc6, 0x81, 0x48, 0x24, 0xe4, 0x5d, 0xd8, 0x1a, 0x8c, 0x39, 0x46, 0xe3, 0xd0, 0xf7, 0xce, 0x91,
-	0xbb, 0x18, 0x88, 0xb8, 0x55, 0x68, 0x3b, 0x5b, 0xa2, 0xac, 0x22, 0x3f, 0x80, 0xbb, 0xf9, 0x67,
-	0xf0, 0xf4, 0x9d, 0x5d, 0xff, 0xfe, 0x72, 0x77, 0xbe, 0x5c, 0x2d, 0x2f, 0xa6, 0xf9, 0x07, 0xee,
-	0x63, 0x44, 0x73, 0xd3, 0xdd, 0x1c, 0x17, 0x15, 0x17, 0x6b, 0xea, 0x1f, 0xd6, 0xde, 0xff, 0x77,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0xc4, 0x24, 0xbf, 0x69, 0xc1, 0x26, 0x00, 0x00,
+	0xf1, 0xc7, 0x88, 0x14, 0x1f, 0x45, 0x0e, 0x25, 0xb5, 0x1e, 0x3b, 0xd0, 0xfa, 0x6f, 0x08, 0xc4,
+	0xc2, 0xd0, 0x3f, 0x30, 0x04, 0xc3, 0xaf, 0x04, 0x89, 0xe3, 0xac, 0x56, 0xa2, 0xbc, 0xb2, 0xb5,
+	0x2b, 0xed, 0x90, 0xeb, 0x43, 0x6e, 0xad, 0x99, 0x26, 0xd9, 0xf6, 0x70, 0x86, 0xee, 0x6e, 0x72,
+	0xc5, 0xe4, 0x9e, 0x43, 0xbe, 0x44, 0x0e, 0x3e, 0xe4, 0x03, 0x04, 0x41, 0x0e, 0x39, 0x05, 0x41,
+	0x80, 0x00, 0xc9, 0x25, 0x1f, 0x21, 0xe7, 0x7c, 0x85, 0x04, 0x08, 0xfa, 0x31, 0x6f, 0x4a, 0x2b,
+	0xed, 0xe6, 0x81, 0x00, 0x7b, 0x13, 0xab, 0xaa, 0x5f, 0xd5, 0xbf, 0xfa, 0x55, 0x55, 0x8f, 0xc0,
+	0xc6, 0x9e, 0xa0, 0x51, 0xc8, 0x0f, 0xa6, 0x2c, 0x12, 0x11, 0xaa, 0x9b, 0x9f, 0xdd, 0xbf, 0xd4,
+	0xc1, 0x3e, 0x8a, 0x42, 0xc1, 0xb0, 0x27, 0xce, 0x87, 0x43, 0xc2, 0x50, 0x17, 0xda, 0xb1, 0xe0,
+	0x29, 0x9e, 0x10, 0xc7, 0xda, 0xb3, 0xf6, 0x9b, 0x6e, 0xdb, 0xcb, 0xc8, 0xd0, 0x7b, 0xb0, 0xf9,
+	0x28, 0xf2, 0x17, 0xe7, 0xc3, 0xc3, 0x11, 0x23, 0x64, 0x42, 0x42, 0x31, 0x58, 0x4c, 0x89, 0xb3,
+	0xb2, 0x67, 0xed, 0xdb, 0xee, 0xe6, 0x65, 0x59, 0x85, 0xf6, 0x61, 0xad, 0x30, 0xc2, 0xa9, 0xec,
+	0x59, 0xfb, 0x6d, 0x77, 0xad, 0x60, 0x9d, 0x5d, 0x5f, 0x4d, 0x5a, 0xcd, 0xaf, 0xaf, 0x66, 0xfb,
+	0x14, 0x3a, 0xfd, 0xd9, 0x74, 0x1a, 0x31, 0x41, 0xc3, 0xd1, 0x71, 0xe4, 0x71, 0x67, 0x75, 0xaf,
+	0xb2, 0xdf, 0x7a, 0x7f, 0xe7, 0x20, 0x3e, 0xe6, 0x71, 0xe4, 0xcd, 0xe4, 0x74, 0x27, 0x94, 0x04,
+	0xbe, 0xdb, 0xe1, 0x39, 0x6b, 0xb9, 0xc6, 0x67, 0xd1, 0x9c, 0xb0, 0x90, 0x86, 0xa3, 0x33, 0xfc,
+	0xc2, 0xa9, 0xe9, 0x35, 0x46, 0x19, 0x99, 0xb4, 0xf9, 0x7c, 0xc6, 0x28, 0xf7, 0xa9, 0x9a, 0xd2,
+	0xa9, 0x6b, 0x9b, 0xaf, 0x32, 0x32, 0x74, 0x00, 0x28, 0xde, 0x6b, 0xef, 0x6a, 0x4a, 0x19, 0x56,
+	0x96, 0x8d, 0x3d, 0x6b, 0xbf, 0xea, 0x22, 0xaf, 0xa4, 0x41, 0x7b, 0xd0, 0x8a, 0xed, 0x9f, 0xbb,
+	0xa7, 0x4e, 0x53, 0x4d, 0xd9, 0xf2, 0x52, 0x11, 0x7a, 0x17, 0x6a, 0xa7, 0x9c, 0xcf, 0x08, 0x73,
+	0x60, 0xcf, 0xda, 0x6f, 0xbd, 0xbf, 0x95, 0x9c, 0xa8, 0x17, 0x0a, 0x2a, 0x16, 0xfa, 0x3c, 0x35,
+	0xaa, 0x6c, 0xd0, 0x03, 0xb0, 0xb5, 0xf5, 0x59, 0x34, 0x8a, 0x9e, 0xbb, 0x67, 0x4e, 0x4b, 0xcd,
+	0x68, 0xd3, 0xac, 0x10, 0x7d, 0x1f, 0x9c, 0xe4, 0x8a, 0xa7, 0x84, 0x61, 0x11, 0xb1, 0xd3, 0xd0,
+	0x0b, 0x66, 0x3e, 0xf1, 0x9d, 0xf6, 0x9e, 0xb5, 0xdf, 0x70, 0x1d, 0xef, 0x1a, 0x3d, 0x7a, 0x08,
+	0xeb, 0xc5, 0xb1, 0x8e, 0x7d, 0xc3, 0xce, 0xd6, 0x8b, 0x33, 0x65, 0xcf, 0x7c, 0x42, 0x88, 0xd3,
+	0x51, 0xce, 0x49, 0xce, 0x7c, 0x42, 0x08, 0x7a, 0x08, 0xf6, 0x97, 0x91, 0xbc, 0x9b, 0xfe, 0x82,
+	0x0b, 0x32, 0xe1, 0xce, 0x9a, 0xba, 0xcc, 0xdd, 0x64, 0x81, 0xac, 0x56, 0x2f, 0x63, 0xcf, 0xb3,
+	0x03, 0xd0, 0xbb, 0xb0, 0x11, 0xaf, 0x71, 0x38, 0x13, 0xe3, 0x93, 0x00, 0x8f, 0xb8, 0xb3, 0xae,
+	0xf0, 0xb5, 0xe1, 0x15, 0x15, 0x12, 0xbd, 0x2e, 0xe1, 0x82, 0x51, 0x4f, 0x10, 0xff, 0x99, 0x58,
+	0x1c, 0x72, 0x4e, 0x04, 0x77, 0x36, 0xd4, 0xce, 0x36, 0x59, 0x59, 0x85, 0x3e, 0x86, 0x9d, 0x43,
+	0x7f, 0x42, 0x43, 0xca, 0x85, 0xbe, 0xc9, 0x0b, 0x16, 0x4d, 0x23, 0x8e, 0x03, 0x07, 0x29, 0xff,
+	0xed, 0xe0, 0xa5, 0x5a, 0xf4, 0x0e, 0x74, 0x1e, 0x47, 0x81, 0x4f, 0x58, 0x62, 0xbf, 0xa9, 0xec,
+	0x3b, 0xe3, 0x9c, 0x14, 0x1d, 0x40, 0xfd, 0x9c, 0x61, 0x2f, 0x20, 0xdc, 0xd9, 0x52, 0x67, 0x4f,
+	0x9d, 0xab, 0xe5, 0xfa, 0xd4, 0xf5, 0x48, 0x1b, 0xa1, 0xb7, 0xa0, 0xf9, 0x04, 0x73, 0x41, 0xd8,
+	0xc5, 0x17, 0x8f, 0x9d, 0x6d, 0x75, 0xce, 0xe6, 0x24, 0x16, 0x74, 0x7f, 0xd1, 0x48, 0xdd, 0x71,
+	0x12, 0xb1, 0x89, 0xc6, 0xde, 0x9b, 0xb8, 0x7e, 0x13, 0xd7, 0x6f, 0xe2, 0xfa, 0x7f, 0x38, 0xae,
+	0xd1, 0x77, 0xd2, 0x3b, 0x73, 0xc9, 0x9c, 0x72, 0x89, 0xc9, 0x1d, 0x15, 0x9a, 0xc9, 0xed, 0xc4,
+	0x72, 0x39, 0xd3, 0x80, 0x4e, 0x08, 0x17, 0x78, 0x32, 0x75, 0xee, 0x29, 0x0f, 0x34, 0x45, 0x2c,
+	0xe8, 0xfe, 0x7c, 0x25, 0xe3, 0xd8, 0x09, 0x09, 0x7d, 0x15, 0xa1, 0x0f, 0xe1, 0xfe, 0xd1, 0x18,
+	0x87, 0x23, 0x92, 0xf7, 0xc9, 0xa1, 0xef, 0x33, 0xc2, 0xb9, 0x22, 0x8c, 0x86, 0x7b, 0xdf, 0xbb,
+	0xde, 0x04, 0x7d, 0x08, 0xdb, 0x7a, 0x86, 0x18, 0x25, 0xf1, 0xd8, 0x15, 0x35, 0x76, 0xdb, 0x5b,
+	0xa6, 0x5c, 0x7a, 0xae, 0xca, 0x35, 0xe7, 0xfa, 0x2e, 0x40, 0xb2, 0x61, 0xee, 0x54, 0x95, 0x53,
+	0xef, 0x25, 0x4e, 0x4d, 0x54, 0xda, 0xaf, 0x80, 0x13, 0x53, 0xe4, 0x40, 0xdd, 0x25, 0xc3, 0xc1,
+	0xd5, 0xe9, 0xb1, 0xb3, 0xaa, 0x1c, 0x5b, 0x67, 0xfa, 0x67, 0xf7, 0xaf, 0x55, 0xb8, 0xd7, 0x17,
+	0x58, 0x50, 0xef, 0xd5, 0x48, 0x33, 0x63, 0x73, 0x14, 0xf9, 0x9a, 0x2d, 0xdb, 0xa9, 0x8d, 0x94,
+	0x5d, 0x47, 0xac, 0x95, 0x3b, 0x11, 0x6b, 0xf5, 0x76, 0xc4, 0xba, 0x7a, 0x2b, 0x62, 0xad, 0xdd,
+	0x89, 0x58, 0x97, 0x5d, 0x51, 0xfd, 0x9a, 0x2b, 0x2a, 0x92, 0x70, 0xe3, 0x16, 0x24, 0xdc, 0x5c,
+	0x42, 0xc2, 0x0f, 0xc0, 0xee, 0x0d, 0x87, 0xc4, 0x13, 0x74, 0x4e, 0x8e, 0xb1, 0x20, 0x8a, 0x39,
+	0xab, 0xae, 0x4d, 0xb2, 0xc2, 0x6b, 0xa8, 0xba, 0x75, 0x5b, 0xaa, 0x6e, 0x97, 0xa9, 0x7a, 0x0f,
+	0x5a, 0x17, 0x8c, 0xcc, 0x5d, 0x32, 0x57, 0x68, 0xb1, 0x95, 0xd7, 0x5b, 0xd3, 0x54, 0x84, 0xde,
+	0x83, 0x86, 0xe2, 0x46, 0x4a, 0xb8, 0xd3, 0x29, 0xc4, 0x75, 0x96, 0x34, 0x1b, 0xc4, 0x58, 0x75,
+	0x09, 0x6c, 0x27, 0xf1, 0xa6, 0x51, 0xaf, 0xe3, 0x44, 0x6e, 0xff, 0x29, 0x79, 0x51, 0xd0, 0x29,
+	0x98, 0xb5, 0x5d, 0x14, 0x96, 0x34, 0xf9, 0xb8, 0x5e, 0x29, 0xc6, 0xf5, 0xb7, 0x55, 0x58, 0x53,
+	0xd4, 0x76, 0x4c, 0x86, 0x34, 0xa4, 0xea, 0xc0, 0xef, 0x40, 0x47, 0x89, 0x52, 0x02, 0xd5, 0xb3,
+	0x77, 0x70, 0x4e, 0x2a, 0x77, 0x32, 0x60, 0x38, 0xe4, 0x43, 0xc2, 0xf8, 0x05, 0x61, 0x13, 0x2a,
+	0x04, 0xf1, 0x4d, 0xe0, 0x22, 0x51, 0xd2, 0x48, 0x6e, 0x1e, 0x30, 0xec, 0x93, 0x98, 0x72, 0xe5,
+	0xe9, 0x9d, 0xca, 0x5e, 0x65, 0xbf, 0xe9, 0x6e, 0x88, 0xa2, 0x02, 0x7d, 0x0a, 0xbb, 0xbd, 0x70,
+	0x18, 0x31, 0x4f, 0x61, 0xf6, 0x9c, 0xf9, 0xb9, 0x55, 0xaa, 0x6a, 0x95, 0x5d, 0x72, 0xad, 0x85,
+	0x04, 0x8c, 0xce, 0x16, 0x2e, 0x1d, 0x8d, 0x05, 0x57, 0x20, 0x6f, 0xb8, 0xed, 0x79, 0x46, 0x26,
+	0x4f, 0xfa, 0x65, 0x24, 0xc8, 0x93, 0x59, 0x20, 0xe8, 0x34, 0xa0, 0x84, 0xa9, 0xfc, 0x6f, 0xbb,
+	0x9d, 0x79, 0x4e, 0x7a, 0x03, 0xeb, 0xd7, 0xef, 0xc8, 0xfa, 0x8d, 0xa5, 0xac, 0xff, 0x10, 0xee,
+	0x2b, 0x8f, 0x3f, 0x89, 0x7c, 0x3a, 0xa4, 0x9e, 0x9a, 0x44, 0x47, 0x04, 0x0e, 0x3d, 0xa2, 0xb0,
+	0x6e, 0xbb, 0xf7, 0xf1, 0xf5, 0x26, 0x68, 0x17, 0x1a, 0x83, 0xe8, 0x6b, 0x12, 0x3e, 0x13, 0x0b,
+	0x83, 0xfa, 0x86, 0x30, 0xbf, 0x25, 0x02, 0xd4, 0xec, 0x2a, 0xd6, 0x75, 0x5d, 0xd0, 0xc4, 0xb1,
+	0x40, 0xfa, 0x49, 0x69, 0x2f, 0xf0, 0x22, 0x88, 0xb0, 0xae, 0x03, 0xda, 0x6e, 0x1b, 0x67, 0x64,
+	0xdd, 0x6f, 0x57, 0xc1, 0x56, 0x46, 0x47, 0x8c, 0xe8, 0xa0, 0x88, 0xe7, 0x54, 0xfc, 0xa5, 0xe1,
+	0xa1, 0xe7, 0x54, 0xe4, 0xf5, 0x36, 0x80, 0xd2, 0x9e, 0x86, 0x3e, 0xb9, 0x32, 0xa0, 0x03, 0x9c,
+	0x48, 0x96, 0x20, 0xac, 0x72, 0x07, 0x84, 0x55, 0xef, 0x86, 0xb0, 0xd5, 0x57, 0x43, 0x58, 0xed,
+	0xce, 0x08, 0xab, 0xdf, 0x0a, 0x61, 0x8d, 0x3b, 0x22, 0xac, 0x79, 0x47, 0x84, 0xc1, 0xab, 0x20,
+	0xac, 0x75, 0x37, 0x84, 0xb5, 0x6f, 0x42, 0x98, 0xfd, 0x32, 0x84, 0x75, 0xca, 0x08, 0x93, 0xd4,
+	0xad, 0x6c, 0x92, 0x5c, 0xb1, 0xa6, 0x76, 0x64, 0xe3, 0xac, 0x30, 0xcf, 0x65, 0xeb, 0x45, 0x2e,
+	0xfb, 0xa3, 0x05, 0x1b, 0xa5, 0x43, 0xe6, 0xf7, 0x66, 0x15, 0xf7, 0x96, 0xc3, 0xf1, 0x4a, 0x11,
+	0xc7, 0xa5, 0x5d, 0x55, 0x96, 0xed, 0xea, 0xdf, 0x50, 0x61, 0xfc, 0xca, 0x82, 0x46, 0x8c, 0x7c,
+	0xf4, 0x01, 0xd4, 0x4c, 0x61, 0x6a, 0xa9, 0xb9, 0xef, 0xa7, 0x73, 0xab, 0x73, 0x18, 0x3b, 0xd3,
+	0x10, 0x60, 0x5d, 0xa8, 0xee, 0x41, 0x4b, 0xbd, 0xce, 0xa8, 0x44, 0xb6, 0x30, 0x31, 0xd8, 0x8a,
+	0x52, 0x91, 0xb4, 0xe8, 0x5d, 0xe9, 0xfa, 0x4a, 0x96, 0xe3, 0x15, 0x6d, 0x41, 0x52, 0x91, 0x0c,
+	0xbf, 0x8c, 0x45, 0x9c, 0x6a, 0x74, 0x51, 0x81, 0x48, 0x49, 0xd3, 0xc5, 0x00, 0x7d, 0x22, 0x44,
+	0xa0, 0xab, 0x8c, 0x8f, 0x0a, 0xdb, 0xfe, 0xbf, 0xfc, 0xb6, 0x53, 0xcb, 0xfc, 0xc6, 0x6f, 0xce,
+	0x57, 0x7f, 0xab, 0x40, 0x23, 0x01, 0xf5, 0x5b, 0xd0, 0x3c, 0x95, 0x39, 0x4b, 0xf5, 0x22, 0x96,
+	0xba, 0x9a, 0x26, 0x8d, 0x05, 0x92, 0x0c, 0xf4, 0x42, 0x53, 0xe2, 0x49, 0x38, 0xc8, 0x38, 0x34,
+	0xd9, 0x69, 0x03, 0x17, 0x15, 0x79, 0x98, 0x54, 0x6e, 0x84, 0x49, 0x75, 0x09, 0xdd, 0xc9, 0x39,
+	0x74, 0x0f, 0xa2, 0xae, 0xd2, 0x76, 0x61, 0x9e, 0x48, 0x64, 0xe8, 0xc4, 0x6b, 0x19, 0x5a, 0x69,
+	0x70, 0xf3, 0x1b, 0x7d, 0x06, 0x48, 0x9f, 0x87, 0xf8, 0x19, 0x10, 0xd5, 0x6f, 0x06, 0x11, 0x9a,
+	0x96, 0x86, 0xc8, 0xeb, 0x94, 0x9b, 0x38, 0x9f, 0x6a, 0xd6, 0xd3, 0x35, 0x54, 0x6b, 0x9e, 0x8a,
+	0x24, 0xdc, 0x14, 0x17, 0xe1, 0x2b, 0x93, 0x51, 0xea, 0x73, 0xfd, 0x53, 0x16, 0x9b, 0xb1, 0x53,
+	0x8f, 0x09, 0xf7, 0x18, 0x55, 0x23, 0x14, 0x95, 0x34, 0xdd, 0xcd, 0x69, 0x59, 0x85, 0xde, 0x87,
+	0xad, 0x64, 0x84, 0xa9, 0x03, 0x1f, 0x63, 0x3e, 0x56, 0x44, 0xd2, 0x76, 0xb7, 0xa6, 0x4b, 0x74,
+	0x72, 0x15, 0xb9, 0xfe, 0xd1, 0x4c, 0x9c, 0x0f, 0x87, 0xe9, 0x1d, 0x6b, 0x32, 0xd9, 0x9c, 0x97,
+	0x55, 0xdd, 0x07, 0x50, 0x8d, 0x2f, 0x27, 0xb5, 0xb7, 0x8a, 0x98, 0xf8, 0x04, 0xe0, 0x11, 0x0e,
+	0x82, 0x48, 0x1c, 0x61, 0x2e, 0xa4, 0xb3, 0xe5, 0x98, 0xc1, 0xd5, 0xa9, 0x6f, 0x12, 0x53, 0x63,
+	0x6e, 0x7e, 0x23, 0xa4, 0xe7, 0x53, 0x28, 0x68, 0xba, 0x55, 0x29, 0xef, 0x2e, 0xc0, 0x36, 0xa3,
+	0xa3, 0x59, 0x28, 0x69, 0xfd, 0x8e, 0x13, 0x48, 0xfb, 0x67, 0x33, 0xac, 0x8a, 0x38, 0x13, 0x44,
+	0x8d, 0x6f, 0xcc, 0xef, 0xfc, 0xc6, 0xab, 0xc5, 0x8d, 0xff, 0x69, 0x05, 0x6a, 0x2e, 0xe1, 0xb3,
+	0x40, 0x2c, 0x07, 0xab, 0x75, 0x2b, 0xb0, 0xae, 0xdc, 0x08, 0xd6, 0x4a, 0x11, 0xac, 0x59, 0x30,
+	0x56, 0x6f, 0x05, 0xc6, 0xd5, 0xbb, 0x83, 0x31, 0xeb, 0xc3, 0x5a, 0xc1, 0x87, 0x92, 0x99, 0x14,
+	0x88, 0x06, 0x38, 0x08, 0x16, 0x0a, 0xea, 0x92, 0x99, 0x52, 0x11, 0xda, 0x89, 0xdd, 0x62, 0x50,
+	0x5c, 0x63, 0xda, 0x49, 0x39, 0x6f, 0x36, 0x8b, 0xde, 0xfc, 0xf5, 0x2a, 0xac, 0xaa, 0x14, 0xad,
+	0x7b, 0x8f, 0xc9, 0x34, 0xa0, 0x32, 0x71, 0x1d, 0xea, 0x7e, 0x41, 0x33, 0xff, 0xba, 0x57, 0x90,
+	0xbf, 0x96, 0x2b, 0x7b, 0xb0, 0x36, 0xc0, 0x6c, 0x44, 0xe2, 0x5a, 0x9b, 0xc4, 0xec, 0x9f, 0x32,
+	0x74, 0x4e, 0xaf, 0xfd, 0xb5, 0x26, 0xf2, 0x63, 0x24, 0x7d, 0x9c, 0x30, 0x42, 0x7e, 0xa2, 0xdd,
+	0xa5, 0x33, 0x01, 0x0c, 0x13, 0x89, 0xcc, 0x9f, 0x5a, 0x7f, 0x41, 0x18, 0x8d, 0xb4, 0x43, 0xab,
+	0x6e, 0x7b, 0x98, 0x91, 0xc9, 0x3a, 0xe0, 0x98, 0x4c, 0x23, 0x4e, 0x93, 0x8e, 0xa0, 0xae, 0x2b,
+	0x2a, 0x3f, 0x27, 0x55, 0x38, 0x9b, 0x89, 0x71, 0xc4, 0xa8, 0x58, 0x24, 0x4f, 0x3f, 0x0d, 0x83,
+	0xb3, 0xa2, 0x42, 0xe5, 0xbf, 0x58, 0xa8, 0xba, 0x59, 0xdd, 0x75, 0xd9, 0x38, 0x2b, 0x94, 0x69,
+	0x22, 0xb1, 0xba, 0x98, 0x5d, 0x06, 0xd4, 0xfb, 0x82, 0xe8, 0x2a, 0xb4, 0xed, 0x22, 0x5c, 0xd2,
+	0x48, 0xfb, 0x3e, 0x1d, 0x85, 0x58, 0xcc, 0x18, 0x39, 0x0c, 0x46, 0x52, 0x3b, 0x9e, 0x98, 0x12,
+	0x04, 0xf1, 0x92, 0x46, 0x9e, 0x4d, 0xdd, 0x6b, 0x32, 0xc8, 0xd4, 0xa8, 0x9d, 0x28, 0x27, 0x95,
+	0x35, 0x54, 0xda, 0xb2, 0xf6, 0xe6, 0xd4, 0x27, 0xa1, 0x47, 0x14, 0x2b, 0xe9, 0x8e, 0x6c, 0x87,
+	0x2f, 0xd5, 0x6a, 0xb8, 0x0d, 0x07, 0x57, 0xdc, 0x54, 0x26, 0x35, 0x95, 0x85, 0x39, 0xfa, 0x02,
+	0xd0, 0x23, 0x2a, 0xbc, 0x88, 0x86, 0xc7, 0x94, 0x4f, 0x09, 0xe3, 0x8a, 0x58, 0xd7, 0x0a, 0x37,
+	0x1c, 0xc7, 0xbe, 0xaa, 0x6c, 0x4d, 0x44, 0x5c, 0x96, 0x86, 0x49, 0xf2, 0x7d, 0x42, 0x38, 0xc7,
+	0x23, 0xa2, 0x0a, 0x97, 0xa6, 0x5b, 0x9f, 0xe8, 0x9f, 0xdd, 0xdf, 0x5b, 0x50, 0xd3, 0xf7, 0xfb,
+	0x5a, 0xb5, 0xca, 0x0f, 0x00, 0xcc, 0x56, 0x64, 0x93, 0x59, 0x79, 0xf9, 0x2e, 0xe1, 0x9b, 0xc4,
+	0xbc, 0x04, 0xb1, 0xea, 0x12, 0x88, 0xe5, 0xa2, 0x6f, 0xb5, 0x18, 0x7d, 0xc7, 0x50, 0x1d, 0x8c,
+	0xf1, 0x8b, 0x02, 0x98, 0xad, 0x12, 0x98, 0x6f, 0x4e, 0xef, 0x7f, 0xb0, 0xd4, 0xd3, 0xc4, 0x90,
+	0xf2, 0x7f, 0x41, 0xf5, 0xf6, 0x5a, 0x1e, 0x79, 0x1b, 0xc0, 0x04, 0x94, 0x2c, 0x78, 0xb5, 0x3f,
+	0xc0, 0x4f, 0x24, 0x2f, 0xf1, 0xc6, 0x2f, 0x2d, 0xe8, 0xb8, 0xc4, 0x8b, 0x42, 0x8f, 0x06, 0xf4,
+	0xbf, 0x7c, 0x92, 0x9b, 0x73, 0xd0, 0xff, 0x83, 0xdd, 0xe3, 0x02, 0x5f, 0x06, 0x94, 0x8f, 0x55,
+	0xd9, 0x96, 0x01, 0xaa, 0x95, 0x07, 0xea, 0x03, 0x68, 0x1c, 0xfa, 0xbe, 0x7e, 0x23, 0xb8, 0xde,
+	0xea, 0x18, 0xe0, 0x30, 0x10, 0x84, 0x25, 0xa7, 0xee, 0x85, 0x82, 0x2d, 0x54, 0x91, 0x6b, 0xfa,
+	0x44, 0x12, 0x0b, 0xb2, 0xb3, 0xac, 0xe4, 0x67, 0x39, 0x94, 0xa5, 0xf1, 0x24, 0x9a, 0xeb, 0x2a,
+	0xef, 0x95, 0xa6, 0xf8, 0x69, 0xa2, 0x51, 0xfd, 0xa6, 0x26, 0x40, 0xe5, 0x23, 0xa2, 0x4b, 0x52,
+	0xdb, 0xed, 0xe0, 0x9c, 0x54, 0xa6, 0x26, 0x33, 0x24, 0xb9, 0x07, 0xdb, 0x6d, 0x4d, 0x52, 0x91,
+	0x9c, 0xc9, 0x58, 0xc4, 0xdd, 0x8c, 0xe9, 0x5c, 0x27, 0x39, 0x69, 0xf7, 0x77, 0x16, 0x34, 0x5d,
+	0xf2, 0x15, 0xf1, 0x92, 0x17, 0x95, 0xdb, 0xac, 0x7f, 0x00, 0x48, 0x0f, 0xca, 0x5a, 0x9b, 0x6d,
+	0x20, 0x56, 0xd2, 0x48, 0x7e, 0x4e, 0x16, 0x49, 0x52, 0x94, 0xed, 0xda, 0x2c, 0x2b, 0xcc, 0xba,
+	0xa8, 0x9a, 0x73, 0xd1, 0x4b, 0x40, 0xfc, 0x09, 0xa0, 0x4c, 0x4f, 0x1a, 0xe9, 0x06, 0x43, 0x96,
+	0x40, 0x09, 0x84, 0x6d, 0xb7, 0x2a, 0x24, 0x7a, 0x11, 0x54, 0x55, 0x7a, 0x30, 0x65, 0x51, 0x88,
+	0x27, 0xa4, 0xfb, 0x67, 0x0b, 0x3a, 0xf9, 0x4a, 0x41, 0x71, 0x83, 0xfc, 0x43, 0x1f, 0x4b, 0x4f,
+	0x00, 0xc3, 0x44, 0x22, 0x37, 0xda, 0xd3, 0x2d, 0x81, 0x39, 0x73, 0x9d, 0x98, 0x5e, 0xe2, 0x01,
+	0xd8, 0xfd, 0xd9, 0x65, 0x6a, 0x1a, 0x1f, 0x94, 0x67, 0x85, 0x68, 0x1f, 0xd6, 0x62, 0xab, 0x78,
+	0x9e, 0xaa, 0xb2, 0x5b, 0xe3, 0x79, 0xb1, 0x3c, 0xb8, 0x7e, 0x53, 0x96, 0xa5, 0x81, 0x2e, 0xd8,
+	0x9b, 0x51, 0x2c, 0x90, 0xc7, 0x39, 0xc6, 0x02, 0x9b, 0xca, 0xa5, 0xea, 0x63, 0x81, 0xbb, 0x3f,
+	0x5b, 0x01, 0x64, 0x7a, 0x41, 0x8f, 0xd0, 0xb9, 0x69, 0xb7, 0xe4, 0x96, 0xf3, 0x4f, 0x70, 0x75,
+	0x73, 0xa5, 0xb9, 0xb2, 0x70, 0xa5, 0x50, 0x16, 0x1e, 0x00, 0xd2, 0xaf, 0xf9, 0x7d, 0x3a, 0x4a,
+	0x33, 0xa0, 0x3e, 0x13, 0x8a, 0x4a, 0x1a, 0x55, 0x32, 0x29, 0xa9, 0x3e, 0xbc, 0x3e, 0x54, 0x2b,
+	0x4a, 0x45, 0xe8, 0x43, 0xd8, 0xd6, 0x16, 0x8a, 0x3d, 0xcd, 0x63, 0x74, 0x9f, 0x8e, 0x4c, 0x39,
+	0xb1, 0x1d, 0x2d, 0x53, 0xca, 0x2a, 0x3e, 0xd9, 0xc7, 0xa3, 0x20, 0xf2, 0xbe, 0x7e, 0x4c, 0xe8,
+	0x68, 0x2c, 0xcc, 0x2b, 0xd8, 0x56, 0xb4, 0x44, 0xd7, 0xfd, 0x8d, 0x05, 0x5b, 0xcb, 0x1a, 0x38,
+	0x79, 0x47, 0xf1, 0xdb, 0x63, 0xf6, 0x82, 0x6d, 0x2f, 0x2b, 0x7c, 0xad, 0x7a, 0xeb, 0x87, 0xd0,
+	0x4a, 0x17, 0x2d, 0xd7, 0x5a, 0x4b, 0x78, 0xb0, 0xc5, 0x53, 0xfb, 0xee, 0xdf, 0x2d, 0x73, 0x85,
+	0xb9, 0x8e, 0xf9, 0x3f, 0xb0, 0xef, 0x1f, 0x99, 0x07, 0x90, 0x3e, 0x09, 0x7d, 0xc2, 0x6e, 0xb5,
+	0x71, 0xfd, 0x3a, 0x62, 0x06, 0xa0, 0x23, 0xf3, 0x5e, 0x16, 0x63, 0x2f, 0xae, 0xc9, 0x0b, 0x2f,
+	0x01, 0x39, 0x68, 0x9a, 0xc7, 0xb4, 0x64, 0x48, 0xb7, 0x0f, 0x76, 0xee, 0xc9, 0x3e, 0x89, 0x5a,
+	0x2b, 0x8d, 0xda, 0x24, 0xba, 0x4d, 0x24, 0xab, 0xe8, 0xde, 0x85, 0x86, 0x74, 0x90, 0xf2, 0xb9,
+	0x3e, 0x5b, 0xc3, 0x33, 0xbf, 0xbb, 0xbf, 0xad, 0x42, 0x2b, 0xf3, 0x80, 0x7d, 0xeb, 0x39, 0xd7,
+	0xa1, 0x72, 0xd6, 0x3b, 0x35, 0x8d, 0x76, 0x25, 0xe8, 0x9d, 0xca, 0xe0, 0x4d, 0xb8, 0xcd, 0xd4,
+	0xa5, 0xba, 0x3d, 0x59, 0xc3, 0x79, 0xb1, 0xa4, 0x91, 0xe7, 0x21, 0x15, 0x4f, 0x67, 0x93, 0x4b,
+	0xc2, 0xcc, 0xc7, 0x0b, 0x98, 0x25, 0x12, 0xc9, 0xb6, 0x8f, 0x66, 0x34, 0xf0, 0x69, 0x38, 0x32,
+	0x36, 0xfa, 0xab, 0x6e, 0xe7, 0x32, 0x27, 0x95, 0x75, 0x5f, 0x5f, 0x30, 0x42, 0x84, 0xf9, 0xa2,
+	0x5b, 0xe3, 0xea, 0x97, 0x9c, 0xbf, 0x3f, 0xbb, 0x9c, 0xb1, 0xcb, 0x23, 0x19, 0xbb, 0xba, 0x05,
+	0x01, 0x9e, 0x48, 0xd0, 0xa7, 0xb0, 0x3b, 0x20, 0x8c, 0x51, 0x11, 0xb1, 0x45, 0x5f, 0x60, 0x41,
+	0x2e, 0x58, 0x34, 0xa7, 0xa1, 0xa7, 0x93, 0x86, 0x2e, 0x91, 0x77, 0xc5, 0xb5, 0x16, 0xfa, 0x83,
+	0xc2, 0x4c, 0x66, 0x30, 0x35, 0x00, 0xe2, 0x0f, 0x0a, 0x89, 0x48, 0x42, 0xf2, 0x22, 0xe2, 0x02,
+	0x07, 0x3f, 0x3e, 0xbd, 0x50, 0x36, 0xe6, 0x6b, 0xee, 0x34, 0x2b, 0x94, 0x45, 0x5b, 0x6f, 0x82,
+	0x69, 0x10, 0x13, 0x90, 0xfe, 0x32, 0xd1, 0x26, 0x19, 0x99, 0xfa, 0x34, 0x31, 0x8e, 0x42, 0x62,
+	0x1c, 0xa1, 0xdf, 0xe6, 0x5a, 0xd3, 0x54, 0xa4, 0xb0, 0x95, 0x7b, 0x5b, 0x34, 0x1f, 0x28, 0x32,
+	0xd8, 0x2a, 0x25, 0x01, 0x99, 0xb8, 0xb2, 0x43, 0xd0, 0x47, 0x00, 0x4f, 0x70, 0x88, 0x47, 0x9a,
+	0x74, 0x75, 0x89, 0xbc, 0x9d, 0x4c, 0xa0, 0x55, 0x66, 0x28, 0x4c, 0x12, 0xc3, 0xee, 0xc7, 0xd0,
+	0xce, 0xea, 0x6e, 0x9d, 0x5b, 0x9e, 0xc5, 0x7c, 0x78, 0x3d, 0xe8, 0xd6, 0xa1, 0xf2, 0xdc, 0x3d,
+	0x33, 0xa3, 0x2a, 0x33, 0xf7, 0x4c, 0xc6, 0x68, 0xda, 0x9d, 0x98, 0x18, 0x9d, 0xc6, 0x82, 0xee,
+	0x09, 0xa0, 0x72, 0x18, 0xa2, 0x2d, 0x58, 0xcd, 0x72, 0xc2, 0x2a, 0x55, 0x5c, 0x70, 0x03, 0xb5,
+	0x77, 0x3f, 0x07, 0x54, 0xee, 0xf9, 0x5e, 0x2d, 0x4d, 0x74, 0xff, 0x61, 0xc1, 0x46, 0xe9, 0x8b,
+	0xf7, 0xd2, 0xd3, 0xc6, 0xfd, 0x76, 0x1a, 0x66, 0xba, 0xdf, 0x96, 0x0e, 0x7c, 0x1b, 0x40, 0xb5,
+	0xd5, 0x67, 0xd1, 0x88, 0x7a, 0x26, 0xc9, 0x80, 0x48, 0x24, 0xe8, 0x3d, 0xd8, 0x1c, 0x8c, 0x19,
+	0xe1, 0xe3, 0x28, 0xf0, 0x2f, 0x08, 0xf3, 0x48, 0x28, 0xe2, 0x52, 0xc1, 0x76, 0x37, 0x45, 0x59,
+	0x85, 0xbe, 0x07, 0xf7, 0xf2, 0x8f, 0xda, 0xe9, 0xab, 0xb9, 0xfe, 0xca, 0x72, 0x6f, 0xbe, 0x5c,
+	0x2d, 0xdb, 0xcf, 0xfc, 0x73, 0xf5, 0x09, 0x21, 0xa6, 0x9f, 0xdd, 0x18, 0x17, 0x15, 0x97, 0x35,
+	0xf5, 0xaf, 0x67, 0x1f, 0xfc, 0x33, 0x00, 0x00, 0xff, 0xff, 0x6a, 0x02, 0x7f, 0x16, 0x8b, 0x26,
+	0x00, 0x00,
 }

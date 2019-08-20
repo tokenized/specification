@@ -2,60 +2,60 @@ syntax = "proto3";
 
 package messages;
 
-// Action - Public Message (0002)
-message PublicMessageAction {
+// Message - Public Message (0002)
+message PublicMessage {
     uint64 Timestamp                               = 1;   // Timestamp
     string Subject                                 = 2;   // varchar
-    OutputField Regarding                          = 3;   // Output
+    OutpointField Regarding                        = 3;   // Outpoint
     DocumentField PublicMessage                    = 4;   // Document
     repeated DocumentField Attachments             = 5;   // Document[]
 }
 
-// Action - Private Message (0003)
-message PrivateMessageAction {
+// Message - Private Message (0003)
+message PrivateMessage {
     uint64 Timestamp                               = 1;   // Timestamp
     string Subject                                 = 2;   // varchar
-    OutputField Regarding                          = 3;   // Output
+    OutpointField Regarding                        = 3;   // Outpoint
     DocumentField PrivateMessage                   = 4;   // Document
     repeated DocumentField Attachments             = 5;   // Document[]
 }
 
-// Action - Reverted Tx (0004)
-message RevertedTxAction {
+// Message - Reverted Tx (0004)
+message RevertedTx {
     uint64 Timestamp                               = 1;   // Timestamp
     bytes Transaction                              = 2;   // varbin
 }
 
-// Action - Offer (1001)
-message OfferAction {
+// Message - Offer (1001)
+message Offer {
     uint64 Timestamp                               = 1;   // Timestamp
     bytes Payload                                  = 2;   // varbin
 }
 
-// Action - Signature Request (1002)
-message SignatureRequestAction {
+// Message - Signature Request (1002)
+message SignatureRequest {
     uint64 Timestamp                               = 1;   // Timestamp
     bytes Payload                                  = 2;   // varbin
 }
 
-// Action - Settlement Request (1003)
-message SettlementRequestAction {
+// Message - Settlement Request (1003)
+message SettlementRequest {
     uint64 Timestamp                               = 1;   // Timestamp
     bytes TransferTxId                             = 2;   // TxId
     repeated TargetAddressField ContractFees       = 3;   // TargetAddress[]
     bytes Settlement                               = 4;   // varbin
 }
 
-// Action - Output Metadata (1004)
-message OutputMetadataAction {
+// Message - Output Metadata (1004)
+message OutputMetadata {
     string OutputDescription                       = 1;   // varchar
     repeated uint64 Tags                           = 2;   // Tag[]
     repeated OutputTagField CustomTags             = 3;   // OutputTag[]
 }
 
 
-// Field - Output
-message OutputField {
+// Field - Outpoint
+message OutpointField {
     bytes TxId                                     = 1;   // TxId
     uint32 OutputIndex                             = 2;   // uint
 }

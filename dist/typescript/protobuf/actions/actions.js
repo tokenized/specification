@@ -6,43 +6,43 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
-goog.provide('proto.actions.AdditionAction');
+goog.provide('proto.actions.Addition');
 goog.provide('proto.actions.AdministratorField');
-goog.provide('proto.actions.AlterationAction');
+goog.provide('proto.actions.Alteration');
 goog.provide('proto.actions.AmendmentField');
-goog.provide('proto.actions.AssetCreationAction');
-goog.provide('proto.actions.AssetDefinitionAction');
-goog.provide('proto.actions.AssetModificationAction');
+goog.provide('proto.actions.AssetCreation');
+goog.provide('proto.actions.AssetDefinition');
+goog.provide('proto.actions.AssetModification');
 goog.provide('proto.actions.AssetReceiverField');
 goog.provide('proto.actions.AssetSettlementField');
 goog.provide('proto.actions.AssetTransferField');
-goog.provide('proto.actions.BallotCastAction');
-goog.provide('proto.actions.BallotCountedAction');
-goog.provide('proto.actions.ConfiscationAction');
-goog.provide('proto.actions.ContractAddressChangeAction');
-goog.provide('proto.actions.ContractAmendmentAction');
-goog.provide('proto.actions.ContractFormationAction');
-goog.provide('proto.actions.ContractOfferAction');
+goog.provide('proto.actions.BallotCast');
+goog.provide('proto.actions.BallotCounted');
+goog.provide('proto.actions.Confiscation');
+goog.provide('proto.actions.ContractAddressChange');
+goog.provide('proto.actions.ContractAmendment');
+goog.provide('proto.actions.ContractFormation');
+goog.provide('proto.actions.ContractOffer');
 goog.provide('proto.actions.DocumentField');
 goog.provide('proto.actions.EntityField');
-goog.provide('proto.actions.EstablishmentAction');
-goog.provide('proto.actions.FreezeAction');
+goog.provide('proto.actions.Establishment');
+goog.provide('proto.actions.Freeze');
 goog.provide('proto.actions.ManagerField');
-goog.provide('proto.actions.MessageAction');
+goog.provide('proto.actions.Message');
 goog.provide('proto.actions.OracleField');
-goog.provide('proto.actions.OrderAction');
-goog.provide('proto.actions.ProposalAction');
+goog.provide('proto.actions.Order');
+goog.provide('proto.actions.Proposal');
 goog.provide('proto.actions.QuantityIndexField');
-goog.provide('proto.actions.ReconciliationAction');
-goog.provide('proto.actions.RejectionAction');
-goog.provide('proto.actions.RemovalAction');
-goog.provide('proto.actions.ResultAction');
-goog.provide('proto.actions.SettlementAction');
-goog.provide('proto.actions.StaticContractFormationAction');
+goog.provide('proto.actions.Reconciliation');
+goog.provide('proto.actions.Rejection');
+goog.provide('proto.actions.Removal');
+goog.provide('proto.actions.Result');
+goog.provide('proto.actions.Settlement');
+goog.provide('proto.actions.StaticContractFormation');
 goog.provide('proto.actions.TargetAddressField');
-goog.provide('proto.actions.ThawAction');
-goog.provide('proto.actions.TransferAction');
-goog.provide('proto.actions.VoteAction');
+goog.provide('proto.actions.Thaw');
+goog.provide('proto.actions.Transfer');
+goog.provide('proto.actions.Vote');
 goog.provide('proto.actions.VotingSystemField');
 
 goog.require('jspb.Message');
@@ -60,19 +60,19 @@ goog.require('jspb.BinaryWriter');
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ContractOfferAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ContractOfferAction.repeatedFields_, null);
+proto.actions.ContractOffer = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ContractOffer.repeatedFields_, null);
 };
-goog.inherits(proto.actions.ContractOfferAction, jspb.Message);
+goog.inherits(proto.actions.ContractOffer, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ContractOfferAction.displayName = 'proto.actions.ContractOfferAction';
+  proto.actions.ContractOffer.displayName = 'proto.actions.ContractOffer';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ContractOfferAction.repeatedFields_ = [5,15,20];
+proto.actions.ContractOffer.repeatedFields_ = [5,15,20];
 
 
 
@@ -87,8 +87,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ContractOfferAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ContractOfferAction.toObject(opt_includeInstance, this);
+proto.actions.ContractOffer.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.ContractOffer.toObject(opt_includeInstance, this);
 };
 
 
@@ -97,10 +97,10 @@ proto.actions.ContractOfferAction.prototype.toObject = function(opt_includeInsta
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ContractOfferAction} msg The msg instance to transform.
+ * @param {!proto.actions.ContractOffer} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ContractOfferAction.toObject = function(includeInstance, msg) {
+proto.actions.ContractOffer.toObject = function(includeInstance, msg) {
   var f, obj = {
     contractname: msg.getContractname(),
     bodyofagreementtype: msg.getBodyofagreementtype(),
@@ -139,23 +139,23 @@ proto.actions.ContractOfferAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ContractOfferAction}
+ * @return {!proto.actions.ContractOffer}
  */
-proto.actions.ContractOfferAction.deserializeBinary = function(bytes) {
+proto.actions.ContractOffer.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ContractOfferAction;
-  return proto.actions.ContractOfferAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.ContractOffer;
+  return proto.actions.ContractOffer.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ContractOfferAction} msg The message object to deserialize into.
+ * @param {!proto.actions.ContractOffer} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ContractOfferAction}
+ * @return {!proto.actions.ContractOffer}
  */
-proto.actions.ContractOfferAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.ContractOffer.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -266,10 +266,10 @@ proto.actions.ContractOfferAction.deserializeBinaryFromReader = function(msg, re
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ContractOfferAction} message
+ * @param {!proto.actions.ContractOffer} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ContractOfferAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.ContractOffer.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -278,7 +278,7 @@ proto.actions.ContractOfferAction.serializeBinaryToWriter = function(message, wr
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ContractOfferAction.prototype.serializeBinary = function() {
+proto.actions.ContractOffer.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -290,7 +290,7 @@ proto.actions.ContractOfferAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ContractOfferAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.ContractOffer.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getContractname();
   if (f.length > 0) {
@@ -449,10 +449,10 @@ proto.actions.ContractOfferAction.prototype.serializeBinaryToWriter = function (
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ContractOfferAction} The clone.
+ * @return {!proto.actions.ContractOffer} The clone.
  */
-proto.actions.ContractOfferAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ContractOfferAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.ContractOffer.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.ContractOffer} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -460,13 +460,13 @@ proto.actions.ContractOfferAction.prototype.cloneMessage = function() {
  * optional string ContractName = 1;
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getContractname = function() {
+proto.actions.ContractOffer.prototype.getContractname = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractOfferAction.prototype.setContractname = function(value) {
+proto.actions.ContractOffer.prototype.setContractname = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -475,13 +475,13 @@ proto.actions.ContractOfferAction.prototype.setContractname = function(value) {
  * optional uint32 BodyOfAgreementType = 2;
  * @return {number}
  */
-proto.actions.ContractOfferAction.prototype.getBodyofagreementtype = function() {
+proto.actions.ContractOffer.prototype.getBodyofagreementtype = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractOfferAction.prototype.setBodyofagreementtype = function(value) {
+proto.actions.ContractOffer.prototype.setBodyofagreementtype = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -490,7 +490,7 @@ proto.actions.ContractOfferAction.prototype.setBodyofagreementtype = function(va
  * optional bytes BodyOfAgreement = 3;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractOfferAction.prototype.getBodyofagreement = function() {
+proto.actions.ContractOffer.prototype.getBodyofagreement = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 3, ""));
 };
 
@@ -500,7 +500,7 @@ proto.actions.ContractOfferAction.prototype.getBodyofagreement = function() {
  * This is a type-conversion wrapper around `getBodyofagreement()`
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getBodyofagreement_asB64 = function() {
+proto.actions.ContractOffer.prototype.getBodyofagreement_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getBodyofagreement()));
 };
@@ -513,14 +513,14 @@ proto.actions.ContractOfferAction.prototype.getBodyofagreement_asB64 = function(
  * This is a type-conversion wrapper around `getBodyofagreement()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractOfferAction.prototype.getBodyofagreement_asU8 = function() {
+proto.actions.ContractOffer.prototype.getBodyofagreement_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getBodyofagreement()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ContractOfferAction.prototype.setBodyofagreement = function(value) {
+proto.actions.ContractOffer.prototype.setBodyofagreement = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -529,13 +529,13 @@ proto.actions.ContractOfferAction.prototype.setBodyofagreement = function(value)
  * optional string ContractType = 4;
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getContracttype = function() {
+proto.actions.ContractOffer.prototype.getContracttype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 4, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractOfferAction.prototype.setContracttype = function(value) {
+proto.actions.ContractOffer.prototype.setContracttype = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -546,19 +546,19 @@ proto.actions.ContractOfferAction.prototype.setContracttype = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.DocumentField>}
  */
-proto.actions.ContractOfferAction.prototype.getSupportingdocsList = function() {
+proto.actions.ContractOffer.prototype.getSupportingdocsList = function() {
   return /** @type{!Array.<!proto.actions.DocumentField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.DocumentField, 5));
 };
 
 
 /** @param {Array.<!proto.actions.DocumentField>} value  */
-proto.actions.ContractOfferAction.prototype.setSupportingdocsList = function(value) {
+proto.actions.ContractOffer.prototype.setSupportingdocsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
 
 
-proto.actions.ContractOfferAction.prototype.clearSupportingdocsList = function() {
+proto.actions.ContractOffer.prototype.clearSupportingdocsList = function() {
   this.setSupportingdocsList([]);
 };
 
@@ -567,13 +567,13 @@ proto.actions.ContractOfferAction.prototype.clearSupportingdocsList = function()
  * optional string GoverningLaw = 6;
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getGoverninglaw = function() {
+proto.actions.ContractOffer.prototype.getGoverninglaw = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractOfferAction.prototype.setGoverninglaw = function(value) {
+proto.actions.ContractOffer.prototype.setGoverninglaw = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -582,13 +582,13 @@ proto.actions.ContractOfferAction.prototype.setGoverninglaw = function(value) {
  * optional string Jurisdiction = 7;
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getJurisdiction = function() {
+proto.actions.ContractOffer.prototype.getJurisdiction = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 7, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractOfferAction.prototype.setJurisdiction = function(value) {
+proto.actions.ContractOffer.prototype.setJurisdiction = function(value) {
   jspb.Message.setField(this, 7, value);
 };
 
@@ -597,13 +597,13 @@ proto.actions.ContractOfferAction.prototype.setJurisdiction = function(value) {
  * optional uint64 ContractExpiration = 8;
  * @return {number}
  */
-proto.actions.ContractOfferAction.prototype.getContractexpiration = function() {
+proto.actions.ContractOffer.prototype.getContractexpiration = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 8, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractOfferAction.prototype.setContractexpiration = function(value) {
+proto.actions.ContractOffer.prototype.setContractexpiration = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -612,13 +612,13 @@ proto.actions.ContractOfferAction.prototype.setContractexpiration = function(val
  * optional string ContractURI = 9;
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getContracturi = function() {
+proto.actions.ContractOffer.prototype.getContracturi = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 9, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractOfferAction.prototype.setContracturi = function(value) {
+proto.actions.ContractOffer.prototype.setContracturi = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -627,19 +627,19 @@ proto.actions.ContractOfferAction.prototype.setContracturi = function(value) {
  * optional EntityField Issuer = 10;
  * @return {proto.actions.EntityField}
  */
-proto.actions.ContractOfferAction.prototype.getIssuer = function() {
+proto.actions.ContractOffer.prototype.getIssuer = function() {
   return /** @type{proto.actions.EntityField} */ (
     jspb.Message.getWrapperField(this, proto.actions.EntityField, 10));
 };
 
 
 /** @param {proto.actions.EntityField|undefined} value  */
-proto.actions.ContractOfferAction.prototype.setIssuer = function(value) {
+proto.actions.ContractOffer.prototype.setIssuer = function(value) {
   jspb.Message.setWrapperField(this, 10, value);
 };
 
 
-proto.actions.ContractOfferAction.prototype.clearIssuer = function() {
+proto.actions.ContractOffer.prototype.clearIssuer = function() {
   this.setIssuer(undefined);
 };
 
@@ -648,7 +648,7 @@ proto.actions.ContractOfferAction.prototype.clearIssuer = function() {
  * Returns whether this field is set.
  * @return{!boolean}
  */
-proto.actions.ContractOfferAction.prototype.hasIssuer = function() {
+proto.actions.ContractOffer.prototype.hasIssuer = function() {
   return jspb.Message.getField(this, 10) != null;
 };
 
@@ -657,13 +657,13 @@ proto.actions.ContractOfferAction.prototype.hasIssuer = function() {
  * optional string IssuerLogoURL = 11;
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getIssuerlogourl = function() {
+proto.actions.ContractOffer.prototype.getIssuerlogourl = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 11, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractOfferAction.prototype.setIssuerlogourl = function(value) {
+proto.actions.ContractOffer.prototype.setIssuerlogourl = function(value) {
   jspb.Message.setField(this, 11, value);
 };
 
@@ -674,13 +674,13 @@ proto.actions.ContractOfferAction.prototype.setIssuerlogourl = function(value) {
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ContractOfferAction.prototype.getContractoperatorincluded = function() {
+proto.actions.ContractOffer.prototype.getContractoperatorincluded = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 12, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ContractOfferAction.prototype.setContractoperatorincluded = function(value) {
+proto.actions.ContractOffer.prototype.setContractoperatorincluded = function(value) {
   jspb.Message.setField(this, 12, value);
 };
 
@@ -689,19 +689,19 @@ proto.actions.ContractOfferAction.prototype.setContractoperatorincluded = functi
  * optional EntityField ContractOperator = 13;
  * @return {proto.actions.EntityField}
  */
-proto.actions.ContractOfferAction.prototype.getContractoperator = function() {
+proto.actions.ContractOffer.prototype.getContractoperator = function() {
   return /** @type{proto.actions.EntityField} */ (
     jspb.Message.getWrapperField(this, proto.actions.EntityField, 13));
 };
 
 
 /** @param {proto.actions.EntityField|undefined} value  */
-proto.actions.ContractOfferAction.prototype.setContractoperator = function(value) {
+proto.actions.ContractOffer.prototype.setContractoperator = function(value) {
   jspb.Message.setWrapperField(this, 13, value);
 };
 
 
-proto.actions.ContractOfferAction.prototype.clearContractoperator = function() {
+proto.actions.ContractOffer.prototype.clearContractoperator = function() {
   this.setContractoperator(undefined);
 };
 
@@ -710,7 +710,7 @@ proto.actions.ContractOfferAction.prototype.clearContractoperator = function() {
  * Returns whether this field is set.
  * @return{!boolean}
  */
-proto.actions.ContractOfferAction.prototype.hasContractoperator = function() {
+proto.actions.ContractOffer.prototype.hasContractoperator = function() {
   return jspb.Message.getField(this, 13) != null;
 };
 
@@ -719,13 +719,13 @@ proto.actions.ContractOfferAction.prototype.hasContractoperator = function() {
  * optional uint64 ContractFee = 14;
  * @return {number}
  */
-proto.actions.ContractOfferAction.prototype.getContractfee = function() {
+proto.actions.ContractOffer.prototype.getContractfee = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 14, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractOfferAction.prototype.setContractfee = function(value) {
+proto.actions.ContractOffer.prototype.setContractfee = function(value) {
   jspb.Message.setField(this, 14, value);
 };
 
@@ -736,19 +736,19 @@ proto.actions.ContractOfferAction.prototype.setContractfee = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.VotingSystemField>}
  */
-proto.actions.ContractOfferAction.prototype.getVotingsystemsList = function() {
+proto.actions.ContractOffer.prototype.getVotingsystemsList = function() {
   return /** @type{!Array.<!proto.actions.VotingSystemField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.VotingSystemField, 15));
 };
 
 
 /** @param {Array.<!proto.actions.VotingSystemField>} value  */
-proto.actions.ContractOfferAction.prototype.setVotingsystemsList = function(value) {
+proto.actions.ContractOffer.prototype.setVotingsystemsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 15, value);
 };
 
 
-proto.actions.ContractOfferAction.prototype.clearVotingsystemsList = function() {
+proto.actions.ContractOffer.prototype.clearVotingsystemsList = function() {
   this.setVotingsystemsList([]);
 };
 
@@ -757,7 +757,7 @@ proto.actions.ContractOfferAction.prototype.clearVotingsystemsList = function() 
  * optional bytes ContractAuthFlags = 16;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractOfferAction.prototype.getContractauthflags = function() {
+proto.actions.ContractOffer.prototype.getContractauthflags = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 16, ""));
 };
 
@@ -767,7 +767,7 @@ proto.actions.ContractOfferAction.prototype.getContractauthflags = function() {
  * This is a type-conversion wrapper around `getContractauthflags()`
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getContractauthflags_asB64 = function() {
+proto.actions.ContractOffer.prototype.getContractauthflags_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getContractauthflags()));
 };
@@ -780,14 +780,14 @@ proto.actions.ContractOfferAction.prototype.getContractauthflags_asB64 = functio
  * This is a type-conversion wrapper around `getContractauthflags()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractOfferAction.prototype.getContractauthflags_asU8 = function() {
+proto.actions.ContractOffer.prototype.getContractauthflags_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getContractauthflags()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ContractOfferAction.prototype.setContractauthflags = function(value) {
+proto.actions.ContractOffer.prototype.setContractauthflags = function(value) {
   jspb.Message.setField(this, 16, value);
 };
 
@@ -796,13 +796,13 @@ proto.actions.ContractOfferAction.prototype.setContractauthflags = function(valu
  * optional uint64 RestrictedQtyAssets = 17;
  * @return {number}
  */
-proto.actions.ContractOfferAction.prototype.getRestrictedqtyassets = function() {
+proto.actions.ContractOffer.prototype.getRestrictedqtyassets = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 17, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractOfferAction.prototype.setRestrictedqtyassets = function(value) {
+proto.actions.ContractOffer.prototype.setRestrictedqtyassets = function(value) {
   jspb.Message.setField(this, 17, value);
 };
 
@@ -813,13 +813,13 @@ proto.actions.ContractOfferAction.prototype.setRestrictedqtyassets = function(va
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ContractOfferAction.prototype.getAdministrationproposal = function() {
+proto.actions.ContractOffer.prototype.getAdministrationproposal = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 18, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ContractOfferAction.prototype.setAdministrationproposal = function(value) {
+proto.actions.ContractOffer.prototype.setAdministrationproposal = function(value) {
   jspb.Message.setField(this, 18, value);
 };
 
@@ -830,13 +830,13 @@ proto.actions.ContractOfferAction.prototype.setAdministrationproposal = function
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ContractOfferAction.prototype.getHolderproposal = function() {
+proto.actions.ContractOffer.prototype.getHolderproposal = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 19, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ContractOfferAction.prototype.setHolderproposal = function(value) {
+proto.actions.ContractOffer.prototype.setHolderproposal = function(value) {
   jspb.Message.setField(this, 19, value);
 };
 
@@ -847,19 +847,19 @@ proto.actions.ContractOfferAction.prototype.setHolderproposal = function(value) 
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.OracleField>}
  */
-proto.actions.ContractOfferAction.prototype.getOraclesList = function() {
+proto.actions.ContractOffer.prototype.getOraclesList = function() {
   return /** @type{!Array.<!proto.actions.OracleField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.OracleField, 20));
 };
 
 
 /** @param {Array.<!proto.actions.OracleField>} value  */
-proto.actions.ContractOfferAction.prototype.setOraclesList = function(value) {
+proto.actions.ContractOffer.prototype.setOraclesList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 20, value);
 };
 
 
-proto.actions.ContractOfferAction.prototype.clearOraclesList = function() {
+proto.actions.ContractOffer.prototype.clearOraclesList = function() {
   this.setOraclesList([]);
 };
 
@@ -868,7 +868,7 @@ proto.actions.ContractOfferAction.prototype.clearOraclesList = function() {
  * optional bytes MasterPKH = 21;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractOfferAction.prototype.getMasterpkh = function() {
+proto.actions.ContractOffer.prototype.getMasterpkh = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 21, ""));
 };
 
@@ -878,7 +878,7 @@ proto.actions.ContractOfferAction.prototype.getMasterpkh = function() {
  * This is a type-conversion wrapper around `getMasterpkh()`
  * @return {string}
  */
-proto.actions.ContractOfferAction.prototype.getMasterpkh_asB64 = function() {
+proto.actions.ContractOffer.prototype.getMasterpkh_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getMasterpkh()));
 };
@@ -891,14 +891,14 @@ proto.actions.ContractOfferAction.prototype.getMasterpkh_asB64 = function() {
  * This is a type-conversion wrapper around `getMasterpkh()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractOfferAction.prototype.getMasterpkh_asU8 = function() {
+proto.actions.ContractOffer.prototype.getMasterpkh_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getMasterpkh()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ContractOfferAction.prototype.setMasterpkh = function(value) {
+proto.actions.ContractOffer.prototype.setMasterpkh = function(value) {
   jspb.Message.setField(this, 21, value);
 };
 
@@ -914,19 +914,19 @@ proto.actions.ContractOfferAction.prototype.setMasterpkh = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ContractFormationAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ContractFormationAction.repeatedFields_, null);
+proto.actions.ContractFormation = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ContractFormation.repeatedFields_, null);
 };
-goog.inherits(proto.actions.ContractFormationAction, jspb.Message);
+goog.inherits(proto.actions.ContractFormation, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ContractFormationAction.displayName = 'proto.actions.ContractFormationAction';
+  proto.actions.ContractFormation.displayName = 'proto.actions.ContractFormation';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ContractFormationAction.repeatedFields_ = [5,15,20];
+proto.actions.ContractFormation.repeatedFields_ = [5,15,20];
 
 
 
@@ -941,8 +941,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ContractFormationAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ContractFormationAction.toObject(opt_includeInstance, this);
+proto.actions.ContractFormation.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.ContractFormation.toObject(opt_includeInstance, this);
 };
 
 
@@ -951,10 +951,10 @@ proto.actions.ContractFormationAction.prototype.toObject = function(opt_includeI
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ContractFormationAction} msg The msg instance to transform.
+ * @param {!proto.actions.ContractFormation} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ContractFormationAction.toObject = function(includeInstance, msg) {
+proto.actions.ContractFormation.toObject = function(includeInstance, msg) {
   var f, obj = {
     contractname: msg.getContractname(),
     bodyofagreementtype: msg.getBodyofagreementtype(),
@@ -995,23 +995,23 @@ proto.actions.ContractFormationAction.toObject = function(includeInstance, msg) 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ContractFormationAction}
+ * @return {!proto.actions.ContractFormation}
  */
-proto.actions.ContractFormationAction.deserializeBinary = function(bytes) {
+proto.actions.ContractFormation.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ContractFormationAction;
-  return proto.actions.ContractFormationAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.ContractFormation;
+  return proto.actions.ContractFormation.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ContractFormationAction} msg The message object to deserialize into.
+ * @param {!proto.actions.ContractFormation} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ContractFormationAction}
+ * @return {!proto.actions.ContractFormation}
  */
-proto.actions.ContractFormationAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.ContractFormation.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1130,10 +1130,10 @@ proto.actions.ContractFormationAction.deserializeBinaryFromReader = function(msg
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ContractFormationAction} message
+ * @param {!proto.actions.ContractFormation} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ContractFormationAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.ContractFormation.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -1142,7 +1142,7 @@ proto.actions.ContractFormationAction.serializeBinaryToWriter = function(message
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ContractFormationAction.prototype.serializeBinary = function() {
+proto.actions.ContractFormation.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -1154,7 +1154,7 @@ proto.actions.ContractFormationAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ContractFormationAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.ContractFormation.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getContractname();
   if (f.length > 0) {
@@ -1327,10 +1327,10 @@ proto.actions.ContractFormationAction.prototype.serializeBinaryToWriter = functi
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ContractFormationAction} The clone.
+ * @return {!proto.actions.ContractFormation} The clone.
  */
-proto.actions.ContractFormationAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ContractFormationAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.ContractFormation.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.ContractFormation} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -1338,13 +1338,13 @@ proto.actions.ContractFormationAction.prototype.cloneMessage = function() {
  * optional string ContractName = 1;
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getContractname = function() {
+proto.actions.ContractFormation.prototype.getContractname = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractFormationAction.prototype.setContractname = function(value) {
+proto.actions.ContractFormation.prototype.setContractname = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -1353,13 +1353,13 @@ proto.actions.ContractFormationAction.prototype.setContractname = function(value
  * optional uint32 BodyOfAgreementType = 2;
  * @return {number}
  */
-proto.actions.ContractFormationAction.prototype.getBodyofagreementtype = function() {
+proto.actions.ContractFormation.prototype.getBodyofagreementtype = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractFormationAction.prototype.setBodyofagreementtype = function(value) {
+proto.actions.ContractFormation.prototype.setBodyofagreementtype = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -1368,7 +1368,7 @@ proto.actions.ContractFormationAction.prototype.setBodyofagreementtype = functio
  * optional bytes BodyOfAgreement = 3;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractFormationAction.prototype.getBodyofagreement = function() {
+proto.actions.ContractFormation.prototype.getBodyofagreement = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 3, ""));
 };
 
@@ -1378,7 +1378,7 @@ proto.actions.ContractFormationAction.prototype.getBodyofagreement = function() 
  * This is a type-conversion wrapper around `getBodyofagreement()`
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getBodyofagreement_asB64 = function() {
+proto.actions.ContractFormation.prototype.getBodyofagreement_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getBodyofagreement()));
 };
@@ -1391,14 +1391,14 @@ proto.actions.ContractFormationAction.prototype.getBodyofagreement_asB64 = funct
  * This is a type-conversion wrapper around `getBodyofagreement()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractFormationAction.prototype.getBodyofagreement_asU8 = function() {
+proto.actions.ContractFormation.prototype.getBodyofagreement_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getBodyofagreement()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ContractFormationAction.prototype.setBodyofagreement = function(value) {
+proto.actions.ContractFormation.prototype.setBodyofagreement = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -1407,13 +1407,13 @@ proto.actions.ContractFormationAction.prototype.setBodyofagreement = function(va
  * optional string ContractType = 4;
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getContracttype = function() {
+proto.actions.ContractFormation.prototype.getContracttype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 4, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractFormationAction.prototype.setContracttype = function(value) {
+proto.actions.ContractFormation.prototype.setContracttype = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -1424,19 +1424,19 @@ proto.actions.ContractFormationAction.prototype.setContracttype = function(value
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.DocumentField>}
  */
-proto.actions.ContractFormationAction.prototype.getSupportingdocsList = function() {
+proto.actions.ContractFormation.prototype.getSupportingdocsList = function() {
   return /** @type{!Array.<!proto.actions.DocumentField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.DocumentField, 5));
 };
 
 
 /** @param {Array.<!proto.actions.DocumentField>} value  */
-proto.actions.ContractFormationAction.prototype.setSupportingdocsList = function(value) {
+proto.actions.ContractFormation.prototype.setSupportingdocsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
 
 
-proto.actions.ContractFormationAction.prototype.clearSupportingdocsList = function() {
+proto.actions.ContractFormation.prototype.clearSupportingdocsList = function() {
   this.setSupportingdocsList([]);
 };
 
@@ -1445,13 +1445,13 @@ proto.actions.ContractFormationAction.prototype.clearSupportingdocsList = functi
  * optional string GoverningLaw = 6;
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getGoverninglaw = function() {
+proto.actions.ContractFormation.prototype.getGoverninglaw = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractFormationAction.prototype.setGoverninglaw = function(value) {
+proto.actions.ContractFormation.prototype.setGoverninglaw = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -1460,13 +1460,13 @@ proto.actions.ContractFormationAction.prototype.setGoverninglaw = function(value
  * optional string Jurisdiction = 7;
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getJurisdiction = function() {
+proto.actions.ContractFormation.prototype.getJurisdiction = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 7, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractFormationAction.prototype.setJurisdiction = function(value) {
+proto.actions.ContractFormation.prototype.setJurisdiction = function(value) {
   jspb.Message.setField(this, 7, value);
 };
 
@@ -1475,13 +1475,13 @@ proto.actions.ContractFormationAction.prototype.setJurisdiction = function(value
  * optional uint64 ContractExpiration = 8;
  * @return {number}
  */
-proto.actions.ContractFormationAction.prototype.getContractexpiration = function() {
+proto.actions.ContractFormation.prototype.getContractexpiration = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 8, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractFormationAction.prototype.setContractexpiration = function(value) {
+proto.actions.ContractFormation.prototype.setContractexpiration = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -1490,13 +1490,13 @@ proto.actions.ContractFormationAction.prototype.setContractexpiration = function
  * optional string ContractURI = 9;
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getContracturi = function() {
+proto.actions.ContractFormation.prototype.getContracturi = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 9, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractFormationAction.prototype.setContracturi = function(value) {
+proto.actions.ContractFormation.prototype.setContracturi = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -1505,19 +1505,19 @@ proto.actions.ContractFormationAction.prototype.setContracturi = function(value)
  * optional EntityField Issuer = 10;
  * @return {proto.actions.EntityField}
  */
-proto.actions.ContractFormationAction.prototype.getIssuer = function() {
+proto.actions.ContractFormation.prototype.getIssuer = function() {
   return /** @type{proto.actions.EntityField} */ (
     jspb.Message.getWrapperField(this, proto.actions.EntityField, 10));
 };
 
 
 /** @param {proto.actions.EntityField|undefined} value  */
-proto.actions.ContractFormationAction.prototype.setIssuer = function(value) {
+proto.actions.ContractFormation.prototype.setIssuer = function(value) {
   jspb.Message.setWrapperField(this, 10, value);
 };
 
 
-proto.actions.ContractFormationAction.prototype.clearIssuer = function() {
+proto.actions.ContractFormation.prototype.clearIssuer = function() {
   this.setIssuer(undefined);
 };
 
@@ -1526,7 +1526,7 @@ proto.actions.ContractFormationAction.prototype.clearIssuer = function() {
  * Returns whether this field is set.
  * @return{!boolean}
  */
-proto.actions.ContractFormationAction.prototype.hasIssuer = function() {
+proto.actions.ContractFormation.prototype.hasIssuer = function() {
   return jspb.Message.getField(this, 10) != null;
 };
 
@@ -1535,13 +1535,13 @@ proto.actions.ContractFormationAction.prototype.hasIssuer = function() {
  * optional string IssuerLogoURL = 11;
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getIssuerlogourl = function() {
+proto.actions.ContractFormation.prototype.getIssuerlogourl = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 11, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ContractFormationAction.prototype.setIssuerlogourl = function(value) {
+proto.actions.ContractFormation.prototype.setIssuerlogourl = function(value) {
   jspb.Message.setField(this, 11, value);
 };
 
@@ -1552,13 +1552,13 @@ proto.actions.ContractFormationAction.prototype.setIssuerlogourl = function(valu
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ContractFormationAction.prototype.getContractoperatorincluded = function() {
+proto.actions.ContractFormation.prototype.getContractoperatorincluded = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 12, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ContractFormationAction.prototype.setContractoperatorincluded = function(value) {
+proto.actions.ContractFormation.prototype.setContractoperatorincluded = function(value) {
   jspb.Message.setField(this, 12, value);
 };
 
@@ -1567,19 +1567,19 @@ proto.actions.ContractFormationAction.prototype.setContractoperatorincluded = fu
  * optional EntityField ContractOperator = 13;
  * @return {proto.actions.EntityField}
  */
-proto.actions.ContractFormationAction.prototype.getContractoperator = function() {
+proto.actions.ContractFormation.prototype.getContractoperator = function() {
   return /** @type{proto.actions.EntityField} */ (
     jspb.Message.getWrapperField(this, proto.actions.EntityField, 13));
 };
 
 
 /** @param {proto.actions.EntityField|undefined} value  */
-proto.actions.ContractFormationAction.prototype.setContractoperator = function(value) {
+proto.actions.ContractFormation.prototype.setContractoperator = function(value) {
   jspb.Message.setWrapperField(this, 13, value);
 };
 
 
-proto.actions.ContractFormationAction.prototype.clearContractoperator = function() {
+proto.actions.ContractFormation.prototype.clearContractoperator = function() {
   this.setContractoperator(undefined);
 };
 
@@ -1588,7 +1588,7 @@ proto.actions.ContractFormationAction.prototype.clearContractoperator = function
  * Returns whether this field is set.
  * @return{!boolean}
  */
-proto.actions.ContractFormationAction.prototype.hasContractoperator = function() {
+proto.actions.ContractFormation.prototype.hasContractoperator = function() {
   return jspb.Message.getField(this, 13) != null;
 };
 
@@ -1597,13 +1597,13 @@ proto.actions.ContractFormationAction.prototype.hasContractoperator = function()
  * optional uint64 ContractFee = 14;
  * @return {number}
  */
-proto.actions.ContractFormationAction.prototype.getContractfee = function() {
+proto.actions.ContractFormation.prototype.getContractfee = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 14, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractFormationAction.prototype.setContractfee = function(value) {
+proto.actions.ContractFormation.prototype.setContractfee = function(value) {
   jspb.Message.setField(this, 14, value);
 };
 
@@ -1614,19 +1614,19 @@ proto.actions.ContractFormationAction.prototype.setContractfee = function(value)
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.VotingSystemField>}
  */
-proto.actions.ContractFormationAction.prototype.getVotingsystemsList = function() {
+proto.actions.ContractFormation.prototype.getVotingsystemsList = function() {
   return /** @type{!Array.<!proto.actions.VotingSystemField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.VotingSystemField, 15));
 };
 
 
 /** @param {Array.<!proto.actions.VotingSystemField>} value  */
-proto.actions.ContractFormationAction.prototype.setVotingsystemsList = function(value) {
+proto.actions.ContractFormation.prototype.setVotingsystemsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 15, value);
 };
 
 
-proto.actions.ContractFormationAction.prototype.clearVotingsystemsList = function() {
+proto.actions.ContractFormation.prototype.clearVotingsystemsList = function() {
   this.setVotingsystemsList([]);
 };
 
@@ -1635,7 +1635,7 @@ proto.actions.ContractFormationAction.prototype.clearVotingsystemsList = functio
  * optional bytes ContractAuthFlags = 16;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractFormationAction.prototype.getContractauthflags = function() {
+proto.actions.ContractFormation.prototype.getContractauthflags = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 16, ""));
 };
 
@@ -1645,7 +1645,7 @@ proto.actions.ContractFormationAction.prototype.getContractauthflags = function(
  * This is a type-conversion wrapper around `getContractauthflags()`
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getContractauthflags_asB64 = function() {
+proto.actions.ContractFormation.prototype.getContractauthflags_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getContractauthflags()));
 };
@@ -1658,14 +1658,14 @@ proto.actions.ContractFormationAction.prototype.getContractauthflags_asB64 = fun
  * This is a type-conversion wrapper around `getContractauthflags()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractFormationAction.prototype.getContractauthflags_asU8 = function() {
+proto.actions.ContractFormation.prototype.getContractauthflags_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getContractauthflags()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ContractFormationAction.prototype.setContractauthflags = function(value) {
+proto.actions.ContractFormation.prototype.setContractauthflags = function(value) {
   jspb.Message.setField(this, 16, value);
 };
 
@@ -1674,13 +1674,13 @@ proto.actions.ContractFormationAction.prototype.setContractauthflags = function(
  * optional uint64 RestrictedQtyAssets = 17;
  * @return {number}
  */
-proto.actions.ContractFormationAction.prototype.getRestrictedqtyassets = function() {
+proto.actions.ContractFormation.prototype.getRestrictedqtyassets = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 17, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractFormationAction.prototype.setRestrictedqtyassets = function(value) {
+proto.actions.ContractFormation.prototype.setRestrictedqtyassets = function(value) {
   jspb.Message.setField(this, 17, value);
 };
 
@@ -1691,13 +1691,13 @@ proto.actions.ContractFormationAction.prototype.setRestrictedqtyassets = functio
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ContractFormationAction.prototype.getAdministrationproposal = function() {
+proto.actions.ContractFormation.prototype.getAdministrationproposal = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 18, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ContractFormationAction.prototype.setAdministrationproposal = function(value) {
+proto.actions.ContractFormation.prototype.setAdministrationproposal = function(value) {
   jspb.Message.setField(this, 18, value);
 };
 
@@ -1708,13 +1708,13 @@ proto.actions.ContractFormationAction.prototype.setAdministrationproposal = func
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ContractFormationAction.prototype.getHolderproposal = function() {
+proto.actions.ContractFormation.prototype.getHolderproposal = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 19, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ContractFormationAction.prototype.setHolderproposal = function(value) {
+proto.actions.ContractFormation.prototype.setHolderproposal = function(value) {
   jspb.Message.setField(this, 19, value);
 };
 
@@ -1725,19 +1725,19 @@ proto.actions.ContractFormationAction.prototype.setHolderproposal = function(val
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.OracleField>}
  */
-proto.actions.ContractFormationAction.prototype.getOraclesList = function() {
+proto.actions.ContractFormation.prototype.getOraclesList = function() {
   return /** @type{!Array.<!proto.actions.OracleField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.OracleField, 20));
 };
 
 
 /** @param {Array.<!proto.actions.OracleField>} value  */
-proto.actions.ContractFormationAction.prototype.setOraclesList = function(value) {
+proto.actions.ContractFormation.prototype.setOraclesList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 20, value);
 };
 
 
-proto.actions.ContractFormationAction.prototype.clearOraclesList = function() {
+proto.actions.ContractFormation.prototype.clearOraclesList = function() {
   this.setOraclesList([]);
 };
 
@@ -1746,7 +1746,7 @@ proto.actions.ContractFormationAction.prototype.clearOraclesList = function() {
  * optional bytes MasterPKH = 21;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractFormationAction.prototype.getMasterpkh = function() {
+proto.actions.ContractFormation.prototype.getMasterpkh = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 21, ""));
 };
 
@@ -1756,7 +1756,7 @@ proto.actions.ContractFormationAction.prototype.getMasterpkh = function() {
  * This is a type-conversion wrapper around `getMasterpkh()`
  * @return {string}
  */
-proto.actions.ContractFormationAction.prototype.getMasterpkh_asB64 = function() {
+proto.actions.ContractFormation.prototype.getMasterpkh_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getMasterpkh()));
 };
@@ -1769,14 +1769,14 @@ proto.actions.ContractFormationAction.prototype.getMasterpkh_asB64 = function() 
  * This is a type-conversion wrapper around `getMasterpkh()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractFormationAction.prototype.getMasterpkh_asU8 = function() {
+proto.actions.ContractFormation.prototype.getMasterpkh_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getMasterpkh()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ContractFormationAction.prototype.setMasterpkh = function(value) {
+proto.actions.ContractFormation.prototype.setMasterpkh = function(value) {
   jspb.Message.setField(this, 21, value);
 };
 
@@ -1785,13 +1785,13 @@ proto.actions.ContractFormationAction.prototype.setMasterpkh = function(value) {
  * optional uint32 ContractRevision = 22;
  * @return {number}
  */
-proto.actions.ContractFormationAction.prototype.getContractrevision = function() {
+proto.actions.ContractFormation.prototype.getContractrevision = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 22, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractFormationAction.prototype.setContractrevision = function(value) {
+proto.actions.ContractFormation.prototype.setContractrevision = function(value) {
   jspb.Message.setField(this, 22, value);
 };
 
@@ -1800,13 +1800,13 @@ proto.actions.ContractFormationAction.prototype.setContractrevision = function(v
  * optional uint64 Timestamp = 23;
  * @return {number}
  */
-proto.actions.ContractFormationAction.prototype.getTimestamp = function() {
+proto.actions.ContractFormation.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 23, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractFormationAction.prototype.setTimestamp = function(value) {
+proto.actions.ContractFormation.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 23, value);
 };
 
@@ -1822,19 +1822,19 @@ proto.actions.ContractFormationAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ContractAmendmentAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ContractAmendmentAction.repeatedFields_, null);
+proto.actions.ContractAmendment = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ContractAmendment.repeatedFields_, null);
 };
-goog.inherits(proto.actions.ContractAmendmentAction, jspb.Message);
+goog.inherits(proto.actions.ContractAmendment, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ContractAmendmentAction.displayName = 'proto.actions.ContractAmendmentAction';
+  proto.actions.ContractAmendment.displayName = 'proto.actions.ContractAmendment';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ContractAmendmentAction.repeatedFields_ = [4];
+proto.actions.ContractAmendment.repeatedFields_ = [4];
 
 
 
@@ -1849,8 +1849,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ContractAmendmentAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ContractAmendmentAction.toObject(opt_includeInstance, this);
+proto.actions.ContractAmendment.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.ContractAmendment.toObject(opt_includeInstance, this);
 };
 
 
@@ -1859,10 +1859,10 @@ proto.actions.ContractAmendmentAction.prototype.toObject = function(opt_includeI
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ContractAmendmentAction} msg The msg instance to transform.
+ * @param {!proto.actions.ContractAmendment} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ContractAmendmentAction.toObject = function(includeInstance, msg) {
+proto.actions.ContractAmendment.toObject = function(includeInstance, msg) {
   var f, obj = {
     changeadministrationaddress: msg.getChangeadministrationaddress(),
     changeoperatoraddress: msg.getChangeoperatoraddress(),
@@ -1883,23 +1883,23 @@ proto.actions.ContractAmendmentAction.toObject = function(includeInstance, msg) 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ContractAmendmentAction}
+ * @return {!proto.actions.ContractAmendment}
  */
-proto.actions.ContractAmendmentAction.deserializeBinary = function(bytes) {
+proto.actions.ContractAmendment.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ContractAmendmentAction;
-  return proto.actions.ContractAmendmentAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.ContractAmendment;
+  return proto.actions.ContractAmendment.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ContractAmendmentAction} msg The message object to deserialize into.
+ * @param {!proto.actions.ContractAmendment} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ContractAmendmentAction}
+ * @return {!proto.actions.ContractAmendment}
  */
-proto.actions.ContractAmendmentAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.ContractAmendment.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1940,10 +1940,10 @@ proto.actions.ContractAmendmentAction.deserializeBinaryFromReader = function(msg
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ContractAmendmentAction} message
+ * @param {!proto.actions.ContractAmendment} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ContractAmendmentAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.ContractAmendment.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -1952,7 +1952,7 @@ proto.actions.ContractAmendmentAction.serializeBinaryToWriter = function(message
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ContractAmendmentAction.prototype.serializeBinary = function() {
+proto.actions.ContractAmendment.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -1964,7 +1964,7 @@ proto.actions.ContractAmendmentAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ContractAmendmentAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.ContractAmendment.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getChangeadministrationaddress();
   if (f) {
@@ -2007,10 +2007,10 @@ proto.actions.ContractAmendmentAction.prototype.serializeBinaryToWriter = functi
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ContractAmendmentAction} The clone.
+ * @return {!proto.actions.ContractAmendment} The clone.
  */
-proto.actions.ContractAmendmentAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ContractAmendmentAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.ContractAmendment.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.ContractAmendment} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -2020,13 +2020,13 @@ proto.actions.ContractAmendmentAction.prototype.cloneMessage = function() {
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ContractAmendmentAction.prototype.getChangeadministrationaddress = function() {
+proto.actions.ContractAmendment.prototype.getChangeadministrationaddress = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 1, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ContractAmendmentAction.prototype.setChangeadministrationaddress = function(value) {
+proto.actions.ContractAmendment.prototype.setChangeadministrationaddress = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -2037,13 +2037,13 @@ proto.actions.ContractAmendmentAction.prototype.setChangeadministrationaddress =
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ContractAmendmentAction.prototype.getChangeoperatoraddress = function() {
+proto.actions.ContractAmendment.prototype.getChangeoperatoraddress = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 2, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ContractAmendmentAction.prototype.setChangeoperatoraddress = function(value) {
+proto.actions.ContractAmendment.prototype.setChangeoperatoraddress = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -2052,13 +2052,13 @@ proto.actions.ContractAmendmentAction.prototype.setChangeoperatoraddress = funct
  * optional uint32 ContractRevision = 3;
  * @return {number}
  */
-proto.actions.ContractAmendmentAction.prototype.getContractrevision = function() {
+proto.actions.ContractAmendment.prototype.getContractrevision = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractAmendmentAction.prototype.setContractrevision = function(value) {
+proto.actions.ContractAmendment.prototype.setContractrevision = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -2069,19 +2069,19 @@ proto.actions.ContractAmendmentAction.prototype.setContractrevision = function(v
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AmendmentField>}
  */
-proto.actions.ContractAmendmentAction.prototype.getAmendmentsList = function() {
+proto.actions.ContractAmendment.prototype.getAmendmentsList = function() {
   return /** @type{!Array.<!proto.actions.AmendmentField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.AmendmentField, 4));
 };
 
 
 /** @param {Array.<!proto.actions.AmendmentField>} value  */
-proto.actions.ContractAmendmentAction.prototype.setAmendmentsList = function(value) {
+proto.actions.ContractAmendment.prototype.setAmendmentsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
 
 
-proto.actions.ContractAmendmentAction.prototype.clearAmendmentsList = function() {
+proto.actions.ContractAmendment.prototype.clearAmendmentsList = function() {
   this.setAmendmentsList([]);
 };
 
@@ -2090,7 +2090,7 @@ proto.actions.ContractAmendmentAction.prototype.clearAmendmentsList = function()
  * optional bytes RefTxID = 5;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractAmendmentAction.prototype.getReftxid = function() {
+proto.actions.ContractAmendment.prototype.getReftxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 5, ""));
 };
 
@@ -2100,7 +2100,7 @@ proto.actions.ContractAmendmentAction.prototype.getReftxid = function() {
  * This is a type-conversion wrapper around `getReftxid()`
  * @return {string}
  */
-proto.actions.ContractAmendmentAction.prototype.getReftxid_asB64 = function() {
+proto.actions.ContractAmendment.prototype.getReftxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getReftxid()));
 };
@@ -2113,14 +2113,14 @@ proto.actions.ContractAmendmentAction.prototype.getReftxid_asB64 = function() {
  * This is a type-conversion wrapper around `getReftxid()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractAmendmentAction.prototype.getReftxid_asU8 = function() {
+proto.actions.ContractAmendment.prototype.getReftxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getReftxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ContractAmendmentAction.prototype.setReftxid = function(value) {
+proto.actions.ContractAmendment.prototype.setReftxid = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -2136,19 +2136,19 @@ proto.actions.ContractAmendmentAction.prototype.setReftxid = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.StaticContractFormationAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.StaticContractFormationAction.repeatedFields_, null);
+proto.actions.StaticContractFormation = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.StaticContractFormation.repeatedFields_, null);
 };
-goog.inherits(proto.actions.StaticContractFormationAction, jspb.Message);
+goog.inherits(proto.actions.StaticContractFormation, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.StaticContractFormationAction.displayName = 'proto.actions.StaticContractFormationAction';
+  proto.actions.StaticContractFormation.displayName = 'proto.actions.StaticContractFormation';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.StaticContractFormationAction.repeatedFields_ = [6,14];
+proto.actions.StaticContractFormation.repeatedFields_ = [6,14];
 
 
 
@@ -2163,8 +2163,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.StaticContractFormationAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.StaticContractFormationAction.toObject(opt_includeInstance, this);
+proto.actions.StaticContractFormation.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.StaticContractFormation.toObject(opt_includeInstance, this);
 };
 
 
@@ -2173,10 +2173,10 @@ proto.actions.StaticContractFormationAction.prototype.toObject = function(opt_in
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.StaticContractFormationAction} msg The msg instance to transform.
+ * @param {!proto.actions.StaticContractFormation} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.StaticContractFormationAction.toObject = function(includeInstance, msg) {
+proto.actions.StaticContractFormation.toObject = function(includeInstance, msg) {
   var f, obj = {
     contractname: msg.getContractname(),
     contractcode: msg.getContractcode_asB64(),
@@ -2207,23 +2207,23 @@ proto.actions.StaticContractFormationAction.toObject = function(includeInstance,
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.StaticContractFormationAction}
+ * @return {!proto.actions.StaticContractFormation}
  */
-proto.actions.StaticContractFormationAction.deserializeBinary = function(bytes) {
+proto.actions.StaticContractFormation.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.StaticContractFormationAction;
-  return proto.actions.StaticContractFormationAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.StaticContractFormation;
+  return proto.actions.StaticContractFormation.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.StaticContractFormationAction} msg The message object to deserialize into.
+ * @param {!proto.actions.StaticContractFormation} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.StaticContractFormationAction}
+ * @return {!proto.actions.StaticContractFormation}
  */
-proto.actions.StaticContractFormationAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.StaticContractFormation.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2302,10 +2302,10 @@ proto.actions.StaticContractFormationAction.deserializeBinaryFromReader = functi
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.StaticContractFormationAction} message
+ * @param {!proto.actions.StaticContractFormation} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.StaticContractFormationAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.StaticContractFormation.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -2314,7 +2314,7 @@ proto.actions.StaticContractFormationAction.serializeBinaryToWriter = function(m
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.StaticContractFormationAction.prototype.serializeBinary = function() {
+proto.actions.StaticContractFormation.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -2326,7 +2326,7 @@ proto.actions.StaticContractFormationAction.prototype.serializeBinary = function
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.StaticContractFormationAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.StaticContractFormation.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getContractname();
   if (f.length > 0) {
@@ -2433,10 +2433,10 @@ proto.actions.StaticContractFormationAction.prototype.serializeBinaryToWriter = 
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.StaticContractFormationAction} The clone.
+ * @return {!proto.actions.StaticContractFormation} The clone.
  */
-proto.actions.StaticContractFormationAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.StaticContractFormationAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.StaticContractFormation.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.StaticContractFormation} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -2444,13 +2444,13 @@ proto.actions.StaticContractFormationAction.prototype.cloneMessage = function() 
  * optional string ContractName = 1;
  * @return {string}
  */
-proto.actions.StaticContractFormationAction.prototype.getContractname = function() {
+proto.actions.StaticContractFormation.prototype.getContractname = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.StaticContractFormationAction.prototype.setContractname = function(value) {
+proto.actions.StaticContractFormation.prototype.setContractname = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -2459,7 +2459,7 @@ proto.actions.StaticContractFormationAction.prototype.setContractname = function
  * optional bytes ContractCode = 2;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.StaticContractFormationAction.prototype.getContractcode = function() {
+proto.actions.StaticContractFormation.prototype.getContractcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
@@ -2469,7 +2469,7 @@ proto.actions.StaticContractFormationAction.prototype.getContractcode = function
  * This is a type-conversion wrapper around `getContractcode()`
  * @return {string}
  */
-proto.actions.StaticContractFormationAction.prototype.getContractcode_asB64 = function() {
+proto.actions.StaticContractFormation.prototype.getContractcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getContractcode()));
 };
@@ -2482,14 +2482,14 @@ proto.actions.StaticContractFormationAction.prototype.getContractcode_asB64 = fu
  * This is a type-conversion wrapper around `getContractcode()`
  * @return {!Uint8Array}
  */
-proto.actions.StaticContractFormationAction.prototype.getContractcode_asU8 = function() {
+proto.actions.StaticContractFormation.prototype.getContractcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getContractcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.StaticContractFormationAction.prototype.setContractcode = function(value) {
+proto.actions.StaticContractFormation.prototype.setContractcode = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -2498,13 +2498,13 @@ proto.actions.StaticContractFormationAction.prototype.setContractcode = function
  * optional uint32 BodyOfAgreementType = 3;
  * @return {number}
  */
-proto.actions.StaticContractFormationAction.prototype.getBodyofagreementtype = function() {
+proto.actions.StaticContractFormation.prototype.getBodyofagreementtype = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.StaticContractFormationAction.prototype.setBodyofagreementtype = function(value) {
+proto.actions.StaticContractFormation.prototype.setBodyofagreementtype = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -2513,7 +2513,7 @@ proto.actions.StaticContractFormationAction.prototype.setBodyofagreementtype = f
  * optional bytes BodyOfAgreement = 4;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.StaticContractFormationAction.prototype.getBodyofagreement = function() {
+proto.actions.StaticContractFormation.prototype.getBodyofagreement = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 4, ""));
 };
 
@@ -2523,7 +2523,7 @@ proto.actions.StaticContractFormationAction.prototype.getBodyofagreement = funct
  * This is a type-conversion wrapper around `getBodyofagreement()`
  * @return {string}
  */
-proto.actions.StaticContractFormationAction.prototype.getBodyofagreement_asB64 = function() {
+proto.actions.StaticContractFormation.prototype.getBodyofagreement_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getBodyofagreement()));
 };
@@ -2536,14 +2536,14 @@ proto.actions.StaticContractFormationAction.prototype.getBodyofagreement_asB64 =
  * This is a type-conversion wrapper around `getBodyofagreement()`
  * @return {!Uint8Array}
  */
-proto.actions.StaticContractFormationAction.prototype.getBodyofagreement_asU8 = function() {
+proto.actions.StaticContractFormation.prototype.getBodyofagreement_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getBodyofagreement()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.StaticContractFormationAction.prototype.setBodyofagreement = function(value) {
+proto.actions.StaticContractFormation.prototype.setBodyofagreement = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -2552,13 +2552,13 @@ proto.actions.StaticContractFormationAction.prototype.setBodyofagreement = funct
  * optional string ContractType = 5;
  * @return {string}
  */
-proto.actions.StaticContractFormationAction.prototype.getContracttype = function() {
+proto.actions.StaticContractFormation.prototype.getContracttype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 5, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.StaticContractFormationAction.prototype.setContracttype = function(value) {
+proto.actions.StaticContractFormation.prototype.setContracttype = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -2569,19 +2569,19 @@ proto.actions.StaticContractFormationAction.prototype.setContracttype = function
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.DocumentField>}
  */
-proto.actions.StaticContractFormationAction.prototype.getSupportingdocsList = function() {
+proto.actions.StaticContractFormation.prototype.getSupportingdocsList = function() {
   return /** @type{!Array.<!proto.actions.DocumentField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.DocumentField, 6));
 };
 
 
 /** @param {Array.<!proto.actions.DocumentField>} value  */
-proto.actions.StaticContractFormationAction.prototype.setSupportingdocsList = function(value) {
+proto.actions.StaticContractFormation.prototype.setSupportingdocsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 6, value);
 };
 
 
-proto.actions.StaticContractFormationAction.prototype.clearSupportingdocsList = function() {
+proto.actions.StaticContractFormation.prototype.clearSupportingdocsList = function() {
   this.setSupportingdocsList([]);
 };
 
@@ -2590,13 +2590,13 @@ proto.actions.StaticContractFormationAction.prototype.clearSupportingdocsList = 
  * optional uint32 ContractRevision = 7;
  * @return {number}
  */
-proto.actions.StaticContractFormationAction.prototype.getContractrevision = function() {
+proto.actions.StaticContractFormation.prototype.getContractrevision = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 7, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.StaticContractFormationAction.prototype.setContractrevision = function(value) {
+proto.actions.StaticContractFormation.prototype.setContractrevision = function(value) {
   jspb.Message.setField(this, 7, value);
 };
 
@@ -2605,13 +2605,13 @@ proto.actions.StaticContractFormationAction.prototype.setContractrevision = func
  * optional string GoverningLaw = 8;
  * @return {string}
  */
-proto.actions.StaticContractFormationAction.prototype.getGoverninglaw = function() {
+proto.actions.StaticContractFormation.prototype.getGoverninglaw = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 8, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.StaticContractFormationAction.prototype.setGoverninglaw = function(value) {
+proto.actions.StaticContractFormation.prototype.setGoverninglaw = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -2620,13 +2620,13 @@ proto.actions.StaticContractFormationAction.prototype.setGoverninglaw = function
  * optional string Jurisdiction = 9;
  * @return {string}
  */
-proto.actions.StaticContractFormationAction.prototype.getJurisdiction = function() {
+proto.actions.StaticContractFormation.prototype.getJurisdiction = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 9, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.StaticContractFormationAction.prototype.setJurisdiction = function(value) {
+proto.actions.StaticContractFormation.prototype.setJurisdiction = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -2635,13 +2635,13 @@ proto.actions.StaticContractFormationAction.prototype.setJurisdiction = function
  * optional uint64 EffectiveDate = 10;
  * @return {number}
  */
-proto.actions.StaticContractFormationAction.prototype.getEffectivedate = function() {
+proto.actions.StaticContractFormation.prototype.getEffectivedate = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 10, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.StaticContractFormationAction.prototype.setEffectivedate = function(value) {
+proto.actions.StaticContractFormation.prototype.setEffectivedate = function(value) {
   jspb.Message.setField(this, 10, value);
 };
 
@@ -2650,13 +2650,13 @@ proto.actions.StaticContractFormationAction.prototype.setEffectivedate = functio
  * optional uint64 ContractExpiration = 11;
  * @return {number}
  */
-proto.actions.StaticContractFormationAction.prototype.getContractexpiration = function() {
+proto.actions.StaticContractFormation.prototype.getContractexpiration = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 11, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.StaticContractFormationAction.prototype.setContractexpiration = function(value) {
+proto.actions.StaticContractFormation.prototype.setContractexpiration = function(value) {
   jspb.Message.setField(this, 11, value);
 };
 
@@ -2665,13 +2665,13 @@ proto.actions.StaticContractFormationAction.prototype.setContractexpiration = fu
  * optional string ContractURI = 12;
  * @return {string}
  */
-proto.actions.StaticContractFormationAction.prototype.getContracturi = function() {
+proto.actions.StaticContractFormation.prototype.getContracturi = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 12, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.StaticContractFormationAction.prototype.setContracturi = function(value) {
+proto.actions.StaticContractFormation.prototype.setContracturi = function(value) {
   jspb.Message.setField(this, 12, value);
 };
 
@@ -2680,7 +2680,7 @@ proto.actions.StaticContractFormationAction.prototype.setContracturi = function(
  * optional bytes PrevRevTxID = 13;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.StaticContractFormationAction.prototype.getPrevrevtxid = function() {
+proto.actions.StaticContractFormation.prototype.getPrevrevtxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 13, ""));
 };
 
@@ -2690,7 +2690,7 @@ proto.actions.StaticContractFormationAction.prototype.getPrevrevtxid = function(
  * This is a type-conversion wrapper around `getPrevrevtxid()`
  * @return {string}
  */
-proto.actions.StaticContractFormationAction.prototype.getPrevrevtxid_asB64 = function() {
+proto.actions.StaticContractFormation.prototype.getPrevrevtxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getPrevrevtxid()));
 };
@@ -2703,14 +2703,14 @@ proto.actions.StaticContractFormationAction.prototype.getPrevrevtxid_asB64 = fun
  * This is a type-conversion wrapper around `getPrevrevtxid()`
  * @return {!Uint8Array}
  */
-proto.actions.StaticContractFormationAction.prototype.getPrevrevtxid_asU8 = function() {
+proto.actions.StaticContractFormation.prototype.getPrevrevtxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getPrevrevtxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.StaticContractFormationAction.prototype.setPrevrevtxid = function(value) {
+proto.actions.StaticContractFormation.prototype.setPrevrevtxid = function(value) {
   jspb.Message.setField(this, 13, value);
 };
 
@@ -2721,19 +2721,19 @@ proto.actions.StaticContractFormationAction.prototype.setPrevrevtxid = function(
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.EntityField>}
  */
-proto.actions.StaticContractFormationAction.prototype.getEntitiesList = function() {
+proto.actions.StaticContractFormation.prototype.getEntitiesList = function() {
   return /** @type{!Array.<!proto.actions.EntityField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.EntityField, 14));
 };
 
 
 /** @param {Array.<!proto.actions.EntityField>} value  */
-proto.actions.StaticContractFormationAction.prototype.setEntitiesList = function(value) {
+proto.actions.StaticContractFormation.prototype.setEntitiesList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 14, value);
 };
 
 
-proto.actions.StaticContractFormationAction.prototype.clearEntitiesList = function() {
+proto.actions.StaticContractFormation.prototype.clearEntitiesList = function() {
   this.setEntitiesList([]);
 };
 
@@ -2749,12 +2749,12 @@ proto.actions.StaticContractFormationAction.prototype.clearEntitiesList = functi
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ContractAddressChangeAction = function(opt_data) {
+proto.actions.ContractAddressChange = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.ContractAddressChangeAction, jspb.Message);
+goog.inherits(proto.actions.ContractAddressChange, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ContractAddressChangeAction.displayName = 'proto.actions.ContractAddressChangeAction';
+  proto.actions.ContractAddressChange.displayName = 'proto.actions.ContractAddressChange';
 }
 
 
@@ -2769,8 +2769,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ContractAddressChangeAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ContractAddressChangeAction.toObject(opt_includeInstance, this);
+proto.actions.ContractAddressChange.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.ContractAddressChange.toObject(opt_includeInstance, this);
 };
 
 
@@ -2779,12 +2779,12 @@ proto.actions.ContractAddressChangeAction.prototype.toObject = function(opt_incl
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ContractAddressChangeAction} msg The msg instance to transform.
+ * @param {!proto.actions.ContractAddressChange} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ContractAddressChangeAction.toObject = function(includeInstance, msg) {
+proto.actions.ContractAddressChange.toObject = function(includeInstance, msg) {
   var f, obj = {
-    newcontractpkh: msg.getNewcontractpkh_asB64(),
+    newcontractaddress: msg.getNewcontractaddress_asB64(),
     timestamp: msg.getTimestamp()
   };
 
@@ -2799,23 +2799,23 @@ proto.actions.ContractAddressChangeAction.toObject = function(includeInstance, m
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ContractAddressChangeAction}
+ * @return {!proto.actions.ContractAddressChange}
  */
-proto.actions.ContractAddressChangeAction.deserializeBinary = function(bytes) {
+proto.actions.ContractAddressChange.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ContractAddressChangeAction;
-  return proto.actions.ContractAddressChangeAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.ContractAddressChange;
+  return proto.actions.ContractAddressChange.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ContractAddressChangeAction} msg The message object to deserialize into.
+ * @param {!proto.actions.ContractAddressChange} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ContractAddressChangeAction}
+ * @return {!proto.actions.ContractAddressChange}
  */
-proto.actions.ContractAddressChangeAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.ContractAddressChange.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2824,7 +2824,7 @@ proto.actions.ContractAddressChangeAction.deserializeBinaryFromReader = function
     switch (field) {
     case 1:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setNewcontractpkh(value);
+      msg.setNewcontractaddress(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readUint64());
@@ -2842,10 +2842,10 @@ proto.actions.ContractAddressChangeAction.deserializeBinaryFromReader = function
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ContractAddressChangeAction} message
+ * @param {!proto.actions.ContractAddressChange} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ContractAddressChangeAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.ContractAddressChange.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -2854,7 +2854,7 @@ proto.actions.ContractAddressChangeAction.serializeBinaryToWriter = function(mes
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ContractAddressChangeAction.prototype.serializeBinary = function() {
+proto.actions.ContractAddressChange.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -2866,9 +2866,9 @@ proto.actions.ContractAddressChangeAction.prototype.serializeBinary = function()
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ContractAddressChangeAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.ContractAddressChange.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getNewcontractpkh_asU8();
+  f = this.getNewcontractaddress_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       1,
@@ -2887,48 +2887,48 @@ proto.actions.ContractAddressChangeAction.prototype.serializeBinaryToWriter = fu
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ContractAddressChangeAction} The clone.
+ * @return {!proto.actions.ContractAddressChange} The clone.
  */
-proto.actions.ContractAddressChangeAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ContractAddressChangeAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.ContractAddressChange.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.ContractAddressChange} */ (jspb.Message.cloneMessage(this));
 };
 
 
 /**
- * optional bytes NewContractPKH = 1;
+ * optional bytes NewContractAddress = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractAddressChangeAction.prototype.getNewcontractpkh = function() {
+proto.actions.ContractAddressChange.prototype.getNewcontractaddress = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /**
- * optional bytes NewContractPKH = 1;
- * This is a type-conversion wrapper around `getNewcontractpkh()`
+ * optional bytes NewContractAddress = 1;
+ * This is a type-conversion wrapper around `getNewcontractaddress()`
  * @return {string}
  */
-proto.actions.ContractAddressChangeAction.prototype.getNewcontractpkh_asB64 = function() {
+proto.actions.ContractAddressChange.prototype.getNewcontractaddress_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getNewcontractpkh()));
+      this.getNewcontractaddress()));
 };
 
 
 /**
- * optional bytes NewContractPKH = 1;
+ * optional bytes NewContractAddress = 1;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getNewcontractpkh()`
+ * This is a type-conversion wrapper around `getNewcontractaddress()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractAddressChangeAction.prototype.getNewcontractpkh_asU8 = function() {
+proto.actions.ContractAddressChange.prototype.getNewcontractaddress_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getNewcontractpkh()));
+      this.getNewcontractaddress()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ContractAddressChangeAction.prototype.setNewcontractpkh = function(value) {
+proto.actions.ContractAddressChange.prototype.setNewcontractaddress = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -2937,13 +2937,13 @@ proto.actions.ContractAddressChangeAction.prototype.setNewcontractpkh = function
  * optional uint64 Timestamp = 2;
  * @return {number}
  */
-proto.actions.ContractAddressChangeAction.prototype.getTimestamp = function() {
+proto.actions.ContractAddressChange.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ContractAddressChangeAction.prototype.setTimestamp = function(value) {
+proto.actions.ContractAddressChange.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -2959,19 +2959,19 @@ proto.actions.ContractAddressChangeAction.prototype.setTimestamp = function(valu
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.AssetDefinitionAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.AssetDefinitionAction.repeatedFields_, null);
+proto.actions.AssetDefinition = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.AssetDefinition.repeatedFields_, null);
 };
-goog.inherits(proto.actions.AssetDefinitionAction, jspb.Message);
+goog.inherits(proto.actions.AssetDefinition, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.AssetDefinitionAction.displayName = 'proto.actions.AssetDefinitionAction';
+  proto.actions.AssetDefinition.displayName = 'proto.actions.AssetDefinition';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.AssetDefinitionAction.repeatedFields_ = [3];
+proto.actions.AssetDefinition.repeatedFields_ = [3];
 
 
 
@@ -2986,8 +2986,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.AssetDefinitionAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.AssetDefinitionAction.toObject(opt_includeInstance, this);
+proto.actions.AssetDefinition.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.AssetDefinition.toObject(opt_includeInstance, this);
 };
 
 
@@ -2996,10 +2996,10 @@ proto.actions.AssetDefinitionAction.prototype.toObject = function(opt_includeIns
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.AssetDefinitionAction} msg The msg instance to transform.
+ * @param {!proto.actions.AssetDefinition} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.AssetDefinitionAction.toObject = function(includeInstance, msg) {
+proto.actions.AssetDefinition.toObject = function(includeInstance, msg) {
   var f, obj = {
     assetauthflags: msg.getAssetauthflags_asB64(),
     transferspermitted: msg.getTransferspermitted(),
@@ -3011,6 +3011,7 @@ proto.actions.AssetDefinitionAction.toObject = function(includeInstance, msg) {
     holderproposal: msg.getHolderproposal(),
     assetmodificationgovernance: msg.getAssetmodificationgovernance(),
     tokenqty: msg.getTokenqty(),
+    assettype: msg.getAssettype(),
     assetpayload: msg.getAssetpayload_asB64()
   };
 
@@ -3025,23 +3026,23 @@ proto.actions.AssetDefinitionAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.AssetDefinitionAction}
+ * @return {!proto.actions.AssetDefinition}
  */
-proto.actions.AssetDefinitionAction.deserializeBinary = function(bytes) {
+proto.actions.AssetDefinition.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.AssetDefinitionAction;
-  return proto.actions.AssetDefinitionAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.AssetDefinition;
+  return proto.actions.AssetDefinition.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.AssetDefinitionAction} msg The message object to deserialize into.
+ * @param {!proto.actions.AssetDefinition} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.AssetDefinitionAction}
+ * @return {!proto.actions.AssetDefinition}
  */
-proto.actions.AssetDefinitionAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.AssetDefinition.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3090,6 +3091,10 @@ proto.actions.AssetDefinitionAction.deserializeBinaryFromReader = function(msg, 
       msg.setTokenqty(value);
       break;
     case 11:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAssettype(value);
+      break;
+    case 12:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAssetpayload(value);
       break;
@@ -3105,10 +3110,10 @@ proto.actions.AssetDefinitionAction.deserializeBinaryFromReader = function(msg, 
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.AssetDefinitionAction} message
+ * @param {!proto.actions.AssetDefinition} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AssetDefinitionAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.AssetDefinition.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -3117,7 +3122,7 @@ proto.actions.AssetDefinitionAction.serializeBinaryToWriter = function(message, 
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.AssetDefinitionAction.prototype.serializeBinary = function() {
+proto.actions.AssetDefinition.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -3129,7 +3134,7 @@ proto.actions.AssetDefinitionAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AssetDefinitionAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.AssetDefinition.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssetauthflags_asU8();
   if (f.length > 0) {
@@ -3201,10 +3206,17 @@ proto.actions.AssetDefinitionAction.prototype.serializeBinaryToWriter = function
       f
     );
   }
+  f = this.getAssettype();
+  if (f.length > 0) {
+    writer.writeString(
+      11,
+      f
+    );
+  }
   f = this.getAssetpayload_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      11,
+      12,
       f
     );
   }
@@ -3213,10 +3225,10 @@ proto.actions.AssetDefinitionAction.prototype.serializeBinaryToWriter = function
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.AssetDefinitionAction} The clone.
+ * @return {!proto.actions.AssetDefinition} The clone.
  */
-proto.actions.AssetDefinitionAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.AssetDefinitionAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.AssetDefinition.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.AssetDefinition} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -3224,7 +3236,7 @@ proto.actions.AssetDefinitionAction.prototype.cloneMessage = function() {
  * optional bytes AssetAuthFlags = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AssetDefinitionAction.prototype.getAssetauthflags = function() {
+proto.actions.AssetDefinition.prototype.getAssetauthflags = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
@@ -3234,7 +3246,7 @@ proto.actions.AssetDefinitionAction.prototype.getAssetauthflags = function() {
  * This is a type-conversion wrapper around `getAssetauthflags()`
  * @return {string}
  */
-proto.actions.AssetDefinitionAction.prototype.getAssetauthflags_asB64 = function() {
+proto.actions.AssetDefinition.prototype.getAssetauthflags_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetauthflags()));
 };
@@ -3247,14 +3259,14 @@ proto.actions.AssetDefinitionAction.prototype.getAssetauthflags_asB64 = function
  * This is a type-conversion wrapper around `getAssetauthflags()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetDefinitionAction.prototype.getAssetauthflags_asU8 = function() {
+proto.actions.AssetDefinition.prototype.getAssetauthflags_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetauthflags()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.AssetDefinitionAction.prototype.setAssetauthflags = function(value) {
+proto.actions.AssetDefinition.prototype.setAssetauthflags = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -3265,13 +3277,13 @@ proto.actions.AssetDefinitionAction.prototype.setAssetauthflags = function(value
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetDefinitionAction.prototype.getTransferspermitted = function() {
+proto.actions.AssetDefinition.prototype.getTransferspermitted = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 2, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetDefinitionAction.prototype.setTransferspermitted = function(value) {
+proto.actions.AssetDefinition.prototype.setTransferspermitted = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -3282,18 +3294,18 @@ proto.actions.AssetDefinitionAction.prototype.setTransferspermitted = function(v
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<string>}
  */
-proto.actions.AssetDefinitionAction.prototype.getTraderestrictionsList = function() {
+proto.actions.AssetDefinition.prototype.getTraderestrictionsList = function() {
   return /** @type {!Array.<string>} */ (jspb.Message.getField(this, 3));
 };
 
 
 /** @param {Array.<string>} value  */
-proto.actions.AssetDefinitionAction.prototype.setTraderestrictionsList = function(value) {
+proto.actions.AssetDefinition.prototype.setTraderestrictionsList = function(value) {
   jspb.Message.setField(this, 3, value || []);
 };
 
 
-proto.actions.AssetDefinitionAction.prototype.clearTraderestrictionsList = function() {
+proto.actions.AssetDefinition.prototype.clearTraderestrictionsList = function() {
   jspb.Message.setField(this, 3, []);
 };
 
@@ -3304,13 +3316,13 @@ proto.actions.AssetDefinitionAction.prototype.clearTraderestrictionsList = funct
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetDefinitionAction.prototype.getEnforcementorderspermitted = function() {
+proto.actions.AssetDefinition.prototype.getEnforcementorderspermitted = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 4, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetDefinitionAction.prototype.setEnforcementorderspermitted = function(value) {
+proto.actions.AssetDefinition.prototype.setEnforcementorderspermitted = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -3321,13 +3333,13 @@ proto.actions.AssetDefinitionAction.prototype.setEnforcementorderspermitted = fu
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetDefinitionAction.prototype.getVotingrights = function() {
+proto.actions.AssetDefinition.prototype.getVotingrights = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 5, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetDefinitionAction.prototype.setVotingrights = function(value) {
+proto.actions.AssetDefinition.prototype.setVotingrights = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -3336,13 +3348,13 @@ proto.actions.AssetDefinitionAction.prototype.setVotingrights = function(value) 
  * optional uint32 VoteMultiplier = 6;
  * @return {number}
  */
-proto.actions.AssetDefinitionAction.prototype.getVotemultiplier = function() {
+proto.actions.AssetDefinition.prototype.getVotemultiplier = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 6, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetDefinitionAction.prototype.setVotemultiplier = function(value) {
+proto.actions.AssetDefinition.prototype.setVotemultiplier = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -3353,13 +3365,13 @@ proto.actions.AssetDefinitionAction.prototype.setVotemultiplier = function(value
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetDefinitionAction.prototype.getAdministrationproposal = function() {
+proto.actions.AssetDefinition.prototype.getAdministrationproposal = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 7, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetDefinitionAction.prototype.setAdministrationproposal = function(value) {
+proto.actions.AssetDefinition.prototype.setAdministrationproposal = function(value) {
   jspb.Message.setField(this, 7, value);
 };
 
@@ -3370,13 +3382,13 @@ proto.actions.AssetDefinitionAction.prototype.setAdministrationproposal = functi
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetDefinitionAction.prototype.getHolderproposal = function() {
+proto.actions.AssetDefinition.prototype.getHolderproposal = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 8, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetDefinitionAction.prototype.setHolderproposal = function(value) {
+proto.actions.AssetDefinition.prototype.setHolderproposal = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -3385,13 +3397,13 @@ proto.actions.AssetDefinitionAction.prototype.setHolderproposal = function(value
  * optional uint32 AssetModificationGovernance = 9;
  * @return {number}
  */
-proto.actions.AssetDefinitionAction.prototype.getAssetmodificationgovernance = function() {
+proto.actions.AssetDefinition.prototype.getAssetmodificationgovernance = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 9, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetDefinitionAction.prototype.setAssetmodificationgovernance = function(value) {
+proto.actions.AssetDefinition.prototype.setAssetmodificationgovernance = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -3400,53 +3412,68 @@ proto.actions.AssetDefinitionAction.prototype.setAssetmodificationgovernance = f
  * optional uint64 TokenQty = 10;
  * @return {number}
  */
-proto.actions.AssetDefinitionAction.prototype.getTokenqty = function() {
+proto.actions.AssetDefinition.prototype.getTokenqty = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 10, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetDefinitionAction.prototype.setTokenqty = function(value) {
+proto.actions.AssetDefinition.prototype.setTokenqty = function(value) {
   jspb.Message.setField(this, 10, value);
 };
 
 
 /**
- * optional bytes AssetPayload = 11;
- * @return {!(string|Uint8Array)}
+ * optional string AssetType = 11;
+ * @return {string}
  */
-proto.actions.AssetDefinitionAction.prototype.getAssetpayload = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 11, ""));
+proto.actions.AssetDefinition.prototype.getAssettype = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 11, ""));
+};
+
+
+/** @param {string} value  */
+proto.actions.AssetDefinition.prototype.setAssettype = function(value) {
+  jspb.Message.setField(this, 11, value);
 };
 
 
 /**
- * optional bytes AssetPayload = 11;
+ * optional bytes AssetPayload = 12;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.AssetDefinition.prototype.getAssetpayload = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 12, ""));
+};
+
+
+/**
+ * optional bytes AssetPayload = 12;
  * This is a type-conversion wrapper around `getAssetpayload()`
  * @return {string}
  */
-proto.actions.AssetDefinitionAction.prototype.getAssetpayload_asB64 = function() {
+proto.actions.AssetDefinition.prototype.getAssetpayload_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetpayload()));
 };
 
 
 /**
- * optional bytes AssetPayload = 11;
+ * optional bytes AssetPayload = 12;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getAssetpayload()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetDefinitionAction.prototype.getAssetpayload_asU8 = function() {
+proto.actions.AssetDefinition.prototype.getAssetpayload_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetpayload()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.AssetDefinitionAction.prototype.setAssetpayload = function(value) {
-  jspb.Message.setField(this, 11, value);
+proto.actions.AssetDefinition.prototype.setAssetpayload = function(value) {
+  jspb.Message.setField(this, 12, value);
 };
 
 
@@ -3461,19 +3488,19 @@ proto.actions.AssetDefinitionAction.prototype.setAssetpayload = function(value) 
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.AssetCreationAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.AssetCreationAction.repeatedFields_, null);
+proto.actions.AssetCreation = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.AssetCreation.repeatedFields_, null);
 };
-goog.inherits(proto.actions.AssetCreationAction, jspb.Message);
+goog.inherits(proto.actions.AssetCreation, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.AssetCreationAction.displayName = 'proto.actions.AssetCreationAction';
+  proto.actions.AssetCreation.displayName = 'proto.actions.AssetCreation';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.AssetCreationAction.repeatedFields_ = [5];
+proto.actions.AssetCreation.repeatedFields_ = [5];
 
 
 
@@ -3488,8 +3515,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.AssetCreationAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.AssetCreationAction.toObject(opt_includeInstance, this);
+proto.actions.AssetCreation.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.AssetCreation.toObject(opt_includeInstance, this);
 };
 
 
@@ -3498,10 +3525,10 @@ proto.actions.AssetCreationAction.prototype.toObject = function(opt_includeInsta
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.AssetCreationAction} msg The msg instance to transform.
+ * @param {!proto.actions.AssetCreation} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.AssetCreationAction.toObject = function(includeInstance, msg) {
+proto.actions.AssetCreation.toObject = function(includeInstance, msg) {
   var f, obj = {
     assetcode: msg.getAssetcode_asB64(),
     assetindex: msg.getAssetindex(),
@@ -3515,6 +3542,7 @@ proto.actions.AssetCreationAction.toObject = function(includeInstance, msg) {
     holderproposal: msg.getHolderproposal(),
     assetmodificationgovernance: msg.getAssetmodificationgovernance(),
     tokenqty: msg.getTokenqty(),
+    assettype: msg.getAssettype(),
     assetpayload: msg.getAssetpayload_asB64(),
     assetrevision: msg.getAssetrevision(),
     timestamp: msg.getTimestamp()
@@ -3531,23 +3559,23 @@ proto.actions.AssetCreationAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.AssetCreationAction}
+ * @return {!proto.actions.AssetCreation}
  */
-proto.actions.AssetCreationAction.deserializeBinary = function(bytes) {
+proto.actions.AssetCreation.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.AssetCreationAction;
-  return proto.actions.AssetCreationAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.AssetCreation;
+  return proto.actions.AssetCreation.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.AssetCreationAction} msg The message object to deserialize into.
+ * @param {!proto.actions.AssetCreation} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.AssetCreationAction}
+ * @return {!proto.actions.AssetCreation}
  */
-proto.actions.AssetCreationAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.AssetCreation.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -3604,14 +3632,18 @@ proto.actions.AssetCreationAction.deserializeBinaryFromReader = function(msg, re
       msg.setTokenqty(value);
       break;
     case 13:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAssettype(value);
+      break;
+    case 14:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAssetpayload(value);
       break;
-    case 14:
+    case 15:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setAssetrevision(value);
       break;
-    case 15:
+    case 16:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setTimestamp(value);
       break;
@@ -3627,10 +3659,10 @@ proto.actions.AssetCreationAction.deserializeBinaryFromReader = function(msg, re
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.AssetCreationAction} message
+ * @param {!proto.actions.AssetCreation} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AssetCreationAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.AssetCreation.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -3639,7 +3671,7 @@ proto.actions.AssetCreationAction.serializeBinaryToWriter = function(message, wr
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.AssetCreationAction.prototype.serializeBinary = function() {
+proto.actions.AssetCreation.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -3651,7 +3683,7 @@ proto.actions.AssetCreationAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AssetCreationAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.AssetCreation.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssetcode_asU8();
   if (f.length > 0) {
@@ -3737,24 +3769,31 @@ proto.actions.AssetCreationAction.prototype.serializeBinaryToWriter = function (
       f
     );
   }
+  f = this.getAssettype();
+  if (f.length > 0) {
+    writer.writeString(
+      13,
+      f
+    );
+  }
   f = this.getAssetpayload_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      13,
+      14,
       f
     );
   }
   f = this.getAssetrevision();
   if (f !== 0) {
     writer.writeUint32(
-      14,
+      15,
       f
     );
   }
   f = this.getTimestamp();
   if (f !== 0) {
     writer.writeUint64(
-      15,
+      16,
       f
     );
   }
@@ -3763,10 +3802,10 @@ proto.actions.AssetCreationAction.prototype.serializeBinaryToWriter = function (
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.AssetCreationAction} The clone.
+ * @return {!proto.actions.AssetCreation} The clone.
  */
-proto.actions.AssetCreationAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.AssetCreationAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.AssetCreation.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.AssetCreation} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -3774,7 +3813,7 @@ proto.actions.AssetCreationAction.prototype.cloneMessage = function() {
  * optional bytes AssetCode = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AssetCreationAction.prototype.getAssetcode = function() {
+proto.actions.AssetCreation.prototype.getAssetcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
@@ -3784,7 +3823,7 @@ proto.actions.AssetCreationAction.prototype.getAssetcode = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
-proto.actions.AssetCreationAction.prototype.getAssetcode_asB64 = function() {
+proto.actions.AssetCreation.prototype.getAssetcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetcode()));
 };
@@ -3797,14 +3836,14 @@ proto.actions.AssetCreationAction.prototype.getAssetcode_asB64 = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetCreationAction.prototype.getAssetcode_asU8 = function() {
+proto.actions.AssetCreation.prototype.getAssetcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.AssetCreationAction.prototype.setAssetcode = function(value) {
+proto.actions.AssetCreation.prototype.setAssetcode = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -3813,13 +3852,13 @@ proto.actions.AssetCreationAction.prototype.setAssetcode = function(value) {
  * optional uint64 AssetIndex = 2;
  * @return {number}
  */
-proto.actions.AssetCreationAction.prototype.getAssetindex = function() {
+proto.actions.AssetCreation.prototype.getAssetindex = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetCreationAction.prototype.setAssetindex = function(value) {
+proto.actions.AssetCreation.prototype.setAssetindex = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -3828,7 +3867,7 @@ proto.actions.AssetCreationAction.prototype.setAssetindex = function(value) {
  * optional bytes AssetAuthFlags = 3;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AssetCreationAction.prototype.getAssetauthflags = function() {
+proto.actions.AssetCreation.prototype.getAssetauthflags = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 3, ""));
 };
 
@@ -3838,7 +3877,7 @@ proto.actions.AssetCreationAction.prototype.getAssetauthflags = function() {
  * This is a type-conversion wrapper around `getAssetauthflags()`
  * @return {string}
  */
-proto.actions.AssetCreationAction.prototype.getAssetauthflags_asB64 = function() {
+proto.actions.AssetCreation.prototype.getAssetauthflags_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetauthflags()));
 };
@@ -3851,14 +3890,14 @@ proto.actions.AssetCreationAction.prototype.getAssetauthflags_asB64 = function()
  * This is a type-conversion wrapper around `getAssetauthflags()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetCreationAction.prototype.getAssetauthflags_asU8 = function() {
+proto.actions.AssetCreation.prototype.getAssetauthflags_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetauthflags()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.AssetCreationAction.prototype.setAssetauthflags = function(value) {
+proto.actions.AssetCreation.prototype.setAssetauthflags = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -3869,13 +3908,13 @@ proto.actions.AssetCreationAction.prototype.setAssetauthflags = function(value) 
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetCreationAction.prototype.getTransferspermitted = function() {
+proto.actions.AssetCreation.prototype.getTransferspermitted = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 4, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetCreationAction.prototype.setTransferspermitted = function(value) {
+proto.actions.AssetCreation.prototype.setTransferspermitted = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -3886,18 +3925,18 @@ proto.actions.AssetCreationAction.prototype.setTransferspermitted = function(val
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<string>}
  */
-proto.actions.AssetCreationAction.prototype.getTraderestrictionsList = function() {
+proto.actions.AssetCreation.prototype.getTraderestrictionsList = function() {
   return /** @type {!Array.<string>} */ (jspb.Message.getField(this, 5));
 };
 
 
 /** @param {Array.<string>} value  */
-proto.actions.AssetCreationAction.prototype.setTraderestrictionsList = function(value) {
+proto.actions.AssetCreation.prototype.setTraderestrictionsList = function(value) {
   jspb.Message.setField(this, 5, value || []);
 };
 
 
-proto.actions.AssetCreationAction.prototype.clearTraderestrictionsList = function() {
+proto.actions.AssetCreation.prototype.clearTraderestrictionsList = function() {
   jspb.Message.setField(this, 5, []);
 };
 
@@ -3908,13 +3947,13 @@ proto.actions.AssetCreationAction.prototype.clearTraderestrictionsList = functio
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetCreationAction.prototype.getEnforcementorderspermitted = function() {
+proto.actions.AssetCreation.prototype.getEnforcementorderspermitted = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 6, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetCreationAction.prototype.setEnforcementorderspermitted = function(value) {
+proto.actions.AssetCreation.prototype.setEnforcementorderspermitted = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -3925,13 +3964,13 @@ proto.actions.AssetCreationAction.prototype.setEnforcementorderspermitted = func
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetCreationAction.prototype.getVotingrights = function() {
+proto.actions.AssetCreation.prototype.getVotingrights = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 7, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetCreationAction.prototype.setVotingrights = function(value) {
+proto.actions.AssetCreation.prototype.setVotingrights = function(value) {
   jspb.Message.setField(this, 7, value);
 };
 
@@ -3940,13 +3979,13 @@ proto.actions.AssetCreationAction.prototype.setVotingrights = function(value) {
  * optional uint32 VoteMultiplier = 8;
  * @return {number}
  */
-proto.actions.AssetCreationAction.prototype.getVotemultiplier = function() {
+proto.actions.AssetCreation.prototype.getVotemultiplier = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 8, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetCreationAction.prototype.setVotemultiplier = function(value) {
+proto.actions.AssetCreation.prototype.setVotemultiplier = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -3957,13 +3996,13 @@ proto.actions.AssetCreationAction.prototype.setVotemultiplier = function(value) 
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetCreationAction.prototype.getAdministrationproposal = function() {
+proto.actions.AssetCreation.prototype.getAdministrationproposal = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 9, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetCreationAction.prototype.setAdministrationproposal = function(value) {
+proto.actions.AssetCreation.prototype.setAdministrationproposal = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -3974,13 +4013,13 @@ proto.actions.AssetCreationAction.prototype.setAdministrationproposal = function
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.AssetCreationAction.prototype.getHolderproposal = function() {
+proto.actions.AssetCreation.prototype.getHolderproposal = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 10, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.AssetCreationAction.prototype.setHolderproposal = function(value) {
+proto.actions.AssetCreation.prototype.setHolderproposal = function(value) {
   jspb.Message.setField(this, 10, value);
 };
 
@@ -3989,13 +4028,13 @@ proto.actions.AssetCreationAction.prototype.setHolderproposal = function(value) 
  * optional uint32 AssetModificationGovernance = 11;
  * @return {number}
  */
-proto.actions.AssetCreationAction.prototype.getAssetmodificationgovernance = function() {
+proto.actions.AssetCreation.prototype.getAssetmodificationgovernance = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 11, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetCreationAction.prototype.setAssetmodificationgovernance = function(value) {
+proto.actions.AssetCreation.prototype.setAssetmodificationgovernance = function(value) {
   jspb.Message.setField(this, 11, value);
 };
 
@@ -4004,83 +4043,98 @@ proto.actions.AssetCreationAction.prototype.setAssetmodificationgovernance = fun
  * optional uint64 TokenQty = 12;
  * @return {number}
  */
-proto.actions.AssetCreationAction.prototype.getTokenqty = function() {
+proto.actions.AssetCreation.prototype.getTokenqty = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 12, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetCreationAction.prototype.setTokenqty = function(value) {
+proto.actions.AssetCreation.prototype.setTokenqty = function(value) {
   jspb.Message.setField(this, 12, value);
 };
 
 
 /**
- * optional bytes AssetPayload = 13;
- * @return {!(string|Uint8Array)}
+ * optional string AssetType = 13;
+ * @return {string}
  */
-proto.actions.AssetCreationAction.prototype.getAssetpayload = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 13, ""));
+proto.actions.AssetCreation.prototype.getAssettype = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 13, ""));
+};
+
+
+/** @param {string} value  */
+proto.actions.AssetCreation.prototype.setAssettype = function(value) {
+  jspb.Message.setField(this, 13, value);
 };
 
 
 /**
- * optional bytes AssetPayload = 13;
+ * optional bytes AssetPayload = 14;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.AssetCreation.prototype.getAssetpayload = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 14, ""));
+};
+
+
+/**
+ * optional bytes AssetPayload = 14;
  * This is a type-conversion wrapper around `getAssetpayload()`
  * @return {string}
  */
-proto.actions.AssetCreationAction.prototype.getAssetpayload_asB64 = function() {
+proto.actions.AssetCreation.prototype.getAssetpayload_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetpayload()));
 };
 
 
 /**
- * optional bytes AssetPayload = 13;
+ * optional bytes AssetPayload = 14;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getAssetpayload()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetCreationAction.prototype.getAssetpayload_asU8 = function() {
+proto.actions.AssetCreation.prototype.getAssetpayload_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetpayload()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.AssetCreationAction.prototype.setAssetpayload = function(value) {
-  jspb.Message.setField(this, 13, value);
-};
-
-
-/**
- * optional uint32 AssetRevision = 14;
- * @return {number}
- */
-proto.actions.AssetCreationAction.prototype.getAssetrevision = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 14, 0));
-};
-
-
-/** @param {number} value  */
-proto.actions.AssetCreationAction.prototype.setAssetrevision = function(value) {
+proto.actions.AssetCreation.prototype.setAssetpayload = function(value) {
   jspb.Message.setField(this, 14, value);
 };
 
 
 /**
- * optional uint64 Timestamp = 15;
+ * optional uint32 AssetRevision = 15;
  * @return {number}
  */
-proto.actions.AssetCreationAction.prototype.getTimestamp = function() {
+proto.actions.AssetCreation.prototype.getAssetrevision = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 15, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetCreationAction.prototype.setTimestamp = function(value) {
+proto.actions.AssetCreation.prototype.setAssetrevision = function(value) {
   jspb.Message.setField(this, 15, value);
+};
+
+
+/**
+ * optional uint64 Timestamp = 16;
+ * @return {number}
+ */
+proto.actions.AssetCreation.prototype.getTimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 16, 0));
+};
+
+
+/** @param {number} value  */
+proto.actions.AssetCreation.prototype.setTimestamp = function(value) {
+  jspb.Message.setField(this, 16, value);
 };
 
 
@@ -4095,19 +4149,19 @@ proto.actions.AssetCreationAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.AssetModificationAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.AssetModificationAction.repeatedFields_, null);
+proto.actions.AssetModification = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.AssetModification.repeatedFields_, null);
 };
-goog.inherits(proto.actions.AssetModificationAction, jspb.Message);
+goog.inherits(proto.actions.AssetModification, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.AssetModificationAction.displayName = 'proto.actions.AssetModificationAction';
+  proto.actions.AssetModification.displayName = 'proto.actions.AssetModification';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.AssetModificationAction.repeatedFields_ = [4];
+proto.actions.AssetModification.repeatedFields_ = [4];
 
 
 
@@ -4122,8 +4176,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.AssetModificationAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.AssetModificationAction.toObject(opt_includeInstance, this);
+proto.actions.AssetModification.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.AssetModification.toObject(opt_includeInstance, this);
 };
 
 
@@ -4132,10 +4186,10 @@ proto.actions.AssetModificationAction.prototype.toObject = function(opt_includeI
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.AssetModificationAction} msg The msg instance to transform.
+ * @param {!proto.actions.AssetModification} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.AssetModificationAction.toObject = function(includeInstance, msg) {
+proto.actions.AssetModification.toObject = function(includeInstance, msg) {
   var f, obj = {
     assettype: msg.getAssettype(),
     assetcode: msg.getAssetcode_asB64(),
@@ -4156,23 +4210,23 @@ proto.actions.AssetModificationAction.toObject = function(includeInstance, msg) 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.AssetModificationAction}
+ * @return {!proto.actions.AssetModification}
  */
-proto.actions.AssetModificationAction.deserializeBinary = function(bytes) {
+proto.actions.AssetModification.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.AssetModificationAction;
-  return proto.actions.AssetModificationAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.AssetModification;
+  return proto.actions.AssetModification.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.AssetModificationAction} msg The message object to deserialize into.
+ * @param {!proto.actions.AssetModification} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.AssetModificationAction}
+ * @return {!proto.actions.AssetModification}
  */
-proto.actions.AssetModificationAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.AssetModification.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4213,10 +4267,10 @@ proto.actions.AssetModificationAction.deserializeBinaryFromReader = function(msg
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.AssetModificationAction} message
+ * @param {!proto.actions.AssetModification} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AssetModificationAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.AssetModification.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -4225,7 +4279,7 @@ proto.actions.AssetModificationAction.serializeBinaryToWriter = function(message
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.AssetModificationAction.prototype.serializeBinary = function() {
+proto.actions.AssetModification.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -4237,7 +4291,7 @@ proto.actions.AssetModificationAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AssetModificationAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.AssetModification.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssettype();
   if (f.length > 0) {
@@ -4280,10 +4334,10 @@ proto.actions.AssetModificationAction.prototype.serializeBinaryToWriter = functi
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.AssetModificationAction} The clone.
+ * @return {!proto.actions.AssetModification} The clone.
  */
-proto.actions.AssetModificationAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.AssetModificationAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.AssetModification.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.AssetModification} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -4291,13 +4345,13 @@ proto.actions.AssetModificationAction.prototype.cloneMessage = function() {
  * optional string AssetType = 1;
  * @return {string}
  */
-proto.actions.AssetModificationAction.prototype.getAssettype = function() {
+proto.actions.AssetModification.prototype.getAssettype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.AssetModificationAction.prototype.setAssettype = function(value) {
+proto.actions.AssetModification.prototype.setAssettype = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -4306,7 +4360,7 @@ proto.actions.AssetModificationAction.prototype.setAssettype = function(value) {
  * optional bytes AssetCode = 2;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AssetModificationAction.prototype.getAssetcode = function() {
+proto.actions.AssetModification.prototype.getAssetcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
@@ -4316,7 +4370,7 @@ proto.actions.AssetModificationAction.prototype.getAssetcode = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
-proto.actions.AssetModificationAction.prototype.getAssetcode_asB64 = function() {
+proto.actions.AssetModification.prototype.getAssetcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetcode()));
 };
@@ -4329,14 +4383,14 @@ proto.actions.AssetModificationAction.prototype.getAssetcode_asB64 = function() 
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetModificationAction.prototype.getAssetcode_asU8 = function() {
+proto.actions.AssetModification.prototype.getAssetcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.AssetModificationAction.prototype.setAssetcode = function(value) {
+proto.actions.AssetModification.prototype.setAssetcode = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -4345,13 +4399,13 @@ proto.actions.AssetModificationAction.prototype.setAssetcode = function(value) {
  * optional uint32 AssetRevision = 3;
  * @return {number}
  */
-proto.actions.AssetModificationAction.prototype.getAssetrevision = function() {
+proto.actions.AssetModification.prototype.getAssetrevision = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.AssetModificationAction.prototype.setAssetrevision = function(value) {
+proto.actions.AssetModification.prototype.setAssetrevision = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -4362,19 +4416,19 @@ proto.actions.AssetModificationAction.prototype.setAssetrevision = function(valu
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AmendmentField>}
  */
-proto.actions.AssetModificationAction.prototype.getAmendmentsList = function() {
+proto.actions.AssetModification.prototype.getAmendmentsList = function() {
   return /** @type{!Array.<!proto.actions.AmendmentField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.AmendmentField, 4));
 };
 
 
 /** @param {Array.<!proto.actions.AmendmentField>} value  */
-proto.actions.AssetModificationAction.prototype.setAmendmentsList = function(value) {
+proto.actions.AssetModification.prototype.setAmendmentsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
 
 
-proto.actions.AssetModificationAction.prototype.clearAmendmentsList = function() {
+proto.actions.AssetModification.prototype.clearAmendmentsList = function() {
   this.setAmendmentsList([]);
 };
 
@@ -4383,7 +4437,7 @@ proto.actions.AssetModificationAction.prototype.clearAmendmentsList = function()
  * optional bytes RefTxID = 5;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AssetModificationAction.prototype.getReftxid = function() {
+proto.actions.AssetModification.prototype.getReftxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 5, ""));
 };
 
@@ -4393,7 +4447,7 @@ proto.actions.AssetModificationAction.prototype.getReftxid = function() {
  * This is a type-conversion wrapper around `getReftxid()`
  * @return {string}
  */
-proto.actions.AssetModificationAction.prototype.getReftxid_asB64 = function() {
+proto.actions.AssetModification.prototype.getReftxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getReftxid()));
 };
@@ -4406,14 +4460,14 @@ proto.actions.AssetModificationAction.prototype.getReftxid_asB64 = function() {
  * This is a type-conversion wrapper around `getReftxid()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetModificationAction.prototype.getReftxid_asU8 = function() {
+proto.actions.AssetModification.prototype.getReftxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getReftxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.AssetModificationAction.prototype.setReftxid = function(value) {
+proto.actions.AssetModification.prototype.setReftxid = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -4429,19 +4483,19 @@ proto.actions.AssetModificationAction.prototype.setReftxid = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.TransferAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.TransferAction.repeatedFields_, null);
+proto.actions.Transfer = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Transfer.repeatedFields_, null);
 };
-goog.inherits(proto.actions.TransferAction, jspb.Message);
+goog.inherits(proto.actions.Transfer, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.TransferAction.displayName = 'proto.actions.TransferAction';
+  proto.actions.Transfer.displayName = 'proto.actions.Transfer';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.TransferAction.repeatedFields_ = [1];
+proto.actions.Transfer.repeatedFields_ = [1];
 
 
 
@@ -4456,8 +4510,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.TransferAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.TransferAction.toObject(opt_includeInstance, this);
+proto.actions.Transfer.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Transfer.toObject(opt_includeInstance, this);
 };
 
 
@@ -4466,10 +4520,10 @@ proto.actions.TransferAction.prototype.toObject = function(opt_includeInstance) 
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.TransferAction} msg The msg instance to transform.
+ * @param {!proto.actions.Transfer} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.TransferAction.toObject = function(includeInstance, msg) {
+proto.actions.Transfer.toObject = function(includeInstance, msg) {
   var f, obj = {
     assetsList: jspb.Message.toObjectList(msg.getAssetsList(),
     proto.actions.AssetTransferField.toObject, includeInstance),
@@ -4489,23 +4543,23 @@ proto.actions.TransferAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.TransferAction}
+ * @return {!proto.actions.Transfer}
  */
-proto.actions.TransferAction.deserializeBinary = function(bytes) {
+proto.actions.Transfer.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.TransferAction;
-  return proto.actions.TransferAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Transfer;
+  return proto.actions.Transfer.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.TransferAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Transfer} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.TransferAction}
+ * @return {!proto.actions.Transfer}
  */
-proto.actions.TransferAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Transfer.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4542,10 +4596,10 @@ proto.actions.TransferAction.deserializeBinaryFromReader = function(msg, reader)
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.TransferAction} message
+ * @param {!proto.actions.Transfer} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.TransferAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Transfer.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -4554,7 +4608,7 @@ proto.actions.TransferAction.serializeBinaryToWriter = function(message, writer)
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.TransferAction.prototype.serializeBinary = function() {
+proto.actions.Transfer.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -4566,7 +4620,7 @@ proto.actions.TransferAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.TransferAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Transfer.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssetsList();
   if (f.length > 0) {
@@ -4602,10 +4656,10 @@ proto.actions.TransferAction.prototype.serializeBinaryToWriter = function (write
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.TransferAction} The clone.
+ * @return {!proto.actions.Transfer} The clone.
  */
-proto.actions.TransferAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.TransferAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Transfer.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Transfer} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -4615,19 +4669,19 @@ proto.actions.TransferAction.prototype.cloneMessage = function() {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AssetTransferField>}
  */
-proto.actions.TransferAction.prototype.getAssetsList = function() {
+proto.actions.Transfer.prototype.getAssetsList = function() {
   return /** @type{!Array.<!proto.actions.AssetTransferField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.AssetTransferField, 1));
 };
 
 
 /** @param {Array.<!proto.actions.AssetTransferField>} value  */
-proto.actions.TransferAction.prototype.setAssetsList = function(value) {
+proto.actions.Transfer.prototype.setAssetsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
-proto.actions.TransferAction.prototype.clearAssetsList = function() {
+proto.actions.Transfer.prototype.clearAssetsList = function() {
   this.setAssetsList([]);
 };
 
@@ -4636,13 +4690,13 @@ proto.actions.TransferAction.prototype.clearAssetsList = function() {
  * optional uint64 OfferExpiry = 2;
  * @return {number}
  */
-proto.actions.TransferAction.prototype.getOfferexpiry = function() {
+proto.actions.Transfer.prototype.getOfferexpiry = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.TransferAction.prototype.setOfferexpiry = function(value) {
+proto.actions.Transfer.prototype.setOfferexpiry = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -4651,13 +4705,13 @@ proto.actions.TransferAction.prototype.setOfferexpiry = function(value) {
  * optional uint64 ExchangeFee = 3;
  * @return {number}
  */
-proto.actions.TransferAction.prototype.getExchangefee = function() {
+proto.actions.Transfer.prototype.getExchangefee = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.TransferAction.prototype.setExchangefee = function(value) {
+proto.actions.Transfer.prototype.setExchangefee = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -4666,7 +4720,7 @@ proto.actions.TransferAction.prototype.setExchangefee = function(value) {
  * optional bytes ExchangeFeeAddress = 4;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.TransferAction.prototype.getExchangefeeaddress = function() {
+proto.actions.Transfer.prototype.getExchangefeeaddress = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 4, ""));
 };
 
@@ -4676,7 +4730,7 @@ proto.actions.TransferAction.prototype.getExchangefeeaddress = function() {
  * This is a type-conversion wrapper around `getExchangefeeaddress()`
  * @return {string}
  */
-proto.actions.TransferAction.prototype.getExchangefeeaddress_asB64 = function() {
+proto.actions.Transfer.prototype.getExchangefeeaddress_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getExchangefeeaddress()));
 };
@@ -4689,14 +4743,14 @@ proto.actions.TransferAction.prototype.getExchangefeeaddress_asB64 = function() 
  * This is a type-conversion wrapper around `getExchangefeeaddress()`
  * @return {!Uint8Array}
  */
-proto.actions.TransferAction.prototype.getExchangefeeaddress_asU8 = function() {
+proto.actions.Transfer.prototype.getExchangefeeaddress_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getExchangefeeaddress()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.TransferAction.prototype.setExchangefeeaddress = function(value) {
+proto.actions.Transfer.prototype.setExchangefeeaddress = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -4712,19 +4766,19 @@ proto.actions.TransferAction.prototype.setExchangefeeaddress = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.SettlementAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.SettlementAction.repeatedFields_, null);
+proto.actions.Settlement = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Settlement.repeatedFields_, null);
 };
-goog.inherits(proto.actions.SettlementAction, jspb.Message);
+goog.inherits(proto.actions.Settlement, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.SettlementAction.displayName = 'proto.actions.SettlementAction';
+  proto.actions.Settlement.displayName = 'proto.actions.Settlement';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.SettlementAction.repeatedFields_ = [1];
+proto.actions.Settlement.repeatedFields_ = [1];
 
 
 
@@ -4739,8 +4793,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.SettlementAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.SettlementAction.toObject(opt_includeInstance, this);
+proto.actions.Settlement.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Settlement.toObject(opt_includeInstance, this);
 };
 
 
@@ -4749,10 +4803,10 @@ proto.actions.SettlementAction.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.SettlementAction} msg The msg instance to transform.
+ * @param {!proto.actions.Settlement} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.SettlementAction.toObject = function(includeInstance, msg) {
+proto.actions.Settlement.toObject = function(includeInstance, msg) {
   var f, obj = {
     assetsList: jspb.Message.toObjectList(msg.getAssetsList(),
     proto.actions.AssetSettlementField.toObject, includeInstance),
@@ -4770,23 +4824,23 @@ proto.actions.SettlementAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.SettlementAction}
+ * @return {!proto.actions.Settlement}
  */
-proto.actions.SettlementAction.deserializeBinary = function(bytes) {
+proto.actions.Settlement.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.SettlementAction;
-  return proto.actions.SettlementAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Settlement;
+  return proto.actions.Settlement.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.SettlementAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Settlement} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.SettlementAction}
+ * @return {!proto.actions.Settlement}
  */
-proto.actions.SettlementAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Settlement.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -4815,10 +4869,10 @@ proto.actions.SettlementAction.deserializeBinaryFromReader = function(msg, reade
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.SettlementAction} message
+ * @param {!proto.actions.Settlement} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.SettlementAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Settlement.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -4827,7 +4881,7 @@ proto.actions.SettlementAction.serializeBinaryToWriter = function(message, write
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.SettlementAction.prototype.serializeBinary = function() {
+proto.actions.Settlement.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -4839,7 +4893,7 @@ proto.actions.SettlementAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.SettlementAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Settlement.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssetsList();
   if (f.length > 0) {
@@ -4861,10 +4915,10 @@ proto.actions.SettlementAction.prototype.serializeBinaryToWriter = function (wri
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.SettlementAction} The clone.
+ * @return {!proto.actions.Settlement} The clone.
  */
-proto.actions.SettlementAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.SettlementAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Settlement.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Settlement} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -4874,19 +4928,19 @@ proto.actions.SettlementAction.prototype.cloneMessage = function() {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AssetSettlementField>}
  */
-proto.actions.SettlementAction.prototype.getAssetsList = function() {
+proto.actions.Settlement.prototype.getAssetsList = function() {
   return /** @type{!Array.<!proto.actions.AssetSettlementField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.AssetSettlementField, 1));
 };
 
 
 /** @param {Array.<!proto.actions.AssetSettlementField>} value  */
-proto.actions.SettlementAction.prototype.setAssetsList = function(value) {
+proto.actions.Settlement.prototype.setAssetsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
-proto.actions.SettlementAction.prototype.clearAssetsList = function() {
+proto.actions.Settlement.prototype.clearAssetsList = function() {
   this.setAssetsList([]);
 };
 
@@ -4895,13 +4949,13 @@ proto.actions.SettlementAction.prototype.clearAssetsList = function() {
  * optional uint64 Timestamp = 2;
  * @return {number}
  */
-proto.actions.SettlementAction.prototype.getTimestamp = function() {
+proto.actions.Settlement.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.SettlementAction.prototype.setTimestamp = function(value) {
+proto.actions.Settlement.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -4917,19 +4971,19 @@ proto.actions.SettlementAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ProposalAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ProposalAction.repeatedFields_, null);
+proto.actions.Proposal = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Proposal.repeatedFields_, null);
 };
-goog.inherits(proto.actions.ProposalAction, jspb.Message);
+goog.inherits(proto.actions.Proposal, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ProposalAction.displayName = 'proto.actions.ProposalAction';
+  proto.actions.Proposal.displayName = 'proto.actions.Proposal';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ProposalAction.repeatedFields_ = [7];
+proto.actions.Proposal.repeatedFields_ = [7];
 
 
 
@@ -4944,8 +4998,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ProposalAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ProposalAction.toObject(opt_includeInstance, this);
+proto.actions.Proposal.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Proposal.toObject(opt_includeInstance, this);
 };
 
 
@@ -4954,10 +5008,10 @@ proto.actions.ProposalAction.prototype.toObject = function(opt_includeInstance) 
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ProposalAction} msg The msg instance to transform.
+ * @param {!proto.actions.Proposal} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ProposalAction.toObject = function(includeInstance, msg) {
+proto.actions.Proposal.toObject = function(includeInstance, msg) {
   var f, obj = {
     initiator: msg.getInitiator(),
     assetspecificvote: msg.getAssetspecificvote(),
@@ -4985,23 +5039,23 @@ proto.actions.ProposalAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ProposalAction}
+ * @return {!proto.actions.Proposal}
  */
-proto.actions.ProposalAction.deserializeBinary = function(bytes) {
+proto.actions.Proposal.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ProposalAction;
-  return proto.actions.ProposalAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Proposal;
+  return proto.actions.Proposal.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ProposalAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Proposal} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ProposalAction}
+ * @return {!proto.actions.Proposal}
  */
-proto.actions.ProposalAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Proposal.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -5070,10 +5124,10 @@ proto.actions.ProposalAction.deserializeBinaryFromReader = function(msg, reader)
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ProposalAction} message
+ * @param {!proto.actions.Proposal} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ProposalAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Proposal.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -5082,7 +5136,7 @@ proto.actions.ProposalAction.serializeBinaryToWriter = function(message, writer)
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ProposalAction.prototype.serializeBinary = function() {
+proto.actions.Proposal.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -5094,7 +5148,7 @@ proto.actions.ProposalAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ProposalAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Proposal.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getInitiator();
   if (f !== 0) {
@@ -5186,10 +5240,10 @@ proto.actions.ProposalAction.prototype.serializeBinaryToWriter = function (write
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ProposalAction} The clone.
+ * @return {!proto.actions.Proposal} The clone.
  */
-proto.actions.ProposalAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ProposalAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Proposal.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Proposal} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -5197,13 +5251,13 @@ proto.actions.ProposalAction.prototype.cloneMessage = function() {
  * optional uint32 Initiator = 1;
  * @return {number}
  */
-proto.actions.ProposalAction.prototype.getInitiator = function() {
+proto.actions.Proposal.prototype.getInitiator = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ProposalAction.prototype.setInitiator = function(value) {
+proto.actions.Proposal.prototype.setInitiator = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -5214,13 +5268,13 @@ proto.actions.ProposalAction.prototype.setInitiator = function(value) {
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ProposalAction.prototype.getAssetspecificvote = function() {
+proto.actions.Proposal.prototype.getAssetspecificvote = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 2, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ProposalAction.prototype.setAssetspecificvote = function(value) {
+proto.actions.Proposal.prototype.setAssetspecificvote = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -5229,13 +5283,13 @@ proto.actions.ProposalAction.prototype.setAssetspecificvote = function(value) {
  * optional string AssetType = 3;
  * @return {string}
  */
-proto.actions.ProposalAction.prototype.getAssettype = function() {
+proto.actions.Proposal.prototype.getAssettype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 3, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ProposalAction.prototype.setAssettype = function(value) {
+proto.actions.Proposal.prototype.setAssettype = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -5244,7 +5298,7 @@ proto.actions.ProposalAction.prototype.setAssettype = function(value) {
  * optional bytes AssetCode = 4;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ProposalAction.prototype.getAssetcode = function() {
+proto.actions.Proposal.prototype.getAssetcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 4, ""));
 };
 
@@ -5254,7 +5308,7 @@ proto.actions.ProposalAction.prototype.getAssetcode = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
-proto.actions.ProposalAction.prototype.getAssetcode_asB64 = function() {
+proto.actions.Proposal.prototype.getAssetcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetcode()));
 };
@@ -5267,14 +5321,14 @@ proto.actions.ProposalAction.prototype.getAssetcode_asB64 = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {!Uint8Array}
  */
-proto.actions.ProposalAction.prototype.getAssetcode_asU8 = function() {
+proto.actions.Proposal.prototype.getAssetcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ProposalAction.prototype.setAssetcode = function(value) {
+proto.actions.Proposal.prototype.setAssetcode = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -5283,13 +5337,13 @@ proto.actions.ProposalAction.prototype.setAssetcode = function(value) {
  * optional uint32 VoteSystem = 5;
  * @return {number}
  */
-proto.actions.ProposalAction.prototype.getVotesystem = function() {
+proto.actions.Proposal.prototype.getVotesystem = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 5, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ProposalAction.prototype.setVotesystem = function(value) {
+proto.actions.Proposal.prototype.setVotesystem = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -5300,13 +5354,13 @@ proto.actions.ProposalAction.prototype.setVotesystem = function(value) {
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ProposalAction.prototype.getSpecific = function() {
+proto.actions.Proposal.prototype.getSpecific = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 6, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ProposalAction.prototype.setSpecific = function(value) {
+proto.actions.Proposal.prototype.setSpecific = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -5317,19 +5371,19 @@ proto.actions.ProposalAction.prototype.setSpecific = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AmendmentField>}
  */
-proto.actions.ProposalAction.prototype.getProposedamendmentsList = function() {
+proto.actions.Proposal.prototype.getProposedamendmentsList = function() {
   return /** @type{!Array.<!proto.actions.AmendmentField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.AmendmentField, 7));
 };
 
 
 /** @param {Array.<!proto.actions.AmendmentField>} value  */
-proto.actions.ProposalAction.prototype.setProposedamendmentsList = function(value) {
+proto.actions.Proposal.prototype.setProposedamendmentsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 7, value);
 };
 
 
-proto.actions.ProposalAction.prototype.clearProposedamendmentsList = function() {
+proto.actions.Proposal.prototype.clearProposedamendmentsList = function() {
   this.setProposedamendmentsList([]);
 };
 
@@ -5338,13 +5392,13 @@ proto.actions.ProposalAction.prototype.clearProposedamendmentsList = function() 
  * optional string VoteOptions = 8;
  * @return {string}
  */
-proto.actions.ProposalAction.prototype.getVoteoptions = function() {
+proto.actions.Proposal.prototype.getVoteoptions = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 8, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ProposalAction.prototype.setVoteoptions = function(value) {
+proto.actions.Proposal.prototype.setVoteoptions = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -5353,13 +5407,13 @@ proto.actions.ProposalAction.prototype.setVoteoptions = function(value) {
  * optional uint32 VoteMax = 9;
  * @return {number}
  */
-proto.actions.ProposalAction.prototype.getVotemax = function() {
+proto.actions.Proposal.prototype.getVotemax = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 9, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ProposalAction.prototype.setVotemax = function(value) {
+proto.actions.Proposal.prototype.setVotemax = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -5368,13 +5422,13 @@ proto.actions.ProposalAction.prototype.setVotemax = function(value) {
  * optional string ProposalDescription = 10;
  * @return {string}
  */
-proto.actions.ProposalAction.prototype.getProposaldescription = function() {
+proto.actions.Proposal.prototype.getProposaldescription = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 10, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ProposalAction.prototype.setProposaldescription = function(value) {
+proto.actions.Proposal.prototype.setProposaldescription = function(value) {
   jspb.Message.setField(this, 10, value);
 };
 
@@ -5383,7 +5437,7 @@ proto.actions.ProposalAction.prototype.setProposaldescription = function(value) 
  * optional bytes ProposalDocumentHash = 11;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ProposalAction.prototype.getProposaldocumenthash = function() {
+proto.actions.Proposal.prototype.getProposaldocumenthash = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 11, ""));
 };
 
@@ -5393,7 +5447,7 @@ proto.actions.ProposalAction.prototype.getProposaldocumenthash = function() {
  * This is a type-conversion wrapper around `getProposaldocumenthash()`
  * @return {string}
  */
-proto.actions.ProposalAction.prototype.getProposaldocumenthash_asB64 = function() {
+proto.actions.Proposal.prototype.getProposaldocumenthash_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getProposaldocumenthash()));
 };
@@ -5406,14 +5460,14 @@ proto.actions.ProposalAction.prototype.getProposaldocumenthash_asB64 = function(
  * This is a type-conversion wrapper around `getProposaldocumenthash()`
  * @return {!Uint8Array}
  */
-proto.actions.ProposalAction.prototype.getProposaldocumenthash_asU8 = function() {
+proto.actions.Proposal.prototype.getProposaldocumenthash_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getProposaldocumenthash()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ProposalAction.prototype.setProposaldocumenthash = function(value) {
+proto.actions.Proposal.prototype.setProposaldocumenthash = function(value) {
   jspb.Message.setField(this, 11, value);
 };
 
@@ -5422,13 +5476,13 @@ proto.actions.ProposalAction.prototype.setProposaldocumenthash = function(value)
  * optional uint64 VoteCutOffTimestamp = 12;
  * @return {number}
  */
-proto.actions.ProposalAction.prototype.getVotecutofftimestamp = function() {
+proto.actions.Proposal.prototype.getVotecutofftimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 12, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ProposalAction.prototype.setVotecutofftimestamp = function(value) {
+proto.actions.Proposal.prototype.setVotecutofftimestamp = function(value) {
   jspb.Message.setField(this, 12, value);
 };
 
@@ -5444,12 +5498,12 @@ proto.actions.ProposalAction.prototype.setVotecutofftimestamp = function(value) 
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.VoteAction = function(opt_data) {
+proto.actions.Vote = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.VoteAction, jspb.Message);
+goog.inherits(proto.actions.Vote, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.VoteAction.displayName = 'proto.actions.VoteAction';
+  proto.actions.Vote.displayName = 'proto.actions.Vote';
 }
 
 
@@ -5464,8 +5518,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.VoteAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.VoteAction.toObject(opt_includeInstance, this);
+proto.actions.Vote.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Vote.toObject(opt_includeInstance, this);
 };
 
 
@@ -5474,10 +5528,10 @@ proto.actions.VoteAction.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.VoteAction} msg The msg instance to transform.
+ * @param {!proto.actions.Vote} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.VoteAction.toObject = function(includeInstance, msg) {
+proto.actions.Vote.toObject = function(includeInstance, msg) {
   var f, obj = {
     timestamp: msg.getTimestamp()
   };
@@ -5493,23 +5547,23 @@ proto.actions.VoteAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.VoteAction}
+ * @return {!proto.actions.Vote}
  */
-proto.actions.VoteAction.deserializeBinary = function(bytes) {
+proto.actions.Vote.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.VoteAction;
-  return proto.actions.VoteAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Vote;
+  return proto.actions.Vote.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.VoteAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Vote} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.VoteAction}
+ * @return {!proto.actions.Vote}
  */
-proto.actions.VoteAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Vote.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -5532,10 +5586,10 @@ proto.actions.VoteAction.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.VoteAction} message
+ * @param {!proto.actions.Vote} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.VoteAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Vote.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -5544,7 +5598,7 @@ proto.actions.VoteAction.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.VoteAction.prototype.serializeBinary = function() {
+proto.actions.Vote.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -5556,7 +5610,7 @@ proto.actions.VoteAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.VoteAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Vote.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getTimestamp();
   if (f !== 0) {
@@ -5570,10 +5624,10 @@ proto.actions.VoteAction.prototype.serializeBinaryToWriter = function (writer) {
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.VoteAction} The clone.
+ * @return {!proto.actions.Vote} The clone.
  */
-proto.actions.VoteAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.VoteAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Vote.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Vote} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -5581,13 +5635,13 @@ proto.actions.VoteAction.prototype.cloneMessage = function() {
  * optional uint64 Timestamp = 1;
  * @return {number}
  */
-proto.actions.VoteAction.prototype.getTimestamp = function() {
+proto.actions.Vote.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.VoteAction.prototype.setTimestamp = function(value) {
+proto.actions.Vote.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -5603,12 +5657,12 @@ proto.actions.VoteAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.BallotCastAction = function(opt_data) {
+proto.actions.BallotCast = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.BallotCastAction, jspb.Message);
+goog.inherits(proto.actions.BallotCast, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.BallotCastAction.displayName = 'proto.actions.BallotCastAction';
+  proto.actions.BallotCast.displayName = 'proto.actions.BallotCast';
 }
 
 
@@ -5623,8 +5677,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.BallotCastAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.BallotCastAction.toObject(opt_includeInstance, this);
+proto.actions.BallotCast.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.BallotCast.toObject(opt_includeInstance, this);
 };
 
 
@@ -5633,10 +5687,10 @@ proto.actions.BallotCastAction.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.BallotCastAction} msg The msg instance to transform.
+ * @param {!proto.actions.BallotCast} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.BallotCastAction.toObject = function(includeInstance, msg) {
+proto.actions.BallotCast.toObject = function(includeInstance, msg) {
   var f, obj = {
     votetxid: msg.getVotetxid_asB64(),
     vote: msg.getVote()
@@ -5653,23 +5707,23 @@ proto.actions.BallotCastAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.BallotCastAction}
+ * @return {!proto.actions.BallotCast}
  */
-proto.actions.BallotCastAction.deserializeBinary = function(bytes) {
+proto.actions.BallotCast.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.BallotCastAction;
-  return proto.actions.BallotCastAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.BallotCast;
+  return proto.actions.BallotCast.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.BallotCastAction} msg The message object to deserialize into.
+ * @param {!proto.actions.BallotCast} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.BallotCastAction}
+ * @return {!proto.actions.BallotCast}
  */
-proto.actions.BallotCastAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.BallotCast.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -5696,10 +5750,10 @@ proto.actions.BallotCastAction.deserializeBinaryFromReader = function(msg, reade
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.BallotCastAction} message
+ * @param {!proto.actions.BallotCast} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.BallotCastAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.BallotCast.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -5708,7 +5762,7 @@ proto.actions.BallotCastAction.serializeBinaryToWriter = function(message, write
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.BallotCastAction.prototype.serializeBinary = function() {
+proto.actions.BallotCast.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -5720,7 +5774,7 @@ proto.actions.BallotCastAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.BallotCastAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.BallotCast.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getVotetxid_asU8();
   if (f.length > 0) {
@@ -5741,10 +5795,10 @@ proto.actions.BallotCastAction.prototype.serializeBinaryToWriter = function (wri
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.BallotCastAction} The clone.
+ * @return {!proto.actions.BallotCast} The clone.
  */
-proto.actions.BallotCastAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.BallotCastAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.BallotCast.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.BallotCast} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -5752,7 +5806,7 @@ proto.actions.BallotCastAction.prototype.cloneMessage = function() {
  * optional bytes VoteTxId = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.BallotCastAction.prototype.getVotetxid = function() {
+proto.actions.BallotCast.prototype.getVotetxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
@@ -5762,7 +5816,7 @@ proto.actions.BallotCastAction.prototype.getVotetxid = function() {
  * This is a type-conversion wrapper around `getVotetxid()`
  * @return {string}
  */
-proto.actions.BallotCastAction.prototype.getVotetxid_asB64 = function() {
+proto.actions.BallotCast.prototype.getVotetxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getVotetxid()));
 };
@@ -5775,14 +5829,14 @@ proto.actions.BallotCastAction.prototype.getVotetxid_asB64 = function() {
  * This is a type-conversion wrapper around `getVotetxid()`
  * @return {!Uint8Array}
  */
-proto.actions.BallotCastAction.prototype.getVotetxid_asU8 = function() {
+proto.actions.BallotCast.prototype.getVotetxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getVotetxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.BallotCastAction.prototype.setVotetxid = function(value) {
+proto.actions.BallotCast.prototype.setVotetxid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -5791,13 +5845,13 @@ proto.actions.BallotCastAction.prototype.setVotetxid = function(value) {
  * optional string Vote = 2;
  * @return {string}
  */
-proto.actions.BallotCastAction.prototype.getVote = function() {
+proto.actions.BallotCast.prototype.getVote = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.BallotCastAction.prototype.setVote = function(value) {
+proto.actions.BallotCast.prototype.setVote = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -5813,12 +5867,12 @@ proto.actions.BallotCastAction.prototype.setVote = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.BallotCountedAction = function(opt_data) {
+proto.actions.BallotCounted = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.BallotCountedAction, jspb.Message);
+goog.inherits(proto.actions.BallotCounted, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.BallotCountedAction.displayName = 'proto.actions.BallotCountedAction';
+  proto.actions.BallotCounted.displayName = 'proto.actions.BallotCounted';
 }
 
 
@@ -5833,8 +5887,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.BallotCountedAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.BallotCountedAction.toObject(opt_includeInstance, this);
+proto.actions.BallotCounted.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.BallotCounted.toObject(opt_includeInstance, this);
 };
 
 
@@ -5843,10 +5897,10 @@ proto.actions.BallotCountedAction.prototype.toObject = function(opt_includeInsta
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.BallotCountedAction} msg The msg instance to transform.
+ * @param {!proto.actions.BallotCounted} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.BallotCountedAction.toObject = function(includeInstance, msg) {
+proto.actions.BallotCounted.toObject = function(includeInstance, msg) {
   var f, obj = {
     votetxid: msg.getVotetxid_asB64(),
     vote: msg.getVote(),
@@ -5865,23 +5919,23 @@ proto.actions.BallotCountedAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.BallotCountedAction}
+ * @return {!proto.actions.BallotCounted}
  */
-proto.actions.BallotCountedAction.deserializeBinary = function(bytes) {
+proto.actions.BallotCounted.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.BallotCountedAction;
-  return proto.actions.BallotCountedAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.BallotCounted;
+  return proto.actions.BallotCounted.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.BallotCountedAction} msg The message object to deserialize into.
+ * @param {!proto.actions.BallotCounted} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.BallotCountedAction}
+ * @return {!proto.actions.BallotCounted}
  */
-proto.actions.BallotCountedAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.BallotCounted.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -5916,10 +5970,10 @@ proto.actions.BallotCountedAction.deserializeBinaryFromReader = function(msg, re
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.BallotCountedAction} message
+ * @param {!proto.actions.BallotCounted} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.BallotCountedAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.BallotCounted.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -5928,7 +5982,7 @@ proto.actions.BallotCountedAction.serializeBinaryToWriter = function(message, wr
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.BallotCountedAction.prototype.serializeBinary = function() {
+proto.actions.BallotCounted.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -5940,7 +5994,7 @@ proto.actions.BallotCountedAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.BallotCountedAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.BallotCounted.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getVotetxid_asU8();
   if (f.length > 0) {
@@ -5975,10 +6029,10 @@ proto.actions.BallotCountedAction.prototype.serializeBinaryToWriter = function (
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.BallotCountedAction} The clone.
+ * @return {!proto.actions.BallotCounted} The clone.
  */
-proto.actions.BallotCountedAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.BallotCountedAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.BallotCounted.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.BallotCounted} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -5986,7 +6040,7 @@ proto.actions.BallotCountedAction.prototype.cloneMessage = function() {
  * optional bytes VoteTxId = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.BallotCountedAction.prototype.getVotetxid = function() {
+proto.actions.BallotCounted.prototype.getVotetxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
@@ -5996,7 +6050,7 @@ proto.actions.BallotCountedAction.prototype.getVotetxid = function() {
  * This is a type-conversion wrapper around `getVotetxid()`
  * @return {string}
  */
-proto.actions.BallotCountedAction.prototype.getVotetxid_asB64 = function() {
+proto.actions.BallotCounted.prototype.getVotetxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getVotetxid()));
 };
@@ -6009,14 +6063,14 @@ proto.actions.BallotCountedAction.prototype.getVotetxid_asB64 = function() {
  * This is a type-conversion wrapper around `getVotetxid()`
  * @return {!Uint8Array}
  */
-proto.actions.BallotCountedAction.prototype.getVotetxid_asU8 = function() {
+proto.actions.BallotCounted.prototype.getVotetxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getVotetxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.BallotCountedAction.prototype.setVotetxid = function(value) {
+proto.actions.BallotCounted.prototype.setVotetxid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -6025,13 +6079,13 @@ proto.actions.BallotCountedAction.prototype.setVotetxid = function(value) {
  * optional string Vote = 2;
  * @return {string}
  */
-proto.actions.BallotCountedAction.prototype.getVote = function() {
+proto.actions.BallotCounted.prototype.getVote = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.BallotCountedAction.prototype.setVote = function(value) {
+proto.actions.BallotCounted.prototype.setVote = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -6040,13 +6094,13 @@ proto.actions.BallotCountedAction.prototype.setVote = function(value) {
  * optional uint64 Quantity = 3;
  * @return {number}
  */
-proto.actions.BallotCountedAction.prototype.getQuantity = function() {
+proto.actions.BallotCounted.prototype.getQuantity = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.BallotCountedAction.prototype.setQuantity = function(value) {
+proto.actions.BallotCounted.prototype.setQuantity = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -6055,13 +6109,13 @@ proto.actions.BallotCountedAction.prototype.setQuantity = function(value) {
  * optional uint64 Timestamp = 4;
  * @return {number}
  */
-proto.actions.BallotCountedAction.prototype.getTimestamp = function() {
+proto.actions.BallotCounted.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 4, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.BallotCountedAction.prototype.setTimestamp = function(value) {
+proto.actions.BallotCounted.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -6077,19 +6131,19 @@ proto.actions.BallotCountedAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ResultAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ResultAction.repeatedFields_, null);
+proto.actions.Result = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Result.repeatedFields_, null);
 };
-goog.inherits(proto.actions.ResultAction, jspb.Message);
+goog.inherits(proto.actions.Result, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ResultAction.displayName = 'proto.actions.ResultAction';
+  proto.actions.Result.displayName = 'proto.actions.Result';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ResultAction.repeatedFields_ = [5,7];
+proto.actions.Result.repeatedFields_ = [5,7];
 
 
 
@@ -6104,8 +6158,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ResultAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ResultAction.toObject(opt_includeInstance, this);
+proto.actions.Result.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Result.toObject(opt_includeInstance, this);
 };
 
 
@@ -6114,10 +6168,10 @@ proto.actions.ResultAction.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ResultAction} msg The msg instance to transform.
+ * @param {!proto.actions.Result} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ResultAction.toObject = function(includeInstance, msg) {
+proto.actions.Result.toObject = function(includeInstance, msg) {
   var f, obj = {
     assetspecificvote: msg.getAssetspecificvote(),
     assettype: msg.getAssettype(),
@@ -6142,23 +6196,23 @@ proto.actions.ResultAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ResultAction}
+ * @return {!proto.actions.Result}
  */
-proto.actions.ResultAction.deserializeBinary = function(bytes) {
+proto.actions.Result.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ResultAction;
-  return proto.actions.ResultAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Result;
+  return proto.actions.Result.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ResultAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Result} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ResultAction}
+ * @return {!proto.actions.Result}
  */
-proto.actions.ResultAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Result.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -6215,10 +6269,10 @@ proto.actions.ResultAction.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ResultAction} message
+ * @param {!proto.actions.Result} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ResultAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Result.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -6227,7 +6281,7 @@ proto.actions.ResultAction.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ResultAction.prototype.serializeBinary = function() {
+proto.actions.Result.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -6239,7 +6293,7 @@ proto.actions.ResultAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ResultAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Result.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssetspecificvote();
   if (f) {
@@ -6310,10 +6364,10 @@ proto.actions.ResultAction.prototype.serializeBinaryToWriter = function (writer)
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ResultAction} The clone.
+ * @return {!proto.actions.Result} The clone.
  */
-proto.actions.ResultAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ResultAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Result.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Result} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -6323,13 +6377,13 @@ proto.actions.ResultAction.prototype.cloneMessage = function() {
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ResultAction.prototype.getAssetspecificvote = function() {
+proto.actions.Result.prototype.getAssetspecificvote = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 1, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ResultAction.prototype.setAssetspecificvote = function(value) {
+proto.actions.Result.prototype.setAssetspecificvote = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -6338,13 +6392,13 @@ proto.actions.ResultAction.prototype.setAssetspecificvote = function(value) {
  * optional string AssetType = 2;
  * @return {string}
  */
-proto.actions.ResultAction.prototype.getAssettype = function() {
+proto.actions.Result.prototype.getAssettype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ResultAction.prototype.setAssettype = function(value) {
+proto.actions.Result.prototype.setAssettype = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -6353,7 +6407,7 @@ proto.actions.ResultAction.prototype.setAssettype = function(value) {
  * optional bytes AssetCode = 3;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ResultAction.prototype.getAssetcode = function() {
+proto.actions.Result.prototype.getAssetcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 3, ""));
 };
 
@@ -6363,7 +6417,7 @@ proto.actions.ResultAction.prototype.getAssetcode = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
-proto.actions.ResultAction.prototype.getAssetcode_asB64 = function() {
+proto.actions.Result.prototype.getAssetcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetcode()));
 };
@@ -6376,14 +6430,14 @@ proto.actions.ResultAction.prototype.getAssetcode_asB64 = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {!Uint8Array}
  */
-proto.actions.ResultAction.prototype.getAssetcode_asU8 = function() {
+proto.actions.Result.prototype.getAssetcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ResultAction.prototype.setAssetcode = function(value) {
+proto.actions.Result.prototype.setAssetcode = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -6394,13 +6448,13 @@ proto.actions.ResultAction.prototype.setAssetcode = function(value) {
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.ResultAction.prototype.getSpecific = function() {
+proto.actions.Result.prototype.getSpecific = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 4, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.ResultAction.prototype.setSpecific = function(value) {
+proto.actions.Result.prototype.setSpecific = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -6411,19 +6465,19 @@ proto.actions.ResultAction.prototype.setSpecific = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AmendmentField>}
  */
-proto.actions.ResultAction.prototype.getProposedamendmentsList = function() {
+proto.actions.Result.prototype.getProposedamendmentsList = function() {
   return /** @type{!Array.<!proto.actions.AmendmentField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.AmendmentField, 5));
 };
 
 
 /** @param {Array.<!proto.actions.AmendmentField>} value  */
-proto.actions.ResultAction.prototype.setProposedamendmentsList = function(value) {
+proto.actions.Result.prototype.setProposedamendmentsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
 
 
-proto.actions.ResultAction.prototype.clearProposedamendmentsList = function() {
+proto.actions.Result.prototype.clearProposedamendmentsList = function() {
   this.setProposedamendmentsList([]);
 };
 
@@ -6432,7 +6486,7 @@ proto.actions.ResultAction.prototype.clearProposedamendmentsList = function() {
  * optional bytes VoteTxId = 6;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ResultAction.prototype.getVotetxid = function() {
+proto.actions.Result.prototype.getVotetxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 6, ""));
 };
 
@@ -6442,7 +6496,7 @@ proto.actions.ResultAction.prototype.getVotetxid = function() {
  * This is a type-conversion wrapper around `getVotetxid()`
  * @return {string}
  */
-proto.actions.ResultAction.prototype.getVotetxid_asB64 = function() {
+proto.actions.Result.prototype.getVotetxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getVotetxid()));
 };
@@ -6455,14 +6509,14 @@ proto.actions.ResultAction.prototype.getVotetxid_asB64 = function() {
  * This is a type-conversion wrapper around `getVotetxid()`
  * @return {!Uint8Array}
  */
-proto.actions.ResultAction.prototype.getVotetxid_asU8 = function() {
+proto.actions.Result.prototype.getVotetxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getVotetxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ResultAction.prototype.setVotetxid = function(value) {
+proto.actions.Result.prototype.setVotetxid = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -6473,18 +6527,18 @@ proto.actions.ResultAction.prototype.setVotetxid = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}
  */
-proto.actions.ResultAction.prototype.getOptiontallyList = function() {
+proto.actions.Result.prototype.getOptiontallyList = function() {
   return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 7));
 };
 
 
 /** @param {Array.<number>} value  */
-proto.actions.ResultAction.prototype.setOptiontallyList = function(value) {
+proto.actions.Result.prototype.setOptiontallyList = function(value) {
   jspb.Message.setField(this, 7, value || []);
 };
 
 
-proto.actions.ResultAction.prototype.clearOptiontallyList = function() {
+proto.actions.Result.prototype.clearOptiontallyList = function() {
   jspb.Message.setField(this, 7, []);
 };
 
@@ -6493,13 +6547,13 @@ proto.actions.ResultAction.prototype.clearOptiontallyList = function() {
  * optional string Result = 8;
  * @return {string}
  */
-proto.actions.ResultAction.prototype.getResult = function() {
+proto.actions.Result.prototype.getResult = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 8, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ResultAction.prototype.setResult = function(value) {
+proto.actions.Result.prototype.setResult = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -6508,13 +6562,13 @@ proto.actions.ResultAction.prototype.setResult = function(value) {
  * optional uint64 Timestamp = 9;
  * @return {number}
  */
-proto.actions.ResultAction.prototype.getTimestamp = function() {
+proto.actions.Result.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 9, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ResultAction.prototype.setTimestamp = function(value) {
+proto.actions.Result.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -6530,19 +6584,19 @@ proto.actions.ResultAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.OrderAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.OrderAction.repeatedFields_, null);
+proto.actions.Order = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Order.repeatedFields_, null);
 };
-goog.inherits(proto.actions.OrderAction, jspb.Message);
+goog.inherits(proto.actions.Order, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.OrderAction.displayName = 'proto.actions.OrderAction';
+  proto.actions.Order.displayName = 'proto.actions.Order';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.OrderAction.repeatedFields_ = [4,15];
+proto.actions.Order.repeatedFields_ = [4,15];
 
 
 
@@ -6557,8 +6611,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.OrderAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.OrderAction.toObject(opt_includeInstance, this);
+proto.actions.Order.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Order.toObject(opt_includeInstance, this);
 };
 
 
@@ -6567,10 +6621,10 @@ proto.actions.OrderAction.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.OrderAction} msg The msg instance to transform.
+ * @param {!proto.actions.Order} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.OrderAction.toObject = function(includeInstance, msg) {
+proto.actions.Order.toObject = function(includeInstance, msg) {
   var f, obj = {
     complianceaction: msg.getComplianceaction(),
     assettype: msg.getAssettype(),
@@ -6603,23 +6657,23 @@ proto.actions.OrderAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.OrderAction}
+ * @return {!proto.actions.Order}
  */
-proto.actions.OrderAction.deserializeBinary = function(bytes) {
+proto.actions.Order.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.OrderAction;
-  return proto.actions.OrderAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Order;
+  return proto.actions.Order.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.OrderAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Order} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.OrderAction}
+ * @return {!proto.actions.Order}
  */
-proto.actions.OrderAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Order.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -6706,10 +6760,10 @@ proto.actions.OrderAction.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.OrderAction} message
+ * @param {!proto.actions.Order} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.OrderAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Order.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -6718,7 +6772,7 @@ proto.actions.OrderAction.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.OrderAction.prototype.serializeBinary = function() {
+proto.actions.Order.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -6730,7 +6784,7 @@ proto.actions.OrderAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.OrderAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Order.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getComplianceaction();
   if (f.length > 0) {
@@ -6851,10 +6905,10 @@ proto.actions.OrderAction.prototype.serializeBinaryToWriter = function (writer) 
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.OrderAction} The clone.
+ * @return {!proto.actions.Order} The clone.
  */
-proto.actions.OrderAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.OrderAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Order.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Order} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -6862,13 +6916,13 @@ proto.actions.OrderAction.prototype.cloneMessage = function() {
  * optional string ComplianceAction = 1;
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getComplianceaction = function() {
+proto.actions.Order.prototype.getComplianceaction = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.OrderAction.prototype.setComplianceaction = function(value) {
+proto.actions.Order.prototype.setComplianceaction = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -6877,13 +6931,13 @@ proto.actions.OrderAction.prototype.setComplianceaction = function(value) {
  * optional string AssetType = 2;
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getAssettype = function() {
+proto.actions.Order.prototype.getAssettype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.OrderAction.prototype.setAssettype = function(value) {
+proto.actions.Order.prototype.setAssettype = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -6892,7 +6946,7 @@ proto.actions.OrderAction.prototype.setAssettype = function(value) {
  * optional bytes AssetCode = 3;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.OrderAction.prototype.getAssetcode = function() {
+proto.actions.Order.prototype.getAssetcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 3, ""));
 };
 
@@ -6902,7 +6956,7 @@ proto.actions.OrderAction.prototype.getAssetcode = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getAssetcode_asB64 = function() {
+proto.actions.Order.prototype.getAssetcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetcode()));
 };
@@ -6915,14 +6969,14 @@ proto.actions.OrderAction.prototype.getAssetcode_asB64 = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {!Uint8Array}
  */
-proto.actions.OrderAction.prototype.getAssetcode_asU8 = function() {
+proto.actions.Order.prototype.getAssetcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.OrderAction.prototype.setAssetcode = function(value) {
+proto.actions.Order.prototype.setAssetcode = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -6933,19 +6987,19 @@ proto.actions.OrderAction.prototype.setAssetcode = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.TargetAddressField>}
  */
-proto.actions.OrderAction.prototype.getTargetaddressesList = function() {
+proto.actions.Order.prototype.getTargetaddressesList = function() {
   return /** @type{!Array.<!proto.actions.TargetAddressField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.TargetAddressField, 4));
 };
 
 
 /** @param {Array.<!proto.actions.TargetAddressField>} value  */
-proto.actions.OrderAction.prototype.setTargetaddressesList = function(value) {
+proto.actions.Order.prototype.setTargetaddressesList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
 
 
-proto.actions.OrderAction.prototype.clearTargetaddressesList = function() {
+proto.actions.Order.prototype.clearTargetaddressesList = function() {
   this.setTargetaddressesList([]);
 };
 
@@ -6954,7 +7008,7 @@ proto.actions.OrderAction.prototype.clearTargetaddressesList = function() {
  * optional bytes FreezeTxId = 5;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.OrderAction.prototype.getFreezetxid = function() {
+proto.actions.Order.prototype.getFreezetxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 5, ""));
 };
 
@@ -6964,7 +7018,7 @@ proto.actions.OrderAction.prototype.getFreezetxid = function() {
  * This is a type-conversion wrapper around `getFreezetxid()`
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getFreezetxid_asB64 = function() {
+proto.actions.Order.prototype.getFreezetxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getFreezetxid()));
 };
@@ -6977,14 +7031,14 @@ proto.actions.OrderAction.prototype.getFreezetxid_asB64 = function() {
  * This is a type-conversion wrapper around `getFreezetxid()`
  * @return {!Uint8Array}
  */
-proto.actions.OrderAction.prototype.getFreezetxid_asU8 = function() {
+proto.actions.Order.prototype.getFreezetxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getFreezetxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.OrderAction.prototype.setFreezetxid = function(value) {
+proto.actions.Order.prototype.setFreezetxid = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -6993,13 +7047,13 @@ proto.actions.OrderAction.prototype.setFreezetxid = function(value) {
  * optional uint64 FreezePeriod = 6;
  * @return {number}
  */
-proto.actions.OrderAction.prototype.getFreezeperiod = function() {
+proto.actions.Order.prototype.getFreezeperiod = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 6, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.OrderAction.prototype.setFreezeperiod = function(value) {
+proto.actions.Order.prototype.setFreezeperiod = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -7008,7 +7062,7 @@ proto.actions.OrderAction.prototype.setFreezeperiod = function(value) {
  * optional bytes DepositAddress = 7;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.OrderAction.prototype.getDepositaddress = function() {
+proto.actions.Order.prototype.getDepositaddress = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 7, ""));
 };
 
@@ -7018,7 +7072,7 @@ proto.actions.OrderAction.prototype.getDepositaddress = function() {
  * This is a type-conversion wrapper around `getDepositaddress()`
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getDepositaddress_asB64 = function() {
+proto.actions.Order.prototype.getDepositaddress_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getDepositaddress()));
 };
@@ -7031,14 +7085,14 @@ proto.actions.OrderAction.prototype.getDepositaddress_asB64 = function() {
  * This is a type-conversion wrapper around `getDepositaddress()`
  * @return {!Uint8Array}
  */
-proto.actions.OrderAction.prototype.getDepositaddress_asU8 = function() {
+proto.actions.Order.prototype.getDepositaddress_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getDepositaddress()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.OrderAction.prototype.setDepositaddress = function(value) {
+proto.actions.Order.prototype.setDepositaddress = function(value) {
   jspb.Message.setField(this, 7, value);
 };
 
@@ -7049,13 +7103,13 @@ proto.actions.OrderAction.prototype.setDepositaddress = function(value) {
  * You should avoid comparisons like {@code val === true/false} in those cases.
  * @return {boolean}
  */
-proto.actions.OrderAction.prototype.getAuthorityincluded = function() {
+proto.actions.Order.prototype.getAuthorityincluded = function() {
   return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 8, false));
 };
 
 
 /** @param {boolean} value  */
-proto.actions.OrderAction.prototype.setAuthorityincluded = function(value) {
+proto.actions.Order.prototype.setAuthorityincluded = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -7064,13 +7118,13 @@ proto.actions.OrderAction.prototype.setAuthorityincluded = function(value) {
  * optional string AuthorityName = 9;
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getAuthorityname = function() {
+proto.actions.Order.prototype.getAuthorityname = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 9, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.OrderAction.prototype.setAuthorityname = function(value) {
+proto.actions.Order.prototype.setAuthorityname = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -7079,7 +7133,7 @@ proto.actions.OrderAction.prototype.setAuthorityname = function(value) {
  * optional bytes AuthorityPublicKey = 10;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.OrderAction.prototype.getAuthoritypublickey = function() {
+proto.actions.Order.prototype.getAuthoritypublickey = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 10, ""));
 };
 
@@ -7089,7 +7143,7 @@ proto.actions.OrderAction.prototype.getAuthoritypublickey = function() {
  * This is a type-conversion wrapper around `getAuthoritypublickey()`
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getAuthoritypublickey_asB64 = function() {
+proto.actions.Order.prototype.getAuthoritypublickey_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAuthoritypublickey()));
 };
@@ -7102,14 +7156,14 @@ proto.actions.OrderAction.prototype.getAuthoritypublickey_asB64 = function() {
  * This is a type-conversion wrapper around `getAuthoritypublickey()`
  * @return {!Uint8Array}
  */
-proto.actions.OrderAction.prototype.getAuthoritypublickey_asU8 = function() {
+proto.actions.Order.prototype.getAuthoritypublickey_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAuthoritypublickey()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.OrderAction.prototype.setAuthoritypublickey = function(value) {
+proto.actions.Order.prototype.setAuthoritypublickey = function(value) {
   jspb.Message.setField(this, 10, value);
 };
 
@@ -7118,13 +7172,13 @@ proto.actions.OrderAction.prototype.setAuthoritypublickey = function(value) {
  * optional uint32 SignatureAlgorithm = 11;
  * @return {number}
  */
-proto.actions.OrderAction.prototype.getSignaturealgorithm = function() {
+proto.actions.Order.prototype.getSignaturealgorithm = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 11, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.OrderAction.prototype.setSignaturealgorithm = function(value) {
+proto.actions.Order.prototype.setSignaturealgorithm = function(value) {
   jspb.Message.setField(this, 11, value);
 };
 
@@ -7133,7 +7187,7 @@ proto.actions.OrderAction.prototype.setSignaturealgorithm = function(value) {
  * optional bytes OrderSignature = 12;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.OrderAction.prototype.getOrdersignature = function() {
+proto.actions.Order.prototype.getOrdersignature = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 12, ""));
 };
 
@@ -7143,7 +7197,7 @@ proto.actions.OrderAction.prototype.getOrdersignature = function() {
  * This is a type-conversion wrapper around `getOrdersignature()`
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getOrdersignature_asB64 = function() {
+proto.actions.Order.prototype.getOrdersignature_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getOrdersignature()));
 };
@@ -7156,14 +7210,14 @@ proto.actions.OrderAction.prototype.getOrdersignature_asB64 = function() {
  * This is a type-conversion wrapper around `getOrdersignature()`
  * @return {!Uint8Array}
  */
-proto.actions.OrderAction.prototype.getOrdersignature_asU8 = function() {
+proto.actions.Order.prototype.getOrdersignature_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getOrdersignature()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.OrderAction.prototype.setOrdersignature = function(value) {
+proto.actions.Order.prototype.setOrdersignature = function(value) {
   jspb.Message.setField(this, 12, value);
 };
 
@@ -7172,7 +7226,7 @@ proto.actions.OrderAction.prototype.setOrdersignature = function(value) {
  * optional bytes SupportingEvidenceHash = 13;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.OrderAction.prototype.getSupportingevidencehash = function() {
+proto.actions.Order.prototype.getSupportingevidencehash = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 13, ""));
 };
 
@@ -7182,7 +7236,7 @@ proto.actions.OrderAction.prototype.getSupportingevidencehash = function() {
  * This is a type-conversion wrapper around `getSupportingevidencehash()`
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getSupportingevidencehash_asB64 = function() {
+proto.actions.Order.prototype.getSupportingevidencehash_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getSupportingevidencehash()));
 };
@@ -7195,14 +7249,14 @@ proto.actions.OrderAction.prototype.getSupportingevidencehash_asB64 = function()
  * This is a type-conversion wrapper around `getSupportingevidencehash()`
  * @return {!Uint8Array}
  */
-proto.actions.OrderAction.prototype.getSupportingevidencehash_asU8 = function() {
+proto.actions.Order.prototype.getSupportingevidencehash_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getSupportingevidencehash()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.OrderAction.prototype.setSupportingevidencehash = function(value) {
+proto.actions.Order.prototype.setSupportingevidencehash = function(value) {
   jspb.Message.setField(this, 13, value);
 };
 
@@ -7211,7 +7265,7 @@ proto.actions.OrderAction.prototype.setSupportingevidencehash = function(value) 
  * optional bytes RefTxs = 14;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.OrderAction.prototype.getReftxs = function() {
+proto.actions.Order.prototype.getReftxs = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 14, ""));
 };
 
@@ -7221,7 +7275,7 @@ proto.actions.OrderAction.prototype.getReftxs = function() {
  * This is a type-conversion wrapper around `getReftxs()`
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getReftxs_asB64 = function() {
+proto.actions.Order.prototype.getReftxs_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getReftxs()));
 };
@@ -7234,14 +7288,14 @@ proto.actions.OrderAction.prototype.getReftxs_asB64 = function() {
  * This is a type-conversion wrapper around `getReftxs()`
  * @return {!Uint8Array}
  */
-proto.actions.OrderAction.prototype.getReftxs_asU8 = function() {
+proto.actions.Order.prototype.getReftxs_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getReftxs()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.OrderAction.prototype.setReftxs = function(value) {
+proto.actions.Order.prototype.setReftxs = function(value) {
   jspb.Message.setField(this, 14, value);
 };
 
@@ -7252,19 +7306,19 @@ proto.actions.OrderAction.prototype.setReftxs = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.QuantityIndexField>}
  */
-proto.actions.OrderAction.prototype.getBitcoindispersionsList = function() {
+proto.actions.Order.prototype.getBitcoindispersionsList = function() {
   return /** @type{!Array.<!proto.actions.QuantityIndexField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.QuantityIndexField, 15));
 };
 
 
 /** @param {Array.<!proto.actions.QuantityIndexField>} value  */
-proto.actions.OrderAction.prototype.setBitcoindispersionsList = function(value) {
+proto.actions.Order.prototype.setBitcoindispersionsList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 15, value);
 };
 
 
-proto.actions.OrderAction.prototype.clearBitcoindispersionsList = function() {
+proto.actions.Order.prototype.clearBitcoindispersionsList = function() {
   this.setBitcoindispersionsList([]);
 };
 
@@ -7273,13 +7327,13 @@ proto.actions.OrderAction.prototype.clearBitcoindispersionsList = function() {
  * optional string Message = 16;
  * @return {string}
  */
-proto.actions.OrderAction.prototype.getMessage = function() {
+proto.actions.Order.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 16, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.OrderAction.prototype.setMessage = function(value) {
+proto.actions.Order.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 16, value);
 };
 
@@ -7295,19 +7349,19 @@ proto.actions.OrderAction.prototype.setMessage = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.FreezeAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.FreezeAction.repeatedFields_, null);
+proto.actions.Freeze = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Freeze.repeatedFields_, null);
 };
-goog.inherits(proto.actions.FreezeAction, jspb.Message);
+goog.inherits(proto.actions.Freeze, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.FreezeAction.displayName = 'proto.actions.FreezeAction';
+  proto.actions.Freeze.displayName = 'proto.actions.Freeze';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.FreezeAction.repeatedFields_ = [3];
+proto.actions.Freeze.repeatedFields_ = [3];
 
 
 
@@ -7322,8 +7376,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.FreezeAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.FreezeAction.toObject(opt_includeInstance, this);
+proto.actions.Freeze.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Freeze.toObject(opt_includeInstance, this);
 };
 
 
@@ -7332,10 +7386,10 @@ proto.actions.FreezeAction.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.FreezeAction} msg The msg instance to transform.
+ * @param {!proto.actions.Freeze} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.FreezeAction.toObject = function(includeInstance, msg) {
+proto.actions.Freeze.toObject = function(includeInstance, msg) {
   var f, obj = {
     assettype: msg.getAssettype(),
     assetcode: msg.getAssetcode_asB64(),
@@ -7356,23 +7410,23 @@ proto.actions.FreezeAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.FreezeAction}
+ * @return {!proto.actions.Freeze}
  */
-proto.actions.FreezeAction.deserializeBinary = function(bytes) {
+proto.actions.Freeze.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.FreezeAction;
-  return proto.actions.FreezeAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Freeze;
+  return proto.actions.Freeze.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.FreezeAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Freeze} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.FreezeAction}
+ * @return {!proto.actions.Freeze}
  */
-proto.actions.FreezeAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Freeze.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -7413,10 +7467,10 @@ proto.actions.FreezeAction.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.FreezeAction} message
+ * @param {!proto.actions.Freeze} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.FreezeAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Freeze.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -7425,7 +7479,7 @@ proto.actions.FreezeAction.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.FreezeAction.prototype.serializeBinary = function() {
+proto.actions.Freeze.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -7437,7 +7491,7 @@ proto.actions.FreezeAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.FreezeAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Freeze.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssettype();
   if (f.length > 0) {
@@ -7480,10 +7534,10 @@ proto.actions.FreezeAction.prototype.serializeBinaryToWriter = function (writer)
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.FreezeAction} The clone.
+ * @return {!proto.actions.Freeze} The clone.
  */
-proto.actions.FreezeAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.FreezeAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Freeze.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Freeze} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -7491,13 +7545,13 @@ proto.actions.FreezeAction.prototype.cloneMessage = function() {
  * optional string AssetType = 1;
  * @return {string}
  */
-proto.actions.FreezeAction.prototype.getAssettype = function() {
+proto.actions.Freeze.prototype.getAssettype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.FreezeAction.prototype.setAssettype = function(value) {
+proto.actions.Freeze.prototype.setAssettype = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -7506,7 +7560,7 @@ proto.actions.FreezeAction.prototype.setAssettype = function(value) {
  * optional bytes AssetCode = 2;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.FreezeAction.prototype.getAssetcode = function() {
+proto.actions.Freeze.prototype.getAssetcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
@@ -7516,7 +7570,7 @@ proto.actions.FreezeAction.prototype.getAssetcode = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
-proto.actions.FreezeAction.prototype.getAssetcode_asB64 = function() {
+proto.actions.Freeze.prototype.getAssetcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetcode()));
 };
@@ -7529,14 +7583,14 @@ proto.actions.FreezeAction.prototype.getAssetcode_asB64 = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {!Uint8Array}
  */
-proto.actions.FreezeAction.prototype.getAssetcode_asU8 = function() {
+proto.actions.Freeze.prototype.getAssetcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.FreezeAction.prototype.setAssetcode = function(value) {
+proto.actions.Freeze.prototype.setAssetcode = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -7547,19 +7601,19 @@ proto.actions.FreezeAction.prototype.setAssetcode = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.QuantityIndexField>}
  */
-proto.actions.FreezeAction.prototype.getQuantitiesList = function() {
+proto.actions.Freeze.prototype.getQuantitiesList = function() {
   return /** @type{!Array.<!proto.actions.QuantityIndexField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.QuantityIndexField, 3));
 };
 
 
 /** @param {Array.<!proto.actions.QuantityIndexField>} value  */
-proto.actions.FreezeAction.prototype.setQuantitiesList = function(value) {
+proto.actions.Freeze.prototype.setQuantitiesList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
-proto.actions.FreezeAction.prototype.clearQuantitiesList = function() {
+proto.actions.Freeze.prototype.clearQuantitiesList = function() {
   this.setQuantitiesList([]);
 };
 
@@ -7568,13 +7622,13 @@ proto.actions.FreezeAction.prototype.clearQuantitiesList = function() {
  * optional uint64 FreezePeriod = 4;
  * @return {number}
  */
-proto.actions.FreezeAction.prototype.getFreezeperiod = function() {
+proto.actions.Freeze.prototype.getFreezeperiod = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 4, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.FreezeAction.prototype.setFreezeperiod = function(value) {
+proto.actions.Freeze.prototype.setFreezeperiod = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -7583,13 +7637,13 @@ proto.actions.FreezeAction.prototype.setFreezeperiod = function(value) {
  * optional uint64 Timestamp = 5;
  * @return {number}
  */
-proto.actions.FreezeAction.prototype.getTimestamp = function() {
+proto.actions.Freeze.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 5, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.FreezeAction.prototype.setTimestamp = function(value) {
+proto.actions.Freeze.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -7605,12 +7659,12 @@ proto.actions.FreezeAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ThawAction = function(opt_data) {
+proto.actions.Thaw = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.ThawAction, jspb.Message);
+goog.inherits(proto.actions.Thaw, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ThawAction.displayName = 'proto.actions.ThawAction';
+  proto.actions.Thaw.displayName = 'proto.actions.Thaw';
 }
 
 
@@ -7625,8 +7679,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ThawAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ThawAction.toObject(opt_includeInstance, this);
+proto.actions.Thaw.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Thaw.toObject(opt_includeInstance, this);
 };
 
 
@@ -7635,10 +7689,10 @@ proto.actions.ThawAction.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ThawAction} msg The msg instance to transform.
+ * @param {!proto.actions.Thaw} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ThawAction.toObject = function(includeInstance, msg) {
+proto.actions.Thaw.toObject = function(includeInstance, msg) {
   var f, obj = {
     freezetxid: msg.getFreezetxid_asB64(),
     timestamp: msg.getTimestamp()
@@ -7655,23 +7709,23 @@ proto.actions.ThawAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ThawAction}
+ * @return {!proto.actions.Thaw}
  */
-proto.actions.ThawAction.deserializeBinary = function(bytes) {
+proto.actions.Thaw.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ThawAction;
-  return proto.actions.ThawAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Thaw;
+  return proto.actions.Thaw.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ThawAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Thaw} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ThawAction}
+ * @return {!proto.actions.Thaw}
  */
-proto.actions.ThawAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Thaw.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -7698,10 +7752,10 @@ proto.actions.ThawAction.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ThawAction} message
+ * @param {!proto.actions.Thaw} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ThawAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Thaw.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -7710,7 +7764,7 @@ proto.actions.ThawAction.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ThawAction.prototype.serializeBinary = function() {
+proto.actions.Thaw.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -7722,7 +7776,7 @@ proto.actions.ThawAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ThawAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Thaw.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getFreezetxid_asU8();
   if (f.length > 0) {
@@ -7743,10 +7797,10 @@ proto.actions.ThawAction.prototype.serializeBinaryToWriter = function (writer) {
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ThawAction} The clone.
+ * @return {!proto.actions.Thaw} The clone.
  */
-proto.actions.ThawAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ThawAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Thaw.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Thaw} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -7754,7 +7808,7 @@ proto.actions.ThawAction.prototype.cloneMessage = function() {
  * optional bytes FreezeTxId = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ThawAction.prototype.getFreezetxid = function() {
+proto.actions.Thaw.prototype.getFreezetxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
@@ -7764,7 +7818,7 @@ proto.actions.ThawAction.prototype.getFreezetxid = function() {
  * This is a type-conversion wrapper around `getFreezetxid()`
  * @return {string}
  */
-proto.actions.ThawAction.prototype.getFreezetxid_asB64 = function() {
+proto.actions.Thaw.prototype.getFreezetxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getFreezetxid()));
 };
@@ -7777,14 +7831,14 @@ proto.actions.ThawAction.prototype.getFreezetxid_asB64 = function() {
  * This is a type-conversion wrapper around `getFreezetxid()`
  * @return {!Uint8Array}
  */
-proto.actions.ThawAction.prototype.getFreezetxid_asU8 = function() {
+proto.actions.Thaw.prototype.getFreezetxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getFreezetxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ThawAction.prototype.setFreezetxid = function(value) {
+proto.actions.Thaw.prototype.setFreezetxid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -7793,13 +7847,13 @@ proto.actions.ThawAction.prototype.setFreezetxid = function(value) {
  * optional uint64 Timestamp = 2;
  * @return {number}
  */
-proto.actions.ThawAction.prototype.getTimestamp = function() {
+proto.actions.Thaw.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ThawAction.prototype.setTimestamp = function(value) {
+proto.actions.Thaw.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -7815,19 +7869,19 @@ proto.actions.ThawAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ConfiscationAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ConfiscationAction.repeatedFields_, null);
+proto.actions.Confiscation = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Confiscation.repeatedFields_, null);
 };
-goog.inherits(proto.actions.ConfiscationAction, jspb.Message);
+goog.inherits(proto.actions.Confiscation, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ConfiscationAction.displayName = 'proto.actions.ConfiscationAction';
+  proto.actions.Confiscation.displayName = 'proto.actions.Confiscation';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ConfiscationAction.repeatedFields_ = [3];
+proto.actions.Confiscation.repeatedFields_ = [3];
 
 
 
@@ -7842,8 +7896,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ConfiscationAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ConfiscationAction.toObject(opt_includeInstance, this);
+proto.actions.Confiscation.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Confiscation.toObject(opt_includeInstance, this);
 };
 
 
@@ -7852,10 +7906,10 @@ proto.actions.ConfiscationAction.prototype.toObject = function(opt_includeInstan
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ConfiscationAction} msg The msg instance to transform.
+ * @param {!proto.actions.Confiscation} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ConfiscationAction.toObject = function(includeInstance, msg) {
+proto.actions.Confiscation.toObject = function(includeInstance, msg) {
   var f, obj = {
     assettype: msg.getAssettype(),
     assetcode: msg.getAssetcode_asB64(),
@@ -7876,23 +7930,23 @@ proto.actions.ConfiscationAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ConfiscationAction}
+ * @return {!proto.actions.Confiscation}
  */
-proto.actions.ConfiscationAction.deserializeBinary = function(bytes) {
+proto.actions.Confiscation.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ConfiscationAction;
-  return proto.actions.ConfiscationAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Confiscation;
+  return proto.actions.Confiscation.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ConfiscationAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Confiscation} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ConfiscationAction}
+ * @return {!proto.actions.Confiscation}
  */
-proto.actions.ConfiscationAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Confiscation.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -7933,10 +7987,10 @@ proto.actions.ConfiscationAction.deserializeBinaryFromReader = function(msg, rea
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ConfiscationAction} message
+ * @param {!proto.actions.Confiscation} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ConfiscationAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Confiscation.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -7945,7 +7999,7 @@ proto.actions.ConfiscationAction.serializeBinaryToWriter = function(message, wri
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ConfiscationAction.prototype.serializeBinary = function() {
+proto.actions.Confiscation.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -7957,7 +8011,7 @@ proto.actions.ConfiscationAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ConfiscationAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Confiscation.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssettype();
   if (f.length > 0) {
@@ -8000,10 +8054,10 @@ proto.actions.ConfiscationAction.prototype.serializeBinaryToWriter = function (w
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ConfiscationAction} The clone.
+ * @return {!proto.actions.Confiscation} The clone.
  */
-proto.actions.ConfiscationAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ConfiscationAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Confiscation.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Confiscation} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -8011,13 +8065,13 @@ proto.actions.ConfiscationAction.prototype.cloneMessage = function() {
  * optional string AssetType = 1;
  * @return {string}
  */
-proto.actions.ConfiscationAction.prototype.getAssettype = function() {
+proto.actions.Confiscation.prototype.getAssettype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ConfiscationAction.prototype.setAssettype = function(value) {
+proto.actions.Confiscation.prototype.setAssettype = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -8026,7 +8080,7 @@ proto.actions.ConfiscationAction.prototype.setAssettype = function(value) {
  * optional bytes AssetCode = 2;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ConfiscationAction.prototype.getAssetcode = function() {
+proto.actions.Confiscation.prototype.getAssetcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
@@ -8036,7 +8090,7 @@ proto.actions.ConfiscationAction.prototype.getAssetcode = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
-proto.actions.ConfiscationAction.prototype.getAssetcode_asB64 = function() {
+proto.actions.Confiscation.prototype.getAssetcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetcode()));
 };
@@ -8049,14 +8103,14 @@ proto.actions.ConfiscationAction.prototype.getAssetcode_asB64 = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {!Uint8Array}
  */
-proto.actions.ConfiscationAction.prototype.getAssetcode_asU8 = function() {
+proto.actions.Confiscation.prototype.getAssetcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ConfiscationAction.prototype.setAssetcode = function(value) {
+proto.actions.Confiscation.prototype.setAssetcode = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -8067,19 +8121,19 @@ proto.actions.ConfiscationAction.prototype.setAssetcode = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.QuantityIndexField>}
  */
-proto.actions.ConfiscationAction.prototype.getQuantitiesList = function() {
+proto.actions.Confiscation.prototype.getQuantitiesList = function() {
   return /** @type{!Array.<!proto.actions.QuantityIndexField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.QuantityIndexField, 3));
 };
 
 
 /** @param {Array.<!proto.actions.QuantityIndexField>} value  */
-proto.actions.ConfiscationAction.prototype.setQuantitiesList = function(value) {
+proto.actions.Confiscation.prototype.setQuantitiesList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
-proto.actions.ConfiscationAction.prototype.clearQuantitiesList = function() {
+proto.actions.Confiscation.prototype.clearQuantitiesList = function() {
   this.setQuantitiesList([]);
 };
 
@@ -8088,13 +8142,13 @@ proto.actions.ConfiscationAction.prototype.clearQuantitiesList = function() {
  * optional uint64 DepositQty = 4;
  * @return {number}
  */
-proto.actions.ConfiscationAction.prototype.getDepositqty = function() {
+proto.actions.Confiscation.prototype.getDepositqty = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 4, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ConfiscationAction.prototype.setDepositqty = function(value) {
+proto.actions.Confiscation.prototype.setDepositqty = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -8103,13 +8157,13 @@ proto.actions.ConfiscationAction.prototype.setDepositqty = function(value) {
  * optional uint64 Timestamp = 5;
  * @return {number}
  */
-proto.actions.ConfiscationAction.prototype.getTimestamp = function() {
+proto.actions.Confiscation.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 5, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ConfiscationAction.prototype.setTimestamp = function(value) {
+proto.actions.Confiscation.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -8125,19 +8179,19 @@ proto.actions.ConfiscationAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.ReconciliationAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ReconciliationAction.repeatedFields_, null);
+proto.actions.Reconciliation = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Reconciliation.repeatedFields_, null);
 };
-goog.inherits(proto.actions.ReconciliationAction, jspb.Message);
+goog.inherits(proto.actions.Reconciliation, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.ReconciliationAction.displayName = 'proto.actions.ReconciliationAction';
+  proto.actions.Reconciliation.displayName = 'proto.actions.Reconciliation';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ReconciliationAction.repeatedFields_ = [3];
+proto.actions.Reconciliation.repeatedFields_ = [3];
 
 
 
@@ -8152,8 +8206,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.ReconciliationAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.ReconciliationAction.toObject(opt_includeInstance, this);
+proto.actions.Reconciliation.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Reconciliation.toObject(opt_includeInstance, this);
 };
 
 
@@ -8162,10 +8216,10 @@ proto.actions.ReconciliationAction.prototype.toObject = function(opt_includeInst
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.ReconciliationAction} msg The msg instance to transform.
+ * @param {!proto.actions.Reconciliation} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.ReconciliationAction.toObject = function(includeInstance, msg) {
+proto.actions.Reconciliation.toObject = function(includeInstance, msg) {
   var f, obj = {
     assettype: msg.getAssettype(),
     assetcode: msg.getAssetcode_asB64(),
@@ -8185,23 +8239,23 @@ proto.actions.ReconciliationAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.ReconciliationAction}
+ * @return {!proto.actions.Reconciliation}
  */
-proto.actions.ReconciliationAction.deserializeBinary = function(bytes) {
+proto.actions.Reconciliation.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.ReconciliationAction;
-  return proto.actions.ReconciliationAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Reconciliation;
+  return proto.actions.Reconciliation.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.ReconciliationAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Reconciliation} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.ReconciliationAction}
+ * @return {!proto.actions.Reconciliation}
  */
-proto.actions.ReconciliationAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Reconciliation.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -8238,10 +8292,10 @@ proto.actions.ReconciliationAction.deserializeBinaryFromReader = function(msg, r
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.ReconciliationAction} message
+ * @param {!proto.actions.Reconciliation} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ReconciliationAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Reconciliation.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -8250,7 +8304,7 @@ proto.actions.ReconciliationAction.serializeBinaryToWriter = function(message, w
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.ReconciliationAction.prototype.serializeBinary = function() {
+proto.actions.Reconciliation.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -8262,7 +8316,7 @@ proto.actions.ReconciliationAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.ReconciliationAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Reconciliation.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAssettype();
   if (f.length > 0) {
@@ -8298,10 +8352,10 @@ proto.actions.ReconciliationAction.prototype.serializeBinaryToWriter = function 
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.ReconciliationAction} The clone.
+ * @return {!proto.actions.Reconciliation} The clone.
  */
-proto.actions.ReconciliationAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.ReconciliationAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Reconciliation.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Reconciliation} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -8309,13 +8363,13 @@ proto.actions.ReconciliationAction.prototype.cloneMessage = function() {
  * optional string AssetType = 1;
  * @return {string}
  */
-proto.actions.ReconciliationAction.prototype.getAssettype = function() {
+proto.actions.Reconciliation.prototype.getAssettype = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.ReconciliationAction.prototype.setAssettype = function(value) {
+proto.actions.Reconciliation.prototype.setAssettype = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -8324,7 +8378,7 @@ proto.actions.ReconciliationAction.prototype.setAssettype = function(value) {
  * optional bytes AssetCode = 2;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ReconciliationAction.prototype.getAssetcode = function() {
+proto.actions.Reconciliation.prototype.getAssetcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
@@ -8334,7 +8388,7 @@ proto.actions.ReconciliationAction.prototype.getAssetcode = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
-proto.actions.ReconciliationAction.prototype.getAssetcode_asB64 = function() {
+proto.actions.Reconciliation.prototype.getAssetcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getAssetcode()));
 };
@@ -8347,14 +8401,14 @@ proto.actions.ReconciliationAction.prototype.getAssetcode_asB64 = function() {
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {!Uint8Array}
  */
-proto.actions.ReconciliationAction.prototype.getAssetcode_asU8 = function() {
+proto.actions.Reconciliation.prototype.getAssetcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getAssetcode()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.ReconciliationAction.prototype.setAssetcode = function(value) {
+proto.actions.Reconciliation.prototype.setAssetcode = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -8365,19 +8419,19 @@ proto.actions.ReconciliationAction.prototype.setAssetcode = function(value) {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.QuantityIndexField>}
  */
-proto.actions.ReconciliationAction.prototype.getQuantitiesList = function() {
+proto.actions.Reconciliation.prototype.getQuantitiesList = function() {
   return /** @type{!Array.<!proto.actions.QuantityIndexField>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.actions.QuantityIndexField, 3));
 };
 
 
 /** @param {Array.<!proto.actions.QuantityIndexField>} value  */
-proto.actions.ReconciliationAction.prototype.setQuantitiesList = function(value) {
+proto.actions.Reconciliation.prototype.setQuantitiesList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
-proto.actions.ReconciliationAction.prototype.clearQuantitiesList = function() {
+proto.actions.Reconciliation.prototype.clearQuantitiesList = function() {
   this.setQuantitiesList([]);
 };
 
@@ -8386,13 +8440,13 @@ proto.actions.ReconciliationAction.prototype.clearQuantitiesList = function() {
  * optional uint64 Timestamp = 4;
  * @return {number}
  */
-proto.actions.ReconciliationAction.prototype.getTimestamp = function() {
+proto.actions.Reconciliation.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 4, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.ReconciliationAction.prototype.setTimestamp = function(value) {
+proto.actions.Reconciliation.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -8408,12 +8462,12 @@ proto.actions.ReconciliationAction.prototype.setTimestamp = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.EstablishmentAction = function(opt_data) {
+proto.actions.Establishment = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.EstablishmentAction, jspb.Message);
+goog.inherits(proto.actions.Establishment, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.EstablishmentAction.displayName = 'proto.actions.EstablishmentAction';
+  proto.actions.Establishment.displayName = 'proto.actions.Establishment';
 }
 
 
@@ -8428,8 +8482,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.EstablishmentAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.EstablishmentAction.toObject(opt_includeInstance, this);
+proto.actions.Establishment.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Establishment.toObject(opt_includeInstance, this);
 };
 
 
@@ -8438,10 +8492,10 @@ proto.actions.EstablishmentAction.prototype.toObject = function(opt_includeInsta
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.EstablishmentAction} msg The msg instance to transform.
+ * @param {!proto.actions.Establishment} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.EstablishmentAction.toObject = function(includeInstance, msg) {
+proto.actions.Establishment.toObject = function(includeInstance, msg) {
   var f, obj = {
     message: msg.getMessage()
   };
@@ -8457,23 +8511,23 @@ proto.actions.EstablishmentAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.EstablishmentAction}
+ * @return {!proto.actions.Establishment}
  */
-proto.actions.EstablishmentAction.deserializeBinary = function(bytes) {
+proto.actions.Establishment.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.EstablishmentAction;
-  return proto.actions.EstablishmentAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Establishment;
+  return proto.actions.Establishment.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.EstablishmentAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Establishment} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.EstablishmentAction}
+ * @return {!proto.actions.Establishment}
  */
-proto.actions.EstablishmentAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Establishment.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -8496,10 +8550,10 @@ proto.actions.EstablishmentAction.deserializeBinaryFromReader = function(msg, re
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.EstablishmentAction} message
+ * @param {!proto.actions.Establishment} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.EstablishmentAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Establishment.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -8508,7 +8562,7 @@ proto.actions.EstablishmentAction.serializeBinaryToWriter = function(message, wr
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.EstablishmentAction.prototype.serializeBinary = function() {
+proto.actions.Establishment.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -8520,7 +8574,7 @@ proto.actions.EstablishmentAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.EstablishmentAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Establishment.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getMessage();
   if (f.length > 0) {
@@ -8534,10 +8588,10 @@ proto.actions.EstablishmentAction.prototype.serializeBinaryToWriter = function (
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.EstablishmentAction} The clone.
+ * @return {!proto.actions.Establishment} The clone.
  */
-proto.actions.EstablishmentAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.EstablishmentAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Establishment.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Establishment} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -8545,13 +8599,13 @@ proto.actions.EstablishmentAction.prototype.cloneMessage = function() {
  * optional string Message = 1;
  * @return {string}
  */
-proto.actions.EstablishmentAction.prototype.getMessage = function() {
+proto.actions.Establishment.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.EstablishmentAction.prototype.setMessage = function(value) {
+proto.actions.Establishment.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -8567,12 +8621,12 @@ proto.actions.EstablishmentAction.prototype.setMessage = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.AdditionAction = function(opt_data) {
+proto.actions.Addition = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.AdditionAction, jspb.Message);
+goog.inherits(proto.actions.Addition, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.AdditionAction.displayName = 'proto.actions.AdditionAction';
+  proto.actions.Addition.displayName = 'proto.actions.Addition';
 }
 
 
@@ -8587,8 +8641,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.AdditionAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.AdditionAction.toObject(opt_includeInstance, this);
+proto.actions.Addition.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Addition.toObject(opt_includeInstance, this);
 };
 
 
@@ -8597,10 +8651,10 @@ proto.actions.AdditionAction.prototype.toObject = function(opt_includeInstance) 
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.AdditionAction} msg The msg instance to transform.
+ * @param {!proto.actions.Addition} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.AdditionAction.toObject = function(includeInstance, msg) {
+proto.actions.Addition.toObject = function(includeInstance, msg) {
   var f, obj = {
     message: msg.getMessage()
   };
@@ -8616,23 +8670,23 @@ proto.actions.AdditionAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.AdditionAction}
+ * @return {!proto.actions.Addition}
  */
-proto.actions.AdditionAction.deserializeBinary = function(bytes) {
+proto.actions.Addition.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.AdditionAction;
-  return proto.actions.AdditionAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Addition;
+  return proto.actions.Addition.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.AdditionAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Addition} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.AdditionAction}
+ * @return {!proto.actions.Addition}
  */
-proto.actions.AdditionAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Addition.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -8655,10 +8709,10 @@ proto.actions.AdditionAction.deserializeBinaryFromReader = function(msg, reader)
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.AdditionAction} message
+ * @param {!proto.actions.Addition} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AdditionAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Addition.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -8667,7 +8721,7 @@ proto.actions.AdditionAction.serializeBinaryToWriter = function(message, writer)
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.AdditionAction.prototype.serializeBinary = function() {
+proto.actions.Addition.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -8679,7 +8733,7 @@ proto.actions.AdditionAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AdditionAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Addition.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getMessage();
   if (f.length > 0) {
@@ -8693,10 +8747,10 @@ proto.actions.AdditionAction.prototype.serializeBinaryToWriter = function (write
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.AdditionAction} The clone.
+ * @return {!proto.actions.Addition} The clone.
  */
-proto.actions.AdditionAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.AdditionAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Addition.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Addition} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -8704,13 +8758,13 @@ proto.actions.AdditionAction.prototype.cloneMessage = function() {
  * optional string Message = 1;
  * @return {string}
  */
-proto.actions.AdditionAction.prototype.getMessage = function() {
+proto.actions.Addition.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.AdditionAction.prototype.setMessage = function(value) {
+proto.actions.Addition.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -8726,12 +8780,12 @@ proto.actions.AdditionAction.prototype.setMessage = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.AlterationAction = function(opt_data) {
+proto.actions.Alteration = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.AlterationAction, jspb.Message);
+goog.inherits(proto.actions.Alteration, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.AlterationAction.displayName = 'proto.actions.AlterationAction';
+  proto.actions.Alteration.displayName = 'proto.actions.Alteration';
 }
 
 
@@ -8746,8 +8800,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.AlterationAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.AlterationAction.toObject(opt_includeInstance, this);
+proto.actions.Alteration.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Alteration.toObject(opt_includeInstance, this);
 };
 
 
@@ -8756,10 +8810,10 @@ proto.actions.AlterationAction.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.AlterationAction} msg The msg instance to transform.
+ * @param {!proto.actions.Alteration} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.AlterationAction.toObject = function(includeInstance, msg) {
+proto.actions.Alteration.toObject = function(includeInstance, msg) {
   var f, obj = {
     entrytxid: msg.getEntrytxid_asB64(),
     message: msg.getMessage()
@@ -8776,23 +8830,23 @@ proto.actions.AlterationAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.AlterationAction}
+ * @return {!proto.actions.Alteration}
  */
-proto.actions.AlterationAction.deserializeBinary = function(bytes) {
+proto.actions.Alteration.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.AlterationAction;
-  return proto.actions.AlterationAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Alteration;
+  return proto.actions.Alteration.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.AlterationAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Alteration} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.AlterationAction}
+ * @return {!proto.actions.Alteration}
  */
-proto.actions.AlterationAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Alteration.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -8819,10 +8873,10 @@ proto.actions.AlterationAction.deserializeBinaryFromReader = function(msg, reade
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.AlterationAction} message
+ * @param {!proto.actions.Alteration} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AlterationAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Alteration.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -8831,7 +8885,7 @@ proto.actions.AlterationAction.serializeBinaryToWriter = function(message, write
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.AlterationAction.prototype.serializeBinary = function() {
+proto.actions.Alteration.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -8843,7 +8897,7 @@ proto.actions.AlterationAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.AlterationAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Alteration.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getEntrytxid_asU8();
   if (f.length > 0) {
@@ -8864,10 +8918,10 @@ proto.actions.AlterationAction.prototype.serializeBinaryToWriter = function (wri
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.AlterationAction} The clone.
+ * @return {!proto.actions.Alteration} The clone.
  */
-proto.actions.AlterationAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.AlterationAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Alteration.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Alteration} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -8875,7 +8929,7 @@ proto.actions.AlterationAction.prototype.cloneMessage = function() {
  * optional bytes EntryTxID = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AlterationAction.prototype.getEntrytxid = function() {
+proto.actions.Alteration.prototype.getEntrytxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
@@ -8885,7 +8939,7 @@ proto.actions.AlterationAction.prototype.getEntrytxid = function() {
  * This is a type-conversion wrapper around `getEntrytxid()`
  * @return {string}
  */
-proto.actions.AlterationAction.prototype.getEntrytxid_asB64 = function() {
+proto.actions.Alteration.prototype.getEntrytxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getEntrytxid()));
 };
@@ -8898,14 +8952,14 @@ proto.actions.AlterationAction.prototype.getEntrytxid_asB64 = function() {
  * This is a type-conversion wrapper around `getEntrytxid()`
  * @return {!Uint8Array}
  */
-proto.actions.AlterationAction.prototype.getEntrytxid_asU8 = function() {
+proto.actions.Alteration.prototype.getEntrytxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getEntrytxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.AlterationAction.prototype.setEntrytxid = function(value) {
+proto.actions.Alteration.prototype.setEntrytxid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -8914,13 +8968,13 @@ proto.actions.AlterationAction.prototype.setEntrytxid = function(value) {
  * optional string Message = 2;
  * @return {string}
  */
-proto.actions.AlterationAction.prototype.getMessage = function() {
+proto.actions.Alteration.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.AlterationAction.prototype.setMessage = function(value) {
+proto.actions.Alteration.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -8936,12 +8990,12 @@ proto.actions.AlterationAction.prototype.setMessage = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.RemovalAction = function(opt_data) {
+proto.actions.Removal = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.actions.RemovalAction, jspb.Message);
+goog.inherits(proto.actions.Removal, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.RemovalAction.displayName = 'proto.actions.RemovalAction';
+  proto.actions.Removal.displayName = 'proto.actions.Removal';
 }
 
 
@@ -8956,8 +9010,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.RemovalAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.RemovalAction.toObject(opt_includeInstance, this);
+proto.actions.Removal.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Removal.toObject(opt_includeInstance, this);
 };
 
 
@@ -8966,10 +9020,10 @@ proto.actions.RemovalAction.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.RemovalAction} msg The msg instance to transform.
+ * @param {!proto.actions.Removal} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.RemovalAction.toObject = function(includeInstance, msg) {
+proto.actions.Removal.toObject = function(includeInstance, msg) {
   var f, obj = {
     entrytxid: msg.getEntrytxid_asB64(),
     message: msg.getMessage()
@@ -8986,23 +9040,23 @@ proto.actions.RemovalAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.RemovalAction}
+ * @return {!proto.actions.Removal}
  */
-proto.actions.RemovalAction.deserializeBinary = function(bytes) {
+proto.actions.Removal.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.RemovalAction;
-  return proto.actions.RemovalAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Removal;
+  return proto.actions.Removal.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.RemovalAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Removal} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.RemovalAction}
+ * @return {!proto.actions.Removal}
  */
-proto.actions.RemovalAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Removal.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -9029,10 +9083,10 @@ proto.actions.RemovalAction.deserializeBinaryFromReader = function(msg, reader) 
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.RemovalAction} message
+ * @param {!proto.actions.Removal} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.RemovalAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Removal.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -9041,7 +9095,7 @@ proto.actions.RemovalAction.serializeBinaryToWriter = function(message, writer) 
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.RemovalAction.prototype.serializeBinary = function() {
+proto.actions.Removal.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -9053,7 +9107,7 @@ proto.actions.RemovalAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.RemovalAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Removal.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getEntrytxid_asU8();
   if (f.length > 0) {
@@ -9074,10 +9128,10 @@ proto.actions.RemovalAction.prototype.serializeBinaryToWriter = function (writer
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.RemovalAction} The clone.
+ * @return {!proto.actions.Removal} The clone.
  */
-proto.actions.RemovalAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.RemovalAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Removal.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Removal} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -9085,7 +9139,7 @@ proto.actions.RemovalAction.prototype.cloneMessage = function() {
  * optional bytes EntryTxID = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.RemovalAction.prototype.getEntrytxid = function() {
+proto.actions.Removal.prototype.getEntrytxid = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
@@ -9095,7 +9149,7 @@ proto.actions.RemovalAction.prototype.getEntrytxid = function() {
  * This is a type-conversion wrapper around `getEntrytxid()`
  * @return {string}
  */
-proto.actions.RemovalAction.prototype.getEntrytxid_asB64 = function() {
+proto.actions.Removal.prototype.getEntrytxid_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getEntrytxid()));
 };
@@ -9108,14 +9162,14 @@ proto.actions.RemovalAction.prototype.getEntrytxid_asB64 = function() {
  * This is a type-conversion wrapper around `getEntrytxid()`
  * @return {!Uint8Array}
  */
-proto.actions.RemovalAction.prototype.getEntrytxid_asU8 = function() {
+proto.actions.Removal.prototype.getEntrytxid_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getEntrytxid()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.RemovalAction.prototype.setEntrytxid = function(value) {
+proto.actions.Removal.prototype.setEntrytxid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -9124,13 +9178,13 @@ proto.actions.RemovalAction.prototype.setEntrytxid = function(value) {
  * optional string Message = 2;
  * @return {string}
  */
-proto.actions.RemovalAction.prototype.getMessage = function() {
+proto.actions.Removal.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.RemovalAction.prototype.setMessage = function(value) {
+proto.actions.Removal.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -9146,19 +9200,19 @@ proto.actions.RemovalAction.prototype.setMessage = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.MessageAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.MessageAction.repeatedFields_, null);
+proto.actions.Message = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Message.repeatedFields_, null);
 };
-goog.inherits(proto.actions.MessageAction, jspb.Message);
+goog.inherits(proto.actions.Message, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.MessageAction.displayName = 'proto.actions.MessageAction';
+  proto.actions.Message.displayName = 'proto.actions.Message';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.MessageAction.repeatedFields_ = [1];
+proto.actions.Message.repeatedFields_ = [1];
 
 
 
@@ -9173,8 +9227,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.MessageAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.MessageAction.toObject(opt_includeInstance, this);
+proto.actions.Message.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Message.toObject(opt_includeInstance, this);
 };
 
 
@@ -9183,12 +9237,13 @@ proto.actions.MessageAction.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.MessageAction} msg The msg instance to transform.
+ * @param {!proto.actions.Message} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.MessageAction.toObject = function(includeInstance, msg) {
+proto.actions.Message.toObject = function(includeInstance, msg) {
   var f, obj = {
     addressindexesList: jspb.Message.getField(msg, 1),
+    messagecode: msg.getMessagecode(),
     messagepayload: msg.getMessagepayload_asB64()
   };
 
@@ -9203,23 +9258,23 @@ proto.actions.MessageAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.MessageAction}
+ * @return {!proto.actions.Message}
  */
-proto.actions.MessageAction.deserializeBinary = function(bytes) {
+proto.actions.Message.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.MessageAction;
-  return proto.actions.MessageAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Message;
+  return proto.actions.Message.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.MessageAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Message} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.MessageAction}
+ * @return {!proto.actions.Message}
  */
-proto.actions.MessageAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Message.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -9231,6 +9286,10 @@ proto.actions.MessageAction.deserializeBinaryFromReader = function(msg, reader) 
       msg.setAddressindexesList(value);
       break;
     case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setMessagecode(value);
+      break;
+    case 3:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setMessagepayload(value);
       break;
@@ -9246,10 +9305,10 @@ proto.actions.MessageAction.deserializeBinaryFromReader = function(msg, reader) 
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.MessageAction} message
+ * @param {!proto.actions.Message} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.MessageAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Message.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -9258,7 +9317,7 @@ proto.actions.MessageAction.serializeBinaryToWriter = function(message, writer) 
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.MessageAction.prototype.serializeBinary = function() {
+proto.actions.Message.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -9270,7 +9329,7 @@ proto.actions.MessageAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.MessageAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Message.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAddressindexesList();
   if (f.length > 0) {
@@ -9279,10 +9338,17 @@ proto.actions.MessageAction.prototype.serializeBinaryToWriter = function (writer
       f
     );
   }
+  f = this.getMessagecode();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
   f = this.getMessagepayload_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      2,
+      3,
       f
     );
   }
@@ -9291,10 +9357,10 @@ proto.actions.MessageAction.prototype.serializeBinaryToWriter = function (writer
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.MessageAction} The clone.
+ * @return {!proto.actions.Message} The clone.
  */
-proto.actions.MessageAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.MessageAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Message.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Message} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -9304,58 +9370,73 @@ proto.actions.MessageAction.prototype.cloneMessage = function() {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}
  */
-proto.actions.MessageAction.prototype.getAddressindexesList = function() {
+proto.actions.Message.prototype.getAddressindexesList = function() {
   return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 1));
 };
 
 
 /** @param {Array.<number>} value  */
-proto.actions.MessageAction.prototype.setAddressindexesList = function(value) {
+proto.actions.Message.prototype.setAddressindexesList = function(value) {
   jspb.Message.setField(this, 1, value || []);
 };
 
 
-proto.actions.MessageAction.prototype.clearAddressindexesList = function() {
+proto.actions.Message.prototype.clearAddressindexesList = function() {
   jspb.Message.setField(this, 1, []);
 };
 
 
 /**
- * optional bytes MessagePayload = 2;
- * @return {!(string|Uint8Array)}
+ * optional uint32 MessageCode = 2;
+ * @return {number}
  */
-proto.actions.MessageAction.prototype.getMessagepayload = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 2, ""));
+proto.actions.Message.prototype.getMessagecode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
+};
+
+
+/** @param {number} value  */
+proto.actions.Message.prototype.setMessagecode = function(value) {
+  jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional bytes MessagePayload = 2;
+ * optional bytes MessagePayload = 3;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.Message.prototype.getMessagepayload = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 3, ""));
+};
+
+
+/**
+ * optional bytes MessagePayload = 3;
  * This is a type-conversion wrapper around `getMessagepayload()`
  * @return {string}
  */
-proto.actions.MessageAction.prototype.getMessagepayload_asB64 = function() {
+proto.actions.Message.prototype.getMessagepayload_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getMessagepayload()));
 };
 
 
 /**
- * optional bytes MessagePayload = 2;
+ * optional bytes MessagePayload = 3;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getMessagepayload()`
  * @return {!Uint8Array}
  */
-proto.actions.MessageAction.prototype.getMessagepayload_asU8 = function() {
+proto.actions.Message.prototype.getMessagepayload_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getMessagepayload()));
 };
 
 
 /** @param {!(string|Uint8Array)} value  */
-proto.actions.MessageAction.prototype.setMessagepayload = function(value) {
-  jspb.Message.setField(this, 2, value);
+proto.actions.Message.prototype.setMessagepayload = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -9370,19 +9451,19 @@ proto.actions.MessageAction.prototype.setMessagepayload = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.actions.RejectionAction = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.RejectionAction.repeatedFields_, null);
+proto.actions.Rejection = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.Rejection.repeatedFields_, null);
 };
-goog.inherits(proto.actions.RejectionAction, jspb.Message);
+goog.inherits(proto.actions.Rejection, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.actions.RejectionAction.displayName = 'proto.actions.RejectionAction';
+  proto.actions.Rejection.displayName = 'proto.actions.Rejection';
 }
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.RejectionAction.repeatedFields_ = [1];
+proto.actions.Rejection.repeatedFields_ = [1];
 
 
 
@@ -9397,8 +9478,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.actions.RejectionAction.prototype.toObject = function(opt_includeInstance) {
-  return proto.actions.RejectionAction.toObject(opt_includeInstance, this);
+proto.actions.Rejection.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.Rejection.toObject(opt_includeInstance, this);
 };
 
 
@@ -9407,10 +9488,10 @@ proto.actions.RejectionAction.prototype.toObject = function(opt_includeInstance)
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.actions.RejectionAction} msg The msg instance to transform.
+ * @param {!proto.actions.Rejection} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.actions.RejectionAction.toObject = function(includeInstance, msg) {
+proto.actions.Rejection.toObject = function(includeInstance, msg) {
   var f, obj = {
     addressindexesList: jspb.Message.getField(msg, 1),
     rejectaddressindex: msg.getRejectaddressindex(),
@@ -9430,23 +9511,23 @@ proto.actions.RejectionAction.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.actions.RejectionAction}
+ * @return {!proto.actions.Rejection}
  */
-proto.actions.RejectionAction.deserializeBinary = function(bytes) {
+proto.actions.Rejection.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.actions.RejectionAction;
-  return proto.actions.RejectionAction.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.actions.Rejection;
+  return proto.actions.Rejection.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.actions.RejectionAction} msg The message object to deserialize into.
+ * @param {!proto.actions.Rejection} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.actions.RejectionAction}
+ * @return {!proto.actions.Rejection}
  */
-proto.actions.RejectionAction.deserializeBinaryFromReader = function(msg, reader) {
+proto.actions.Rejection.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -9462,7 +9543,7 @@ proto.actions.RejectionAction.deserializeBinaryFromReader = function(msg, reader
       msg.setRejectaddressindex(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint64());
+      var value = /** @type {number} */ (reader.readUint32());
       msg.setRejectioncode(value);
       break;
     case 4:
@@ -9485,10 +9566,10 @@ proto.actions.RejectionAction.deserializeBinaryFromReader = function(msg, reader
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.actions.RejectionAction} message
+ * @param {!proto.actions.Rejection} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.RejectionAction.serializeBinaryToWriter = function(message, writer) {
+proto.actions.Rejection.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -9497,7 +9578,7 @@ proto.actions.RejectionAction.serializeBinaryToWriter = function(message, writer
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.actions.RejectionAction.prototype.serializeBinary = function() {
+proto.actions.Rejection.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -9509,7 +9590,7 @@ proto.actions.RejectionAction.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.actions.RejectionAction.prototype.serializeBinaryToWriter = function (writer) {
+proto.actions.Rejection.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAddressindexesList();
   if (f.length > 0) {
@@ -9527,7 +9608,7 @@ proto.actions.RejectionAction.prototype.serializeBinaryToWriter = function (writ
   }
   f = this.getRejectioncode();
   if (f !== 0) {
-    writer.writeUint64(
+    writer.writeUint32(
       3,
       f
     );
@@ -9551,10 +9632,10 @@ proto.actions.RejectionAction.prototype.serializeBinaryToWriter = function (writ
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.actions.RejectionAction} The clone.
+ * @return {!proto.actions.Rejection} The clone.
  */
-proto.actions.RejectionAction.prototype.cloneMessage = function() {
-  return /** @type {!proto.actions.RejectionAction} */ (jspb.Message.cloneMessage(this));
+proto.actions.Rejection.prototype.cloneMessage = function() {
+  return /** @type {!proto.actions.Rejection} */ (jspb.Message.cloneMessage(this));
 };
 
 
@@ -9564,18 +9645,18 @@ proto.actions.RejectionAction.prototype.cloneMessage = function() {
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}
  */
-proto.actions.RejectionAction.prototype.getAddressindexesList = function() {
+proto.actions.Rejection.prototype.getAddressindexesList = function() {
   return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 1));
 };
 
 
 /** @param {Array.<number>} value  */
-proto.actions.RejectionAction.prototype.setAddressindexesList = function(value) {
+proto.actions.Rejection.prototype.setAddressindexesList = function(value) {
   jspb.Message.setField(this, 1, value || []);
 };
 
 
-proto.actions.RejectionAction.prototype.clearAddressindexesList = function() {
+proto.actions.Rejection.prototype.clearAddressindexesList = function() {
   jspb.Message.setField(this, 1, []);
 };
 
@@ -9584,28 +9665,28 @@ proto.actions.RejectionAction.prototype.clearAddressindexesList = function() {
  * optional uint32 RejectAddressIndex = 2;
  * @return {number}
  */
-proto.actions.RejectionAction.prototype.getRejectaddressindex = function() {
+proto.actions.Rejection.prototype.getRejectaddressindex = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.RejectionAction.prototype.setRejectaddressindex = function(value) {
+proto.actions.Rejection.prototype.setRejectaddressindex = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional uint64 RejectionCode = 3;
+ * optional uint32 RejectionCode = 3;
  * @return {number}
  */
-proto.actions.RejectionAction.prototype.getRejectioncode = function() {
+proto.actions.Rejection.prototype.getRejectioncode = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.RejectionAction.prototype.setRejectioncode = function(value) {
+proto.actions.Rejection.prototype.setRejectioncode = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -9614,13 +9695,13 @@ proto.actions.RejectionAction.prototype.setRejectioncode = function(value) {
  * optional string Message = 4;
  * @return {string}
  */
-proto.actions.RejectionAction.prototype.getMessage = function() {
+proto.actions.Rejection.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 4, ""));
 };
 
 
 /** @param {string} value  */
-proto.actions.RejectionAction.prototype.setMessage = function(value) {
+proto.actions.Rejection.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -9629,13 +9710,13 @@ proto.actions.RejectionAction.prototype.setMessage = function(value) {
  * optional uint64 Timestamp = 5;
  * @return {number}
  */
-proto.actions.RejectionAction.prototype.getTimestamp = function() {
+proto.actions.Rejection.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 5, 0));
 };
 
 
 /** @param {number} value  */
-proto.actions.RejectionAction.prototype.setTimestamp = function(value) {
+proto.actions.Rejection.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -9725,7 +9806,7 @@ proto.actions.AdministratorField.deserializeBinaryFromReader = function(msg, rea
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint64());
+      var value = /** @type {number} */ (reader.readUint32());
       msg.setType(value);
       break;
     case 2:
@@ -9772,7 +9853,7 @@ proto.actions.AdministratorField.prototype.serializeBinaryToWriter = function (w
   var f = undefined;
   f = this.getType();
   if (f !== 0) {
-    writer.writeUint64(
+    writer.writeUint32(
       1,
       f
     );
@@ -9797,7 +9878,7 @@ proto.actions.AdministratorField.prototype.cloneMessage = function() {
 
 
 /**
- * optional uint64 Type = 1;
+ * optional uint32 Type = 1;
  * @return {number}
  */
 proto.actions.AdministratorField.prototype.getType = function() {
@@ -11983,7 +12064,7 @@ proto.actions.ManagerField.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint64());
+      var value = /** @type {number} */ (reader.readUint32());
       msg.setType(value);
       break;
     case 2:
@@ -12030,7 +12111,7 @@ proto.actions.ManagerField.prototype.serializeBinaryToWriter = function (writer)
   var f = undefined;
   f = this.getType();
   if (f !== 0) {
-    writer.writeUint64(
+    writer.writeUint32(
       1,
       f
     );
@@ -12055,7 +12136,7 @@ proto.actions.ManagerField.prototype.cloneMessage = function() {
 
 
 /**
- * optional uint64 Type = 1;
+ * optional uint32 Type = 1;
  * @return {number}
  */
 proto.actions.ManagerField.prototype.getType = function() {
@@ -12814,7 +12895,7 @@ proto.actions.VotingSystemField.deserializeBinaryFromReader = function(msg, read
       msg.setVotetype(value);
       break;
     case 3:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readUint32());
       msg.setTallylogic(value);
       break;
     case 4:
@@ -12882,8 +12963,8 @@ proto.actions.VotingSystemField.prototype.serializeBinaryToWriter = function (wr
     );
   }
   f = this.getTallylogic();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeUint32(
       3,
       f
     );
@@ -12952,15 +13033,15 @@ proto.actions.VotingSystemField.prototype.setVotetype = function(value) {
 
 
 /**
- * optional string TallyLogic = 3;
- * @return {string}
+ * optional uint32 TallyLogic = 3;
+ * @return {number}
  */
 proto.actions.VotingSystemField.prototype.getTallylogic = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 3, ""));
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
 };
 
 
-/** @param {string} value  */
+/** @param {number} value  */
 proto.actions.VotingSystemField.prototype.setTallylogic = function(value) {
   jspb.Message.setField(this, 3, value);
 };

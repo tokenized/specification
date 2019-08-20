@@ -9,7 +9,7 @@ import (
 )
 
 // TemplateToFile renders a template to a file
-func TemplateToFile(distPath string, data interface{}, inFile, outFile string) {
+func TemplateToFile(data interface{}, inFile, outFile string) {
 	f, err := os.Create(outFile)
 	if err != nil {
 		panic(err)

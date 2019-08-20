@@ -5,8 +5,8 @@ syntax = "proto3";
 
 package {{.Package}};
 {{ range $messages }}
-// Action - {{.Label}} ({{.Code}})
-message {{.Name}}Action {
+// Message - {{.Label}} ({{.Code}})
+message {{.Name}} {
 {{- range $i, $a := .Fields}}
     {{ .ProtobufType }} {{.Name}}
     {{- padding (print .Name .ProtobufType) 45}} = {{add $i 1}};

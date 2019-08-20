@@ -66,7 +66,6 @@
           "example": 34536457575486868,
           "label": "ID",
           "name": "ID",
-          "size": 1,
           "span": "right",
           "type": "varchar"
         },
@@ -75,7 +74,6 @@
           "example": "Owner, Administrator, Manager, General, can be NULL.",
           "label": "Membership Class",
           "name": "MembershipClass",
-          "size": 1,
           "span": "right",
           "type": "varchar"
         },
@@ -84,7 +82,6 @@
           "example": "Director, Partner, CEO, COO, etc., can be NULL from Roles in Resources/Roles",
           "label": "Role Type",
           "name": "RoleType",
-          "size": 1,
           "span": "right",
           "type": "varchar"
         },
@@ -93,7 +90,6 @@
           "example": "Silver, Platinum, can be NULL.",
           "label": "Membership Type",
           "name": "MembershipType",
-          "size": 1,
           "span": "right",
           "type": "varchar"
         },
@@ -103,9 +99,9 @@
           "label": "Description",
           "name": "Description",
           "required": true,
-          "size": 2,
           "span": "full",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Membership",
@@ -141,7 +137,6 @@
           "example": "Reserve Bank of Australia",
           "label": "Monetary Authority",
           "name": "MonetaryAuthority",
-          "size": 1,
           "span": "full",
           "type": "varchar"
         },
@@ -150,9 +145,9 @@
           "example": "Australian dollar",
           "label": "Description",
           "name": "Description",
-          "size": 2,
           "span": "full",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Currency",
@@ -203,9 +198,9 @@
           "label": "Description",
           "name": "Description",
           "required": true,
-          "size": 2,
           "span": "full",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Share - Common",
@@ -230,7 +225,6 @@
           "example": "Woolworths - Robina Town Centre",
           "label": "Redeeming Entity",
           "name": "RedeemingEntity",
-          "size": 1,
           "span": "full",
           "type": "varchar"
         },
@@ -275,9 +269,9 @@
           "label": "Description",
           "name": "Description",
           "required": true,
-          "size": 2,
           "span": "full",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Coupon",
@@ -307,7 +301,6 @@
           "label": "Offer Name",
           "name": "OfferName",
           "options": null,
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -332,9 +325,9 @@
           "label": "Description",
           "name": "Description",
           "required": true,
-          "size": 2,
           "span": "full",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Loyalty Points",
@@ -374,7 +367,6 @@
           "example": "Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1",
           "label": "Venue",
           "name": "Venue",
-          "size": 1,
           "span": "left",
           "type": "varchar"
         },
@@ -384,7 +376,6 @@
           "example": "Gold Class, Platinum, VIP, Section A, etc.",
           "label": "Class",
           "name": "Class",
-          "size": 1,
           "span": "left",
           "type": "varchar"
         },
@@ -394,7 +385,6 @@
           "example": "Upper Bowl",
           "label": "Area",
           "name": "Area",
-          "size": 1,
           "span": "left",
           "type": "varchar"
         },
@@ -404,7 +394,6 @@
           "example": "Sec 1, Row 3, Seat 5, or A122",
           "label": "Seat",
           "name": "Seat",
-          "size": 1,
           "span": "left",
           "type": "varchar"
         },
@@ -439,9 +428,9 @@
           "label": "Description",
           "name": "Description",
           "required": true,
-          "size": 2,
           "span": "full",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Ticket (Admission)",

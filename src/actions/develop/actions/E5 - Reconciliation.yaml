@@ -41,8 +41,7 @@ fields:
     label: Quantities
     description: "The holders effected by the reconciliation and their balance remaining."
     type: QuantityIndex[]
-    # array size is number of bits to serialize the size of the array
-    size: 2
+    listSize: small
 
   - name: Timestamp
     label: Timestamp

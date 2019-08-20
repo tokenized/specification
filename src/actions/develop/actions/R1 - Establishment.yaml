@@ -23,6 +23,5 @@ fields:
     label: Message
     description: "A custom message to include with this action."
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 4
+    varSize: medium
     example: "North America Whitelist"

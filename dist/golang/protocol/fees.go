@@ -6,6 +6,7 @@ import (
 
 	"github.com/tokenized/smart-contract/pkg/txbuilder"
 	"github.com/tokenized/smart-contract/pkg/wire"
+	"github.com/tokenized/specification/dist/golang/actions"
 
 	"github.com/pkg/errors"
 )
@@ -20,10 +21,10 @@ import (
 func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees uint64, isTest bool) (int, uint64, error) {
 	// Find Tokenized OP_RETURN
 	var err error
-	var opReturn OpReturnMessage
+	var action actions.Action
 	found := false
 	for _, output := range requestTx.TxOut {
-		opReturn, err = Deserialize(output.PkScript, isTest)
+		action, err = Deserialize(output.PkScript, isTest)
 		if err == nil {
 			found = true
 			break
@@ -34,13 +35,13 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 	}
 
 	// Build sample response and calculate values based on expected response inputs and outputs.
-	var response OpReturnMessage
+	var response actions.Action
 	size := txbuilder.BaseTxSize
 	value := uint64(0)
 
-	switch request := opReturn.(type) {
-	case *ContractOffer:
-		contractFormation := ContractFormation{}
+	switch request := action.(type) {
+	case *actions.ContractOffer:
+		contractFormation := actions.ContractFormation{}
 		response = &contractFormation
 
 		// 1 input from contract
@@ -55,8 +56,8 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		}
 		value += dustLimit
 
-	case *ContractAmendment:
-		contractFormation := ContractFormation{}
+	case *actions.ContractAmendment:
+		contractFormation := actions.ContractFormation{}
 		response = &contractFormation
 
 		// 1 input from contract
@@ -73,8 +74,8 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		// TODO Need last asset creation to know size of response. Determine change in size by applying amendments.
 
-	case *AssetDefinition:
-		assetCreation := AssetCreation{}
+	case *actions.AssetDefinition:
+		assetCreation := actions.AssetCreation{}
 		response = &assetCreation
 
 		// 1 input from contract
@@ -89,8 +90,8 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		}
 		value += dustLimit
 
-	case *AssetModification:
-		assetCreation := AssetCreation{}
+	case *actions.AssetModification:
+		assetCreation := actions.AssetCreation{}
 		response = &assetCreation
 
 		// 1 input from contract
@@ -107,8 +108,8 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		// TODO Need last asset creation to know size of response. Determine change in size by applying amendments.
 
-	case *Transfer:
-		settlement := Settlement{}
+	case *actions.Transfer:
+		settlement := actions.Settlement{}
 		response = &settlement
 
 		// 1 input from contract
@@ -143,7 +144,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 			for _, receiver := range asset.AssetReceivers {
 				var fixedHash [20]byte
-				copy(fixedHash[:], receiver.Address.Bytes())
+				copy(fixedHash[:], receiver.Address)
 				_, exists := used[fixedHash]
 				if !exists {
 					used[fixedHash] = true
@@ -154,10 +155,10 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		size += wire.VarIntSerializeSize(uint64(outputCount)) + (outputCount * txbuilder.P2PKHOutputSize)
 
-	case *Proposal:
+	case *actions.Proposal:
 		if inputIndex == 0 {
 			// First input funds vote (initiation) message
-			vote := Vote{}
+			vote := actions.Vote{}
 			response = &vote
 
 			// 1 input from contract
@@ -173,7 +174,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 			value += dustLimit
 		} else {
 			// Second input funds vote result message
-			voteResult := Result{}
+			voteResult := actions.Result{}
 			response = &voteResult
 
 			voteResult.OptionTally = make([]uint64, len(request.VoteOptions))
@@ -195,8 +196,8 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 			value += dustLimit
 		}
 
-	case *BallotCast:
-		counted := BallotCounted{}
+	case *actions.BallotCast:
+		counted := actions.BallotCounted{}
 		response = &counted
 
 		// 1 input from contract
@@ -215,13 +216,13 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		return 0, 0, errors.New("Unsupported request type")
 	}
 
-	if err = convert(opReturn, response); err != nil {
+	if err = convert(action, response); err != nil {
 		return 0, 0, errors.Wrap(err, "Failed to convert request to response")
 	}
 
 	script, err := Serialize(response, isTest)
 	if err != nil {
-		return 0, 0, errors.Wrap(err, "Failed to serialize response")
+		return 0, 0, errors.Wrap(err, "Failed to serialize response envelope")
 	}
 
 	// OP_RETURN output size

@@ -1,10 +1,10 @@
 #
-# Output provides a link to a specific output of a bitcoin transaction.
+# Outpoint provides a reference to a specific output of a bitcoin transaction.
 #
 
 code: 0002
-name: Output
-label: Output
+name: Outpoint
+label: Outpoint
 description: "Reference to a bitcoin transaction output."
 
 fields:

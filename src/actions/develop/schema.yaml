@@ -67,7 +67,7 @@ fieldTypes:
 fieldAliases:
   - name: Role
     type: uint
-    size: 8
+    size: 1
     resource: Roles
 
   - name: EntityType
@@ -82,21 +82,24 @@ fieldAliases:
 
   - name: RejectionCode
     type: uint
-    size: 8
+    size: 1
     resource: Rejections
 
   - name: Tag
     type: uint
-    size: 8
+    size: 1
     resource: Tags
 
   - name: Address
     type: varbin
-    size: 1
 
   - name: ContractCode
     type: bin
     size: 32
+
+  - name: AssetType
+    type: fixedchar
+    size: 3
 
   - name: AssetCode
     type: bin
@@ -108,7 +111,6 @@ fieldAliases:
 
   - name: PublicKeyHash
     type: varbin
-    size: 1
 
   - name: TxId
     type: bin

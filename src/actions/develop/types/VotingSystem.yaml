@@ -8,8 +8,6 @@ fields:
     label: Voting System Name
     description: "eg. Special Resolutions, Ordinary Resolutions, Fundamental Matters, General Matters, Directors' Vote, Poll, etc."
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 1
     example: "Special Resolutions"
 
   - name: VoteType
@@ -22,7 +20,7 @@ fields:
   - name: TallyLogic
     label: Tally Logic
     description: "0 - Standard Scoring (+1 * # of tokens owned), 1 - Weighted Scoring (1st choice * Vote Max * # of tokens held, 2nd choice * Vote Max-1 * # of tokens held,..etc.) "
-    type: fixedchar
+    type: uint
     size: 1
     example: "0"
 

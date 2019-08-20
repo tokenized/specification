@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package actions;
 
-// Action - Contract Offer (C1)
-message ContractOfferAction {
+// Message - Contract Offer (C1)
+message ContractOffer {
     string ContractName                            = 1;   // varchar
     uint32 BodyOfAgreementType                     = 2;   // uint
     bytes BodyOfAgreement                          = 3;   // varbin
@@ -27,8 +27,8 @@ message ContractOfferAction {
     bytes MasterPKH                                = 21;  // PublicKeyHash
 }
 
-// Action - Contract Formation (C2)
-message ContractFormationAction {
+// Message - Contract Formation (C2)
+message ContractFormation {
     string ContractName                            = 1;   // varchar
     uint32 BodyOfAgreementType                     = 2;   // uint
     bytes BodyOfAgreement                          = 3;   // varbin
@@ -54,8 +54,8 @@ message ContractFormationAction {
     uint64 Timestamp                               = 23;  // Timestamp
 }
 
-// Action - Contract Amendment (C3)
-message ContractAmendmentAction {
+// Message - Contract Amendment (C3)
+message ContractAmendment {
     bool ChangeAdministrationAddress               = 1;   // bool
     bool ChangeOperatorAddress                     = 2;   // bool
     uint32 ContractRevision                        = 3;   // uint
@@ -63,8 +63,8 @@ message ContractAmendmentAction {
     bytes RefTxID                                  = 5;   // TxId
 }
 
-// Action - Static Contract Formation (C4)
-message StaticContractFormationAction {
+// Message - Static Contract Formation (C4)
+message StaticContractFormation {
     string ContractName                            = 1;   // varchar
     bytes ContractCode                             = 2;   // ContractCode
     uint32 BodyOfAgreementType                     = 3;   // uint
@@ -81,14 +81,14 @@ message StaticContractFormationAction {
     repeated EntityField Entities                  = 14;  // Entity[]
 }
 
-// Action - Contract Address Change (C5)
-message ContractAddressChangeAction {
-    bytes NewContractPKH                           = 1;   // PublicKeyHash
+// Message - Contract Address Change (C5)
+message ContractAddressChange {
+    bytes NewContractAddress                       = 1;   // varbin
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
-// Action - Asset Definition (A1)
-message AssetDefinitionAction {
+// Message - Asset Definition (A1)
+message AssetDefinition {
     bytes AssetAuthFlags                           = 1;   // varbin
     bool TransfersPermitted                        = 2;   // bool
     repeated string TradeRestrictions              = 3;   // Polity[]
@@ -99,11 +99,12 @@ message AssetDefinitionAction {
     bool HolderProposal                            = 8;   // bool
     uint32 AssetModificationGovernance             = 9;   // uint
     uint64 TokenQty                                = 10;   // uint
-    bytes AssetPayload                             = 11;  // varbin
+    string AssetType                               = 11;  // AssetType
+    bytes AssetPayload                             = 12;  // varbin
 }
 
-// Action - Asset Creation (A2)
-message AssetCreationAction {
+// Message - Asset Creation (A2)
+message AssetCreation {
     bytes AssetCode                                = 1;   // AssetCode
     uint64 AssetIndex                              = 2;   // uint
     bytes AssetAuthFlags                           = 3;   // varbin
@@ -116,13 +117,14 @@ message AssetCreationAction {
     bool HolderProposal                            = 10;   // bool
     uint32 AssetModificationGovernance             = 11;  // uint
     uint64 TokenQty                                = 12;  // uint
-    bytes AssetPayload                             = 13;  // varbin
-    uint32 AssetRevision                           = 14;  // uint
-    uint64 Timestamp                               = 15;  // Timestamp
+    string AssetType                               = 13;  // AssetType
+    bytes AssetPayload                             = 14;  // varbin
+    uint32 AssetRevision                           = 15;  // uint
+    uint64 Timestamp                               = 16;  // Timestamp
 }
 
-// Action - Asset Modification (A3)
-message AssetModificationAction {
+// Message - Asset Modification (A3)
+message AssetModification {
     string AssetType                               = 1;   // fixedchar
     bytes AssetCode                                = 2;   // AssetCode
     uint32 AssetRevision                           = 3;   // uint
@@ -130,22 +132,22 @@ message AssetModificationAction {
     bytes RefTxID                                  = 5;   // TxId
 }
 
-// Action - Transfer (T1)
-message TransferAction {
+// Message - Transfer (T1)
+message Transfer {
     repeated AssetTransferField Assets             = 1;   // AssetTransfer[]
     uint64 OfferExpiry                             = 2;   // Timestamp
     uint64 ExchangeFee                             = 3;   // uint
     bytes ExchangeFeeAddress                       = 4;   // PublicKeyHash
 }
 
-// Action - Settlement (T2)
-message SettlementAction {
+// Message - Settlement (T2)
+message Settlement {
     repeated AssetSettlementField Assets           = 1;   // AssetSettlement[]
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
-// Action - Proposal (G1)
-message ProposalAction {
+// Message - Proposal (G1)
+message Proposal {
     uint32 Initiator                               = 1;   // uint
     bool AssetSpecificVote                         = 2;   // bool
     string AssetType                               = 3;   // fixedchar
@@ -160,27 +162,27 @@ message ProposalAction {
     uint64 VoteCutOffTimestamp                     = 12;  // Timestamp
 }
 
-// Action - Vote (G2)
-message VoteAction {
+// Message - Vote (G2)
+message Vote {
     uint64 Timestamp                               = 1;   // Timestamp
 }
 
-// Action - Ballot Cast (G3)
-message BallotCastAction {
+// Message - Ballot Cast (G3)
+message BallotCast {
     bytes VoteTxId                                 = 1;   // TxId
     string Vote                                    = 2;   // varchar
 }
 
-// Action - Ballot Counted (G4)
-message BallotCountedAction {
+// Message - Ballot Counted (G4)
+message BallotCounted {
     bytes VoteTxId                                 = 1;   // TxId
     string Vote                                    = 2;   // varchar
     uint64 Quantity                                = 3;   // uint
     uint64 Timestamp                               = 4;   // Timestamp
 }
 
-// Action - Result (G5)
-message ResultAction {
+// Message - Result (G5)
+message Result {
     bool AssetSpecificVote                         = 1;   // bool
     string AssetType                               = 2;   // fixedchar
     bytes AssetCode                                = 3;   // AssetCode
@@ -192,8 +194,8 @@ message ResultAction {
     uint64 Timestamp                               = 9;   // Timestamp
 }
 
-// Action - Order (E1)
-message OrderAction {
+// Message - Order (E1)
+message Order {
     string ComplianceAction                        = 1;   // fixedchar
     string AssetType                               = 2;   // fixedchar
     bytes AssetCode                                = 3;   // AssetCode
@@ -212,8 +214,8 @@ message OrderAction {
     string Message                                 = 16;  // varchar
 }
 
-// Action - Freeze (E2)
-message FreezeAction {
+// Message - Freeze (E2)
+message Freeze {
     string AssetType                               = 1;   // fixedchar
     bytes AssetCode                                = 2;   // AssetCode
     repeated QuantityIndexField Quantities         = 3;   // QuantityIndex[]
@@ -221,14 +223,14 @@ message FreezeAction {
     uint64 Timestamp                               = 5;   // Timestamp
 }
 
-// Action - Thaw (E3)
-message ThawAction {
+// Message - Thaw (E3)
+message Thaw {
     bytes FreezeTxId                               = 1;   // TxId
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
-// Action - Confiscation (E4)
-message ConfiscationAction {
+// Message - Confiscation (E4)
+message Confiscation {
     string AssetType                               = 1;   // fixedchar
     bytes AssetCode                                = 2;   // AssetCode
     repeated QuantityIndexField Quantities         = 3;   // QuantityIndex[]
@@ -236,47 +238,48 @@ message ConfiscationAction {
     uint64 Timestamp                               = 5;   // Timestamp
 }
 
-// Action - Reconciliation (E5)
-message ReconciliationAction {
+// Message - Reconciliation (E5)
+message Reconciliation {
     string AssetType                               = 1;   // fixedchar
     bytes AssetCode                                = 2;   // AssetCode
     repeated QuantityIndexField Quantities         = 3;   // QuantityIndex[]
     uint64 Timestamp                               = 4;   // Timestamp
 }
 
-// Action - Establishment (R1)
-message EstablishmentAction {
+// Message - Establishment (R1)
+message Establishment {
     string Message                                 = 1;   // varchar
 }
 
-// Action - Addition (R2)
-message AdditionAction {
+// Message - Addition (R2)
+message Addition {
     string Message                                 = 1;   // varchar
 }
 
-// Action - Alteration (R3)
-message AlterationAction {
+// Message - Alteration (R3)
+message Alteration {
     bytes EntryTxID                                = 1;   // TxId
     string Message                                 = 2;   // varchar
 }
 
-// Action - Removal (R4)
-message RemovalAction {
+// Message - Removal (R4)
+message Removal {
     bytes EntryTxID                                = 1;   // TxId
     string Message                                 = 2;   // varchar
 }
 
-// Action - Message (M1)
-message MessageAction {
+// Message - Message (M1)
+message Message {
     repeated uint32 AddressIndexes                 = 1;   // uint[]
-    bytes MessagePayload                           = 2;   // varbin
+    uint32 MessageCode                             = 2;   // uint
+    bytes MessagePayload                           = 3;   // varbin
 }
 
-// Action - Rejection (M2)
-message RejectionAction {
+// Message - Rejection (M2)
+message Rejection {
     repeated uint32 AddressIndexes                 = 1;   // uint[]
     uint32 RejectAddressIndex                      = 2;   // uint
-    uint64 RejectionCode                           = 3;   // RejectionCode
+    uint32 RejectionCode                           = 3;   // RejectionCode
     string Message                                 = 4;   // varchar
     uint64 Timestamp                               = 5;   // Timestamp
 }
@@ -284,7 +287,7 @@ message RejectionAction {
 
 // Field - Administrator
 message AdministratorField {
-    uint64 Type                                    = 1;   // Role
+    uint32 Type                                    = 1;   // Role
     string Name                                    = 2;   // varchar
 }
 
@@ -353,7 +356,7 @@ message EntityField {
 
 // Field - Manager
 message ManagerField {
-    uint64 Type                                    = 1;   // Role
+    uint32 Type                                    = 1;   // Role
     string Name                                    = 2;   // varchar
 }
 
@@ -380,7 +383,7 @@ message TargetAddressField {
 message VotingSystemField {
     string Name                                    = 1;   // varchar
     string VoteType                                = 2;   // fixedchar
-    string TallyLogic                              = 3;   // fixedchar
+    uint32 TallyLogic                              = 3;   // uint
     uint32 ThresholdPercentage                     = 4;   // uint
     bool VoteMultiplierPermitted                   = 5;   // bool
     uint64 HolderProposalFee                       = 6;   // uint

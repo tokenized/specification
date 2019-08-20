@@ -17,12 +17,12 @@ fields:
     label: Subject
     description: The subject / topic of the message.
     type: varchar
-    size: 2
+    varSize: small
 
   - name: Regarding
     label: Regarding
     description: The output of the message that this message is regarding (responding to).
-    type: Output
+    type: Outpoint
 
   - name: PrivateMessage
     label: Private Message
@@ -33,4 +33,4 @@ fields:
     label: Attachments
     description: Documents attached to the message.
     type: Document[]
-    size: 4
+    listSize: medium

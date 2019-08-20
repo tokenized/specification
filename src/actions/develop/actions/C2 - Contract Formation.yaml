@@ -30,8 +30,6 @@ fields:
       If the public address is lost, then the administration will have to reissue the entire contract, asset definition and tokens with the new public address.
       Smart contracts can be branded and specialized to suit any terms and conditions.
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 1
     example: "Tesla - Shareholder Agreement"
 
   - name: BodyOfAgreementType
@@ -49,15 +47,12 @@ fields:
     label: Body of Agreement
     description: "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information."
     type: varbin
-    # varbin size is number of bytes to serialize the size of the data
-    size: 4
+    varSize: medium
 
   - name: ContractType
     label: Contract Type
     description: "Describes the purpose of the contract."
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 1
     example: "Shareholder Agreement"
 
   - name: SupportingDocs
@@ -92,8 +87,6 @@ fields:
     label: Contract URI
     description: "Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 1
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
 
   - name: Issuer
@@ -105,8 +98,6 @@ fields:
     label: Issuer Logo URL
     description: "The URL of the issuer's logo."
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 1
     example: "https://example.tld/images/logo.png"
 
   - name: ContractOperatorIncluded
@@ -136,7 +127,7 @@ fields:
     label: Contract Authorization Flags
     description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement"
     type: varbin
-    size: 2
+    varSize: small
     notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
   - name: RestrictedQtyAssets

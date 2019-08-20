@@ -40,8 +40,6 @@ fields:
     label: Oracle Confirmation Signature
     description: "Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field."
     type: varbin
-    # varbin size is number of bytes to serialize the size of the value
-    size: 1
     include_if_int:
       field: OracleSigAlgorithm
       values:

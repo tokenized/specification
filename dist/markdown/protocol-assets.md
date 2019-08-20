@@ -45,7 +45,7 @@ A Membership
         <tr>
             <td>ValidFrom</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -55,7 +55,7 @@ A Membership
         <tr>
             <td>ExpirationTimestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -65,7 +65,7 @@ A Membership
         <tr>
             <td>ID</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -75,7 +75,7 @@ A Membership
         <tr>
             <td>MembershipClass</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -85,7 +85,7 @@ A Membership
         <tr>
             <td>RoleType</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -95,7 +95,7 @@ A Membership
         <tr>
             <td>MembershipType</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -105,7 +105,7 @@ A Membership
         <tr>
             <td>Description</td>
             <td>
-                varchar(2)
+                varchar
             </td>
             <td>
                 
@@ -130,7 +130,7 @@ Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of
         <tr>
             <td>ISOCode</td>
             <td>
-                <a href="#alias-currency-type">CurrencyType</a>
+                <a href="#alias-fixedchar">CurrencyType</a>
             </td>
             <td>
                 International Organization for Standardization code for Currency. (Specification/Resources)
@@ -140,7 +140,7 @@ Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of
         <tr>
             <td>MonetaryAuthority</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -150,7 +150,7 @@ Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of
         <tr>
             <td>Description</td>
             <td>
-                varchar(2)
+                varchar
             </td>
             <td>
                 
@@ -175,7 +175,7 @@ Common stock represents ownership interests in companies.
         <tr>
             <td>TransferLockout</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 A period of time where the asset is unable to be transferred.  After the transfer lockout period, the assets can be transferred.
@@ -205,7 +205,7 @@ Common stock represents ownership interests in companies.
         <tr>
             <td>Description</td>
             <td>
-                varchar(2)
+                varchar
             </td>
             <td>
                 
@@ -230,7 +230,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <tr>
             <td>RedeemingEntity</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 The entity responsible for redemption of this coupon.
@@ -240,7 +240,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <tr>
             <td>IssueDate</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -250,7 +250,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <tr>
             <td>ExpiryDate</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -270,7 +270,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <tr>
             <td>Currency</td>
             <td>
-                <a href="#alias-currency-type">CurrencyType</a>
+                <a href="#alias-fixedchar">CurrencyType</a>
             </td>
             <td>
                 International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.
@@ -280,7 +280,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <tr>
             <td>Description</td>
             <td>
-                varchar(2)
+                varchar
             </td>
             <td>
                 
@@ -315,7 +315,7 @@ A Loyalty Point
         <tr>
             <td>OfferName</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -325,7 +325,7 @@ A Loyalty Point
         <tr>
             <td>ValidFrom</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -335,7 +335,7 @@ A Loyalty Point
         <tr>
             <td>ExpirationTimestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -345,7 +345,7 @@ A Loyalty Point
         <tr>
             <td>Description</td>
             <td>
-                varchar(2)
+                varchar
             </td>
             <td>
                 
@@ -390,7 +390,7 @@ Admission ticket
         <tr>
             <td>Venue</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -400,7 +400,7 @@ Admission ticket
         <tr>
             <td>Class</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -410,7 +410,7 @@ Admission ticket
         <tr>
             <td>Area</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -420,7 +420,7 @@ Admission ticket
         <tr>
             <td>Seat</td>
             <td>
-                varchar(1)
+                varchar
             </td>
             <td>
                 
@@ -430,7 +430,7 @@ Admission ticket
         <tr>
             <td>StartTimeDate</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -440,7 +440,7 @@ Admission ticket
         <tr>
             <td>ValidFrom</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -450,7 +450,7 @@ Admission ticket
         <tr>
             <td>ExpirationTimestamp</td>
             <td>
-                <a href="#alias-timestamp">Timestamp</a>
+                <a href="#alias-uint">Timestamp</a>
             </td>
             <td>
                 
@@ -460,7 +460,7 @@ Admission ticket
         <tr>
             <td>Description</td>
             <td>
-                varchar(2)
+                varchar
             </td>
             <td>
                 

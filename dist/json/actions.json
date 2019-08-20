@@ -3,7 +3,7 @@
     {
       "name": "Role",
       "resource": "Roles",
-      "size": 8,
+      "size": 1,
       "type": "uint"
     },
     {
@@ -21,24 +21,28 @@
     {
       "name": "RejectionCode",
       "resource": "Rejections",
-      "size": 8,
+      "size": 1,
       "type": "uint"
     },
     {
       "name": "Tag",
       "resource": "Tags",
-      "size": 8,
+      "size": 1,
       "type": "uint"
     },
     {
       "name": "Address",
-      "size": 1,
       "type": "varbin"
     },
     {
       "name": "ContractCode",
       "size": 32,
       "type": "bin"
+    },
+    {
+      "name": "AssetType",
+      "size": 3,
+      "type": "fixedchar"
     },
     {
       "name": "AssetCode",
@@ -52,7 +56,6 @@
     },
     {
       "name": "PublicKeyHash",
-      "size": 1,
       "type": "varbin"
     },
     {
@@ -77,7 +80,6 @@
           "example": "Satoshi Nakamoto",
           "label": "Administrator Name",
           "name": "Name",
-          "size": 1,
           "type": "varchar"
         }
       ],
@@ -141,8 +143,8 @@
           "label": "Data",
           "name": "Data",
           "notes": "The bytes should be in an format appropriate for the field being modified.",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
       "label": "Amendment",
@@ -203,7 +205,6 @@
           },
           "label": "Oracle Confirmation Signature",
           "name": "OracleConfirmationSig",
-          "size": 1,
           "type": "varbin"
         },
         {
@@ -307,7 +308,6 @@
           "example": "Agreement.pdf",
           "label": "Document Name",
           "name": "Name",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -315,15 +315,14 @@
           "example": "application/pdf",
           "label": "MIME Type",
           "name": "Type",
-          "size": 1,
           "type": "varchar"
         },
         {
           "description": "The contents of the file.",
           "label": "File Contents",
           "name": "Contents",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
       "label": "Document",
@@ -337,7 +336,6 @@
           "example": "Tesla Inc.",
           "label": "Name",
           "name": "Name",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -370,7 +368,6 @@
           "include_if_true": "AddressIncluded",
           "label": "Unit Number",
           "name": "UnitNumber",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -379,7 +376,6 @@
           "include_if_true": "AddressIncluded",
           "label": "Building Number",
           "name": "BuildingNumber",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -388,8 +384,8 @@
           "include_if_true": "AddressIncluded",
           "label": "Street",
           "name": "Street",
-          "size": 2,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         },
         {
           "description": "",
@@ -397,7 +393,6 @@
           "include_if_true": "AddressIncluded",
           "label": "Suburb/City",
           "name": "SuburbCity",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -432,7 +427,6 @@
           "example": "satoshi@tokenized.com",
           "label": "Email Address",
           "name": "EmailAddress",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -440,7 +434,6 @@
           "example": "0448484848",
           "label": "Phone Number",
           "name": "PhoneNumber",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -474,7 +467,6 @@
           "example": "Satoshi Nakamoto",
           "label": "Manager Name",
           "name": "Name",
-          "size": 1,
           "type": "varchar"
         }
       ],
@@ -489,7 +481,6 @@
           "example": "Tokenized",
           "label": "Oracle Name",
           "name": "Name",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -497,14 +488,12 @@
           "example": "http://oracle.tokenized.com/api/3650d9/version2010",
           "label": "Oracle URL",
           "name": "URL",
-          "size": 1,
           "type": "varchar"
         },
         {
           "description": "Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle.",
           "label": "Oracle Public Key",
           "name": "PublicKey",
-          "size": 1,
           "type": "varbin"
         }
       ],
@@ -563,7 +552,6 @@
           "example": "Special Resolutions",
           "label": "Voting System Name",
           "name": "Name",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -580,7 +568,7 @@
           "label": "Tally Logic",
           "name": "TallyLogic",
           "size": 1,
-          "type": "fixedchar"
+          "type": "uint"
         },
         {
           "description": "This field is ignored when VoteType is P (Plurality). Otherwise it is the percentage of ballots required for a proposal to pass. Valid values are greater than 0 and less than 100. 75 means 75% and greater.  Only applicable to Relative and Absolute Threshold vote methods.  The Plurality vote method requires no threshold value (NULL), as the successful vote option is simply selected on the basis of highest ballots cast for it.",
@@ -619,7 +607,6 @@
           "example": "Tesla - Shareholder Agreement",
           "label": "Contract Name",
           "name": "ContractName",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -639,15 +626,14 @@
           "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         },
         {
           "description": "Describes the purpose of the contract.",
           "example": "Shareholder Agreement",
           "label": "Contract Type",
           "name": "ContractType",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -687,7 +673,6 @@
           "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
           "label": "Contract URI",
           "name": "ContractURI",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -701,7 +686,6 @@
           "example": "https://example.com/images/logo.png",
           "label": "Issuer Logo URL",
           "name": "IssuerLogoURL",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -735,8 +719,8 @@
           "label": "Contract Authorization Flags",
           "name": "ContractAuthFlags",
           "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
-          "size": 2,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "small"
         },
         {
           "description": "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
@@ -810,7 +794,6 @@
           "example": "Tesla - Shareholder Agreement",
           "label": "Contract Name",
           "name": "ContractName",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -830,15 +813,14 @@
           "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         },
         {
           "description": "Describes the purpose of the contract.",
           "example": "Shareholder Agreement",
           "label": "Contract Type",
           "name": "ContractType",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -878,7 +860,6 @@
           "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
           "label": "Contract URI",
           "name": "ContractURI",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -892,7 +873,6 @@
           "example": "https://example.tld/images/logo.png",
           "label": "Issuer Logo URL",
           "name": "IssuerLogoURL",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -926,8 +906,8 @@
           "label": "Contract Authorization Flags",
           "name": "ContractAuthFlags",
           "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
-          "size": 2,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "small"
         },
         {
           "description": "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
@@ -1077,7 +1057,6 @@
           "example": "Tesla - Shareholder Agreement",
           "label": "Contract Name",
           "name": "ContractName",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -1104,15 +1083,14 @@
           "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         },
         {
           "description": "Describes the purpose of the contract.",
           "example": "Non-Disclosure Agreement",
           "label": "Contract Type",
           "name": "ContractType",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -1162,7 +1140,6 @@
           "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
           "label": "Contract URI",
           "name": "ContractURI",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -1196,9 +1173,10 @@
       "fields": [
         {
           "description": "The address to be used by all future requests/responses for the contract.",
-          "label": "New Contract PKH",
-          "name": "NewContractPKH",
-          "type": "PublicKeyHash"
+          "label": "New Contract Address",
+          "name": "NewContractAddress",
+          "type": "varbin",
+          "varSize": "small"
         },
         {
           "description": "Timestamp in nanoseconds of when the action was created.",
@@ -1239,8 +1217,8 @@
           "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
           "label": "Asset Authorization Flags",
           "name": "AssetAuthFlags",
-          "size": 1,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "small"
         },
         {
           "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
@@ -1253,8 +1231,8 @@
           "description": "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
           "example": "GBR",
           "label": "Trade Restrictions",
+          "listSize": "medium",
           "name": "TradeRestrictions",
-          "size": 2,
           "type": "Polity[]"
         },
         {
@@ -1314,11 +1292,17 @@
           "type": "uint"
         },
         {
+          "description": "A code representing the type of asset and the structure of the payload.",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "type": "AssetType"
+        },
+        {
           "description": "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.",
           "label": "Asset Payload",
           "name": "AssetPayload",
-          "size": 2,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "small"
         }
       ],
       "label": "Asset Definition",
@@ -1364,8 +1348,8 @@
           "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
           "label": "Asset Authorization Flags",
           "name": "AssetAuthFlags",
-          "size": 1,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "small"
         },
         {
           "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
@@ -1378,8 +1362,8 @@
           "description": "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
           "example": "GBR",
           "label": "Trade Restrictions",
+          "listSize": "small",
           "name": "TradeRestrictions",
-          "size": 2,
           "type": "Polity[]"
         },
         {
@@ -1439,11 +1423,17 @@
           "type": "uint"
         },
         {
+          "description": "A code representing the type of asset and the structure of the payload.",
+          "label": "Asset Type",
+          "name": "AssetType",
+          "type": "AssetType"
+        },
+        {
           "description": "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.",
           "label": "Asset Payload",
           "name": "AssetPayload",
-          "size": 2,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "small"
         },
         {
           "description": "A counter for the number of times this asset has been revised using a modification action.",
@@ -1698,7 +1688,6 @@
           "example": "ABCDEFGHIJKLMNO",
           "label": "Vote Options",
           "name": "VoteOptions",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -1714,8 +1703,8 @@
           "example": "Change the name of the Contract.",
           "label": "Proposal Description",
           "name": "ProposalDescription",
-          "size": 4,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "medium"
         },
         {
           "description": "SHA256 Hash of the proposal document to be distributed to voters.",
@@ -1806,7 +1795,6 @@
           "example": "A",
           "label": "Vote",
           "name": "Vote",
-          "size": 1,
           "type": "varchar"
         }
       ],
@@ -1846,7 +1834,6 @@
           "example": "A",
           "label": "Vote",
           "name": "Vote",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -1942,7 +1929,6 @@
           "description": "Length 1-255 bytes. 0 is not valid. The Option with the most votes. In the event of a draw for 1st place, all winning options are listed.",
           "label": "Result",
           "name": "Result",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -2034,8 +2020,8 @@
             ]
           },
           "label": "Target Addresses",
+          "listSize": "medium",
           "name": "TargetAddresses",
-          "size": 2,
           "type": "TargetAddress[]"
         },
         {
@@ -2096,7 +2082,6 @@
           "includeIfTrue": "AuthorityIncluded",
           "label": "Authority Name",
           "name": "AuthorityName",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -2105,7 +2090,6 @@
           "includeIfTrue": "AuthorityIncluded",
           "label": "Authority Public Key",
           "name": "AuthorityPublicKey",
-          "size": 1,
           "type": "varbin"
         },
         {
@@ -2126,7 +2110,6 @@
           "includeIfTrue": "AuthorityIncluded",
           "label": "Authority Order Signature",
           "name": "OrderSignature",
-          "size": 1,
           "type": "varbin"
         },
         {
@@ -2147,8 +2130,8 @@
           "label": "Ref Txs",
           "name": "RefTxs",
           "notes": "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         },
         {
           "description": "Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens.",
@@ -2159,8 +2142,8 @@
             ]
           },
           "label": "Bitcoin Dispersions",
+          "listSize": "small",
           "name": "BitcoinDispersions",
-          "size": 2,
           "type": "QuantityIndex[]"
         },
         {
@@ -2168,8 +2151,8 @@
           "example": "Compelled by a court order.",
           "label": "Message",
           "name": "Message",
-          "size": 4,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "medium"
         }
       ],
       "label": "Order",
@@ -2215,8 +2198,8 @@
         {
           "description": "Indices to addresses in outputs and the quantities being frozen. If the only address is the contract address and the asset code is zeros, then it is a contract wide freeze. If the only address is the contract address and the asset code is specified, then it is an asset wide freeze.",
           "label": "Quantities",
+          "listSize": "small",
           "name": "Quantities",
-          "size": 2,
           "type": "QuantityIndex[]"
         },
         {
@@ -2315,8 +2298,8 @@
         {
           "description": "The holders effected by the confiscation and their balance remaining.",
           "label": "Quantities",
+          "listSize": "small",
           "name": "Quantities",
-          "size": 2,
           "type": "QuantityIndex[]"
         },
         {
@@ -2383,8 +2366,8 @@
         {
           "description": "The holders effected by the reconciliation and their balance remaining.",
           "label": "Quantities",
+          "listSize": "small",
           "name": "Quantities",
-          "size": 2,
           "type": "QuantityIndex[]"
         },
         {
@@ -2425,8 +2408,8 @@
           "example": "North America Whitelist",
           "label": "Message",
           "name": "Message",
-          "size": 4,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "medium"
         }
       ],
       "label": "Establishment",
@@ -2457,8 +2440,8 @@
           "example": "username",
           "label": "Message",
           "name": "Message",
-          "size": 4,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "medium"
         }
       ],
       "label": "Addition",
@@ -2495,8 +2478,8 @@
           "example": "Changed Country of Residence",
           "label": "Message",
           "name": "Message",
-          "size": 4,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "medium"
         }
       ],
       "label": "Alteration",
@@ -2533,8 +2516,8 @@
           "example": "Removed due to violation of company policy.",
           "label": "Message",
           "name": "Message",
-          "size": 4,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "medium"
         }
       ],
       "label": "Removal",
@@ -2564,16 +2547,22 @@
           "description": "Associates the message to a particular output by the index.",
           "label": "Address Indexes",
           "name": "AddressIndexes",
-          "size": 2,
+          "size": 4,
           "type": "uint[]"
+        },
+        {
+          "label": "Message Code",
+          "name": "MessageCode",
+          "size": 2,
+          "type": "uint"
         },
         {
           "description": "Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See Message Types for a full list of potential use cases.\n",
           "example": "Hello world!",
           "label": "Message Payload",
           "name": "MessagePayload",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
       "label": "Message",
@@ -2603,7 +2592,7 @@
           "description": "Associates the message to a particular output by the index.",
           "label": "Address Indexes",
           "name": "AddressIndexes",
-          "size": 2,
+          "size": 4,
           "type": "uint[]"
         },
         {
@@ -2625,8 +2614,8 @@
           "example": "Sorry, you don't have enough tokens.",
           "label": "Message",
           "name": "Message",
-          "size": 2,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         },
         {
           "description": "Timestamp in nanoseconds of when the smart contract created the action.",

@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package assets;
 
-// Action - Membership (MEM)
-message MembershipAction {
+// Message - Membership (MEM)
+message Membership {
     AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
     uint64 ValidFrom                               = 2;   // Timestamp
     uint64 ExpirationTimestamp                     = 3;   // Timestamp
@@ -14,23 +14,23 @@ message MembershipAction {
     string Description                             = 8;   // varchar
 }
 
-// Action - Currency (CUR)
-message CurrencyAction {
+// Message - Currency (CUR)
+message Currency {
     string ISOCode                                 = 1;   // CurrencyType
     string MonetaryAuthority                       = 2;   // varchar
     string Description                             = 3;   // varchar
 }
 
-// Action - Share - Common (SHC)
-message ShareCommonAction {
+// Message - Share - Common (SHC)
+message ShareCommon {
     uint64 TransferLockout                         = 1;   // Timestamp
     string Ticker                                  = 2;   // fixedchar
     string ISIN                                    = 3;   // fixedchar
     string Description                             = 4;   // varchar
 }
 
-// Action - Coupon (COU)
-message CouponAction {
+// Message - Coupon (COU)
+message Coupon {
     string RedeemingEntity                         = 1;   // varchar
     uint64 IssueDate                               = 2;   // Timestamp
     uint64 ExpiryDate                              = 3;   // Timestamp
@@ -39,8 +39,8 @@ message CouponAction {
     string Description                             = 6;   // varchar
 }
 
-// Action - Loyalty Points (LOY)
-message LoyaltyPointsAction {
+// Message - Loyalty Points (LOY)
+message LoyaltyPoints {
     AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
     string OfferName                               = 2;   // varchar
     uint64 ValidFrom                               = 3;   // Timestamp
@@ -48,8 +48,8 @@ message LoyaltyPointsAction {
     string Description                             = 5;   // varchar
 }
 
-// Action - Ticket (Admission) (TIC)
-message TicketAdmissionAction {
+// Message - Ticket (Admission) (TIC)
+message TicketAdmission {
     AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
     string AdmissionType                           = 2;   // fixedchar
     string Venue                                   = 3;   // varchar

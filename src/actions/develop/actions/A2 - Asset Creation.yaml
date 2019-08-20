@@ -38,7 +38,7 @@ fields:
     label: Asset Authorization Flags
     description: "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail."
     type: varbin
-    size: 1
+    varSize: small
 
   - name: TransfersPermitted
     label: Transfers Permitted
@@ -50,7 +50,7 @@ fields:
     label: Trade Restrictions
     description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
     type: Polity[]
-    size: 2
+    listSize: small
     example: "GBR"
 
   - name: EnforcementOrdersPermitted
@@ -101,12 +101,16 @@ fields:
     size: 8
     example: "1000000"
 
+  - name: AssetType
+    label: Asset Type
+    description: "A code representing the type of asset and the structure of the payload."
+    type: AssetType
+
   - name: AssetPayload
     label: Asset Payload
     description: "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details."
     type: varbin
-    # varbin size is number of bytes to serialize the size of the data
-    size: 2
+    varSize: small
 
   - name: AssetRevision
     label: Asset Revision

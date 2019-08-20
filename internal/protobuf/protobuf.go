@@ -10,7 +10,6 @@ func Compile(
 	assets parser.Schema,
 	messages parser.Schema,
 ) {
-
 	templateToFile(distPath, "schema.tpl", "actions.proto", actions)
 
 	templateToFile(distPath, "schema.tpl", "assets.proto", assets)
@@ -24,5 +23,5 @@ func templateToFile(distPath, tplFile, protoFile string, data interface{}) {
 
 	path := distPath + "/protobuf/" + protoFile
 
-	parser.TemplateToFile(distPath, data, tpl, path)
+	parser.TemplateToFile(data, tpl, path)
 }

@@ -44,8 +44,7 @@ fields:
     label: Quantities
     description: "Indices to addresses in outputs and the quantities being frozen. If the only address is the contract address and the asset code is zeros, then it is a contract wide freeze. If the only address is the contract address and the asset code is specified, then it is an asset wide freeze."
     type: QuantityIndex[]
-    # array size is number of bits to serialize the size of the array
-    size: 2
+    listSize: small
 
   - name: FreezePeriod
     label: Freeze Period
