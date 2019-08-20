@@ -42,8 +42,8 @@ func (a *Membership) Validate() error {
 	}
 
 	// Field Description - varchar
-	if len(a.Description) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max1ByteInteger)
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max2ByteInteger)
 	}
 
 	return nil
@@ -66,8 +66,8 @@ func (a *Currency) Validate() error {
 	}
 
 	// Field Description - varchar
-	if len(a.Description) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max1ByteInteger)
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max2ByteInteger)
 	}
 
 	return nil
@@ -93,8 +93,8 @@ func (a *ShareCommon) Validate() error {
 	}
 
 	// Field Description - varchar
-	if len(a.Description) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max1ByteInteger)
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max2ByteInteger)
 	}
 
 	return nil
@@ -123,8 +123,8 @@ func (a *Coupon) Validate() error {
 	}
 
 	// Field Description - varchar
-	if len(a.Description) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max1ByteInteger)
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max2ByteInteger)
 	}
 
 	return nil
@@ -147,8 +147,8 @@ func (a *LoyaltyPoints) Validate() error {
 	// Field ExpirationTimestamp - uint
 
 	// Field Description - varchar
-	if len(a.Description) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max1ByteInteger)
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max2ByteInteger)
 	}
 
 	return nil
@@ -194,8 +194,8 @@ func (a *TicketAdmission) Validate() error {
 	// Field ExpirationTimestamp - uint
 
 	// Field Description - varchar
-	if len(a.Description) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max1ByteInteger)
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max2ByteInteger)
 	}
 
 	return nil

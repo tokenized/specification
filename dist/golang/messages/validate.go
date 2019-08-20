@@ -18,8 +18,8 @@ func (a *PublicMessage) Validate() error {
 	// Field Timestamp - uint
 
 	// Field Subject - varchar
-	if len(a.Subject) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Subject), max1ByteInteger)
+	if len(a.Subject) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Subject), max2ByteInteger)
 	}
 
 	// Field Regarding - Outpoint
@@ -47,8 +47,8 @@ func (a *PrivateMessage) Validate() error {
 	// Field Timestamp - uint
 
 	// Field Subject - varchar
-	if len(a.Subject) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Subject), max1ByteInteger)
+	if len(a.Subject) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Subject), max2ByteInteger)
 	}
 
 	// Field Regarding - Outpoint
@@ -76,8 +76,8 @@ func (a *RevertedTx) Validate() error {
 	// Field Timestamp - uint
 
 	// Field Transaction - varbin
-	if len(a.Transaction) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Transaction), max1ByteInteger)
+	if len(a.Transaction) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Transaction), max4ByteInteger)
 	}
 
 	return nil
@@ -91,8 +91,8 @@ func (a *Offer) Validate() error {
 	// Field Timestamp - uint
 
 	// Field Payload - varbin
-	if len(a.Payload) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Payload), max1ByteInteger)
+	if len(a.Payload) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Payload), max4ByteInteger)
 	}
 
 	return nil
@@ -106,8 +106,8 @@ func (a *SignatureRequest) Validate() error {
 	// Field Timestamp - uint
 
 	// Field Payload - varbin
-	if len(a.Payload) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Payload), max1ByteInteger)
+	if len(a.Payload) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Payload), max4ByteInteger)
 	}
 
 	return nil
@@ -137,8 +137,8 @@ func (a *SettlementRequest) Validate() error {
 	}
 
 	// Field Settlement - varbin
-	if len(a.Settlement) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Settlement), max1ByteInteger)
+	if len(a.Settlement) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Settlement), max4ByteInteger)
 	}
 
 	return nil
@@ -150,8 +150,8 @@ func (a *OutputMetadata) Validate() error {
 	}
 
 	// Field OutputDescription - varchar
-	if len(a.OutputDescription) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.OutputDescription), max1ByteInteger)
+	if len(a.OutputDescription) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.OutputDescription), max4ByteInteger)
 	}
 
 	// Field Tags - uint
@@ -217,8 +217,8 @@ func (a *DocumentField) Validate() error {
 	}
 
 	// Field Contents - varbin
-	if len(a.Contents) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Contents), max1ByteInteger)
+	if len(a.Contents) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Contents), max4ByteInteger)
 	}
 
 	return nil

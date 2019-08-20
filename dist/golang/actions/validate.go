@@ -33,8 +33,8 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field BodyOfAgreement - varbin
-	if len(a.BodyOfAgreement) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.BodyOfAgreement), max1ByteInteger)
+	if len(a.BodyOfAgreement) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
 	}
 
 	// Field ContractType - varchar
@@ -95,8 +95,8 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field ContractAuthFlags - varbin
-	if len(a.ContractAuthFlags) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractAuthFlags), max1ByteInteger)
+	if len(a.ContractAuthFlags) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractAuthFlags), max2ByteInteger)
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -146,8 +146,8 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field BodyOfAgreement - varbin
-	if len(a.BodyOfAgreement) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.BodyOfAgreement), max1ByteInteger)
+	if len(a.BodyOfAgreement) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
 	}
 
 	// Field ContractType - varchar
@@ -208,8 +208,8 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field ContractAuthFlags - varbin
-	if len(a.ContractAuthFlags) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractAuthFlags), max1ByteInteger)
+	if len(a.ContractAuthFlags) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractAuthFlags), max2ByteInteger)
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -299,8 +299,8 @@ func (a *StaticContractFormation) Validate() error {
 	}
 
 	// Field BodyOfAgreement - varbin
-	if len(a.BodyOfAgreement) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.BodyOfAgreement), max1ByteInteger)
+	if len(a.BodyOfAgreement) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
 	}
 
 	// Field ContractType - varchar
@@ -366,8 +366,8 @@ func (a *ContractAddressChange) Validate() error {
 	}
 
 	// Field NewContractAddress - varbin
-	if len(a.NewContractAddress) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.NewContractAddress), max1ByteInteger)
+	if len(a.NewContractAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.NewContractAddress), max2ByteInteger)
 	}
 
 	// Field Timestamp - uint
@@ -381,8 +381,8 @@ func (a *AssetDefinition) Validate() error {
 	}
 
 	// Field AssetAuthFlags - varbin
-	if len(a.AssetAuthFlags) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetAuthFlags), max1ByteInteger)
+	if len(a.AssetAuthFlags) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetAuthFlags), max2ByteInteger)
 	}
 
 	// Field TransfersPermitted - bool
@@ -432,8 +432,8 @@ func (a *AssetDefinition) Validate() error {
 	}
 
 	// Field AssetPayload - varbin
-	if len(a.AssetPayload) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetPayload), max1ByteInteger)
+	if len(a.AssetPayload) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetPayload), max2ByteInteger)
 	}
 
 	return nil
@@ -453,8 +453,8 @@ func (a *AssetCreation) Validate() error {
 	// Field AssetIndex - uint
 
 	// Field AssetAuthFlags - varbin
-	if len(a.AssetAuthFlags) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetAuthFlags), max1ByteInteger)
+	if len(a.AssetAuthFlags) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetAuthFlags), max2ByteInteger)
 	}
 
 	// Field TransfersPermitted - bool
@@ -504,8 +504,8 @@ func (a *AssetCreation) Validate() error {
 	}
 
 	// Field AssetPayload - varbin
-	if len(a.AssetPayload) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetPayload), max1ByteInteger)
+	if len(a.AssetPayload) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetPayload), max2ByteInteger)
 	}
 
 	// Field AssetRevision - uint
@@ -659,8 +659,8 @@ func (a *Proposal) Validate() error {
 	}
 
 	// Field ProposalDescription - varchar
-	if len(a.ProposalDescription) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ProposalDescription), max1ByteInteger)
+	if len(a.ProposalDescription) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ProposalDescription), max4ByteInteger)
 	}
 
 	// Field ProposalDocumentHash - bin
@@ -860,8 +860,8 @@ func (a *Order) Validate() error {
 	}
 
 	// Field RefTxs - varbin
-	if len(a.RefTxs) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.RefTxs), max1ByteInteger)
+	if len(a.RefTxs) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.RefTxs), max4ByteInteger)
 	}
 
 	// Field BitcoinDispersions - QuantityIndex
@@ -875,8 +875,8 @@ func (a *Order) Validate() error {
 	}
 
 	// Field Message - varchar
-	if len(a.Message) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max1ByteInteger)
+	if len(a.Message) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max4ByteInteger)
 	}
 
 	return nil
@@ -1004,8 +1004,8 @@ func (a *Establishment) Validate() error {
 	}
 
 	// Field Message - varchar
-	if len(a.Message) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max1ByteInteger)
+	if len(a.Message) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max4ByteInteger)
 	}
 
 	return nil
@@ -1017,8 +1017,8 @@ func (a *Addition) Validate() error {
 	}
 
 	// Field Message - varchar
-	if len(a.Message) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max1ByteInteger)
+	if len(a.Message) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max4ByteInteger)
 	}
 
 	return nil
@@ -1036,8 +1036,8 @@ func (a *Alteration) Validate() error {
 	}
 
 	// Field Message - varchar
-	if len(a.Message) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max1ByteInteger)
+	if len(a.Message) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max4ByteInteger)
 	}
 
 	return nil
@@ -1055,8 +1055,8 @@ func (a *Removal) Validate() error {
 	}
 
 	// Field Message - varchar
-	if len(a.Message) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max1ByteInteger)
+	if len(a.Message) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max4ByteInteger)
 	}
 
 	return nil
@@ -1078,8 +1078,8 @@ func (a *Message) Validate() error {
 	}
 
 	// Field MessagePayload - varbin
-	if len(a.MessagePayload) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.MessagePayload), max1ByteInteger)
+	if len(a.MessagePayload) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.MessagePayload), max4ByteInteger)
 	}
 
 	return nil
@@ -1106,8 +1106,8 @@ func (a *Rejection) Validate() error {
 	}
 
 	// Field Message - varchar
-	if len(a.Message) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max1ByteInteger)
+	if len(a.Message) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max2ByteInteger)
 	}
 
 	// Field Timestamp - uint
@@ -1171,8 +1171,8 @@ func (a *AmendmentField) Validate() error {
 	}
 
 	// Field Data - varbin
-	if len(a.Data) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Data), max1ByteInteger)
+	if len(a.Data) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Data), max4ByteInteger)
 	}
 
 	return nil
@@ -1313,8 +1313,8 @@ func (a *DocumentField) Validate() error {
 	}
 
 	// Field Contents - varbin
-	if len(a.Contents) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Contents), max1ByteInteger)
+	if len(a.Contents) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Contents), max4ByteInteger)
 	}
 
 	return nil
@@ -1353,8 +1353,8 @@ func (a *EntityField) Validate() error {
 	}
 
 	// Field Street - varchar
-	if len(a.Street) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Street), max1ByteInteger)
+	if len(a.Street) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Street), max2ByteInteger)
 	}
 
 	// Field SuburbCity - varchar

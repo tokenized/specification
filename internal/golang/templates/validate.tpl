@@ -81,19 +81,21 @@ const (
                 len(a.{{ .Name }}), {{ .BaseSize }})
         }
     {{- else if eq .BaseType "varbin" "varchar" }}
-        {{- if le .BaseSize 1 }}
-        if len(a.{{ .Name }}) > max1ByteInteger {
-            return fmt.Errorf("variable size over max value : %d > %d", len(a.{{ .Name }}), max1ByteInteger)
-        }
-        {{- else if eq .BaseSize 2 }}
-        if len(a.{{ .Name }}) > max2ByteInteger {
-            return fmt.Errorf("variable size over max value : %d > %d", len(a.{{ .Name }}), max2ByteInteger)
-        }
-        {{- else if eq .BaseSize 4 }}
-        if len(a.{{ .Name }}) > max4ByteInteger {
-            return fmt.Errorf("variable size over max value : %d > %d", len(a.{{ .Name }}), max4ByteInteger)
-        }
-        {{- end }}
+		{{- if eq .BaseVarSize "tiny" "" }}
+		if len(a.{{ .Name }}) > max1ByteInteger {
+			return fmt.Errorf("variable size over max value : %d > %d", len(a.{{ .Name }}), max1ByteInteger)
+		}
+		{{- else if eq .BaseVarSize "small" }}
+		if len(a.{{ .Name }}) > max2ByteInteger {
+			return fmt.Errorf("variable size over max value : %d > %d", len(a.{{ .Name }}), max2ByteInteger)
+		}
+		{{- else if eq .BaseVarSize "medium" }}
+		if len(a.{{ .Name }}) > max4ByteInteger {
+			return fmt.Errorf("variable size over max value : %d > %d", len(a.{{ .Name }}), max4ByteInteger)
+		}
+		{{- else if ne .BaseVarSize "large" }}
+		INVALID VARIABLE SIZE : {{ .BaseVarSize }}
+		{{- end }}
     {{- else if eq .BaseType "uint" }}
 		{{- if gt (len .Options) 0 }}
 		found{{ .Name }} := false
