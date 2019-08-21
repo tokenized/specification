@@ -15,8 +15,8 @@ type Field struct {
 	ListSize       string   `yaml:"listSize"`
 	VarSize        string   `yaml:"varSize"`
 	Example        string   `yaml:"example"`
-	Options        []string `yaml:"options`
-	Resource       string   `yaml:"resource`
+	Options        []string `yaml:"options"`
+	Resource       string   `yaml:"resource"`
 	IsAlias        bool     `yaml:"is_alias"`
 	IsCompoundType bool     `yaml:"is_compound_type"`
 	AliasField     *Field
@@ -97,6 +97,14 @@ func (f *Field) BaseVarSize() string {
 		return "tiny"
 	}
 	return f.VarSize
+}
+
+// BaseResource returns the base resource of the field.
+func (f *Field) BaseResource() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseResource()
+	}
+	return f.Resource
 }
 
 func (f *Field) GoType() string {

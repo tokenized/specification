@@ -392,6 +392,9 @@ func (a *AssetDefinition) Validate() error {
 		return fmt.Errorf("List over max length : %d > %d", len(a.TradeRestrictions), max2ByteInteger)
 	}
 	for i, v := range a.TradeRestrictions {
+		if PolitiesData(v) == nil {
+			return fmt.Errorf("Polities resource value not defined : %v", v)
+		}
 		if len(v) != 0 && len(v) != 3 {
 			return fmt.Errorf("Fixed width element TradeRestrictions[%d] wrong size : %d should be %d",
 				i, len(v), 3)
@@ -464,6 +467,9 @@ func (a *AssetCreation) Validate() error {
 		return fmt.Errorf("List over max length : %d > %d", len(a.TradeRestrictions), max2ByteInteger)
 	}
 	for i, v := range a.TradeRestrictions {
+		if PolitiesData(v) == nil {
+			return fmt.Errorf("Polities resource value not defined : %v", v)
+		}
 		if len(v) != 0 && len(v) != 3 {
 			return fmt.Errorf("Fixed width element TradeRestrictions[%d] wrong size : %d should be %d",
 				i, len(v), 3)
@@ -1101,6 +1107,9 @@ func (a *Rejection) Validate() error {
 	}
 
 	// Field RejectionCode - uint
+	if RejectionsData(a.RejectionCode) == nil {
+		return fmt.Errorf("Rejections resource value not defined : %v", a.RejectionCode)
+	}
 	if a.RejectionCode > uint32(max1ByteInteger) {
 		return fmt.Errorf("uint over max value : %d > %d", a.RejectionCode, max1ByteInteger)
 	}
@@ -1121,6 +1130,9 @@ func (a *AdministratorField) Validate() error {
 	}
 
 	// Field Type - uint
+	if RolesData(a.Type) == nil {
+		return fmt.Errorf("Roles resource value not defined : %v", a.Type)
+	}
 	if a.Type > uint32(max1ByteInteger) {
 		return fmt.Errorf("uint over max value : %d > %d", a.Type, max1ByteInteger)
 	}
@@ -1331,6 +1343,9 @@ func (a *EntityField) Validate() error {
 	}
 
 	// Field Type - fixedchar
+	if EntitiesData(a.Type) == nil {
+		return fmt.Errorf("Entities resource value not defined : %v", a.Type)
+	}
 	if len(a.Type) != 0 && len(a.Type) != 1 {
 		return fmt.Errorf("Fixed width field Type wrong size : %d should be %d",
 			len(a.Type), 1)
@@ -1419,6 +1434,9 @@ func (a *ManagerField) Validate() error {
 	}
 
 	// Field Type - uint
+	if RolesData(a.Type) == nil {
+		return fmt.Errorf("Roles resource value not defined : %v", a.Type)
+	}
 	if a.Type > uint32(max1ByteInteger) {
 		return fmt.Errorf("uint over max value : %d > %d", a.Type, max1ByteInteger)
 	}

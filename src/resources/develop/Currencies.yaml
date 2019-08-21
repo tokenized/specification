@@ -1,9 +1,9 @@
 
 name: Currencies
 description: "International Organization for Standardization code for Currency. 3 character code."
-
-metadata:
-  type: CurrencyType
+codeType:
+    type: fixedchar
+    size: 3
 
 # Pending values
 ###############

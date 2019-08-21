@@ -2556,6 +2556,10 @@
   "package": "actions",
   "resources": [
     {
+      "codeType": {
+        "size": 1,
+        "type": "fixedchar"
+      },
       "description": "Legal Entities \u0026 Ownership Structures. 1 character.",
       "name": "Entities",
       "values": [
@@ -2977,6 +2981,10 @@
       ]
     },
     {
+      "codeType": {
+        "size": 3,
+        "type": "fixedchar"
+      },
       "description": "Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, International Organizations, etc.). Based on a 3 character code.\n",
       "name": "Polities",
       "values": [
@@ -5413,134 +5421,137 @@
       ]
     },
     {
+      "codeType": {
+        "type": "uint"
+      },
       "description": "Roles that entities play in relation to their interactions with other entities. These roles have widely-accepted tasks, rights and duties.\n",
       "name": "Roles",
       "values": [
         {
           "code": 1,
-          "label": "Accountant"
+          "name": "Accountant"
         },
         {
           "code": 2,
-          "label": "Advisor"
+          "name": "Advisor"
         },
         {
           "code": 3,
-          "label": "Agent"
+          "name": "Agent"
         },
         {
           "code": 4,
-          "label": "Beneficiary"
+          "name": "Beneficiary"
         },
         {
           "code": 5,
-          "label": "CEO"
+          "name": "CEO"
         },
         {
           "code": 6,
-          "label": "CFO"
+          "name": "CFO"
         },
         {
           "code": 7,
-          "label": "Chair"
+          "name": "Chair"
         },
         {
           "code": 8,
-          "label": "COO"
+          "name": "COO"
         },
         {
           "code": 9,
-          "label": "CTO"
+          "name": "CTO"
         },
         {
           "code": 10,
-          "label": "Custodian"
+          "name": "Custodian"
         },
         {
           "code": 11,
-          "label": "Director"
+          "name": "Director"
         },
         {
           "code": 12,
-          "label": "Executive"
+          "name": "Executive"
         },
         {
           "code": 13,
-          "label": "Lawyer"
+          "name": "Lawyer"
         },
         {
           "code": 14,
-          "label": "Legal Guardian"
+          "name": "Legal Guardian"
         },
         {
           "code": 15,
-          "label": "Limited Partner"
+          "name": "Limited Partner"
         },
         {
           "code": 16,
-          "label": "Manager"
+          "name": "Manager"
         },
         {
           "code": 17,
-          "label": "Managing Partner"
+          "name": "Managing Partner"
         },
         {
           "code": 18,
           "description": "Shareholder",
-          "label": "Member"
+          "name": "Member"
         },
         {
           "code": 19,
-          "label": "Partner"
+          "name": "Partner"
         },
         {
           "code": 20,
-          "label": "Principal"
+          "name": "Principal"
         },
         {
           "code": 21,
-          "label": "Proprietor"
+          "name": "Proprietor"
         },
         {
           "code": 22,
-          "label": "Protector"
+          "name": "Protector"
         },
         {
           "code": 23,
-          "label": "Secretary"
+          "name": "Secretary"
         },
         {
           "code": 24,
-          "label": "Settlor"
+          "name": "Settlor"
         },
         {
           "code": 25,
           "description": "Major Shareholder",
-          "label": "Significant Member"
+          "name": "Significant Member"
         },
         {
           "code": 26,
-          "label": "Smart Contract Operator"
+          "name": "Smart Contract Operator"
         },
         {
           "code": 27,
-          "label": "Trader"
+          "name": "Trader"
         },
         {
           "code": 28,
-          "label": "Trustee"
+          "name": "Trustee"
         },
         {
           "code": 29,
-          "label": "Unit Holder"
+          "name": "Unit Holder"
         }
       ]
     },
     {
-      "description": "Code/Text combinations returned in rejection messages when a request is not accepted.",
-      "metadata": {
-        "type": "RejectionCode"
+      "codeType": {
+        "type": "uint"
       },
+      "description": "Code/Text combinations returned in rejection messages when a request is not accepted.",
       "name": "Rejections",
       "values": [
         {
@@ -5768,6 +5779,9 @@
       ]
     },
     {
+      "codeType": {
+        "type": "uint"
+      },
       "description": "Predefined tags for output metadata. Multiple values can be assigned to an output to describe a tx output.\n",
       "metadata": {
         "type": "Tag"
@@ -5776,119 +5790,119 @@
       "values": [
         {
           "code": 1,
-          "label": "Housing"
+          "name": "Housing"
         },
         {
           "code": 2,
-          "label": "Utilities"
+          "name": "Utilities"
         },
         {
           "code": 3,
-          "label": "Food"
+          "name": "Food"
         },
         {
           "code": 4,
-          "label": "Medical"
+          "name": "Medical"
         },
         {
           "code": 5,
-          "label": "Financial Services"
+          "name": "Financial Services"
         },
         {
           "code": 6,
-          "label": "Entertainment"
+          "name": "Entertainment"
         },
         {
           "code": 7,
-          "label": "Sales"
+          "name": "Sales"
         },
         {
           "code": 8,
-          "label": "Automotive"
+          "name": "Automotive"
         },
         {
           "code": 9,
-          "label": "Transportation"
+          "name": "Transportation"
         },
         {
           "code": 10,
-          "label": "Fitness"
+          "name": "Fitness"
         },
         {
           "code": 20,
-          "label": "Electricity"
+          "name": "Electricity"
         },
         {
           "code": 21,
-          "label": "Water"
+          "name": "Water"
         },
         {
           "code": 22,
-          "label": "Internet"
-        },
-        {
-          "code": 22,
-          "label": "Medicine"
+          "name": "Internet"
         },
         {
           "code": 23,
-          "label": "Service"
+          "name": "Medicine"
         },
         {
           "code": 24,
-          "label": "Repair"
+          "name": "Service"
         },
         {
           "code": 25,
-          "label": "Supplies"
+          "name": "Repair"
         },
         {
           "code": 26,
-          "label": "Parts"
+          "name": "Supplies"
         },
         {
           "code": 27,
-          "label": "Labor"
+          "name": "Parts"
         },
         {
           "code": 28,
-          "label": "Tip"
+          "name": "Labor"
         },
         {
           "code": 29,
-          "label": "Media"
+          "name": "Tip"
+        },
+        {
+          "code": 30,
+          "name": "Media"
         },
         {
           "code": 40,
-          "label": "Music"
+          "name": "Music"
         },
         {
           "code": 41,
-          "label": "Video"
+          "name": "Video"
         },
         {
           "code": 42,
-          "label": "Photo"
+          "name": "Photo"
         },
         {
           "code": 43,
-          "label": "Audio"
+          "name": "Audio"
         },
         {
           "code": 100,
-          "label": "Alcohol"
+          "name": "Alcohol"
         },
         {
           "code": 101,
-          "label": "Tobacco"
+          "name": "Tobacco"
         },
         {
           "code": 120,
-          "label": "Discounted"
+          "name": "Discounted"
         },
         {
           "code": 121,
-          "label": "Promotional"
+          "name": "Promotional"
         }
       ]
     }

@@ -3,94 +3,96 @@ name: Tags
 description: >
     Predefined tags for output metadata.
     Multiple values can be assigned to an output to describe a tx output.
+codeType:
+    type: uint
 
 metadata:
   type: Tag
 
 values:
   - code: 1
-    label: Housing
+    name: Housing
 
   - code: 2
-    label: Utilities
+    name: Utilities
 
   - code: 3
-    label: Food
+    name: Food
 
   - code: 4
-    label: Medical
+    name: Medical
 
   - code: 5
-    label: Financial Services
+    name: Financial Services
 
   - code: 6
-    label: Entertainment
+    name: Entertainment
 
   - code: 7
-    label: Sales
+    name: Sales
 
   - code: 8
-    label: Automotive
+    name: Automotive
 
   - code: 9
-    label: Transportation
+    name: Transportation
 
   - code: 10
-    label: Fitness
+    name: Fitness
 
   - code: 20
-    label: Electricity
+    name: Electricity
 
   - code: 21
-    label: Water
+    name: Water
 
   - code: 22
-    label: Internet
-
-  - code: 22
-    label: Medicine
+    name: Internet
 
   - code: 23
-    label: Service
+    name: Medicine
 
   - code: 24
-    label: Repair
+    name: Service
 
   - code: 25
-    label: Supplies
+    name: Repair
 
   - code: 26
-    label: Parts
+    name: Supplies
 
   - code: 27
-    label: Labor
+    name: Parts
 
   - code: 28
-    label: Tip
+    name: Labor
 
   - code: 29
-    label: Media
+    name: Tip
+
+  - code: 30
+    name: Media
 
   - code: 40
-    label: Music
+    name: Music
 
   - code: 41
-    label: Video
+    name: Video
 
   - code: 42
-    label: Photo
+    name: Photo
 
   - code: 43
-    label: Audio
+    name: Audio
 
   - code: 100
-    label: Alcohol
+    name: Alcohol
 
   - code: 101
-    label: Tobacco
+    name: Tobacco
 
   - code: 120
-    label: Discounted
+    name: Discounted
 
   - code: 121
-    label: Promotional
+    name: Promotional

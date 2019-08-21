@@ -51,6 +51,7 @@ type FieldType struct {
 type Resource struct {
 	Name        string                 `yaml:"name"`
 	Description string                 `yaml:"description"`
+	CodeType    Field                  `yaml:"codeType"`
 	Values      []ResourceValue        `yaml:"values"`
 	MetaData    map[string]interface{} `yaml:"metadata"`
 }

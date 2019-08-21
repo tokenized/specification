@@ -1,6 +1,9 @@
 
 name: Entities
 description: Legal Entities & Ownership Structures. 1 character.
+codeType:
+    type: fixedchar
+    size: 1
 
 values:
   - code: I

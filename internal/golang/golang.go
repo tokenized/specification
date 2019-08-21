@@ -17,22 +17,10 @@ func Compile(
 		distPath+"/golang/"+"actions/validate.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/equal.tpl",
 		distPath+"/golang/"+"actions/equal.go")
+	parser.TemplateToFile(actions, "internal/golang/templates/resources.tpl",
+		distPath+"/golang/"+"actions/resources.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/actions_test.tpl",
 		distPath+"/golang/"+"actions/actions_test.go")
-
-	// Rejection Codes
-	var rejections *parser.Resource
-	for i, resource := range actions.Resources {
-		if resource.Name == "Rejections" {
-			rejections = &actions.Resources[i]
-			break
-		}
-	}
-	if rejections == nil {
-		panic("Couldn't find actions rejections resource")
-	}
-	parser.TemplateToFile(rejections, "internal/golang/templates/rejections.tpl",
-		distPath+"/golang/"+"actions/rejections.go")
 
 	// Assets
 	parser.TemplateToFile(assets, "internal/golang/templates/assets.tpl",

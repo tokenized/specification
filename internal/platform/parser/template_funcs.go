@@ -37,6 +37,9 @@ func MakeTemplateFuncs() template.FuncMap {
 		"camelcase": func(str string) string {
 			return StrCamelCase(str)
 		},
+		"stripwhitespace": func(str string) string {
+			return StrStripWhiteSpace(str)
+		},
 	}
 }
 
@@ -74,6 +77,20 @@ func StrComment(s string, prefix string) string {
 
 func StrCamelCase(str string) string {
 	return strings.ToLower(str[0:1]) + str[1:]
+}
+
+func StrStripWhiteSpace(str string) string {
+	result := ""
+	for _, c := range str {
+		switch c {
+		case ' ':
+		case '-':
+		case ',':
+		default:
+			result += string(c)
+		}
+	}
+	return result
 }
 
 func StrSnakeCase(str string) string {
