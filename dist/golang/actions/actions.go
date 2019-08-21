@@ -291,3 +291,65 @@ func (a *Message) Code() string {
 func (a *Rejection) Code() string {
 	return CodeRejection
 }
+
+// Contract Amendment Values
+const (
+	ContractFieldCount                    = 21
+	ContractFieldContractName             = 0
+	ContractFieldBodyOfAgreementType      = 1
+	ContractFieldBodyOfAgreement          = 2
+	ContractFieldContractType             = 3
+	ContractFieldSupportingDocs           = 4
+	ContractFieldGoverningLaw             = 5
+	ContractFieldJurisdiction             = 6
+	ContractFieldContractExpiration       = 7
+	ContractFieldContractURI              = 8
+	ContractFieldIssuer                   = 9
+	ContractFieldIssuerLogoURL            = 10
+	ContractFieldContractOperatorIncluded = 11
+	ContractFieldContractOperator         = 12
+	ContractFieldContractFee              = 13
+	ContractFieldVotingSystems            = 14
+	ContractFieldContractAuthFlags        = 15
+	ContractFieldRestrictedQtyAssets      = 16
+	ContractFieldAdministrationProposal   = 17
+	ContractFieldHolderProposal           = 18
+	ContractFieldOracles                  = 19
+	ContractFieldMasterPKH                = 20
+)
+
+// Asset Amendment Values
+const (
+	AssetFieldCount                       = 12
+	AssetFieldAssetAuthFlags              = 0
+	AssetFieldTransfersPermitted          = 1
+	AssetFieldTradeRestrictions           = 2
+	AssetFieldEnforcementOrdersPermitted  = 3
+	AssetFieldVotingRights                = 4
+	AssetFieldVoteMultiplier              = 5
+	AssetFieldAdministrationProposal      = 6
+	AssetFieldHolderProposal              = 7
+	AssetFieldAssetModificationGovernance = 8
+	AssetFieldTokenQty                    = 9
+	AssetFieldAssetType                   = 10
+	AssetFieldAssetPayload                = 11
+)
+
+// Entity Amendment Values
+const (
+	EntityFieldCount                      = 14
+	EntityFieldName                       = 0
+	EntityFieldType                       = 1
+	EntityFieldLEI                        = 2
+	EntityFieldUnitNumber                 = 3
+	EntityFieldBuildingNumber             = 4
+	EntityFieldStreet                     = 5
+	EntityFieldSuburbCity                 = 6
+	EntityFieldTerritoryStateProvinceCode = 7
+	EntityFieldCountryCode                = 8
+	EntityFieldPostalZIPCode              = 9
+	EntityFieldEmailAddress               = 10
+	EntityFieldPhoneNumber                = 11
+	EntityFieldAdministration             = 12
+	EntityFieldManagement                 = 13
+)

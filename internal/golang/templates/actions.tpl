@@ -11,7 +11,7 @@ type Action interface {
 	proto.Message
 
 	Code() string
-	
+
 	Validate() error
 	Equal(proto.Message) bool
 }
@@ -71,4 +71,43 @@ func Deserialize(code []byte, payload []byte) (Action, error) {
 func (a *{{.Name}}) Code() string {
 	return Code{{.Name}}
 }
+{{ end }}
+
+{{- range .Messages }}
+	{{- if eq .Name "ContractOffer" }}
+// Contract Amendment Values
+const (
+	ContractFieldCount = {{ len .Fields }}
+
+	{{- range $i, $field := .Fields }}
+	ContractField{{ $field.Name }} = {{ $i }}
+	{{- end }}
+)
+	{{- end }}
+{{ end }}
+
+{{- range .Messages }}
+	{{- if eq .Name "AssetDefinition" }}
+// Asset Amendment Values
+const (
+	AssetFieldCount = {{ len .Fields }}
+
+	{{- range $i, $field := .Fields }}
+	AssetField{{ $field.Name }} = {{ $i }}
+	{{- end }}
+)
+	{{- end }}
+{{ end }}
+
+{{- range .FieldTypes }}
+	{{- if eq .Name "Entity" }}
+// Entity Amendment Values
+const (
+	EntityFieldCount = {{ len .Fields }}
+
+	{{- range $i, $field := .Fields }}
+	EntityField{{ $field.Name }} = {{ $i }}
+	{{- end }}
+)
+	{{- end }}
 {{ end }}
