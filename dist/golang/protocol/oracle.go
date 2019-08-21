@@ -5,7 +5,6 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 
-	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/tokenized/smart-contract/pkg/bitcoin"
 )
 
@@ -14,7 +13,7 @@ import (
 // The block hash of the chain tip - 4 should be used. The signature will be considered valid
 //   until 1 hour past the timestamp of the block after the block hash specified (chain tip).
 func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddress, assetCode []byte,
-	receiverAddress bitcoin.RawAddress, quantity uint64, blockHash *chainhash.Hash) ([]byte, error) {
+	receiverAddress bitcoin.RawAddress, quantity uint64, blockHash *bitcoin.Hash32) ([]byte, error) {
 
 	// Calculate the hash
 	digest := sha256.New()
