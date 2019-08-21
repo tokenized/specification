@@ -32,6 +32,9 @@ const (
 var (
 	ErrNotTokenized   = errors.New("Not Tokenized")
 	ErrUnknownVersion = errors.New("Unknown Version")
+
+	// DefaultEndian specifies the order of bytes for encoding integers.
+	DefaultEndian = binary.LittleEndian
 )
 
 func GetProtocolID(isTest bool) []byte {
@@ -78,139 +81,6 @@ func Deserialize(script []byte, isTest bool) (actions.Action, error) {
 
 	return actions.Deserialize(message.PayloadIdentifier(), message.Payload())
 }
-
-// Serialize returns a complete op return script including the specified payload.
-// func Serialize(msg OpReturnMessage, isTest bool) ([]byte, error) {
-// 	var buf bytes.Buffer
-// 	var err error
-//
-// 	// Write OP_RETURN op code
-// 	err = binary.Write(&buf, DefaultEndian, OpReturn)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	var protocolID string
-// 	if isTest {
-// 		protocolID = TestProtocolID
-// 	} else {
-// 		protocolID = ProtocolID
-// 	}
-//
-// 	// Write protocol Id
-// 	err = bitcoin.WritePushDataScript(&buf, []byte(protocolID))
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	var payload []byte
-// 	payload, err = msg.serialize()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	// Write push op code for payload length + 3 for version and message type code
-// 	_, err = buf.Write(bitcoin.PushDataScriptSize(uint64(len(payload)) + 3))
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	// Write version
-// 	err = binary.Write(&buf, DefaultEndian, Version)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	// Write message type code
-// 	_, err = buf.Write([]byte(msg.Type()))
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	// Write payload
-// 	_, err = buf.Write(payload)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	return buf.Bytes(), nil
-// }
-//
-// // Code returns the identifying code from the OP_RETURN payload.
-// func Code(script []byte, isTest bool) (string, error) {
-// 	buf := bytes.NewBuffer(script)
-//
-// 	var opCode byte
-// 	var err error
-//
-// 	// Parse OP_RETURN op code
-// 	err = binary.Read(buf, DefaultEndian, &opCode)
-// 	if err != nil {
-// 		return "", err
-// 	}
-//
-// 	if opCode != OpReturn {
-// 		return "", fmt.Errorf("Not an op return output : %02x", opCode)
-// 	}
-//
-// 	// Parse protocol ID
-// 	var protocolID string
-// 	if isTest {
-// 		protocolID = TestProtocolID
-// 	} else {
-// 		protocolID = ProtocolID
-// 	}
-//
-// 	protocolIDSize, err := bitcoin.ParsePushDataScriptSize(buf)
-// 	if err != nil {
-// 		return "", err
-// 	}
-//
-// 	if int(protocolIDSize) != len(protocolID) {
-// 		return "", fmt.Errorf("Push not correct size for protocol ID : %d != %d", protocolIDSize, len(protocolID))
-// 	}
-//
-// 	readProtocolID := make([]byte, int(protocolIDSize))
-// 	_, err = buf.Read(readProtocolID)
-// 	if err != nil {
-// 		return "", err
-// 	}
-//
-// 	if !bytes.Equal(readProtocolID, []byte(protocolID)) {
-// 		return "", fmt.Errorf("Invalid protocol ID : %s", string(readProtocolID))
-// 	}
-//
-// 	// Parse push op code for payload length + 3 for version and message type code
-// 	var payloadSize uint64
-// 	payloadSize, err = bitcoin.ParsePushDataScriptSize(buf)
-// 	if err != nil {
-// 		return "", err
-// 	}
-//
-// 	if uint64(buf.Len()) < payloadSize {
-// 		return "", fmt.Errorf("Payload push op code is too large for message : %d", payloadSize)
-// 	}
-//
-// 	// Parse version
-// 	var version uint8
-// 	err = binary.Read(buf, DefaultEndian, &version)
-// 	if err != nil {
-// 		return "", err
-// 	}
-//
-// 	if version != Version {
-// 		return "", fmt.Errorf("Unsupported version : %02x", version)
-// 	}
-//
-// 	// Parse message type code
-// 	code := make([]byte, 2)
-// 	_, err = buf.Read(code)
-// 	if err != nil {
-// 		return "", err
-// 	}
-//
-// 	return string(code), nil
-// }
 
 // ------------------------------------------------------------------------------------------------
 // TxId represents a Bitcoin transaction ID. (Double SHA256 of tx data)
@@ -302,80 +172,6 @@ func (id *TxId) Set(value []byte) error {
 	copy(id.data[:], value)
 	return nil
 }
-
-// ------------------------------------------------------------------------------------------------
-// PublicKeyHash represents a Bitcoin Public Key Hash. Often used as an address to receive transactions.
-// type PublicKeyHash struct {
-// 	data [20]byte
-// }
-//
-// var zeroPKH PublicKeyHash
-//
-// // Validate returns an error if the value is invalid
-// func (hash *PublicKeyHash) Validate() error {
-// 	return nil
-// }
-//
-// // IsZero returns true if the tx id is all zeros.
-// func (hash *PublicKeyHash) IsZero() bool {
-// 	return bytes.Equal(hash.data[:], zeroPKH.data[:])
-// }
-//
-// // Equal returns true if the specified values are the same.
-// func (hash *PublicKeyHash) Equal(other PublicKeyHash) bool {
-// 	return bytes.Equal(hash.data[:], other.data[:])
-// }
-//
-// // PublicKeyHashFromBytes returns a PublicKeyHash with the specified bytes.
-// func PublicKeyHashFromBytes(data []byte) *PublicKeyHash {
-// 	var result PublicKeyHash
-// 	copy(result.data[:], data)
-// 	return &result
-// }
-//
-// func DeserializePublicKeyHash(buf *bytes.Reader) (*PublicKeyHash, error) {
-// 	var result PublicKeyHash
-// 	if _, err := buf.Read(result.data[:]); err != nil {
-// 		return nil, err
-// 	}
-// 	return &result, nil
-// }
-//
-// // Bytes returns a byte slice containing the PublicKeyHash.
-// func (hash *PublicKeyHash) Bytes() []byte {
-// 	return hash.data[:]
-// }
-//
-// // String converts to a string
-// func (hash *PublicKeyHash) String() string {
-// 	return fmt.Sprintf("%x", hash.data[:])
-// }
-//
-// // Serialize serializes a PublicKeyHash into a buffer.
-// func (hash *PublicKeyHash) Serialize(buf *bytes.Buffer) error {
-//	_, err := buf.Write(hash.data[:])
-//	return err
-// }
-//
-// // MarshalJSON converts to json.
-// func (hash *PublicKeyHash) MarshalJSON() ([]byte, error) {
-// 	return []byte(fmt.Sprintf("\"%x\"", hash.data)), nil
-// }
-//
-// // UnmarshalJSON converts from json.
-// func (hash *PublicKeyHash) UnmarshalJSON(data []byte) error {
-// 	if len(data) < 2 {
-// 		return fmt.Errorf("Too short for PublicKeyHash hex data : %d", len(data))
-// 	}
-// 	n, err := hex.Decode(hash.data[:], data[1:len(data)-1])
-// 	if err != nil {
-// 		return err
-// 	}
-// 	if n != 20 {
-// 		return fmt.Errorf("Invalid PublicKeyHash size : %d", n)
-// 	}
-// 	return nil
-// }
 
 // ------------------------------------------------------------------------------------------------
 // AssetCode represents a unique identifier for a Tokenized asset.
