@@ -79,6 +79,7 @@ fieldAliases:
     type: fixedchar
     size: 3
     resource: Polities
+    example: GBR
 
   - name: RejectionCode
     type: uint
@@ -104,10 +105,12 @@ fieldAliases:
   - name: AssetCode
     type: bin
     size: 32
+    example: "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
 
   - name: Timestamp
     type: uint
     size: 8
+    example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
 
   - name: PublicKeyHash
     type: varbin
@@ -115,3 +118,4 @@ fieldAliases:
   - name: TxId
     type: bin
     size: 32
+    example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"

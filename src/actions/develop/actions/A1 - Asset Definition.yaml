@@ -30,6 +30,7 @@ fields:
     description: "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail."
     type: varbin
     varSize: small
+    example: "0101000"
 
   - name: TransfersPermitted
     label: Transfers Permitted
@@ -42,7 +43,6 @@ fields:
     description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
     type: Polity[]
     listSize: small
-    example: "GBR"
 
   - name: EnforcementOrdersPermitted
     label: Enforcement Orders Permitted
@@ -54,6 +54,7 @@ fields:
     label: Voting Rights
     description: "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted."
     type: bool
+    example: true
 
   - name: VoteMultiplier
     label: Vote Multiplier

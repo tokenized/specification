@@ -1,0 +1,362 @@
+[
+  {
+    "code": "C1",
+    "label": "Contract Offer",
+    "name": "ContractOffer",
+    "fields": {
+      "AdministrationProposal": "true",
+      "BodyOfAgreement": "",
+      "BodyOfAgreementType": "1",
+      "ContractAuthFlags": "",
+      "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "ContractFee": "",
+      "ContractName": "Tesla - Shareholder Agreement",
+      "ContractOperator": "",
+      "ContractOperatorIncluded": "",
+      "ContractType": "Shareholder Agreement",
+      "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+      "GoverningLaw": "USA",
+      "HolderProposal": "true",
+      "Issuer": "",
+      "IssuerLogoURL": "https://example.com/images/logo.png",
+      "Jurisdiction": "US-CA",
+      "MasterPKH": "",
+      "Oracles": "",
+      "RestrictedQtyAssets": "1",
+      "SupportingDocs": "",
+      "VotingSystems": ""
+    }
+  },
+  {
+    "code": "C2",
+    "label": "Contract Formation",
+    "name": "ContractFormation",
+    "fields": {
+      "AdministrationProposal": "true",
+      "BodyOfAgreement": "",
+      "BodyOfAgreementType": "1",
+      "ContractAuthFlags": "",
+      "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "ContractFee": "",
+      "ContractName": "Tesla - Shareholder Agreement",
+      "ContractOperator": "",
+      "ContractOperatorIncluded": "",
+      "ContractRevision": "0",
+      "ContractType": "Shareholder Agreement",
+      "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+      "GoverningLaw": "USA",
+      "HolderProposal": "true",
+      "Issuer": "",
+      "IssuerLogoURL": "https://example.tld/images/logo.png",
+      "Jurisdiction": "US-CA",
+      "MasterPKH": "",
+      "Oracles": "",
+      "RestrictedQtyAssets": "1",
+      "SupportingDocs": "",
+      "Timestamp": "",
+      "VotingSystems": ""
+    }
+  },
+  {
+    "code": "C3",
+    "label": "Contract Amendment",
+    "name": "ContractAmendment",
+    "fields": {
+      "Amendments": "",
+      "ChangeAdministrationAddress": "1",
+      "ChangeOperatorAddress": "1",
+      "ContractRevision": "42",
+      "RefTxID": ""
+    }
+  },
+  {
+    "code": "C4",
+    "label": "Static Contract Formation",
+    "name": "StaticContractFormation",
+    "fields": {
+      "BodyOfAgreement": "",
+      "BodyOfAgreementType": "1",
+      "ContractCode": "",
+      "ContractExpiration": "",
+      "ContractName": "Tesla - Shareholder Agreement",
+      "ContractRevision": "0",
+      "ContractType": "Non-Disclosure Agreement",
+      "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+      "EffectiveDate": "",
+      "Entities": "",
+      "GoverningLaw": "USA",
+      "Jurisdiction": "US-CA",
+      "PrevRevTxID": "",
+      "SupportingDocs": ""
+    }
+  },
+  {
+    "code": "C5",
+    "label": "Contract Address Change",
+    "name": "ContractAddressChange",
+    "fields": {
+      "NewContractAddress": "",
+      "Timestamp": ""
+    }
+  },
+  {
+    "code": "A1",
+    "label": "Asset Definition",
+    "name": "AssetDefinition",
+    "fields": {
+      "AdministrationProposal": "true",
+      "AssetAuthFlags": "",
+      "AssetModificationGovernance": "1",
+      "AssetPayload": "",
+      "AssetType": "",
+      "EnforcementOrdersPermitted": "1",
+      "HolderProposal": "true",
+      "TokenQty": "1000000",
+      "TradeRestrictions": "GBR",
+      "TransfersPermitted": "1",
+      "VoteMultiplier": "3",
+      "VotingRights": ""
+    }
+  },
+  {
+    "code": "A2",
+    "label": "Asset Creation",
+    "name": "AssetCreation",
+    "fields": {
+      "AdministrationProposal": "true",
+      "AssetAuthFlags": "",
+      "AssetCode": "",
+      "AssetIndex": "",
+      "AssetModificationGovernance": "1",
+      "AssetPayload": "",
+      "AssetRevision": "",
+      "AssetType": "",
+      "EnforcementOrdersPermitted": "1",
+      "HolderProposal": "true",
+      "Timestamp": "",
+      "TokenQty": "1000000",
+      "TradeRestrictions": "GBR",
+      "TransfersPermitted": "1",
+      "VoteMultiplier": "3",
+      "VotingRights": ""
+    }
+  },
+  {
+    "code": "A3",
+    "label": "Asset Modification",
+    "name": "AssetModification",
+    "fields": {
+      "Amendments": "",
+      "AssetCode": "",
+      "AssetRevision": "0",
+      "AssetType": "SHC",
+      "RefTxID": ""
+    }
+  },
+  {
+    "code": "T1",
+    "label": "Transfer",
+    "name": "Transfer",
+    "fields": {
+      "Assets": "",
+      "ExchangeFee": "0.01",
+      "ExchangeFeeAddress": "",
+      "OfferExpiry": ""
+    }
+  },
+  {
+    "code": "T2",
+    "label": "Settlement",
+    "name": "Settlement",
+    "fields": {
+      "Assets": "",
+      "Timestamp": ""
+    }
+  },
+  {
+    "code": "G1",
+    "label": "Proposal",
+    "name": "Proposal",
+    "fields": {
+      "AssetCode": "",
+      "AssetSpecificVote": "",
+      "AssetType": "SHC",
+      "Initiator": "",
+      "ProposalDescription": "Change the name of the Contract.",
+      "ProposalDocumentHash": "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec",
+      "ProposedAmendments": "",
+      "Specific": "",
+      "VoteCutOffTimestamp": "",
+      "VoteMax": "15",
+      "VoteOptions": "ABCDEFGHIJKLMNO",
+      "VoteSystem": "1"
+    }
+  },
+  {
+    "code": "G2",
+    "label": "Vote",
+    "name": "Vote",
+    "fields": {
+      "Timestamp": ""
+    }
+  },
+  {
+    "code": "G3",
+    "label": "Ballot Cast",
+    "name": "BallotCast",
+    "fields": {
+      "Vote": "A",
+      "VoteTxId": ""
+    }
+  },
+  {
+    "code": "G4",
+    "label": "Ballot Counted",
+    "name": "BallotCounted",
+    "fields": {
+      "Quantity": "",
+      "Timestamp": "",
+      "Vote": "A",
+      "VoteTxId": ""
+    }
+  },
+  {
+    "code": "G5",
+    "label": "Result",
+    "name": "Result",
+    "fields": {
+      "AssetCode": "",
+      "AssetSpecificVote": "",
+      "AssetType": "SHC",
+      "OptionTally": "",
+      "ProposedAmendments": "",
+      "Result": "",
+      "Specific": "",
+      "Timestamp": "",
+      "VoteTxId": ""
+    }
+  },
+  {
+    "code": "E1",
+    "label": "Order",
+    "name": "Order",
+    "fields": {
+      "AssetCode": "",
+      "AssetType": "SHC",
+      "AuthorityIncluded": "",
+      "AuthorityName": "Supreme and District Courts Brisbane",
+      "AuthorityPublicKey": "",
+      "BitcoinDispersions": "",
+      "ComplianceAction": "F",
+      "DepositAddress": "",
+      "FreezePeriod": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
+      "FreezeTxId": "",
+      "Message": "Compelled by a court order.",
+      "OrderSignature": "",
+      "RefTxs": "",
+      "SignatureAlgorithm": "1",
+      "SupportingEvidenceHash": "",
+      "TargetAddresses": ""
+    }
+  },
+  {
+    "code": "E2",
+    "label": "Freeze",
+    "name": "Freeze",
+    "fields": {
+      "AssetCode": "",
+      "AssetType": "SHC",
+      "FreezePeriod": "",
+      "Quantities": "",
+      "Timestamp": ""
+    }
+  },
+  {
+    "code": "E3",
+    "label": "Thaw",
+    "name": "Thaw",
+    "fields": {
+      "FreezeTxId": "",
+      "Timestamp": ""
+    }
+  },
+  {
+    "code": "E4",
+    "label": "Confiscation",
+    "name": "Confiscation",
+    "fields": {
+      "AssetCode": "",
+      "AssetType": "SHC",
+      "DepositQty": "10000",
+      "Quantities": "",
+      "Timestamp": ""
+    }
+  },
+  {
+    "code": "E5",
+    "label": "Reconciliation",
+    "name": "Reconciliation",
+    "fields": {
+      "AssetCode": "",
+      "AssetType": "SHC",
+      "Quantities": "",
+      "Timestamp": ""
+    }
+  },
+  {
+    "code": "R1",
+    "label": "Establishment",
+    "name": "Establishment",
+    "fields": {
+      "Message": "North America Whitelist"
+    }
+  },
+  {
+    "code": "R2",
+    "label": "Addition",
+    "name": "Addition",
+    "fields": {
+      "Message": "username"
+    }
+  },
+  {
+    "code": "R3",
+    "label": "Alteration",
+    "name": "Alteration",
+    "fields": {
+      "EntryTxID": "",
+      "Message": "Changed Country of Residence"
+    }
+  },
+  {
+    "code": "R4",
+    "label": "Removal",
+    "name": "Removal",
+    "fields": {
+      "EntryTxID": "",
+      "Message": "Removed due to violation of company policy."
+    }
+  },
+  {
+    "code": "M1",
+    "label": "Message",
+    "name": "Message",
+    "fields": {
+      "AddressIndexes": "",
+      "MessageCode": "",
+      "MessagePayload": "Hello world!"
+    }
+  },
+  {
+    "code": "M2",
+    "label": "Rejection",
+    "name": "Rejection",
+    "fields": {
+      "AddressIndexes": "",
+      "Message": "Sorry, you don't have enough tokens.",
+      "RejectAddressIndex": "",
+      "RejectionCode": "1",
+      "Timestamp": ""
+    }
+  }
+]
