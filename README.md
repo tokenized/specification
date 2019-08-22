@@ -1,6 +1,6 @@
 # Tokenized Protocol Specification
 
-Reference for the Tokenized Protocol structure. Definitions are stored in YAML to be parsed and compiled to other languages. Definitions are grouped by their purpose and are versioned within.
+Reference for the Tokenized Protocol structure. Definitions are stored in YAML which is used to generate protobuf to be compiled to other languages. Definitions are grouped by their purpose and are versioned within.
 
 ## Supported Languages
 
@@ -16,7 +16,7 @@ To build the project from source, clone the GitHub repo and in a command line te
 
     mkdir -p $GOPATH/src/github.com/tokenized
     cd $GOPATH/src/github.com/tokenized
-    git clone git@github.com:tokenized/specification.git
+    git clone https://github.com/tokenized/specification.git
     cd specification
 
 Navigate to the root directory and run:
@@ -41,28 +41,16 @@ The Tokenized Protocol must retain the entire definition history in order to par
 This protocol's main purpose is to provide the ability to parse and create Bitcoin OP_RETURN output scripts containing Tokenized data in a consistent way.
 There are several classes of Tokenized data including actions and messages. Some of the types have different types of payloads that further specify data.
 To create an OP_RETURN script, first populate a action/message struct, then pass it into the Serialize function, which will return a Bitcoin script.
-To read an OP_RETURN script, pass the script into the Deserialize function and if it is valid, then it will return an action/message struct.
+To read an OP_RETURN script, pass the script into the Deserialize function and if it is valid, then it will return an action/message object.
 
 #### OP_RETURN script format
-`<OP_RETURN> 0x6a`
-
-`<PUSH_OP size 9> 0x09`
-
-`<"tokenized"> 0x746f6b656e697a6564`
-
-`<PUSH_OP payload size + 3>` The exact push op for the payload size depends on the payload size.
-
-`<version 1 byte> 0x01`
-
-`<payload type code 2 bytes> 0x4331`
-
-`<payload> ...`
+The OP_RETURN script is encoded using the Tokenized [envelope](https://github.com/tokenized/envelope) system. The Tokenized protocol uses the protocol identifiers `tokenized` and `test.tokenized`. The envelope `PayloadIdentifier` specifies which type of Tokenized message is contained. The envelope `Payload` is encoded using [Protocol Buffers](https://developers.google.com/protocol-buffers/).
 
 ### Primitive Types
 
-* `int` is a signed integer. `size` is the number of bytes for the integer. Valid values for `size` are 1, 2, 4, 8.
+* `int` is a signed integer. `size` is the number of bytes for the integer. Valid values for `size` are 1, 2, 4, and 8.
 
-* `uint` is an unsigned integer. `size` is the number of bytes for the integer. Valid values for `size` are 1, 2, 4, 8.
+* `uint` is an unsigned integer. `size` is the number of bytes for the integer. Valid values for `size` are 1, 2, 4, and 8.
 
 * `float` is a floating point number. `size` is the number of bytes for the float. Valid values for `size` are 4 and 8.
 
@@ -71,10 +59,7 @@ To read an OP_RETURN script, pass the script into the Deserialize function and i
 * `bin` is fixed length binary data. `size` is the length in bytes of the data.
 
 * `varbin` is variable length binary data.
-The data is preceded by an integer that specifies the actual length in bytes.
-`size` is the number of bytes used to serialize the length in bytes of the data.
-Valid values for `size` are 1, 2, 4, and 8.
-For example, a `varbin` value with a `size` of 1 will be able to contain up to 255 bytes and will be preceded by a 1 byte unsigned integer specifying the length in bytes.
+`varSize` defines the maximum size of the data as defined in `Variable Sizes`.
 
 * `fixedchar` is fixed length text data.
 The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
@@ -82,13 +67,37 @@ The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BO
 
 * `varchar` is variable length text data.
 The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
-The data is preceded by an integer that specifies the actual length in bytes.
-`size` is the number of bytes used to serialize the length in bytes of the data.
-Valid values for `size` are 1, 2, 4, and 8.
-For example, a `varchar` value with a `size` of 1 will be able to contain up to 255 bytes and will be preceded by a 1 byte unsigned integer specifying the length in bytes.
+`varSize` defines the maximum size of the data as defined in `Variable Sizes`.
 
+## List Types
+
+Fields within the Tokenized protocol can be defined as a list of a specified data type.
+This is done by adding a `[]` to the end of the `type` value.
+The maximum number of elements in a list are defined by `listSize` as defined in Variable/List Sizes.
+
+### Variable/List Sizes
+
+Fields within the Tokenized protocol can be lists of objects or variable length objects.
+The maximum number of elements in a list are defined by `listSize`.
+The maximum size of a variable sized object are defined by `varSize`.
+The valid values for `listSize` and `varSize` are as follows.
+If no value is specified for `listSize` or `varSize` then `tiny` is used.
+
+* `tiny` defines a max size/length of 2^8^-1 or 255.
+
+* `small` defines a max size/length of 2^16^-1 or 65,535.
+
+* `medium` defines a max size/length of 2^32^-1 or 4,294,967,295.
+
+* `large` defines a max size/length of 2^64^-1 or approximately 1.8x10^19^.
 
 ### Basic Types
+
+* `Action` implements a base interface for all message types. Provides the ability to serialize the data as a Bitcoin OP_RETURN script.
+
+* `Asset` is the interface for asset payloads. Provides the ability to serialize asset data.
+
+* `Message` is the interface for message payloads. Provides the ability to serialize message data.
 
 * `OpReturnMessage` implements a base interface for all message types.
 Provides the ability to serialize the data as a Bitcoin OP_RETURN script and to request the variable payload data.

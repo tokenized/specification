@@ -12,7 +12,7 @@ fields:
     label: Output Description
     description: "A Description that accompanies the output. A transaction description."
     type: varchar
-    size: 4
+    varSize: medium
     example: "eg. Invoice 3024, Pay Mike back for camping."
     notes: "  Can be NULL"
 

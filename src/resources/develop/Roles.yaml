@@ -1,95 +1,97 @@
 
 name: Roles
 description: >
-Roles that entities play in relation to their interactions with other entities.
-These roles have widely-accepted tasks, rights and duties.
+    Roles that entities play in relation to their interactions with other entities.
+    These roles have widely-accepted tasks, rights and duties.
+codeType:
+    type: uint
 
 values:
   - code: 1
-    label: Accountant
+    name: Accountant
 
   - code: 2
-    label: Advisor
+    name: Advisor
 
   - code: 3
-    label: Agent
+    name: Agent
 
   - code: 4
-    label: Beneficiary
+    name: Beneficiary
 
   - code: 5
-    label: CEO
+    name: CEO
 
   - code: 6
-    label: CFO
+    name: CFO
 
   - code: 7
-    label: Chair
+    name: Chair
 
   - code: 8
-    label: COO
+    name: COO
 
   - code: 9
-    label: CTO
+    name: CTO
 
   - code: 10
-    label: Custodian
+    name: Custodian
 
   - code: 11
-    label: Director
+    name: Director
 
   - code: 12
-    label: Executive
+    name: Executive
 
   - code: 13
-    label: Lawyer
+    name: Lawyer
 
   - code: 14
-    label: Legal Guardian
+    name: Legal Guardian
 
   - code: 15
-    label: Limited Partner
+    name: Limited Partner
 
   - code: 16
-    label: Manager
+    name: Manager
 
   - code: 17
-    label: Managing Partner
+    name: Managing Partner
 
   - code: 18
-    label: Member
+    name: Member
     description: Shareholder
 
   - code: 19
-    label: Partner
+    name: Partner
 
   - code: 20
-    label: Principal
+    name: Principal
 
   - code: 21
-    label: Proprietor
+    name: Proprietor
 
   - code: 22
-    label: Protector
+    name: Protector
 
   - code: 23
-    label: Secretary
+    name: Secretary
 
   - code: 24
-    label: Settlor
+    name: Settlor
 
   - code: 25
-    label: Significant Member
+    name: Significant Member
     description: Major Shareholder
 
   - code: 26
-    label: Smart Contract Operator
+    name: Smart Contract Operator
 
   - code: 27
-    label: Trader
+    name: Trader
 
   - code: 28
-    label: Trustee
+    name: Trustee
 
   - code: 29
-    label: Unit Holder
+    name: Unit Holder

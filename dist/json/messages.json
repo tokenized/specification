@@ -1,8 +1,30 @@
 {
-  "code": "messages",
-  "fieldAliases": null,
+  "fieldAliases": [
+    {
+      "name": "Tag",
+      "resource": "Tags",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "name": "PublicKeyHash",
+      "type": "varbin"
+    },
+    {
+      "name": "Timestamp",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "name": "TxId",
+      "size": 32,
+      "type": "bin"
+    }
+  ],
   "fieldTypes": [
     {
+      "code": 2,
+      "description": "Reference to a bitcoin transaction output.",
       "fields": [
         {
           "label": "TxId",
@@ -17,37 +39,30 @@
           "type": "uint"
         }
       ],
-      "id": 2,
-      "metadata": {
-        "description": "Reference to a bitcoin transaction output.",
-        "label": "Output",
-        "name": "Output"
-      }
+      "label": "Outpoint",
+      "name": "Outpoint"
     },
     {
+      "description": "A tag or category of an output used to categorize and organize outputs from different transactions.",
       "fields": [
         {
           "description": "The text of the tag.",
           "label": "Tag",
           "name": "Tag",
-          "size": 1,
           "type": "varchar"
         }
       ],
-      "metadata": {
-        "description": "A tag or category of an output used to categorize and organize outputs from different transactions.",
-        "label": "Output Tag",
-        "name": "OutputTag"
-      }
+      "label": "Output Tag",
+      "name": "OutputTag"
     },
     {
+      "description": "A file containing data.",
       "fields": [
         {
           "description": "Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid.",
           "example": "Agreement.pdf",
           "label": "Document Name",
           "name": "Name",
-          "size": 1,
           "type": "varchar"
         },
         {
@@ -55,49 +70,45 @@
           "example": "application/pdf",
           "label": "MIME Type",
           "name": "Type",
-          "size": 1,
           "type": "varchar"
         },
         {
           "description": "The contents of the file.",
           "label": "File Contents",
           "name": "Contents",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
-      "metadata": {
-        "description": "A file containing data.",
-        "label": "Document",
-        "name": "Document"
-      }
-    }
-  ],
-  "headerFields": [
-    {
-      "description": "The version number that this asset payload adheres to.",
-      "example": 1,
-      "label": "Payload Version",
-      "name": "Version",
-      "size": 8,
-      "type": "uint"
+      "label": "Document",
+      "name": "Document"
     },
     {
-      "description": "The Message Code that determines the expected contents of the message payload.",
-      "example": 1001,
-      "label": "Message Code",
-      "name": "MessageCode",
-      "size": 2,
-      "type": "uint"
+      "description": "A TargetAddress defines a public address and quantity.",
+      "fields": [
+        {
+          "description": "Public address where the token balance will be changed.",
+          "label": "Address",
+          "name": "Address",
+          "type": "PublicKeyHash"
+        },
+        {
+          "description": "Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.",
+          "example": "10000",
+          "label": "Quantity",
+          "name": "Quantity",
+          "size": 8,
+          "type": "uint"
+        }
+      ],
+      "label": "Target Address",
+      "name": "TargetAddress"
     }
   ],
-  "id": {
-    "name": "MessageCode",
-    "size": 2,
-    "type": "uint"
-  },
   "messages": [
     {
+      "code": 2,
+      "description": "Generic public message or public announcement. Sent to an address(es).  Can be used for an official issuer announcement.",
       "fields": [
         {
           "description": "Timestamp in nanoseconds for when the message sender creates the transaction.",
@@ -109,14 +120,14 @@
           "description": "The subject / topic of the message.",
           "label": "Subject",
           "name": "Subject",
-          "size": 2,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         },
         {
           "description": "The output of the message that this message is regarding (responding to).",
           "label": "Regarding",
           "name": "Regarding",
-          "type": "Output"
+          "type": "Outpoint"
         },
         {
           "description": "Tokenized Ltd. announces product launch.",
@@ -127,19 +138,17 @@
         {
           "description": "Documents attached to the message.",
           "label": "Attachments",
+          "listSize": "medium",
           "name": "Attachments",
-          "size": 4,
           "type": "Document[]"
         }
       ],
-      "id": 2,
-      "metadata": {
-        "description": "Generic public message or public announcement. Sent to an address(es).  Can be used for an official issuer announcement.",
-        "label": "Public Message",
-        "name": "PublicMessage"
-      }
+      "label": "Public Message",
+      "name": "PublicMessage"
     },
     {
+      "code": 3,
+      "description": "Generic private message. Sent to another address(es). Encryption is to be used.",
       "fields": [
         {
           "description": "Timestamp in nanoseconds for when the message sender creates the transaction.",
@@ -151,14 +160,14 @@
           "description": "The subject / topic of the message.",
           "label": "Subject",
           "name": "Subject",
-          "size": 2,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "small"
         },
         {
           "description": "The output of the message that this message is regarding (responding to).",
           "label": "Regarding",
           "name": "Regarding",
-          "type": "Output"
+          "type": "Outpoint"
         },
         {
           "description": "Tokenized Ltd announces product launch.",
@@ -169,19 +178,17 @@
         {
           "description": "Documents attached to the message.",
           "label": "Attachments",
+          "listSize": "medium",
           "name": "Attachments",
-          "size": 4,
           "type": "Document[]"
         }
       ],
-      "id": 3,
-      "metadata": {
-        "description": "Generic private message. Sent to another address(es). Encryption is to be used.",
-        "label": "Private Message",
-        "name": "PrivateMessage"
-      }
+      "label": "Private Message",
+      "name": "PrivateMessage"
     },
     {
+      "code": 4,
+      "description": "A message that contains a bitcoin transaction that was accepted by the network or an agent and then invalidated by a reorg, or zero conf double spend. This serves as on chain evidence of the sending party's signatures and approval for the given transaction.",
       "fields": [
         {
           "description": "Timestamp in nanoseconds for when the message sender creates the transaction.",
@@ -193,18 +200,16 @@
           "description": "Serialized bitcoin transaction that was reverted/invalidated after being accepted.",
           "label": "Transaction",
           "name": "Transaction",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
-      "id": 4,
-      "metadata": {
-        "description": "A message that contains a bitcoin transaction that was accepted by the network or an agent and then invalidated by a reorg, or zero conf double spend. This serves as on chain evidence of the sending party's signatures and approval for the given transaction.",
-        "label": "Reverted Tx",
-        "name": "RevertedTx"
-      }
+      "label": "Reverted Tx",
+      "name": "RevertedTx"
     },
     {
+      "code": 1001,
+      "description": "A message that contains all of the details required for an agreement to be formed. Sent to an address(es). The Offer should have all, or nearly all, of the details required for the receiving party to accept the offer.  The Offer shall be in the form of a partially formed Bitcoin transaction with all of the relevent details (offer, consideration, offeror's payment/receipt details, etc.).  The Offer message is different to a Signature Request message in that it is missing the offeree's payment/receipt details (eg. UTXOs). If the Offer message is well received by the offeree, then the offeree can add their relevent details (eg. inputs/outputs) and sign the transaction.  If an additional signature is required from the offeror at this point, then the partially-signed transaction can be sent to the offeror by way of a Signature Request message.",
       "fields": [
         {
           "description": "Timestamp in nanoseconds for when the message sender created the offer.",
@@ -216,18 +221,16 @@
           "description": "Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer.",
           "label": "Payload",
           "name": "Payload",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
-      "id": 1001,
-      "metadata": {
-        "description": "A message that contains all of the details required for an agreement to be formed. Sent to an address(es). The Offer should have all, or nearly all, of the details required for the receiving party to accept the offer.  The Offer shall be in the form of a partially formed Bitcoin transaction with all of the relevent details (offer, consideration, offeror's payment/receipt details, etc.).  The Offer message is different to a Signature Request message in that it is missing the offeree's payment/receipt details (eg. UTXOs). If the Offer message is well received by the offeree, then the offeree can add their relevent details (eg. inputs/outputs) and sign the transaction.  If an additional signature is required from the offeror at this point, then the partially-signed transaction can be sent to the offeror by way of a Signature Request message.",
-        "label": "Offer",
-        "name": "Offer"
-      }
+      "label": "Offer",
+      "name": "Offer"
     },
     {
+      "code": 1002,
+      "description": "Partially-signed transactions (Tokenized actions, Bitcoin, Multisig, Threshold Signatures, etc.) can be passed around on-chain to the parties (including Smart Contracts) that still have to sign the transaction.",
       "fields": [
         {
           "description": "Timestamp in nanoseconds for when the message sender creates the transaction.",
@@ -239,18 +242,16 @@
           "description": "Full serialized bitcoin tx with multiple inputs from different wallets/users.",
           "label": "Payload",
           "name": "Payload",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
-      "id": 1002,
-      "metadata": {
-        "description": "Partially-signed transactions (Tokenized actions, Bitcoin, Multisig, Threshold Signatures, etc.) can be passed around on-chain to the parties (including Smart Contracts) that still have to sign the transaction.",
-        "label": "Signature Request",
-        "name": "SignatureRequest"
-      }
+      "label": "Signature Request",
+      "name": "SignatureRequest"
     },
     {
+      "code": 1003,
+      "description": "A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added.",
       "fields": [
         {
           "description": "Timestamp in nanoseconds for when the message sender creates the transaction.",
@@ -267,26 +268,24 @@
         {
           "description": "Contract fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.",
           "label": "Contract Fees",
+          "listSize": "small",
           "name": "ContractFees",
-          "size": 1,
           "type": "TargetAddress[]"
         },
         {
           "description": "Serialized settlement OP_RETURN that needs data added by another contract.",
           "label": "Settlement",
           "name": "Settlement",
-          "size": 4,
-          "type": "varbin"
+          "type": "varbin",
+          "varSize": "medium"
         }
       ],
-      "id": 1003,
-      "metadata": {
-        "description": "A message that contains a multi-contract settlement that needs settlement data added by another contract. Sent to another contract to request data be added.",
-        "label": "Settlement Request",
-        "name": "SettlementRequest"
-      }
+      "label": "Settlement Request",
+      "name": "SettlementRequest"
     },
     {
+      "code": 1004,
+      "description": "Metadata associated with the output. Aka Transaction details. It is used to describe the purpose of the transaction and add other relevant information. Often encrypted (DH, RSA) to make it private for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the like for descriptions only visible to one of the transacting parties. Optional",
       "fields": [
         {
           "description": "A Description that accompanies the output. A transaction description.",
@@ -294,8 +293,8 @@
           "label": "Output Description",
           "name": "OutputDescription",
           "notes": "  Can be NULL",
-          "size": 4,
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "medium"
         },
         {
           "description": "Predefined values for describing the output.",
@@ -310,15 +309,12 @@
           "type": "OutputTag[]"
         }
       ],
-      "id": 1004,
-      "metadata": {
-        "description": "Metadata associated with the output. Aka Transaction details. It is used to describe the purpose of the transaction and add other relevant information. Often encrypted (DH, RSA) to make it private for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the like for descriptions only visible to one of the transacting parties. Optional",
-        "label": "Output Metadata",
-        "name": "OutputMetadata"
-      }
+      "label": "Output Metadata",
+      "name": "OutputMetadata"
     }
   ],
   "name": "Tokenized Message Types",
-  "template": "default",
+  "package": "messages",
+  "resources": null,
   "version": 1
 }

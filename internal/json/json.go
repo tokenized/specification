@@ -7,26 +7,24 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ghodss/yaml"
 	"github.com/tokenized/specification/internal/platform/parser"
+
+	"github.com/ghodss/yaml"
 )
 
 // Compile converts a codec schema from YAML to JSON in raw format
 func Compile(
-	distPath string,
-	actions parser.ProtocolActions,
-	messages parser.ProtocolMessages,
-	types parser.ProtocolTypes,
-	resources parser.ProtocolResources,
-	rejectionCodes parser.ProtocolRejectionCodes,
-	assets []parser.Asset,
+	srcPath, distPath string,
+	actions parser.Schema,
+	assets parser.Schema,
+	messages parser.Schema,
 ) {
 
-	schemaToFile(distPath, "assets/develop/schema.yaml", "assets.json")
-	schemaToFile(distPath, "protocol/develop/schema.yaml", "protocol.json")
-	schemaToFile(distPath, "messages/develop/schema.yaml", "messages.json")
+	schemaToFile(distPath, "actions/develop/schema.yaml", "actions.json")
 
-	// TODO handle resources
+	schemaToFile(distPath, "assets/develop/schema.yaml", "assets.json")
+
+	schemaToFile(distPath, "messages/develop/schema.yaml", "messages.json")
 }
 
 // schemaToFile converts a codec schema file to its raw JSON form and writes
@@ -43,6 +41,7 @@ func schemaToFile(distPath, schemaFile, jsonFile string) {
 	basePath := filepath.Dir(inPath)
 	schemaObj["messages"] = replaceFileRefs(basePath, schemaObj["messages"])
 	schemaObj["fieldTypes"] = replaceFileRefs(basePath, schemaObj["fieldTypes"])
+	schemaObj["resources"] = replaceFileRefs(basePath, schemaObj["resources"])
 
 	// Beautify JSON
 	body, err := json.MarshalIndent(schemaObj, "", "  ")

@@ -1,0 +1,22 @@
+
+name: Oracle
+label: Oracle
+description: "A Oracle defines the details of a public Oracle."
+
+fields:
+  - name: Name
+    label: Oracle Name
+    description: "Length 0-255 bytes. 0 is valid. Oracle X Name (eg. Coinbase, Tokenized, etc.)"
+    type: varchar
+    example: "Tokenized"
+
+  - name: URL
+    label: Oracle URL
+    description: "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint"
+    type: varchar
+    example: "http://oracle.tokenized.com/api/3650d9/version2010"
+
+  - name: PublicKey
+    label: Oracle Public Key
+    description: "Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle."
+    type: varbin

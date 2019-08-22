@@ -24,15 +24,12 @@ fields:
   - name: MonetaryAuthority
     label: Monetary Authority
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 1
     example: Reserve Bank of Australia
     span: full
 
   - name: Description
     label: Description
     type: varchar
-    # varchar size is number of bytes to serialize the size of the value
-    size: 2
+    varSize: small
     example: Australian dollar
     span: full

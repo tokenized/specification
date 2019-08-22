@@ -1,4 +1,4 @@
-{{$messages := . -}}
+{{$messages := .Messages -}}
 
 # Protocol Messages
 
@@ -15,16 +15,16 @@ The Tokenized protocol features a complete messaging suite for all types of mess
 
 <div class="content-list collection-method-list" markdown="1">
 {{- range $messages }}
-- [{{.Metadata.Label}}](#{{.URLCode}})
+- [{{.Label}}](#{{kebabcase .Name}})
 {{- end }}
 </div>
 
 {{- range $messages}}
 
-<a name="{{.URLCode}}"></a>
-#### {{.Metadata.Label}}
+<a name="{{kebabcase .Name}}"></a>
+#### {{.Label}}
 
-{{.Metadata.Description}}
+{{.Description}}
 
 <table>
     <tr>
@@ -40,33 +40,33 @@ The Tokenized protocol features a complete messaging suite for all types of mess
         <th>Description</th>
     </tr>
     {{- range .Fields}}
-    <tr>
-        <td>{{.Name}}</td>
-        <td>
-        {{- if .IsArrayType }}
-          {{- if .IsResource }}
-            <a href="resources#{{.TypeURLCode}}">{{.SingularDisplayType}}[{{.Length}}]</a>
-          {{- else if .IsComplexType }}
-            <a href="field-types#{{.TypeURLCode}}">{{.SingularDisplayType}}[{{.Length}}]</a>
-          {{- else}}
-            {{.SingularDisplayType}}[{{.Length}}]
-          {{- end}}
-        {{- else}}
-          {{- if .IsResource }}
-            <a href="resources#{{.TypeURLCode}}">{{.Type}}</a>{{ if ne .Length 0 }}({{.Length}}){{ end }}
-          {{- else if .IsComplexType }}
-            <a href="field-types#{{.TypeURLCode}}">{{.Type}}</a>{{ if ne .Length 0 }}({{.Length}}){{ end }}
-          {{- else}}
-            {{.Type}}{{ if ne .Length 0 }}({{.Length}}){{ end }}
-          {{- end}}
-        {{- end}}
-        </td>
-        <td>
-            {{.Description}}
-            {{.Notes}}
-            {{- if .Example }} Example: {{.Example}}{{ end }}
-        </td>
-    </tr>
+        <tr>
+            <td>{{.Name}}</td>
+            <td>
+            {{- if .IsList }}
+              {{- if .IsAlias }}
+                <a href="#alias-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+              {{- else if .IsCompoundType }}
+                <a href="#type-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+              {{- else}}
+                {{.BaseType}}[{{.Size}}]
+              {{- end}}
+            {{- else}}
+              {{- if .IsAlias }}
+                <a href="#alias-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- else if .IsCompoundType }}
+                <a href="#type-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- else}}
+                {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+              {{- end}}
+            {{- end}}
+            </td>
+            <td>
+                {{.Description}}
+                {{.Notes}}
+                {{- if .Example }} Example: {{.Example}}{{ end }}
+            </td>
+        </tr>
     {{- end}}
 </table>
 

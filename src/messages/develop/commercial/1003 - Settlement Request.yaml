@@ -22,10 +22,10 @@ fields:
     label: Contract Fees
     description: "Contract fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added."
     type: TargetAddress[]
-    size: 1
+    listSize: small
 
   - name: Settlement
     label: Settlement
     description: "Serialized settlement OP_RETURN that needs data added by another contract."
     type: varbin
-    size: 4
+    varSize: medium

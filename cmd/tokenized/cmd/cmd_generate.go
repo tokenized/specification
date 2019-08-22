@@ -10,6 +10,7 @@ import (
 	"github.com/tokenized/specification/internal/json"
 	"github.com/tokenized/specification/internal/markdown"
 	"github.com/tokenized/specification/internal/platform/parser"
+	"github.com/tokenized/specification/internal/protobuf"
 	"github.com/tokenized/specification/internal/python"
 	"github.com/tokenized/specification/internal/typescript"
 
@@ -37,32 +38,37 @@ var cmdGenerate = &cobra.Command{
 		distPath := filepath.FromSlash(dir + "/dist")
 
 		// --------------------------------------------------------------------
-		// Prepare Values
+		// Prepare Schemas
 
-		fieldTypes := parser.NewProtocolTypes(parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/types")))
+		actions, err := parser.NewSchema(filepath.FromSlash(srcPath + "/actions/develop"))
+		if err != nil {
+			log.Fatal(err)
+		}
 
-		actions := parser.NewProtocolActions(fieldTypes, parser.FetchFiles(srcPath, "protocol", filepath.FromSlash("develop/actions")))
+		assets, err := parser.NewSchema(filepath.FromSlash(srcPath + "/assets/develop"))
+		if err != nil {
+			log.Fatal(err)
+		}
 
-		assets := parser.NewAssets(parser.FetchFiles(srcPath, "assets", "develop"))
-
-		messages := parser.NewProtocolMessages(fieldTypes, parser.FetchFiles(srcPath, "messages", "develop"))
-
-		resources := parser.NewProtocolResources(parser.FetchFiles(srcPath, "resources", "develop"))
-
-		rejectionCodes := parser.NewProtocolRejectionCodes(filepath.FromSlash(srcPath + "/resources/develop/Rejections.yaml"))
+		messages, err := parser.NewSchema(filepath.FromSlash(srcPath + "/messages/develop"))
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		// --------------------------------------------------------------------
 		// Compile Languages
 
-		golang.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		protobuf.Compile(srcPath, distPath, *actions, *assets, *messages)
 
-		json.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		golang.Compile(srcPath, distPath, *actions, *assets, *messages)
 
-		markdown.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		json.Compile(srcPath, distPath, *actions, *assets, *messages)
 
-		python.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		markdown.Compile(srcPath, distPath, *actions, *assets, *messages)
 
-		typescript.Compile(distPath, actions, messages, fieldTypes, resources, rejectionCodes, assets)
+		python.Compile(srcPath, distPath, *actions, *assets, *messages)
+
+		typescript.Compile(srcPath, distPath, *actions, *assets, *messages)
 
 		return nil
 	},

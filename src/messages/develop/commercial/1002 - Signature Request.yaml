@@ -17,4 +17,4 @@ fields:
     label: Payload
     description: "Full serialized bitcoin tx with multiple inputs from different wallets/users."
     type: varbin
-    size: 4
+    varSize: medium

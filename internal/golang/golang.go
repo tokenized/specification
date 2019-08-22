@@ -5,36 +5,40 @@ import (
 )
 
 func Compile(
-	distPath string,
-	actions parser.ProtocolActions,
-	messages parser.ProtocolMessages,
-	types parser.ProtocolTypes,
-	resources parser.ProtocolResources,
-	rejectionCodes parser.ProtocolRejectionCodes,
-	assets []parser.Asset,
+	srcPath, distPath string,
+	actions parser.Schema,
+	assets parser.Schema,
+	messages parser.Schema,
 ) {
-	templateToFile(distPath, "actions_test.tpl", "actions_test.go", actions)
+	// Actions
+	parser.TemplateToFile(actions, "internal/golang/templates/actions.tpl",
+		distPath+"/golang/"+"actions/actions.go")
+	parser.TemplateToFile(actions, "internal/golang/templates/validate.tpl",
+		distPath+"/golang/"+"actions/validate.go")
+	parser.TemplateToFile(actions, "internal/golang/templates/equal.tpl",
+		distPath+"/golang/"+"actions/equal.go")
+	parser.TemplateToFile(actions, "internal/golang/templates/resources.tpl",
+		distPath+"/golang/"+"actions/resources.go")
+	parser.TemplateToFile(actions, "internal/golang/templates/actions_test.tpl",
+		distPath+"/golang/"+"actions/actions_test.go")
 
-	templateToFile(distPath, "actions.tpl", "actions.go", actions)
+	// Assets
+	parser.TemplateToFile(assets, "internal/golang/templates/assets.tpl",
+		distPath+"/golang/"+"assets/assets.go")
+	parser.TemplateToFile(assets, "internal/golang/templates/validate.tpl",
+		distPath+"/golang/"+"assets/validate.go")
+	parser.TemplateToFile(assets, "internal/golang/templates/equal.tpl",
+		distPath+"/golang/"+"assets/equal.go")
+	parser.TemplateToFile(assets, "internal/golang/templates/assets_test.tpl",
+		distPath+"/golang/"+"assets/assets_test.go")
 
-	templateToFile(distPath, "messages_test.tpl", "messages_test.go", messages)
-
-	templateToFile(distPath, "messages.tpl", "messages.go", messages)
-
-	templateToFile(distPath, "field_types.tpl", "field_types.go", types)
-
-	templateToFile(distPath, "resources.tpl", "resources.go", resources)
-
-	templateToFile(distPath, "rejection_codes.tpl", "rejection_codes.go", rejectionCodes)
-
-	templateToFile(distPath, "assets.tpl", "assets.go", assets)
-}
-
-func templateToFile(distPath, tplFile, goFile string, data interface{}) {
-
-	tpl := "./internal/golang/templates/" + tplFile
-
-	path := distPath + "/golang/protocol/" + goFile
-
-	parser.TemplateToFile(distPath, data, tpl, path)
+	// Messages
+	parser.TemplateToFile(messages, "internal/golang/templates/messages.tpl",
+		distPath+"/golang/"+"messages/messages.go")
+	parser.TemplateToFile(messages, "internal/golang/templates/validate.tpl",
+		distPath+"/golang/"+"messages/validate.go")
+	parser.TemplateToFile(messages, "internal/golang/templates/equal.tpl",
+		distPath+"/golang/"+"messages/equal.go")
+	parser.TemplateToFile(messages, "internal/golang/templates/messages_test.tpl",
+		distPath+"/golang/"+"messages/messages_test.go")
 }

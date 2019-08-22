@@ -8,39 +8,8 @@ name: Tokenized Message Types
 # Unique Identifier
 package: messages
 
-# Output Template
-template: default
-
 # Codec Version
 version: 1
-
-# Version type must be an unsigned integer type, but can vary in size.
-# The type can not be changed between versions.
-versionType:
-    type: uint
-    size: 1
-
-# Message Code used to determine which type of message is encoded.
-code:
-    name: MessageCode
-    type: uint
-    size: 2
-
-# Define Header Fields
-headerFields:
-  - name: Version
-    label: Payload Version
-    description: The version number that this asset payload adheres to.
-    type: uint
-    size: 8
-    example: 1
-
-  - name: MessageCode
-    label: Message Code
-    description: The Message Code that determines the expected contents of the message payload.
-    type: uint
-    size: 2
-    example: 1001
 
 # Register Supported Messages
 messages:
@@ -52,11 +21,30 @@ messages:
   - "commercial/1003 - Settlement Request"
   - "commercial/1004 - Output Metadata"
 
+# Register Resources
+resources: []
+
 # Register Field Types
 fieldTypes:
-  - "types/Output"
+  - "types/Outpoint"
   - "types/OutputTag"
   - "types/Document"
+  - "types/TargetAddress"
 
 # Define Field Aliases
 fieldAliases:
+  - name: Tag
+    type: uint
+    size: 8
+    resource: Tags
+
+  - name: PublicKeyHash
+    type: varbin
+
+  - name: Timestamp
+    type: uint
+    size: 8
+
+  - name: TxId
+    type: bin
+    size: 32

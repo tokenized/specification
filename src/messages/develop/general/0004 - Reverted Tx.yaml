@@ -17,4 +17,4 @@ fields:
     label: Transaction
     description: "Serialized bitcoin transaction that was reverted/invalidated after being accepted."
     type: varbin
-    size: 4
+    varSize: medium

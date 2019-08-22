@@ -1,191 +1,211 @@
 package parser
 
 import (
-	"fmt"
 	"strings"
 )
 
-type IncludeIf struct {
-	Field  string
-	Values []string
-}
-
+// Field defines the expected properties of a field definition in the specification YAML.
 type Field struct {
-	Name           string
-	Label          string
-	Description    string
-	Type           string
-	Size           uint64
-	Options        []string
-	IncludeIf      IncludeIf `yaml:"include_if"`
-	IncludeIfInt   IncludeIf `yaml:"include_if_int"`
-	IncludeIfTrue  string    `yaml:"include_if_true"`
-	IncludeIfFalse string    `yaml:"include_if_false"`
-	IntValues      []int     `yaml:"int_values"`
-	CharValues     []string  `yaml:"char_values"`
-	Required       bool
-	Example        string `yaml:"example"`
-	ExampleHex     string `yaml:"example_hex"`
-	Notes          string
-	Computed       bool
-	DisplayOrder   int
+	Name           string   `yaml:"name"`
+	Label          string   `yaml:"label"`
+	Description    string   `yaml:"description"`
+	Notes          string   `yaml:"notes"`
+	Type           string   `yaml:"type"`
+	Size           int      `yaml:"size"`
+	ListSize       string   `yaml:"listSize"`
+	VarSize        string   `yaml:"varSize"`
+	Example        string   `yaml:"example"`
+	Options        []string `yaml:"options"`
+	Resource       string   `yaml:"resource"`
+	IsAlias        bool     `yaml:"is_alias"`
+	IsCompoundType bool     `yaml:"is_compound_type"`
+	AliasField     *Field
 }
 
-func (f Field) FieldName() string {
-	return strings.Replace(f.Name, " ", "", -1)
-}
-
-func (f Field) FieldDescription() string {
-	return strings.Trim(f.Description, " ")
-}
-
-func (f Field) DescriptionAbbr() string {
-	return fmt.Sprintf(f.Description[:90])
-}
-
-func (f Field) FormType() string {
-	if f.Name == "Payload" {
-		return "json.RawAction"
-	}
-
-	if f.Type == "[]byte" || f.Type == "byte" {
-		return "string"
-	}
-
-	return f.Type
-}
-
-func (f Field) GoTags() string {
-	return fmt.Sprintf("`json:\"%s,omitempty\"`", f.SnakeCase())
-}
-
-func (f Field) SnakeCase() string {
-	return SnakeCase(f.Name)
-}
-
-func (f Field) IsData() bool {
-	return f.Type == "bin16"
-}
-
-func (f Field) IsBytes() bool {
-	return f.FieldGoType() == "[]byte" && !f.IsData()
-}
-
-func (f Field) IsVarChar() bool {
-	return f.Type == "varchar"
-}
-
-func (f Field) IsFixedChar() bool {
-	return f.Type == "fixedchar" && f.Size != 1
-}
-
-func (f Field) IsVarBin() bool {
-	return f.Type == "varbin"
-}
-
-func (f Field) IsNumeric() bool {
-	s := strings.ToLower(f.Type)
-
-	return strings.HasPrefix(s, "uint") ||
-		strings.HasPrefix(s, "float") ||
-		strings.HasPrefix(s, "int")
-}
-
-func (f Field) IsFloat() bool {
-	s := strings.ToLower(f.Type)
-
-	return strings.HasPrefix(f.Type, s)
-}
-
-func (f Field) IsArrayType() bool {
-	return strings.HasSuffix(f.Type, "[]")
-}
-
-func (f Field) SingularDisplayType() string {
-	return strings.Replace(f.Type, "[]", "", 1)
-}
-
-func (f Field) Length() uint64 {
-	if strings.HasSuffix(f.Type, "[]") && f.Size == 0 {
-		return 8
-	}
-	return f.Size
-}
-
-func (f Field) TypeURLCode() string {
-	if f.IsResource() {
-		typeName := f.Type
-		if strings.HasSuffix(typeName, "[]") {
-			typeName = typeName[:len(typeName)-2]
-		}
-		var name string
-		switch typeName {
-		case "Role":
-			name = "roles"
-		case "EntityType":
-			name = "entities"
-		case "Polity":
-			name = "polities"
-		case "CurrencyType":
-			name = "currencies"
-		case "RejectionCode":
-			name = "rejections"
-		case "Tag":
-			name = "tags"
-		}
-		return "resource-" + KebabCase(name)
-	}
-	return "type-" + KebabCase(f.SingularType())
-}
-
-func (f Field) SingularType() string {
-	return strings.Replace(f.FieldGoType(), "[]", "", 1)
-}
-
-func (f Field) FieldGoType() string {
-	return GoType(f.Type, f.Size, f.Options)
-}
-
-func (f Field) IsInternalTypeArray() bool {
-	return f.IsInternalType() && strings.HasSuffix(f.Type, "[]")
-}
-
-func (f Field) IsNativeTypeArray() bool {
-	return !f.IsInternalType() && strings.HasSuffix(f.Type, "[]")
-}
-
-func (f Field) IsResource() bool {
-	return IsResource(f.Type)
-}
-
-func (f Field) IsResourceTypeArray() bool {
-	return IsResource(f.Type) && strings.HasSuffix(f.Type, "[]")
-}
-
-func (f Field) IsInternalType() bool {
-	return IsInternalType(f.Type, f.Size)
-}
-
-func (f Field) IsNativeType() bool {
-	return !IsInternalType(f.Type, f.Size) && !strings.HasSuffix(f.Type, "[]")
-}
-
-func (f Field) IsComplexType() bool {
-	return f.IsInternalType()
-}
-
-func (f Field) Trimmable() bool {
-	if f.Name == "Payload" {
-		return false
-	}
-
-	if f.Type == "STRING" && f.Length() > 1 {
+// IsPrimitive returns true if the field is "primitive". Not a complex type. i.e. fieldtype or
+//   message.
+func (f *Field) IsPrimitive() bool {
+	switch f.BaseType() {
+	case "uint":
 		return true
-	}
-
-	if f.Type == "SHA" {
+	case "int":
+		return true
+	case "float":
+		return true
+	case "bool":
+		return true
+	case "bin":
+		return true
+	case "varbin":
+		return true
+	case "fixedchar":
+		return true
+	case "varchar":
 		return true
 	}
 
 	return false
 }
+
+// IsList returns true if the field is a list of objects.
+func (f *Field) IsList() bool {
+	return strings.HasSuffix(f.Type, "[]")
+}
+
+// BaseType returns the base type of the field, with no modifiers like list type.
+func (f *Field) BaseType() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseType()
+	}
+	return strings.Replace(f.Type, "[]", "", 1)
+}
+
+// BaseSize returns the size of the field's base type, the alias type if there is one.
+func (f *Field) BaseSize() int {
+	if f.Size != 0 {
+		return f.Size
+	}
+	if f.AliasField != nil {
+		return f.AliasField.BaseSize()
+	}
+	if f.Size == 0 {
+		return 1
+	}
+	return f.Size
+}
+
+// BaseListSize returns the list size of the field's base type, the alias type if there is one.
+func (f *Field) BaseListSize() string {
+	if len(f.ListSize) != 0 {
+		return f.ListSize
+	}
+	if f.AliasField != nil {
+		return f.AliasField.BaseListSize()
+	}
+	if len(f.ListSize) == 0 {
+		return "tiny"
+	}
+	return f.ListSize
+}
+
+// BaseVarSize returns the variable size of the field's base type, the alias type if there is one.
+func (f *Field) BaseVarSize() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseVarSize()
+	}
+	if len(f.VarSize) == 0 {
+		return "tiny"
+	}
+	return f.VarSize
+}
+
+// BaseResource returns the base resource of the field.
+func (f *Field) BaseResource() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseResource()
+	}
+	return f.Resource
+}
+
+func (f *Field) GoType() string {
+	gt := f.BaseType()
+
+	if f.AliasField != nil {
+		gt = f.AliasField.ProtobufType()
+	} else {
+		switch gt {
+		case "varchar", "fixedchar":
+			gt = "string"
+
+		case "bin", "varbin":
+			gt = "[]byte"
+
+		case "uint":
+			if f.Size > 4 {
+				gt = "uint64"
+			} else {
+				gt = "uint32"
+			}
+
+		case "int":
+			if f.Size > 4 {
+				gt = "int64"
+			} else {
+				gt = "int32"
+			}
+		}
+
+		if f.IsCompoundType {
+			gt += "Field"
+		}
+	}
+
+	if f.IsList() {
+		gt = "[]" + gt
+	}
+	return gt
+}
+
+func (f *Field) ProtobufType() string {
+	pbt := ""
+	if f.IsList() {
+		pbt += "repeated "
+	}
+
+	baseType := f.BaseType()
+
+	if f.AliasField != nil {
+		return pbt + f.AliasField.ProtobufType()
+	}
+
+	switch baseType {
+	case "varchar", "fixedchar":
+		baseType = "string"
+
+	case "bin", "varbin":
+		baseType = "bytes"
+
+	case "uint":
+		if f.Size > 4 {
+			baseType = "uint64"
+		} else {
+			baseType = "uint32"
+		}
+
+	case "int":
+		if f.Size > 4 {
+			baseType = "int64"
+		} else {
+			baseType = "int32"
+		}
+	}
+
+	if f.IsCompoundType {
+		pbt += baseType + "Field"
+	} else {
+		pbt += baseType
+	}
+
+	return pbt
+}
+
+/*
+// HasVariableSize returns true if the field is variable in length.
+func (f *Field) HasVariableSize() bool {
+	return f.IsList() || f.Type == "varbin" || f.Type == "varchar"
+}
+
+// MaxVariableSize returns the maximum length, in bytes, of a variable length field.
+func (f *Field) MaxVariableSize() uint64 {
+	return (1 << (uint64(f.Size) * 8)) - 1
+}
+
+// VariableSizeType returns a field that represents the type used to encode the size of a
+//   variable length field.
+func (f *Field) VariableSizeType() *Field {
+	return &Field{
+		Type: "uint",
+		Size: f.Size,
+	}
+}
+*/

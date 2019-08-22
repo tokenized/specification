@@ -1,17 +1,18 @@
 package markdown
 
 import (
+	"fmt"
+	"io/ioutil"
+
 	"github.com/tokenized/specification/internal/platform/parser"
+	"gopkg.in/yaml.v2"
 )
 
 func Compile(
-	distPath string,
-	actions parser.ProtocolActions,
-	messages parser.ProtocolMessages,
-	types parser.ProtocolTypes,
-	resources parser.ProtocolResources,
-	rejectionCodes parser.ProtocolRejectionCodes,
-	assets []parser.Asset,
+	srcPath, distPath string,
+	actions parser.Schema,
+	assets parser.Schema,
+	messages parser.Schema,
 ) {
 
 	templateToFile(distPath, "protocol-actions.tpl", "protocol-actions.md", actions)
@@ -20,24 +21,9 @@ func Compile(
 
 	templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", messages)
 
-	templateToFile(distPath, "protocol-field-types.tpl", "protocol-field-types.md", types)
+	resources := fetchResources(srcPath)
 
 	templateToFile(distPath, "protocol-resources.tpl", "protocol-resources.md", resources)
-
-	// for _, action := range actions {
-	// 	outfile := "protocol-" + parser.KebabCase(action.Name()) + ".md"
-	// 	templateToFile(distPath, "action.tpl", outfile, action)
-	// }
-
-	// for _, asset := range assets {
-	// 	outfile := "asset-" + parser.KebabCase(asset.Name()) + ".md"
-	// 	templateToFile(distPath, "asset.tpl", outfile, asset)
-	// }
-
-	// for _, message := range messages {
-	// 	outfile := "message-" + parser.KebabCase(message.Name()) + ".md"
-	// 	templateToFile(distPath, "message.tpl", outfile, message)
-	// }
 }
 
 func templateToFile(distPath, tplFile, goFile string, data interface{}) {
@@ -46,5 +32,29 @@ func templateToFile(distPath, tplFile, goFile string, data interface{}) {
 
 	path := distPath + "/markdown/" + goFile
 
-	parser.TemplateToFile(distPath, data, tpl, path)
+	parser.TemplateToFile(data, tpl, path)
+}
+
+func fetchResources(srcPath string) []parser.Resource {
+	path := srcPath + "/resources/develop"
+
+	filenames := parser.FetchFiles(path)
+
+	items := []parser.Resource{}
+
+	for _, filename := range filenames {
+		data, err := ioutil.ReadFile(filename)
+		if err != nil {
+			panic(err)
+		}
+
+		m := parser.Resource{}
+		if err := yaml.Unmarshal(data, &m); err != nil {
+			panic(fmt.Errorf("file %v : %s", filename, err))
+		}
+
+		items = append(items, m)
+	}
+
+	return items
 }

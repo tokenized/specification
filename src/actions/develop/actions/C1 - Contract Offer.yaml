@@ -1,0 +1,170 @@
+#
+# Contract Offer Action: The Contract Offer action allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
+#
+
+code: C1
+name: ContractOffer
+label: "Contract Offer"
+description: "Allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
+
+metadata:
+  validation: AssetCreation
+  rejection: Rejection
+
+  inputs:
+    - name: Administration
+      label: "Administration's Public Address"
+      comments: "The smart contract sets the administration's public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are controlled by the administration according to the protocol."
+
+    - name: ContractOperator
+      label: "Contract Operator's Public Address (Optional)"
+      comments: >
+        Can also be used as a cold storage backup for the issuer.
+        This is important if the issuer wants to be able to change their address as changes to the issuer or operator pkh in an amendment require signatures from both the issuer and the operator pkhs.
+        The one exception to this rule, the Contract Operator can nominate a secondary controlling public address that can act on behalf of the issuer for issuer related requests.
+        Typically this will be the Smart Contract Operator.
+
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+      comments: "A contract address that has no other contract associated to it already."
+
+fields:
+  - name: ContractName
+    label: Contract Name
+    description: >
+      Can be any unique identifying string, including human readable names for branding/vanity purposes.
+      Contract identifier (instance) is the bitcoin public key hash address.
+      If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address.
+      Smart contracts can be branded and specialized to suit any terms and conditions.
+    type: varchar
+    example: "Tesla - Shareholder Agreement"
+
+  - name: BodyOfAgreementType
+    label: Body of Agreement Type
+    description: "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
+    type: uint
+    size: 1
+    example: "1"
+    notes: "Body of Agreement - Amendments can be restricted to a vote."
+    options:
+      - 1
+      - 2
+
+  - name: BodyOfAgreement
+    label: Body of Agreement
+    description: "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information."
+    type: varbin
+    varSize: medium
+
+  - name: ContractType
+    label: Contract Type
+    description: "Describes the purpose of the contract."
+    type: varchar
+    example: "Shareholder Agreement"
+
+  - name: SupportingDocs
+    label: Supporting Documentation
+    description: "Supporting documents that are important to the contract."
+    type: Document[]
+
+  - name: GoverningLaw
+    label: Governing Law
+    description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    type: fixedchar
+    size: 5
+    example: "USA"
+    notes: "Governing Law - Amendments can be restricted to a vote."
+
+  - name: Jurisdiction
+    label: Jurisdiction
+    description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    type: fixedchar
+    size: 5
+    example: "US-CA"
+    notes: "Jurisdiction - Amendments can be restricted to a vote."
+
+  - name: ContractExpiration
+    label: Contract Expiration
+    description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
+    type: Timestamp
+    example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    notes: "Contract Expiration - Amendments can be restricted to a vote."
+
+  - name: ContractURI
+    label: Contract URI
+    description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS)."
+    type: varchar
+    example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
+
+  - name: Issuer
+    label: Issuer
+    description: "The issuer of this contract."
+    type: Entity
+
+  - name: IssuerLogoURL
+    label: Issuer Logo URL
+    description: "The URL of the issuer's logo."
+    type: varchar
+    example: "https://example.com/images/logo.png"
+
+  - name: ContractOperatorIncluded
+    label: Contract Operator Included
+    description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
+    type: bool
+
+  - name: ContractOperator
+    label: Contract Operator
+    description: "An additional entity with operator access to the contract."
+    type: Entity
+    # includeIfTrue specifies that this field is only included in serialization if the specified field is true.
+    includeIfTrue: ContractOperatorIncluded
+
+  - name: ContractFee
+    label: Contract Fee
+    description: "Satoshis required to be paid to the contract for each asset action."
+    type: uint
+    size: 8
+
+  - name: VotingSystems
+    label: Voting Systems
+    description: "A list of voting systems."
+    type: VotingSystem[]
+
+  - name: ContractAuthFlags
+    label: Contract Authorization Flags
+    description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement."
+    type: varbin
+    varSize: small
+    notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
+
+  - name: RestrictedQtyAssets
+    label: Restricted Qty of Assets
+    description: "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
+    type: uint
+    size: 8
+    example: "1"
+    notes: "Qty of Assets - Amendments can be restricted to a vote."
+
+  - name: AdministrationProposal
+    label: Administration Proposal
+    description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
+    type: bool
+    example: true
+    notes: "General Governance"
+
+  - name: HolderProposal
+    label: Holder Proposal
+    description: "Set to true if a holder is permitted to make proposals outside of the smart contract scope."
+    type: bool
+    example: true
+
+  - name: Oracles
+    label: Oracles
+    description: "A list of oracles that provide approval for all token transfers for all assets under the contract."
+    type: Oracle[]
+
+  - name: MasterPKH
+    label: Master Public Key Hash
+    description: "The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key."
+    type: PublicKeyHash

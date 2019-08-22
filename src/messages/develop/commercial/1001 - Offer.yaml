@@ -17,4 +17,4 @@ fields:
     label: Payload
     description: "Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer."
     type: varbin
-    size: 4
+    varSize: medium
