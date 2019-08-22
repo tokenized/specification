@@ -276,22 +276,22 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string)
+        // AssetType (string) 
         {
             if (this.asset_type.length > 3) {
                 return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
             }
         }
-        // AssetAuthFlags ([]byte)
+        // AssetAuthFlags ([]byte) 
         {
             if (this.asset_auth_flags.length >= (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // TransfersPermitted (bool)
+        // TransfersPermitted (bool) 
         {
         }
-        // TradeRestrictions ([][3]byte)
+        // TradeRestrictions ([][3]byte) 
         {
             if (this.trade_restrictions.length >= (Math.pow(2, 16))) {
                 return sprintf_js_1.sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (Math.pow(2, 16)) - 1);
@@ -307,32 +307,32 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // EnforcementOrdersPermitted (bool)
+        // EnforcementOrdersPermitted (bool) 
         {
         }
-        // VotingRights (bool)
+        // VotingRights (bool) 
         {
         }
-        // VoteMultiplier (uint8)
+        // VoteMultiplier (uint8) 
         {
         }
-        // AdministrationProposal (bool)
+        // AdministrationProposal (bool) 
         {
         }
-        // HolderProposal (bool)
+        // HolderProposal (bool) 
         {
         }
-        // AssetModificationGovernance (uint8)
+        // AssetModificationGovernance (uint8) 
         {
             // $field.IntValues [0 1]
             if (this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
                 return sprintf_js_1.sprintf('field asset_modification_governance value is invalid : %d', this.asset_modification_governance);
             }
         }
-        // TokenQty (uint64)
+        // TokenQty (uint64) 
         {
         }
-        // AssetPayload ([]byte)
+        // AssetPayload ([]byte) 
         {
             if (this.asset_payload.length >= (Math.pow(2, 16))) {
                 return sprintf_js_1.sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (Math.pow(2, 16)) - 1);
@@ -342,19 +342,42 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_auth_flags:%#x', this.asset_auth_flags));
-        vals.push(sprintf_js_1.sprintf('transfers_permitted:%#+v', this.transfers_permitted));
-        vals.push(sprintf_js_1.sprintf('trade_restrictions:%#+v', this.trade_restrictions));
-        vals.push(sprintf_js_1.sprintf('enforcement_orders_permitted:%#+v', this.enforcement_orders_permitted));
-        vals.push(sprintf_js_1.sprintf('voting_rights:%#+v', this.voting_rights));
-        vals.push(sprintf_js_1.sprintf('vote_multiplier:%v', this.vote_multiplier));
-        vals.push(sprintf_js_1.sprintf('administration_proposal:%#+v', this.administration_proposal));
-        vals.push(sprintf_js_1.sprintf('holder_proposal:%#+v', this.holder_proposal));
-        vals.push(sprintf_js_1.sprintf('asset_modification_governance:%v', this.asset_modification_governance));
-        vals.push(sprintf_js_1.sprintf('token_qty:%v', this.token_qty));
-        vals.push(sprintf_js_1.sprintf('asset_payload:%#x', this.asset_payload));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_auth_flags:%s', this.asset_auth_flags.toString()));
+        vals.push(sprintf_js_1.sprintf('transfers_permitted:%s', this.transfers_permitted.toString()));
+        vals.push(sprintf_js_1.sprintf('trade_restrictions:%s', this.trade_restrictions.toString()));
+        vals.push(sprintf_js_1.sprintf('enforcement_orders_permitted:%s', this.enforcement_orders_permitted.toString()));
+        vals.push(sprintf_js_1.sprintf('voting_rights:%s', this.voting_rights.toString()));
+        vals.push(sprintf_js_1.sprintf('vote_multiplier:%d', this.vote_multiplier));
+        vals.push(sprintf_js_1.sprintf('administration_proposal:%s', this.administration_proposal.toString()));
+        vals.push(sprintf_js_1.sprintf('holder_proposal:%s', this.holder_proposal.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_modification_governance:%d', this.asset_modification_governance));
+        vals.push(sprintf_js_1.sprintf('token_qty:%d', this.token_qty));
+        vals.push(sprintf_js_1.sprintf('asset_payload:%s', this.asset_payload.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for AssetDefinition.', e);
+            throw e;
+        }
+        // this.asset_type = parsed.assetType (fixedchar)
+        // this.asset_auth_flags = parsed.assetAuthFlags (varbin)
+        // this.transfers_permitted = parsed.transfersPermitted (bool)
+        // this.trade_restrictions = parsed.tradeRestrictions (Polity[])
+        // this.enforcement_orders_permitted = parsed.enforcementOrdersPermitted (bool)
+        // this.voting_rights = parsed.votingRights (bool)
+        this.vote_multiplier = parsed.voteMultiplier;
+        // this.administration_proposal = parsed.administrationProposal (bool)
+        // this.holder_proposal = parsed.holderProposal (bool)
+        this.asset_modification_governance = parsed.assetModificationGovernance;
+        this.token_qty = parsed.tokenQty;
+        // this.asset_payload = parsed.assetPayload (varbin)
+        return this.Validate();
     }
 }
 exports.AssetDefinition = AssetDefinition;
@@ -525,32 +548,32 @@ class AssetCreation extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string)
+        // AssetType (string) 
         {
             if (this.asset_type.length > 3) {
                 return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
             }
         }
-        // AssetCode (AssetCode)
+        // AssetCode (AssetCode) 
         {
             // IsInternalType
             const err = this.asset_code.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
         }
-        // AssetIndex (uint64)
+        // AssetIndex (uint64) 
         {
         }
-        // AssetAuthFlags ([]byte)
+        // AssetAuthFlags ([]byte) 
         {
             if (this.asset_auth_flags.length >= (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // TransfersPermitted (bool)
+        // TransfersPermitted (bool) 
         {
         }
-        // TradeRestrictions ([][3]byte)
+        // TradeRestrictions ([][3]byte) 
         {
             if (this.trade_restrictions.length >= (Math.pow(2, 16))) {
                 return sprintf_js_1.sprintf('list field trade_restrictions has too many items %d/%d', this.trade_restrictions.length, (Math.pow(2, 16)) - 1);
@@ -566,41 +589,41 @@ class AssetCreation extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // EnforcementOrdersPermitted (bool)
+        // EnforcementOrdersPermitted (bool) 
         {
         }
-        // VotingRights (bool)
+        // VotingRights (bool) 
         {
         }
-        // VoteMultiplier (uint8)
+        // VoteMultiplier (uint8) 
         {
         }
-        // AdministrationProposal (bool)
+        // AdministrationProposal (bool) 
         {
         }
-        // HolderProposal (bool)
+        // HolderProposal (bool) 
         {
         }
-        // AssetModificationGovernance (uint8)
+        // AssetModificationGovernance (uint8) 
         {
             // $field.IntValues [0 1]
             if (this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
                 return sprintf_js_1.sprintf('field asset_modification_governance value is invalid : %d', this.asset_modification_governance);
             }
         }
-        // TokenQty (uint64)
+        // TokenQty (uint64) 
         {
         }
-        // AssetPayload ([]byte)
+        // AssetPayload ([]byte) 
         {
             if (this.asset_payload.length >= (Math.pow(2, 16))) {
                 return sprintf_js_1.sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (Math.pow(2, 16)) - 1);
             }
         }
-        // AssetRevision (uint32)
+        // AssetRevision (uint32) 
         {
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -611,23 +634,52 @@ class AssetCreation extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_code:%#+v', this.asset_code));
-        vals.push(sprintf_js_1.sprintf('asset_index:%v', this.asset_index));
-        vals.push(sprintf_js_1.sprintf('asset_auth_flags:%#x', this.asset_auth_flags));
-        vals.push(sprintf_js_1.sprintf('transfers_permitted:%#+v', this.transfers_permitted));
-        vals.push(sprintf_js_1.sprintf('trade_restrictions:%#+v', this.trade_restrictions));
-        vals.push(sprintf_js_1.sprintf('enforcement_orders_permitted:%#+v', this.enforcement_orders_permitted));
-        vals.push(sprintf_js_1.sprintf('voting_rights:%#+v', this.voting_rights));
-        vals.push(sprintf_js_1.sprintf('vote_multiplier:%v', this.vote_multiplier));
-        vals.push(sprintf_js_1.sprintf('administration_proposal:%#+v', this.administration_proposal));
-        vals.push(sprintf_js_1.sprintf('holder_proposal:%#+v', this.holder_proposal));
-        vals.push(sprintf_js_1.sprintf('asset_modification_governance:%v', this.asset_modification_governance));
-        vals.push(sprintf_js_1.sprintf('token_qty:%v', this.token_qty));
-        vals.push(sprintf_js_1.sprintf('asset_payload:%#x', this.asset_payload));
-        vals.push(sprintf_js_1.sprintf('asset_revision:%v', this.asset_revision));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_index:%d', this.asset_index));
+        vals.push(sprintf_js_1.sprintf('asset_auth_flags:%s', this.asset_auth_flags.toString()));
+        vals.push(sprintf_js_1.sprintf('transfers_permitted:%s', this.transfers_permitted.toString()));
+        vals.push(sprintf_js_1.sprintf('trade_restrictions:%s', this.trade_restrictions.toString()));
+        vals.push(sprintf_js_1.sprintf('enforcement_orders_permitted:%s', this.enforcement_orders_permitted.toString()));
+        vals.push(sprintf_js_1.sprintf('voting_rights:%s', this.voting_rights.toString()));
+        vals.push(sprintf_js_1.sprintf('vote_multiplier:%d', this.vote_multiplier));
+        vals.push(sprintf_js_1.sprintf('administration_proposal:%s', this.administration_proposal.toString()));
+        vals.push(sprintf_js_1.sprintf('holder_proposal:%s', this.holder_proposal.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_modification_governance:%d', this.asset_modification_governance));
+        vals.push(sprintf_js_1.sprintf('token_qty:%d', this.token_qty));
+        vals.push(sprintf_js_1.sprintf('asset_payload:%s', this.asset_payload.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_revision:%d', this.asset_revision));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for AssetCreation.', e);
+            throw e;
+        }
+        // this.asset_type = parsed.assetType (fixedchar)
+        this.asset_code = new protocol_types_1.AssetCode();
+        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        this.asset_index = parsed.assetIndex;
+        // this.asset_auth_flags = parsed.assetAuthFlags (varbin)
+        // this.transfers_permitted = parsed.transfersPermitted (bool)
+        // this.trade_restrictions = parsed.tradeRestrictions (Polity[])
+        // this.enforcement_orders_permitted = parsed.enforcementOrdersPermitted (bool)
+        // this.voting_rights = parsed.votingRights (bool)
+        this.vote_multiplier = parsed.voteMultiplier;
+        // this.administration_proposal = parsed.administrationProposal (bool)
+        // this.holder_proposal = parsed.holderProposal (bool)
+        this.asset_modification_governance = parsed.assetModificationGovernance;
+        this.token_qty = parsed.tokenQty;
+        // this.asset_payload = parsed.assetPayload (varbin)
+        this.asset_revision = parsed.assetRevision;
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.AssetCreation = AssetCreation;
@@ -712,23 +764,23 @@ class AssetModification extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string)
+        // AssetType (string) 
         {
             if (this.asset_type.length > 3) {
                 return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
             }
         }
-        // AssetCode (AssetCode)
+        // AssetCode (AssetCode) 
         {
             // IsInternalType
             const err = this.asset_code.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
         }
-        // AssetRevision (uint32)
+        // AssetRevision (uint32) 
         {
         }
-        // Amendments ([]Amendment)
+        // Amendments ([]Amendment) 
         {
             if (this.amendments.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field amendments has too many items %d/%d', this.amendments.length, (Math.pow(2, 8)) - 1);
@@ -741,7 +793,7 @@ class AssetModification extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // RefTxID (TxId)
+        // RefTxID (TxId) 
         {
             // IsInternalType
             const err = this.ref_tx_id.Validate();
@@ -752,12 +804,30 @@ class AssetModification extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_code:%#+v', this.asset_code));
-        vals.push(sprintf_js_1.sprintf('asset_revision:%v', this.asset_revision));
-        vals.push(sprintf_js_1.sprintf('amendments:%#+v', this.amendments));
-        vals.push(sprintf_js_1.sprintf('ref_tx_id:%#+v', this.ref_tx_id));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_revision:%d', this.asset_revision));
+        vals.push(sprintf_js_1.sprintf('amendments:%s', this.amendments.toString()));
+        vals.push(sprintf_js_1.sprintf('ref_tx_id:%s', this.ref_tx_id.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for AssetModification.', e);
+            throw e;
+        }
+        // this.asset_type = parsed.assetType (fixedchar)
+        this.asset_code = new protocol_types_1.AssetCode();
+        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        this.asset_revision = parsed.assetRevision;
+        // this.amendments (Amendment[])
+        this.ref_tx_id = new protocol_types_1.TxId();
+        this.ref_tx_id.fromJSON(JSON.stringify(parsed.refTxID));
+        return this.Validate();
     }
 }
 exports.AssetModification = AssetModification;
@@ -843,10 +913,6 @@ class ContractOffer extends protocol_1.OpReturnMessage {
         if (this.contract_operator_included) {
             buf.write(this.contract_operator.Serialize());
         }
-        // contract_auth_flags ([]byte)
-        {
-            bytes_1.WriteVarBin(buf, this.contract_auth_flags, 16);
-        }
         // contract_fee (uint64)
         {
             bytes_1.write(buf, this.contract_fee, 'uint64');
@@ -857,6 +923,10 @@ class ContractOffer extends protocol_1.OpReturnMessage {
             this.voting_systems.forEach((value) => {
                 buf.write(value.Serialize());
             });
+        }
+        // contract_auth_flags ([]byte)
+        {
+            bytes_1.WriteVarBin(buf, this.contract_auth_flags, 16);
         }
         // restricted_qty_assets (uint64)
         {
@@ -948,10 +1018,6 @@ class ContractOffer extends protocol_1.OpReturnMessage {
             this.contract_operator = new field_types_1.Entity();
             this.contract_operator.Write(buf);
         }
-        // contract_auth_flags ([]byte)
-        {
-            this.contract_auth_flags = bytes_1.ReadVarBin(buf, 16);
-        }
         // contract_fee (uint64)
         {
             this.contract_fee = bytes_1.read(buf, 'uint64');
@@ -966,6 +1032,10 @@ class ContractOffer extends protocol_1.OpReturnMessage {
                 newValue.Write(buf);
                 this.voting_systems.push(newValue);
             }
+        }
+        // contract_auth_flags ([]byte)
+        {
+            this.contract_auth_flags = bytes_1.ReadVarBin(buf, 16);
         }
         // restricted_qty_assets (uint64)
         {
@@ -998,32 +1068,32 @@ class ContractOffer extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // ContractName (string)
+        // ContractName (string) 
         {
             if (this.contract_name.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // BodyOfAgreementType (uint8)
+        // BodyOfAgreementType (uint8) 
         {
             // $field.IntValues [1 2]
             if (this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
                 return sprintf_js_1.sprintf('field body_of_agreement_type value is invalid : %d', this.body_of_agreement_type);
             }
         }
-        // BodyOfAgreement ([]byte)
+        // BodyOfAgreement ([]byte) 
         {
             if (this.body_of_agreement.length >= (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (Math.pow(2, 32)) - 1);
             }
         }
-        // ContractType (string)
+        // ContractType (string) 
         {
             if (this.contract_type.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // SupportingDocs ([]Document)
+        // SupportingDocs ([]Document) 
         {
             if (this.supporting_docs.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (Math.pow(2, 8)) - 1);
@@ -1036,45 +1106,45 @@ class ContractOffer extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // GoverningLaw (string)
+        // GoverningLaw (string) 
         {
             if (this.governing_law.length > 5) {
                 return sprintf_js_1.sprintf('fixedchar field governing_law too long %d/%d', this.governing_law.length, 5);
             }
         }
-        // Jurisdiction (string)
+        // Jurisdiction (string) 
         {
             if (this.jurisdiction.length > 5) {
                 return sprintf_js_1.sprintf('fixedchar field jurisdiction too long %d/%d', this.jurisdiction.length, 5);
             }
         }
-        // ContractExpiration (Timestamp)
+        // ContractExpiration (Timestamp) 
         {
             // IsInternalType
             const err = this.contract_expiration.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field contract_expiration is invalid : %s', err);
         }
-        // ContractURI (string)
+        // ContractURI (string) 
         {
             if (this.contract_uri.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // Issuer (Entity)
+        // Issuer (Entity) 
         {
             // IsInternalType
             const err = this.issuer.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field issuer is invalid : %s', err);
         }
-        // IssuerLogoURL (string)
+        // IssuerLogoURL (string) 
         {
             if (this.issuer_logo_url.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field issuer_logo_url too long %d/%d', this.issuer_logo_url.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // ContractOperatorIncluded (bool)
+        // ContractOperatorIncluded (bool) 
         {
         }
         // ContractOperator (Entity)
@@ -1085,16 +1155,10 @@ class ContractOffer extends protocol_1.OpReturnMessage {
             if (err)
                 return sprintf_js_1.sprintf('field contract_operator is invalid : %s', err);
         }
-        // ContractAuthFlags ([]byte)
-        {
-            if (this.contract_auth_flags.length >= (Math.pow(2, 16))) {
-                return sprintf_js_1.sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (Math.pow(2, 16)) - 1);
-            }
-        }
-        // ContractFee (uint64)
+        // ContractFee (uint64) 
         {
         }
-        // VotingSystems ([]VotingSystem)
+        // VotingSystems ([]VotingSystem) 
         {
             if (this.voting_systems.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field voting_systems has too many items %d/%d', this.voting_systems.length, (Math.pow(2, 8)) - 1);
@@ -1107,16 +1171,22 @@ class ContractOffer extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // RestrictedQtyAssets (uint64)
+        // ContractAuthFlags ([]byte) 
+        {
+            if (this.contract_auth_flags.length >= (Math.pow(2, 16))) {
+                return sprintf_js_1.sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (Math.pow(2, 16)) - 1);
+            }
+        }
+        // RestrictedQtyAssets (uint64) 
         {
         }
-        // AdministrationProposal (bool)
+        // AdministrationProposal (bool) 
         {
         }
-        // HolderProposal (bool)
+        // HolderProposal (bool) 
         {
         }
-        // Oracles ([]Oracle)
+        // Oracles ([]Oracle) 
         {
             if (this.oracles.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field oracles has too many items %d/%d', this.oracles.length, (Math.pow(2, 8)) - 1);
@@ -1129,7 +1199,7 @@ class ContractOffer extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // MasterPKH (PublicKeyHash)
+        // MasterPKH (PublicKeyHash) 
         {
             // IsInternalType
             const err = this.master_pkh.Validate();
@@ -1140,28 +1210,64 @@ class ContractOffer extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('contract_name:%#+v', this.contract_name));
-        vals.push(sprintf_js_1.sprintf('body_of_agreement_type:%v', this.body_of_agreement_type));
-        vals.push(sprintf_js_1.sprintf('body_of_agreement:%#x', this.body_of_agreement));
-        vals.push(sprintf_js_1.sprintf('contract_type:%#+v', this.contract_type));
-        vals.push(sprintf_js_1.sprintf('supporting_docs:%#+v', this.supporting_docs));
-        vals.push(sprintf_js_1.sprintf('governing_law:%#+v', this.governing_law));
-        vals.push(sprintf_js_1.sprintf('jurisdiction:%#+v', this.jurisdiction));
-        vals.push(sprintf_js_1.sprintf('contract_expiration:%#+v', this.contract_expiration));
-        vals.push(sprintf_js_1.sprintf('contract_uri:%#+v', this.contract_uri));
-        vals.push(sprintf_js_1.sprintf('issuer:%#+v', this.issuer));
-        vals.push(sprintf_js_1.sprintf('issuer_logo_url:%#+v', this.issuer_logo_url));
-        vals.push(sprintf_js_1.sprintf('contract_operator_included:%#+v', this.contract_operator_included));
-        vals.push(sprintf_js_1.sprintf('contract_operator:%#+v', this.contract_operator));
-        vals.push(sprintf_js_1.sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
-        vals.push(sprintf_js_1.sprintf('contract_fee:%v', this.contract_fee));
-        vals.push(sprintf_js_1.sprintf('voting_systems:%#+v', this.voting_systems));
-        vals.push(sprintf_js_1.sprintf('restricted_qty_assets:%v', this.restricted_qty_assets));
-        vals.push(sprintf_js_1.sprintf('administration_proposal:%#+v', this.administration_proposal));
-        vals.push(sprintf_js_1.sprintf('holder_proposal:%#+v', this.holder_proposal));
-        vals.push(sprintf_js_1.sprintf('oracles:%#+v', this.oracles));
-        vals.push(sprintf_js_1.sprintf('master_pkh:%#+v', this.master_pkh));
+        vals.push(sprintf_js_1.sprintf('contract_name:%s', this.contract_name.toString()));
+        vals.push(sprintf_js_1.sprintf('body_of_agreement_type:%d', this.body_of_agreement_type));
+        vals.push(sprintf_js_1.sprintf('body_of_agreement:%s', this.body_of_agreement.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_type:%s', this.contract_type.toString()));
+        vals.push(sprintf_js_1.sprintf('supporting_docs:%s', this.supporting_docs.toString()));
+        vals.push(sprintf_js_1.sprintf('governing_law:%s', this.governing_law.toString()));
+        vals.push(sprintf_js_1.sprintf('jurisdiction:%s', this.jurisdiction.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_expiration:%s', this.contract_expiration.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_uri:%s', this.contract_uri.toString()));
+        vals.push(sprintf_js_1.sprintf('issuer:%s', this.issuer.toString()));
+        vals.push(sprintf_js_1.sprintf('issuer_logo_url:%s', this.issuer_logo_url.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_operator_included:%s', this.contract_operator_included.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_operator:%s', this.contract_operator.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_fee:%d', this.contract_fee));
+        vals.push(sprintf_js_1.sprintf('voting_systems:%s', this.voting_systems.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_auth_flags:%s', this.contract_auth_flags.toString()));
+        vals.push(sprintf_js_1.sprintf('restricted_qty_assets:%d', this.restricted_qty_assets));
+        vals.push(sprintf_js_1.sprintf('administration_proposal:%s', this.administration_proposal.toString()));
+        vals.push(sprintf_js_1.sprintf('holder_proposal:%s', this.holder_proposal.toString()));
+        vals.push(sprintf_js_1.sprintf('oracles:%s', this.oracles.toString()));
+        vals.push(sprintf_js_1.sprintf('master_pkh:%s', this.master_pkh.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for ContractOffer.', e);
+            throw e;
+        }
+        this.contract_name = parsed.contractName;
+        this.body_of_agreement_type = parsed.bodyOfAgreementType;
+        // this.body_of_agreement = parsed.bodyOfAgreement (varbin)
+        this.contract_type = parsed.contractType;
+        // this.supporting_docs (Document[])
+        // this.governing_law = parsed.governingLaw (fixedchar)
+        // this.jurisdiction = parsed.jurisdiction (fixedchar)
+        this.contract_expiration = new protocol_types_1.Timestamp();
+        this.contract_expiration.fromJSON(JSON.stringify(parsed.contractExpiration));
+        this.contract_uri = parsed.contractURI;
+        this.issuer = new field_types_1.Entity();
+        this.issuer.fromJSON(JSON.stringify(parsed.issuer));
+        this.issuer_logo_url = parsed.issuerLogoURL;
+        // this.contract_operator_included = parsed.contractOperatorIncluded (bool)
+        this.contract_operator = new field_types_1.Entity();
+        this.contract_operator.fromJSON(JSON.stringify(parsed.contractOperator));
+        this.contract_fee = parsed.contractFee;
+        // this.voting_systems (VotingSystem[])
+        // this.contract_auth_flags = parsed.contractAuthFlags (varbin)
+        this.restricted_qty_assets = parsed.restrictedQtyAssets;
+        // this.administration_proposal = parsed.administrationProposal (bool)
+        // this.holder_proposal = parsed.holderProposal (bool)
+        // this.oracles (Oracle[])
+        this.master_pkh = new protocol_types_1.PublicKeyHash();
+        this.master_pkh.fromJSON(JSON.stringify(parsed.masterPKH));
+        return this.Validate();
     }
 }
 exports.ContractOffer = ContractOffer;
@@ -1245,10 +1351,6 @@ class ContractFormation extends protocol_1.OpReturnMessage {
         if (this.contract_operator_included) {
             buf.write(this.contract_operator.Serialize());
         }
-        // contract_auth_flags ([]byte)
-        {
-            bytes_1.WriteVarBin(buf, this.contract_auth_flags, 16);
-        }
         // contract_fee (uint64)
         {
             bytes_1.write(buf, this.contract_fee, 'uint64');
@@ -1259,6 +1361,10 @@ class ContractFormation extends protocol_1.OpReturnMessage {
             this.voting_systems.forEach((value) => {
                 buf.write(value.Serialize());
             });
+        }
+        // contract_auth_flags ([]byte)
+        {
+            bytes_1.WriteVarBin(buf, this.contract_auth_flags, 16);
         }
         // restricted_qty_assets (uint64)
         {
@@ -1358,10 +1464,6 @@ class ContractFormation extends protocol_1.OpReturnMessage {
             this.contract_operator = new field_types_1.Entity();
             this.contract_operator.Write(buf);
         }
-        // contract_auth_flags ([]byte)
-        {
-            this.contract_auth_flags = bytes_1.ReadVarBin(buf, 16);
-        }
         // contract_fee (uint64)
         {
             this.contract_fee = bytes_1.read(buf, 'uint64');
@@ -1376,6 +1478,10 @@ class ContractFormation extends protocol_1.OpReturnMessage {
                 newValue.Write(buf);
                 this.voting_systems.push(newValue);
             }
+        }
+        // contract_auth_flags ([]byte)
+        {
+            this.contract_auth_flags = bytes_1.ReadVarBin(buf, 16);
         }
         // restricted_qty_assets (uint64)
         {
@@ -1417,32 +1523,32 @@ class ContractFormation extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // ContractName (string)
+        // ContractName (string) 
         {
             if (this.contract_name.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // BodyOfAgreementType (uint8)
+        // BodyOfAgreementType (uint8) 
         {
             // $field.IntValues [1 2]
             if (this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
                 return sprintf_js_1.sprintf('field body_of_agreement_type value is invalid : %d', this.body_of_agreement_type);
             }
         }
-        // BodyOfAgreement ([]byte)
+        // BodyOfAgreement ([]byte) 
         {
             if (this.body_of_agreement.length >= (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (Math.pow(2, 32)) - 1);
             }
         }
-        // ContractType (string)
+        // ContractType (string) 
         {
             if (this.contract_type.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // SupportingDocs ([]Document)
+        // SupportingDocs ([]Document) 
         {
             if (this.supporting_docs.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (Math.pow(2, 8)) - 1);
@@ -1455,45 +1561,45 @@ class ContractFormation extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // GoverningLaw (string)
+        // GoverningLaw (string) 
         {
             if (this.governing_law.length > 5) {
                 return sprintf_js_1.sprintf('fixedchar field governing_law too long %d/%d', this.governing_law.length, 5);
             }
         }
-        // Jurisdiction (string)
+        // Jurisdiction (string) 
         {
             if (this.jurisdiction.length > 5) {
                 return sprintf_js_1.sprintf('fixedchar field jurisdiction too long %d/%d', this.jurisdiction.length, 5);
             }
         }
-        // ContractExpiration (Timestamp)
+        // ContractExpiration (Timestamp) 
         {
             // IsInternalType
             const err = this.contract_expiration.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field contract_expiration is invalid : %s', err);
         }
-        // ContractURI (string)
+        // ContractURI (string) 
         {
             if (this.contract_uri.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // Issuer (Entity)
+        // Issuer (Entity) 
         {
             // IsInternalType
             const err = this.issuer.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field issuer is invalid : %s', err);
         }
-        // IssuerLogoURL (string)
+        // IssuerLogoURL (string) 
         {
             if (this.issuer_logo_url.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field issuer_logo_url too long %d/%d', this.issuer_logo_url.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // ContractOperatorIncluded (bool)
+        // ContractOperatorIncluded (bool) 
         {
         }
         // ContractOperator (Entity)
@@ -1504,16 +1610,10 @@ class ContractFormation extends protocol_1.OpReturnMessage {
             if (err)
                 return sprintf_js_1.sprintf('field contract_operator is invalid : %s', err);
         }
-        // ContractAuthFlags ([]byte)
-        {
-            if (this.contract_auth_flags.length >= (Math.pow(2, 16))) {
-                return sprintf_js_1.sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (Math.pow(2, 16)) - 1);
-            }
-        }
-        // ContractFee (uint64)
+        // ContractFee (uint64) 
         {
         }
-        // VotingSystems ([]VotingSystem)
+        // VotingSystems ([]VotingSystem) 
         {
             if (this.voting_systems.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field voting_systems has too many items %d/%d', this.voting_systems.length, (Math.pow(2, 8)) - 1);
@@ -1526,16 +1626,22 @@ class ContractFormation extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // RestrictedQtyAssets (uint64)
+        // ContractAuthFlags ([]byte) 
+        {
+            if (this.contract_auth_flags.length >= (Math.pow(2, 16))) {
+                return sprintf_js_1.sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (Math.pow(2, 16)) - 1);
+            }
+        }
+        // RestrictedQtyAssets (uint64) 
         {
         }
-        // AdministrationProposal (bool)
+        // AdministrationProposal (bool) 
         {
         }
-        // HolderProposal (bool)
+        // HolderProposal (bool) 
         {
         }
-        // Oracles ([]Oracle)
+        // Oracles ([]Oracle) 
         {
             if (this.oracles.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field oracles has too many items %d/%d', this.oracles.length, (Math.pow(2, 8)) - 1);
@@ -1548,17 +1654,17 @@ class ContractFormation extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // MasterPKH (PublicKeyHash)
+        // MasterPKH (PublicKeyHash) 
         {
             // IsInternalType
             const err = this.master_pkh.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field master_pkh is invalid : %s', err);
         }
-        // ContractRevision (uint32)
+        // ContractRevision (uint32) 
         {
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -1569,30 +1675,69 @@ class ContractFormation extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('contract_name:%#+v', this.contract_name));
-        vals.push(sprintf_js_1.sprintf('body_of_agreement_type:%v', this.body_of_agreement_type));
-        vals.push(sprintf_js_1.sprintf('body_of_agreement:%#x', this.body_of_agreement));
-        vals.push(sprintf_js_1.sprintf('contract_type:%#+v', this.contract_type));
-        vals.push(sprintf_js_1.sprintf('supporting_docs:%#+v', this.supporting_docs));
-        vals.push(sprintf_js_1.sprintf('governing_law:%#+v', this.governing_law));
-        vals.push(sprintf_js_1.sprintf('jurisdiction:%#+v', this.jurisdiction));
-        vals.push(sprintf_js_1.sprintf('contract_expiration:%#+v', this.contract_expiration));
-        vals.push(sprintf_js_1.sprintf('contract_uri:%#+v', this.contract_uri));
-        vals.push(sprintf_js_1.sprintf('issuer:%#+v', this.issuer));
-        vals.push(sprintf_js_1.sprintf('issuer_logo_url:%#+v', this.issuer_logo_url));
-        vals.push(sprintf_js_1.sprintf('contract_operator_included:%#+v', this.contract_operator_included));
-        vals.push(sprintf_js_1.sprintf('contract_operator:%#+v', this.contract_operator));
-        vals.push(sprintf_js_1.sprintf('contract_auth_flags:%#x', this.contract_auth_flags));
-        vals.push(sprintf_js_1.sprintf('contract_fee:%v', this.contract_fee));
-        vals.push(sprintf_js_1.sprintf('voting_systems:%#+v', this.voting_systems));
-        vals.push(sprintf_js_1.sprintf('restricted_qty_assets:%v', this.restricted_qty_assets));
-        vals.push(sprintf_js_1.sprintf('administration_proposal:%#+v', this.administration_proposal));
-        vals.push(sprintf_js_1.sprintf('holder_proposal:%#+v', this.holder_proposal));
-        vals.push(sprintf_js_1.sprintf('oracles:%#+v', this.oracles));
-        vals.push(sprintf_js_1.sprintf('master_pkh:%#+v', this.master_pkh));
-        vals.push(sprintf_js_1.sprintf('contract_revision:%v', this.contract_revision));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('contract_name:%s', this.contract_name.toString()));
+        vals.push(sprintf_js_1.sprintf('body_of_agreement_type:%d', this.body_of_agreement_type));
+        vals.push(sprintf_js_1.sprintf('body_of_agreement:%s', this.body_of_agreement.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_type:%s', this.contract_type.toString()));
+        vals.push(sprintf_js_1.sprintf('supporting_docs:%s', this.supporting_docs.toString()));
+        vals.push(sprintf_js_1.sprintf('governing_law:%s', this.governing_law.toString()));
+        vals.push(sprintf_js_1.sprintf('jurisdiction:%s', this.jurisdiction.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_expiration:%s', this.contract_expiration.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_uri:%s', this.contract_uri.toString()));
+        vals.push(sprintf_js_1.sprintf('issuer:%s', this.issuer.toString()));
+        vals.push(sprintf_js_1.sprintf('issuer_logo_url:%s', this.issuer_logo_url.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_operator_included:%s', this.contract_operator_included.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_operator:%s', this.contract_operator.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_fee:%d', this.contract_fee));
+        vals.push(sprintf_js_1.sprintf('voting_systems:%s', this.voting_systems.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_auth_flags:%s', this.contract_auth_flags.toString()));
+        vals.push(sprintf_js_1.sprintf('restricted_qty_assets:%d', this.restricted_qty_assets));
+        vals.push(sprintf_js_1.sprintf('administration_proposal:%s', this.administration_proposal.toString()));
+        vals.push(sprintf_js_1.sprintf('holder_proposal:%s', this.holder_proposal.toString()));
+        vals.push(sprintf_js_1.sprintf('oracles:%s', this.oracles.toString()));
+        vals.push(sprintf_js_1.sprintf('master_pkh:%s', this.master_pkh.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_revision:%d', this.contract_revision));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for ContractFormation.', e);
+            throw e;
+        }
+        this.contract_name = parsed.contractName;
+        this.body_of_agreement_type = parsed.bodyOfAgreementType;
+        // this.body_of_agreement = parsed.bodyOfAgreement (varbin)
+        this.contract_type = parsed.contractType;
+        // this.supporting_docs (Document[])
+        // this.governing_law = parsed.governingLaw (fixedchar)
+        // this.jurisdiction = parsed.jurisdiction (fixedchar)
+        this.contract_expiration = new protocol_types_1.Timestamp();
+        this.contract_expiration.fromJSON(JSON.stringify(parsed.contractExpiration));
+        this.contract_uri = parsed.contractURI;
+        this.issuer = new field_types_1.Entity();
+        this.issuer.fromJSON(JSON.stringify(parsed.issuer));
+        this.issuer_logo_url = parsed.issuerLogoURL;
+        // this.contract_operator_included = parsed.contractOperatorIncluded (bool)
+        this.contract_operator = new field_types_1.Entity();
+        this.contract_operator.fromJSON(JSON.stringify(parsed.contractOperator));
+        this.contract_fee = parsed.contractFee;
+        // this.voting_systems (VotingSystem[])
+        // this.contract_auth_flags = parsed.contractAuthFlags (varbin)
+        this.restricted_qty_assets = parsed.restrictedQtyAssets;
+        // this.administration_proposal = parsed.administrationProposal (bool)
+        // this.holder_proposal = parsed.holderProposal (bool)
+        // this.oracles (Oracle[])
+        this.master_pkh = new protocol_types_1.PublicKeyHash();
+        this.master_pkh.fromJSON(JSON.stringify(parsed.masterPKH));
+        this.contract_revision = parsed.contractRevision;
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.ContractFormation = ContractFormation;
@@ -1679,16 +1824,16 @@ class ContractAmendment extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // ChangeAdministrationAddress (bool)
+        // ChangeAdministrationAddress (bool) 
         {
         }
-        // ChangeOperatorAddress (bool)
+        // ChangeOperatorAddress (bool) 
         {
         }
-        // ContractRevision (uint32)
+        // ContractRevision (uint32) 
         {
         }
-        // Amendments ([]Amendment)
+        // Amendments ([]Amendment) 
         {
             if (this.amendments.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field amendments has too many items %d/%d', this.amendments.length, (Math.pow(2, 8)) - 1);
@@ -1701,7 +1846,7 @@ class ContractAmendment extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // RefTxID (TxId)
+        // RefTxID (TxId) 
         {
             // IsInternalType
             const err = this.ref_tx_id.Validate();
@@ -1712,12 +1857,29 @@ class ContractAmendment extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('change_administration_address:%#+v', this.change_administration_address));
-        vals.push(sprintf_js_1.sprintf('change_operator_address:%#+v', this.change_operator_address));
-        vals.push(sprintf_js_1.sprintf('contract_revision:%v', this.contract_revision));
-        vals.push(sprintf_js_1.sprintf('amendments:%#+v', this.amendments));
-        vals.push(sprintf_js_1.sprintf('ref_tx_id:%#+v', this.ref_tx_id));
+        vals.push(sprintf_js_1.sprintf('change_administration_address:%s', this.change_administration_address.toString()));
+        vals.push(sprintf_js_1.sprintf('change_operator_address:%s', this.change_operator_address.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_revision:%d', this.contract_revision));
+        vals.push(sprintf_js_1.sprintf('amendments:%s', this.amendments.toString()));
+        vals.push(sprintf_js_1.sprintf('ref_tx_id:%s', this.ref_tx_id.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for ContractAmendment.', e);
+            throw e;
+        }
+        // this.change_administration_address = parsed.changeAdministrationAddress (bool)
+        // this.change_operator_address = parsed.changeOperatorAddress (bool)
+        this.contract_revision = parsed.contractRevision;
+        // this.amendments (Amendment[])
+        this.ref_tx_id = new protocol_types_1.TxId();
+        this.ref_tx_id.fromJSON(JSON.stringify(parsed.refTxID));
+        return this.Validate();
     }
 }
 exports.ContractAmendment = ContractAmendment;
@@ -1886,39 +2048,39 @@ class StaticContractFormation extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // ContractName (string)
+        // ContractName (string) 
         {
             if (this.contract_name.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_name too long %d/%d', this.contract_name.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // ContractCode (ContractCode)
+        // ContractCode (ContractCode) 
         {
             // IsInternalType
             const err = this.contract_code.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field contract_code is invalid : %s', err);
         }
-        // BodyOfAgreementType (uint8)
+        // BodyOfAgreementType (uint8) 
         {
             // $field.IntValues [1 2]
             if (this.body_of_agreement_type !== 1 && this.body_of_agreement_type !== 2) {
                 return sprintf_js_1.sprintf('field body_of_agreement_type value is invalid : %d', this.body_of_agreement_type);
             }
         }
-        // BodyOfAgreement ([]byte)
+        // BodyOfAgreement ([]byte) 
         {
             if (this.body_of_agreement.length >= (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varbin field body_of_agreement too long %d/%d', this.body_of_agreement.length, (Math.pow(2, 32)) - 1);
             }
         }
-        // ContractType (string)
+        // ContractType (string) 
         {
             if (this.contract_type.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_type too long %d/%d', this.contract_type.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // SupportingDocs ([]Document)
+        // SupportingDocs ([]Document) 
         {
             if (this.supporting_docs.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field supporting_docs has too many items %d/%d', this.supporting_docs.length, (Math.pow(2, 8)) - 1);
@@ -1931,49 +2093,49 @@ class StaticContractFormation extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // ContractRevision (uint32)
+        // ContractRevision (uint32) 
         {
         }
-        // GoverningLaw (string)
+        // GoverningLaw (string) 
         {
             if (this.governing_law.length > 5) {
                 return sprintf_js_1.sprintf('fixedchar field governing_law too long %d/%d', this.governing_law.length, 5);
             }
         }
-        // Jurisdiction (string)
+        // Jurisdiction (string) 
         {
             if (this.jurisdiction.length > 5) {
                 return sprintf_js_1.sprintf('fixedchar field jurisdiction too long %d/%d', this.jurisdiction.length, 5);
             }
         }
-        // EffectiveDate (Timestamp)
+        // EffectiveDate (Timestamp) 
         {
             // IsInternalType
             const err = this.effective_date.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field effective_date is invalid : %s', err);
         }
-        // ContractExpiration (Timestamp)
+        // ContractExpiration (Timestamp) 
         {
             // IsInternalType
             const err = this.contract_expiration.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field contract_expiration is invalid : %s', err);
         }
-        // ContractURI (string)
+        // ContractURI (string) 
         {
             if (this.contract_uri.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field contract_uri too long %d/%d', this.contract_uri.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // PrevRevTxID (TxId)
+        // PrevRevTxID (TxId) 
         {
             // IsInternalType
             const err = this.prev_rev_tx_id.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field prev_rev_tx_id is invalid : %s', err);
         }
-        // Entities ([]Entity)
+        // Entities ([]Entity) 
         {
             if (this.entities.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field entities has too many items %d/%d', this.entities.length, (Math.pow(2, 8)) - 1);
@@ -1990,21 +2152,50 @@ class StaticContractFormation extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('contract_name:%#+v', this.contract_name));
-        vals.push(sprintf_js_1.sprintf('contract_code:%#+v', this.contract_code));
-        vals.push(sprintf_js_1.sprintf('body_of_agreement_type:%v', this.body_of_agreement_type));
-        vals.push(sprintf_js_1.sprintf('body_of_agreement:%#x', this.body_of_agreement));
-        vals.push(sprintf_js_1.sprintf('contract_type:%#+v', this.contract_type));
-        vals.push(sprintf_js_1.sprintf('supporting_docs:%#+v', this.supporting_docs));
-        vals.push(sprintf_js_1.sprintf('contract_revision:%v', this.contract_revision));
-        vals.push(sprintf_js_1.sprintf('governing_law:%#+v', this.governing_law));
-        vals.push(sprintf_js_1.sprintf('jurisdiction:%#+v', this.jurisdiction));
-        vals.push(sprintf_js_1.sprintf('effective_date:%#+v', this.effective_date));
-        vals.push(sprintf_js_1.sprintf('contract_expiration:%#+v', this.contract_expiration));
-        vals.push(sprintf_js_1.sprintf('contract_uri:%#+v', this.contract_uri));
-        vals.push(sprintf_js_1.sprintf('prev_rev_tx_id:%#+v', this.prev_rev_tx_id));
-        vals.push(sprintf_js_1.sprintf('entities:%#+v', this.entities));
+        vals.push(sprintf_js_1.sprintf('contract_name:%s', this.contract_name.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_code:%s', this.contract_code.toString()));
+        vals.push(sprintf_js_1.sprintf('body_of_agreement_type:%d', this.body_of_agreement_type));
+        vals.push(sprintf_js_1.sprintf('body_of_agreement:%s', this.body_of_agreement.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_type:%s', this.contract_type.toString()));
+        vals.push(sprintf_js_1.sprintf('supporting_docs:%s', this.supporting_docs.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_revision:%d', this.contract_revision));
+        vals.push(sprintf_js_1.sprintf('governing_law:%s', this.governing_law.toString()));
+        vals.push(sprintf_js_1.sprintf('jurisdiction:%s', this.jurisdiction.toString()));
+        vals.push(sprintf_js_1.sprintf('effective_date:%s', this.effective_date.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_expiration:%s', this.contract_expiration.toString()));
+        vals.push(sprintf_js_1.sprintf('contract_uri:%s', this.contract_uri.toString()));
+        vals.push(sprintf_js_1.sprintf('prev_rev_tx_id:%s', this.prev_rev_tx_id.toString()));
+        vals.push(sprintf_js_1.sprintf('entities:%s', this.entities.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for StaticContractFormation.', e);
+            throw e;
+        }
+        this.contract_name = parsed.contractName;
+        this.contract_code = new protocol_types_1.ContractCode();
+        this.contract_code.fromJSON(JSON.stringify(parsed.contractCode));
+        this.body_of_agreement_type = parsed.bodyOfAgreementType;
+        // this.body_of_agreement = parsed.bodyOfAgreement (varbin)
+        this.contract_type = parsed.contractType;
+        // this.supporting_docs (Document[])
+        this.contract_revision = parsed.contractRevision;
+        // this.governing_law = parsed.governingLaw (fixedchar)
+        // this.jurisdiction = parsed.jurisdiction (fixedchar)
+        this.effective_date = new protocol_types_1.Timestamp();
+        this.effective_date.fromJSON(JSON.stringify(parsed.effectiveDate));
+        this.contract_expiration = new protocol_types_1.Timestamp();
+        this.contract_expiration.fromJSON(JSON.stringify(parsed.contractExpiration));
+        this.contract_uri = parsed.contractURI;
+        this.prev_rev_tx_id = new protocol_types_1.TxId();
+        this.prev_rev_tx_id.fromJSON(JSON.stringify(parsed.prevRevTxID));
+        // this.entities (Entity[])
+        return this.Validate();
     }
 }
 exports.StaticContractFormation = StaticContractFormation;
@@ -2059,14 +2250,14 @@ class ContractAddressChange extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // NewContractPKH (PublicKeyHash)
+        // NewContractPKH (PublicKeyHash) 
         {
             // IsInternalType
             const err = this.new_contract_pkh.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field new_contract_pkh is invalid : %s', err);
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -2077,9 +2268,24 @@ class ContractAddressChange extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('new_contract_pkh:%#+v', this.new_contract_pkh));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('new_contract_pkh:%s', this.new_contract_pkh.toString()));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for ContractAddressChange.', e);
+            throw e;
+        }
+        this.new_contract_pkh = new protocol_types_1.PublicKeyHash();
+        this.new_contract_pkh.fromJSON(JSON.stringify(parsed.newContractPKH));
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.ContractAddressChange = ContractAddressChange;
@@ -2266,7 +2472,7 @@ class Order extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // ComplianceAction (byte)
+        // ComplianceAction (byte) 
         {
             if (this.compliance_action !== 'F'
                 && this.compliance_action !== 'T'
@@ -2361,7 +2567,7 @@ class Order extends protocol_1.OpReturnMessage {
                 return sprintf_js_1.sprintf('varbin field order_signature too long %d/%d', this.order_signature.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // SupportingEvidenceHash ([32]byte)
+        // SupportingEvidenceHash ([32]byte) 
         {
         }
         // RefTxs ([]byte)
@@ -2385,7 +2591,7 @@ class Order extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // Message (string)
+        // Message (string) 
         {
             if (this.message.length > (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varchar field message too long %d/%d', this.message.length, (Math.pow(2, 32)) - 1);
@@ -2395,23 +2601,54 @@ class Order extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('compliance_action:%#+v', this.compliance_action));
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_code:%#+v', this.asset_code));
-        vals.push(sprintf_js_1.sprintf('target_addresses:%#+v', this.target_addresses));
-        vals.push(sprintf_js_1.sprintf('freeze_tx_id:%#+v', this.freeze_tx_id));
-        vals.push(sprintf_js_1.sprintf('freeze_period:%#+v', this.freeze_period));
-        vals.push(sprintf_js_1.sprintf('deposit_address:%#+v', this.deposit_address));
-        vals.push(sprintf_js_1.sprintf('authority_included:%#+v', this.authority_included));
-        vals.push(sprintf_js_1.sprintf('authority_name:%#+v', this.authority_name));
-        vals.push(sprintf_js_1.sprintf('authority_public_key:%#x', this.authority_public_key));
-        vals.push(sprintf_js_1.sprintf('signature_algorithm:%v', this.signature_algorithm));
-        vals.push(sprintf_js_1.sprintf('order_signature:%#x', this.order_signature));
-        vals.push(sprintf_js_1.sprintf('supporting_evidence_hash:%#+v', this.supporting_evidence_hash));
-        vals.push(sprintf_js_1.sprintf('ref_txs:%#x', this.ref_txs));
-        vals.push(sprintf_js_1.sprintf('bitcoin_dispersions:%#+v', this.bitcoin_dispersions));
-        vals.push(sprintf_js_1.sprintf('message:%#+v', this.message));
+        vals.push(sprintf_js_1.sprintf('compliance_action:%s', this.compliance_action.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('target_addresses:%s', this.target_addresses.toString()));
+        vals.push(sprintf_js_1.sprintf('freeze_tx_id:%s', this.freeze_tx_id.toString()));
+        vals.push(sprintf_js_1.sprintf('freeze_period:%s', this.freeze_period.toString()));
+        vals.push(sprintf_js_1.sprintf('deposit_address:%s', this.deposit_address.toString()));
+        vals.push(sprintf_js_1.sprintf('authority_included:%s', this.authority_included.toString()));
+        vals.push(sprintf_js_1.sprintf('authority_name:%s', this.authority_name.toString()));
+        vals.push(sprintf_js_1.sprintf('authority_public_key:%s', this.authority_public_key.toString()));
+        vals.push(sprintf_js_1.sprintf('signature_algorithm:%d', this.signature_algorithm));
+        vals.push(sprintf_js_1.sprintf('order_signature:%s', this.order_signature.toString()));
+        vals.push(sprintf_js_1.sprintf('supporting_evidence_hash:%s', this.supporting_evidence_hash.toString()));
+        vals.push(sprintf_js_1.sprintf('ref_txs:%s', this.ref_txs.toString()));
+        vals.push(sprintf_js_1.sprintf('bitcoin_dispersions:%s', this.bitcoin_dispersions.toString()));
+        vals.push(sprintf_js_1.sprintf('message:%s', this.message.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Order.', e);
+            throw e;
+        }
+        // this.compliance_action = parsed.complianceAction (fixedchar)
+        // this.asset_type = parsed.assetType (fixedchar)
+        this.asset_code = new protocol_types_1.AssetCode();
+        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.target_addresses (TargetAddress[])
+        this.freeze_tx_id = new protocol_types_1.TxId();
+        this.freeze_tx_id.fromJSON(JSON.stringify(parsed.freezeTxId));
+        this.freeze_period = new protocol_types_1.Timestamp();
+        this.freeze_period.fromJSON(JSON.stringify(parsed.freezePeriod));
+        this.deposit_address = new protocol_types_1.PublicKeyHash();
+        this.deposit_address.fromJSON(JSON.stringify(parsed.depositAddress));
+        // this.authority_included = parsed.authorityIncluded (bool)
+        this.authority_name = parsed.authorityName;
+        // this.authority_public_key = parsed.authorityPublicKey (varbin)
+        this.signature_algorithm = parsed.signatureAlgorithm;
+        // this.order_signature = parsed.orderSignature (varbin)
+        // this.supporting_evidence_hash = parsed.supportingEvidenceHash (bin)
+        // this.ref_txs = parsed.refTxs (varbin)
+        // this.bitcoin_dispersions (QuantityIndex[])
+        this.message = parsed.message;
+        return this.Validate();
     }
 }
 exports.Order = Order;
@@ -2502,20 +2739,20 @@ class Freeze extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string)
+        // AssetType (string) 
         {
             if (this.asset_type.length > 3) {
                 return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
             }
         }
-        // AssetCode (AssetCode)
+        // AssetCode (AssetCode) 
         {
             // IsInternalType
             const err = this.asset_code.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
         }
-        // Quantities ([]QuantityIndex)
+        // Quantities ([]QuantityIndex) 
         {
             if (this.quantities.length > (Math.pow(2, 16)) - 1) {
                 return sprintf_js_1.sprintf('list field quantities has too many items %d/%d', this.quantities.length, (Math.pow(2, 16)) - 1);
@@ -2528,14 +2765,14 @@ class Freeze extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // FreezePeriod (Timestamp)
+        // FreezePeriod (Timestamp) 
         {
             // IsInternalType
             const err = this.freeze_period.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field freeze_period is invalid : %s', err);
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -2546,12 +2783,31 @@ class Freeze extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_code:%#+v', this.asset_code));
-        vals.push(sprintf_js_1.sprintf('quantities:%#+v', this.quantities));
-        vals.push(sprintf_js_1.sprintf('freeze_period:%#+v', this.freeze_period));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('quantities:%s', this.quantities.toString()));
+        vals.push(sprintf_js_1.sprintf('freeze_period:%s', this.freeze_period.toString()));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Freeze.', e);
+            throw e;
+        }
+        // this.asset_type = parsed.assetType (fixedchar)
+        this.asset_code = new protocol_types_1.AssetCode();
+        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.quantities (QuantityIndex[])
+        this.freeze_period = new protocol_types_1.Timestamp();
+        this.freeze_period.fromJSON(JSON.stringify(parsed.freezePeriod));
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.Freeze = Freeze;
@@ -2605,14 +2861,14 @@ class Thaw extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // FreezeTxId (TxId)
+        // FreezeTxId (TxId) 
         {
             // IsInternalType
             const err = this.freeze_tx_id.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field freeze_tx_id is invalid : %s', err);
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -2623,9 +2879,24 @@ class Thaw extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('freeze_tx_id:%#+v', this.freeze_tx_id));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('freeze_tx_id:%s', this.freeze_tx_id.toString()));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Thaw.', e);
+            throw e;
+        }
+        this.freeze_tx_id = new protocol_types_1.TxId();
+        this.freeze_tx_id.fromJSON(JSON.stringify(parsed.freezeTxId));
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.Thaw = Thaw;
@@ -2712,20 +2983,20 @@ class Confiscation extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string)
+        // AssetType (string) 
         {
             if (this.asset_type.length > 3) {
                 return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
             }
         }
-        // AssetCode (AssetCode)
+        // AssetCode (AssetCode) 
         {
             // IsInternalType
             const err = this.asset_code.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
         }
-        // Quantities ([]QuantityIndex)
+        // Quantities ([]QuantityIndex) 
         {
             if (this.quantities.length > (Math.pow(2, 16)) - 1) {
                 return sprintf_js_1.sprintf('list field quantities has too many items %d/%d', this.quantities.length, (Math.pow(2, 16)) - 1);
@@ -2738,10 +3009,10 @@ class Confiscation extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // DepositQty (uint64)
+        // DepositQty (uint64) 
         {
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -2752,12 +3023,30 @@ class Confiscation extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_code:%#+v', this.asset_code));
-        vals.push(sprintf_js_1.sprintf('quantities:%#+v', this.quantities));
-        vals.push(sprintf_js_1.sprintf('deposit_qty:%v', this.deposit_qty));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('quantities:%s', this.quantities.toString()));
+        vals.push(sprintf_js_1.sprintf('deposit_qty:%d', this.deposit_qty));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Confiscation.', e);
+            throw e;
+        }
+        // this.asset_type = parsed.assetType (fixedchar)
+        this.asset_code = new protocol_types_1.AssetCode();
+        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.quantities (QuantityIndex[])
+        this.deposit_qty = parsed.depositQty;
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.Confiscation = Confiscation;
@@ -2836,20 +3125,20 @@ class Reconciliation extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string)
+        // AssetType (string) 
         {
             if (this.asset_type.length > 3) {
                 return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
             }
         }
-        // AssetCode (AssetCode)
+        // AssetCode (AssetCode) 
         {
             // IsInternalType
             const err = this.asset_code.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
         }
-        // Quantities ([]QuantityIndex)
+        // Quantities ([]QuantityIndex) 
         {
             if (this.quantities.length > (Math.pow(2, 16)) - 1) {
                 return sprintf_js_1.sprintf('list field quantities has too many items %d/%d', this.quantities.length, (Math.pow(2, 16)) - 1);
@@ -2862,7 +3151,7 @@ class Reconciliation extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -2873,11 +3162,28 @@ class Reconciliation extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_code:%#+v', this.asset_code));
-        vals.push(sprintf_js_1.sprintf('quantities:%#+v', this.quantities));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('quantities:%s', this.quantities.toString()));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Reconciliation.', e);
+            throw e;
+        }
+        // this.asset_type = parsed.assetType (fixedchar)
+        this.asset_code = new protocol_types_1.AssetCode();
+        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.quantities (QuantityIndex[])
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.Reconciliation = Reconciliation;
@@ -3022,14 +3328,14 @@ class Proposal extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // Initiator (uint8)
+        // Initiator (uint8) 
         {
             // $field.IntValues [0 1]
             if (this.initiator !== 0 && this.initiator !== 1) {
                 return sprintf_js_1.sprintf('field initiator value is invalid : %d', this.initiator);
             }
         }
-        // AssetSpecificVote (bool)
+        // AssetSpecificVote (bool) 
         {
         }
         // AssetType (string)
@@ -3047,10 +3353,10 @@ class Proposal extends protocol_1.OpReturnMessage {
             if (err)
                 return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
         }
-        // VoteSystem (uint8)
+        // VoteSystem (uint8) 
         {
         }
-        // Specific (bool)
+        // Specific (bool) 
         {
         }
         // ProposedAmendments ([]Amendment)
@@ -3067,25 +3373,25 @@ class Proposal extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // VoteOptions (string)
+        // VoteOptions (string) 
         {
             if (this.vote_options.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field vote_options too long %d/%d', this.vote_options.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // VoteMax (uint8)
+        // VoteMax (uint8) 
         {
         }
-        // ProposalDescription (string)
+        // ProposalDescription (string) 
         {
             if (this.proposal_description.length > (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varchar field proposal_description too long %d/%d', this.proposal_description.length, (Math.pow(2, 32)) - 1);
             }
         }
-        // ProposalDocumentHash ([32]byte)
+        // ProposalDocumentHash ([32]byte) 
         {
         }
-        // VoteCutOffTimestamp (Timestamp)
+        // VoteCutOffTimestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.vote_cut_off_timestamp.Validate();
@@ -3096,19 +3402,44 @@ class Proposal extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('initiator:%v', this.initiator));
-        vals.push(sprintf_js_1.sprintf('asset_specific_vote:%#+v', this.asset_specific_vote));
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_code:%#+v', this.asset_code));
-        vals.push(sprintf_js_1.sprintf('vote_system:%v', this.vote_system));
-        vals.push(sprintf_js_1.sprintf('specific:%#+v', this.specific));
-        vals.push(sprintf_js_1.sprintf('proposed_amendments:%#+v', this.proposed_amendments));
-        vals.push(sprintf_js_1.sprintf('vote_options:%#+v', this.vote_options));
-        vals.push(sprintf_js_1.sprintf('vote_max:%v', this.vote_max));
-        vals.push(sprintf_js_1.sprintf('proposal_description:%#+v', this.proposal_description));
-        vals.push(sprintf_js_1.sprintf('proposal_document_hash:%#+v', this.proposal_document_hash));
-        vals.push(sprintf_js_1.sprintf('vote_cut_off_timestamp:%#+v', this.vote_cut_off_timestamp));
+        vals.push(sprintf_js_1.sprintf('initiator:%d', this.initiator));
+        vals.push(sprintf_js_1.sprintf('asset_specific_vote:%s', this.asset_specific_vote.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('vote_system:%d', this.vote_system));
+        vals.push(sprintf_js_1.sprintf('specific:%s', this.specific.toString()));
+        vals.push(sprintf_js_1.sprintf('proposed_amendments:%s', this.proposed_amendments.toString()));
+        vals.push(sprintf_js_1.sprintf('vote_options:%s', this.vote_options.toString()));
+        vals.push(sprintf_js_1.sprintf('vote_max:%d', this.vote_max));
+        vals.push(sprintf_js_1.sprintf('proposal_description:%s', this.proposal_description.toString()));
+        vals.push(sprintf_js_1.sprintf('proposal_document_hash:%s', this.proposal_document_hash.toString()));
+        vals.push(sprintf_js_1.sprintf('vote_cut_off_timestamp:%s', this.vote_cut_off_timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Proposal.', e);
+            throw e;
+        }
+        this.initiator = parsed.initiator;
+        // this.asset_specific_vote = parsed.assetSpecificVote (bool)
+        // this.asset_type = parsed.assetType (fixedchar)
+        this.asset_code = new protocol_types_1.AssetCode();
+        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        this.vote_system = parsed.voteSystem;
+        // this.specific = parsed.specific (bool)
+        // this.proposed_amendments (Amendment[])
+        this.vote_options = parsed.voteOptions;
+        this.vote_max = parsed.voteMax;
+        this.proposal_description = parsed.proposalDescription;
+        // this.proposal_document_hash = parsed.proposalDocumentHash (bin)
+        this.vote_cut_off_timestamp = new protocol_types_1.Timestamp();
+        this.vote_cut_off_timestamp.fromJSON(JSON.stringify(parsed.voteCutOffTimestamp));
+        return this.Validate();
     }
 }
 exports.Proposal = Proposal;
@@ -3151,7 +3482,7 @@ class Vote extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -3162,8 +3493,21 @@ class Vote extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Vote.', e);
+            throw e;
+        }
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.Vote = Vote;
@@ -3215,14 +3559,14 @@ class BallotCast extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // VoteTxId (TxId)
+        // VoteTxId (TxId) 
         {
             // IsInternalType
             const err = this.vote_tx_id.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field vote_tx_id is invalid : %s', err);
         }
-        // Vote (string)
+        // Vote (string) 
         {
             if (this.vote.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field vote too long %d/%d', this.vote.length, (Math.pow(2, 8)) - 1);
@@ -3232,9 +3576,23 @@ class BallotCast extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('vote_tx_id:%#+v', this.vote_tx_id));
-        vals.push(sprintf_js_1.sprintf('vote:%#+v', this.vote));
+        vals.push(sprintf_js_1.sprintf('vote_tx_id:%s', this.vote_tx_id.toString()));
+        vals.push(sprintf_js_1.sprintf('vote:%s', this.vote.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for BallotCast.', e);
+            throw e;
+        }
+        this.vote_tx_id = new protocol_types_1.TxId();
+        this.vote_tx_id.fromJSON(JSON.stringify(parsed.voteTxId));
+        this.vote = parsed.vote;
+        return this.Validate();
     }
 }
 exports.BallotCast = BallotCast;
@@ -3304,23 +3662,23 @@ class BallotCounted extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // VoteTxId (TxId)
+        // VoteTxId (TxId) 
         {
             // IsInternalType
             const err = this.vote_tx_id.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field vote_tx_id is invalid : %s', err);
         }
-        // Vote (string)
+        // Vote (string) 
         {
             if (this.vote.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field vote too long %d/%d', this.vote.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // Quantity (uint64)
+        // Quantity (uint64) 
         {
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -3331,11 +3689,28 @@ class BallotCounted extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('vote_tx_id:%#+v', this.vote_tx_id));
-        vals.push(sprintf_js_1.sprintf('vote:%#+v', this.vote));
-        vals.push(sprintf_js_1.sprintf('quantity:%v', this.quantity));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('vote_tx_id:%s', this.vote_tx_id.toString()));
+        vals.push(sprintf_js_1.sprintf('vote:%s', this.vote.toString()));
+        vals.push(sprintf_js_1.sprintf('quantity:%d', this.quantity));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for BallotCounted.', e);
+            throw e;
+        }
+        this.vote_tx_id = new protocol_types_1.TxId();
+        this.vote_tx_id.fromJSON(JSON.stringify(parsed.voteTxId));
+        this.vote = parsed.vote;
+        this.quantity = parsed.quantity;
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.BallotCounted = BallotCounted;
@@ -3462,7 +3837,7 @@ class Result extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetSpecificVote (bool)
+        // AssetSpecificVote (bool) 
         {
         }
         // AssetType (string)
@@ -3480,7 +3855,7 @@ class Result extends protocol_1.OpReturnMessage {
             if (err)
                 return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
         }
-        // Specific (bool)
+        // Specific (bool) 
         {
         }
         // ProposedAmendments ([]Amendment)
@@ -3497,26 +3872,26 @@ class Result extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // VoteTxId (TxId)
+        // VoteTxId (TxId) 
         {
             // IsInternalType
             const err = this.vote_tx_id.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field vote_tx_id is invalid : %s', err);
         }
-        // OptionTally ([]uint64)
+        // OptionTally ([]uint64) 
         {
             if (this.option_tally.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field option_tally has too many items %d/%d', this.option_tally.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // Result (string)
+        // Result (string) 
         {
             if (this.result.length > (Math.pow(2, 8))) {
                 return sprintf_js_1.sprintf('varchar field result too long %d/%d', this.result.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -3527,16 +3902,39 @@ class Result extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_specific_vote:%#+v', this.asset_specific_vote));
-        vals.push(sprintf_js_1.sprintf('asset_type:%#+v', this.asset_type));
-        vals.push(sprintf_js_1.sprintf('asset_code:%#+v', this.asset_code));
-        vals.push(sprintf_js_1.sprintf('specific:%#+v', this.specific));
-        vals.push(sprintf_js_1.sprintf('proposed_amendments:%#+v', this.proposed_amendments));
-        vals.push(sprintf_js_1.sprintf('vote_tx_id:%#+v', this.vote_tx_id));
-        vals.push(sprintf_js_1.sprintf('option_tally:%v', this.option_tally));
-        vals.push(sprintf_js_1.sprintf('result:%#+v', this.result));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('asset_specific_vote:%s', this.asset_specific_vote.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
+        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('specific:%s', this.specific.toString()));
+        vals.push(sprintf_js_1.sprintf('proposed_amendments:%s', this.proposed_amendments.toString()));
+        vals.push(sprintf_js_1.sprintf('vote_tx_id:%s', this.vote_tx_id.toString()));
+        vals.push(sprintf_js_1.sprintf('option_tally:%d', this.option_tally));
+        vals.push(sprintf_js_1.sprintf('result:%s', this.result.toString()));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Result.', e);
+            throw e;
+        }
+        // this.asset_specific_vote = parsed.assetSpecificVote (bool)
+        // this.asset_type = parsed.assetType (fixedchar)
+        this.asset_code = new protocol_types_1.AssetCode();
+        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.specific = parsed.specific (bool)
+        // this.proposed_amendments (Amendment[])
+        this.vote_tx_id = new protocol_types_1.TxId();
+        this.vote_tx_id.fromJSON(JSON.stringify(parsed.voteTxId));
+        this.option_tally = parsed.optionTally;
+        this.result = parsed.result;
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.Result = Result;
@@ -3606,16 +4004,16 @@ class Message extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AddressIndexes ([]uint16)
+        // AddressIndexes ([]uint16) 
         {
             if (this.address_indexes.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field address_indexes has too many items %d/%d', this.address_indexes.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // MessageType (uint16)
+        // MessageType (uint16) 
         {
         }
-        // MessagePayload ([]byte)
+        // MessagePayload ([]byte) 
         {
             if (this.message_payload.length >= (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varbin field message_payload too long %d/%d', this.message_payload.length, (Math.pow(2, 32)) - 1);
@@ -3625,10 +4023,24 @@ class Message extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('address_indexes:%v', this.address_indexes));
-        vals.push(sprintf_js_1.sprintf('message_type:%v', this.message_type));
-        vals.push(sprintf_js_1.sprintf('message_payload:%#x', this.message_payload));
+        vals.push(sprintf_js_1.sprintf('address_indexes:%d', this.address_indexes));
+        vals.push(sprintf_js_1.sprintf('message_type:%d', this.message_type));
+        vals.push(sprintf_js_1.sprintf('message_payload:%s', this.message_payload.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Message.', e);
+            throw e;
+        }
+        this.address_indexes = parsed.addressIndexes;
+        this.message_type = parsed.messageType;
+        // this.message_payload = parsed.messagePayload (varbin)
+        return this.Validate();
     }
 }
 exports.Message = Message;
@@ -3716,28 +4128,28 @@ class Rejection extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AddressIndexes ([]uint16)
+        // AddressIndexes ([]uint16) 
         {
             if (this.address_indexes.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field address_indexes has too many items %d/%d', this.address_indexes.length, (Math.pow(2, 8)) - 1);
             }
         }
-        // RejectAddressIndex (uint16)
+        // RejectAddressIndex (uint16) 
         {
         }
-        // RejectionCode (uint8)
+        // RejectionCode (uint8) 
         {
             if (resources_1.Resources.GetRejectionCode(this.rejection_code) === null) {
                 return sprintf_js_1.sprintf('Invalid rejection code value : %d', this.rejection_code);
             }
         }
-        // Message (string)
+        // Message (string) 
         {
             if (this.message.length > (Math.pow(2, 16))) {
                 return sprintf_js_1.sprintf('varchar field message too long %d/%d', this.message.length, (Math.pow(2, 16)) - 1);
             }
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -3748,12 +4160,29 @@ class Rejection extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('address_indexes:%v', this.address_indexes));
-        vals.push(sprintf_js_1.sprintf('reject_address_index:%v', this.reject_address_index));
-        vals.push(sprintf_js_1.sprintf('rejection_code:%#+v', this.rejection_code));
-        vals.push(sprintf_js_1.sprintf('message:%#+v', this.message));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('address_indexes:%d', this.address_indexes));
+        vals.push(sprintf_js_1.sprintf('reject_address_index:%d', this.reject_address_index));
+        vals.push(sprintf_js_1.sprintf('rejection_code:%s', this.rejection_code.toString()));
+        vals.push(sprintf_js_1.sprintf('message:%s', this.message.toString()));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Rejection.', e);
+            throw e;
+        }
+        this.address_indexes = parsed.addressIndexes;
+        this.reject_address_index = parsed.rejectAddressIndex;
+        // this.rejection_code = parsed.rejectionCode (RejectionCode)
+        this.message = parsed.message;
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.Rejection = Rejection;
@@ -3794,7 +4223,7 @@ class Establishment extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // Message (string)
+        // Message (string) 
         {
             if (this.message.length > (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varchar field message too long %d/%d', this.message.length, (Math.pow(2, 32)) - 1);
@@ -3804,8 +4233,20 @@ class Establishment extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('message:%#+v', this.message));
+        vals.push(sprintf_js_1.sprintf('message:%s', this.message.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Establishment.', e);
+            throw e;
+        }
+        this.message = parsed.message;
+        return this.Validate();
     }
 }
 exports.Establishment = Establishment;
@@ -3846,7 +4287,7 @@ class Addition extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // Message (string)
+        // Message (string) 
         {
             if (this.message.length > (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varchar field message too long %d/%d', this.message.length, (Math.pow(2, 32)) - 1);
@@ -3856,8 +4297,20 @@ class Addition extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('message:%#+v', this.message));
+        vals.push(sprintf_js_1.sprintf('message:%s', this.message.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Addition.', e);
+            throw e;
+        }
+        this.message = parsed.message;
+        return this.Validate();
     }
 }
 exports.Addition = Addition;
@@ -3907,14 +4360,14 @@ class Alteration extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // EntryTxID (TxId)
+        // EntryTxID (TxId) 
         {
             // IsInternalType
             const err = this.entry_tx_id.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field entry_tx_id is invalid : %s', err);
         }
-        // Message (string)
+        // Message (string) 
         {
             if (this.message.length > (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varchar field message too long %d/%d', this.message.length, (Math.pow(2, 32)) - 1);
@@ -3924,9 +4377,23 @@ class Alteration extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('entry_tx_id:%#+v', this.entry_tx_id));
-        vals.push(sprintf_js_1.sprintf('message:%#+v', this.message));
+        vals.push(sprintf_js_1.sprintf('entry_tx_id:%s', this.entry_tx_id.toString()));
+        vals.push(sprintf_js_1.sprintf('message:%s', this.message.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Alteration.', e);
+            throw e;
+        }
+        this.entry_tx_id = new protocol_types_1.TxId();
+        this.entry_tx_id.fromJSON(JSON.stringify(parsed.entryTxID));
+        this.message = parsed.message;
+        return this.Validate();
     }
 }
 exports.Alteration = Alteration;
@@ -3976,14 +4443,14 @@ class Removal extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // EntryTxID (TxId)
+        // EntryTxID (TxId) 
         {
             // IsInternalType
             const err = this.entry_tx_id.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field entry_tx_id is invalid : %s', err);
         }
-        // Message (string)
+        // Message (string) 
         {
             if (this.message.length > (Math.pow(2, 32))) {
                 return sprintf_js_1.sprintf('varchar field message too long %d/%d', this.message.length, (Math.pow(2, 32)) - 1);
@@ -3993,9 +4460,23 @@ class Removal extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('entry_tx_id:%#+v', this.entry_tx_id));
-        vals.push(sprintf_js_1.sprintf('message:%#+v', this.message));
+        vals.push(sprintf_js_1.sprintf('entry_tx_id:%s', this.entry_tx_id.toString()));
+        vals.push(sprintf_js_1.sprintf('message:%s', this.message.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Removal.', e);
+            throw e;
+        }
+        this.entry_tx_id = new protocol_types_1.TxId();
+        this.entry_tx_id.fromJSON(JSON.stringify(parsed.entryTxID));
+        this.message = parsed.message;
+        return this.Validate();
     }
 }
 exports.Removal = Removal;
@@ -4080,7 +4561,7 @@ class Transfer extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // Assets ([]AssetTransfer)
+        // Assets ([]AssetTransfer) 
         {
             if (this.assets.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field assets has too many items %d/%d', this.assets.length, (Math.pow(2, 8)) - 1);
@@ -4093,17 +4574,17 @@ class Transfer extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // OfferExpiry (Timestamp)
+        // OfferExpiry (Timestamp) 
         {
             // IsInternalType
             const err = this.offer_expiry.Validate();
             if (err)
                 return sprintf_js_1.sprintf('field offer_expiry is invalid : %s', err);
         }
-        // ExchangeFee (uint64)
+        // ExchangeFee (uint64) 
         {
         }
-        // ExchangeFeeAddress (PublicKeyHash)
+        // ExchangeFeeAddress (PublicKeyHash) 
         {
             // IsInternalType
             const err = this.exchange_fee_address.Validate();
@@ -4114,11 +4595,28 @@ class Transfer extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('assets:%#+v', this.assets));
-        vals.push(sprintf_js_1.sprintf('offer_expiry:%#+v', this.offer_expiry));
-        vals.push(sprintf_js_1.sprintf('exchange_fee:%v', this.exchange_fee));
-        vals.push(sprintf_js_1.sprintf('exchange_fee_address:%#+v', this.exchange_fee_address));
+        vals.push(sprintf_js_1.sprintf('assets:%s', this.assets.toString()));
+        vals.push(sprintf_js_1.sprintf('offer_expiry:%s', this.offer_expiry.toString()));
+        vals.push(sprintf_js_1.sprintf('exchange_fee:%d', this.exchange_fee));
+        vals.push(sprintf_js_1.sprintf('exchange_fee_address:%s', this.exchange_fee_address.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Transfer.', e);
+            throw e;
+        }
+        // this.assets (AssetTransfer[])
+        this.offer_expiry = new protocol_types_1.Timestamp();
+        this.offer_expiry.fromJSON(JSON.stringify(parsed.offerExpiry));
+        this.exchange_fee = parsed.exchangeFee;
+        this.exchange_fee_address = new protocol_types_1.PublicKeyHash();
+        this.exchange_fee_address.fromJSON(JSON.stringify(parsed.exchangeFeeAddress));
+        return this.Validate();
     }
 }
 exports.Transfer = Transfer;
@@ -4179,7 +4677,7 @@ class Settlement extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // Assets ([]AssetSettlement)
+        // Assets ([]AssetSettlement) 
         {
             if (this.assets.length > (Math.pow(2, 8)) - 1) {
                 return sprintf_js_1.sprintf('list field assets has too many items %d/%d', this.assets.length, (Math.pow(2, 8)) - 1);
@@ -4192,7 +4690,7 @@ class Settlement extends protocol_1.OpReturnMessage {
             if (err)
                 return err;
         }
-        // Timestamp (Timestamp)
+        // Timestamp (Timestamp) 
         {
             // IsInternalType
             const err = this.timestamp.Validate();
@@ -4203,9 +4701,23 @@ class Settlement extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('assets:%#+v', this.assets));
-        vals.push(sprintf_js_1.sprintf('timestamp:%#+v', this.timestamp));
+        vals.push(sprintf_js_1.sprintf('assets:%s', this.assets.toString()));
+        vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
+    }
+    parse(json) {
+        let parsed;
+        try {
+            parsed = JSON.parse(json);
+        }
+        catch (e) {
+            console.error('Failed to parse JSON for Settlement.', e);
+            throw e;
+        }
+        // this.assets (AssetSettlement[])
+        this.timestamp = new protocol_types_1.Timestamp();
+        this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
+        return this.Validate();
     }
 }
 exports.Settlement = Settlement;
