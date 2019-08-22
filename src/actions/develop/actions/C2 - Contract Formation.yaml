@@ -100,17 +100,26 @@ fields:
     type: varchar
     example: "https://example.tld/images/logo.png"
 
-  - name: ContractOperatorIncluded
-    label: Contract Operator Included
-    description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
-    type: bool
-
   - name: ContractOperator
     label: Contract Operator
     description: "An additional entity with operator access to the contract."
     type: Entity
-    # includeIfTrue specifies that this field is only included in serialization if the specified field is true.
-    includeIfTrue: ContractOperatorIncluded
+
+  - name: AdminOracle
+    label: Administration Oracle
+    type: Oracle
+    description: "The oracle that provided the signature used to verify the administration's identity."
+
+  - name: AdminOracleSignature
+    label: Administration Oracle Signature
+    type: varbin
+    description: "The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity."
+
+  - name: AdminOracleSigBlockHeight
+    label: Administration Oracle Signature Block height
+    description: The block height of the block hash used in the oracle signature.
+    type: uint
+    size: 4
 
   - name: ContractFee
     label: Contract Fee

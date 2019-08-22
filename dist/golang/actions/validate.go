@@ -82,6 +82,15 @@ func (a *ContractOffer) Validate() error {
 
 	// Field ContractOperator - Entity
 
+	// Field AdminOracle - Oracle
+
+	// Field AdminOracleSignature - varbin
+	if len(a.AdminOracleSignature) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AdminOracleSignature), max1ByteInteger)
+	}
+
+	// Field AdminOracleSigBlockHeight - uint
+
 	// Field ContractFee - uint
 
 	// Field VotingSystems - VotingSystem
@@ -191,9 +200,16 @@ func (a *ContractFormation) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.IssuerLogoURL), max1ByteInteger)
 	}
 
-	// Field ContractOperatorIncluded - bool
-
 	// Field ContractOperator - Entity
+
+	// Field AdminOracle - Oracle
+
+	// Field AdminOracleSignature - varbin
+	if len(a.AdminOracleSignature) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AdminOracleSignature), max1ByteInteger)
+	}
+
+	// Field AdminOracleSigBlockHeight - uint
 
 	// Field ContractFee - uint
 
@@ -356,6 +372,15 @@ func (a *StaticContractFormation) Validate() error {
 			return fmt.Errorf("Entities[%d] invalid : %s", i, err)
 		}
 	}
+
+	// Field EntityOracle - Oracle
+
+	// Field EntityOracleSignature - varbin
+	if len(a.EntityOracleSignature) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityOracleSignature), max1ByteInteger)
+	}
+
+	// Field EntityOracleSigBlockHeight - uint
 
 	return nil
 }

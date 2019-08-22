@@ -230,6 +230,36 @@ Allows the administration to tell the smart contract what they want the details 
             </td>
         </tr>
         <tr>
+            <td>AdminOracle</td>
+            <td>
+                <a href="#type-oracle">Oracle</a>
+            </td>
+            <td>
+                The oracle that provided the signature used to verify the administration&#39;s identity.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>AdminOracleSignature</td>
+            <td>
+                varbin(tiny)
+            </td>
+            <td>
+                The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>AdminOracleSigBlockHeight</td>
+            <td>
+                uint(4)
+            </td>
+            <td>
+                The block height of the block hash used in the oracle signature.
+                
+            </td>
+        </tr>
+        <tr>
             <td>ContractFee</td>
             <td>
                 uint(8)
@@ -484,22 +514,42 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             </td>
         </tr>
         <tr>
-            <td>ContractOperatorIncluded</td>
-            <td>
-                bool
-            </td>
-            <td>
-                If true, then the second input is a contract operator. If false, then all additional inputs are just funding and &#34;includes&#34; fields are skipped in serialization.
-                
-            </td>
-        </tr>
-        <tr>
             <td>ContractOperator</td>
             <td>
                 <a href="#type-entity">Entity</a>
             </td>
             <td>
                 An additional entity with operator access to the contract.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>AdminOracle</td>
+            <td>
+                <a href="#type-oracle">Oracle</a>
+            </td>
+            <td>
+                The oracle that provided the signature used to verify the administration&#39;s identity.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>AdminOracleSignature</td>
+            <td>
+                varbin(tiny)
+            </td>
+            <td>
+                The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>AdminOracleSigBlockHeight</td>
+            <td>
+                uint(4)
+            </td>
+            <td>
+                The block height of the block hash used in the oracle signature.
                 
             </td>
         </tr>
@@ -910,6 +960,36 @@ Static Contract Formation Action
             </td>
             <td>
                 A list of legal entities associated with this contract.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>EntityOracle</td>
+            <td>
+                <a href="#type-oracle">Oracle</a>
+            </td>
+            <td>
+                The oracle that provided the signature used to verify the entity&#39;s identity.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>EntityOracleSignature</td>
+            <td>
+                varbin(tiny)
+            </td>
+            <td>
+                The ECDSA signature provided by the oracle specified. For N entities, the first N inputs must correspond with those entities.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>EntityOracleSigBlockHeight</td>
+            <td>
+                uint(4)
+            </td>
+            <td>
+                The block height of the block hash used in the oracle signature.
                 
             </td>
         </tr>

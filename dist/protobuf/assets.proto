@@ -16,7 +16,7 @@ message Membership {
 
 // Message - Currency (CUR)
 message Currency {
-    string ISOCode                                 = 1;   // CurrencyType
+    string CurrencyCode                            = 1;   // CurrencyType
     string MonetaryAuthority                       = 2;   // varchar
     string Description                             = 3;   // varchar
 }

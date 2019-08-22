@@ -125,15 +125,13 @@
       "fields": [
         {
           "description": "International Organization for Standardization code for Currency. (Specification/Resources)",
-          "displayOrder": 3,
           "example": "AUD",
-          "label": "ISO Code",
-          "name": "ISOCode",
+          "label": "Currency Code",
+          "name": "CurrencyCode",
           "span": "full",
           "type": "CurrencyType"
         },
         {
-          "displayOrder": 3,
           "example": "Reserve Bank of Australia",
           "label": "Monetary Authority",
           "name": "MonetaryAuthority",
@@ -141,7 +139,6 @@
           "type": "varchar"
         },
         {
-          "displayOrder": 3,
           "example": "Australian dollar",
           "label": "Description",
           "name": "Description",

@@ -79,6 +79,18 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 
 	// Field ContractOperator - Entity
 
+	// Field AdminOracle - Oracle
+
+	// Field AdminOracleSignature - varbin
+	if !bytes.Equal(l.AdminOracleSignature, r.AdminOracleSignature) {
+		return false // fmt.Errorf("AdminOracleSignature bytes mismatched")
+	}
+
+	// Field AdminOracleSigBlockHeight - uint
+	if l.AdminOracleSigBlockHeight != r.AdminOracleSigBlockHeight {
+		return false // fmt.Errorf("AdminOracleSigBlockHeight integer mismatched")
+	}
+
 	// Field ContractFee - uint
 	if l.ContractFee != r.ContractFee {
 		return false // fmt.Errorf("ContractFee integer mismatched")
@@ -198,12 +210,19 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("IssuerLogoURL string mismatched")
 	}
 
-	// Field ContractOperatorIncluded - bool
-	if l.ContractOperatorIncluded != r.ContractOperatorIncluded {
-		return false // fmt.Errorf("ContractOperatorIncluded boolean mismatched")
+	// Field ContractOperator - Entity
+
+	// Field AdminOracle - Oracle
+
+	// Field AdminOracleSignature - varbin
+	if !bytes.Equal(l.AdminOracleSignature, r.AdminOracleSignature) {
+		return false // fmt.Errorf("AdminOracleSignature bytes mismatched")
 	}
 
-	// Field ContractOperator - Entity
+	// Field AdminOracleSigBlockHeight - uint
+	if l.AdminOracleSigBlockHeight != r.AdminOracleSigBlockHeight {
+		return false // fmt.Errorf("AdminOracleSigBlockHeight integer mismatched")
+	}
 
 	// Field ContractFee - uint
 	if l.ContractFee != r.ContractFee {
@@ -397,6 +416,18 @@ func (l *StaticContractFormation) Equal(right proto.Message) bool {
 		if !v.Equal(r.Entities[i]) {
 			return false // fmt.Errorf("Entities[%d] : %s", i, err)
 		}
+	}
+
+	// Field EntityOracle - Oracle
+
+	// Field EntityOracleSignature - varbin
+	if !bytes.Equal(l.EntityOracleSignature, r.EntityOracleSignature) {
+		return false // fmt.Errorf("EntityOracleSignature bytes mismatched")
+	}
+
+	// Field EntityOracleSigBlockHeight - uint
+	if l.EntityOracleSigBlockHeight != r.EntityOracleSigBlockHeight {
+		return false // fmt.Errorf("EntityOracleSigBlockHeight integer mismatched")
 	}
 
 	return true
