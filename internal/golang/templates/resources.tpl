@@ -32,8 +32,8 @@ func {{ $resource.Name }}Data(code {{ $resource.CodeType.GoType }}) *{{ $resourc
 	}
 }
 
-// {{ $resource.Name }}Set returns a mapping of {{ $resource.Name }} codes.
-func {{ $resource.Name }}Set() map[{{ $resource.CodeType.GoType }}]*{{ $resource.Name }}Code {
+// {{ $resource.Name }}Map returns a mapping of {{ $resource.Name }} objects with the code as the key.
+func {{ $resource.Name }}Map() map[{{ $resource.CodeType.GoType }}]*{{ $resource.Name }}Code {
 	return map[{{ $resource.CodeType.GoType }}]*{{ $resource.Name }}Code {
 {{- range $j, $value := $resource.Values }}
 		{{ $resource.Name }}{{ stripwhitespace $value.Name }} :

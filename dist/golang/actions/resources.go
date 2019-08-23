@@ -125,8 +125,8 @@ func EntitiesData(code string) *EntitiesCode {
 	}
 }
 
-// EntitiesSet returns a mapping of Entities codes.
-func EntitiesSet() map[string]*EntitiesCode {
+// EntitiesMap returns a mapping of Entities objects with the code as the key.
+func EntitiesMap() map[string]*EntitiesCode {
 	return map[string]*EntitiesCode{
 		EntitiesIndividual: &EntitiesCode{
 			Name:        "Individual",
@@ -2467,8 +2467,8 @@ func PolitiesData(code string) *PolitiesCode {
 	}
 }
 
-// PolitiesSet returns a mapping of Polities codes.
-func PolitiesSet() map[string]*PolitiesCode {
+// PolitiesMap returns a mapping of Polities objects with the code as the key.
+func PolitiesMap() map[string]*PolitiesCode {
 	return map[string]*PolitiesCode{
 		PolitiesAalandIslands: &PolitiesCode{
 			Name:        "Aaland Islands",
@@ -4006,8 +4006,8 @@ func RolesData(code uint32) *RolesCode {
 	}
 }
 
-// RolesSet returns a mapping of Roles codes.
-func RolesSet() map[uint32]*RolesCode {
+// RolesMap returns a mapping of Roles objects with the code as the key.
+func RolesMap() map[uint32]*RolesCode {
 	return map[uint32]*RolesCode{
 		RolesAccountant: &RolesCode{
 			Name:        "Accountant",
@@ -4507,8 +4507,8 @@ func RejectionsData(code uint32) *RejectionsCode {
 	}
 }
 
-// RejectionsSet returns a mapping of Rejections codes.
-func RejectionsSet() map[uint32]*RejectionsCode {
+// RejectionsMap returns a mapping of Rejections objects with the code as the key.
+func RejectionsMap() map[uint32]*RejectionsCode {
 	return map[uint32]*RejectionsCode{
 		RejectionsSuccess: &RejectionsCode{
 			Name:        "Success",
@@ -4976,8 +4976,8 @@ func TagsData(code uint32) *TagsCode {
 	}
 }
 
-// TagsSet returns a mapping of Tags codes.
-func TagsSet() map[uint32]*TagsCode {
+// TagsMap returns a mapping of Tags objects with the code as the key.
+func TagsMap() map[uint32]*TagsCode {
 	return map[uint32]*TagsCode{
 		TagsHousing: &TagsCode{
 			Name:        "Housing",
