@@ -60,9 +60,9 @@ func (l *Currency) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field ISOCode - fixedchar
-	if l.ISOCode != r.ISOCode {
-		return false // fmt.Errorf("ISOCode string mismatched")
+	// Field CurrencyCode - fixedchar
+	if l.CurrencyCode != r.CurrencyCode {
+		return false // fmt.Errorf("CurrencyCode string mismatched")
 	}
 
 	// Field MonetaryAuthority - varchar

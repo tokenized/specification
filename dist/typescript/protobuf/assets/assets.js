@@ -429,7 +429,7 @@ proto.assets.Currency.prototype.toObject = function(opt_includeInstance) {
  */
 proto.assets.Currency.toObject = function(includeInstance, msg) {
   var f, obj = {
-    isocode: msg.getIsocode(),
+    currencycode: msg.getCurrencycode(),
     monetaryauthority: msg.getMonetaryauthority(),
     description: msg.getDescription()
   };
@@ -470,7 +470,7 @@ proto.assets.Currency.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setIsocode(value);
+      msg.setCurrencycode(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
@@ -518,7 +518,7 @@ proto.assets.Currency.prototype.serializeBinary = function() {
  */
 proto.assets.Currency.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getIsocode();
+  f = this.getCurrencycode();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -552,16 +552,16 @@ proto.assets.Currency.prototype.cloneMessage = function() {
 
 
 /**
- * optional string ISOCode = 1;
+ * optional string CurrencyCode = 1;
  * @return {string}
  */
-proto.assets.Currency.prototype.getIsocode = function() {
+proto.assets.Currency.prototype.getCurrencycode = function() {
   return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
 /** @param {string} value  */
-proto.assets.Currency.prototype.setIsocode = function(value) {
+proto.assets.Currency.prototype.setCurrencycode = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 

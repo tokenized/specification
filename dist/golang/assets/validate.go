@@ -54,10 +54,10 @@ func (a *Currency) Validate() error {
 		return nil
 	}
 
-	// Field ISOCode - fixedchar
-	if len(a.ISOCode) != 0 && len(a.ISOCode) != 3 {
-		return fmt.Errorf("Fixed width field ISOCode wrong size : %d should be %d",
-			len(a.ISOCode), 3)
+	// Field CurrencyCode - fixedchar
+	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
+		return fmt.Errorf("Fixed width field CurrencyCode wrong size : %d should be %d",
+			len(a.CurrencyCode), 3)
 	}
 
 	// Field MonetaryAuthority - varchar

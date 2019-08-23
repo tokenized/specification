@@ -72,7 +72,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ContractOffer.repeatedFields_ = [5,15,20];
+proto.actions.ContractOffer.repeatedFields_ = [5,18,23];
 
 
 
@@ -116,6 +116,9 @@ proto.actions.ContractOffer.toObject = function(includeInstance, msg) {
     issuerlogourl: msg.getIssuerlogourl(),
     contractoperatorincluded: msg.getContractoperatorincluded(),
     contractoperator: (f = msg.getContractoperator()) && proto.actions.EntityField.toObject(includeInstance, f),
+    adminoracle: (f = msg.getAdminoracle()) && proto.actions.OracleField.toObject(includeInstance, f),
+    adminoraclesignature: msg.getAdminoraclesignature_asB64(),
+    adminoraclesigblockheight: msg.getAdminoraclesigblockheight(),
     contractfee: msg.getContractfee(),
     votingsystemsList: jspb.Message.toObjectList(msg.getVotingsystemsList(),
     proto.actions.VotingSystemField.toObject, includeInstance),
@@ -219,38 +222,51 @@ proto.actions.ContractOffer.deserializeBinaryFromReader = function(msg, reader) 
       msg.setContractoperator(value);
       break;
     case 14:
+      var value = new proto.actions.OracleField;
+      reader.readMessage(value,proto.actions.OracleField.deserializeBinaryFromReader);
+      msg.setAdminoracle(value);
+      break;
+    case 15:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setAdminoraclesignature(value);
+      break;
+    case 16:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setAdminoraclesigblockheight(value);
+      break;
+    case 17:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setContractfee(value);
       break;
-    case 15:
+    case 18:
       var value = new proto.actions.VotingSystemField;
       reader.readMessage(value,proto.actions.VotingSystemField.deserializeBinaryFromReader);
       msg.getVotingsystemsList().push(value);
       msg.setVotingsystemsList(msg.getVotingsystemsList());
       break;
-    case 16:
+    case 19:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setContractauthflags(value);
       break;
-    case 17:
+    case 20:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setRestrictedqtyassets(value);
       break;
-    case 18:
+    case 21:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setAdministrationproposal(value);
       break;
-    case 19:
+    case 22:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setHolderproposal(value);
       break;
-    case 20:
+    case 23:
       var value = new proto.actions.OracleField;
       reader.readMessage(value,proto.actions.OracleField.deserializeBinaryFromReader);
       msg.getOraclesList().push(value);
       msg.setOraclesList(msg.getOraclesList());
       break;
-    case 21:
+    case 24:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setMasterpkh(value);
       break;
@@ -386,17 +402,39 @@ proto.actions.ContractOffer.prototype.serializeBinaryToWriter = function (writer
       proto.actions.EntityField.serializeBinaryToWriter
     );
   }
+  f = this.getAdminoracle();
+  if (f != null) {
+    writer.writeMessage(
+      14,
+      f,
+      proto.actions.OracleField.serializeBinaryToWriter
+    );
+  }
+  f = this.getAdminoraclesignature_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      15,
+      f
+    );
+  }
+  f = this.getAdminoraclesigblockheight();
+  if (f !== 0) {
+    writer.writeUint32(
+      16,
+      f
+    );
+  }
   f = this.getContractfee();
   if (f !== 0) {
     writer.writeUint64(
-      14,
+      17,
       f
     );
   }
   f = this.getVotingsystemsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      15,
+      18,
       f,
       proto.actions.VotingSystemField.serializeBinaryToWriter
     );
@@ -404,35 +442,35 @@ proto.actions.ContractOffer.prototype.serializeBinaryToWriter = function (writer
   f = this.getContractauthflags_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      16,
+      19,
       f
     );
   }
   f = this.getRestrictedqtyassets();
   if (f !== 0) {
     writer.writeUint64(
-      17,
+      20,
       f
     );
   }
   f = this.getAdministrationproposal();
   if (f) {
     writer.writeBool(
-      18,
+      21,
       f
     );
   }
   f = this.getHolderproposal();
   if (f) {
     writer.writeBool(
-      19,
+      22,
       f
     );
   }
   f = this.getOraclesList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      20,
+      23,
       f,
       proto.actions.OracleField.serializeBinaryToWriter
     );
@@ -440,7 +478,7 @@ proto.actions.ContractOffer.prototype.serializeBinaryToWriter = function (writer
   f = this.getMasterpkh_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      21,
+      24,
       f
     );
   }
@@ -716,35 +754,119 @@ proto.actions.ContractOffer.prototype.hasContractoperator = function() {
 
 
 /**
- * optional uint64 ContractFee = 14;
+ * optional OracleField AdminOracle = 14;
+ * @return {proto.actions.OracleField}
+ */
+proto.actions.ContractOffer.prototype.getAdminoracle = function() {
+  return /** @type{proto.actions.OracleField} */ (
+    jspb.Message.getWrapperField(this, proto.actions.OracleField, 14));
+};
+
+
+/** @param {proto.actions.OracleField|undefined} value  */
+proto.actions.ContractOffer.prototype.setAdminoracle = function(value) {
+  jspb.Message.setWrapperField(this, 14, value);
+};
+
+
+proto.actions.ContractOffer.prototype.clearAdminoracle = function() {
+  this.setAdminoracle(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return{!boolean}
+ */
+proto.actions.ContractOffer.prototype.hasAdminoracle = function() {
+  return jspb.Message.getField(this, 14) != null;
+};
+
+
+/**
+ * optional bytes AdminOracleSignature = 15;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.ContractOffer.prototype.getAdminoraclesignature = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 15, ""));
+};
+
+
+/**
+ * optional bytes AdminOracleSignature = 15;
+ * This is a type-conversion wrapper around `getAdminoraclesignature()`
+ * @return {string}
+ */
+proto.actions.ContractOffer.prototype.getAdminoraclesignature_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getAdminoraclesignature()));
+};
+
+
+/**
+ * optional bytes AdminOracleSignature = 15;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getAdminoraclesignature()`
+ * @return {!Uint8Array}
+ */
+proto.actions.ContractOffer.prototype.getAdminoraclesignature_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getAdminoraclesignature()));
+};
+
+
+/** @param {!(string|Uint8Array)} value  */
+proto.actions.ContractOffer.prototype.setAdminoraclesignature = function(value) {
+  jspb.Message.setField(this, 15, value);
+};
+
+
+/**
+ * optional uint32 AdminOracleSigBlockHeight = 16;
+ * @return {number}
+ */
+proto.actions.ContractOffer.prototype.getAdminoraclesigblockheight = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 16, 0));
+};
+
+
+/** @param {number} value  */
+proto.actions.ContractOffer.prototype.setAdminoraclesigblockheight = function(value) {
+  jspb.Message.setField(this, 16, value);
+};
+
+
+/**
+ * optional uint64 ContractFee = 17;
  * @return {number}
  */
 proto.actions.ContractOffer.prototype.getContractfee = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 14, 0));
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 17, 0));
 };
 
 
 /** @param {number} value  */
 proto.actions.ContractOffer.prototype.setContractfee = function(value) {
-  jspb.Message.setField(this, 14, value);
+  jspb.Message.setField(this, 17, value);
 };
 
 
 /**
- * repeated VotingSystemField VotingSystems = 15;
+ * repeated VotingSystemField VotingSystems = 18;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.VotingSystemField>}
  */
 proto.actions.ContractOffer.prototype.getVotingsystemsList = function() {
   return /** @type{!Array.<!proto.actions.VotingSystemField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.VotingSystemField, 15));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.VotingSystemField, 18));
 };
 
 
 /** @param {Array.<!proto.actions.VotingSystemField>} value  */
 proto.actions.ContractOffer.prototype.setVotingsystemsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 15, value);
+  jspb.Message.setRepeatedWrapperField(this, 18, value);
 };
 
 
@@ -754,16 +876,16 @@ proto.actions.ContractOffer.prototype.clearVotingsystemsList = function() {
 
 
 /**
- * optional bytes ContractAuthFlags = 16;
+ * optional bytes ContractAuthFlags = 19;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.ContractOffer.prototype.getContractauthflags = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 16, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 19, ""));
 };
 
 
 /**
- * optional bytes ContractAuthFlags = 16;
+ * optional bytes ContractAuthFlags = 19;
  * This is a type-conversion wrapper around `getContractauthflags()`
  * @return {string}
  */
@@ -774,7 +896,7 @@ proto.actions.ContractOffer.prototype.getContractauthflags_asB64 = function() {
 
 
 /**
- * optional bytes ContractAuthFlags = 16;
+ * optional bytes ContractAuthFlags = 19;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getContractauthflags()`
@@ -788,74 +910,74 @@ proto.actions.ContractOffer.prototype.getContractauthflags_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value  */
 proto.actions.ContractOffer.prototype.setContractauthflags = function(value) {
-  jspb.Message.setField(this, 16, value);
-};
-
-
-/**
- * optional uint64 RestrictedQtyAssets = 17;
- * @return {number}
- */
-proto.actions.ContractOffer.prototype.getRestrictedqtyassets = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 17, 0));
-};
-
-
-/** @param {number} value  */
-proto.actions.ContractOffer.prototype.setRestrictedqtyassets = function(value) {
-  jspb.Message.setField(this, 17, value);
-};
-
-
-/**
- * optional bool AdministrationProposal = 18;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.ContractOffer.prototype.getAdministrationproposal = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 18, false));
-};
-
-
-/** @param {boolean} value  */
-proto.actions.ContractOffer.prototype.setAdministrationproposal = function(value) {
-  jspb.Message.setField(this, 18, value);
-};
-
-
-/**
- * optional bool HolderProposal = 19;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.ContractOffer.prototype.getHolderproposal = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 19, false));
-};
-
-
-/** @param {boolean} value  */
-proto.actions.ContractOffer.prototype.setHolderproposal = function(value) {
   jspb.Message.setField(this, 19, value);
 };
 
 
 /**
- * repeated OracleField Oracles = 20;
+ * optional uint64 RestrictedQtyAssets = 20;
+ * @return {number}
+ */
+proto.actions.ContractOffer.prototype.getRestrictedqtyassets = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 20, 0));
+};
+
+
+/** @param {number} value  */
+proto.actions.ContractOffer.prototype.setRestrictedqtyassets = function(value) {
+  jspb.Message.setField(this, 20, value);
+};
+
+
+/**
+ * optional bool AdministrationProposal = 21;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.actions.ContractOffer.prototype.getAdministrationproposal = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 21, false));
+};
+
+
+/** @param {boolean} value  */
+proto.actions.ContractOffer.prototype.setAdministrationproposal = function(value) {
+  jspb.Message.setField(this, 21, value);
+};
+
+
+/**
+ * optional bool HolderProposal = 22;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.actions.ContractOffer.prototype.getHolderproposal = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 22, false));
+};
+
+
+/** @param {boolean} value  */
+proto.actions.ContractOffer.prototype.setHolderproposal = function(value) {
+  jspb.Message.setField(this, 22, value);
+};
+
+
+/**
+ * repeated OracleField Oracles = 23;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.OracleField>}
  */
 proto.actions.ContractOffer.prototype.getOraclesList = function() {
   return /** @type{!Array.<!proto.actions.OracleField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.OracleField, 20));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.OracleField, 23));
 };
 
 
 /** @param {Array.<!proto.actions.OracleField>} value  */
 proto.actions.ContractOffer.prototype.setOraclesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 20, value);
+  jspb.Message.setRepeatedWrapperField(this, 23, value);
 };
 
 
@@ -865,16 +987,16 @@ proto.actions.ContractOffer.prototype.clearOraclesList = function() {
 
 
 /**
- * optional bytes MasterPKH = 21;
+ * optional bytes MasterPKH = 24;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.ContractOffer.prototype.getMasterpkh = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 21, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 24, ""));
 };
 
 
 /**
- * optional bytes MasterPKH = 21;
+ * optional bytes MasterPKH = 24;
  * This is a type-conversion wrapper around `getMasterpkh()`
  * @return {string}
  */
@@ -885,7 +1007,7 @@ proto.actions.ContractOffer.prototype.getMasterpkh_asB64 = function() {
 
 
 /**
- * optional bytes MasterPKH = 21;
+ * optional bytes MasterPKH = 24;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getMasterpkh()`
@@ -899,7 +1021,7 @@ proto.actions.ContractOffer.prototype.getMasterpkh_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value  */
 proto.actions.ContractOffer.prototype.setMasterpkh = function(value) {
-  jspb.Message.setField(this, 21, value);
+  jspb.Message.setField(this, 24, value);
 };
 
 
@@ -926,7 +1048,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.ContractFormation.repeatedFields_ = [5,15,20];
+proto.actions.ContractFormation.repeatedFields_ = [5,17,22];
 
 
 
@@ -968,8 +1090,10 @@ proto.actions.ContractFormation.toObject = function(includeInstance, msg) {
     contracturi: msg.getContracturi(),
     issuer: (f = msg.getIssuer()) && proto.actions.EntityField.toObject(includeInstance, f),
     issuerlogourl: msg.getIssuerlogourl(),
-    contractoperatorincluded: msg.getContractoperatorincluded(),
     contractoperator: (f = msg.getContractoperator()) && proto.actions.EntityField.toObject(includeInstance, f),
+    adminoracle: (f = msg.getAdminoracle()) && proto.actions.OracleField.toObject(includeInstance, f),
+    adminoraclesignature: msg.getAdminoraclesignature_asB64(),
+    adminoraclesigblockheight: msg.getAdminoraclesigblockheight(),
     contractfee: msg.getContractfee(),
     votingsystemsList: jspb.Message.toObjectList(msg.getVotingsystemsList(),
     proto.actions.VotingSystemField.toObject, includeInstance),
@@ -1066,55 +1190,64 @@ proto.actions.ContractFormation.deserializeBinaryFromReader = function(msg, read
       msg.setIssuerlogourl(value);
       break;
     case 12:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setContractoperatorincluded(value);
-      break;
-    case 13:
       var value = new proto.actions.EntityField;
       reader.readMessage(value,proto.actions.EntityField.deserializeBinaryFromReader);
       msg.setContractoperator(value);
       break;
+    case 13:
+      var value = new proto.actions.OracleField;
+      reader.readMessage(value,proto.actions.OracleField.deserializeBinaryFromReader);
+      msg.setAdminoracle(value);
+      break;
     case 14:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setAdminoraclesignature(value);
+      break;
+    case 15:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setAdminoraclesigblockheight(value);
+      break;
+    case 16:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setContractfee(value);
       break;
-    case 15:
+    case 17:
       var value = new proto.actions.VotingSystemField;
       reader.readMessage(value,proto.actions.VotingSystemField.deserializeBinaryFromReader);
       msg.getVotingsystemsList().push(value);
       msg.setVotingsystemsList(msg.getVotingsystemsList());
       break;
-    case 16:
+    case 18:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setContractauthflags(value);
       break;
-    case 17:
+    case 19:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setRestrictedqtyassets(value);
       break;
-    case 18:
+    case 20:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setAdministrationproposal(value);
       break;
-    case 19:
+    case 21:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setHolderproposal(value);
       break;
-    case 20:
+    case 22:
       var value = new proto.actions.OracleField;
       reader.readMessage(value,proto.actions.OracleField.deserializeBinaryFromReader);
       msg.getOraclesList().push(value);
       msg.setOraclesList(msg.getOraclesList());
       break;
-    case 21:
+    case 23:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setMasterpkh(value);
       break;
-    case 22:
+    case 24:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setContractrevision(value);
       break;
-    case 23:
+    case 25:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setTimestamp(value);
       break;
@@ -1235,32 +1368,47 @@ proto.actions.ContractFormation.prototype.serializeBinaryToWriter = function (wr
       f
     );
   }
-  f = this.getContractoperatorincluded();
-  if (f) {
-    writer.writeBool(
+  f = this.getContractoperator();
+  if (f != null) {
+    writer.writeMessage(
       12,
-      f
+      f,
+      proto.actions.EntityField.serializeBinaryToWriter
     );
   }
-  f = this.getContractoperator();
+  f = this.getAdminoracle();
   if (f != null) {
     writer.writeMessage(
       13,
       f,
-      proto.actions.EntityField.serializeBinaryToWriter
+      proto.actions.OracleField.serializeBinaryToWriter
+    );
+  }
+  f = this.getAdminoraclesignature_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      14,
+      f
+    );
+  }
+  f = this.getAdminoraclesigblockheight();
+  if (f !== 0) {
+    writer.writeUint32(
+      15,
+      f
     );
   }
   f = this.getContractfee();
   if (f !== 0) {
     writer.writeUint64(
-      14,
+      16,
       f
     );
   }
   f = this.getVotingsystemsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      15,
+      17,
       f,
       proto.actions.VotingSystemField.serializeBinaryToWriter
     );
@@ -1268,35 +1416,35 @@ proto.actions.ContractFormation.prototype.serializeBinaryToWriter = function (wr
   f = this.getContractauthflags_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      16,
+      18,
       f
     );
   }
   f = this.getRestrictedqtyassets();
   if (f !== 0) {
     writer.writeUint64(
-      17,
+      19,
       f
     );
   }
   f = this.getAdministrationproposal();
   if (f) {
     writer.writeBool(
-      18,
+      20,
       f
     );
   }
   f = this.getHolderproposal();
   if (f) {
     writer.writeBool(
-      19,
+      21,
       f
     );
   }
   f = this.getOraclesList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      20,
+      22,
       f,
       proto.actions.OracleField.serializeBinaryToWriter
     );
@@ -1304,21 +1452,21 @@ proto.actions.ContractFormation.prototype.serializeBinaryToWriter = function (wr
   f = this.getMasterpkh_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      21,
+      23,
       f
     );
   }
   f = this.getContractrevision();
   if (f !== 0) {
     writer.writeUint32(
-      22,
+      24,
       f
     );
   }
   f = this.getTimestamp();
   if (f !== 0) {
     writer.writeUint64(
-      23,
+      25,
       f
     );
   }
@@ -1547,35 +1695,18 @@ proto.actions.ContractFormation.prototype.setIssuerlogourl = function(value) {
 
 
 /**
- * optional bool ContractOperatorIncluded = 12;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.ContractFormation.prototype.getContractoperatorincluded = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 12, false));
-};
-
-
-/** @param {boolean} value  */
-proto.actions.ContractFormation.prototype.setContractoperatorincluded = function(value) {
-  jspb.Message.setField(this, 12, value);
-};
-
-
-/**
- * optional EntityField ContractOperator = 13;
+ * optional EntityField ContractOperator = 12;
  * @return {proto.actions.EntityField}
  */
 proto.actions.ContractFormation.prototype.getContractoperator = function() {
   return /** @type{proto.actions.EntityField} */ (
-    jspb.Message.getWrapperField(this, proto.actions.EntityField, 13));
+    jspb.Message.getWrapperField(this, proto.actions.EntityField, 12));
 };
 
 
 /** @param {proto.actions.EntityField|undefined} value  */
 proto.actions.ContractFormation.prototype.setContractoperator = function(value) {
-  jspb.Message.setWrapperField(this, 13, value);
+  jspb.Message.setWrapperField(this, 12, value);
 };
 
 
@@ -1589,40 +1720,124 @@ proto.actions.ContractFormation.prototype.clearContractoperator = function() {
  * @return{!boolean}
  */
 proto.actions.ContractFormation.prototype.hasContractoperator = function() {
+  return jspb.Message.getField(this, 12) != null;
+};
+
+
+/**
+ * optional OracleField AdminOracle = 13;
+ * @return {proto.actions.OracleField}
+ */
+proto.actions.ContractFormation.prototype.getAdminoracle = function() {
+  return /** @type{proto.actions.OracleField} */ (
+    jspb.Message.getWrapperField(this, proto.actions.OracleField, 13));
+};
+
+
+/** @param {proto.actions.OracleField|undefined} value  */
+proto.actions.ContractFormation.prototype.setAdminoracle = function(value) {
+  jspb.Message.setWrapperField(this, 13, value);
+};
+
+
+proto.actions.ContractFormation.prototype.clearAdminoracle = function() {
+  this.setAdminoracle(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return{!boolean}
+ */
+proto.actions.ContractFormation.prototype.hasAdminoracle = function() {
   return jspb.Message.getField(this, 13) != null;
 };
 
 
 /**
- * optional uint64 ContractFee = 14;
- * @return {number}
+ * optional bytes AdminOracleSignature = 14;
+ * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractFormation.prototype.getContractfee = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 14, 0));
+proto.actions.ContractFormation.prototype.getAdminoraclesignature = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 14, ""));
 };
 
 
-/** @param {number} value  */
-proto.actions.ContractFormation.prototype.setContractfee = function(value) {
+/**
+ * optional bytes AdminOracleSignature = 14;
+ * This is a type-conversion wrapper around `getAdminoraclesignature()`
+ * @return {string}
+ */
+proto.actions.ContractFormation.prototype.getAdminoraclesignature_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getAdminoraclesignature()));
+};
+
+
+/**
+ * optional bytes AdminOracleSignature = 14;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getAdminoraclesignature()`
+ * @return {!Uint8Array}
+ */
+proto.actions.ContractFormation.prototype.getAdminoraclesignature_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getAdminoraclesignature()));
+};
+
+
+/** @param {!(string|Uint8Array)} value  */
+proto.actions.ContractFormation.prototype.setAdminoraclesignature = function(value) {
   jspb.Message.setField(this, 14, value);
 };
 
 
 /**
- * repeated VotingSystemField VotingSystems = 15;
+ * optional uint32 AdminOracleSigBlockHeight = 15;
+ * @return {number}
+ */
+proto.actions.ContractFormation.prototype.getAdminoraclesigblockheight = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 15, 0));
+};
+
+
+/** @param {number} value  */
+proto.actions.ContractFormation.prototype.setAdminoraclesigblockheight = function(value) {
+  jspb.Message.setField(this, 15, value);
+};
+
+
+/**
+ * optional uint64 ContractFee = 16;
+ * @return {number}
+ */
+proto.actions.ContractFormation.prototype.getContractfee = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 16, 0));
+};
+
+
+/** @param {number} value  */
+proto.actions.ContractFormation.prototype.setContractfee = function(value) {
+  jspb.Message.setField(this, 16, value);
+};
+
+
+/**
+ * repeated VotingSystemField VotingSystems = 17;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.VotingSystemField>}
  */
 proto.actions.ContractFormation.prototype.getVotingsystemsList = function() {
   return /** @type{!Array.<!proto.actions.VotingSystemField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.VotingSystemField, 15));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.VotingSystemField, 17));
 };
 
 
 /** @param {Array.<!proto.actions.VotingSystemField>} value  */
 proto.actions.ContractFormation.prototype.setVotingsystemsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 15, value);
+  jspb.Message.setRepeatedWrapperField(this, 17, value);
 };
 
 
@@ -1632,16 +1847,16 @@ proto.actions.ContractFormation.prototype.clearVotingsystemsList = function() {
 
 
 /**
- * optional bytes ContractAuthFlags = 16;
+ * optional bytes ContractAuthFlags = 18;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.ContractFormation.prototype.getContractauthflags = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 16, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 18, ""));
 };
 
 
 /**
- * optional bytes ContractAuthFlags = 16;
+ * optional bytes ContractAuthFlags = 18;
  * This is a type-conversion wrapper around `getContractauthflags()`
  * @return {string}
  */
@@ -1652,7 +1867,7 @@ proto.actions.ContractFormation.prototype.getContractauthflags_asB64 = function(
 
 
 /**
- * optional bytes ContractAuthFlags = 16;
+ * optional bytes ContractAuthFlags = 18;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getContractauthflags()`
@@ -1666,74 +1881,74 @@ proto.actions.ContractFormation.prototype.getContractauthflags_asU8 = function()
 
 /** @param {!(string|Uint8Array)} value  */
 proto.actions.ContractFormation.prototype.setContractauthflags = function(value) {
-  jspb.Message.setField(this, 16, value);
-};
-
-
-/**
- * optional uint64 RestrictedQtyAssets = 17;
- * @return {number}
- */
-proto.actions.ContractFormation.prototype.getRestrictedqtyassets = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 17, 0));
-};
-
-
-/** @param {number} value  */
-proto.actions.ContractFormation.prototype.setRestrictedqtyassets = function(value) {
-  jspb.Message.setField(this, 17, value);
-};
-
-
-/**
- * optional bool AdministrationProposal = 18;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.ContractFormation.prototype.getAdministrationproposal = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 18, false));
-};
-
-
-/** @param {boolean} value  */
-proto.actions.ContractFormation.prototype.setAdministrationproposal = function(value) {
   jspb.Message.setField(this, 18, value);
 };
 
 
 /**
- * optional bool HolderProposal = 19;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
+ * optional uint64 RestrictedQtyAssets = 19;
+ * @return {number}
  */
-proto.actions.ContractFormation.prototype.getHolderproposal = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 19, false));
+proto.actions.ContractFormation.prototype.getRestrictedqtyassets = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 19, 0));
 };
 
 
-/** @param {boolean} value  */
-proto.actions.ContractFormation.prototype.setHolderproposal = function(value) {
+/** @param {number} value  */
+proto.actions.ContractFormation.prototype.setRestrictedqtyassets = function(value) {
   jspb.Message.setField(this, 19, value);
 };
 
 
 /**
- * repeated OracleField Oracles = 20;
+ * optional bool AdministrationProposal = 20;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.actions.ContractFormation.prototype.getAdministrationproposal = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 20, false));
+};
+
+
+/** @param {boolean} value  */
+proto.actions.ContractFormation.prototype.setAdministrationproposal = function(value) {
+  jspb.Message.setField(this, 20, value);
+};
+
+
+/**
+ * optional bool HolderProposal = 21;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.actions.ContractFormation.prototype.getHolderproposal = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 21, false));
+};
+
+
+/** @param {boolean} value  */
+proto.actions.ContractFormation.prototype.setHolderproposal = function(value) {
+  jspb.Message.setField(this, 21, value);
+};
+
+
+/**
+ * repeated OracleField Oracles = 22;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.OracleField>}
  */
 proto.actions.ContractFormation.prototype.getOraclesList = function() {
   return /** @type{!Array.<!proto.actions.OracleField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.OracleField, 20));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.OracleField, 22));
 };
 
 
 /** @param {Array.<!proto.actions.OracleField>} value  */
 proto.actions.ContractFormation.prototype.setOraclesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 20, value);
+  jspb.Message.setRepeatedWrapperField(this, 22, value);
 };
 
 
@@ -1743,16 +1958,16 @@ proto.actions.ContractFormation.prototype.clearOraclesList = function() {
 
 
 /**
- * optional bytes MasterPKH = 21;
+ * optional bytes MasterPKH = 23;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.ContractFormation.prototype.getMasterpkh = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 21, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 23, ""));
 };
 
 
 /**
- * optional bytes MasterPKH = 21;
+ * optional bytes MasterPKH = 23;
  * This is a type-conversion wrapper around `getMasterpkh()`
  * @return {string}
  */
@@ -1763,7 +1978,7 @@ proto.actions.ContractFormation.prototype.getMasterpkh_asB64 = function() {
 
 
 /**
- * optional bytes MasterPKH = 21;
+ * optional bytes MasterPKH = 23;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getMasterpkh()`
@@ -1777,37 +1992,37 @@ proto.actions.ContractFormation.prototype.getMasterpkh_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value  */
 proto.actions.ContractFormation.prototype.setMasterpkh = function(value) {
-  jspb.Message.setField(this, 21, value);
+  jspb.Message.setField(this, 23, value);
 };
 
 
 /**
- * optional uint32 ContractRevision = 22;
+ * optional uint32 ContractRevision = 24;
  * @return {number}
  */
 proto.actions.ContractFormation.prototype.getContractrevision = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 22, 0));
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 24, 0));
 };
 
 
 /** @param {number} value  */
 proto.actions.ContractFormation.prototype.setContractrevision = function(value) {
-  jspb.Message.setField(this, 22, value);
+  jspb.Message.setField(this, 24, value);
 };
 
 
 /**
- * optional uint64 Timestamp = 23;
+ * optional uint64 Timestamp = 25;
  * @return {number}
  */
 proto.actions.ContractFormation.prototype.getTimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 23, 0));
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 25, 0));
 };
 
 
 /** @param {number} value  */
 proto.actions.ContractFormation.prototype.setTimestamp = function(value) {
-  jspb.Message.setField(this, 23, value);
+  jspb.Message.setField(this, 25, value);
 };
 
 
@@ -2193,7 +2408,10 @@ proto.actions.StaticContractFormation.toObject = function(includeInstance, msg) 
     contracturi: msg.getContracturi(),
     prevrevtxid: msg.getPrevrevtxid_asB64(),
     entitiesList: jspb.Message.toObjectList(msg.getEntitiesList(),
-    proto.actions.EntityField.toObject, includeInstance)
+    proto.actions.EntityField.toObject, includeInstance),
+    entityoracle: (f = msg.getEntityoracle()) && proto.actions.OracleField.toObject(includeInstance, f),
+    entityoraclesignature: msg.getEntityoraclesignature_asB64(),
+    entityoraclesigblockheight: msg.getEntityoraclesigblockheight()
   };
 
   if (includeInstance) {
@@ -2289,6 +2507,19 @@ proto.actions.StaticContractFormation.deserializeBinaryFromReader = function(msg
       reader.readMessage(value,proto.actions.EntityField.deserializeBinaryFromReader);
       msg.getEntitiesList().push(value);
       msg.setEntitiesList(msg.getEntitiesList());
+      break;
+    case 15:
+      var value = new proto.actions.OracleField;
+      reader.readMessage(value,proto.actions.OracleField.deserializeBinaryFromReader);
+      msg.setEntityoracle(value);
+      break;
+    case 16:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setEntityoraclesignature(value);
+      break;
+    case 17:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setEntityoraclesigblockheight(value);
       break;
     default:
       reader.skipField();
@@ -2426,6 +2657,28 @@ proto.actions.StaticContractFormation.prototype.serializeBinaryToWriter = functi
       14,
       f,
       proto.actions.EntityField.serializeBinaryToWriter
+    );
+  }
+  f = this.getEntityoracle();
+  if (f != null) {
+    writer.writeMessage(
+      15,
+      f,
+      proto.actions.OracleField.serializeBinaryToWriter
+    );
+  }
+  f = this.getEntityoraclesignature_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      16,
+      f
+    );
+  }
+  f = this.getEntityoraclesigblockheight();
+  if (f !== 0) {
+    writer.writeUint32(
+      17,
+      f
     );
   }
 };
@@ -2735,6 +2988,90 @@ proto.actions.StaticContractFormation.prototype.setEntitiesList = function(value
 
 proto.actions.StaticContractFormation.prototype.clearEntitiesList = function() {
   this.setEntitiesList([]);
+};
+
+
+/**
+ * optional OracleField EntityOracle = 15;
+ * @return {proto.actions.OracleField}
+ */
+proto.actions.StaticContractFormation.prototype.getEntityoracle = function() {
+  return /** @type{proto.actions.OracleField} */ (
+    jspb.Message.getWrapperField(this, proto.actions.OracleField, 15));
+};
+
+
+/** @param {proto.actions.OracleField|undefined} value  */
+proto.actions.StaticContractFormation.prototype.setEntityoracle = function(value) {
+  jspb.Message.setWrapperField(this, 15, value);
+};
+
+
+proto.actions.StaticContractFormation.prototype.clearEntityoracle = function() {
+  this.setEntityoracle(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return{!boolean}
+ */
+proto.actions.StaticContractFormation.prototype.hasEntityoracle = function() {
+  return jspb.Message.getField(this, 15) != null;
+};
+
+
+/**
+ * optional bytes EntityOracleSignature = 16;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.StaticContractFormation.prototype.getEntityoraclesignature = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldProto3(this, 16, ""));
+};
+
+
+/**
+ * optional bytes EntityOracleSignature = 16;
+ * This is a type-conversion wrapper around `getEntityoraclesignature()`
+ * @return {string}
+ */
+proto.actions.StaticContractFormation.prototype.getEntityoraclesignature_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getEntityoraclesignature()));
+};
+
+
+/**
+ * optional bytes EntityOracleSignature = 16;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getEntityoraclesignature()`
+ * @return {!Uint8Array}
+ */
+proto.actions.StaticContractFormation.prototype.getEntityoraclesignature_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getEntityoraclesignature()));
+};
+
+
+/** @param {!(string|Uint8Array)} value  */
+proto.actions.StaticContractFormation.prototype.setEntityoraclesignature = function(value) {
+  jspb.Message.setField(this, 16, value);
+};
+
+
+/**
+ * optional uint32 EntityOracleSigBlockHeight = 17;
+ * @return {number}
+ */
+proto.actions.StaticContractFormation.prototype.getEntityoraclesigblockheight = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 17, 0));
+};
+
+
+/** @param {number} value  */
+proto.actions.StaticContractFormation.prototype.setEntityoraclesigblockheight = function(value) {
+  jspb.Message.setField(this, 17, value);
 };
 
 

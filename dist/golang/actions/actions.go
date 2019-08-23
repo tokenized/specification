@@ -294,28 +294,31 @@ func (a *Rejection) Code() string {
 
 // Contract Amendment Values
 const (
-	ContractFieldCount                    = 21
-	ContractFieldContractName             = 0
-	ContractFieldBodyOfAgreementType      = 1
-	ContractFieldBodyOfAgreement          = 2
-	ContractFieldContractType             = 3
-	ContractFieldSupportingDocs           = 4
-	ContractFieldGoverningLaw             = 5
-	ContractFieldJurisdiction             = 6
-	ContractFieldContractExpiration       = 7
-	ContractFieldContractURI              = 8
-	ContractFieldIssuer                   = 9
-	ContractFieldIssuerLogoURL            = 10
-	ContractFieldContractOperatorIncluded = 11
-	ContractFieldContractOperator         = 12
-	ContractFieldContractFee              = 13
-	ContractFieldVotingSystems            = 14
-	ContractFieldContractAuthFlags        = 15
-	ContractFieldRestrictedQtyAssets      = 16
-	ContractFieldAdministrationProposal   = 17
-	ContractFieldHolderProposal           = 18
-	ContractFieldOracles                  = 19
-	ContractFieldMasterPKH                = 20
+	ContractFieldCount                     = 24
+	ContractFieldContractName              = 0
+	ContractFieldBodyOfAgreementType       = 1
+	ContractFieldBodyOfAgreement           = 2
+	ContractFieldContractType              = 3
+	ContractFieldSupportingDocs            = 4
+	ContractFieldGoverningLaw              = 5
+	ContractFieldJurisdiction              = 6
+	ContractFieldContractExpiration        = 7
+	ContractFieldContractURI               = 8
+	ContractFieldIssuer                    = 9
+	ContractFieldIssuerLogoURL             = 10
+	ContractFieldContractOperatorIncluded  = 11
+	ContractFieldContractOperator          = 12
+	ContractFieldAdminOracle               = 13
+	ContractFieldAdminOracleSignature      = 14
+	ContractFieldAdminOracleSigBlockHeight = 15
+	ContractFieldContractFee               = 16
+	ContractFieldVotingSystems             = 17
+	ContractFieldContractAuthFlags         = 18
+	ContractFieldRestrictedQtyAssets       = 19
+	ContractFieldAdministrationProposal    = 20
+	ContractFieldHolderProposal            = 21
+	ContractFieldOracles                   = 22
+	ContractFieldMasterPKH                 = 23
 )
 
 // Asset Amendment Values

@@ -104,3 +104,19 @@ fields:
     label: Entities
     type: Entity[]
     description: "A list of legal entities associated with this contract."
+
+  - name: EntityOracle
+    label: Entity Oracle
+    type: Oracle
+    description: "The oracle that provided the signature used to verify the entity's identity."
+
+  - name: EntityOracleSignature
+    label: Entity Oracle Signature
+    type: varbin
+    description: "The ECDSA signature provided by the oracle specified. For N entities, the first N inputs must correspond with those entities."
+
+  - name: EntityOracleSigBlockHeight
+    label: Entity Oracle Signature Block height
+    description: The block height of the block hash used in the oracle signature.
+    type: uint
+    size: 4

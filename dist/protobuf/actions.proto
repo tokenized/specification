@@ -17,14 +17,17 @@ message ContractOffer {
     string IssuerLogoURL                           = 11;  // varchar
     bool ContractOperatorIncluded                  = 12;  // bool
     EntityField ContractOperator                   = 13;  // Entity
-    uint64 ContractFee                             = 14;  // uint
-    repeated VotingSystemField VotingSystems       = 15;  // VotingSystem[]
-    bytes ContractAuthFlags                        = 16;  // varbin
-    uint64 RestrictedQtyAssets                     = 17;  // uint
-    bool AdministrationProposal                    = 18;  // bool
-    bool HolderProposal                            = 19;  // bool
-    repeated OracleField Oracles                   = 20;  // Oracle[]
-    bytes MasterPKH                                = 21;  // PublicKeyHash
+    OracleField AdminOracle                        = 14;  // Oracle
+    bytes AdminOracleSignature                     = 15;  // varbin
+    uint32 AdminOracleSigBlockHeight               = 16;  // uint
+    uint64 ContractFee                             = 17;  // uint
+    repeated VotingSystemField VotingSystems       = 18;  // VotingSystem[]
+    bytes ContractAuthFlags                        = 19;  // varbin
+    uint64 RestrictedQtyAssets                     = 20;  // uint
+    bool AdministrationProposal                    = 21;  // bool
+    bool HolderProposal                            = 22;  // bool
+    repeated OracleField Oracles                   = 23;  // Oracle[]
+    bytes MasterPKH                                = 24;  // PublicKeyHash
 }
 
 // Message - Contract Formation (C2)
@@ -40,18 +43,20 @@ message ContractFormation {
     string ContractURI                             = 9;   // varchar
     EntityField Issuer                             = 10;   // Entity
     string IssuerLogoURL                           = 11;  // varchar
-    bool ContractOperatorIncluded                  = 12;  // bool
-    EntityField ContractOperator                   = 13;  // Entity
-    uint64 ContractFee                             = 14;  // uint
-    repeated VotingSystemField VotingSystems       = 15;  // VotingSystem[]
-    bytes ContractAuthFlags                        = 16;  // varbin
-    uint64 RestrictedQtyAssets                     = 17;  // uint
-    bool AdministrationProposal                    = 18;  // bool
-    bool HolderProposal                            = 19;  // bool
-    repeated OracleField Oracles                   = 20;  // Oracle[]
-    bytes MasterPKH                                = 21;  // PublicKeyHash
-    uint32 ContractRevision                        = 22;  // uint
-    uint64 Timestamp                               = 23;  // Timestamp
+    EntityField ContractOperator                   = 12;  // Entity
+    OracleField AdminOracle                        = 13;  // Oracle
+    bytes AdminOracleSignature                     = 14;  // varbin
+    uint32 AdminOracleSigBlockHeight               = 15;  // uint
+    uint64 ContractFee                             = 16;  // uint
+    repeated VotingSystemField VotingSystems       = 17;  // VotingSystem[]
+    bytes ContractAuthFlags                        = 18;  // varbin
+    uint64 RestrictedQtyAssets                     = 19;  // uint
+    bool AdministrationProposal                    = 20;  // bool
+    bool HolderProposal                            = 21;  // bool
+    repeated OracleField Oracles                   = 22;  // Oracle[]
+    bytes MasterPKH                                = 23;  // PublicKeyHash
+    uint32 ContractRevision                        = 24;  // uint
+    uint64 Timestamp                               = 25;  // Timestamp
 }
 
 // Message - Contract Amendment (C3)
@@ -79,6 +84,9 @@ message StaticContractFormation {
     string ContractURI                             = 12;  // varchar
     bytes PrevRevTxID                              = 13;  // TxId
     repeated EntityField Entities                  = 14;  // Entity[]
+    OracleField EntityOracle                       = 15;  // Oracle
+    bytes EntityOracleSignature                    = 16;  // varbin
+    uint32 EntityOracleSigBlockHeight              = 17;  // uint
 }
 
 // Message - Contract Address Change (C5)
