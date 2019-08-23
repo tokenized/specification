@@ -933,20 +933,6 @@
           "name": "CubanConvertiblePeso"
         },
         {
-          "code": "CUP",
-          "label": "Cuban convertible peso",
-          "metadata": {
-            "fractional_unit": "Centavo",
-            "monetary_authority": "Central Bank of Cuba",
-            "polity": [
-              "CUB"
-            ],
-            "precision": 2,
-            "symbol": "$"
-          },
-          "name": "CubanConvertiblePeso"
-        },
-        {
           "code": "CVE",
           "label": "Cape Verdean escudo",
           "metadata": {
@@ -2522,20 +2508,6 @@
             "symbol": "$"
           },
           "name": "UnitedStatesDollar"
-        },
-        {
-          "code": "UYU",
-          "label": "Uruguayan peso",
-          "metadata": {
-            "fractional_unit": "Centésimo",
-            "monetary_authority": "Central Bank of Uruguay",
-            "polity": [
-              "URY"
-            ],
-            "precision": 2,
-            "symbol": "$"
-          },
-          "name": "UruguayanPeso"
         },
         {
           "code": "UYU",

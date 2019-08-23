@@ -62,7 +62,6 @@ International Organization for Standardization code for Currency. 3 character co
 - ColombianPeso
 - CostaRicanColon
 - CubanConvertiblePeso
-- CubanConvertiblePeso
 - CapeVerdeanEscudo
 - CzechKoruna
 - DjiboutianFranc
@@ -171,7 +170,6 @@ International Organization for Standardization code for Currency. 3 character co
 - UkrainianHryvnia
 - UgandanShilling
 - UnitedStatesDollar
-- UruguayanPeso
 - UruguayanPeso
 - UzbekistaniSom
 - VenezuelanBolivarSoberano

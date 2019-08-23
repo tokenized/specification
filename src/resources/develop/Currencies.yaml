@@ -397,17 +397,6 @@ values:
         - CUB
       monetary_authority: Central Bank of Cuba
 
-  - code: CUP
-    name: CubanConvertiblePeso
-    label: Cuban convertible peso
-    metadata:
-      symbol: "$"
-      precision: 2
-      fractional_unit: Centavo
-      polity:
-        - CUB
-      monetary_authority: Central Bank of Cuba
-
   - code: CVE
     name: CapeVerdeanEscudo
     label: Cape Verdean escudo
@@ -1660,17 +1649,6 @@ values:
         - VIR
         - UMI
       monetary_authority: Federal Reserve
-
-  - code: UYU
-    name: UruguayanPeso
-    label: Uruguayan peso
-    metadata:
-      symbol: "$"
-      precision: 2
-      fractional_unit: Centésimo
-      polity:
-        - URY
-      monetary_authority: Central Bank of Uruguay
 
   - code: UYU
     name: UruguayanPeso

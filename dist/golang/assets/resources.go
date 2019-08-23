@@ -104,9 +104,6 @@ const (
 	// CubanConvertiblePeso -
 	CurrenciesCubanConvertiblePeso = "CUC"
 
-	// CubanConvertiblePeso -
-	CurrenciesCubanConvertiblePeso = "CUP"
-
 	// CapeVerdeanEscudo -
 	CurrenciesCapeVerdeanEscudo = "CVE"
 
@@ -434,9 +431,6 @@ const (
 	// UruguayanPeso -
 	CurrenciesUruguayanPeso = "UYU"
 
-	// UruguayanPeso -
-	CurrenciesUruguayanPeso = "UYU"
-
 	// UzbekistaniSom -
 	CurrenciesUzbekistaniSom = "UZS"
 
@@ -676,12 +670,6 @@ func CurrenciesData(code string) *CurrenciesCode {
 		return &CurrenciesCode{
 			Name:        "CostaRicanColon",
 			Label:       "Costa Rican colon",
-			Description: "",
-		}
-	case CurrenciesCubanConvertiblePeso:
-		return &CurrenciesCode{
-			Name:        "CubanConvertiblePeso",
-			Label:       "Cuban convertible peso",
 			Description: "",
 		}
 	case CurrenciesCubanConvertiblePeso:
@@ -1344,12 +1332,6 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Label:       "Uruguayan peso",
 			Description: "",
 		}
-	case CurrenciesUruguayanPeso:
-		return &CurrenciesCode{
-			Name:        "UruguayanPeso",
-			Label:       "Uruguayan peso",
-			Description: "",
-		}
 	case CurrenciesUzbekistaniSom:
 		return &CurrenciesCode{
 			Name:        "UzbekistaniSom",
@@ -1587,11 +1569,6 @@ func CurrenciesMap() map[string]*CurrenciesCode {
 		CurrenciesCostaRicanColon: &CurrenciesCode{
 			Name:        "CostaRicanColon",
 			Label:       "Costa Rican colon",
-			Description: "",
-		},
-		CurrenciesCubanConvertiblePeso: &CurrenciesCode{
-			Name:        "CubanConvertiblePeso",
-			Label:       "Cuban convertible peso",
 			Description: "",
 		},
 		CurrenciesCubanConvertiblePeso: &CurrenciesCode{
@@ -2137,11 +2114,6 @@ func CurrenciesMap() map[string]*CurrenciesCode {
 		CurrenciesUnitedStatesDollar: &CurrenciesCode{
 			Name:        "UnitedStatesDollar",
 			Label:       "United States dollar",
-			Description: "",
-		},
-		CurrenciesUruguayanPeso: &CurrenciesCode{
-			Name:        "UruguayanPeso",
-			Label:       "Uruguayan peso",
 			Description: "",
 		},
 		CurrenciesUruguayanPeso: &CurrenciesCode{
