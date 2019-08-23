@@ -125,6 +125,72 @@ func EntitiesData(code string) *EntitiesCode {
 	}
 }
 
+// EntitiesSet returns a mapping of Entities codes.
+func EntitiesSet() map[string]*EntitiesCode {
+	return map[string]*EntitiesCode{
+		EntitiesIndividual: &EntitiesCode{
+			Name:        "Individual",
+			Label:       "Individual",
+			Description: "",
+		},
+		EntitiesPublicCompany: &EntitiesCode{
+			Name:        "PublicCompany",
+			Label:       "Public Company Limited by Shares",
+			Description: "",
+		},
+		EntitiesPrivateCompany: &EntitiesCode{
+			Name:        "PrivateCompany",
+			Label:       "Private Company Limited by Shares",
+			Description: "",
+		},
+		EntitiesLimitedPartnership: &EntitiesCode{
+			Name:        "LimitedPartnership",
+			Label:       "Limited Partnership",
+			Description: "",
+		},
+		EntitiesUnlimitedPartnership: &EntitiesCode{
+			Name:        "UnlimitedPartnership",
+			Label:       "Unlimited Partnership",
+			Description: "",
+		},
+		EntitiesSoleProprietorship: &EntitiesCode{
+			Name:        "SoleProprietorship",
+			Label:       "Sole Proprietorship",
+			Description: "",
+		},
+		EntitiesStatutoryCompany: &EntitiesCode{
+			Name:        "StatutoryCompany",
+			Label:       "Statutory Company",
+			Description: "",
+		},
+		EntitiesNonProfitOrganization: &EntitiesCode{
+			Name:        "NonProfitOrganization",
+			Label:       "Non-Profit Organization",
+			Description: "",
+		},
+		EntitiesNationState: &EntitiesCode{
+			Name:        "NationState",
+			Label:       "Nation State",
+			Description: "",
+		},
+		EntitiesGovernmentAgency: &EntitiesCode{
+			Name:        "GovernmentAgency",
+			Label:       "Government Agency",
+			Description: "",
+		},
+		EntitiesUnitTrust: &EntitiesCode{
+			Name:        "UnitTrust",
+			Label:       "Unit Trust",
+			Description: "",
+		},
+		EntitiesDiscretionaryTrust: &EntitiesCode{
+			Name:        "DiscretionaryTrust",
+			Label:       "Discretionary Trust",
+			Description: "",
+		},
+	}
+}
+
 /************************************ Polities ************************************/
 const (
 	// Aaland Islands -
@@ -2401,6 +2467,1267 @@ func PolitiesData(code string) *PolitiesCode {
 	}
 }
 
+// PolitiesSet returns a mapping of Polities codes.
+func PolitiesSet() map[string]*PolitiesCode {
+	return map[string]*PolitiesCode{
+		PolitiesAalandIslands: &PolitiesCode{
+			Name:        "Aaland Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAfghanistan: &PolitiesCode{
+			Name:        "Afghanistan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAlbania: &PolitiesCode{
+			Name:        "Albania",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAlgeria: &PolitiesCode{
+			Name:        "Algeria",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAmericanSamoa: &PolitiesCode{
+			Name:        "American Samoa",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAndorra: &PolitiesCode{
+			Name:        "Andorra",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAngola: &PolitiesCode{
+			Name:        "Angola",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAnguilla: &PolitiesCode{
+			Name:        "Anguilla",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAntarctica: &PolitiesCode{
+			Name:        "Antarctica",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAntiguaandBarbuda: &PolitiesCode{
+			Name:        "Antigua and Barbuda",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesArgentina: &PolitiesCode{
+			Name:        "Argentina",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesArmenia: &PolitiesCode{
+			Name:        "Armenia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAruba: &PolitiesCode{
+			Name:        "Aruba",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAfricanUnion: &PolitiesCode{
+			Name:        "African Union",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAustralia: &PolitiesCode{
+			Name:        "Australia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAustria: &PolitiesCode{
+			Name:        "Austria",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesAzerbaijan: &PolitiesCode{
+			Name:        "Azerbaijan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTheBahamas: &PolitiesCode{
+			Name:        "The Bahamas",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBahrain: &PolitiesCode{
+			Name:        "Bahrain",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBangladesh: &PolitiesCode{
+			Name:        "Bangladesh",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBarbados: &PolitiesCode{
+			Name:        "Barbados",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBelarus: &PolitiesCode{
+			Name:        "Belarus",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBelgium: &PolitiesCode{
+			Name:        "Belgium",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBelize: &PolitiesCode{
+			Name:        "Belize",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBenin: &PolitiesCode{
+			Name:        "Benin",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBermuda: &PolitiesCode{
+			Name:        "Bermuda",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBhutan: &PolitiesCode{
+			Name:        "Bhutan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBolivia: &PolitiesCode{
+			Name:        "Bolivia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBonaireStEustasuisandSaba: &PolitiesCode{
+			Name:        "Bonaire, St Eustasuis and Saba",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBosniaandHerzegovina: &PolitiesCode{
+			Name:        "Bosnia and Herzegovina",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBotswana: &PolitiesCode{
+			Name:        "Botswana",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBouvetIsland: &PolitiesCode{
+			Name:        "Bouvet Island",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBrazil: &PolitiesCode{
+			Name:        "Brazil",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBritishIndianOceanTerritory: &PolitiesCode{
+			Name:        "British Indian Ocean Territory",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBritishVirginIslands: &PolitiesCode{
+			Name:        "British Virgin Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBrunei: &PolitiesCode{
+			Name:        "Brunei",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBulgaria: &PolitiesCode{
+			Name:        "Bulgaria",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBurkinaFaso: &PolitiesCode{
+			Name:        "Burkina Faso",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesBurundi: &PolitiesCode{
+			Name:        "Burundi",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCambodia: &PolitiesCode{
+			Name:        "Cambodia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCameroon: &PolitiesCode{
+			Name:        "Cameroon",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCanada: &PolitiesCode{
+			Name:        "Canada",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCapeVerde: &PolitiesCode{
+			Name:        "Cape Verde",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCaymanIslands: &PolitiesCode{
+			Name:        "Cayman Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCentralAfricanRepublic: &PolitiesCode{
+			Name:        "Central African Republic",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesChad: &PolitiesCode{
+			Name:        "Chad",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesChile: &PolitiesCode{
+			Name:        "Chile",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesChina: &PolitiesCode{
+			Name:        "China",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesChristmasIsland: &PolitiesCode{
+			Name:        "Christmas Island",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCocosIslands: &PolitiesCode{
+			Name:        "Cocos Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesColombia: &PolitiesCode{
+			Name:        "Colombia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesComoros: &PolitiesCode{
+			Name:        "Comoros",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCongoBrazzaville: &PolitiesCode{
+			Name:        "Congo-Brazzaville",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCongoKinshasa: &PolitiesCode{
+			Name:        "Congo-Kinshasa",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCookIslands: &PolitiesCode{
+			Name:        "Cook Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCostaRica: &PolitiesCode{
+			Name:        "Costa Rica",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCroatia: &PolitiesCode{
+			Name:        "Croatia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCuba: &PolitiesCode{
+			Name:        "Cuba",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCuracao: &PolitiesCode{
+			Name:        "Curacao",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCyprus: &PolitiesCode{
+			Name:        "Cyprus",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesCzechRepublic: &PolitiesCode{
+			Name:        "Czech Republic",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesDenmark: &PolitiesCode{
+			Name:        "Denmark",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesDjibouti: &PolitiesCode{
+			Name:        "Djibouti",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesDominica: &PolitiesCode{
+			Name:        "Dominica",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesDominicanRepublic: &PolitiesCode{
+			Name:        "Dominican Republic",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesEastTimor: &PolitiesCode{
+			Name:        "East Timor",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesEcuador: &PolitiesCode{
+			Name:        "Ecuador",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesEgypt: &PolitiesCode{
+			Name:        "Egypt",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesElSalvador: &PolitiesCode{
+			Name:        "El Salvador",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesEquatorialGuinea: &PolitiesCode{
+			Name:        "Equatorial Guinea",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesEritrea: &PolitiesCode{
+			Name:        "Eritrea",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesEstonia: &PolitiesCode{
+			Name:        "Estonia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesEthiopia: &PolitiesCode{
+			Name:        "Ethiopia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesEuropeanUnion: &PolitiesCode{
+			Name:        "European Union",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesFalklandIslands: &PolitiesCode{
+			Name:        "Falkland Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesFaroeIslands: &PolitiesCode{
+			Name:        "Faroe Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesFiji: &PolitiesCode{
+			Name:        "Fiji",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesFinland: &PolitiesCode{
+			Name:        "Finland",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesFrance: &PolitiesCode{
+			Name:        "France",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesFrenchGuiana: &PolitiesCode{
+			Name:        "French Guiana",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesFrenchPolynesia: &PolitiesCode{
+			Name:        "French Polynesia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesFrenchSouthernandAntarcticLands: &PolitiesCode{
+			Name:        "French Southern and Antarctic Lands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGabon: &PolitiesCode{
+			Name:        "Gabon",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTheGambia: &PolitiesCode{
+			Name:        "The Gambia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGeorgia: &PolitiesCode{
+			Name:        "Georgia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGermany: &PolitiesCode{
+			Name:        "Germany",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGhana: &PolitiesCode{
+			Name:        "Ghana",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGibraltar: &PolitiesCode{
+			Name:        "Gibraltar",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGreece: &PolitiesCode{
+			Name:        "Greece",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGreenland: &PolitiesCode{
+			Name:        "Greenland",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGrenada: &PolitiesCode{
+			Name:        "Grenada",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGuadeloupe: &PolitiesCode{
+			Name:        "Guadeloupe",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGuam: &PolitiesCode{
+			Name:        "Guam",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGuatemala: &PolitiesCode{
+			Name:        "Guatemala",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGuernsey: &PolitiesCode{
+			Name:        "Guernsey",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGuinea: &PolitiesCode{
+			Name:        "Guinea",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGuineaBissau: &PolitiesCode{
+			Name:        "Guinea-Bissau",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesGuyana: &PolitiesCode{
+			Name:        "Guyana",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesHaiti: &PolitiesCode{
+			Name:        "Haiti",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesHeardIslandandMcDonaldIslands: &PolitiesCode{
+			Name:        "Heard Island and McDonald Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesHonduras: &PolitiesCode{
+			Name:        "Honduras",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesHongKong: &PolitiesCode{
+			Name:        "Hong Kong",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesHungary: &PolitiesCode{
+			Name:        "Hungary",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIceland: &PolitiesCode{
+			Name:        "Iceland",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIndia: &PolitiesCode{
+			Name:        "India",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIndonesia: &PolitiesCode{
+			Name:        "Indonesia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIran: &PolitiesCode{
+			Name:        "Iran",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIraq: &PolitiesCode{
+			Name:        "Iraq",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIreland: &PolitiesCode{
+			Name:        "Ireland",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIsleofMan: &PolitiesCode{
+			Name:        "Isle of Man",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIsrael: &PolitiesCode{
+			Name:        "Israel",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesItaly: &PolitiesCode{
+			Name:        "Italy",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesIvoryCoast: &PolitiesCode{
+			Name:        "Ivory Coast",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesJamaica: &PolitiesCode{
+			Name:        "Jamaica",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesJapan: &PolitiesCode{
+			Name:        "Japan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesJersey: &PolitiesCode{
+			Name:        "Jersey",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesJordan: &PolitiesCode{
+			Name:        "Jordan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesKazakhstan: &PolitiesCode{
+			Name:        "Kazakhstan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesKenya: &PolitiesCode{
+			Name:        "Kenya",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesKiribati: &PolitiesCode{
+			Name:        "Kiribati",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesKuwait: &PolitiesCode{
+			Name:        "Kuwait",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesKyrgyzstan: &PolitiesCode{
+			Name:        "Kyrgyzstan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLaos: &PolitiesCode{
+			Name:        "Laos",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLatvia: &PolitiesCode{
+			Name:        "Latvia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLebanon: &PolitiesCode{
+			Name:        "Lebanon",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLesotho: &PolitiesCode{
+			Name:        "Lesotho",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLiberia: &PolitiesCode{
+			Name:        "Liberia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLibya: &PolitiesCode{
+			Name:        "Libya",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLiechtenstein: &PolitiesCode{
+			Name:        "Liechtenstein",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLithuania: &PolitiesCode{
+			Name:        "Lithuania",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesLuxembourg: &PolitiesCode{
+			Name:        "Luxembourg",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMacau: &PolitiesCode{
+			Name:        "Macau",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMacedonia: &PolitiesCode{
+			Name:        "Macedonia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMadagascar: &PolitiesCode{
+			Name:        "Madagascar",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMalawi: &PolitiesCode{
+			Name:        "Malawi",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMalaysia: &PolitiesCode{
+			Name:        "Malaysia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMaldives: &PolitiesCode{
+			Name:        "Maldives",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMali: &PolitiesCode{
+			Name:        "Mali",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMalta: &PolitiesCode{
+			Name:        "Malta",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMarshallIslands: &PolitiesCode{
+			Name:        "Marshall Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMartinique: &PolitiesCode{
+			Name:        "Martinique",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMauritania: &PolitiesCode{
+			Name:        "Mauritania",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMauritius: &PolitiesCode{
+			Name:        "Mauritius",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMayotte: &PolitiesCode{
+			Name:        "Mayotte",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMexico: &PolitiesCode{
+			Name:        "Mexico",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMicronesia: &PolitiesCode{
+			Name:        "Micronesia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMoldova: &PolitiesCode{
+			Name:        "Moldova",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMonaco: &PolitiesCode{
+			Name:        "Monaco",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMongolia: &PolitiesCode{
+			Name:        "Mongolia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMontenegro: &PolitiesCode{
+			Name:        "Montenegro",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMontserrat: &PolitiesCode{
+			Name:        "Montserrat",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMorocco: &PolitiesCode{
+			Name:        "Morocco",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMozambique: &PolitiesCode{
+			Name:        "Mozambique",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesMyanmar: &PolitiesCode{
+			Name:        "Myanmar",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNamibia: &PolitiesCode{
+			Name:        "Namibia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNauru: &PolitiesCode{
+			Name:        "Nauru",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNepal: &PolitiesCode{
+			Name:        "Nepal",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNetherlands: &PolitiesCode{
+			Name:        "Netherlands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNewCaledonia: &PolitiesCode{
+			Name:        "New Caledonia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNewZealand: &PolitiesCode{
+			Name:        "New Zealand",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNicaragua: &PolitiesCode{
+			Name:        "Nicaragua",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNiger: &PolitiesCode{
+			Name:        "Niger",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNigeria: &PolitiesCode{
+			Name:        "Nigeria",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNiue: &PolitiesCode{
+			Name:        "Niue",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNorfolkandPhilipIsland: &PolitiesCode{
+			Name:        "Norfolk and Philip Island",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNorthKorea: &PolitiesCode{
+			Name:        "North Korea",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNorthernMarianaIslands: &PolitiesCode{
+			Name:        "Northern Mariana Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesNorway: &PolitiesCode{
+			Name:        "Norway",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesOman: &PolitiesCode{
+			Name:        "Oman",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPakistan: &PolitiesCode{
+			Name:        "Pakistan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPalau: &PolitiesCode{
+			Name:        "Palau",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPalestinianTerritory: &PolitiesCode{
+			Name:        "Palestinian Territory",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPanama: &PolitiesCode{
+			Name:        "Panama",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPapuaNewGuinea: &PolitiesCode{
+			Name:        "Papua New Guinea",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesParaguay: &PolitiesCode{
+			Name:        "Paraguay",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPeru: &PolitiesCode{
+			Name:        "Peru",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPhilippines: &PolitiesCode{
+			Name:        "Philippines",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPitcairnIslands: &PolitiesCode{
+			Name:        "Pitcairn Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPoland: &PolitiesCode{
+			Name:        "Poland",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPortugal: &PolitiesCode{
+			Name:        "Portugal",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesPuertoRico: &PolitiesCode{
+			Name:        "Puerto Rico",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesQatar: &PolitiesCode{
+			Name:        "Qatar",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesRéunion: &PolitiesCode{
+			Name:        "Réunion",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesRomania: &PolitiesCode{
+			Name:        "Romania",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesRussia: &PolitiesCode{
+			Name:        "Russia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesRwanda: &PolitiesCode{
+			Name:        "Rwanda",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSaintHelenaAscensionandTristandaCunha: &PolitiesCode{
+			Name:        "Saint Helena, Ascension and Tristan da Cunha",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSaintKittsandNevis: &PolitiesCode{
+			Name:        "Saint Kitts and Nevis",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSaintLucia: &PolitiesCode{
+			Name:        "Saint Lucia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSaintPierreandMiquelon: &PolitiesCode{
+			Name:        "Saint Pierre and Miquelon",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSaintVincentandtheGrenadines: &PolitiesCode{
+			Name:        "Saint Vincent and the Grenadines",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSaintBarthelemy: &PolitiesCode{
+			Name:        "Saint-Barthelemy",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSaintMartin: &PolitiesCode{
+			Name:        "Saint-Martin",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSamoa: &PolitiesCode{
+			Name:        "Samoa",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSanMarino: &PolitiesCode{
+			Name:        "San Marino",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSãoToméandPríncipe: &PolitiesCode{
+			Name:        "São Tomé and Príncipe",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSaudiArabia: &PolitiesCode{
+			Name:        "Saudi Arabia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSenegal: &PolitiesCode{
+			Name:        "Senegal",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSerbia: &PolitiesCode{
+			Name:        "Serbia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSeychelles: &PolitiesCode{
+			Name:        "Seychelles",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSierraLeone: &PolitiesCode{
+			Name:        "Sierra Leone",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSingapore: &PolitiesCode{
+			Name:        "Singapore",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSintMaarten: &PolitiesCode{
+			Name:        "Sint Maarten",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSlovakia: &PolitiesCode{
+			Name:        "Slovakia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSlovenia: &PolitiesCode{
+			Name:        "Slovenia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSolomonIslands: &PolitiesCode{
+			Name:        "Solomon Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSomalia: &PolitiesCode{
+			Name:        "Somalia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSouthAfrica: &PolitiesCode{
+			Name:        "South Africa",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSouthGeorgiaandtheSouthSandwichIslands: &PolitiesCode{
+			Name:        "South Georgia and the South Sandwich Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSouthKorea: &PolitiesCode{
+			Name:        "South Korea",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSouthSudan: &PolitiesCode{
+			Name:        "South Sudan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSpain: &PolitiesCode{
+			Name:        "Spain",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSriLanka: &PolitiesCode{
+			Name:        "Sri Lanka",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSudan: &PolitiesCode{
+			Name:        "Sudan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSuriname: &PolitiesCode{
+			Name:        "Suriname",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSvalbardandJanMayen: &PolitiesCode{
+			Name:        "Svalbard and Jan Mayen",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSwaziland: &PolitiesCode{
+			Name:        "Swaziland",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSweden: &PolitiesCode{
+			Name:        "Sweden",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSwitzerland: &PolitiesCode{
+			Name:        "Switzerland",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesSyria: &PolitiesCode{
+			Name:        "Syria",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTaiwan: &PolitiesCode{
+			Name:        "Taiwan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTajikistan: &PolitiesCode{
+			Name:        "Tajikistan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTanzania: &PolitiesCode{
+			Name:        "Tanzania",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesThailand: &PolitiesCode{
+			Name:        "Thailand",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTogo: &PolitiesCode{
+			Name:        "Togo",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTokelau: &PolitiesCode{
+			Name:        "Tokelau",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTonga: &PolitiesCode{
+			Name:        "Tonga",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTrinidadandTobago: &PolitiesCode{
+			Name:        "Trinidad and Tobago",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTunisia: &PolitiesCode{
+			Name:        "Tunisia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTurkey: &PolitiesCode{
+			Name:        "Turkey",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTurkmenistan: &PolitiesCode{
+			Name:        "Turkmenistan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTurksandCaicosIslands: &PolitiesCode{
+			Name:        "Turks and Caicos Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesTuvalu: &PolitiesCode{
+			Name:        "Tuvalu",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUganda: &PolitiesCode{
+			Name:        "Uganda",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUkraine: &PolitiesCode{
+			Name:        "Ukraine",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUnitedArabEmirates: &PolitiesCode{
+			Name:        "United Arab Emirates",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUnitedKingdom: &PolitiesCode{
+			Name:        "United Kingdom",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUnitedStatesMinorOutlyingIslands: &PolitiesCode{
+			Name:        "United States Minor Outlying Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUruguay: &PolitiesCode{
+			Name:        "Uruguay",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUSVirginIslands: &PolitiesCode{
+			Name:        "US Virgin Islands",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUSA: &PolitiesCode{
+			Name:        "USA",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesUzbekistan: &PolitiesCode{
+			Name:        "Uzbekistan",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesVanuatu: &PolitiesCode{
+			Name:        "Vanuatu",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesVaticanCity: &PolitiesCode{
+			Name:        "Vatican City",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesVenezuela: &PolitiesCode{
+			Name:        "Venezuela",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesVietnam: &PolitiesCode{
+			Name:        "Vietnam",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesWallisandFutuna: &PolitiesCode{
+			Name:        "Wallis and Futuna",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesWesternSahara: &PolitiesCode{
+			Name:        "Western Sahara",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesYemen: &PolitiesCode{
+			Name:        "Yemen",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesZambia: &PolitiesCode{
+			Name:        "Zambia",
+			Label:       "",
+			Description: "",
+		},
+		PolitiesZimbabwe: &PolitiesCode{
+			Name:        "Zimbabwe",
+			Label:       "",
+			Description: "",
+		},
+	}
+}
+
 /************************************ Roles ************************************/
 const (
 	// Accountant -
@@ -2676,6 +4003,157 @@ func RolesData(code uint32) *RolesCode {
 		}
 	default:
 		return nil
+	}
+}
+
+// RolesSet returns a mapping of Roles codes.
+func RolesSet() map[uint32]*RolesCode {
+	return map[uint32]*RolesCode{
+		RolesAccountant: &RolesCode{
+			Name:        "Accountant",
+			Label:       "",
+			Description: "",
+		},
+		RolesAdvisor: &RolesCode{
+			Name:        "Advisor",
+			Label:       "",
+			Description: "",
+		},
+		RolesAgent: &RolesCode{
+			Name:        "Agent",
+			Label:       "",
+			Description: "",
+		},
+		RolesBeneficiary: &RolesCode{
+			Name:        "Beneficiary",
+			Label:       "",
+			Description: "",
+		},
+		RolesCEO: &RolesCode{
+			Name:        "CEO",
+			Label:       "",
+			Description: "",
+		},
+		RolesCFO: &RolesCode{
+			Name:        "CFO",
+			Label:       "",
+			Description: "",
+		},
+		RolesChair: &RolesCode{
+			Name:        "Chair",
+			Label:       "",
+			Description: "",
+		},
+		RolesCOO: &RolesCode{
+			Name:        "COO",
+			Label:       "",
+			Description: "",
+		},
+		RolesCTO: &RolesCode{
+			Name:        "CTO",
+			Label:       "",
+			Description: "",
+		},
+		RolesCustodian: &RolesCode{
+			Name:        "Custodian",
+			Label:       "",
+			Description: "",
+		},
+		RolesDirector: &RolesCode{
+			Name:        "Director",
+			Label:       "",
+			Description: "",
+		},
+		RolesExecutive: &RolesCode{
+			Name:        "Executive",
+			Label:       "",
+			Description: "",
+		},
+		RolesLawyer: &RolesCode{
+			Name:        "Lawyer",
+			Label:       "",
+			Description: "",
+		},
+		RolesLegalGuardian: &RolesCode{
+			Name:        "Legal Guardian",
+			Label:       "",
+			Description: "",
+		},
+		RolesLimitedPartner: &RolesCode{
+			Name:        "Limited Partner",
+			Label:       "",
+			Description: "",
+		},
+		RolesManager: &RolesCode{
+			Name:        "Manager",
+			Label:       "",
+			Description: "",
+		},
+		RolesManagingPartner: &RolesCode{
+			Name:        "Managing Partner",
+			Label:       "",
+			Description: "",
+		},
+		RolesMember: &RolesCode{
+			Name:        "Member",
+			Label:       "",
+			Description: "Shareholder",
+		},
+		RolesPartner: &RolesCode{
+			Name:        "Partner",
+			Label:       "",
+			Description: "",
+		},
+		RolesPrincipal: &RolesCode{
+			Name:        "Principal",
+			Label:       "",
+			Description: "",
+		},
+		RolesProprietor: &RolesCode{
+			Name:        "Proprietor",
+			Label:       "",
+			Description: "",
+		},
+		RolesProtector: &RolesCode{
+			Name:        "Protector",
+			Label:       "",
+			Description: "",
+		},
+		RolesSecretary: &RolesCode{
+			Name:        "Secretary",
+			Label:       "",
+			Description: "",
+		},
+		RolesSettlor: &RolesCode{
+			Name:        "Settlor",
+			Label:       "",
+			Description: "",
+		},
+		RolesSignificantMember: &RolesCode{
+			Name:        "Significant Member",
+			Label:       "",
+			Description: "Major Shareholder",
+		},
+		RolesSmartContractOperator: &RolesCode{
+			Name:        "Smart Contract Operator",
+			Label:       "",
+			Description: "",
+		},
+		RolesTrader: &RolesCode{
+			Name:        "Trader",
+			Label:       "",
+			Description: "",
+		},
+		RolesTrustee: &RolesCode{
+			Name:        "Trustee",
+			Label:       "",
+			Description: "",
+		},
+		RolesUnitHolder: &RolesCode{
+			Name:        "Unit Holder",
+			Label:       "",
+			Description: "",
+		},
 	}
 }
 
@@ -3029,6 +4507,197 @@ func RejectionsData(code uint32) *RejectionsCode {
 	}
 }
 
+// RejectionsSet returns a mapping of Rejections codes.
+func RejectionsSet() map[uint32]*RejectionsCode {
+	return map[uint32]*RejectionsCode{
+		RejectionsSuccess: &RejectionsCode{
+			Name:        "Success",
+			Label:       "Success",
+			Description: "No failure. This code should not be used in a reject message.",
+		},
+		RejectionsMsgMalformed: &RejectionsCode{
+			Name:        "MsgMalformed",
+			Label:       "Message Malformed",
+			Description: "The OP_RETURN message is malformed. It doesn&#39;t pass data validation or something about it isn&#39;t according to protocol.",
+		},
+		RejectionsTxMalformed: &RejectionsCode{
+			Name:        "TxMalformed",
+			Label:       "Transaction Malformed",
+			Description: "The Bitcoin tx is malformed. Incorrect inputs/outputs or something similar.",
+		},
+		RejectionsTimeout: &RejectionsCode{
+			Name:        "Timeout",
+			Label:       "Time Out",
+			Description: "A dependency, other contract/service, has failed to complete before the smart contract&#39;s timeout.",
+		},
+		RejectionsContractMoved: &RejectionsCode{
+			Name:        "ContractMoved",
+			Label:       "Contract Moved",
+			Description: "The contract has been moved to a different address. Please find the addres change message and send requests to new address.",
+		},
+		RejectionsDoubleSpend: &RejectionsCode{
+			Name:        "DoubleSpend",
+			Label:       "Double Spend",
+			Description: "A double spend attempt has been detected.",
+		},
+		RejectionsContractExists: &RejectionsCode{
+			Name:        "ContractExists",
+			Label:       "Contract Already Exists",
+			Description: "The contract already exists and can&#39;t be recreated.",
+		},
+		RejectionsContractAssetQtyReduction: &RejectionsCode{
+			Name:        "ContractAssetQtyReduction",
+			Label:       "Contract Asset Quantity Reduction",
+			Description: "Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.",
+		},
+		RejectionsContractFixedQuantity: &RejectionsCode{
+			Name:        "ContractFixedQuantity",
+			Label:       "Contract Fixed Quantity",
+			Description: "Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.",
+		},
+		RejectionsContractAuthFlags: &RejectionsCode{
+			Name:        "ContractAuthFlags",
+			Label:       "Contract Auth Flags Prohibit",
+			Description: "The contract auth flags don&#39;t permit the action requested.",
+		},
+		RejectionsContractExpired: &RejectionsCode{
+			Name:        "ContractExpired",
+			Label:       "Contract Expired",
+			Description: "The contract is expired so can no longer accept requests.",
+		},
+		RejectionsContractFrozen: &RejectionsCode{
+			Name:        "ContractFrozen",
+			Label:       "Contract Frozen",
+			Description: "The contract is frozen and the request is not permitted while frozen.",
+		},
+		RejectionsContractRevision: &RejectionsCode{
+			Name:        "ContractRevision",
+			Label:       "Contract Revision Incorrect",
+			Description: "The revision in a contract amendment is incorrect.",
+		},
+		RejectionsContractNotPermitted: &RejectionsCode{
+			Name:        "ContractNotPermitted",
+			Label:       "Contract Not Permitted",
+			Description: "Action not permitted by contract.",
+		},
+		RejectionsContractBothOperatorsRequired: &RejectionsCode{
+			Name:        "ContractBothOperatorsRequired",
+			Label:       "Contract BothOperatorsRequired",
+			Description: "Both operators signatures are required to perform this action.",
+		},
+		RejectionsAssetCodeExists: &RejectionsCode{
+			Name:        "AssetCodeExists",
+			Label:       "Asset Code Already Exists",
+			Description: "The asset code specified already exists and can&#39;t be reused.",
+		},
+		RejectionsAssetNotFound: &RejectionsCode{
+			Name:        "AssetNotFound",
+			Label:       "Asset Not Found",
+			Description: "The asset code is not found.",
+		},
+		RejectionsAssetAuthFlags: &RejectionsCode{
+			Name:        "AssetAuthFlags",
+			Label:       "Asset Auth Flags Prohibit",
+			Description: "The asset auth flags don&#39;t permit the action requested.",
+		},
+		RejectionsAssetFrozen: &RejectionsCode{
+			Name:        "AssetFrozen",
+			Label:       "Asset Frozen",
+			Description: "The asset is frozen and the request is not permitted while frozen.",
+		},
+		RejectionsAssetRevision: &RejectionsCode{
+			Name:        "AssetRevision",
+			Label:       "Asset Revision Incorrect",
+			Description: "The revision in an asset amendment is incorrect.",
+		},
+		RejectionsAssetNotPermitted: &RejectionsCode{
+			Name:        "AssetNotPermitted",
+			Label:       "Asset Not Permitted",
+			Description: "Action not permitted by asset.",
+		},
+		RejectionsTransferSelf: &RejectionsCode{
+			Name:        "TransferSelf",
+			Label:       "Transfer To Self Prohibited",
+			Description: "Transfers with the sender and receiver addresses the same are not permitted.",
+		},
+		RejectionsTransferExpired: &RejectionsCode{
+			Name:        "TransferExpired",
+			Label:       "Transfer Expired",
+			Description: "The transfer has expired.",
+		},
+		RejectionsHoldingsFrozen: &RejectionsCode{
+			Name:        "HoldingsFrozen",
+			Label:       "Holdings Frozen",
+			Description: "Holdings are frozen, so the request can&#39;t be completed.",
+		},
+		RejectionsHolderProposalProhibited: &RejectionsCode{
+			Name:        "HolderProposalProhibited",
+			Label:       "Holder Proposal Prohibited",
+			Description: "Holders are not permitted to make proposals.",
+		},
+		RejectionsProposalConflicts: &RejectionsCode{
+			Name:        "ProposalConflicts",
+			Label:       "Proposal Conflicts",
+			Description: "The proposal conflicts with an unapplied proposal.",
+		},
+		RejectionsVoteNotFound: &RejectionsCode{
+			Name:        "VoteNotFound",
+			Label:       "Vote Not Found",
+			Description: "The vote ID referenced is not found.",
+		},
+		RejectionsVoteClosed: &RejectionsCode{
+			Name:        "VoteClosed",
+			Label:       "Vote Closed",
+			Description: "The vote has closed and ballots are no longer permitted.",
+		},
+		RejectionsBallotAlreadyCounted: &RejectionsCode{
+			Name:        "BallotAlreadyCounted",
+			Label:       "Ballot Already Counted",
+			Description: "The ballot has already been counted for this address.",
+		},
+		RejectionsVoteSystemNotPermitted: &RejectionsCode{
+			Name:        "VoteSystemNotPermitted",
+			Label:       "Vote System Not Permitted",
+			Description: "The voting system isn&#39;t permitted for this request.",
+		},
+		RejectionsInsufficientTxFeeFunding: &RejectionsCode{
+			Name:        "InsufficientTxFeeFunding",
+			Label:       "Insufficient Transaction Fee Funding",
+			Description: "Insufficient bitcoin quantities for response transaction fees.",
+		},
+		RejectionsInsufficientValue: &RejectionsCode{
+			Name:        "InsufficientValue",
+			Label:       "Insufficient Value",
+			Description: "Insufficient bitcoin quantity in inputs to fund request.",
+		},
+		RejectionsInsufficientQuantity: &RejectionsCode{
+			Name:        "InsufficientQuantity",
+			Label:       "Insufficient Quantity",
+			Description: "Insufficient token holdings to for request.",
+		},
+		RejectionsNotAdministration: &RejectionsCode{
+			Name:        "NotAdministration",
+			Label:       "Requestor Is Not Administration",
+			Description: "The requestor is not the administration and is required to be for this request.",
+		},
+		RejectionsNotOperator: &RejectionsCode{
+			Name:        "NotOperator",
+			Label:       "Requestor Is Not Operator",
+			Description: "The requestor is not the operator and is required to be for this request.",
+		},
+		RejectionsUnauthorizedAddress: &RejectionsCode{
+			Name:        "UnauthorizedAddress",
+			Label:       "Unauthorized Address",
+			Description: "The address specified is not permitted for this request.",
+		},
+		RejectionsInvalidSignature: &RejectionsCode{
+			Name:        "InvalidSignature",
+			Label:       "Invalid Signature",
+			Description: "The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.",
+		},
+	}
+}
+
 /************************************ Tags ************************************/
 const (
 	// Housing -
@@ -3304,5 +4973,156 @@ func TagsData(code uint32) *TagsCode {
 		}
 	default:
 		return nil
+	}
+}
+
+// TagsSet returns a mapping of Tags codes.
+func TagsSet() map[uint32]*TagsCode {
+	return map[uint32]*TagsCode{
+		TagsHousing: &TagsCode{
+			Name:        "Housing",
+			Label:       "",
+			Description: "",
+		},
+		TagsUtilities: &TagsCode{
+			Name:        "Utilities",
+			Label:       "",
+			Description: "",
+		},
+		TagsFood: &TagsCode{
+			Name:        "Food",
+			Label:       "",
+			Description: "",
+		},
+		TagsMedical: &TagsCode{
+			Name:        "Medical",
+			Label:       "",
+			Description: "",
+		},
+		TagsFinancialServices: &TagsCode{
+			Name:        "Financial Services",
+			Label:       "",
+			Description: "",
+		},
+		TagsEntertainment: &TagsCode{
+			Name:        "Entertainment",
+			Label:       "",
+			Description: "",
+		},
+		TagsSales: &TagsCode{
+			Name:        "Sales",
+			Label:       "",
+			Description: "",
+		},
+		TagsAutomotive: &TagsCode{
+			Name:        "Automotive",
+			Label:       "",
+			Description: "",
+		},
+		TagsTransportation: &TagsCode{
+			Name:        "Transportation",
+			Label:       "",
+			Description: "",
+		},
+		TagsFitness: &TagsCode{
+			Name:        "Fitness",
+			Label:       "",
+			Description: "",
+		},
+		TagsElectricity: &TagsCode{
+			Name:        "Electricity",
+			Label:       "",
+			Description: "",
+		},
+		TagsWater: &TagsCode{
+			Name:        "Water",
+			Label:       "",
+			Description: "",
+		},
+		TagsInternet: &TagsCode{
+			Name:        "Internet",
+			Label:       "",
+			Description: "",
+		},
+		TagsMedicine: &TagsCode{
+			Name:        "Medicine",
+			Label:       "",
+			Description: "",
+		},
+		TagsService: &TagsCode{
+			Name:        "Service",
+			Label:       "",
+			Description: "",
+		},
+		TagsRepair: &TagsCode{
+			Name:        "Repair",
+			Label:       "",
+			Description: "",
+		},
+		TagsSupplies: &TagsCode{
+			Name:        "Supplies",
+			Label:       "",
+			Description: "",
+		},
+		TagsParts: &TagsCode{
+			Name:        "Parts",
+			Label:       "",
+			Description: "",
+		},
+		TagsLabor: &TagsCode{
+			Name:        "Labor",
+			Label:       "",
+			Description: "",
+		},
+		TagsTip: &TagsCode{
+			Name:        "Tip",
+			Label:       "",
+			Description: "",
+		},
+		TagsMedia: &TagsCode{
+			Name:        "Media",
+			Label:       "",
+			Description: "",
+		},
+		TagsMusic: &TagsCode{
+			Name:        "Music",
+			Label:       "",
+			Description: "",
+		},
+		TagsVideo: &TagsCode{
+			Name:        "Video",
+			Label:       "",
+			Description: "",
+		},
+		TagsPhoto: &TagsCode{
+			Name:        "Photo",
+			Label:       "",
+			Description: "",
+		},
+		TagsAudio: &TagsCode{
+			Name:        "Audio",
+			Label:       "",
+			Description: "",
+		},
+		TagsAlcohol: &TagsCode{
+			Name:        "Alcohol",
+			Label:       "",
+			Description: "",
+		},
+		TagsTobacco: &TagsCode{
+			Name:        "Tobacco",
+			Label:       "",
+			Description: "",
+		},
+		TagsDiscounted: &TagsCode{
+			Name:        "Discounted",
+			Label:       "",
+			Description: "",
+		},
+		TagsPromotional: &TagsCode{
+			Name:        "Promotional",
+			Label:       "",
+			Description: "",
+		},
 	}
 }
