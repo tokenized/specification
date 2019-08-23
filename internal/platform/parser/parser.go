@@ -25,7 +25,6 @@ func NewSchema(path string) (*Schema, error) {
 		messageFilePath := filepath.Join(path, spath+".yaml")
 		var message Message
 		unmarshalFile(messageFilePath, &message)
-		postProcessFields(message.Fields, result.FieldAliases)
 		messages = append(messages, message)
 	}
 	result.Messages = messages
@@ -46,27 +45,51 @@ func NewSchema(path string) (*Schema, error) {
 		typeFilePath := filepath.Join(path, spath+".yaml")
 		var fieldType FieldType
 		unmarshalFile(typeFilePath, &fieldType)
-		postProcessFields(fieldType.Fields, result.FieldAliases)
 		fieldTypes = append(fieldTypes, fieldType)
 	}
 	result.FieldTypes = fieldTypes
+
+	// 5. Post process fields
+	for _, fieldType := range result.FieldTypes {
+		postProcessFields(fieldType.Fields, result.FieldTypes, result.FieldAliases)
+	}
+
+	for _, message := range result.Messages {
+		postProcessFields(message.Fields, result.FieldTypes, result.FieldAliases)
+	}
 
 	return &result, nil
 }
 
 // postProcessFields applies defaults, attaches alias information and detects compound fields.
-func postProcessFields(fields []Field, aliases []Field) {
+func postProcessFields(fields []Field, fTypes []FieldType, aliases []Field) {
 	for i, field := range fields {
+		baseType := field.BaseType()
+
+		// Field is primitive
+		if field.IsPrimitive() {
+			continue
+		}
+
+		// Field is an alias
 		for _, alias := range aliases {
-			baseType := field.BaseType()
 			if alias.Name == baseType {
 				fields[i].IsAlias = true
 				fields[i].AliasField = &alias
 				break
 			}
 		}
-		if !field.IsPrimitive() {
-			fields[i].IsCompoundType = true
+		if fields[i].IsAlias {
+			continue
+		}
+
+		// Field must be compound
+		for _, fType := range fTypes {
+			if fType.Name == baseType {
+				fields[i].IsCompoundType = true
+				fields[i].CompoundField = &fType
+				break
+			}
 		}
 	}
 }

@@ -6,20 +6,21 @@ import (
 
 // Field defines the expected properties of a field definition in the specification YAML.
 type Field struct {
-	Name           string   `yaml:"name"`
-	Label          string   `yaml:"label"`
-	Description    string   `yaml:"description"`
-	Notes          string   `yaml:"notes"`
-	Type           string   `yaml:"type"`
-	Size           int      `yaml:"size"`
-	ListSize       string   `yaml:"listSize"`
-	VarSize        string   `yaml:"varSize"`
-	Example        string   `yaml:"example"`
-	Options        []string `yaml:"options"`
-	Resource       string   `yaml:"resource"`
-	IsAlias        bool     `yaml:"is_alias"`
-	IsCompoundType bool     `yaml:"is_compound_type"`
-	AliasField     *Field
+	Name           string     `yaml:"name"`
+	Label          string     `yaml:"label"`
+	Description    string     `yaml:"description"`
+	Notes          string     `yaml:"notes"`
+	Type           string     `yaml:"type"`
+	Size           int        `yaml:"size"`
+	ListSize       string     `yaml:"listSize"`
+	VarSize        string     `yaml:"varSize"`
+	Example        string     `yaml:"example"`
+	Options        []string   `yaml:"options"`
+	Resource       string     `yaml:"resource"`
+	IsAlias        bool       `yaml:"is_alias"`
+	IsCompoundType bool       `yaml:"is_compound_type"`
+	AliasField     *Field     `yaml:"-"`
+	CompoundField  *FieldType `yaml:"-"`
 }
 
 // IsPrimitive returns true if the field is "primitive". Not a complex type. i.e. fieldtype or
