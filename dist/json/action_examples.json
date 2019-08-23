@@ -4,6 +4,13 @@
     "label": "Contract Offer",
     "name": "ContractOffer",
     "fields": {
+      "AdminOracle": {
+        "Name": "Tokenized",
+        "PublicKey": null,
+        "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
+      },
+      "AdminOracleSigBlockHeight": null,
+      "AdminOracleSignature": null,
       "AdministrationProposal": "true",
       "BodyOfAgreement": null,
       "BodyOfAgreementType": "1",
@@ -103,6 +110,13 @@
     "label": "Contract Formation",
     "name": "ContractFormation",
     "fields": {
+      "AdminOracle": {
+        "Name": "Tokenized",
+        "PublicKey": null,
+        "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
+      },
+      "AdminOracleSigBlockHeight": null,
+      "AdminOracleSignature": null,
       "AdministrationProposal": "true",
       "BodyOfAgreement": null,
       "BodyOfAgreementType": "1",
@@ -136,7 +150,6 @@
         "Type": "P",
         "UnitNumber": "2"
       },
-      "ContractOperatorIncluded": null,
       "ContractRevision": "0",
       "ContractType": "Shareholder Agreement",
       "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
@@ -262,6 +275,13 @@
           "UnitNumber": "2"
         }
       ],
+      "EntityOracle": {
+        "Name": "Tokenized",
+        "PublicKey": null,
+        "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
+      },
+      "EntityOracleSigBlockHeight": null,
+      "EntityOracleSignature": null,
       "GoverningLaw": "USA",
       "Jurisdiction": "US-CA",
       "PrevRevTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",

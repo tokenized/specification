@@ -3,7 +3,7 @@ package actions
 import (
 	"bytes"
 
-	proto "github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 )
 
 func (l *ContractOffer) Equal(right proto.Message) bool {

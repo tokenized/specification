@@ -65,13 +65,13 @@ proto.assets.Membership.prototype.toObject = function(opt_includeInstance) {
 proto.assets.Membership.toObject = function(includeInstance, msg) {
   var f, obj = {
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
-    validfrom: msg.getValidfrom(),
-    expirationtimestamp: msg.getExpirationtimestamp(),
-    id: msg.getId(),
-    membershipclass: msg.getMembershipclass(),
-    roletype: msg.getRoletype(),
-    membershiptype: msg.getMembershiptype(),
-    description: msg.getDescription()
+    validfrom: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    id: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    membershipclass: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    roletype: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    membershiptype: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 8, "")
   };
 
   if (includeInstance) {
@@ -151,35 +151,25 @@ proto.assets.Membership.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.assets.Membership} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.assets.Membership.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.assets.Membership.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.assets.Membership.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.assets.Membership} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.assets.Membership.prototype.serializeBinaryToWriter = function (writer) {
+proto.assets.Membership.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAgerestriction();
+  f = message.getAgerestriction();
   if (f != null) {
     writer.writeMessage(
       1,
@@ -187,49 +177,49 @@ proto.assets.Membership.prototype.serializeBinaryToWriter = function (writer) {
       proto.assets.AgeRestrictionField.serializeBinaryToWriter
     );
   }
-  f = this.getValidfrom();
+  f = message.getValidfrom();
   if (f !== 0) {
     writer.writeUint64(
       2,
       f
     );
   }
-  f = this.getExpirationtimestamp();
+  f = message.getExpirationtimestamp();
   if (f !== 0) {
     writer.writeUint64(
       3,
       f
     );
   }
-  f = this.getId();
+  f = message.getId();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getMembershipclass();
+  f = message.getMembershipclass();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getRoletype();
+  f = message.getRoletype();
   if (f.length > 0) {
     writer.writeString(
       6,
       f
     );
   }
-  f = this.getMembershiptype();
+  f = message.getMembershiptype();
   if (f.length > 0) {
     writer.writeString(
       7,
       f
     );
   }
-  f = this.getDescription();
+  f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
       8,
@@ -240,25 +230,16 @@ proto.assets.Membership.prototype.serializeBinaryToWriter = function (writer) {
 
 
 /**
- * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.assets.Membership} The clone.
- */
-proto.assets.Membership.prototype.cloneMessage = function() {
-  return /** @type {!proto.assets.Membership} */ (jspb.Message.cloneMessage(this));
-};
-
-
-/**
  * optional AgeRestrictionField AgeRestriction = 1;
- * @return {proto.assets.AgeRestrictionField}
+ * @return {?proto.assets.AgeRestrictionField}
  */
 proto.assets.Membership.prototype.getAgerestriction = function() {
-  return /** @type{proto.assets.AgeRestrictionField} */ (
+  return /** @type{?proto.assets.AgeRestrictionField} */ (
     jspb.Message.getWrapperField(this, proto.assets.AgeRestrictionField, 1));
 };
 
 
-/** @param {proto.assets.AgeRestrictionField|undefined} value  */
+/** @param {?proto.assets.AgeRestrictionField|undefined} value */
 proto.assets.Membership.prototype.setAgerestriction = function(value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
@@ -271,7 +252,7 @@ proto.assets.Membership.prototype.clearAgerestriction = function() {
 
 /**
  * Returns whether this field is set.
- * @return{!boolean}
+ * @return {!boolean}
  */
 proto.assets.Membership.prototype.hasAgerestriction = function() {
   return jspb.Message.getField(this, 1) != null;
@@ -283,11 +264,11 @@ proto.assets.Membership.prototype.hasAgerestriction = function() {
  * @return {number}
  */
 proto.assets.Membership.prototype.getValidfrom = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.Membership.prototype.setValidfrom = function(value) {
   jspb.Message.setField(this, 2, value);
 };
@@ -298,11 +279,11 @@ proto.assets.Membership.prototype.setValidfrom = function(value) {
  * @return {number}
  */
 proto.assets.Membership.prototype.getExpirationtimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.Membership.prototype.setExpirationtimestamp = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -313,11 +294,11 @@ proto.assets.Membership.prototype.setExpirationtimestamp = function(value) {
  * @return {string}
  */
 proto.assets.Membership.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Membership.prototype.setId = function(value) {
   jspb.Message.setField(this, 4, value);
 };
@@ -328,11 +309,11 @@ proto.assets.Membership.prototype.setId = function(value) {
  * @return {string}
  */
 proto.assets.Membership.prototype.getMembershipclass = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 5, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Membership.prototype.setMembershipclass = function(value) {
   jspb.Message.setField(this, 5, value);
 };
@@ -343,11 +324,11 @@ proto.assets.Membership.prototype.setMembershipclass = function(value) {
  * @return {string}
  */
 proto.assets.Membership.prototype.getRoletype = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Membership.prototype.setRoletype = function(value) {
   jspb.Message.setField(this, 6, value);
 };
@@ -358,11 +339,11 @@ proto.assets.Membership.prototype.setRoletype = function(value) {
  * @return {string}
  */
 proto.assets.Membership.prototype.getMembershiptype = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 7, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Membership.prototype.setMembershiptype = function(value) {
   jspb.Message.setField(this, 7, value);
 };
@@ -373,11 +354,11 @@ proto.assets.Membership.prototype.setMembershiptype = function(value) {
  * @return {string}
  */
 proto.assets.Membership.prototype.getDescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 8, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Membership.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 8, value);
 };
@@ -429,9 +410,9 @@ proto.assets.Currency.prototype.toObject = function(opt_includeInstance) {
  */
 proto.assets.Currency.toObject = function(includeInstance, msg) {
   var f, obj = {
-    currencycode: msg.getCurrencycode(),
-    monetaryauthority: msg.getMonetaryauthority(),
-    description: msg.getDescription()
+    currencycode: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    monetaryauthority: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -490,49 +471,39 @@ proto.assets.Currency.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.assets.Currency} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.assets.Currency.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.assets.Currency.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.assets.Currency.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.assets.Currency} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.assets.Currency.prototype.serializeBinaryToWriter = function (writer) {
+proto.assets.Currency.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCurrencycode();
+  f = message.getCurrencycode();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getMonetaryauthority();
+  f = message.getMonetaryauthority();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getDescription();
+  f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -543,24 +514,15 @@ proto.assets.Currency.prototype.serializeBinaryToWriter = function (writer) {
 
 
 /**
- * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.assets.Currency} The clone.
- */
-proto.assets.Currency.prototype.cloneMessage = function() {
-  return /** @type {!proto.assets.Currency} */ (jspb.Message.cloneMessage(this));
-};
-
-
-/**
  * optional string CurrencyCode = 1;
  * @return {string}
  */
 proto.assets.Currency.prototype.getCurrencycode = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Currency.prototype.setCurrencycode = function(value) {
   jspb.Message.setField(this, 1, value);
 };
@@ -571,11 +533,11 @@ proto.assets.Currency.prototype.setCurrencycode = function(value) {
  * @return {string}
  */
 proto.assets.Currency.prototype.getMonetaryauthority = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Currency.prototype.setMonetaryauthority = function(value) {
   jspb.Message.setField(this, 2, value);
 };
@@ -586,11 +548,11 @@ proto.assets.Currency.prototype.setMonetaryauthority = function(value) {
  * @return {string}
  */
 proto.assets.Currency.prototype.getDescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Currency.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -642,10 +604,10 @@ proto.assets.ShareCommon.prototype.toObject = function(opt_includeInstance) {
  */
 proto.assets.ShareCommon.toObject = function(includeInstance, msg) {
   var f, obj = {
-    transferlockout: msg.getTransferlockout(),
-    ticker: msg.getTicker(),
-    isin: msg.getIsin(),
-    description: msg.getDescription()
+    transferlockout: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    ticker: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    isin: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -708,56 +670,46 @@ proto.assets.ShareCommon.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.assets.ShareCommon} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.assets.ShareCommon.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.assets.ShareCommon.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.assets.ShareCommon.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.assets.ShareCommon} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.assets.ShareCommon.prototype.serializeBinaryToWriter = function (writer) {
+proto.assets.ShareCommon.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getTransferlockout();
+  f = message.getTransferlockout();
   if (f !== 0) {
     writer.writeUint64(
       1,
       f
     );
   }
-  f = this.getTicker();
+  f = message.getTicker();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getIsin();
+  f = message.getIsin();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getDescription();
+  f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -768,24 +720,15 @@ proto.assets.ShareCommon.prototype.serializeBinaryToWriter = function (writer) {
 
 
 /**
- * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.assets.ShareCommon} The clone.
- */
-proto.assets.ShareCommon.prototype.cloneMessage = function() {
-  return /** @type {!proto.assets.ShareCommon} */ (jspb.Message.cloneMessage(this));
-};
-
-
-/**
  * optional uint64 TransferLockout = 1;
  * @return {number}
  */
 proto.assets.ShareCommon.prototype.getTransferlockout = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.ShareCommon.prototype.setTransferlockout = function(value) {
   jspb.Message.setField(this, 1, value);
 };
@@ -796,11 +739,11 @@ proto.assets.ShareCommon.prototype.setTransferlockout = function(value) {
  * @return {string}
  */
 proto.assets.ShareCommon.prototype.getTicker = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.ShareCommon.prototype.setTicker = function(value) {
   jspb.Message.setField(this, 2, value);
 };
@@ -811,11 +754,11 @@ proto.assets.ShareCommon.prototype.setTicker = function(value) {
  * @return {string}
  */
 proto.assets.ShareCommon.prototype.getIsin = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.ShareCommon.prototype.setIsin = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -826,11 +769,11 @@ proto.assets.ShareCommon.prototype.setIsin = function(value) {
  * @return {string}
  */
 proto.assets.ShareCommon.prototype.getDescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.ShareCommon.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 4, value);
 };
@@ -882,12 +825,12 @@ proto.assets.Coupon.prototype.toObject = function(opt_includeInstance) {
  */
 proto.assets.Coupon.toObject = function(includeInstance, msg) {
   var f, obj = {
-    redeemingentity: msg.getRedeemingentity(),
-    issuedate: msg.getIssuedate(),
-    expirydate: msg.getExpirydate(),
-    value: msg.getValue(),
-    currency: msg.getCurrency(),
-    description: msg.getDescription()
+    redeemingentity: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    issuedate: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    expirydate: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    value: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    currency: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
   if (includeInstance) {
@@ -958,70 +901,60 @@ proto.assets.Coupon.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.assets.Coupon} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.assets.Coupon.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.assets.Coupon.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.assets.Coupon.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.assets.Coupon} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.assets.Coupon.prototype.serializeBinaryToWriter = function (writer) {
+proto.assets.Coupon.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRedeemingentity();
+  f = message.getRedeemingentity();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getIssuedate();
+  f = message.getIssuedate();
   if (f !== 0) {
     writer.writeUint64(
       2,
       f
     );
   }
-  f = this.getExpirydate();
+  f = message.getExpirydate();
   if (f !== 0) {
     writer.writeUint64(
       3,
       f
     );
   }
-  f = this.getValue();
+  f = message.getValue();
   if (f !== 0) {
     writer.writeUint64(
       4,
       f
     );
   }
-  f = this.getCurrency();
+  f = message.getCurrency();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getDescription();
+  f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -1032,24 +965,15 @@ proto.assets.Coupon.prototype.serializeBinaryToWriter = function (writer) {
 
 
 /**
- * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.assets.Coupon} The clone.
- */
-proto.assets.Coupon.prototype.cloneMessage = function() {
-  return /** @type {!proto.assets.Coupon} */ (jspb.Message.cloneMessage(this));
-};
-
-
-/**
  * optional string RedeemingEntity = 1;
  * @return {string}
  */
 proto.assets.Coupon.prototype.getRedeemingentity = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Coupon.prototype.setRedeemingentity = function(value) {
   jspb.Message.setField(this, 1, value);
 };
@@ -1060,11 +984,11 @@ proto.assets.Coupon.prototype.setRedeemingentity = function(value) {
  * @return {number}
  */
 proto.assets.Coupon.prototype.getIssuedate = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.Coupon.prototype.setIssuedate = function(value) {
   jspb.Message.setField(this, 2, value);
 };
@@ -1075,11 +999,11 @@ proto.assets.Coupon.prototype.setIssuedate = function(value) {
  * @return {number}
  */
 proto.assets.Coupon.prototype.getExpirydate = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.Coupon.prototype.setExpirydate = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -1090,11 +1014,11 @@ proto.assets.Coupon.prototype.setExpirydate = function(value) {
  * @return {number}
  */
 proto.assets.Coupon.prototype.getValue = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 4, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.Coupon.prototype.setValue = function(value) {
   jspb.Message.setField(this, 4, value);
 };
@@ -1105,11 +1029,11 @@ proto.assets.Coupon.prototype.setValue = function(value) {
  * @return {string}
  */
 proto.assets.Coupon.prototype.getCurrency = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 5, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Coupon.prototype.setCurrency = function(value) {
   jspb.Message.setField(this, 5, value);
 };
@@ -1120,11 +1044,11 @@ proto.assets.Coupon.prototype.setCurrency = function(value) {
  * @return {string}
  */
 proto.assets.Coupon.prototype.getDescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.Coupon.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 6, value);
 };
@@ -1177,10 +1101,10 @@ proto.assets.LoyaltyPoints.prototype.toObject = function(opt_includeInstance) {
 proto.assets.LoyaltyPoints.toObject = function(includeInstance, msg) {
   var f, obj = {
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
-    offername: msg.getOffername(),
-    validfrom: msg.getValidfrom(),
-    expirationtimestamp: msg.getExpirationtimestamp(),
-    description: msg.getDescription()
+    offername: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    validfrom: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    description: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -1248,35 +1172,25 @@ proto.assets.LoyaltyPoints.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.assets.LoyaltyPoints} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.assets.LoyaltyPoints.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.assets.LoyaltyPoints.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.assets.LoyaltyPoints.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.assets.LoyaltyPoints} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.assets.LoyaltyPoints.prototype.serializeBinaryToWriter = function (writer) {
+proto.assets.LoyaltyPoints.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAgerestriction();
+  f = message.getAgerestriction();
   if (f != null) {
     writer.writeMessage(
       1,
@@ -1284,28 +1198,28 @@ proto.assets.LoyaltyPoints.prototype.serializeBinaryToWriter = function (writer)
       proto.assets.AgeRestrictionField.serializeBinaryToWriter
     );
   }
-  f = this.getOffername();
+  f = message.getOffername();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getValidfrom();
+  f = message.getValidfrom();
   if (f !== 0) {
     writer.writeUint64(
       3,
       f
     );
   }
-  f = this.getExpirationtimestamp();
+  f = message.getExpirationtimestamp();
   if (f !== 0) {
     writer.writeUint64(
       4,
       f
     );
   }
-  f = this.getDescription();
+  f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -1316,25 +1230,16 @@ proto.assets.LoyaltyPoints.prototype.serializeBinaryToWriter = function (writer)
 
 
 /**
- * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.assets.LoyaltyPoints} The clone.
- */
-proto.assets.LoyaltyPoints.prototype.cloneMessage = function() {
-  return /** @type {!proto.assets.LoyaltyPoints} */ (jspb.Message.cloneMessage(this));
-};
-
-
-/**
  * optional AgeRestrictionField AgeRestriction = 1;
- * @return {proto.assets.AgeRestrictionField}
+ * @return {?proto.assets.AgeRestrictionField}
  */
 proto.assets.LoyaltyPoints.prototype.getAgerestriction = function() {
-  return /** @type{proto.assets.AgeRestrictionField} */ (
+  return /** @type{?proto.assets.AgeRestrictionField} */ (
     jspb.Message.getWrapperField(this, proto.assets.AgeRestrictionField, 1));
 };
 
 
-/** @param {proto.assets.AgeRestrictionField|undefined} value  */
+/** @param {?proto.assets.AgeRestrictionField|undefined} value */
 proto.assets.LoyaltyPoints.prototype.setAgerestriction = function(value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
@@ -1347,7 +1252,7 @@ proto.assets.LoyaltyPoints.prototype.clearAgerestriction = function() {
 
 /**
  * Returns whether this field is set.
- * @return{!boolean}
+ * @return {!boolean}
  */
 proto.assets.LoyaltyPoints.prototype.hasAgerestriction = function() {
   return jspb.Message.getField(this, 1) != null;
@@ -1359,11 +1264,11 @@ proto.assets.LoyaltyPoints.prototype.hasAgerestriction = function() {
  * @return {string}
  */
 proto.assets.LoyaltyPoints.prototype.getOffername = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.LoyaltyPoints.prototype.setOffername = function(value) {
   jspb.Message.setField(this, 2, value);
 };
@@ -1374,11 +1279,11 @@ proto.assets.LoyaltyPoints.prototype.setOffername = function(value) {
  * @return {number}
  */
 proto.assets.LoyaltyPoints.prototype.getValidfrom = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.LoyaltyPoints.prototype.setValidfrom = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -1389,11 +1294,11 @@ proto.assets.LoyaltyPoints.prototype.setValidfrom = function(value) {
  * @return {number}
  */
 proto.assets.LoyaltyPoints.prototype.getExpirationtimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 4, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.LoyaltyPoints.prototype.setExpirationtimestamp = function(value) {
   jspb.Message.setField(this, 4, value);
 };
@@ -1404,11 +1309,11 @@ proto.assets.LoyaltyPoints.prototype.setExpirationtimestamp = function(value) {
  * @return {string}
  */
 proto.assets.LoyaltyPoints.prototype.getDescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 5, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.LoyaltyPoints.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 5, value);
 };
@@ -1461,15 +1366,15 @@ proto.assets.TicketAdmission.prototype.toObject = function(opt_includeInstance) 
 proto.assets.TicketAdmission.toObject = function(includeInstance, msg) {
   var f, obj = {
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
-    admissiontype: msg.getAdmissiontype(),
-    venue: msg.getVenue(),
-    pb_class: msg.getClass(),
-    area: msg.getArea(),
-    seat: msg.getSeat(),
-    starttimedate: msg.getStarttimedate(),
-    validfrom: msg.getValidfrom(),
-    expirationtimestamp: msg.getExpirationtimestamp(),
-    description: msg.getDescription()
+    admissiontype: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    venue: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    pb_class: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    area: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    seat: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    starttimedate: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    validfrom: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    description: jspb.Message.getFieldWithDefault(msg, 10, "")
   };
 
   if (includeInstance) {
@@ -1557,35 +1462,25 @@ proto.assets.TicketAdmission.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.assets.TicketAdmission} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.assets.TicketAdmission.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.assets.TicketAdmission.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.assets.TicketAdmission.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.assets.TicketAdmission} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.assets.TicketAdmission.prototype.serializeBinaryToWriter = function (writer) {
+proto.assets.TicketAdmission.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAgerestriction();
+  f = message.getAgerestriction();
   if (f != null) {
     writer.writeMessage(
       1,
@@ -1593,63 +1488,63 @@ proto.assets.TicketAdmission.prototype.serializeBinaryToWriter = function (write
       proto.assets.AgeRestrictionField.serializeBinaryToWriter
     );
   }
-  f = this.getAdmissiontype();
+  f = message.getAdmissiontype();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getVenue();
+  f = message.getVenue();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getClass();
+  f = message.getClass();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getArea();
+  f = message.getArea();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getSeat();
+  f = message.getSeat();
   if (f.length > 0) {
     writer.writeString(
       6,
       f
     );
   }
-  f = this.getStarttimedate();
+  f = message.getStarttimedate();
   if (f !== 0) {
     writer.writeUint64(
       7,
       f
     );
   }
-  f = this.getValidfrom();
+  f = message.getValidfrom();
   if (f !== 0) {
     writer.writeUint64(
       8,
       f
     );
   }
-  f = this.getExpirationtimestamp();
+  f = message.getExpirationtimestamp();
   if (f !== 0) {
     writer.writeUint64(
       9,
       f
     );
   }
-  f = this.getDescription();
+  f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
       10,
@@ -1660,25 +1555,16 @@ proto.assets.TicketAdmission.prototype.serializeBinaryToWriter = function (write
 
 
 /**
- * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.assets.TicketAdmission} The clone.
- */
-proto.assets.TicketAdmission.prototype.cloneMessage = function() {
-  return /** @type {!proto.assets.TicketAdmission} */ (jspb.Message.cloneMessage(this));
-};
-
-
-/**
  * optional AgeRestrictionField AgeRestriction = 1;
- * @return {proto.assets.AgeRestrictionField}
+ * @return {?proto.assets.AgeRestrictionField}
  */
 proto.assets.TicketAdmission.prototype.getAgerestriction = function() {
-  return /** @type{proto.assets.AgeRestrictionField} */ (
+  return /** @type{?proto.assets.AgeRestrictionField} */ (
     jspb.Message.getWrapperField(this, proto.assets.AgeRestrictionField, 1));
 };
 
 
-/** @param {proto.assets.AgeRestrictionField|undefined} value  */
+/** @param {?proto.assets.AgeRestrictionField|undefined} value */
 proto.assets.TicketAdmission.prototype.setAgerestriction = function(value) {
   jspb.Message.setWrapperField(this, 1, value);
 };
@@ -1691,7 +1577,7 @@ proto.assets.TicketAdmission.prototype.clearAgerestriction = function() {
 
 /**
  * Returns whether this field is set.
- * @return{!boolean}
+ * @return {!boolean}
  */
 proto.assets.TicketAdmission.prototype.hasAgerestriction = function() {
   return jspb.Message.getField(this, 1) != null;
@@ -1703,11 +1589,11 @@ proto.assets.TicketAdmission.prototype.hasAgerestriction = function() {
  * @return {string}
  */
 proto.assets.TicketAdmission.prototype.getAdmissiontype = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.TicketAdmission.prototype.setAdmissiontype = function(value) {
   jspb.Message.setField(this, 2, value);
 };
@@ -1718,11 +1604,11 @@ proto.assets.TicketAdmission.prototype.setAdmissiontype = function(value) {
  * @return {string}
  */
 proto.assets.TicketAdmission.prototype.getVenue = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.TicketAdmission.prototype.setVenue = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -1733,11 +1619,11 @@ proto.assets.TicketAdmission.prototype.setVenue = function(value) {
  * @return {string}
  */
 proto.assets.TicketAdmission.prototype.getClass = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.TicketAdmission.prototype.setClass = function(value) {
   jspb.Message.setField(this, 4, value);
 };
@@ -1748,11 +1634,11 @@ proto.assets.TicketAdmission.prototype.setClass = function(value) {
  * @return {string}
  */
 proto.assets.TicketAdmission.prototype.getArea = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 5, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.TicketAdmission.prototype.setArea = function(value) {
   jspb.Message.setField(this, 5, value);
 };
@@ -1763,11 +1649,11 @@ proto.assets.TicketAdmission.prototype.setArea = function(value) {
  * @return {string}
  */
 proto.assets.TicketAdmission.prototype.getSeat = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.TicketAdmission.prototype.setSeat = function(value) {
   jspb.Message.setField(this, 6, value);
 };
@@ -1778,11 +1664,11 @@ proto.assets.TicketAdmission.prototype.setSeat = function(value) {
  * @return {number}
  */
 proto.assets.TicketAdmission.prototype.getStarttimedate = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 7, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.TicketAdmission.prototype.setStarttimedate = function(value) {
   jspb.Message.setField(this, 7, value);
 };
@@ -1793,11 +1679,11 @@ proto.assets.TicketAdmission.prototype.setStarttimedate = function(value) {
  * @return {number}
  */
 proto.assets.TicketAdmission.prototype.getValidfrom = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 8, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.TicketAdmission.prototype.setValidfrom = function(value) {
   jspb.Message.setField(this, 8, value);
 };
@@ -1808,11 +1694,11 @@ proto.assets.TicketAdmission.prototype.setValidfrom = function(value) {
  * @return {number}
  */
 proto.assets.TicketAdmission.prototype.getExpirationtimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 9, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.TicketAdmission.prototype.setExpirationtimestamp = function(value) {
   jspb.Message.setField(this, 9, value);
 };
@@ -1823,11 +1709,11 @@ proto.assets.TicketAdmission.prototype.setExpirationtimestamp = function(value) 
  * @return {string}
  */
 proto.assets.TicketAdmission.prototype.getDescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 10, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
 };
 
 
-/** @param {string} value  */
+/** @param {string} value */
 proto.assets.TicketAdmission.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 10, value);
 };
@@ -1879,8 +1765,8 @@ proto.assets.AgeRestrictionField.prototype.toObject = function(opt_includeInstan
  */
 proto.assets.AgeRestrictionField.toObject = function(includeInstance, msg) {
   var f, obj = {
-    lower: msg.getLower(),
-    upper: msg.getUpper()
+    lower: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    upper: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -1935,42 +1821,32 @@ proto.assets.AgeRestrictionField.deserializeBinaryFromReader = function(msg, rea
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.assets.AgeRestrictionField} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.assets.AgeRestrictionField.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.assets.AgeRestrictionField.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.assets.AgeRestrictionField.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.assets.AgeRestrictionField} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.assets.AgeRestrictionField.prototype.serializeBinaryToWriter = function (writer) {
+proto.assets.AgeRestrictionField.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getLower();
+  f = message.getLower();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getUpper();
+  f = message.getUpper();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -1981,24 +1857,15 @@ proto.assets.AgeRestrictionField.prototype.serializeBinaryToWriter = function (w
 
 
 /**
- * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.assets.AgeRestrictionField} The clone.
- */
-proto.assets.AgeRestrictionField.prototype.cloneMessage = function() {
-  return /** @type {!proto.assets.AgeRestrictionField} */ (jspb.Message.cloneMessage(this));
-};
-
-
-/**
  * optional uint32 Lower = 1;
  * @return {number}
  */
 proto.assets.AgeRestrictionField.prototype.getLower = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.AgeRestrictionField.prototype.setLower = function(value) {
   jspb.Message.setField(this, 1, value);
 };
@@ -2009,11 +1876,11 @@ proto.assets.AgeRestrictionField.prototype.setLower = function(value) {
  * @return {number}
  */
 proto.assets.AgeRestrictionField.prototype.getUpper = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
-/** @param {number} value  */
+/** @param {number} value */
 proto.assets.AgeRestrictionField.prototype.setUpper = function(value) {
   jspb.Message.setField(this, 2, value);
 };

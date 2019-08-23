@@ -1,6 +1,6 @@
 package assets
 
-import proto "github.com/golang/protobuf/proto"
+import "github.com/golang/protobuf/proto"
 
 func (l *Membership) Equal(right proto.Message) bool {
 	if l == nil {
