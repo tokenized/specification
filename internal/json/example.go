@@ -18,7 +18,7 @@ func actionsToExample(distPath string, schema parser.Schema, jsonFile string) {
 		fields := make(map[string]interface{})
 
 		for _, field := range message.Fields {
-			fields[field.Name] = field.Example
+			fields[field.Name] = fetchFieldExample(field)
 		}
 
 		example := ActionExample{
@@ -52,6 +52,22 @@ func actionsToExample(distPath string, schema parser.Schema, jsonFile string) {
 		fmt.Printf("err: %v\n", err)
 		return
 	}
+}
+
+func fetchFieldExample(field parser.Field) interface{} {
+	if field.IsCompoundType {
+		fields := make(map[string]interface{})
+		for _, cField := range field.CompoundField.Fields {
+			fields[cField.Name] = fetchFieldExample(cField)
+		}
+		return fields
+	}
+
+	if field.IsAlias {
+		return fetchFieldExample(*field.AliasField)
+	}
+
+	return field.Example
 }
 
 type ActionExample struct {
