@@ -1,0 +1,642 @@
+[
+  {
+    "code": "C1",
+    "label": "Contract Offer",
+    "name": "ContractOffer",
+    "fields": {
+      "AdministrationProposal": "true",
+      "BodyOfAgreement": null,
+      "BodyOfAgreementType": "1",
+      "ContractAuthFlags": null,
+      "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "ContractFee": null,
+      "ContractName": "Tesla - Shareholder Agreement",
+      "ContractOperator": {
+        "Administration": [
+          {
+            "Name": "Satoshi Nakamoto",
+            "Type": "7"
+          }
+        ],
+        "BuildingNumber": "13577",
+        "CountryCode": "USA",
+        "EmailAddress": "satoshi@tokenized.com",
+        "LEI": "54930084UKLVMY22DS16",
+        "Management": [
+          {
+            "Name": "Satoshi Nakamoto",
+            "Type": "5"
+          }
+        ],
+        "Name": "Tesla Inc.",
+        "PhoneNumber": "0448484848",
+        "PostalZIPCode": "50210",
+        "Street": "Fairmont Ave",
+        "SuburbCity": "Robinoh",
+        "TerritoryStateProvinceCode": "BC",
+        "Type": "P",
+        "UnitNumber": "2"
+      },
+      "ContractOperatorIncluded": null,
+      "ContractType": "Shareholder Agreement",
+      "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+      "GoverningLaw": "USA",
+      "HolderProposal": "true",
+      "Issuer": {
+        "Administration": [
+          {
+            "Name": "Satoshi Nakamoto",
+            "Type": "7"
+          }
+        ],
+        "BuildingNumber": "13577",
+        "CountryCode": "USA",
+        "EmailAddress": "satoshi@tokenized.com",
+        "LEI": "54930084UKLVMY22DS16",
+        "Management": [
+          {
+            "Name": "Satoshi Nakamoto",
+            "Type": "5"
+          }
+        ],
+        "Name": "Tesla Inc.",
+        "PhoneNumber": "0448484848",
+        "PostalZIPCode": "50210",
+        "Street": "Fairmont Ave",
+        "SuburbCity": "Robinoh",
+        "TerritoryStateProvinceCode": "BC",
+        "Type": "P",
+        "UnitNumber": "2"
+      },
+      "IssuerLogoURL": "https://example.com/images/logo.png",
+      "Jurisdiction": "US-CA",
+      "MasterPKH": null,
+      "Oracles": [
+        {
+          "Name": "Tokenized",
+          "PublicKey": null,
+          "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
+        }
+      ],
+      "RestrictedQtyAssets": "1",
+      "SupportingDocs": [
+        {
+          "Contents": null,
+          "Name": "Agreement.pdf",
+          "Type": "application/pdf"
+        }
+      ],
+      "VotingSystems": [
+        {
+          "HolderProposalFee": "100",
+          "Name": "Special Resolutions",
+          "TallyLogic": "0",
+          "ThresholdPercentage": "75",
+          "VoteMultiplierPermitted": null,
+          "VoteType": "A"
+        }
+      ]
+    }
+  },
+  {
+    "code": "C2",
+    "label": "Contract Formation",
+    "name": "ContractFormation",
+    "fields": {
+      "AdministrationProposal": "true",
+      "BodyOfAgreement": null,
+      "BodyOfAgreementType": "1",
+      "ContractAuthFlags": null,
+      "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "ContractFee": null,
+      "ContractName": "Tesla - Shareholder Agreement",
+      "ContractOperator": {
+        "Administration": [
+          {
+            "Name": "Satoshi Nakamoto",
+            "Type": "7"
+          }
+        ],
+        "BuildingNumber": "13577",
+        "CountryCode": "USA",
+        "EmailAddress": "satoshi@tokenized.com",
+        "LEI": "54930084UKLVMY22DS16",
+        "Management": [
+          {
+            "Name": "Satoshi Nakamoto",
+            "Type": "5"
+          }
+        ],
+        "Name": "Tesla Inc.",
+        "PhoneNumber": "0448484848",
+        "PostalZIPCode": "50210",
+        "Street": "Fairmont Ave",
+        "SuburbCity": "Robinoh",
+        "TerritoryStateProvinceCode": "BC",
+        "Type": "P",
+        "UnitNumber": "2"
+      },
+      "ContractOperatorIncluded": null,
+      "ContractRevision": "0",
+      "ContractType": "Shareholder Agreement",
+      "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+      "GoverningLaw": "USA",
+      "HolderProposal": "true",
+      "Issuer": {
+        "Administration": [
+          {
+            "Name": "Satoshi Nakamoto",
+            "Type": "7"
+          }
+        ],
+        "BuildingNumber": "13577",
+        "CountryCode": "USA",
+        "EmailAddress": "satoshi@tokenized.com",
+        "LEI": "54930084UKLVMY22DS16",
+        "Management": [
+          {
+            "Name": "Satoshi Nakamoto",
+            "Type": "5"
+          }
+        ],
+        "Name": "Tesla Inc.",
+        "PhoneNumber": "0448484848",
+        "PostalZIPCode": "50210",
+        "Street": "Fairmont Ave",
+        "SuburbCity": "Robinoh",
+        "TerritoryStateProvinceCode": "BC",
+        "Type": "P",
+        "UnitNumber": "2"
+      },
+      "IssuerLogoURL": "https://example.tld/images/logo.png",
+      "Jurisdiction": "US-CA",
+      "MasterPKH": null,
+      "Oracles": [
+        {
+          "Name": "Tokenized",
+          "PublicKey": null,
+          "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
+        }
+      ],
+      "RestrictedQtyAssets": "1",
+      "SupportingDocs": [
+        {
+          "Contents": null,
+          "Name": "Agreement.pdf",
+          "Type": "application/pdf"
+        }
+      ],
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "VotingSystems": [
+        {
+          "HolderProposalFee": "100",
+          "Name": "Special Resolutions",
+          "TallyLogic": "0",
+          "ThresholdPercentage": "75",
+          "VoteMultiplierPermitted": null,
+          "VoteType": "A"
+        }
+      ]
+    }
+  },
+  {
+    "code": "C3",
+    "label": "Contract Amendment",
+    "name": "ContractAmendment",
+    "fields": {
+      "Amendments": [
+        {
+          "Data": null,
+          "Element": "0",
+          "FieldIndex": "2",
+          "Operation": "0",
+          "SubfieldElement": "1",
+          "SubfieldIndex": "1"
+        }
+      ],
+      "ChangeAdministrationAddress": "1",
+      "ChangeOperatorAddress": "1",
+      "ContractRevision": "42",
+      "RefTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+    }
+  },
+  {
+    "code": "C4",
+    "label": "Static Contract Formation",
+    "name": "StaticContractFormation",
+    "fields": {
+      "BodyOfAgreement": null,
+      "BodyOfAgreementType": "1",
+      "ContractCode": null,
+      "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "ContractName": "Tesla - Shareholder Agreement",
+      "ContractRevision": "0",
+      "ContractType": "Non-Disclosure Agreement",
+      "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+      "EffectiveDate": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "Entities": [
+        {
+          "Administration": [
+            {
+              "Name": "Satoshi Nakamoto",
+              "Type": "7"
+            }
+          ],
+          "BuildingNumber": "13577",
+          "CountryCode": "USA",
+          "EmailAddress": "satoshi@tokenized.com",
+          "LEI": "54930084UKLVMY22DS16",
+          "Management": [
+            {
+              "Name": "Satoshi Nakamoto",
+              "Type": "5"
+            }
+          ],
+          "Name": "Tesla Inc.",
+          "PhoneNumber": "0448484848",
+          "PostalZIPCode": "50210",
+          "Street": "Fairmont Ave",
+          "SuburbCity": "Robinoh",
+          "TerritoryStateProvinceCode": "BC",
+          "Type": "P",
+          "UnitNumber": "2"
+        }
+      ],
+      "GoverningLaw": "USA",
+      "Jurisdiction": "US-CA",
+      "PrevRevTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
+      "SupportingDocs": [
+        {
+          "Contents": null,
+          "Name": "Agreement.pdf",
+          "Type": "application/pdf"
+        }
+      ]
+    }
+  },
+  {
+    "code": "C5",
+    "label": "Contract Address Change",
+    "name": "ContractAddressChange",
+    "fields": {
+      "NewContractAddress": null,
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  },
+  {
+    "code": "A1",
+    "label": "Asset Definition",
+    "name": "AssetDefinition",
+    "fields": {
+      "AdministrationProposal": "true",
+      "AssetAuthFlags": "0101000",
+      "AssetModificationGovernance": "1",
+      "AssetPayload": null,
+      "AssetType": null,
+      "EnforcementOrdersPermitted": "1",
+      "HolderProposal": "true",
+      "TokenQty": "1000000",
+      "TradeRestrictions": [
+        "GBR"
+      ],
+      "TransfersPermitted": "1",
+      "VoteMultiplier": "3",
+      "VotingRights": "true"
+    }
+  },
+  {
+    "code": "A2",
+    "label": "Asset Creation",
+    "name": "AssetCreation",
+    "fields": {
+      "AdministrationProposal": "true",
+      "AssetAuthFlags": "0101000",
+      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetIndex": "0",
+      "AssetModificationGovernance": "1",
+      "AssetPayload": null,
+      "AssetRevision": "456789",
+      "AssetType": null,
+      "EnforcementOrdersPermitted": "1",
+      "HolderProposal": "true",
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "TokenQty": "1000000",
+      "TradeRestrictions": [
+        "GBR"
+      ],
+      "TransfersPermitted": "1",
+      "VoteMultiplier": "3",
+      "VotingRights": "true"
+    }
+  },
+  {
+    "code": "A3",
+    "label": "Asset Modification",
+    "name": "AssetModification",
+    "fields": {
+      "Amendments": [
+        {
+          "Data": null,
+          "Element": "0",
+          "FieldIndex": "2",
+          "Operation": "0",
+          "SubfieldElement": "1",
+          "SubfieldIndex": "1"
+        }
+      ],
+      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetRevision": "0",
+      "AssetType": "SHC",
+      "RefTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+    }
+  },
+  {
+    "code": "T1",
+    "label": "Transfer",
+    "name": "Transfer",
+    "fields": {
+      "Assets": [
+        {
+          "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+          "AssetReceivers": [
+            {
+              "Address": null,
+              "OracleConfirmationSig": null,
+              "OracleIndex": null,
+              "OracleSigAlgorithm": "1",
+              "OracleSigBlockHeight": null,
+              "Quantity": "100"
+            }
+          ],
+          "AssetSenders": [
+            {
+              "Index": "0",
+              "Quantity": "100"
+            }
+          ],
+          "AssetType": "SHC",
+          "ContractIndex": null
+        }
+      ],
+      "ExchangeFee": "0.01",
+      "ExchangeFeeAddress": null,
+      "OfferExpiry": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  },
+  {
+    "code": "T2",
+    "label": "Settlement",
+    "name": "Settlement",
+    "fields": {
+      "Assets": [
+        {
+          "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+          "AssetType": "SHC",
+          "ContractIndex": null,
+          "Settlements": [
+            {
+              "Index": "0",
+              "Quantity": "100"
+            }
+          ]
+        }
+      ],
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  },
+  {
+    "code": "G1",
+    "label": "Proposal",
+    "name": "Proposal",
+    "fields": {
+      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetSpecificVote": null,
+      "AssetType": "SHC",
+      "Initiator": null,
+      "ProposalDescription": "Change the name of the Contract.",
+      "ProposalDocumentHash": "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec",
+      "ProposedAmendments": [
+        {
+          "Data": null,
+          "Element": "0",
+          "FieldIndex": "2",
+          "Operation": "0",
+          "SubfieldElement": "1",
+          "SubfieldIndex": "1"
+        }
+      ],
+      "Specific": null,
+      "VoteCutOffTimestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "VoteMax": "15",
+      "VoteOptions": "ABCDEFGHIJKLMNO",
+      "VoteSystem": "1"
+    }
+  },
+  {
+    "code": "G2",
+    "label": "Vote",
+    "name": "Vote",
+    "fields": {
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  },
+  {
+    "code": "G3",
+    "label": "Ballot Cast",
+    "name": "BallotCast",
+    "fields": {
+      "Vote": "A",
+      "VoteTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+    }
+  },
+  {
+    "code": "G4",
+    "label": "Ballot Counted",
+    "name": "BallotCounted",
+    "fields": {
+      "Quantity": null,
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "Vote": "A",
+      "VoteTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+    }
+  },
+  {
+    "code": "G5",
+    "label": "Result",
+    "name": "Result",
+    "fields": {
+      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetSpecificVote": null,
+      "AssetType": "SHC",
+      "OptionTally": [
+        null
+      ],
+      "ProposedAmendments": [
+        {
+          "Data": null,
+          "Element": "0",
+          "FieldIndex": "2",
+          "Operation": "0",
+          "SubfieldElement": "1",
+          "SubfieldIndex": "1"
+        }
+      ],
+      "Result": null,
+      "Specific": null,
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "VoteTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+    }
+  },
+  {
+    "code": "E1",
+    "label": "Order",
+    "name": "Order",
+    "fields": {
+      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetType": "SHC",
+      "AuthorityIncluded": null,
+      "AuthorityName": "Supreme and District Courts Brisbane",
+      "AuthorityPublicKey": null,
+      "BitcoinDispersions": [
+        {
+          "Index": "0",
+          "Quantity": "100"
+        }
+      ],
+      "ComplianceAction": "F",
+      "DepositAddress": null,
+      "FreezePeriod": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
+      "FreezeTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
+      "Message": "Compelled by a court order.",
+      "OrderSignature": null,
+      "RefTxs": null,
+      "SignatureAlgorithm": "1",
+      "SupportingEvidenceHash": null,
+      "TargetAddresses": [
+        {
+          "Address": null,
+          "Quantity": "10000"
+        }
+      ]
+    }
+  },
+  {
+    "code": "E2",
+    "label": "Freeze",
+    "name": "Freeze",
+    "fields": {
+      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetType": "SHC",
+      "FreezePeriod": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "Quantities": [
+        {
+          "Index": "0",
+          "Quantity": "100"
+        }
+      ],
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  },
+  {
+    "code": "E3",
+    "label": "Thaw",
+    "name": "Thaw",
+    "fields": {
+      "FreezeTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  },
+  {
+    "code": "E4",
+    "label": "Confiscation",
+    "name": "Confiscation",
+    "fields": {
+      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetType": "SHC",
+      "DepositQty": "10000",
+      "Quantities": [
+        {
+          "Index": "0",
+          "Quantity": "100"
+        }
+      ],
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  },
+  {
+    "code": "E5",
+    "label": "Reconciliation",
+    "name": "Reconciliation",
+    "fields": {
+      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetType": "SHC",
+      "Quantities": [
+        {
+          "Index": "0",
+          "Quantity": "100"
+        }
+      ],
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  },
+  {
+    "code": "R1",
+    "label": "Establishment",
+    "name": "Establishment",
+    "fields": {
+      "Message": "North America Whitelist"
+    }
+  },
+  {
+    "code": "R2",
+    "label": "Addition",
+    "name": "Addition",
+    "fields": {
+      "Message": "username"
+    }
+  },
+  {
+    "code": "R3",
+    "label": "Alteration",
+    "name": "Alteration",
+    "fields": {
+      "EntryTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
+      "Message": "Changed Country of Residence"
+    }
+  },
+  {
+    "code": "R4",
+    "label": "Removal",
+    "name": "Removal",
+    "fields": {
+      "EntryTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
+      "Message": "Removed due to violation of company policy."
+    }
+  },
+  {
+    "code": "M1",
+    "label": "Message",
+    "name": "Message",
+    "fields": {
+      "AddressIndexes": [
+        null
+      ],
+      "MessageCode": null,
+      "MessagePayload": "Hello world!"
+    }
+  },
+  {
+    "code": "M2",
+    "label": "Rejection",
+    "name": "Rejection",
+    "fields": {
+      "AddressIndexes": [
+        null
+      ],
+      "Message": "Sorry, you don't have enough tokens.",
+      "RejectAddressIndex": null,
+      "RejectionCode": "1",
+      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+    }
+  }
+]

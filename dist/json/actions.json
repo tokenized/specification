@@ -13,6 +13,7 @@
       "type": "fixedchar"
     },
     {
+      "example": "GBR",
       "name": "Polity",
       "resource": "Polities",
       "size": 3,
@@ -45,11 +46,13 @@
       "type": "fixedchar"
     },
     {
+      "example": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
       "name": "AssetCode",
       "size": 32,
       "type": "bin"
     },
     {
+      "example": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
       "name": "Timestamp",
       "size": 8,
       "type": "uint"
@@ -59,6 +62,7 @@
       "type": "varbin"
     },
     {
+      "example": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
       "name": "TxId",
       "size": 32,
       "type": "bin"
@@ -629,7 +633,6 @@
         },
         {
           "description": "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.",
-          "example": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
           "label": "Contract Expiration",
           "name": "ContractExpiration",
           "notes": "Contract Expiration - Amendments can be restricted to a vote.",
@@ -1182,6 +1185,7 @@
       "fields": [
         {
           "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
+          "example": "0101000",
           "label": "Asset Authorization Flags",
           "name": "AssetAuthFlags",
           "type": "varbin",
@@ -1196,7 +1200,6 @@
         },
         {
           "description": "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
-          "example": "GBR",
           "label": "Trade Restrictions",
           "listSize": "small",
           "name": "TradeRestrictions",
@@ -1211,6 +1214,7 @@
         },
         {
           "description": "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.",
+          "example": true,
           "label": "Voting Rights",
           "name": "VotingRights",
           "type": "bool"
@@ -1306,6 +1310,7 @@
         },
         {
           "description": "The index of the asset within the contract. First asset is zero, second is one. Used to derive the asset code.",
+          "example": 0,
           "label": "Asset Index",
           "name": "AssetIndex",
           "size": 8,
@@ -1313,6 +1318,7 @@
         },
         {
           "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
+          "example": "0101000",
           "label": "Asset Authorization Flags",
           "name": "AssetAuthFlags",
           "type": "varbin",
@@ -1327,7 +1333,6 @@
         },
         {
           "description": "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
-          "example": "GBR",
           "label": "Trade Restrictions",
           "listSize": "small",
           "name": "TradeRestrictions",
@@ -1342,6 +1347,7 @@
         },
         {
           "description": "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.",
+          "example": true,
           "label": "Voting Rights",
           "name": "VotingRights",
           "type": "bool"
@@ -1404,6 +1410,7 @@
         },
         {
           "description": "A counter for the number of times this asset has been revised using a modification action.",
+          "example": "456789",
           "label": "Asset Revision",
           "name": "AssetRevision",
           "size": 4,
@@ -1459,7 +1466,7 @@
         },
         {
           "description": "The current revision figure to ensure the modification provided is based on the latest version.",
-          "example": "0",
+          "example": 0,
           "label": "Asset Revision",
           "name": "AssetRevision",
           "notes": "Cannot be Amended",

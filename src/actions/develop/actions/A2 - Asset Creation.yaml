@@ -33,12 +33,14 @@ fields:
     description: The index of the asset within the contract. First asset is zero, second is one. Used to derive the asset code.
     type: uint
     size: 8
+    example: 0
 
   - name: AssetAuthFlags
     label: Asset Authorization Flags
     description: "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail."
     type: varbin
     varSize: small
+    example: "0101000"
 
   - name: TransfersPermitted
     label: Transfers Permitted
@@ -51,7 +53,6 @@ fields:
     description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
     type: Polity[]
     listSize: small
-    example: "GBR"
 
   - name: EnforcementOrdersPermitted
     label: Enforcement Orders Permitted
@@ -63,6 +64,7 @@ fields:
     label: Voting Rights
     description: "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted."
     type: bool
+    example: true
 
   - name: VoteMultiplier
     label: Vote Multiplier
@@ -117,6 +119,7 @@ fields:
     description: "A counter for the number of times this asset has been revised using a modification action."
     type: uint
     size: 4
+    example: "456789"
 
   - name: Timestamp
     label: Timestamp

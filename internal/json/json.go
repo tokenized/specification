@@ -25,6 +25,9 @@ func Compile(
 	schemaToFile(distPath, "assets/develop/schema.yaml", "assets.json")
 
 	schemaToFile(distPath, "messages/develop/schema.yaml", "messages.json")
+
+	actionsToExample(distPath, actions, "action_examples.json")
+
 }
 
 // schemaToFile converts a codec schema file to its raw JSON form and writes
