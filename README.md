@@ -12,6 +12,20 @@ Reference for the Tokenized Protocol structure. Definitions are stored in YAML w
 
 ## Getting Started
 
+### Supporting Software
+
+If you plan to change message structures, you will need to install protobuf to rebuild the message handling code.
+
+Get the base protobuf software [here](https://github.com/protocolbuffers/protobuf/releases/tag/v3.2.0). We are currently using 3.2.0.
+
+Then run this command to install the golang package so it will be able to build the golang versions of the message handling code.
+
+`go get -u github.com/golang/protobuf/protoc-gen-go`
+
+You may also need to add your golang bin directory to your path so protobuf can see protoc-gen-go.
+
+### Building
+
 To build the project from source, clone the GitHub repo and in a command line terminal.
 
     mkdir -p $GOPATH/src/github.com/tokenized
