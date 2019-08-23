@@ -176,7 +176,7 @@ Allows the administration to tell the smart contract what they want the details 
             </td>
             <td>
                 All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an &#39;Expired&#39; folder.
-                Contract Expiration - Amendments can be restricted to a vote. Example: Wed May 09 2018 00:00:00 GMT&#43;1000 (AEST)
+                Contract Expiration - Amendments can be restricted to a vote.
             </td>
         </tr>
         <tr>
@@ -1047,7 +1047,7 @@ This action is used by the administration to define the properties/characteristi
             </td>
             <td>
                 A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.
-                
+                 Example: 0101000
             </td>
         </tr>
         <tr>
@@ -1067,7 +1067,7 @@ This action is used by the administration to define the properties/characteristi
             </td>
             <td>
                 If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
-                 Example: GBR
+                
             </td>
         </tr>
         <tr>
@@ -1087,7 +1087,7 @@ This action is used by the administration to define the properties/characteristi
             </td>
             <td>
                 When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.
-                
+                 Example: true
             </td>
         </tr>
         <tr>
@@ -1234,7 +1234,7 @@ This action creates an asset in response to the administration&#39;s instruction
             </td>
             <td>
                 The index of the asset within the contract. First asset is zero, second is one. Used to derive the asset code.
-                
+                 Example: 0
             </td>
         </tr>
         <tr>
@@ -1244,7 +1244,7 @@ This action creates an asset in response to the administration&#39;s instruction
             </td>
             <td>
                 A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.
-                
+                 Example: 0101000
             </td>
         </tr>
         <tr>
@@ -1264,7 +1264,7 @@ This action creates an asset in response to the administration&#39;s instruction
             </td>
             <td>
                 If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
-                 Example: GBR
+                
             </td>
         </tr>
         <tr>
@@ -1284,7 +1284,7 @@ This action creates an asset in response to the administration&#39;s instruction
             </td>
             <td>
                 When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.
-                
+                 Example: true
             </td>
         </tr>
         <tr>
@@ -1364,7 +1364,7 @@ This action creates an asset in response to the administration&#39;s instruction
             </td>
             <td>
                 A counter for the number of times this asset has been revised using a modification action.
-                
+                 Example: 456789
             </td>
         </tr>
         <tr>

@@ -128,7 +128,7 @@ Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of
         <th>Description</th>
     </tr>
         <tr>
-            <td>ISOCode</td>
+            <td>CurrencyCode</td>
             <td>
                 <a href="#alias-fixedchar">CurrencyType</a>
             </td>

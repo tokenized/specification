@@ -8,6 +8,13 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 
+type ActionExample struct {
+	Code   string                 `json:"code"`
+	Label  string                 `json:"label"`
+	Name   string                 `json:"name"`
+	Fields map[string]interface{} `json:"fields"`
+}
+
 func actionsToExample(distPath string, schema parser.Schema, jsonFile string) {
 	outPath := distPath + "/json/" + jsonFile
 
@@ -55,24 +62,34 @@ func actionsToExample(distPath string, schema parser.Schema, jsonFile string) {
 }
 
 func fetchFieldExample(field parser.Field) interface{} {
+	// Compound type example
 	if field.IsCompoundType {
 		fields := make(map[string]interface{})
 		for _, cField := range field.CompoundField.Fields {
 			fields[cField.Name] = fetchFieldExample(cField)
 		}
+
+		if field.IsList() {
+			fieldResult := []map[string]interface{}{fields}
+			return fieldResult
+		}
+
 		return fields
 	}
 
-	if field.IsAlias {
-		return fetchFieldExample(*field.AliasField)
+	// Primitive or aliased examples
+	var result interface{}
+
+	if len(field.Example) > 0 {
+		result = field.Example
+	} else if field.IsAlias {
+		result = fetchFieldExample(*field.AliasField)
 	}
 
-	return field.Example
-}
+	if field.IsList() {
+		fieldResult := []interface{}{result}
+		return fieldResult
+	}
 
-type ActionExample struct {
-	Code   string                 `json:"code"`
-	Label  string                 `json:"label"`
-	Name   string                 `json:"name"`
-	Fields map[string]interface{} `json:"fields"`
+	return result
 }
