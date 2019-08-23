@@ -29,6 +29,8 @@ func Compile(
 		distPath+"/golang/"+"assets/validate.go")
 	parser.TemplateToFile(assets, "internal/golang/templates/equal.tpl",
 		distPath+"/golang/"+"assets/equal.go")
+	parser.TemplateToFile(assets, "internal/golang/templates/resources.tpl",
+		distPath+"/golang/"+"assets/resources.go")
 	parser.TemplateToFile(assets, "internal/golang/templates/assets_test.tpl",
 		distPath+"/golang/"+"assets/assets_test.go")
 
