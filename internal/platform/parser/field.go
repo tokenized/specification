@@ -189,24 +189,3 @@ func (f *Field) ProtobufType() string {
 
 	return pbt
 }
-
-/*
-// HasVariableSize returns true if the field is variable in length.
-func (f *Field) HasVariableSize() bool {
-	return f.IsList() || f.Type == "varbin" || f.Type == "varchar"
-}
-
-// MaxVariableSize returns the maximum length, in bytes, of a variable length field.
-func (f *Field) MaxVariableSize() uint64 {
-	return (1 << (uint64(f.Size) * 8)) - 1
-}
-
-// VariableSizeType returns a field that represents the type used to encode the size of a
-//   variable length field.
-func (f *Field) VariableSizeType() *Field {
-	return &Field{
-		Type: "uint",
-		Size: f.Size,
-	}
-}
-*/
