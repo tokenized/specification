@@ -21,7 +21,8 @@ messages:
   - "utility/TIC - Admission Ticket"
 
 # Register Resources
-resources: []
+resources:
+  - "../../resources/develop/Currencies"
 
 # Register Field Types
 fieldTypes:
