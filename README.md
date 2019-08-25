@@ -58,6 +58,7 @@ To create an OP_RETURN script, first populate a action/message struct, then pass
 To read an OP_RETURN script, pass the script into the Deserialize function and if it is valid, then it will return an action/message object.
 
 #### OP_RETURN script format
+
 The OP_RETURN script is encoded using the Tokenized [envelope](https://github.com/tokenized/envelope) system. The Tokenized protocol uses the protocol identifiers `tokenized` and `test.tokenized`. The envelope `PayloadIdentifier` specifies which type of Tokenized message is contained. The envelope `Payload` is encoded using [Protocol Buffers](https://developers.google.com/protocol-buffers/).
 
 ### Primitive Types
@@ -73,7 +74,7 @@ The OP_RETURN script is encoded using the Tokenized [envelope](https://github.co
 * `bin` is fixed length binary data. `size` is the length in bytes of the data.
 
 * `varbin` is variable length binary data.
-`varSize` defines the maximum size of the data as defined in `Variable Sizes`.
+`varSize` defines the maximum size of the data as defined in [Variable/List Sizes](#variable-list-sizes).
 
 * `fixedchar` is fixed length text data.
 The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
@@ -81,14 +82,15 @@ The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BO
 
 * `varchar` is variable length text data.
 The data is assumed to be UTF-8 unless the first two bytes are a valid UTF-16 BOM (Byte Order Method).
-`varSize` defines the maximum size of the data as defined in `Variable Sizes`.
+`varSize` defines the maximum size of the data as defined in [Variable/List Sizes](#variable-list-sizes).
 
 ## List Types
 
 Fields within the Tokenized protocol can be defined as a list of a specified data type.
 This is done by adding a `[]` to the end of the `type` value.
-The maximum number of elements in a list are defined by `listSize` as defined in Variable/List Sizes.
+The maximum number of elements in a list are defined by `listSize` as defined in [Variable/List Sizes](#variable-list-sizes).
 
+<a name="variable-list-sizes"></a>
 ### Variable/List Sizes
 
 Fields within the Tokenized protocol can be lists of objects or variable length objects.
@@ -107,17 +109,11 @@ If no value is specified for `listSize` or `varSize` then `tiny` is used.
 
 ### Basic Types
 
-* `Action` implements a base interface for all message types. Provides the ability to serialize the data as a Bitcoin OP_RETURN script.
+* `Action` implements a base interface for all action message types. Provides the ability to serialize the data as a Bitcoin OP_RETURN script.
 
-* `Asset` is the interface for asset payloads. Provides the ability to serialize asset data.
+* `Asset` is the interface for asset payloads contained in Asset Definition (A1) and Asset Creation (A2) actions. Provides the ability to serialize asset data.
 
-* `Message` is the interface for message payloads. Provides the ability to serialize message data.
-
-* `OpReturnMessage` implements a base interface for all message types.
-Provides the ability to serialize the data as a Bitcoin OP_RETURN script and to request the variable payload data.
-
-* `PayloadMessage` is the interface for messages that are derived from payloads, such as asset types and message types.
-Provides the ability to serialize the data.
+* `Message` is the interface for message payloads contained in Message (M1) actions. Provides the ability to serialize message data.
 
 * `TxId` represents a Bitcoin transaction ID.
 It is the double SHA256 hash of the serialized transaction.
@@ -139,13 +135,6 @@ Public key hashes are used as an "address" to send/receive transactions, tokens,
 
 * `Polity` represents a unique identifier for a nation/state/political entity.
 `size` does not need to be specified and is always 3 bytes.
-
-### Arrays/Lists
-
-Arrays/Lists of objects are defined by adding `[]` at the end of the type field.
-Arrays/Lists are variable length and have an unsigned integer encoded before the objects to specify the number of items.
-`size` for lists represents the bits used to serialize the number of items in the list. Valid values are 1, 2, 4, and 8.
-The default, when size is not specified, is 1. A size of 1 means the list can contain a maximum 255 objects.
 
 ### Actions
 
