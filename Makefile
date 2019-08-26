@@ -40,7 +40,7 @@ lint-go:
 
 # run the tests with coverage
 test-go:
-	go test -coverprofile=tmp/coverage.out $(GO_DIST_DIR)/*.go
+	cd $(GO_DIST_DIR) && go test ./...
 
 tools:
 	go get golang.org/x/lint/golint
