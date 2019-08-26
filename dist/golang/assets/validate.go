@@ -201,6 +201,26 @@ func (a *TicketAdmission) Validate() error {
 	return nil
 }
 
+func (a *CasinoChip) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field CurrencyCode - fixedchar
+	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
+		return fmt.Errorf("Fixed width field CurrencyCode wrong size : %d should be %d",
+			len(a.CurrencyCode), 3)
+	}
+
+	// Field AgeRestriction - AgeRestriction
+
+	// Field ValidFrom - uint
+
+	// Field ExpirationTimestamp - uint
+
+	return nil
+}
+
 func (a *AgeRestrictionField) Validate() error {
 	if a == nil {
 		return nil

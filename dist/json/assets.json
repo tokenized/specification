@@ -441,6 +441,45 @@
         "kind": "Utility"
       },
       "name": "TicketAdmission"
+    },
+    {
+      "code": "CHP",
+      "description": "Casino Chip",
+      "fields": [
+        {
+          "description": "International Organization for Standardization code for Currency. (Specification/Resources)",
+          "example": "AUD",
+          "label": "Currency Code",
+          "name": "CurrencyCode",
+          "span": "full",
+          "type": "CurrencyType"
+        },
+        {
+          "description": "Age restriction is used to specify required ages for asset ownership.",
+          "label": "Age Restriction",
+          "name": "AgeRestriction",
+          "type": "AgeRestriction"
+        },
+        {
+          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
+          "label": "Valid From",
+          "name": "ValidFrom",
+          "span": "right",
+          "type": "Timestamp"
+        },
+        {
+          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
+          "label": "Expiration Timestamp",
+          "name": "ExpirationTimestamp",
+          "span": "right",
+          "type": "Timestamp"
+        }
+      ],
+      "label": "Casino Chip",
+      "metadata": {
+        "kind": "Utility"
+      },
+      "name": "CasinoChip"
     }
   ],
   "name": "Tokenized Asset Types",

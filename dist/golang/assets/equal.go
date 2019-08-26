@@ -245,6 +245,35 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *CasinoChip) Equal(right proto.Message) bool {
+	if l == nil {
+		return right == nil
+	}
+	r, ok := right.(*CasinoChip)
+	if !ok {
+		return false
+	}
+
+	// Field CurrencyCode - fixedchar
+	if l.CurrencyCode != r.CurrencyCode {
+		return false // fmt.Errorf("CurrencyCode string mismatched")
+	}
+
+	// Field AgeRestriction - AgeRestriction
+
+	// Field ValidFrom - uint
+	if l.ValidFrom != r.ValidFrom {
+		return false // fmt.Errorf("ValidFrom integer mismatched")
+	}
+
+	// Field ExpirationTimestamp - uint
+	if l.ExpirationTimestamp != r.ExpirationTimestamp {
+		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
+	}
+
+	return true
+}
+
 func (l *AgeRestrictionField) Equal(right proto.Message) bool {
 	if l == nil {
 		return right == nil

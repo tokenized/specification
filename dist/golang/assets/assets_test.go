@@ -66,4 +66,14 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for TicketAdmission")
 	}
 
+	// CasinoChip identifies a payload as a CasinoChip message.
+	assetCasinoChip, err := Deserialize([]byte(CodeCasinoChip), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for CasinoChip : %s", err)
+	}
+	_, ok = assetCasinoChip.(*CasinoChip)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for CasinoChip")
+	}
+
 }

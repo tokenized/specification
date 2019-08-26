@@ -38,6 +38,9 @@ const (
 
 	// CodeTicketAdmission identifies a payload as a TicketAdmission asset message.
 	CodeTicketAdmission = "TIC"
+
+	// CodeCasinoChip identifies a payload as a CasinoChip asset message.
+	CodeCasinoChip = "CHP"
 )
 
 // NewAssetFromCode returns a new object of the correct type for the code.
@@ -55,6 +58,8 @@ func NewAssetFromCode(code string) Asset {
 		return &LoyaltyPoints{}
 	case CodeTicketAdmission:
 		return &TicketAdmission{}
+	case CodeCasinoChip:
+		return &CasinoChip{}
 	default:
 		return nil
 	}
@@ -184,6 +189,25 @@ func (a *TicketAdmission) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize TicketAdmission")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *CasinoChip) Code() string {
+	return CodeCasinoChip
+}
+
+func (a *CasinoChip) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *CasinoChip) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize CasinoChip")
 	}
 
 	_, err = buf.Write(data)

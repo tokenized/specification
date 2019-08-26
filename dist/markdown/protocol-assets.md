@@ -19,6 +19,7 @@ Asset Types are used with reference to the `AssetPayload` field found in the Ass
 - [Coupon](#coupon)
 - [Loyalty Points](#loyalty-points)
 - [Ticket (Admission)](#ticket-admission)
+- [Casino Chip](#casino-chip)
 </div>
 
 <a name="membership"></a>
@@ -465,6 +466,61 @@ Admission ticket
             <td>
                 
                  Example: Coingeek Conference - London (November 2018).
+            </td>
+        </tr>
+</table>
+
+
+
+<a name="casino-chip"></a>
+#### Casino Chip
+
+Casino Chip
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+        <tr>
+            <td>CurrencyCode</td>
+            <td>
+                <a href="#alias-fixedchar">CurrencyType</a>
+            </td>
+            <td>
+                International Organization for Standardization code for Currency. (Specification/Resources)
+                 Example: AUD
+            </td>
+        </tr>
+        <tr>
+            <td>AgeRestriction</td>
+            <td>
+                <a href="#type-age-restriction">AgeRestriction</a>
+            </td>
+            <td>
+                Age restriction is used to specify required ages for asset ownership.
+                
+            </td>
+        </tr>
+        <tr>
+            <td>ValidFrom</td>
+            <td>
+                <a href="#alias-uint">Timestamp</a>
+            </td>
+            <td>
+                
+                 Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
+            </td>
+        </tr>
+        <tr>
+            <td>ExpirationTimestamp</td>
+            <td>
+                <a href="#alias-uint">Timestamp</a>
+            </td>
+            <td>
+                
+                 Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
             </td>
         </tr>
 </table>
