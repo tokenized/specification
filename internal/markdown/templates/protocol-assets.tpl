@@ -1,11 +1,43 @@
 {{$assets := .Messages -}}
 {{$fieldTypes := .FieldTypes -}}
+{{$fieldAliases := .FieldAliases -}}
+
+{{- define "render_field"}}
+    <tr>
+        <td>{{.Name}}</td>
+        <td>
+        {{- if .IsList }}
+          {{- if .IsAlias }}
+            <a href="#alias-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+          {{- else if .IsCompoundType }}
+            <a href="#type-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+          {{- else}}
+            {{.BaseType}}[{{.Size}}]
+          {{- end}}
+        {{- else}}
+          {{- if .IsAlias }}
+            <a href="#alias-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+          {{- else if .IsCompoundType }}
+            <a href="#type-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+          {{- else}}
+            {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+          {{- end}}
+        {{- end}}
+        </td>
+        <td>
+            {{.Description}}
+            {{.Notes}}
+            {{- if .Example }} Example: {{.Example}}{{ end }}
+        </td>
+    </tr>
+{{end -}}
 
 # Protocol Assets
 
 - [Introduction](#introduction)
 - [Available Assets](#all-assets)
 - [Field Types](#field-types)
+- [Field Aliases](#field-aliases)
 
 <a name="introduction"></a>
 ## Introduction
@@ -36,39 +68,11 @@ Asset Types are used with reference to the `AssetPayload` field found in the Ass
         <th>Description</th>
     </tr>
     {{- range .Fields}}
-        <tr>
-            <td>{{.Name}}</td>
-            <td>
-            {{- if .IsList }}
-              {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
-              {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
-              {{- else}}
-                {{.BaseType}}[{{.Size}}]
-              {{- end}}
-            {{- else}}
-              {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
-              {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
-              {{- else}}
-                {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
-              {{- end}}
-            {{- end}}
-            </td>
-            <td>
-                {{.Description}}
-                {{.Notes}}
-                {{- if .Example }} Example: {{.Example}}{{ end }}
-            </td>
-        </tr>
+        {{- template "render_field" . -}}
     {{- end}}
 </table>
 
 {{ end }}
-
-
 
 <a name="field-types"></a>
 ## Field Types
@@ -93,24 +97,40 @@ Asset Types are used with reference to the `AssetPayload` field found in the Ass
         <th>Description</th>
     </tr>
     {{- range .Fields}}
-        <tr>
+        {{- template "render_field" . -}}
+    {{- end}}
+</table>
+
+{{end}}
+
+<a name="field-alises"></a>
+## Field Aliases
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    {{- range $fieldAliases}}
+        <tr id="alias-{{kebabcase .Name}}">
             <td>{{.Name}}</td>
             <td>
             {{- if .IsList }}
               {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+                <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
+                <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else}}
-                {{.BaseType}}[{{.Size}}]
+                {{.MarkdownType}}
               {{- end}}
             {{- else}}
               {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+                <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
+                <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else}}
-                {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+                {{.MarkdownType}}
               {{- end}}
             {{- end}}
             </td>
@@ -122,5 +142,3 @@ Asset Types are used with reference to the `AssetPayload` field found in the Ass
         </tr>
     {{- end}}
 </table>
-
-{{end}}

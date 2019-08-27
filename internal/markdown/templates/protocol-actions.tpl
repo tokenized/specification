@@ -1,5 +1,36 @@
 {{$actions := .Messages -}}
 {{$fieldTypes := .FieldTypes -}}
+{{$fieldAliases := .FieldAliases -}}
+
+{{- define "render_field"}}
+    <tr>
+        <td>{{.Name}}</td>
+        <td>
+        {{- if .IsList }}
+          {{- if .IsAlias }}
+            <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
+          {{- else if .IsCompoundType }}
+            <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
+          {{- else}}
+            {{.MarkdownType}}
+          {{- end}}
+        {{- else}}
+          {{- if .IsAlias }}
+            <a href="#alias-{{kebabcase .BaseTypeRaw}}">{{.MarkdownType}}</a>
+          {{- else if .IsCompoundType }}
+            <a href="#type-{{kebabcase .BaseTypeRaw}}">{{.MarkdownType}}</a>
+          {{- else}}
+            {{.MarkdownType}}
+          {{- end}}
+        {{- end}}
+        </td>
+        <td>
+            {{.Description}}
+            {{.Notes}}
+            {{- if .Example }} Example: {{.Example}}{{ end }}
+        </td>
+    </tr>
+{{end -}}
 
 # Protocol Actions
 
@@ -7,6 +38,7 @@
 - [Header Fields](#header-fields)
 - [Available Actions](#all-actions)
 - [Field Types](#field-types)
+- [Field Aliases](#field-aliases)
 
 <a name="introduction"></a>
 ## Introduction
@@ -77,33 +109,7 @@ Every protocol action is prepended with a header that specifies the necessary de
         <th>Description</th>
     </tr>
     {{- range .Fields}}
-        <tr>
-            <td>{{.Name}}</td>
-            <td>
-            {{- if .IsList }}
-              {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
-              {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
-              {{- else}}
-                {{.MarkdownType}}
-              {{- end}}
-            {{- else}}
-              {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
-              {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
-              {{- else}}
-                {{.MarkdownType}}
-              {{- end}}
-            {{- end}}
-            </td>
-            <td>
-                {{.Description}}
-                {{.Notes}}
-                {{- if .Example }} Example: {{.Example}}{{ end }}
-            </td>
-        </tr>
+        {{- template "render_field" . -}}
     {{- end}}
 </table>
 
@@ -147,8 +153,6 @@ Every protocol action is prepended with a header that specifies the necessary de
 
 {{end}}
 
-
-
 <a name="field-types"></a>
 ## Field Types
 
@@ -172,7 +176,23 @@ Every protocol action is prepended with a header that specifies the necessary de
         <th>Description</th>
     </tr>
     {{- range .Fields}}
-        <tr>
+        {{- template "render_field" . -}}
+    {{- end}}
+</table>
+
+{{end}}
+
+<a name="field-alises"></a>
+## Field Aliases
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    {{- range $fieldAliases}}
+        <tr id="alias-{{kebabcase .Name}}">
             <td>{{.Name}}</td>
             <td>
             {{- if .IsList }}
@@ -202,4 +222,3 @@ Every protocol action is prepended with a header that specifies the necessary de
     {{- end}}
 </table>
 
-{{end}}

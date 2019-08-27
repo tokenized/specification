@@ -62,6 +62,11 @@ func (f *Field) BaseType() string {
 	return strings.Replace(f.Type, "[]", "", 1)
 }
 
+// BaseTypeRaw returns the raw base type
+func (f *Field) BaseTypeRaw() string {
+	return strings.Replace(f.Type, "[]", "", 1)
+}
+
 // BaseSize returns the size of the field's base type, the alias type if there is one.
 func (f *Field) BaseSize() int {
 	if f.Size != 0 {
@@ -192,7 +197,7 @@ func (f *Field) ProtobufType() string {
 }
 
 func (f *Field) MarkdownType() string {
-	baseType := f.BaseType()
+	baseType := f.BaseTypeRaw()
 
 	switch baseType {
 	case "fixedchar", "bin", "uint":
