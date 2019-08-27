@@ -1,18 +1,3 @@
-
-
-{{ define "FieldType" -}}
-{{- if eq .BaseType "fixedchar" "bin" -}}
-{{ .BaseType }}({{ .BaseSize }})
-{{- else if eq .BaseType "varbin" "varchar" -}}
-{{ .BaseType }}({{ .BaseVarSize }})
-{{- else if eq .BaseType "uint" -}}
-{{ .BaseType }}({{ .BaseSize }})
-{{- else -}}
-{{ .BaseType }}
-{{- end -}}
-{{- if .IsList -}}[{{ .BaseListSize }}]{{ end -}}
-{{- end }}
-
 {{$actions := .Messages -}}
 {{$fieldTypes := .FieldTypes -}}
 
@@ -97,19 +82,19 @@ Every protocol action is prepended with a header that specifies the necessary de
             <td>
             {{- if .IsList }}
               {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{ template "FieldType" . }}</a>
+                <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{ template "FieldType" . }}</a>
+                <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else}}
-                {{ template "FieldType" . }}
+                {{.MarkdownType}}
               {{- end}}
             {{- else}}
               {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{ template "FieldType" . }}</a>
+                <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{ template "FieldType" . }}</a>
+                <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else}}
-                {{ template "FieldType" . }}
+                {{.MarkdownType}}
               {{- end}}
             {{- end}}
             </td>
@@ -192,19 +177,19 @@ Every protocol action is prepended with a header that specifies the necessary de
             <td>
             {{- if .IsList }}
               {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{ template "FieldType" . }}</a>
+                <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{ template "FieldType" . }}</a>
+                <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else}}
-                {{ template "FieldType" . }}
+                {{.MarkdownType}}
               {{- end}}
             {{- else}}
               {{- if .IsAlias }}
-                <a href="#alias-{{kebabcase .BaseType}}">{{ template "FieldType" . }}</a>
+                <a href="#alias-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else if .IsCompoundType }}
-                <a href="#type-{{kebabcase .BaseType}}">{{ template "FieldType" . }}</a>
+                <a href="#type-{{kebabcase .BaseType}}">{{.MarkdownType}}</a>
               {{- else}}
-                {{ template "FieldType" . }}
+                {{.MarkdownType}}
               {{- end}}
             {{- end}}
             </td>

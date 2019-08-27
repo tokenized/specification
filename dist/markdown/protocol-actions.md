@@ -1,7 +1,3 @@
-
-
-
-
 # Protocol Actions
 
 - [Introduction](#introduction)

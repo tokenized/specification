@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -188,4 +189,21 @@ func (f *Field) ProtobufType() string {
 	}
 
 	return pbt
+}
+
+func (f *Field) MarkdownType() string {
+	baseType := f.BaseType()
+
+	switch baseType {
+	case "fixedchar", "bin", "uint":
+		baseType += "(" + fmt.Sprintf("%v", f.BaseSize()) + ")"
+	case "varbin", "varchar":
+		baseType += "(" + f.BaseVarSize() + ")"
+	}
+
+	if f.IsList() {
+		baseType += "[" + f.BaseListSize() + "]"
+	}
+
+	return baseType
 }
