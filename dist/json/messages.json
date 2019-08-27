@@ -1,21 +1,27 @@
 {
   "fieldAliases": [
     {
+      "description": "Predefined tags for output metadata.",
       "name": "Tag",
       "resource": "Tags",
       "size": 8,
       "type": "uint"
     },
     {
+      "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.",
+      "example": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
       "name": "Timestamp",
       "size": 8,
       "type": "uint"
     },
     {
+      "description": "A representation of a bitcoin address in raw format, with no check sum or encoding.",
       "name": "Address",
       "type": "varbin"
     },
     {
+      "description": "Represents a Bitcoin transaction ID, the double SHA256 hash of the serialized transaction.",
+      "example": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
       "name": "TxId",
       "size": 32,
       "type": "bin"

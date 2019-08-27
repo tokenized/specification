@@ -34,8 +34,11 @@ fieldAliases:
   - name: CurrencyType
     type: fixedchar
     size: 3
+    description: "International Organization for Standardization code for Currency. 3 character code."
+    example: "AUD"
 
   - name: Timestamp
     type: uint
     size: 8
     description: "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch."
+    example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
