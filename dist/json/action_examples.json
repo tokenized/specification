@@ -77,7 +77,7 @@
       },
       "IssuerLogoURL": "https://example.com/images/logo.png",
       "Jurisdiction": "US-CA",
-      "MasterPKH": null,
+      "MasterAddress": null,
       "Oracles": [
         {
           "Name": "Tokenized",
@@ -183,7 +183,7 @@
       },
       "IssuerLogoURL": "https://example.tld/images/logo.png",
       "Jurisdiction": "US-CA",
-      "MasterPKH": null,
+      "MasterAddress": null,
       "Oracles": [
         {
           "Name": "Tokenized",

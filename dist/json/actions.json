@@ -60,10 +60,6 @@
       "type": "uint"
     },
     {
-      "name": "PublicKeyHash",
-      "type": "varbin"
-    },
-    {
       "description": "Represents a Bitcoin transaction ID, the double SHA256 hash of the serialized transaction.",
       "example": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
       "name": "TxId",
@@ -167,7 +163,7 @@
           "description": "The address receiving the tokens",
           "label": "Address",
           "name": "Address",
-          "type": "PublicKeyHash"
+          "type": "Address"
         },
         {
           "description": "Number of tokens to be received by address at Output X",
@@ -504,7 +500,7 @@
           "description": "Public address where the token balance will be changed.",
           "label": "Address",
           "name": "Address",
-          "type": "PublicKeyHash"
+          "type": "Address"
         },
         {
           "description": "Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.",
@@ -744,10 +740,10 @@
           "type": "Oracle[]"
         },
         {
-          "description": "The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.",
-          "label": "Master Public Key Hash",
-          "name": "MasterPKH",
-          "type": "PublicKeyHash"
+          "description": "The address of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.",
+          "label": "Master Address",
+          "name": "MasterAddress",
+          "type": "Address"
         }
       ],
       "label": "Contract Offer",
@@ -943,10 +939,10 @@
           "type": "Oracle[]"
         },
         {
-          "description": "The public key hash of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.",
-          "label": "Master Public Key Hash",
-          "name": "MasterPKH",
-          "type": "PublicKeyHash"
+          "description": "The address of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.",
+          "label": "Master Address",
+          "name": "MasterAddress",
+          "type": "Address"
         },
         {
           "description": "A counter for the number of times this contract has been revised using an amendment action.",
@@ -1587,7 +1583,7 @@
           "description": "Identifies the public address that the exchange fee should be paid to.",
           "label": "Exchange Fee Address",
           "name": "ExchangeFeeAddress",
-          "type": "PublicKeyHash"
+          "type": "Address"
         }
       ],
       "label": "Transfer",
@@ -2044,7 +2040,7 @@
           "label": "Deposit Address",
           "name": "DepositAddress",
           "notes": "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes.",
-          "type": "PublicKeyHash"
+          "type": "Address"
         },
         {
           "description": "Specifies if an authority signature is included. For Reconcialitaion actions all authority signature related fields are skipped during serialization.",

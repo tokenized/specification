@@ -3,7 +3,7 @@ package messages
 import (
 	"bytes"
 
-	"github.com/golang/protobuf/proto"
+	proto "github.com/golang/protobuf/proto"
 )
 
 func (l *PublicMessage) Equal(right proto.Message) bool {

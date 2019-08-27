@@ -27,7 +27,7 @@ message ContractOffer {
     bool AdministrationProposal                    = 21;  // bool
     bool HolderProposal                            = 22;  // bool
     repeated OracleField Oracles                   = 23;  // Oracle[]
-    bytes MasterPKH                                = 24;  // PublicKeyHash
+    bytes MasterAddress                            = 24;  // Address
 }
 
 // Message - Contract Formation (C2)
@@ -54,7 +54,7 @@ message ContractFormation {
     bool AdministrationProposal                    = 20;  // bool
     bool HolderProposal                            = 21;  // bool
     repeated OracleField Oracles                   = 22;  // Oracle[]
-    bytes MasterPKH                                = 23;  // PublicKeyHash
+    bytes MasterAddress                            = 23;  // Address
     uint32 ContractRevision                        = 24;  // uint
     uint64 Timestamp                               = 25;  // Timestamp
 }
@@ -145,7 +145,7 @@ message Transfer {
     repeated AssetTransferField Assets             = 1;   // AssetTransfer[]
     uint64 OfferExpiry                             = 2;   // Timestamp
     uint64 ExchangeFee                             = 3;   // uint
-    bytes ExchangeFeeAddress                       = 4;   // PublicKeyHash
+    bytes ExchangeFeeAddress                       = 4;   // Address
 }
 
 // Message - Settlement (T2)
@@ -210,7 +210,7 @@ message Order {
     repeated TargetAddressField TargetAddresses    = 4;   // TargetAddress[]
     bytes FreezeTxId                               = 5;   // TxId
     uint64 FreezePeriod                            = 6;   // Timestamp
-    bytes DepositAddress                           = 7;   // PublicKeyHash
+    bytes DepositAddress                           = 7;   // Address
     bool AuthorityIncluded                         = 8;   // bool
     string AuthorityName                           = 9;   // varchar
     bytes AuthorityPublicKey                       = 10;   // varbin
@@ -311,7 +311,7 @@ message AmendmentField {
 
 // Field - AssetReceiver
 message AssetReceiverField {
-    bytes Address                                  = 1;   // PublicKeyHash
+    bytes Address                                  = 1;   // Address
     uint64 Quantity                                = 2;   // uint
     uint32 OracleSigAlgorithm                      = 3;   // uint
     uint32 OracleIndex                             = 4;   // uint
@@ -382,7 +382,7 @@ message QuantityIndexField {
 
 // Field - Target Address
 message TargetAddressField {
-    bytes Address                                  = 1;   // PublicKeyHash
+    bytes Address                                  = 1;   // Address
     uint64 Quantity                                = 2;   // uint
 }
 

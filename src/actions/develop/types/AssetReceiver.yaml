@@ -7,7 +7,7 @@ fields:
   - name: Address
     label: Address
     description: "The address receiving the tokens"
-    type: PublicKeyHash
+    type: Address
 
   - name: Quantity
     label: Quantity

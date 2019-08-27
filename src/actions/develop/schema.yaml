@@ -114,9 +114,6 @@ fieldAliases:
     description: "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch."
     example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
 
-  - name: PublicKeyHash
-    type: varbin
-
   - name: TxId
     type: bin
     size: 32

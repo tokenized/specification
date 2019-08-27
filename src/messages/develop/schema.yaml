@@ -38,12 +38,12 @@ fieldAliases:
     size: 8
     resource: Tags
 
-  - name: PublicKeyHash
-    type: varbin
-
   - name: Timestamp
     type: uint
     size: 8
+
+  - name: Address
+    type: varbin
 
   - name: TxId
     type: bin

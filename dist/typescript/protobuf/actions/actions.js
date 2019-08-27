@@ -128,7 +128,7 @@ proto.actions.ContractOffer.toObject = function(includeInstance, msg) {
     holderproposal: jspb.Message.getFieldWithDefault(msg, 22, false),
     oraclesList: jspb.Message.toObjectList(msg.getOraclesList(),
     proto.actions.OracleField.toObject, includeInstance),
-    masterpkh: msg.getMasterpkh_asB64()
+    masteraddress: msg.getMasteraddress_asB64()
   };
 
   if (includeInstance) {
@@ -265,7 +265,7 @@ proto.actions.ContractOffer.deserializeBinaryFromReader = function(msg, reader) 
       break;
     case 24:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setMasterpkh(value);
+      msg.setMasteraddress(value);
       break;
     default:
       reader.skipField();
@@ -462,7 +462,7 @@ proto.actions.ContractOffer.serializeBinaryToWriter = function(message, writer) 
       proto.actions.OracleField.serializeBinaryToWriter
     );
   }
-  f = message.getMasterpkh_asU8();
+  f = message.getMasteraddress_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       24,
@@ -995,40 +995,40 @@ proto.actions.ContractOffer.prototype.clearOraclesList = function() {
 
 
 /**
- * optional bytes MasterPKH = 24;
+ * optional bytes MasterAddress = 24;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractOffer.prototype.getMasterpkh = function() {
+proto.actions.ContractOffer.prototype.getMasteraddress = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 24, ""));
 };
 
 
 /**
- * optional bytes MasterPKH = 24;
- * This is a type-conversion wrapper around `getMasterpkh()`
+ * optional bytes MasterAddress = 24;
+ * This is a type-conversion wrapper around `getMasteraddress()`
  * @return {string}
  */
-proto.actions.ContractOffer.prototype.getMasterpkh_asB64 = function() {
+proto.actions.ContractOffer.prototype.getMasteraddress_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getMasterpkh()));
+      this.getMasteraddress()));
 };
 
 
 /**
- * optional bytes MasterPKH = 24;
+ * optional bytes MasterAddress = 24;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getMasterpkh()`
+ * This is a type-conversion wrapper around `getMasteraddress()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractOffer.prototype.getMasterpkh_asU8 = function() {
+proto.actions.ContractOffer.prototype.getMasteraddress_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getMasterpkh()));
+      this.getMasteraddress()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.ContractOffer.prototype.setMasterpkh = function(value) {
+proto.actions.ContractOffer.prototype.setMasteraddress = function(value) {
   jspb.Message.setField(this, 24, value);
 };
 
@@ -1111,7 +1111,7 @@ proto.actions.ContractFormation.toObject = function(includeInstance, msg) {
     holderproposal: jspb.Message.getFieldWithDefault(msg, 21, false),
     oraclesList: jspb.Message.toObjectList(msg.getOraclesList(),
     proto.actions.OracleField.toObject, includeInstance),
-    masterpkh: msg.getMasterpkh_asB64(),
+    masteraddress: msg.getMasteraddress_asB64(),
     contractrevision: jspb.Message.getFieldWithDefault(msg, 24, 0),
     timestamp: jspb.Message.getFieldWithDefault(msg, 25, 0)
   };
@@ -1246,7 +1246,7 @@ proto.actions.ContractFormation.deserializeBinaryFromReader = function(msg, read
       break;
     case 23:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setMasterpkh(value);
+      msg.setMasteraddress(value);
       break;
     case 24:
       var value = /** @type {number} */ (reader.readUint32());
@@ -1444,7 +1444,7 @@ proto.actions.ContractFormation.serializeBinaryToWriter = function(message, writ
       proto.actions.OracleField.serializeBinaryToWriter
     );
   }
-  f = message.getMasterpkh_asU8();
+  f = message.getMasteraddress_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       23,
@@ -1974,40 +1974,40 @@ proto.actions.ContractFormation.prototype.clearOraclesList = function() {
 
 
 /**
- * optional bytes MasterPKH = 23;
+ * optional bytes MasterAddress = 23;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractFormation.prototype.getMasterpkh = function() {
+proto.actions.ContractFormation.prototype.getMasteraddress = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 23, ""));
 };
 
 
 /**
- * optional bytes MasterPKH = 23;
- * This is a type-conversion wrapper around `getMasterpkh()`
+ * optional bytes MasterAddress = 23;
+ * This is a type-conversion wrapper around `getMasteraddress()`
  * @return {string}
  */
-proto.actions.ContractFormation.prototype.getMasterpkh_asB64 = function() {
+proto.actions.ContractFormation.prototype.getMasteraddress_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getMasterpkh()));
+      this.getMasteraddress()));
 };
 
 
 /**
- * optional bytes MasterPKH = 23;
+ * optional bytes MasterAddress = 23;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getMasterpkh()`
+ * This is a type-conversion wrapper around `getMasteraddress()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractFormation.prototype.getMasterpkh_asU8 = function() {
+proto.actions.ContractFormation.prototype.getMasteraddress_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getMasterpkh()));
+      this.getMasteraddress()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.ContractFormation.prototype.setMasterpkh = function(value) {
+proto.actions.ContractFormation.prototype.setMasteraddress = function(value) {
   jspb.Message.setField(this, 23, value);
 };
 

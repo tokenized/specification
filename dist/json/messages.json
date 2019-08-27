@@ -7,13 +7,13 @@
       "type": "uint"
     },
     {
-      "name": "PublicKeyHash",
-      "type": "varbin"
-    },
-    {
       "name": "Timestamp",
       "size": 8,
       "type": "uint"
+    },
+    {
+      "name": "Address",
+      "type": "varbin"
     },
     {
       "name": "TxId",
@@ -90,7 +90,7 @@
           "description": "Public address where the token balance will be changed.",
           "label": "Address",
           "name": "Address",
-          "type": "PublicKeyHash"
+          "type": "Address"
         },
         {
           "description": "Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.",

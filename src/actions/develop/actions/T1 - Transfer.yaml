@@ -42,4 +42,4 @@ fields:
   - name: ExchangeFeeAddress
     label: Exchange Fee Address
     description: "Identifies the public address that the exchange fee should be paid to."
-    type: PublicKeyHash
+    type: Address

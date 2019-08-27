@@ -3,7 +3,7 @@ package actions
 import (
 	"bytes"
 
-	"github.com/golang/protobuf/proto"
+	proto "github.com/golang/protobuf/proto"
 )
 
 func (l *ContractOffer) Equal(right proto.Message) bool {
@@ -136,9 +136,9 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field MasterPKH - varbin
-	if !bytes.Equal(l.MasterPKH, r.MasterPKH) {
-		return false // fmt.Errorf("MasterPKH bytes mismatched")
+	// Field MasterAddress - varbin
+	if !bytes.Equal(l.MasterAddress, r.MasterAddress) {
+		return false // fmt.Errorf("MasterAddress bytes mismatched")
 	}
 
 	return true
@@ -269,9 +269,9 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field MasterPKH - varbin
-	if !bytes.Equal(l.MasterPKH, r.MasterPKH) {
-		return false // fmt.Errorf("MasterPKH bytes mismatched")
+	// Field MasterAddress - varbin
+	if !bytes.Equal(l.MasterAddress, r.MasterAddress) {
+		return false // fmt.Errorf("MasterAddress bytes mismatched")
 	}
 
 	// Field ContractRevision - uint

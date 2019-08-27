@@ -70,7 +70,7 @@ fields:
   - name: DepositAddress
     label: Deposit Address
     description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions."
-    type: PublicKeyHash
+    type: Address
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
 
   - name: AuthorityIncluded

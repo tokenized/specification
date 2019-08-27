@@ -318,7 +318,7 @@ const (
 	ContractFieldAdministrationProposal    = 20
 	ContractFieldHolderProposal            = 21
 	ContractFieldOracles                   = 22
-	ContractFieldMasterPKH                 = 23
+	ContractFieldMasterAddress             = 23
 )
 
 // Asset Amendment Values

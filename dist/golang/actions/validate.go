@@ -124,9 +124,9 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 
-	// Field MasterPKH - varbin
-	if len(a.MasterPKH) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterPKH), max1ByteInteger)
+	// Field MasterAddress - varbin
+	if len(a.MasterAddress) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterAddress), max1ByteInteger)
 	}
 
 	return nil
@@ -244,9 +244,9 @@ func (a *ContractFormation) Validate() error {
 		}
 	}
 
-	// Field MasterPKH - varbin
-	if len(a.MasterPKH) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterPKH), max1ByteInteger)
+	// Field MasterAddress - varbin
+	if len(a.MasterAddress) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterAddress), max1ByteInteger)
 	}
 
 	// Field ContractRevision - uint

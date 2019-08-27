@@ -318,12 +318,12 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>MasterPKH</td>
+        <td>MasterAddress</td>
         <td>
-            <a href="#alias-public-key-hash">PublicKeyHash</a>
+            <a href="#alias-address">Address</a>
         </td>
         <td>
-            The public key hash of the contract&#39;s master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
+            The address of the contract&#39;s master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
             
         </td>
     </tr>
@@ -635,12 +635,12 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
     </tr>
 
     <tr>
-        <td>MasterPKH</td>
+        <td>MasterAddress</td>
         <td>
-            <a href="#alias-public-key-hash">PublicKeyHash</a>
+            <a href="#alias-address">Address</a>
         </td>
         <td>
-            The public key hash of the contract&#39;s master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
+            The address of the contract&#39;s master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
             
         </td>
     </tr>
@@ -1728,7 +1728,7 @@ A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a token(s) 
     <tr>
         <td>ExchangeFeeAddress</td>
         <td>
-            <a href="#alias-public-key-hash">PublicKeyHash</a>
+            <a href="#alias-address">Address</a>
         </td>
         <td>
             Identifies the public address that the exchange fee should be paid to.
@@ -2539,7 +2539,7 @@ Used by the administration to signal to the smart contract that the tokens that 
     <tr>
         <td>DepositAddress</td>
         <td>
-            <a href="#alias-public-key-hash">PublicKeyHash</a>
+            <a href="#alias-address">Address</a>
         </td>
         <td>
             The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions.
@@ -3747,7 +3747,7 @@ An AssetReceiver is a quantity, address, and oracle signature. The quantity coul
     <tr>
         <td>Address</td>
         <td>
-            <a href="#alias-public-key-hash">PublicKeyHash</a>
+            <a href="#alias-address">Address</a>
         </td>
         <td>
             The address receiving the tokens
@@ -4296,7 +4296,7 @@ A TargetAddress defines a public address and quantity.
     <tr>
         <td>Address</td>
         <td>
-            <a href="#alias-public-key-hash">PublicKeyHash</a>
+            <a href="#alias-address">Address</a>
         </td>
         <td>
             Public address where the token balance will be changed.
@@ -4507,16 +4507,6 @@ A VotingSystem defines all details of a Voting System.
             <td>
                 Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.
                  Example: Wed May 09 2018 00:00:00 GMT&#43;1000 (AEST)
-            </td>
-        </tr>
-        <tr id="alias-public-key-hash">
-            <td>PublicKeyHash</td>
-            <td>
-                varbin(tiny)
-            </td>
-            <td>
-                
-                
             </td>
         </tr>
         <tr id="alias-tx-id">
