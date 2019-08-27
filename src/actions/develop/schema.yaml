@@ -105,11 +105,13 @@ fieldAliases:
   - name: AssetCode
     type: bin
     size: 32
+    description: "Represents a unique identifier for an asset/token."
     example: "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
 
   - name: Timestamp
     type: uint
     size: 8
+    description: "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch."
     example: "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
 
   - name: PublicKeyHash
@@ -118,4 +120,5 @@ fieldAliases:
   - name: TxId
     type: bin
     size: 32
+    description: "Represents a Bitcoin transaction ID, the double SHA256 hash of the serialized transaction."
     example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"

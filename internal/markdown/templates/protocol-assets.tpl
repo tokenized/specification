@@ -103,7 +103,7 @@ Asset Types are used with reference to the `AssetPayload` field found in the Ass
 
 {{end}}
 
-<a name="field-alises"></a>
+<a name="field-aliases"></a>
 ## Field Aliases
 
 <table>

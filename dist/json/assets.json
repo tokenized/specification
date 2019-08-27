@@ -6,6 +6,7 @@
       "type": "fixedchar"
     },
     {
+      "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.",
       "name": "Timestamp",
       "size": 8,
       "type": "uint"
