@@ -47,6 +47,7 @@ fieldAliases:
 
   - name: Address
     type: varbin
+    varSize: small
     description: "A representation of a bitcoin address in raw format, with no check sum or encoding."
 
   - name: TxId

@@ -230,8 +230,8 @@ func (a *TargetAddressField) Validate() error {
 	}
 
 	// Field Address - varbin
-	if len(a.Address) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Address), max1ByteInteger)
+	if len(a.Address) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Address), max2ByteInteger)
 	}
 
 	// Field Quantity - uint

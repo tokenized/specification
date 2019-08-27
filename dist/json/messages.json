@@ -17,7 +17,8 @@
     {
       "description": "A representation of a bitcoin address in raw format, with no check sum or encoding.",
       "name": "Address",
-      "type": "varbin"
+      "type": "varbin",
+      "varSize": "small"
     },
     {
       "description": "Represents a Bitcoin transaction ID, the double SHA256 hash of the serialized transaction.",

@@ -125,8 +125,8 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field MasterAddress - varbin
-	if len(a.MasterAddress) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterAddress), max1ByteInteger)
+	if len(a.MasterAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterAddress), max2ByteInteger)
 	}
 
 	return nil
@@ -245,8 +245,8 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field MasterAddress - varbin
-	if len(a.MasterAddress) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterAddress), max1ByteInteger)
+	if len(a.MasterAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterAddress), max2ByteInteger)
 	}
 
 	// Field ContractRevision - uint
@@ -604,8 +604,8 @@ func (a *Transfer) Validate() error {
 	// Field ExchangeFee - uint
 
 	// Field ExchangeFeeAddress - varbin
-	if len(a.ExchangeFeeAddress) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ExchangeFeeAddress), max1ByteInteger)
+	if len(a.ExchangeFeeAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ExchangeFeeAddress), max2ByteInteger)
 	}
 
 	return nil
@@ -851,8 +851,8 @@ func (a *Order) Validate() error {
 	// Field FreezePeriod - uint
 
 	// Field DepositAddress - varbin
-	if len(a.DepositAddress) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.DepositAddress), max1ByteInteger)
+	if len(a.DepositAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.DepositAddress), max2ByteInteger)
 	}
 
 	// Field AuthorityIncluded - bool
@@ -1221,8 +1221,8 @@ func (a *AssetReceiverField) Validate() error {
 	}
 
 	// Field Address - varbin
-	if len(a.Address) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Address), max1ByteInteger)
+	if len(a.Address) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Address), max2ByteInteger)
 	}
 
 	// Field Quantity - uint
@@ -1518,8 +1518,8 @@ func (a *TargetAddressField) Validate() error {
 	}
 
 	// Field Address - varbin
-	if len(a.Address) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Address), max1ByteInteger)
+	if len(a.Address) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Address), max2ByteInteger)
 	}
 
 	// Field Quantity - uint

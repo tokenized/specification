@@ -4462,7 +4462,7 @@ A VotingSystem defines all details of a Voting System.
         <tr id="alias-address">
             <td>Address</td>
             <td>
-                varbin(tiny)
+                varbin(small)
             </td>
             <td>
                 A representation of a bitcoin address in raw format, with no check sum or encoding.
