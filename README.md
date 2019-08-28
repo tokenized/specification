@@ -126,4 +126,4 @@ General resources used by other actions.
 
 # License
 
-The Tokenized Specification is open-sourced software licensed under the [OPEN BITCOIN SV LICENSE FOR BSV TOKENISATION SOLUTION](LICENSE.md) license.
+The Tokenized Specification is open-sourced software licensed under the [OPEN BITCOIN SV](LICENSE.md) license.
