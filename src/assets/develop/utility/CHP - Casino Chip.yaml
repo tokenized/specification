@@ -18,6 +18,17 @@ fields:
     description: International Organization for Standardization code for Currency. (Specification/Resources)
     span: full
 
+  - name: UseType
+    label: Use Type
+    description: "Real Money (R), Social (S), Free Play (F)"
+    type: fixedchar
+    size: 1
+    example: "R"
+    options:
+      - 'R'
+      - 'S'
+      - 'F'
+
   - name: AgeRestriction
     label: Age Restriction
     type: AgeRestriction
