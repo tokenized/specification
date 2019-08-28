@@ -126,4 +126,4 @@ General resources used by other actions.
 
 # License
 
-Copyright 2018-2019 nChain Holdings Limited.
+The Tokenized Specification is open-sourced software licensed under the [OPEN BITCOIN SV LICENSE FOR BSV TOKENISATION SOLUTION](LICENSE.md) license.
