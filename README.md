@@ -107,35 +107,6 @@ If no value is specified for `listSize` or `varSize` then `tiny` is used.
 
 * `large` defines a max size/length of 2^64^-1 or approximately 1.8x10^19^.
 
-### Basic Types
-
-* `Action` implements a base interface for all action message types. Provides the ability to serialize the data as a Bitcoin OP_RETURN script.
-
-* `Asset` is the interface for asset payloads contained in Asset Definition (A1) and Asset Creation (A2) actions. Provides the ability to serialize asset data.
-
-* `Message` is the interface for message payloads contained in Message (M1) actions. Provides the ability to serialize message data.
-
-* `TxId` represents a Bitcoin transaction ID.
-It is the double SHA256 hash of the serialized transaction.
-`size` does not need to be specified and is always 32 bytes.
-
-* `PublicKeyHash` represents a Bitcoin Public Key Hash.
-It is the RIPEMD160 hash of the SHA256 of the serialized public key.
-Public key hashes are used as an "address" to send/receive transactions, tokens, and messages.
-`size` does not need to be specified and is always 20 bytes.
-
-* `AssetCode` represents a unique identifier for an asset/token.
-`size` does not need to be specified and is always 32 bytes.
-
-* `ContractCode` represents a unique identifier for a static contract.
-`size` does not need to be specified and is always 32 bytes.
-
-* `Timestamp` represents a time.
-`size` does not need to be specified and is always 8 bytes.
-
-* `Polity` represents a unique identifier for a nation/state/political entity.
-`size` does not need to be specified and is always 3 bytes.
-
 ### Actions
 
 **Actions** are Tokenized messages that request or confirm the creation, modification, or transfer of an object within the Tokenized protocol.
