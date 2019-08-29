@@ -506,7 +506,6 @@ values:
       precision: 2
       fractional_unit: Cent
       polity:
-        - EU
         - ALA
         - AND
         - AUT
