@@ -1,9 +1,9 @@
 package protocol
 
 import (
-	"encoding/json"
 	"fmt"
 
+	"github.com/tokenized/smart-contract/pkg/json"
 	"github.com/tokenized/smart-contract/pkg/txbuilder"
 	"github.com/tokenized/smart-contract/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"

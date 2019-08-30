@@ -1,10 +1,10 @@
 package json
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 
+	"github.com/tokenized/smart-contract/pkg/json"
 	"github.com/tokenized/specification/internal/platform/parser"
 )
 

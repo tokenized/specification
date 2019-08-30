@@ -1,12 +1,12 @@
 package json
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
+	"github.com/tokenized/smart-contract/pkg/json"
 	"github.com/tokenized/specification/internal/platform/parser"
 
 	"github.com/ghodss/yaml"
