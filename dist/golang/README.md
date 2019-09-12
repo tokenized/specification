@@ -7,6 +7,7 @@ Usage
     import (
         "fmt"
 
+        "github.com/tokenized/specification/dist/golang/actions"
         "github.com/tokenized/specification/dist/golang/protocol"
     )
 
@@ -36,7 +37,7 @@ Usage
         }
 
         // Generate a new contract offer action
-        action := protocol.ContractOffer{
+        action := actions.ContractOffer{
             ContractName:        "Test",
             BodyOfAgreementType: 2,
             BodyOfAgreement:     []byte("<contract agreement>"),
