@@ -18,10 +18,6 @@ metadata:
       label: Contract Public Address
       comments: "Currently active, and soon to be deactivated, contract address."
 
-    - name: NewContract
-      label: New Contract Public Address
-      comments: "The address the contract will use from this point forward."
-
 fields:
   - name: NewContractAddress
     label: New Contract Address
