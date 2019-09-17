@@ -49,7 +49,7 @@ message SettlementRequest {
 // Message - Output Metadata (1004)
 message OutputMetadata {
     string OutputDescription                       = 1;   // varchar
-    repeated uint64 Tags                           = 2;   // Tag[]
+    repeated uint32 Tags                           = 2;   // Tag[]
     repeated OutputTagField CustomTags             = 3;   // OutputTag[]
 }
 

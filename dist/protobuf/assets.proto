@@ -65,9 +65,10 @@ message TicketAdmission {
 // Message - Casino Chip (CHP)
 message CasinoChip {
     string CurrencyCode                            = 1;   // CurrencyType
-    AgeRestrictionField AgeRestriction             = 2;   // AgeRestriction
-    uint64 ValidFrom                               = 3;   // Timestamp
-    uint64 ExpirationTimestamp                     = 4;   // Timestamp
+    string UseType                                 = 2;   // fixedchar
+    AgeRestrictionField AgeRestriction             = 3;   // AgeRestriction
+    uint64 ValidFrom                               = 4;   // Timestamp
+    uint64 ExpirationTimestamp                     = 5;   // Timestamp
 }
 
 

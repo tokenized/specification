@@ -1767,9 +1767,10 @@ proto.assets.CasinoChip.prototype.toObject = function(opt_includeInstance) {
 proto.assets.CasinoChip.toObject = function(includeInstance, msg) {
   var f, obj = {
     currencycode: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    usetype: jspb.Message.getFieldWithDefault(msg, 2, ""),
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
-    validfrom: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    validfrom: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -1811,15 +1812,19 @@ proto.assets.CasinoChip.deserializeBinaryFromReader = function(msg, reader) {
       msg.setCurrencycode(value);
       break;
     case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUsetype(value);
+      break;
+    case 3:
       var value = new proto.assets.AgeRestrictionField;
       reader.readMessage(value,proto.assets.AgeRestrictionField.deserializeBinaryFromReader);
       msg.setAgerestriction(value);
       break;
-    case 3:
+    case 4:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setValidfrom(value);
       break;
-    case 4:
+    case 5:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setExpirationtimestamp(value);
       break;
@@ -1858,10 +1863,17 @@ proto.assets.CasinoChip.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getUsetype();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
   f = message.getAgerestriction();
   if (f != null) {
     writer.writeMessage(
-      2,
+      3,
       f,
       proto.assets.AgeRestrictionField.serializeBinaryToWriter
     );
@@ -1869,14 +1881,14 @@ proto.assets.CasinoChip.serializeBinaryToWriter = function(message, writer) {
   f = message.getValidfrom();
   if (f !== 0) {
     writer.writeUint64(
-      3,
+      4,
       f
     );
   }
   f = message.getExpirationtimestamp();
   if (f !== 0) {
     writer.writeUint64(
-      4,
+      5,
       f
     );
   }
@@ -1899,18 +1911,33 @@ proto.assets.CasinoChip.prototype.setCurrencycode = function(value) {
 
 
 /**
- * optional AgeRestrictionField AgeRestriction = 2;
+ * optional string UseType = 2;
+ * @return {string}
+ */
+proto.assets.CasinoChip.prototype.getUsetype = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.assets.CasinoChip.prototype.setUsetype = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional AgeRestrictionField AgeRestriction = 3;
  * @return {?proto.assets.AgeRestrictionField}
  */
 proto.assets.CasinoChip.prototype.getAgerestriction = function() {
   return /** @type{?proto.assets.AgeRestrictionField} */ (
-    jspb.Message.getWrapperField(this, proto.assets.AgeRestrictionField, 2));
+    jspb.Message.getWrapperField(this, proto.assets.AgeRestrictionField, 3));
 };
 
 
 /** @param {?proto.assets.AgeRestrictionField|undefined} value */
 proto.assets.CasinoChip.prototype.setAgerestriction = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  jspb.Message.setWrapperField(this, 3, value);
 };
 
 
@@ -1924,37 +1951,37 @@ proto.assets.CasinoChip.prototype.clearAgerestriction = function() {
  * @return {!boolean}
  */
 proto.assets.CasinoChip.prototype.hasAgerestriction = function() {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
 /**
- * optional uint64 ValidFrom = 3;
+ * optional uint64 ValidFrom = 4;
  * @return {number}
  */
 proto.assets.CasinoChip.prototype.getValidfrom = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
-};
-
-
-/** @param {number} value */
-proto.assets.CasinoChip.prototype.setValidfrom = function(value) {
-  jspb.Message.setField(this, 3, value);
-};
-
-
-/**
- * optional uint64 ExpirationTimestamp = 4;
- * @return {number}
- */
-proto.assets.CasinoChip.prototype.getExpirationtimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /** @param {number} value */
-proto.assets.CasinoChip.prototype.setExpirationtimestamp = function(value) {
+proto.assets.CasinoChip.prototype.setValidfrom = function(value) {
   jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional uint64 ExpirationTimestamp = 5;
+ * @return {number}
+ */
+proto.assets.CasinoChip.prototype.getExpirationtimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.assets.CasinoChip.prototype.setExpirationtimestamp = function(value) {
+  jspb.Message.setField(this, 5, value);
 };
 
 

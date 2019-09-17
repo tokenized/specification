@@ -1226,11 +1226,6 @@
             "comments": "Currently active, and soon to be deactivated, contract address.",
             "label": "Contract Public Address",
             "name": "Contract"
-          },
-          {
-            "comments": "The address the contract will use from this point forward.",
-            "label": "New Contract Public Address",
-            "name": "NewContract"
           }
         ]
       },

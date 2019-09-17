@@ -4,7 +4,7 @@
       "description": "Predefined tags for output metadata.",
       "name": "Tag",
       "resource": "Tags",
-      "size": 8,
+      "size": 1,
       "type": "uint"
     },
     {
@@ -225,7 +225,7 @@
           "type": "Timestamp"
         },
         {
-          "description": "Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer.",
+          "description": "Serialized Bitcoin transaction. The transaction needs data added by another party upon acceptance of offer.",
           "label": "Payload",
           "name": "Payload",
           "type": "varbin",
@@ -322,6 +322,135 @@
   ],
   "name": "Tokenized Message Types",
   "package": "messages",
-  "resources": null,
+  "resources": [
+    {
+      "codeType": {
+        "type": "uint"
+      },
+      "description": "Predefined tags for output metadata. Multiple values can be assigned to an output to describe a tx output.\n",
+      "metadata": {
+        "type": "Tag"
+      },
+      "name": "Tags",
+      "values": [
+        {
+          "code": 1,
+          "name": "Housing"
+        },
+        {
+          "code": 2,
+          "name": "Utilities"
+        },
+        {
+          "code": 3,
+          "name": "Food"
+        },
+        {
+          "code": 4,
+          "name": "Medical"
+        },
+        {
+          "code": 5,
+          "name": "Financial Services"
+        },
+        {
+          "code": 6,
+          "name": "Entertainment"
+        },
+        {
+          "code": 7,
+          "name": "Sales"
+        },
+        {
+          "code": 8,
+          "name": "Automotive"
+        },
+        {
+          "code": 9,
+          "name": "Transportation"
+        },
+        {
+          "code": 10,
+          "name": "Fitness"
+        },
+        {
+          "code": 20,
+          "name": "Electricity"
+        },
+        {
+          "code": 21,
+          "name": "Water"
+        },
+        {
+          "code": 22,
+          "name": "Internet"
+        },
+        {
+          "code": 23,
+          "name": "Medicine"
+        },
+        {
+          "code": 24,
+          "name": "Service"
+        },
+        {
+          "code": 25,
+          "name": "Repair"
+        },
+        {
+          "code": 26,
+          "name": "Supplies"
+        },
+        {
+          "code": 27,
+          "name": "Parts"
+        },
+        {
+          "code": 28,
+          "name": "Labor"
+        },
+        {
+          "code": 29,
+          "name": "Tip"
+        },
+        {
+          "code": 30,
+          "name": "Media"
+        },
+        {
+          "code": 40,
+          "name": "Music"
+        },
+        {
+          "code": 41,
+          "name": "Video"
+        },
+        {
+          "code": 42,
+          "name": "Photo"
+        },
+        {
+          "code": 43,
+          "name": "Audio"
+        },
+        {
+          "code": 100,
+          "name": "Alcohol"
+        },
+        {
+          "code": 101,
+          "name": "Tobacco"
+        },
+        {
+          "code": 120,
+          "name": "Discounted"
+        },
+        {
+          "code": 121,
+          "name": "Promotional"
+        }
+      ]
+    }
+  ],
   "version": 1
 }

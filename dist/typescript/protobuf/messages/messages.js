@@ -1610,7 +1610,7 @@ proto.messages.OutputMetadata.deserializeBinaryFromReader = function(msg, reader
       msg.setOutputdescription(value);
       break;
     case 2:
-      var value = /** @type {!Array.<number>} */ (reader.readPackedUint64());
+      var value = /** @type {!Array.<number>} */ (reader.readPackedUint32());
       msg.setTagsList(value);
       break;
     case 3:
@@ -1655,7 +1655,7 @@ proto.messages.OutputMetadata.serializeBinaryToWriter = function(message, writer
   }
   f = message.getTagsList();
   if (f.length > 0) {
-    writer.writePackedUint64(
+    writer.writePackedUint32(
       2,
       f
     );
@@ -1687,7 +1687,7 @@ proto.messages.OutputMetadata.prototype.setOutputdescription = function(value) {
 
 
 /**
- * repeated uint64 Tags = 2;
+ * repeated uint32 Tags = 2;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}

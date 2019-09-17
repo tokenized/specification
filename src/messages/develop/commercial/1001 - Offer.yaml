@@ -15,6 +15,6 @@ fields:
 
   - name: Payload
     label: Payload
-    description: "Serialized Tokenized OP_RETURN message. The message needs data added by another party upon acceptance of offer."
+    description: "Serialized Bitcoin transaction. The transaction needs data added by another party upon acceptance of offer."
     type: varbin
     varSize: medium
