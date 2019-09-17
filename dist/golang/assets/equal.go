@@ -259,6 +259,11 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("CurrencyCode string mismatched")
 	}
 
+	// Field UseType - fixedchar
+	if l.UseType != r.UseType {
+		return false // fmt.Errorf("UseType string mismatched")
+	}
+
 	// Field AgeRestriction - AgeRestriction
 
 	// Field ValidFrom - uint

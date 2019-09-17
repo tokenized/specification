@@ -158,6 +158,14 @@ func (a *OutputMetadata) Validate() error {
 	if len(a.Tags) > max1ByteInteger {
 		return fmt.Errorf("List over max length : %d > %d", len(a.Tags), max1ByteInteger)
 	}
+	for i, v := range a.Tags {
+		if TagsData(v) == nil {
+			return fmt.Errorf("Tags resource value not defined : %v", v)
+		}
+		if v > uint32(max1ByteInteger) {
+			return fmt.Errorf("Tags[%d] uint over max value : %d > %d", i, v, max1ByteInteger)
+		}
+	}
 
 	// Field CustomTags - OutputTag
 	if len(a.CustomTags) > max1ByteInteger {

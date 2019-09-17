@@ -41,6 +41,8 @@ func Compile(
 		distPath+"/golang/"+"messages/validate.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/equal.tpl",
 		distPath+"/golang/"+"messages/equal.go")
+	parser.TemplateToFile(messages, "internal/golang/templates/resources.tpl",
+		distPath+"/golang/"+"messages/resources.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/messages_test.tpl",
 		distPath+"/golang/"+"messages/messages_test.go")
 }

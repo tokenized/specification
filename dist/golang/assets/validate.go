@@ -212,6 +212,12 @@ func (a *CasinoChip) Validate() error {
 			len(a.CurrencyCode), 3)
 	}
 
+	// Field UseType - fixedchar
+	if len(a.UseType) != 0 && len(a.UseType) != 1 {
+		return fmt.Errorf("Fixed width field UseType wrong size : %d should be %d",
+			len(a.UseType), 1)
+	}
+
 	// Field AgeRestriction - AgeRestriction
 
 	// Field ValidFrom - uint

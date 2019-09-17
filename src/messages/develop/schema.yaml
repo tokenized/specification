@@ -22,7 +22,8 @@ messages:
   - "commercial/1004 - Output Metadata"
 
 # Register Resources
-resources: []
+resources:
+  - "../../resources/develop/Tags"
 
 # Register Field Types
 fieldTypes:
@@ -35,7 +36,7 @@ fieldTypes:
 fieldAliases:
   - name: Tag
     type: uint
-    size: 8
+    size: 1
     resource: Tags
     description: "Predefined tags for output metadata."
 
