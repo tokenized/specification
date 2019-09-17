@@ -173,6 +173,53 @@ func (id *TxId) Set(value []byte) error {
 	return nil
 }
 
+// AssetID encodes an asset ID.
+// AssetID = AssetType(3 characters) + base58(AssetCode + checksum)
+func AssetID(assetType string, code AssetCode) string {
+	data := code.Bytes()
+
+	// Perform Double SHA-256 hash
+	checksum := bitcoin.DoubleSha256(data)
+
+	// Append the first 4 checksum bytes
+	data = append(data, checksum[:4]...)
+
+	// Prepend with type and encode as text with base 58.
+	return assetType + bitcoin.Base58(data)
+}
+
+// DecodeAssetID decodes the asset type and asset code from an asset ID.
+func DecodeAssetID(id string) (string, AssetCode, error) {
+	if id == "BSV" {
+		// Bitcoin asset id. Asset code all zeros.
+		return "BSV", *AssetCodeFromBytes(make([]byte, 32)), nil
+	}
+
+	if len(id) < 35 {
+		return "", AssetCode{}, errors.New("Asset ID too short")
+	}
+
+	assetType := id[:3]
+	text := id[3:]
+
+	data := bitcoin.Base58Decode(text)
+
+	if len(data) < 5 {
+		return "", AssetCode{}, errors.New("Asset ID too short")
+	}
+
+	// Verify checksum
+	l := len(data)
+	checksum := data[l-4:]
+	data = data[:l-4]
+	hash := bitcoin.DoubleSha256(data)
+	if !bytes.Equal(hash[:4], checksum) {
+		return "", AssetCode{}, errors.New("Invalid Asset ID checksum")
+	}
+
+	return assetType, *AssetCodeFromBytes(data), nil
+}
+
 // ------------------------------------------------------------------------------------------------
 // AssetCode represents a unique identifier for a Tokenized asset.
 type AssetCode struct {
@@ -189,7 +236,7 @@ func (code *AssetCode) IsZero() bool {
 	if code == nil {
 		return true
 	}
-	zero := make([]byte, 32, 32)
+	zero := make([]byte, 32)
 	return bytes.Equal(code.data[:], zero)
 }
 
