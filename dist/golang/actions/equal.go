@@ -749,11 +749,6 @@ func (l *Proposal) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Initiator integer mismatched")
 	}
 
-	// Field AssetSpecificVote - bool
-	if l.AssetSpecificVote != r.AssetSpecificVote {
-		return false // fmt.Errorf("AssetSpecificVote boolean mismatched")
-	}
-
 	// Field AssetType - fixedchar
 	if l.AssetType != r.AssetType {
 		return false // fmt.Errorf("AssetType string mismatched")
@@ -767,11 +762,6 @@ func (l *Proposal) Equal(right proto.Message) bool {
 	// Field VoteSystem - uint
 	if l.VoteSystem != r.VoteSystem {
 		return false // fmt.Errorf("VoteSystem integer mismatched")
-	}
-
-	// Field Specific - bool
-	if l.Specific != r.Specific {
-		return false // fmt.Errorf("Specific boolean mismatched")
 	}
 
 	// Field ProposedAmendments - Amendment
@@ -892,11 +882,6 @@ func (l *Result) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetSpecificVote - bool
-	if l.AssetSpecificVote != r.AssetSpecificVote {
-		return false // fmt.Errorf("AssetSpecificVote boolean mismatched")
-	}
-
 	// Field AssetType - fixedchar
 	if l.AssetType != r.AssetType {
 		return false // fmt.Errorf("AssetType string mismatched")
@@ -905,11 +890,6 @@ func (l *Result) Equal(right proto.Message) bool {
 	// Field AssetCode - bin
 	if !bytes.Equal(l.AssetCode, r.AssetCode) {
 		return false // fmt.Errorf("AssetCode bytes mismatched")
-	}
-
-	// Field Specific - bool
-	if l.Specific != r.Specific {
-		return false // fmt.Errorf("Specific boolean mismatched")
 	}
 
 	// Field ProposedAmendments - Amendment
@@ -997,11 +977,6 @@ func (l *Order) Equal(right proto.Message) bool {
 	// Field DepositAddress - varbin
 	if !bytes.Equal(l.DepositAddress, r.DepositAddress) {
 		return false // fmt.Errorf("DepositAddress bytes mismatched")
-	}
-
-	// Field AuthorityIncluded - bool
-	if l.AuthorityIncluded != r.AuthorityIncluded {
-		return false // fmt.Errorf("AuthorityIncluded boolean mismatched")
 	}
 
 	// Field AuthorityName - varchar

@@ -73,24 +73,16 @@ fields:
     type: Address
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
 
-  - name: AuthorityIncluded
-    label: Authority Included
-    description: "Specifies if an authority signature is included. For Reconcialitaion actions all authority signature related fields are skipped during serialization."
-    type: bool
-
   - name: AuthorityName
     label: Authority Name
     description: "Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)"
     type: varchar
     example: "Supreme and District Courts Brisbane"
-    includeIfTrue: AuthorityIncluded
 
   - name: AuthorityPublicKey
     label: Authority Public Key
     description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
     type: varbin
-    example: ""
-    includeIfTrue: AuthorityIncluded
 
   - name: SignatureAlgorithm
     label: Signature Algorithm
@@ -98,7 +90,6 @@ fields:
     type: uint
     size: 1
     example: 1
-    includeIfTrue: AuthorityIncluded
     options:
       - 1
 
@@ -106,8 +97,6 @@ fields:
     label: Authority Order Signature
     description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Asset Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)"
     type: varbin
-    example: ""
-    includeIfTrue: AuthorityIncluded
 
   - name: SupportingEvidenceHash
     label: Supporting Evidence Hash

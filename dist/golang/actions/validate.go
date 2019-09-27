@@ -648,8 +648,6 @@ func (a *Proposal) Validate() error {
 		return fmt.Errorf("Initiator value not within options [0 1] : %d", a.Initiator)
 	}
 
-	// Field AssetSpecificVote - bool
-
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
 		return fmt.Errorf("Fixed width field AssetType wrong size : %d should be %d",
@@ -666,8 +664,6 @@ func (a *Proposal) Validate() error {
 	if a.VoteSystem > uint32(max1ByteInteger) {
 		return fmt.Errorf("uint over max value : %d > %d", a.VoteSystem, max1ByteInteger)
 	}
-
-	// Field Specific - bool
 
 	// Field ProposedAmendments - Amendment
 	if len(a.ProposedAmendments) > max1ByteInteger {
@@ -762,8 +758,6 @@ func (a *Result) Validate() error {
 		return nil
 	}
 
-	// Field AssetSpecificVote - bool
-
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
 		return fmt.Errorf("Fixed width field AssetType wrong size : %d should be %d",
@@ -775,8 +769,6 @@ func (a *Result) Validate() error {
 		return fmt.Errorf("Fixed width field AssetCode wrong size : %d should be %d",
 			len(a.AssetCode), 32)
 	}
-
-	// Field Specific - bool
 
 	// Field ProposedAmendments - Amendment
 	if len(a.ProposedAmendments) > max1ByteInteger {
@@ -854,8 +846,6 @@ func (a *Order) Validate() error {
 	if len(a.DepositAddress) > max2ByteInteger {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.DepositAddress), max2ByteInteger)
 	}
-
-	// Field AuthorityIncluded - bool
 
 	// Field AuthorityName - varchar
 	if len(a.AuthorityName) > max1ByteInteger {
