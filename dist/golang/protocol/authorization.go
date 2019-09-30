@@ -7,7 +7,14 @@ import (
 	"github.com/pkg/errors"
 )
 
-// Permission represents the permissions assigned to a specific field list.
+// Permission represents the permissions assigned to a specific set of fields.
+// If no fields are associated with a permission object, Fields is empty, then the permission object
+//   is used as the default, and associated with all fields not specifically associated with another
+//   permission object.
+// If no permission object is associated with a field via the Fields, and no default permission
+//   object is specified (with no fields), then the protocol default is applied, which is everything
+//   is disabled except "Permitted". Meaning the administrator can change the field at will without
+//   a vote.
 type Permission struct {
 	Permitted              bool // No Vote / Administration Amends
 	AdministrationProposal bool // Administration Initiates / Members Vote / Administration Amend
@@ -118,17 +125,18 @@ func (p *Permission) Read(r *bitstream.BitReader, votingSystemCount int) error {
 func ReadBase128VarInt(r *bitstream.BitReader) (uint32, error) {
 	value := uint32(0)
 	done := false
-	for done {
+	bitOffset := uint32(0)
+	for !done {
 		subValue, err := r.ReadByte()
 		if err != nil {
 			return value, err
 		}
 
-		done = (subValue & 0x80) != 0
-		subValue = subValue & 0x7f // Remove high bit
+		done = (subValue & 0x80) == 0 // High bit not set
+		subValue = subValue & 0x7f    // Remove high bit
 
-		value = value << 7
-		value += uint32(subValue)
+		value += uint32(subValue) << bitOffset
+		bitOffset += 7
 	}
 
 	return value, nil
@@ -138,6 +146,16 @@ func ReadBase128VarInt(r *bitstream.BitReader) (uint32, error) {
 func WriteAuthFlags(permissions []Permission) ([]byte, error) {
 	var buf bytes.Buffer
 	w := bitstream.NewWriter(&buf)
+
+	// Verify all permission objects have the same number of voting systems.
+	if len(permissions) > 0 {
+		voteCount := len(permissions[0].VotingSystemsAllowed)
+		for _, p := range permissions {
+			if len(p.VotingSystemsAllowed) != voteCount {
+				return nil, errors.New("Voting system counts inconsistent")
+			}
+		}
+	}
 
 	if err := WriteBase128VarInt(w, uint32(len(permissions))); err != nil {
 		return nil, err
@@ -196,6 +214,9 @@ func (p Permission) Write(w *bitstream.BitWriter) error {
 		return err
 	}
 	for _, field := range p.Fields {
+		if err := WriteBase128VarInt(w, uint32(len(field))); err != nil {
+			return err
+		}
 		for _, index := range field {
 			if err := WriteBase128VarInt(w, index); err != nil {
 				return err
@@ -211,7 +232,7 @@ func WriteBase128VarInt(w *bitstream.BitWriter, value uint32) error {
 		if value < 128 {
 			return w.WriteByte(byte(value))
 		}
-		subValue := byte(value) & 0x7f
+		subValue := (byte(value&0x7f) | 0x80) // Get last 7 bits and set high bit
 		if err := w.WriteByte(subValue); err != nil {
 			return err
 		}
