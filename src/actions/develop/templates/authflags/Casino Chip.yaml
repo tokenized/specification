@@ -1,4 +1,6 @@
-# Coupon
+
+  
+# Casino Chip
 
 fields:
   - name: AssetAuthFlags
@@ -99,7 +101,7 @@ fields:
               AdministrationProposal: false
               HolderProposal: false
               AdministrationVote: false
-              VotingSystem: null    
+              VotingSystem: null       
               
         - name: AgeRestriction
           - Permissions: // Permissions object            
@@ -107,7 +109,7 @@ fields:
               AdministrationProposal: false
               HolderProposal: false
               AdministrationVote: false
-              VotingSystem: null  
+              VotingSystem: null     
               
         - name: ValidFrom
           - Permissions: // Permissions object            
@@ -115,7 +117,7 @@ fields:
               AdministrationProposal: false
               HolderProposal: false
               AdministrationVote: false
-              VotingSystem: null     
+              VotingSystem: null   
               
         - name: ExpirationTimestamp
           - Permissions: // Permissions object            
