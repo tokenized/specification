@@ -1,0 +1,375 @@
+# Typical Contract Authorization Flags: (Most appropriate for a private company.)
+
+### Authorization Flags = Amendment Authorization Procedure (Who) + Voting System (How)
+
+## Amendment Authorization Procedure
+- Permitted: No Vote / Administration Amends
+- AdministrationProposal: Administration Initiates / Members Vote / Administration Amends
+- HolderProposal: Members Initiate / Members Vote / Administration Amends
+- AdministrativeMatter: Administration Initiates / Administrators Vote / Administration Amends
+
+fields:
+  - name: ContractName
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystem: UnanimousResolution
+        
+  - name: BodyOfAgreementType
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystemsAllowed: UnanimousResolution
+        
+  - name: BodyOfAgreement
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystemsAllowed: UnanimousResolution
+        
+  - name: ContractType
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystemsAllowed: UnanimousResolution  
+        
+  - name: SupportingDocs
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystemsAllowed: UnanimousResolution
+        
+  - name: GoverningLaw
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystemsAllowed: UnanimousResolution
+        
+  - name: Jurisdiction
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystemsAllowed: UnanimousResolution
+        
+  - name: ContractExpiration
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystemsAllowed: GeneralBoardResolution
+        
+  - name: ContractURI
+    - Permissions: // Permissions object
+        Permitted: true
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystemsAllowed: null
+        
+  - name: Issuer
+    - name: Name [010010000]
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: OrdinaryResolution
+          
+    - name: Type [010010000]
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: OrdinaryResolution
+          
+    - name: LEI [010010000]
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution
+          
+    - name: UnitNumber
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution
+          
+    - name: BuildingNumber
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution
+          
+    - name: Street
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution
+          
+    - name: SuburbCity
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution
+          
+    - name: TerritoryStateProvinceCode
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution
+          
+    - name: CountryCode
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: SpecialResolution
+          
+    - name: PostalZIPCode
+      - Permissions: // Permissions object
+          Permitted: true
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+    - name: EmailAddress
+      - Permissions: // Permissions object
+          Permitted: true
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+    - name: PhoneNumber
+      - Permissions: // Permissions object
+          Permitted: true
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+    - name: Administration
+      - name: Type
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: SpecialResolution
+          
+      - name: Name
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: SpecialResolution
+          
+    - name: Management
+      - name: Type
+        - Permissions: // Permissions object
+            Permitted: false
+            AdministrationProposal: false
+            HolderProposal: false
+            AdministrationVote: true
+            VotingSystemsAllowed: GeneralBoardResolution
+            
+      - name: Name
+        - Permissions: // Permissions object
+            Permitted: false
+            AdministrationProposal: false
+            HolderProposal: false
+            AdministrationVote: true
+            VotingSystemsAllowed: GeneralBoardResolution
+            
+  - name: IssuerLogoURL
+      - Permissions: // Permissions object
+          Permitted: permitted
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+  - name: ContractOperator
+      - Permissions: // Permissions object
+          Permitted: true
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+  - name: AdminOracle
+      - Permissions: // Permissions object
+          Permitted: true
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+  - name: AdminOracleSignature
+      - Permissions: // Permissions object
+          Permitted: true
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+  - name: AdminOracleSigBlockHeight
+      - Permissions: // Permissions object
+          Permitted: true
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+  - name: ContractFee
+      - Permissions: // Permissions object
+          Permitted: true
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: null
+          
+  - name: VotingSystems
+    - name: Name
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: UnanimousResolution
+          
+    - name: VoteType
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: UnanimousResolution
+          
+    - name: TallyLogic
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: UnanimousResolution
+          
+    - name: ThresholdPercentage
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: UnanimousResolution
+          
+    - name: VoteMultiplierPermitted
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: UnanimousResolution
+          
+    - name: HolderProposalFee
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution
+          
+  - name: ContractAuthFlags
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: UnanimousResolution
+          
+  - name: RestrictedQtyAssets
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystemsAllowed: SpecialResolution
+          
+  - name: AdministrationProposal
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: SpecialResolution
+          
+  - name: HolderProposal
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystemsAllowed: SpecialResolution
+          
+  - name: Oracles  
+   - name: Name
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution 
+          
+    - name: URL
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution 
+          
+    - name: PublicKey
+      - Permissions: // Permissions object
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystemsAllowed: GeneralBoardResolution 
+          
+  - name: MasterAddress
+    - Permissions: // Permissions object
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystemsAllowed: SpecialBoardResolution
