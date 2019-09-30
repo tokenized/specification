@@ -1,0 +1,126 @@
+# Coupon
+
+fields:
+  - name: AssetAuthFlags
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: TransfersPermitted  
+    - Permissions: // Permissions object            
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: TradeRestrictions 
+    - Permissions: // Permissions object            
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: EnforcementOrdersPermitted 
+    - Permissions: // Permissions object            
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: VotingRights
+    - Permissions: // Permissions object            
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: VoteMultiplier
+    - Permissions: // Permissions object            
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: AdministrationProposal 
+    - Permissions: // Permissions object            
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: HolderProposal 
+    - Permissions: // Permissions object            
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: AssetModificationGovernance 
+    - Permissions: // Permissions object            
+        Permitted: false
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: true
+        VotingSystem: SpecialBoardResolution
+        
+  - name: TokenQty 
+    - Permissions: // Permissions object            
+        Permitted: true
+        AdministrationProposal: false
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystem: null
+        
+  - name: AssetType // Can't be changed.
+  
+  - name: AssetPayload 
+      fields:
+        - name: CurrencyCode
+          - Permissions: // Permissions object            
+              Permitted: true
+              AdministrationProposal: false
+              HolderProposal: false
+              AdministrationVote: false
+              VotingSystem: null      
+              
+        - name: UseType
+          - Permissions: // Permissions object            
+              Permitted: true
+              AdministrationProposal: false
+              HolderProposal: false
+              AdministrationVote: false
+              VotingSystem: null    
+              
+        - name: AgeRestriction
+          - Permissions: // Permissions object            
+              Permitted: true
+              AdministrationProposal: false
+              HolderProposal: false
+              AdministrationVote: false
+              VotingSystem: null  
+              
+        - name: ValidFrom
+          - Permissions: // Permissions object            
+              Permitted: true
+              AdministrationProposal: false
+              HolderProposal: false
+              AdministrationVote: false
+              VotingSystem: null     
+              
+        - name: ExpirationTimestamp
+          - Permissions: // Permissions object            
+              Permitted: true
+              AdministrationProposal: false
+              HolderProposal: false
+              AdministrationVote: false
+              VotingSystem: null
