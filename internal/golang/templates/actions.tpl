@@ -75,12 +75,10 @@ func (a *{{.Name}}) Code() string {
 
 {{- range .Messages }}
 	{{- if eq .Name "ContractOffer" }}
-// Contract Amendment Values
+// Contract Permission / Amendment Field Indices
 const (
-	ContractFieldCount = uint32({{ len .Fields }})
-
 	{{- range $i, $field := .Fields }}
-	ContractField{{ $field.Name }} = uint32({{ $i }})
+	ContractField{{ $field.Name }} = uint32({{add $i 1}})
 	{{- end }}
 )
 	{{- end }}
@@ -88,25 +86,21 @@ const (
 
 {{- range .Messages }}
 	{{- if eq .Name "AssetDefinition" }}
-// Asset Amendment Values
+// Asset Permission / Amendment Field Indices
 const (
-	AssetFieldCount = uint32({{ len .Fields }})
-
 	{{- range $i, $field := .Fields }}
-	AssetField{{ $field.Name }} = uint32({{ $i }})
+	AssetField{{ $field.Name }} = uint32({{add $i 1}})
 	{{- end }}
 )
 	{{- end }}
 {{ end }}
 
-{{- range .FieldTypes }}
-	{{- if eq .Name "Entity" }}
-// Entity Amendment Values
+{{- range $i, $fieldType := .FieldTypes }}
+	{{- if eq $fieldType.Name "Entity" "Oracle" }}
+// {{ $fieldType.Name }} Permission / Amendment Field Indices
 const (
-	EntityFieldCount = uint32({{ len .Fields }})
-
-	{{- range $i, $field := .Fields }}
-	EntityField{{ $field.Name }} = uint32({{ $i }})
+	{{- range $offset, $field := .Fields }}
+	{{ $fieldType.Name }}Field{{ $field.Name }} = uint32({{add $offset 1}})
 	{{- end }}
 )
 	{{- end }}
