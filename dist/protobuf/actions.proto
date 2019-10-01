@@ -22,7 +22,7 @@ message ContractOffer {
     uint32 AdminOracleSigBlockHeight               = 16;  // uint
     uint64 ContractFee                             = 17;  // uint
     repeated VotingSystemField VotingSystems       = 18;  // VotingSystem[]
-    bytes ContractAuthFlags                        = 19;  // varbin
+    bytes ContractPermissions                      = 19;  // varbin
     uint64 RestrictedQtyAssets                     = 20;  // uint
     bool AdministrationProposal                    = 21;  // bool
     bool HolderProposal                            = 22;  // bool
@@ -49,7 +49,7 @@ message ContractFormation {
     uint32 AdminOracleSigBlockHeight               = 15;  // uint
     uint64 ContractFee                             = 16;  // uint
     repeated VotingSystemField VotingSystems       = 17;  // VotingSystem[]
-    bytes ContractAuthFlags                        = 18;  // varbin
+    bytes ContractPermissions                      = 18;  // varbin
     uint64 RestrictedQtyAssets                     = 19;  // uint
     bool AdministrationProposal                    = 20;  // bool
     bool HolderProposal                            = 21;  // bool
@@ -97,7 +97,7 @@ message ContractAddressChange {
 
 // Message - Asset Definition (A1)
 message AssetDefinition {
-    bytes AssetAuthFlags                           = 1;   // varbin
+    bytes AssetPermissions                         = 1;   // varbin
     bool TransfersPermitted                        = 2;   // bool
     repeated string TradeRestrictions              = 3;   // Polity[]
     bool EnforcementOrdersPermitted                = 4;   // bool
@@ -115,7 +115,7 @@ message AssetDefinition {
 message AssetCreation {
     bytes AssetCode                                = 1;   // AssetCode
     uint64 AssetIndex                              = 2;   // uint
-    bytes AssetAuthFlags                           = 3;   // varbin
+    bytes AssetPermissions                         = 3;   // varbin
     bool TransfersPermitted                        = 4;   // bool
     repeated string TradeRestrictions              = 5;   // Polity[]
     bool EnforcementOrdersPermitted                = 6;   // bool
@@ -296,12 +296,9 @@ message AdministratorField {
 
 // Field - Amendment
 message AmendmentField {
-    uint32 FieldIndex                              = 1;   // uint
-    uint32 Element                                 = 2;   // uint
-    uint32 SubfieldIndex                           = 3;   // uint
-    uint32 SubfieldElement                         = 4;   // uint
-    uint32 Operation                               = 5;   // uint
-    bytes Data                                     = 6;   // varbin
+    bytes FieldIndexPath                           = 1;   // varbin
+    uint32 Operation                               = 2;   // uint
+    bytes Data                                     = 3;   // varbin
 }
 
 // Field - AssetReceiver

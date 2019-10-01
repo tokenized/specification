@@ -103,9 +103,9 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 
-	// Field ContractAuthFlags - varbin
-	if len(a.ContractAuthFlags) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractAuthFlags), max2ByteInteger)
+	// Field ContractPermissions - varbin
+	if len(a.ContractPermissions) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractPermissions), max2ByteInteger)
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -223,9 +223,9 @@ func (a *ContractFormation) Validate() error {
 		}
 	}
 
-	// Field ContractAuthFlags - varbin
-	if len(a.ContractAuthFlags) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractAuthFlags), max2ByteInteger)
+	// Field ContractPermissions - varbin
+	if len(a.ContractPermissions) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractPermissions), max2ByteInteger)
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -405,9 +405,9 @@ func (a *AssetDefinition) Validate() error {
 		return nil
 	}
 
-	// Field AssetAuthFlags - varbin
-	if len(a.AssetAuthFlags) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetAuthFlags), max2ByteInteger)
+	// Field AssetPermissions - varbin
+	if len(a.AssetPermissions) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetPermissions), max2ByteInteger)
 	}
 
 	// Field TransfersPermitted - bool
@@ -480,9 +480,9 @@ func (a *AssetCreation) Validate() error {
 
 	// Field AssetIndex - uint
 
-	// Field AssetAuthFlags - varbin
-	if len(a.AssetAuthFlags) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetAuthFlags), max2ByteInteger)
+	// Field AssetPermissions - varbin
+	if len(a.AssetPermissions) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetPermissions), max2ByteInteger)
 	}
 
 	// Field TransfersPermitted - bool
@@ -1165,24 +1165,9 @@ func (a *AmendmentField) Validate() error {
 		return nil
 	}
 
-	// Field FieldIndex - uint
-	if a.FieldIndex > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.FieldIndex, max1ByteInteger)
-	}
-
-	// Field Element - uint
-	if a.Element > uint32(max2ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.Element, max2ByteInteger)
-	}
-
-	// Field SubfieldIndex - uint
-	if a.SubfieldIndex > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.SubfieldIndex, max1ByteInteger)
-	}
-
-	// Field SubfieldElement - uint
-	if a.SubfieldElement > uint32(max2ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.SubfieldElement, max2ByteInteger)
+	// Field FieldIndexPath - varbin
+	if len(a.FieldIndexPath) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.FieldIndexPath), max1ByteInteger)
 	}
 
 	// Field Operation - uint

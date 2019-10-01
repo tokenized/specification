@@ -55,9 +55,9 @@ values:
     description: Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.
 
   - code: 14
-    name: ContractAuthFlags
-    label: Contract Auth Flags Prohibit
-    description: The contract auth flags don't permit the action requested.
+    name: ContractPermissions
+    label: Contract Permissions Prohibit
+    description: The contract permissions prohibit the action requested.
 
   - code: 15
     name: ContractExpired
@@ -97,9 +97,9 @@ values:
     description: The asset code is not found.
 
   - code: 22
-    name: AssetAuthFlags
-    label: Asset Auth Flags Prohibit
-    description: The asset auth flags don't permit the action requested.
+    name: AssetPermissions
+    label: Asset Permissions Prohibit
+    description: The asset permissions prohibit the action requested.
 
   - code: 23
     name: AssetFrozen

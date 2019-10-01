@@ -102,40 +102,12 @@
       "description": "An Amendment is used to describe the modification of a single field in a Contract or Asset, as defined in the ContractFormation and AssetCreation messages.",
       "fields": [
         {
-          "description": "Index of the field to be amended.",
-          "example": 2,
-          "label": "Field Index",
-          "name": "FieldIndex",
-          "notes": "A field with a complex array type uses the same FieldIndex value for all elements. For example, in C1 the VotingSystems field is FieldIndex 16. Indexes are zero based.",
-          "size": 1,
-          "type": "uint"
-        },
-        {
-          "description": "Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value \u003e 0 for a simple type will result in a Rejection.",
-          "example": 0,
-          "label": "Element",
-          "name": "Element",
-          "notes": "To specify the 3rd VotingSystem of a Contract, the value 2 would be given. Indexes are zero based.",
-          "size": 2,
-          "type": "uint"
-        },
-        {
-          "description": "Index of the subfield to be amended. This only applies to specific fields containing complex types with subfields. This is used to specify which field of the object the amendment applies to.",
-          "example": 1,
-          "label": "Subfield Index",
-          "name": "SubfieldIndex",
-          "notes": "For example to specify the 2nd field of a VotingSystem, value 1 would be given.",
-          "size": 1,
-          "type": "uint"
-        },
-        {
-          "description": "Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value \u003e 0 for a simple type will result in a Rejection.",
-          "example": 1,
-          "label": "Subfield Element",
-          "name": "SubfieldElement",
-          "notes": "For example to specify the 2nd field of a VotingSystem, value 1 would be given.",
-          "size": 2,
-          "type": "uint"
+          "description": "List of indices that identify the field/sub-field to be amended.",
+          "label": "Field Index Path",
+          "name": "FieldIndexPath",
+          "notes": "The index path of the field being modified. Encoded as a list of base 128 var ints. Each index is an index into the current object, top level being the ContractFormation or AssetCreation. Indexes are defined by protobuf messages. If the current level is a list, then the index is a zero based offset to the element in the list.",
+          "size": "tiny",
+          "type": "varbin"
         },
         {
           "description": "0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element listed in the Element field. The Add and Delete operations only apply to a particilar element of a complex array type. For example, it could be used to remove a particular VotingSystem from a Contract.",
@@ -154,7 +126,7 @@
           "description": "New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol.",
           "label": "Data",
           "name": "Data",
-          "notes": "The bytes should be in an format appropriate for the field being modified.",
+          "notes": "The bytes must be encoded in the format of the field being modified.",
           "type": "varbin",
           "varSize": "medium"
         }
@@ -711,10 +683,9 @@
           "type": "VotingSystem[]"
         },
         {
-          "description": "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement.",
-          "label": "Contract Authorization Flags",
-          "name": "ContractAuthFlags",
-          "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
+          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail.",
+          "label": "Contract Permissions",
+          "name": "ContractPermissions",
           "type": "varbin",
           "varSize": "small"
         },
@@ -910,10 +881,9 @@
           "type": "VotingSystem[]"
         },
         {
-          "description": "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement",
-          "label": "Contract Authorization Flags",
-          "name": "ContractAuthFlags",
-          "notes": "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.",
+          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail.",
+          "label": "Contract Permissions",
+          "name": "ContractPermissions",
           "type": "varbin",
           "varSize": "small"
         },
@@ -1236,10 +1206,9 @@
       "description": "This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum). An asset is always linked to a contract that is identified by the public address of the Contract wallet.\n",
       "fields": [
         {
-          "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
-          "example": "0101000",
-          "label": "Asset Authorization Flags",
-          "name": "AssetAuthFlags",
+          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this asset. See the Permission documentation for more detail.",
+          "label": "Asset Permissions",
+          "name": "AssetPermissions",
           "type": "varbin",
           "varSize": "small"
         },
@@ -1295,7 +1264,7 @@
           "type": "bool"
         },
         {
-          "description": "Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
+          "description": "Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset permissions, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
           "example": "1",
           "label": "Asset Modification Governance",
           "name": "AssetModificationGovernance",
@@ -1369,10 +1338,9 @@
           "type": "uint"
         },
         {
-          "description": "A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.",
-          "example": "0101000",
-          "label": "Asset Authorization Flags",
-          "name": "AssetAuthFlags",
+          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this asset. See the Permission documentation for more detail.",
+          "label": "Asset Permissions",
+          "name": "AssetPermissions",
           "type": "varbin",
           "varSize": "small"
         },
@@ -1428,7 +1396,7 @@
           "type": "bool"
         },
         {
-          "description": "Supported values: 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
+          "description": "Supported values: 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset permissions, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
           "example": "1",
           "label": "Asset Modification Governance",
           "name": "AssetModificationGovernance",
@@ -5627,9 +5595,9 @@
         },
         {
           "code": 14,
-          "description": "The contract auth flags don't permit the action requested.",
-          "label": "Contract Auth Flags Prohibit",
-          "name": "ContractAuthFlags"
+          "description": "The contract permissions prohibit the action requested.",
+          "label": "Contract Permissions Prohibit",
+          "name": "ContractPermissions"
         },
         {
           "code": 15,
@@ -5675,9 +5643,9 @@
         },
         {
           "code": 22,
-          "description": "The asset auth flags don't permit the action requested.",
-          "label": "Asset Auth Flags Prohibit",
-          "name": "AssetAuthFlags"
+          "description": "The asset permissions prohibit the action requested.",
+          "label": "Asset Permissions Prohibit",
+          "name": "AssetPermissions"
         },
         {
           "code": 23,

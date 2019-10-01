@@ -488,7 +488,7 @@ Code/Text combinations returned in rejection messages when a request is not acce
 - ContractExists
 - ContractAssetQtyReduction
 - ContractFixedQuantity
-- ContractAuthFlags
+- ContractPermissions
 - ContractExpired
 - ContractFrozen
 - ContractRevision
@@ -496,7 +496,7 @@ Code/Text combinations returned in rejection messages when a request is not acce
 - ContractBothOperatorsRequired
 - AssetCodeExists
 - AssetNotFound
-- AssetAuthFlags
+- AssetPermissions
 - AssetFrozen
 - AssetRevision
 - AssetNotPermitted

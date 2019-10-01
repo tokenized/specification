@@ -29,10 +29,10 @@ Usage
             permissions = append(permissions, permission)
         }
 
-        // Serialize auth flags
-        authFlags, err := protocol.WriteAuthFlags(permissions)
+        // Serialize permissions
+        permBytes, err := permissions.Bytes()
         if err != nil {
-            fmt.Printf("Failed to serialize auth flags\n")
+            fmt.Printf("Failed to serialize permissions\n")
             return
         }
 
@@ -42,7 +42,7 @@ Usage
             BodyOfAgreementType: 2,
             BodyOfAgreement:     []byte("<contract agreement>"),
             ContractType:        "Test Type",
-            ContractAuthFlags:   authFlags,
+            ContractPermissions: permBytes,
             // Specify any other fields necessary
             // ...
         }

@@ -144,12 +144,11 @@ fields:
     description: "A list of voting systems."
     type: VotingSystem[]
 
-  - name: ContractAuthFlags
-    label: Contract Authorization Flags
-    description: "A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract's control should be listed in the Body of Agreement."
+  - name: ContractPermissions
+    label: Contract Permissions
+    description: "A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail."
     type: varbin
     varSize: small
-    notes: "Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System."
 
   - name: RestrictedQtyAssets
     label: Restricted Qty of Assets

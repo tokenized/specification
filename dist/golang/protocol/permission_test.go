@@ -16,6 +16,10 @@ func Test_Base128(t *testing.T) {
 		bits  []byte
 	}{
 		{
+			value: 0,
+			bits:  []byte{0},
+		},
+		{
 			value: 1,
 			bits:  []byte{1},
 		},
@@ -57,8 +61,8 @@ func Test_Base128(t *testing.T) {
 
 func Test_SerializePermissions(t *testing.T) {
 
-	tests := [][]Permission{
-		[]Permission{
+	tests := []Permissions{
+		Permissions{
 			Permission{
 				Permitted:              true,
 				AdministrationProposal: false,
@@ -70,7 +74,7 @@ func Test_SerializePermissions(t *testing.T) {
 				},
 			},
 		},
-		[]Permission{
+		Permissions{
 			Permission{
 				Permitted:              true,
 				AdministrationProposal: true,
@@ -98,12 +102,12 @@ func Test_SerializePermissions(t *testing.T) {
 
 	for i, tt := range tests {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
-			b, err := WriteAuthFlags(tt)
+			b, err := tt.Bytes()
 			if err != nil {
 				t.Fatalf("Failed to write permission : %s", err)
 			}
 
-			result, err := ReadAuthFlags(b, len(tt[0].VotingSystemsAllowed))
+			result, err := PermissionsFromBytes(b, len(tt[0].VotingSystemsAllowed))
 			if err != nil {
 				t.Fatalf("Failed to read permission : %s", err)
 			}

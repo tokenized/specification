@@ -4186,8 +4186,8 @@ const (
 	// ContractFixedQuantity - Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.
 	RejectionsContractFixedQuantity = 13
 
-	// ContractAuthFlags - The contract auth flags don&#39;t permit the action requested.
-	RejectionsContractAuthFlags = 14
+	// ContractPermissions - The contract permissions prohibit the action requested.
+	RejectionsContractPermissions = 14
 
 	// ContractExpired - The contract is expired so can no longer accept requests.
 	RejectionsContractExpired = 15
@@ -4210,8 +4210,8 @@ const (
 	// AssetNotFound - The asset code is not found.
 	RejectionsAssetNotFound = 21
 
-	// AssetAuthFlags - The asset auth flags don&#39;t permit the action requested.
-	RejectionsAssetAuthFlags = 22
+	// AssetPermissions - The asset permissions prohibit the action requested.
+	RejectionsAssetPermissions = 22
 
 	// AssetFrozen - The asset is frozen and the request is not permitted while frozen.
 	RejectionsAssetFrozen = 23
@@ -4334,11 +4334,11 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Label:       "Contract Fixed Quantity",
 			Description: "Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.",
 		}
-	case RejectionsContractAuthFlags:
+	case RejectionsContractPermissions:
 		return &RejectionsCode{
-			Name:        "ContractAuthFlags",
-			Label:       "Contract Auth Flags Prohibit",
-			Description: "The contract auth flags don&#39;t permit the action requested.",
+			Name:        "ContractPermissions",
+			Label:       "Contract Permissions Prohibit",
+			Description: "The contract permissions prohibit the action requested.",
 		}
 	case RejectionsContractExpired:
 		return &RejectionsCode{
@@ -4382,11 +4382,11 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Label:       "Asset Not Found",
 			Description: "The asset code is not found.",
 		}
-	case RejectionsAssetAuthFlags:
+	case RejectionsAssetPermissions:
 		return &RejectionsCode{
-			Name:        "AssetAuthFlags",
-			Label:       "Asset Auth Flags Prohibit",
-			Description: "The asset auth flags don&#39;t permit the action requested.",
+			Name:        "AssetPermissions",
+			Label:       "Asset Permissions Prohibit",
+			Description: "The asset permissions prohibit the action requested.",
 		}
 	case RejectionsAssetFrozen:
 		return &RejectionsCode{
@@ -4555,10 +4555,10 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Label:       "Contract Fixed Quantity",
 			Description: "Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.",
 		},
-		RejectionsContractAuthFlags: &RejectionsCode{
-			Name:        "ContractAuthFlags",
-			Label:       "Contract Auth Flags Prohibit",
-			Description: "The contract auth flags don&#39;t permit the action requested.",
+		RejectionsContractPermissions: &RejectionsCode{
+			Name:        "ContractPermissions",
+			Label:       "Contract Permissions Prohibit",
+			Description: "The contract permissions prohibit the action requested.",
 		},
 		RejectionsContractExpired: &RejectionsCode{
 			Name:        "ContractExpired",
@@ -4595,10 +4595,10 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Label:       "Asset Not Found",
 			Description: "The asset code is not found.",
 		},
-		RejectionsAssetAuthFlags: &RejectionsCode{
-			Name:        "AssetAuthFlags",
-			Label:       "Asset Auth Flags Prohibit",
-			Description: "The asset auth flags don&#39;t permit the action requested.",
+		RejectionsAssetPermissions: &RejectionsCode{
+			Name:        "AssetPermissions",
+			Label:       "Asset Permissions Prohibit",
+			Description: "The asset permissions prohibit the action requested.",
 		},
 		RejectionsAssetFrozen: &RejectionsCode{
 			Name:        "AssetFrozen",

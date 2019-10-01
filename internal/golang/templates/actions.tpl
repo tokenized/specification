@@ -77,10 +77,10 @@ func (a *{{.Name}}) Code() string {
 	{{- if eq .Name "ContractOffer" }}
 // Contract Amendment Values
 const (
-	ContractFieldCount = {{ len .Fields }}
+	ContractFieldCount = uint32({{ len .Fields }})
 
 	{{- range $i, $field := .Fields }}
-	ContractField{{ $field.Name }} = {{ $i }}
+	ContractField{{ $field.Name }} = uint32({{ $i }})
 	{{- end }}
 )
 	{{- end }}
@@ -90,10 +90,10 @@ const (
 	{{- if eq .Name "AssetDefinition" }}
 // Asset Amendment Values
 const (
-	AssetFieldCount = {{ len .Fields }}
+	AssetFieldCount = uint32({{ len .Fields }})
 
 	{{- range $i, $field := .Fields }}
-	AssetField{{ $field.Name }} = {{ $i }}
+	AssetField{{ $field.Name }} = uint32({{ $i }})
 	{{- end }}
 )
 	{{- end }}
@@ -103,10 +103,10 @@ const (
 	{{- if eq .Name "Entity" }}
 // Entity Amendment Values
 const (
-	EntityFieldCount = {{ len .Fields }}
+	EntityFieldCount = uint32({{ len .Fields }})
 
 	{{- range $i, $field := .Fields }}
-	EntityField{{ $field.Name }} = {{ $i }}
+	EntityField{{ $field.Name }} = uint32({{ $i }})
 	{{- end }}
 )
 	{{- end }}

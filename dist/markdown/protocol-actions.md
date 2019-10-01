@@ -263,13 +263,13 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>ContractAuthFlags</td>
+        <td>ContractPermissions</td>
         <td>
             varbin(small)
         </td>
         <td>
-            A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract&#39;s control should be listed in the Body of Agreement.
-            Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.
+            A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail.
+            
         </td>
     </tr>
 
@@ -580,13 +580,13 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
     </tr>
 
     <tr>
-        <td>ContractAuthFlags</td>
+        <td>ContractPermissions</td>
         <td>
             varbin(small)
         </td>
         <td>
-            A set of switches that define the authorization rules for this contract. See the Authorization Flags documentation for more detail. Other terms and conditions that are out of the smart contract&#39;s control should be listed in the Body of Agreement
-            Contract Flags - Amendments can be restricted to a vote.  Specified in the Voting System.
+            A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail.
+            
         </td>
     </tr>
 
@@ -1154,13 +1154,13 @@ This action is used by the administration to define the properties/characteristi
         <th>Description</th>
     </tr>
     <tr>
-        <td>AssetAuthFlags</td>
+        <td>AssetPermissions</td>
         <td>
             varbin(small)
         </td>
         <td>
-            A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.
-             Example: 0101000
+            A set of permission objects containing switches and field references that define the permissions for modifying this asset. See the Permission documentation for more detail.
+            
         </td>
     </tr>
 
@@ -1247,7 +1247,7 @@ This action is used by the administration to define the properties/characteristi
             uint(1)
         </td>
         <td>
-            Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
+            Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset permissions, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
              Example: 1
         </td>
     </tr>
@@ -1365,13 +1365,13 @@ This action creates an asset in response to the administration&#39;s instruction
     </tr>
 
     <tr>
-        <td>AssetAuthFlags</td>
+        <td>AssetPermissions</td>
         <td>
             varbin(small)
         </td>
         <td>
-            A set of switches that define the authorization rules for this asset. See the Authorization Flags documentation for more detail.
-             Example: 0101000
+            A set of permission objects containing switches and field references that define the permissions for modifying this asset. See the Permission documentation for more detail.
+            
         </td>
     </tr>
 
@@ -1458,7 +1458,7 @@ This action creates an asset in response to the administration&#39;s instruction
             uint(1)
         </td>
         <td>
-            Supported values: 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset auth flags, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
+            Supported values: 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset permissions, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.
              Example: 1
         </td>
     </tr>
@@ -3604,46 +3604,13 @@ An Amendment is used to describe the modification of a single field in a Contrac
         <th>Description</th>
     </tr>
     <tr>
-        <td>FieldIndex</td>
+        <td>FieldIndexPath</td>
         <td>
-            uint(1)
+            varbin(tiny)
         </td>
         <td>
-            Index of the field to be amended.
-            A field with a complex array type uses the same FieldIndex value for all elements. For example, in C1 the VotingSystems field is FieldIndex 16. Indexes are zero based. Example: 2
-        </td>
-    </tr>
-
-    <tr>
-        <td>Element</td>
-        <td>
-            uint(2)
-        </td>
-        <td>
-            Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value &gt; 0 for a simple type will result in a Rejection.
-            To specify the 3rd VotingSystem of a Contract, the value 2 would be given. Indexes are zero based. Example: 0
-        </td>
-    </tr>
-
-    <tr>
-        <td>SubfieldIndex</td>
-        <td>
-            uint(1)
-        </td>
-        <td>
-            Index of the subfield to be amended. This only applies to specific fields containing complex types with subfields. This is used to specify which field of the object the amendment applies to.
-            For example to specify the 2nd field of a VotingSystem, value 1 would be given. Example: 1
-        </td>
-    </tr>
-
-    <tr>
-        <td>SubfieldElement</td>
-        <td>
-            uint(2)
-        </td>
-        <td>
-            Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value &gt; 0 for a simple type will result in a Rejection.
-            For example to specify the 2nd field of a VotingSystem, value 1 would be given. Example: 1
+            List of indices that identify the field/sub-field to be amended.
+            The index path of the field being modified. Encoded as a list of base 128 var ints. Each index is an index into the current object, top level being the ContractFormation or AssetCreation. Indexes are defined by protobuf messages. If the current level is a list, then the index is a zero based offset to the element in the list.
         </td>
     </tr>
 
@@ -3665,7 +3632,7 @@ An Amendment is used to describe the modification of a single field in a Contrac
         </td>
         <td>
             New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol.
-            The bytes should be in an format appropriate for the field being modified.
+            The bytes must be encoded in the format of the field being modified.
         </td>
     </tr>
 

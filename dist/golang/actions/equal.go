@@ -106,9 +106,9 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field ContractAuthFlags - varbin
-	if !bytes.Equal(l.ContractAuthFlags, r.ContractAuthFlags) {
-		return false // fmt.Errorf("ContractAuthFlags bytes mismatched")
+	// Field ContractPermissions - varbin
+	if !bytes.Equal(l.ContractPermissions, r.ContractPermissions) {
+		return false // fmt.Errorf("ContractPermissions bytes mismatched")
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -239,9 +239,9 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field ContractAuthFlags - varbin
-	if !bytes.Equal(l.ContractAuthFlags, r.ContractAuthFlags) {
-		return false // fmt.Errorf("ContractAuthFlags bytes mismatched")
+	// Field ContractPermissions - varbin
+	if !bytes.Equal(l.ContractPermissions, r.ContractPermissions) {
+		return false // fmt.Errorf("ContractPermissions bytes mismatched")
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -464,9 +464,9 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetAuthFlags - varbin
-	if !bytes.Equal(l.AssetAuthFlags, r.AssetAuthFlags) {
-		return false // fmt.Errorf("AssetAuthFlags bytes mismatched")
+	// Field AssetPermissions - varbin
+	if !bytes.Equal(l.AssetPermissions, r.AssetPermissions) {
+		return false // fmt.Errorf("AssetPermissions bytes mismatched")
 	}
 
 	// Field TransfersPermitted - bool
@@ -551,9 +551,9 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetIndex integer mismatched")
 	}
 
-	// Field AssetAuthFlags - varbin
-	if !bytes.Equal(l.AssetAuthFlags, r.AssetAuthFlags) {
-		return false // fmt.Errorf("AssetAuthFlags bytes mismatched")
+	// Field AssetPermissions - varbin
+	if !bytes.Equal(l.AssetPermissions, r.AssetPermissions) {
+		return false // fmt.Errorf("AssetPermissions bytes mismatched")
 	}
 
 	// Field TransfersPermitted - bool
@@ -1353,24 +1353,9 @@ func (l *AmendmentField) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field FieldIndex - uint
-	if l.FieldIndex != r.FieldIndex {
-		return false // fmt.Errorf("FieldIndex integer mismatched")
-	}
-
-	// Field Element - uint
-	if l.Element != r.Element {
-		return false // fmt.Errorf("Element integer mismatched")
-	}
-
-	// Field SubfieldIndex - uint
-	if l.SubfieldIndex != r.SubfieldIndex {
-		return false // fmt.Errorf("SubfieldIndex integer mismatched")
-	}
-
-	// Field SubfieldElement - uint
-	if l.SubfieldElement != r.SubfieldElement {
-		return false // fmt.Errorf("SubfieldElement integer mismatched")
+	// Field FieldIndexPath - varbin
+	if !bytes.Equal(l.FieldIndexPath, r.FieldIndexPath) {
+		return false // fmt.Errorf("FieldIndexPath bytes mismatched")
 	}
 
 	// Field Operation - uint
