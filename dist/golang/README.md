@@ -12,21 +12,15 @@ Usage
     )
 
     func main() {
-        voteSystemsAllowed := make([]bool, 2)
-        voteSystemsAllowed[0] = true
-        voteSystemsAllowed[1] = true
-
-        permission := protocol.Permission{
-            Permitted:              true,
-            AdministrationProposal: true,
-            HolderProposal:         false,
-            VotingSystemsAllowed:   voteSystemsAllowed,
-        }
-
-        // Note: Permissions can be different for each field.
-        permissions := make([]protocol.Permission, 0, 20)
-        for i := 0; i < 20; i++ { // 20 fields in contract
-            permissions = append(permissions, permission)
+        permissions := protocol.Permissions{
+            protocol.Permission{
+                Permitted:              true,
+                AdministrationProposal: true,
+                HolderProposal:         false,
+                AdministrativeMatter:   false,
+                VotingSystemsAllowed:   []bool{true, true},
+                // Fields: nil, // Leave Fields blank to use as default for all fields.
+            },
         }
 
         // Serialize permissions
