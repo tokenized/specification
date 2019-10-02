@@ -1,0 +1,36 @@
+## Voting System for a Private Company.
+
+- name: UnanimousResolution
+    - VoteType: A
+    - TallyLogic: 0
+    - ThresholdPercentage: 100
+    - VoteMultiplierPermitted: 0
+    - HolderProposalFee: 1000000
+
+- name: OrdinaryResolution
+    - VoteType: R
+    - TallyLogic: 0
+    - ThresholdPercentage: 50
+    - VoteMultiplierPermitted: 2
+    - HolderProposalFee: 1000000
+
+- name: SpecialResolution
+    - VoteType: R
+    - TallyLogic: 0
+    - ThresholdPercentage: 75
+    - VoteMultiplierPermitted: 0
+    - HolderProposalFee: 1000000
+
+- name: GeneralBoardResolution
+    - VoteType: R
+    - TallyLogic: 0
+    - ThresholdPercentage: 50
+    - VoteMultiplierPermitted: 0
+    - HolderProposalFee: 1000000
+
+- name: SpecialBoardResolution
+    - VoteType: A
+    - TallyLogic: 0
+    - ThresholdPercentage: 67
+    - VoteMultiplierPermitted: 0
+    - HolderProposalFee: 1000000

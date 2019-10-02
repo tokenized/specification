@@ -1,0 +1,149 @@
+# Membership Asset (eg. Administrator/Director/Partner)
+
+fields:
+  - name: AssetAuthFlags
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: true
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: TransfersPermitted  
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: true
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: TradeRestrictions 
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: EnforcementOrdersPermitted 
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: VotingRights
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: true
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: VoteMultiplier
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: true
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: AdministrationProposal 
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: true
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: HolderProposal 
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: true
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: AssetModificationGovernance 
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: false
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: TokenQty 
+    - Permissions: // Permissions object        
+        Permitted: false
+        AdministrationProposal: true
+        HolderProposal: true
+        AdministrationVote: false
+        VotingSystem: SpecialResolution
+        
+  - name: AssetType // Can't be changed.
+  
+  - name: AssetPayload 
+    - name: AgeRestriction	
+      - Permissions: // Permissions object        
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystem: SpecialResolution
+          
+    - name: ValidFrom  
+      - Permissions: // Permissions object        
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: true
+          AdministrationVote: false
+          VotingSystem: SpecialResolution
+          
+    - name: ExpirationTimestamp 
+      - Permissions: // Permissions object        
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystem: SpecialResolution
+          
+    - name: ID 
+      - Permissions: // Permissions object        
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystem: SpecialResolution
+          
+    - name: MembershipClass 
+      - Permissions: // Permissions object        
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystem: SpecialResolution
+          
+    - name: RoleType 
+      - Permissions: // Permissions object        
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystem: SpecialResolution 
+          
+    - name: MembershipType 
+      - Permissions: // Permissions object        
+          Permitted: false
+          AdministrationProposal: true
+          HolderProposal: false
+          AdministrationVote: false
+          VotingSystem: SpecialResolution
+          
+    - name: Description 
+      - Permissions: // Permissions object        
+          Permitted: false
+          AdministrationProposal: false
+          HolderProposal: false
+          AdministrationVote: true
+          VotingSystem: GeneralBoardResolution
