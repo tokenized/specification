@@ -1,0 +1,145 @@
+# Typical Contract Permissions: (Most appropriate for a private company.)
+Name: PrivateContract
+
+VotingSystems:
+  - Name: Unanimous Resolution
+    VoteType: A
+    TallyLogic: 0
+    ThresholdPercentage: 100
+    VoteMultiplierPermitted: false
+    HolderProposalFee: 1000000
+
+  - Name: Ordinary Resolution
+    VoteType: R
+    TallyLogic: 0
+    ThresholdPercentage: 50
+    VoteMultiplierPermitted: true
+    HolderProposalFee: 1000000
+
+  - Name: Special Resolution
+    VoteType: R
+    TallyLogic: 0
+    ThresholdPercentage: 75
+    VoteMultiplierPermitted: false
+    HolderProposalFee: 1000000
+
+  - Name: General Board Resolution
+    VoteType: R
+    TallyLogic: 0
+    ThresholdPercentage: 50
+    VoteMultiplierPermitted: false
+    HolderProposalFee: 1000000
+
+  - Name: Special Board Resolution
+    VoteType: A
+    TallyLogic: 0
+    ThresholdPercentage: 67
+    VoteMultiplierPermitted: false
+    HolderProposalFee: 1000000
+
+Permissions:
+  - Name: Administration Proposal Unanimous Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Unanimous Resolution
+    Fields:
+      - [ContractName]
+      - [BodyOfAgreementType]
+      - [BodyOfAgreement]
+      - [ContractType]
+      - [SupportingDocs]
+      - [GoverningLaw]
+      - [Jurisdiction]
+
+  - Name: General Board Resolution
+    Permitted: false
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: true
+    VotingSystemsAllowed:
+      - General Board Resolution
+    Fields:
+      - [ContractExpiration]
+      - [Issuer, LEI]
+      - [Issuer, UnitNumber]
+      - [Issuer, BuildingNumber]
+      - [Issuer, Street]
+      - [Issuer, SuburbCity]
+      - [Issuer, TerritoryStateProvinceCode]
+      - [Issuer, Management, Type]
+      - [Issuer, Management, Name]
+      - [VotingSystems, HolderProposalFee]
+      - [Oracles, Name]
+      - [Oracles, URL]
+      - [Oracles, PublicKey]
+
+  - Name: Administrator Direct
+    Permitted: true
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+    Fields:
+      - [ContractURI]
+      - [Issuer, PostalZIPCode]
+      - [Issuer, EmailAddress]
+      - [Issuer, PhoneNumber]
+      - [IssuerLogoURL]
+      - [ContractOperator]
+      - [AdminOracle]
+      - [AdminOracleSignature]
+      - [AdminOracleSigBlockHeight]
+      - [ContractFee]
+
+  - Name: Administrator Proposal Ordinary Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Ordinary Resolution
+    Fields:
+      - [Issuer, Name]
+      - [Issuer, Type]
+
+  - Name: Administrator Proposal Special Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Special Resolution
+    Fields:
+      - [Issuer, CountryCode]
+      - [RestrictedQtyAssets]
+
+  - Name: Administrator/Holder Proposal Special Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: true
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Special Resolution
+    Fields:
+      - [Issuer, Administration, Type]
+      - [Issuer, Administration, Name]
+      - [AdministrationProposal]
+      - [HolderProposal]
+
+  - Name: Administrator/Holder Proposal Unanimous Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: true
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Unanimous Resolution
+    Fields:
+      - [VotingSystems, Name]
+      - [VotingSystems, VoteType]
+      - [VotingSystems, TallyLogic]
+      - [VotingSystems, ThresholdPercentage]
+      - [VotingSystems, VoteMultiplierPermitted]
+      - [ContractPermissions]

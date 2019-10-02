@@ -64,3 +64,29 @@ type ResourceValue struct {
 	Description string                 `yaml:"description"`
 	MetaData    map[string]interface{} `yaml:"metadata"`
 }
+
+type Permission struct {
+	Name                   string     `yaml:"Name"`
+	Permitted              bool       `yaml:"Permitted"`              // No Vote / Administration Amends
+	AdministrationProposal bool       `yaml:"AdministrationProposal"` // Administration Initiates / Members Vote / Administration Amend
+	HolderProposal         bool       `yaml:"HolderProposal"`         // Members Initiate / Members Vote / Administration Amends
+	AdministrativeMatter   bool       `yaml:"AdministrativeMatter"`   // Administration Initiates / Administrators Vote / Administration Amends
+	VotingSystemsAllowed   []string   `yaml:"VotingSystemsAllowed"`
+	Fields                 [][]string `yaml:"Fields"` // The fields that this permission applies to
+}
+
+type VotingSystem struct {
+	Name                    string `yaml:"Name"`
+	VoteType                string `yaml:"VoteType"`
+	TallyLogic              uint32 `yaml:"TallyLogic"`
+	ThresholdPercentage     uint32 `yaml:"ThresholdPercentage"`
+	VoteMultiplierPermitted bool   `yaml:"VoteMultiplierPermitted"`
+	HolderProposalFee       uint64 `yaml:"HolderProposalFee"`
+}
+
+type PermissionConfig struct {
+	Name          string         `yaml:"Name"`
+	Type          string         `yaml:"Type"`
+	Permissions   []Permission   `yaml:"Permissions"`
+	VotingSystems []VotingSystem `yaml:"VotingSystems"`
+}
