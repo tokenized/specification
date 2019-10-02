@@ -85,8 +85,8 @@ type VotingSystem struct {
 }
 
 type PermissionConfig struct {
-	Name          string         `yaml:"Name"`
-	Type          string         `yaml:"Type"`
-	Permissions   []Permission   `yaml:"Permissions"`
-	VotingSystems []VotingSystem `yaml:"VotingSystems"`
+	Name                string                  `yaml:"Name"`
+	VotingSystems       []VotingSystem          `yaml:"VotingSystems"`
+	ContractPermissions []Permission            `yaml:"Permissions"`
+	AssetPermissions    map[string][]Permission `yaml:"AssetPermissions"`
 }

@@ -1,41 +1,5 @@
 # Typical Contract Permissions: (Most appropriate for a private company.)
-Name: PrivateContract
-
-VotingSystems:
-  - Name: Unanimous Resolution
-    VoteType: A
-    TallyLogic: 0
-    ThresholdPercentage: 100
-    VoteMultiplierPermitted: false
-    HolderProposalFee: 1000000
-
-  - Name: Ordinary Resolution
-    VoteType: R
-    TallyLogic: 0
-    ThresholdPercentage: 50
-    VoteMultiplierPermitted: true
-    HolderProposalFee: 1000000
-
-  - Name: Special Resolution
-    VoteType: R
-    TallyLogic: 0
-    ThresholdPercentage: 75
-    VoteMultiplierPermitted: false
-    HolderProposalFee: 1000000
-
-  - Name: General Board Resolution
-    VoteType: R
-    TallyLogic: 0
-    ThresholdPercentage: 50
-    VoteMultiplierPermitted: false
-    HolderProposalFee: 1000000
-
-  - Name: Special Board Resolution
-    VoteType: A
-    TallyLogic: 0
-    ThresholdPercentage: 67
-    VoteMultiplierPermitted: false
-    HolderProposalFee: 1000000
+Name: PrivateCompany
 
 Permissions:
   - Name: Administration Proposal Unanimous Resolution

@@ -1,0 +1,36 @@
+# Loyalty Points
+Name: LoyaltyPoints
+AssetType: LOY
+
+Permissions:
+  - Name: Administrative Vote Special Board Resolution
+    Permitted: false
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: true
+    VotingSystemsAllowed:
+      - Special Board Resolution
+    Fields:
+      - [AssetPermissions]
+      - [TransfersPermitted]
+      - [TradeRestrictions]
+      - [EnforcementOrdersPermitted]
+      - [VotingRights]
+      - [VoteMultiplier]
+      - [AdministrationProposal]
+      - [HolderProposal]
+      - [AssetModificationGovernance]
+      - [AssetPayload, AgeRestriction]
+      - [AssetPayload, OfferName]
+
+  - Name: Administrator Direct
+    Permitted: true
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+    Fields:
+      - [TokenQty]
+      - [AssetPayload, ValidFrom]
+      - [AssetPayload, ExpirationTimestamp]
+      - [AssetPayload, Description]

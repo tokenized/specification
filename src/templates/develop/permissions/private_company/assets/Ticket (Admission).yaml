@@ -1,0 +1,41 @@
+# Ticket (Admission)
+Name: Ticket
+AssetType: TIC
+
+Permissions:
+  - Name: Administrative Vote Special Board Resolution
+    Permitted: false
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: true
+    VotingSystemsAllowed:
+      - Special Board Resolution
+    Fields:
+      - [AssetPermissions]
+      - [TransfersPermitted]
+      - [TradeRestrictions]
+      - [EnforcementOrdersPermitted]
+      - [VotingRights]
+      - [VoteMultiplier]
+      - [AdministrationProposal]
+      - [HolderProposal]
+      - [AssetModificationGovernance]
+
+  - Name: Administrator Direct
+    Permitted: true
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+    Fields:
+      - [TokenQty]
+      - [AssetPayload, AgeRestriction]
+      - [AssetPayload, AdmissionType]
+      - [AssetPayload, Venue]
+      - [AssetPayload, Class]
+      - [AssetPayload, Area]
+      - [AssetPayload, Seat]
+      - [AssetPayload, StartTimeDate]
+      - [AssetPayload, ValidFrom]
+      - [AssetPayload, ExpirationTimestamp]
+      - [AssetPayload, Description]

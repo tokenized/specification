@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func ProcessContractPermissionConfigs(actions Schema, path string, outFile string) error {
+func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFile string) error {
 	f, err := os.Create(outFile)
 	if err != nil {
 		panic(err)
@@ -17,25 +17,54 @@ func ProcessContractPermissionConfigs(actions Schema, path string, outFile strin
 	f.WriteString("package actions\n")
 	f.WriteString("\n")
 	f.WriteString("type PermissionConfig struct {\n")
-	f.WriteString("    VotingSystems []VotingSystemField\n")
-	f.WriteString("    Permissions   Permissions\n")
+	f.WriteString("    VotingSystems       []VotingSystemField\n")
+	f.WriteString("    ContractPermissions Permissions\n")
+	f.WriteString("    AssetPermissions    map[string]Permissions\n")
 	f.WriteString("}\n")
 
 	path = filepath.FromSlash(path)
-	files, err := filepath.Glob(filepath.Join(path, "*.yaml"))
+	dirs, err := filepath.Glob(filepath.Join(path, "*"))
 	if err != nil {
 		panic(err)
 	}
 
-	for _, file := range files {
-		var data PermissionConfig
-		fmt.Printf("Translating %s\n", file)
-		if err := unmarshalFile(file, &data); err != nil {
-			fmt.Printf("Failed to unmarshal yaml : %s\n", err)
-			panic(errors.Wrap(err, "unmarshal yaml"))
+	for _, dir := range dirs {
+		data := PermissionConfig{
+			AssetPermissions: make(map[string][]Permission),
+		}
+		fmt.Printf("Translating %s\n", dir)
+
+		if err := unmarshalFile(filepath.Join(dir, "VotingSystems.yaml"), &data); err != nil {
+			fmt.Printf("Failed to unmarshal yaml voting systems : %s\n", err)
+			panic(errors.Wrap(err, "unmarshal yaml voting systems"))
 		}
 
-		if err := TranslateContractPermissionConfig(actions, data, f); err != nil {
+		if err := unmarshalFile(filepath.Join(dir, "Contract.yaml"), &data); err != nil {
+			fmt.Printf("Failed to unmarshal yaml contract : %s\n", err)
+			panic(errors.Wrap(err, "unmarshal yaml contract"))
+		}
+
+		assetFiles, err := filepath.Glob(filepath.Join(dir, "assets", "*"))
+		if err != nil {
+			panic(err)
+		}
+
+		assetStruct := struct {
+			Name string `yaml:"Name"`
+			AssetType string `yaml:"AssetType"`
+			Permissions []Permission `yaml:"Permissions"`
+		}{}
+
+		for _, assetFile := range assetFiles {
+			if err := unmarshalFile(assetFile, &assetStruct); err != nil {
+				fmt.Printf("Failed to unmarshal yaml asset : %s\n", err)
+				panic(errors.Wrap(err, "unmarshal yaml asset"))
+			}
+
+			data.AssetPermissions[assetStruct.AssetType] = assetStruct.Permissions
+		}
+
+		if err := TranslateContractPermissionConfig(actions, assets, data, f); err != nil {
 			fmt.Printf("Failed to translate permissions : %s\n", err)
 			panic(errors.Wrap(err, "translate permissions"))
 		}
@@ -44,7 +73,7 @@ func ProcessContractPermissionConfigs(actions Schema, path string, outFile strin
 	return f.Close()
 }
 
-func TranslateContractPermissionConfig(actions Schema, data PermissionConfig, file *os.File) error {
+func TranslateContractPermissionConfig(actions, assets Schema, data PermissionConfig, file *os.File) error {
 
 	file.WriteString(fmt.Sprintf("var %s = PermissionConfig{\n", data.Name))
 
@@ -61,98 +90,130 @@ func TranslateContractPermissionConfig(actions Schema, data PermissionConfig, fi
 	}
 	file.WriteString("    },\n")
 
-	file.WriteString("    Permissions: Permissions{\n")
-	for _, permission := range data.Permissions {
-		file.WriteString(fmt.Sprintf("        Permission{ // %s\n", permission.Name))
-
-		// Authorization flags
-		file.WriteString(fmt.Sprintf("            Permitted: %t,\n", permission.Permitted))
-		file.WriteString(fmt.Sprintf("            AdministrationProposal: %t,\n", permission.AdministrationProposal))
-		file.WriteString(fmt.Sprintf("            HolderProposal: %t,\n", permission.HolderProposal))
-		file.WriteString(fmt.Sprintf("            AdministrativeMatter: %t,\n", permission.AdministrativeMatter))
-
-		// VotingSystemsAllowed
-		file.WriteString(fmt.Sprintf("            VotingSystemsAllowed: []bool{"))
-		first := true
-		for _, system := range data.VotingSystems {
-			found := false
-			for _, name := range permission.VotingSystemsAllowed {
-				if name == system.Name {
-					found = true
-					break
-				}
-			}
-			if first {
-				first = false
-			} else {
-				file.WriteString(", ")
-			}
-			file.WriteString(fmt.Sprintf("%t", found))
-			// file.WriteString(fmt.Sprintf("            %t,\n", found))
+	file.WriteString("    ContractPermissions: Permissions{\n")
+	for _, permission := range data.ContractPermissions {
+		if err := TranslatePermission("", actions, assets, actions, permission, data.VotingSystems,
+			"ContractOffer", file); err != nil {
+			return errors.Wrap(err, "translate permission")
 		}
-		file.WriteString("},\n")
+	}
+	file.WriteString("    },\n")
 
-		// Fields
-		file.WriteString("            Fields: []FieldIndexPath{\n")
-		for _, fieldNames := range permission.Fields {
-			var fields []Field
+	file.WriteString("    AssetPermissions: map[string]Permissions{\n")
+	for assetType, permissions := range data.AssetPermissions {
+		file.WriteString(fmt.Sprintf("        \"%s\": Permissions{\n", assetType))
+		for _, permission := range permissions {
+			if err := TranslatePermission(assetType, actions, assets, assets, permission,
+				data.VotingSystems, "AssetDefinition", file); err != nil {
+				return errors.Wrap(err, "translate permission")
+			}
+		}
+		file.WriteString("        },\n")
+	}
+	file.WriteString("    },\n")
+
+	file.WriteString("}\n")
+	return nil
+}
+
+func TranslatePermission(assetType string, actions, assets, schema Schema, permission Permission,
+	votingSystems []VotingSystem, structName string, file *os.File) error {
+
+	file.WriteString(fmt.Sprintf("        Permission{ // %s\n", permission.Name))
+
+	// Authorization flags
+	file.WriteString(fmt.Sprintf("            Permitted: %t,\n", permission.Permitted))
+	file.WriteString(fmt.Sprintf("            AdministrationProposal: %t,\n", permission.AdministrationProposal))
+	file.WriteString(fmt.Sprintf("            HolderProposal: %t,\n", permission.HolderProposal))
+	file.WriteString(fmt.Sprintf("            AdministrativeMatter: %t,\n", permission.AdministrativeMatter))
+
+	// VotingSystemsAllowed
+	file.WriteString(fmt.Sprintf("            VotingSystemsAllowed: []bool{"))
+	first := true
+	for _, system := range votingSystems {
+		found := false
+		for _, name := range permission.VotingSystemsAllowed {
+			if name == system.Name {
+				found = true
+				break
+			}
+		}
+		if first {
+			first = false
+		} else {
+			file.WriteString(", ")
+		}
+		file.WriteString(fmt.Sprintf("%t", found))
+	}
+	file.WriteString("},\n")
+
+	// Fields
+	file.WriteString("            Fields: []FieldIndexPath{\n")
+	for _, fieldNames := range permission.Fields {
+		var fields []Field
+		found := false
+		container := structName
+		for _, m := range actions.Messages {
+			if m.Name == container {
+				fields = m.Fields
+				found = true
+				break
+			}
+		}
+		if !found {
+			return fmt.Errorf("Failed to find %s message", container)
+		}
+		file.WriteString(fmt.Sprintf("                FieldIndexPath{"))
+		first := true
+		for j, fieldName := range fieldNames {
 			found := false
-			structName := "ContractFormation"
-			for _, m := range actions.Messages {
-				if m.Name == structName {
-					fields = m.Fields
+			fieldType := ""
+			for i, field := range fields {
+				if field.Name == fieldName {
+					fieldType = field.BaseType()
+					if first {
+						first = false
+					} else {
+						file.WriteString(", ")
+					}
+					file.WriteString(fmt.Sprintf("%d", i+1))
 					found = true
 					break
 				}
 			}
 			if !found {
-				panic(fmt.Errorf("Failed to find %s message", structName))
+				return fmt.Errorf("Failed to find %s field in %s", fieldName, container)
 			}
-			file.WriteString(fmt.Sprintf("                FieldIndexPath{"))
-			first := true
-			for j, fieldName := range fieldNames {
-				found := false
-				fieldType := ""
-				for i, field := range fields {
-					if field.Name == fieldName {
-						fieldType = field.BaseType()
-						if first {
-							first = false
-						} else {
-							file.WriteString(", ")
-						}
-						file.WriteString(fmt.Sprintf("%d", i+1))
+
+			if j == len(fieldNames)-1 {
+				break
+			}
+			container = fieldName
+			found = false
+			if fieldName == "AssetPayload" {
+				for _, m := range assets.Messages {
+					if m.Code == assetType {
+						fields = m.Fields
 						found = true
 						break
 					}
 				}
-				if !found {
-					panic(fmt.Errorf("Failed to find %s field in %s", fieldName, structName))
-				}
-
-				if j == len(fieldNames)-1 {
-					break
-				}
-				structName = fieldName
-				found = false
-				for _, ft := range actions.FieldTypes {
+			} else {
+				for _, ft := range schema.FieldTypes {
 					if ft.Name == fieldType {
 						fields = ft.Fields
 						found = true
 						break
 					}
 				}
-				if !found {
-					panic(fmt.Errorf("Failed to find struct %s", fieldType))
-				}
 			}
-			file.WriteString(fmt.Sprintf("}, // %v\n", fieldNames))
+			if !found {
+				return fmt.Errorf("Failed to find struct %s (%s)", fieldType, fieldName)
+			}
 		}
-		file.WriteString("            },\n")
-		file.WriteString("        },\n")
+		file.WriteString(fmt.Sprintf("}, // %v\n", fieldNames))
 	}
-	file.WriteString("    },\n")
-
-	file.WriteString("}\n")
+	file.WriteString("            },\n")
+	file.WriteString("        },\n")
 	return nil
 }

@@ -25,8 +25,6 @@ func Compile(
 		distPath+"/golang/"+"actions/resources.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/actions_test.tpl",
 		distPath+"/golang/"+"actions/actions_test.go")
-	parser.ProcessContractPermissionConfigs(actions, "src/actions/develop/templates/permissions/",
-		distPath+"/golang/"+"actions/permission_templates.go")
 
 	// Assets
 	parser.TemplateToFile(assets, "internal/golang/templates/assets.tpl",
@@ -55,4 +53,8 @@ func Compile(
 		distPath+"/golang/"+"messages/resources.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/messages_test.tpl",
 		distPath+"/golang/"+"messages/messages_test.go")
+
+	// Templates
+	parser.ProcessContractPermissionConfigs(actions, assets, "src/templates/develop/permissions/",
+		distPath+"/golang/"+"actions/permission_templates.go")
 }
