@@ -9,15 +9,15 @@ import (
 )
 
 // TemplateToFile renders a template to a file
-func TemplateToFile(data interface{}, inFile, outFile string) {
-	f, err := os.Create(outFile)
+func TemplateToFile(data interface{}, files ...string) {
+	f, err := os.Create(files[len(files)-1])
 	if err != nil {
 		panic(err)
 	}
 
 	tmplFuncs := MakeTemplateFuncs()
 
-	tmpl := template.Must(template.New(path.Base(inFile)).Funcs(tmplFuncs).ParseFiles(inFile))
+	tmpl := template.Must(template.New(path.Base(files[len(files)-2])).Funcs(tmplFuncs).ParseFiles(files[:len(files)-1]...))
 
 	if err := tmpl.Execute(f, data); err != nil {
 		panic(err)

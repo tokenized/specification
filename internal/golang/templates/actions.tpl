@@ -72,36 +72,3 @@ func (a *{{.Name}}) Code() string {
 	return Code{{.Name}}
 }
 {{ end }}
-
-{{- range .Messages }}
-	{{- if eq .Name "ContractOffer" }}
-// Contract Permission / Amendment Field Indices
-const (
-	{{- range $i, $field := .Fields }}
-	ContractField{{ $field.Name }} = uint32({{add $i 1}})
-	{{- end }}
-)
-	{{- end }}
-{{ end }}
-
-{{- range .Messages }}
-	{{- if eq .Name "AssetDefinition" }}
-// Asset Permission / Amendment Field Indices
-const (
-	{{- range $i, $field := .Fields }}
-	AssetField{{ $field.Name }} = uint32({{add $i 1}})
-	{{- end }}
-)
-	{{- end }}
-{{ end }}
-
-{{- range $i, $fieldType := .FieldTypes }}
-	{{- if eq $fieldType.Name "Entity" "Oracle" }}
-// {{ $fieldType.Name }} Permission / Amendment Field Indices
-const (
-	{{- range $offset, $field := .Fields }}
-	{{ $fieldType.Name }}Field{{ $field.Name }} = uint32({{add $offset 1}})
-	{{- end }}
-)
-	{{- end }}
-{{ end }}
