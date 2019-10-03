@@ -55,6 +55,6 @@ func Compile(
 		distPath+"/golang/"+"messages/messages_test.go")
 
 	// Templates
-	parser.ProcessContractPermissionConfigs(actions, assets, "src/templates/develop/permissions/",
+	parser.ProcessContractPermissionConfigs(actions, assets, "src/templates/develop/",
 		distPath+"/golang/"+"actions/permission_templates.go")
 }
