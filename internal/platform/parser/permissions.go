@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 
 	"github.com/pkg/errors"
 )
@@ -50,8 +51,8 @@ func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFi
 		}
 
 		assetStruct := struct {
-			Name string `yaml:"Name"`
-			AssetType string `yaml:"AssetType"`
+			Name        string       `yaml:"Name"`
+			AssetType   string       `yaml:"AssetType"`
 			Permissions []Permission `yaml:"Permissions"`
 		}{}
 
@@ -99,10 +100,16 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 	}
 	file.WriteString("    },\n")
 
+	assetTypes := make([]string, 0, len(data.AssetPermissions))
+	for assetType, _ := range data.AssetPermissions {
+		assetTypes = append(assetTypes, assetType)
+	}
+	sort.Strings(assetTypes)
+
 	file.WriteString("    AssetPermissions: map[string]Permissions{\n")
-	for assetType, permissions := range data.AssetPermissions {
+	for _, assetType := range assetTypes {
 		file.WriteString(fmt.Sprintf("        \"%s\": Permissions{\n", assetType))
-		for _, permission := range permissions {
+		for _, permission := range data.AssetPermissions[assetType] {
 			if err := TranslatePermission(assetType, actions, assets, assets, permission,
 				data.VotingSystems, "AssetDefinition", file); err != nil {
 				return errors.Wrap(err, "translate permission")

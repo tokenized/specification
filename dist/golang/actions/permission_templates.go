@@ -159,95 +159,6 @@ var PrivateCompany = PermissionConfig{
 		},
 	},
 	AssetPermissions: map[string]Permissions{
-		"MEM": Permissions{
-			Permission{ // Administrator/Holder Special Board Resolution
-				Permitted:              false,
-				AdministrationProposal: true,
-				HolderProposal:         true,
-				AdministrativeMatter:   false,
-				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},     // [AssetPermissions]
-					FieldIndexPath{2},     // [TransfersPermitted]
-					FieldIndexPath{5},     // [VotingRights]
-					FieldIndexPath{6},     // [VoteMultiplier]
-					FieldIndexPath{7},     // [AdministrationProposal]
-					FieldIndexPath{8},     // [HolderProposal]
-					FieldIndexPath{10},    // [TokenQty]
-					FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
-					FieldIndexPath{12, 2}, // [AssetPayload ValidFrom]
-				},
-			},
-			Permission{ // Administrator Special Board Resolution
-				Permitted:              false,
-				AdministrationProposal: true,
-				HolderProposal:         false,
-				AdministrativeMatter:   false,
-				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{3},     // [TradeRestrictions]
-					FieldIndexPath{4},     // [EnforcementOrdersPermitted]
-					FieldIndexPath{9},     // [AssetModificationGovernance]
-					FieldIndexPath{12, 3}, // [AssetPayload ExpirationTimestamp]
-					FieldIndexPath{12, 4}, // [AssetPayload ID]
-					FieldIndexPath{12, 5}, // [AssetPayload MembershipClass]
-					FieldIndexPath{12, 6}, // [AssetPayload RoleType]
-					FieldIndexPath{12, 7}, // [AssetPayload MembershipType]
-					FieldIndexPath{12},    // [AssetPayload]
-					FieldIndexPath{12},    // [AssetPayload]
-				},
-			},
-			Permission{ // Administrative Vote General Board Resolution
-				Permitted:              false,
-				AdministrationProposal: false,
-				HolderProposal:         false,
-				AdministrativeMatter:   true,
-				VotingSystemsAllowed:   []bool{false, false, false, true, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{12, 8}, // [AssetPayload Description]
-				},
-			},
-		},
-		"TIC": Permissions{
-			Permission{ // Administrative Vote Special Board Resolution
-				Permitted:              false,
-				AdministrationProposal: false,
-				HolderProposal:         false,
-				AdministrativeMatter:   true,
-				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1}, // [AssetPermissions]
-					FieldIndexPath{2}, // [TransfersPermitted]
-					FieldIndexPath{3}, // [TradeRestrictions]
-					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
-					FieldIndexPath{5}, // [VotingRights]
-					FieldIndexPath{6}, // [VoteMultiplier]
-					FieldIndexPath{7}, // [AdministrationProposal]
-					FieldIndexPath{8}, // [HolderProposal]
-					FieldIndexPath{9}, // [AssetModificationGovernance]
-				},
-			},
-			Permission{ // Administrator Direct
-				Permitted:              true,
-				AdministrationProposal: false,
-				HolderProposal:         false,
-				AdministrativeMatter:   false,
-				VotingSystemsAllowed:   []bool{false, false, false, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{10},     // [TokenQty]
-					FieldIndexPath{12, 1},  // [AssetPayload AgeRestriction]
-					FieldIndexPath{12, 2},  // [AssetPayload AdmissionType]
-					FieldIndexPath{12, 3},  // [AssetPayload Venue]
-					FieldIndexPath{12, 4},  // [AssetPayload Class]
-					FieldIndexPath{12, 5},  // [AssetPayload Area]
-					FieldIndexPath{12, 6},  // [AssetPayload Seat]
-					FieldIndexPath{12, 7},  // [AssetPayload StartTimeDate]
-					FieldIndexPath{12, 8},  // [AssetPayload ValidFrom]
-					FieldIndexPath{12, 9},  // [AssetPayload ExpirationTimestamp]
-					FieldIndexPath{12, 10}, // [AssetPayload Description]
-				},
-			},
-		},
 		"CHP": Permissions{
 			Permission{ // Administrative Vote Special Board Resolution
 				Permitted:              false,
@@ -280,40 +191,6 @@ var PrivateCompany = PermissionConfig{
 					FieldIndexPath{12, 3}, // [AssetPayload AgeRestriction]
 					FieldIndexPath{12, 4}, // [AssetPayload ValidFrom]
 					FieldIndexPath{12, 5}, // [AssetPayload ExpirationTimestamp]
-				},
-			},
-		},
-		"SHC": Permissions{
-			Permission{ // Administrator/Holder Special Resolution
-				Permitted:              false,
-				AdministrationProposal: true,
-				HolderProposal:         true,
-				AdministrativeMatter:   false,
-				VotingSystemsAllowed:   []bool{false, false, true, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},     // [AssetPermissions]
-					FieldIndexPath{2},     // [TransfersPermitted]
-					FieldIndexPath{5},     // [VotingRights]
-					FieldIndexPath{6},     // [VoteMultiplier]
-					FieldIndexPath{7},     // [AdministrationProposal]
-					FieldIndexPath{8},     // [HolderProposal]
-					FieldIndexPath{10},    // [TokenQty]
-					FieldIndexPath{12, 1}, // [AssetPayload TransferLockout]
-					FieldIndexPath{12, 2}, // [AssetPayload Ticker]
-					FieldIndexPath{12, 3}, // [AssetPayload ISIN]
-					FieldIndexPath{12, 4}, // [AssetPayload Description]
-				},
-			},
-			Permission{ // Administrator Special Resolution
-				Permitted:              false,
-				AdministrationProposal: true,
-				HolderProposal:         false,
-				AdministrativeMatter:   false,
-				VotingSystemsAllowed:   []bool{false, false, true, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{3}, // [TradeRestrictions]
-					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
-					FieldIndexPath{9}, // [AssetModificationGovernance]
 				},
 			},
 		},
@@ -427,6 +304,129 @@ var PrivateCompany = PermissionConfig{
 					FieldIndexPath{12, 3}, // [AssetPayload ValidFrom]
 					FieldIndexPath{12, 4}, // [AssetPayload ExpirationTimestamp]
 					FieldIndexPath{12, 5}, // [AssetPayload Description]
+				},
+			},
+		},
+		"MEM": Permissions{
+			Permission{ // Administrator/Holder Special Board Resolution
+				Permitted:              false,
+				AdministrationProposal: true,
+				HolderProposal:         true,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{false, false, false, false, true},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{1},     // [AssetPermissions]
+					FieldIndexPath{2},     // [TransfersPermitted]
+					FieldIndexPath{5},     // [VotingRights]
+					FieldIndexPath{6},     // [VoteMultiplier]
+					FieldIndexPath{7},     // [AdministrationProposal]
+					FieldIndexPath{8},     // [HolderProposal]
+					FieldIndexPath{10},    // [TokenQty]
+					FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
+					FieldIndexPath{12, 2}, // [AssetPayload ValidFrom]
+				},
+			},
+			Permission{ // Administrator Special Board Resolution
+				Permitted:              false,
+				AdministrationProposal: true,
+				HolderProposal:         false,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{false, false, false, false, true},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{3},     // [TradeRestrictions]
+					FieldIndexPath{4},     // [EnforcementOrdersPermitted]
+					FieldIndexPath{9},     // [AssetModificationGovernance]
+					FieldIndexPath{12, 3}, // [AssetPayload ExpirationTimestamp]
+					FieldIndexPath{12, 4}, // [AssetPayload ID]
+					FieldIndexPath{12, 5}, // [AssetPayload MembershipClass]
+					FieldIndexPath{12, 6}, // [AssetPayload RoleType]
+					FieldIndexPath{12, 7}, // [AssetPayload MembershipType]
+					FieldIndexPath{12},    // [AssetPayload]
+					FieldIndexPath{12},    // [AssetPayload]
+				},
+			},
+			Permission{ // Administrative Vote General Board Resolution
+				Permitted:              false,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   true,
+				VotingSystemsAllowed:   []bool{false, false, false, true, false},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{12, 8}, // [AssetPayload Description]
+				},
+			},
+		},
+		"SHC": Permissions{
+			Permission{ // Administrator/Holder Special Resolution
+				Permitted:              false,
+				AdministrationProposal: true,
+				HolderProposal:         true,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{false, false, true, false, false},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{1},     // [AssetPermissions]
+					FieldIndexPath{2},     // [TransfersPermitted]
+					FieldIndexPath{5},     // [VotingRights]
+					FieldIndexPath{6},     // [VoteMultiplier]
+					FieldIndexPath{7},     // [AdministrationProposal]
+					FieldIndexPath{8},     // [HolderProposal]
+					FieldIndexPath{10},    // [TokenQty]
+					FieldIndexPath{12, 1}, // [AssetPayload TransferLockout]
+					FieldIndexPath{12, 2}, // [AssetPayload Ticker]
+					FieldIndexPath{12, 3}, // [AssetPayload ISIN]
+					FieldIndexPath{12, 4}, // [AssetPayload Description]
+				},
+			},
+			Permission{ // Administrator Special Resolution
+				Permitted:              false,
+				AdministrationProposal: true,
+				HolderProposal:         false,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{false, false, true, false, false},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{3}, // [TradeRestrictions]
+					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
+					FieldIndexPath{9}, // [AssetModificationGovernance]
+				},
+			},
+		},
+		"TIC": Permissions{
+			Permission{ // Administrative Vote Special Board Resolution
+				Permitted:              false,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   true,
+				VotingSystemsAllowed:   []bool{false, false, false, false, true},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{1}, // [AssetPermissions]
+					FieldIndexPath{2}, // [TransfersPermitted]
+					FieldIndexPath{3}, // [TradeRestrictions]
+					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
+					FieldIndexPath{5}, // [VotingRights]
+					FieldIndexPath{6}, // [VoteMultiplier]
+					FieldIndexPath{7}, // [AdministrationProposal]
+					FieldIndexPath{8}, // [HolderProposal]
+					FieldIndexPath{9}, // [AssetModificationGovernance]
+				},
+			},
+			Permission{ // Administrator Direct
+				Permitted:              true,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{false, false, false, false, false},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{10},     // [TokenQty]
+					FieldIndexPath{12, 1},  // [AssetPayload AgeRestriction]
+					FieldIndexPath{12, 2},  // [AssetPayload AdmissionType]
+					FieldIndexPath{12, 3},  // [AssetPayload Venue]
+					FieldIndexPath{12, 4},  // [AssetPayload Class]
+					FieldIndexPath{12, 5},  // [AssetPayload Area]
+					FieldIndexPath{12, 6},  // [AssetPayload Seat]
+					FieldIndexPath{12, 7},  // [AssetPayload StartTimeDate]
+					FieldIndexPath{12, 8},  // [AssetPayload ValidFrom]
+					FieldIndexPath{12, 9},  // [AssetPayload ExpirationTimestamp]
+					FieldIndexPath{12, 10}, // [AssetPayload Description]
 				},
 			},
 		},
