@@ -744,9 +744,9 @@ func (l *Proposal) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field Initiator - uint
-	if l.Initiator != r.Initiator {
-		return false // fmt.Errorf("Initiator integer mismatched")
+	// Field Type - uint
+	if l.Type != r.Type {
+		return false // fmt.Errorf("Type integer mismatched")
 	}
 
 	// Field AssetType - fixedchar

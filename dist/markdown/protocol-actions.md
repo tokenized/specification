@@ -1868,12 +1868,16 @@ Allows the Administration/Token Holders to propose a change (aka Initiative/Shar
         <th>Description</th>
     </tr>
     <tr>
-        <td>Initiator</td>
+        <td>Type</td>
         <td>
             uint(1)
         </td>
         <td>
-            Who initiated the proposal. Supported values: 0 - Administration, 1 - Holder
+            Type of proposal. Supported values:
+  0 Referendum / Administration Initiates / Members Vote
+  1 Initiative / Members Initiate / Members Vote
+  2 AdministrativeMatter / Administration Initiates / Administrators Vote
+
             
         </td>
     </tr>

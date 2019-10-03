@@ -5284,7 +5284,7 @@ proto.actions.Proposal.prototype.toObject = function(opt_includeInstance) {
  */
 proto.actions.Proposal.toObject = function(includeInstance, msg) {
   var f, obj = {
-    initiator: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
     assettype: jspb.Message.getFieldWithDefault(msg, 2, ""),
     assetcode: msg.getAssetcode_asB64(),
     votesystem: jspb.Message.getFieldWithDefault(msg, 4, 0),
@@ -5333,7 +5333,7 @@ proto.actions.Proposal.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setInitiator(value);
+      msg.setType(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
@@ -5400,7 +5400,7 @@ proto.actions.Proposal.prototype.serializeBinary = function() {
  */
 proto.actions.Proposal.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getInitiator();
+  f = message.getType();
   if (f !== 0) {
     writer.writeUint32(
       1,
@@ -5475,16 +5475,16 @@ proto.actions.Proposal.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional uint32 Initiator = 1;
+ * optional uint32 Type = 1;
  * @return {number}
  */
-proto.actions.Proposal.prototype.getInitiator = function() {
+proto.actions.Proposal.prototype.getType = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.actions.Proposal.prototype.setInitiator = function(value) {
+proto.actions.Proposal.prototype.setType = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 

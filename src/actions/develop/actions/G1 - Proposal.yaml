@@ -26,14 +26,19 @@ metadata:
       comments: Fund the Result TX at Vote cut off
 
 fields:
-  - name: Initiator
-    label: Initiator
-    description: "Who initiated the proposal. Supported values: 0 - Administration, 1 - Holder"
+  - name: Type
+    label: Type
+    description: >
+      Type of proposal. Supported values:
+        0 Referendum / Administration Initiates / Members Vote
+        1 Initiative / Members Initiate / Members Vote
+        2 AdministrativeMatter / Administration Initiates / Administrators Vote
     type: uint
     size: 1
     options:
       - 0
       - 1
+      - 2
 
   - name: AssetType
     label: Asset Type

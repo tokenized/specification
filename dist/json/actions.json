@@ -1623,12 +1623,13 @@
       "description": "Allows the Administration/Token Holders to propose a change (aka Initiative/Shareholder vote).  A significant cost - specified in the Contract Formation - can be attached to this action when sent from Token Holders to reduce spam, as the resulting vote will be put to all token owners.",
       "fields": [
         {
-          "description": "Who initiated the proposal. Supported values: 0 - Administration, 1 - Holder",
-          "label": "Initiator",
-          "name": "Initiator",
+          "description": "Type of proposal. Supported values:\n  0 Referendum / Administration Initiates / Members Vote\n  1 Initiative / Members Initiate / Members Vote\n  2 AdministrativeMatter / Administration Initiates / Administrators Vote\n",
+          "label": "Type",
+          "name": "Type",
           "options": [
             0,
-            1
+            1,
+            2
           ],
           "size": 1,
           "type": "uint"

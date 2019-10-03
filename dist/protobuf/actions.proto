@@ -156,7 +156,7 @@ message Settlement {
 
 // Message - Proposal (G1)
 message Proposal {
-    uint32 Initiator                               = 1;   // uint
+    uint32 Type                                    = 1;   // uint
     string AssetType                               = 2;   // fixedchar
     bytes AssetCode                                = 3;   // AssetCode
     uint32 VoteSystem                              = 4;   // uint

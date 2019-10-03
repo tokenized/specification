@@ -636,16 +636,16 @@ func (a *Proposal) Validate() error {
 		return nil
 	}
 
-	// Field Initiator - uint
-	foundInitiator := false
-	for _, v := range []uint32{0, 1} {
-		if a.Initiator == v {
-			foundInitiator = true
+	// Field Type - uint
+	foundType := false
+	for _, v := range []uint32{0, 1, 2} {
+		if a.Type == v {
+			foundType = true
 			break
 		}
 	}
-	if !foundInitiator {
-		return fmt.Errorf("Initiator value not within options [0 1] : %d", a.Initiator)
+	if !foundType {
+		return fmt.Errorf("Type value not within options [0 1 2] : %d", a.Type)
 	}
 
 	// Field AssetType - fixedchar
