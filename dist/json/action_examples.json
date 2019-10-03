@@ -621,11 +621,14 @@
     "label": "Message",
     "name": "Message",
     "fields": {
-      "AddressIndexes": [
+      "MessageCode": null,
+      "MessagePayload": "Hello world!",
+      "ReceiverIndexes": [
         null
       ],
-      "MessageCode": null,
-      "MessagePayload": "Hello world!"
+      "SenderIndexes": [
+        null
+      ]
     }
   },
   {

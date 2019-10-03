@@ -2435,9 +2435,16 @@
       "description": "The message action is a general purpose communication action. 'Twitter/SMS' for Issuers/Investors/Users. The message txn can also be used for passing partially signed txns on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and private offers/bids). The messages are broken down by type for easy filtering in the a user's wallet. The Message Types are listed in the Message Types table.\n",
       "fields": [
         {
-          "description": "Associates the message to a particular output by the index.",
-          "label": "Address Indexes",
-          "name": "AddressIndexes",
+          "description": "Associates the message to a particular input by the index. If none are specified then the first input is assumed.",
+          "label": "Sender Indexes",
+          "name": "SenderIndexes",
+          "size": 4,
+          "type": "uint[]"
+        },
+        {
+          "description": "Associates the message to a particular output by the index. If none are specified then the first input is assumed.",
+          "label": "Receiver Indexes",
+          "name": "ReceiverIndexes",
           "size": 4,
           "type": "uint[]"
         },

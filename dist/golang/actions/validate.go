@@ -1088,9 +1088,14 @@ func (a *Message) Validate() error {
 		return nil
 	}
 
-	// Field AddressIndexes - uint
-	if len(a.AddressIndexes) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.AddressIndexes), max1ByteInteger)
+	// Field SenderIndexes - uint
+	if len(a.SenderIndexes) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.SenderIndexes), max1ByteInteger)
+	}
+
+	// Field ReceiverIndexes - uint
+	if len(a.ReceiverIndexes) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.ReceiverIndexes), max1ByteInteger)
 	}
 
 	// Field MessageCode - uint

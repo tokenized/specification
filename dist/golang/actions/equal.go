@@ -1257,13 +1257,23 @@ func (l *Message) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AddressIndexes - uint
-	if len(l.AddressIndexes) != len(r.AddressIndexes) {
+	// Field SenderIndexes - uint
+	if len(l.SenderIndexes) != len(r.SenderIndexes) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.AddressIndexes {
-		if v != r.AddressIndexes[i] {
-			return false // fmt.Errorf("Element AddressIndexes integer mismatched")
+	for i, v := range l.SenderIndexes {
+		if v != r.SenderIndexes[i] {
+			return false // fmt.Errorf("Element SenderIndexes integer mismatched")
+		}
+	}
+
+	// Field ReceiverIndexes - uint
+	if len(l.ReceiverIndexes) != len(r.ReceiverIndexes) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range l.ReceiverIndexes {
+		if v != r.ReceiverIndexes[i] {
+			return false // fmt.Errorf("Element ReceiverIndexes integer mismatched")
 		}
 	}
 

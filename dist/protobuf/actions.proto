@@ -273,9 +273,10 @@ message Removal {
 
 // Message - Message (M1)
 message Message {
-    repeated uint32 AddressIndexes                 = 1;   // uint[]
-    uint32 MessageCode                             = 2;   // uint
-    bytes MessagePayload                           = 3;   // varbin
+    repeated uint32 SenderIndexes                  = 1;   // uint[]
+    repeated uint32 ReceiverIndexes                = 2;   // uint[]
+    uint32 MessageCode                             = 3;   // uint
+    bytes MessagePayload                           = 4;   // varbin
 }
 
 // Message - Rejection (M2)

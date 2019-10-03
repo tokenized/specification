@@ -3356,12 +3356,23 @@ The message action is a general purpose communication action. &#39;Twitter/SMS&#
         <th>Description</th>
     </tr>
     <tr>
-        <td>AddressIndexes</td>
+        <td>SenderIndexes</td>
         <td>
             uint(4)[tiny]
         </td>
         <td>
-            Associates the message to a particular output by the index.
+            Associates the message to a particular input by the index. If none are specified then the first input is assumed.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ReceiverIndexes</td>
+        <td>
+            uint(4)[tiny]
+        </td>
+        <td>
+            Associates the message to a particular output by the index. If none are specified then the first input is assumed.
             
         </td>
     </tr>

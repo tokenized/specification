@@ -9144,7 +9144,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.Message.repeatedFields_ = [1];
+proto.actions.Message.repeatedFields_ = [1,2];
 
 
 
@@ -9174,8 +9174,9 @@ proto.actions.Message.prototype.toObject = function(opt_includeInstance) {
  */
 proto.actions.Message.toObject = function(includeInstance, msg) {
   var f, obj = {
-    addressindexesList: jspb.Message.getField(msg, 1),
-    messagecode: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    senderindexesList: jspb.Message.getField(msg, 1),
+    receiverindexesList: jspb.Message.getField(msg, 2),
+    messagecode: jspb.Message.getFieldWithDefault(msg, 3, 0),
     messagepayload: msg.getMessagepayload_asB64()
   };
 
@@ -9215,13 +9216,17 @@ proto.actions.Message.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {!Array.<number>} */ (reader.readPackedUint32());
-      msg.setAddressindexesList(value);
+      msg.setSenderindexesList(value);
       break;
     case 2:
+      var value = /** @type {!Array.<number>} */ (reader.readPackedUint32());
+      msg.setReceiverindexesList(value);
+      break;
+    case 3:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setMessagecode(value);
       break;
-    case 3:
+    case 4:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setMessagepayload(value);
       break;
@@ -9253,24 +9258,31 @@ proto.actions.Message.prototype.serializeBinary = function() {
  */
 proto.actions.Message.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAddressindexesList();
+  f = message.getSenderindexesList();
   if (f.length > 0) {
     writer.writePackedUint32(
       1,
       f
     );
   }
+  f = message.getReceiverindexesList();
+  if (f.length > 0) {
+    writer.writePackedUint32(
+      2,
+      f
+    );
+  }
   f = message.getMessagecode();
   if (f !== 0) {
     writer.writeUint32(
-      2,
+      3,
       f
     );
   }
   f = message.getMessagepayload_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      3,
+      4,
       f
     );
   }
@@ -9278,18 +9290,18 @@ proto.actions.Message.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * repeated uint32 AddressIndexes = 1;
+ * repeated uint32 SenderIndexes = 1;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}
  */
-proto.actions.Message.prototype.getAddressindexesList = function() {
+proto.actions.Message.prototype.getSenderindexesList = function() {
   return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 1));
 };
 
 
 /** @param {!Array.<number>} value */
-proto.actions.Message.prototype.setAddressindexesList = function(value) {
+proto.actions.Message.prototype.setSenderindexesList = function(value) {
   jspb.Message.setField(this, 1, value || []);
 };
 
@@ -9298,42 +9310,73 @@ proto.actions.Message.prototype.setAddressindexesList = function(value) {
  * @param {!number} value
  * @param {number=} opt_index
  */
-proto.actions.Message.prototype.addAddressindexes = function(value, opt_index) {
+proto.actions.Message.prototype.addSenderindexes = function(value, opt_index) {
   jspb.Message.addToRepeatedField(this, 1, value, opt_index);
 };
 
 
-proto.actions.Message.prototype.clearAddressindexesList = function() {
-  this.setAddressindexesList([]);
+proto.actions.Message.prototype.clearSenderindexesList = function() {
+  this.setSenderindexesList([]);
 };
 
 
 /**
- * optional uint32 MessageCode = 2;
+ * repeated uint32 ReceiverIndexes = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<number>}
+ */
+proto.actions.Message.prototype.getReceiverindexesList = function() {
+  return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 2));
+};
+
+
+/** @param {!Array.<number>} value */
+proto.actions.Message.prototype.setReceiverindexesList = function(value) {
+  jspb.Message.setField(this, 2, value || []);
+};
+
+
+/**
+ * @param {!number} value
+ * @param {number=} opt_index
+ */
+proto.actions.Message.prototype.addReceiverindexes = function(value, opt_index) {
+  jspb.Message.addToRepeatedField(this, 2, value, opt_index);
+};
+
+
+proto.actions.Message.prototype.clearReceiverindexesList = function() {
+  this.setReceiverindexesList([]);
+};
+
+
+/**
+ * optional uint32 MessageCode = 3;
  * @return {number}
  */
 proto.actions.Message.prototype.getMessagecode = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /** @param {number} value */
 proto.actions.Message.prototype.setMessagecode = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional bytes MessagePayload = 3;
+ * optional bytes MessagePayload = 4;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Message.prototype.getMessagepayload = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /**
- * optional bytes MessagePayload = 3;
+ * optional bytes MessagePayload = 4;
  * This is a type-conversion wrapper around `getMessagepayload()`
  * @return {string}
  */
@@ -9344,7 +9387,7 @@ proto.actions.Message.prototype.getMessagepayload_asB64 = function() {
 
 
 /**
- * optional bytes MessagePayload = 3;
+ * optional bytes MessagePayload = 4;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getMessagepayload()`
@@ -9358,7 +9401,7 @@ proto.actions.Message.prototype.getMessagepayload_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Message.prototype.setMessagepayload = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
