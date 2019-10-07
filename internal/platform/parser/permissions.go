@@ -67,7 +67,7 @@ func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFi
 
 		if err := TranslateContractPermissionConfig(actions, assets, data, f); err != nil {
 			fmt.Printf("Failed to translate permissions : %s\n", err)
-			panic(errors.Wrap(err, "translate permissions"))
+			panic(errors.Wrap(err, fmt.Sprintf("contract %s", dir)))
 		}
 	}
 
@@ -92,10 +92,13 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 	file.WriteString("    },\n")
 
 	file.WriteString("    ContractPermissions: Permissions{\n")
+	fips := make([][]int, 0)
+	var err error
 	for _, permission := range data.ContractPermissions {
-		if err := TranslatePermission("", actions, assets, actions, permission, data.VotingSystems,
-			"ContractOffer", file); err != nil {
-			return errors.Wrap(err, "translate permission")
+		fips, err = TranslatePermission("", actions, assets, actions, permission, data.VotingSystems,
+			"ContractOffer", fips, file)
+		if err != nil {
+			return errors.Wrap(err, "contract permissions")
 		}
 	}
 	file.WriteString("    },\n")
@@ -109,10 +112,12 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 	file.WriteString("    AssetPermissions: map[string]Permissions{\n")
 	for _, assetType := range assetTypes {
 		file.WriteString(fmt.Sprintf("        \"%s\": Permissions{\n", assetType))
+		fips = make([][]int, 0)
 		for _, permission := range data.AssetPermissions[assetType] {
-			if err := TranslatePermission(assetType, actions, assets, assets, permission,
-				data.VotingSystems, "AssetDefinition", file); err != nil {
-				return errors.Wrap(err, "translate permission")
+			fips, err = TranslatePermission(assetType, actions, assets, assets, permission,
+				data.VotingSystems, "AssetDefinition", fips, file)
+			if err != nil {
+				return errors.Wrap(err, fmt.Sprintf("asset permissions %s", assetType))
 			}
 		}
 		file.WriteString("        },\n")
@@ -124,7 +129,7 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 }
 
 func TranslatePermission(assetType string, actions, assets, schema Schema, permission Permission,
-	votingSystems []VotingSystem, structName string, file *os.File) error {
+	votingSystems []VotingSystem, structName string, fips [][]int, file *os.File) ([][]int, error) {
 
 	file.WriteString(fmt.Sprintf("        Permission{ // %s\n", permission.Name))
 
@@ -168,10 +173,11 @@ func TranslatePermission(assetType string, actions, assets, schema Schema, permi
 			}
 		}
 		if !found {
-			return fmt.Errorf("Failed to find %s message", container)
+			return fips, fmt.Errorf("Failed to find %s message", container)
 		}
 		file.WriteString(fmt.Sprintf("                FieldIndexPath{"))
 		first := true
+		fieldIndexPath := make([]int, 0, len(permission.Fields))
 		for j, fieldName := range fieldNames {
 			found := false
 			fieldType := ""
@@ -184,12 +190,13 @@ func TranslatePermission(assetType string, actions, assets, schema Schema, permi
 						file.WriteString(", ")
 					}
 					file.WriteString(fmt.Sprintf("%d", i+1))
+					fieldIndexPath = append(fieldIndexPath, i+1)
 					found = true
 					break
 				}
 			}
 			if !found {
-				return fmt.Errorf("Failed to find %s field in %s", fieldName, container)
+				return fips, fmt.Errorf("Failed to find %s field in %s", fieldName, container)
 			}
 
 			if j == len(fieldNames)-1 {
@@ -215,12 +222,35 @@ func TranslatePermission(assetType string, actions, assets, schema Schema, permi
 				}
 			}
 			if !found {
-				return fmt.Errorf("Failed to find struct %s (%s)", fieldType, fieldName)
+				return fips, fmt.Errorf("Failed to find struct %s (%s)", fieldType, fieldName)
 			}
 		}
+
+		// Check for duplicates
+		for _, fip := range fips {
+			matches := true
+			for i, index := range fieldIndexPath {
+				if i >= len(fip) {
+					if i > 0 {
+						return fips, fmt.Errorf("Duplicate partial field index path %v", fieldNames)
+					}
+					break
+				}
+				if index != fip[i] {
+					matches = false
+					break
+				}
+			}
+			if matches {
+				return fips, fmt.Errorf("Duplicate field index path %v", fieldNames)
+			}
+		}
+
+		fips = append(fips, fieldIndexPath)
 		file.WriteString(fmt.Sprintf("}, // %v\n", fieldNames))
 	}
+
 	file.WriteString("            },\n")
 	file.WriteString("        },\n")
-	return nil
+	return fips, nil
 }
