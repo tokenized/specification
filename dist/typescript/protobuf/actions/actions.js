@@ -122,7 +122,7 @@ proto.actions.ContractOffer.toObject = function(includeInstance, msg) {
     contractfee: jspb.Message.getFieldWithDefault(msg, 17, 0),
     votingsystemsList: jspb.Message.toObjectList(msg.getVotingsystemsList(),
     proto.actions.VotingSystemField.toObject, includeInstance),
-    contractauthflags: msg.getContractauthflags_asB64(),
+    contractpermissions: msg.getContractpermissions_asB64(),
     restrictedqtyassets: jspb.Message.getFieldWithDefault(msg, 20, 0),
     administrationproposal: jspb.Message.getFieldWithDefault(msg, 21, false),
     holderproposal: jspb.Message.getFieldWithDefault(msg, 22, false),
@@ -244,7 +244,7 @@ proto.actions.ContractOffer.deserializeBinaryFromReader = function(msg, reader) 
       break;
     case 19:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setContractauthflags(value);
+      msg.setContractpermissions(value);
       break;
     case 20:
       var value = /** @type {number} */ (reader.readUint64());
@@ -426,7 +426,7 @@ proto.actions.ContractOffer.serializeBinaryToWriter = function(message, writer) 
       proto.actions.VotingSystemField.serializeBinaryToWriter
     );
   }
-  f = message.getContractauthflags_asU8();
+  f = message.getContractpermissions_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       19,
@@ -874,40 +874,40 @@ proto.actions.ContractOffer.prototype.clearVotingsystemsList = function() {
 
 
 /**
- * optional bytes ContractAuthFlags = 19;
+ * optional bytes ContractPermissions = 19;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractOffer.prototype.getContractauthflags = function() {
+proto.actions.ContractOffer.prototype.getContractpermissions = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 19, ""));
 };
 
 
 /**
- * optional bytes ContractAuthFlags = 19;
- * This is a type-conversion wrapper around `getContractauthflags()`
+ * optional bytes ContractPermissions = 19;
+ * This is a type-conversion wrapper around `getContractpermissions()`
  * @return {string}
  */
-proto.actions.ContractOffer.prototype.getContractauthflags_asB64 = function() {
+proto.actions.ContractOffer.prototype.getContractpermissions_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getContractauthflags()));
+      this.getContractpermissions()));
 };
 
 
 /**
- * optional bytes ContractAuthFlags = 19;
+ * optional bytes ContractPermissions = 19;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getContractauthflags()`
+ * This is a type-conversion wrapper around `getContractpermissions()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractOffer.prototype.getContractauthflags_asU8 = function() {
+proto.actions.ContractOffer.prototype.getContractpermissions_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getContractauthflags()));
+      this.getContractpermissions()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.ContractOffer.prototype.setContractauthflags = function(value) {
+proto.actions.ContractOffer.prototype.setContractpermissions = function(value) {
   jspb.Message.setField(this, 19, value);
 };
 
@@ -1105,7 +1105,7 @@ proto.actions.ContractFormation.toObject = function(includeInstance, msg) {
     contractfee: jspb.Message.getFieldWithDefault(msg, 16, 0),
     votingsystemsList: jspb.Message.toObjectList(msg.getVotingsystemsList(),
     proto.actions.VotingSystemField.toObject, includeInstance),
-    contractauthflags: msg.getContractauthflags_asB64(),
+    contractpermissions: msg.getContractpermissions_asB64(),
     restrictedqtyassets: jspb.Message.getFieldWithDefault(msg, 19, 0),
     administrationproposal: jspb.Message.getFieldWithDefault(msg, 20, false),
     holderproposal: jspb.Message.getFieldWithDefault(msg, 21, false),
@@ -1225,7 +1225,7 @@ proto.actions.ContractFormation.deserializeBinaryFromReader = function(msg, read
       break;
     case 18:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setContractauthflags(value);
+      msg.setContractpermissions(value);
       break;
     case 19:
       var value = /** @type {number} */ (reader.readUint64());
@@ -1408,7 +1408,7 @@ proto.actions.ContractFormation.serializeBinaryToWriter = function(message, writ
       proto.actions.VotingSystemField.serializeBinaryToWriter
     );
   }
-  f = message.getContractauthflags_asU8();
+  f = message.getContractpermissions_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       18,
@@ -1853,40 +1853,40 @@ proto.actions.ContractFormation.prototype.clearVotingsystemsList = function() {
 
 
 /**
- * optional bytes ContractAuthFlags = 18;
+ * optional bytes ContractPermissions = 18;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.ContractFormation.prototype.getContractauthflags = function() {
+proto.actions.ContractFormation.prototype.getContractpermissions = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 18, ""));
 };
 
 
 /**
- * optional bytes ContractAuthFlags = 18;
- * This is a type-conversion wrapper around `getContractauthflags()`
+ * optional bytes ContractPermissions = 18;
+ * This is a type-conversion wrapper around `getContractpermissions()`
  * @return {string}
  */
-proto.actions.ContractFormation.prototype.getContractauthflags_asB64 = function() {
+proto.actions.ContractFormation.prototype.getContractpermissions_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getContractauthflags()));
+      this.getContractpermissions()));
 };
 
 
 /**
- * optional bytes ContractAuthFlags = 18;
+ * optional bytes ContractPermissions = 18;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getContractauthflags()`
+ * This is a type-conversion wrapper around `getContractpermissions()`
  * @return {!Uint8Array}
  */
-proto.actions.ContractFormation.prototype.getContractauthflags_asU8 = function() {
+proto.actions.ContractFormation.prototype.getContractpermissions_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getContractauthflags()));
+      this.getContractpermissions()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.ContractFormation.prototype.setContractauthflags = function(value) {
+proto.actions.ContractFormation.prototype.setContractpermissions = function(value) {
   jspb.Message.setField(this, 18, value);
 };
 
@@ -3324,7 +3324,7 @@ proto.actions.AssetDefinition.prototype.toObject = function(opt_includeInstance)
  */
 proto.actions.AssetDefinition.toObject = function(includeInstance, msg) {
   var f, obj = {
-    assetauthflags: msg.getAssetauthflags_asB64(),
+    assetpermissions: msg.getAssetpermissions_asB64(),
     transferspermitted: jspb.Message.getFieldWithDefault(msg, 2, false),
     traderestrictionsList: jspb.Message.getField(msg, 3),
     enforcementorderspermitted: jspb.Message.getFieldWithDefault(msg, 4, false),
@@ -3374,7 +3374,7 @@ proto.actions.AssetDefinition.deserializeBinaryFromReader = function(msg, reader
     switch (field) {
     case 1:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setAssetauthflags(value);
+      msg.setAssetpermissions(value);
       break;
     case 2:
       var value = /** @type {boolean} */ (reader.readBool());
@@ -3448,7 +3448,7 @@ proto.actions.AssetDefinition.prototype.serializeBinary = function() {
  */
 proto.actions.AssetDefinition.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAssetauthflags_asU8();
+  f = message.getAssetpermissions_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       1,
@@ -3536,40 +3536,40 @@ proto.actions.AssetDefinition.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional bytes AssetAuthFlags = 1;
+ * optional bytes AssetPermissions = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AssetDefinition.prototype.getAssetauthflags = function() {
+proto.actions.AssetDefinition.prototype.getAssetpermissions = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * optional bytes AssetAuthFlags = 1;
- * This is a type-conversion wrapper around `getAssetauthflags()`
+ * optional bytes AssetPermissions = 1;
+ * This is a type-conversion wrapper around `getAssetpermissions()`
  * @return {string}
  */
-proto.actions.AssetDefinition.prototype.getAssetauthflags_asB64 = function() {
+proto.actions.AssetDefinition.prototype.getAssetpermissions_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getAssetauthflags()));
+      this.getAssetpermissions()));
 };
 
 
 /**
- * optional bytes AssetAuthFlags = 1;
+ * optional bytes AssetPermissions = 1;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getAssetauthflags()`
+ * This is a type-conversion wrapper around `getAssetpermissions()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetDefinition.prototype.getAssetauthflags_asU8 = function() {
+proto.actions.AssetDefinition.prototype.getAssetpermissions_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getAssetauthflags()));
+      this.getAssetpermissions()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.AssetDefinition.prototype.setAssetauthflags = function(value) {
+proto.actions.AssetDefinition.prototype.setAssetpermissions = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -3844,7 +3844,7 @@ proto.actions.AssetCreation.toObject = function(includeInstance, msg) {
   var f, obj = {
     assetcode: msg.getAssetcode_asB64(),
     assetindex: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    assetauthflags: msg.getAssetauthflags_asB64(),
+    assetpermissions: msg.getAssetpermissions_asB64(),
     transferspermitted: jspb.Message.getFieldWithDefault(msg, 4, false),
     traderestrictionsList: jspb.Message.getField(msg, 5),
     enforcementorderspermitted: jspb.Message.getFieldWithDefault(msg, 6, false),
@@ -3904,7 +3904,7 @@ proto.actions.AssetCreation.deserializeBinaryFromReader = function(msg, reader) 
       break;
     case 3:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setAssetauthflags(value);
+      msg.setAssetpermissions(value);
       break;
     case 4:
       var value = /** @type {boolean} */ (reader.readBool());
@@ -4000,7 +4000,7 @@ proto.actions.AssetCreation.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getAssetauthflags_asU8();
+  f = message.getAssetpermissions_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       3,
@@ -4156,40 +4156,40 @@ proto.actions.AssetCreation.prototype.setAssetindex = function(value) {
 
 
 /**
- * optional bytes AssetAuthFlags = 3;
+ * optional bytes AssetPermissions = 3;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AssetCreation.prototype.getAssetauthflags = function() {
+proto.actions.AssetCreation.prototype.getAssetpermissions = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /**
- * optional bytes AssetAuthFlags = 3;
- * This is a type-conversion wrapper around `getAssetauthflags()`
+ * optional bytes AssetPermissions = 3;
+ * This is a type-conversion wrapper around `getAssetpermissions()`
  * @return {string}
  */
-proto.actions.AssetCreation.prototype.getAssetauthflags_asB64 = function() {
+proto.actions.AssetCreation.prototype.getAssetpermissions_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getAssetauthflags()));
+      this.getAssetpermissions()));
 };
 
 
 /**
- * optional bytes AssetAuthFlags = 3;
+ * optional bytes AssetPermissions = 3;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getAssetauthflags()`
+ * This is a type-conversion wrapper around `getAssetpermissions()`
  * @return {!Uint8Array}
  */
-proto.actions.AssetCreation.prototype.getAssetauthflags_asU8 = function() {
+proto.actions.AssetCreation.prototype.getAssetpermissions_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getAssetauthflags()));
+      this.getAssetpermissions()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.AssetCreation.prototype.setAssetauthflags = function(value) {
+proto.actions.AssetCreation.prototype.setAssetpermissions = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -5254,7 +5254,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.Proposal.repeatedFields_ = [7];
+proto.actions.Proposal.repeatedFields_ = [5];
 
 
 
@@ -5284,19 +5284,17 @@ proto.actions.Proposal.prototype.toObject = function(opt_includeInstance) {
  */
 proto.actions.Proposal.toObject = function(includeInstance, msg) {
   var f, obj = {
-    initiator: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    assetspecificvote: jspb.Message.getFieldWithDefault(msg, 2, false),
-    assettype: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    type: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    assettype: jspb.Message.getFieldWithDefault(msg, 2, ""),
     assetcode: msg.getAssetcode_asB64(),
-    votesystem: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    specific: jspb.Message.getFieldWithDefault(msg, 6, false),
+    votesystem: jspb.Message.getFieldWithDefault(msg, 4, 0),
     proposedamendmentsList: jspb.Message.toObjectList(msg.getProposedamendmentsList(),
     proto.actions.AmendmentField.toObject, includeInstance),
-    voteoptions: jspb.Message.getFieldWithDefault(msg, 8, ""),
-    votemax: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    proposaldescription: jspb.Message.getFieldWithDefault(msg, 10, ""),
+    voteoptions: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    votemax: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    proposaldescription: jspb.Message.getFieldWithDefault(msg, 8, ""),
     proposaldocumenthash: msg.getProposaldocumenthash_asB64(),
-    votecutofftimestamp: jspb.Message.getFieldWithDefault(msg, 12, 0)
+    votecutofftimestamp: jspb.Message.getFieldWithDefault(msg, 10, 0)
   };
 
   if (includeInstance) {
@@ -5335,50 +5333,42 @@ proto.actions.Proposal.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setInitiator(value);
+      msg.setType(value);
       break;
     case 2:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setAssetspecificvote(value);
-      break;
-    case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setAssettype(value);
       break;
-    case 4:
+    case 3:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAssetcode(value);
       break;
-    case 5:
+    case 4:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setVotesystem(value);
       break;
-    case 6:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setSpecific(value);
-      break;
-    case 7:
+    case 5:
       var value = new proto.actions.AmendmentField;
       reader.readMessage(value,proto.actions.AmendmentField.deserializeBinaryFromReader);
       msg.addProposedamendments(value);
       break;
-    case 8:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setVoteoptions(value);
       break;
-    case 9:
+    case 7:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setVotemax(value);
       break;
-    case 10:
+    case 8:
       var value = /** @type {string} */ (reader.readString());
       msg.setProposaldescription(value);
       break;
-    case 11:
+    case 9:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setProposaldocumenthash(value);
       break;
-    case 12:
+    case 10:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setVotecutofftimestamp(value);
       break;
@@ -5410,52 +5400,38 @@ proto.actions.Proposal.prototype.serializeBinary = function() {
  */
 proto.actions.Proposal.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getInitiator();
+  f = message.getType();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = message.getAssetspecificvote();
-  if (f) {
-    writer.writeBool(
-      2,
-      f
-    );
-  }
   f = message.getAssettype();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      2,
       f
     );
   }
   f = message.getAssetcode_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      4,
+      3,
       f
     );
   }
   f = message.getVotesystem();
   if (f !== 0) {
     writer.writeUint32(
-      5,
-      f
-    );
-  }
-  f = message.getSpecific();
-  if (f) {
-    writer.writeBool(
-      6,
+      4,
       f
     );
   }
   f = message.getProposedamendmentsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      7,
+      5,
       f,
       proto.actions.AmendmentField.serializeBinaryToWriter
     );
@@ -5463,35 +5439,35 @@ proto.actions.Proposal.serializeBinaryToWriter = function(message, writer) {
   f = message.getVoteoptions();
   if (f.length > 0) {
     writer.writeString(
-      8,
+      6,
       f
     );
   }
   f = message.getVotemax();
   if (f !== 0) {
     writer.writeUint32(
-      9,
+      7,
       f
     );
   }
   f = message.getProposaldescription();
   if (f.length > 0) {
     writer.writeString(
-      10,
+      8,
       f
     );
   }
   f = message.getProposaldocumenthash_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      11,
+      9,
       f
     );
   }
   f = message.getVotecutofftimestamp();
   if (f !== 0) {
     writer.writeUint64(
-      12,
+      10,
       f
     );
   }
@@ -5499,63 +5475,46 @@ proto.actions.Proposal.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional uint32 Initiator = 1;
+ * optional uint32 Type = 1;
  * @return {number}
  */
-proto.actions.Proposal.prototype.getInitiator = function() {
+proto.actions.Proposal.prototype.getType = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.actions.Proposal.prototype.setInitiator = function(value) {
+proto.actions.Proposal.prototype.setType = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional bool AssetSpecificVote = 2;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.Proposal.prototype.getAssetspecificvote = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 2, false));
-};
-
-
-/** @param {boolean} value */
-proto.actions.Proposal.prototype.setAssetspecificvote = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * optional string AssetType = 3;
+ * optional string AssetType = 2;
  * @return {string}
  */
 proto.actions.Proposal.prototype.getAssettype = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
 proto.actions.Proposal.prototype.setAssettype = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional bytes AssetCode = 4;
+ * optional bytes AssetCode = 3;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Proposal.prototype.getAssetcode = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /**
- * optional bytes AssetCode = 4;
+ * optional bytes AssetCode = 3;
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
@@ -5566,7 +5525,7 @@ proto.actions.Proposal.prototype.getAssetcode_asB64 = function() {
 
 
 /**
- * optional bytes AssetCode = 4;
+ * optional bytes AssetCode = 3;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getAssetcode()`
@@ -5580,57 +5539,40 @@ proto.actions.Proposal.prototype.getAssetcode_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Proposal.prototype.setAssetcode = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional uint32 VoteSystem = 5;
+ * optional uint32 VoteSystem = 4;
  * @return {number}
  */
 proto.actions.Proposal.prototype.getVotesystem = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /** @param {number} value */
 proto.actions.Proposal.prototype.setVotesystem = function(value) {
-  jspb.Message.setField(this, 5, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional bool Specific = 6;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.Proposal.prototype.getSpecific = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 6, false));
-};
-
-
-/** @param {boolean} value */
-proto.actions.Proposal.prototype.setSpecific = function(value) {
-  jspb.Message.setField(this, 6, value);
-};
-
-
-/**
- * repeated AmendmentField ProposedAmendments = 7;
+ * repeated AmendmentField ProposedAmendments = 5;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AmendmentField>}
  */
 proto.actions.Proposal.prototype.getProposedamendmentsList = function() {
   return /** @type{!Array.<!proto.actions.AmendmentField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.AmendmentField, 7));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.AmendmentField, 5));
 };
 
 
 /** @param {!Array.<!proto.actions.AmendmentField>} value */
 proto.actions.Proposal.prototype.setProposedamendmentsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 7, value);
+  jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
 
 
@@ -5640,7 +5582,7 @@ proto.actions.Proposal.prototype.setProposedamendmentsList = function(value) {
  * @return {!proto.actions.AmendmentField}
  */
 proto.actions.Proposal.prototype.addProposedamendments = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.actions.AmendmentField, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.actions.AmendmentField, opt_index);
 };
 
 
@@ -5650,61 +5592,61 @@ proto.actions.Proposal.prototype.clearProposedamendmentsList = function() {
 
 
 /**
- * optional string VoteOptions = 8;
+ * optional string VoteOptions = 6;
  * @return {string}
  */
 proto.actions.Proposal.prototype.getVoteoptions = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /** @param {string} value */
 proto.actions.Proposal.prototype.setVoteoptions = function(value) {
-  jspb.Message.setField(this, 8, value);
+  jspb.Message.setField(this, 6, value);
 };
 
 
 /**
- * optional uint32 VoteMax = 9;
+ * optional uint32 VoteMax = 7;
  * @return {number}
  */
 proto.actions.Proposal.prototype.getVotemax = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
 
 /** @param {number} value */
 proto.actions.Proposal.prototype.setVotemax = function(value) {
-  jspb.Message.setField(this, 9, value);
+  jspb.Message.setField(this, 7, value);
 };
 
 
 /**
- * optional string ProposalDescription = 10;
+ * optional string ProposalDescription = 8;
  * @return {string}
  */
 proto.actions.Proposal.prototype.getProposaldescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
 };
 
 
 /** @param {string} value */
 proto.actions.Proposal.prototype.setProposaldescription = function(value) {
-  jspb.Message.setField(this, 10, value);
+  jspb.Message.setField(this, 8, value);
 };
 
 
 /**
- * optional bytes ProposalDocumentHash = 11;
+ * optional bytes ProposalDocumentHash = 9;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Proposal.prototype.getProposaldocumenthash = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
 };
 
 
 /**
- * optional bytes ProposalDocumentHash = 11;
+ * optional bytes ProposalDocumentHash = 9;
  * This is a type-conversion wrapper around `getProposaldocumenthash()`
  * @return {string}
  */
@@ -5715,7 +5657,7 @@ proto.actions.Proposal.prototype.getProposaldocumenthash_asB64 = function() {
 
 
 /**
- * optional bytes ProposalDocumentHash = 11;
+ * optional bytes ProposalDocumentHash = 9;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getProposaldocumenthash()`
@@ -5729,22 +5671,22 @@ proto.actions.Proposal.prototype.getProposaldocumenthash_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Proposal.prototype.setProposaldocumenthash = function(value) {
-  jspb.Message.setField(this, 11, value);
+  jspb.Message.setField(this, 9, value);
 };
 
 
 /**
- * optional uint64 VoteCutOffTimestamp = 12;
+ * optional uint64 VoteCutOffTimestamp = 10;
  * @return {number}
  */
 proto.actions.Proposal.prototype.getVotecutofftimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
 };
 
 
 /** @param {number} value */
 proto.actions.Proposal.prototype.setVotecutofftimestamp = function(value) {
-  jspb.Message.setField(this, 12, value);
+  jspb.Message.setField(this, 10, value);
 };
 
 
@@ -6347,7 +6289,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.Result.repeatedFields_ = [5,7];
+proto.actions.Result.repeatedFields_ = [3,5];
 
 
 
@@ -6377,16 +6319,14 @@ proto.actions.Result.prototype.toObject = function(opt_includeInstance) {
  */
 proto.actions.Result.toObject = function(includeInstance, msg) {
   var f, obj = {
-    assetspecificvote: jspb.Message.getFieldWithDefault(msg, 1, false),
-    assettype: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    assettype: jspb.Message.getFieldWithDefault(msg, 1, ""),
     assetcode: msg.getAssetcode_asB64(),
-    specific: jspb.Message.getFieldWithDefault(msg, 4, false),
     proposedamendmentsList: jspb.Message.toObjectList(msg.getProposedamendmentsList(),
     proto.actions.AmendmentField.toObject, includeInstance),
     votetxid: msg.getVotetxid_asB64(),
-    optiontallyList: jspb.Message.getField(msg, 7),
-    result: jspb.Message.getFieldWithDefault(msg, 8, ""),
-    timestamp: jspb.Message.getFieldWithDefault(msg, 9, 0)
+    optiontallyList: jspb.Message.getField(msg, 5),
+    result: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 7, 0)
   };
 
   if (includeInstance) {
@@ -6424,39 +6364,31 @@ proto.actions.Result.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setAssetspecificvote(value);
-      break;
-    case 2:
       var value = /** @type {string} */ (reader.readString());
       msg.setAssettype(value);
       break;
-    case 3:
+    case 2:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAssetcode(value);
       break;
-    case 4:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setSpecific(value);
-      break;
-    case 5:
+    case 3:
       var value = new proto.actions.AmendmentField;
       reader.readMessage(value,proto.actions.AmendmentField.deserializeBinaryFromReader);
       msg.addProposedamendments(value);
       break;
-    case 6:
+    case 4:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setVotetxid(value);
       break;
-    case 7:
+    case 5:
       var value = /** @type {!Array.<number>} */ (reader.readPackedUint64());
       msg.setOptiontallyList(value);
       break;
-    case 8:
+    case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setResult(value);
       break;
-    case 9:
+    case 7:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setTimestamp(value);
       break;
@@ -6488,38 +6420,24 @@ proto.actions.Result.prototype.serializeBinary = function() {
  */
 proto.actions.Result.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAssetspecificvote();
-  if (f) {
-    writer.writeBool(
-      1,
-      f
-    );
-  }
   f = message.getAssettype();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      1,
       f
     );
   }
   f = message.getAssetcode_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      3,
-      f
-    );
-  }
-  f = message.getSpecific();
-  if (f) {
-    writer.writeBool(
-      4,
+      2,
       f
     );
   }
   f = message.getProposedamendmentsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      5,
+      3,
       f,
       proto.actions.AmendmentField.serializeBinaryToWriter
     );
@@ -6527,28 +6445,28 @@ proto.actions.Result.serializeBinaryToWriter = function(message, writer) {
   f = message.getVotetxid_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      6,
+      4,
       f
     );
   }
   f = message.getOptiontallyList();
   if (f.length > 0) {
     writer.writePackedUint64(
-      7,
+      5,
       f
     );
   }
   f = message.getResult();
   if (f.length > 0) {
     writer.writeString(
-      8,
+      6,
       f
     );
   }
   f = message.getTimestamp();
   if (f !== 0) {
     writer.writeUint64(
-      9,
+      7,
       f
     );
   }
@@ -6556,48 +6474,31 @@ proto.actions.Result.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional bool AssetSpecificVote = 1;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.Result.prototype.getAssetspecificvote = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
-};
-
-
-/** @param {boolean} value */
-proto.actions.Result.prototype.setAssetspecificvote = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * optional string AssetType = 2;
+ * optional string AssetType = 1;
  * @return {string}
  */
 proto.actions.Result.prototype.getAssettype = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
 proto.actions.Result.prototype.setAssettype = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional bytes AssetCode = 3;
+ * optional bytes AssetCode = 2;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Result.prototype.getAssetcode = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
- * optional bytes AssetCode = 3;
+ * optional bytes AssetCode = 2;
  * This is a type-conversion wrapper around `getAssetcode()`
  * @return {string}
  */
@@ -6608,7 +6509,7 @@ proto.actions.Result.prototype.getAssetcode_asB64 = function() {
 
 
 /**
- * optional bytes AssetCode = 3;
+ * optional bytes AssetCode = 2;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getAssetcode()`
@@ -6622,42 +6523,25 @@ proto.actions.Result.prototype.getAssetcode_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Result.prototype.setAssetcode = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional bool Specific = 4;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.Result.prototype.getSpecific = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 4, false));
-};
-
-
-/** @param {boolean} value */
-proto.actions.Result.prototype.setSpecific = function(value) {
-  jspb.Message.setField(this, 4, value);
-};
-
-
-/**
- * repeated AmendmentField ProposedAmendments = 5;
+ * repeated AmendmentField ProposedAmendments = 3;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.AmendmentField>}
  */
 proto.actions.Result.prototype.getProposedamendmentsList = function() {
   return /** @type{!Array.<!proto.actions.AmendmentField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.AmendmentField, 5));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.AmendmentField, 3));
 };
 
 
 /** @param {!Array.<!proto.actions.AmendmentField>} value */
 proto.actions.Result.prototype.setProposedamendmentsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 5, value);
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
 };
 
 
@@ -6667,7 +6551,7 @@ proto.actions.Result.prototype.setProposedamendmentsList = function(value) {
  * @return {!proto.actions.AmendmentField}
  */
 proto.actions.Result.prototype.addProposedamendments = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.actions.AmendmentField, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.actions.AmendmentField, opt_index);
 };
 
 
@@ -6677,16 +6561,16 @@ proto.actions.Result.prototype.clearProposedamendmentsList = function() {
 
 
 /**
- * optional bytes VoteTxId = 6;
+ * optional bytes VoteTxId = 4;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Result.prototype.getVotetxid = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /**
- * optional bytes VoteTxId = 6;
+ * optional bytes VoteTxId = 4;
  * This is a type-conversion wrapper around `getVotetxid()`
  * @return {string}
  */
@@ -6697,7 +6581,7 @@ proto.actions.Result.prototype.getVotetxid_asB64 = function() {
 
 
 /**
- * optional bytes VoteTxId = 6;
+ * optional bytes VoteTxId = 4;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getVotetxid()`
@@ -6711,24 +6595,24 @@ proto.actions.Result.prototype.getVotetxid_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Result.prototype.setVotetxid = function(value) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * repeated uint64 OptionTally = 7;
+ * repeated uint64 OptionTally = 5;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}
  */
 proto.actions.Result.prototype.getOptiontallyList = function() {
-  return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 7));
+  return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 5));
 };
 
 
 /** @param {!Array.<number>} value */
 proto.actions.Result.prototype.setOptiontallyList = function(value) {
-  jspb.Message.setField(this, 7, value || []);
+  jspb.Message.setField(this, 5, value || []);
 };
 
 
@@ -6737,7 +6621,7 @@ proto.actions.Result.prototype.setOptiontallyList = function(value) {
  * @param {number=} opt_index
  */
 proto.actions.Result.prototype.addOptiontally = function(value, opt_index) {
-  jspb.Message.addToRepeatedField(this, 7, value, opt_index);
+  jspb.Message.addToRepeatedField(this, 5, value, opt_index);
 };
 
 
@@ -6747,32 +6631,32 @@ proto.actions.Result.prototype.clearOptiontallyList = function() {
 
 
 /**
- * optional string Result = 8;
+ * optional string Result = 6;
  * @return {string}
  */
 proto.actions.Result.prototype.getResult = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /** @param {string} value */
 proto.actions.Result.prototype.setResult = function(value) {
-  jspb.Message.setField(this, 8, value);
+  jspb.Message.setField(this, 6, value);
 };
 
 
 /**
- * optional uint64 Timestamp = 9;
+ * optional uint64 Timestamp = 7;
  * @return {number}
  */
 proto.actions.Result.prototype.getTimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
 
 /** @param {number} value */
 proto.actions.Result.prototype.setTimestamp = function(value) {
-  jspb.Message.setField(this, 9, value);
+  jspb.Message.setField(this, 7, value);
 };
 
 
@@ -6799,7 +6683,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.Order.repeatedFields_ = [4,15];
+proto.actions.Order.repeatedFields_ = [4,14];
 
 
 
@@ -6837,16 +6721,15 @@ proto.actions.Order.toObject = function(includeInstance, msg) {
     freezetxid: msg.getFreezetxid_asB64(),
     freezeperiod: jspb.Message.getFieldWithDefault(msg, 6, 0),
     depositaddress: msg.getDepositaddress_asB64(),
-    authorityincluded: jspb.Message.getFieldWithDefault(msg, 8, false),
-    authorityname: jspb.Message.getFieldWithDefault(msg, 9, ""),
+    authorityname: jspb.Message.getFieldWithDefault(msg, 8, ""),
     authoritypublickey: msg.getAuthoritypublickey_asB64(),
-    signaturealgorithm: jspb.Message.getFieldWithDefault(msg, 11, 0),
+    signaturealgorithm: jspb.Message.getFieldWithDefault(msg, 10, 0),
     ordersignature: msg.getOrdersignature_asB64(),
     supportingevidencehash: msg.getSupportingevidencehash_asB64(),
     reftxs: msg.getReftxs_asB64(),
     bitcoindispersionsList: jspb.Message.toObjectList(msg.getBitcoindispersionsList(),
     proto.actions.QuantityIndexField.toObject, includeInstance),
-    message: jspb.Message.getFieldWithDefault(msg, 16, "")
+    message: jspb.Message.getFieldWithDefault(msg, 15, "")
   };
 
   if (includeInstance) {
@@ -6913,39 +6796,35 @@ proto.actions.Order.deserializeBinaryFromReader = function(msg, reader) {
       msg.setDepositaddress(value);
       break;
     case 8:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setAuthorityincluded(value);
-      break;
-    case 9:
       var value = /** @type {string} */ (reader.readString());
       msg.setAuthorityname(value);
       break;
-    case 10:
+    case 9:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAuthoritypublickey(value);
       break;
-    case 11:
+    case 10:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setSignaturealgorithm(value);
       break;
-    case 12:
+    case 11:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setOrdersignature(value);
       break;
-    case 13:
+    case 12:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setSupportingevidencehash(value);
       break;
-    case 14:
+    case 13:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setReftxs(value);
       break;
-    case 15:
+    case 14:
       var value = new proto.actions.QuantityIndexField;
       reader.readMessage(value,proto.actions.QuantityIndexField.deserializeBinaryFromReader);
       msg.addBitcoindispersions(value);
       break;
-    case 16:
+    case 15:
       var value = /** @type {string} */ (reader.readString());
       msg.setMessage(value);
       break;
@@ -7027,59 +6906,52 @@ proto.actions.Order.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getAuthorityincluded();
-  if (f) {
-    writer.writeBool(
-      8,
-      f
-    );
-  }
   f = message.getAuthorityname();
   if (f.length > 0) {
     writer.writeString(
-      9,
+      8,
       f
     );
   }
   f = message.getAuthoritypublickey_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      10,
+      9,
       f
     );
   }
   f = message.getSignaturealgorithm();
   if (f !== 0) {
     writer.writeUint32(
-      11,
+      10,
       f
     );
   }
   f = message.getOrdersignature_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      12,
+      11,
       f
     );
   }
   f = message.getSupportingevidencehash_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      13,
+      12,
       f
     );
   }
   f = message.getReftxs_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      14,
+      13,
       f
     );
   }
   f = message.getBitcoindispersionsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      15,
+      14,
       f,
       proto.actions.QuantityIndexField.serializeBinaryToWriter
     );
@@ -7087,7 +6959,7 @@ proto.actions.Order.serializeBinaryToWriter = function(message, writer) {
   f = message.getMessage();
   if (f.length > 0) {
     writer.writeString(
-      16,
+      15,
       f
     );
   }
@@ -7290,48 +7162,31 @@ proto.actions.Order.prototype.setDepositaddress = function(value) {
 
 
 /**
- * optional bool AuthorityIncluded = 8;
- * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
- * You should avoid comparisons like {@code val === true/false} in those cases.
- * @return {boolean}
- */
-proto.actions.Order.prototype.getAuthorityincluded = function() {
-  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 8, false));
-};
-
-
-/** @param {boolean} value */
-proto.actions.Order.prototype.setAuthorityincluded = function(value) {
-  jspb.Message.setField(this, 8, value);
-};
-
-
-/**
- * optional string AuthorityName = 9;
+ * optional string AuthorityName = 8;
  * @return {string}
  */
 proto.actions.Order.prototype.getAuthorityname = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
 };
 
 
 /** @param {string} value */
 proto.actions.Order.prototype.setAuthorityname = function(value) {
-  jspb.Message.setField(this, 9, value);
+  jspb.Message.setField(this, 8, value);
 };
 
 
 /**
- * optional bytes AuthorityPublicKey = 10;
+ * optional bytes AuthorityPublicKey = 9;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Order.prototype.getAuthoritypublickey = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
 };
 
 
 /**
- * optional bytes AuthorityPublicKey = 10;
+ * optional bytes AuthorityPublicKey = 9;
  * This is a type-conversion wrapper around `getAuthoritypublickey()`
  * @return {string}
  */
@@ -7342,7 +7197,7 @@ proto.actions.Order.prototype.getAuthoritypublickey_asB64 = function() {
 
 
 /**
- * optional bytes AuthorityPublicKey = 10;
+ * optional bytes AuthorityPublicKey = 9;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getAuthoritypublickey()`
@@ -7356,36 +7211,36 @@ proto.actions.Order.prototype.getAuthoritypublickey_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Order.prototype.setAuthoritypublickey = function(value) {
-  jspb.Message.setField(this, 10, value);
+  jspb.Message.setField(this, 9, value);
 };
 
 
 /**
- * optional uint32 SignatureAlgorithm = 11;
+ * optional uint32 SignatureAlgorithm = 10;
  * @return {number}
  */
 proto.actions.Order.prototype.getSignaturealgorithm = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 11, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
 };
 
 
 /** @param {number} value */
 proto.actions.Order.prototype.setSignaturealgorithm = function(value) {
-  jspb.Message.setField(this, 11, value);
+  jspb.Message.setField(this, 10, value);
 };
 
 
 /**
- * optional bytes OrderSignature = 12;
+ * optional bytes OrderSignature = 11;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Order.prototype.getOrdersignature = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
 };
 
 
 /**
- * optional bytes OrderSignature = 12;
+ * optional bytes OrderSignature = 11;
  * This is a type-conversion wrapper around `getOrdersignature()`
  * @return {string}
  */
@@ -7396,7 +7251,7 @@ proto.actions.Order.prototype.getOrdersignature_asB64 = function() {
 
 
 /**
- * optional bytes OrderSignature = 12;
+ * optional bytes OrderSignature = 11;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getOrdersignature()`
@@ -7410,21 +7265,21 @@ proto.actions.Order.prototype.getOrdersignature_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Order.prototype.setOrdersignature = function(value) {
-  jspb.Message.setField(this, 12, value);
+  jspb.Message.setField(this, 11, value);
 };
 
 
 /**
- * optional bytes SupportingEvidenceHash = 13;
+ * optional bytes SupportingEvidenceHash = 12;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Order.prototype.getSupportingevidencehash = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
 };
 
 
 /**
- * optional bytes SupportingEvidenceHash = 13;
+ * optional bytes SupportingEvidenceHash = 12;
  * This is a type-conversion wrapper around `getSupportingevidencehash()`
  * @return {string}
  */
@@ -7435,7 +7290,7 @@ proto.actions.Order.prototype.getSupportingevidencehash_asB64 = function() {
 
 
 /**
- * optional bytes SupportingEvidenceHash = 13;
+ * optional bytes SupportingEvidenceHash = 12;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getSupportingevidencehash()`
@@ -7449,21 +7304,21 @@ proto.actions.Order.prototype.getSupportingevidencehash_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Order.prototype.setSupportingevidencehash = function(value) {
-  jspb.Message.setField(this, 13, value);
+  jspb.Message.setField(this, 12, value);
 };
 
 
 /**
- * optional bytes RefTxs = 14;
+ * optional bytes RefTxs = 13;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Order.prototype.getReftxs = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 14, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
 };
 
 
 /**
- * optional bytes RefTxs = 14;
+ * optional bytes RefTxs = 13;
  * This is a type-conversion wrapper around `getReftxs()`
  * @return {string}
  */
@@ -7474,7 +7329,7 @@ proto.actions.Order.prototype.getReftxs_asB64 = function() {
 
 
 /**
- * optional bytes RefTxs = 14;
+ * optional bytes RefTxs = 13;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getReftxs()`
@@ -7488,25 +7343,25 @@ proto.actions.Order.prototype.getReftxs_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Order.prototype.setReftxs = function(value) {
-  jspb.Message.setField(this, 14, value);
+  jspb.Message.setField(this, 13, value);
 };
 
 
 /**
- * repeated QuantityIndexField BitcoinDispersions = 15;
+ * repeated QuantityIndexField BitcoinDispersions = 14;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.actions.QuantityIndexField>}
  */
 proto.actions.Order.prototype.getBitcoindispersionsList = function() {
   return /** @type{!Array.<!proto.actions.QuantityIndexField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.actions.QuantityIndexField, 15));
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.QuantityIndexField, 14));
 };
 
 
 /** @param {!Array.<!proto.actions.QuantityIndexField>} value */
 proto.actions.Order.prototype.setBitcoindispersionsList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 15, value);
+  jspb.Message.setRepeatedWrapperField(this, 14, value);
 };
 
 
@@ -7516,7 +7371,7 @@ proto.actions.Order.prototype.setBitcoindispersionsList = function(value) {
  * @return {!proto.actions.QuantityIndexField}
  */
 proto.actions.Order.prototype.addBitcoindispersions = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 15, opt_value, proto.actions.QuantityIndexField, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 14, opt_value, proto.actions.QuantityIndexField, opt_index);
 };
 
 
@@ -7526,17 +7381,17 @@ proto.actions.Order.prototype.clearBitcoindispersionsList = function() {
 
 
 /**
- * optional string Message = 16;
+ * optional string Message = 15;
  * @return {string}
  */
 proto.actions.Order.prototype.getMessage = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 16, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 15, ""));
 };
 
 
 /** @param {string} value */
 proto.actions.Order.prototype.setMessage = function(value) {
-  jspb.Message.setField(this, 16, value);
+  jspb.Message.setField(this, 15, value);
 };
 
 
@@ -9289,7 +9144,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.Message.repeatedFields_ = [1];
+proto.actions.Message.repeatedFields_ = [1,2];
 
 
 
@@ -9319,8 +9174,9 @@ proto.actions.Message.prototype.toObject = function(opt_includeInstance) {
  */
 proto.actions.Message.toObject = function(includeInstance, msg) {
   var f, obj = {
-    addressindexesList: jspb.Message.getField(msg, 1),
-    messagecode: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    senderindexesList: jspb.Message.getField(msg, 1),
+    receiverindexesList: jspb.Message.getField(msg, 2),
+    messagecode: jspb.Message.getFieldWithDefault(msg, 3, 0),
     messagepayload: msg.getMessagepayload_asB64()
   };
 
@@ -9360,13 +9216,17 @@ proto.actions.Message.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {!Array.<number>} */ (reader.readPackedUint32());
-      msg.setAddressindexesList(value);
+      msg.setSenderindexesList(value);
       break;
     case 2:
+      var value = /** @type {!Array.<number>} */ (reader.readPackedUint32());
+      msg.setReceiverindexesList(value);
+      break;
+    case 3:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setMessagecode(value);
       break;
-    case 3:
+    case 4:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setMessagepayload(value);
       break;
@@ -9398,24 +9258,31 @@ proto.actions.Message.prototype.serializeBinary = function() {
  */
 proto.actions.Message.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAddressindexesList();
+  f = message.getSenderindexesList();
   if (f.length > 0) {
     writer.writePackedUint32(
       1,
       f
     );
   }
+  f = message.getReceiverindexesList();
+  if (f.length > 0) {
+    writer.writePackedUint32(
+      2,
+      f
+    );
+  }
   f = message.getMessagecode();
   if (f !== 0) {
     writer.writeUint32(
-      2,
+      3,
       f
     );
   }
   f = message.getMessagepayload_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      3,
+      4,
       f
     );
   }
@@ -9423,18 +9290,18 @@ proto.actions.Message.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * repeated uint32 AddressIndexes = 1;
+ * repeated uint32 SenderIndexes = 1;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<number>}
  */
-proto.actions.Message.prototype.getAddressindexesList = function() {
+proto.actions.Message.prototype.getSenderindexesList = function() {
   return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 1));
 };
 
 
 /** @param {!Array.<number>} value */
-proto.actions.Message.prototype.setAddressindexesList = function(value) {
+proto.actions.Message.prototype.setSenderindexesList = function(value) {
   jspb.Message.setField(this, 1, value || []);
 };
 
@@ -9443,42 +9310,73 @@ proto.actions.Message.prototype.setAddressindexesList = function(value) {
  * @param {!number} value
  * @param {number=} opt_index
  */
-proto.actions.Message.prototype.addAddressindexes = function(value, opt_index) {
+proto.actions.Message.prototype.addSenderindexes = function(value, opt_index) {
   jspb.Message.addToRepeatedField(this, 1, value, opt_index);
 };
 
 
-proto.actions.Message.prototype.clearAddressindexesList = function() {
-  this.setAddressindexesList([]);
+proto.actions.Message.prototype.clearSenderindexesList = function() {
+  this.setSenderindexesList([]);
 };
 
 
 /**
- * optional uint32 MessageCode = 2;
+ * repeated uint32 ReceiverIndexes = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<number>}
+ */
+proto.actions.Message.prototype.getReceiverindexesList = function() {
+  return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 2));
+};
+
+
+/** @param {!Array.<number>} value */
+proto.actions.Message.prototype.setReceiverindexesList = function(value) {
+  jspb.Message.setField(this, 2, value || []);
+};
+
+
+/**
+ * @param {!number} value
+ * @param {number=} opt_index
+ */
+proto.actions.Message.prototype.addReceiverindexes = function(value, opt_index) {
+  jspb.Message.addToRepeatedField(this, 2, value, opt_index);
+};
+
+
+proto.actions.Message.prototype.clearReceiverindexesList = function() {
+  this.setReceiverindexesList([]);
+};
+
+
+/**
+ * optional uint32 MessageCode = 3;
  * @return {number}
  */
 proto.actions.Message.prototype.getMessagecode = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /** @param {number} value */
 proto.actions.Message.prototype.setMessagecode = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional bytes MessagePayload = 3;
+ * optional bytes MessagePayload = 4;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.Message.prototype.getMessagepayload = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /**
- * optional bytes MessagePayload = 3;
+ * optional bytes MessagePayload = 4;
  * This is a type-conversion wrapper around `getMessagepayload()`
  * @return {string}
  */
@@ -9489,7 +9387,7 @@ proto.actions.Message.prototype.getMessagepayload_asB64 = function() {
 
 
 /**
- * optional bytes MessagePayload = 3;
+ * optional bytes MessagePayload = 4;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getMessagepayload()`
@@ -9503,7 +9401,7 @@ proto.actions.Message.prototype.getMessagepayload_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Message.prototype.setMessagepayload = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -9991,11 +9889,8 @@ proto.actions.AmendmentField.prototype.toObject = function(opt_includeInstance) 
  */
 proto.actions.AmendmentField.toObject = function(includeInstance, msg) {
   var f, obj = {
-    fieldindex: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    element: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    subfieldindex: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    subfieldelement: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    operation: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    fieldindexpath: msg.getFieldindexpath_asB64(),
+    operation: jspb.Message.getFieldWithDefault(msg, 2, 0),
     data: msg.getData_asB64()
   };
 
@@ -10034,26 +9929,14 @@ proto.actions.AmendmentField.deserializeBinaryFromReader = function(msg, reader)
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setFieldindex(value);
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setFieldindexpath(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setElement(value);
-      break;
-    case 3:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setSubfieldindex(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setSubfieldelement(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readUint32());
       msg.setOperation(value);
       break;
-    case 6:
+    case 3:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setData(value);
       break;
@@ -10085,45 +9968,24 @@ proto.actions.AmendmentField.prototype.serializeBinary = function() {
  */
 proto.actions.AmendmentField.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getFieldindex();
-  if (f !== 0) {
-    writer.writeUint32(
+  f = message.getFieldindexpath_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
       1,
-      f
-    );
-  }
-  f = message.getElement();
-  if (f !== 0) {
-    writer.writeUint32(
-      2,
-      f
-    );
-  }
-  f = message.getSubfieldindex();
-  if (f !== 0) {
-    writer.writeUint32(
-      3,
-      f
-    );
-  }
-  f = message.getSubfieldelement();
-  if (f !== 0) {
-    writer.writeUint32(
-      4,
       f
     );
   }
   f = message.getOperation();
   if (f !== 0) {
     writer.writeUint32(
-      5,
+      2,
       f
     );
   }
   f = message.getData_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      6,
+      3,
       f
     );
   }
@@ -10131,91 +9993,70 @@ proto.actions.AmendmentField.serializeBinaryToWriter = function(message, writer)
 
 
 /**
- * optional uint32 FieldIndex = 1;
- * @return {number}
+ * optional bytes FieldIndexPath = 1;
+ * @return {!(string|Uint8Array)}
  */
-proto.actions.AmendmentField.prototype.getFieldindex = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+proto.actions.AmendmentField.prototype.getFieldindexpath = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {number} value */
-proto.actions.AmendmentField.prototype.setFieldindex = function(value) {
+/**
+ * optional bytes FieldIndexPath = 1;
+ * This is a type-conversion wrapper around `getFieldindexpath()`
+ * @return {string}
+ */
+proto.actions.AmendmentField.prototype.getFieldindexpath_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getFieldindexpath()));
+};
+
+
+/**
+ * optional bytes FieldIndexPath = 1;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getFieldindexpath()`
+ * @return {!Uint8Array}
+ */
+proto.actions.AmendmentField.prototype.getFieldindexpath_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getFieldindexpath()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.actions.AmendmentField.prototype.setFieldindexpath = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional uint32 Element = 2;
+ * optional uint32 Operation = 2;
  * @return {number}
  */
-proto.actions.AmendmentField.prototype.getElement = function() {
+proto.actions.AmendmentField.prototype.getOperation = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.actions.AmendmentField.prototype.setElement = function(value) {
+proto.actions.AmendmentField.prototype.setOperation = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional uint32 SubfieldIndex = 3;
- * @return {number}
- */
-proto.actions.AmendmentField.prototype.getSubfieldindex = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
-};
-
-
-/** @param {number} value */
-proto.actions.AmendmentField.prototype.setSubfieldindex = function(value) {
-  jspb.Message.setField(this, 3, value);
-};
-
-
-/**
- * optional uint32 SubfieldElement = 4;
- * @return {number}
- */
-proto.actions.AmendmentField.prototype.getSubfieldelement = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
-};
-
-
-/** @param {number} value */
-proto.actions.AmendmentField.prototype.setSubfieldelement = function(value) {
-  jspb.Message.setField(this, 4, value);
-};
-
-
-/**
- * optional uint32 Operation = 5;
- * @return {number}
- */
-proto.actions.AmendmentField.prototype.getOperation = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/** @param {number} value */
-proto.actions.AmendmentField.prototype.setOperation = function(value) {
-  jspb.Message.setField(this, 5, value);
-};
-
-
-/**
- * optional bytes Data = 6;
+ * optional bytes Data = 3;
  * @return {!(string|Uint8Array)}
  */
 proto.actions.AmendmentField.prototype.getData = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /**
- * optional bytes Data = 6;
+ * optional bytes Data = 3;
  * This is a type-conversion wrapper around `getData()`
  * @return {string}
  */
@@ -10226,7 +10067,7 @@ proto.actions.AmendmentField.prototype.getData_asB64 = function() {
 
 
 /**
- * optional bytes Data = 6;
+ * optional bytes Data = 3;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getData()`
@@ -10240,7 +10081,7 @@ proto.actions.AmendmentField.prototype.getData_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.actions.AmendmentField.prototype.setData = function(value) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 

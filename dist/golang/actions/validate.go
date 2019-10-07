@@ -103,9 +103,9 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 
-	// Field ContractAuthFlags - varbin
-	if len(a.ContractAuthFlags) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractAuthFlags), max2ByteInteger)
+	// Field ContractPermissions - varbin
+	if len(a.ContractPermissions) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractPermissions), max2ByteInteger)
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -223,9 +223,9 @@ func (a *ContractFormation) Validate() error {
 		}
 	}
 
-	// Field ContractAuthFlags - varbin
-	if len(a.ContractAuthFlags) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractAuthFlags), max2ByteInteger)
+	// Field ContractPermissions - varbin
+	if len(a.ContractPermissions) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractPermissions), max2ByteInteger)
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -405,9 +405,9 @@ func (a *AssetDefinition) Validate() error {
 		return nil
 	}
 
-	// Field AssetAuthFlags - varbin
-	if len(a.AssetAuthFlags) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetAuthFlags), max2ByteInteger)
+	// Field AssetPermissions - varbin
+	if len(a.AssetPermissions) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetPermissions), max2ByteInteger)
 	}
 
 	// Field TransfersPermitted - bool
@@ -480,9 +480,9 @@ func (a *AssetCreation) Validate() error {
 
 	// Field AssetIndex - uint
 
-	// Field AssetAuthFlags - varbin
-	if len(a.AssetAuthFlags) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetAuthFlags), max2ByteInteger)
+	// Field AssetPermissions - varbin
+	if len(a.AssetPermissions) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AssetPermissions), max2ByteInteger)
 	}
 
 	// Field TransfersPermitted - bool
@@ -636,19 +636,17 @@ func (a *Proposal) Validate() error {
 		return nil
 	}
 
-	// Field Initiator - uint
-	foundInitiator := false
-	for _, v := range []uint32{0, 1} {
-		if a.Initiator == v {
-			foundInitiator = true
+	// Field Type - uint
+	foundType := false
+	for _, v := range []uint32{0, 1, 2} {
+		if a.Type == v {
+			foundType = true
 			break
 		}
 	}
-	if !foundInitiator {
-		return fmt.Errorf("Initiator value not within options [0 1] : %d", a.Initiator)
+	if !foundType {
+		return fmt.Errorf("Type value not within options [0 1 2] : %d", a.Type)
 	}
-
-	// Field AssetSpecificVote - bool
 
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
@@ -666,8 +664,6 @@ func (a *Proposal) Validate() error {
 	if a.VoteSystem > uint32(max1ByteInteger) {
 		return fmt.Errorf("uint over max value : %d > %d", a.VoteSystem, max1ByteInteger)
 	}
-
-	// Field Specific - bool
 
 	// Field ProposedAmendments - Amendment
 	if len(a.ProposedAmendments) > max1ByteInteger {
@@ -762,8 +758,6 @@ func (a *Result) Validate() error {
 		return nil
 	}
 
-	// Field AssetSpecificVote - bool
-
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
 		return fmt.Errorf("Fixed width field AssetType wrong size : %d should be %d",
@@ -775,8 +769,6 @@ func (a *Result) Validate() error {
 		return fmt.Errorf("Fixed width field AssetCode wrong size : %d should be %d",
 			len(a.AssetCode), 32)
 	}
-
-	// Field Specific - bool
 
 	// Field ProposedAmendments - Amendment
 	if len(a.ProposedAmendments) > max1ByteInteger {
@@ -854,8 +846,6 @@ func (a *Order) Validate() error {
 	if len(a.DepositAddress) > max2ByteInteger {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.DepositAddress), max2ByteInteger)
 	}
-
-	// Field AuthorityIncluded - bool
 
 	// Field AuthorityName - varchar
 	if len(a.AuthorityName) > max1ByteInteger {
@@ -1098,9 +1088,14 @@ func (a *Message) Validate() error {
 		return nil
 	}
 
-	// Field AddressIndexes - uint
-	if len(a.AddressIndexes) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.AddressIndexes), max1ByteInteger)
+	// Field SenderIndexes - uint
+	if len(a.SenderIndexes) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.SenderIndexes), max1ByteInteger)
+	}
+
+	// Field ReceiverIndexes - uint
+	if len(a.ReceiverIndexes) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.ReceiverIndexes), max1ByteInteger)
 	}
 
 	// Field MessageCode - uint
@@ -1175,24 +1170,9 @@ func (a *AmendmentField) Validate() error {
 		return nil
 	}
 
-	// Field FieldIndex - uint
-	if a.FieldIndex > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.FieldIndex, max1ByteInteger)
-	}
-
-	// Field Element - uint
-	if a.Element > uint32(max2ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.Element, max2ByteInteger)
-	}
-
-	// Field SubfieldIndex - uint
-	if a.SubfieldIndex > uint32(max1ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.SubfieldIndex, max1ByteInteger)
-	}
-
-	// Field SubfieldElement - uint
-	if a.SubfieldElement > uint32(max2ByteInteger) {
-		return fmt.Errorf("uint over max value : %d > %d", a.SubfieldElement, max2ByteInteger)
+	// Field FieldIndexPath - varbin
+	if len(a.FieldIndexPath) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.FieldIndexPath), max1ByteInteger)
 	}
 
 	// Field Operation - uint

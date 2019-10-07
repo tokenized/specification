@@ -106,9 +106,9 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field ContractAuthFlags - varbin
-	if !bytes.Equal(l.ContractAuthFlags, r.ContractAuthFlags) {
-		return false // fmt.Errorf("ContractAuthFlags bytes mismatched")
+	// Field ContractPermissions - varbin
+	if !bytes.Equal(l.ContractPermissions, r.ContractPermissions) {
+		return false // fmt.Errorf("ContractPermissions bytes mismatched")
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -239,9 +239,9 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field ContractAuthFlags - varbin
-	if !bytes.Equal(l.ContractAuthFlags, r.ContractAuthFlags) {
-		return false // fmt.Errorf("ContractAuthFlags bytes mismatched")
+	// Field ContractPermissions - varbin
+	if !bytes.Equal(l.ContractPermissions, r.ContractPermissions) {
+		return false // fmt.Errorf("ContractPermissions bytes mismatched")
 	}
 
 	// Field RestrictedQtyAssets - uint
@@ -464,9 +464,9 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetAuthFlags - varbin
-	if !bytes.Equal(l.AssetAuthFlags, r.AssetAuthFlags) {
-		return false // fmt.Errorf("AssetAuthFlags bytes mismatched")
+	// Field AssetPermissions - varbin
+	if !bytes.Equal(l.AssetPermissions, r.AssetPermissions) {
+		return false // fmt.Errorf("AssetPermissions bytes mismatched")
 	}
 
 	// Field TransfersPermitted - bool
@@ -551,9 +551,9 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetIndex integer mismatched")
 	}
 
-	// Field AssetAuthFlags - varbin
-	if !bytes.Equal(l.AssetAuthFlags, r.AssetAuthFlags) {
-		return false // fmt.Errorf("AssetAuthFlags bytes mismatched")
+	// Field AssetPermissions - varbin
+	if !bytes.Equal(l.AssetPermissions, r.AssetPermissions) {
+		return false // fmt.Errorf("AssetPermissions bytes mismatched")
 	}
 
 	// Field TransfersPermitted - bool
@@ -744,14 +744,9 @@ func (l *Proposal) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field Initiator - uint
-	if l.Initiator != r.Initiator {
-		return false // fmt.Errorf("Initiator integer mismatched")
-	}
-
-	// Field AssetSpecificVote - bool
-	if l.AssetSpecificVote != r.AssetSpecificVote {
-		return false // fmt.Errorf("AssetSpecificVote boolean mismatched")
+	// Field Type - uint
+	if l.Type != r.Type {
+		return false // fmt.Errorf("Type integer mismatched")
 	}
 
 	// Field AssetType - fixedchar
@@ -767,11 +762,6 @@ func (l *Proposal) Equal(right proto.Message) bool {
 	// Field VoteSystem - uint
 	if l.VoteSystem != r.VoteSystem {
 		return false // fmt.Errorf("VoteSystem integer mismatched")
-	}
-
-	// Field Specific - bool
-	if l.Specific != r.Specific {
-		return false // fmt.Errorf("Specific boolean mismatched")
 	}
 
 	// Field ProposedAmendments - Amendment
@@ -892,11 +882,6 @@ func (l *Result) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetSpecificVote - bool
-	if l.AssetSpecificVote != r.AssetSpecificVote {
-		return false // fmt.Errorf("AssetSpecificVote boolean mismatched")
-	}
-
 	// Field AssetType - fixedchar
 	if l.AssetType != r.AssetType {
 		return false // fmt.Errorf("AssetType string mismatched")
@@ -905,11 +890,6 @@ func (l *Result) Equal(right proto.Message) bool {
 	// Field AssetCode - bin
 	if !bytes.Equal(l.AssetCode, r.AssetCode) {
 		return false // fmt.Errorf("AssetCode bytes mismatched")
-	}
-
-	// Field Specific - bool
-	if l.Specific != r.Specific {
-		return false // fmt.Errorf("Specific boolean mismatched")
 	}
 
 	// Field ProposedAmendments - Amendment
@@ -997,11 +977,6 @@ func (l *Order) Equal(right proto.Message) bool {
 	// Field DepositAddress - varbin
 	if !bytes.Equal(l.DepositAddress, r.DepositAddress) {
 		return false // fmt.Errorf("DepositAddress bytes mismatched")
-	}
-
-	// Field AuthorityIncluded - bool
-	if l.AuthorityIncluded != r.AuthorityIncluded {
-		return false // fmt.Errorf("AuthorityIncluded boolean mismatched")
 	}
 
 	// Field AuthorityName - varchar
@@ -1282,13 +1257,23 @@ func (l *Message) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AddressIndexes - uint
-	if len(l.AddressIndexes) != len(r.AddressIndexes) {
+	// Field SenderIndexes - uint
+	if len(l.SenderIndexes) != len(r.SenderIndexes) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.AddressIndexes {
-		if v != r.AddressIndexes[i] {
-			return false // fmt.Errorf("Element AddressIndexes integer mismatched")
+	for i, v := range l.SenderIndexes {
+		if v != r.SenderIndexes[i] {
+			return false // fmt.Errorf("Element SenderIndexes integer mismatched")
+		}
+	}
+
+	// Field ReceiverIndexes - uint
+	if len(l.ReceiverIndexes) != len(r.ReceiverIndexes) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range l.ReceiverIndexes {
+		if v != r.ReceiverIndexes[i] {
+			return false // fmt.Errorf("Element ReceiverIndexes integer mismatched")
 		}
 	}
 
@@ -1378,24 +1363,9 @@ func (l *AmendmentField) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field FieldIndex - uint
-	if l.FieldIndex != r.FieldIndex {
-		return false // fmt.Errorf("FieldIndex integer mismatched")
-	}
-
-	// Field Element - uint
-	if l.Element != r.Element {
-		return false // fmt.Errorf("Element integer mismatched")
-	}
-
-	// Field SubfieldIndex - uint
-	if l.SubfieldIndex != r.SubfieldIndex {
-		return false // fmt.Errorf("SubfieldIndex integer mismatched")
-	}
-
-	// Field SubfieldElement - uint
-	if l.SubfieldElement != r.SubfieldElement {
-		return false // fmt.Errorf("SubfieldElement integer mismatched")
+	// Field FieldIndexPath - varbin
+	if !bytes.Equal(l.FieldIndexPath, r.FieldIndexPath) {
+		return false // fmt.Errorf("FieldIndexPath bytes mismatched")
 	}
 
 	// Field Operation - uint

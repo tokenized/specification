@@ -14,7 +14,6 @@
       "AdministrationProposal": "true",
       "BodyOfAgreement": null,
       "BodyOfAgreementType": "1",
-      "ContractAuthFlags": null,
       "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
       "ContractFee": null,
       "ContractName": "Tesla - Shareholder Agreement",
@@ -45,6 +44,7 @@
         "UnitNumber": "2"
       },
       "ContractOperatorIncluded": null,
+      "ContractPermissions": null,
       "ContractType": "Shareholder Agreement",
       "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
       "GoverningLaw": "USA",
@@ -120,7 +120,6 @@
       "AdministrationProposal": "true",
       "BodyOfAgreement": null,
       "BodyOfAgreementType": "1",
-      "ContractAuthFlags": null,
       "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
       "ContractFee": null,
       "ContractName": "Tesla - Shareholder Agreement",
@@ -150,6 +149,7 @@
         "Type": "P",
         "UnitNumber": "2"
       },
+      "ContractPermissions": null,
       "ContractRevision": "0",
       "ContractType": "Shareholder Agreement",
       "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
@@ -220,11 +220,8 @@
       "Amendments": [
         {
           "Data": null,
-          "Element": "0",
-          "FieldIndex": "2",
-          "Operation": "0",
-          "SubfieldElement": "1",
-          "SubfieldIndex": "1"
+          "FieldIndexPath": null,
+          "Operation": "0"
         }
       ],
       "ChangeAdministrationAddress": "1",
@@ -309,9 +306,9 @@
     "name": "AssetDefinition",
     "fields": {
       "AdministrationProposal": "true",
-      "AssetAuthFlags": "0101000",
       "AssetModificationGovernance": "1",
       "AssetPayload": null,
+      "AssetPermissions": null,
       "AssetType": null,
       "EnforcementOrdersPermitted": "1",
       "HolderProposal": "true",
@@ -330,11 +327,11 @@
     "name": "AssetCreation",
     "fields": {
       "AdministrationProposal": "true",
-      "AssetAuthFlags": "0101000",
       "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
       "AssetIndex": "0",
       "AssetModificationGovernance": "1",
       "AssetPayload": null,
+      "AssetPermissions": null,
       "AssetRevision": "456789",
       "AssetType": null,
       "EnforcementOrdersPermitted": "1",
@@ -357,11 +354,8 @@
       "Amendments": [
         {
           "Data": null,
-          "Element": "0",
-          "FieldIndex": "2",
-          "Operation": "0",
-          "SubfieldElement": "1",
-          "SubfieldIndex": "1"
+          "FieldIndexPath": null,
+          "Operation": "0"
         }
       ],
       "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
@@ -430,22 +424,17 @@
     "name": "Proposal",
     "fields": {
       "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
-      "AssetSpecificVote": null,
       "AssetType": "SHC",
-      "Initiator": null,
       "ProposalDescription": "Change the name of the Contract.",
       "ProposalDocumentHash": "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec",
       "ProposedAmendments": [
         {
           "Data": null,
-          "Element": "0",
-          "FieldIndex": "2",
-          "Operation": "0",
-          "SubfieldElement": "1",
-          "SubfieldIndex": "1"
+          "FieldIndexPath": null,
+          "Operation": "0"
         }
       ],
-      "Specific": null,
+      "Type": null,
       "VoteCutOffTimestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
       "VoteMax": "15",
       "VoteOptions": "ABCDEFGHIJKLMNO",
@@ -486,7 +475,6 @@
     "name": "Result",
     "fields": {
       "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
-      "AssetSpecificVote": null,
       "AssetType": "SHC",
       "OptionTally": [
         null
@@ -494,15 +482,11 @@
       "ProposedAmendments": [
         {
           "Data": null,
-          "Element": "0",
-          "FieldIndex": "2",
-          "Operation": "0",
-          "SubfieldElement": "1",
-          "SubfieldIndex": "1"
+          "FieldIndexPath": null,
+          "Operation": "0"
         }
       ],
       "Result": null,
-      "Specific": null,
       "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
       "VoteTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
     }
@@ -514,7 +498,6 @@
     "fields": {
       "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
       "AssetType": "SHC",
-      "AuthorityIncluded": null,
       "AuthorityName": "Supreme and District Courts Brisbane",
       "AuthorityPublicKey": null,
       "BitcoinDispersions": [
@@ -638,11 +621,14 @@
     "label": "Message",
     "name": "Message",
     "fields": {
-      "AddressIndexes": [
+      "MessageCode": null,
+      "MessagePayload": "Hello world!",
+      "ReceiverIndexes": [
         null
       ],
-      "MessageCode": null,
-      "MessagePayload": "Hello world!"
+      "SenderIndexes": [
+        null
+      ]
     }
   },
   {

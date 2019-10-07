@@ -17,6 +17,8 @@ type Asset interface {
 
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
+
+	ApplyAmendment(fip []uint32, operation uint32, data []byte) error
 }
 
 const (
@@ -54,23 +56,24 @@ func Deserialize(code []byte, payload []byte) (Asset, error) {
 	return result, nil
 }
 
-{{ range .Messages }}
-func (a *{{.Name}}) Code() string {
-	return Code{{.Name}}
+{{ range $i, $message := .Messages }}
+func (a *{{ .Name }}) Code() string {
+	return Code{{ .Name }}
 }
 
-func (a *{{.Name}}) Bytes() ([]byte, error) {
+func (a *{{ .Name }}) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
 // Serialize writes an asset to a byte slice.
-func (a *{{.Name}}) Serialize(buf *bytes.Buffer) error {
+func (a *{{ .Name }}) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize {{.Name}}")
+		return errors.Wrap(err, "Failed to serialize {{ .Name }}")
 	}
 
 	_, err = buf.Write(data)
 	return err
 }
+
 {{ end }}

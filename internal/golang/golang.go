@@ -13,6 +13,10 @@ func Compile(
 	// Actions
 	parser.TemplateToFile(actions, "internal/golang/templates/actions.tpl",
 		distPath+"/golang/"+"actions/actions.go")
+	parser.TemplateToFile(actions,
+		"internal/golang/templates/apply_amendments.tpl", // Pull in ApplyAmendmentField
+		"internal/golang/templates/action_amendments.tpl",
+		distPath+"/golang/"+"actions/amendments.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/validate.tpl",
 		distPath+"/golang/"+"actions/validate.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/equal.tpl",
@@ -25,6 +29,10 @@ func Compile(
 	// Assets
 	parser.TemplateToFile(assets, "internal/golang/templates/assets.tpl",
 		distPath+"/golang/"+"assets/assets.go")
+	parser.TemplateToFile(assets,
+		"internal/golang/templates/apply_amendments.tpl", // Pull in ApplyAmendmentField
+		"internal/golang/templates/asset_amendments.tpl",
+		distPath+"/golang/"+"assets/amendments.go")
 	parser.TemplateToFile(assets, "internal/golang/templates/validate.tpl",
 		distPath+"/golang/"+"assets/validate.go")
 	parser.TemplateToFile(assets, "internal/golang/templates/equal.tpl",
@@ -45,4 +53,8 @@ func Compile(
 		distPath+"/golang/"+"messages/resources.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/messages_test.tpl",
 		distPath+"/golang/"+"messages/messages_test.go")
+
+	// Templates
+	parser.ProcessContractPermissionConfigs(actions, assets, "src/templates/develop/",
+		distPath+"/golang/"+"actions/permission_templates.go")
 }

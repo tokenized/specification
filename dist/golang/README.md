@@ -12,27 +12,21 @@ Usage
     )
 
     func main() {
-        voteSystemsAllowed := make([]bool, 2)
-        voteSystemsAllowed[0] = true
-        voteSystemsAllowed[1] = true
-
-        permission := protocol.Permission{
-            Permitted:              true,
-            AdministrationProposal: true,
-            HolderProposal:         false,
-            VotingSystemsAllowed:   voteSystemsAllowed,
+        permissions := protocol.Permissions{
+            protocol.Permission{
+                Permitted:              true,
+                AdministrationProposal: true,
+                HolderProposal:         false,
+                AdministrativeMatter:   false,
+                VotingSystemsAllowed:   []bool{true, true},
+                // Fields: nil, // Leave Fields blank to use as default for all fields.
+            },
         }
 
-        // Note: Permissions can be different for each field.
-        permissions := make([]protocol.Permission, 0, 20)
-        for i := 0; i < 20; i++ { // 20 fields in contract
-            permissions = append(permissions, permission)
-        }
-
-        // Serialize auth flags
-        authFlags, err := protocol.WriteAuthFlags(permissions)
+        // Serialize permissions
+        permBytes, err := permissions.Bytes()
         if err != nil {
-            fmt.Printf("Failed to serialize auth flags\n")
+            fmt.Printf("Failed to serialize permissions\n")
             return
         }
 
@@ -42,7 +36,7 @@ Usage
             BodyOfAgreementType: 2,
             BodyOfAgreement:     []byte("<contract agreement>"),
             ContractType:        "Test Type",
-            ContractAuthFlags:   authFlags,
+            ContractPermissions: permBytes,
             // Specify any other fields necessary
             // ...
         }

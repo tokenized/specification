@@ -114,7 +114,7 @@ func (f *Field) BaseResource() string {
 	return f.Resource
 }
 
-func (f *Field) GoType() string {
+func (f *Field) GoSingularType() string {
 	gt := f.BaseType()
 
 	if f.AliasField != nil {
@@ -146,6 +146,12 @@ func (f *Field) GoType() string {
 			gt += "Field"
 		}
 	}
+
+	return gt
+}
+
+func (f *Field) GoType() string {
+	gt := f.GoSingularType()
 
 	if f.IsList() {
 		gt = "[]" + gt

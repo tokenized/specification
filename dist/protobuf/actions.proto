@@ -22,7 +22,7 @@ message ContractOffer {
     uint32 AdminOracleSigBlockHeight               = 16;  // uint
     uint64 ContractFee                             = 17;  // uint
     repeated VotingSystemField VotingSystems       = 18;  // VotingSystem[]
-    bytes ContractAuthFlags                        = 19;  // varbin
+    bytes ContractPermissions                      = 19;  // varbin
     uint64 RestrictedQtyAssets                     = 20;  // uint
     bool AdministrationProposal                    = 21;  // bool
     bool HolderProposal                            = 22;  // bool
@@ -49,7 +49,7 @@ message ContractFormation {
     uint32 AdminOracleSigBlockHeight               = 15;  // uint
     uint64 ContractFee                             = 16;  // uint
     repeated VotingSystemField VotingSystems       = 17;  // VotingSystem[]
-    bytes ContractAuthFlags                        = 18;  // varbin
+    bytes ContractPermissions                      = 18;  // varbin
     uint64 RestrictedQtyAssets                     = 19;  // uint
     bool AdministrationProposal                    = 20;  // bool
     bool HolderProposal                            = 21;  // bool
@@ -97,7 +97,7 @@ message ContractAddressChange {
 
 // Message - Asset Definition (A1)
 message AssetDefinition {
-    bytes AssetAuthFlags                           = 1;   // varbin
+    bytes AssetPermissions                         = 1;   // varbin
     bool TransfersPermitted                        = 2;   // bool
     repeated string TradeRestrictions              = 3;   // Polity[]
     bool EnforcementOrdersPermitted                = 4;   // bool
@@ -115,7 +115,7 @@ message AssetDefinition {
 message AssetCreation {
     bytes AssetCode                                = 1;   // AssetCode
     uint64 AssetIndex                              = 2;   // uint
-    bytes AssetAuthFlags                           = 3;   // varbin
+    bytes AssetPermissions                         = 3;   // varbin
     bool TransfersPermitted                        = 4;   // bool
     repeated string TradeRestrictions              = 5;   // Polity[]
     bool EnforcementOrdersPermitted                = 6;   // bool
@@ -156,18 +156,16 @@ message Settlement {
 
 // Message - Proposal (G1)
 message Proposal {
-    uint32 Initiator                               = 1;   // uint
-    bool AssetSpecificVote                         = 2;   // bool
-    string AssetType                               = 3;   // fixedchar
-    bytes AssetCode                                = 4;   // AssetCode
-    uint32 VoteSystem                              = 5;   // uint
-    bool Specific                                  = 6;   // bool
-    repeated AmendmentField ProposedAmendments     = 7;   // Amendment[]
-    string VoteOptions                             = 8;   // varchar
-    uint32 VoteMax                                 = 9;   // uint
-    string ProposalDescription                     = 10;   // varchar
-    bytes ProposalDocumentHash                     = 11;  // bin
-    uint64 VoteCutOffTimestamp                     = 12;  // Timestamp
+    uint32 Type                                    = 1;   // uint
+    string AssetType                               = 2;   // fixedchar
+    bytes AssetCode                                = 3;   // AssetCode
+    uint32 VoteSystem                              = 4;   // uint
+    repeated AmendmentField ProposedAmendments     = 5;   // Amendment[]
+    string VoteOptions                             = 6;   // varchar
+    uint32 VoteMax                                 = 7;   // uint
+    string ProposalDescription                     = 8;   // varchar
+    bytes ProposalDocumentHash                     = 9;   // bin
+    uint64 VoteCutOffTimestamp                     = 10;   // Timestamp
 }
 
 // Message - Vote (G2)
@@ -191,15 +189,13 @@ message BallotCounted {
 
 // Message - Result (G5)
 message Result {
-    bool AssetSpecificVote                         = 1;   // bool
-    string AssetType                               = 2;   // fixedchar
-    bytes AssetCode                                = 3;   // AssetCode
-    bool Specific                                  = 4;   // bool
-    repeated AmendmentField ProposedAmendments     = 5;   // Amendment[]
-    bytes VoteTxId                                 = 6;   // TxId
-    repeated uint64 OptionTally                    = 7;   // uint[]
-    string Result                                  = 8;   // varchar
-    uint64 Timestamp                               = 9;   // Timestamp
+    string AssetType                               = 1;   // fixedchar
+    bytes AssetCode                                = 2;   // AssetCode
+    repeated AmendmentField ProposedAmendments     = 3;   // Amendment[]
+    bytes VoteTxId                                 = 4;   // TxId
+    repeated uint64 OptionTally                    = 5;   // uint[]
+    string Result                                  = 6;   // varchar
+    uint64 Timestamp                               = 7;   // Timestamp
 }
 
 // Message - Order (E1)
@@ -211,15 +207,14 @@ message Order {
     bytes FreezeTxId                               = 5;   // TxId
     uint64 FreezePeriod                            = 6;   // Timestamp
     bytes DepositAddress                           = 7;   // Address
-    bool AuthorityIncluded                         = 8;   // bool
-    string AuthorityName                           = 9;   // varchar
-    bytes AuthorityPublicKey                       = 10;   // varbin
-    uint32 SignatureAlgorithm                      = 11;  // uint
-    bytes OrderSignature                           = 12;  // varbin
-    bytes SupportingEvidenceHash                   = 13;  // bin
-    bytes RefTxs                                   = 14;  // varbin
-    repeated QuantityIndexField BitcoinDispersions = 15;  // QuantityIndex[]
-    string Message                                 = 16;  // varchar
+    string AuthorityName                           = 8;   // varchar
+    bytes AuthorityPublicKey                       = 9;   // varbin
+    uint32 SignatureAlgorithm                      = 10;   // uint
+    bytes OrderSignature                           = 11;  // varbin
+    bytes SupportingEvidenceHash                   = 12;  // bin
+    bytes RefTxs                                   = 13;  // varbin
+    repeated QuantityIndexField BitcoinDispersions = 14;  // QuantityIndex[]
+    string Message                                 = 15;  // varchar
 }
 
 // Message - Freeze (E2)
@@ -278,9 +273,10 @@ message Removal {
 
 // Message - Message (M1)
 message Message {
-    repeated uint32 AddressIndexes                 = 1;   // uint[]
-    uint32 MessageCode                             = 2;   // uint
-    bytes MessagePayload                           = 3;   // varbin
+    repeated uint32 SenderIndexes                  = 1;   // uint[]
+    repeated uint32 ReceiverIndexes                = 2;   // uint[]
+    uint32 MessageCode                             = 3;   // uint
+    bytes MessagePayload                           = 4;   // varbin
 }
 
 // Message - Rejection (M2)
@@ -301,12 +297,9 @@ message AdministratorField {
 
 // Field - Amendment
 message AmendmentField {
-    uint32 FieldIndex                              = 1;   // uint
-    uint32 Element                                 = 2;   // uint
-    uint32 SubfieldIndex                           = 3;   // uint
-    uint32 SubfieldElement                         = 4;   // uint
-    uint32 Operation                               = 5;   // uint
-    bytes Data                                     = 6;   // varbin
+    bytes FieldIndexPath                           = 1;   // varbin
+    uint32 Operation                               = 2;   // uint
+    bytes Data                                     = 3;   // varbin
 }
 
 // Field - AssetReceiver

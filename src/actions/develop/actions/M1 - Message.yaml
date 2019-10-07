@@ -30,9 +30,15 @@ metadata:
       comments: "The recipient's address for the message, supplied by the sender."
 
 fields:
-  - name: AddressIndexes
-    label: Address Indexes
-    description: "Associates the message to a particular output by the index."
+  - name: SenderIndexes
+    label: Sender Indexes
+    description: "Associates the message to a particular input by the index. If none are specified then the first input is assumed."
+    type: uint[]
+    size: 4
+
+  - name: ReceiverIndexes
+    label: Receiver Indexes
+    description: "Associates the message to a particular output by the index. If none are specified then the first input is assumed."
     type: uint[]
     size: 4
 

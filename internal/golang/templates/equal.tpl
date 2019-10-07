@@ -1,8 +1,9 @@
 package {{ .Package }}
 
 import (
-	"errors"
-	"fmt"
+	"bytes"
+
+	proto "github.com/golang/protobuf/proto"
 )
 
 {{ define "EqualField" -}}

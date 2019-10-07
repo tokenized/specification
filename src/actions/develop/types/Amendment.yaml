@@ -7,37 +7,12 @@ metadata:
   notes: "Header, timestamp, and count fields that are generated or managed by the Smart Contract are included in the index of fields for consistency, although they cannot be modified on request, or in the case of a count field, there are expectations such as the count matching the number of elements in the related field. An example of a count field is VotingSystemCount in a ContractFormation, which specifies the number of VotingSystems. Indexes are zero based."
 
 fields:
-  - name: FieldIndex
-    label: Field Index
-    description: "Index of the field to be amended."
-    type: uint
-    size: 1
-    example: 2
-    notes: "A field with a complex array type uses the same FieldIndex value for all elements. For example, in C1 the VotingSystems field is FieldIndex 16. Indexes are zero based."
-
-  - name: Element
-    label: Element
-    description: "Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection."
-    type: uint
-    size: 2
-    example: 0
-    notes: "To specify the 3rd VotingSystem of a Contract, the value 2 would be given. Indexes are zero based."
-
-  - name: SubfieldIndex
-    label: Subfield Index
-    description: "Index of the subfield to be amended. This only applies to specific fields containing complex types with subfields. This is used to specify which field of the object the amendment applies to."
-    type: uint
-    size: 1
-    example: 1
-    notes: "For example to specify the 2nd field of a VotingSystem, value 1 would be given."
-
-  - name: SubfieldElement
-    label: Subfield Element
-    description: "Specifies the element of the complex array type to be amended. This only applies to array types, and has no meaning for a simple type such as uint64, string, byte or byte[]. Specifying a value > 0 for a simple type will result in a Rejection."
-    type: uint
-    size: 2
-    example: 1
-    notes: "For example to specify the 2nd field of a VotingSystem, value 1 would be given."
+  - name: FieldIndexPath
+    label: Field Index Path
+    description: "List of indices that identify the field/sub-field to be amended."
+    type: varbin
+    size: tiny
+    notes: "The index path of the field being modified. Encoded as a list of base 128 var ints. Each index is an index into the current object, top level being the ContractFormation or AssetCreation. Indexes are defined by protobuf messages. If the current level is a list, then the index is a zero based offset to the element in the list."
 
   - name: Operation
     label: Operation
@@ -55,4 +30,4 @@ fields:
     description: "New data for the amended subfield. Data type depends on the the type of the field being amended. The value should be serialize as defined by the protocol."
     type: varbin
     varSize: medium
-    notes: "The bytes should be in an format appropriate for the field being modified."
+    notes: "The bytes must be encoded in the format of the field being modified."

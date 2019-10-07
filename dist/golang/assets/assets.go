@@ -18,6 +18,8 @@ type Asset interface {
 
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
+
+	ApplyAmendment(fip []uint32, operation uint32, data []byte) error
 }
 
 const (
