@@ -1,11 +1,12 @@
 package parser
 
 import (
-	"html/template"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
+	"text/template"
+	htmlTemplate "html/template"
 )
 
 // TemplateToFile renders a template to a file
@@ -18,6 +19,22 @@ func TemplateToFile(data interface{}, files ...string) {
 	tmplFuncs := MakeTemplateFuncs()
 
 	tmpl := template.Must(template.New(path.Base(files[len(files)-2])).Funcs(tmplFuncs).ParseFiles(files[:len(files)-1]...))
+
+	if err := tmpl.Execute(f, data); err != nil {
+		panic(err)
+	}
+}
+
+// HtmlTemplateToFile renders an html template to a file
+func HtmlTemplateToFile(data interface{}, files ...string) {
+	f, err := os.Create(files[len(files)-1])
+	if err != nil {
+		panic(err)
+	}
+
+	tmplFuncs := MakeHtmlTemplateFuncs()
+
+	tmpl := htmlTemplate.Must(htmlTemplate.New(path.Base(files[len(files)-2])).Funcs(tmplFuncs).ParseFiles(files[:len(files)-1]...))
 
 	if err := tmpl.Execute(f, data); err != nil {
 		panic(err)

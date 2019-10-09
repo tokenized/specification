@@ -32,7 +32,7 @@ func templateToFile(distPath, tplFile, goFile string, data interface{}) {
 
 	path := distPath + "/markdown/" + goFile
 
-	parser.TemplateToFile(data, tpl, path)
+	parser.HtmlTemplateToFile(data, tpl, path)
 }
 
 func fetchResources(srcPath string) []parser.Resource {

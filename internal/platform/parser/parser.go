@@ -5,8 +5,9 @@ import (
 	"os"
 	"path/filepath"
 
+	yamltojson "github.com/ghodss/yaml"
 	"github.com/pkg/errors"
-	"gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v2"
 )
 
 // NewSchema creates a Schema from a directory.
@@ -35,6 +36,18 @@ func NewSchema(path string) (*Schema, error) {
 		resourceFilePath := filepath.Join(path, spath+".yaml")
 		var resource Resource
 		unmarshalFile(resourceFilePath, &resource)
+		for i, value := range resource.Values {
+			y, err := yaml.Marshal(value.MetaData)
+			if err != nil {
+				return nil, errors.Wrap(err, "marshal resource metadata")
+			}
+			data, err := yamltojson.YAMLToJSON(y)
+			if err != nil {
+				return nil, errors.Wrap(err, "json resource metadata")
+			}
+			value.MetaDataJSON = string(data)
+			resource.Values[i] = value
+		}
 		resources = append(resources, resource)
 	}
 	result.Resources = resources
