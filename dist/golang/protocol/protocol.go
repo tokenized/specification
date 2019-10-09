@@ -196,7 +196,7 @@ func DecodeAssetID(id string) (string, AssetCode, error) {
 	}
 
 	if len(id) < 35 {
-		return "", AssetCode{}, errors.New("Asset ID too short")
+		return "", AssetCode{}, fmt.Errorf("Asset ID too short : %s", id)
 	}
 
 	assetType := id[:3]
@@ -205,7 +205,7 @@ func DecodeAssetID(id string) (string, AssetCode, error) {
 	data := bitcoin.Base58Decode(text)
 
 	if len(data) < 5 {
-		return "", AssetCode{}, errors.New("Asset ID too short")
+		return "", AssetCode{}, fmt.Errorf("Asset ID too short : %s", id)
 	}
 
 	// Verify checksum
@@ -214,7 +214,7 @@ func DecodeAssetID(id string) (string, AssetCode, error) {
 	data = data[:l-4]
 	hash := bitcoin.DoubleSha256(data)
 	if !bytes.Equal(hash[:4], checksum) {
-		return "", AssetCode{}, errors.New("Invalid Asset ID checksum")
+		return "", AssetCode{}, fmt.Errorf("Invalid Asset ID checksum : %s", id)
 	}
 
 	return assetType, *AssetCodeFromBytes(data), nil
