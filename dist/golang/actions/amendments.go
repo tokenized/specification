@@ -75,14 +75,13 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	case ContractFieldSupportingDocs: // []DocumentField
 		switch operation {
 		case 0: // Modify
-			if len(fip) != 2 { // includes list index
+			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify SupportingDocs : %v",
 					fip)
 			}
 			if int(fip[1]) >= len(a.SupportingDocs) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify SupportingDocs : %d", fip[1])
 			}
-			a.SupportingDocs[fip[1]].Reset()
 			result, err := a.SupportingDocs[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 
@@ -186,14 +185,13 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	case ContractFieldVotingSystems: // []VotingSystemField
 		switch operation {
 		case 0: // Modify
-			if len(fip) != 2 { // includes list index
+			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify VotingSystems : %v",
 					fip)
 			}
 			if int(fip[1]) >= len(a.VotingSystems) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify VotingSystems : %d", fip[1])
 			}
-			a.VotingSystems[fip[1]].Reset()
 			result, err := a.VotingSystems[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 
@@ -272,14 +270,13 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	case ContractFieldOracles: // []OracleField
 		switch operation {
 		case 0: // Modify
-			if len(fip) != 2 { // includes list index
+			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Oracles : %v",
 					fip)
 			}
 			if int(fip[1]) >= len(a.Oracles) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Oracles : %d", fip[1])
 			}
-			a.Oracles[fip[1]].Reset()
 			result, err := a.Oracles[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 
@@ -789,14 +786,13 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 	case AssetSettlementFieldSettlements: // []QuantityIndexField
 		switch operation {
 		case 0: // Modify
-			if len(fip) != 2 { // includes list index
+			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Settlements : %v",
 					fip)
 			}
 			if int(fip[1]) >= len(a.Settlements) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Settlements : %d", fip[1])
 			}
-			a.Settlements[fip[1]].Reset()
 			result, err := a.Settlements[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 
@@ -879,14 +875,13 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	case AssetTransferFieldAssetSenders: // []QuantityIndexField
 		switch operation {
 		case 0: // Modify
-			if len(fip) != 2 { // includes list index
+			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify AssetSenders : %v",
 					fip)
 			}
 			if int(fip[1]) >= len(a.AssetSenders) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify AssetSenders : %d", fip[1])
 			}
-			a.AssetSenders[fip[1]].Reset()
 			result, err := a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 
@@ -922,14 +917,13 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	case AssetTransferFieldAssetReceivers: // []AssetReceiverField
 		switch operation {
 		case 0: // Modify
-			if len(fip) != 2 { // includes list index
+			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify AssetReceivers : %v",
 					fip)
 			}
 			if int(fip[1]) >= len(a.AssetReceivers) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify AssetReceivers : %d", fip[1])
 			}
-			a.AssetReceivers[fip[1]].Reset()
 			result, err := a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 
@@ -1081,14 +1075,13 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 	case EntityFieldAdministration: // []AdministratorField
 		switch operation {
 		case 0: // Modify
-			if len(fip) != 2 { // includes list index
+			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Administration : %v",
 					fip)
 			}
 			if int(fip[1]) >= len(a.Administration) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Administration : %d", fip[1])
 			}
-			a.Administration[fip[1]].Reset()
 			result, err := a.Administration[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 
@@ -1124,14 +1117,13 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 	case EntityFieldManagement: // []ManagerField
 		switch operation {
 		case 0: // Modify
-			if len(fip) != 2 { // includes list index
+			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Management : %v",
 					fip)
 			}
 			if int(fip[1]) >= len(a.Management) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Management : %d", fip[1])
 			}
-			a.Management[fip[1]].Reset()
 			result, err := a.Management[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 

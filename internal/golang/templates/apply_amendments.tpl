@@ -4,7 +4,11 @@
 	{{- if .IsList }}
 		switch operation {
 		case 0: // Modify
+			{{- if .IsCompoundType }}
+			if len(fip) < 3 { // includes list index and subfield index
+			{{- else }}
 			if len(fip) != 2 { // includes list index
+			{{- end }}
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify {{ .Name }} : %v",
 					fip)
 			}
@@ -13,7 +17,6 @@
 			}
 
 			{{- if .IsCompoundType }}
-			a.{{ .Name }}[fip[1]].Reset()
 			result, err := a.{{ .Name }}[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
 			{{- else if eq .BaseType "fixedchar" "varchar" }}
