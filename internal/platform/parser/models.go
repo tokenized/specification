@@ -58,11 +58,12 @@ type Resource struct {
 
 // ResourceValue is the value of a resource inside a resource group
 type ResourceValue struct {
-	Code        string                 `yaml:"code"`
-	Name        string                 `yaml:"name"`
-	Label       string                 `yaml:"label"`
-	Description string                 `yaml:"description"`
-	MetaData    map[string]interface{} `yaml:"metadata"`
+	Code         string                 `yaml:"code"`
+	Name         string                 `yaml:"name"`
+	Label        string                 `yaml:"label"`
+	Description  string                 `yaml:"description"`
+	MetaData     map[string]interface{} `yaml:"metadata"`
+	MetaDataJSON string                 `yaml:"-"`
 }
 
 type Permission struct {

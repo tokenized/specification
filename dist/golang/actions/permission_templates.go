@@ -341,8 +341,6 @@ var PrivateCompany = PermissionConfig{
 					FieldIndexPath{12, 5}, // [AssetPayload MembershipClass]
 					FieldIndexPath{12, 6}, // [AssetPayload RoleType]
 					FieldIndexPath{12, 7}, // [AssetPayload MembershipType]
-					FieldIndexPath{12},    // [AssetPayload]
-					FieldIndexPath{12},    // [AssetPayload]
 				},
 			},
 			Permission{ // Administrative Vote General Board Resolution

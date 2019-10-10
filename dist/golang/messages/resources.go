@@ -94,6 +94,7 @@ type TagsCode struct {
 	Name        string
 	Label       string
 	Description string
+	MetaData    string
 }
 
 // TagsData holds a mapping of Tags codes.
@@ -104,174 +105,203 @@ func TagsData(code uint32) *TagsCode {
 			Name:        "Housing",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsUtilities:
 		return &TagsCode{
 			Name:        "Utilities",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsFood:
 		return &TagsCode{
 			Name:        "Food",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsMedical:
 		return &TagsCode{
 			Name:        "Medical",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsFinancialServices:
 		return &TagsCode{
 			Name:        "Financial Services",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsEntertainment:
 		return &TagsCode{
 			Name:        "Entertainment",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsSales:
 		return &TagsCode{
 			Name:        "Sales",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsAutomotive:
 		return &TagsCode{
 			Name:        "Automotive",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsTransportation:
 		return &TagsCode{
 			Name:        "Transportation",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsFitness:
 		return &TagsCode{
 			Name:        "Fitness",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsElectricity:
 		return &TagsCode{
 			Name:        "Electricity",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsWater:
 		return &TagsCode{
 			Name:        "Water",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsInternet:
 		return &TagsCode{
 			Name:        "Internet",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsMedicine:
 		return &TagsCode{
 			Name:        "Medicine",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsService:
 		return &TagsCode{
 			Name:        "Service",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsRepair:
 		return &TagsCode{
 			Name:        "Repair",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsSupplies:
 		return &TagsCode{
 			Name:        "Supplies",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsParts:
 		return &TagsCode{
 			Name:        "Parts",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsLabor:
 		return &TagsCode{
 			Name:        "Labor",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsTip:
 		return &TagsCode{
 			Name:        "Tip",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsMedia:
 		return &TagsCode{
 			Name:        "Media",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsMusic:
 		return &TagsCode{
 			Name:        "Music",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsVideo:
 		return &TagsCode{
 			Name:        "Video",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsPhoto:
 		return &TagsCode{
 			Name:        "Photo",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsAudio:
 		return &TagsCode{
 			Name:        "Audio",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsAlcohol:
 		return &TagsCode{
 			Name:        "Alcohol",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsTobacco:
 		return &TagsCode{
 			Name:        "Tobacco",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsDiscounted:
 		return &TagsCode{
 			Name:        "Discounted",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	case TagsPromotional:
 		return &TagsCode{
 			Name:        "Promotional",
 			Label:       "",
 			Description: "",
+			MetaData:    `{}`,
 		}
 	default:
 		return nil

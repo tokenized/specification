@@ -14,6 +14,7 @@ type {{ .Name }}Code struct {
 	Name string
 	Label string
 	Description string
+	MetaData string
 }
 
 // {{ $resource.Name }}Data holds a mapping of {{ $resource.Name }} codes.
@@ -25,6 +26,7 @@ func {{ $resource.Name }}Data(code {{ $resource.CodeType.GoType }}) *{{ $resourc
 			Name: "{{ $value.Name }}",
 			Label: "{{ $value.Label }}",
 			Description: "{{ $value.Description }}",
+			MetaData: `{{ $value.MetaDataJSON }}`,
 		}
 {{- end }}
 	default:

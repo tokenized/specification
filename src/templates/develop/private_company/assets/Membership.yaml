@@ -37,8 +37,6 @@ Permissions:
       - [AssetPayload, MembershipClass]
       - [AssetPayload, RoleType]
       - [AssetPayload, MembershipType]
-      - [AssetPayload, ]
-      - [AssetPayload, ]
 
 
   - Name: Administrative Vote General Board Resolution

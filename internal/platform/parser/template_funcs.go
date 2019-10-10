@@ -3,10 +3,11 @@ package parser
 import (
 	"fmt"
 	"html"
-	"html/template"
 	"math"
 	"regexp"
 	"strings"
+	"text/template"
+	htmlTemplate "html/template"
 )
 
 var (
@@ -16,6 +17,35 @@ var (
 
 func MakeTemplateFuncs() template.FuncMap {
 	return template.FuncMap{
+		"minus": func(a, b int) int {
+			return a - b
+		},
+		"add": func(a, b int) int {
+			return a + b
+		},
+		"padding": func(str string, size int) string {
+			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
+		},
+		"comment": func(str, chr string) string {
+			return StrComment(html.UnescapeString(str), chr)
+		},
+		"snakecase": func(str string) string {
+			return StrSnakeCase(str)
+		},
+		"kebabcase": func(str string) string {
+			return StrKebabCase(str)
+		},
+		"camelcase": func(str string) string {
+			return StrCamelCase(str)
+		},
+		"stripwhitespace": func(str string) string {
+			return StrStripWhiteSpace(str)
+		},
+	}
+}
+
+func MakeHtmlTemplateFuncs() htmlTemplate.FuncMap {
+	return htmlTemplate.FuncMap{
 		"minus": func(a, b int) int {
 			return a - b
 		},

@@ -2,6 +2,7 @@ package actions
 
 import (
 	"bytes"
+	"fmt"
 	"strconv"
 
 	"github.com/dgryski/go-bitstream"
@@ -65,15 +66,39 @@ func PermissionsFromBytes(b []byte, votingSystemCount int) (Permissions, error) 
 	buf := bytes.NewBuffer(b)
 	r := bitstream.NewReader(buf)
 
-	count, err := ReadBase128VarInt(r)
+	count, err := readBase128VarInt(r)
 	if err != nil {
 		return nil, err
 	}
 
 	result := make(Permissions, count)
+	var fips []FieldIndexPath
 	for i, _ := range result {
-		if err := result[i].Read(r, votingSystemCount); err != nil {
+		if err := result[i].read(r, votingSystemCount); err != nil {
 			return nil, err
+		}
+
+		// Check for duplicates
+		for _, fieldIndexPath := range result[i].Fields {
+			for _, fip := range fips {
+				matches := true
+				for i, index := range fieldIndexPath {
+					if i >= len(fip) {
+						if i > 0 {
+							return nil, fmt.Errorf("Duplicate partial field index path %v", fieldIndexPath)
+						}
+						break
+					}
+					if index != fip[i] {
+						matches = false
+						break
+					}
+				}
+				if matches {
+					return nil, fmt.Errorf("Duplicate field index path %v", fieldIndexPath)
+				}
+			}
+			fips = append(fips, fieldIndexPath)
 		}
 	}
 
@@ -85,7 +110,7 @@ func PermissionsFromBytes(b []byte, votingSystemCount int) (Permissions, error) 
 }
 
 // Read reads a permission object from the buffer.
-func (p *Permission) Read(r *bitstream.BitReader, votingSystemCount int) error {
+func (p *Permission) read(r *bitstream.BitReader, votingSystemCount int) error {
 	// Permitted
 	bit, err := r.ReadBit()
 	if err != nil {
@@ -127,19 +152,19 @@ func (p *Permission) Read(r *bitstream.BitReader, votingSystemCount int) error {
 	}
 
 	// Field index paths (base 128 var ints)
-	fieldCount, err := ReadBase128VarInt(r)
+	fieldCount, err := readBase128VarInt(r)
 	if err != nil {
 		return err
 	}
 	p.Fields = make([]FieldIndexPath, fieldCount)
 	for i, _ := range p.Fields {
-		indexCount, err := ReadBase128VarInt(r)
+		indexCount, err := readBase128VarInt(r)
 		if err != nil {
 			return err
 		}
 		p.Fields[i] = make(FieldIndexPath, indexCount)
 		for j, _ := range p.Fields[i] {
-			p.Fields[i][j], err = ReadBase128VarInt(r)
+			p.Fields[i][j], err = readBase128VarInt(r)
 			if err != nil {
 				return err
 			}
@@ -164,12 +189,12 @@ func (ps Permissions) Bytes() ([]byte, error) {
 		}
 	}
 
-	if err := WriteBase128VarInt(w, uint32(len(ps))); err != nil {
+	if err := writeBase128VarInt(w, uint32(len(ps))); err != nil {
 		return nil, err
 	}
 
 	for _, permission := range ps {
-		if err := permission.Write(w); err != nil {
+		if err := permission.write(w); err != nil {
 			return nil, err
 		}
 	}
@@ -181,7 +206,7 @@ func (ps Permissions) Bytes() ([]byte, error) {
 }
 
 // Write writes a permission object to the buffer.
-func (p Permission) Write(w *bitstream.BitWriter) error {
+func (p Permission) write(w *bitstream.BitWriter) error {
 	// Permitted
 	err := w.WriteBit(bitstream.Bit(p.Permitted))
 	if err != nil {
@@ -217,11 +242,11 @@ func (p Permission) Write(w *bitstream.BitWriter) error {
 	}
 
 	// Field index paths (base 128 var ints)
-	if err := WriteBase128VarInt(w, uint32(len(p.Fields))); err != nil {
+	if err := writeBase128VarInt(w, uint32(len(p.Fields))); err != nil {
 		return err
 	}
 	for _, field := range p.Fields {
-		if err := field.Write(w); err != nil {
+		if err := field.write(w); err != nil {
 			return err
 		}
 	}
@@ -246,17 +271,17 @@ func (fip FieldIndexPath) MatchDepth(rfip FieldIndexPath) int {
 func FieldIndexPathFromBytes(b []byte) (FieldIndexPath, error) {
 	buf := bytes.NewBuffer(b)
 	r := bitstream.NewReader(buf)
-	return ReadFieldIndexPath(r)
+	return readFieldIndexPath(r)
 }
 
-func ReadFieldIndexPath(r *bitstream.BitReader) (FieldIndexPath, error) {
-	count, err := ReadBase128VarInt(r)
+func readFieldIndexPath(r *bitstream.BitReader) (FieldIndexPath, error) {
+	count, err := readBase128VarInt(r)
 	if err != nil {
 		return nil, err
 	}
 	fip := make(FieldIndexPath, count)
 	for i, _ := range fip {
-		fip[i], err = ReadBase128VarInt(r)
+		fip[i], err = readBase128VarInt(r)
 		if err != nil {
 			return nil, err
 		}
@@ -269,7 +294,7 @@ func (fip FieldIndexPath) Bytes() ([]byte, error) {
 	var buf bytes.Buffer
 	w := bitstream.NewWriter(&buf)
 
-	err := fip.Write(w)
+	err := fip.write(w)
 	if err != nil {
 		return nil, err
 	}
@@ -280,12 +305,12 @@ func (fip FieldIndexPath) Bytes() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func (fip FieldIndexPath) Write(w *bitstream.BitWriter) error {
-	if err := WriteBase128VarInt(w, uint32(len(fip))); err != nil {
+func (fip FieldIndexPath) write(w *bitstream.BitWriter) error {
+	if err := writeBase128VarInt(w, uint32(len(fip))); err != nil {
 		return err
 	}
 	for _, index := range fip {
-		if err := WriteBase128VarInt(w, index); err != nil {
+		if err := writeBase128VarInt(w, index); err != nil {
 			return err
 		}
 	}
@@ -306,7 +331,7 @@ func (fip FieldIndexPath) String() string {
 	return result
 }
 
-func ReadBase128VarInt(r *bitstream.BitReader) (uint32, error) {
+func readBase128VarInt(r *bitstream.BitReader) (uint32, error) {
 	value := uint32(0)
 	done := false
 	bitOffset := uint32(0)
@@ -326,7 +351,7 @@ func ReadBase128VarInt(r *bitstream.BitReader) (uint32, error) {
 	return value, nil
 }
 
-func WriteBase128VarInt(w *bitstream.BitWriter, value uint32) error {
+func writeBase128VarInt(w *bitstream.BitWriter, value uint32) error {
 	for {
 		if value < 128 {
 			return w.WriteByte(byte(value))

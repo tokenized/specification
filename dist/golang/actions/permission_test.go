@@ -34,7 +34,7 @@ func Test_Base128(t *testing.T) {
 			var buf bytes.Buffer
 			w := bitstream.NewWriter(&buf)
 
-			if err := WriteBase128VarInt(w, tt.value); err != nil {
+			if err := writeBase128VarInt(w, tt.value); err != nil {
 				t.Fatalf("Failed to write base 128 var int : %s", err)
 			}
 
@@ -47,7 +47,7 @@ func Test_Base128(t *testing.T) {
 			rbuf := bytes.NewBuffer(b)
 			r := bitstream.NewReader(rbuf)
 
-			result, err := ReadBase128VarInt(r)
+			result, err := readBase128VarInt(r)
 			if err != nil {
 				t.Fatalf("Failed to read base 128 var int : %s", err)
 			}
@@ -114,6 +114,114 @@ func Test_SerializePermissions(t *testing.T) {
 
 			if !reflect.DeepEqual(result, tt) {
 				t.Fatalf("Wrong result permission : \n got %+v\n want %+v", result, tt)
+			}
+		})
+	}
+}
+
+func Test_FailSerializePermissions(t *testing.T) {
+
+	tests := []Permissions{
+		Permissions{
+			Permission{
+				Permitted:              true,
+				AdministrationProposal: false,
+				HolderProposal:         true,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{true, false},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{1},
+					FieldIndexPath{1, 2},
+				},
+			},
+		},
+		Permissions{
+			Permission{
+				Permitted:              true,
+				AdministrationProposal: true,
+				HolderProposal:         true,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{1},
+				},
+			},
+			Permission{
+				Permitted:              false,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   true,
+				VotingSystemsAllowed:   []bool{},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{2},
+					FieldIndexPath{3, 4, 5},
+					FieldIndexPath{800, 1},
+					FieldIndexPath{1},
+				},
+			},
+		},
+		Permissions{
+			Permission{
+				Permitted:              true,
+				AdministrationProposal: true,
+				HolderProposal:         true,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{1},
+				},
+			},
+			Permission{
+				Permitted:              false,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   true,
+				VotingSystemsAllowed:   []bool{},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{2},
+					FieldIndexPath{3, 4, 5},
+					FieldIndexPath{800, 1},
+					FieldIndexPath{1, 2},
+				},
+			},
+		},
+		Permissions{
+			Permission{
+				Permitted:              true,
+				AdministrationProposal: true,
+				HolderProposal:         true,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{1, 2},
+				},
+			},
+			Permission{
+				Permitted:              false,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   true,
+				VotingSystemsAllowed:   []bool{},
+				Fields: []FieldIndexPath{
+					FieldIndexPath{2},
+					FieldIndexPath{3, 4, 5},
+					FieldIndexPath{800, 1},
+					FieldIndexPath{1},
+				},
+			},
+		},
+	}
+
+	for i, tt := range tests {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
+			b, err := tt.Bytes()
+			if err != nil {
+				t.Fatalf("Failed to write permission : %s", err)
+			}
+
+			_, err = PermissionsFromBytes(b, len(tt[0].VotingSystemsAllowed))
+			if err == nil {
+				t.Fatalf("Failed to reject invalid permission")
 			}
 		})
 	}
