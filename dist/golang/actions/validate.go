@@ -72,6 +72,9 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field Issuer - Entity
+	if err := a.Issuer.Validate(); err != nil {
+		return fmt.Errorf("Issuer invalid : %s", err)
+	}
 
 	// Field IssuerLogoURL - varchar
 	if len(a.IssuerLogoURL) > max1ByteInteger {
@@ -81,8 +84,14 @@ func (a *ContractOffer) Validate() error {
 	// Field ContractOperatorIncluded - bool
 
 	// Field ContractOperator - Entity
+	if err := a.ContractOperator.Validate(); err != nil {
+		return fmt.Errorf("ContractOperator invalid : %s", err)
+	}
 
 	// Field AdminOracle - Oracle
+	if err := a.AdminOracle.Validate(); err != nil {
+		return fmt.Errorf("AdminOracle invalid : %s", err)
+	}
 
 	// Field AdminOracleSignature - varbin
 	if len(a.AdminOracleSignature) > max1ByteInteger {
@@ -194,6 +203,9 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field Issuer - Entity
+	if err := a.Issuer.Validate(); err != nil {
+		return fmt.Errorf("Issuer invalid : %s", err)
+	}
 
 	// Field IssuerLogoURL - varchar
 	if len(a.IssuerLogoURL) > max1ByteInteger {
@@ -201,8 +213,14 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field ContractOperator - Entity
+	if err := a.ContractOperator.Validate(); err != nil {
+		return fmt.Errorf("ContractOperator invalid : %s", err)
+	}
 
 	// Field AdminOracle - Oracle
+	if err := a.AdminOracle.Validate(); err != nil {
+		return fmt.Errorf("AdminOracle invalid : %s", err)
+	}
 
 	// Field AdminOracleSignature - varbin
 	if len(a.AdminOracleSignature) > max1ByteInteger {
@@ -374,6 +392,9 @@ func (a *StaticContractFormation) Validate() error {
 	}
 
 	// Field EntityOracle - Oracle
+	if err := a.EntityOracle.Validate(); err != nil {
+		return fmt.Errorf("EntityOracle invalid : %s", err)
+	}
 
 	// Field EntityOracleSignature - varbin
 	if len(a.EntityOracleSignature) > max1ByteInteger {
@@ -1460,6 +1481,9 @@ func (a *OracleField) Validate() error {
 	}
 
 	// Field Entity - Entity
+	if err := a.Entity.Validate(); err != nil {
+		return fmt.Errorf("Entity invalid : %s", err)
+	}
 
 	// Field URL - varchar
 	if len(a.URL) > max1ByteInteger {

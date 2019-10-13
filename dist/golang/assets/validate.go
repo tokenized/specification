@@ -16,6 +16,9 @@ func (a *Membership) Validate() error {
 	}
 
 	// Field AgeRestriction - AgeRestriction
+	if err := a.AgeRestriction.Validate(); err != nil {
+		return fmt.Errorf("AgeRestriction invalid : %s", err)
+	}
 
 	// Field ValidFrom - uint
 
@@ -136,6 +139,9 @@ func (a *LoyaltyPoints) Validate() error {
 	}
 
 	// Field AgeRestriction - AgeRestriction
+	if err := a.AgeRestriction.Validate(); err != nil {
+		return fmt.Errorf("AgeRestriction invalid : %s", err)
+	}
 
 	// Field OfferName - varchar
 	if len(a.OfferName) > max1ByteInteger {
@@ -160,6 +166,9 @@ func (a *TicketAdmission) Validate() error {
 	}
 
 	// Field AgeRestriction - AgeRestriction
+	if err := a.AgeRestriction.Validate(); err != nil {
+		return fmt.Errorf("AgeRestriction invalid : %s", err)
+	}
 
 	// Field AdmissionType - fixedchar
 	if len(a.AdmissionType) != 0 && len(a.AdmissionType) != 3 {
@@ -219,6 +228,9 @@ func (a *CasinoChip) Validate() error {
 	}
 
 	// Field AgeRestriction - AgeRestriction
+	if err := a.AgeRestriction.Validate(); err != nil {
+		return fmt.Errorf("AgeRestriction invalid : %s", err)
+	}
 
 	// Field ValidFrom - uint
 

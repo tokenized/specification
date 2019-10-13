@@ -73,7 +73,7 @@ const (
                 return fmt.Errorf("{{ .Name }}[%d] uint over max value : %d > %d", i, v, max2ByteInteger)
             }
             {{- end }}
-        {{- else }}
+        {{- else if not .IsPrimitive }}
             if err := v.Validate(); err != nil {
                 return fmt.Errorf("{{ .Name }}[%d] invalid : %s", i, err)
             }
@@ -128,6 +128,10 @@ const (
             return fmt.Errorf("uint over max value : %d > %d", a.{{ .Name }}, max2ByteInteger)
         }
             {{- end }}
+        {{- else if not .IsPrimitive }}
+            if err := a.{{ .Name }}.Validate(); err != nil {
+                return fmt.Errorf("{{ .Name }} invalid : %s", err)
+            }
         {{- end }}
     {{- end }}
 {{ end }}

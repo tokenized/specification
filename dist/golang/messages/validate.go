@@ -23,8 +23,14 @@ func (a *PublicMessage) Validate() error {
 	}
 
 	// Field Regarding - Outpoint
+	if err := a.Regarding.Validate(); err != nil {
+		return fmt.Errorf("Regarding invalid : %s", err)
+	}
 
 	// Field PublicMessage - Document
+	if err := a.PublicMessage.Validate(); err != nil {
+		return fmt.Errorf("PublicMessage invalid : %s", err)
+	}
 
 	// Field Attachments - Document
 	if len(a.Attachments) > max4ByteInteger {
@@ -52,8 +58,14 @@ func (a *PrivateMessage) Validate() error {
 	}
 
 	// Field Regarding - Outpoint
+	if err := a.Regarding.Validate(); err != nil {
+		return fmt.Errorf("Regarding invalid : %s", err)
+	}
 
 	// Field PrivateMessage - Document
+	if err := a.PrivateMessage.Validate(); err != nil {
+		return fmt.Errorf("PrivateMessage invalid : %s", err)
+	}
 
 	// Field Attachments - Document
 	if len(a.Attachments) > max4ByteInteger {
