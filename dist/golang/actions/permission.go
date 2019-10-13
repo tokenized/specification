@@ -63,6 +63,10 @@ func (ps Permissions) PermissionOf(fip FieldIndexPath) Permission {
 
 // PermissionsFromBytes reads raw auth flag data into an array of permission structs.
 func PermissionsFromBytes(b []byte, votingSystemCount int) (Permissions, error) {
+	if len(b) == 0 {
+		return Permissions{}, nil
+	}
+
 	buf := bytes.NewBuffer(b)
 	r := bitstream.NewReader(buf)
 
