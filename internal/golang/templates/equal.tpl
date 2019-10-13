@@ -47,6 +47,10 @@ import (
 	if l.{{ .Name }} != r.{{ .Name }} {
 		return false // fmt.Errorf("{{ .Name }} boolean mismatched")
 	}
+    {{- else }}
+        if !l.Equal(r.{{ .Name }}) {
+            return false // fmt.Errorf("{{ .Name }} : %s", err)
+        }
     {{- end }}
 {{ end }}
 

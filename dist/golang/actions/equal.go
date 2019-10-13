@@ -66,6 +66,9 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 	}
 
 	// Field Issuer - Entity
+	if !l.Equal(r.Issuer) {
+		return false // fmt.Errorf("Issuer : %s", err)
+	}
 
 	// Field IssuerLogoURL - varchar
 	if l.IssuerLogoURL != r.IssuerLogoURL {
@@ -78,8 +81,14 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 	}
 
 	// Field ContractOperator - Entity
+	if !l.Equal(r.ContractOperator) {
+		return false // fmt.Errorf("ContractOperator : %s", err)
+	}
 
 	// Field AdminOracle - Oracle
+	if !l.Equal(r.AdminOracle) {
+		return false // fmt.Errorf("AdminOracle : %s", err)
+	}
 
 	// Field AdminOracleSignature - varbin
 	if !bytes.Equal(l.AdminOracleSignature, r.AdminOracleSignature) {
@@ -204,6 +213,9 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 	}
 
 	// Field Issuer - Entity
+	if !l.Equal(r.Issuer) {
+		return false // fmt.Errorf("Issuer : %s", err)
+	}
 
 	// Field IssuerLogoURL - varchar
 	if l.IssuerLogoURL != r.IssuerLogoURL {
@@ -211,8 +223,14 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 	}
 
 	// Field ContractOperator - Entity
+	if !l.Equal(r.ContractOperator) {
+		return false // fmt.Errorf("ContractOperator : %s", err)
+	}
 
 	// Field AdminOracle - Oracle
+	if !l.Equal(r.AdminOracle) {
+		return false // fmt.Errorf("AdminOracle : %s", err)
+	}
 
 	// Field AdminOracleSignature - varbin
 	if !bytes.Equal(l.AdminOracleSignature, r.AdminOracleSignature) {
@@ -419,6 +437,9 @@ func (l *StaticContractFormation) Equal(right proto.Message) bool {
 	}
 
 	// Field EntityOracle - Oracle
+	if !l.Equal(r.EntityOracle) {
+		return false // fmt.Errorf("EntityOracle : %s", err)
+	}
 
 	// Field EntityOracleSignature - varbin
 	if !bytes.Equal(l.EntityOracleSignature, r.EntityOracleSignature) {
@@ -1658,6 +1679,9 @@ func (l *OracleField) Equal(right proto.Message) bool {
 	}
 
 	// Field Entity - Entity
+	if !l.Equal(r.Entity) {
+		return false // fmt.Errorf("Entity : %s", err)
+	}
 
 	// Field URL - varchar
 	if l.URL != r.URL {

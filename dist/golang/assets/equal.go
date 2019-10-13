@@ -14,6 +14,9 @@ func (l *Membership) Equal(right proto.Message) bool {
 	}
 
 	// Field AgeRestriction - AgeRestriction
+	if !l.Equal(r.AgeRestriction) {
+		return false // fmt.Errorf("AgeRestriction : %s", err)
+	}
 
 	// Field ValidFrom - uint
 	if l.ValidFrom != r.ValidFrom {
@@ -164,6 +167,9 @@ func (l *LoyaltyPoints) Equal(right proto.Message) bool {
 	}
 
 	// Field AgeRestriction - AgeRestriction
+	if !l.Equal(r.AgeRestriction) {
+		return false // fmt.Errorf("AgeRestriction : %s", err)
+	}
 
 	// Field OfferName - varchar
 	if l.OfferName != r.OfferName {
@@ -198,6 +204,9 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 	}
 
 	// Field AgeRestriction - AgeRestriction
+	if !l.Equal(r.AgeRestriction) {
+		return false // fmt.Errorf("AgeRestriction : %s", err)
+	}
 
 	// Field AdmissionType - fixedchar
 	if l.AdmissionType != r.AdmissionType {
@@ -267,6 +276,9 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 	}
 
 	// Field AgeRestriction - AgeRestriction
+	if !l.Equal(r.AgeRestriction) {
+		return false // fmt.Errorf("AgeRestriction : %s", err)
+	}
 
 	// Field ValidFrom - uint
 	if l.ValidFrom != r.ValidFrom {
