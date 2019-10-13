@@ -1203,7 +1203,7 @@ func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 
 // OracleField Permission / Amendment Field Indices
 const (
-	OracleFieldName      = uint32(1)
+	OracleFieldEntity    = uint32(1)
 	OracleFieldURL       = uint32(2)
 	OracleFieldPublicKey = uint32(3)
 )
@@ -1217,9 +1217,8 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 	}
 
 	switch fip[0] {
-	case OracleFieldName: // string
-		a.Name = string(data)
-		return fip[:], nil
+	case OracleFieldEntity: // EntityField
+		return a.Entity.ApplyAmendment(fip[1:], operation, data)
 
 	case OracleFieldURL: // string
 		a.URL = string(data)

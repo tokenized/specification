@@ -83,7 +83,7 @@ var PrivateCompany = PermissionConfig{
 				FieldIndexPath{10, 14, 1}, // [Issuer Management Type]
 				FieldIndexPath{10, 14, 2}, // [Issuer Management Name]
 				FieldIndexPath{18, 6},     // [VotingSystems HolderProposalFee]
-				FieldIndexPath{23, 1},     // [Oracles Name]
+				FieldIndexPath{23, 1},     // [Oracles Entity]
 				FieldIndexPath{23, 2},     // [Oracles URL]
 				FieldIndexPath{23, 3},     // [Oracles PublicKey]
 			},

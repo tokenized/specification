@@ -1657,10 +1657,7 @@ func (l *OracleField) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field Name - varchar
-	if l.Name != r.Name {
-		return false // fmt.Errorf("Name string mismatched")
-	}
+	// Field Entity - Entity
 
 	// Field URL - varchar
 	if l.URL != r.URL {

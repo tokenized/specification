@@ -11973,7 +11973,7 @@ proto.actions.OracleField.prototype.toObject = function(opt_includeInstance) {
  */
 proto.actions.OracleField.toObject = function(includeInstance, msg) {
   var f, obj = {
-    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    entity: (f = msg.getEntity()) && proto.actions.EntityField.toObject(includeInstance, f),
     url: jspb.Message.getFieldWithDefault(msg, 2, ""),
     publickey: msg.getPublickey_asB64()
   };
@@ -12013,8 +12013,9 @@ proto.actions.OracleField.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      var value = new proto.actions.EntityField;
+      reader.readMessage(value,proto.actions.EntityField.deserializeBinaryFromReader);
+      msg.setEntity(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
@@ -12052,11 +12053,12 @@ proto.actions.OracleField.prototype.serializeBinary = function() {
  */
 proto.actions.OracleField.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getName();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getEntity();
+  if (f != null) {
+    writer.writeMessage(
       1,
-      f
+      f,
+      proto.actions.EntityField.serializeBinaryToWriter
     );
   }
   f = message.getUrl();
@@ -12077,17 +12079,32 @@ proto.actions.OracleField.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string Name = 1;
- * @return {string}
+ * optional EntityField Entity = 1;
+ * @return {?proto.actions.EntityField}
  */
-proto.actions.OracleField.prototype.getName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.actions.OracleField.prototype.getEntity = function() {
+  return /** @type{?proto.actions.EntityField} */ (
+    jspb.Message.getWrapperField(this, proto.actions.EntityField, 1));
 };
 
 
-/** @param {string} value */
-proto.actions.OracleField.prototype.setName = function(value) {
-  jspb.Message.setField(this, 1, value);
+/** @param {?proto.actions.EntityField|undefined} value */
+proto.actions.OracleField.prototype.setEntity = function(value) {
+  jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+proto.actions.OracleField.prototype.clearEntity = function() {
+  this.setEntity(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.actions.OracleField.prototype.hasEntity = function() {
+  return jspb.Message.getField(this, 1) != null;
 };
 
 

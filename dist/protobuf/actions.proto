@@ -362,7 +362,7 @@ message ManagerField {
 
 // Field - Oracle
 message OracleField {
-    string Name                                    = 1;   // varchar
+    EntityField Entity                             = 1;   // Entity
     string URL                                     = 2;   // varchar
     bytes PublicKey                                = 3;   // varbin
 }

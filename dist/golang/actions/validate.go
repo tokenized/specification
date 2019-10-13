@@ -1459,10 +1459,7 @@ func (a *OracleField) Validate() error {
 		return nil
 	}
 
-	// Field Name - varchar
-	if len(a.Name) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Name), max1ByteInteger)
-	}
+	// Field Entity - Entity
 
 	// Field URL - varchar
 	if len(a.URL) > max1ByteInteger {

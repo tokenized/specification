@@ -428,11 +428,10 @@
       "description": "A Oracle defines the details of a public Oracle.",
       "fields": [
         {
-          "description": "Length 0-255 bytes. 0 is valid. Oracle X Name (eg. Coinbase, Tokenized, etc.)",
-          "example": "Tokenized",
-          "label": "Oracle Name",
-          "name": "Name",
-          "type": "varchar"
+          "description": "Identifying information about the oracle.",
+          "label": "Oracle Entity",
+          "name": "Entity",
+          "type": "Entity"
         },
         {
           "description": "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint",

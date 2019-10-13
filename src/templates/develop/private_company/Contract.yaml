@@ -36,7 +36,7 @@ Permissions:
       - [Issuer, Management, Type]
       - [Issuer, Management, Name]
       - [VotingSystems, HolderProposalFee]
-      - [Oracles, Name]
+      - [Oracles, Entity]
       - [Oracles, URL]
       - [Oracles, PublicKey]
 

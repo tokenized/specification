@@ -4131,13 +4131,13 @@ A Oracle defines the details of a public Oracle.
         <th>Description</th>
     </tr>
     <tr>
-        <td>Name</td>
+        <td>Entity</td>
         <td>
-            varchar(tiny)
+            <a href="#type-entity">Entity</a>
         </td>
         <td>
-            Length 0-255 bytes. 0 is valid. Oracle X Name (eg. Coinbase, Tokenized, etc.)
-             Example: Tokenized
+            Identifying information about the oracle.
+            
         </td>
     </tr>
 

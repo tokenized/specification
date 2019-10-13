@@ -4,11 +4,10 @@ label: Oracle
 description: "A Oracle defines the details of a public Oracle."
 
 fields:
-  - name: Name
-    label: Oracle Name
-    description: "Length 0-255 bytes. 0 is valid. Oracle X Name (eg. Coinbase, Tokenized, etc.)"
-    type: varchar
-    example: "Tokenized"
+  - name: Entity
+    label: Oracle Entity
+    description: "Identifying information about the oracle."
+    type: Entity
 
   - name: URL
     label: Oracle URL
