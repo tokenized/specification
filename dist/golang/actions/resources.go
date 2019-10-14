@@ -2,6 +2,9 @@ package actions
 
 /************************************ Entities ************************************/
 const (
+	// Unspecified -
+	EntitiesUnspecified = ""
+
 	// Individual -
 	EntitiesIndividual = "I"
 
@@ -49,6 +52,13 @@ type EntitiesCode struct {
 // EntitiesData holds a mapping of Entities codes.
 func EntitiesData(code string) *EntitiesCode {
 	switch code {
+	case EntitiesUnspecified:
+		return &EntitiesCode{
+			Name:        "Unspecified",
+			Label:       "Unspecified",
+			Description: "",
+			MetaData:    `{}`,
+		}
 	case EntitiesIndividual:
 		return &EntitiesCode{
 			Name:        "Individual",
@@ -141,6 +151,11 @@ func EntitiesData(code string) *EntitiesCode {
 // EntitiesMap returns a mapping of Entities objects with the code as the key.
 func EntitiesMap() map[string]*EntitiesCode {
 	return map[string]*EntitiesCode{
+		EntitiesUnspecified: &EntitiesCode{
+			Name:        "Unspecified",
+			Label:       "Unspecified",
+			Description: "",
+		},
 		EntitiesIndividual: &EntitiesCode{
 			Name:        "Individual",
 			Label:       "Individual",

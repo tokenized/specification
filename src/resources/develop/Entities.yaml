@@ -6,6 +6,11 @@ codeType:
     size: 1
 
 values:
+  - code: ''
+    name: Unspecified 
+    label: Unspecified 
+    metadata: null
+
   - code: I
     name: Individual # (Natural Person)
     label: "Individual"
