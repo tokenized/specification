@@ -5,7 +5,33 @@
     "name": "ContractOffer",
     "fields": {
       "AdminOracle": {
-        "Name": "Tokenized",
+        "Entity": {
+          "Administration": [
+            {
+              "Name": "Satoshi Nakamoto",
+              "Type": "7"
+            }
+          ],
+          "BuildingNumber": "13577",
+          "CountryCode": "USA",
+          "DomainName": "tokenized.com",
+          "EmailAddress": "satoshi@tokenized.com",
+          "LEI": "54930084UKLVMY22DS16",
+          "Management": [
+            {
+              "Name": "Satoshi Nakamoto",
+              "Type": "5"
+            }
+          ],
+          "Name": "Tesla Inc.",
+          "PhoneNumber": "0448484848",
+          "PostalZIPCode": "50210",
+          "Street": "Fairmont Ave",
+          "SuburbCity": "Robinoh",
+          "TerritoryStateProvinceCode": "BC",
+          "Type": "P",
+          "UnitNumber": "2"
+        },
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
@@ -26,6 +52,7 @@
         ],
         "BuildingNumber": "13577",
         "CountryCode": "USA",
+        "DomainName": "tokenized.com",
         "EmailAddress": "satoshi@tokenized.com",
         "LEI": "54930084UKLVMY22DS16",
         "Management": [
@@ -58,6 +85,7 @@
         ],
         "BuildingNumber": "13577",
         "CountryCode": "USA",
+        "DomainName": "tokenized.com",
         "EmailAddress": "satoshi@tokenized.com",
         "LEI": "54930084UKLVMY22DS16",
         "Management": [
@@ -80,7 +108,33 @@
       "MasterAddress": null,
       "Oracles": [
         {
-          "Name": "Tokenized",
+          "Entity": {
+            "Administration": [
+              {
+                "Name": "Satoshi Nakamoto",
+                "Type": "7"
+              }
+            ],
+            "BuildingNumber": "13577",
+            "CountryCode": "USA",
+            "DomainName": "tokenized.com",
+            "EmailAddress": "satoshi@tokenized.com",
+            "LEI": "54930084UKLVMY22DS16",
+            "Management": [
+              {
+                "Name": "Satoshi Nakamoto",
+                "Type": "5"
+              }
+            ],
+            "Name": "Tesla Inc.",
+            "PhoneNumber": "0448484848",
+            "PostalZIPCode": "50210",
+            "Street": "Fairmont Ave",
+            "SuburbCity": "Robinoh",
+            "TerritoryStateProvinceCode": "BC",
+            "Type": "P",
+            "UnitNumber": "2"
+          },
           "PublicKey": null,
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
@@ -111,7 +165,33 @@
     "name": "ContractFormation",
     "fields": {
       "AdminOracle": {
-        "Name": "Tokenized",
+        "Entity": {
+          "Administration": [
+            {
+              "Name": "Satoshi Nakamoto",
+              "Type": "7"
+            }
+          ],
+          "BuildingNumber": "13577",
+          "CountryCode": "USA",
+          "DomainName": "tokenized.com",
+          "EmailAddress": "satoshi@tokenized.com",
+          "LEI": "54930084UKLVMY22DS16",
+          "Management": [
+            {
+              "Name": "Satoshi Nakamoto",
+              "Type": "5"
+            }
+          ],
+          "Name": "Tesla Inc.",
+          "PhoneNumber": "0448484848",
+          "PostalZIPCode": "50210",
+          "Street": "Fairmont Ave",
+          "SuburbCity": "Robinoh",
+          "TerritoryStateProvinceCode": "BC",
+          "Type": "P",
+          "UnitNumber": "2"
+        },
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
@@ -132,6 +212,7 @@
         ],
         "BuildingNumber": "13577",
         "CountryCode": "USA",
+        "DomainName": "tokenized.com",
         "EmailAddress": "satoshi@tokenized.com",
         "LEI": "54930084UKLVMY22DS16",
         "Management": [
@@ -164,6 +245,7 @@
         ],
         "BuildingNumber": "13577",
         "CountryCode": "USA",
+        "DomainName": "tokenized.com",
         "EmailAddress": "satoshi@tokenized.com",
         "LEI": "54930084UKLVMY22DS16",
         "Management": [
@@ -186,7 +268,33 @@
       "MasterAddress": null,
       "Oracles": [
         {
-          "Name": "Tokenized",
+          "Entity": {
+            "Administration": [
+              {
+                "Name": "Satoshi Nakamoto",
+                "Type": "7"
+              }
+            ],
+            "BuildingNumber": "13577",
+            "CountryCode": "USA",
+            "DomainName": "tokenized.com",
+            "EmailAddress": "satoshi@tokenized.com",
+            "LEI": "54930084UKLVMY22DS16",
+            "Management": [
+              {
+                "Name": "Satoshi Nakamoto",
+                "Type": "5"
+              }
+            ],
+            "Name": "Tesla Inc.",
+            "PhoneNumber": "0448484848",
+            "PostalZIPCode": "50210",
+            "Street": "Fairmont Ave",
+            "SuburbCity": "Robinoh",
+            "TerritoryStateProvinceCode": "BC",
+            "Type": "P",
+            "UnitNumber": "2"
+          },
           "PublicKey": null,
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
@@ -254,6 +362,7 @@
           ],
           "BuildingNumber": "13577",
           "CountryCode": "USA",
+          "DomainName": "tokenized.com",
           "EmailAddress": "satoshi@tokenized.com",
           "LEI": "54930084UKLVMY22DS16",
           "Management": [
@@ -273,7 +382,33 @@
         }
       ],
       "EntityOracle": {
-        "Name": "Tokenized",
+        "Entity": {
+          "Administration": [
+            {
+              "Name": "Satoshi Nakamoto",
+              "Type": "7"
+            }
+          ],
+          "BuildingNumber": "13577",
+          "CountryCode": "USA",
+          "DomainName": "tokenized.com",
+          "EmailAddress": "satoshi@tokenized.com",
+          "LEI": "54930084UKLVMY22DS16",
+          "Management": [
+            {
+              "Name": "Satoshi Nakamoto",
+              "Type": "5"
+            }
+          ],
+          "Name": "Tesla Inc.",
+          "PhoneNumber": "0448484848",
+          "PostalZIPCode": "50210",
+          "Street": "Fairmont Ave",
+          "SuburbCity": "Robinoh",
+          "TerritoryStateProvinceCode": "BC",
+          "Type": "P",
+          "UnitNumber": "2"
+        },
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },

@@ -352,6 +352,7 @@ message EntityField {
     string PhoneNumber                             = 12;  // varchar
     repeated AdministratorField Administration     = 13;  // Administrator[]
     repeated ManagerField Management               = 14;  // Manager[]
+    string DomainName                              = 15;  // varchar
 }
 
 // Field - Manager
@@ -362,7 +363,7 @@ message ManagerField {
 
 // Field - Oracle
 message OracleField {
-    string Name                                    = 1;   // varchar
+    EntityField Entity                             = 1;   // Entity
     string URL                                     = 2;   // varchar
     bytes PublicKey                                = 3;   // varbin
 }

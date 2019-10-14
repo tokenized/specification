@@ -26,8 +26,14 @@ func (l *PublicMessage) Equal(right proto.Message) bool {
 	}
 
 	// Field Regarding - Outpoint
+	if !l.Equal(r.Regarding) {
+		return false // fmt.Errorf("Regarding : %s", err)
+	}
 
 	// Field PublicMessage - Document
+	if !l.Equal(r.PublicMessage) {
+		return false // fmt.Errorf("PublicMessage : %s", err)
+	}
 
 	// Field Attachments - Document
 	if len(l.Attachments) != len(r.Attachments) {
@@ -62,8 +68,14 @@ func (l *PrivateMessage) Equal(right proto.Message) bool {
 	}
 
 	// Field Regarding - Outpoint
+	if !l.Equal(r.Regarding) {
+		return false // fmt.Errorf("Regarding : %s", err)
+	}
 
 	// Field PrivateMessage - Document
+	if !l.Equal(r.PrivateMessage) {
+		return false // fmt.Errorf("PrivateMessage : %s", err)
+	}
 
 	// Field Attachments - Document
 	if len(l.Attachments) != len(r.Attachments) {
