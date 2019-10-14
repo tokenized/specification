@@ -1644,6 +1644,11 @@ func (l *EntityField) Equal(right proto.Message) bool {
 		}
 	}
 
+	// Field DomainName - varchar
+	if l.DomainName != r.DomainName {
+		return false // fmt.Errorf("DomainName string mismatched")
+	}
+
 	return true
 }
 

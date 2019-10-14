@@ -1394,8 +1394,8 @@ func (a *EntityField) Validate() error {
 	}
 
 	// Field Street - varchar
-	if len(a.Street) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Street), max2ByteInteger)
+	if len(a.Street) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Street), max1ByteInteger)
 	}
 
 	// Field SuburbCity - varchar
@@ -1449,6 +1449,11 @@ func (a *EntityField) Validate() error {
 		if err := v.Validate(); err != nil {
 			return fmt.Errorf("Management[%d] invalid : %s", i, err)
 		}
+	}
+
+	// Field DomainName - varchar
+	if len(a.DomainName) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.DomainName), max1ByteInteger)
 	}
 
 	return nil

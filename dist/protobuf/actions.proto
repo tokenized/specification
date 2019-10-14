@@ -352,6 +352,7 @@ message EntityField {
     string PhoneNumber                             = 12;  // varchar
     repeated AdministratorField Administration     = 13;  // Administrator[]
     repeated ManagerField Management               = 14;  // Manager[]
+    string DomainName                              = 15;  // varchar
 }
 
 // Field - Manager

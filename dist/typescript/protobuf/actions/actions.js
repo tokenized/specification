@@ -11288,7 +11288,8 @@ proto.actions.EntityField.toObject = function(includeInstance, msg) {
     administrationList: jspb.Message.toObjectList(msg.getAdministrationList(),
     proto.actions.AdministratorField.toObject, includeInstance),
     managementList: jspb.Message.toObjectList(msg.getManagementList(),
-    proto.actions.ManagerField.toObject, includeInstance)
+    proto.actions.ManagerField.toObject, includeInstance),
+    domainname: jspb.Message.getFieldWithDefault(msg, 15, "")
   };
 
   if (includeInstance) {
@@ -11382,6 +11383,10 @@ proto.actions.EntityField.deserializeBinaryFromReader = function(msg, reader) {
       var value = new proto.actions.ManagerField;
       reader.readMessage(value,proto.actions.ManagerField.deserializeBinaryFromReader);
       msg.addManagement(value);
+      break;
+    case 15:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomainname(value);
       break;
     default:
       reader.skipField();
@@ -11509,6 +11514,13 @@ proto.actions.EntityField.serializeBinaryToWriter = function(message, writer) {
       14,
       f,
       proto.actions.ManagerField.serializeBinaryToWriter
+    );
+  }
+  f = message.getDomainname();
+  if (f.length > 0) {
+    writer.writeString(
+      15,
+      f
     );
   }
 };
@@ -11757,6 +11769,21 @@ proto.actions.EntityField.prototype.addManagement = function(opt_value, opt_inde
 
 proto.actions.EntityField.prototype.clearManagementList = function() {
   this.setManagementList([]);
+};
+
+
+/**
+ * optional string DomainName = 15;
+ * @return {string}
+ */
+proto.actions.EntityField.prototype.getDomainname = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 15, ""));
+};
+
+
+/** @param {string} value */
+proto.actions.EntityField.prototype.setDomainname = function(value) {
+  jspb.Message.setField(this, 15, value);
 };
 
 

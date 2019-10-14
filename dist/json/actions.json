@@ -302,7 +302,8 @@
           "example": "Tesla Inc.",
           "label": "Name",
           "name": "Name",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
           "description": "The type of entity. (i.e Public Company, Individual) (Specification/Resources).",
@@ -332,7 +333,8 @@
           "example": "13577",
           "label": "Building Number",
           "name": "BuildingNumber",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
           "description": "",
@@ -340,14 +342,15 @@
           "label": "Street",
           "name": "Street",
           "type": "varchar",
-          "varSize": "small"
+          "varSize": "tiny"
         },
         {
           "description": "",
           "example": "Robinoh",
           "label": "Suburb/City",
           "name": "SuburbCity",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
           "description": "",
@@ -378,14 +381,16 @@
           "example": "satoshi@tokenized.com",
           "label": "Email Address",
           "name": "EmailAddress",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
-          "description": "Length 0-50 bytes. 0 is valid. Phone Number for Entity.",
+          "description": "Length 0-255 bytes. 0 is valid. Phone Number for Entity.",
           "example": "0448484848",
           "label": "Phone Number",
           "name": "PhoneNumber",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
           "description": "A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc.",
@@ -398,6 +403,14 @@
           "label": "Management",
           "name": "Management",
           "type": "Manager[]"
+        },
+        {
+          "description": "Domain name owned by this entity. Length 0-255 bytes. 0 is valid.",
+          "example": "tokenized.com",
+          "label": "Domain Name",
+          "name": "DomainName",
+          "type": "varchar",
+          "varSize": "tiny"
         }
       ],
       "label": "Entity",

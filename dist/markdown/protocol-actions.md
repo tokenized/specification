@@ -3982,7 +3982,7 @@ Entity represents the details of a legal Entity, such as a public or private com
     <tr>
         <td>Street</td>
         <td>
-            varchar(small)
+            varchar(tiny)
         </td>
         <td>
             
@@ -4051,7 +4051,7 @@ Entity represents the details of a legal Entity, such as a public or private com
             varchar(tiny)
         </td>
         <td>
-            Length 0-50 bytes. 0 is valid. Phone Number for Entity.
+            Length 0-255 bytes. 0 is valid. Phone Number for Entity.
              Example: 0448484848
         </td>
     </tr>
@@ -4075,6 +4075,17 @@ Entity represents the details of a legal Entity, such as a public or private com
         <td>
             A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc.
             
+        </td>
+    </tr>
+
+    <tr>
+        <td>DomainName</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            Domain name owned by this entity. Length 0-255 bytes. 0 is valid.
+             Example: tokenized.com
         </td>
     </tr>
 
