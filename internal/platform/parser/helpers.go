@@ -1,12 +1,12 @@
 package parser
 
 import (
+	htmlTemplate "html/template"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
 	"text/template"
-	htmlTemplate "html/template"
 )
 
 // TemplateToFile renders a template to a file
