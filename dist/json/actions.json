@@ -2454,7 +2454,7 @@
           "type": "uint[]"
         },
         {
-          "description": "Associates the message to a particular output by the index. If none are specified then the first input is assumed.",
+          "description": "Associates the message to a particular output by the index. If none are specified then the first output is assumed.",
           "label": "Receiver Indexes",
           "name": "ReceiverIndexes",
           "size": 4,

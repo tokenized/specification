@@ -3,11 +3,11 @@ package parser
 import (
 	"fmt"
 	"html"
+	htmlTemplate "html/template"
 	"math"
 	"regexp"
 	"strings"
 	"text/template"
-	htmlTemplate "html/template"
 )
 
 var (

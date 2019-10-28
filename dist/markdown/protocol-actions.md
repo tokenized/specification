@@ -3372,7 +3372,7 @@ The message action is a general purpose communication action. &#39;Twitter/SMS&#
             uint(4)[tiny]
         </td>
         <td>
-            Associates the message to a particular output by the index. If none are specified then the first input is assumed.
+            Associates the message to a particular output by the index. If none are specified then the first output is assumed.
             
         </td>
     </tr>
