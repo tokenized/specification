@@ -3,7 +3,9 @@ package protocol
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
+	"github.com/tokenized/smart-contract/pkg/bitcoin"
 	"github.com/tokenized/smart-contract/pkg/txbuilder"
 	"github.com/tokenized/smart-contract/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
@@ -38,10 +40,11 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 	var response actions.Action
 	size := txbuilder.BaseTxSize
 	value := uint64(0)
+	now := time.Now()
 
 	switch request := action.(type) {
 	case *actions.ContractOffer:
-		contractFormation := actions.ContractFormation{}
+		contractFormation := actions.ContractFormation{Timestamp: uint64(now.UnixNano())}
 		response = &contractFormation
 
 		// 1 input from contract
@@ -57,7 +60,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		value += dustLimit
 
 	case *actions.ContractAmendment:
-		contractFormation := actions.ContractFormation{}
+		contractFormation := actions.ContractFormation{Timestamp: uint64(now.UnixNano())}
 		response = &contractFormation
 
 		// 1 input from contract
@@ -75,7 +78,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		// TODO Need last asset creation to know size of response. Determine change in size by applying amendments.
 
 	case *actions.AssetDefinition:
-		assetCreation := actions.AssetCreation{}
+		assetCreation := actions.AssetCreation{Timestamp: uint64(now.UnixNano())}
 		response = &assetCreation
 
 		// 1 input from contract
@@ -91,7 +94,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		value += dustLimit
 
 	case *actions.AssetModification:
-		assetCreation := actions.AssetCreation{}
+		assetCreation := actions.AssetCreation{Timestamp: uint64(now.UnixNano())}
 		response = &assetCreation
 
 		// 1 input from contract
@@ -109,56 +112,91 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		// TODO Need last asset creation to know size of response. Determine change in size by applying amendments.
 
 	case *actions.Transfer:
-		settlement := actions.Settlement{}
-		response = &settlement
+		settlement := &actions.Settlement{Timestamp: uint64(now.UnixNano())}
+		response = settlement
 
 		// 1 input from contract
 		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.MaximumP2PKHInputSize
 
-		// P2PKH dust output to contract, and op return output
-		outputCount := 2
-		size += 2 * txbuilder.P2PKHOutputSize
-		value += dustLimit
+		outputCount := 0
 		if fees > 0 {
+			// TODO Update to support multi-contract transfers where there will be more than one fee.
 			outputCount += 1
 			size += txbuilder.P2PKHOutputSize
 			value += fees
 		}
 
 		// Add receiver outputs needed
-		used := make(map[[20]byte]bool)
+		used := make(map[bitcoin.Hash20]bool)
 		for _, asset := range request.Assets {
-			for _, _ = range asset.AssetSenders {
-				// hash, err := txbuilder.PubKeyHashFromP2PKHSigScript(requestTx.TxIn[sender.Index].SignatureScript)
-				// if err != nil {
-				// return 0, 0, errors.Wrap(err, "Invalid request input")
-				// }
-				// var fixedHash [20]byte
-				// copy(fixedHash[:], hash)
-				// _, exists := used[fixedHash]
-				// if !exists {
-				// used[fixedHash] = true
-				outputCount += 1
-				// }
+			settleAsset := &actions.AssetSettlementField{
+				AssetType: asset.AssetType,
+				AssetCode: asset.AssetCode,
+			}
+			// No settlement needed for bitcoin transfers. Just outputs.
+			if asset.AssetType != "BSV" {
+				settlement.Assets = append(settlement.Assets, settleAsset)
+			}
+
+			// Sig script is probably still empty, so assume each sender is unique and the
+			//   address is not reused. So each will get a notification output.
+			if asset.AssetType != "BSV" {
+				for _, _ = range asset.AssetSenders {
+					// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
+					//   real value without knowing the resulting balance.
+					settleAsset.Settlements = append(settleAsset.Settlements,
+						&actions.QuantityIndexField{
+							Index:    uint32(outputCount),
+							Quantity: 100000,
+						})
+					outputCount += 1
+					if asset.AssetType != "BSV" {
+						value += dustLimit // Dust will be put in each notification output.
+					}
+				}
 			}
 
 			for _, receiver := range asset.AssetReceivers {
-				var fixedHash [20]byte
-				copy(fixedHash[:], receiver.Address)
-				_, exists := used[fixedHash]
+				raddress, err := bitcoin.DecodeRawAddress(receiver.Address)
+				if err != nil {
+					return 0, 0, errors.Wrap(err, "parsing address")
+				}
+				hash, err := raddress.Hash()
+				if err != nil {
+					return 0, 0, errors.Wrap(err, "hashing address")
+				}
+				isDust, exists := used[*hash]
 				if !exists {
-					used[fixedHash] = true
+					used[*hash] = true
+					// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
+					//   real value without knowing the resulting balance.
+					settleAsset.Settlements = append(settleAsset.Settlements,
+						&actions.QuantityIndexField{
+							Index:    uint32(outputCount),
+							Quantity: 100000,
+						})
 					outputCount += 1
+					if asset.AssetType != "BSV" {
+						value += dustLimit // Dust will be put in each notification output.
+					}
+				}
+				if asset.AssetType == "BSV" {
+					if isDust {
+						value -= dustLimit
+					}
+					used[*hash] = false
+					value += receiver.Quantity
 				}
 			}
 		}
 
-		size += wire.VarIntSerializeSize(uint64(outputCount)) + (outputCount * txbuilder.P2PKHOutputSize)
+		// +1 for OP_RETURN
+		size += wire.VarIntSerializeSize(uint64(outputCount+1)) + (outputCount * txbuilder.P2PKHOutputSize)
 
 	case *actions.Proposal:
 		if inputIndex == 0 {
 			// First input funds vote (initiation) message
-			vote := actions.Vote{}
+			vote := actions.Vote{Timestamp: uint64(now.UnixNano())}
 			response = &vote
 
 			// 1 input from contract
@@ -174,7 +212,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 			value += dustLimit
 		} else {
 			// Second input funds vote result message
-			voteResult := actions.Result{}
+			voteResult := actions.Result{Timestamp: uint64(now.UnixNano())}
 			response = &voteResult
 
 			voteResult.OptionTally = make([]uint64, len(request.VoteOptions))
@@ -197,7 +235,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		}
 
 	case *actions.BallotCast:
-		counted := actions.BallotCounted{}
+		counted := actions.BallotCounted{Timestamp: uint64(now.UnixNano())}
 		response = &counted
 
 		// 1 input from contract
