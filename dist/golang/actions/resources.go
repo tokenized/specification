@@ -4541,6 +4541,9 @@ const (
 	// HoldingsFrozen - Holdings are frozen, so the request can't be completed.
 	RejectionsHoldingsFrozen = 32
 
+	// HoldingsLocked - Holdings are locked by a multi-contract request, so the request can't be completed yet.
+	RejectionsHoldingsLocked = 33
+
 	// HolderProposalProhibited - Holders are not permitted to make proposals.
 	RejectionsHolderProposalProhibited = 40
 
@@ -4757,6 +4760,13 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Name:        "HoldingsFrozen",
 			Label:       "Holdings Frozen",
 			Description: "Holdings are frozen, so the request can't be completed.",
+			MetaData:    `{}`,
+		}
+	case RejectionsHoldingsLocked:
+		return &RejectionsCode{
+			Name:        "HoldingsLocked",
+			Label:       "Holdings Locked",
+			Description: "Holdings are locked by a multi-contract request, so the request can't be completed yet.",
 			MetaData:    `{}`,
 		}
 	case RejectionsHolderProposalProhibited:
@@ -4977,6 +4987,11 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Name:        "HoldingsFrozen",
 			Label:       "Holdings Frozen",
 			Description: "Holdings are frozen, so the request can't be completed.",
+		},
+		RejectionsHoldingsLocked: &RejectionsCode{
+			Name:        "HoldingsLocked",
+			Label:       "Holdings Locked",
+			Description: "Holdings are locked by a multi-contract request, so the request can't be completed yet.",
 		},
 		RejectionsHolderProposalProhibited: &RejectionsCode{
 			Name:        "HolderProposalProhibited",

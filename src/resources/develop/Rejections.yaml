@@ -133,6 +133,11 @@ values:
     label: Holdings Frozen
     description: Holdings are frozen, so the request can't be completed.
 
+  - code: 33
+    name: HoldingsLocked
+    label: Holdings Locked
+    description: Holdings are locked by a multi-contract request, so the request can't be completed yet.
+
 #################################### Governance ####################################
 
   - code: 40
