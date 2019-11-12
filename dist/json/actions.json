@@ -2499,7 +2499,7 @@
       "description": "Used to reject request actions that do not comply with the Contract. If money is to be returned to a User then it is used in lieu of the Settlement Action to properly account for token balances. All Administration/User request Actions must be responded to by the Contract with an Action.  The only exception to this rule is when there is not enough fees in the first Action for the Contract response action to remain revenue neutral.  If not enough fees are attached to pay for the Contract response then the Contract will not respond.",
       "fields": [
         {
-          "description": "Associates the message to a particular output by the index.",
+          "description": "Associates the message to a particular output by the index. If none are specified then the first output is assumed.",
           "label": "Address Indexes",
           "name": "AddressIndexes",
           "size": 4,
@@ -5708,6 +5708,12 @@
           "description": "Holdings are frozen, so the request can't be completed.",
           "label": "Holdings Frozen",
           "name": "HoldingsFrozen"
+        },
+        {
+          "code": 33,
+          "description": "Holdings are locked by a multi-contract request, so the request can't be completed yet.",
+          "label": "Holdings Locked",
+          "name": "HoldingsLocked"
         },
         {
           "code": 40,
