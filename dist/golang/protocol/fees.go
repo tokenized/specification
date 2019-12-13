@@ -353,6 +353,13 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	var previousContractScript []byte
 	multiContract := false
 	masterContractIndex := uint32(0xffffffff) // First contract listed
+	for _, asset := range request.Assets {
+		if asset.AssetType != "BSV" {
+			masterContractIndex = asset.ContractIndex
+			break
+		}
+	}
+
 	for i, asset := range request.Assets {
 		settleAsset := &actions.AssetSettlementField{
 			AssetType: asset.AssetType,
@@ -361,10 +368,6 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 
 		// No settlement needed for bitcoin transfers. Just outputs.
 		if asset.AssetType != "BSV" {
-			if masterContractIndex == 0xffffffff {
-				masterContractIndex = asset.ContractIndex
-			}
-
 			if !bytes.Equal(previousContractScript, requestTx.TxOut[asset.ContractIndex].PkScript) {
 				multiContract = true
 			}
