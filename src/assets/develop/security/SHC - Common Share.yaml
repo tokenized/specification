@@ -16,14 +16,6 @@ metadata:
     - Antpool Investment Agreement
 
 fields:
-  - name: TransferLockout
-    label: TransferLockout
-    type: Timestamp
-    description: A period of time where the asset is unable to be transferred.  After the transfer lockout period, the assets can be transferred.
-    example: 11/4/2019 18:00:00
-    span: full
-    displayOrder: 3
-
   - name: Ticker
     label: Ticker Symbol
     type: fixedchar
