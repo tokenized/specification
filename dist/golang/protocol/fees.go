@@ -319,6 +319,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 		request, ok = action.(*actions.Transfer)
 		if ok {
 			found = true
+			break
 		}
 	}
 	if !found {
