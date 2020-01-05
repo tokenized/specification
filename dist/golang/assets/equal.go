@@ -92,11 +92,6 @@ func (l *ShareCommon) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field TransferLockout - uint
-	if l.TransferLockout != r.TransferLockout {
-		return false // fmt.Errorf("TransferLockout integer mismatched")
-	}
-
 	// Field Ticker - fixedchar
 	if l.Ticker != r.Ticker {
 		return false // fmt.Errorf("Ticker string mismatched")

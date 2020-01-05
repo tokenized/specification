@@ -605,10 +605,9 @@ proto.assets.ShareCommon.prototype.toObject = function(opt_includeInstance) {
  */
 proto.assets.ShareCommon.toObject = function(includeInstance, msg) {
   var f, obj = {
-    transferlockout: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    ticker: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    isin: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 4, "")
+    ticker: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    isin: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    description: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -646,18 +645,14 @@ proto.assets.ShareCommon.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setTransferlockout(value);
-      break;
-    case 2:
       var value = /** @type {string} */ (reader.readString());
       msg.setTicker(value);
       break;
-    case 3:
+    case 2:
       var value = /** @type {string} */ (reader.readString());
       msg.setIsin(value);
       break;
-    case 4:
+    case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
       break;
@@ -689,31 +684,24 @@ proto.assets.ShareCommon.prototype.serializeBinary = function() {
  */
 proto.assets.ShareCommon.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getTransferlockout();
-  if (f !== 0) {
-    writer.writeUint64(
-      1,
-      f
-    );
-  }
   f = message.getTicker();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      1,
       f
     );
   }
   f = message.getIsin();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      2,
       f
     );
   }
   f = message.getDescription();
   if (f.length > 0) {
     writer.writeString(
-      4,
+      3,
       f
     );
   }
@@ -721,62 +709,47 @@ proto.assets.ShareCommon.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional uint64 TransferLockout = 1;
- * @return {number}
- */
-proto.assets.ShareCommon.prototype.getTransferlockout = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.assets.ShareCommon.prototype.setTransferlockout = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * optional string Ticker = 2;
+ * optional string Ticker = 1;
  * @return {string}
  */
 proto.assets.ShareCommon.prototype.getTicker = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
 proto.assets.ShareCommon.prototype.setTicker = function(value) {
-  jspb.Message.setField(this, 2, value);
+  jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional string ISIN = 3;
+ * optional string ISIN = 2;
  * @return {string}
  */
 proto.assets.ShareCommon.prototype.getIsin = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
 proto.assets.ShareCommon.prototype.setIsin = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional string Description = 4;
+ * optional string Description = 3;
  * @return {string}
  */
 proto.assets.ShareCommon.prototype.getDescription = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
 proto.assets.ShareCommon.prototype.setDescription = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
