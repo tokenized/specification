@@ -69,7 +69,7 @@ func NewMessageFromCode(code uint32) Message {
 func Deserialize(code uint32, payload []byte) (Message, error) {
 	result := NewMessageFromCode(code)
 	if result == nil {
-		return nil, fmt.Errorf("Unknown message code : %d", code)
+		return nil, fmt.Errorf("Unknown message code : %s", string(code))
 	}
 
 	if len(payload) != 0 {

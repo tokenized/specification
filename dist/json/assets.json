@@ -166,15 +166,6 @@
       "description": "Common stock represents ownership interests in companies.",
       "fields": [
         {
-          "description": "A period of time where the asset is unable to be transferred.  After the transfer lockout period, the assets can be transferred.",
-          "displayOrder": 3,
-          "example": "11/4/2019 18:00:00",
-          "label": "TransferLockout",
-          "name": "TransferLockout",
-          "span": "full",
-          "type": "Timestamp"
-        },
-        {
           "description": "Ticker symbol assigned by exchanges to represent the asset.",
           "displayOrder": 4,
           "example": "AAPL",

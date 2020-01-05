@@ -369,10 +369,9 @@ var PrivateCompany = PermissionConfig{
 					FieldIndexPath{7},     // [AdministrationProposal]
 					FieldIndexPath{8},     // [HolderProposal]
 					FieldIndexPath{10},    // [TokenQty]
-					FieldIndexPath{12, 1}, // [AssetPayload TransferLockout]
-					FieldIndexPath{12, 2}, // [AssetPayload Ticker]
-					FieldIndexPath{12, 3}, // [AssetPayload ISIN]
-					FieldIndexPath{12, 4}, // [AssetPayload Description]
+					FieldIndexPath{12, 1}, // [AssetPayload Ticker]
+					FieldIndexPath{12, 2}, // [AssetPayload ISIN]
+					FieldIndexPath{12, 3}, // [AssetPayload Description]
 				},
 			},
 			Permission{ // Administrator Special Resolution

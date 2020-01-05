@@ -81,8 +81,6 @@ func (a *ShareCommon) Validate() error {
 		return nil
 	}
 
-	// Field TransferLockout - uint
-
 	// Field Ticker - fixedchar
 	if len(a.Ticker) != 0 && len(a.Ticker) != 5 {
 		return fmt.Errorf("Fixed width field Ticker wrong size : %d should be %d",

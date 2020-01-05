@@ -23,10 +23,9 @@ message Currency {
 
 // Message - Share - Common (SHC)
 message ShareCommon {
-    uint64 TransferLockout                         = 1;   // Timestamp
-    string Ticker                                  = 2;   // fixedchar
-    string ISIN                                    = 3;   // fixedchar
-    string Description                             = 4;   // varchar
+    string Ticker                                  = 1;   // fixedchar
+    string ISIN                                    = 2;   // fixedchar
+    string Description                             = 3;   // varchar
 }
 
 // Message - Coupon (COU)

@@ -117,10 +117,9 @@ func (a *Currency) ApplyAmendment(fip []uint32, operation uint32, data []byte) (
 
 // ShareCommon Permission / Amendment Field Indices
 const (
-	ShareCommonFieldTransferLockout = uint32(1)
-	ShareCommonFieldTicker          = uint32(2)
-	ShareCommonFieldISIN            = uint32(3)
-	ShareCommonFieldDescription     = uint32(4)
+	ShareCommonFieldTicker      = uint32(1)
+	ShareCommonFieldISIN        = uint32(2)
+	ShareCommonFieldDescription = uint32(3)
 )
 
 // ApplyAmendment updates a ShareCommon based on amendment data.
@@ -132,19 +131,6 @@ func (a *ShareCommon) ApplyAmendment(fip []uint32, operation uint32, data []byte
 	}
 
 	switch fip[0] {
-	case ShareCommonFieldTransferLockout: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for TransferLockout : %v", fip)
-		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("TransferLockout amendment value is wrong size : %d", len(data))
-		}
-		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.TransferLockout); err != nil {
-			return nil, fmt.Errorf("TransferLockout amendment value failed to deserialize : %s", err)
-		}
-		return fip[:], nil
-
 	case ShareCommonFieldTicker: // string
 		a.Ticker = string(data)
 		return fip[:], nil

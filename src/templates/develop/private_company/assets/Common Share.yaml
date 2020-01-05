@@ -18,7 +18,6 @@ Permissions:
       - [AdministrationProposal]
       - [HolderProposal]
       - [TokenQty]
-      - [AssetPayload, TransferLockout]
       - [AssetPayload, Ticker]
       - [AssetPayload, ISIN]
       - [AssetPayload, Description]
