@@ -43,6 +43,7 @@ func {{ $resource.Name }}Map() map[{{ $resource.CodeType.GoType }}]*{{ $resource
 				Name: "{{ $value.Name }}",
 				Label: "{{ $value.Label }}",
 				Description: "{{ $value.Description }}",
+				MetaData: `{{ $value.MetaDataJSON }}`,
 			},
 {{- end }}
 	}
