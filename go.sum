@@ -72,10 +72,13 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/tokenized/envelope v0.1.2-0.20191209055510-4e72185e56f9 h1:DDKTmB7DRjeLH1Ix8eD9FkB/txNJX1aB3meXVl+AELQ=
 github.com/tokenized/envelope v0.1.2-0.20191209055510-4e72185e56f9/go.mod h1:dToZvQ7rTs9Jp8YdxOMdrSeXMYb/FXrCp3dX0Bn4wvk=
+github.com/tokenized/envelope v0.1.2-0.20200103012116-ebae93ae4473 h1:5pNvxZtHM0vFK9dcbUTYPR4ZT7BP75JR3+CjOgtdfes=
+github.com/tokenized/envelope v0.1.2-0.20200103012116-ebae93ae4473/go.mod h1:YQ1gXewBgeEQ61Ybq9iPP8GpFN5LUO2NGzBQ8RrmYGU=
 github.com/tokenized/envelope v0.2.1 h1:XlFgOF/DX0FrdNMJ/LBr3sg/rq/llTyzTmirJQkChmk=
 github.com/tokenized/envelope v0.2.1/go.mod h1:dToZvQ7rTs9Jp8YdxOMdrSeXMYb/FXrCp3dX0Bn4wvk=
 github.com/tokenized/smart-contract v0.2.1 h1:ICKvt2E+UncONoCoyncNEhgkvX2sr95G285gkSeTeVY=
 github.com/tokenized/smart-contract v0.2.1/go.mod h1:ToCFL/fnDCngqmv1bm8klYaJGueje/26qoImoPe+aFs=
+github.com/tokenized/smart-contract v0.2.2-0.20200103005916-b230b5e28e16/go.mod h1:3oWcq6AOuFrBBe/Vz1a9ucjM3kKSjjo8n2B1n+Sr+X0=
 github.com/tokenized/smart-contract v0.2.2-0.20200105215152-0ca6d7ce006b h1:r70BCH3iQlIrboQKhgVGyvEUmMKtKt8tF5kYz3ePqpo=
 github.com/tokenized/smart-contract v0.2.2-0.20200105215152-0ca6d7ce006b/go.mod h1:3oWcq6AOuFrBBe/Vz1a9ucjM3kKSjjo8n2B1n+Sr+X0=
 github.com/tokenized/specification v0.2.2-0.20191219061451-ecd0fc17c3ca/go.mod h1:8QHhqLHxThlZ3hEGD69UhAuj/AChbCWLNUrr1YNk46E=
