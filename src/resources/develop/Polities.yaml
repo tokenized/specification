@@ -141,6 +141,7 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg"
       fiscal_year: 0701-0630
       gov_fiscal_year: 0701-0630
+      phone_code: "+61"
 
   - code: AUT
     name: Austria
