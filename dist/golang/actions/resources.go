@@ -1101,7 +1101,7 @@ func PolitiesData(code string) *PolitiesCode {
 			Name:        "Australia",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"fiscal_year":"0701-0630","flag":"https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg","gov_fiscal_year":"0701-0630","states":{"AUACT":"Australian Capital Territory","AUCC":"Cocos (Keening) Island","AUCX":"Christmas Island","AUHM":"Heard Island and McDonalds Islands","AUJBT":"Jervis Bay Territory","AUNF":"Norfolk Island","AUNSW":"New South Wales","AUNT":"Northern Territory","AUQLD":"Queensland","AUSA":"South Australia","AUTAS":"Tasmania","AUVIC":"Victoria","AUWA":"Western Australia"}}`,
+			MetaData:    `{"fiscal_year":"0701-0630","flag":"https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg","gov_fiscal_year":"0701-0630","phone_code":"+61","states":{"AUACT":"Australian Capital Territory","AUCC":"Cocos (Keening) Island","AUCX":"Christmas Island","AUHM":"Heard Island and McDonalds Islands","AUJBT":"Jervis Bay Territory","AUNF":"Norfolk Island","AUNSW":"New South Wales","AUNT":"Northern Territory","AUQLD":"Queensland","AUSA":"South Australia","AUTAS":"Tasmania","AUVIC":"Victoria","AUWA":"Western Australia"}}`,
 		}
 	case PolitiesAustria:
 		return &PolitiesCode{
@@ -2851,7 +2851,7 @@ func PolitiesMap() map[string]*PolitiesCode {
 			Name:        "Australia",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"fiscal_year":"0701-0630","flag":"https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg","gov_fiscal_year":"0701-0630","states":{"AUACT":"Australian Capital Territory","AUCC":"Cocos (Keening) Island","AUCX":"Christmas Island","AUHM":"Heard Island and McDonalds Islands","AUJBT":"Jervis Bay Territory","AUNF":"Norfolk Island","AUNSW":"New South Wales","AUNT":"Northern Territory","AUQLD":"Queensland","AUSA":"South Australia","AUTAS":"Tasmania","AUVIC":"Victoria","AUWA":"Western Australia"}}`,
+			MetaData:    `{"fiscal_year":"0701-0630","flag":"https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg","gov_fiscal_year":"0701-0630","phone_code":"+61","states":{"AUACT":"Australian Capital Territory","AUCC":"Cocos (Keening) Island","AUCX":"Christmas Island","AUHM":"Heard Island and McDonalds Islands","AUJBT":"Jervis Bay Territory","AUNF":"Norfolk Island","AUNSW":"New South Wales","AUNT":"Northern Territory","AUQLD":"Queensland","AUSA":"South Australia","AUTAS":"Tasmania","AUVIC":"Victoria","AUWA":"Western Australia"}}`,
 		},
 		PolitiesAustria: &PolitiesCode{
 			Name:        "Austria",
