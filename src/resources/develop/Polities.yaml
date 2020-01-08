@@ -1714,7 +1714,7 @@ values:
     name: São Tomé and Príncipe
     metadata:
       states: ~
-      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Sao_Tome_and_Principe.svg
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Sao_Tome_and_Principe.svg"
       phone_code: "+239"
 
   - code: SAU

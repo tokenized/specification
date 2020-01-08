@@ -2996,13 +2996,14 @@
         "size": 3,
         "type": "fixedchar"
       },
-      "description": "Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, International Organizations, etc.). Based on a 3 character code.\n",
+      "description": "Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, International Organizations, etc.). Based on a 3 character code.",
       "name": "Polities",
       "values": [
         {
           "code": "ALA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/52/Flag_of_%C3%85land.svg",
+            "phone_code": "+358",
             "states": null
           },
           "name": "Aaland Islands"
@@ -3011,6 +3012,7 @@
           "code": "AFG",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Afghanistan.svg",
+            "phone_code": "+93",
             "states": null
           },
           "name": "Afghanistan"
@@ -3019,6 +3021,7 @@
           "code": "ALB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg",
+            "phone_code": "+355",
             "states": null
           },
           "name": "Albania"
@@ -3027,6 +3030,7 @@
           "code": "DZA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg",
+            "phone_code": "+213",
             "states": null
           },
           "name": "Algeria"
@@ -3035,6 +3039,7 @@
           "code": "ASM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/87/Flag_of_American_Samoa.svg",
+            "phone_code": "+1684",
             "states": null
           },
           "name": "American Samoa"
@@ -3043,6 +3048,7 @@
           "code": "AND",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Andorra.svg",
+            "phone_code": "+376",
             "states": null
           },
           "name": "Andorra"
@@ -3051,6 +3057,7 @@
           "code": "AGO",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Angola.svg",
+            "phone_code": "+244",
             "states": null
           },
           "name": "Angola"
@@ -3059,6 +3066,7 @@
           "code": "AIA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Anguilla.svg",
+            "phone_code": "+1264",
             "states": null
           },
           "name": "Anguilla"
@@ -3067,6 +3075,7 @@
           "code": "ATA",
           "metadata": {
             "flag": null,
+            "phone_code": "+672",
             "states": null
           },
           "name": "Antarctica"
@@ -3075,6 +3084,7 @@
           "code": "ATG",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Antigua_and_Barbuda.svg",
+            "phone_code": "+1268",
             "states": null
           },
           "name": "Antigua and Barbuda"
@@ -3083,6 +3093,7 @@
           "code": "ARG",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg",
+            "phone_code": "+54",
             "states": null
           },
           "name": "Argentina"
@@ -3091,6 +3102,7 @@
           "code": "ARM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_Armenia.svg",
+            "phone_code": "+374",
             "states": null
           },
           "name": "Armenia"
@@ -3099,6 +3111,7 @@
           "code": "ABW",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Aruba.svg",
+            "phone_code": "+297",
             "states": null
           },
           "name": "Aruba"
@@ -3171,6 +3184,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+43",
             "states": null
           },
           "name": "Austria"
@@ -3179,6 +3193,7 @@
           "code": "AZE",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Azerbaijan.svg",
+            "phone_code": "+994",
             "states": null
           },
           "name": "Azerbaijan"
@@ -3187,6 +3202,7 @@
           "code": "BHS",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/93/Flag_of_the_Bahamas.svg",
+            "phone_code": "+1242",
             "states": null
           },
           "name": "The Bahamas"
@@ -3195,6 +3211,7 @@
           "code": "BHR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Bahrain.svg",
+            "phone_code": "+973",
             "states": null
           },
           "name": "Bahrain"
@@ -3205,6 +3222,7 @@
             "fiscal_year": "0701-0630",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg",
             "gov_fiscal_year": "0701-0630",
+            "phone_code": "+880",
             "states": null
           },
           "name": "Bangladesh"
@@ -3213,6 +3231,7 @@
           "code": "BRB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg",
+            "phone_code": "+1246",
             "states": null
           },
           "name": "Barbados"
@@ -3221,6 +3240,7 @@
           "code": "BLR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Belarus.svg",
+            "phone_code": "+375",
             "states": null
           },
           "name": "Belarus"
@@ -3231,6 +3251,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+32",
             "states": null
           },
           "name": "Belgium"
@@ -3239,6 +3260,7 @@
           "code": "BLZ",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg",
+            "phone_code": "+501",
             "states": null
           },
           "name": "Belize"
@@ -3247,6 +3269,7 @@
           "code": "BEN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Benin.svg",
+            "phone_code": "+229",
             "states": null
           },
           "name": "Benin"
@@ -3255,6 +3278,7 @@
           "code": "BMU",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bermuda.svg",
+            "phone_code": "+1441",
             "states": null
           },
           "name": "Bermuda"
@@ -3263,6 +3287,7 @@
           "code": "BTN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/91/Flag_of_Bhutan.svg",
+            "phone_code": "+975",
             "states": null
           },
           "name": "Bhutan"
@@ -3271,6 +3296,7 @@
           "code": "BOL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/de/Flag_of_Bolivia_%28state%29.svg",
+            "phone_code": "+591",
             "states": null
           },
           "name": "Bolivia"
@@ -3279,6 +3305,7 @@
           "code": "BES",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg",
+            "phone_code": "+599",
             "states": null
           },
           "name": "Bonaire, St Eustasuis and Saba"
@@ -3287,6 +3314,7 @@
           "code": "BIH",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bosnia_and_Herzegovina.svg",
+            "phone_code": "+387",
             "states": null
           },
           "name": "Bosnia and Herzegovina"
@@ -3295,6 +3323,7 @@
           "code": "BWA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Botswana.svg",
+            "phone_code": "+267",
             "states": null
           },
           "name": "Botswana"
@@ -3303,6 +3332,7 @@
           "code": "BVT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg",
+            "phone_code": "+47",
             "states": null
           },
           "name": "Bouvet Island"
@@ -3313,6 +3343,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+55",
             "states": {
               "BRAC": "Acre",
               "BRAL": "Alagoas",
@@ -3349,6 +3380,7 @@
           "code": "IOT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_the_British_Indian_Ocean_Territory.svg",
+            "phone_code": "+246",
             "states": null
           },
           "name": "British Indian Ocean Territory"
@@ -3357,6 +3389,7 @@
           "code": "VGB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/42/Flag_of_the_British_Virgin_Islands.svg",
+            "phone_code": "+1284",
             "states": null
           },
           "name": "British Virgin Islands"
@@ -3365,6 +3398,7 @@
           "code": "BRN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Brunei.svg",
+            "phone_code": "+673",
             "states": null
           },
           "name": "Brunei"
@@ -3373,6 +3407,7 @@
           "code": "BGR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg",
+            "phone_code": "+359",
             "states": null
           },
           "name": "Bulgaria"
@@ -3381,6 +3416,7 @@
           "code": "BFA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Burkina_Faso.svg",
+            "phone_code": "+226",
             "states": null
           },
           "name": "Burkina Faso"
@@ -3389,6 +3425,7 @@
           "code": "BDI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/50/Flag_of_Burundi.svg",
+            "phone_code": "+257",
             "states": null
           },
           "name": "Burundi"
@@ -3397,6 +3434,7 @@
           "code": "KHM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_Cambodia.svg",
+            "phone_code": "+855",
             "states": null
           },
           "name": "Cambodia"
@@ -3405,6 +3443,7 @@
           "code": "CMR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Cameroon.svg",
+            "phone_code": "+237",
             "states": null
           },
           "name": "Cameroon"
@@ -3415,6 +3454,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg",
             "gov_fiscal_year": "0401-0331",
+            "phone_code": "+1",
             "states": {
               "CAAB": "Alberta",
               "CABC": "British Columbia",
@@ -3437,6 +3477,7 @@
           "code": "CPV",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Cape_Verde.svg",
+            "phone_code": "+238",
             "states": null
           },
           "name": "Cape Verde"
@@ -3445,6 +3486,7 @@
           "code": "CYM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_the_Cayman_Islands.svg",
+            "phone_code": "+1345",
             "states": null
           },
           "name": "Cayman Islands"
@@ -3453,6 +3495,7 @@
           "code": "CAF",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Central_African_Republic.svg",
+            "phone_code": "+236",
             "states": null
           },
           "name": "Central African Republic"
@@ -3461,6 +3504,7 @@
           "code": "TCD",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Flag_of_Chad.svg",
+            "phone_code": "+235",
             "states": null
           },
           "name": "Chad"
@@ -3469,6 +3513,7 @@
           "code": "CHL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/78/Flag_of_Chile.svg",
+            "phone_code": "+56",
             "states": null
           },
           "name": "Chile"
@@ -3479,6 +3524,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+86",
             "states": {
               "CNAH": "Anhui",
               "CNBJ": "Beijing",
@@ -3522,6 +3568,7 @@
           "code": "CXR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/67/Flag_of_Christmas_Island.svg",
+            "phone_code": "+53",
             "states": null
           },
           "name": "Christmas Island"
@@ -3530,6 +3577,7 @@
           "code": "CCK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Cocos_%28Keeling%29_Islands.svg",
+            "phone_code": "+61",
             "states": null
           },
           "name": "Cocos Islands"
@@ -3538,6 +3586,7 @@
           "code": "COL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg",
+            "phone_code": "+57",
             "states": null
           },
           "name": "Colombia"
@@ -3546,6 +3595,7 @@
           "code": "COM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/94/Flag_of_the_Comoros.svg",
+            "phone_code": "+269",
             "states": null
           },
           "name": "Comoros"
@@ -3554,6 +3604,7 @@
           "code": "COG",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_the_Republic_of_the_Congo.svg",
+            "phone_code": "+242",
             "states": null
           },
           "name": "Congo-Brazzaville"
@@ -3562,6 +3613,7 @@
           "code": "COD",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Democratic_Republic_of_the_Congo.svg",
+            "phone_code": "+243",
             "states": null
           },
           "name": "Congo-Kinshasa"
@@ -3570,6 +3622,7 @@
           "code": "COK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/35/Flag_of_the_Cook_Islands.svg",
+            "phone_code": "+682",
             "states": null
           },
           "name": "Cook Islands"
@@ -3580,6 +3633,7 @@
             "fiscal_year": "1001-0931",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Costa_Rica_%28state%29.svg",
             "gov_fiscal_year": "1001-0931",
+            "phone_code": "+506",
             "states": null
           },
           "name": "Costa Rica"
@@ -3588,6 +3642,7 @@
           "code": "HRV",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg",
+            "phone_code": "+385",
             "states": null
           },
           "name": "Croatia"
@@ -3596,6 +3651,7 @@
           "code": "CUB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Flag_of_Cuba.svg",
+            "phone_code": "+53",
             "states": null
           },
           "name": "Cuba"
@@ -3604,14 +3660,16 @@
           "code": "CUW",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_Cura%C3%A7ao.svg",
+            "phone_code": "+599",
             "states": null
           },
-          "name": "Curacao"
+          "name": "Curacao (Netherlands Antilles)"
         },
         {
           "code": "CYP",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Cyprus.svg",
+            "phone_code": "+357",
             "states": null
           },
           "name": "Cyprus"
@@ -3620,6 +3678,7 @@
           "code": "CZE",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg",
+            "phone_code": "+420",
             "states": null
           },
           "name": "Czech Republic"
@@ -3628,6 +3687,7 @@
           "code": "DNK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg",
+            "phone_code": "+45",
             "states": null
           },
           "name": "Denmark"
@@ -3636,6 +3696,7 @@
           "code": "DJI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_Djibouti.svg",
+            "phone_code": "+253",
             "states": null
           },
           "name": "Djibouti"
@@ -3644,6 +3705,7 @@
           "code": "DMA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Flag_of_Dominica.svg",
+            "phone_code": "+1767",
             "states": null
           },
           "name": "Dominica"
@@ -3652,6 +3714,7 @@
           "code": "DOM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_the_Dominican_Republic.svg",
+            "phone_code": "+1829",
             "states": null
           },
           "name": "Dominican Republic"
@@ -3660,6 +3723,7 @@
           "code": "TLS",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg",
+            "phone_code": "+670",
             "states": null
           },
           "name": "East Timor"
@@ -3668,6 +3732,7 @@
           "code": "ECU",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg",
+            "phone_code": "+593",
             "states": null
           },
           "name": "Ecuador"
@@ -3678,6 +3743,7 @@
             "fiscal_year": "0701-0630",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg",
             "gov_fiscal_year": "0701-0630",
+            "phone_code": "+20",
             "states": null
           },
           "name": "Egypt"
@@ -3686,6 +3752,7 @@
           "code": "SLV",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_El_Salvador.svg",
+            "phone_code": "+503",
             "states": null
           },
           "name": "El Salvador"
@@ -3694,6 +3761,7 @@
           "code": "GNQ",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Equatorial_Guinea.svg",
+            "phone_code": "+240",
             "states": null
           },
           "name": "Equatorial Guinea"
@@ -3702,6 +3770,7 @@
           "code": "ERI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_Eritrea.svg",
+            "phone_code": "+291",
             "states": null
           },
           "name": "Eritrea"
@@ -3710,6 +3779,7 @@
           "code": "EST",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Estonia.svg",
+            "phone_code": "+372",
             "states": null
           },
           "name": "Estonia"
@@ -3720,6 +3790,7 @@
             "fiscal_year": "0708-0707",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg",
             "gov_fiscal_year": "0708-0707",
+            "phone_code": "+251",
             "states": null
           },
           "name": "Ethiopia"
@@ -3765,6 +3836,7 @@
           "code": "FLK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg",
+            "phone_code": "+500",
             "states": null
           },
           "name": "Falkland Islands"
@@ -3773,6 +3845,7 @@
           "code": "FRO",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flag_of_the_Faroe_Islands.svg",
+            "phone_code": "+298",
             "states": null
           },
           "name": "Faroe Islands"
@@ -3781,6 +3854,7 @@
           "code": "FJI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Fiji.svg",
+            "phone_code": "+679",
             "states": null
           },
           "name": "Fiji"
@@ -3789,6 +3863,7 @@
           "code": "FIN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg",
+            "phone_code": "+358",
             "states": null
           },
           "name": "Finland"
@@ -3797,6 +3872,7 @@
           "code": "FRA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+            "phone_code": "+33",
             "states": null
           },
           "name": "France"
@@ -3805,6 +3881,7 @@
           "code": "GUF",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+            "phone_code": "+594",
             "states": null
           },
           "name": "French Guiana"
@@ -3813,6 +3890,7 @@
           "code": "PYF",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/db/Flag_of_French_Polynesia.svg",
+            "phone_code": "+689",
             "states": null
           },
           "name": "French Polynesia"
@@ -3821,6 +3899,7 @@
           "code": "ATF",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Flag_of_the_French_Southern_and_Antarctic_Lands.svg",
+            "phone_code": "+262",
             "states": null
           },
           "name": "French Southern and Antarctic Lands"
@@ -3829,6 +3908,7 @@
           "code": "GAB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/04/Flag_of_Gabon.svg",
+            "phone_code": "+241",
             "states": null
           },
           "name": "Gabon"
@@ -3837,6 +3917,7 @@
           "code": "GMB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_The_Gambia.svg",
+            "phone_code": "+220",
             "states": null
           },
           "name": "The Gambia"
@@ -3845,6 +3926,7 @@
           "code": "GEO",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Georgia.svg",
+            "phone_code": "+995",
             "states": null
           },
           "name": "Georgia"
@@ -3855,6 +3937,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+49",
             "states": null
           },
           "name": "Germany"
@@ -3863,6 +3946,7 @@
           "code": "GHA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Ghana.svg",
+            "phone_code": "+233",
             "states": null
           },
           "name": "Ghana"
@@ -3871,6 +3955,7 @@
           "code": "GIB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/02/Flag_of_Gibraltar.svg",
+            "phone_code": "+350",
             "states": null
           },
           "name": "Gibraltar"
@@ -3881,6 +3966,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+30",
             "states": null
           },
           "name": "Greece"
@@ -3889,6 +3975,7 @@
           "code": "GRL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_Greenland.svg",
+            "phone_code": "+299",
             "states": null
           },
           "name": "Greenland"
@@ -3897,6 +3984,7 @@
           "code": "GRD",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Grenada.svg",
+            "phone_code": "+1473",
             "states": null
           },
           "name": "Grenada"
@@ -3905,6 +3993,7 @@
           "code": "GLP",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+            "phone_code": "+590",
             "states": null
           },
           "name": "Guadeloupe"
@@ -3913,6 +4002,7 @@
           "code": "GUM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/07/Flag_of_Guam.svg",
+            "phone_code": "+1671",
             "states": null
           },
           "name": "Guam"
@@ -3921,6 +4011,7 @@
           "code": "GTM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg",
+            "phone_code": "+502",
             "states": null
           },
           "name": "Guatemala"
@@ -3929,6 +4020,7 @@
           "code": "GGY",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Guernsey.svg",
+            "phone_code": "+44",
             "states": null
           },
           "name": "Guernsey"
@@ -3937,6 +4029,7 @@
           "code": "GIN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_Guinea.svg",
+            "phone_code": "+224",
             "states": null
           },
           "name": "Guinea"
@@ -3945,6 +4038,7 @@
           "code": "GNB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Guinea-Bissau.svg",
+            "phone_code": "+245",
             "states": null
           },
           "name": "Guinea-Bissau"
@@ -3953,6 +4047,7 @@
           "code": "GUY",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_Guyana.svg",
+            "phone_code": "+592",
             "states": null
           },
           "name": "Guyana"
@@ -3961,6 +4056,7 @@
           "code": "HTI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Haiti.svg",
+            "phone_code": "+509",
             "states": null
           },
           "name": "Haiti"
@@ -3969,6 +4065,7 @@
           "code": "HMD",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg",
+            "phone_code": "+672",
             "states": null
           },
           "name": "Heard Island and McDonald Islands"
@@ -3977,6 +4074,7 @@
           "code": "HND",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/82/Flag_of_Honduras.svg",
+            "phone_code": "+504",
             "states": null
           },
           "name": "Honduras"
@@ -3987,6 +4085,7 @@
             "fiscal_year": "0401-0331",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg",
             "gov_fiscal_year": "0401-0331",
+            "phone_code": "+852",
             "states": null
           },
           "name": "Hong Kong"
@@ -3995,6 +4094,7 @@
           "code": "HUN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg",
+            "phone_code": "+36",
             "states": null
           },
           "name": "Hungary"
@@ -4003,6 +4103,7 @@
           "code": "ISL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Iceland.svg",
+            "phone_code": "+354",
             "states": null
           },
           "name": "Iceland"
@@ -4013,6 +4114,7 @@
             "fiscal_year": "0401-0331",
             "flag": "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg",
             "gov_fiscal_year": "0401-0331",
+            "phone_code": "+91",
             "states": {
               "INAN": "Andaman and Nicobar Islands",
               "INAP": "Andhra Pradesh",
@@ -4060,6 +4162,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+62",
             "states": null
           },
           "name": "Indonesia"
@@ -4068,6 +4171,7 @@
           "code": "IRN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg",
+            "phone_code": "+98",
             "states": null
           },
           "name": "Iran"
@@ -4076,6 +4180,7 @@
           "code": "IRQ",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg",
+            "phone_code": "+964",
             "states": null
           },
           "name": "Iraq"
@@ -4086,6 +4191,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+353",
             "states": null
           },
           "name": "Ireland"
@@ -4094,6 +4200,7 @@
           "code": "IMN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Flag_of_the_Isle_of_Mann.svg",
+            "phone_code": "+44",
             "states": null
           },
           "name": "Isle of Man"
@@ -4106,12 +4213,14 @@
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg",
             "states": null
           },
-          "name": "Israel"
+          "name": "Israel",
+          "phone_code": "+972"
         },
         {
           "code": "ITA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg",
+            "phone_code": "+39",
             "states": null
           },
           "name": "Italy"
@@ -4120,14 +4229,16 @@
           "code": "CIV",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg",
+            "phone_code": "+225",
             "states": null
           },
-          "name": "Ivory Coast"
+          "name": "Cote D'Ivoire (Former Ivory Coast)"
         },
         {
           "code": "JAM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Jamaica.svg",
+            "phone_code": "+1876",
             "states": null
           },
           "name": "Jamaica"
@@ -4140,12 +4251,14 @@
             "flag": "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg",
             "states": null
           },
-          "name": "Japan"
+          "name": "Japan",
+          "phone_code": "+81"
         },
         {
           "code": "JEY",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Flag_of_Jersey.svg",
+            "phone_code": "+44",
             "states": null
           },
           "name": "Jersey"
@@ -4154,6 +4267,7 @@
           "code": "JOR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Flag_of_Jordan.svg",
+            "phone_code": "+962",
             "states": null
           },
           "name": "Jordan"
@@ -4162,6 +4276,7 @@
           "code": "KAZ",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg",
+            "phone_code": "+7",
             "states": null
           },
           "name": "Kazakhstan"
@@ -4170,6 +4285,7 @@
           "code": "KEN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg",
+            "phone_code": "+254",
             "states": null
           },
           "name": "Kenya"
@@ -4178,6 +4294,7 @@
           "code": "KIR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kiribati.svg",
+            "phone_code": "+686",
             "states": null
           },
           "name": "Kiribati"
@@ -4186,6 +4303,7 @@
           "code": "KWT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Kuwait.svg",
+            "phone_code": "+965",
             "states": null
           },
           "name": "Kuwait"
@@ -4194,6 +4312,7 @@
           "code": "KGZ",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Flag_of_Kyrgyzstan.svg",
+            "phone_code": "+996",
             "states": null
           },
           "name": "Kyrgyzstan"
@@ -4202,6 +4321,7 @@
           "code": "LAO",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Laos.svg",
+            "phone_code": "+856",
             "states": null
           },
           "name": "Laos"
@@ -4210,6 +4330,7 @@
           "code": "LVA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Latvia.svg",
+            "phone_code": "+371",
             "states": null
           },
           "name": "Latvia"
@@ -4218,6 +4339,7 @@
           "code": "LBN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/59/Flag_of_Lebanon.svg",
+            "phone_code": "+961",
             "states": null
           },
           "name": "Lebanon"
@@ -4226,6 +4348,7 @@
           "code": "LSO",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Lesotho.svg",
+            "phone_code": "+266",
             "states": null
           },
           "name": "Lesotho"
@@ -4234,6 +4357,7 @@
           "code": "LBR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Flag_of_Liberia.svg",
+            "phone_code": "+231",
             "states": null
           },
           "name": "Liberia"
@@ -4242,6 +4366,7 @@
           "code": "LBY",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Libya.svg",
+            "phone_code": "+218",
             "states": null
           },
           "name": "Libya"
@@ -4250,6 +4375,7 @@
           "code": "LIE",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg",
+            "phone_code": "+423",
             "states": null
           },
           "name": "Liechtenstein"
@@ -4258,6 +4384,7 @@
           "code": "LTU",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Lithuania.svg",
+            "phone_code": "+370",
             "states": null
           },
           "name": "Lithuania"
@@ -4266,6 +4393,7 @@
           "code": "LUX",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/da/Flag_of_Luxembourg.svg",
+            "phone_code": "+352",
             "states": null
           },
           "name": "Luxembourg"
@@ -4274,6 +4402,7 @@
           "code": "MAC",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/63/Flag_of_Macau.svg",
+            "phone_code": "+853",
             "states": null
           },
           "name": "Macau"
@@ -4282,6 +4411,7 @@
           "code": "MKD",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_Macedonia.svg",
+            "phone_code": "+389",
             "states": null
           },
           "name": "Macedonia"
@@ -4290,6 +4420,7 @@
           "code": "MDG",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg",
+            "phone_code": "+261",
             "states": null
           },
           "name": "Madagascar"
@@ -4298,6 +4429,7 @@
           "code": "MWI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Flag_of_Malawi.svg",
+            "phone_code": "+265",
             "states": null
           },
           "name": "Malawi"
@@ -4306,6 +4438,7 @@
           "code": "MYS",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Malaysia.svg",
+            "phone_code": "+60",
             "states": null
           },
           "name": "Malaysia"
@@ -4314,6 +4447,7 @@
           "code": "MDV",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Maldives.svg",
+            "phone_code": "+960",
             "states": null
           },
           "name": "Maldives"
@@ -4322,6 +4456,7 @@
           "code": "MLI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Mali.svg",
+            "phone_code": "+223",
             "states": null
           },
           "name": "Mali"
@@ -4330,6 +4465,7 @@
           "code": "MLT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg",
+            "phone_code": "+356",
             "states": null
           },
           "name": "Malta"
@@ -4338,6 +4474,7 @@
           "code": "MHL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Flag_of_the_Marshall_Islands.svg",
+            "phone_code": "+692",
             "states": null
           },
           "name": "Marshall Islands"
@@ -4346,6 +4483,7 @@
           "code": "MTQ",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+            "phone_code": "+596",
             "states": null
           },
           "name": "Martinique"
@@ -4354,6 +4492,7 @@
           "code": "MRT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/30/New_National_Flag_of_Mauritania.png",
+            "phone_code": "+222",
             "states": null
           },
           "name": "Mauritania"
@@ -4362,6 +4501,7 @@
           "code": "MUS",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Mauritius.svg",
+            "phone_code": "+230",
             "states": null
           },
           "name": "Mauritius"
@@ -4370,6 +4510,7 @@
           "code": "MYT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Mayotte_%28local%29.svg",
+            "phone_code": "+269",
             "states": null
           },
           "name": "Mayotte"
@@ -4410,6 +4551,7 @@
             "MXYUC": "Yucatán",
             "MXZAC": "Zacatecas",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg",
+            "phone_code": "+52",
             "states": null
           },
           "name": "Mexico"
@@ -4418,6 +4560,7 @@
           "code": "FSM",
           "metadata": {
             "flag": null,
+            "phone_code": "+691",
             "states": null
           },
           "name": "Micronesia"
@@ -4426,6 +4569,7 @@
           "code": "MDA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Moldova.svg",
+            "phone_code": "+373",
             "states": null
           },
           "name": "Moldova"
@@ -4434,6 +4578,7 @@
           "code": "MCO",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Flag_of_Monaco.svg",
+            "phone_code": "+377",
             "states": null
           },
           "name": "Monaco"
@@ -4442,6 +4587,7 @@
           "code": "MNG",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Flag_of_Mongolia.svg",
+            "phone_code": "+976",
             "states": null
           },
           "name": "Mongolia"
@@ -4450,6 +4596,7 @@
           "code": "MNE",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+            "phone_code": "+382",
             "states": null
           },
           "name": "Montenegro"
@@ -4458,6 +4605,7 @@
           "code": "MSR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Montserrat.svg",
+            "phone_code": "+1664",
             "states": null
           },
           "name": "Montserrat"
@@ -4466,6 +4614,7 @@
           "code": "MAR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg",
+            "phone_code": "+212",
             "states": null
           },
           "name": "Morocco"
@@ -4474,6 +4623,7 @@
           "code": "MOZ",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Mozambique.svg",
+            "phone_code": "+258",
             "states": null
           },
           "name": "Mozambique"
@@ -4482,6 +4632,7 @@
           "code": "MMR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_Myanmar.svg",
+            "phone_code": "+95",
             "states": null
           },
           "name": "Myanmar"
@@ -4490,6 +4641,7 @@
           "code": "NAM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Namibia.svg",
+            "phone_code": "+264",
             "states": null
           },
           "name": "Namibia"
@@ -4498,6 +4650,7 @@
           "code": "NRU",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/30/Flag_of_Nauru.svg",
+            "phone_code": "+674",
             "states": null
           },
           "name": "Nauru"
@@ -4508,6 +4661,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+977",
             "states": null
           },
           "name": "Nepal"
@@ -4518,6 +4672,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+31",
             "states": null
           },
           "name": "Netherlands"
@@ -4526,6 +4681,7 @@
           "code": "NCL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+            "phone_code": "+687",
             "states": null
           },
           "name": "New Caledonia"
@@ -4534,6 +4690,7 @@
           "code": "NZL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg",
+            "phone_code": "+64",
             "states": null
           },
           "name": "New Zealand"
@@ -4542,6 +4699,7 @@
           "code": "NIC",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Nicaragua.svg",
+            "phone_code": "+505",
             "states": null
           },
           "name": "Nicaragua"
@@ -4550,6 +4708,7 @@
           "code": "NER",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Flag_of_Niger.svg",
+            "phone_code": "+227",
             "states": null
           },
           "name": "Niger"
@@ -4558,6 +4717,7 @@
           "code": "NGA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg",
+            "phone_code": "+234",
             "states": null
           },
           "name": "Nigeria"
@@ -4566,6 +4726,7 @@
           "code": "NIU",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Niue.svg",
+            "phone_code": "+683",
             "states": null
           },
           "name": "Niue"
@@ -4574,6 +4735,7 @@
           "code": "NFK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Norfolk_Island.svg",
+            "phone_code": "+672",
             "states": null
           },
           "name": "Norfolk and Philip Island"
@@ -4582,6 +4744,7 @@
           "code": "PRK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_North_Korea.svg",
+            "phone_code": "+850",
             "states": null
           },
           "name": "North Korea"
@@ -4590,6 +4753,7 @@
           "code": "MNP",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Flag_of_the_Northern_Mariana_Islands.svg",
+            "phone_code": "+1670",
             "states": null
           },
           "name": "Northern Mariana Islands"
@@ -4598,6 +4762,7 @@
           "code": "NOR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg",
+            "phone_code": "+47",
             "states": null
           },
           "name": "Norway"
@@ -4606,6 +4771,7 @@
           "code": "OMN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Oman.svg",
+            "phone_code": "+968",
             "states": null
           },
           "name": "Oman"
@@ -4614,6 +4780,7 @@
           "code": "PAK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg",
+            "phone_code": "+92",
             "states": null
           },
           "name": "Pakistan"
@@ -4622,6 +4789,7 @@
           "code": "PLW",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Palau.svg",
+            "phone_code": "+680",
             "states": null
           },
           "name": "Palau"
@@ -4630,6 +4798,7 @@
           "code": "PSE",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg",
+            "phone_code": "+970",
             "states": null
           },
           "name": "Palestinian Territory"
@@ -4638,6 +4807,7 @@
           "code": "PAN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg",
+            "phone_code": "+507",
             "states": null
           },
           "name": "Panama"
@@ -4646,6 +4816,7 @@
           "code": "PNG",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Flag_of_Papua_New_Guinea.svg",
+            "phone_code": "+675",
             "states": null
           },
           "name": "Papua New Guinea"
@@ -4654,6 +4825,7 @@
           "code": "PRY",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg",
+            "phone_code": "+595",
             "states": null
           },
           "name": "Paraguay"
@@ -4662,6 +4834,7 @@
           "code": "PER",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Peru_%28state%29.svg",
+            "phone_code": "+51",
             "states": null
           },
           "name": "Peru"
@@ -4670,6 +4843,7 @@
           "code": "PHL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_the_Philippines.svg",
+            "phone_code": "+63",
             "states": null
           },
           "name": "Philippines"
@@ -4678,6 +4852,7 @@
           "code": "PCN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_the_Pitcairn_Islands.svg",
+            "phone_code": "+64",
             "states": null
           },
           "name": "Pitcairn Islands"
@@ -4686,6 +4861,7 @@
           "code": "POL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg",
+            "phone_code": "+48",
             "states": null
           },
           "name": "Poland"
@@ -4698,12 +4874,14 @@
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg",
             "states": null
           },
-          "name": "Portugal"
+          "name": "Portugal",
+          "phone_code": "+351"
         },
         {
           "code": "PRI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/28/Flag_of_Puerto_Rico.svg",
+            "phone_code": "+1787",
             "states": null
           },
           "name": "Puerto Rico"
@@ -4716,12 +4894,14 @@
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg",
             "states": null
           },
-          "name": "Qatar"
+          "name": "Qatar",
+          "phone_code": "+974"
         },
         {
           "code": "REU",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Flag_of_R%C3%A9union.svg",
+            "phone_code": "+262",
             "states": null
           },
           "name": "Réunion"
@@ -4734,7 +4914,8 @@
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg",
             "states": null
           },
-          "name": "Romania"
+          "name": "Romania",
+          "phone_code": "+40"
         },
         {
           "code": "RUS",
@@ -4742,6 +4923,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+7",
             "states": {
               "RUAD": "Adygeya, Respublika",
               "RUAL": "Altay, Respublika",
@@ -4834,6 +5016,7 @@
           "code": "RWA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Rwanda.svg",
+            "phone_code": "+250",
             "states": null
           },
           "name": "Rwanda"
@@ -4842,6 +5025,7 @@
           "code": "SHN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg",
+            "phone_code": "+290",
             "states": null
           },
           "name": "Saint Helena, Ascension and Tristan da Cunha"
@@ -4850,6 +5034,7 @@
           "code": "KNA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Saint_Kitts_and_Nevis.svg",
+            "phone_code": "+1869",
             "states": null
           },
           "name": "Saint Kitts and Nevis"
@@ -4858,6 +5043,7 @@
           "code": "LCA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Saint_Lucia.svg",
+            "phone_code": "+1758",
             "states": null
           },
           "name": "Saint Lucia"
@@ -4866,6 +5052,7 @@
           "code": "SPM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+            "phone_code": "+508",
             "states": null
           },
           "name": "Saint Pierre and Miquelon"
@@ -4874,6 +5061,7 @@
           "code": "VCT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Flag_of_Saint_Vincent_and_the_Grenadines.svg",
+            "phone_code": "+1784",
             "states": null
           },
           "name": "Saint Vincent and the Grenadines"
@@ -4882,6 +5070,7 @@
           "code": "BLM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Saint_Barthelemy_%28local%29.svg",
+            "phone_code": "+590",
             "states": null
           },
           "name": "Saint-Barthelemy"
@@ -4890,6 +5079,7 @@
           "code": "MAF",
           "metadata": {
             "flag": null,
+            "phone_code": "+590",
             "states": null
           },
           "name": "Saint-Martin"
@@ -4898,6 +5088,7 @@
           "code": "WSM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Samoa.svg",
+            "phone_code": "+685",
             "states": null
           },
           "name": "Samoa"
@@ -4906,6 +5097,7 @@
           "code": "SMR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_San_Marino.svg",
+            "phone_code": "+378",
             "states": null
           },
           "name": "San Marino"
@@ -4914,6 +5106,7 @@
           "code": "STP",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Sao_Tome_and_Principe.svg",
+            "phone_code": "+239",
             "states": null
           },
           "name": "São Tomé and Príncipe"
@@ -4922,6 +5115,7 @@
           "code": "SAU",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg",
+            "phone_code": "+966",
             "states": null
           },
           "name": "Saudi Arabia"
@@ -4930,6 +5124,7 @@
           "code": "SEN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Flag_of_Senegal.svg",
+            "phone_code": "+221",
             "states": null
           },
           "name": "Senegal"
@@ -4938,6 +5133,7 @@
           "code": "SRB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg",
+            "phone_code": "+381",
             "states": null
           },
           "name": "Serbia"
@@ -4946,6 +5142,7 @@
           "code": "SYC",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Seychelles.svg",
+            "phone_code": "+248",
             "states": null
           },
           "name": "Seychelles"
@@ -4954,6 +5151,7 @@
           "code": "SLE",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Sierra_Leone.svg",
+            "phone_code": "+232",
             "states": null
           },
           "name": "Sierra Leone"
@@ -4962,6 +5160,7 @@
           "code": "SGP",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Singapore.svg",
+            "phone_code": "+65",
             "states": null
           },
           "name": "Singapore"
@@ -4970,6 +5169,7 @@
           "code": "SXM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Sint_Maarten.svg",
+            "phone_code": "+1721",
             "states": null
           },
           "name": "Sint Maarten"
@@ -4978,6 +5178,7 @@
           "code": "SVK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Slovakia.svg",
+            "phone_code": "+421",
             "states": null
           },
           "name": "Slovakia"
@@ -4986,6 +5187,7 @@
           "code": "SVN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Flag_of_Slovenia.svg",
+            "phone_code": "+386",
             "states": null
           },
           "name": "Slovenia"
@@ -4994,6 +5196,7 @@
           "code": "SLB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Solomon_Islands.svg",
+            "phone_code": "+677",
             "states": null
           },
           "name": "Solomon Islands"
@@ -5002,6 +5205,7 @@
           "code": "SOM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_Somalia.svg",
+            "phone_code": "+252",
             "states": null
           },
           "name": "Somalia"
@@ -5010,6 +5214,7 @@
           "code": "ZAF",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg",
+            "phone_code": "+27",
             "states": null
           },
           "name": "South Africa"
@@ -5018,6 +5223,7 @@
           "code": "SGS",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_South_Georgia_and_the_South_Sandwich_Islands.svg",
+            "phone_code": "+500",
             "states": null
           },
           "name": "South Georgia and the South Sandwich Islands"
@@ -5028,6 +5234,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+82",
             "states": null
           },
           "name": "South Korea"
@@ -5036,6 +5243,7 @@
           "code": "SSD",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flag_of_South_Sudan.svg",
+            "phone_code": "+211",
             "states": null
           },
           "name": "South Sudan"
@@ -5046,6 +5254,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+34",
             "states": null
           },
           "name": "Spain"
@@ -5054,6 +5263,7 @@
           "code": "LKA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg",
+            "phone_code": "+94",
             "states": null
           },
           "name": "Sri Lanka"
@@ -5062,6 +5272,7 @@
           "code": "SDN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Sudan.svg",
+            "phone_code": "+249",
             "states": null
           },
           "name": "Sudan"
@@ -5070,6 +5281,7 @@
           "code": "SUR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Suriname.svg",
+            "phone_code": "+597",
             "states": null
           },
           "name": "Suriname"
@@ -5078,6 +5290,7 @@
           "code": "SJM",
           "metadata": {
             "flag": null,
+            "phone_code": "+47",
             "states": null
           },
           "name": "Svalbard and Jan Mayen"
@@ -5086,6 +5299,7 @@
           "code": "SWZ",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Eswatini.svg",
+            "phone_code": "+268",
             "states": null
           },
           "name": "Swaziland"
@@ -5096,6 +5310,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+46",
             "states": null
           },
           "name": "Sweden"
@@ -5106,6 +5321,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+41",
             "states": null
           },
           "name": "Switzerland"
@@ -5114,6 +5330,7 @@
           "code": "SYR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/53/Flag_of_Syria.svg",
+            "phone_code": "+963",
             "states": null
           },
           "name": "Syria"
@@ -5124,6 +5341,7 @@
             "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg",
             "gov_fiscal_year": "0101-1231",
+            "phone_code": "+886",
             "states": null
           },
           "name": "Taiwan"
@@ -5132,6 +5350,7 @@
           "code": "TJK",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Tajikistan.svg",
+            "phone_code": "+992",
             "states": null
           },
           "name": "Tajikistan"
@@ -5140,6 +5359,7 @@
           "code": "TZA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tanzania.svg",
+            "phone_code": "+255",
             "states": null
           },
           "name": "Tanzania"
@@ -5148,6 +5368,7 @@
           "code": "THA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg",
+            "phone_code": "+66",
             "states": null
           },
           "name": "Thailand"
@@ -5156,6 +5377,7 @@
           "code": "TGO",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/68/Flag_of_Togo.svg",
+            "phone_code": "+228",
             "states": null
           },
           "name": "Togo"
@@ -5164,6 +5386,7 @@
           "code": "TKL",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Flag_of_Tokelau.svg",
+            "phone_code": "+690",
             "states": null
           },
           "name": "Tokelau"
@@ -5172,6 +5395,7 @@
           "code": "TON",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Tonga.svg",
+            "phone_code": "+676",
             "states": null
           },
           "name": "Tonga"
@@ -5180,6 +5404,7 @@
           "code": "TTO",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Trinidad_and_Tobago.svg",
+            "phone_code": "+1868",
             "states": null
           },
           "name": "Trinidad and Tobago"
@@ -5188,6 +5413,7 @@
           "code": "TUN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Tunisia.svg",
+            "phone_code": "+216",
             "states": null
           },
           "name": "Tunisia"
@@ -5196,6 +5422,7 @@
           "code": "TUR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg",
+            "phone_code": "+90",
             "states": null
           },
           "name": "Turkey"
@@ -5204,6 +5431,7 @@
           "code": "TKM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Turkmenistan.svg",
+            "phone_code": "+993",
             "states": null
           },
           "name": "Turkmenistan"
@@ -5212,6 +5440,7 @@
           "code": "TCA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_the_Turks_and_Caicos_Islands.svg",
+            "phone_code": "+1649",
             "states": null
           },
           "name": "Turks and Caicos Islands"
@@ -5220,6 +5449,7 @@
           "code": "TUV",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tuvalu.svg",
+            "phone_code": "+688",
             "states": null
           },
           "name": "Tuvalu"
@@ -5228,6 +5458,7 @@
           "code": "UGA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Flag_of_Uganda.svg",
+            "phone_code": "+256",
             "states": null
           },
           "name": "Uganda"
@@ -5236,6 +5467,7 @@
           "code": "UKR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg",
+            "phone_code": "+380",
             "states": null
           },
           "name": "Ukraine"
@@ -5248,7 +5480,8 @@
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg",
             "states": null
           },
-          "name": "United Arab Emirates"
+          "name": "United Arab Emirates",
+          "phone_code": "+971"
         },
         {
           "code": "GBR",
@@ -5256,6 +5489,7 @@
             "fiscal_year": "0406-0405",
             "flag": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg",
             "gov_fiscal_year": "0401-0331",
+            "phone_code": "+44",
             "states": null
           },
           "name": "United Kingdom"
@@ -5264,6 +5498,7 @@
           "code": "UMI",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
+            "phone_code": "+246",
             "states": null
           },
           "name": "United States Minor Outlying Islands"
@@ -5272,6 +5507,7 @@
           "code": "URY",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg",
+            "phone_code": "+598",
             "states": null
           },
           "name": "Uruguay"
@@ -5280,6 +5516,7 @@
           "code": "VIR",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_United_States_Virgin_Islands.svg",
+            "phone_code": "+1340",
             "states": null
           },
           "name": "US Virgin Islands"
@@ -5288,6 +5525,7 @@
           "code": "USA",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
+            "phone_code": "+1",
             "states": {
               "USAK": "Alaska",
               "USAL": "Alabama",
@@ -5354,6 +5592,7 @@
           "code": "UZB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Uzbekistan.svg",
+            "phone_code": "+998",
             "states": null
           },
           "name": "Uzbekistan"
@@ -5362,6 +5601,7 @@
           "code": "VUT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_Vanuatu_%28official%29.svg",
+            "phone_code": "+678",
             "states": null
           },
           "name": "Vanuatu"
@@ -5370,6 +5610,7 @@
           "code": "VAT",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_the_Vatican_City.svg",
+            "phone_code": "+418",
             "states": null
           },
           "name": "Vatican City"
@@ -5378,6 +5619,7 @@
           "code": "VEN",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Flag_of_Venezuela_%28state%29.svg",
+            "phone_code": "+58",
             "states": null
           },
           "name": "Venezuela"
@@ -5386,6 +5628,7 @@
           "code": "VNM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg",
+            "phone_code": "+84",
             "states": null
           },
           "name": "Vietnam"
@@ -5394,6 +5637,7 @@
           "code": "WLF",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
+            "phone_code": "+681",
             "states": null
           },
           "name": "Wallis and Futuna"
@@ -5402,6 +5646,7 @@
           "code": "ESH",
           "metadata": {
             "flag": null,
+            "phone_code": "+212",
             "states": null
           },
           "name": "Western Sahara"
@@ -5410,6 +5655,7 @@
           "code": "YEM",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Yemen.svg",
+            "phone_code": "+967",
             "states": null
           },
           "name": "Yemen"
@@ -5418,6 +5664,7 @@
           "code": "ZMB",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Zambia.svg",
+            "phone_code": "+260",
             "states": null
           },
           "name": "Zambia"
@@ -5426,6 +5673,7 @@
           "code": "ZWE",
           "metadata": {
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg",
+            "phone_code": "+263",
             "states": null
           },
           "name": "Zimbabwe"
