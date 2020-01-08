@@ -1,9 +1,5 @@
-
 name: Polities
-description: >
-    Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3),
-    Political Unions, International Organizations, etc.).
-    Based on a 3 character code.
+description: "Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, International Organizations, etc.). Based on a 3 character code."
 codeType:
     type: fixedchar
     size: 3
@@ -14,78 +10,91 @@ values:
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/52/Flag_of_%C3%85land.svg"
+      phone_code: "+358"
 
   - code: AFG
     name: Afghanistan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Afghanistan.svg"
+      phone_code: "+93"
 
   - code: ALB
     name: Albania
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg"
+      phone_code: "+355"
 
   - code: DZA
     name: Algeria
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Algeria.svg"
+      phone_code: "+213"
 
   - code: ASM
     name: American Samoa
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/87/Flag_of_American_Samoa.svg"
+      phone_code: "+1684"
 
   - code: AND
     name: Andorra
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Andorra.svg"
+      phone_code: "+376"
 
   - code: AGO
     name: Angola
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Angola.svg"
+      phone_code: "+244"
 
   - code: AIA
     name: Anguilla
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Anguilla.svg"
+      phone_code: "+1264"
 
   - code: ATA
     name: Antarctica
     metadata:
       states: ~
       flag:
+      phone_code: "+672"
 
   - code: ATG
     name: Antigua and Barbuda
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Antigua_and_Barbuda.svg"
+      phone_code: "+1268"
 
   - code: ARG
     name: Argentina
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg"
+      phone_code: "+54"
 
   - code: ARM
     name: Armenia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Flag_of_Armenia.svg"
+      phone_code: "+374"
 
   - code: ABW
     name: Aruba
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Aruba.svg"
+      phone_code: "+297"
 
   - code: AU
     name: African Union
@@ -150,24 +159,28 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+43"
 
   - code: AZE
     name: Azerbaijan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Azerbaijan.svg"
+      phone_code: "+994"
 
   - code: BHS
     name: The Bahamas
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/93/Flag_of_the_Bahamas.svg"
+      phone_code: "+1242"
 
   - code: BHR
     name: Bahrain
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Bahrain.svg"
+      phone_code: "+973"
 
   - code: BGD
     name: Bangladesh
@@ -176,18 +189,21 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg"
       fiscal_year: 0701-0630
       gov_fiscal_year: 0701-0630
+      phone_code: "+880"
 
   - code: BRB
     name: Barbados
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg"
+      phone_code: "+1246"
 
   - code: BLR
     name: Belarus
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Belarus.svg"
+      phone_code: "+375"
 
   - code: BEL
     name: Belgium
@@ -196,60 +212,70 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+32"
 
   - code: BLZ
     name: Belize
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg"
+      phone_code: "+501"
 
   - code: BEN
     name: Benin
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Benin.svg"
+      phone_code: "+229"
 
   - code: BMU
     name: Bermuda
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bermuda.svg"
+      phone_code: "+1441"
 
   - code: BTN
     name: Bhutan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/91/Flag_of_Bhutan.svg"
+      phone_code: "+975"
 
   - code: BOL
     name: Bolivia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/de/Flag_of_Bolivia_%28state%29.svg"
+      phone_code: "+591"
 
   - code: BES
     name: Bonaire, St Eustasuis and Saba
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
+      phone_code: "+599"  
 
   - code: BIH
     name: Bosnia and Herzegovina
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bosnia_and_Herzegovina.svg"
+      phone_code: "+387"
 
   - code: BWA
     name: Botswana
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Botswana.svg"
+      phone_code: "+267"
 
   - code: BVT
     name: Bouvet Island
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
+      phone_code: "+47"
 
   - code: BRA
     name: Brazil
@@ -285,54 +311,63 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+55"
 
   - code: IOT
     name: British Indian Ocean Territory
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_the_British_Indian_Ocean_Territory.svg"
+      phone_code: "+246"
 
   - code: VGB
     name: British Virgin Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/42/Flag_of_the_British_Virgin_Islands.svg"
+      phone_code: "+1284"
 
   - code: BRN
     name: Brunei
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Brunei.svg"
+      phone_code: "+673"
 
   - code: BGR
     name: Bulgaria
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg"
+      phone_code: "+359"
 
   - code: BFA
     name: Burkina Faso
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Burkina_Faso.svg"
+      phone_code: "+226"
 
   - code: BDI
     name: Burundi
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/50/Flag_of_Burundi.svg"
+      phone_code: "+257"
 
   - code: KHM
     name: Cambodia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_Cambodia.svg"
+      phone_code: "+855"
 
   - code: CMR
     name: Cameroon
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Cameroon.svg"
+      phone_code: "+237"
 
   - code: CAN
     name: Canada
@@ -354,36 +389,42 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0401-0331
+      phone_code: "+1"
 
   - code: CPV
     name: Cape Verde
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Cape_Verde.svg"
+      phone_code: "+238"
 
   - code: CYM
     name: Cayman Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_the_Cayman_Islands.svg"
+      phone_code: "+1345"
 
   - code: CAF
     name: Central African Republic
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Central_African_Republic.svg"
+      phone_code: "+236"
 
   - code: TCD
     name: Chad
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Flag_of_Chad.svg"
+      phone_code: "+235"
 
   - code: CHL
     name: Chile
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/78/Flag_of_Chile.svg"
+      phone_code: "+56"
 
   - code: CHN
     name: China
@@ -426,48 +467,56 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+86"
 
   - code: CXR
     name: Christmas Island
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/67/Flag_of_Christmas_Island.svg"
+      phone_code: "+53"
 
   - code: CCK
     name: Cocos Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Cocos_%28Keeling%29_Islands.svg"
+      phone_code: "+61"
 
   - code: COL
     name: Colombia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg"
+      phone_code: "+57"
 
   - code: COM
     name: Comoros
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/94/Flag_of_the_Comoros.svg"
+      phone_code: "+269"
 
   - code: COG
     name: Congo-Brazzaville
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_the_Republic_of_the_Congo.svg"
+      phone_code: "+242"
 
   - code: COD
     name: Congo-Kinshasa
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Democratic_Republic_of_the_Congo.svg"
+      phone_code: "+243"
 
   - code: COK
     name: Cook Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/35/Flag_of_the_Cook_Islands.svg"
+      phone_code: "+682"
 
   - code: CRI
     name: Costa Rica
@@ -476,72 +525,84 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Costa_Rica_%28state%29.svg"
       fiscal_year: 1001-0931
       gov_fiscal_year: 1001-0931
+      phone_code: "+506"
 
   - code: HRV
     name: Croatia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg"
+      phone_code: "+385"
 
   - code: CUB
     name: Cuba
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Flag_of_Cuba.svg"
+      phone_code: "+53"
 
   - code: CUW
-    name: Curacao
+    name: Curacao (Netherlands Antilles)
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_Cura%C3%A7ao.svg"
+      phone_code: "+599"
 
   - code: CYP
     name: Cyprus
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Cyprus.svg"
+      phone_code: "+357"
 
   - code: CZE
     name: Czech Republic
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg"
+      phone_code: "+420"
 
   - code: DNK
     name: Denmark
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg"
+      phone_code: "+45"
 
   - code: DJI
     name: Djibouti
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_Djibouti.svg"
+      phone_code: "+253"
 
   - code: DMA
     name: Dominica
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Flag_of_Dominica.svg"
+      phone_code: "+1767"
 
   - code: DOM
     name: Dominican Republic
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_the_Dominican_Republic.svg"
+      phone_code: "+1829"
 
   - code: TLS
     name: East Timor
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg"
+      phone_code: "+670"
 
   - code: ECU
     name: Ecuador
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg"
+      phone_code: "+593"
 
   - code: EGY
     name: Egypt
@@ -550,30 +611,35 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg"
       fiscal_year: 0701-0630
       gov_fiscal_year: 0701-0630
+      phone_code: "+20"
 
   - code: SLV
     name: El Salvador
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/34/Flag_of_El_Salvador.svg"
+      phone_code: "+503"
 
   - code: GNQ
     name: Equatorial Guinea
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Equatorial_Guinea.svg"
+      phone_code: "+240"
 
   - code: ERI
     name: Eritrea
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/29/Flag_of_Eritrea.svg"
+      phone_code: "+291"
 
   - code: EST
     name: Estonia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Estonia.svg"
+      phone_code: "+372"
 
   - code: ETH
     name: Ethiopia
@@ -582,6 +648,7 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg"
       fiscal_year: 0708-0707
       gov_fiscal_year: 0708-0707
+      phone_code: "+251"
 
   - code: EU
     name: European Union
@@ -622,66 +689,77 @@ values:
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_Falkland_Islands.svg"
+      phone_code: "+500"
 
   - code: FRO
     name: Faroe Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/3c/Flag_of_the_Faroe_Islands.svg"
+      phone_code: "+298"
 
   - code: FJI
     name: Fiji
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Fiji.svg"
+      phone_code: "+679"
 
   - code: FIN
     name: Finland
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg"
+      phone_code: "+358"
 
   - code: FRA
     name: France
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      phone_code: "+33"
 
   - code: GUF
     name: French Guiana
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      phone_code: "+594"
 
   - code: PYF
     name: French Polynesia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/db/Flag_of_French_Polynesia.svg"
+      phone_code: "+689"
 
   - code: ATF
     name: French Southern and Antarctic Lands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Flag_of_the_French_Southern_and_Antarctic_Lands.svg"
+      phone_code: "+262"
 
   - code: GAB
     name: Gabon
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/04/Flag_of_Gabon.svg"
+      phone_code: "+241"
 
   - code: GMB
     name: The Gambia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_The_Gambia.svg"
+      phone_code: "+220"
 
   - code: GEO
     name: Georgia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Georgia.svg"
+      phone_code: "+995"
 
   - code: DEU
     name: Germany
@@ -690,18 +768,21 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+49"
 
   - code: GHA
     name: Ghana
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Ghana.svg"
+      phone_code: "+233"
 
   - code: GIB
     name: Gibraltar
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/02/Flag_of_Gibraltar.svg"
+      phone_code: "+350"
 
   - code: GRC
     name: Greece
@@ -710,78 +791,91 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+30"
 
   - code: GRL
     name: Greenland
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_Greenland.svg"
+      phone_code: "+299"
 
   - code: GRD
     name: Grenada
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Grenada.svg"
+      phone_code: "+1473"
 
   - code: GLP
     name: Guadeloupe
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      phone_code: "+590"
 
   - code: GUM
     name: Guam
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/07/Flag_of_Guam.svg"
+      phone_code: "+1671"
 
   - code: GTM
     name: Guatemala
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg"
+      phone_code: "+502"
 
   - code: GGY
     name: Guernsey
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Guernsey.svg"
+      phone_code: "+44"
 
   - code: GIN
     name: Guinea
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_Guinea.svg"
+      phone_code: "+224"
 
   - code: GNB
     name: Guinea-Bissau
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Guinea-Bissau.svg"
+      phone_code: "+245"
 
   - code: GUY
     name: Guyana
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_Guyana.svg"
+      phone_code: "+592"
 
   - code: HTI
     name: Haiti
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Haiti.svg"
+      phone_code: "+509"
 
   - code: HMD
     name: Heard Island and McDonald Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Australia_%28converted%29.svg"
+      phone_code: "+672"
 
   - code: HND
     name: Honduras
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/82/Flag_of_Honduras.svg"
+      phone_code: "+504"
 
   - code: HKG
     name: Hong Kong
@@ -790,18 +884,21 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg"
       fiscal_year: 0401-0331
       gov_fiscal_year: 0401-0331
+      phone_code: "+852"
 
   - code: HUN
     name: Hungary
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg"
+      phone_code: "+36"
 
   - code: ISL
     name: Iceland
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Iceland.svg"
+      phone_code: "+354"
 
   - code: IND
     name: India
@@ -846,6 +943,7 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
       fiscal_year: 0401-0331
       gov_fiscal_year: 0401-0331
+      phone_code: "+91"
 
   - code: IDN
     name: Indonesia
@@ -854,18 +952,21 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+62"
 
   - code: IRN
     name: Iran
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/ca/Flag_of_Iran.svg"
+      phone_code: "+98"
 
   - code: IRQ
     name: Iraq
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg"
+      phone_code: "+964"
 
   - code: IRL
     name: Ireland
@@ -874,12 +975,14 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+353"
 
   - code: IMN
     name: Isle of Man
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Flag_of_the_Isle_of_Mann.svg"
+      phone_code: "+44"
 
   - code: ISR
     name: Israel
@@ -888,24 +991,28 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
+    phone_code: "+972"
 
   - code: ITA
     name: Italy
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg"
+      phone_code: "+39"
 
   - code: CIV
-    name: Ivory Coast
+    name: Cote D'Ivoire (Former Ivory Coast) 
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg"
+      phone_code: "+225"
 
   - code: JAM
     name: Jamaica
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Flag_of_Jamaica.svg"
+      phone_code: "+1876"
 
   - code: JPN
     name: Japan
@@ -914,180 +1021,210 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0401-0331
+    phone_code: "+81"
 
   - code: JEY
     name: Jersey
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Flag_of_Jersey.svg"
+      phone_code: "+44"
 
   - code: JOR
     name: Jordan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Flag_of_Jordan.svg"
+      phone_code: "+962"
 
   - code: KAZ
     name: Kazakhstan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg"
+      phone_code: "+7"
 
   - code: KEN
     name: Kenya
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg"
+      phone_code: "+254"
 
   - code: KIR
     name: Kiribati
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kiribati.svg"
+      phone_code: "+686"
 
   - code: KWT
     name: Kuwait
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Flag_of_Kuwait.svg"
+      phone_code: "+965"
 
   - code: KGZ
     name: Kyrgyzstan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Flag_of_Kyrgyzstan.svg"
+      phone_code: "+996"
 
   - code: LAO
     name: Laos
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/56/Flag_of_Laos.svg"
+      phone_code: "+856"
 
   - code: LVA
     name: Latvia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Latvia.svg"
+      phone_code: "+371"
 
   - code: LBN
     name: Lebanon
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/59/Flag_of_Lebanon.svg"
+      phone_code: "+961"
 
   - code: LSO
     name: Lesotho
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Lesotho.svg"
+      phone_code: "+266"
 
   - code: LBR
     name: Liberia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/b8/Flag_of_Liberia.svg"
+      phone_code: "+231"
 
   - code: LBY
     name: Libya
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Libya.svg"
+      phone_code: "+218"
 
   - code: LIE
     name: Liechtenstein
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg"
+      phone_code: "+423"
 
   - code: LTU
     name: Lithuania
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Lithuania.svg"
+      phone_code: "+370"
 
   - code: LUX
     name: Luxembourg
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/da/Flag_of_Luxembourg.svg"
+      phone_code: "+352"
 
   - code: MAC
     name: Macau
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/63/Flag_of_Macau.svg"
+      phone_code: "+853"
 
   - code: MKD
     name: Macedonia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_Macedonia.svg"
+      phone_code: "+389"
 
   - code: MDG
     name: Madagascar
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg"
+      phone_code: "+261"
 
   - code: MWI
     name: Malawi
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Flag_of_Malawi.svg"
+      phone_code: "+265"
 
   - code: MYS
     name: Malaysia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/66/Flag_of_Malaysia.svg"
+      phone_code: "+60"
 
   - code: MDV
     name: Maldives
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Flag_of_Maldives.svg"
+      phone_code: "+960"
 
   - code: MLI
     name: Mali
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_Mali.svg"
+      phone_code: "+223"
 
   - code: MLT
     name: Malta
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg"
+      phone_code: "+356"
 
   - code: MHL
     name: Marshall Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/2e/Flag_of_the_Marshall_Islands.svg"
+      phone_code: "+692"
 
   - code: MTQ
     name: Martinique
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      phone_code: "+596"
 
   - code: MRT
     name: Mauritania
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/30/New_National_Flag_of_Mauritania.png"
+      phone_code: "+222"
 
   - code: MUS
     name: Mauritius
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/77/Flag_of_Mauritius.svg"
+      phone_code: "+230"
 
   - code: MYT
     name: Mayotte
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Flag_of_Mayotte_%28local%29.svg"
+      phone_code: "+269"
 
   - code: MEX
     name: Mexico
@@ -1126,72 +1263,84 @@ values:
       MXYUC: Yucatán
       MXZAC: Zacatecas
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg"
+      phone_code: "+52"
 
   - code: FSM
     name: Micronesia
     metadata:
       states: ~
       flag:
+      phone_code: "+691"
 
   - code: MDA
     name: Moldova
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Moldova.svg"
+      phone_code: "+373"
 
   - code: MCO
     name: Monaco
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Flag_of_Monaco.svg"
+      phone_code: "+377"
 
   - code: MNG
     name: Mongolia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Flag_of_Mongolia.svg"
+      phone_code: "+976"
 
   - code: MNE
     name: Montenegro
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg"
+      phone_code: "+382"
 
   - code: MSR
     name: Montserrat
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Montserrat.svg"
+      phone_code: "+1664"
 
   - code: MAR
     name: Morocco
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Flag_of_Morocco.svg"
+      phone_code: "+212"
 
   - code: MOZ
     name: Mozambique
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Mozambique.svg"
+      phone_code: "+258"
 
   - code: MMR
     name: Myanmar
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Flag_of_Myanmar.svg"
+      phone_code: "+95"
 
   - code: NAM
     name: Namibia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Namibia.svg"
+      phone_code: "+264"
 
   - code: NRU
     name: Nauru
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/30/Flag_of_Nauru.svg"
+      phone_code: "+674"
 
   - code: NPL
     name: Nepal
@@ -1200,6 +1349,7 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+977"
 
   - code: NLD
     name: Netherlands
@@ -1208,132 +1358,154 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+31"
 
   - code: NCL
     name: New Caledonia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      phone_code: "+687"
 
   - code: NZL
     name: New Zealand
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg"
+      phone_code: "+64"
 
   - code: NIC
     name: Nicaragua
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Nicaragua.svg"
+      phone_code: "+505"
 
   - code: NER
     name: Niger
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Flag_of_Niger.svg"
+      phone_code: "+227"
 
   - code: NGA
     name: Nigeria
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg"
+      phone_code: "+234"
 
   - code: NIU
     name: Niue
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Niue.svg"
+      phone_code: "+683"
 
   - code: NFK
     name: Norfolk and Philip Island
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Norfolk_Island.svg"
+      phone_code: "+672"
 
   - code: PRK
     name: North Korea
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/51/Flag_of_North_Korea.svg"
+      phone_code: "+850"
 
   - code: MNP
     name: Northern Mariana Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Flag_of_the_Northern_Mariana_Islands.svg"
+      phone_code: "+1670"
 
   - code: NOR
     name: Norway
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg"
+      phone_code: "+47"
 
   - code: OMN
     name: Oman
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Oman.svg"
+      phone_code: "+968"
 
   - code: PAK
     name: Pakistan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/32/Flag_of_Pakistan.svg"
+      phone_code: "+92"
 
   - code: PLW
     name: Palau
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Palau.svg"
+      phone_code: "+680"
 
   - code: PSE
     name: Palestinian Territory
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg"
+      phone_code: "+970"
 
   - code: PAN
     name: Panama
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Flag_of_Panama.svg"
+      phone_code: "+507"
 
   - code: PNG
     name: Papua New Guinea
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Flag_of_Papua_New_Guinea.svg"
+      phone_code: "+675"
 
   - code: PRY
     name: Paraguay
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/27/Flag_of_Paraguay.svg"
+      phone_code: "+595"
 
   - code: PER
     name: Peru
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Peru_%28state%29.svg"
+      phone_code: "+51"
 
   - code: PHL
     name: Philippines
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_the_Philippines.svg"
+      phone_code: "+63"
 
   - code: PCN
     name: Pitcairn Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_the_Pitcairn_Islands.svg"
+      phone_code: "+64"
 
   - code: POL
     name: Poland
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg"
+      phone_code: "+48"
 
   - code: PRT
     name: Portugal
@@ -1342,12 +1514,14 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
+    phone_code: "+351"
 
   - code: PRI
     name: Puerto Rico
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/28/Flag_of_Puerto_Rico.svg"
+      phone_code: "+1787"
 
   - code: QAT
     name: Qatar
@@ -1356,12 +1530,14 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
+    phone_code: "+974"
 
   - code: REU
     name: Réunion
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Flag_of_R%C3%A9union.svg"
+      phone_code: "+262"
 
   - code: ROU
     name: Romania
@@ -1370,6 +1546,7 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
+    phone_code: "+40"
 
   - code: RUS
     name: Russia
@@ -1461,150 +1638,175 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
-
+      phone_code: "+7"
+      
   - code: RWA
     name: Rwanda
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Rwanda.svg"
+      phone_code: "+250"
 
   - code: SHN
     name: Saint Helena, Ascension and Tristan da Cunha
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
+      phone_code: "+290"
 
   - code: KNA
     name: Saint Kitts and Nevis
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Saint_Kitts_and_Nevis.svg"
+      phone_code: "+1869"
 
   - code: LCA
     name: Saint Lucia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Saint_Lucia.svg"
+      phone_code: "+1758"
 
   - code: SPM
     name: Saint Pierre and Miquelon
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      phone_code: "+508"
 
   - code: VCT
     name: Saint Vincent and the Grenadines
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Flag_of_Saint_Vincent_and_the_Grenadines.svg"
+      phone_code: "+1784"
 
   - code: BLM
     name: Saint-Barthelemy
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/df/Flag_of_Saint_Barthelemy_%28local%29.svg"
+      phone_code: "+590"
 
   - code: MAF
     name: Saint-Martin
     metadata:
       states: ~
       flag:
+      phone_code: "+590"
 
   - code: WSM
     name: Samoa
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/31/Flag_of_Samoa.svg"
+      phone_code: "+685"
 
   - code: SMR
     name: San Marino
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_San_Marino.svg"
+      phone_code: "+378"
 
   - code: STP
     name: São Tomé and Príncipe
     metadata:
       states: ~
-      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Sao_Tome_and_Principe.svg"
+      flag: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flag_of_Sao_Tome_and_Principe.svg
+      phone_code: "+239"
 
   - code: SAU
     name: Saudi Arabia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
+      phone_code: "+966"
 
   - code: SEN
     name: Senegal
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Flag_of_Senegal.svg"
+      phone_code: "+221"
 
   - code: SRB
     name: Serbia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg"
+      phone_code: "+381"
 
   - code: SYC
     name: Seychelles
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Seychelles.svg"
+      phone_code: "+248"
 
   - code: SLE
     name: Sierra Leone
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/17/Flag_of_Sierra_Leone.svg"
+      phone_code: "+232"
 
   - code: SGP
     name: Singapore
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Singapore.svg"
+      phone_code: "+65"
 
   - code: SXM
     name: Sint Maarten
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Sint_Maarten.svg"
+      phone_code: "+1721"
 
   - code: SVK
     name: Slovakia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Slovakia.svg"
+      phone_code: "+421"
 
   - code: SVN
     name: Slovenia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Flag_of_Slovenia.svg"
+      phone_code: "+386"
 
   - code: SLB
     name: Solomon Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/74/Flag_of_the_Solomon_Islands.svg"
+      phone_code: "+677"
 
   - code: SOM
     name: Somalia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_Somalia.svg"
+      phone_code: "+252"
 
   - code: ZAF
     name: South Africa
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg"
+      phone_code: "+27"
 
   - code: SGS
     name: South Georgia and the South Sandwich Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Flag_of_South_Georgia_and_the_South_Sandwich_Islands.svg"
+      phone_code: "+500"
 
   - code: KOR
     name: South Korea
@@ -1613,12 +1815,14 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/09/Flag_of_South_Korea.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+82"
 
   - code: SSD
     name: South Sudan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/7a/Flag_of_South_Sudan.svg"
+      phone_code: "+211"
 
   - code: ESP
     name: Spain
@@ -1627,36 +1831,42 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+34"
 
   - code: LKA
     name: Sri Lanka
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Sri_Lanka.svg"
+      phone_code: "+94"
 
   - code: SDN
     name: Sudan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_Sudan.svg"
+      phone_code: "+249"
 
   - code: SUR
     name: Suriname
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/60/Flag_of_Suriname.svg"
+      phone_code: "+597"
 
   - code: SJM
     name: Svalbard and Jan Mayen
     metadata:
       states: ~
       flag:
+      phone_code: "+47"
 
   - code: SWZ
     name: Swaziland
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Eswatini.svg"
+      phone_code: "+268"
 
   - code: SWE
     name: Sweden
@@ -1665,6 +1875,7 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+46"
 
   - code: CHE
     name: Switzerland
@@ -1673,12 +1884,14 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/08/Flag_of_Switzerland_%28Pantone%29.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+41"
 
   - code: SYR
     name: Syria
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/53/Flag_of_Syria.svg"
+      phone_code: "+963"
 
   - code: TWN
     name: Taiwan
@@ -1687,90 +1900,105 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/72/Flag_of_the_Republic_of_China.svg"
       fiscal_year: 0101-1231
       gov_fiscal_year: 0101-1231
+      phone_code: "+886"
 
   - code: TJK
     name: Tajikistan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Tajikistan.svg"
+      phone_code: "+992"
 
   - code: TZA
     name: Tanzania
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tanzania.svg"
+      phone_code: "+255"
 
   - code: THA
     name: Thailand
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_Thailand.svg"
+      phone_code: "+66"
 
   - code: TGO
     name: Togo
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/68/Flag_of_Togo.svg"
+      phone_code: "+228"
 
   - code: TKL
     name: Tokelau
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Flag_of_Tokelau.svg"
+      phone_code: "+690"
 
   - code: TON
     name: Tonga
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Tonga.svg"
+      phone_code: "+676"   
 
   - code: TTO
     name: Trinidad and Tobago
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Trinidad_and_Tobago.svg"
+      phone_code: "+1868"
 
   - code: TUN
     name: Tunisia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Tunisia.svg"
+      phone_code: "+216"
 
   - code: TUR
     name: Turkey
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg"
+      phone_code: "+90"
 
   - code: TKM
     name: Turkmenistan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Turkmenistan.svg"
+      phone_code: "+993"
 
   - code: TCA
     name: Turks and Caicos Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Flag_of_the_Turks_and_Caicos_Islands.svg"
+      phone_code: "+1649"
 
   - code: TUV
     name: Tuvalu
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/3/38/Flag_of_Tuvalu.svg"
+      phone_code: "+688"
 
   - code: UGA
     name: Uganda
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Flag_of_Uganda.svg"
+      phone_code: "+256"
 
   - code: UKR
     name: Ukraine
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg"
+      phone_code: "+380"
 
   - code: ARE
     name: United Arab Emirates
@@ -1779,6 +2007,7 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
     fiscal_year: 0101-1231
     gov_fiscal_year: 0101-1231
+    phone_code: "+971"
 
   - code: GBR
     name: United Kingdom
@@ -1787,24 +2016,28 @@ values:
       flag: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg"
       fiscal_year: 0406-0405
       gov_fiscal_year: 0401-0331
+      phone_code: "+44"
 
   - code: UMI
     name: United States Minor Outlying Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+      phone_code: "+246"
 
   - code: URY
     name: Uruguay
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg"
+      phone_code: "+598"
 
   - code: VIR
     name: US Virgin Islands
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Flag_of_the_United_States_Virgin_Islands.svg"
+      phone_code: "+1340"
 
   - code: USA
     name: USA
@@ -1868,63 +2101,74 @@ values:
         USUM: United States Minor Outlying Islands
         USVI: US Virgin Islands
       flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+      phone_code: "+1"
 
   - code: UZB
     name: Uzbekistan
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Uzbekistan.svg"
+      phone_code: "+998"
 
   - code: VUT
     name: Vanuatu
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Flag_of_Vanuatu_%28official%29.svg"
+      phone_code: "+678"
 
   - code: VAT
     name: Vatican City
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_the_Vatican_City.svg"
+      phone_code: "+418"
 
   - code: VEN
     name: Venezuela
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Flag_of_Venezuela_%28state%29.svg"
+      phone_code: "+58"
 
   - code: VNM
     name: Vietnam
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg"
+      phone_code: "+84"
 
   - code: WLF
     name: Wallis and Futuna
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg"
+      phone_code: "+681"
 
   - code: ESH
     name: Western Sahara
     metadata:
       states: ~
       flag:
+      phone_code: "+212"
 
   - code: YEM
     name: Yemen
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/8/89/Flag_of_Yemen.svg"
+      phone_code: "+967"
 
   - code: ZMB
     name: Zambia
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Zambia.svg"
+      phone_code: "+260"
 
   - code: ZWE
     name: Zimbabwe
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Flag_of_Zimbabwe.svg"
+      phone_code: "+263"
