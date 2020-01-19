@@ -12,7 +12,7 @@
           {{- else if .IsCompoundType }}
             <a href="#type-{{kebabcase .BaseType}}">{{.BaseType}}[{{.Size}}]</a>
           {{- else}}
-            {{.BaseType}}[{{.Size}}]
+            {{.MarkdownType}}
           {{- end}}
         {{- else}}
           {{- if .IsAlias }}
@@ -20,7 +20,7 @@
           {{- else if .IsCompoundType }}
             <a href="#type-{{kebabcase .BaseType}}">{{.Type}}</a>{{ if ne .Size 0 }}({{.Size}}){{ end }}
           {{- else}}
-            {{.Type}}{{ if ne .Size 0 }}({{.Size}}){{ end }}
+            {{.MarkdownType}}
           {{- end}}
         {{- end}}
         </td>
