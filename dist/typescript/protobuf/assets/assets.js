@@ -413,7 +413,8 @@ proto.assets.Currency.toObject = function(includeInstance, msg) {
   var f, obj = {
     currencycode: jspb.Message.getFieldWithDefault(msg, 1, ""),
     monetaryauthority: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 3, "")
+    description: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    precision: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -461,6 +462,10 @@ proto.assets.Currency.deserializeBinaryFromReader = function(msg, reader) {
     case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPrecision(value);
       break;
     default:
       reader.skipField();
@@ -511,6 +516,13 @@ proto.assets.Currency.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getPrecision();
+  if (f !== 0) {
+    writer.writeUint64(
+      4,
+      f
+    );
+  }
 };
 
 
@@ -556,6 +568,21 @@ proto.assets.Currency.prototype.getDescription = function() {
 /** @param {string} value */
 proto.assets.Currency.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint64 Precision = 4;
+ * @return {number}
+ */
+proto.assets.Currency.prototype.getPrecision = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.assets.Currency.prototype.setPrecision = function(value) {
+  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -804,7 +831,8 @@ proto.assets.Coupon.toObject = function(includeInstance, msg) {
     expirydate: jspb.Message.getFieldWithDefault(msg, 3, 0),
     value: jspb.Message.getFieldWithDefault(msg, 4, 0),
     currency: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 6, "")
+    description: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    precision: jspb.Message.getFieldWithDefault(msg, 7, 0)
   };
 
   if (includeInstance) {
@@ -864,6 +892,10 @@ proto.assets.Coupon.deserializeBinaryFromReader = function(msg, reader) {
     case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPrecision(value);
       break;
     default:
       reader.skipField();
@@ -932,6 +964,13 @@ proto.assets.Coupon.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       6,
+      f
+    );
+  }
+  f = message.getPrecision();
+  if (f !== 0) {
+    writer.writeUint64(
+      7,
       f
     );
   }
@@ -1025,6 +1064,21 @@ proto.assets.Coupon.prototype.getDescription = function() {
 /** @param {string} value */
 proto.assets.Coupon.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 6, value);
+};
+
+
+/**
+ * optional uint64 Precision = 7;
+ * @return {number}
+ */
+proto.assets.Coupon.prototype.getPrecision = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/** @param {number} value */
+proto.assets.Coupon.prototype.setPrecision = function(value) {
+  jspb.Message.setField(this, 7, value);
 };
 
 
@@ -1743,7 +1797,8 @@ proto.assets.CasinoChip.toObject = function(includeInstance, msg) {
     usetype: jspb.Message.getFieldWithDefault(msg, 2, ""),
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
     validfrom: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    precision: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -1800,6 +1855,10 @@ proto.assets.CasinoChip.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setExpirationtimestamp(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPrecision(value);
       break;
     default:
       reader.skipField();
@@ -1862,6 +1921,13 @@ proto.assets.CasinoChip.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeUint64(
       5,
+      f
+    );
+  }
+  f = message.getPrecision();
+  if (f !== 0) {
+    writer.writeUint64(
+      6,
       f
     );
   }
@@ -1955,6 +2021,21 @@ proto.assets.CasinoChip.prototype.getExpirationtimestamp = function() {
 /** @param {number} value */
 proto.assets.CasinoChip.prototype.setExpirationtimestamp = function(value) {
   jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional uint64 Precision = 6;
+ * @return {number}
+ */
+proto.assets.CasinoChip.prototype.getPrecision = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/** @param {number} value */
+proto.assets.CasinoChip.prototype.setPrecision = function(value) {
+  jspb.Message.setField(this, 6, value);
 };
 
 

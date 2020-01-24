@@ -87,6 +87,7 @@ const (
 	CurrencyFieldCurrencyCode      = uint32(1)
 	CurrencyFieldMonetaryAuthority = uint32(2)
 	CurrencyFieldDescription       = uint32(3)
+	CurrencyFieldPrecision         = uint32(4)
 )
 
 // ApplyAmendment updates a Currency based on amendment data.
@@ -108,6 +109,19 @@ func (a *Currency) ApplyAmendment(fip []uint32, operation uint32, data []byte) (
 
 	case CurrencyFieldDescription: // string
 		a.Description = string(data)
+		return fip[:], nil
+
+	case CurrencyFieldPrecision: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
+		}
+		if len(data) != 8 {
+			return nil, fmt.Errorf("Precision amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.Precision); err != nil {
+			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
+		}
 		return fip[:], nil
 
 	}
@@ -156,6 +170,7 @@ const (
 	CouponFieldValue           = uint32(4)
 	CouponFieldCurrency        = uint32(5)
 	CouponFieldDescription     = uint32(6)
+	CouponFieldPrecision       = uint32(7)
 )
 
 // ApplyAmendment updates a Coupon based on amendment data.
@@ -216,6 +231,19 @@ func (a *Coupon) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]
 
 	case CouponFieldDescription: // string
 		a.Description = string(data)
+		return fip[:], nil
+
+	case CouponFieldPrecision: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
+		}
+		if len(data) != 8 {
+			return nil, fmt.Errorf("Precision amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.Precision); err != nil {
+			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
+		}
 		return fip[:], nil
 
 	}
@@ -384,6 +412,7 @@ const (
 	CasinoChipFieldAgeRestriction      = uint32(3)
 	CasinoChipFieldValidFrom           = uint32(4)
 	CasinoChipFieldExpirationTimestamp = uint32(5)
+	CasinoChipFieldPrecision           = uint32(6)
 )
 
 // ApplyAmendment updates a CasinoChip based on amendment data.
@@ -429,6 +458,19 @@ func (a *CasinoChip) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 		buf := bytes.NewBuffer(data)
 		if err := binary.Read(buf, binary.LittleEndian, &a.ExpirationTimestamp); err != nil {
 			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
+		}
+		return fip[:], nil
+
+	case CasinoChipFieldPrecision: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
+		}
+		if len(data) != 8 {
+			return nil, fmt.Errorf("Precision amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.Precision); err != nil {
+			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
 		}
 		return fip[:], nil
 
