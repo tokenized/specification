@@ -3,10 +3,10 @@ package actions
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 	"fmt"
 
 	proto "github.com/golang/protobuf/proto"
-	"github.com/pkg/errors"
 )
 
 // Contract Permission / Amendment Field Indices

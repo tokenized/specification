@@ -33,3 +33,10 @@ fields:
     varSize: small
     example: Australian dollar
     span: full
+
+  - name: Precision
+    label: Precision
+    description: This can be used to override the standard precision based on the currency code above. When not specified the value associated with the CurrencyCode is used.
+    type: uint
+    size: 8
+    span: full

@@ -87,6 +87,7 @@ const (
 	CurrencyFieldCurrencyCode      = uint32(1)
 	CurrencyFieldMonetaryAuthority = uint32(2)
 	CurrencyFieldDescription       = uint32(3)
+	CurrencyFieldPrecision         = uint32(4)
 )
 
 // ApplyAmendment updates a Currency based on amendment data.
@@ -108,6 +109,19 @@ func (a *Currency) ApplyAmendment(fip []uint32, operation uint32, data []byte) (
 
 	case CurrencyFieldDescription: // string
 		a.Description = string(data)
+		return fip[:], nil
+
+	case CurrencyFieldPrecision: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
+		}
+		if len(data) != 8 {
+			return nil, fmt.Errorf("Precision amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.Precision); err != nil {
+			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
+		}
 		return fip[:], nil
 
 	}

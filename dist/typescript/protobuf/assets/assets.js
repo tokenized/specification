@@ -413,7 +413,8 @@ proto.assets.Currency.toObject = function(includeInstance, msg) {
   var f, obj = {
     currencycode: jspb.Message.getFieldWithDefault(msg, 1, ""),
     monetaryauthority: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 3, "")
+    description: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    precision: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -461,6 +462,10 @@ proto.assets.Currency.deserializeBinaryFromReader = function(msg, reader) {
     case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setPrecision(value);
       break;
     default:
       reader.skipField();
@@ -511,6 +516,13 @@ proto.assets.Currency.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getPrecision();
+  if (f !== 0) {
+    writer.writeUint64(
+      4,
+      f
+    );
+  }
 };
 
 
@@ -556,6 +568,21 @@ proto.assets.Currency.prototype.getDescription = function() {
 /** @param {string} value */
 proto.assets.Currency.prototype.setDescription = function(value) {
   jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint64 Precision = 4;
+ * @return {number}
+ */
+proto.assets.Currency.prototype.getPrecision = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.assets.Currency.prototype.setPrecision = function(value) {
+  jspb.Message.setField(this, 4, value);
 };
 
 

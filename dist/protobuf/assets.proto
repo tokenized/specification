@@ -19,6 +19,7 @@ message Currency {
     string CurrencyCode                            = 1;   // CurrencyType
     string MonetaryAuthority                       = 2;   // varchar
     string Description                             = 3;   // varchar
+    uint64 Precision                               = 4;   // uint
 }
 
 // Message - Share - Common (SHC)
