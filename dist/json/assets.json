@@ -151,7 +151,8 @@
           "varSize": "small"
         },
         {
-          "description": "This can be used to override the standard precision based on the currency code above. When not specified the value associated with the CurrencyCode is used.",
+          "description": "Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.",
+          "example": 100,
           "label": "Precision",
           "name": "Precision",
           "size": 8,
@@ -272,6 +273,15 @@
           "span": "full",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "description": "Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.",
+          "example": 100,
+          "label": "Precision",
+          "name": "Precision",
+          "size": 8,
+          "span": "full",
+          "type": "uint"
         }
       ],
       "label": "Coupon",
@@ -489,6 +499,15 @@
           "name": "ExpirationTimestamp",
           "span": "right",
           "type": "Timestamp"
+        },
+        {
+          "description": "Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.",
+          "example": 100,
+          "label": "Precision",
+          "name": "Precision",
+          "size": 8,
+          "span": "full",
+          "type": "uint"
         }
       ],
       "label": "Casino Chip",

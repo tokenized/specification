@@ -154,6 +154,11 @@ func (l *Coupon) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
+	// Field Precision - uint
+	if l.Precision != r.Precision {
+		return false // fmt.Errorf("Precision integer mismatched")
+	}
+
 	return true
 }
 
@@ -288,6 +293,11 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 	// Field ExpirationTimestamp - uint
 	if l.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
+	}
+
+	// Field Precision - uint
+	if l.Precision != r.Precision {
+		return false // fmt.Errorf("Precision integer mismatched")
 	}
 
 	return true

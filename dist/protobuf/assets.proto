@@ -37,6 +37,7 @@ message Coupon {
     uint64 Value                                   = 4;   // uint
     string Currency                                = 5;   // CurrencyType
     string Description                             = 6;   // varchar
+    uint64 Precision                               = 7;   // uint
 }
 
 // Message - Loyalty Points (LOY)
@@ -69,6 +70,7 @@ message CasinoChip {
     AgeRestrictionField AgeRestriction             = 3;   // AgeRestriction
     uint64 ValidFrom                               = 4;   // Timestamp
     uint64 ExpirationTimestamp                     = 5;   // Timestamp
+    uint64 Precision                               = 6;   // uint
 }
 
 
