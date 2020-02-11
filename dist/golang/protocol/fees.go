@@ -484,10 +484,8 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	}
 
 	// Calculate funding from parts
-	txSizeInputs := 0
-	for i := 0; i < p2PKHInputCount; i++ {
-		txSizeInputs += wire.VarIntSerializeSize(uint64(i)) + txbuilder.MaximumP2PKHInputSize
-	}
+	txSizeInputs := wire.VarIntSerializeSize(uint64(p2PKHInputCount)) +
+		p2PKHInputCount*txbuilder.MaximumP2PKHInputSize
 	txSizeP2PKHOutputs := p2PKHOutputCount * txbuilder.P2PKHOutputSize
 	txSizeSettlements := 0
 	for _, size := range settlementSize {
@@ -496,8 +494,8 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 				int(size)
 		}
 	}
-
-	size := txbuilder.BaseTxSize + txSizeInputs + txSizeP2PKHOutputs + txSizeSettlements
+	txSizeOutputCount := wire.VarIntSerializeSize(uint64(p2PKHOutputCount + 1)) // +1 for contract
+	size := txbuilder.BaseTxSize + txSizeInputs + txSizeOutputCount + txSizeP2PKHOutputs + txSizeSettlements
 	txFee := int(math.Ceil(float64(size) * float64(feeRate)))
 
 	funding := make([]uint64, len(request.Assets))
