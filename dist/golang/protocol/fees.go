@@ -302,6 +302,8 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 // The first contract output must fund settlement tx miner fee.
 // The boomerang must fund all settlement requests and signature requests.
 // All other contract outputs can be dust.
+// Attempts to use the maximum possible size of each element so the returned values are an
+// overestimation, ensuring that a transfer funded in this manner can complete successfully.
 func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate float32,
 	fees []uint64, isTest bool) ([]uint64, uint64, error) {
 
@@ -378,31 +380,22 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			// Sig script is probably still empty, so assume each sender is unique and the address is
 			//   not reused. So each will get a notification output.
 			for range asset.AssetSenders {
-				// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
+				// Use max quantity to ensure overestimation, since we can't use a
 				//   real value without knowing the resulting balance.
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(100000 + p2PKHOutputCount),
-						Quantity: 100000,
+						Index:    uint32(p2PKHOutputCount),
+						Quantity: math.MaxUint64,
 					})
 
 				p2PKHOutputCount++
 				fundingForTokens[i] += dustLimit // Dust will be put in each notification output.
 			}
 
-			if len(asset.AssetSenders) == 0 { // There will eventually be at least 1 sender
-				p2PKHOutputCount++
-				fundingForTokens[i] += dustLimit
-			}
-
-		} else { // Output for BSV to track participant
-			for range asset.AssetSenders {
-				p2PKHOutputCount++
-				fundingForBSV[i] += dustLimit
-			}
-			if len(asset.AssetSenders) == 0 {
-				p2PKHOutputCount++
-				fundingForBSV[i] += dustLimit
+		} else {
+			for _, sender := range asset.AssetSenders {
+				// For the amount that needs to be sent
+				fundingForBSV[masterContractIndex] += sender.Quantity
 			}
 		}
 
@@ -415,31 +408,24 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			if err != nil {
 				return nil, 0, errors.Wrap(err, "hashing address")
 			}
-			isDust, exists := used[*hash]
+			_, exists := used[*hash]
 
 			if asset.AssetType == "BSV" {
-				if exists {
-					if isDust {
-						// Remove dust to replace with amount below
-						fundingForBSV[masterContractIndex] -= dustLimit
-					}
-				} else {
+				if !exists {
 					p2PKHOutputCount++
+					// Do not add funding since we are receiving BSV.
 				}
 				used[*hash] = false
-				fundingForBSV[masterContractIndex] += receiver.Quantity
 
 			} else {
-				// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
+				// Use max quantity to ensure overestimation, since we can't use a
 				//   real value without knowing the resulting balance.
-				// Do the same for the index since it may not be constructed in the same order we have here
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(100000 + p2PKHOutputCount),
-						Quantity: 100000,
+						Index:    uint32(p2PKHOutputCount),
+						Quantity: math.MaxUint64,
 					})
 				if !exists {
-					// funding[masterContractIndex] += dustLimit // Dust will be put in each notification output.
 					used[*hash] = true
 					p2PKHOutputCount++
 
@@ -450,25 +436,17 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 		}
 
 		if len(asset.AssetReceivers) == 0 { // Needs to be at least 1 receiver
-			p2PKHOutputCount++
-			// Assume receiver will receive all that was sent
-			totalSent := uint64(0)
-			for _, sender := range asset.AssetSenders {
-				totalSent += sender.Quantity
-			}
-
-			if asset.AssetType == "BSV" {
-				fundingForBSV[i] += totalSent
-			} else {
+			if asset.AssetType != "BSV" {
 				fundingForTokens[masterContractIndex] += dustLimit // Needed for output
-				// Dummy index value to consume multiple bytes
+
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(100000),
-						Quantity: totalSent,
+						Index:    uint32(p2PKHOutputCount),
+						Quantity: math.MaxUint64,
 					})
 
 			}
+			p2PKHOutputCount++
 		}
 
 		if asset.AssetType != "BSV" {
