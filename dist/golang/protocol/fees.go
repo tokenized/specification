@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"math"
 	"time"
 
 	"github.com/tokenized/smart-contract/pkg/bitcoin"
@@ -328,22 +329,21 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 
 	// Build sample response tx and payload and calculate values based on expected response inputs
 	//   and outputs.
-	size := txbuilder.BaseTxSize
-	funding := make([]uint64, len(request.Assets))
 	settlementSize := make([]uint64, len(request.Assets))
-	finalSettlementSize := uint64(0)
 	boomerang := uint64(0) // used for funding inter-contract communication
 	now := time.Now()
+	// Auditable estimation construction
+	fundingForBSV := make([]uint64, len(request.Assets))
+	fundingForTokens := make([]uint64, len(request.Assets))
+	p2PKHInputCount := 0
 
 	// 1 input from contract
-	size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.MaximumP2PKHInputSize
+	p2PKHInputCount++
 
-	outputCount := 0
-	for i, fee := range fees {
+	p2PKHOutputCount := 0
+	for _, fee := range fees {
 		if fee > 0 {
-			outputCount += 1
-			size += txbuilder.P2PKHOutputSize
-			funding[i] += fee
+			p2PKHOutputCount++
 		}
 	}
 
@@ -377,17 +377,32 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			// Bitcoin senders don't get an output
 			// Sig script is probably still empty, so assume each sender is unique and the address is
 			//   not reused. So each will get a notification output.
-			for _, _ = range asset.AssetSenders {
+			for range asset.AssetSenders {
 				// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
 				//   real value without knowing the resulting balance.
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(outputCount),
+						Index:    uint32(100000 + p2PKHOutputCount),
 						Quantity: 100000,
 					})
 
-				funding[masterContractIndex] += dustLimit // Dust will be put in each notification output.
-				outputCount += 1
+				p2PKHOutputCount++
+				fundingForTokens[i] += dustLimit // Dust will be put in each notification output.
+			}
+
+			if len(asset.AssetSenders) == 0 { // There will eventually be at least 1 sender
+				p2PKHOutputCount++
+				fundingForTokens[i] += dustLimit
+			}
+
+		} else { // Output for BSV to track participant
+			for range asset.AssetSenders {
+				p2PKHOutputCount++
+				fundingForBSV[i] += dustLimit
+			}
+			if len(asset.AssetSenders) == 0 {
+				p2PKHOutputCount++
+				fundingForBSV[i] += dustLimit
 			}
 		}
 
@@ -406,26 +421,53 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 				if exists {
 					if isDust {
 						// Remove dust to replace with amount below
-						funding[masterContractIndex] -= dustLimit
+						fundingForBSV[masterContractIndex] -= dustLimit
 					}
 				} else {
-					outputCount += 1
+					p2PKHOutputCount++
 				}
 				used[*hash] = false
-				funding[masterContractIndex] += receiver.Quantity
+				fundingForBSV[masterContractIndex] += receiver.Quantity
+
 			} else {
 				// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
 				//   real value without knowing the resulting balance.
+				// Do the same for the index since it may not be constructed in the same order we have here
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(outputCount),
+						Index:    uint32(100000 + p2PKHOutputCount),
 						Quantity: 100000,
 					})
 				if !exists {
-					funding[masterContractIndex] += dustLimit // Dust will be put in each notification output.
+					// funding[masterContractIndex] += dustLimit // Dust will be put in each notification output.
 					used[*hash] = true
-					outputCount += 1
+					p2PKHOutputCount++
+
+					// Dust will be put in each notification output.
+					fundingForTokens[masterContractIndex] += dustLimit
 				}
+			}
+		}
+
+		if len(asset.AssetReceivers) == 0 { // Needs to be at least 1 receiver
+			p2PKHOutputCount++
+			// Assume receiver will receive all that was sent
+			totalSent := uint64(0)
+			for _, sender := range asset.AssetSenders {
+				totalSent += sender.Quantity
+			}
+
+			if asset.AssetType == "BSV" {
+				fundingForBSV[i] += totalSent
+			} else {
+				fundingForTokens[masterContractIndex] += dustLimit // Needed for output
+				// Dummy index value to consume multiple bytes
+				settleAsset.Settlements = append(settleAsset.Settlements,
+					&actions.QuantityIndexField{
+						Index:    uint32(100000),
+						Quantity: totalSent,
+					})
+
 			}
 		}
 
@@ -438,17 +480,29 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 				return nil, 0, errors.Wrap(err, "Failed to serialize settlement")
 			}
 			settlementSize[i] = uint64(len(script))
-			finalSettlementSize = settlementSize[i]
 		}
 	}
 
-	// +1 for OP_RETURN
-	size += wire.VarIntSerializeSize(uint64(outputCount+1)) + (outputCount * txbuilder.P2PKHOutputSize)
+	// Calculate funding from parts
+	txSizeInputs := wire.VarIntSerializeSize(uint64(p2PKHInputCount)) +
+		p2PKHInputCount*txbuilder.MaximumP2PKHInputSize
+	txSizeP2PKHOutputs := p2PKHOutputCount * txbuilder.P2PKHOutputSize
+	txSizeSettlements := 0
+	for _, size := range settlementSize {
+		if size > 0 {
+			txSizeSettlements += int(txbuilder.OutputBaseSize+wire.VarIntSerializeSize(size)) +
+				int(size)
+		}
+	}
+	txSizeOutputCount := wire.VarIntSerializeSize(uint64(p2PKHOutputCount + 1)) // +1 for contract
+	size := txbuilder.BaseTxSize + txSizeInputs + txSizeOutputCount + txSizeP2PKHOutputs + txSizeSettlements
+	txFee := int(math.Ceil(float64(size) * float64(feeRate)))
 
-	// OP_RETURN output size
-	size += txbuilder.OutputBaseSize + wire.VarIntSerializeSize(finalSettlementSize) +
-		int(finalSettlementSize)
-	funding[masterContractIndex] += uint64(float32(size) * feeRate)
+	funding := make([]uint64, len(request.Assets))
+	for i := range funding {
+		funding[i] = fees[i] + fundingForBSV[i] + fundingForTokens[i]
+	}
+	funding[masterContractIndex] += uint64(txFee)
 
 	// Calculate boomerang funding
 	isMaster := true
