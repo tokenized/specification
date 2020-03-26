@@ -34,12 +34,13 @@ fields:
 
   - name: BodyOfAgreementType
     label: Body of Agreement Type
-    description: "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
+    description: "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
     type: uint
     size: 1
     example: "1"
     notes: "Body of Agreement - Amendments can be restricted to a vote."
     options:
+      - 0
       - 1
       - 2
 

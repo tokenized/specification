@@ -1,0 +1,19 @@
+
+name: ReferenceTransaction
+label: Reference Transaction
+description: "A bitcoin transaction and the outputs that it spends."
+
+fields:
+  - name: Transaction
+    label: Transaction
+    description: "A bitcoin transaction serialized in the bitcoin P2P format."
+    type: varbin
+    size: large
+    example: 0
+
+  - name: Outputs
+    label: Outputs
+    description: "The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P format. There must be the same count as there are inputs in the contained transaction and they must be in the same order."
+    type: varbin[]
+    varSize: large
+    listSize: medium

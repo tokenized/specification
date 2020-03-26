@@ -1011,6 +1011,7 @@ const (
 	EntityFieldAdministration             = uint32(13)
 	EntityFieldManagement                 = uint32(14)
 	EntityFieldDomainName                 = uint32(15)
+	EntityFieldParentAddress              = uint32(16)
 )
 
 // ApplyAmendment updates a EntityField based on amendment data.
@@ -1161,6 +1162,10 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 		a.DomainName = string(data)
 		return fip[:], nil
 
+	case EntityFieldParentAddress: // bytes
+		a.ParentAddress = data
+		return fip[:], nil
+
 	}
 
 	return nil, fmt.Errorf("Unknown Entity amendment field index : %v", fip)
@@ -1208,9 +1213,10 @@ func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 
 // OracleField Permission / Amendment Field Indices
 const (
-	OracleFieldEntity    = uint32(1)
-	OracleFieldURL       = uint32(2)
-	OracleFieldPublicKey = uint32(3)
+	OracleFieldEntity     = uint32(1)
+	OracleFieldURL        = uint32(2)
+	OracleFieldPublicKey  = uint32(3)
+	OracleFieldOracleType = uint32(4)
 )
 
 // ApplyAmendment updates a OracleField based on amendment data.
@@ -1232,6 +1238,61 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 	case OracleFieldPublicKey: // []byte
 		a.PublicKey = data
 		return fip[:], nil
+
+	case OracleFieldOracleType: // []uint32
+		switch operation {
+		case 0: // Modify
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify OracleType : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.OracleType) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify OracleType : %d", fip[1])
+			}
+			if len(fip) > 1 {
+				return nil, fmt.Errorf("Amendment field index path too deep for OracleType : %v", fip)
+			}
+			if len(data) != 1 {
+				return nil, fmt.Errorf("OracleType amendment value is wrong size : %d", len(data))
+			}
+			buf := bytes.NewBuffer(data)
+			if err := binary.Read(buf, binary.LittleEndian, &a.OracleType[fip[1]]); err != nil {
+				return nil, fmt.Errorf("OracleType amendment value failed to deserialize : %s", err)
+			}
+			return append(fip[:1], fip[2:]...), nil
+
+		case 1: // Add element
+			if len(fip) > 1 {
+				return nil, fmt.Errorf("Amendment field index path too deep for add OracleType : %v",
+					fip)
+			}
+			if len(fip) > 1 {
+				return nil, fmt.Errorf("Amendment field index path too deep for OracleType : %v", fip)
+			}
+			if len(data) != 1 {
+				return nil, fmt.Errorf("OracleType amendment value is wrong size : %d", len(data))
+			}
+			buf := bytes.NewBuffer(data)
+			var newValue uint32
+			if err := binary.Read(buf, binary.LittleEndian, &newValue); err != nil {
+				return nil, fmt.Errorf("OracleType amendment value failed to deserialize : %s", err)
+			}
+			a.OracleType = append(a.OracleType, newValue)
+			return fip[:], nil
+
+		case 2: // Delete element
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete OracleType : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.OracleType) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete OracleType : %d", fip[1])
+			}
+
+			// Remove item from list
+			a.OracleType = append(a.OracleType[:fip[1]], a.OracleType[fip[1]+1:]...)
+			return append(fip[:1], fip[2:]...), nil
+		}
 
 	}
 
@@ -1282,6 +1343,66 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	}
 
 	return nil, fmt.Errorf("Unknown QuantityIndex amendment field index : %v", fip)
+}
+
+// ReferenceTransactionField Permission / Amendment Field Indices
+const (
+	ReferenceTransactionFieldTransaction = uint32(1)
+	ReferenceTransactionFieldOutputs     = uint32(2)
+)
+
+// ApplyAmendment updates a ReferenceTransactionField based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+	if len(fip) == 0 {
+		return nil, errors.New("Empty ReferenceTransaction amendment field index path")
+	}
+
+	switch fip[0] {
+	case ReferenceTransactionFieldTransaction: // []byte
+		a.Transaction = data
+		return fip[:], nil
+
+	case ReferenceTransactionFieldOutputs: // [][]byte
+		switch operation {
+		case 0: // Modify
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Outputs : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.Outputs) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify Outputs : %d", fip[1])
+			}
+			a.Outputs[fip[1]] = data
+			return append(fip[:1], fip[2:]...), nil
+
+		case 1: // Add element
+			if len(fip) > 1 {
+				return nil, fmt.Errorf("Amendment field index path too deep for add Outputs : %v",
+					fip)
+			}
+			newValue := data
+			a.Outputs = append(a.Outputs, newValue)
+			return fip[:], nil
+
+		case 2: // Delete element
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Outputs : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.Outputs) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Outputs : %d", fip[1])
+			}
+
+			// Remove item from list
+			a.Outputs = append(a.Outputs[:fip[1]], a.Outputs[fip[1]+1:]...)
+			return append(fip[:1], fip[2:]...), nil
+		}
+
+	}
+
+	return nil, fmt.Errorf("Unknown ReferenceTransaction amendment field index : %v", fip)
 }
 
 // TargetAddressField Permission / Amendment Field Indices

@@ -34,6 +34,7 @@ goog.provide('proto.actions.Order');
 goog.provide('proto.actions.Proposal');
 goog.provide('proto.actions.QuantityIndexField');
 goog.provide('proto.actions.Reconciliation');
+goog.provide('proto.actions.ReferenceTransactionField');
 goog.provide('proto.actions.Rejection');
 goog.provide('proto.actions.Removal');
 goog.provide('proto.actions.Result');
@@ -6683,7 +6684,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.Order.repeatedFields_ = [4,14];
+proto.actions.Order.repeatedFields_ = [4,14,18];
 
 
 
@@ -6725,11 +6726,15 @@ proto.actions.Order.toObject = function(includeInstance, msg) {
     authoritypublickey: msg.getAuthoritypublickey_asB64(),
     signaturealgorithm: jspb.Message.getFieldWithDefault(msg, 10, 0),
     ordersignature: msg.getOrdersignature_asB64(),
-    supportingevidencehash: msg.getSupportingevidencehash_asB64(),
-    reftxs: msg.getReftxs_asB64(),
+    deprecatedsupportingevidencehash: msg.getDeprecatedsupportingevidencehash_asB64(),
+    deprecatedreftxs: msg.getDeprecatedreftxs_asB64(),
     bitcoindispersionsList: jspb.Message.toObjectList(msg.getBitcoindispersionsList(),
     proto.actions.QuantityIndexField.toObject, includeInstance),
-    message: jspb.Message.getFieldWithDefault(msg, 15, "")
+    message: jspb.Message.getFieldWithDefault(msg, 15, ""),
+    supportingevidenceformat: jspb.Message.getFieldWithDefault(msg, 16, 0),
+    supportingevidence: msg.getSupportingevidence_asB64(),
+    referencetransactionsList: jspb.Message.toObjectList(msg.getReferencetransactionsList(),
+    proto.actions.ReferenceTransactionField.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -6813,11 +6818,11 @@ proto.actions.Order.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 12:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setSupportingevidencehash(value);
+      msg.setDeprecatedsupportingevidencehash(value);
       break;
     case 13:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setReftxs(value);
+      msg.setDeprecatedreftxs(value);
       break;
     case 14:
       var value = new proto.actions.QuantityIndexField;
@@ -6827,6 +6832,19 @@ proto.actions.Order.deserializeBinaryFromReader = function(msg, reader) {
     case 15:
       var value = /** @type {string} */ (reader.readString());
       msg.setMessage(value);
+      break;
+    case 16:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setSupportingevidenceformat(value);
+      break;
+    case 17:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setSupportingevidence(value);
+      break;
+    case 18:
+      var value = new proto.actions.ReferenceTransactionField;
+      reader.readMessage(value,proto.actions.ReferenceTransactionField.deserializeBinaryFromReader);
+      msg.addReferencetransactions(value);
       break;
     default:
       reader.skipField();
@@ -6934,14 +6952,14 @@ proto.actions.Order.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getSupportingevidencehash_asU8();
+  f = message.getDeprecatedsupportingevidencehash_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       12,
       f
     );
   }
-  f = message.getReftxs_asU8();
+  f = message.getDeprecatedreftxs_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       13,
@@ -6961,6 +6979,28 @@ proto.actions.Order.serializeBinaryToWriter = function(message, writer) {
     writer.writeString(
       15,
       f
+    );
+  }
+  f = message.getSupportingevidenceformat();
+  if (f !== 0) {
+    writer.writeUint32(
+      16,
+      f
+    );
+  }
+  f = message.getSupportingevidence_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      17,
+      f
+    );
+  }
+  f = message.getReferencetransactionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      18,
+      f,
+      proto.actions.ReferenceTransactionField.serializeBinaryToWriter
     );
   }
 };
@@ -7270,79 +7310,79 @@ proto.actions.Order.prototype.setOrdersignature = function(value) {
 
 
 /**
- * optional bytes SupportingEvidenceHash = 12;
+ * optional bytes DeprecatedSupportingEvidenceHash = 12;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.Order.prototype.getSupportingevidencehash = function() {
+proto.actions.Order.prototype.getDeprecatedsupportingevidencehash = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
 };
 
 
 /**
- * optional bytes SupportingEvidenceHash = 12;
- * This is a type-conversion wrapper around `getSupportingevidencehash()`
+ * optional bytes DeprecatedSupportingEvidenceHash = 12;
+ * This is a type-conversion wrapper around `getDeprecatedsupportingevidencehash()`
  * @return {string}
  */
-proto.actions.Order.prototype.getSupportingevidencehash_asB64 = function() {
+proto.actions.Order.prototype.getDeprecatedsupportingevidencehash_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getSupportingevidencehash()));
+      this.getDeprecatedsupportingevidencehash()));
 };
 
 
 /**
- * optional bytes SupportingEvidenceHash = 12;
+ * optional bytes DeprecatedSupportingEvidenceHash = 12;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getSupportingevidencehash()`
+ * This is a type-conversion wrapper around `getDeprecatedsupportingevidencehash()`
  * @return {!Uint8Array}
  */
-proto.actions.Order.prototype.getSupportingevidencehash_asU8 = function() {
+proto.actions.Order.prototype.getDeprecatedsupportingevidencehash_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getSupportingevidencehash()));
+      this.getDeprecatedsupportingevidencehash()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.Order.prototype.setSupportingevidencehash = function(value) {
+proto.actions.Order.prototype.setDeprecatedsupportingevidencehash = function(value) {
   jspb.Message.setField(this, 12, value);
 };
 
 
 /**
- * optional bytes RefTxs = 13;
+ * optional bytes DeprecatedRefTxs = 13;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.Order.prototype.getReftxs = function() {
+proto.actions.Order.prototype.getDeprecatedreftxs = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
 };
 
 
 /**
- * optional bytes RefTxs = 13;
- * This is a type-conversion wrapper around `getReftxs()`
+ * optional bytes DeprecatedRefTxs = 13;
+ * This is a type-conversion wrapper around `getDeprecatedreftxs()`
  * @return {string}
  */
-proto.actions.Order.prototype.getReftxs_asB64 = function() {
+proto.actions.Order.prototype.getDeprecatedreftxs_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getReftxs()));
+      this.getDeprecatedreftxs()));
 };
 
 
 /**
- * optional bytes RefTxs = 13;
+ * optional bytes DeprecatedRefTxs = 13;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getReftxs()`
+ * This is a type-conversion wrapper around `getDeprecatedreftxs()`
  * @return {!Uint8Array}
  */
-proto.actions.Order.prototype.getReftxs_asU8 = function() {
+proto.actions.Order.prototype.getDeprecatedreftxs_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getReftxs()));
+      this.getDeprecatedreftxs()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.Order.prototype.setReftxs = function(value) {
+proto.actions.Order.prototype.setDeprecatedreftxs = function(value) {
   jspb.Message.setField(this, 13, value);
 };
 
@@ -7392,6 +7432,93 @@ proto.actions.Order.prototype.getMessage = function() {
 /** @param {string} value */
 proto.actions.Order.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 15, value);
+};
+
+
+/**
+ * optional uint32 SupportingEvidenceFormat = 16;
+ * @return {number}
+ */
+proto.actions.Order.prototype.getSupportingevidenceformat = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 16, 0));
+};
+
+
+/** @param {number} value */
+proto.actions.Order.prototype.setSupportingevidenceformat = function(value) {
+  jspb.Message.setField(this, 16, value);
+};
+
+
+/**
+ * optional bytes SupportingEvidence = 17;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.Order.prototype.getSupportingevidence = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 17, ""));
+};
+
+
+/**
+ * optional bytes SupportingEvidence = 17;
+ * This is a type-conversion wrapper around `getSupportingevidence()`
+ * @return {string}
+ */
+proto.actions.Order.prototype.getSupportingevidence_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getSupportingevidence()));
+};
+
+
+/**
+ * optional bytes SupportingEvidence = 17;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getSupportingevidence()`
+ * @return {!Uint8Array}
+ */
+proto.actions.Order.prototype.getSupportingevidence_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getSupportingevidence()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.actions.Order.prototype.setSupportingevidence = function(value) {
+  jspb.Message.setField(this, 17, value);
+};
+
+
+/**
+ * repeated ReferenceTransactionField ReferenceTransactions = 18;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.actions.ReferenceTransactionField>}
+ */
+proto.actions.Order.prototype.getReferencetransactionsList = function() {
+  return /** @type{!Array.<!proto.actions.ReferenceTransactionField>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.actions.ReferenceTransactionField, 18));
+};
+
+
+/** @param {!Array.<!proto.actions.ReferenceTransactionField>} value */
+proto.actions.Order.prototype.setReferencetransactionsList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 18, value);
+};
+
+
+/**
+ * @param {!proto.actions.ReferenceTransactionField=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.actions.ReferenceTransactionField}
+ */
+proto.actions.Order.prototype.addReferencetransactions = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 18, opt_value, proto.actions.ReferenceTransactionField, opt_index);
+};
+
+
+proto.actions.Order.prototype.clearReferencetransactionsList = function() {
+  this.setReferencetransactionsList([]);
 };
 
 
@@ -11289,7 +11416,8 @@ proto.actions.EntityField.toObject = function(includeInstance, msg) {
     proto.actions.AdministratorField.toObject, includeInstance),
     managementList: jspb.Message.toObjectList(msg.getManagementList(),
     proto.actions.ManagerField.toObject, includeInstance),
-    domainname: jspb.Message.getFieldWithDefault(msg, 15, "")
+    domainname: jspb.Message.getFieldWithDefault(msg, 15, ""),
+    parentaddress: msg.getParentaddress_asB64()
   };
 
   if (includeInstance) {
@@ -11387,6 +11515,10 @@ proto.actions.EntityField.deserializeBinaryFromReader = function(msg, reader) {
     case 15:
       var value = /** @type {string} */ (reader.readString());
       msg.setDomainname(value);
+      break;
+    case 16:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setParentaddress(value);
       break;
     default:
       reader.skipField();
@@ -11520,6 +11652,13 @@ proto.actions.EntityField.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       15,
+      f
+    );
+  }
+  f = message.getParentaddress_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      16,
       f
     );
   }
@@ -11787,6 +11926,45 @@ proto.actions.EntityField.prototype.setDomainname = function(value) {
 };
 
 
+/**
+ * optional bytes ParentAddress = 16;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.EntityField.prototype.getParentaddress = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 16, ""));
+};
+
+
+/**
+ * optional bytes ParentAddress = 16;
+ * This is a type-conversion wrapper around `getParentaddress()`
+ * @return {string}
+ */
+proto.actions.EntityField.prototype.getParentaddress_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getParentaddress()));
+};
+
+
+/**
+ * optional bytes ParentAddress = 16;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getParentaddress()`
+ * @return {!Uint8Array}
+ */
+proto.actions.EntityField.prototype.getParentaddress_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getParentaddress()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.actions.EntityField.prototype.setParentaddress = function(value) {
+  jspb.Message.setField(this, 16, value);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -11966,12 +12144,19 @@ proto.actions.ManagerField.prototype.setName = function(value) {
  * @constructor
  */
 proto.actions.OracleField = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.OracleField.repeatedFields_, null);
 };
 goog.inherits(proto.actions.OracleField, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.actions.OracleField.displayName = 'proto.actions.OracleField';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.actions.OracleField.repeatedFields_ = [4];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -12002,7 +12187,8 @@ proto.actions.OracleField.toObject = function(includeInstance, msg) {
   var f, obj = {
     entity: (f = msg.getEntity()) && proto.actions.EntityField.toObject(includeInstance, f),
     url: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    publickey: msg.getPublickey_asB64()
+    publickey: msg.getPublickey_asB64(),
+    oracletypeList: jspb.Message.getField(msg, 4)
   };
 
   if (includeInstance) {
@@ -12052,6 +12238,10 @@ proto.actions.OracleField.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setPublickey(value);
       break;
+    case 4:
+      var value = /** @type {!Array.<number>} */ (reader.readPackedUint32());
+      msg.setOracletypeList(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -12099,6 +12289,13 @@ proto.actions.OracleField.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeBytes(
       3,
+      f
+    );
+  }
+  f = message.getOracletypeList();
+  if (f.length > 0) {
+    writer.writePackedUint32(
+      4,
       f
     );
   }
@@ -12186,6 +12383,37 @@ proto.actions.OracleField.prototype.getPublickey_asU8 = function() {
 /** @param {!(string|Uint8Array)} value */
 proto.actions.OracleField.prototype.setPublickey = function(value) {
   jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * repeated uint32 OracleType = 4;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<number>}
+ */
+proto.actions.OracleField.prototype.getOracletypeList = function() {
+  return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 4));
+};
+
+
+/** @param {!Array.<number>} value */
+proto.actions.OracleField.prototype.setOracletypeList = function(value) {
+  jspb.Message.setField(this, 4, value || []);
+};
+
+
+/**
+ * @param {!number} value
+ * @param {number=} opt_index
+ */
+proto.actions.OracleField.prototype.addOracletype = function(value, opt_index) {
+  jspb.Message.addToRepeatedField(this, 4, value, opt_index);
+};
+
+
+proto.actions.OracleField.prototype.clearOracletypeList = function() {
+  this.setOracletypeList([]);
 };
 
 
@@ -12353,6 +12581,248 @@ proto.actions.QuantityIndexField.prototype.getQuantity = function() {
 /** @param {number} value */
 proto.actions.QuantityIndexField.prototype.setQuantity = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.actions.ReferenceTransactionField = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.actions.ReferenceTransactionField.repeatedFields_, null);
+};
+goog.inherits(proto.actions.ReferenceTransactionField, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.actions.ReferenceTransactionField.displayName = 'proto.actions.ReferenceTransactionField';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.actions.ReferenceTransactionField.repeatedFields_ = [2];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.actions.ReferenceTransactionField.prototype.toObject = function(opt_includeInstance) {
+  return proto.actions.ReferenceTransactionField.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.actions.ReferenceTransactionField} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.actions.ReferenceTransactionField.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    transaction: msg.getTransaction_asB64(),
+    outputsList: msg.getOutputsList_asB64()
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.actions.ReferenceTransactionField}
+ */
+proto.actions.ReferenceTransactionField.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.actions.ReferenceTransactionField;
+  return proto.actions.ReferenceTransactionField.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.actions.ReferenceTransactionField} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.actions.ReferenceTransactionField}
+ */
+proto.actions.ReferenceTransactionField.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setTransaction(value);
+      break;
+    case 2:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.addOutputs(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.actions.ReferenceTransactionField.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.actions.ReferenceTransactionField.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.actions.ReferenceTransactionField} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.actions.ReferenceTransactionField.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getTransaction_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      1,
+      f
+    );
+  }
+  f = message.getOutputsList_asU8();
+  if (f.length > 0) {
+    writer.writeRepeatedBytes(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional bytes Transaction = 1;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.ReferenceTransactionField.prototype.getTransaction = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * optional bytes Transaction = 1;
+ * This is a type-conversion wrapper around `getTransaction()`
+ * @return {string}
+ */
+proto.actions.ReferenceTransactionField.prototype.getTransaction_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getTransaction()));
+};
+
+
+/**
+ * optional bytes Transaction = 1;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getTransaction()`
+ * @return {!Uint8Array}
+ */
+proto.actions.ReferenceTransactionField.prototype.getTransaction_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getTransaction()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.actions.ReferenceTransactionField.prototype.setTransaction = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * repeated bytes Outputs = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!(Array<!Uint8Array>|Array<string>)}
+ */
+proto.actions.ReferenceTransactionField.prototype.getOutputsList = function() {
+  return /** @type {!(Array<!Uint8Array>|Array<string>)} */ (jspb.Message.getField(this, 2));
+};
+
+
+/**
+ * repeated bytes Outputs = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * This is a type-conversion wrapper around `getOutputsList()`
+ * @return {!Array.<string>}
+ */
+proto.actions.ReferenceTransactionField.prototype.getOutputsList_asB64 = function() {
+  return /** @type {!Array.<string>} */ (jspb.Message.bytesListAsB64(
+      this.getOutputsList()));
+};
+
+
+/**
+ * repeated bytes Outputs = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getOutputsList()`
+ * @return {!Array.<!Uint8Array>}
+ */
+proto.actions.ReferenceTransactionField.prototype.getOutputsList_asU8 = function() {
+  return /** @type {!Array.<!Uint8Array>} */ (jspb.Message.bytesListAsU8(
+      this.getOutputsList()));
+};
+
+
+/** @param {!(Array<!Uint8Array>|Array<string>)} value */
+proto.actions.ReferenceTransactionField.prototype.setOutputsList = function(value) {
+  jspb.Message.setField(this, 2, value || []);
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @param {number=} opt_index
+ */
+proto.actions.ReferenceTransactionField.prototype.addOutputs = function(value, opt_index) {
+  jspb.Message.addToRepeatedField(this, 2, value, opt_index);
+};
+
+
+proto.actions.ReferenceTransactionField.prototype.clearOutputsList = function() {
+  this.setOutputsList([]);
 };
 
 

@@ -1020,14 +1020,14 @@ func (l *Order) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("OrderSignature bytes mismatched")
 	}
 
-	// Field SupportingEvidenceHash - bin
-	if !bytes.Equal(l.SupportingEvidenceHash, r.SupportingEvidenceHash) {
-		return false // fmt.Errorf("SupportingEvidenceHash bytes mismatched")
+	// Field DeprecatedSupportingEvidenceHash - bin
+	if !bytes.Equal(l.DeprecatedSupportingEvidenceHash, r.DeprecatedSupportingEvidenceHash) {
+		return false // fmt.Errorf("DeprecatedSupportingEvidenceHash bytes mismatched")
 	}
 
-	// Field RefTxs - varbin
-	if !bytes.Equal(l.RefTxs, r.RefTxs) {
-		return false // fmt.Errorf("RefTxs bytes mismatched")
+	// Field DeprecatedRefTxs - varbin
+	if !bytes.Equal(l.DeprecatedRefTxs, r.DeprecatedRefTxs) {
+		return false // fmt.Errorf("DeprecatedRefTxs bytes mismatched")
 	}
 
 	// Field BitcoinDispersions - QuantityIndex
@@ -1043,6 +1043,26 @@ func (l *Order) Equal(right proto.Message) bool {
 	// Field Message - varchar
 	if l.Message != r.Message {
 		return false // fmt.Errorf("Message string mismatched")
+	}
+
+	// Field SupportingEvidenceFormat - uint
+	if l.SupportingEvidenceFormat != r.SupportingEvidenceFormat {
+		return false // fmt.Errorf("SupportingEvidenceFormat integer mismatched")
+	}
+
+	// Field SupportingEvidence - varbin
+	if !bytes.Equal(l.SupportingEvidence, r.SupportingEvidence) {
+		return false // fmt.Errorf("SupportingEvidence bytes mismatched")
+	}
+
+	// Field ReferenceTransactions - ReferenceTransaction
+	if len(l.ReferenceTransactions) != len(r.ReferenceTransactions) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range l.ReferenceTransactions {
+		if !v.Equal(r.ReferenceTransactions[i]) {
+			return false // fmt.Errorf("ReferenceTransactions[%d] : %s", i, err)
+		}
 	}
 
 	return true
@@ -1649,6 +1669,11 @@ func (l *EntityField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("DomainName string mismatched")
 	}
 
+	// Field ParentAddress - varbin
+	if !bytes.Equal(l.ParentAddress, r.ParentAddress) {
+		return false // fmt.Errorf("ParentAddress bytes mismatched")
+	}
+
 	return true
 }
 
@@ -1698,6 +1723,16 @@ func (l *OracleField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("PublicKey bytes mismatched")
 	}
 
+	// Field OracleType - uint
+	if len(l.OracleType) != len(r.OracleType) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range l.OracleType {
+		if v != r.OracleType[i] {
+			return false // fmt.Errorf("Element OracleType integer mismatched")
+		}
+	}
+
 	return true
 }
 
@@ -1718,6 +1753,33 @@ func (l *QuantityIndexField) Equal(right proto.Message) bool {
 	// Field Quantity - uint
 	if l.Quantity != r.Quantity {
 		return false // fmt.Errorf("Quantity integer mismatched")
+	}
+
+	return true
+}
+
+func (l *ReferenceTransactionField) Equal(right proto.Message) bool {
+	if l == nil {
+		return right == nil
+	}
+	r, ok := right.(*ReferenceTransactionField)
+	if !ok {
+		return false
+	}
+
+	// Field Transaction - varbin
+	if !bytes.Equal(l.Transaction, r.Transaction) {
+		return false // fmt.Errorf("Transaction bytes mismatched")
+	}
+
+	// Field Outputs - varbin
+	if len(l.Outputs) != len(r.Outputs) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range l.Outputs {
+		if !bytes.Equal(v, r.Outputs[i]) {
+			return false // fmt.Errorf("Element Outputs bytes mismatched")
+		}
 	}
 
 	return true

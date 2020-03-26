@@ -411,6 +411,12 @@
           "name": "DomainName",
           "type": "varchar",
           "varSize": "tiny"
+        },
+        {
+          "description": "Address of parent contract. Refer to the entity specified in the contract at the address specified. When this field is present, no other fields should be included.",
+          "label": "Parent Address",
+          "name": "ParentAddress",
+          "type": "Address"
         }
       ],
       "label": "Entity",
@@ -458,6 +464,18 @@
           "label": "Oracle Public Key",
           "name": "PublicKey",
           "type": "varbin"
+        },
+        {
+          "description": "The type of the oracle. 0 = Identity, 1 = Authority, 2 = Event. More than one value can be included to specify the oracle has more than one type.",
+          "label": "Oracle Type",
+          "name": "OracleType",
+          "options": [
+            0,
+            1,
+            2
+          ],
+          "size": 1,
+          "type": "uint[]"
         }
       ],
       "label": "Oracle",
@@ -485,6 +503,29 @@
       ],
       "label": "Quantity Index",
       "name": "QuantityIndex"
+    },
+    {
+      "description": "A bitcoin transaction and the outputs that it spends.",
+      "fields": [
+        {
+          "description": "A bitcoin transaction serialized in the bitcoin P2P format.",
+          "example": 0,
+          "label": "Transaction",
+          "name": "Transaction",
+          "size": "large",
+          "type": "varbin"
+        },
+        {
+          "description": "The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P format. There must be the same count as there are inputs in the contained transaction and they must be in the same order.",
+          "label": "Outputs",
+          "listSize": "medium",
+          "name": "Outputs",
+          "type": "varbin[]",
+          "varSize": "large"
+        }
+      ],
+      "label": "Reference Transaction",
+      "name": "ReferenceTransaction"
     },
     {
       "description": "A TargetAddress defines a public address and quantity.",
@@ -573,12 +614,13 @@
           "type": "varchar"
         },
         {
-          "description": "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "description": "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
           "notes": "Body of Agreement - Amendments can be restricted to a vote.",
           "options": [
+            0,
             1,
             2
           ],
@@ -776,12 +818,13 @@
           "type": "varchar"
         },
         {
-          "description": "1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "description": "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
           "notes": "Body of Agreement - Amendments can be restricted to a vote.",
           "options": [
+            0,
             1,
             2
           ],
@@ -2028,16 +2071,16 @@
           "type": "varbin"
         },
         {
-          "description": "SHA-256: warrant, court order, etc.",
-          "label": "Supporting Evidence Hash",
-          "name": "SupportingEvidenceHash",
+          "description": "Deprecated for new supporting evidence type and data fields. SHA-256: warrant, court order, etc.",
+          "label": "Deprecated Supporting Evidence Hash",
+          "name": "DeprecatedSupportingEvidenceHash",
           "size": 32,
           "type": "bin"
         },
         {
-          "description": "The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.",
-          "label": "Ref Txs",
-          "name": "RefTxs",
+          "description": "Deprecated for a new data format for reference transactions. The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.",
+          "label": "Deprecated Ref Txs",
+          "name": "DeprecatedRefTxs",
           "notes": "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.",
           "type": "varbin",
           "varSize": "medium"
@@ -2056,6 +2099,32 @@
           "name": "Message",
           "type": "varchar",
           "varSize": "medium"
+        },
+        {
+          "description": "The data format of the supporting evidence field. 0 = no evidence data provided, 1 = markdown containing warrant, court order, etc.",
+          "label": "Supporting Evidence Format",
+          "name": "SupportingEvidenceFormat",
+          "options": [
+            0,
+            1
+          ],
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "Supporting evidence related to the order being requested.",
+          "label": "Supporting Evidence",
+          "name": "SupportingEvidence",
+          "size": "medium",
+          "type": "varbin"
+        },
+        {
+          "description": "The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.",
+          "label": "Reference Transactions",
+          "listSize": "medium",
+          "name": "ReferenceTransactions",
+          "notes": "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.",
+          "type": "ReferenceTransaction[]"
         }
       ],
       "label": "Order",

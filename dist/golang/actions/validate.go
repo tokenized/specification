@@ -22,14 +22,14 @@ func (a *ContractOffer) Validate() error {
 
 	// Field BodyOfAgreementType - uint
 	foundBodyOfAgreementType := false
-	for _, v := range []uint32{1, 2} {
+	for _, v := range []uint32{0, 1, 2} {
 		if a.BodyOfAgreementType == v {
 			foundBodyOfAgreementType = true
 			break
 		}
 	}
 	if !foundBodyOfAgreementType {
-		return fmt.Errorf("BodyOfAgreementType value not within options [1 2] : %d", a.BodyOfAgreementType)
+		return fmt.Errorf("BodyOfAgreementType value not within options [0 1 2] : %d", a.BodyOfAgreementType)
 	}
 
 	// Field BodyOfAgreement - varbin
@@ -153,14 +153,14 @@ func (a *ContractFormation) Validate() error {
 
 	// Field BodyOfAgreementType - uint
 	foundBodyOfAgreementType := false
-	for _, v := range []uint32{1, 2} {
+	for _, v := range []uint32{0, 1, 2} {
 		if a.BodyOfAgreementType == v {
 			foundBodyOfAgreementType = true
 			break
 		}
 	}
 	if !foundBodyOfAgreementType {
-		return fmt.Errorf("BodyOfAgreementType value not within options [1 2] : %d", a.BodyOfAgreementType)
+		return fmt.Errorf("BodyOfAgreementType value not within options [0 1 2] : %d", a.BodyOfAgreementType)
 	}
 
 	// Field BodyOfAgreement - varbin
@@ -895,15 +895,15 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.OrderSignature), max1ByteInteger)
 	}
 
-	// Field SupportingEvidenceHash - bin
-	if len(a.SupportingEvidenceHash) != 0 && len(a.SupportingEvidenceHash) != 32 {
-		return fmt.Errorf("Fixed width field SupportingEvidenceHash wrong size : %d should be %d",
-			len(a.SupportingEvidenceHash), 32)
+	// Field DeprecatedSupportingEvidenceHash - bin
+	if len(a.DeprecatedSupportingEvidenceHash) != 0 && len(a.DeprecatedSupportingEvidenceHash) != 32 {
+		return fmt.Errorf("Fixed width field DeprecatedSupportingEvidenceHash wrong size : %d should be %d",
+			len(a.DeprecatedSupportingEvidenceHash), 32)
 	}
 
-	// Field RefTxs - varbin
-	if len(a.RefTxs) > max4ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.RefTxs), max4ByteInteger)
+	// Field DeprecatedRefTxs - varbin
+	if len(a.DeprecatedRefTxs) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.DeprecatedRefTxs), max4ByteInteger)
 	}
 
 	// Field BitcoinDispersions - QuantityIndex
@@ -919,6 +919,33 @@ func (a *Order) Validate() error {
 	// Field Message - varchar
 	if len(a.Message) > max4ByteInteger {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.Message), max4ByteInteger)
+	}
+
+	// Field SupportingEvidenceFormat - uint
+	foundSupportingEvidenceFormat := false
+	for _, v := range []uint32{0, 1} {
+		if a.SupportingEvidenceFormat == v {
+			foundSupportingEvidenceFormat = true
+			break
+		}
+	}
+	if !foundSupportingEvidenceFormat {
+		return fmt.Errorf("SupportingEvidenceFormat value not within options [0 1] : %d", a.SupportingEvidenceFormat)
+	}
+
+	// Field SupportingEvidence - varbin
+	if len(a.SupportingEvidence) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.SupportingEvidence), max1ByteInteger)
+	}
+
+	// Field ReferenceTransactions - ReferenceTransaction
+	if len(a.ReferenceTransactions) > max4ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.ReferenceTransactions), max4ByteInteger)
+	}
+	for i, v := range a.ReferenceTransactions {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("ReferenceTransactions[%d] invalid : %s", i, err)
+		}
 	}
 
 	return nil
@@ -1456,6 +1483,11 @@ func (a *EntityField) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.DomainName), max1ByteInteger)
 	}
 
+	// Field ParentAddress - varbin
+	if len(a.ParentAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ParentAddress), max2ByteInteger)
+	}
+
 	return nil
 }
 
@@ -1500,6 +1532,23 @@ func (a *OracleField) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.PublicKey), max1ByteInteger)
 	}
 
+	// Field OracleType - uint
+	if len(a.OracleType) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.OracleType), max1ByteInteger)
+	}
+	for i, v := range a.OracleType {
+		foundOracleType := false
+		for _, o := range []uint32{0, 1, 2} {
+			if v == o {
+				foundOracleType = true
+				break
+			}
+		}
+		if !foundOracleType {
+			return fmt.Errorf("OracleType[%d] value not within options [0 1 2] : %d", i, a.OracleType)
+		}
+	}
+
 	return nil
 }
 
@@ -1514,6 +1563,24 @@ func (a *QuantityIndexField) Validate() error {
 	}
 
 	// Field Quantity - uint
+
+	return nil
+}
+
+func (a *ReferenceTransactionField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Transaction - varbin
+	if len(a.Transaction) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Transaction), max1ByteInteger)
+	}
+
+	// Field Outputs - varbin
+	if len(a.Outputs) > max4ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Outputs), max4ByteInteger)
+	}
 
 	return nil
 }

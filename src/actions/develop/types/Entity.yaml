@@ -103,3 +103,9 @@ fields:
     type: varchar
     varSize: tiny
     example: "tokenized.com"
+
+  - name: ParentAddress
+    label: Parent Address
+    description: "Address of parent contract. Refer to the entity specified in the contract at the address specified. When this field is present, no other fields should be included."
+    type: Address
+

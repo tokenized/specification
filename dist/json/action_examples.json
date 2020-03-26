@@ -24,6 +24,7 @@
             }
           ],
           "Name": "Tesla Inc.",
+          "ParentAddress": null,
           "PhoneNumber": "0448484848",
           "PostalZIPCode": "50210",
           "Street": "Fairmont Ave",
@@ -32,6 +33,9 @@
           "Type": "P",
           "UnitNumber": "2"
         },
+        "OracleType": [
+          null
+        ],
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
@@ -62,6 +66,7 @@
           }
         ],
         "Name": "Tesla Inc.",
+        "ParentAddress": null,
         "PhoneNumber": "0448484848",
         "PostalZIPCode": "50210",
         "Street": "Fairmont Ave",
@@ -95,6 +100,7 @@
           }
         ],
         "Name": "Tesla Inc.",
+        "ParentAddress": null,
         "PhoneNumber": "0448484848",
         "PostalZIPCode": "50210",
         "Street": "Fairmont Ave",
@@ -127,6 +133,7 @@
               }
             ],
             "Name": "Tesla Inc.",
+            "ParentAddress": null,
             "PhoneNumber": "0448484848",
             "PostalZIPCode": "50210",
             "Street": "Fairmont Ave",
@@ -135,6 +142,9 @@
             "Type": "P",
             "UnitNumber": "2"
           },
+          "OracleType": [
+            null
+          ],
           "PublicKey": null,
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
@@ -184,6 +194,7 @@
             }
           ],
           "Name": "Tesla Inc.",
+          "ParentAddress": null,
           "PhoneNumber": "0448484848",
           "PostalZIPCode": "50210",
           "Street": "Fairmont Ave",
@@ -192,6 +203,9 @@
           "Type": "P",
           "UnitNumber": "2"
         },
+        "OracleType": [
+          null
+        ],
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
@@ -222,6 +236,7 @@
           }
         ],
         "Name": "Tesla Inc.",
+        "ParentAddress": null,
         "PhoneNumber": "0448484848",
         "PostalZIPCode": "50210",
         "Street": "Fairmont Ave",
@@ -255,6 +270,7 @@
           }
         ],
         "Name": "Tesla Inc.",
+        "ParentAddress": null,
         "PhoneNumber": "0448484848",
         "PostalZIPCode": "50210",
         "Street": "Fairmont Ave",
@@ -287,6 +303,7 @@
               }
             ],
             "Name": "Tesla Inc.",
+            "ParentAddress": null,
             "PhoneNumber": "0448484848",
             "PostalZIPCode": "50210",
             "Street": "Fairmont Ave",
@@ -295,6 +312,9 @@
             "Type": "P",
             "UnitNumber": "2"
           },
+          "OracleType": [
+            null
+          ],
           "PublicKey": null,
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
@@ -372,6 +392,7 @@
             }
           ],
           "Name": "Tesla Inc.",
+          "ParentAddress": null,
           "PhoneNumber": "0448484848",
           "PostalZIPCode": "50210",
           "Street": "Fairmont Ave",
@@ -401,6 +422,7 @@
             }
           ],
           "Name": "Tesla Inc.",
+          "ParentAddress": null,
           "PhoneNumber": "0448484848",
           "PostalZIPCode": "50210",
           "Street": "Fairmont Ave",
@@ -409,6 +431,9 @@
           "Type": "P",
           "UnitNumber": "2"
         },
+        "OracleType": [
+          null
+        ],
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
@@ -643,13 +668,23 @@
       ],
       "ComplianceAction": "F",
       "DepositAddress": null,
+      "DeprecatedRefTxs": null,
+      "DeprecatedSupportingEvidenceHash": null,
       "FreezePeriod": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
       "FreezeTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
       "Message": "Compelled by a court order.",
       "OrderSignature": null,
-      "RefTxs": null,
+      "ReferenceTransactions": [
+        {
+          "Outputs": [
+            null
+          ],
+          "Transaction": "0"
+        }
+      ],
       "SignatureAlgorithm": "1",
-      "SupportingEvidenceHash": null,
+      "SupportingEvidence": null,
+      "SupportingEvidenceFormat": null,
       "TargetAddresses": [
         {
           "Address": null,

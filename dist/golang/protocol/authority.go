@@ -5,10 +5,11 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/tokenized/smart-contract/pkg/bitcoin"
+
 	"github.com/tokenized/specification/dist/golang/actions"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -25,7 +26,15 @@ func OrderAuthoritySigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 	digest.Write(contractAddress.Bytes())
 	digest.Write([]byte{byte(order.ComplianceAction[0])})
 	digest.Write(order.AssetCode)
-	digest.Write(order.SupportingEvidenceHash[:])
+	digest.Write(order.SupportingEvidence[:])
+
+	for _, refTx := range order.ReferenceTransactions {
+		data, err := proto.Marshal(refTx)
+		if err != nil {
+			return nil, errors.Wrap(err, "Failed to serialize reference transaction")
+		}
+		digest.Write(data)
+	}
 
 	err := binary.Write(digest, binary.LittleEndian, order.FreezePeriod)
 	if err != nil {
