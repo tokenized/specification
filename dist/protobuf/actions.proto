@@ -356,7 +356,7 @@ message EntityField {
     repeated AdministratorField Administration     = 13;  // Administrator[]
     repeated ManagerField Management               = 14;  // Manager[]
     string DomainName                              = 15;  // varchar
-    bytes ParentAddress                            = 16;  // Address
+    bytes EntityContractAddress                    = 16;  // Address
 }
 
 // Field - Manager

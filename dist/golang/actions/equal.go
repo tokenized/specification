@@ -1669,9 +1669,9 @@ func (l *EntityField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("DomainName string mismatched")
 	}
 
-	// Field ParentAddress - varbin
-	if !bytes.Equal(l.ParentAddress, r.ParentAddress) {
-		return false // fmt.Errorf("ParentAddress bytes mismatched")
+	// Field EntityContractAddress - varbin
+	if !bytes.Equal(l.EntityContractAddress, r.EntityContractAddress) {
+		return false // fmt.Errorf("EntityContractAddress bytes mismatched")
 	}
 
 	return true

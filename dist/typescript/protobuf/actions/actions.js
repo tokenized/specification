@@ -11417,7 +11417,7 @@ proto.actions.EntityField.toObject = function(includeInstance, msg) {
     managementList: jspb.Message.toObjectList(msg.getManagementList(),
     proto.actions.ManagerField.toObject, includeInstance),
     domainname: jspb.Message.getFieldWithDefault(msg, 15, ""),
-    parentaddress: msg.getParentaddress_asB64()
+    entitycontractaddress: msg.getEntitycontractaddress_asB64()
   };
 
   if (includeInstance) {
@@ -11518,7 +11518,7 @@ proto.actions.EntityField.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 16:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setParentaddress(value);
+      msg.setEntitycontractaddress(value);
       break;
     default:
       reader.skipField();
@@ -11655,7 +11655,7 @@ proto.actions.EntityField.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getParentaddress_asU8();
+  f = message.getEntitycontractaddress_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       16,
@@ -11927,40 +11927,40 @@ proto.actions.EntityField.prototype.setDomainname = function(value) {
 
 
 /**
- * optional bytes ParentAddress = 16;
+ * optional bytes EntityContractAddress = 16;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.EntityField.prototype.getParentaddress = function() {
+proto.actions.EntityField.prototype.getEntitycontractaddress = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 16, ""));
 };
 
 
 /**
- * optional bytes ParentAddress = 16;
- * This is a type-conversion wrapper around `getParentaddress()`
+ * optional bytes EntityContractAddress = 16;
+ * This is a type-conversion wrapper around `getEntitycontractaddress()`
  * @return {string}
  */
-proto.actions.EntityField.prototype.getParentaddress_asB64 = function() {
+proto.actions.EntityField.prototype.getEntitycontractaddress_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getParentaddress()));
+      this.getEntitycontractaddress()));
 };
 
 
 /**
- * optional bytes ParentAddress = 16;
+ * optional bytes EntityContractAddress = 16;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getParentaddress()`
+ * This is a type-conversion wrapper around `getEntitycontractaddress()`
  * @return {!Uint8Array}
  */
-proto.actions.EntityField.prototype.getParentaddress_asU8 = function() {
+proto.actions.EntityField.prototype.getEntitycontractaddress_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getParentaddress()));
+      this.getEntitycontractaddress()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.actions.EntityField.prototype.setParentaddress = function(value) {
+proto.actions.EntityField.prototype.setEntitycontractaddress = function(value) {
   jspb.Message.setField(this, 16, value);
 };
 

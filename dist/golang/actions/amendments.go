@@ -1011,7 +1011,7 @@ const (
 	EntityFieldAdministration             = uint32(13)
 	EntityFieldManagement                 = uint32(14)
 	EntityFieldDomainName                 = uint32(15)
-	EntityFieldParentAddress              = uint32(16)
+	EntityFieldEntityContractAddress      = uint32(16)
 )
 
 // ApplyAmendment updates a EntityField based on amendment data.
@@ -1162,8 +1162,8 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 		a.DomainName = string(data)
 		return fip[:], nil
 
-	case EntityFieldParentAddress: // bytes
-		a.ParentAddress = data
+	case EntityFieldEntityContractAddress: // bytes
+		a.EntityContractAddress = data
 		return fip[:], nil
 
 	}

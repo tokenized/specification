@@ -4124,12 +4124,12 @@ Entity represents the details of a legal Entity, such as a public or private com
     </tr>
 
     <tr>
-        <td>ParentAddress</td>
+        <td>EntityContractAddress</td>
         <td>
             <a href="#alias-address">Address</a>
         </td>
         <td>
-            Address of parent contract. Refer to the entity specified in the contract at the address specified. When this field is present, no other fields should be included.
+            Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.
             
         </td>
     </tr>

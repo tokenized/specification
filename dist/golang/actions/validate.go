@@ -1483,9 +1483,9 @@ func (a *EntityField) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.DomainName), max1ByteInteger)
 	}
 
-	// Field ParentAddress - varbin
-	if len(a.ParentAddress) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ParentAddress), max2ByteInteger)
+	// Field EntityContractAddress - varbin
+	if len(a.EntityContractAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContractAddress), max2ByteInteger)
 	}
 
 	return nil

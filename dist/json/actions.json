@@ -413,9 +413,9 @@
           "varSize": "tiny"
         },
         {
-          "description": "Address of parent contract. Refer to the entity specified in the contract at the address specified. When this field is present, no other fields should be included.",
-          "label": "Parent Address",
-          "name": "ParentAddress",
+          "description": "Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.",
+          "label": "Entity Contract Address",
+          "name": "EntityContractAddress",
           "type": "Address"
         }
       ],
