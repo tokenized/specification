@@ -10,7 +10,11 @@ import (
 // {{ $message.Name }} Permission / Amendment Field Indices
 const (
 {{- range $offset, $field := .Fields }}
+	{{- if eq .Type "deprecated" }}
+	Deprecated{{ $message.Name }}Field{{ $field.Name }} = uint32({{add $offset 1}})
+	{{- else }}
 	{{ $message.Name }}Field{{ $field.Name }} = uint32({{add $offset 1}})
+	{{- end}}
 {{- end }}
 )
 
@@ -24,8 +28,12 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip []uint32, operation uint32, dat
 
 	switch fip[0] {
 	{{- range $offset, $field := .Fields }}
+		{{- if eq .Type "deprecated" }}
+	case Deprecated{{ $message.Name }}Field{{ $field.Name }}: // {{ $field.GoType }}
+		{{- else }}
 	case {{ $message.Name }}Field{{ $field.Name }}: // {{ $field.GoType }}
 	{{- template "ApplyAmendmentField" $field }}
+		{{- end}}
 	{{ end }}
 	}
 
@@ -39,7 +47,11 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip []uint32, operation uint32, dat
 // {{ $message.Name }}Field Permission / Amendment Field Indices
 const (
 {{- range $offset, $field := .Fields }}
+	{{- if eq .Type "deprecated" }}
+	Deprecated{{ $message.Name }}Field{{ $field.Name }} = uint32({{add $offset 1}})
+	{{- else }}
 	{{ $message.Name }}Field{{ $field.Name }} = uint32({{add $offset 1}})
+	{{- end}}
 {{- end }}
 )
 
@@ -53,8 +65,12 @@ func (a *{{ $message.Name }}Field) ApplyAmendment(fip []uint32, operation uint32
 
 	switch fip[0] {
 	{{- range $offset, $field := .Fields }}
+		{{- if eq .Type "deprecated" }}
+	case Deprecated{{ $message.Name }}Field{{ $field.Name }}: // {{ $field.GoType }}
+		{{- else }}
 	case {{ $message.Name }}Field{{ $field.Name }}: // {{ $field.GoType }}
 	{{ template "ApplyAmendmentField" $field }}
+		{{- end}}
 	{{- end }}
 	}
 

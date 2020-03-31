@@ -895,17 +895,6 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.OrderSignature), max1ByteInteger)
 	}
 
-	// Field DeprecatedSupportingEvidenceHash - bin
-	if len(a.DeprecatedSupportingEvidenceHash) != 0 && len(a.DeprecatedSupportingEvidenceHash) != 32 {
-		return fmt.Errorf("Fixed width field DeprecatedSupportingEvidenceHash wrong size : %d should be %d",
-			len(a.DeprecatedSupportingEvidenceHash), 32)
-	}
-
-	// Field DeprecatedRefTxs - varbin
-	if len(a.DeprecatedRefTxs) > max4ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.DeprecatedRefTxs), max4ByteInteger)
-	}
-
 	// Field BitcoinDispersions - QuantityIndex
 	if len(a.BitcoinDispersions) > max2ByteInteger {
 		return fmt.Errorf("List over max length : %d > %d", len(a.BitcoinDispersions), max2ByteInteger)

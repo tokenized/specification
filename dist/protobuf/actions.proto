@@ -211,8 +211,8 @@ message Order {
     bytes AuthorityPublicKey                       = 9;   // varbin
     uint32 SignatureAlgorithm                      = 10;   // uint
     bytes OrderSignature                           = 11;  // varbin
-    bytes DeprecatedSupportingEvidenceHash         = 12;  // bin
-    bytes DeprecatedRefTxs                         = 13;  // varbin
+    reserved                                         12;  // Deprecated SupportingEvidenceHash
+    reserved                                         13;  // Deprecated RefTxs
     repeated QuantityIndexField BitcoinDispersions = 14;  // QuantityIndex[]
     string Message                                 = 15;  // varchar
     uint32 SupportingEvidenceFormat                = 16;  // uint

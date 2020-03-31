@@ -98,18 +98,16 @@ fields:
     description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Asset Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)"
     type: varbin
 
-  - name: DeprecatedSupportingEvidenceHash
-    label: Deprecated Supporting Evidence Hash
-    description: "Deprecated for new supporting evidence type and data fields. SHA-256: warrant, court order, etc."
-    type: bin
-    size: 32
+  - name: SupportingEvidenceHash
+    label: Supporting Evidence Hash
+    description: "Deprecated for new supporting evidence type and data fields (bin 32). SHA-256: warrant, court order, etc."
+    type: deprecated
 
-  - name: DeprecatedRefTxs
-    label: Deprecated Ref Txs
-    description: "Deprecated for a new data format for reference transactions. The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield."
-    type: varbin
-    varSize: medium
+  - name: RefTxs
+    label: Ref Txs
+    description: "Deprecated for a new data format for reference transactions (varbin medium). The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield."
     notes: "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event."
+    type: deprecated
 
   - name: BitcoinDispersions
     label: Bitcoin Dispersions

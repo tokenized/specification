@@ -2547,23 +2547,19 @@ Used by the administration to signal to the smart contract that the tokens that 
     </tr>
 
     <tr>
-        <td>DeprecatedSupportingEvidenceHash</td>
+        <td>(Deprecated)SupportingEvidenceHash</td>
+        <td>deprecated</td>
         <td>
-            bin(32)
-        </td>
-        <td>
-            Deprecated for new supporting evidence type and data fields. SHA-256: warrant, court order, etc.
+            Deprecated for new supporting evidence type and data fields (bin 32). SHA-256: warrant, court order, etc.
             
         </td>
     </tr>
 
     <tr>
-        <td>DeprecatedRefTxs</td>
+        <td>(Deprecated)RefTxs</td>
+        <td>deprecated</td>
         <td>
-            varbin(medium)
-        </td>
-        <td>
-            Deprecated for a new data format for reference transactions. The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
+            Deprecated for a new data format for reference transactions (varbin medium). The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
             Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.
         </td>
     </tr>

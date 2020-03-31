@@ -65,7 +65,9 @@ func (l *{{.Name}}) Equal(right proto.Message) bool {
 	}
 
 	{{ range .Fields }}
+		{{- if ne .Type "deprecated" }}
 		{{ template "EqualField" . -}}
+		{{- end }}
 	{{- end }}
 
 	return true
@@ -83,7 +85,9 @@ func (l *{{.Name}}Field) Equal(right proto.Message) bool {
 	}
 
 	{{ range .Fields }}
+		{{- if ne .Type "deprecated" }}
 		{{ template "EqualField" . -}}
+		{{- end }}
 	{{- end }}
 
 	return true
