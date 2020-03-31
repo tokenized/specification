@@ -6726,8 +6726,6 @@ proto.actions.Order.toObject = function(includeInstance, msg) {
     authoritypublickey: msg.getAuthoritypublickey_asB64(),
     signaturealgorithm: jspb.Message.getFieldWithDefault(msg, 10, 0),
     ordersignature: msg.getOrdersignature_asB64(),
-    deprecatedsupportingevidencehash: msg.getDeprecatedsupportingevidencehash_asB64(),
-    deprecatedreftxs: msg.getDeprecatedreftxs_asB64(),
     bitcoindispersionsList: jspb.Message.toObjectList(msg.getBitcoindispersionsList(),
     proto.actions.QuantityIndexField.toObject, includeInstance),
     message: jspb.Message.getFieldWithDefault(msg, 15, ""),
@@ -6815,14 +6813,6 @@ proto.actions.Order.deserializeBinaryFromReader = function(msg, reader) {
     case 11:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setOrdersignature(value);
-      break;
-    case 12:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setDeprecatedsupportingevidencehash(value);
-      break;
-    case 13:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setDeprecatedreftxs(value);
       break;
     case 14:
       var value = new proto.actions.QuantityIndexField;
@@ -6949,20 +6939,6 @@ proto.actions.Order.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeBytes(
       11,
-      f
-    );
-  }
-  f = message.getDeprecatedsupportingevidencehash_asU8();
-  if (f.length > 0) {
-    writer.writeBytes(
-      12,
-      f
-    );
-  }
-  f = message.getDeprecatedreftxs_asU8();
-  if (f.length > 0) {
-    writer.writeBytes(
-      13,
       f
     );
   }
@@ -7306,84 +7282,6 @@ proto.actions.Order.prototype.getOrdersignature_asU8 = function() {
 /** @param {!(string|Uint8Array)} value */
 proto.actions.Order.prototype.setOrdersignature = function(value) {
   jspb.Message.setField(this, 11, value);
-};
-
-
-/**
- * optional bytes DeprecatedSupportingEvidenceHash = 12;
- * @return {!(string|Uint8Array)}
- */
-proto.actions.Order.prototype.getDeprecatedsupportingevidencehash = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
-};
-
-
-/**
- * optional bytes DeprecatedSupportingEvidenceHash = 12;
- * This is a type-conversion wrapper around `getDeprecatedsupportingevidencehash()`
- * @return {string}
- */
-proto.actions.Order.prototype.getDeprecatedsupportingevidencehash_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getDeprecatedsupportingevidencehash()));
-};
-
-
-/**
- * optional bytes DeprecatedSupportingEvidenceHash = 12;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getDeprecatedsupportingevidencehash()`
- * @return {!Uint8Array}
- */
-proto.actions.Order.prototype.getDeprecatedsupportingevidencehash_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getDeprecatedsupportingevidencehash()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.actions.Order.prototype.setDeprecatedsupportingevidencehash = function(value) {
-  jspb.Message.setField(this, 12, value);
-};
-
-
-/**
- * optional bytes DeprecatedRefTxs = 13;
- * @return {!(string|Uint8Array)}
- */
-proto.actions.Order.prototype.getDeprecatedreftxs = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
-};
-
-
-/**
- * optional bytes DeprecatedRefTxs = 13;
- * This is a type-conversion wrapper around `getDeprecatedreftxs()`
- * @return {string}
- */
-proto.actions.Order.prototype.getDeprecatedreftxs_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getDeprecatedreftxs()));
-};
-
-
-/**
- * optional bytes DeprecatedRefTxs = 13;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getDeprecatedreftxs()`
- * @return {!Uint8Array}
- */
-proto.actions.Order.prototype.getDeprecatedreftxs_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getDeprecatedreftxs()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.actions.Order.prototype.setDeprecatedreftxs = function(value) {
-  jspb.Message.setField(this, 13, value);
 };
 
 

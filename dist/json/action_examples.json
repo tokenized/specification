@@ -656,6 +656,8 @@
     "label": "Order",
     "name": "Order",
     "fields": {
+      "(Deprecated)RefTxs": null,
+      "(Deprecated)SupportingEvidenceHash": null,
       "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
       "AssetType": "SHC",
       "AuthorityName": "Supreme and District Courts Brisbane",
@@ -668,8 +670,6 @@
       ],
       "ComplianceAction": "F",
       "DepositAddress": null,
-      "DeprecatedRefTxs": null,
-      "DeprecatedSupportingEvidenceHash": null,
       "FreezePeriod": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
       "FreezeTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
       "Message": "Compelled by a court order.",

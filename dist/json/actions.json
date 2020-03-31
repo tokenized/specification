@@ -2071,19 +2071,17 @@
           "type": "varbin"
         },
         {
-          "description": "Deprecated for new supporting evidence type and data fields. SHA-256: warrant, court order, etc.",
-          "label": "Deprecated Supporting Evidence Hash",
-          "name": "DeprecatedSupportingEvidenceHash",
-          "size": 32,
-          "type": "bin"
+          "description": "Deprecated for new supporting evidence type and data fields (bin 32). SHA-256: warrant, court order, etc.",
+          "label": "Supporting Evidence Hash",
+          "name": "SupportingEvidenceHash",
+          "type": "deprecated"
         },
         {
-          "description": "Deprecated for a new data format for reference transactions. The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.",
-          "label": "Deprecated Ref Txs",
-          "name": "DeprecatedRefTxs",
+          "description": "Deprecated for a new data format for reference transactions (varbin medium). The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.",
+          "label": "Ref Txs",
+          "name": "RefTxs",
           "notes": "Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.",
-          "type": "varbin",
-          "varSize": "medium"
+          "type": "deprecated"
         },
         {
           "description": "Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens.",

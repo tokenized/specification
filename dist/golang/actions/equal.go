@@ -1020,16 +1020,6 @@ func (l *Order) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("OrderSignature bytes mismatched")
 	}
 
-	// Field DeprecatedSupportingEvidenceHash - bin
-	if !bytes.Equal(l.DeprecatedSupportingEvidenceHash, r.DeprecatedSupportingEvidenceHash) {
-		return false // fmt.Errorf("DeprecatedSupportingEvidenceHash bytes mismatched")
-	}
-
-	// Field DeprecatedRefTxs - varbin
-	if !bytes.Equal(l.DeprecatedRefTxs, r.DeprecatedRefTxs) {
-		return false // fmt.Errorf("DeprecatedRefTxs bytes mismatched")
-	}
-
 	// Field BitcoinDispersions - QuantityIndex
 	if len(l.BitcoinDispersions) != len(r.BitcoinDispersions) {
 		return false // fmt.Errorf("List length mismatched")

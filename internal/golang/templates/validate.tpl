@@ -153,7 +153,9 @@ func (a *{{.Name}}) Validate() error {
         return nil
     }
     {{ range .Fields }}
+        {{- if ne .Type "deprecated" }}
         {{ template "ValidateField" . -}}
+        {{- end }}
     {{- end }}
 
     return nil
@@ -166,7 +168,9 @@ func (a *{{.Name}}Field) Validate() error {
         return nil
     }
     {{ range .Fields }}
+        {{- if ne .Type "deprecated" }}
         {{ template "ValidateField" . -}}
+        {{- end }}
     {{- end }}
 
     return nil
