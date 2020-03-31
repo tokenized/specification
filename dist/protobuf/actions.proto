@@ -211,10 +211,13 @@ message Order {
     bytes AuthorityPublicKey                       = 9;   // varbin
     uint32 SignatureAlgorithm                      = 10;   // uint
     bytes OrderSignature                           = 11;  // varbin
-    bytes SupportingEvidenceHash                   = 12;  // bin
-    bytes RefTxs                                   = 13;  // varbin
+    bytes DeprecatedSupportingEvidenceHash         = 12;  // bin
+    bytes DeprecatedRefTxs                         = 13;  // varbin
     repeated QuantityIndexField BitcoinDispersions = 14;  // QuantityIndex[]
     string Message                                 = 15;  // varchar
+    uint32 SupportingEvidenceFormat                = 16;  // uint
+    bytes SupportingEvidence                       = 17;  // varbin
+    repeated ReferenceTransactionField ReferenceTransactions = 18;  // ReferenceTransaction[]
 }
 
 // Message - Freeze (E2)
@@ -353,6 +356,7 @@ message EntityField {
     repeated AdministratorField Administration     = 13;  // Administrator[]
     repeated ManagerField Management               = 14;  // Manager[]
     string DomainName                              = 15;  // varchar
+    bytes EntityContractAddress                    = 16;  // Address
 }
 
 // Field - Manager
@@ -366,12 +370,19 @@ message OracleField {
     EntityField Entity                             = 1;   // Entity
     string URL                                     = 2;   // varchar
     bytes PublicKey                                = 3;   // varbin
+    repeated uint32 OracleType                     = 4;   // uint[]
 }
 
 // Field - Quantity Index
 message QuantityIndexField {
     uint32 Index                                   = 1;   // uint
     uint64 Quantity                                = 2;   // uint
+}
+
+// Field - Reference Transaction
+message ReferenceTransactionField {
+    bytes Transaction                              = 1;   // varbin
+    repeated bytes Outputs                         = 2;   // varbin[]
 }
 
 // Field - Target Address

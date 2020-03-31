@@ -26,6 +26,15 @@ const (
 	Code{{.Name}} = "{{.Code}}"
 {{ end }}
 
+	// OracleTypeIdentity identifies an identity oracle
+	OracleTypeIdentity = uint32(0)
+
+	// OracleTypeAuthority identifies an authority oracle
+	OracleTypeAuthority = uint32(1)
+
+	// OracleTypeEvent identifies an event oracle
+	OracleTypeEvent = uint32(2)
+
 	// ComplianceActionFreeze identifies a freeze type
 	ComplianceActionFreeze = "F"
 
