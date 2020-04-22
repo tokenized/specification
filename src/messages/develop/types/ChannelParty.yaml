@@ -1,0 +1,16 @@
+
+name: ChannelParty
+label: Channel Party
+description: "Information about an entity in a channel."
+
+fields:
+  - name: AdministrativeAddress
+    label: Administrative Address
+    description: "The address representing the locking script that is required to perform entity administrative level operations on a channel. Such as add/remove a member, accept/reject proposals, and requesting/receiving payments. This is recommended to be an m of n multi-signature address."
+    type: Address
+
+  - name: OutputIndex
+    label: Output Index
+    description: "Specifies the output containing the locking script for the party. It should also be included in the M1 ReceiverIndexes. That output must respond with a proof of identity that identifies the company involved."
+    type: uint
+    size: 4

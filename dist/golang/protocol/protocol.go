@@ -82,6 +82,17 @@ func Deserialize(script []byte, isTest bool) (actions.Action, error) {
 	return actions.Deserialize(message.PayloadIdentifier(), message.Payload())
 }
 
+// SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
+//   message.
+func SerializeFlagOutputScript(flag []byte) ([]byte, error) {
+	message := v0.NewMessage([]byte("F"), uint64(0), flag)
+	var buf bytes.Buffer
+	if err := message.Serialize(&buf); err != nil {
+		return nil, errors.Wrap(err, "Failed to serialize flag envelope")
+	}
+	return buf.Bytes(), nil
+}
+
 // ------------------------------------------------------------------------------------------------
 // TxId represents a Bitcoin transaction ID. (Double SHA256 of tx data)
 type TxId struct {

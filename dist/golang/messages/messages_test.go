@@ -76,4 +76,54 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for OutputMetadata")
 	}
 
+	// InitiateRelationship identifies a payload as a InitiateRelationship message.
+	messageInitiateRelationship, err := Deserialize(CodeInitiateRelationship, nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for InitiateRelationship : %s", err)
+	}
+	_, ok = messageInitiateRelationship.(*InitiateRelationship)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for InitiateRelationship")
+	}
+
+	// PendingAcceptRelationship identifies a payload as a PendingAcceptRelationship message.
+	messagePendingAcceptRelationship, err := Deserialize(CodePendingAcceptRelationship, nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for PendingAcceptRelationship : %s", err)
+	}
+	_, ok = messagePendingAcceptRelationship.(*PendingAcceptRelationship)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for PendingAcceptRelationship")
+	}
+
+	// AcceptRelationship identifies a payload as a AcceptRelationship message.
+	messageAcceptRelationship, err := Deserialize(CodeAcceptRelationship, nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for AcceptRelationship : %s", err)
+	}
+	_, ok = messageAcceptRelationship.(*AcceptRelationship)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for AcceptRelationship")
+	}
+
+	// RelationshipAmendment identifies a payload as a RelationshipAmendment message.
+	messageRelationshipAmendment, err := Deserialize(CodeRelationshipAmendment, nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for RelationshipAmendment : %s", err)
+	}
+	_, ok = messageRelationshipAmendment.(*RelationshipAmendment)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for RelationshipAmendment")
+	}
+
+	// InitiateThread identifies a payload as a InitiateThread message.
+	messageInitiateThread, err := Deserialize(CodeInitiateThread, nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for InitiateThread : %s", err)
+	}
+	_, ok = messageInitiateThread.(*InitiateThread)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for InitiateThread")
+	}
+
 }

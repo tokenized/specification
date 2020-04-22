@@ -1,0 +1,15 @@
+
+name: Period
+label: Period
+description: "A period of time. Begin and end can be optional depending on context."
+
+fields:
+  - name: Begin
+    label: Begin
+    description: "The start of the period"
+    type: Timestamp
+
+  - name: End
+    label: End
+    description: "The end of the period"
+    type: Timestamp

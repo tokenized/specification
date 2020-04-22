@@ -64,16 +64,16 @@ const (
             INVALID VARIABLE SIZE : {{ .BaseVarSize }}
             {{- end }}
         {{- else if eq .BaseType "uint" }}
-            {{- if gt (len .Options) 0 }}
+            {{- if gt (len .BaseOptions) 0 }}
             found{{ .Name }} := false
-            for _, o := range []{{ .GoSingularType }}{ {{ template "ListValues" .Options }} } {
+            for _, o := range []{{ .GoSingularType }}{ {{ template "ListValues" .BaseOptions }} } {
                 if v == o {
                     found{{ .Name }} = true
                     break
                 }
             }
             if !found{{ .Name }} {
-                return fmt.Errorf("{{ .Name }}[%d] value not within options {{ .Options }} : %d", i, a.{{ .Name }})
+                return fmt.Errorf("{{ .Name }}[%d] value not within options {{ .BaseOptions }} : %d", i, a.{{ .Name }})
             }
             {{- else if le .BaseSize 1 }}
             if v > uint32(max1ByteInteger) {
@@ -119,16 +119,16 @@ const (
         INVALID VARIABLE SIZE : {{ .BaseVarSize }}
             {{- end }}
         {{- else if eq .BaseType "uint" }}
-            {{- if gt (len .Options) 0 }}
+            {{- if gt (len .BaseOptions) 0 }}
         found{{ .Name }} := false
-        for _, v := range []{{ .GoType }}{ {{ template "ListValues" .Options }} } {
+        for _, v := range []{{ .GoType }}{ {{ template "ListValues" .BaseOptions }} } {
             if a.{{ .Name }} == v {
                 found{{ .Name }} = true
                 break
             }
         }
         if !found{{ .Name }} {
-            return fmt.Errorf("{{ .Name }} value not within options {{ .Options }} : %d", a.{{ .Name }})
+            return fmt.Errorf("{{ .Name }} value not within options {{ .BaseOptions }} : %d", a.{{ .Name }})
         }
             {{- else if le .BaseSize 1 }}
         if a.{{ .Name }} > uint32(max1ByteInteger) {

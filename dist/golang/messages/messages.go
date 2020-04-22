@@ -41,6 +41,21 @@ const (
 
 	// CodeOutputMetadata identifies a payload as a OutputMetadata message.
 	CodeOutputMetadata = uint32(1004)
+
+	// CodeInitiateRelationship identifies a payload as a InitiateRelationship message.
+	CodeInitiateRelationship = uint32(2001)
+
+	// CodePendingAcceptRelationship identifies a payload as a PendingAcceptRelationship message.
+	CodePendingAcceptRelationship = uint32(2002)
+
+	// CodeAcceptRelationship identifies a payload as a AcceptRelationship message.
+	CodeAcceptRelationship = uint32(2003)
+
+	// CodeRelationshipAmendment identifies a payload as a RelationshipAmendment message.
+	CodeRelationshipAmendment = uint32(2004)
+
+	// CodeInitiateThread identifies a payload as a InitiateThread message.
+	CodeInitiateThread = uint32(2005)
 )
 
 // NewMessageFromCode returns a new object of the correct type for the code.
@@ -60,6 +75,16 @@ func NewMessageFromCode(code uint32) Message {
 		return &SettlementRequest{}
 	case CodeOutputMetadata:
 		return &OutputMetadata{}
+	case CodeInitiateRelationship:
+		return &InitiateRelationship{}
+	case CodePendingAcceptRelationship:
+		return &PendingAcceptRelationship{}
+	case CodeAcceptRelationship:
+		return &AcceptRelationship{}
+	case CodeRelationshipAmendment:
+		return &RelationshipAmendment{}
+	case CodeInitiateThread:
+		return &InitiateThread{}
 	default:
 		return nil
 	}
@@ -208,6 +233,101 @@ func (a *OutputMetadata) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize OutputMetadata")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *InitiateRelationship) Code() uint32 {
+	return CodeInitiateRelationship
+}
+
+func (a *InitiateRelationship) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *InitiateRelationship) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize InitiateRelationship")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *PendingAcceptRelationship) Code() uint32 {
+	return CodePendingAcceptRelationship
+}
+
+func (a *PendingAcceptRelationship) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *PendingAcceptRelationship) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize PendingAcceptRelationship")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *AcceptRelationship) Code() uint32 {
+	return CodeAcceptRelationship
+}
+
+func (a *AcceptRelationship) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *AcceptRelationship) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize AcceptRelationship")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *RelationshipAmendment) Code() uint32 {
+	return CodeRelationshipAmendment
+}
+
+func (a *RelationshipAmendment) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *RelationshipAmendment) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize RelationshipAmendment")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *InitiateThread) Code() uint32 {
+	return CodeInitiateThread
+}
+
+func (a *InitiateThread) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *InitiateThread) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize InitiateThread")
 	}
 
 	_, err = buf.Write(data)

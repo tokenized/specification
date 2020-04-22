@@ -1,0 +1,36 @@
+
+name: IdentityOracleProof
+label: Identity Oracle Proof
+description: "A proof of identity based on identity oracles."
+
+fields:
+  - name: UserID
+    label: User ID
+    description: "The user id (UUID) in the identity oracle system. Used to request the entity data."
+    type: varbin
+
+  - name: EntityContractAddress
+    label: Entity Contract Address
+    description: "Address of entity contract. Can be used instead of a User ID. This field refers to the entity specified in the contract at the address specified."
+    type: Address
+
+  # Not allowed by GDPR
+  # - name: Entity
+  #   label: Entity
+  #   description: "The entity data structure of the identity being proven used in the oracle signature hash."
+  #   type: varbin
+
+  - name: ValidityPeriod
+    label: Validity Period
+    description: "The time frame that the proof is valid."
+    type: Period
+
+  - name: OracleSignature
+    label: OracleSignature
+    description: "Signature of the serialized entity, public key, and block hash with the identity oracle's public key."
+    type: OracleSignature
+
+  - name: IdentitySignature
+    label: IdentitySignature
+    description: "Signature of the relevent data (dependent on containing structure and context) with the public key of the identity being proven."
+    type: varbin

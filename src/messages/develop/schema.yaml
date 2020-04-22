@@ -20,6 +20,11 @@ messages:
   - "commercial/1002 - Signature Request"
   - "commercial/1003 - Settlement Request"
   - "commercial/1004 - Output Metadata"
+  - "relationships/2001 - Initiate Relationship"
+  - "relationships/2002 - Pending Accept Relationship"
+  - "relationships/2003 - Accept Relationship"
+  - "relationships/2004 - Relationship Amendment"
+  - "relationships/2005 - Initiate Thread"
 
 # Register Resources
 resources:
@@ -27,9 +32,14 @@ resources:
 
 # Register Field Types
 fieldTypes:
+  - "types/ChannelParty"
+  - "types/Document"
+  - "types/IdentityOracleProof"
+  - "types/OracleSignature"
   - "types/Outpoint"
   - "types/OutputTag"
-  - "types/Document"
+  - "types/PaymailProof"
+  - "types/Period"
   - "types/TargetAddress"
 
 # Define Field Aliases
@@ -56,3 +66,12 @@ fieldAliases:
     size: 32
     description: "Represents a Bitcoin transaction ID, the double SHA256 hash of the serialized transaction."
     example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+
+  - name: ProofOfIdentityType
+    description: "The type/format of the sender's proof of identity. 0 - not included, 1 - PaymailProof, 2 - IdentityOracleProof"
+    type: uint
+    size: 1
+    options:
+      - 0
+      - 1
+      - 2

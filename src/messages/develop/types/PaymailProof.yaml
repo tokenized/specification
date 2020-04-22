@@ -1,0 +1,32 @@
+
+name: PaymailProof
+label: Paymail Proof
+description: "A proof of identity based on paymail."
+
+fields:
+  - name: UserID
+    label: User ID
+    description: "The user id (UUID) in the identity oracle system. Used to request the entity data."
+    type: varbin
+
+  # Not allowed by GDPR
+  # - name: Handle
+  #   label: Handle
+  #   description: "Paymail handle in the form {alias}@{domain}.{tld}"
+  #   type: varchar
+  #   example: "john@tokenized.com"
+
+  - name: PublicKey
+    label: Public Key
+    description: "The compressed PKI public key for the paymail handle. To be verified with the PKI endpoint. Included here for recovery purposes."
+    type: varbin
+
+  - name: ValidityPeriod
+    label: Validity Period
+    description: "The time frame that the proof is valid."
+    type: Period
+
+  - name: OracleSignature
+    label: OracleSignature
+    description: "Signature of the serialized entity, public key, and block hash with the identity oracle's public key."
+    type: OracleSignature

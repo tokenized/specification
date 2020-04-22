@@ -192,6 +192,254 @@ func (a *OutputMetadata) Validate() error {
 	return nil
 }
 
+func (a *InitiateRelationship) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Type - uint
+	foundType := false
+	for _, v := range []uint32{0, 1} {
+		if a.Type == v {
+			foundType = true
+			break
+		}
+	}
+	if !foundType {
+		return fmt.Errorf("Type value not within options [0 1] : %d", a.Type)
+	}
+
+	// Field SeedValue - varbin
+	if len(a.SeedValue) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.SeedValue), max1ByteInteger)
+	}
+
+	// Field BaseEncryptionSecret - varbin
+	if len(a.BaseEncryptionSecret) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.BaseEncryptionSecret), max1ByteInteger)
+	}
+
+	// Field FlagValue - varbin
+	if len(a.FlagValue) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.FlagValue), max1ByteInteger)
+	}
+
+	// Field ProofOfIdentityType - uint
+	foundProofOfIdentityType := false
+	for _, v := range []uint32{0, 1, 2} {
+		if a.ProofOfIdentityType == v {
+			foundProofOfIdentityType = true
+			break
+		}
+	}
+	if !foundProofOfIdentityType {
+		return fmt.Errorf("ProofOfIdentityType value not within options [0 1 2] : %d", a.ProofOfIdentityType)
+	}
+
+	// Field ProofOfIdentity - varbin
+	if len(a.ProofOfIdentity) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ProofOfIdentity), max1ByteInteger)
+	}
+
+	// Field ChannelParties - ChannelParty
+	if len(a.ChannelParties) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.ChannelParties), max1ByteInteger)
+	}
+	for i, v := range a.ChannelParties {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("ChannelParties[%d] invalid : %s", i, err)
+		}
+	}
+
+	return nil
+}
+
+func (a *PendingAcceptRelationship) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field ProofOfIdentityType - uint
+	foundProofOfIdentityType := false
+	for _, v := range []uint32{0, 1, 2} {
+		if a.ProofOfIdentityType == v {
+			foundProofOfIdentityType = true
+			break
+		}
+	}
+	if !foundProofOfIdentityType {
+		return fmt.Errorf("ProofOfIdentityType value not within options [0 1 2] : %d", a.ProofOfIdentityType)
+	}
+
+	// Field ProofOfIdentity - varbin
+	if len(a.ProofOfIdentity) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ProofOfIdentity), max1ByteInteger)
+	}
+
+	return nil
+}
+
+func (a *AcceptRelationship) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field ProofOfIdentityType - uint
+	foundProofOfIdentityType := false
+	for _, v := range []uint32{0, 1, 2} {
+		if a.ProofOfIdentityType == v {
+			foundProofOfIdentityType = true
+			break
+		}
+	}
+	if !foundProofOfIdentityType {
+		return fmt.Errorf("ProofOfIdentityType value not within options [0 1 2] : %d", a.ProofOfIdentityType)
+	}
+
+	// Field ProofOfIdentity - varbin
+	if len(a.ProofOfIdentity) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ProofOfIdentity), max1ByteInteger)
+	}
+
+	return nil
+}
+
+func (a *RelationshipAmendment) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field SeedValue - varbin
+	if len(a.SeedValue) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.SeedValue), max1ByteInteger)
+	}
+
+	// Field BaseEncryptionSecret - varbin
+	if len(a.BaseEncryptionSecret) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.BaseEncryptionSecret), max1ByteInteger)
+	}
+
+	// Field AddMemberIndexes - uint
+
+	// Field DropMemberIndexes - uint
+
+	return nil
+}
+
+func (a *InitiateThread) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field FlagValue - varbin
+	if len(a.FlagValue) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.FlagValue), max1ByteInteger)
+	}
+
+	// Field SeedValue - varbin
+	if len(a.SeedValue) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.SeedValue), max1ByteInteger)
+	}
+
+	return nil
+}
+
+func (a *ChannelPartyField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field AdministrativeAddress - varbin
+	if len(a.AdministrativeAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AdministrativeAddress), max2ByteInteger)
+	}
+
+	// Field OutputIndex - uint
+
+	return nil
+}
+
+func (a *DocumentField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Name), max1ByteInteger)
+	}
+
+	// Field Type - varchar
+	if len(a.Type) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Type), max1ByteInteger)
+	}
+
+	// Field Contents - varbin
+	if len(a.Contents) > max4ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Contents), max4ByteInteger)
+	}
+
+	return nil
+}
+
+func (a *IdentityOracleProofField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field UserID - varbin
+	if len(a.UserID) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.UserID), max1ByteInteger)
+	}
+
+	// Field EntityContractAddress - varbin
+	if len(a.EntityContractAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContractAddress), max2ByteInteger)
+	}
+
+	// Field ValidityPeriod - Period
+	if err := a.ValidityPeriod.Validate(); err != nil {
+		return fmt.Errorf("ValidityPeriod invalid : %s", err)
+	}
+
+	// Field OracleSignature - OracleSignature
+	if err := a.OracleSignature.Validate(); err != nil {
+		return fmt.Errorf("OracleSignature invalid : %s", err)
+	}
+
+	// Field IdentitySignature - varbin
+	if len(a.IdentitySignature) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.IdentitySignature), max1ByteInteger)
+	}
+
+	return nil
+}
+
+func (a *OracleSignatureField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field OracleURL - varchar
+	if len(a.OracleURL) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.OracleURL), max1ByteInteger)
+	}
+
+	// Field BlockHeight - uint
+
+	// Field SignatureAlgorithm - uint
+	if a.SignatureAlgorithm > uint32(max1ByteInteger) {
+		return fmt.Errorf("uint over max value : %d > %d", a.SignatureAlgorithm, max1ByteInteger)
+	}
+
+	// Field Signature - varbin
+	if len(a.Signature) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Signature), max1ByteInteger)
+	}
+
+	return nil
+}
+
 func (a *OutpointField) Validate() error {
 	if a == nil {
 		return nil
@@ -221,25 +469,42 @@ func (a *OutputTagField) Validate() error {
 	return nil
 }
 
-func (a *DocumentField) Validate() error {
+func (a *PaymailProofField) Validate() error {
 	if a == nil {
 		return nil
 	}
 
-	// Field Name - varchar
-	if len(a.Name) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Name), max1ByteInteger)
+	// Field UserID - varbin
+	if len(a.UserID) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.UserID), max1ByteInteger)
 	}
 
-	// Field Type - varchar
-	if len(a.Type) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Type), max1ByteInteger)
+	// Field PublicKey - varbin
+	if len(a.PublicKey) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.PublicKey), max1ByteInteger)
 	}
 
-	// Field Contents - varbin
-	if len(a.Contents) > max4ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Contents), max4ByteInteger)
+	// Field ValidityPeriod - Period
+	if err := a.ValidityPeriod.Validate(); err != nil {
+		return fmt.Errorf("ValidityPeriod invalid : %s", err)
 	}
+
+	// Field OracleSignature - OracleSignature
+	if err := a.OracleSignature.Validate(); err != nil {
+		return fmt.Errorf("OracleSignature invalid : %s", err)
+	}
+
+	return nil
+}
+
+func (a *PeriodField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Begin - uint
+
+	// Field End - uint
 
 	return nil
 }

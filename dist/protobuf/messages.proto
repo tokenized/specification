@@ -53,6 +53,73 @@ message OutputMetadata {
     repeated OutputTagField CustomTags             = 3;   // OutputTag[]
 }
 
+// Message - Initiate Relationship (2001)
+message InitiateRelationship {
+    uint32 Type                                    = 1;   // uint
+    bytes SeedValue                                = 2;   // varbin
+    bytes BaseEncryptionSecret                     = 3;   // varbin
+    bytes FlagValue                                = 4;   // varbin
+    uint32 ProofOfIdentityType                     = 5;   // ProofOfIdentityType
+    bytes ProofOfIdentity                          = 6;   // varbin
+    repeated ChannelPartyField ChannelParties      = 7;   // ChannelParty[]
+}
+
+// Message - Pending Accept Relationship (2002)
+message PendingAcceptRelationship {
+    uint32 ProofOfIdentityType                     = 1;   // ProofOfIdentityType
+    bytes ProofOfIdentity                          = 2;   // varbin
+}
+
+// Message - Accept Relationship (2003)
+message AcceptRelationship {
+    uint32 ProofOfIdentityType                     = 1;   // ProofOfIdentityType
+    bytes ProofOfIdentity                          = 2;   // varbin
+}
+
+// Message - Relationship Amendment (2004)
+message RelationshipAmendment {
+    bytes SeedValue                                = 1;   // varbin
+    bytes BaseEncryptionSecret                     = 2;   // varbin
+    uint32 AddMemberIndexes                        = 3;   // uint
+    uint32 DropMemberIndexes                       = 4;   // uint
+}
+
+// Message - Initiate Thread (2005)
+message InitiateThread {
+    bytes FlagValue                                = 1;   // varbin
+    bytes SeedValue                                = 2;   // varbin
+}
+
+
+// Field - Channel Party
+message ChannelPartyField {
+    bytes AdministrativeAddress                    = 1;   // Address
+    uint32 OutputIndex                             = 2;   // uint
+}
+
+// Field - Document
+message DocumentField {
+    string Name                                    = 1;   // varchar
+    string Type                                    = 2;   // varchar
+    bytes Contents                                 = 3;   // varbin
+}
+
+// Field - Identity Oracle Proof
+message IdentityOracleProofField {
+    bytes UserID                                   = 1;   // varbin
+    bytes EntityContractAddress                    = 2;   // Address
+    PeriodField ValidityPeriod                     = 3;   // Period
+    OracleSignatureField OracleSignature           = 4;   // OracleSignature
+    bytes IdentitySignature                        = 5;   // varbin
+}
+
+// Field - Oracle Signature
+message OracleSignatureField {
+    string OracleURL                               = 1;   // varchar
+    uint32 BlockHeight                             = 2;   // uint
+    uint32 SignatureAlgorithm                      = 3;   // uint
+    bytes Signature                                = 4;   // varbin
+}
 
 // Field - Outpoint
 message OutpointField {
@@ -65,11 +132,18 @@ message OutputTagField {
     string Tag                                     = 1;   // varchar
 }
 
-// Field - Document
-message DocumentField {
-    string Name                                    = 1;   // varchar
-    string Type                                    = 2;   // varchar
-    bytes Contents                                 = 3;   // varbin
+// Field - Paymail Proof
+message PaymailProofField {
+    bytes UserID                                   = 1;   // varbin
+    bytes PublicKey                                = 2;   // varbin
+    PeriodField ValidityPeriod                     = 3;   // Period
+    OracleSignatureField OracleSignature           = 4;   // OracleSignature
+}
+
+// Field - Period
+message PeriodField {
+    uint64 Begin                                   = 1;   // Timestamp
+    uint64 End                                     = 2;   // Timestamp
 }
 
 // Field - Target Address
