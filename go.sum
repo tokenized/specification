@@ -76,6 +76,10 @@ github.com/tokenized/envelope v0.1.2-0.20200103012116-ebae93ae4473 h1:5pNvxZtHM0
 github.com/tokenized/envelope v0.1.2-0.20200103012116-ebae93ae4473/go.mod h1:YQ1gXewBgeEQ61Ybq9iPP8GpFN5LUO2NGzBQ8RrmYGU=
 github.com/tokenized/envelope v0.2.1 h1:XlFgOF/DX0FrdNMJ/LBr3sg/rq/llTyzTmirJQkChmk=
 github.com/tokenized/envelope v0.2.1/go.mod h1:dToZvQ7rTs9Jp8YdxOMdrSeXMYb/FXrCp3dX0Bn4wvk=
+github.com/tokenized/envelope v0.2.2-0.20200427054553-36c9899eae33 h1:qk07aKyRqHFoAyprfwMxIwp1Y9bKzA9S6bP6M2/kqBI=
+github.com/tokenized/envelope v0.2.2-0.20200427054553-36c9899eae33/go.mod h1:dToZvQ7rTs9Jp8YdxOMdrSeXMYb/FXrCp3dX0Bn4wvk=
+github.com/tokenized/envelope v0.2.2-0.20200427055302-06c4c661251e h1:M9T7RT6ypwEyGWtp+NHGtG8VLpE45zmcqk2z04ywG5o=
+github.com/tokenized/envelope v0.2.2-0.20200427055302-06c4c661251e/go.mod h1:dCXzWP+jNQPW087Fw25NVxKRs84Vz74gDmG8iqBuJjs=
 github.com/tokenized/smart-contract v0.2.1 h1:ICKvt2E+UncONoCoyncNEhgkvX2sr95G285gkSeTeVY=
 github.com/tokenized/smart-contract v0.2.1/go.mod h1:ToCFL/fnDCngqmv1bm8klYaJGueje/26qoImoPe+aFs=
 github.com/tokenized/smart-contract v0.2.2-0.20200103005916-b230b5e28e16/go.mod h1:3oWcq6AOuFrBBe/Vz1a9ucjM3kKSjjo8n2B1n+Sr+X0=
@@ -83,6 +87,8 @@ github.com/tokenized/smart-contract v0.2.2-0.20200105215152-0ca6d7ce006b h1:r70B
 github.com/tokenized/smart-contract v0.2.2-0.20200105215152-0ca6d7ce006b/go.mod h1:3oWcq6AOuFrBBe/Vz1a9ucjM3kKSjjo8n2B1n+Sr+X0=
 github.com/tokenized/smart-contract v0.2.3-0.20200421070319-d78f649c0bb5 h1:IX2JIbyv+TpU1RHQf0j4tQoQDO2lB2lKvKcTNCDnCng=
 github.com/tokenized/smart-contract v0.2.3-0.20200421070319-d78f649c0bb5/go.mod h1:Vr7VsqpYHPT+TOZuepR2iCjT7p1JIfG9uMqjcKCkzhM=
+github.com/tokenized/smart-contract v0.2.3-0.20200427054402-537a79c73c13 h1:gysfLLi7g0Z2a7qg9P7FRGXClgL493Q/2g4yi4FOKSU=
+github.com/tokenized/smart-contract v0.2.3-0.20200427054402-537a79c73c13/go.mod h1:Vr7VsqpYHPT+TOZuepR2iCjT7p1JIfG9uMqjcKCkzhM=
 github.com/tokenized/specification v0.2.2-0.20191219061451-ecd0fc17c3ca/go.mod h1:8QHhqLHxThlZ3hEGD69UhAuj/AChbCWLNUrr1YNk46E=
 github.com/tokenized/specification v0.2.3-0.20200331020322-b65a25099cf8/go.mod h1:2Zsv/mL98DWvoe8wjq5gbRnM2X4Ai7JeideRQ+Y1qCg=
 github.com/tyler-smith/go-bip32 v0.0.0-20170922074101-2c9cfd177564 h1:NXXyQVeRVLK8Xu27/hkkjwVOZLk5v4ZBEvvMtqMqznM=

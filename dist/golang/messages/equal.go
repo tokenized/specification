@@ -249,11 +249,6 @@ func (l *InitiateRelationship) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("SeedValue bytes mismatched")
 	}
 
-	// Field BaseEncryptionSecret - varbin
-	if !bytes.Equal(l.BaseEncryptionSecret, r.BaseEncryptionSecret) {
-		return false // fmt.Errorf("BaseEncryptionSecret bytes mismatched")
-	}
-
 	// Field FlagValue - varbin
 	if !bytes.Equal(l.FlagValue, r.FlagValue) {
 		return false // fmt.Errorf("FlagValue bytes mismatched")
@@ -448,9 +443,9 @@ func (l *IdentityOracleProofField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("EntityContractAddress bytes mismatched")
 	}
 
-	// Field ValidityPeriod - Period
-	if !l.Equal(r.ValidityPeriod) {
-		return false // fmt.Errorf("ValidityPeriod : %s", err)
+	// Field Entity - varbin
+	if !bytes.Equal(l.Entity, r.Entity) {
+		return false // fmt.Errorf("Entity bytes mismatched")
 	}
 
 	// Field OracleSignature - OracleSignature
@@ -483,6 +478,11 @@ func (l *OracleSignatureField) Equal(right proto.Message) bool {
 	// Field BlockHeight - uint
 	if l.BlockHeight != r.BlockHeight {
 		return false // fmt.Errorf("BlockHeight integer mismatched")
+	}
+
+	// Field ValidityPeriod - Period
+	if !l.Equal(r.ValidityPeriod) {
+		return false // fmt.Errorf("ValidityPeriod : %s", err)
 	}
 
 	// Field SignatureAlgorithm - uint
@@ -551,14 +551,9 @@ func (l *PaymailProofField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("UserID bytes mismatched")
 	}
 
-	// Field PublicKey - varbin
-	if !bytes.Equal(l.PublicKey, r.PublicKey) {
-		return false // fmt.Errorf("PublicKey bytes mismatched")
-	}
-
-	// Field ValidityPeriod - Period
-	if !l.Equal(r.ValidityPeriod) {
-		return false // fmt.Errorf("ValidityPeriod : %s", err)
+	// Field Handle - varchar
+	if l.Handle != r.Handle {
+		return false // fmt.Errorf("Handle string mismatched")
 	}
 
 	// Field OracleSignature - OracleSignature

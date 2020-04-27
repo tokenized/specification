@@ -9,22 +9,11 @@ fields:
     description: "The user id (UUID) in the identity oracle system. Used to request the entity data."
     type: varbin
 
-  # Not allowed by GDPR
-  # - name: Handle
-  #   label: Handle
-  #   description: "Paymail handle in the form {alias}@{domain}.{tld}"
-  #   type: varchar
-  #   example: "john@tokenized.com"
-
-  - name: PublicKey
-    label: Public Key
-    description: "The compressed PKI public key for the paymail handle. To be verified with the PKI endpoint. Included here for recovery purposes."
-    type: varbin
-
-  - name: ValidityPeriod
-    label: Validity Period
-    description: "The time frame that the proof is valid."
-    type: Period
+  - name: Handle
+    label: Handle
+    description: "PII including personally identifiable user names not allowed by GDPR. This is put in for possible future use without a protocol change. Paymail handle in the form {alias}@{domain}.{tld}"
+    type: varchar
+    example: "john@tokenized.com"
 
   - name: OracleSignature
     label: OracleSignature

@@ -104,10 +104,10 @@
           "type": "Address"
         },
         {
-          "description": "The time frame that the proof is valid.",
-          "label": "Validity Period",
-          "name": "ValidityPeriod",
-          "type": "Period"
+          "description": "PII is not allowed in entity by GDPR, so only company information can be placed in this entity. In the future this might be supported for PII with better understanding of GDPR. The identity being provided.",
+          "label": "Entity",
+          "name": "Entity",
+          "type": "varbin"
         },
         {
           "description": "Signature of the serialized entity, public key, and block hash with the identity oracle's public key.",
@@ -141,6 +141,12 @@
           "name": "BlockHeight",
           "size": 4,
           "type": "uint"
+        },
+        {
+          "description": "The time frame that the proof is valid.",
+          "label": "Validity Period",
+          "name": "ValidityPeriod",
+          "type": "Period"
         },
         {
           "description": "The algorithm used by the oracle signature.",
@@ -202,16 +208,11 @@
           "type": "varbin"
         },
         {
-          "description": "The compressed PKI public key for the paymail handle. To be verified with the PKI endpoint. Included here for recovery purposes.",
-          "label": "Public Key",
-          "name": "PublicKey",
-          "type": "varbin"
-        },
-        {
-          "description": "The time frame that the proof is valid.",
-          "label": "Validity Period",
-          "name": "ValidityPeriod",
-          "type": "Period"
+          "description": "PII including personally identifiable user names not allowed by GDPR. This is put in for possible future use without a protocol change. Paymail handle in the form {alias}@{domain}.{tld}",
+          "example": "john@tokenized.com",
+          "label": "Handle",
+          "name": "Handle",
+          "type": "varchar"
         },
         {
           "description": "Signature of the serialized entity, public key, and block hash with the identity oracle's public key.",
@@ -473,7 +474,7 @@
     },
     {
       "code": 2001,
-      "description": "A message used to initiate a new relationship between 2 or more parties. The M1 container specifies the sender tx input and requested participant tx outputs.",
+      "description": "A message used to initiate a new relationship between 2 or more parties. The M1 container specifies the sender tx input and requested participant tx outputs. If there are more than 2 parties the encryption secret provided in the envelope protocol is used as the base encryption secret. If there are only 2 parties, then the ECDH secret of each key pair is used to encrypt each message.",
       "fields": [
         {
           "description": "The type or purposed of the relationship. 0 - Conversation (direct messages), 1 - Channel (entity/business to entity/business)",
@@ -490,12 +491,6 @@
           "description": "The seed value used to derive keys for the relationship.",
           "label": "Seed Value",
           "name": "SeedValue",
-          "type": "varbin"
-        },
-        {
-          "description": "The base encryption secret can be used to derive encryption secrets for the relationship. Each time a message is sent, the current seed hash is added to the base encryption secret and that value is used to encrypt the message. If this value is not specified then the encryption is done with ECDH secrets between the keys in the transaction.",
-          "label": "Base Encryption Secret",
-          "name": "BaseEncryptionSecret",
           "type": "varbin"
         },
         {

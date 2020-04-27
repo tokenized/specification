@@ -413,7 +413,7 @@ Metadata associated with the output. Aka Transaction details. It is used to desc
 <a name="initiate-relationship"></a>
 #### Initiate Relationship
 
-A message used to initiate a new relationship between 2 or more parties. The M1 container specifies the sender tx input and requested participant tx outputs.
+A message used to initiate a new relationship between 2 or more parties. The M1 container specifies the sender tx input and requested participant tx outputs. If there are more than 2 parties the encryption secret provided in the envelope protocol is used as the base encryption secret. If there are only 2 parties, then the ECDH secret of each key pair is used to encrypt each message.
 
 <table>
     <tr>
@@ -445,16 +445,6 @@ A message used to initiate a new relationship between 2 or more parties. The M1 
             </td>
             <td>
                 The seed value used to derive keys for the relationship.
-                
-            </td>
-        </tr>
-        <tr>
-            <td>BaseEncryptionSecret</td>
-            <td>
-                varbin
-            </td>
-            <td>
-                The base encryption secret can be used to derive encryption secrets for the relationship. Each time a message is sent, the current seed hash is added to the base encryption secret and that value is used to encrypt the message. If this value is not specified then the encryption is done with ECDH secrets between the keys in the transaction.
                 
             </td>
         </tr>

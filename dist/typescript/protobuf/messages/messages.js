@@ -1783,7 +1783,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.messages.InitiateRelationship.repeatedFields_ = [7];
+proto.messages.InitiateRelationship.repeatedFields_ = [6];
 
 
 
@@ -1815,9 +1815,8 @@ proto.messages.InitiateRelationship.toObject = function(includeInstance, msg) {
   var f, obj = {
     type: jspb.Message.getFieldWithDefault(msg, 1, 0),
     seedvalue: msg.getSeedvalue_asB64(),
-    baseencryptionsecret: msg.getBaseencryptionsecret_asB64(),
     flagvalue: msg.getFlagvalue_asB64(),
-    proofofidentitytype: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    proofofidentitytype: jspb.Message.getFieldWithDefault(msg, 4, 0),
     proofofidentity: msg.getProofofidentity_asB64(),
     channelpartiesList: jspb.Message.toObjectList(msg.getChannelpartiesList(),
     proto.messages.ChannelPartyField.toObject, includeInstance)
@@ -1867,21 +1866,17 @@ proto.messages.InitiateRelationship.deserializeBinaryFromReader = function(msg, 
       break;
     case 3:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setBaseencryptionsecret(value);
-      break;
-    case 4:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setFlagvalue(value);
       break;
-    case 5:
+    case 4:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setProofofidentitytype(value);
       break;
-    case 6:
+    case 5:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setProofofidentity(value);
       break;
-    case 7:
+    case 6:
       var value = new proto.messages.ChannelPartyField;
       reader.readMessage(value,proto.messages.ChannelPartyField.deserializeBinaryFromReader);
       msg.addChannelparties(value);
@@ -1928,38 +1923,31 @@ proto.messages.InitiateRelationship.serializeBinaryToWriter = function(message, 
       f
     );
   }
-  f = message.getBaseencryptionsecret_asU8();
+  f = message.getFlagvalue_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       3,
       f
     );
   }
-  f = message.getFlagvalue_asU8();
-  if (f.length > 0) {
-    writer.writeBytes(
-      4,
-      f
-    );
-  }
   f = message.getProofofidentitytype();
   if (f !== 0) {
     writer.writeUint32(
-      5,
+      4,
       f
     );
   }
   f = message.getProofofidentity_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      6,
+      5,
       f
     );
   }
   f = message.getChannelpartiesList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      7,
+      6,
       f,
       proto.messages.ChannelPartyField.serializeBinaryToWriter
     );
@@ -2022,55 +2010,16 @@ proto.messages.InitiateRelationship.prototype.setSeedvalue = function(value) {
 
 
 /**
- * optional bytes BaseEncryptionSecret = 3;
+ * optional bytes FlagValue = 3;
  * @return {!(string|Uint8Array)}
  */
-proto.messages.InitiateRelationship.prototype.getBaseencryptionsecret = function() {
+proto.messages.InitiateRelationship.prototype.getFlagvalue = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /**
- * optional bytes BaseEncryptionSecret = 3;
- * This is a type-conversion wrapper around `getBaseencryptionsecret()`
- * @return {string}
- */
-proto.messages.InitiateRelationship.prototype.getBaseencryptionsecret_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getBaseencryptionsecret()));
-};
-
-
-/**
- * optional bytes BaseEncryptionSecret = 3;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getBaseencryptionsecret()`
- * @return {!Uint8Array}
- */
-proto.messages.InitiateRelationship.prototype.getBaseencryptionsecret_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getBaseencryptionsecret()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.messages.InitiateRelationship.prototype.setBaseencryptionsecret = function(value) {
-  jspb.Message.setField(this, 3, value);
-};
-
-
-/**
- * optional bytes FlagValue = 4;
- * @return {!(string|Uint8Array)}
- */
-proto.messages.InitiateRelationship.prototype.getFlagvalue = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/**
- * optional bytes FlagValue = 4;
+ * optional bytes FlagValue = 3;
  * This is a type-conversion wrapper around `getFlagvalue()`
  * @return {string}
  */
@@ -2081,7 +2030,7 @@ proto.messages.InitiateRelationship.prototype.getFlagvalue_asB64 = function() {
 
 
 /**
- * optional bytes FlagValue = 4;
+ * optional bytes FlagValue = 3;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getFlagvalue()`
@@ -2095,36 +2044,36 @@ proto.messages.InitiateRelationship.prototype.getFlagvalue_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.messages.InitiateRelationship.prototype.setFlagvalue = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional uint32 ProofOfIdentityType = 5;
+ * optional uint32 ProofOfIdentityType = 4;
  * @return {number}
  */
 proto.messages.InitiateRelationship.prototype.getProofofidentitytype = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /** @param {number} value */
 proto.messages.InitiateRelationship.prototype.setProofofidentitytype = function(value) {
-  jspb.Message.setField(this, 5, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional bytes ProofOfIdentity = 6;
+ * optional bytes ProofOfIdentity = 5;
  * @return {!(string|Uint8Array)}
  */
 proto.messages.InitiateRelationship.prototype.getProofofidentity = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /**
- * optional bytes ProofOfIdentity = 6;
+ * optional bytes ProofOfIdentity = 5;
  * This is a type-conversion wrapper around `getProofofidentity()`
  * @return {string}
  */
@@ -2135,7 +2084,7 @@ proto.messages.InitiateRelationship.prototype.getProofofidentity_asB64 = functio
 
 
 /**
- * optional bytes ProofOfIdentity = 6;
+ * optional bytes ProofOfIdentity = 5;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getProofofidentity()`
@@ -2149,25 +2098,25 @@ proto.messages.InitiateRelationship.prototype.getProofofidentity_asU8 = function
 
 /** @param {!(string|Uint8Array)} value */
 proto.messages.InitiateRelationship.prototype.setProofofidentity = function(value) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
 /**
- * repeated ChannelPartyField ChannelParties = 7;
+ * repeated ChannelPartyField ChannelParties = 6;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.messages.ChannelPartyField>}
  */
 proto.messages.InitiateRelationship.prototype.getChannelpartiesList = function() {
   return /** @type{!Array.<!proto.messages.ChannelPartyField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.messages.ChannelPartyField, 7));
+    jspb.Message.getRepeatedWrapperField(this, proto.messages.ChannelPartyField, 6));
 };
 
 
 /** @param {!Array.<!proto.messages.ChannelPartyField>} value */
 proto.messages.InitiateRelationship.prototype.setChannelpartiesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 7, value);
+  jspb.Message.setRepeatedWrapperField(this, 6, value);
 };
 
 
@@ -2177,7 +2126,7 @@ proto.messages.InitiateRelationship.prototype.setChannelpartiesList = function(v
  * @return {!proto.messages.ChannelPartyField}
  */
 proto.messages.InitiateRelationship.prototype.addChannelparties = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.messages.ChannelPartyField, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 6, opt_value, proto.messages.ChannelPartyField, opt_index);
 };
 
 
@@ -3509,7 +3458,7 @@ proto.messages.IdentityOracleProofField.toObject = function(includeInstance, msg
   var f, obj = {
     userid: msg.getUserid_asB64(),
     entitycontractaddress: msg.getEntitycontractaddress_asB64(),
-    validityperiod: (f = msg.getValidityperiod()) && proto.messages.PeriodField.toObject(includeInstance, f),
+    entity: msg.getEntity_asB64(),
     oraclesignature: (f = msg.getOraclesignature()) && proto.messages.OracleSignatureField.toObject(includeInstance, f),
     identitysignature: msg.getIdentitysignature_asB64()
   };
@@ -3557,9 +3506,8 @@ proto.messages.IdentityOracleProofField.deserializeBinaryFromReader = function(m
       msg.setEntitycontractaddress(value);
       break;
     case 3:
-      var value = new proto.messages.PeriodField;
-      reader.readMessage(value,proto.messages.PeriodField.deserializeBinaryFromReader);
-      msg.setValidityperiod(value);
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setEntity(value);
       break;
     case 4:
       var value = new proto.messages.OracleSignatureField;
@@ -3612,12 +3560,11 @@ proto.messages.IdentityOracleProofField.serializeBinaryToWriter = function(messa
       f
     );
   }
-  f = message.getValidityperiod();
-  if (f != null) {
-    writer.writeMessage(
+  f = message.getEntity_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
       3,
-      f,
-      proto.messages.PeriodField.serializeBinaryToWriter
+      f
     );
   }
   f = message.getOraclesignature();
@@ -3717,32 +3664,41 @@ proto.messages.IdentityOracleProofField.prototype.setEntitycontractaddress = fun
 
 
 /**
- * optional PeriodField ValidityPeriod = 3;
- * @return {?proto.messages.PeriodField}
+ * optional bytes Entity = 3;
+ * @return {!(string|Uint8Array)}
  */
-proto.messages.IdentityOracleProofField.prototype.getValidityperiod = function() {
-  return /** @type{?proto.messages.PeriodField} */ (
-    jspb.Message.getWrapperField(this, proto.messages.PeriodField, 3));
-};
-
-
-/** @param {?proto.messages.PeriodField|undefined} value */
-proto.messages.IdentityOracleProofField.prototype.setValidityperiod = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
-};
-
-
-proto.messages.IdentityOracleProofField.prototype.clearValidityperiod = function() {
-  this.setValidityperiod(undefined);
+proto.messages.IdentityOracleProofField.prototype.getEntity = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /**
- * Returns whether this field is set.
- * @return {!boolean}
+ * optional bytes Entity = 3;
+ * This is a type-conversion wrapper around `getEntity()`
+ * @return {string}
  */
-proto.messages.IdentityOracleProofField.prototype.hasValidityperiod = function() {
-  return jspb.Message.getField(this, 3) != null;
+proto.messages.IdentityOracleProofField.prototype.getEntity_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getEntity()));
+};
+
+
+/**
+ * optional bytes Entity = 3;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getEntity()`
+ * @return {!Uint8Array}
+ */
+proto.messages.IdentityOracleProofField.prototype.getEntity_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getEntity()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.messages.IdentityOracleProofField.prototype.setEntity = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -3863,7 +3819,8 @@ proto.messages.OracleSignatureField.toObject = function(includeInstance, msg) {
   var f, obj = {
     oracleurl: jspb.Message.getFieldWithDefault(msg, 1, ""),
     blockheight: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    signaturealgorithm: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    validityperiod: (f = msg.getValidityperiod()) && proto.messages.PeriodField.toObject(includeInstance, f),
+    signaturealgorithm: jspb.Message.getFieldWithDefault(msg, 4, 0),
     signature: msg.getSignature_asB64()
   };
 
@@ -3910,10 +3867,15 @@ proto.messages.OracleSignatureField.deserializeBinaryFromReader = function(msg, 
       msg.setBlockheight(value);
       break;
     case 3:
+      var value = new proto.messages.PeriodField;
+      reader.readMessage(value,proto.messages.PeriodField.deserializeBinaryFromReader);
+      msg.setValidityperiod(value);
+      break;
+    case 4:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setSignaturealgorithm(value);
       break;
-    case 4:
+    case 5:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setSignature(value);
       break;
@@ -3959,17 +3921,25 @@ proto.messages.OracleSignatureField.serializeBinaryToWriter = function(message, 
       f
     );
   }
+  f = message.getValidityperiod();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      proto.messages.PeriodField.serializeBinaryToWriter
+    );
+  }
   f = message.getSignaturealgorithm();
   if (f !== 0) {
     writer.writeUint32(
-      3,
+      4,
       f
     );
   }
   f = message.getSignature_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      4,
+      5,
       f
     );
   }
@@ -4007,31 +3977,61 @@ proto.messages.OracleSignatureField.prototype.setBlockheight = function(value) {
 
 
 /**
- * optional uint32 SignatureAlgorithm = 3;
+ * optional PeriodField ValidityPeriod = 3;
+ * @return {?proto.messages.PeriodField}
+ */
+proto.messages.OracleSignatureField.prototype.getValidityperiod = function() {
+  return /** @type{?proto.messages.PeriodField} */ (
+    jspb.Message.getWrapperField(this, proto.messages.PeriodField, 3));
+};
+
+
+/** @param {?proto.messages.PeriodField|undefined} value */
+proto.messages.OracleSignatureField.prototype.setValidityperiod = function(value) {
+  jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+proto.messages.OracleSignatureField.prototype.clearValidityperiod = function() {
+  this.setValidityperiod(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.messages.OracleSignatureField.prototype.hasValidityperiod = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional uint32 SignatureAlgorithm = 4;
  * @return {number}
  */
 proto.messages.OracleSignatureField.prototype.getSignaturealgorithm = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /** @param {number} value */
 proto.messages.OracleSignatureField.prototype.setSignaturealgorithm = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional bytes Signature = 4;
+ * optional bytes Signature = 5;
  * @return {!(string|Uint8Array)}
  */
 proto.messages.OracleSignatureField.prototype.getSignature = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /**
- * optional bytes Signature = 4;
+ * optional bytes Signature = 5;
  * This is a type-conversion wrapper around `getSignature()`
  * @return {string}
  */
@@ -4042,7 +4042,7 @@ proto.messages.OracleSignatureField.prototype.getSignature_asB64 = function() {
 
 
 /**
- * optional bytes Signature = 4;
+ * optional bytes Signature = 5;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getSignature()`
@@ -4056,7 +4056,7 @@ proto.messages.OracleSignatureField.prototype.getSignature_asU8 = function() {
 
 /** @param {!(string|Uint8Array)} value */
 proto.messages.OracleSignatureField.prototype.setSignature = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -4438,8 +4438,7 @@ proto.messages.PaymailProofField.prototype.toObject = function(opt_includeInstan
 proto.messages.PaymailProofField.toObject = function(includeInstance, msg) {
   var f, obj = {
     userid: msg.getUserid_asB64(),
-    publickey: msg.getPublickey_asB64(),
-    validityperiod: (f = msg.getValidityperiod()) && proto.messages.PeriodField.toObject(includeInstance, f),
+    handle: jspb.Message.getFieldWithDefault(msg, 2, ""),
     oraclesignature: (f = msg.getOraclesignature()) && proto.messages.OracleSignatureField.toObject(includeInstance, f)
   };
 
@@ -4482,15 +4481,10 @@ proto.messages.PaymailProofField.deserializeBinaryFromReader = function(msg, rea
       msg.setUserid(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setPublickey(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setHandle(value);
       break;
     case 3:
-      var value = new proto.messages.PeriodField;
-      reader.readMessage(value,proto.messages.PeriodField.deserializeBinaryFromReader);
-      msg.setValidityperiod(value);
-      break;
-    case 4:
       var value = new proto.messages.OracleSignatureField;
       reader.readMessage(value,proto.messages.OracleSignatureField.deserializeBinaryFromReader);
       msg.setOraclesignature(value);
@@ -4530,25 +4524,17 @@ proto.messages.PaymailProofField.serializeBinaryToWriter = function(message, wri
       f
     );
   }
-  f = message.getPublickey_asU8();
+  f = message.getHandle();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       2,
       f
-    );
-  }
-  f = message.getValidityperiod();
-  if (f != null) {
-    writer.writeMessage(
-      3,
-      f,
-      proto.messages.PeriodField.serializeBinaryToWriter
     );
   }
   f = message.getOraclesignature();
   if (f != null) {
     writer.writeMessage(
-      4,
+      3,
       f,
       proto.messages.OracleSignatureField.serializeBinaryToWriter
     );
@@ -4596,87 +4582,33 @@ proto.messages.PaymailProofField.prototype.setUserid = function(value) {
 
 
 /**
- * optional bytes PublicKey = 2;
- * @return {!(string|Uint8Array)}
- */
-proto.messages.PaymailProofField.prototype.getPublickey = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * optional bytes PublicKey = 2;
- * This is a type-conversion wrapper around `getPublickey()`
+ * optional string Handle = 2;
  * @return {string}
  */
-proto.messages.PaymailProofField.prototype.getPublickey_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getPublickey()));
+proto.messages.PaymailProofField.prototype.getHandle = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/**
- * optional bytes PublicKey = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getPublickey()`
- * @return {!Uint8Array}
- */
-proto.messages.PaymailProofField.prototype.getPublickey_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getPublickey()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.messages.PaymailProofField.prototype.setPublickey = function(value) {
+/** @param {string} value */
+proto.messages.PaymailProofField.prototype.setHandle = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional PeriodField ValidityPeriod = 3;
- * @return {?proto.messages.PeriodField}
- */
-proto.messages.PaymailProofField.prototype.getValidityperiod = function() {
-  return /** @type{?proto.messages.PeriodField} */ (
-    jspb.Message.getWrapperField(this, proto.messages.PeriodField, 3));
-};
-
-
-/** @param {?proto.messages.PeriodField|undefined} value */
-proto.messages.PaymailProofField.prototype.setValidityperiod = function(value) {
-  jspb.Message.setWrapperField(this, 3, value);
-};
-
-
-proto.messages.PaymailProofField.prototype.clearValidityperiod = function() {
-  this.setValidityperiod(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.messages.PaymailProofField.prototype.hasValidityperiod = function() {
-  return jspb.Message.getField(this, 3) != null;
-};
-
-
-/**
- * optional OracleSignatureField OracleSignature = 4;
+ * optional OracleSignatureField OracleSignature = 3;
  * @return {?proto.messages.OracleSignatureField}
  */
 proto.messages.PaymailProofField.prototype.getOraclesignature = function() {
   return /** @type{?proto.messages.OracleSignatureField} */ (
-    jspb.Message.getWrapperField(this, proto.messages.OracleSignatureField, 4));
+    jspb.Message.getWrapperField(this, proto.messages.OracleSignatureField, 3));
 };
 
 
 /** @param {?proto.messages.OracleSignatureField|undefined} value */
 proto.messages.PaymailProofField.prototype.setOraclesignature = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
+  jspb.Message.setWrapperField(this, 3, value);
 };
 
 
@@ -4690,7 +4622,7 @@ proto.messages.PaymailProofField.prototype.clearOraclesignature = function() {
  * @return {!boolean}
  */
 proto.messages.PaymailProofField.prototype.hasOraclesignature = function() {
-  return jspb.Message.getField(this, 4) != null;
+  return jspb.Message.getField(this, 3) != null;
 };
 
 

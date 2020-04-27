@@ -214,11 +214,6 @@ func (a *InitiateRelationship) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.SeedValue), max1ByteInteger)
 	}
 
-	// Field BaseEncryptionSecret - varbin
-	if len(a.BaseEncryptionSecret) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.BaseEncryptionSecret), max1ByteInteger)
-	}
-
 	// Field FlagValue - varbin
 	if len(a.FlagValue) > max1ByteInteger {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.FlagValue), max1ByteInteger)
@@ -397,9 +392,9 @@ func (a *IdentityOracleProofField) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContractAddress), max2ByteInteger)
 	}
 
-	// Field ValidityPeriod - Period
-	if err := a.ValidityPeriod.Validate(); err != nil {
-		return fmt.Errorf("ValidityPeriod invalid : %s", err)
+	// Field Entity - varbin
+	if len(a.Entity) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Entity), max1ByteInteger)
 	}
 
 	// Field OracleSignature - OracleSignature
@@ -426,6 +421,11 @@ func (a *OracleSignatureField) Validate() error {
 	}
 
 	// Field BlockHeight - uint
+
+	// Field ValidityPeriod - Period
+	if err := a.ValidityPeriod.Validate(); err != nil {
+		return fmt.Errorf("ValidityPeriod invalid : %s", err)
+	}
 
 	// Field SignatureAlgorithm - uint
 	if a.SignatureAlgorithm > uint32(max1ByteInteger) {
@@ -479,14 +479,9 @@ func (a *PaymailProofField) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.UserID), max1ByteInteger)
 	}
 
-	// Field PublicKey - varbin
-	if len(a.PublicKey) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.PublicKey), max1ByteInteger)
-	}
-
-	// Field ValidityPeriod - Period
-	if err := a.ValidityPeriod.Validate(); err != nil {
-		return fmt.Errorf("ValidityPeriod invalid : %s", err)
+	// Field Handle - varchar
+	if len(a.Handle) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Handle), max1ByteInteger)
 	}
 
 	// Field OracleSignature - OracleSignature

@@ -57,11 +57,10 @@ message OutputMetadata {
 message InitiateRelationship {
     uint32 Type                                    = 1;   // uint
     bytes SeedValue                                = 2;   // varbin
-    bytes BaseEncryptionSecret                     = 3;   // varbin
-    bytes FlagValue                                = 4;   // varbin
-    uint32 ProofOfIdentityType                     = 5;   // ProofOfIdentityType
-    bytes ProofOfIdentity                          = 6;   // varbin
-    repeated ChannelPartyField ChannelParties      = 7;   // ChannelParty[]
+    bytes FlagValue                                = 3;   // varbin
+    uint32 ProofOfIdentityType                     = 4;   // ProofOfIdentityType
+    bytes ProofOfIdentity                          = 5;   // varbin
+    repeated ChannelPartyField ChannelParties      = 6;   // ChannelParty[]
 }
 
 // Message - Pending Accept Relationship (2002)
@@ -108,7 +107,7 @@ message DocumentField {
 message IdentityOracleProofField {
     bytes UserID                                   = 1;   // varbin
     bytes EntityContractAddress                    = 2;   // Address
-    PeriodField ValidityPeriod                     = 3;   // Period
+    bytes Entity                                   = 3;   // varbin
     OracleSignatureField OracleSignature           = 4;   // OracleSignature
     bytes IdentitySignature                        = 5;   // varbin
 }
@@ -117,8 +116,9 @@ message IdentityOracleProofField {
 message OracleSignatureField {
     string OracleURL                               = 1;   // varchar
     uint32 BlockHeight                             = 2;   // uint
-    uint32 SignatureAlgorithm                      = 3;   // uint
-    bytes Signature                                = 4;   // varbin
+    PeriodField ValidityPeriod                     = 3;   // Period
+    uint32 SignatureAlgorithm                      = 4;   // uint
+    bytes Signature                                = 5;   // varbin
 }
 
 // Field - Outpoint
@@ -135,9 +135,8 @@ message OutputTagField {
 // Field - Paymail Proof
 message PaymailProofField {
     bytes UserID                                   = 1;   // varbin
-    bytes PublicKey                                = 2;   // varbin
-    PeriodField ValidityPeriod                     = 3;   // Period
-    OracleSignatureField OracleSignature           = 4;   // OracleSignature
+    string Handle                                  = 2;   // varchar
+    OracleSignatureField OracleSignature           = 3;   // OracleSignature
 }
 
 // Field - Period
