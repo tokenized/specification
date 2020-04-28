@@ -47,17 +47,17 @@ func GetProtocolID(isTest bool) []byte {
 
 // Serialize serializes an action into a Tokenized OP_RETURN script.
 func Serialize(action actions.Action, isTest bool) ([]byte, error) {
-	payload, err := proto.Marshal(action)
+	message, err := WrapAction(action, isTest)
 	if err != nil {
-		return nil, errors.Wrap(err, "Failed to serialize action")
+		return nil, errors.Wrap(err, "wrap action")
 	}
-	message := v0.NewMessage(GetProtocolID(isTest), Version, payload)
-	message.SetPayloadIdentifier([]byte(action.Code()))
+
 	var buf bytes.Buffer
 	err = message.Serialize(&buf)
 	if err != nil {
-		return nil, errors.Wrap(err, "Failed to serialize action envelope")
+		return nil, errors.Wrap(err, "serialize envelope")
 	}
+
 	return buf.Bytes(), nil
 }
 
@@ -80,6 +80,19 @@ func Deserialize(script []byte, isTest bool) (actions.Action, error) {
 	}
 
 	return actions.Deserialize(message.PayloadIdentifier(), message.Payload())
+}
+
+// WrapAction wraps an action in an envelope message.
+func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error) {
+	payload, err := proto.Marshal(action)
+	if err != nil {
+		return nil, errors.Wrap(err, "serialize action")
+	}
+
+	message := v0.NewMessage(GetProtocolID(isTest), Version, payload)
+	message.SetPayloadIdentifier([]byte(action.Code()))
+
+	return message, nil
 }
 
 // SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
