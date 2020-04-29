@@ -500,6 +500,17 @@
           "type": "varbin"
         },
         {
+          "description": "Type of encryption used for messages within the relationship. 0 - Encryption keys embedded in envelope protocol. 1 - Encryption key embedded in this message is used as base key for future messages. Used for relationships with more than 2 members so the encryption key doesn't have to be encrypted to each member in every message.",
+          "label": "Encryption Type",
+          "name": "EncryptionType",
+          "options": [
+            0,
+            1
+          ],
+          "size": 1,
+          "type": "uint"
+        },
+        {
           "description": "The type/format of the sender's proof of identity.",
           "label": "Proof of Identity Type",
           "name": "ProofOfIdentityType",

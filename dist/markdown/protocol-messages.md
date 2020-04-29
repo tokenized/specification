@@ -459,6 +459,16 @@ A message used to initiate a new relationship between 2 or more parties. The M1 
             </td>
         </tr>
         <tr>
+            <td>EncryptionType</td>
+            <td>
+                uint(1)
+            </td>
+            <td>
+                Type of encryption used for messages within the relationship. 0 - Encryption keys embedded in envelope protocol. 1 - Encryption key embedded in this message is used as base key for future messages. Used for relationships with more than 2 members so the encryption key doesn&#39;t have to be encrypted to each member in every message.
+                
+            </td>
+        </tr>
+        <tr>
             <td>ProofOfIdentityType</td>
             <td>
                 <a href="#alias-uint">ProofOfIdentityType</a>

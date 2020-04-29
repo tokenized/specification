@@ -58,9 +58,10 @@ message InitiateRelationship {
     uint32 Type                                    = 1;   // uint
     bytes SeedValue                                = 2;   // varbin
     bytes FlagValue                                = 3;   // varbin
-    uint32 ProofOfIdentityType                     = 4;   // ProofOfIdentityType
-    bytes ProofOfIdentity                          = 5;   // varbin
-    repeated ChannelPartyField ChannelParties      = 6;   // ChannelParty[]
+    uint32 EncryptionType                          = 4;   // uint
+    uint32 ProofOfIdentityType                     = 5;   // ProofOfIdentityType
+    bytes ProofOfIdentity                          = 6;   // varbin
+    repeated ChannelPartyField ChannelParties      = 7;   // ChannelParty[]
 }
 
 // Message - Pending Accept Relationship (2002)

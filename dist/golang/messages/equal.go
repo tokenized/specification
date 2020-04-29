@@ -254,6 +254,11 @@ func (l *InitiateRelationship) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("FlagValue bytes mismatched")
 	}
 
+	// Field EncryptionType - uint
+	if l.EncryptionType != r.EncryptionType {
+		return false // fmt.Errorf("EncryptionType integer mismatched")
+	}
+
 	// Field ProofOfIdentityType - uint
 	if l.ProofOfIdentityType != r.ProofOfIdentityType {
 		return false // fmt.Errorf("ProofOfIdentityType integer mismatched")

@@ -1783,7 +1783,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.messages.InitiateRelationship.repeatedFields_ = [6];
+proto.messages.InitiateRelationship.repeatedFields_ = [7];
 
 
 
@@ -1816,7 +1816,8 @@ proto.messages.InitiateRelationship.toObject = function(includeInstance, msg) {
     type: jspb.Message.getFieldWithDefault(msg, 1, 0),
     seedvalue: msg.getSeedvalue_asB64(),
     flagvalue: msg.getFlagvalue_asB64(),
-    proofofidentitytype: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    encryptiontype: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    proofofidentitytype: jspb.Message.getFieldWithDefault(msg, 5, 0),
     proofofidentity: msg.getProofofidentity_asB64(),
     channelpartiesList: jspb.Message.toObjectList(msg.getChannelpartiesList(),
     proto.messages.ChannelPartyField.toObject, includeInstance)
@@ -1870,13 +1871,17 @@ proto.messages.InitiateRelationship.deserializeBinaryFromReader = function(msg, 
       break;
     case 4:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setProofofidentitytype(value);
+      msg.setEncryptiontype(value);
       break;
     case 5:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setProofofidentitytype(value);
+      break;
+    case 6:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setProofofidentity(value);
       break;
-    case 6:
+    case 7:
       var value = new proto.messages.ChannelPartyField;
       reader.readMessage(value,proto.messages.ChannelPartyField.deserializeBinaryFromReader);
       msg.addChannelparties(value);
@@ -1930,24 +1935,31 @@ proto.messages.InitiateRelationship.serializeBinaryToWriter = function(message, 
       f
     );
   }
-  f = message.getProofofidentitytype();
+  f = message.getEncryptiontype();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
+  f = message.getProofofidentitytype();
+  if (f !== 0) {
+    writer.writeUint32(
+      5,
+      f
+    );
+  }
   f = message.getProofofidentity_asU8();
   if (f.length > 0) {
     writer.writeBytes(
-      5,
+      6,
       f
     );
   }
   f = message.getChannelpartiesList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      6,
+      7,
       f,
       proto.messages.ChannelPartyField.serializeBinaryToWriter
     );
@@ -2049,31 +2061,46 @@ proto.messages.InitiateRelationship.prototype.setFlagvalue = function(value) {
 
 
 /**
- * optional uint32 ProofOfIdentityType = 4;
+ * optional uint32 EncryptionType = 4;
  * @return {number}
  */
-proto.messages.InitiateRelationship.prototype.getProofofidentitytype = function() {
+proto.messages.InitiateRelationship.prototype.getEncryptiontype = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /** @param {number} value */
-proto.messages.InitiateRelationship.prototype.setProofofidentitytype = function(value) {
+proto.messages.InitiateRelationship.prototype.setEncryptiontype = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional bytes ProofOfIdentity = 5;
- * @return {!(string|Uint8Array)}
+ * optional uint32 ProofOfIdentityType = 5;
+ * @return {number}
  */
-proto.messages.InitiateRelationship.prototype.getProofofidentity = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+proto.messages.InitiateRelationship.prototype.getProofofidentitytype = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.messages.InitiateRelationship.prototype.setProofofidentitytype = function(value) {
+  jspb.Message.setField(this, 5, value);
 };
 
 
 /**
- * optional bytes ProofOfIdentity = 5;
+ * optional bytes ProofOfIdentity = 6;
+ * @return {!(string|Uint8Array)}
+ */
+proto.messages.InitiateRelationship.prototype.getProofofidentity = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/**
+ * optional bytes ProofOfIdentity = 6;
  * This is a type-conversion wrapper around `getProofofidentity()`
  * @return {string}
  */
@@ -2084,7 +2111,7 @@ proto.messages.InitiateRelationship.prototype.getProofofidentity_asB64 = functio
 
 
 /**
- * optional bytes ProofOfIdentity = 5;
+ * optional bytes ProofOfIdentity = 6;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
  * This is a type-conversion wrapper around `getProofofidentity()`
@@ -2098,25 +2125,25 @@ proto.messages.InitiateRelationship.prototype.getProofofidentity_asU8 = function
 
 /** @param {!(string|Uint8Array)} value */
 proto.messages.InitiateRelationship.prototype.setProofofidentity = function(value) {
-  jspb.Message.setField(this, 5, value);
+  jspb.Message.setField(this, 6, value);
 };
 
 
 /**
- * repeated ChannelPartyField ChannelParties = 6;
+ * repeated ChannelPartyField ChannelParties = 7;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
  * @return {!Array.<!proto.messages.ChannelPartyField>}
  */
 proto.messages.InitiateRelationship.prototype.getChannelpartiesList = function() {
   return /** @type{!Array.<!proto.messages.ChannelPartyField>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.messages.ChannelPartyField, 6));
+    jspb.Message.getRepeatedWrapperField(this, proto.messages.ChannelPartyField, 7));
 };
 
 
 /** @param {!Array.<!proto.messages.ChannelPartyField>} value */
 proto.messages.InitiateRelationship.prototype.setChannelpartiesList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 6, value);
+  jspb.Message.setRepeatedWrapperField(this, 7, value);
 };
 
 
@@ -2126,7 +2153,7 @@ proto.messages.InitiateRelationship.prototype.setChannelpartiesList = function(v
  * @return {!proto.messages.ChannelPartyField}
  */
 proto.messages.InitiateRelationship.prototype.addChannelparties = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 6, opt_value, proto.messages.ChannelPartyField, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.messages.ChannelPartyField, opt_index);
 };
 
 

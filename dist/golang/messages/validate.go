@@ -219,6 +219,18 @@ func (a *InitiateRelationship) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.FlagValue), max1ByteInteger)
 	}
 
+	// Field EncryptionType - uint
+	foundEncryptionType := false
+	for _, v := range []uint32{0, 1} {
+		if a.EncryptionType == v {
+			foundEncryptionType = true
+			break
+		}
+	}
+	if !foundEncryptionType {
+		return fmt.Errorf("EncryptionType value not within options [0 1] : %d", a.EncryptionType)
+	}
+
 	// Field ProofOfIdentityType - uint
 	foundProofOfIdentityType := false
 	for _, v := range []uint32{0, 1, 2} {
