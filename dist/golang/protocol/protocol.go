@@ -27,10 +27,15 @@ const (
 
 	// Version of the Tokenized protocol.
 	Version = uint64(0)
+
+	FlagProtocolID = "F"
+
+	FlagVersion = uint64(0)
 )
 
 var (
 	ErrNotTokenized   = errors.New("Not Tokenized")
+	ErrNotFlag        = errors.New("Not Flag")
 	ErrUnknownVersion = errors.New("Unknown Version")
 
 	// DefaultEndian specifies the order of bytes for encoding integers.
@@ -98,12 +103,33 @@ func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error
 // SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
 //   message.
 func SerializeFlagOutputScript(flag []byte) ([]byte, error) {
-	message := v0.NewMessage([]byte("F"), uint64(0), flag)
+	message := v0.NewMessage([]byte(FlagProtocolID), FlagVersion, flag)
 	var buf bytes.Buffer
 	if err := message.Serialize(&buf); err != nil {
 		return nil, errors.Wrap(err, "Failed to serialize flag envelope")
 	}
 	return buf.Bytes(), nil
+}
+
+// DeserializeFlagOutputScript returns a flag value if the script is a flag script.
+func DeserializeFlagOutputScript(script []byte) ([]byte, error) {
+	buf := bytes.NewReader(script)
+	message, err := envelope.Deserialize(buf)
+	if err == envelope.ErrNotEnvelope {
+		return nil, ErrNotFlag
+	} else if err != nil {
+		return nil, err
+	}
+
+	if !bytes.Equal(message.PayloadProtocol(), []byte(FlagProtocolID)) {
+		return nil, ErrNotFlag
+	}
+
+	if message.PayloadVersion() != FlagVersion {
+		return nil, ErrUnknownVersion
+	}
+
+	return message.Payload(), nil
 }
 
 // ------------------------------------------------------------------------------------------------
