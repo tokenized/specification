@@ -28,13 +28,18 @@ messages:
 
 # Register Resources
 resources:
+  - "../../resources/develop/Entities"
+  - "../../resources/develop/Roles"
   - "../../resources/develop/Tags"
 
 # Register Field Types
 fieldTypes:
+  - "types/Administrator"
   - "types/ChannelParty"
   - "types/Document"
+  - "types/Entity"
   - "types/IdentityOracleProof"
+  - "types/Manager"
   - "types/OracleSignature"
   - "types/Outpoint"
   - "types/OutputTag"
@@ -75,3 +80,15 @@ fieldAliases:
       - 0
       - 1
       - 2
+
+  - name: EntityType
+    type: fixedchar
+    size: 1
+    resource: Entities
+    description: "A type of entity. (i.e. Individual, Public Company)"
+
+  - name: Role
+    type: uint
+    size: 1
+    resource: Roles
+    description: "A role within an entity. (i.e. CEO, CFO)"

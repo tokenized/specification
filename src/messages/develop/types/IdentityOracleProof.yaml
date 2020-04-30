@@ -9,22 +9,12 @@ fields:
     description: "The user id (UUID) in the identity oracle system. Used to request the entity data."
     type: varbin
 
-  - name: EntityContractAddress
-    label: Entity Contract Address
-    description: "Address of entity contract. Can be used instead of a User ID. This field refers to the entity specified in the contract at the address specified."
-    type: Address
-
   - name: Entity
     label: Entity
-    description: "PII is not allowed in entity by GDPR, so only company information can be placed in this entity. In the future this might be supported for PII with better understanding of GDPR. The identity being provided."
-    type: varbin
+    description: "PII is not allowed in entity by GDPR, so only company information can be placed in this entity. In the future this might be supported for PII with better understanding of GDPR. The identity being provided. EntityContractAddress is located within this structure."
+    type: Entity
 
   - name: OracleSignature
     label: OracleSignature
     description: "Signature of the serialized entity, public key, and block hash with the identity oracle's public key."
     type: OracleSignature
-
-  - name: IdentitySignature
-    label: IdentitySignature
-    description: "Signature of the relevent data (dependent on containing structure and context) with the public key of the identity being proven."
-    type: varbin

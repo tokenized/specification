@@ -4,12 +4,12 @@ label: Initiate Thread
 description: "Start a thread from within a conversation or channel."
 
 fields:
-  - name: FlagValue
-    label: Flag Value
-    description: "The flag value is required to identify messages in the thread so that all members don't have to be tagged in each message. It is recommended to be a random 20 byte value similar to public key hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID of \"F\""
+  - name: Flag
+    label: Flag
+    description: "The flag is required to identify messages in the thread so that all members don't have to be tagged in each message. It is recommended to be a random 20 byte value similar to public key hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID of \"F\""
     type: varbin
 
-  - name: SeedValue
-    label: Seed Value
-    description: "The seed value used to derive keys for the thread. If this value is not specified, then the original seed value from the parent conversation or channel is used."
+  - name: Seed
+    label: Seed
+    description: "The seed used to derive keys for the thread. If this value is not specified, then the original seed value from the parent conversation or channel is used."
     type: varbin

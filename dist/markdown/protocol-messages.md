@@ -439,22 +439,22 @@ A message used to initiate a new relationship between 2 or more parties. The M1 
             </td>
         </tr>
         <tr>
-            <td>SeedValue</td>
+            <td>Seed</td>
             <td>
                 varbin
             </td>
             <td>
-                The seed value used to derive keys for the relationship.
+                The seed used to derive keys for the relationship.
                 
             </td>
         </tr>
         <tr>
-            <td>FlagValue</td>
+            <td>Flag</td>
             <td>
                 varbin
             </td>
             <td>
-                The flag value can optionally be used to identify messages in the relationship so that all members don&#39;t have to be tagged in each message. It isn&#39;t needed for two party relationships, but is recommended for relationships with more members. It will be included in it&#39;s own op return for all message transactions. It is recommended to be a random 20 byte value similar to public key hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID of &#34;F&#34;. If this value is not specified then there must be an output to the next key in the relationship chain for every member in the group.
+                The flag can optionally be used to identify messages in the relationship so that all members don&#39;t have to be tagged in each message. It isn&#39;t needed for two party relationships, but is recommended for relationships with more members. It will be included in it&#39;s own op return for all message transactions. It is recommended to be a random 20 byte value similar to public key hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID of &#34;F&#34;. If this value is not specified then there must be an output to the next key in the relationship chain for every member in the group.
                 
             </td>
         </tr>
@@ -605,12 +605,12 @@ Amend a relationship. Add/Remove members. Modify permissions. This is encrypted 
         <th>Description</th>
     </tr>
         <tr>
-            <td>SeedValue</td>
+            <td>Seed</td>
             <td>
                 varbin
             </td>
             <td>
-                The new seed value used to derive keys for the relationship after this message.
+                The new seed used to derive keys for the relationship after this message.
                 
             </td>
         </tr>
@@ -667,22 +667,22 @@ Start a thread from within a conversation or channel.
         <th>Description</th>
     </tr>
         <tr>
-            <td>FlagValue</td>
+            <td>Flag</td>
             <td>
                 varbin
             </td>
             <td>
-                The flag value is required to identify messages in the thread so that all members don&#39;t have to be tagged in each message. It is recommended to be a random 20 byte value similar to public key hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID of &#34;F&#34;
+                The flag is required to identify messages in the thread so that all members don&#39;t have to be tagged in each message. It is recommended to be a random 20 byte value similar to public key hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID of &#34;F&#34;
                 
             </td>
         </tr>
         <tr>
-            <td>SeedValue</td>
+            <td>Seed</td>
             <td>
                 varbin
             </td>
             <td>
-                The seed value used to derive keys for the thread. If this value is not specified, then the original seed value from the parent conversation or channel is used.
+                The seed used to derive keys for the thread. If this value is not specified, then the original seed value from the parent conversation or channel is used.
                 
             </td>
         </tr>

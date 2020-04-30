@@ -13,14 +13,14 @@ fields:
       - 0
       - 1
 
-  - name: SeedValue
-    label: Seed Value
-    description: "The seed value used to derive keys for the relationship."
+  - name: Seed
+    label: Seed
+    description: "The seed used to derive keys for the relationship."
     type: varbin
 
-  - name: FlagValue
-    label: Flag Value
-    description: "The flag value can optionally be used to identify messages in the relationship so that all members don't have to be tagged in each message. It isn't needed for two party relationships, but is recommended for relationships with more members. It will be included in it's own op return for all message transactions. It is recommended to be a random 20 byte value similar to public key hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID of \"F\". If this value is not specified then there must be an output to the next key in the relationship chain for every member in the group."
+  - name: Flag
+    label: Flag
+    description: "The flag can optionally be used to identify messages in the relationship so that all members don't have to be tagged in each message. It isn't needed for two party relationships, but is recommended for relationships with more members. It will be included in it's own op return for all message transactions. It is recommended to be a random 20 byte value similar to public key hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID of \"F\". If this value is not specified then there must be an output to the next key in the relationship chain for every member in the group."
     type: varbin
 
   - name: EncryptionType

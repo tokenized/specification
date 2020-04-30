@@ -56,8 +56,8 @@ message OutputMetadata {
 // Message - Initiate Relationship (2001)
 message InitiateRelationship {
     uint32 Type                                    = 1;   // uint
-    bytes SeedValue                                = 2;   // varbin
-    bytes FlagValue                                = 3;   // varbin
+    bytes Seed                                     = 2;   // varbin
+    bytes Flag                                     = 3;   // varbin
     uint32 EncryptionType                          = 4;   // uint
     uint32 ProofOfIdentityType                     = 5;   // ProofOfIdentityType
     bytes ProofOfIdentity                          = 6;   // varbin
@@ -78,7 +78,7 @@ message AcceptRelationship {
 
 // Message - Relationship Amendment (2004)
 message RelationshipAmendment {
-    bytes SeedValue                                = 1;   // varbin
+    bytes Seed                                     = 1;   // varbin
     bytes BaseEncryptionSecret                     = 2;   // varbin
     uint32 AddMemberIndexes                        = 3;   // uint
     uint32 DropMemberIndexes                       = 4;   // uint
@@ -86,10 +86,16 @@ message RelationshipAmendment {
 
 // Message - Initiate Thread (2005)
 message InitiateThread {
-    bytes FlagValue                                = 1;   // varbin
-    bytes SeedValue                                = 2;   // varbin
+    bytes Flag                                     = 1;   // varbin
+    bytes Seed                                     = 2;   // varbin
 }
 
+
+// Field - Administrator
+message AdministratorField {
+    uint32 Type                                    = 1;   // Role
+    string Name                                    = 2;   // varchar
+}
 
 // Field - Channel Party
 message ChannelPartyField {
@@ -104,13 +110,37 @@ message DocumentField {
     bytes Contents                                 = 3;   // varbin
 }
 
+// Field - Entity
+message EntityField {
+    string Name                                    = 1;   // varchar
+    string Type                                    = 2;   // EntityType
+    string LEI                                     = 3;   // fixedchar
+    string UnitNumber                              = 4;   // varchar
+    string BuildingNumber                          = 5;   // varchar
+    string Street                                  = 6;   // varchar
+    string SuburbCity                              = 7;   // varchar
+    string TerritoryStateProvinceCode              = 8;   // fixedchar
+    string CountryCode                             = 9;   // fixedchar
+    string PostalZIPCode                           = 10;   // fixedchar
+    string EmailAddress                            = 11;  // varchar
+    string PhoneNumber                             = 12;  // varchar
+    repeated AdministratorField Administration     = 13;  // Administrator[]
+    repeated ManagerField Management               = 14;  // Manager[]
+    string DomainName                              = 15;  // varchar
+    bytes EntityContractAddress                    = 16;  // Address
+}
+
 // Field - Identity Oracle Proof
 message IdentityOracleProofField {
     bytes UserID                                   = 1;   // varbin
-    bytes EntityContractAddress                    = 2;   // Address
-    bytes Entity                                   = 3;   // varbin
-    OracleSignatureField OracleSignature           = 4;   // OracleSignature
-    bytes IdentitySignature                        = 5;   // varbin
+    EntityField Entity                             = 2;   // Entity
+    OracleSignatureField OracleSignature           = 3;   // OracleSignature
+}
+
+// Field - Manager
+message ManagerField {
+    uint32 Type                                    = 1;   // Role
+    string Name                                    = 2;   // varchar
 }
 
 // Field - Oracle Signature

@@ -209,14 +209,14 @@ func (a *InitiateRelationship) Validate() error {
 		return fmt.Errorf("Type value not within options [0 1] : %d", a.Type)
 	}
 
-	// Field SeedValue - varbin
-	if len(a.SeedValue) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.SeedValue), max1ByteInteger)
+	// Field Seed - varbin
+	if len(a.Seed) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Seed), max1ByteInteger)
 	}
 
-	// Field FlagValue - varbin
-	if len(a.FlagValue) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.FlagValue), max1ByteInteger)
+	// Field Flag - varbin
+	if len(a.Flag) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Flag), max1ByteInteger)
 	}
 
 	// Field EncryptionType - uint
@@ -316,9 +316,9 @@ func (a *RelationshipAmendment) Validate() error {
 		return nil
 	}
 
-	// Field SeedValue - varbin
-	if len(a.SeedValue) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.SeedValue), max1ByteInteger)
+	// Field Seed - varbin
+	if len(a.Seed) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Seed), max1ByteInteger)
 	}
 
 	// Field BaseEncryptionSecret - varbin
@@ -338,14 +338,35 @@ func (a *InitiateThread) Validate() error {
 		return nil
 	}
 
-	// Field FlagValue - varbin
-	if len(a.FlagValue) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.FlagValue), max1ByteInteger)
+	// Field Flag - varbin
+	if len(a.Flag) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Flag), max1ByteInteger)
 	}
 
-	// Field SeedValue - varbin
-	if len(a.SeedValue) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.SeedValue), max1ByteInteger)
+	// Field Seed - varbin
+	if len(a.Seed) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Seed), max1ByteInteger)
+	}
+
+	return nil
+}
+
+func (a *AdministratorField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Type - uint
+	if RolesData(a.Type) == nil {
+		return fmt.Errorf("Roles resource value not defined : %v", a.Type)
+	}
+	if a.Type > uint32(max1ByteInteger) {
+		return fmt.Errorf("uint over max value : %d > %d", a.Type, max1ByteInteger)
+	}
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Name), max1ByteInteger)
 	}
 
 	return nil
@@ -389,6 +410,112 @@ func (a *DocumentField) Validate() error {
 	return nil
 }
 
+func (a *EntityField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Name), max1ByteInteger)
+	}
+
+	// Field Type - fixedchar
+	if EntitiesData(a.Type) == nil {
+		return fmt.Errorf("Entities resource value not defined : %v", a.Type)
+	}
+	if len(a.Type) != 0 && len(a.Type) != 1 {
+		return fmt.Errorf("Fixed width field Type wrong size : %d should be %d",
+			len(a.Type), 1)
+	}
+
+	// Field LEI - fixedchar
+	if len(a.LEI) != 0 && len(a.LEI) != 20 {
+		return fmt.Errorf("Fixed width field LEI wrong size : %d should be %d",
+			len(a.LEI), 20)
+	}
+
+	// Field UnitNumber - varchar
+	if len(a.UnitNumber) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.UnitNumber), max1ByteInteger)
+	}
+
+	// Field BuildingNumber - varchar
+	if len(a.BuildingNumber) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.BuildingNumber), max1ByteInteger)
+	}
+
+	// Field Street - varchar
+	if len(a.Street) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Street), max1ByteInteger)
+	}
+
+	// Field SuburbCity - varchar
+	if len(a.SuburbCity) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.SuburbCity), max1ByteInteger)
+	}
+
+	// Field TerritoryStateProvinceCode - fixedchar
+	if len(a.TerritoryStateProvinceCode) != 0 && len(a.TerritoryStateProvinceCode) != 5 {
+		return fmt.Errorf("Fixed width field TerritoryStateProvinceCode wrong size : %d should be %d",
+			len(a.TerritoryStateProvinceCode), 5)
+	}
+
+	// Field CountryCode - fixedchar
+	if len(a.CountryCode) != 0 && len(a.CountryCode) != 3 {
+		return fmt.Errorf("Fixed width field CountryCode wrong size : %d should be %d",
+			len(a.CountryCode), 3)
+	}
+
+	// Field PostalZIPCode - fixedchar
+	if len(a.PostalZIPCode) != 0 && len(a.PostalZIPCode) != 12 {
+		return fmt.Errorf("Fixed width field PostalZIPCode wrong size : %d should be %d",
+			len(a.PostalZIPCode), 12)
+	}
+
+	// Field EmailAddress - varchar
+	if len(a.EmailAddress) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EmailAddress), max1ByteInteger)
+	}
+
+	// Field PhoneNumber - varchar
+	if len(a.PhoneNumber) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.PhoneNumber), max1ByteInteger)
+	}
+
+	// Field Administration - Administrator
+	if len(a.Administration) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Administration), max1ByteInteger)
+	}
+	for i, v := range a.Administration {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("Administration[%d] invalid : %s", i, err)
+		}
+	}
+
+	// Field Management - Manager
+	if len(a.Management) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Management), max1ByteInteger)
+	}
+	for i, v := range a.Management {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("Management[%d] invalid : %s", i, err)
+		}
+	}
+
+	// Field DomainName - varchar
+	if len(a.DomainName) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.DomainName), max1ByteInteger)
+	}
+
+	// Field EntityContractAddress - varbin
+	if len(a.EntityContractAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContractAddress), max2ByteInteger)
+	}
+
+	return nil
+}
+
 func (a *IdentityOracleProofField) Validate() error {
 	if a == nil {
 		return nil
@@ -399,14 +526,9 @@ func (a *IdentityOracleProofField) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.UserID), max1ByteInteger)
 	}
 
-	// Field EntityContractAddress - varbin
-	if len(a.EntityContractAddress) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContractAddress), max2ByteInteger)
-	}
-
-	// Field Entity - varbin
-	if len(a.Entity) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Entity), max1ByteInteger)
+	// Field Entity - Entity
+	if err := a.Entity.Validate(); err != nil {
+		return fmt.Errorf("Entity invalid : %s", err)
 	}
 
 	// Field OracleSignature - OracleSignature
@@ -414,9 +536,25 @@ func (a *IdentityOracleProofField) Validate() error {
 		return fmt.Errorf("OracleSignature invalid : %s", err)
 	}
 
-	// Field IdentitySignature - varbin
-	if len(a.IdentitySignature) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.IdentitySignature), max1ByteInteger)
+	return nil
+}
+
+func (a *ManagerField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Type - uint
+	if RolesData(a.Type) == nil {
+		return fmt.Errorf("Roles resource value not defined : %v", a.Type)
+	}
+	if a.Type > uint32(max1ByteInteger) {
+		return fmt.Errorf("uint over max value : %d > %d", a.Type, max1ByteInteger)
+	}
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Name), max1ByteInteger)
 	}
 
 	return nil

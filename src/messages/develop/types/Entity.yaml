@@ -1,0 +1,110 @@
+
+name: Entity
+label: Entity
+description: "Entity represents the details of a legal Entity, such as a public or private company, government agency, or and individual."
+
+fields:
+  - name: Name
+    label: Name
+    description: "Length 1-255 bytes (0 is not valid). Issuing entity (company, organization, individual).  Can be any unique identifying string, including human readable names for branding/vanity purposes. "
+    type: varchar
+    varSize: tiny
+    example: "Tesla Inc."
+
+  - name: Type
+    label: Type
+    description: "The type of entity. (i.e Public Company, Individual) (Specification/Resources)."
+    type: EntityType
+    example: "P"
+
+  - name: LEI
+    label: Legal Entity Identifier
+    description: "Null is valid. A Legal Entity Identifier (or LEI) is an international identifier made up of a 20-character identifier that identifies distinct legal entities that engage in financial transactions. It is defined by ISO 17442.[1] Natural persons are not required to have an LEI; they’re eligible to have one issued, however, but only if they act in an independent business capacity.[2] The LEI is a global standard, designed to be non-proprietary data that is freely accessible to all.[3] As of December 2018, over 1,300,000 legal entities from more than 200 countries have now been issued with LEIs."
+    type: fixedchar
+    size: 20
+    example: "54930084UKLVMY22DS16"
+    notes: "ISO 17442 - https://en.wikipedia.org/wiki/Legal_Entity_Identifier"
+
+  - name: UnitNumber
+    label: Unit Number
+    description: "Issuer/Entity/Contracting Party X Address Details (eg. HQ)"
+    type: varchar
+    example: "2"
+
+  - name: BuildingNumber
+    label: Building Number
+    description: ""
+    type: varchar
+    varSize: tiny
+    example: "13577"
+
+  - name: Street
+    label: Street
+    description: ""
+    type: varchar
+    varSize: tiny
+    example: "Fairmont Ave"
+
+  - name: SuburbCity
+    label: Suburb/City
+    description: ""
+    type: varchar
+    varSize: tiny
+    example: "Robinoh"
+
+  - name: TerritoryStateProvinceCode
+    label: Territory/State/Province Code
+    description: ""
+    type: fixedchar
+    size: 5
+    example: "BC"
+
+  - name: CountryCode
+    label: Country Code
+    description: ""
+    type: fixedchar
+    size: 3
+    example: "USA"
+
+  - name: PostalZIPCode
+    label: Postal/ZIP Code
+    description: ""
+    type: fixedchar
+    size: 12
+    example: "50210"
+
+  - name: EmailAddress
+    label: Email Address
+    description: "Length 0-255 bytes. Address for text-based communication: eg. email address, Bitcoin address"
+    type: varchar
+    varSize: tiny
+    example: "satoshi@tokenized.com"
+
+  - name: PhoneNumber
+    label: Phone Number
+    description: "Length 0-255 bytes. 0 is valid. Phone Number for Entity."
+    type: varchar
+    varSize: tiny
+    example: "0448484848"
+
+  - name: Administration
+    label: Administration
+    description: "A list of people that are in Administrative Roles for the Entity.  eg. Chair, Director, Managing Partner, etc."
+    type: Administrator[]
+
+  - name: Management
+    label: Management
+    description: "A list of people in Management Roles for the Entity. e.g CEO, COO, CTO, CFO, Secretary, Executive, etc."
+    type: Manager[]
+
+  - name: DomainName
+    label: Domain Name
+    description: "Domain name owned by this entity. Length 0-255 bytes. 0 is valid."
+    type: varchar
+    varSize: tiny
+    example: "tokenized.com"
+
+  - name: EntityContractAddress
+    label: Entity Contract Address
+    description: "Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity."
+    type: Address

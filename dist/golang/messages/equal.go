@@ -244,14 +244,14 @@ func (l *InitiateRelationship) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Type integer mismatched")
 	}
 
-	// Field SeedValue - varbin
-	if !bytes.Equal(l.SeedValue, r.SeedValue) {
-		return false // fmt.Errorf("SeedValue bytes mismatched")
+	// Field Seed - varbin
+	if !bytes.Equal(l.Seed, r.Seed) {
+		return false // fmt.Errorf("Seed bytes mismatched")
 	}
 
-	// Field FlagValue - varbin
-	if !bytes.Equal(l.FlagValue, r.FlagValue) {
-		return false // fmt.Errorf("FlagValue bytes mismatched")
+	// Field Flag - varbin
+	if !bytes.Equal(l.Flag, r.Flag) {
+		return false // fmt.Errorf("Flag bytes mismatched")
 	}
 
 	// Field EncryptionType - uint
@@ -335,9 +335,9 @@ func (l *RelationshipAmendment) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field SeedValue - varbin
-	if !bytes.Equal(l.SeedValue, r.SeedValue) {
-		return false // fmt.Errorf("SeedValue bytes mismatched")
+	// Field Seed - varbin
+	if !bytes.Equal(l.Seed, r.Seed) {
+		return false // fmt.Errorf("Seed bytes mismatched")
 	}
 
 	// Field BaseEncryptionSecret - varbin
@@ -367,14 +367,36 @@ func (l *InitiateThread) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field FlagValue - varbin
-	if !bytes.Equal(l.FlagValue, r.FlagValue) {
-		return false // fmt.Errorf("FlagValue bytes mismatched")
+	// Field Flag - varbin
+	if !bytes.Equal(l.Flag, r.Flag) {
+		return false // fmt.Errorf("Flag bytes mismatched")
 	}
 
-	// Field SeedValue - varbin
-	if !bytes.Equal(l.SeedValue, r.SeedValue) {
-		return false // fmt.Errorf("SeedValue bytes mismatched")
+	// Field Seed - varbin
+	if !bytes.Equal(l.Seed, r.Seed) {
+		return false // fmt.Errorf("Seed bytes mismatched")
+	}
+
+	return true
+}
+
+func (l *AdministratorField) Equal(right proto.Message) bool {
+	if l == nil {
+		return right == nil
+	}
+	r, ok := right.(*AdministratorField)
+	if !ok {
+		return false
+	}
+
+	// Field Type - uint
+	if l.Type != r.Type {
+		return false // fmt.Errorf("Type integer mismatched")
+	}
+
+	// Field Name - varchar
+	if l.Name != r.Name {
+		return false // fmt.Errorf("Name string mismatched")
 	}
 
 	return true
@@ -429,6 +451,108 @@ func (l *DocumentField) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *EntityField) Equal(right proto.Message) bool {
+	if l == nil {
+		return right == nil
+	}
+	r, ok := right.(*EntityField)
+	if !ok {
+		return false
+	}
+
+	// Field Name - varchar
+	if l.Name != r.Name {
+		return false // fmt.Errorf("Name string mismatched")
+	}
+
+	// Field Type - fixedchar
+	if l.Type != r.Type {
+		return false // fmt.Errorf("Type string mismatched")
+	}
+
+	// Field LEI - fixedchar
+	if l.LEI != r.LEI {
+		return false // fmt.Errorf("LEI string mismatched")
+	}
+
+	// Field UnitNumber - varchar
+	if l.UnitNumber != r.UnitNumber {
+		return false // fmt.Errorf("UnitNumber string mismatched")
+	}
+
+	// Field BuildingNumber - varchar
+	if l.BuildingNumber != r.BuildingNumber {
+		return false // fmt.Errorf("BuildingNumber string mismatched")
+	}
+
+	// Field Street - varchar
+	if l.Street != r.Street {
+		return false // fmt.Errorf("Street string mismatched")
+	}
+
+	// Field SuburbCity - varchar
+	if l.SuburbCity != r.SuburbCity {
+		return false // fmt.Errorf("SuburbCity string mismatched")
+	}
+
+	// Field TerritoryStateProvinceCode - fixedchar
+	if l.TerritoryStateProvinceCode != r.TerritoryStateProvinceCode {
+		return false // fmt.Errorf("TerritoryStateProvinceCode string mismatched")
+	}
+
+	// Field CountryCode - fixedchar
+	if l.CountryCode != r.CountryCode {
+		return false // fmt.Errorf("CountryCode string mismatched")
+	}
+
+	// Field PostalZIPCode - fixedchar
+	if l.PostalZIPCode != r.PostalZIPCode {
+		return false // fmt.Errorf("PostalZIPCode string mismatched")
+	}
+
+	// Field EmailAddress - varchar
+	if l.EmailAddress != r.EmailAddress {
+		return false // fmt.Errorf("EmailAddress string mismatched")
+	}
+
+	// Field PhoneNumber - varchar
+	if l.PhoneNumber != r.PhoneNumber {
+		return false // fmt.Errorf("PhoneNumber string mismatched")
+	}
+
+	// Field Administration - Administrator
+	if len(l.Administration) != len(r.Administration) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range l.Administration {
+		if !v.Equal(r.Administration[i]) {
+			return false // fmt.Errorf("Administration[%d] : %s", i, err)
+		}
+	}
+
+	// Field Management - Manager
+	if len(l.Management) != len(r.Management) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range l.Management {
+		if !v.Equal(r.Management[i]) {
+			return false // fmt.Errorf("Management[%d] : %s", i, err)
+		}
+	}
+
+	// Field DomainName - varchar
+	if l.DomainName != r.DomainName {
+		return false // fmt.Errorf("DomainName string mismatched")
+	}
+
+	// Field EntityContractAddress - varbin
+	if !bytes.Equal(l.EntityContractAddress, r.EntityContractAddress) {
+		return false // fmt.Errorf("EntityContractAddress bytes mismatched")
+	}
+
+	return true
+}
+
 func (l *IdentityOracleProofField) Equal(right proto.Message) bool {
 	if l == nil {
 		return right == nil
@@ -443,14 +567,9 @@ func (l *IdentityOracleProofField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("UserID bytes mismatched")
 	}
 
-	// Field EntityContractAddress - varbin
-	if !bytes.Equal(l.EntityContractAddress, r.EntityContractAddress) {
-		return false // fmt.Errorf("EntityContractAddress bytes mismatched")
-	}
-
-	// Field Entity - varbin
-	if !bytes.Equal(l.Entity, r.Entity) {
-		return false // fmt.Errorf("Entity bytes mismatched")
+	// Field Entity - Entity
+	if !l.Equal(r.Entity) {
+		return false // fmt.Errorf("Entity : %s", err)
 	}
 
 	// Field OracleSignature - OracleSignature
@@ -458,9 +577,26 @@ func (l *IdentityOracleProofField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("OracleSignature : %s", err)
 	}
 
-	// Field IdentitySignature - varbin
-	if !bytes.Equal(l.IdentitySignature, r.IdentitySignature) {
-		return false // fmt.Errorf("IdentitySignature bytes mismatched")
+	return true
+}
+
+func (l *ManagerField) Equal(right proto.Message) bool {
+	if l == nil {
+		return right == nil
+	}
+	r, ok := right.(*ManagerField)
+	if !ok {
+		return false
+	}
+
+	// Field Type - uint
+	if l.Type != r.Type {
+		return false // fmt.Errorf("Type integer mismatched")
+	}
+
+	// Field Name - varchar
+	if l.Name != r.Name {
+		return false // fmt.Errorf("Name string mismatched")
 	}
 
 	return true
