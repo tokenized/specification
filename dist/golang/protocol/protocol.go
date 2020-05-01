@@ -28,7 +28,7 @@ const (
 	// Version of the Tokenized protocol.
 	Version = uint64(0)
 
-	FlagProtocolID = "F"
+	FlagProtocolID = "flag"
 
 	FlagVersion = uint64(0)
 )
