@@ -8,8 +8,8 @@ require (
 	github.com/golang/protobuf v1.3.2
 	github.com/pkg/errors v0.8.1
 	github.com/spf13/cobra v0.0.5
-	github.com/tokenized/envelope v0.2.2-0.20200508022523-a7c99a18df78
-	github.com/tokenized/smart-contract v0.2.3-0.20200430030512-47837c8e0b0c
+	github.com/tokenized/envelope v0.2.2-0.20200508024655-785b711926d3
+	github.com/tokenized/smart-contract v0.2.3-0.20200508024201-fdbe6fb7ec0d
 	golang.org/x/lint v0.0.0-20191125180803-fdd1cda4f05f // indirect
 	golang.org/x/tools v0.0.0-20200107184032-11e9d9cc0042 // indirect
 	gopkg.in/yaml.v2 v2.2.7
