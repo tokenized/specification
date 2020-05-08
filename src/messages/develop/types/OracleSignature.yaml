@@ -1,0 +1,32 @@
+name: OracleSignature
+label: Oracle Signature
+description: "A signature from an oracle verifying some data."
+
+fields:
+  - name: OracleURL
+    label: Oracle URL
+    description: "Base URL of the identity oracle that provided the signature."
+    type: varchar
+    example: "identity.tokenized.com"
+
+  - name: BlockHeight
+    label: Block Height
+    description: "The height of the block hash included in the data signed by the oracle. If the value is not included (zero), then no signature hash is included in the signed data."
+    type: uint
+    size: 4
+
+  - name: ValidityPeriod
+    label: Validity Period
+    description: "The time frame that the proof is valid."
+    type: Period
+
+  - name: SignatureAlgorithm
+    label: Signature Algorithm
+    description: "The algorithm used by the oracle signature."
+    type: uint
+    size: 1
+
+  - name: Signature
+    label: Signature
+    description: "Signature of the related data with the oracle's public key."
+    type: varbin
