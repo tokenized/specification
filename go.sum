@@ -88,6 +88,8 @@ github.com/tokenized/envelope v0.2.2-0.20200508022523-a7c99a18df78 h1:D/91VUIHJM
 github.com/tokenized/envelope v0.2.2-0.20200508022523-a7c99a18df78/go.mod h1:NPpMU3yddpFlUhXpHGjvsi/C8SGta3aWK7Ss6coNnDw=
 github.com/tokenized/envelope v0.2.2-0.20200508024655-785b711926d3 h1:hifmlnlS/FP43QwP1/r4N66z/Rbgsw01n/RiFIuH9hk=
 github.com/tokenized/envelope v0.2.2-0.20200508024655-785b711926d3/go.mod h1:8LZ54EznV7C9Z8mrVf93BxgHoWWkxS3Wap4sHkazrLQ=
+github.com/tokenized/envelope v0.2.2-0.20200527065239-5052cdb40f26 h1:6Lo7nHQoejP/iXj3n90QPF5ZW4FIHBCAhz9eecbC2vs=
+github.com/tokenized/envelope v0.2.2-0.20200527065239-5052cdb40f26/go.mod h1:45bsf6vV2x/fCupq7dyJTZ/iRt31T7OvOb4iTbkAFuU=
 github.com/tokenized/smart-contract v0.2.1 h1:ICKvt2E+UncONoCoyncNEhgkvX2sr95G285gkSeTeVY=
 github.com/tokenized/smart-contract v0.2.1/go.mod h1:ToCFL/fnDCngqmv1bm8klYaJGueje/26qoImoPe+aFs=
 github.com/tokenized/smart-contract v0.2.2-0.20200103005916-b230b5e28e16/go.mod h1:3oWcq6AOuFrBBe/Vz1a9ucjM3kKSjjo8n2B1n+Sr+X0=
@@ -101,6 +103,8 @@ github.com/tokenized/smart-contract v0.2.3-0.20200430030512-47837c8e0b0c h1:Jqze
 github.com/tokenized/smart-contract v0.2.3-0.20200430030512-47837c8e0b0c/go.mod h1:Vr7VsqpYHPT+TOZuepR2iCjT7p1JIfG9uMqjcKCkzhM=
 github.com/tokenized/smart-contract v0.2.3-0.20200508024201-fdbe6fb7ec0d h1:SAnEWPF53eqXDhrwr3eC1FITbqeQIWmrTPNmTr5y9b0=
 github.com/tokenized/smart-contract v0.2.3-0.20200508024201-fdbe6fb7ec0d/go.mod h1:Eto7Y+ctj838slo9TorOS8I+lShGsT3ET5XcModyVpk=
+github.com/tokenized/smart-contract v0.2.3-0.20200526204003-52bb758ee4c2 h1:vt1Gg6OPIpnJYoL2QmF+1tTWP4Hajm1mOhWYlIOxCtQ=
+github.com/tokenized/smart-contract v0.2.3-0.20200526204003-52bb758ee4c2/go.mod h1:Eto7Y+ctj838slo9TorOS8I+lShGsT3ET5XcModyVpk=
 github.com/tokenized/specification v0.2.2-0.20191219061451-ecd0fc17c3ca/go.mod h1:8QHhqLHxThlZ3hEGD69UhAuj/AChbCWLNUrr1YNk46E=
 github.com/tokenized/specification v0.2.3-0.20200331020322-b65a25099cf8/go.mod h1:2Zsv/mL98DWvoe8wjq5gbRnM2X4Ai7JeideRQ+Y1qCg=
 github.com/tokenized/specification v0.2.3-0.20200429034013-c34571b57316/go.mod h1:jH3GzsLUUTFX0dXzp9c19uATbe2HXUj9q74AjQZtPRo=
