@@ -7,9 +7,10 @@ import (
 	"math"
 	"time"
 
-	"github.com/tokenized/smart-contract/pkg/bitcoin"
-	"github.com/tokenized/smart-contract/pkg/txbuilder"
-	"github.com/tokenized/smart-contract/pkg/wire"
+	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/txbuilder"
+	"github.com/tokenized/pkg/wire"
+
 	"github.com/tokenized/specification/dist/golang/actions"
 	"github.com/tokenized/specification/dist/golang/messages"
 
@@ -17,7 +18,8 @@ import (
 )
 
 // EstimatedResponse calculates information about the contract's response to a request.
-//   fees is the sum of all contract related fees including base contract fee, proposal fee, and others.
+//   fees is the sum of all contract related fees including base contract fee, proposal fee, and
+///  others. dustLimit is based on the expected P2PKH notification outputs.
 // WARNING: This function is inaccurate and incomplete!
 // Returns
 //   estimated size of response tx in bytes.

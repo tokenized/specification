@@ -11,7 +11,7 @@ import (
 
 	"github.com/tokenized/envelope/pkg/golang/envelope"
 	v0 "github.com/tokenized/envelope/pkg/golang/envelope/v0"
-	"github.com/tokenized/smart-contract/pkg/bitcoin"
+	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/actions"
 
 	"github.com/golang/protobuf/proto"
