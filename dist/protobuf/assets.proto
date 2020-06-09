@@ -18,7 +18,7 @@ message Membership {
 message Currency {
     string CurrencyCode                            = 1;   // CurrencyType
     string MonetaryAuthority                       = 2;   // varchar
-    string Description                             = 3;   // varchar
+    reserved                                         3;   // Deprecated Description
     uint64 Precision                               = 4;   // uint
 }
 

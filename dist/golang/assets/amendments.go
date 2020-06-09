@@ -84,10 +84,10 @@ func (a *Membership) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 
 // Currency Permission / Amendment Field Indices
 const (
-	CurrencyFieldCurrencyCode      = uint32(1)
-	CurrencyFieldMonetaryAuthority = uint32(2)
-	CurrencyFieldDescription       = uint32(3)
-	CurrencyFieldPrecision         = uint32(4)
+	CurrencyFieldCurrencyCode          = uint32(1)
+	CurrencyFieldMonetaryAuthority     = uint32(2)
+	DeprecatedCurrencyFieldDescription = uint32(3)
+	CurrencyFieldPrecision             = uint32(4)
 )
 
 // ApplyAmendment updates a Currency based on amendment data.
@@ -107,9 +107,7 @@ func (a *Currency) ApplyAmendment(fip []uint32, operation uint32, data []byte) (
 		a.MonetaryAuthority = string(data)
 		return fip[:], nil
 
-	case CurrencyFieldDescription: // string
-		a.Description = string(data)
-		return fip[:], nil
+	case DeprecatedCurrencyFieldDescription: // deprecated
 
 	case CurrencyFieldPrecision: // uint64
 		if len(fip) > 1 {

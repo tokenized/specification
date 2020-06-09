@@ -143,11 +143,12 @@
           "type": "varchar"
         },
         {
+          "description": "Deprecated because the currency asset should be distinguished by its meta data and contract.",
           "example": "Australian dollar",
           "label": "Description",
           "name": "Description",
           "span": "full",
-          "type": "varchar",
+          "type": "deprecated",
           "varSize": "small"
         },
         {

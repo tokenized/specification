@@ -160,12 +160,10 @@ Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of
     </tr>
 
     <tr>
-        <td>Description</td>
+        <td>(Deprecated)Description</td>
+        <td>deprecated</td>
         <td>
-            varchar(small)
-        </td>
-        <td>
-            
+            Deprecated because the currency asset should be distinguished by its meta data and contract.
              Example: Australian dollar
         </td>
     </tr>

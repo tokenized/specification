@@ -75,11 +75,6 @@ func (l *Currency) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("MonetaryAuthority string mismatched")
 	}
 
-	// Field Description - varchar
-	if l.Description != r.Description {
-		return false // fmt.Errorf("Description string mismatched")
-	}
-
 	// Field Precision - uint
 	if l.Precision != r.Precision {
 		return false // fmt.Errorf("Precision integer mismatched")

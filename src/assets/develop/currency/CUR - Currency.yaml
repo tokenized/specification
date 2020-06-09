@@ -29,10 +29,11 @@ fields:
 
   - name: Description
     label: Description
-    type: varchar
+    type: deprecated
     varSize: small
     example: Australian dollar
     span: full
+    description: "Deprecated because the currency asset should be distinguished by its meta data and contract."
 
   - name: Precision
     label: Precision
