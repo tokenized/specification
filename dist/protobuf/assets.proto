@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package="github.com/tokenized/specification/dist/golang/assets";
+
 package assets;
 
 // Message - Membership (MEM)

@@ -3,6 +3,8 @@
 
 syntax = "proto3";
 
+option go_package="github.com/tokenized/specification/dist/golang/{{.Package}}";
+
 package {{.Package}};
 {{ range $messages }}
 // Message - {{.Label}} ({{.Code}})

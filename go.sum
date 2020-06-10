@@ -109,10 +109,14 @@ github.com/tokenized/envelope v0.2.2-0.20200527065239-5052cdb40f26 h1:6Lo7nHQoej
 github.com/tokenized/envelope v0.2.2-0.20200527065239-5052cdb40f26/go.mod h1:45bsf6vV2x/fCupq7dyJTZ/iRt31T7OvOb4iTbkAFuU=
 github.com/tokenized/envelope v0.2.2-0.20200528015424-46a6fe98c5b0 h1:6bE+DR2EzRBUuf2WIFdhRIKIfoO53oG7HczJVoOsLeg=
 github.com/tokenized/envelope v0.2.2-0.20200528015424-46a6fe98c5b0/go.mod h1:H/ct3hWBz8VKhOPKqnw1zTpWByZgPp2TVJKoYbZWVb8=
+github.com/tokenized/envelope v0.2.2-0.20200610034740-a103a57c06ba h1:pmjmnb0U2v4wywY1CGxf2mGDI4q2V56WndcJQaI8aZE=
+github.com/tokenized/envelope v0.2.2-0.20200610034740-a103a57c06ba/go.mod h1:H/ct3hWBz8VKhOPKqnw1zTpWByZgPp2TVJKoYbZWVb8=
 github.com/tokenized/pkg v0.0.0-20200528005955-162f9c3d87f8 h1:MP+vLu3T5oyxJGo2gO8eD0i8WEZpw4hZKUW/kILf63o=
 github.com/tokenized/pkg v0.0.0-20200528005955-162f9c3d87f8/go.mod h1:qVlOZ6a37XqvfYQFoWhxBUGvGgzY0EkvoCHDBs+cjSA=
 github.com/tokenized/pkg v0.0.0-20200608212442-c318b2531560 h1:IvOaBfUcHtBTx6Vm6cgly2XXjNLgTtcovhXOYCyxqsU=
 github.com/tokenized/pkg v0.0.0-20200608212442-c318b2531560/go.mod h1:qVlOZ6a37XqvfYQFoWhxBUGvGgzY0EkvoCHDBs+cjSA=
+github.com/tokenized/pkg v0.0.0-20200609212132-64f71e49483f h1:btOEqYf+VSkZp+1gWc0hkpBofPsHH1FNpofcQ4Bsktc=
+github.com/tokenized/pkg v0.0.0-20200609212132-64f71e49483f/go.mod h1:qVlOZ6a37XqvfYQFoWhxBUGvGgzY0EkvoCHDBs+cjSA=
 github.com/tokenized/smart-contract v0.2.2-0.20200103005916-b230b5e28e16/go.mod h1:3oWcq6AOuFrBBe/Vz1a9ucjM3kKSjjo8n2B1n+Sr+X0=
 github.com/tokenized/smart-contract v0.2.2-0.20200105215152-0ca6d7ce006b/go.mod h1:3oWcq6AOuFrBBe/Vz1a9ucjM3kKSjjo8n2B1n+Sr+X0=
 github.com/tokenized/smart-contract v0.2.3-0.20200427054402-537a79c73c13/go.mod h1:Vr7VsqpYHPT+TOZuepR2iCjT7p1JIfG9uMqjcKCkzhM=
