@@ -19,7 +19,7 @@ type {{ .Name }}Code struct {
 
 // {{ $resource.Name }}Data holds a mapping of {{ $resource.Name }} codes.
 func {{ $resource.Name }}Data(code {{ $resource.CodeType.GoType }}) *{{ $resource.Name }}Code {
-	switch(code) {
+	switch code {
 {{- range $j, $value := $resource.Values }}
 	case {{ $resource.Name }}{{ stripwhitespace $value.Name }}:
 		return &{{ $resource.Name }}Code{

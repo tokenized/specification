@@ -1,0 +1,16 @@
+code: 2003
+name: AcceptRelationship
+label: Accept Relationship
+description: "Accept a relationship."
+
+fields:
+  - name: ProofOfIdentityType
+    label: Proof of Identity Type
+    description: "The type/format of the sender's proof of identity."
+    type: ProofOfIdentityType
+
+  - name: ProofOfIdentity
+    label: Proof of Identity
+    description: "Sender's proof of identity."
+    type: varbin
+    size: small

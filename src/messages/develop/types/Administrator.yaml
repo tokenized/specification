@@ -1,0 +1,17 @@
+
+name: Administrator
+label: Administrator
+description: "Administrator is used to refer to a Administration role in an Entity."
+
+fields:
+  - name: Type
+    label: Administrator Type
+    description: "Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources"
+    type: Role
+    example: "7"
+
+  - name: Name
+    label: Administrator Name
+    description: "Length 0-255 bytes. 0 is valid."
+    type: varchar
+    example: "Satoshi Nakamoto"

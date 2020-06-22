@@ -114,6 +114,13 @@ func (f *Field) BaseResource() string {
 	return f.Resource
 }
 
+func (f *Field) BaseOptions() []string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseOptions()
+	}
+	return f.Options
+}
+
 func (f *Field) GoSingularType() string {
 	gt := f.BaseType()
 

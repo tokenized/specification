@@ -429,6 +429,790 @@ func (m *OutputMetadata) GetCustomTags() []*OutputTagField {
 	return nil
 }
 
+// Message - Initiate Relationship (2001)
+type InitiateRelationship struct {
+	Type                 uint32               `protobuf:"varint,1,opt,name=Type,proto3" json:"Type,omitempty"`
+	Seed                 []byte               `protobuf:"bytes,2,opt,name=Seed,proto3" json:"Seed,omitempty"`
+	Flag                 []byte               `protobuf:"bytes,3,opt,name=Flag,proto3" json:"Flag,omitempty"`
+	EncryptionType       uint32               `protobuf:"varint,4,opt,name=EncryptionType,proto3" json:"EncryptionType,omitempty"`
+	ProofOfIdentityType  uint32               `protobuf:"varint,5,opt,name=ProofOfIdentityType,proto3" json:"ProofOfIdentityType,omitempty"`
+	ProofOfIdentity      []byte               `protobuf:"bytes,6,opt,name=ProofOfIdentity,proto3" json:"ProofOfIdentity,omitempty"`
+	ChannelParties       []*ChannelPartyField `protobuf:"bytes,7,rep,name=ChannelParties,proto3" json:"ChannelParties,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *InitiateRelationship) Reset()         { *m = InitiateRelationship{} }
+func (m *InitiateRelationship) String() string { return proto.CompactTextString(m) }
+func (*InitiateRelationship) ProtoMessage()    {}
+func (*InitiateRelationship) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{7}
+}
+
+func (m *InitiateRelationship) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InitiateRelationship.Unmarshal(m, b)
+}
+func (m *InitiateRelationship) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InitiateRelationship.Marshal(b, m, deterministic)
+}
+func (m *InitiateRelationship) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InitiateRelationship.Merge(m, src)
+}
+func (m *InitiateRelationship) XXX_Size() int {
+	return xxx_messageInfo_InitiateRelationship.Size(m)
+}
+func (m *InitiateRelationship) XXX_DiscardUnknown() {
+	xxx_messageInfo_InitiateRelationship.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InitiateRelationship proto.InternalMessageInfo
+
+func (m *InitiateRelationship) GetType() uint32 {
+	if m != nil {
+		return m.Type
+	}
+	return 0
+}
+
+func (m *InitiateRelationship) GetSeed() []byte {
+	if m != nil {
+		return m.Seed
+	}
+	return nil
+}
+
+func (m *InitiateRelationship) GetFlag() []byte {
+	if m != nil {
+		return m.Flag
+	}
+	return nil
+}
+
+func (m *InitiateRelationship) GetEncryptionType() uint32 {
+	if m != nil {
+		return m.EncryptionType
+	}
+	return 0
+}
+
+func (m *InitiateRelationship) GetProofOfIdentityType() uint32 {
+	if m != nil {
+		return m.ProofOfIdentityType
+	}
+	return 0
+}
+
+func (m *InitiateRelationship) GetProofOfIdentity() []byte {
+	if m != nil {
+		return m.ProofOfIdentity
+	}
+	return nil
+}
+
+func (m *InitiateRelationship) GetChannelParties() []*ChannelPartyField {
+	if m != nil {
+		return m.ChannelParties
+	}
+	return nil
+}
+
+// Message - Pending Accept Relationship (2002)
+type PendingAcceptRelationship struct {
+	ProofOfIdentityType  uint32   `protobuf:"varint,1,opt,name=ProofOfIdentityType,proto3" json:"ProofOfIdentityType,omitempty"`
+	ProofOfIdentity      []byte   `protobuf:"bytes,2,opt,name=ProofOfIdentity,proto3" json:"ProofOfIdentity,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *PendingAcceptRelationship) Reset()         { *m = PendingAcceptRelationship{} }
+func (m *PendingAcceptRelationship) String() string { return proto.CompactTextString(m) }
+func (*PendingAcceptRelationship) ProtoMessage()    {}
+func (*PendingAcceptRelationship) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{8}
+}
+
+func (m *PendingAcceptRelationship) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PendingAcceptRelationship.Unmarshal(m, b)
+}
+func (m *PendingAcceptRelationship) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PendingAcceptRelationship.Marshal(b, m, deterministic)
+}
+func (m *PendingAcceptRelationship) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PendingAcceptRelationship.Merge(m, src)
+}
+func (m *PendingAcceptRelationship) XXX_Size() int {
+	return xxx_messageInfo_PendingAcceptRelationship.Size(m)
+}
+func (m *PendingAcceptRelationship) XXX_DiscardUnknown() {
+	xxx_messageInfo_PendingAcceptRelationship.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PendingAcceptRelationship proto.InternalMessageInfo
+
+func (m *PendingAcceptRelationship) GetProofOfIdentityType() uint32 {
+	if m != nil {
+		return m.ProofOfIdentityType
+	}
+	return 0
+}
+
+func (m *PendingAcceptRelationship) GetProofOfIdentity() []byte {
+	if m != nil {
+		return m.ProofOfIdentity
+	}
+	return nil
+}
+
+// Message - Accept Relationship (2003)
+type AcceptRelationship struct {
+	ProofOfIdentityType  uint32   `protobuf:"varint,1,opt,name=ProofOfIdentityType,proto3" json:"ProofOfIdentityType,omitempty"`
+	ProofOfIdentity      []byte   `protobuf:"bytes,2,opt,name=ProofOfIdentity,proto3" json:"ProofOfIdentity,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AcceptRelationship) Reset()         { *m = AcceptRelationship{} }
+func (m *AcceptRelationship) String() string { return proto.CompactTextString(m) }
+func (*AcceptRelationship) ProtoMessage()    {}
+func (*AcceptRelationship) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{9}
+}
+
+func (m *AcceptRelationship) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AcceptRelationship.Unmarshal(m, b)
+}
+func (m *AcceptRelationship) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AcceptRelationship.Marshal(b, m, deterministic)
+}
+func (m *AcceptRelationship) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AcceptRelationship.Merge(m, src)
+}
+func (m *AcceptRelationship) XXX_Size() int {
+	return xxx_messageInfo_AcceptRelationship.Size(m)
+}
+func (m *AcceptRelationship) XXX_DiscardUnknown() {
+	xxx_messageInfo_AcceptRelationship.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AcceptRelationship proto.InternalMessageInfo
+
+func (m *AcceptRelationship) GetProofOfIdentityType() uint32 {
+	if m != nil {
+		return m.ProofOfIdentityType
+	}
+	return 0
+}
+
+func (m *AcceptRelationship) GetProofOfIdentity() []byte {
+	if m != nil {
+		return m.ProofOfIdentity
+	}
+	return nil
+}
+
+// Message - Relationship Amendment (2004)
+type RelationshipAmendment struct {
+	Seed                 []byte   `protobuf:"bytes,1,opt,name=Seed,proto3" json:"Seed,omitempty"`
+	BaseEncryptionSecret []byte   `protobuf:"bytes,2,opt,name=BaseEncryptionSecret,proto3" json:"BaseEncryptionSecret,omitempty"`
+	AddMemberIndexes     uint32   `protobuf:"varint,3,opt,name=AddMemberIndexes,proto3" json:"AddMemberIndexes,omitempty"`
+	DropMemberIndexes    uint32   `protobuf:"varint,4,opt,name=DropMemberIndexes,proto3" json:"DropMemberIndexes,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RelationshipAmendment) Reset()         { *m = RelationshipAmendment{} }
+func (m *RelationshipAmendment) String() string { return proto.CompactTextString(m) }
+func (*RelationshipAmendment) ProtoMessage()    {}
+func (*RelationshipAmendment) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{10}
+}
+
+func (m *RelationshipAmendment) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RelationshipAmendment.Unmarshal(m, b)
+}
+func (m *RelationshipAmendment) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RelationshipAmendment.Marshal(b, m, deterministic)
+}
+func (m *RelationshipAmendment) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RelationshipAmendment.Merge(m, src)
+}
+func (m *RelationshipAmendment) XXX_Size() int {
+	return xxx_messageInfo_RelationshipAmendment.Size(m)
+}
+func (m *RelationshipAmendment) XXX_DiscardUnknown() {
+	xxx_messageInfo_RelationshipAmendment.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RelationshipAmendment proto.InternalMessageInfo
+
+func (m *RelationshipAmendment) GetSeed() []byte {
+	if m != nil {
+		return m.Seed
+	}
+	return nil
+}
+
+func (m *RelationshipAmendment) GetBaseEncryptionSecret() []byte {
+	if m != nil {
+		return m.BaseEncryptionSecret
+	}
+	return nil
+}
+
+func (m *RelationshipAmendment) GetAddMemberIndexes() uint32 {
+	if m != nil {
+		return m.AddMemberIndexes
+	}
+	return 0
+}
+
+func (m *RelationshipAmendment) GetDropMemberIndexes() uint32 {
+	if m != nil {
+		return m.DropMemberIndexes
+	}
+	return 0
+}
+
+// Message - Initiate Thread (2005)
+type InitiateThread struct {
+	Flag                 []byte   `protobuf:"bytes,1,opt,name=Flag,proto3" json:"Flag,omitempty"`
+	Seed                 []byte   `protobuf:"bytes,2,opt,name=Seed,proto3" json:"Seed,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *InitiateThread) Reset()         { *m = InitiateThread{} }
+func (m *InitiateThread) String() string { return proto.CompactTextString(m) }
+func (*InitiateThread) ProtoMessage()    {}
+func (*InitiateThread) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{11}
+}
+
+func (m *InitiateThread) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InitiateThread.Unmarshal(m, b)
+}
+func (m *InitiateThread) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InitiateThread.Marshal(b, m, deterministic)
+}
+func (m *InitiateThread) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InitiateThread.Merge(m, src)
+}
+func (m *InitiateThread) XXX_Size() int {
+	return xxx_messageInfo_InitiateThread.Size(m)
+}
+func (m *InitiateThread) XXX_DiscardUnknown() {
+	xxx_messageInfo_InitiateThread.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InitiateThread proto.InternalMessageInfo
+
+func (m *InitiateThread) GetFlag() []byte {
+	if m != nil {
+		return m.Flag
+	}
+	return nil
+}
+
+func (m *InitiateThread) GetSeed() []byte {
+	if m != nil {
+		return m.Seed
+	}
+	return nil
+}
+
+// Field - Administrator
+type AdministratorField struct {
+	Type                 uint32   `protobuf:"varint,1,opt,name=Type,proto3" json:"Type,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdministratorField) Reset()         { *m = AdministratorField{} }
+func (m *AdministratorField) String() string { return proto.CompactTextString(m) }
+func (*AdministratorField) ProtoMessage()    {}
+func (*AdministratorField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{12}
+}
+
+func (m *AdministratorField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdministratorField.Unmarshal(m, b)
+}
+func (m *AdministratorField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdministratorField.Marshal(b, m, deterministic)
+}
+func (m *AdministratorField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdministratorField.Merge(m, src)
+}
+func (m *AdministratorField) XXX_Size() int {
+	return xxx_messageInfo_AdministratorField.Size(m)
+}
+func (m *AdministratorField) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdministratorField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdministratorField proto.InternalMessageInfo
+
+func (m *AdministratorField) GetType() uint32 {
+	if m != nil {
+		return m.Type
+	}
+	return 0
+}
+
+func (m *AdministratorField) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+// Field - Channel Party
+type ChannelPartyField struct {
+	AdministrativeAddress []byte   `protobuf:"bytes,1,opt,name=AdministrativeAddress,proto3" json:"AdministrativeAddress,omitempty"`
+	OutputIndex           uint32   `protobuf:"varint,2,opt,name=OutputIndex,proto3" json:"OutputIndex,omitempty"`
+	XXX_NoUnkeyedLiteral  struct{} `json:"-"`
+	XXX_unrecognized      []byte   `json:"-"`
+	XXX_sizecache         int32    `json:"-"`
+}
+
+func (m *ChannelPartyField) Reset()         { *m = ChannelPartyField{} }
+func (m *ChannelPartyField) String() string { return proto.CompactTextString(m) }
+func (*ChannelPartyField) ProtoMessage()    {}
+func (*ChannelPartyField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{13}
+}
+
+func (m *ChannelPartyField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ChannelPartyField.Unmarshal(m, b)
+}
+func (m *ChannelPartyField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ChannelPartyField.Marshal(b, m, deterministic)
+}
+func (m *ChannelPartyField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ChannelPartyField.Merge(m, src)
+}
+func (m *ChannelPartyField) XXX_Size() int {
+	return xxx_messageInfo_ChannelPartyField.Size(m)
+}
+func (m *ChannelPartyField) XXX_DiscardUnknown() {
+	xxx_messageInfo_ChannelPartyField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ChannelPartyField proto.InternalMessageInfo
+
+func (m *ChannelPartyField) GetAdministrativeAddress() []byte {
+	if m != nil {
+		return m.AdministrativeAddress
+	}
+	return nil
+}
+
+func (m *ChannelPartyField) GetOutputIndex() uint32 {
+	if m != nil {
+		return m.OutputIndex
+	}
+	return 0
+}
+
+// Field - Document
+type DocumentField struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
+	Type                 string   `protobuf:"bytes,2,opt,name=Type,proto3" json:"Type,omitempty"`
+	Contents             []byte   `protobuf:"bytes,3,opt,name=Contents,proto3" json:"Contents,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DocumentField) Reset()         { *m = DocumentField{} }
+func (m *DocumentField) String() string { return proto.CompactTextString(m) }
+func (*DocumentField) ProtoMessage()    {}
+func (*DocumentField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{14}
+}
+
+func (m *DocumentField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DocumentField.Unmarshal(m, b)
+}
+func (m *DocumentField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DocumentField.Marshal(b, m, deterministic)
+}
+func (m *DocumentField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DocumentField.Merge(m, src)
+}
+func (m *DocumentField) XXX_Size() int {
+	return xxx_messageInfo_DocumentField.Size(m)
+}
+func (m *DocumentField) XXX_DiscardUnknown() {
+	xxx_messageInfo_DocumentField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DocumentField proto.InternalMessageInfo
+
+func (m *DocumentField) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *DocumentField) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *DocumentField) GetContents() []byte {
+	if m != nil {
+		return m.Contents
+	}
+	return nil
+}
+
+// Field - Entity
+type EntityField struct {
+	Name                       string                `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
+	Type                       string                `protobuf:"bytes,2,opt,name=Type,proto3" json:"Type,omitempty"`
+	LEI                        string                `protobuf:"bytes,3,opt,name=LEI,proto3" json:"LEI,omitempty"`
+	UnitNumber                 string                `protobuf:"bytes,4,opt,name=UnitNumber,proto3" json:"UnitNumber,omitempty"`
+	BuildingNumber             string                `protobuf:"bytes,5,opt,name=BuildingNumber,proto3" json:"BuildingNumber,omitempty"`
+	Street                     string                `protobuf:"bytes,6,opt,name=Street,proto3" json:"Street,omitempty"`
+	SuburbCity                 string                `protobuf:"bytes,7,opt,name=SuburbCity,proto3" json:"SuburbCity,omitempty"`
+	TerritoryStateProvinceCode string                `protobuf:"bytes,8,opt,name=TerritoryStateProvinceCode,proto3" json:"TerritoryStateProvinceCode,omitempty"`
+	CountryCode                string                `protobuf:"bytes,9,opt,name=CountryCode,proto3" json:"CountryCode,omitempty"`
+	PostalZIPCode              string                `protobuf:"bytes,10,opt,name=PostalZIPCode,proto3" json:"PostalZIPCode,omitempty"`
+	EmailAddress               string                `protobuf:"bytes,11,opt,name=EmailAddress,proto3" json:"EmailAddress,omitempty"`
+	PhoneNumber                string                `protobuf:"bytes,12,opt,name=PhoneNumber,proto3" json:"PhoneNumber,omitempty"`
+	Administration             []*AdministratorField `protobuf:"bytes,13,rep,name=Administration,proto3" json:"Administration,omitempty"`
+	Management                 []*ManagerField       `protobuf:"bytes,14,rep,name=Management,proto3" json:"Management,omitempty"`
+	DomainName                 string                `protobuf:"bytes,15,opt,name=DomainName,proto3" json:"DomainName,omitempty"`
+	EntityContractAddress      []byte                `protobuf:"bytes,16,opt,name=EntityContractAddress,proto3" json:"EntityContractAddress,omitempty"`
+	XXX_NoUnkeyedLiteral       struct{}              `json:"-"`
+	XXX_unrecognized           []byte                `json:"-"`
+	XXX_sizecache              int32                 `json:"-"`
+}
+
+func (m *EntityField) Reset()         { *m = EntityField{} }
+func (m *EntityField) String() string { return proto.CompactTextString(m) }
+func (*EntityField) ProtoMessage()    {}
+func (*EntityField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{15}
+}
+
+func (m *EntityField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EntityField.Unmarshal(m, b)
+}
+func (m *EntityField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EntityField.Marshal(b, m, deterministic)
+}
+func (m *EntityField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EntityField.Merge(m, src)
+}
+func (m *EntityField) XXX_Size() int {
+	return xxx_messageInfo_EntityField.Size(m)
+}
+func (m *EntityField) XXX_DiscardUnknown() {
+	xxx_messageInfo_EntityField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EntityField proto.InternalMessageInfo
+
+func (m *EntityField) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *EntityField) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *EntityField) GetLEI() string {
+	if m != nil {
+		return m.LEI
+	}
+	return ""
+}
+
+func (m *EntityField) GetUnitNumber() string {
+	if m != nil {
+		return m.UnitNumber
+	}
+	return ""
+}
+
+func (m *EntityField) GetBuildingNumber() string {
+	if m != nil {
+		return m.BuildingNumber
+	}
+	return ""
+}
+
+func (m *EntityField) GetStreet() string {
+	if m != nil {
+		return m.Street
+	}
+	return ""
+}
+
+func (m *EntityField) GetSuburbCity() string {
+	if m != nil {
+		return m.SuburbCity
+	}
+	return ""
+}
+
+func (m *EntityField) GetTerritoryStateProvinceCode() string {
+	if m != nil {
+		return m.TerritoryStateProvinceCode
+	}
+	return ""
+}
+
+func (m *EntityField) GetCountryCode() string {
+	if m != nil {
+		return m.CountryCode
+	}
+	return ""
+}
+
+func (m *EntityField) GetPostalZIPCode() string {
+	if m != nil {
+		return m.PostalZIPCode
+	}
+	return ""
+}
+
+func (m *EntityField) GetEmailAddress() string {
+	if m != nil {
+		return m.EmailAddress
+	}
+	return ""
+}
+
+func (m *EntityField) GetPhoneNumber() string {
+	if m != nil {
+		return m.PhoneNumber
+	}
+	return ""
+}
+
+func (m *EntityField) GetAdministration() []*AdministratorField {
+	if m != nil {
+		return m.Administration
+	}
+	return nil
+}
+
+func (m *EntityField) GetManagement() []*ManagerField {
+	if m != nil {
+		return m.Management
+	}
+	return nil
+}
+
+func (m *EntityField) GetDomainName() string {
+	if m != nil {
+		return m.DomainName
+	}
+	return ""
+}
+
+func (m *EntityField) GetEntityContractAddress() []byte {
+	if m != nil {
+		return m.EntityContractAddress
+	}
+	return nil
+}
+
+// Field - Identity Oracle Proof
+type IdentityOracleProofField struct {
+	UserID               []byte                `protobuf:"bytes,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	Entity               *EntityField          `protobuf:"bytes,2,opt,name=Entity,proto3" json:"Entity,omitempty"`
+	OracleSignature      *OracleSignatureField `protobuf:"bytes,3,opt,name=OracleSignature,proto3" json:"OracleSignature,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
+	XXX_unrecognized     []byte                `json:"-"`
+	XXX_sizecache        int32                 `json:"-"`
+}
+
+func (m *IdentityOracleProofField) Reset()         { *m = IdentityOracleProofField{} }
+func (m *IdentityOracleProofField) String() string { return proto.CompactTextString(m) }
+func (*IdentityOracleProofField) ProtoMessage()    {}
+func (*IdentityOracleProofField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{16}
+}
+
+func (m *IdentityOracleProofField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_IdentityOracleProofField.Unmarshal(m, b)
+}
+func (m *IdentityOracleProofField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_IdentityOracleProofField.Marshal(b, m, deterministic)
+}
+func (m *IdentityOracleProofField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_IdentityOracleProofField.Merge(m, src)
+}
+func (m *IdentityOracleProofField) XXX_Size() int {
+	return xxx_messageInfo_IdentityOracleProofField.Size(m)
+}
+func (m *IdentityOracleProofField) XXX_DiscardUnknown() {
+	xxx_messageInfo_IdentityOracleProofField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_IdentityOracleProofField proto.InternalMessageInfo
+
+func (m *IdentityOracleProofField) GetUserID() []byte {
+	if m != nil {
+		return m.UserID
+	}
+	return nil
+}
+
+func (m *IdentityOracleProofField) GetEntity() *EntityField {
+	if m != nil {
+		return m.Entity
+	}
+	return nil
+}
+
+func (m *IdentityOracleProofField) GetOracleSignature() *OracleSignatureField {
+	if m != nil {
+		return m.OracleSignature
+	}
+	return nil
+}
+
+// Field - Manager
+type ManagerField struct {
+	Type                 uint32   `protobuf:"varint,1,opt,name=Type,proto3" json:"Type,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ManagerField) Reset()         { *m = ManagerField{} }
+func (m *ManagerField) String() string { return proto.CompactTextString(m) }
+func (*ManagerField) ProtoMessage()    {}
+func (*ManagerField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{17}
+}
+
+func (m *ManagerField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ManagerField.Unmarshal(m, b)
+}
+func (m *ManagerField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ManagerField.Marshal(b, m, deterministic)
+}
+func (m *ManagerField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ManagerField.Merge(m, src)
+}
+func (m *ManagerField) XXX_Size() int {
+	return xxx_messageInfo_ManagerField.Size(m)
+}
+func (m *ManagerField) XXX_DiscardUnknown() {
+	xxx_messageInfo_ManagerField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ManagerField proto.InternalMessageInfo
+
+func (m *ManagerField) GetType() uint32 {
+	if m != nil {
+		return m.Type
+	}
+	return 0
+}
+
+func (m *ManagerField) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+// Field - Oracle Signature
+type OracleSignatureField struct {
+	OracleURL            string       `protobuf:"bytes,1,opt,name=OracleURL,proto3" json:"OracleURL,omitempty"`
+	BlockHeight          uint32       `protobuf:"varint,2,opt,name=BlockHeight,proto3" json:"BlockHeight,omitempty"`
+	ValidityPeriod       *PeriodField `protobuf:"bytes,3,opt,name=ValidityPeriod,proto3" json:"ValidityPeriod,omitempty"`
+	SignatureAlgorithm   uint32       `protobuf:"varint,4,opt,name=SignatureAlgorithm,proto3" json:"SignatureAlgorithm,omitempty"`
+	Signature            []byte       `protobuf:"bytes,5,opt,name=Signature,proto3" json:"Signature,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *OracleSignatureField) Reset()         { *m = OracleSignatureField{} }
+func (m *OracleSignatureField) String() string { return proto.CompactTextString(m) }
+func (*OracleSignatureField) ProtoMessage()    {}
+func (*OracleSignatureField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{18}
+}
+
+func (m *OracleSignatureField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_OracleSignatureField.Unmarshal(m, b)
+}
+func (m *OracleSignatureField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_OracleSignatureField.Marshal(b, m, deterministic)
+}
+func (m *OracleSignatureField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OracleSignatureField.Merge(m, src)
+}
+func (m *OracleSignatureField) XXX_Size() int {
+	return xxx_messageInfo_OracleSignatureField.Size(m)
+}
+func (m *OracleSignatureField) XXX_DiscardUnknown() {
+	xxx_messageInfo_OracleSignatureField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_OracleSignatureField proto.InternalMessageInfo
+
+func (m *OracleSignatureField) GetOracleURL() string {
+	if m != nil {
+		return m.OracleURL
+	}
+	return ""
+}
+
+func (m *OracleSignatureField) GetBlockHeight() uint32 {
+	if m != nil {
+		return m.BlockHeight
+	}
+	return 0
+}
+
+func (m *OracleSignatureField) GetValidityPeriod() *PeriodField {
+	if m != nil {
+		return m.ValidityPeriod
+	}
+	return nil
+}
+
+func (m *OracleSignatureField) GetSignatureAlgorithm() uint32 {
+	if m != nil {
+		return m.SignatureAlgorithm
+	}
+	return 0
+}
+
+func (m *OracleSignatureField) GetSignature() []byte {
+	if m != nil {
+		return m.Signature
+	}
+	return nil
+}
+
 // Field - Outpoint
 type OutpointField struct {
 	TxId                 []byte   `protobuf:"bytes,1,opt,name=TxId,proto3" json:"TxId,omitempty"`
@@ -442,7 +1226,7 @@ func (m *OutpointField) Reset()         { *m = OutpointField{} }
 func (m *OutpointField) String() string { return proto.CompactTextString(m) }
 func (*OutpointField) ProtoMessage()    {}
 func (*OutpointField) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dc296cbfe5ffcd5, []int{7}
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{19}
 }
 
 func (m *OutpointField) XXX_Unmarshal(b []byte) error {
@@ -489,7 +1273,7 @@ func (m *OutputTagField) Reset()         { *m = OutputTagField{} }
 func (m *OutputTagField) String() string { return proto.CompactTextString(m) }
 func (*OutputTagField) ProtoMessage()    {}
 func (*OutputTagField) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dc296cbfe5ffcd5, []int{8}
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{20}
 }
 
 func (m *OutputTagField) XXX_Unmarshal(b []byte) error {
@@ -517,60 +1301,108 @@ func (m *OutputTagField) GetTag() string {
 	return ""
 }
 
-// Field - Document
-type DocumentField struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
-	Type                 string   `protobuf:"bytes,2,opt,name=Type,proto3" json:"Type,omitempty"`
-	Contents             []byte   `protobuf:"bytes,3,opt,name=Contents,proto3" json:"Contents,omitempty"`
+// Field - Paymail Proof
+type PaymailProofField struct {
+	UserID               []byte                `protobuf:"bytes,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
+	Handle               string                `protobuf:"bytes,2,opt,name=Handle,proto3" json:"Handle,omitempty"`
+	OracleSignature      *OracleSignatureField `protobuf:"bytes,3,opt,name=OracleSignature,proto3" json:"OracleSignature,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
+	XXX_unrecognized     []byte                `json:"-"`
+	XXX_sizecache        int32                 `json:"-"`
+}
+
+func (m *PaymailProofField) Reset()         { *m = PaymailProofField{} }
+func (m *PaymailProofField) String() string { return proto.CompactTextString(m) }
+func (*PaymailProofField) ProtoMessage()    {}
+func (*PaymailProofField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{21}
+}
+
+func (m *PaymailProofField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PaymailProofField.Unmarshal(m, b)
+}
+func (m *PaymailProofField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PaymailProofField.Marshal(b, m, deterministic)
+}
+func (m *PaymailProofField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PaymailProofField.Merge(m, src)
+}
+func (m *PaymailProofField) XXX_Size() int {
+	return xxx_messageInfo_PaymailProofField.Size(m)
+}
+func (m *PaymailProofField) XXX_DiscardUnknown() {
+	xxx_messageInfo_PaymailProofField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PaymailProofField proto.InternalMessageInfo
+
+func (m *PaymailProofField) GetUserID() []byte {
+	if m != nil {
+		return m.UserID
+	}
+	return nil
+}
+
+func (m *PaymailProofField) GetHandle() string {
+	if m != nil {
+		return m.Handle
+	}
+	return ""
+}
+
+func (m *PaymailProofField) GetOracleSignature() *OracleSignatureField {
+	if m != nil {
+		return m.OracleSignature
+	}
+	return nil
+}
+
+// Field - Period
+type PeriodField struct {
+	Begin                uint64   `protobuf:"varint,1,opt,name=Begin,proto3" json:"Begin,omitempty"`
+	End                  uint64   `protobuf:"varint,2,opt,name=End,proto3" json:"End,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DocumentField) Reset()         { *m = DocumentField{} }
-func (m *DocumentField) String() string { return proto.CompactTextString(m) }
-func (*DocumentField) ProtoMessage()    {}
-func (*DocumentField) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dc296cbfe5ffcd5, []int{9}
+func (m *PeriodField) Reset()         { *m = PeriodField{} }
+func (m *PeriodField) String() string { return proto.CompactTextString(m) }
+func (*PeriodField) ProtoMessage()    {}
+func (*PeriodField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{22}
 }
 
-func (m *DocumentField) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DocumentField.Unmarshal(m, b)
+func (m *PeriodField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PeriodField.Unmarshal(m, b)
 }
-func (m *DocumentField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DocumentField.Marshal(b, m, deterministic)
+func (m *PeriodField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PeriodField.Marshal(b, m, deterministic)
 }
-func (m *DocumentField) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DocumentField.Merge(m, src)
+func (m *PeriodField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PeriodField.Merge(m, src)
 }
-func (m *DocumentField) XXX_Size() int {
-	return xxx_messageInfo_DocumentField.Size(m)
+func (m *PeriodField) XXX_Size() int {
+	return xxx_messageInfo_PeriodField.Size(m)
 }
-func (m *DocumentField) XXX_DiscardUnknown() {
-	xxx_messageInfo_DocumentField.DiscardUnknown(m)
+func (m *PeriodField) XXX_DiscardUnknown() {
+	xxx_messageInfo_PeriodField.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DocumentField proto.InternalMessageInfo
+var xxx_messageInfo_PeriodField proto.InternalMessageInfo
 
-func (m *DocumentField) GetName() string {
+func (m *PeriodField) GetBegin() uint64 {
 	if m != nil {
-		return m.Name
+		return m.Begin
 	}
-	return ""
+	return 0
 }
 
-func (m *DocumentField) GetType() string {
+func (m *PeriodField) GetEnd() uint64 {
 	if m != nil {
-		return m.Type
+		return m.End
 	}
-	return ""
-}
-
-func (m *DocumentField) GetContents() []byte {
-	if m != nil {
-		return m.Contents
-	}
-	return nil
+	return 0
 }
 
 // Field - Target Address
@@ -586,7 +1418,7 @@ func (m *TargetAddressField) Reset()         { *m = TargetAddressField{} }
 func (m *TargetAddressField) String() string { return proto.CompactTextString(m) }
 func (*TargetAddressField) ProtoMessage()    {}
 func (*TargetAddressField) Descriptor() ([]byte, []int) {
-	return fileDescriptor_4dc296cbfe5ffcd5, []int{10}
+	return fileDescriptor_4dc296cbfe5ffcd5, []int{23}
 }
 
 func (m *TargetAddressField) XXX_Unmarshal(b []byte) error {
@@ -629,47 +1461,107 @@ func init() {
 	proto.RegisterType((*SignatureRequest)(nil), "messages.SignatureRequest")
 	proto.RegisterType((*SettlementRequest)(nil), "messages.SettlementRequest")
 	proto.RegisterType((*OutputMetadata)(nil), "messages.OutputMetadata")
+	proto.RegisterType((*InitiateRelationship)(nil), "messages.InitiateRelationship")
+	proto.RegisterType((*PendingAcceptRelationship)(nil), "messages.PendingAcceptRelationship")
+	proto.RegisterType((*AcceptRelationship)(nil), "messages.AcceptRelationship")
+	proto.RegisterType((*RelationshipAmendment)(nil), "messages.RelationshipAmendment")
+	proto.RegisterType((*InitiateThread)(nil), "messages.InitiateThread")
+	proto.RegisterType((*AdministratorField)(nil), "messages.AdministratorField")
+	proto.RegisterType((*ChannelPartyField)(nil), "messages.ChannelPartyField")
+	proto.RegisterType((*DocumentField)(nil), "messages.DocumentField")
+	proto.RegisterType((*EntityField)(nil), "messages.EntityField")
+	proto.RegisterType((*IdentityOracleProofField)(nil), "messages.IdentityOracleProofField")
+	proto.RegisterType((*ManagerField)(nil), "messages.ManagerField")
+	proto.RegisterType((*OracleSignatureField)(nil), "messages.OracleSignatureField")
 	proto.RegisterType((*OutpointField)(nil), "messages.OutpointField")
 	proto.RegisterType((*OutputTagField)(nil), "messages.OutputTagField")
-	proto.RegisterType((*DocumentField)(nil), "messages.DocumentField")
+	proto.RegisterType((*PaymailProofField)(nil), "messages.PaymailProofField")
+	proto.RegisterType((*PeriodField)(nil), "messages.PeriodField")
 	proto.RegisterType((*TargetAddressField)(nil), "messages.TargetAddressField")
 }
 
 func init() { proto.RegisterFile("messages.proto", fileDescriptor_4dc296cbfe5ffcd5) }
 
 var fileDescriptor_4dc296cbfe5ffcd5 = []byte{
-	// 525 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x54, 0xcd, 0x6e, 0xd3, 0x40,
-	0x10, 0x96, 0xeb, 0x14, 0xda, 0xc9, 0x8f, 0xda, 0xbd, 0x60, 0xa1, 0x0a, 0x59, 0x7b, 0xca, 0x01,
-	0xf5, 0x00, 0x42, 0x82, 0x03, 0x2a, 0x55, 0x4b, 0xa5, 0x56, 0x94, 0x86, 0x8d, 0x5f, 0x60, 0x62,
-	0x4f, 0x8c, 0x51, 0x6c, 0x87, 0xdd, 0x71, 0x95, 0xbc, 0x03, 0xef, 0xc3, 0xab, 0x21, 0x71, 0x41,
-	0x5e, 0xdb, 0xf9, 0x71, 0x25, 0x82, 0xe0, 0xc0, 0x6d, 0x66, 0x3c, 0x3f, 0xdf, 0xf7, 0xed, 0x97,
-	0xc0, 0x20, 0x25, 0x63, 0x30, 0x26, 0x73, 0x3a, 0xd7, 0x39, 0xe7, 0xe2, 0xa0, 0xc9, 0xe5, 0x0f,
-	0x07, 0xfa, 0xa3, 0x62, 0x32, 0x4b, 0xc2, 0xdb, 0xaa, 0x24, 0x4e, 0xe0, 0x30, 0x48, 0x52, 0x32,
-	0x8c, 0xe9, 0xdc, 0x73, 0x7c, 0x67, 0xd8, 0x51, 0xeb, 0x82, 0xf0, 0xe0, 0xf1, 0xb8, 0x98, 0x7c,
-	0xa1, 0x90, 0xbd, 0x3d, 0xdf, 0x19, 0x1e, 0xaa, 0x26, 0x15, 0xaf, 0xe0, 0x50, 0x51, 0x8c, 0x3a,
-	0x4a, 0xb2, 0xd8, 0x73, 0x7d, 0x67, 0xd8, 0x7d, 0xf1, 0xe4, 0x74, 0x75, 0xf7, 0xae, 0xe0, 0x79,
-	0x9e, 0x64, 0x7c, 0x95, 0xd0, 0x2c, 0x52, 0xeb, 0x4e, 0xf1, 0xb6, 0x75, 0xdf, 0xeb, 0xb4, 0x47,
-	0x2f, 0xf3, 0xb0, 0x48, 0xa9, 0x19, 0x6d, 0xa1, 0x7d, 0x03, 0xdd, 0x73, 0x66, 0x0c, 0x3f, 0x97,
-	0x1d, 0xc6, 0xdb, 0xf7, 0xdd, 0xdf, 0x0d, 0x6f, 0xf6, 0xca, 0x9f, 0x0e, 0x0c, 0x46, 0x3a, 0xb9,
-	0x47, 0xa6, 0xff, 0xc4, 0xfd, 0xac, 0x0d, 0x60, 0x17, 0xf9, 0x36, 0xde, 0x7f, 0x60, 0xff, 0x01,
-	0x40, 0xd1, 0x3d, 0x69, 0xa6, 0x28, 0x58, 0xec, 0x20, 0xee, 0x43, 0x37, 0xd0, 0x98, 0x19, 0x0c,
-	0x39, 0xc9, 0x33, 0x4b, 0xbe, 0xa7, 0x36, 0x4b, 0xf2, 0x0c, 0xf6, 0xef, 0xa6, 0x53, 0xd2, 0xbb,
-	0x15, 0x1c, 0xe1, 0x72, 0x96, 0x63, 0x54, 0x2f, 0x69, 0x52, 0x79, 0x03, 0x47, 0xe3, 0x24, 0xce,
-	0x90, 0x0b, 0x4d, 0x8a, 0xbe, 0x16, 0x64, 0xf8, 0xaf, 0x77, 0x7d, 0x77, 0xe0, 0x78, 0x4c, 0xcc,
-	0x33, 0x2a, 0xa9, 0xfe, 0xd9, 0x36, 0x09, 0x3d, 0xcb, 0x67, 0x4a, 0x3a, 0x58, 0x5c, 0x37, 0x2b,
-	0xb7, 0x6a, 0xe2, 0x1d, 0xf4, 0x2e, 0xf2, 0x8c, 0x35, 0x86, 0x7c, 0x45, 0x64, 0x3c, 0xd7, 0xca,
-	0x7d, 0xb2, 0x96, 0x3b, 0x40, 0x1d, 0x13, 0x9f, 0x47, 0x91, 0x26, 0x63, 0x2a, 0xcd, 0xb7, 0x26,
-	0xc4, 0x33, 0x80, 0x35, 0x30, 0xfb, 0xd8, 0x3d, 0xb5, 0x51, 0x91, 0xdf, 0x1c, 0x18, 0x94, 0x6e,
-	0x29, 0xf8, 0x96, 0x18, 0x23, 0x64, 0x14, 0xcf, 0xe1, 0xb8, 0xaa, 0x5c, 0x92, 0x09, 0x75, 0x32,
-	0xb7, 0x2f, 0xe0, 0x58, 0xfb, 0x3d, 0xfc, 0x20, 0x04, 0x74, 0x02, 0x8c, 0x8d, 0xb7, 0xe7, 0xbb,
-	0xc3, 0xbe, 0xb2, 0xb1, 0x78, 0x0d, 0x70, 0x51, 0x18, 0xce, 0x53, 0xfb, 0xa5, 0x02, 0xed, 0x6d,
-	0xbb, 0xb3, 0xe0, 0x00, 0xe3, 0x0a, 0xf0, 0x46, 0xaf, 0x7c, 0x0f, 0xfd, 0x2d, 0xef, 0xda, 0xf5,
-	0xa5, 0x3a, 0x8e, 0x45, 0x6e, 0xe3, 0xd2, 0x1c, 0xd5, 0x8a, 0xeb, 0x2c, 0xa2, 0x85, 0x15, 0xae,
-	0xaf, 0x36, 0x4b, 0x52, 0x36, 0xa4, 0x9a, 0x23, 0xe2, 0x08, 0xdc, 0x00, 0xe3, 0x9a, 0x46, 0x19,
-	0xca, 0x31, 0xf4, 0xb7, 0xcc, 0x5a, 0x9e, 0xfa, 0x88, 0x29, 0xd5, 0x3d, 0x36, 0xb6, 0xe7, 0x97,
-	0x73, 0xaa, 0x7f, 0x7d, 0x36, 0x16, 0x4f, 0xe1, 0xa0, 0x94, 0xd8, 0xfa, 0xdf, 0xb5, 0xb0, 0x56,
-	0xb9, 0xbc, 0x01, 0xf1, 0xf0, 0x49, 0x4a, 0xe3, 0xd4, 0x79, 0xcd, 0xa3, 0x49, 0xcb, 0x5d, 0x9f,
-	0x0a, 0xcc, 0x38, 0xe1, 0xa5, 0xbd, 0xd1, 0x51, 0xab, 0x7c, 0xf2, 0xc8, 0xfe, 0x73, 0xbe, 0xfc,
-	0x15, 0x00, 0x00, 0xff, 0xff, 0x1d, 0xd4, 0xe0, 0x17, 0x4b, 0x05, 0x00, 0x00,
+	// 1277 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x57, 0xdd, 0x6e, 0xdc, 0x44,
+	0x14, 0x96, 0x93, 0x4d, 0xda, 0x3d, 0xfb, 0xd3, 0x64, 0x48, 0x83, 0x29, 0x55, 0x15, 0x59, 0x08,
+	0x45, 0x08, 0x12, 0x54, 0x68, 0x69, 0x25, 0x4a, 0xd9, 0x6c, 0xb6, 0xea, 0x56, 0x4d, 0xb3, 0x78,
+	0xb7, 0x5c, 0xf4, 0x6e, 0xd6, 0x3e, 0xf1, 0x0e, 0xb5, 0x67, 0x96, 0xf1, 0x38, 0x74, 0x79, 0x06,
+	0x78, 0x02, 0x1e, 0x81, 0x07, 0x40, 0x3c, 0x0f, 0x57, 0xbc, 0x01, 0x12, 0x37, 0x68, 0xc6, 0xf6,
+	0xda, 0xde, 0xdd, 0x36, 0x2d, 0x20, 0xb8, 0xf3, 0x7c, 0x73, 0xe6, 0xfc, 0xcd, 0x77, 0xce, 0x1c,
+	0x43, 0x3b, 0xc2, 0x38, 0xa6, 0x01, 0xc6, 0x07, 0x53, 0x29, 0x94, 0x20, 0x97, 0xf3, 0xb5, 0xf3,
+	0x87, 0x05, 0xad, 0x41, 0x32, 0x0e, 0x99, 0x77, 0x92, 0x42, 0xe4, 0x3a, 0xd4, 0x47, 0x2c, 0xc2,
+	0x58, 0xd1, 0x68, 0x6a, 0x5b, 0x7b, 0xd6, 0x7e, 0xcd, 0x2d, 0x00, 0x62, 0xc3, 0xa5, 0x61, 0x32,
+	0xfe, 0x06, 0x3d, 0x65, 0xaf, 0xed, 0x59, 0xfb, 0x75, 0x37, 0x5f, 0x92, 0x5b, 0x50, 0x77, 0x31,
+	0xa0, 0xd2, 0x67, 0x3c, 0xb0, 0xd7, 0xf7, 0xac, 0xfd, 0xc6, 0xcd, 0xb7, 0x0f, 0xe6, 0x76, 0x4f,
+	0x13, 0x35, 0x15, 0x8c, 0xab, 0x07, 0x0c, 0x43, 0xdf, 0x2d, 0x24, 0xc9, 0xbd, 0x05, 0xfb, 0x76,
+	0x6d, 0xf1, 0xe8, 0xb1, 0xf0, 0x92, 0x08, 0xf3, 0xa3, 0x0b, 0xde, 0xde, 0x85, 0x46, 0x47, 0x29,
+	0xea, 0x4d, 0xb4, 0x44, 0x6c, 0x6f, 0xec, 0xad, 0xbf, 0xea, 0x70, 0x59, 0xd6, 0xf9, 0xd3, 0x82,
+	0xf6, 0x40, 0xb2, 0x73, 0xaa, 0xf0, 0x7f, 0x8a, 0xfd, 0xfe, 0xa2, 0x03, 0x17, 0x05, 0xbf, 0xe8,
+	0xef, 0x3f, 0x88, 0xfe, 0x31, 0x80, 0x8b, 0xe7, 0x28, 0x15, 0xfa, 0xa3, 0x17, 0x17, 0x04, 0xbe,
+	0x07, 0x8d, 0x91, 0xa4, 0x3c, 0xa6, 0x9e, 0x62, 0x82, 0x9b, 0xe0, 0x9b, 0x6e, 0x19, 0x72, 0xee,
+	0xc3, 0xc6, 0xe9, 0xd9, 0x19, 0xca, 0x8b, 0x33, 0x38, 0xa0, 0xb3, 0x50, 0x50, 0x3f, 0x53, 0x92,
+	0x2f, 0x9d, 0x47, 0xb0, 0x35, 0x64, 0x01, 0xa7, 0x2a, 0x91, 0xe8, 0xe2, 0xb7, 0x09, 0xc6, 0xea,
+	0x6f, 0xeb, 0xfa, 0xc5, 0x82, 0xed, 0x21, 0x2a, 0x15, 0xa2, 0x0e, 0xf5, 0xf5, 0xb4, 0x39, 0xd0,
+	0x34, 0xf1, 0x9c, 0xa1, 0x1c, 0xbd, 0xe8, 0xe7, 0x2a, 0x2b, 0x18, 0xf9, 0x12, 0x9a, 0x5d, 0xc1,
+	0x95, 0xa4, 0x9e, 0x7a, 0x80, 0x18, 0xdb, 0xeb, 0x26, 0xdd, 0xd7, 0x8b, 0x74, 0x8f, 0xa8, 0x0c,
+	0x50, 0x75, 0x7c, 0x5f, 0x62, 0x1c, 0xa7, 0x39, 0xaf, 0x9c, 0x20, 0x37, 0x00, 0x0a, 0xc7, 0xcc,
+	0x65, 0x37, 0xdd, 0x12, 0xe2, 0xfc, 0x60, 0x41, 0x5b, 0xb3, 0x25, 0x51, 0x27, 0xa8, 0xa8, 0x4f,
+	0x15, 0x25, 0x1f, 0xc2, 0x76, 0x8a, 0x1c, 0x63, 0xec, 0x49, 0x36, 0x35, 0x37, 0x60, 0x19, 0xfa,
+	0x2d, 0x6f, 0x10, 0x02, 0xb5, 0x11, 0x0d, 0x62, 0x7b, 0x6d, 0x6f, 0x7d, 0xbf, 0xe5, 0x9a, 0x6f,
+	0x72, 0x07, 0xa0, 0x9b, 0xc4, 0x4a, 0x44, 0x66, 0x27, 0x75, 0xda, 0xae, 0xb2, 0x33, 0x51, 0x23,
+	0x1a, 0xa4, 0x0e, 0x97, 0x64, 0x9d, 0x9f, 0xd6, 0x60, 0xa7, 0xcf, 0x99, 0x62, 0x54, 0xa1, 0x8b,
+	0x21, 0xd5, 0x26, 0xe2, 0x09, 0x9b, 0x1a, 0x33, 0xb3, 0x29, 0x1a, 0x3f, 0xb4, 0x99, 0xd9, 0x14,
+	0x35, 0x36, 0x44, 0xcc, 0x33, 0x67, 0xbe, 0x35, 0xf6, 0x20, 0xa4, 0x69, 0x49, 0x34, 0x5d, 0xf3,
+	0x4d, 0xde, 0x87, 0x76, 0x8f, 0x7b, 0x72, 0x66, 0x1c, 0x36, 0x5a, 0x6a, 0x46, 0xcb, 0x02, 0x4a,
+	0x3e, 0x86, 0xb7, 0x06, 0x52, 0x88, 0xb3, 0xd3, 0xb3, 0xbe, 0x8f, 0x5c, 0x31, 0x35, 0x33, 0xc2,
+	0x1b, 0x46, 0x78, 0xd5, 0x16, 0xd9, 0x87, 0x2b, 0x0b, 0xb0, 0xbd, 0x69, 0x0c, 0x2f, 0xc2, 0xa4,
+	0x0b, 0xed, 0xee, 0x84, 0x72, 0x8e, 0xe1, 0x80, 0x4a, 0xc5, 0x30, 0xb6, 0x2f, 0x99, 0xb4, 0xbc,
+	0x5b, 0xa4, 0xa5, 0xb4, 0x3f, 0xcb, 0x8a, 0xaf, 0x7a, 0xc4, 0xf9, 0x0e, 0xde, 0x19, 0x20, 0xd7,
+	0x85, 0xdc, 0xf1, 0x3c, 0x9c, 0xaa, 0x4a, 0x86, 0x5e, 0xe2, 0xbd, 0xf5, 0x46, 0xde, 0xaf, 0xad,
+	0xf4, 0xde, 0x99, 0x02, 0xf9, 0x8f, 0x2d, 0xfe, 0x6a, 0xc1, 0xd5, 0xb2, 0xb1, 0x4e, 0x84, 0xdc,
+	0xd7, 0x8c, 0x9d, 0xdf, 0xba, 0x55, 0xba, 0xf5, 0x9b, 0xb0, 0x73, 0x44, 0x63, 0x2c, 0xee, 0x73,
+	0x88, 0x9e, 0x44, 0x95, 0x29, 0x5f, 0xb9, 0x47, 0x3e, 0x80, 0xad, 0x8e, 0xef, 0x9f, 0x60, 0x34,
+	0x46, 0xd9, 0xe7, 0x3e, 0xbe, 0x30, 0xf5, 0xa5, 0x5d, 0x5f, 0xc2, 0x75, 0x49, 0x1c, 0x4b, 0x31,
+	0xad, 0x0a, 0xa7, 0x24, 0x5a, 0xde, 0x70, 0xee, 0x40, 0x3b, 0xe7, 0xf0, 0x68, 0x22, 0x91, 0x16,
+	0xac, 0xb4, 0x4a, 0xac, 0x5c, 0xc1, 0x5e, 0xe7, 0x73, 0x20, 0x1d, 0x3f, 0x62, 0x9c, 0xc5, 0x4a,
+	0x52, 0x25, 0xa4, 0xa1, 0xc1, 0xcb, 0xb8, 0xff, 0x84, 0x46, 0x98, 0x3d, 0x0b, 0xe6, 0xdb, 0x79,
+	0x0e, 0xdb, 0x4b, 0x1c, 0x22, 0x9f, 0xc2, 0xd5, 0x92, 0x4a, 0x76, 0x8e, 0x59, 0xb3, 0xc8, 0x7c,
+	0x59, 0xbd, 0xa9, 0xfb, 0x6f, 0x5a, 0xa5, 0x26, 0x26, 0x63, 0xa5, 0xe5, 0x96, 0x21, 0x67, 0x08,
+	0xad, 0x4a, 0xaf, 0x9f, 0x7b, 0x64, 0x15, 0x1e, 0xcd, 0x3d, 0xcf, 0xbc, 0x34, 0x9e, 0x5f, 0x83,
+	0xcb, 0xba, 0x43, 0x99, 0xe7, 0x23, 0xad, 0xd2, 0xf9, 0xda, 0xf9, 0xbd, 0x06, 0x8d, 0x9e, 0x21,
+	0xc0, 0x9b, 0xe9, 0xdc, 0x82, 0xf5, 0xc7, 0xbd, 0xbe, 0x51, 0x57, 0x77, 0xf5, 0xa7, 0xee, 0x7b,
+	0x4f, 0x39, 0x53, 0x4f, 0x12, 0x7d, 0x31, 0xe6, 0xaa, 0xea, 0x6e, 0x09, 0xd1, 0x3d, 0xe1, 0x28,
+	0x61, 0xa1, 0xae, 0xa5, 0x4c, 0x66, 0xc3, 0xc8, 0x2c, 0xa0, 0x64, 0x17, 0x36, 0x87, 0x4a, 0x22,
+	0x2a, 0x53, 0xd8, 0x75, 0x37, 0x5b, 0x99, 0xbe, 0x9a, 0x8c, 0x13, 0x39, 0xee, 0x6a, 0x12, 0x5f,
+	0x4a, 0xf5, 0x17, 0x08, 0xf9, 0x02, 0xae, 0x8d, 0x50, 0x4a, 0xa6, 0x84, 0x9c, 0x0d, 0x15, 0x55,
+	0x38, 0x90, 0xe2, 0x9c, 0x71, 0x0f, 0xbb, 0xc2, 0x47, 0xfb, 0xb2, 0x91, 0x7f, 0x85, 0x84, 0xbe,
+	0x80, 0xae, 0x48, 0xb8, 0x92, 0x33, 0x73, 0xa0, 0x6e, 0x0e, 0x94, 0x21, 0xf2, 0x1e, 0xb4, 0x06,
+	0x22, 0x56, 0x34, 0x7c, 0xd6, 0x1f, 0x18, 0x19, 0x30, 0x32, 0x55, 0x50, 0xbf, 0x32, 0xbd, 0x88,
+	0xb2, 0x30, 0xbf, 0xf5, 0x86, 0x11, 0xaa, 0x60, 0xda, 0xd6, 0x60, 0x22, 0x38, 0x66, 0x89, 0x68,
+	0xa6, 0xb6, 0x4a, 0x10, 0x39, 0x86, 0x76, 0x99, 0x27, 0x82, 0xdb, 0xad, 0xc5, 0x97, 0x68, 0x99,
+	0xb7, 0xee, 0xc2, 0x19, 0x72, 0x1b, 0xe0, 0x84, 0x72, 0x1a, 0xa4, 0x6f, 0x51, 0xdb, 0x68, 0xd8,
+	0x2d, 0x34, 0xa4, 0x7b, 0xd9, 0xd9, 0x92, 0xa4, 0xce, 0xf5, 0xb1, 0x88, 0x28, 0xe3, 0x86, 0x0b,
+	0x57, 0xd2, 0x5c, 0x17, 0x88, 0xa6, 0x78, 0x4a, 0x9a, 0xfc, 0xe5, 0xcb, 0x83, 0xdd, 0x4a, 0x29,
+	0xbe, 0x72, 0xd3, 0xf9, 0xd9, 0x02, 0x3b, 0x6f, 0x37, 0xa7, 0x92, 0x7a, 0x21, 0x9a, 0x1e, 0x94,
+	0x12, 0x6f, 0x17, 0x36, 0x9f, 0xc6, 0x28, 0xfb, 0xc7, 0x59, 0x99, 0x64, 0x2b, 0xf2, 0x11, 0x6c,
+	0xf6, 0x8a, 0xbe, 0xd5, 0xb8, 0x79, 0xb5, 0x70, 0xbf, 0xc4, 0x5b, 0x37, 0x13, 0x22, 0x0f, 0xe1,
+	0x4a, 0xaa, 0x7a, 0x3e, 0x69, 0x64, 0xb3, 0xda, 0x8d, 0xd2, 0x6b, 0x58, 0x15, 0x48, 0x15, 0x2c,
+	0x1e, 0x73, 0x6e, 0x43, 0xb3, 0x9c, 0x9f, 0xd7, 0xee, 0x09, 0xbf, 0x59, 0xb0, 0xb3, 0xca, 0x82,
+	0x1e, 0x4e, 0x52, 0xfc, 0xa9, 0xfb, 0x38, 0xab, 0xaf, 0x02, 0xd0, 0x94, 0x38, 0x0a, 0x85, 0xf7,
+	0xfc, 0x21, 0xb2, 0x60, 0xa2, 0xf2, 0xfa, 0x2f, 0x41, 0xe4, 0x1e, 0xb4, 0xbf, 0xa6, 0x21, 0xf3,
+	0x99, 0x9a, 0x0d, 0x50, 0x32, 0xe1, 0x67, 0x91, 0x95, 0x32, 0x92, 0xe2, 0x19, 0x17, 0xaa, 0xc2,
+	0xe4, 0x00, 0xc8, 0xdc, 0xa1, 0x4e, 0x18, 0x08, 0xc9, 0xd4, 0x24, 0xca, 0x5a, 0xea, 0x8a, 0x1d,
+	0xed, 0x6e, 0x91, 0xc3, 0x0d, 0x73, 0x27, 0x05, 0xe0, 0xf4, 0xa0, 0x55, 0x19, 0x79, 0x4d, 0x7a,
+	0xf4, 0x50, 0x95, 0x35, 0x5c, 0x33, 0x4c, 0x5d, 0xdc, 0xd3, 0x9c, 0x7c, 0x16, 0xca, 0x67, 0x13,
+	0xdd, 0x58, 0x46, 0x59, 0xdf, 0xae, 0xbb, 0xfa, 0xd3, 0xf9, 0xd1, 0x82, 0xed, 0x01, 0x9d, 0xe9,
+	0xfa, 0x79, 0x0d, 0xbe, 0xec, 0xc2, 0xe6, 0x43, 0xca, 0xfd, 0x30, 0xbf, 0x94, 0x6c, 0xf5, 0x2f,
+	0x12, 0xe3, 0x16, 0x34, 0x4a, 0x79, 0x26, 0x3b, 0xb0, 0x71, 0x84, 0x01, 0xe3, 0xd9, 0xbc, 0x99,
+	0x2e, 0x74, 0x18, 0x3d, 0x9e, 0x3e, 0x35, 0x35, 0x57, 0x7f, 0x3a, 0x8f, 0x80, 0x2c, 0xcf, 0x8e,
+	0x7a, 0xc2, 0xad, 0x3e, 0x0f, 0xf9, 0x52, 0x77, 0xed, 0xaf, 0x12, 0x5a, 0x50, 0xbf, 0xe6, 0xce,
+	0xd7, 0x47, 0x77, 0x9f, 0x7d, 0x16, 0x30, 0x35, 0x49, 0xc6, 0x07, 0x9e, 0x88, 0x0e, 0x95, 0x78,
+	0x8e, 0x9c, 0x7d, 0x8f, 0xfe, 0x61, 0x3c, 0x45, 0x8f, 0x9d, 0x31, 0xcf, 0x54, 0xff, 0xa1, 0xcf,
+	0x62, 0x75, 0x18, 0x88, 0x90, 0xf2, 0xe0, 0x30, 0x8f, 0x71, 0xbc, 0x69, 0xfe, 0x0e, 0x3f, 0xf9,
+	0x2b, 0x00, 0x00, 0xff, 0xff, 0x6b, 0xab, 0xee, 0xcd, 0x2f, 0x0e, 0x00, 0x00,
 }

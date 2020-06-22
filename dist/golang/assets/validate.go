@@ -68,10 +68,7 @@ func (a *Currency) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.MonetaryAuthority), max1ByteInteger)
 	}
 
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max2ByteInteger)
-	}
+	// Field Precision - uint
 
 	return nil
 }
@@ -127,6 +124,8 @@ func (a *Coupon) Validate() error {
 	if len(a.Description) > max2ByteInteger {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.Description), max2ByteInteger)
 	}
+
+	// Field Precision - uint
 
 	return nil
 }
@@ -233,6 +232,8 @@ func (a *CasinoChip) Validate() error {
 	// Field ValidFrom - uint
 
 	// Field ExpirationTimestamp - uint
+
+	// Field Precision - uint
 
 	return nil
 }

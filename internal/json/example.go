@@ -25,7 +25,11 @@ func actionsToExample(distPath string, schema parser.Schema, jsonFile string) {
 		fields := make(map[string]interface{})
 
 		for _, field := range message.Fields {
-			fields[field.Name] = fetchFieldExample(field)
+			if field.Type == "deprecated" {
+				fields["(Deprecated)"+field.Name] = fetchFieldExample(field)
+			} else {
+				fields[field.Name] = fetchFieldExample(field)
+			}
 		}
 
 		example := ActionExample{

@@ -4,11 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"math"
 	"time"
 
-	"github.com/tokenized/smart-contract/pkg/bitcoin"
-	"github.com/tokenized/smart-contract/pkg/txbuilder"
-	"github.com/tokenized/smart-contract/pkg/wire"
+	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/txbuilder"
+	"github.com/tokenized/pkg/wire"
+
 	"github.com/tokenized/specification/dist/golang/actions"
 	"github.com/tokenized/specification/dist/golang/messages"
 
@@ -16,7 +18,8 @@ import (
 )
 
 // EstimatedResponse calculates information about the contract's response to a request.
-//   fees is the sum of all contract related fees including base contract fee, proposal fee, and others.
+//   fees is the sum of all contract related fees including base contract fee, proposal fee, and
+///  others. dustLimit is based on the expected P2PKH notification outputs.
 // WARNING: This function is inaccurate and incomplete!
 // Returns
 //   estimated size of response tx in bytes.
@@ -301,6 +304,8 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 // The first contract output must fund settlement tx miner fee.
 // The boomerang must fund all settlement requests and signature requests.
 // All other contract outputs can be dust.
+// Attempts to use the maximum possible size of each element so the returned values are an
+// overestimation, ensuring that a transfer funded in this manner can complete successfully.
 func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate float32,
 	fees []uint64, isTest bool) ([]uint64, uint64, error) {
 
@@ -328,22 +333,21 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 
 	// Build sample response tx and payload and calculate values based on expected response inputs
 	//   and outputs.
-	size := txbuilder.BaseTxSize
-	funding := make([]uint64, len(request.Assets))
 	settlementSize := make([]uint64, len(request.Assets))
-	finalSettlementSize := uint64(0)
 	boomerang := uint64(0) // used for funding inter-contract communication
 	now := time.Now()
+	// Auditable estimation construction
+	fundingForBSV := make([]uint64, len(request.Assets))
+	fundingForTokens := make([]uint64, len(request.Assets))
+	p2PKHInputCount := 0
 
 	// 1 input from contract
-	size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.MaximumP2PKHInputSize
+	p2PKHInputCount++
 
-	outputCount := 0
-	for i, fee := range fees {
+	p2PKHOutputCount := 0
+	for _, fee := range fees {
 		if fee > 0 {
-			outputCount += 1
-			size += txbuilder.P2PKHOutputSize
-			funding[i] += fee
+			p2PKHOutputCount++
 		}
 	}
 
@@ -377,17 +381,23 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			// Bitcoin senders don't get an output
 			// Sig script is probably still empty, so assume each sender is unique and the address is
 			//   not reused. So each will get a notification output.
-			for _, _ = range asset.AssetSenders {
-				// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
+			for range asset.AssetSenders {
+				// Use max quantity to ensure overestimation, since we can't use a
 				//   real value without knowing the resulting balance.
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(outputCount),
-						Quantity: 100000,
+						Index:    uint32(p2PKHOutputCount),
+						Quantity: math.MaxUint64,
 					})
 
-				funding[masterContractIndex] += dustLimit // Dust will be put in each notification output.
-				outputCount += 1
+				p2PKHOutputCount++
+				fundingForTokens[i] += dustLimit // Dust will be put in each notification output.
+			}
+
+		} else {
+			for _, sender := range asset.AssetSenders {
+				// For the amount that needs to be sent
+				fundingForBSV[masterContractIndex] += sender.Quantity
 			}
 		}
 
@@ -400,33 +410,45 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			if err != nil {
 				return nil, 0, errors.Wrap(err, "hashing address")
 			}
-			isDust, exists := used[*hash]
+			_, exists := used[*hash]
 
 			if asset.AssetType == "BSV" {
-				if exists {
-					if isDust {
-						// Remove dust to replace with amount below
-						funding[masterContractIndex] -= dustLimit
-					}
-				} else {
-					outputCount += 1
+				if !exists {
+					p2PKHOutputCount++
+					// Do not add funding since we are receiving BSV.
 				}
 				used[*hash] = false
-				funding[masterContractIndex] += receiver.Quantity
+
 			} else {
-				// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
+				// Use max quantity to ensure overestimation, since we can't use a
 				//   real value without knowing the resulting balance.
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(outputCount),
-						Quantity: 100000,
+						Index:    uint32(p2PKHOutputCount),
+						Quantity: math.MaxUint64,
 					})
 				if !exists {
-					funding[masterContractIndex] += dustLimit // Dust will be put in each notification output.
 					used[*hash] = true
-					outputCount += 1
+					p2PKHOutputCount++
+
+					// Dust will be put in each notification output.
+					fundingForTokens[masterContractIndex] += dustLimit
 				}
 			}
+		}
+
+		if len(asset.AssetReceivers) == 0 { // Needs to be at least 1 receiver
+			if asset.AssetType != "BSV" {
+				fundingForTokens[masterContractIndex] += dustLimit // Needed for output
+
+				settleAsset.Settlements = append(settleAsset.Settlements,
+					&actions.QuantityIndexField{
+						Index:    uint32(p2PKHOutputCount),
+						Quantity: math.MaxUint64,
+					})
+
+			}
+			p2PKHOutputCount++
 		}
 
 		if asset.AssetType != "BSV" {
@@ -438,17 +460,29 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 				return nil, 0, errors.Wrap(err, "Failed to serialize settlement")
 			}
 			settlementSize[i] = uint64(len(script))
-			finalSettlementSize = settlementSize[i]
 		}
 	}
 
-	// +1 for OP_RETURN
-	size += wire.VarIntSerializeSize(uint64(outputCount+1)) + (outputCount * txbuilder.P2PKHOutputSize)
+	// Calculate funding from parts
+	txSizeInputs := wire.VarIntSerializeSize(uint64(p2PKHInputCount)) +
+		p2PKHInputCount*txbuilder.MaximumP2PKHInputSize
+	txSizeP2PKHOutputs := p2PKHOutputCount * txbuilder.P2PKHOutputSize
+	txSizeSettlements := 0
+	for _, size := range settlementSize {
+		if size > 0 {
+			txSizeSettlements += int(txbuilder.OutputBaseSize+wire.VarIntSerializeSize(size)) +
+				int(size)
+		}
+	}
+	txSizeOutputCount := wire.VarIntSerializeSize(uint64(p2PKHOutputCount + 1)) // +1 for contract
+	size := txbuilder.BaseTxSize + txSizeInputs + txSizeOutputCount + txSizeP2PKHOutputs + txSizeSettlements
+	txFee := int(math.Ceil(float64(size) * float64(feeRate)))
 
-	// OP_RETURN output size
-	size += txbuilder.OutputBaseSize + wire.VarIntSerializeSize(finalSettlementSize) +
-		int(finalSettlementSize)
-	funding[masterContractIndex] += uint64(float32(size) * feeRate)
+	funding := make([]uint64, len(request.Assets))
+	for i := range funding {
+		funding[i] = fees[i] + fundingForBSV[i] + fundingForTokens[i]
+	}
+	funding[masterContractIndex] += uint64(txFee)
 
 	// Calculate boomerang funding
 	isMaster := true

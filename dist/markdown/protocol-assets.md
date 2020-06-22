@@ -70,7 +70,7 @@ A Membership
     <tr>
         <td>ID</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -81,7 +81,7 @@ A Membership
     <tr>
         <td>MembershipClass</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -92,7 +92,7 @@ A Membership
     <tr>
         <td>RoleType</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -103,7 +103,7 @@ A Membership
     <tr>
         <td>MembershipType</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -114,7 +114,7 @@ A Membership
     <tr>
         <td>Description</td>
         <td>
-            varchar
+            varchar(small)
         </td>
         <td>
             
@@ -151,7 +151,7 @@ Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of
     <tr>
         <td>MonetaryAuthority</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -160,13 +160,22 @@ Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of
     </tr>
 
     <tr>
-        <td>Description</td>
+        <td>(Deprecated)Description</td>
+        <td>deprecated</td>
         <td>
-            varchar
+            Deprecated because the currency asset should be distinguished by its meta data and contract.
+             Example: Australian dollar
+        </td>
+    </tr>
+
+    <tr>
+        <td>Precision</td>
+        <td>
+            uint(8)
         </td>
         <td>
-            
-             Example: Australian dollar
+            Required field to specify the decimal precision of a currency. It will normally be the &#34;precision&#34; value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
+             Example: 100
         </td>
     </tr>
 
@@ -210,7 +219,7 @@ Common stock represents ownership interests in companies.
     <tr>
         <td>Description</td>
         <td>
-            varchar
+            varchar(small)
         </td>
         <td>
             
@@ -236,7 +245,7 @@ A voucher entitling the holder to a discount on a particular product or service.
     <tr>
         <td>RedeemingEntity</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             The entity responsible for redemption of this coupon.
@@ -291,11 +300,22 @@ A voucher entitling the holder to a discount on a particular product or service.
     <tr>
         <td>Description</td>
         <td>
-            varchar
+            varchar(small)
         </td>
         <td>
             
              Example: Gift Card
+        </td>
+    </tr>
+
+    <tr>
+        <td>Precision</td>
+        <td>
+            uint(8)
+        </td>
+        <td>
+            Required field to specify the decimal precision of a currency. It will normally be the &#34;precision&#34; value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
+             Example: 100
         </td>
     </tr>
 
@@ -328,7 +348,7 @@ A Loyalty Point
     <tr>
         <td>OfferName</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -361,7 +381,7 @@ A Loyalty Point
     <tr>
         <td>Description</td>
         <td>
-            varchar
+            varchar(small)
         </td>
         <td>
             
@@ -409,7 +429,7 @@ Admission ticket
     <tr>
         <td>Venue</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -420,7 +440,7 @@ Admission ticket
     <tr>
         <td>Class</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -431,7 +451,7 @@ Admission ticket
     <tr>
         <td>Area</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -442,7 +462,7 @@ Admission ticket
     <tr>
         <td>Seat</td>
         <td>
-            varchar
+            varchar(tiny)
         </td>
         <td>
             
@@ -486,7 +506,7 @@ Admission ticket
     <tr>
         <td>Description</td>
         <td>
-            varchar
+            varchar(small)
         </td>
         <td>
             
@@ -561,6 +581,17 @@ Casino Chip
         <td>
             
              Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
+        </td>
+    </tr>
+
+    <tr>
+        <td>Precision</td>
+        <td>
+            uint(8)
+        </td>
+        <td>
+            Required field to specify the decimal precision of a currency. It will normally be the &#34;precision&#34; value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
+             Example: 100
         </td>
     </tr>
 

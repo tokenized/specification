@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package="github.com/tokenized/specification/dist/golang/assets";
+
 package assets;
 
 // Message - Membership (MEM)
@@ -18,7 +20,8 @@ message Membership {
 message Currency {
     string CurrencyCode                            = 1;   // CurrencyType
     string MonetaryAuthority                       = 2;   // varchar
-    string Description                             = 3;   // varchar
+    reserved                                         3;   // Deprecated Description
+    uint64 Precision                               = 4;   // uint
 }
 
 // Message - Share - Common (SHC)
@@ -36,6 +39,7 @@ message Coupon {
     uint64 Value                                   = 4;   // uint
     string Currency                                = 5;   // CurrencyType
     string Description                             = 6;   // varchar
+    uint64 Precision                               = 7;   // uint
 }
 
 // Message - Loyalty Points (LOY)
@@ -68,6 +72,7 @@ message CasinoChip {
     AgeRestrictionField AgeRestriction             = 3;   // AgeRestriction
     uint64 ValidFrom                               = 4;   // Timestamp
     uint64 ExpirationTimestamp                     = 5;   // Timestamp
+    uint64 Precision                               = 6;   // uint
 }
 
 

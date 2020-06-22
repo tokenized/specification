@@ -11,7 +11,7 @@ import (
 
 	"github.com/tokenized/envelope/pkg/golang/envelope"
 	v0 "github.com/tokenized/envelope/pkg/golang/envelope/v0"
-	"github.com/tokenized/smart-contract/pkg/bitcoin"
+	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/actions"
 
 	"github.com/golang/protobuf/proto"
@@ -27,10 +27,15 @@ const (
 
 	// Version of the Tokenized protocol.
 	Version = uint64(0)
+
+	FlagProtocolID = "flag"
+
+	FlagVersion = uint64(0)
 )
 
 var (
 	ErrNotTokenized   = errors.New("Not Tokenized")
+	ErrNotFlag        = errors.New("Not Flag")
 	ErrUnknownVersion = errors.New("Unknown Version")
 
 	// DefaultEndian specifies the order of bytes for encoding integers.
@@ -47,17 +52,17 @@ func GetProtocolID(isTest bool) []byte {
 
 // Serialize serializes an action into a Tokenized OP_RETURN script.
 func Serialize(action actions.Action, isTest bool) ([]byte, error) {
-	payload, err := proto.Marshal(action)
+	message, err := WrapAction(action, isTest)
 	if err != nil {
-		return nil, errors.Wrap(err, "Failed to serialize action")
+		return nil, errors.Wrap(err, "wrap action")
 	}
-	message := v0.NewMessage(GetProtocolID(isTest), Version, payload)
-	message.SetPayloadIdentifier([]byte(action.Code()))
+
 	var buf bytes.Buffer
 	err = message.Serialize(&buf)
 	if err != nil {
-		return nil, errors.Wrap(err, "Failed to serialize action envelope")
+		return nil, errors.Wrap(err, "serialize envelope")
 	}
+
 	return buf.Bytes(), nil
 }
 
@@ -80,6 +85,51 @@ func Deserialize(script []byte, isTest bool) (actions.Action, error) {
 	}
 
 	return actions.Deserialize(message.PayloadIdentifier(), message.Payload())
+}
+
+// WrapAction wraps an action in an envelope message.
+func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error) {
+	payload, err := proto.Marshal(action)
+	if err != nil {
+		return nil, errors.Wrap(err, "serialize action")
+	}
+
+	message := v0.NewMessage(GetProtocolID(isTest), Version, payload)
+	message.SetPayloadIdentifier([]byte(action.Code()))
+
+	return message, nil
+}
+
+// SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
+//   message.
+func SerializeFlagOutputScript(flag []byte) ([]byte, error) {
+	message := v0.NewMessage([]byte(FlagProtocolID), FlagVersion, flag)
+	var buf bytes.Buffer
+	if err := message.Serialize(&buf); err != nil {
+		return nil, errors.Wrap(err, "Failed to serialize flag envelope")
+	}
+	return buf.Bytes(), nil
+}
+
+// DeserializeFlagOutputScript returns a flag value if the script is a flag script.
+func DeserializeFlagOutputScript(script []byte) ([]byte, error) {
+	buf := bytes.NewReader(script)
+	message, err := envelope.Deserialize(buf)
+	if err == envelope.ErrNotEnvelope {
+		return nil, ErrNotFlag
+	} else if err != nil {
+		return nil, err
+	}
+
+	if !bytes.Equal(message.PayloadProtocol(), []byte(FlagProtocolID)) {
+		return nil, ErrNotFlag
+	}
+
+	if message.PayloadVersion() != FlagVersion {
+		return nil, ErrUnknownVersion
+	}
+
+	return message.Payload(), nil
 }
 
 // ------------------------------------------------------------------------------------------------

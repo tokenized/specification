@@ -4,6 +4,10 @@
 
 {{- define "render_field"}}
     <tr>
+    {{- if eq .Type "deprecated" }}
+        <td>(Deprecated){{.Name}}</td>
+        <td>deprecated</td>
+    {{- else }}
         <td>{{.Name}}</td>
         <td>
         {{- if .IsList }}
@@ -24,6 +28,7 @@
           {{- end}}
         {{- end}}
         </td>
+    {{- end }}
         <td>
             {{.Description}}
             {{.Notes}}

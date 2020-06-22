@@ -16,6 +16,7 @@
           "CountryCode": "USA",
           "DomainName": "tokenized.com",
           "EmailAddress": "satoshi@tokenized.com",
+          "EntityContractAddress": null,
           "LEI": "54930084UKLVMY22DS16",
           "Management": [
             {
@@ -32,6 +33,9 @@
           "Type": "P",
           "UnitNumber": "2"
         },
+        "OracleType": [
+          null
+        ],
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
@@ -54,6 +58,7 @@
         "CountryCode": "USA",
         "DomainName": "tokenized.com",
         "EmailAddress": "satoshi@tokenized.com",
+        "EntityContractAddress": null,
         "LEI": "54930084UKLVMY22DS16",
         "Management": [
           {
@@ -87,6 +92,7 @@
         "CountryCode": "USA",
         "DomainName": "tokenized.com",
         "EmailAddress": "satoshi@tokenized.com",
+        "EntityContractAddress": null,
         "LEI": "54930084UKLVMY22DS16",
         "Management": [
           {
@@ -119,6 +125,7 @@
             "CountryCode": "USA",
             "DomainName": "tokenized.com",
             "EmailAddress": "satoshi@tokenized.com",
+            "EntityContractAddress": null,
             "LEI": "54930084UKLVMY22DS16",
             "Management": [
               {
@@ -135,6 +142,9 @@
             "Type": "P",
             "UnitNumber": "2"
           },
+          "OracleType": [
+            null
+          ],
           "PublicKey": null,
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
@@ -176,6 +186,7 @@
           "CountryCode": "USA",
           "DomainName": "tokenized.com",
           "EmailAddress": "satoshi@tokenized.com",
+          "EntityContractAddress": null,
           "LEI": "54930084UKLVMY22DS16",
           "Management": [
             {
@@ -192,6 +203,9 @@
           "Type": "P",
           "UnitNumber": "2"
         },
+        "OracleType": [
+          null
+        ],
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
@@ -214,6 +228,7 @@
         "CountryCode": "USA",
         "DomainName": "tokenized.com",
         "EmailAddress": "satoshi@tokenized.com",
+        "EntityContractAddress": null,
         "LEI": "54930084UKLVMY22DS16",
         "Management": [
           {
@@ -247,6 +262,7 @@
         "CountryCode": "USA",
         "DomainName": "tokenized.com",
         "EmailAddress": "satoshi@tokenized.com",
+        "EntityContractAddress": null,
         "LEI": "54930084UKLVMY22DS16",
         "Management": [
           {
@@ -279,6 +295,7 @@
             "CountryCode": "USA",
             "DomainName": "tokenized.com",
             "EmailAddress": "satoshi@tokenized.com",
+            "EntityContractAddress": null,
             "LEI": "54930084UKLVMY22DS16",
             "Management": [
               {
@@ -295,6 +312,9 @@
             "Type": "P",
             "UnitNumber": "2"
           },
+          "OracleType": [
+            null
+          ],
           "PublicKey": null,
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
@@ -364,6 +384,7 @@
           "CountryCode": "USA",
           "DomainName": "tokenized.com",
           "EmailAddress": "satoshi@tokenized.com",
+          "EntityContractAddress": null,
           "LEI": "54930084UKLVMY22DS16",
           "Management": [
             {
@@ -393,6 +414,7 @@
           "CountryCode": "USA",
           "DomainName": "tokenized.com",
           "EmailAddress": "satoshi@tokenized.com",
+          "EntityContractAddress": null,
           "LEI": "54930084UKLVMY22DS16",
           "Management": [
             {
@@ -409,6 +431,9 @@
           "Type": "P",
           "UnitNumber": "2"
         },
+        "OracleType": [
+          null
+        ],
         "PublicKey": null,
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
@@ -631,6 +656,8 @@
     "label": "Order",
     "name": "Order",
     "fields": {
+      "(Deprecated)RefTxs": null,
+      "(Deprecated)SupportingEvidenceHash": null,
       "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
       "AssetType": "SHC",
       "AuthorityName": "Supreme and District Courts Brisbane",
@@ -647,9 +674,17 @@
       "FreezeTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
       "Message": "Compelled by a court order.",
       "OrderSignature": null,
-      "RefTxs": null,
+      "ReferenceTransactions": [
+        {
+          "Outputs": [
+            null
+          ],
+          "Transaction": "0"
+        }
+      ],
       "SignatureAlgorithm": "1",
-      "SupportingEvidenceHash": null,
+      "SupportingEvidence": null,
+      "SupportingEvidenceFormat": null,
       "TargetAddresses": [
         {
           "Address": null,

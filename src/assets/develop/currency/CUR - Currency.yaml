@@ -29,7 +29,16 @@ fields:
 
   - name: Description
     label: Description
-    type: varchar
+    type: deprecated
     varSize: small
     example: Australian dollar
+    span: full
+    description: "Deprecated because the currency asset should be distinguished by its meta data and contract."
+
+  - name: Precision
+    label: Precision
+    description: Required field to specify the decimal precision of a currency. It will normally be the "precision" value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount "$1.00". In this scenario 100 tokens are worth $1.
+    type: uint
+    size: 8
+    example: 100
     span: full

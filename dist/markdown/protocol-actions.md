@@ -81,7 +81,7 @@ Allows the administration to tell the smart contract what they want the details 
             uint(1)
         </td>
         <td>
-            1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+            0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
             Body of Agreement - Amendments can be restricted to a vote. Example: 1
         </td>
     </tr>
@@ -409,7 +409,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             uint(1)
         </td>
         <td>
-            1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+            0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
             Body of Agreement - Amendments can be restricted to a vote. Example: 1
         </td>
     </tr>
@@ -2547,23 +2547,19 @@ Used by the administration to signal to the smart contract that the tokens that 
     </tr>
 
     <tr>
-        <td>SupportingEvidenceHash</td>
+        <td>(Deprecated)SupportingEvidenceHash</td>
+        <td>deprecated</td>
         <td>
-            bin(32)
-        </td>
-        <td>
-            SHA-256: warrant, court order, etc.
+            Deprecated for new supporting evidence type and data fields (bin 32). SHA-256: warrant, court order, etc.
             
         </td>
     </tr>
 
     <tr>
-        <td>RefTxs</td>
+        <td>(Deprecated)RefTxs</td>
+        <td>deprecated</td>
         <td>
-            varbin(medium)
-        </td>
-        <td>
-            The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
+            Deprecated for a new data format for reference transactions (varbin medium). The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
             Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.
         </td>
     </tr>
@@ -2587,6 +2583,39 @@ Used by the administration to signal to the smart contract that the tokens that 
         <td>
             A message to include with the enforcement order.
              Example: Compelled by a court order.
+        </td>
+    </tr>
+
+    <tr>
+        <td>SupportingEvidenceFormat</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            The data format of the supporting evidence field. 0 = no evidence data provided, 1 = markdown containing warrant, court order, etc.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>SupportingEvidence</td>
+        <td>
+            varbin(tiny)
+        </td>
+        <td>
+            Supporting evidence related to the order being requested.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ReferenceTransactions</td>
+        <td>
+            <a href="#type-reference-transaction">ReferenceTransaction[medium]</a>
+        </td>
+        <td>
+            The request/response actions that were dropped.  The entire txn for both actions is included as evidence that the actions were accepted into the mempool at one point and that the senders (token/Bitcoin) signed their intent to transfer.  The management of this record keeping is off-chain and managed by the administration or operator to preserve the integrity of the state of the tokens. Only applicable for reconcilliation actions.  No subfield when F, T, R is selected as the Compliance Action subfield.
+            Can be null.  Dropped actions that require a reconciliation action to fix the break in the chain are considered to be an extremely rare event.
         </td>
     </tr>
 
@@ -3564,6 +3593,7 @@ Used to reject request actions that do not comply with the Contract. If money is
 - [Manager](#type-manager)
 - [Oracle](#type-oracle)
 - [Quantity Index](#type-quantity-index)
+- [Reference Transaction](#type-reference-transaction)
 - [Target Address](#type-target-address)
 - [Voting System](#type-voting-system)
 </div>
@@ -4089,6 +4119,17 @@ Entity represents the details of a legal Entity, such as a public or private com
         </td>
     </tr>
 
+    <tr>
+        <td>EntityContractAddress</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.
+            
+        </td>
+    </tr>
+
 </table>
 
 
@@ -4174,6 +4215,17 @@ A Oracle defines the details of a public Oracle.
         </td>
     </tr>
 
+    <tr>
+        <td>OracleType</td>
+        <td>
+            uint(1)[tiny]
+        </td>
+        <td>
+            The type of the oracle. 0 = Identity, 1 = Authority, 2 = Event. More than one value can be included to specify the oracle has more than one type.
+            
+        </td>
+    </tr>
+
 </table>
 
 
@@ -4208,6 +4260,43 @@ A QuantityIndex contains a quantity, and an index. The quantity could be used to
         <td>
             Number of tokens being sent
              Example: 100
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-reference-transaction"></a>
+### Reference Transaction
+
+A bitcoin transaction and the outputs that it spends.
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Transaction</td>
+        <td>
+            varbin(tiny)
+        </td>
+        <td>
+            A bitcoin transaction serialized in the bitcoin P2P format.
+             Example: 0
+        </td>
+    </tr>
+
+    <tr>
+        <td>Outputs</td>
+        <td>
+            varbin(large)[medium]
+        </td>
+        <td>
+            The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P format. There must be the same count as there are inputs in the contained transaction and they must be in the same order.
+            
         </td>
     </tr>
 

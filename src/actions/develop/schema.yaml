@@ -60,6 +60,7 @@ fieldTypes:
   - "types/Manager"
   - "types/Oracle"
   - "types/QuantityIndex"
+  - "types/ReferenceTransaction"
   - "types/TargetAddress"
   - "types/VotingSystem"
 

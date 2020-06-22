@@ -35,7 +35,7 @@ const (
         {{- else if ne .BaseListSize "large" }}
         INVALID LIST SIZE : {{ .BaseListSize }}
         {{- end }}
-        {{- if or (ne .BaseType "uint") (and (ne .BaseSize 4) (ne .BaseSize 8)) }}
+        {{- if and (or (ne .BaseType "uint") (and (ne .BaseSize 4) (ne .BaseSize 8))) (or (ne .BaseType "varbin") (ne .BaseVarSize "large")) }}
         for i, v := range a.{{ .Name }} {
         {{- if gt (len .BaseResource) 0 }}
             if {{ .BaseResource }}Data(v) == nil {
@@ -50,21 +50,32 @@ const (
         {{- else if eq .BaseType "varbin" "varchar" }}
             {{- if eq .BaseVarSize "tiny" "" }}
             if len(v) > max1ByteInteger {
-                return fmt.Errorf("variable size over max value : %d > %d", len(v), max1ByteInteger)
+                return fmt.Errorf("[%d] variable size over max value : %d > %d", i, len(v), max1ByteInteger)
             }
             {{- else if eq .BaseVarSize "small" }}
             if len(v) > max2ByteInteger {
-                return fmt.Errorf("variable size over max value : %d > %d", len(v), max2ByteInteger)
+                return fmt.Errorf("[%d] variable size over max value : %d > %d", i, len(v), max2ByteInteger)
             }
             {{- else if eq .BaseVarSize "medium" }}
             if len(v) > max4ByteInteger {
-                return fmt.Errorf("variable size over max value : %d > %d", len(v), max4ByteInteger)
+                return fmt.Errorf("[%d] variable size over max value : %d > %d", i, len(v), max4ByteInteger)
             }
             {{- else if ne .BaseVarSize "large" }}
             INVALID VARIABLE SIZE : {{ .BaseVarSize }}
             {{- end }}
         {{- else if eq .BaseType "uint" }}
-            {{- if le .BaseSize 1 }}
+            {{- if gt (len .BaseOptions) 0 }}
+            found{{ .Name }} := false
+            for _, o := range []{{ .GoSingularType }}{ {{ template "ListValues" .BaseOptions }} } {
+                if v == o {
+                    found{{ .Name }} = true
+                    break
+                }
+            }
+            if !found{{ .Name }} {
+                return fmt.Errorf("{{ .Name }}[%d] value not within options {{ .BaseOptions }} : %d", i, a.{{ .Name }})
+            }
+            {{- else if le .BaseSize 1 }}
             if v > uint32(max1ByteInteger) {
                 return fmt.Errorf("{{ .Name }}[%d] uint over max value : %d > %d", i, v, max1ByteInteger)
             }
@@ -108,16 +119,16 @@ const (
         INVALID VARIABLE SIZE : {{ .BaseVarSize }}
             {{- end }}
         {{- else if eq .BaseType "uint" }}
-            {{- if gt (len .Options) 0 }}
+            {{- if gt (len .BaseOptions) 0 }}
         found{{ .Name }} := false
-        for _, v := range []{{ .GoType }}{ {{ template "ListValues" .Options }} } {
+        for _, v := range []{{ .GoType }}{ {{ template "ListValues" .BaseOptions }} } {
             if a.{{ .Name }} == v {
                 found{{ .Name }} = true
                 break
             }
         }
         if !found{{ .Name }} {
-            return fmt.Errorf("{{ .Name }} value not within options {{ .Options }} : %d", a.{{ .Name }})
+            return fmt.Errorf("{{ .Name }} value not within options {{ .BaseOptions }} : %d", a.{{ .Name }})
         }
             {{- else if le .BaseSize 1 }}
         if a.{{ .Name }} > uint32(max1ByteInteger) {
@@ -142,7 +153,9 @@ func (a *{{.Name}}) Validate() error {
         return nil
     }
     {{ range .Fields }}
+        {{- if ne .Type "deprecated" }}
         {{ template "ValidateField" . -}}
+        {{- end }}
     {{- end }}
 
     return nil
@@ -155,7 +168,9 @@ func (a *{{.Name}}Field) Validate() error {
         return nil
     }
     {{ range .Fields }}
+        {{- if ne .Type "deprecated" }}
         {{ template "ValidateField" . -}}
+        {{- end }}
     {{- end }}
 
     return nil

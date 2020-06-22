@@ -19,3 +19,13 @@ fields:
     label: Oracle Public Key
     description: "Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle."
     type: varbin
+
+  - name: OracleType
+    label: Oracle Type
+    description: "The type of the oracle. 0 = Identity, 1 = Authority, 2 = Event. More than one value can be included to specify the oracle has more than one type."
+    type: uint[]
+    size: 1
+    options:
+      - 0
+      - 1
+      - 2

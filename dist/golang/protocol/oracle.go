@@ -5,7 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 
-	"github.com/tokenized/smart-contract/pkg/bitcoin"
+	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/actions"
 
 	"github.com/golang/protobuf/proto"
@@ -54,6 +54,52 @@ func ContractOracleSigHash(ctx context.Context, adminAddresses []bitcoin.RawAddr
 		}
 		digest.Write(data)
 	}
+	digest.Write(blockHash[:])
+
+	binary.Write(digest, DefaultEndian, &approved)
+
+	hash := sha256.Sum256(digest.Sum(nil))
+	return hash[:], nil
+}
+
+// EntityPubKeyOracleSigHash returns a Double SHA256 of the data required to verify an association
+//   between an entity and a public key by an oracle.
+// The block hash of the chain tip - 4 should be used. This gives a timestamp to the signature.
+func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
+	pubKey bitcoin.PublicKey, blockHash *bitcoin.Hash32, approved uint8) ([]byte, error) {
+
+	// Calculate the hash
+	digest := sha256.New()
+
+	data, err := proto.Marshal(entity)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to serialize entity")
+	}
+	digest.Write(data)
+	digest.Write(pubKey.Bytes())
+	digest.Write(blockHash[:])
+
+	binary.Write(digest, DefaultEndian, &approved)
+
+	hash := sha256.Sum256(digest.Sum(nil))
+	return hash[:], nil
+}
+
+// EntityXPubOracleSigHash returns a Double SHA256 of the data required to verify an association
+//   between an entity and an extended public key by an oracle.
+// The block hash of the chain tip - 4 should be used. This gives a timestamp to the signature.
+func EntityXPubOracleSigHash(ctx context.Context, entity *actions.EntityField,
+	xpub bitcoin.ExtendedKeys, blockHash *bitcoin.Hash32, approved uint8) ([]byte, error) {
+
+	// Calculate the hash
+	digest := sha256.New()
+
+	data, err := proto.Marshal(entity)
+	if err != nil {
+		return nil, errors.Wrap(err, "Failed to serialize entity")
+	}
+	digest.Write(data)
+	digest.Write(xpub.Bytes())
 	digest.Write(blockHash[:])
 
 	binary.Write(digest, DefaultEndian, &approved)

@@ -41,6 +41,10 @@ The Tokenized protocol features a complete messaging suite for all types of mess
     </tr>
     {{- range .Fields}}
         <tr>
+      {{- if eq .Type "deprecated" }}
+            <td>(Deprecated){{.Name}}</td>
+            <td>deprecated</td>
+      {{- else }}
             <td>{{.Name}}</td>
             <td>
             {{- if .IsList }}
@@ -61,6 +65,7 @@ The Tokenized protocol features a complete messaging suite for all types of mess
               {{- end}}
             {{- end}}
             </td>
+      {{- end }}
             <td>
                 {{.Description}}
                 {{.Notes}}
