@@ -7,39 +7,47 @@ import (
 )
 
 func (l *PublicMessage) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &PublicMessage{}
 	}
-	r, ok := right.(*PublicMessage)
+	cr := right
+	if cr == nil {
+		cr = &PublicMessage{}
+	}
+	r, ok := cr.(*PublicMessage)
 	if !ok {
 		return false
 	}
 
 	// Field Timestamp - uint
-	if l.Timestamp != r.Timestamp {
+	if c.Timestamp != r.Timestamp {
 		return false // fmt.Errorf("Timestamp integer mismatched")
 	}
 
 	// Field Subject - varchar
-	if l.Subject != r.Subject {
+	if c.Subject != r.Subject {
 		return false // fmt.Errorf("Subject string mismatched")
 	}
 
 	// Field Regarding - Outpoint
-	if !l.Equal(r.Regarding) {
+	if !c.Regarding.Equal(r.Regarding) {
 		return false // fmt.Errorf("Regarding : %s", err)
 	}
 
 	// Field PublicMessage - Document
-	if !l.Equal(r.PublicMessage) {
+	if !c.PublicMessage.Equal(r.PublicMessage) {
 		return false // fmt.Errorf("PublicMessage : %s", err)
 	}
 
 	// Field Attachments - Document
-	if len(l.Attachments) != len(r.Attachments) {
+	if len(c.Attachments) != len(r.Attachments) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.Attachments {
+	for i, v := range c.Attachments {
 		if !v.Equal(r.Attachments[i]) {
 			return false // fmt.Errorf("Attachments[%d] : %s", i, err)
 		}
@@ -49,39 +57,47 @@ func (l *PublicMessage) Equal(right proto.Message) bool {
 }
 
 func (l *PrivateMessage) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &PrivateMessage{}
 	}
-	r, ok := right.(*PrivateMessage)
+	cr := right
+	if cr == nil {
+		cr = &PrivateMessage{}
+	}
+	r, ok := cr.(*PrivateMessage)
 	if !ok {
 		return false
 	}
 
 	// Field Timestamp - uint
-	if l.Timestamp != r.Timestamp {
+	if c.Timestamp != r.Timestamp {
 		return false // fmt.Errorf("Timestamp integer mismatched")
 	}
 
 	// Field Subject - varchar
-	if l.Subject != r.Subject {
+	if c.Subject != r.Subject {
 		return false // fmt.Errorf("Subject string mismatched")
 	}
 
 	// Field Regarding - Outpoint
-	if !l.Equal(r.Regarding) {
+	if !c.Regarding.Equal(r.Regarding) {
 		return false // fmt.Errorf("Regarding : %s", err)
 	}
 
 	// Field PrivateMessage - Document
-	if !l.Equal(r.PrivateMessage) {
+	if !c.PrivateMessage.Equal(r.PrivateMessage) {
 		return false // fmt.Errorf("PrivateMessage : %s", err)
 	}
 
 	// Field Attachments - Document
-	if len(l.Attachments) != len(r.Attachments) {
+	if len(c.Attachments) != len(r.Attachments) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.Attachments {
+	for i, v := range c.Attachments {
 		if !v.Equal(r.Attachments[i]) {
 			return false // fmt.Errorf("Attachments[%d] : %s", i, err)
 		}
@@ -91,21 +107,29 @@ func (l *PrivateMessage) Equal(right proto.Message) bool {
 }
 
 func (l *RevertedTx) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &RevertedTx{}
 	}
-	r, ok := right.(*RevertedTx)
+	cr := right
+	if cr == nil {
+		cr = &RevertedTx{}
+	}
+	r, ok := cr.(*RevertedTx)
 	if !ok {
 		return false
 	}
 
 	// Field Timestamp - uint
-	if l.Timestamp != r.Timestamp {
+	if c.Timestamp != r.Timestamp {
 		return false // fmt.Errorf("Timestamp integer mismatched")
 	}
 
 	// Field Transaction - varbin
-	if !bytes.Equal(l.Transaction, r.Transaction) {
+	if !bytes.Equal(c.Transaction, r.Transaction) {
 		return false // fmt.Errorf("Transaction bytes mismatched")
 	}
 
@@ -113,21 +137,29 @@ func (l *RevertedTx) Equal(right proto.Message) bool {
 }
 
 func (l *Offer) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &Offer{}
 	}
-	r, ok := right.(*Offer)
+	cr := right
+	if cr == nil {
+		cr = &Offer{}
+	}
+	r, ok := cr.(*Offer)
 	if !ok {
 		return false
 	}
 
 	// Field Timestamp - uint
-	if l.Timestamp != r.Timestamp {
+	if c.Timestamp != r.Timestamp {
 		return false // fmt.Errorf("Timestamp integer mismatched")
 	}
 
 	// Field Payload - varbin
-	if !bytes.Equal(l.Payload, r.Payload) {
+	if !bytes.Equal(c.Payload, r.Payload) {
 		return false // fmt.Errorf("Payload bytes mismatched")
 	}
 
@@ -135,21 +167,29 @@ func (l *Offer) Equal(right proto.Message) bool {
 }
 
 func (l *SignatureRequest) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &SignatureRequest{}
 	}
-	r, ok := right.(*SignatureRequest)
+	cr := right
+	if cr == nil {
+		cr = &SignatureRequest{}
+	}
+	r, ok := cr.(*SignatureRequest)
 	if !ok {
 		return false
 	}
 
 	// Field Timestamp - uint
-	if l.Timestamp != r.Timestamp {
+	if c.Timestamp != r.Timestamp {
 		return false // fmt.Errorf("Timestamp integer mismatched")
 	}
 
 	// Field Payload - varbin
-	if !bytes.Equal(l.Payload, r.Payload) {
+	if !bytes.Equal(c.Payload, r.Payload) {
 		return false // fmt.Errorf("Payload bytes mismatched")
 	}
 
@@ -157,36 +197,44 @@ func (l *SignatureRequest) Equal(right proto.Message) bool {
 }
 
 func (l *SettlementRequest) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &SettlementRequest{}
 	}
-	r, ok := right.(*SettlementRequest)
+	cr := right
+	if cr == nil {
+		cr = &SettlementRequest{}
+	}
+	r, ok := cr.(*SettlementRequest)
 	if !ok {
 		return false
 	}
 
 	// Field Timestamp - uint
-	if l.Timestamp != r.Timestamp {
+	if c.Timestamp != r.Timestamp {
 		return false // fmt.Errorf("Timestamp integer mismatched")
 	}
 
 	// Field TransferTxId - bin
-	if !bytes.Equal(l.TransferTxId, r.TransferTxId) {
+	if !bytes.Equal(c.TransferTxId, r.TransferTxId) {
 		return false // fmt.Errorf("TransferTxId bytes mismatched")
 	}
 
 	// Field ContractFees - TargetAddress
-	if len(l.ContractFees) != len(r.ContractFees) {
+	if len(c.ContractFees) != len(r.ContractFees) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.ContractFees {
+	for i, v := range c.ContractFees {
 		if !v.Equal(r.ContractFees[i]) {
 			return false // fmt.Errorf("ContractFees[%d] : %s", i, err)
 		}
 	}
 
 	// Field Settlement - varbin
-	if !bytes.Equal(l.Settlement, r.Settlement) {
+	if !bytes.Equal(c.Settlement, r.Settlement) {
 		return false // fmt.Errorf("Settlement bytes mismatched")
 	}
 
@@ -194,34 +242,42 @@ func (l *SettlementRequest) Equal(right proto.Message) bool {
 }
 
 func (l *OutputMetadata) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &OutputMetadata{}
 	}
-	r, ok := right.(*OutputMetadata)
+	cr := right
+	if cr == nil {
+		cr = &OutputMetadata{}
+	}
+	r, ok := cr.(*OutputMetadata)
 	if !ok {
 		return false
 	}
 
 	// Field OutputDescription - varchar
-	if l.OutputDescription != r.OutputDescription {
+	if c.OutputDescription != r.OutputDescription {
 		return false // fmt.Errorf("OutputDescription string mismatched")
 	}
 
 	// Field Tags - uint
-	if len(l.Tags) != len(r.Tags) {
+	if len(c.Tags) != len(r.Tags) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.Tags {
+	for i, v := range c.Tags {
 		if v != r.Tags[i] {
 			return false // fmt.Errorf("Element Tags integer mismatched")
 		}
 	}
 
 	// Field CustomTags - OutputTag
-	if len(l.CustomTags) != len(r.CustomTags) {
+	if len(c.CustomTags) != len(r.CustomTags) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.CustomTags {
+	for i, v := range c.CustomTags {
 		if !v.Equal(r.CustomTags[i]) {
 			return false // fmt.Errorf("CustomTags[%d] : %s", i, err)
 		}
@@ -231,49 +287,57 @@ func (l *OutputMetadata) Equal(right proto.Message) bool {
 }
 
 func (l *InitiateRelationship) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &InitiateRelationship{}
 	}
-	r, ok := right.(*InitiateRelationship)
+	cr := right
+	if cr == nil {
+		cr = &InitiateRelationship{}
+	}
+	r, ok := cr.(*InitiateRelationship)
 	if !ok {
 		return false
 	}
 
 	// Field Type - uint
-	if l.Type != r.Type {
+	if c.Type != r.Type {
 		return false // fmt.Errorf("Type integer mismatched")
 	}
 
 	// Field Seed - varbin
-	if !bytes.Equal(l.Seed, r.Seed) {
+	if !bytes.Equal(c.Seed, r.Seed) {
 		return false // fmt.Errorf("Seed bytes mismatched")
 	}
 
 	// Field Flag - varbin
-	if !bytes.Equal(l.Flag, r.Flag) {
+	if !bytes.Equal(c.Flag, r.Flag) {
 		return false // fmt.Errorf("Flag bytes mismatched")
 	}
 
 	// Field EncryptionType - uint
-	if l.EncryptionType != r.EncryptionType {
+	if c.EncryptionType != r.EncryptionType {
 		return false // fmt.Errorf("EncryptionType integer mismatched")
 	}
 
 	// Field ProofOfIdentityType - uint
-	if l.ProofOfIdentityType != r.ProofOfIdentityType {
+	if c.ProofOfIdentityType != r.ProofOfIdentityType {
 		return false // fmt.Errorf("ProofOfIdentityType integer mismatched")
 	}
 
 	// Field ProofOfIdentity - varbin
-	if !bytes.Equal(l.ProofOfIdentity, r.ProofOfIdentity) {
+	if !bytes.Equal(c.ProofOfIdentity, r.ProofOfIdentity) {
 		return false // fmt.Errorf("ProofOfIdentity bytes mismatched")
 	}
 
 	// Field ChannelParties - ChannelParty
-	if len(l.ChannelParties) != len(r.ChannelParties) {
+	if len(c.ChannelParties) != len(r.ChannelParties) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.ChannelParties {
+	for i, v := range c.ChannelParties {
 		if !v.Equal(r.ChannelParties[i]) {
 			return false // fmt.Errorf("ChannelParties[%d] : %s", i, err)
 		}
@@ -283,21 +347,29 @@ func (l *InitiateRelationship) Equal(right proto.Message) bool {
 }
 
 func (l *PendingAcceptRelationship) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &PendingAcceptRelationship{}
 	}
-	r, ok := right.(*PendingAcceptRelationship)
+	cr := right
+	if cr == nil {
+		cr = &PendingAcceptRelationship{}
+	}
+	r, ok := cr.(*PendingAcceptRelationship)
 	if !ok {
 		return false
 	}
 
 	// Field ProofOfIdentityType - uint
-	if l.ProofOfIdentityType != r.ProofOfIdentityType {
+	if c.ProofOfIdentityType != r.ProofOfIdentityType {
 		return false // fmt.Errorf("ProofOfIdentityType integer mismatched")
 	}
 
 	// Field ProofOfIdentity - varbin
-	if !bytes.Equal(l.ProofOfIdentity, r.ProofOfIdentity) {
+	if !bytes.Equal(c.ProofOfIdentity, r.ProofOfIdentity) {
 		return false // fmt.Errorf("ProofOfIdentity bytes mismatched")
 	}
 
@@ -305,21 +377,29 @@ func (l *PendingAcceptRelationship) Equal(right proto.Message) bool {
 }
 
 func (l *AcceptRelationship) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &AcceptRelationship{}
 	}
-	r, ok := right.(*AcceptRelationship)
+	cr := right
+	if cr == nil {
+		cr = &AcceptRelationship{}
+	}
+	r, ok := cr.(*AcceptRelationship)
 	if !ok {
 		return false
 	}
 
 	// Field ProofOfIdentityType - uint
-	if l.ProofOfIdentityType != r.ProofOfIdentityType {
+	if c.ProofOfIdentityType != r.ProofOfIdentityType {
 		return false // fmt.Errorf("ProofOfIdentityType integer mismatched")
 	}
 
 	// Field ProofOfIdentity - varbin
-	if !bytes.Equal(l.ProofOfIdentity, r.ProofOfIdentity) {
+	if !bytes.Equal(c.ProofOfIdentity, r.ProofOfIdentity) {
 		return false // fmt.Errorf("ProofOfIdentity bytes mismatched")
 	}
 
@@ -327,31 +407,39 @@ func (l *AcceptRelationship) Equal(right proto.Message) bool {
 }
 
 func (l *RelationshipAmendment) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &RelationshipAmendment{}
 	}
-	r, ok := right.(*RelationshipAmendment)
+	cr := right
+	if cr == nil {
+		cr = &RelationshipAmendment{}
+	}
+	r, ok := cr.(*RelationshipAmendment)
 	if !ok {
 		return false
 	}
 
 	// Field Seed - varbin
-	if !bytes.Equal(l.Seed, r.Seed) {
+	if !bytes.Equal(c.Seed, r.Seed) {
 		return false // fmt.Errorf("Seed bytes mismatched")
 	}
 
 	// Field BaseEncryptionSecret - varbin
-	if !bytes.Equal(l.BaseEncryptionSecret, r.BaseEncryptionSecret) {
+	if !bytes.Equal(c.BaseEncryptionSecret, r.BaseEncryptionSecret) {
 		return false // fmt.Errorf("BaseEncryptionSecret bytes mismatched")
 	}
 
 	// Field AddMemberIndexes - uint
-	if l.AddMemberIndexes != r.AddMemberIndexes {
+	if c.AddMemberIndexes != r.AddMemberIndexes {
 		return false // fmt.Errorf("AddMemberIndexes integer mismatched")
 	}
 
 	// Field DropMemberIndexes - uint
-	if l.DropMemberIndexes != r.DropMemberIndexes {
+	if c.DropMemberIndexes != r.DropMemberIndexes {
 		return false // fmt.Errorf("DropMemberIndexes integer mismatched")
 	}
 
@@ -359,21 +447,29 @@ func (l *RelationshipAmendment) Equal(right proto.Message) bool {
 }
 
 func (l *InitiateThread) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &InitiateThread{}
 	}
-	r, ok := right.(*InitiateThread)
+	cr := right
+	if cr == nil {
+		cr = &InitiateThread{}
+	}
+	r, ok := cr.(*InitiateThread)
 	if !ok {
 		return false
 	}
 
 	// Field Flag - varbin
-	if !bytes.Equal(l.Flag, r.Flag) {
+	if !bytes.Equal(c.Flag, r.Flag) {
 		return false // fmt.Errorf("Flag bytes mismatched")
 	}
 
 	// Field Seed - varbin
-	if !bytes.Equal(l.Seed, r.Seed) {
+	if !bytes.Equal(c.Seed, r.Seed) {
 		return false // fmt.Errorf("Seed bytes mismatched")
 	}
 
@@ -381,21 +477,29 @@ func (l *InitiateThread) Equal(right proto.Message) bool {
 }
 
 func (l *AdministratorField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &AdministratorField{}
 	}
 	r, ok := right.(*AdministratorField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &AdministratorField{}
+	}
+
 	// Field Type - uint
-	if l.Type != r.Type {
+	if c.Type != r.Type {
 		return false // fmt.Errorf("Type integer mismatched")
 	}
 
 	// Field Name - varchar
-	if l.Name != r.Name {
+	if c.Name != r.Name {
 		return false // fmt.Errorf("Name string mismatched")
 	}
 
@@ -403,21 +507,29 @@ func (l *AdministratorField) Equal(right proto.Message) bool {
 }
 
 func (l *ChannelPartyField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ChannelPartyField{}
 	}
 	r, ok := right.(*ChannelPartyField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &ChannelPartyField{}
+	}
+
 	// Field AdministrativeAddress - varbin
-	if !bytes.Equal(l.AdministrativeAddress, r.AdministrativeAddress) {
+	if !bytes.Equal(c.AdministrativeAddress, r.AdministrativeAddress) {
 		return false // fmt.Errorf("AdministrativeAddress bytes mismatched")
 	}
 
 	// Field OutputIndex - uint
-	if l.OutputIndex != r.OutputIndex {
+	if c.OutputIndex != r.OutputIndex {
 		return false // fmt.Errorf("OutputIndex integer mismatched")
 	}
 
@@ -425,26 +537,34 @@ func (l *ChannelPartyField) Equal(right proto.Message) bool {
 }
 
 func (l *DocumentField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &DocumentField{}
 	}
 	r, ok := right.(*DocumentField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &DocumentField{}
+	}
+
 	// Field Name - varchar
-	if l.Name != r.Name {
+	if c.Name != r.Name {
 		return false // fmt.Errorf("Name string mismatched")
 	}
 
 	// Field Type - varchar
-	if l.Type != r.Type {
+	if c.Type != r.Type {
 		return false // fmt.Errorf("Type string mismatched")
 	}
 
 	// Field Contents - varbin
-	if !bytes.Equal(l.Contents, r.Contents) {
+	if !bytes.Equal(c.Contents, r.Contents) {
 		return false // fmt.Errorf("Contents bytes mismatched")
 	}
 
@@ -452,101 +572,109 @@ func (l *DocumentField) Equal(right proto.Message) bool {
 }
 
 func (l *EntityField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &EntityField{}
 	}
 	r, ok := right.(*EntityField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &EntityField{}
+	}
+
 	// Field Name - varchar
-	if l.Name != r.Name {
+	if c.Name != r.Name {
 		return false // fmt.Errorf("Name string mismatched")
 	}
 
 	// Field Type - fixedchar
-	if l.Type != r.Type {
+	if c.Type != r.Type {
 		return false // fmt.Errorf("Type string mismatched")
 	}
 
 	// Field LEI - fixedchar
-	if l.LEI != r.LEI {
+	if c.LEI != r.LEI {
 		return false // fmt.Errorf("LEI string mismatched")
 	}
 
 	// Field UnitNumber - varchar
-	if l.UnitNumber != r.UnitNumber {
+	if c.UnitNumber != r.UnitNumber {
 		return false // fmt.Errorf("UnitNumber string mismatched")
 	}
 
 	// Field BuildingNumber - varchar
-	if l.BuildingNumber != r.BuildingNumber {
+	if c.BuildingNumber != r.BuildingNumber {
 		return false // fmt.Errorf("BuildingNumber string mismatched")
 	}
 
 	// Field Street - varchar
-	if l.Street != r.Street {
+	if c.Street != r.Street {
 		return false // fmt.Errorf("Street string mismatched")
 	}
 
 	// Field SuburbCity - varchar
-	if l.SuburbCity != r.SuburbCity {
+	if c.SuburbCity != r.SuburbCity {
 		return false // fmt.Errorf("SuburbCity string mismatched")
 	}
 
 	// Field TerritoryStateProvinceCode - fixedchar
-	if l.TerritoryStateProvinceCode != r.TerritoryStateProvinceCode {
+	if c.TerritoryStateProvinceCode != r.TerritoryStateProvinceCode {
 		return false // fmt.Errorf("TerritoryStateProvinceCode string mismatched")
 	}
 
 	// Field CountryCode - fixedchar
-	if l.CountryCode != r.CountryCode {
+	if c.CountryCode != r.CountryCode {
 		return false // fmt.Errorf("CountryCode string mismatched")
 	}
 
 	// Field PostalZIPCode - fixedchar
-	if l.PostalZIPCode != r.PostalZIPCode {
+	if c.PostalZIPCode != r.PostalZIPCode {
 		return false // fmt.Errorf("PostalZIPCode string mismatched")
 	}
 
 	// Field EmailAddress - varchar
-	if l.EmailAddress != r.EmailAddress {
+	if c.EmailAddress != r.EmailAddress {
 		return false // fmt.Errorf("EmailAddress string mismatched")
 	}
 
 	// Field PhoneNumber - varchar
-	if l.PhoneNumber != r.PhoneNumber {
+	if c.PhoneNumber != r.PhoneNumber {
 		return false // fmt.Errorf("PhoneNumber string mismatched")
 	}
 
 	// Field Administration - Administrator
-	if len(l.Administration) != len(r.Administration) {
+	if len(c.Administration) != len(r.Administration) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.Administration {
+	for i, v := range c.Administration {
 		if !v.Equal(r.Administration[i]) {
 			return false // fmt.Errorf("Administration[%d] : %s", i, err)
 		}
 	}
 
 	// Field Management - Manager
-	if len(l.Management) != len(r.Management) {
+	if len(c.Management) != len(r.Management) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range l.Management {
+	for i, v := range c.Management {
 		if !v.Equal(r.Management[i]) {
 			return false // fmt.Errorf("Management[%d] : %s", i, err)
 		}
 	}
 
 	// Field DomainName - varchar
-	if l.DomainName != r.DomainName {
+	if c.DomainName != r.DomainName {
 		return false // fmt.Errorf("DomainName string mismatched")
 	}
 
 	// Field EntityContractAddress - varbin
-	if !bytes.Equal(l.EntityContractAddress, r.EntityContractAddress) {
+	if !bytes.Equal(c.EntityContractAddress, r.EntityContractAddress) {
 		return false // fmt.Errorf("EntityContractAddress bytes mismatched")
 	}
 
@@ -554,26 +682,34 @@ func (l *EntityField) Equal(right proto.Message) bool {
 }
 
 func (l *IdentityOracleProofField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &IdentityOracleProofField{}
 	}
 	r, ok := right.(*IdentityOracleProofField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &IdentityOracleProofField{}
+	}
+
 	// Field UserID - varbin
-	if !bytes.Equal(l.UserID, r.UserID) {
+	if !bytes.Equal(c.UserID, r.UserID) {
 		return false // fmt.Errorf("UserID bytes mismatched")
 	}
 
 	// Field Entity - Entity
-	if !l.Equal(r.Entity) {
+	if !c.Entity.Equal(r.Entity) {
 		return false // fmt.Errorf("Entity : %s", err)
 	}
 
 	// Field OracleSignature - OracleSignature
-	if !l.Equal(r.OracleSignature) {
+	if !c.OracleSignature.Equal(r.OracleSignature) {
 		return false // fmt.Errorf("OracleSignature : %s", err)
 	}
 
@@ -581,21 +717,29 @@ func (l *IdentityOracleProofField) Equal(right proto.Message) bool {
 }
 
 func (l *ManagerField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ManagerField{}
 	}
 	r, ok := right.(*ManagerField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &ManagerField{}
+	}
+
 	// Field Type - uint
-	if l.Type != r.Type {
+	if c.Type != r.Type {
 		return false // fmt.Errorf("Type integer mismatched")
 	}
 
 	// Field Name - varchar
-	if l.Name != r.Name {
+	if c.Name != r.Name {
 		return false // fmt.Errorf("Name string mismatched")
 	}
 
@@ -603,36 +747,44 @@ func (l *ManagerField) Equal(right proto.Message) bool {
 }
 
 func (l *OracleSignatureField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &OracleSignatureField{}
 	}
 	r, ok := right.(*OracleSignatureField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &OracleSignatureField{}
+	}
+
 	// Field OracleURL - varchar
-	if l.OracleURL != r.OracleURL {
+	if c.OracleURL != r.OracleURL {
 		return false // fmt.Errorf("OracleURL string mismatched")
 	}
 
 	// Field BlockHeight - uint
-	if l.BlockHeight != r.BlockHeight {
+	if c.BlockHeight != r.BlockHeight {
 		return false // fmt.Errorf("BlockHeight integer mismatched")
 	}
 
 	// Field ValidityPeriod - Period
-	if !l.Equal(r.ValidityPeriod) {
+	if !c.ValidityPeriod.Equal(r.ValidityPeriod) {
 		return false // fmt.Errorf("ValidityPeriod : %s", err)
 	}
 
 	// Field SignatureAlgorithm - uint
-	if l.SignatureAlgorithm != r.SignatureAlgorithm {
+	if c.SignatureAlgorithm != r.SignatureAlgorithm {
 		return false // fmt.Errorf("SignatureAlgorithm integer mismatched")
 	}
 
 	// Field Signature - varbin
-	if !bytes.Equal(l.Signature, r.Signature) {
+	if !bytes.Equal(c.Signature, r.Signature) {
 		return false // fmt.Errorf("Signature bytes mismatched")
 	}
 
@@ -640,21 +792,29 @@ func (l *OracleSignatureField) Equal(right proto.Message) bool {
 }
 
 func (l *OutpointField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &OutpointField{}
 	}
 	r, ok := right.(*OutpointField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &OutpointField{}
+	}
+
 	// Field TxId - bin
-	if !bytes.Equal(l.TxId, r.TxId) {
+	if !bytes.Equal(c.TxId, r.TxId) {
 		return false // fmt.Errorf("TxId bytes mismatched")
 	}
 
 	// Field OutputIndex - uint
-	if l.OutputIndex != r.OutputIndex {
+	if c.OutputIndex != r.OutputIndex {
 		return false // fmt.Errorf("OutputIndex integer mismatched")
 	}
 
@@ -662,16 +822,24 @@ func (l *OutpointField) Equal(right proto.Message) bool {
 }
 
 func (l *OutputTagField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &OutputTagField{}
 	}
 	r, ok := right.(*OutputTagField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &OutputTagField{}
+	}
+
 	// Field Tag - varchar
-	if l.Tag != r.Tag {
+	if c.Tag != r.Tag {
 		return false // fmt.Errorf("Tag string mismatched")
 	}
 
@@ -679,26 +847,34 @@ func (l *OutputTagField) Equal(right proto.Message) bool {
 }
 
 func (l *PaymailProofField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &PaymailProofField{}
 	}
 	r, ok := right.(*PaymailProofField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &PaymailProofField{}
+	}
+
 	// Field UserID - varbin
-	if !bytes.Equal(l.UserID, r.UserID) {
+	if !bytes.Equal(c.UserID, r.UserID) {
 		return false // fmt.Errorf("UserID bytes mismatched")
 	}
 
 	// Field Handle - varchar
-	if l.Handle != r.Handle {
+	if c.Handle != r.Handle {
 		return false // fmt.Errorf("Handle string mismatched")
 	}
 
 	// Field OracleSignature - OracleSignature
-	if !l.Equal(r.OracleSignature) {
+	if !c.OracleSignature.Equal(r.OracleSignature) {
 		return false // fmt.Errorf("OracleSignature : %s", err)
 	}
 
@@ -706,21 +882,29 @@ func (l *PaymailProofField) Equal(right proto.Message) bool {
 }
 
 func (l *PeriodField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &PeriodField{}
 	}
 	r, ok := right.(*PeriodField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &PeriodField{}
+	}
+
 	// Field Begin - uint
-	if l.Begin != r.Begin {
+	if c.Begin != r.Begin {
 		return false // fmt.Errorf("Begin integer mismatched")
 	}
 
 	// Field End - uint
-	if l.End != r.End {
+	if c.End != r.End {
 		return false // fmt.Errorf("End integer mismatched")
 	}
 
@@ -728,21 +912,29 @@ func (l *PeriodField) Equal(right proto.Message) bool {
 }
 
 func (l *TargetAddressField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &TargetAddressField{}
 	}
 	r, ok := right.(*TargetAddressField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &TargetAddressField{}
+	}
+
 	// Field Address - varbin
-	if !bytes.Equal(l.Address, r.Address) {
+	if !bytes.Equal(c.Address, r.Address) {
 		return false // fmt.Errorf("Address bytes mismatched")
 	}
 
 	// Field Quantity - uint
-	if l.Quantity != r.Quantity {
+	if c.Quantity != r.Quantity {
 		return false // fmt.Errorf("Quantity integer mismatched")
 	}
 

@@ -5,51 +5,59 @@ import (
 )
 
 func (l *Membership) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &Membership{}
 	}
-	r, ok := right.(*Membership)
+	cr := right
+	if cr == nil {
+		cr = &Membership{}
+	}
+	r, ok := cr.(*Membership)
 	if !ok {
 		return false
 	}
 
 	// Field AgeRestriction - AgeRestriction
-	if !l.Equal(r.AgeRestriction) {
+	if !c.AgeRestriction.Equal(r.AgeRestriction) {
 		return false // fmt.Errorf("AgeRestriction : %s", err)
 	}
 
 	// Field ValidFrom - uint
-	if l.ValidFrom != r.ValidFrom {
+	if c.ValidFrom != r.ValidFrom {
 		return false // fmt.Errorf("ValidFrom integer mismatched")
 	}
 
 	// Field ExpirationTimestamp - uint
-	if l.ExpirationTimestamp != r.ExpirationTimestamp {
+	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
 	}
 
 	// Field ID - varchar
-	if l.ID != r.ID {
+	if c.ID != r.ID {
 		return false // fmt.Errorf("ID string mismatched")
 	}
 
 	// Field MembershipClass - varchar
-	if l.MembershipClass != r.MembershipClass {
+	if c.MembershipClass != r.MembershipClass {
 		return false // fmt.Errorf("MembershipClass string mismatched")
 	}
 
 	// Field RoleType - varchar
-	if l.RoleType != r.RoleType {
+	if c.RoleType != r.RoleType {
 		return false // fmt.Errorf("RoleType string mismatched")
 	}
 
 	// Field MembershipType - varchar
-	if l.MembershipType != r.MembershipType {
+	if c.MembershipType != r.MembershipType {
 		return false // fmt.Errorf("MembershipType string mismatched")
 	}
 
 	// Field Description - varchar
-	if l.Description != r.Description {
+	if c.Description != r.Description {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
@@ -57,26 +65,34 @@ func (l *Membership) Equal(right proto.Message) bool {
 }
 
 func (l *Currency) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &Currency{}
 	}
-	r, ok := right.(*Currency)
+	cr := right
+	if cr == nil {
+		cr = &Currency{}
+	}
+	r, ok := cr.(*Currency)
 	if !ok {
 		return false
 	}
 
 	// Field CurrencyCode - fixedchar
-	if l.CurrencyCode != r.CurrencyCode {
+	if c.CurrencyCode != r.CurrencyCode {
 		return false // fmt.Errorf("CurrencyCode string mismatched")
 	}
 
 	// Field MonetaryAuthority - varchar
-	if l.MonetaryAuthority != r.MonetaryAuthority {
+	if c.MonetaryAuthority != r.MonetaryAuthority {
 		return false // fmt.Errorf("MonetaryAuthority string mismatched")
 	}
 
 	// Field Precision - uint
-	if l.Precision != r.Precision {
+	if c.Precision != r.Precision {
 		return false // fmt.Errorf("Precision integer mismatched")
 	}
 
@@ -84,26 +100,34 @@ func (l *Currency) Equal(right proto.Message) bool {
 }
 
 func (l *ShareCommon) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ShareCommon{}
 	}
-	r, ok := right.(*ShareCommon)
+	cr := right
+	if cr == nil {
+		cr = &ShareCommon{}
+	}
+	r, ok := cr.(*ShareCommon)
 	if !ok {
 		return false
 	}
 
 	// Field Ticker - fixedchar
-	if l.Ticker != r.Ticker {
+	if c.Ticker != r.Ticker {
 		return false // fmt.Errorf("Ticker string mismatched")
 	}
 
 	// Field ISIN - fixedchar
-	if l.ISIN != r.ISIN {
+	if c.ISIN != r.ISIN {
 		return false // fmt.Errorf("ISIN string mismatched")
 	}
 
 	// Field Description - varchar
-	if l.Description != r.Description {
+	if c.Description != r.Description {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
@@ -111,46 +135,54 @@ func (l *ShareCommon) Equal(right proto.Message) bool {
 }
 
 func (l *Coupon) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &Coupon{}
 	}
-	r, ok := right.(*Coupon)
+	cr := right
+	if cr == nil {
+		cr = &Coupon{}
+	}
+	r, ok := cr.(*Coupon)
 	if !ok {
 		return false
 	}
 
 	// Field RedeemingEntity - varchar
-	if l.RedeemingEntity != r.RedeemingEntity {
+	if c.RedeemingEntity != r.RedeemingEntity {
 		return false // fmt.Errorf("RedeemingEntity string mismatched")
 	}
 
 	// Field IssueDate - uint
-	if l.IssueDate != r.IssueDate {
+	if c.IssueDate != r.IssueDate {
 		return false // fmt.Errorf("IssueDate integer mismatched")
 	}
 
 	// Field ExpiryDate - uint
-	if l.ExpiryDate != r.ExpiryDate {
+	if c.ExpiryDate != r.ExpiryDate {
 		return false // fmt.Errorf("ExpiryDate integer mismatched")
 	}
 
 	// Field Value - uint
-	if l.Value != r.Value {
+	if c.Value != r.Value {
 		return false // fmt.Errorf("Value integer mismatched")
 	}
 
 	// Field Currency - fixedchar
-	if l.Currency != r.Currency {
+	if c.Currency != r.Currency {
 		return false // fmt.Errorf("Currency string mismatched")
 	}
 
 	// Field Description - varchar
-	if l.Description != r.Description {
+	if c.Description != r.Description {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
 	// Field Precision - uint
-	if l.Precision != r.Precision {
+	if c.Precision != r.Precision {
 		return false // fmt.Errorf("Precision integer mismatched")
 	}
 
@@ -158,36 +190,44 @@ func (l *Coupon) Equal(right proto.Message) bool {
 }
 
 func (l *LoyaltyPoints) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &LoyaltyPoints{}
 	}
-	r, ok := right.(*LoyaltyPoints)
+	cr := right
+	if cr == nil {
+		cr = &LoyaltyPoints{}
+	}
+	r, ok := cr.(*LoyaltyPoints)
 	if !ok {
 		return false
 	}
 
 	// Field AgeRestriction - AgeRestriction
-	if !l.Equal(r.AgeRestriction) {
+	if !c.AgeRestriction.Equal(r.AgeRestriction) {
 		return false // fmt.Errorf("AgeRestriction : %s", err)
 	}
 
 	// Field OfferName - varchar
-	if l.OfferName != r.OfferName {
+	if c.OfferName != r.OfferName {
 		return false // fmt.Errorf("OfferName string mismatched")
 	}
 
 	// Field ValidFrom - uint
-	if l.ValidFrom != r.ValidFrom {
+	if c.ValidFrom != r.ValidFrom {
 		return false // fmt.Errorf("ValidFrom integer mismatched")
 	}
 
 	// Field ExpirationTimestamp - uint
-	if l.ExpirationTimestamp != r.ExpirationTimestamp {
+	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
 	}
 
 	// Field Description - varchar
-	if l.Description != r.Description {
+	if c.Description != r.Description {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
@@ -195,61 +235,69 @@ func (l *LoyaltyPoints) Equal(right proto.Message) bool {
 }
 
 func (l *TicketAdmission) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &TicketAdmission{}
 	}
-	r, ok := right.(*TicketAdmission)
+	cr := right
+	if cr == nil {
+		cr = &TicketAdmission{}
+	}
+	r, ok := cr.(*TicketAdmission)
 	if !ok {
 		return false
 	}
 
 	// Field AgeRestriction - AgeRestriction
-	if !l.Equal(r.AgeRestriction) {
+	if !c.AgeRestriction.Equal(r.AgeRestriction) {
 		return false // fmt.Errorf("AgeRestriction : %s", err)
 	}
 
 	// Field AdmissionType - fixedchar
-	if l.AdmissionType != r.AdmissionType {
+	if c.AdmissionType != r.AdmissionType {
 		return false // fmt.Errorf("AdmissionType string mismatched")
 	}
 
 	// Field Venue - varchar
-	if l.Venue != r.Venue {
+	if c.Venue != r.Venue {
 		return false // fmt.Errorf("Venue string mismatched")
 	}
 
 	// Field Class - varchar
-	if l.Class != r.Class {
+	if c.Class != r.Class {
 		return false // fmt.Errorf("Class string mismatched")
 	}
 
 	// Field Area - varchar
-	if l.Area != r.Area {
+	if c.Area != r.Area {
 		return false // fmt.Errorf("Area string mismatched")
 	}
 
 	// Field Seat - varchar
-	if l.Seat != r.Seat {
+	if c.Seat != r.Seat {
 		return false // fmt.Errorf("Seat string mismatched")
 	}
 
 	// Field StartTimeDate - uint
-	if l.StartTimeDate != r.StartTimeDate {
+	if c.StartTimeDate != r.StartTimeDate {
 		return false // fmt.Errorf("StartTimeDate integer mismatched")
 	}
 
 	// Field ValidFrom - uint
-	if l.ValidFrom != r.ValidFrom {
+	if c.ValidFrom != r.ValidFrom {
 		return false // fmt.Errorf("ValidFrom integer mismatched")
 	}
 
 	// Field ExpirationTimestamp - uint
-	if l.ExpirationTimestamp != r.ExpirationTimestamp {
+	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
 	}
 
 	// Field Description - varchar
-	if l.Description != r.Description {
+	if c.Description != r.Description {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
@@ -257,41 +305,49 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 }
 
 func (l *CasinoChip) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &CasinoChip{}
 	}
-	r, ok := right.(*CasinoChip)
+	cr := right
+	if cr == nil {
+		cr = &CasinoChip{}
+	}
+	r, ok := cr.(*CasinoChip)
 	if !ok {
 		return false
 	}
 
 	// Field CurrencyCode - fixedchar
-	if l.CurrencyCode != r.CurrencyCode {
+	if c.CurrencyCode != r.CurrencyCode {
 		return false // fmt.Errorf("CurrencyCode string mismatched")
 	}
 
 	// Field UseType - fixedchar
-	if l.UseType != r.UseType {
+	if c.UseType != r.UseType {
 		return false // fmt.Errorf("UseType string mismatched")
 	}
 
 	// Field AgeRestriction - AgeRestriction
-	if !l.Equal(r.AgeRestriction) {
+	if !c.AgeRestriction.Equal(r.AgeRestriction) {
 		return false // fmt.Errorf("AgeRestriction : %s", err)
 	}
 
 	// Field ValidFrom - uint
-	if l.ValidFrom != r.ValidFrom {
+	if c.ValidFrom != r.ValidFrom {
 		return false // fmt.Errorf("ValidFrom integer mismatched")
 	}
 
 	// Field ExpirationTimestamp - uint
-	if l.ExpirationTimestamp != r.ExpirationTimestamp {
+	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
 	}
 
 	// Field Precision - uint
-	if l.Precision != r.Precision {
+	if c.Precision != r.Precision {
 		return false // fmt.Errorf("Precision integer mismatched")
 	}
 
@@ -299,21 +355,29 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 }
 
 func (l *AgeRestrictionField) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &AgeRestrictionField{}
 	}
 	r, ok := right.(*AgeRestrictionField)
 	if !ok {
 		return false
 	}
 
+	if r == nil {
+		r = &AgeRestrictionField{}
+	}
+
 	// Field Lower - uint
-	if l.Lower != r.Lower {
+	if c.Lower != r.Lower {
 		return false // fmt.Errorf("Lower integer mismatched")
 	}
 
 	// Field Upper - uint
-	if l.Upper != r.Upper {
+	if c.Upper != r.Upper {
 		return false // fmt.Errorf("Upper integer mismatched")
 	}
 
