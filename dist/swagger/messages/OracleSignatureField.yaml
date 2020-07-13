@@ -1,0 +1,24 @@
+
+description: A signature from an oracle verifying some data.
+type: object
+properties:
+  OracleURL:
+    description: Base URL of the identity oracle that provided the signature.
+    type: string
+    example: identity.tokenized.com
+  BlockHeight:
+    description:  >
+      The height of the block hash included in the data signed by the oracle. If the value is not
+      included (zero), then no signature hash is included in the signed data.
+    type: number
+  ValidityPeriod:
+    description: The time frame that the proof is valid.
+    type: object
+    $ref: "#/components/schemas/PeriodField"
+  SignatureAlgorithm:
+    description: The algorithm used by the oracle signature.
+    type: number
+  Signature:
+    description: Signature of the related data with the oracle's public key.
+    type: string
+

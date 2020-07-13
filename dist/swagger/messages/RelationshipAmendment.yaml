@@ -1,0 +1,23 @@
+
+description:  >
+  Amend a relationship. Add/Remove members. Modify permissions. This is encrypted with the current
+  base encryption secret, but can provide a new base encryption secret that starts after this
+  message.
+type: object
+properties:
+  Seed:
+    description: The new seed used to derive keys for the relationship after this message.
+    type: string
+  BaseEncryptionSecret:
+    description:  >
+      The new base encryption secret used to derive encryption secrets for the relationship after
+      this message. Each time a message is sent, the current seed hash is added to the base
+      encryption secret and that value is used to encrypt the message.
+    type: string
+  AddMemberIndexes:
+    description: Indexes to the outputs of the members that are being added to the group.
+    type: number
+  DropMemberIndexes:
+    description: Indexes to the outputs of the members that are being removed from the group.
+    type: number
+

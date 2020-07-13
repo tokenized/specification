@@ -1,0 +1,39 @@
+
+description:  >
+  The administration can initiate an amendment to the contract establishment metadata. The ability to
+  make an amendment to the contract is restricted by the Authorization Flag set on the current
+  revision of Contract Formation action.
+type: object
+properties:
+  ChangeAdministrationAddress:
+    description:  >
+      Used to change the administration address.  The new administration address must be in the
+      input[1] position. A change of the administration or operator address requires both the
+      operator and the administration address to be in the inputs (both signatures) of the Contract
+      Amendment action.
+    type: boolean
+    example: 1
+  ChangeOperatorAddress:
+    description:  >
+      Used to change the smart contract operator address.  The new operator address must be in the
+      input[1] position, unless the administration is being changed too, then it is in input[2]. A
+      change of the administration or operator address requires both the operator and the
+      administration address to be in the inputs (both signatures) of the Contract Amendment action.
+    type: boolean
+    example: 1
+  ContractRevision:
+    description: Counter 0 to (2^32)-1
+    type: number
+    example: 42
+  Amendments:
+    description: A collection of modifications to perform on this contract.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/AmendmentField"
+  RefTxID:
+    description:  >
+      The Bitcoin transaction ID of the associated result action that permitted the modifications.
+      See Governance for more details.
+    type: string
+

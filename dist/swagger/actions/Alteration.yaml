@@ -1,0 +1,12 @@
+
+description: A register entry/record can be altered.
+type: object
+properties:
+  EntryTxID:
+    description: Transaction ID of the register entry to be altered.
+    type: string
+  Message:
+    description: A custom message to include with this action.
+    type: string
+    example: Changed Country of Residence
+

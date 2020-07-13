@@ -1,0 +1,25 @@
+
+description: Generic private message. Sent to another address(es). Encryption is to be used.
+type: object
+properties:
+  Timestamp:
+    description: Timestamp in nanoseconds for when the message sender creates the transaction.
+    type: number
+  Subject:
+    description: The subject / topic of the message.
+    type: string
+  Regarding:
+    description: The output of the message that this message is regarding (responding to).
+    type: object
+    $ref: "#/components/schemas/OutpointField"
+  PrivateMessage:
+    description: Tokenized Ltd announces product launch.
+    type: object
+    $ref: "#/components/schemas/DocumentField"
+  Attachments:
+    description: Documents attached to the message.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/DocumentField"
+

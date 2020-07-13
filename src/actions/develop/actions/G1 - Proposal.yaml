@@ -28,7 +28,7 @@ metadata:
 fields:
   - name: Type
     label: Type
-    description: >
+    description: |
       Type of proposal. Supported values:
         0 Referendum / Administration Initiates / Members Vote
         1 Initiative / Members Initiate / Members Vote

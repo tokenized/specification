@@ -1,0 +1,16 @@
+
+description: A file containing data.
+type: object
+properties:
+  Name:
+    description: Full name, including file extension, of the file. Length 0-255 bytes. 0 is valid.
+    type: string
+    example: Agreement.pdf
+  Type:
+    description: MIME type of the file. Length 0-255 bytes. 0 is valid.
+    type: string
+    example: application/pdf
+  Contents:
+    description: The contents of the file.
+    type: string
+

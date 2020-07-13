@@ -1,0 +1,10 @@
+
+description: Reference to a bitcoin transaction output.
+type: object
+properties:
+  TxId:
+    type: string
+  OutputIndex:
+    description: The index of the output within the referenced transaction.
+    type: number
+

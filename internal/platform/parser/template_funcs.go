@@ -41,6 +41,9 @@ func MakeTemplateFuncs() template.FuncMap {
 		"stripwhitespace": func(str string) string {
 			return StrStripWhiteSpace(str)
 		},
+		"yamldescription": func(str, pad string) string {
+			return StrYamlDescription(str, pad)
+		},
 	}
 }
 
@@ -103,6 +106,55 @@ func StrComment(s string, prefix string) string {
 	}
 
 	return strings.TrimSpace(strings.Join(lines, "\n"))
+}
+
+func StrYamlDescription(s, pad string) string {
+	padLen := len(pad)
+	s = strings.TrimSpace(s)
+	if len(s) < 100-padLen-len("description") {
+		if strings.Contains(s, ":") {
+			return fmt.Sprintf("\"%s\"", s)
+		}
+		return s
+	}
+
+	parts := strings.Split(s, " ")
+
+	lines := []string{" >"}
+
+	line := ""
+
+	for _, p := range parts {
+		if len(p) == 0 {
+			line += " "
+			continue
+		}
+
+		if len(line)+len(p) > 100-padLen {
+			// line length exceeded. Add the line to our lines
+			lines = append(lines, pad + line)
+			line = ""
+		}
+
+		// append the word to the line
+		if len(line) == 0 {
+			line = p
+		} else {
+			line = fmt.Sprintf("%v %v", line, p)
+		}
+
+		if line[len(line)-1] == '\n' {
+			lines = append(lines, pad + line[:len(line)-1])
+			line = ""
+		}
+	}
+
+	// make sure to append any remaining non-empty line
+	if line != pad {
+		lines = append(lines, pad + line)
+	}
+
+	return strings.Join(lines, "\n")
 }
 
 func StrCamelCase(str string) string {

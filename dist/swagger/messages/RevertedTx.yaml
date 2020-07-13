@@ -1,0 +1,14 @@
+
+description:  >
+  A message that contains a bitcoin transaction that was accepted by the network or an agent and then
+  invalidated by a reorg, or zero conf double spend. This serves as on chain evidence of the sending
+  party's signatures and approval for the given transaction.
+type: object
+properties:
+  Timestamp:
+    description: Timestamp in nanoseconds for when the message sender creates the transaction.
+    type: number
+  Transaction:
+    description: Serialized bitcoin transaction that was reverted/invalidated after being accepted.
+    type: string
+

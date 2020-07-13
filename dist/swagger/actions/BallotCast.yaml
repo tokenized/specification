@@ -1,0 +1,18 @@
+
+description:  >
+  Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote
+  multiplier is specified in the relevant Asset Definition action.
+type: object
+properties:
+  VoteTxId:
+    description: Tx ID of the Vote the Ballot Cast is being made for.
+    type: string
+  Vote:
+    description:  >
+      Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal action.
+      Accept, Reject, Abstain, Spoiled, Multiple Choice, or Preference List. 15 options total. Order
+      of preference. 1st position = 1st choice. 2nd position = 2nd choice, etc. A is always Accept
+      and B is always reject in a Y/N votes.
+    type: string
+    example: A
+

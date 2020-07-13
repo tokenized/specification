@@ -1,0 +1,11 @@
+
+description: Accept a relationship.
+type: object
+properties:
+  ProofOfIdentityType:
+    description: The type/format of the sender's proof of identity.
+    type: number
+  ProofOfIdentity:
+    description: Sender's proof of identity.
+    type: string
+

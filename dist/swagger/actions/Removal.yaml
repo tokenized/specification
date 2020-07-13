@@ -1,0 +1,12 @@
+
+description: Removes an entry/record from the Register.
+type: object
+properties:
+  EntryTxID:
+    description: Transaction ID of the register entry to be altered.
+    type: string
+  Message:
+    description: A custom message to include with this action.
+    type: string
+    example: Removed due to violation of company policy.
+

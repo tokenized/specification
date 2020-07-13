@@ -12,6 +12,7 @@ import (
 	"github.com/tokenized/specification/internal/platform/parser"
 	"github.com/tokenized/specification/internal/protobuf"
 	"github.com/tokenized/specification/internal/python"
+	"github.com/tokenized/specification/internal/swagger"
 	"github.com/tokenized/specification/internal/typescript"
 
 	"github.com/spf13/cobra"
@@ -69,6 +70,8 @@ var cmdGenerate = &cobra.Command{
 		python.Compile(srcPath, distPath, *actions, *assets, *messages)
 
 		typescript.Compile(srcPath, distPath, *actions, *assets, *messages)
+
+		swagger.Compile(srcPath, distPath, *actions, *assets, *messages)
 
 		return nil
 	},

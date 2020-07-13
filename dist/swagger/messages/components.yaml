@@ -1,0 +1,50 @@
+components:
+  tokenized:
+    PublicMessage:
+      $ref: ./_components/schemas/tokenized/messages/PublicMessage.yaml
+    PrivateMessage:
+      $ref: ./_components/schemas/tokenized/messages/PrivateMessage.yaml
+    RevertedTx:
+      $ref: ./_components/schemas/tokenized/messages/RevertedTx.yaml
+    Offer:
+      $ref: ./_components/schemas/tokenized/messages/Offer.yaml
+    SignatureRequest:
+      $ref: ./_components/schemas/tokenized/messages/SignatureRequest.yaml
+    SettlementRequest:
+      $ref: ./_components/schemas/tokenized/messages/SettlementRequest.yaml
+    OutputMetadata:
+      $ref: ./_components/schemas/tokenized/messages/OutputMetadata.yaml
+    InitiateRelationship:
+      $ref: ./_components/schemas/tokenized/messages/InitiateRelationship.yaml
+    PendingAcceptRelationship:
+      $ref: ./_components/schemas/tokenized/messages/PendingAcceptRelationship.yaml
+    AcceptRelationship:
+      $ref: ./_components/schemas/tokenized/messages/AcceptRelationship.yaml
+    RelationshipAmendment:
+      $ref: ./_components/schemas/tokenized/messages/RelationshipAmendment.yaml
+    InitiateThread:
+      $ref: ./_components/schemas/tokenized/messages/InitiateThread.yaml
+    AdministratorField:
+      $ref: ./_components/schemas/tokenized/messages/AdministratorField.yaml
+    ChannelPartyField:
+      $ref: ./_components/schemas/tokenized/messages/ChannelPartyField.yaml
+    DocumentField:
+      $ref: ./_components/schemas/tokenized/messages/DocumentField.yaml
+    EntityField:
+      $ref: ./_components/schemas/tokenized/messages/EntityField.yaml
+    IdentityOracleProofField:
+      $ref: ./_components/schemas/tokenized/messages/IdentityOracleProofField.yaml
+    ManagerField:
+      $ref: ./_components/schemas/tokenized/messages/ManagerField.yaml
+    OracleSignatureField:
+      $ref: ./_components/schemas/tokenized/messages/OracleSignatureField.yaml
+    OutpointField:
+      $ref: ./_components/schemas/tokenized/messages/OutpointField.yaml
+    OutputTagField:
+      $ref: ./_components/schemas/tokenized/messages/OutputTagField.yaml
+    PaymailProofField:
+      $ref: ./_components/schemas/tokenized/messages/PaymailProofField.yaml
+    PeriodField:
+      $ref: ./_components/schemas/tokenized/messages/PeriodField.yaml
+    TargetAddressField:
+      $ref: ./_components/schemas/tokenized/messages/TargetAddressField.yaml

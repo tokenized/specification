@@ -1,0 +1,21 @@
+
+description: A proof of identity based on identity oracles.
+type: object
+properties:
+  UserID:
+    description: The user id (UUID) in the identity oracle system. Used to request the entity data.
+    type: string
+  Entity:
+    description:  >
+      PII is not allowed in entity by GDPR, so only company information can be placed in this entity.
+      In the future this might be supported for PII with better understanding of GDPR. The identity
+      being provided. EntityContractAddress is located within this structure.
+    type: object
+    $ref: "#/components/schemas/EntityField"
+  OracleSignature:
+    description:  >
+      Signature of the serialized entity, public key, and block hash with the identity oracle's
+      public key.
+    type: object
+    $ref: "#/components/schemas/OracleSignatureField"
+

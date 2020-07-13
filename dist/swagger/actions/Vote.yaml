@@ -1,0 +1,8 @@
+
+description: A vote is created by the Contract in response to a valid Proposal Action.
+type: object
+properties:
+  Timestamp:
+    description: Timestamp in nanoseconds of when the smart contract created the action.
+    type: number
+
