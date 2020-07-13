@@ -5,7 +5,7 @@ properties:
   Transaction:
     description: A bitcoin transaction serialized in the bitcoin P2P format.
     type: string
-    example: 0
+    example: "0"
   Outputs:
     description:  >
       The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P

@@ -8,12 +8,14 @@ properties:
   Seed:
     description: The new seed used to derive keys for the relationship after this message.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   BaseEncryptionSecret:
     description:  >
       The new base encryption secret used to derive encryption secrets for the relationship after
       this message. Each time a message is sent, the current seed hash is added to the base
       encryption secret and that value is used to encrypt the message.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   AddMemberIndexes:
     description: Indexes to the outputs of the members that are being added to the group.
     type: number

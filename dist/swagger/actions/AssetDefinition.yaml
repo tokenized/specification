@@ -11,6 +11,7 @@ properties:
       A set of permission objects containing switches and field references that define the
       permissions for modifying this asset. See the Permission documentation for more detail.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   TransfersPermitted:
     description:  >
       Set to true if transfers are permitted between two parties, otherwise set to false to prevent
@@ -75,9 +76,11 @@ properties:
   AssetType:
     description: A code representing the type of asset and the structure of the payload.
     type: string
+    example: "CUR"
   AssetPayload:
     description:  >
       A custom payload that contains meta data about this asset. Payload structure and length is
       dependent on the asset type chosen. See asset documentation for more details.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
 

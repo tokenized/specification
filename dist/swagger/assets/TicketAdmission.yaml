@@ -8,29 +8,29 @@ properties:
     $ref: "#/components/schemas/AgeRestrictionField"
   AdmissionType:
     type: string
-    example: MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition
+    example: "MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition"
   Venue:
     type: string
-    example: Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1
+    example: "Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1"
   Class:
     type: string
-    example: Gold Class, Platinum, VIP, Section A, etc.
+    example: "Gold Class, Platinum, VIP, Section A, etc."
   Area:
     type: string
-    example: Upper Bowl
+    example: "Upper Bowl"
   Seat:
     type: string
-    example: Sec 1, Row 3, Seat 5, or A122
+    example: "Sec 1, Row 3, Seat 5, or A122"
   StartTimeDate:
     type: number
-    example: Mon Nov 05 2018 09:00:00 GMT+1000 (AEST)
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   ValidFrom:
     type: number
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   ExpirationTimestamp:
     type: number
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   Description:
     type: string
-    example: Coingeek Conference - London (November 2018).
+    example: "Coingeek Conference - London (November 2018)."
 

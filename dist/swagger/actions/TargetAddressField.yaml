@@ -5,6 +5,7 @@ properties:
   Address:
     description: Public address where the token balance will be changed.
     type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   Quantity:
     description:  >
       Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will

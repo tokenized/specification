@@ -9,9 +9,11 @@ properties:
       hashes. The flag will be the Payload of an Envelope protocol message with a Payload Protocol ID
       of "F"
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   Seed:
     description:  >
       The seed used to derive keys for the thread. If this value is not specified, then the original
       seed value from the parent conversation or channel is used.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
 

@@ -44,6 +44,9 @@ func MakeTemplateFuncs() template.FuncMap {
 		"yamldescription": func(str, pad string) string {
 			return StrYamlDescription(str, pad)
 		},
+		"fixedhex": func(size int) string {
+			return FixedHex(size)
+		},
 	}
 }
 
@@ -188,4 +191,12 @@ func StrKebabCase(str string) string {
 	result := strMatchFirstCap.ReplaceAllString(str, "${1}-${2}")
 	result = strMatchAllCap.ReplaceAllString(result, "${1}-${2}")
 	return strings.ToLower(result)
+}
+
+func FixedHex(size int) string {
+	b := make([]byte, size)
+	for i, _ := range b {
+		b[i] = byte((i+3) * 7)
+	}
+	return fmt.Sprintf("%x", b)
 }

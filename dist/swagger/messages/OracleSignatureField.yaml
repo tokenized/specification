@@ -5,7 +5,7 @@ properties:
   OracleURL:
     description: Base URL of the identity oracle that provided the signature.
     type: string
-    example: identity.tokenized.com
+    example: "identity.tokenized.com"
   BlockHeight:
     description:  >
       The height of the block hash included in the data signed by the oracle. If the value is not

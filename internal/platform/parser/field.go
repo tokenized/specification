@@ -62,6 +62,14 @@ func (f *Field) BaseType() string {
 	return strings.Replace(f.Type, "[]", "", 1)
 }
 
+// BaseExample returns the base example of the field.
+func (f *Field) BaseExample() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseExample()
+	}
+	return f.Example
+}
+
 // BaseTypeRaw returns the raw base type
 func (f *Field) BaseTypeRaw() string {
 	return strings.Replace(f.Type, "[]", "", 1)

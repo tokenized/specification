@@ -7,6 +7,7 @@ properties:
   Timestamp:
     description: Timestamp in nanoseconds for when the message sender creates the transaction.
     type: number
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   Subject:
     description: The subject / topic of the message.
     type: string

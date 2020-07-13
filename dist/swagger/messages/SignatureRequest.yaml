@@ -8,7 +8,9 @@ properties:
   Timestamp:
     description: Timestamp in nanoseconds for when the message sender creates the transaction.
     type: number
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   Payload:
     description: Full serialized bitcoin tx with multiple inputs from different wallets/users.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
 

@@ -7,9 +7,11 @@ properties:
   Timestamp:
     description: Timestamp in nanoseconds for when the message sender creates the transaction.
     type: number
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   TransferTxId:
     description: Tx Id of the transfer request transaction that triggered this message.
     type: string
+    example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
   ContractFees:
     description:  >
       Contract fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each
@@ -21,4 +23,5 @@ properties:
   Settlement:
     description: Serialized settlement OP_RETURN that needs data added by another contract.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
 

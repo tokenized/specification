@@ -2,11 +2,9 @@
 {{- define "FieldType" -}}
   {{- if .IsList }}
     type: array
-  {{- else if eq .BaseType "bin" "varbin" }}
+  {{- else if eq .BaseType "bin" "varbin" "fixedchar" "varchar" }}
     type: string
-  {{- else if eq .BaseType "fixedchar" "varchar" }}
-    type: string
-  {{- else if eq .BaseType "uint" }}
+  {{- else if eq .BaseType "uint" "int" }}
     type: number
   {{- else if eq .BaseType "bool" }}
     type: boolean
@@ -18,11 +16,9 @@
 {{- define "FieldRef" -}}
   {{- if .IsList }}
     items:
-    {{- if eq .BaseType "fixedchar" "bin" }}
+    {{- if eq .BaseType "fixedchar" "bin" "varbin" "varchar" }}
       type: string
-    {{- else if eq .BaseType "varbin" "varchar" }}
-      type: string
-    {{- else if eq .BaseType "uint" }}
+    {{- else if eq .BaseType "uint" "int" }}
       type: number
     {{- else if eq .BaseType "bool" }}
       type: boolean
@@ -39,6 +35,26 @@
   {{- end -}}
 {{- end -}}
 
+{{- define "FieldExample" -}}
+  {{- if gt (len .BaseExample) 0 }}
+    {{- if (not .IsList) }}
+      {{- if eq .BaseType "fixedchar" "varchar" "bin" "varbin" }}
+    example: "{{ .BaseExample }}"
+      {{- else if eq .BaseType "uint" "int" }}
+    example: {{ .BaseExample }}
+      {{- else if eq .BaseType "bool" }}
+    example: {{ .BaseExample }}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- if eq .BaseType "bin" }}
+    example: "{{ fixedhex .BaseSize }}"
+    {{- else if eq .BaseType "varbin" }}
+    example: "{{ fixedhex 24 }}"
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
 {{- range .Messages }}
 description: {{ yamldescription .Description "  " }}
 type: object
@@ -51,9 +67,7 @@ properties:
       {{- end }}
       {{- template "FieldType" . }}
       {{- template "FieldRef" . }}
-      {{- if gt (len .Example) 0 }}
-    example: {{ .Example }}
-      {{- end -}}
+      {{- template "FieldExample" . }}
     {{- end }}
   {{- end }}
 {{ end }}

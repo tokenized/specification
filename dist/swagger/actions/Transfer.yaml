@@ -19,6 +19,7 @@ properties:
       This prevents any party from holding on to the partially signed message as a form of an option. 
       Eg. the exchange at this price is valid for 30 mins.
     type: number
+    example: 1594668650000000000
   ExchangeFee:
     description: Fixed amount of bitcoin being paid to an exchange for facilitating a transfer.
     type: number
@@ -26,4 +27,5 @@ properties:
   ExchangeFeeAddress:
     description: Identifies the public address that the exchange fee should be paid to.
     type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
 

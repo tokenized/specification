@@ -5,5 +5,5 @@ properties:
   Message:
     description: A custom message to include with this action.
     type: string
-    example: North America Whitelist
+    example: "North America Whitelist"
 

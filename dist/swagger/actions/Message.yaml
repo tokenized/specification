@@ -29,5 +29,5 @@ properties:
       amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See
       Message Types for a full list of potential use cases.
     type: string
-    example: Hello world!
+    example: "Hello world!"
 

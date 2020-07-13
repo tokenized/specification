@@ -9,7 +9,7 @@ properties:
   URL:
     description: "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint"
     type: string
-    example: http://oracle.tokenized.com/api/3650d9/version2010
+    example: "http://oracle.tokenized.com/api/3650d9/version2010"
   PublicKey:
     description:  >
       Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm

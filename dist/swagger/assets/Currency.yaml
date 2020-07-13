@@ -11,10 +11,10 @@ properties:
     description:  >
       International Organization for Standardization code for Currency. (Specification/Resources)
     type: string
-    example: AUD
+    example: "AUD"
   MonetaryAuthority:
     type: string
-    example: Reserve Bank of Australia
+    example: "Reserve Bank of Australia"
   Precision:
     description:  >
       Required field to specify the decimal precision of a currency. It will normally be the

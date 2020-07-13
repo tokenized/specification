@@ -45,7 +45,7 @@ fields:
     label: Transfers Permitted
     description: "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers."
     type: bool
-    example: 1
+    example: true
 
   - name: TradeRestrictions
     label: Trade Restrictions
@@ -57,7 +57,7 @@ fields:
     label: Enforcement Orders Permitted
     description: "Set to true if the administration is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature."
     type: bool
-    example: 1
+    example: true
 
   - name: VotingRights
     label: Voting Rights

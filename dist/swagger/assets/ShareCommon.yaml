@@ -5,12 +5,12 @@ properties:
   Ticker:
     description: Ticker symbol assigned by exchanges to represent the asset.
     type: string
-    example: AAPL
+    example: "AAPL"
   ISIN:
     description: International Securities Identification Number
     type: string
-    example: US0004026250
+    example: "US0004026250"
   Description:
     type: string
-    example: Class C
+    example: "Class C"
 

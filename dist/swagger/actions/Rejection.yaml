@@ -21,14 +21,15 @@ properties:
   RejectionCode:
     description: Classifies the rejection by a type.
     type: number
-    example: 1
+    example: 10
   Message:
     description:  >
       Length 0-65,535 bytes. Message that explains the reasoning for a rejection, if needed.  Most
       rejection types will be captured by the Rejection Type Subfield.
     type: string
-    example: Sorry, you don't have enough tokens.
+    example: "Sorry, you don't have enough tokens."
   Timestamp:
     description: Timestamp in nanoseconds of when the smart contract created the action.
     type: number
+    example: 1594668650000000000
 

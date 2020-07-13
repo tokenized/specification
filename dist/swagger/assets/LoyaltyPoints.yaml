@@ -8,14 +8,14 @@ properties:
     $ref: "#/components/schemas/AgeRestrictionField"
   OfferName:
     type: string
-    example: Qantas Frequent Flyer Points
+    example: "Qantas Frequent Flyer Points"
   ValidFrom:
     type: number
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   ExpirationTimestamp:
     type: number
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   Description:
     type: string
-    example: Coingeek Conference - London (November 2018).
+    example: "Coingeek Conference - London (November 2018)."
 

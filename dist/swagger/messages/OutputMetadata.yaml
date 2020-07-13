@@ -9,7 +9,7 @@ properties:
   OutputDescription:
     description: A Description that accompanies the output. A transaction description.
     type: string
-    example: eg. Invoice 3024, Pay Mike back for camping.
+    example: "eg. Invoice 3024, Pay Mike back for camping."
   Tags:
     description: Predefined values for describing the output.
     type: array

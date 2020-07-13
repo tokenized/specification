@@ -9,4 +9,5 @@ properties:
   ProofOfIdentity:
     description: Sender's proof of identity.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
 

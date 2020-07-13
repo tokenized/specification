@@ -7,6 +7,7 @@ properties:
   VoteTxId:
     description: Tx ID of the Vote the Ballot Cast is being made for.
     type: string
+    example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
   Vote:
     description:  >
       Length 1-255 bytes. 0 is not valid. Max length is the VoteMax value from the Proposal action.
@@ -14,5 +15,5 @@ properties:
       of preference. 1st position = 1st choice. 2nd position = 2nd choice, etc. A is always Accept
       and B is always reject in a Y/N votes.
     type: string
-    example: A
+    example: "A"
 

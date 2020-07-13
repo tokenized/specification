@@ -36,4 +36,5 @@ properties:
       The Bitcoin transaction ID of the associated result action that permitted the modifications.
       See Governance for more details.
     type: string
+    example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
 

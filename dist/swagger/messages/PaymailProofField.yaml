@@ -11,7 +11,7 @@ properties:
       possible future use without a protocol change. Paymail handle in the form
       {alias}@{domain}.{tld}
     type: string
-    example: john@tokenized.com
+    example: "john@tokenized.com"
   OracleSignature:
     description:  >
       Signature of the serialized entity, public key, and block hash with the identity oracle's

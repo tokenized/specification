@@ -5,4 +5,5 @@ properties:
   Timestamp:
     description: Timestamp in nanoseconds of when the smart contract created the action.
     type: number
+    example: 1594668650000000000
 

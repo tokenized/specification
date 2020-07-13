@@ -8,23 +8,23 @@ properties:
     $ref: "#/components/schemas/AgeRestrictionField"
   ValidFrom:
     type: number
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   ExpirationTimestamp:
     type: number
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
   ID:
     type: string
-    example: 34536457575486868
+    example: "34536457575486868"
   MembershipClass:
     type: string
-    example: Owner, Administrator, Manager, General, can be NULL.
+    example: "Owner, Administrator, Manager, General, can be NULL."
   RoleType:
     type: string
-    example: Director, Partner, CEO, COO, etc., can be NULL from Roles in Resources/Roles
+    example: "Director, Partner, CEO, COO, etc., can be NULL from Roles in Resources/Roles"
   MembershipType:
     type: string
-    example: Silver, Platinum, can be NULL.
+    example: "Silver, Platinum, can be NULL."
   Description:
     type: string
-    example: Rights and duties listed.
+    example: "Rights and duties listed."
 

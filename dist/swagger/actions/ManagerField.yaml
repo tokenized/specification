@@ -10,5 +10,5 @@ properties:
   Name:
     description: Length 0-255 bytes. 0 is valid.
     type: string
-    example: Satoshi Nakamoto
+    example: "Satoshi Nakamoto"
 

@@ -13,7 +13,7 @@ properties:
       definition and tokens with the new public address. Smart contracts can be branded and
       specialized to suit any terms and conditions.
     type: string
-    example: Tesla - Shareholder Agreement
+    example: "Tesla - Shareholder Agreement"
   BodyOfAgreementType:
     description:  >
       0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
@@ -25,10 +25,11 @@ properties:
       terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is
       specific to the smart contract and relevant Assets.  Legal and technical information.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   ContractType:
     description: Describes the purpose of the contract.
     type: string
-    example: Shareholder Agreement
+    example: "Shareholder Agreement"
   SupportingDocs:
     description: Supporting documents that are important to the contract.
     type: array
@@ -41,13 +42,13 @@ properties:
       settled by this law in the jurisdiction specified below. Private dispute resolution
       organizations can be used as well.  A custom code just needs to be defined.
     type: string
-    example: USA
+    example: "USA"
   Jurisdiction:
     description:  >
       Legal proceedings/arbitration will take place using the specified Governing Law in this
       location.
     type: string
-    example: US-CA
+    example: "US-CA"
   ContractExpiration:
     description:  >
       All actions related to the contract will cease to work after this timestamp. The smart contract
@@ -57,7 +58,7 @@ properties:
       Wallets can use this to forget tokens that are no longer valid - or at least store them in an
       'Expired' folder.
     type: number
-    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+    example: 1594668650000000000
   ContractURI:
     description:  >
       Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the
@@ -67,7 +68,7 @@ properties:
       companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or
       even a public address (DNS).
     type: string
-    example: https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj
+    example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
   Issuer:
     description: The issuer of this contract.
     type: object
@@ -75,7 +76,7 @@ properties:
   IssuerLogoURL:
     description: The URL of the issuer's logo.
     type: string
-    example: https://example.tld/images/logo.png
+    example: "https://example.tld/images/logo.png"
   ContractOperator:
     description: An additional entity with operator access to the contract.
     type: object
@@ -91,6 +92,7 @@ properties:
       administration entity and, if a contract operator is included, the second input must correspond
       to the contract operator entity.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   AdminOracleSigBlockHeight:
     description: The block height of the block hash used in the oracle signature.
     type: number
@@ -108,6 +110,7 @@ properties:
       A set of permission objects containing switches and field references that define the
       permissions for modifying this contract. See the Permission documentation for more detail.
     type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   RestrictedQtyAssets:
     description:  >
       Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display
@@ -138,6 +141,7 @@ properties:
       The address of the contract's master key. This key has the ability to change the active
       contract address in case of a security failure with the active contract key.
     type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   ContractRevision:
     description:  >
       A counter for the number of times this contract has been revised using an amendment action.
@@ -146,4 +150,5 @@ properties:
   Timestamp:
     description: Timestamp in nanoseconds of when the smart contract created the action.
     type: number
+    example: 1594668650000000000
 

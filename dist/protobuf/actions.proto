@@ -93,7 +93,7 @@ message StaticContractFormation {
 
 // Message - Contract Address Change (C5)
 message ContractAddressChange {
-    bytes NewContractAddress                       = 1;   // varbin
+    bytes NewContractAddress                       = 1;   // Address
     uint64 Timestamp                               = 2;   // Timestamp
 }
 

@@ -7,6 +7,7 @@ properties:
   Address:
     description: The address receiving the tokens
     type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   Quantity:
     description: Number of tokens to be received by address at Output X
     type: number

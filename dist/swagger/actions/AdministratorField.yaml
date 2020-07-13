@@ -6,9 +6,9 @@ properties:
     description:  >
       Chairman, Director, Managing Partner, etc.. Found in 'Roles' in Specification/Resources
     type: number
-    example: 7
+    example: 5
   Name:
     description: Length 0-255 bytes. 0 is valid.
     type: string
-    example: Satoshi Nakamoto
+    example: "Satoshi Nakamoto"
 
