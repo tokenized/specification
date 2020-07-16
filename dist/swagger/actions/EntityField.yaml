@@ -76,11 +76,10 @@ properties:
     description: Domain name owned by this entity. Length 0-255 bytes. 0 is valid.
     type: string
     example: "tokenized.com"
-  EntityContractAddress:
+  PaymailHandle:
     description:  >
-      Address of entity contract. When the contract type is asset contract, or a child type, this
-      field refers to the entity specified in the contract at the address specified. When this field
-      is present, no other fields should be included in the entity.
+      Length 0-255 bytes. Handle containing an alias and domain name performing queries defined in
+      the Paymail protocol.
     type: string
-    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
+    example: "satoshi@tokenized.id"
 

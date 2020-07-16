@@ -673,9 +673,9 @@ func (l *EntityField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("DomainName string mismatched")
 	}
 
-	// Field EntityContractAddress - varbin
-	if !bytes.Equal(c.EntityContractAddress, r.EntityContractAddress) {
-		return false // fmt.Errorf("EntityContractAddress bytes mismatched")
+	// Field PaymailHandle - varchar
+	if c.PaymailHandle != r.PaymailHandle {
+		return false // fmt.Errorf("PaymailHandle string mismatched")
 	}
 
 	return true

@@ -37,11 +37,6 @@ func (a *ContractOffer) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
 	}
 
-	// Field ContractType - varchar
-	if len(a.ContractType) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractType), max1ByteInteger)
-	}
-
 	// Field SupportingDocs - Document
 	if len(a.SupportingDocs) > max1ByteInteger {
 		return fmt.Errorf("List over max length : %d > %d", len(a.SupportingDocs), max1ByteInteger)
@@ -76,29 +71,7 @@ func (a *ContractOffer) Validate() error {
 		return fmt.Errorf("Issuer invalid : %s", err)
 	}
 
-	// Field IssuerLogoURL - varchar
-	if len(a.IssuerLogoURL) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.IssuerLogoURL), max1ByteInteger)
-	}
-
 	// Field ContractOperatorIncluded - bool
-
-	// Field ContractOperator - Entity
-	if err := a.ContractOperator.Validate(); err != nil {
-		return fmt.Errorf("ContractOperator invalid : %s", err)
-	}
-
-	// Field AdminOracle - Oracle
-	if err := a.AdminOracle.Validate(); err != nil {
-		return fmt.Errorf("AdminOracle invalid : %s", err)
-	}
-
-	// Field AdminOracleSignature - varbin
-	if len(a.AdminOracleSignature) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AdminOracleSignature), max1ByteInteger)
-	}
-
-	// Field AdminOracleSigBlockHeight - uint
 
 	// Field ContractFee - uint
 
@@ -138,6 +111,48 @@ func (a *ContractOffer) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.MasterAddress), max2ByteInteger)
 	}
 
+	// Field EntityContract - varbin
+	if len(a.EntityContract) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContract), max2ByteInteger)
+	}
+
+	// Field OperatorEntityContract - varbin
+	if len(a.OperatorEntityContract) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.OperatorEntityContract), max2ByteInteger)
+	}
+
+	// Field ContractType - uint
+	foundContractType := false
+	for _, v := range []uint32{0, 1} {
+		if a.ContractType == v {
+			foundContractType = true
+			break
+		}
+	}
+	if !foundContractType {
+		return fmt.Errorf("ContractType value not within options [0 1] : %d", a.ContractType)
+	}
+
+	// Field Services - Service
+	if len(a.Services) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Services), max1ByteInteger)
+	}
+	for i, v := range a.Services {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("Services[%d] invalid : %s", i, err)
+		}
+	}
+
+	// Field AdminIdentityCertificates - AdminIdentityCertificate
+	if len(a.AdminIdentityCertificates) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.AdminIdentityCertificates), max1ByteInteger)
+	}
+	for i, v := range a.AdminIdentityCertificates {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("AdminIdentityCertificates[%d] invalid : %s", i, err)
+		}
+	}
+
 	return nil
 }
 
@@ -166,11 +181,6 @@ func (a *ContractFormation) Validate() error {
 	// Field BodyOfAgreement - varbin
 	if len(a.BodyOfAgreement) > max4ByteInteger {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
-	}
-
-	// Field ContractType - varchar
-	if len(a.ContractType) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ContractType), max1ByteInteger)
 	}
 
 	// Field SupportingDocs - Document
@@ -206,28 +216,6 @@ func (a *ContractFormation) Validate() error {
 	if err := a.Issuer.Validate(); err != nil {
 		return fmt.Errorf("Issuer invalid : %s", err)
 	}
-
-	// Field IssuerLogoURL - varchar
-	if len(a.IssuerLogoURL) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.IssuerLogoURL), max1ByteInteger)
-	}
-
-	// Field ContractOperator - Entity
-	if err := a.ContractOperator.Validate(); err != nil {
-		return fmt.Errorf("ContractOperator invalid : %s", err)
-	}
-
-	// Field AdminOracle - Oracle
-	if err := a.AdminOracle.Validate(); err != nil {
-		return fmt.Errorf("AdminOracle invalid : %s", err)
-	}
-
-	// Field AdminOracleSignature - varbin
-	if len(a.AdminOracleSignature) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.AdminOracleSignature), max1ByteInteger)
-	}
-
-	// Field AdminOracleSigBlockHeight - uint
 
 	// Field ContractFee - uint
 
@@ -270,6 +258,58 @@ func (a *ContractFormation) Validate() error {
 	// Field ContractRevision - uint
 
 	// Field Timestamp - uint
+
+	// Field EntityContract - varbin
+	if len(a.EntityContract) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContract), max2ByteInteger)
+	}
+
+	// Field OperatorEntityContract - varbin
+	if len(a.OperatorEntityContract) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.OperatorEntityContract), max2ByteInteger)
+	}
+
+	// Field ContractType - uint
+	foundContractType := false
+	for _, v := range []uint32{0, 1} {
+		if a.ContractType == v {
+			foundContractType = true
+			break
+		}
+	}
+	if !foundContractType {
+		return fmt.Errorf("ContractType value not within options [0 1] : %d", a.ContractType)
+	}
+
+	// Field Services - Service
+	if len(a.Services) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.Services), max1ByteInteger)
+	}
+	for i, v := range a.Services {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("Services[%d] invalid : %s", i, err)
+		}
+	}
+
+	// Field AdminIdentityCertificates - AdminIdentityCertificate
+	if len(a.AdminIdentityCertificates) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.AdminIdentityCertificates), max1ByteInteger)
+	}
+	for i, v := range a.AdminIdentityCertificates {
+		if err := v.Validate(); err != nil {
+			return fmt.Errorf("AdminIdentityCertificates[%d] invalid : %s", i, err)
+		}
+	}
+
+	// Field AdminAddress - varbin
+	if len(a.AdminAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.AdminAddress), max2ByteInteger)
+	}
+
+	// Field OperatorAddress - varbin
+	if len(a.OperatorAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.OperatorAddress), max2ByteInteger)
+	}
 
 	return nil
 }
@@ -1202,6 +1242,28 @@ func (a *AdministratorField) Validate() error {
 	return nil
 }
 
+func (a *AdminIdentityCertificateField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field ServiceContractAddress - varbin
+	if len(a.ServiceContractAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ServiceContractAddress), max2ByteInteger)
+	}
+
+	// Field Signature - varbin
+	if len(a.Signature) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.Signature), max1ByteInteger)
+	}
+
+	// Field BlockHeight - uint
+
+	// Field Expiration - uint
+
+	return nil
+}
+
 func (a *AmendmentField) Validate() error {
 	if a == nil {
 		return nil
@@ -1472,9 +1534,9 @@ func (a *EntityField) Validate() error {
 		return fmt.Errorf("variable size over max value : %d > %d", len(a.DomainName), max1ByteInteger)
 	}
 
-	// Field EntityContractAddress - varbin
-	if len(a.EntityContractAddress) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContractAddress), max2ByteInteger)
+	// Field PaymailHandle - varchar
+	if len(a.PaymailHandle) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.PaymailHandle), max1ByteInteger)
 	}
 
 	return nil
@@ -1506,21 +1568,6 @@ func (a *OracleField) Validate() error {
 		return nil
 	}
 
-	// Field Entity - Entity
-	if err := a.Entity.Validate(); err != nil {
-		return fmt.Errorf("Entity invalid : %s", err)
-	}
-
-	// Field URL - varchar
-	if len(a.URL) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.URL), max1ByteInteger)
-	}
-
-	// Field PublicKey - varbin
-	if len(a.PublicKey) > max1ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.PublicKey), max1ByteInteger)
-	}
-
 	// Field OracleType - uint
 	if len(a.OracleType) > max1ByteInteger {
 		return fmt.Errorf("List over max length : %d > %d", len(a.OracleType), max1ByteInteger)
@@ -1536,6 +1583,11 @@ func (a *OracleField) Validate() error {
 		if !foundOracleType {
 			return fmt.Errorf("OracleType[%d] value not within options [0 1 2] : %d", i, a.OracleType)
 		}
+	}
+
+	// Field ServiceContractAddress - varbin
+	if len(a.ServiceContractAddress) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.ServiceContractAddress), max2ByteInteger)
 	}
 
 	return nil
@@ -1569,6 +1621,37 @@ func (a *ReferenceTransactionField) Validate() error {
 	// Field Outputs - varbin
 	if len(a.Outputs) > max4ByteInteger {
 		return fmt.Errorf("List over max length : %d > %d", len(a.Outputs), max4ByteInteger)
+	}
+
+	return nil
+}
+
+func (a *ServiceField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Type - uint
+	foundType := false
+	for _, v := range []uint32{0, 1, 2, 3} {
+		if a.Type == v {
+			foundType = true
+			break
+		}
+	}
+	if !foundType {
+		return fmt.Errorf("Type value not within options [0 1 2 3] : %d", a.Type)
+	}
+
+	// Field URL - varchar
+	if len(a.URL) > max1ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.URL), max1ByteInteger)
+	}
+
+	// Field PublicKey - bin
+	if len(a.PublicKey) != 0 && len(a.PublicKey) != 33 {
+		return fmt.Errorf("Fixed width field PublicKey wrong size : %d should be %d",
+			len(a.PublicKey), 33)
 	}
 
 	return nil

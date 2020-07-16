@@ -38,11 +38,6 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("BodyOfAgreement bytes mismatched")
 	}
 
-	// Field ContractType - varchar
-	if c.ContractType != r.ContractType {
-		return false // fmt.Errorf("ContractType string mismatched")
-	}
-
 	// Field SupportingDocs - Document
 	if len(c.SupportingDocs) != len(r.SupportingDocs) {
 		return false // fmt.Errorf("List length mismatched")
@@ -78,34 +73,9 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Issuer : %s", err)
 	}
 
-	// Field IssuerLogoURL - varchar
-	if c.IssuerLogoURL != r.IssuerLogoURL {
-		return false // fmt.Errorf("IssuerLogoURL string mismatched")
-	}
-
 	// Field ContractOperatorIncluded - bool
 	if c.ContractOperatorIncluded != r.ContractOperatorIncluded {
 		return false // fmt.Errorf("ContractOperatorIncluded boolean mismatched")
-	}
-
-	// Field ContractOperator - Entity
-	if !c.ContractOperator.Equal(r.ContractOperator) {
-		return false // fmt.Errorf("ContractOperator : %s", err)
-	}
-
-	// Field AdminOracle - Oracle
-	if !c.AdminOracle.Equal(r.AdminOracle) {
-		return false // fmt.Errorf("AdminOracle : %s", err)
-	}
-
-	// Field AdminOracleSignature - varbin
-	if !bytes.Equal(c.AdminOracleSignature, r.AdminOracleSignature) {
-		return false // fmt.Errorf("AdminOracleSignature bytes mismatched")
-	}
-
-	// Field AdminOracleSigBlockHeight - uint
-	if c.AdminOracleSigBlockHeight != r.AdminOracleSigBlockHeight {
-		return false // fmt.Errorf("AdminOracleSigBlockHeight integer mismatched")
 	}
 
 	// Field ContractFee - uint
@@ -158,6 +128,41 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("MasterAddress bytes mismatched")
 	}
 
+	// Field EntityContract - varbin
+	if !bytes.Equal(c.EntityContract, r.EntityContract) {
+		return false // fmt.Errorf("EntityContract bytes mismatched")
+	}
+
+	// Field OperatorEntityContract - varbin
+	if !bytes.Equal(c.OperatorEntityContract, r.OperatorEntityContract) {
+		return false // fmt.Errorf("OperatorEntityContract bytes mismatched")
+	}
+
+	// Field ContractType - uint
+	if c.ContractType != r.ContractType {
+		return false // fmt.Errorf("ContractType integer mismatched")
+	}
+
+	// Field Services - Service
+	if len(c.Services) != len(r.Services) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Services {
+		if !v.Equal(r.Services[i]) {
+			return false // fmt.Errorf("Services[%d] : %s", i, err)
+		}
+	}
+
+	// Field AdminIdentityCertificates - AdminIdentityCertificate
+	if len(c.AdminIdentityCertificates) != len(r.AdminIdentityCertificates) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.AdminIdentityCertificates {
+		if !v.Equal(r.AdminIdentityCertificates[i]) {
+			return false // fmt.Errorf("AdminIdentityCertificates[%d] : %s", i, err)
+		}
+	}
+
 	return true
 }
 
@@ -193,11 +198,6 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("BodyOfAgreement bytes mismatched")
 	}
 
-	// Field ContractType - varchar
-	if c.ContractType != r.ContractType {
-		return false // fmt.Errorf("ContractType string mismatched")
-	}
-
 	// Field SupportingDocs - Document
 	if len(c.SupportingDocs) != len(r.SupportingDocs) {
 		return false // fmt.Errorf("List length mismatched")
@@ -231,31 +231,6 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 	// Field Issuer - Entity
 	if !c.Issuer.Equal(r.Issuer) {
 		return false // fmt.Errorf("Issuer : %s", err)
-	}
-
-	// Field IssuerLogoURL - varchar
-	if c.IssuerLogoURL != r.IssuerLogoURL {
-		return false // fmt.Errorf("IssuerLogoURL string mismatched")
-	}
-
-	// Field ContractOperator - Entity
-	if !c.ContractOperator.Equal(r.ContractOperator) {
-		return false // fmt.Errorf("ContractOperator : %s", err)
-	}
-
-	// Field AdminOracle - Oracle
-	if !c.AdminOracle.Equal(r.AdminOracle) {
-		return false // fmt.Errorf("AdminOracle : %s", err)
-	}
-
-	// Field AdminOracleSignature - varbin
-	if !bytes.Equal(c.AdminOracleSignature, r.AdminOracleSignature) {
-		return false // fmt.Errorf("AdminOracleSignature bytes mismatched")
-	}
-
-	// Field AdminOracleSigBlockHeight - uint
-	if c.AdminOracleSigBlockHeight != r.AdminOracleSigBlockHeight {
-		return false // fmt.Errorf("AdminOracleSigBlockHeight integer mismatched")
 	}
 
 	// Field ContractFee - uint
@@ -316,6 +291,51 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 	// Field Timestamp - uint
 	if c.Timestamp != r.Timestamp {
 		return false // fmt.Errorf("Timestamp integer mismatched")
+	}
+
+	// Field EntityContract - varbin
+	if !bytes.Equal(c.EntityContract, r.EntityContract) {
+		return false // fmt.Errorf("EntityContract bytes mismatched")
+	}
+
+	// Field OperatorEntityContract - varbin
+	if !bytes.Equal(c.OperatorEntityContract, r.OperatorEntityContract) {
+		return false // fmt.Errorf("OperatorEntityContract bytes mismatched")
+	}
+
+	// Field ContractType - uint
+	if c.ContractType != r.ContractType {
+		return false // fmt.Errorf("ContractType integer mismatched")
+	}
+
+	// Field Services - Service
+	if len(c.Services) != len(r.Services) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Services {
+		if !v.Equal(r.Services[i]) {
+			return false // fmt.Errorf("Services[%d] : %s", i, err)
+		}
+	}
+
+	// Field AdminIdentityCertificates - AdminIdentityCertificate
+	if len(c.AdminIdentityCertificates) != len(r.AdminIdentityCertificates) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.AdminIdentityCertificates {
+		if !v.Equal(r.AdminIdentityCertificates[i]) {
+			return false // fmt.Errorf("AdminIdentityCertificates[%d] : %s", i, err)
+		}
+	}
+
+	// Field AdminAddress - varbin
+	if !bytes.Equal(c.AdminAddress, r.AdminAddress) {
+		return false // fmt.Errorf("AdminAddress bytes mismatched")
+	}
+
+	// Field OperatorAddress - varbin
+	if !bytes.Equal(c.OperatorAddress, r.OperatorAddress) {
+		return false // fmt.Errorf("OperatorAddress bytes mismatched")
 	}
 
 	return true
@@ -1601,6 +1621,46 @@ func (l *AdministratorField) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *AdminIdentityCertificateField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &AdminIdentityCertificateField{}
+	}
+	r, ok := right.(*AdminIdentityCertificateField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &AdminIdentityCertificateField{}
+	}
+
+	// Field ServiceContractAddress - varbin
+	if !bytes.Equal(c.ServiceContractAddress, r.ServiceContractAddress) {
+		return false // fmt.Errorf("ServiceContractAddress bytes mismatched")
+	}
+
+	// Field Signature - varbin
+	if !bytes.Equal(c.Signature, r.Signature) {
+		return false // fmt.Errorf("Signature bytes mismatched")
+	}
+
+	// Field BlockHeight - uint
+	if c.BlockHeight != r.BlockHeight {
+		return false // fmt.Errorf("BlockHeight integer mismatched")
+	}
+
+	// Field Expiration - uint
+	if c.Expiration != r.Expiration {
+		return false // fmt.Errorf("Expiration integer mismatched")
+	}
+
+	return true
+}
+
 func (l *AmendmentField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
@@ -1923,9 +1983,9 @@ func (l *EntityField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("DomainName string mismatched")
 	}
 
-	// Field EntityContractAddress - varbin
-	if !bytes.Equal(c.EntityContractAddress, r.EntityContractAddress) {
-		return false // fmt.Errorf("EntityContractAddress bytes mismatched")
+	// Field PaymailHandle - varchar
+	if c.PaymailHandle != r.PaymailHandle {
+		return false // fmt.Errorf("PaymailHandle string mismatched")
 	}
 
 	return true
@@ -1978,21 +2038,6 @@ func (l *OracleField) Equal(right proto.Message) bool {
 		r = &OracleField{}
 	}
 
-	// Field Entity - Entity
-	if !c.Entity.Equal(r.Entity) {
-		return false // fmt.Errorf("Entity : %s", err)
-	}
-
-	// Field URL - varchar
-	if c.URL != r.URL {
-		return false // fmt.Errorf("URL string mismatched")
-	}
-
-	// Field PublicKey - varbin
-	if !bytes.Equal(c.PublicKey, r.PublicKey) {
-		return false // fmt.Errorf("PublicKey bytes mismatched")
-	}
-
 	// Field OracleType - uint
 	if len(c.OracleType) != len(r.OracleType) {
 		return false // fmt.Errorf("List length mismatched")
@@ -2001,6 +2046,11 @@ func (l *OracleField) Equal(right proto.Message) bool {
 		if v != r.OracleType[i] {
 			return false // fmt.Errorf("Element OracleType integer mismatched")
 		}
+	}
+
+	// Field ServiceContractAddress - varbin
+	if !bytes.Equal(c.ServiceContractAddress, r.ServiceContractAddress) {
+		return false // fmt.Errorf("ServiceContractAddress bytes mismatched")
 	}
 
 	return true
@@ -2066,6 +2116,41 @@ func (l *ReferenceTransactionField) Equal(right proto.Message) bool {
 		if !bytes.Equal(v, r.Outputs[i]) {
 			return false // fmt.Errorf("Element Outputs bytes mismatched")
 		}
+	}
+
+	return true
+}
+
+func (l *ServiceField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ServiceField{}
+	}
+	r, ok := right.(*ServiceField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &ServiceField{}
+	}
+
+	// Field Type - uint
+	if c.Type != r.Type {
+		return false // fmt.Errorf("Type integer mismatched")
+	}
+
+	// Field URL - varchar
+	if c.URL != r.URL {
+		return false // fmt.Errorf("URL string mismatched")
+	}
+
+	// Field PublicKey - bin
+	if !bytes.Equal(c.PublicKey, r.PublicKey) {
+		return false // fmt.Errorf("PublicKey bytes mismatched")
 	}
 
 	return true

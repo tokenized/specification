@@ -6,19 +6,19 @@ description: "A Oracle defines the details of a public Oracle."
 fields:
   - name: Entity
     label: Oracle Entity
-    description: "Identifying information about the oracle."
-    type: Entity
+    description: "Deprecated for service contract address. Identifying information about the oracle."
+    type: deprecated
 
   - name: URL
     label: Oracle URL
-    description: "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint"
-    type: varchar
+    description: "Deprecated for service contract address. Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint"
+    type: deprecated
     example: "http://oracle.tokenized.com/api/3650d9/version2010"
 
   - name: PublicKey
     label: Oracle Public Key
-    description: "Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle."
-    type: varbin
+    description: "Deprecated for service contract address. Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle."
+    type: deprecated
 
   - name: OracleType
     label: Oracle Type
@@ -29,3 +29,8 @@ fields:
       - 0
       - 1
       - 2
+
+  - name: ServiceContractAddress
+    label: Service Contract Address
+    description: "The contract address of the service contract on chain that defines the oracle."
+    type: Address

@@ -17,7 +17,7 @@ import (
 // The block hash of the chain tip - 4 should be used. The signature will be considered valid
 //   until 1 hour past the timestamp of the block after the block hash specified (chain tip).
 func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddress, assetCode []byte,
-	receiverAddress bitcoin.RawAddress, quantity uint64, blockHash *bitcoin.Hash32, approved uint8) ([]byte, error) {
+	receiverAddress bitcoin.RawAddress, blockHash *bitcoin.Hash32, approved uint8) ([]byte, error) {
 
 	// Calculate the hash
 	digest := sha256.New()
@@ -25,7 +25,6 @@ func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 	digest.Write(receiverAddress.Bytes())
 	digest.Write(contractAddress.Bytes())
 	digest.Write(assetCode)
-	binary.Write(digest, DefaultEndian, &quantity)
 	digest.Write(blockHash[:])
 
 	binary.Write(digest, DefaultEndian, &approved)

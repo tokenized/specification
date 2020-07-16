@@ -101,9 +101,9 @@ var PrivateCompany = PermissionConfig{
 				FieldIndexPath{10, 12}, // [Issuer PhoneNumber]
 				FieldIndexPath{11},     // [IssuerLogoURL]
 				FieldIndexPath{13},     // [ContractOperator]
-				FieldIndexPath{14},     // [AdminOracle]
-				FieldIndexPath{15},     // [AdminOracleSignature]
-				FieldIndexPath{16},     // [AdminOracleSigBlockHeight]
+				FieldIndexPath{14},     // [AdminIdentityOracle]
+				FieldIndexPath{15},     // [AdminIdentityOracleSignature]
+				FieldIndexPath{16},     // [AdminIdentityOracleSigBlockHeight]
 				FieldIndexPath{17},     // [ContractFee]
 			},
 		},

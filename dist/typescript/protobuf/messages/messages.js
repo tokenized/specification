@@ -4145,7 +4145,7 @@ proto.messages.EntityField.toObject = function(includeInstance, msg) {
     managementList: jspb.Message.toObjectList(msg.getManagementList(),
     proto.messages.ManagerField.toObject, includeInstance),
     domainname: jspb.Message.getFieldWithDefault(msg, 15, ""),
-    entitycontractaddress: msg.getEntitycontractaddress_asB64()
+    paymailhandle: jspb.Message.getFieldWithDefault(msg, 17, "")
   };
 
   if (includeInstance) {
@@ -4244,9 +4244,9 @@ proto.messages.EntityField.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setDomainname(value);
       break;
-    case 16:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setEntitycontractaddress(value);
+    case 17:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPaymailhandle(value);
       break;
     default:
       reader.skipField();
@@ -4384,10 +4384,10 @@ proto.messages.EntityField.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getEntitycontractaddress_asU8();
+  f = message.getPaymailhandle();
   if (f.length > 0) {
-    writer.writeBytes(
-      16,
+    writer.writeString(
+      17,
       f
     );
   }
@@ -4705,44 +4705,20 @@ proto.messages.EntityField.prototype.setDomainname = function(value) {
 
 
 /**
- * optional bytes EntityContractAddress = 16;
- * @return {!(string|Uint8Array)}
- */
-proto.messages.EntityField.prototype.getEntitycontractaddress = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 16, ""));
-};
-
-
-/**
- * optional bytes EntityContractAddress = 16;
- * This is a type-conversion wrapper around `getEntitycontractaddress()`
+ * optional string PaymailHandle = 17;
  * @return {string}
  */
-proto.messages.EntityField.prototype.getEntitycontractaddress_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getEntitycontractaddress()));
+proto.messages.EntityField.prototype.getPaymailhandle = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 17, ""));
 };
 
 
 /**
- * optional bytes EntityContractAddress = 16;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getEntitycontractaddress()`
- * @return {!Uint8Array}
- */
-proto.messages.EntityField.prototype.getEntitycontractaddress_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getEntitycontractaddress()));
-};
-
-
-/**
- * @param {!(string|Uint8Array)} value
+ * @param {string} value
  * @return {!proto.messages.EntityField} returns this
  */
-proto.messages.EntityField.prototype.setEntitycontractaddress = function(value) {
-  return jspb.Message.setProto3BytesField(this, 16, value);
+proto.messages.EntityField.prototype.setPaymailhandle = function(value) {
+  return jspb.Message.setProto3StringField(this, 17, value);
 };
 
 
