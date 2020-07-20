@@ -117,8 +117,8 @@
       "fields": [
         {
           "description": "The entity contract address of the service on chain that defines the identity oracle.",
-          "label": "Service Contract Address",
-          "name": "ServiceContractAddress",
+          "label": "Entity Contract",
+          "name": "EntityContract",
           "type": "Address"
         },
         {

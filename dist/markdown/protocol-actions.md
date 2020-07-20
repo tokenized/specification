@@ -3762,7 +3762,7 @@ A certificate provided by an identity oracle to verify the administrator address
         <th>Description</th>
     </tr>
     <tr>
-        <td>ServiceContractAddress</td>
+        <td>EntityContract</td>
         <td>
             <a href="#alias-address">Address</a>
         </td>

@@ -1247,9 +1247,9 @@ func (a *AdminIdentityCertificateField) Validate() error {
 		return nil
 	}
 
-	// Field ServiceContractAddress - varbin
-	if len(a.ServiceContractAddress) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ServiceContractAddress), max2ByteInteger)
+	// Field EntityContract - varbin
+	if len(a.EntityContract) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContract), max2ByteInteger)
 	}
 
 	// Field Signature - varbin

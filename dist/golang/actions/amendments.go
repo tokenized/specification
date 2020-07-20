@@ -719,10 +719,10 @@ func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32
 
 // AdminIdentityCertificateField Permission / Amendment Field Indices
 const (
-	AdminIdentityCertificateFieldServiceContractAddress = uint32(1)
-	AdminIdentityCertificateFieldSignature              = uint32(2)
-	AdminIdentityCertificateFieldBlockHeight            = uint32(3)
-	AdminIdentityCertificateFieldExpiration             = uint32(4)
+	AdminIdentityCertificateFieldEntityContract = uint32(1)
+	AdminIdentityCertificateFieldSignature      = uint32(2)
+	AdminIdentityCertificateFieldBlockHeight    = uint32(3)
+	AdminIdentityCertificateFieldExpiration     = uint32(4)
 )
 
 // ApplyAmendment updates a AdminIdentityCertificateField based on amendment data.
@@ -734,8 +734,8 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 	}
 
 	switch fip[0] {
-	case AdminIdentityCertificateFieldServiceContractAddress: // bytes
-		a.ServiceContractAddress = data
+	case AdminIdentityCertificateFieldEntityContract: // bytes
+		a.EntityContract = data
 		return fip[:], nil
 
 	case AdminIdentityCertificateFieldSignature: // []byte

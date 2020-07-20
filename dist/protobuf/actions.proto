@@ -314,7 +314,7 @@ message AdministratorField {
 
 // Field - Administrator Identity Certificate
 message AdminIdentityCertificateField {
-    bytes ServiceContractAddress                   = 1;   // Address
+    bytes EntityContract                           = 1;   // Address
     bytes Signature                                = 2;   // varbin
     uint32 BlockHeight                             = 3;   // uint
     uint64 Expiration                              = 4;   // Timestamp

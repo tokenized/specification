@@ -7,7 +7,7 @@ description:  >
   verifies that the administrator address is associated with that entity contract.
 type: object
 properties:
-  ServiceContractAddress:
+  EntityContract:
     description:  >
       The entity contract address of the service on chain that defines the identity oracle.
     type: string

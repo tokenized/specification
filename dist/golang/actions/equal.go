@@ -1638,9 +1638,9 @@ func (l *AdminIdentityCertificateField) Equal(right proto.Message) bool {
 		r = &AdminIdentityCertificateField{}
 	}
 
-	// Field ServiceContractAddress - varbin
-	if !bytes.Equal(c.ServiceContractAddress, r.ServiceContractAddress) {
-		return false // fmt.Errorf("ServiceContractAddress bytes mismatched")
+	// Field EntityContract - varbin
+	if !bytes.Equal(c.EntityContract, r.EntityContract) {
+		return false // fmt.Errorf("EntityContract bytes mismatched")
 	}
 
 	// Field Signature - varbin

@@ -11126,7 +11126,7 @@ proto.actions.AdminIdentityCertificateField.prototype.toObject = function(opt_in
  */
 proto.actions.AdminIdentityCertificateField.toObject = function(includeInstance, msg) {
   var f, obj = {
-    servicecontractaddress: msg.getServicecontractaddress_asB64(),
+    entitycontract: msg.getEntitycontract_asB64(),
     signature: msg.getSignature_asB64(),
     blockheight: jspb.Message.getFieldWithDefault(msg, 3, 0),
     expiration: jspb.Message.getFieldWithDefault(msg, 4, 0)
@@ -11168,7 +11168,7 @@ proto.actions.AdminIdentityCertificateField.deserializeBinaryFromReader = functi
     switch (field) {
     case 1:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setServicecontractaddress(value);
+      msg.setEntitycontract(value);
       break;
     case 2:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
@@ -11211,7 +11211,7 @@ proto.actions.AdminIdentityCertificateField.prototype.serializeBinary = function
  */
 proto.actions.AdminIdentityCertificateField.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getServicecontractaddress_asU8();
+  f = message.getEntitycontract_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       1,
@@ -11243,35 +11243,35 @@ proto.actions.AdminIdentityCertificateField.serializeBinaryToWriter = function(m
 
 
 /**
- * optional bytes ServiceContractAddress = 1;
+ * optional bytes EntityContract = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.AdminIdentityCertificateField.prototype.getServicecontractaddress = function() {
+proto.actions.AdminIdentityCertificateField.prototype.getEntitycontract = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * optional bytes ServiceContractAddress = 1;
- * This is a type-conversion wrapper around `getServicecontractaddress()`
+ * optional bytes EntityContract = 1;
+ * This is a type-conversion wrapper around `getEntitycontract()`
  * @return {string}
  */
-proto.actions.AdminIdentityCertificateField.prototype.getServicecontractaddress_asB64 = function() {
+proto.actions.AdminIdentityCertificateField.prototype.getEntitycontract_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getServicecontractaddress()));
+      this.getEntitycontract()));
 };
 
 
 /**
- * optional bytes ServiceContractAddress = 1;
+ * optional bytes EntityContract = 1;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getServicecontractaddress()`
+ * This is a type-conversion wrapper around `getEntitycontract()`
  * @return {!Uint8Array}
  */
-proto.actions.AdminIdentityCertificateField.prototype.getServicecontractaddress_asU8 = function() {
+proto.actions.AdminIdentityCertificateField.prototype.getEntitycontract_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getServicecontractaddress()));
+      this.getEntitycontract()));
 };
 
 
@@ -11279,7 +11279,7 @@ proto.actions.AdminIdentityCertificateField.prototype.getServicecontractaddress_
  * @param {!(string|Uint8Array)} value
  * @return {!proto.actions.AdminIdentityCertificateField} returns this
  */
-proto.actions.AdminIdentityCertificateField.prototype.setServicecontractaddress = function(value) {
+proto.actions.AdminIdentityCertificateField.prototype.setEntitycontract = function(value) {
   return jspb.Message.setProto3BytesField(this, 1, value);
 };
 

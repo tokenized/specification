@@ -13,8 +13,8 @@
       "AdminIdentityCertificates": [
         {
           "BlockHeight": null,
+          "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
           "Expiration": "1594668650000000000",
-          "ServiceContractAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
           "Signature": null
         }
       ],
@@ -116,8 +116,8 @@
       "AdminIdentityCertificates": [
         {
           "BlockHeight": null,
+          "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
           "Expiration": "1594668650000000000",
-          "ServiceContractAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
           "Signature": null
         }
       ],

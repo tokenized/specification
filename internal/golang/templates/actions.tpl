@@ -46,6 +46,12 @@ const (
 
 	// ComplianceActionReconciliation identifies a reconcilation type
 	ComplianceActionReconciliation = "R"
+
+	// ContractTypeEntity identifies an entity contract
+	ContractTypeEntity = uint32(0)
+
+	// ContractTypeAsset identifies an asset contract
+	ContractTypeAsset = uint32(1)
 )
 
 // NewActionFromCode returns a new object of the correct type for the code.
