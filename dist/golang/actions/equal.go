@@ -2038,19 +2038,19 @@ func (l *OracleField) Equal(right proto.Message) bool {
 		r = &OracleField{}
 	}
 
-	// Field OracleType - uint
-	if len(c.OracleType) != len(r.OracleType) {
+	// Field OracleTypes - uint
+	if len(c.OracleTypes) != len(r.OracleTypes) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range c.OracleType {
-		if v != r.OracleType[i] {
-			return false // fmt.Errorf("Element OracleType integer mismatched")
+	for i, v := range c.OracleTypes {
+		if v != r.OracleTypes[i] {
+			return false // fmt.Errorf("Element OracleTypes integer mismatched")
 		}
 	}
 
-	// Field ServiceContractAddress - varbin
-	if !bytes.Equal(c.ServiceContractAddress, r.ServiceContractAddress) {
-		return false // fmt.Errorf("ServiceContractAddress bytes mismatched")
+	// Field EntityContract - varbin
+	if !bytes.Equal(c.EntityContract, r.EntityContract) {
+		return false // fmt.Errorf("EntityContract bytes mismatched")
 	}
 
 	return true

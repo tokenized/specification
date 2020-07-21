@@ -1568,26 +1568,26 @@ func (a *OracleField) Validate() error {
 		return nil
 	}
 
-	// Field OracleType - uint
-	if len(a.OracleType) > max1ByteInteger {
-		return fmt.Errorf("List over max length : %d > %d", len(a.OracleType), max1ByteInteger)
+	// Field OracleTypes - uint
+	if len(a.OracleTypes) > max1ByteInteger {
+		return fmt.Errorf("List over max length : %d > %d", len(a.OracleTypes), max1ByteInteger)
 	}
-	for i, v := range a.OracleType {
-		foundOracleType := false
+	for i, v := range a.OracleTypes {
+		foundOracleTypes := false
 		for _, o := range []uint32{0, 1, 2} {
 			if v == o {
-				foundOracleType = true
+				foundOracleTypes = true
 				break
 			}
 		}
-		if !foundOracleType {
-			return fmt.Errorf("OracleType[%d] value not within options [0 1 2] : %d", i, a.OracleType)
+		if !foundOracleTypes {
+			return fmt.Errorf("OracleTypes[%d] value not within options [0 1 2] : %d", i, a.OracleTypes)
 		}
 	}
 
-	// Field ServiceContractAddress - varbin
-	if len(a.ServiceContractAddress) > max2ByteInteger {
-		return fmt.Errorf("variable size over max value : %d > %d", len(a.ServiceContractAddress), max2ByteInteger)
+	// Field EntityContract - varbin
+	if len(a.EntityContract) > max2ByteInteger {
+		return fmt.Errorf("variable size over max value : %d > %d", len(a.EntityContract), max2ByteInteger)
 	}
 
 	return nil

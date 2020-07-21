@@ -13575,8 +13575,8 @@ proto.actions.OracleField.prototype.toObject = function(opt_includeInstance) {
  */
 proto.actions.OracleField.toObject = function(includeInstance, msg) {
   var f, obj = {
-    oracletypeList: (f = jspb.Message.getRepeatedField(msg, 4)) == null ? undefined : f,
-    servicecontractaddress: msg.getServicecontractaddress_asB64()
+    oracletypesList: (f = jspb.Message.getRepeatedField(msg, 4)) == null ? undefined : f,
+    entitycontract: msg.getEntitycontract_asB64()
   };
 
   if (includeInstance) {
@@ -13615,11 +13615,11 @@ proto.actions.OracleField.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 4:
       var value = /** @type {!Array<number>} */ (reader.readPackedUint32());
-      msg.setOracletypeList(value);
+      msg.setOracletypesList(value);
       break;
     case 5:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setServicecontractaddress(value);
+      msg.setEntitycontract(value);
       break;
     default:
       reader.skipField();
@@ -13650,14 +13650,14 @@ proto.actions.OracleField.prototype.serializeBinary = function() {
  */
 proto.actions.OracleField.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getOracletypeList();
+  f = message.getOracletypesList();
   if (f.length > 0) {
     writer.writePackedUint32(
       4,
       f
     );
   }
-  f = message.getServicecontractaddress_asU8();
+  f = message.getEntitycontract_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       5,
@@ -13668,10 +13668,10 @@ proto.actions.OracleField.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * repeated uint32 OracleType = 4;
+ * repeated uint32 OracleTypes = 4;
  * @return {!Array<number>}
  */
-proto.actions.OracleField.prototype.getOracletypeList = function() {
+proto.actions.OracleField.prototype.getOracletypesList = function() {
   return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 4));
 };
 
@@ -13680,7 +13680,7 @@ proto.actions.OracleField.prototype.getOracletypeList = function() {
  * @param {!Array<number>} value
  * @return {!proto.actions.OracleField} returns this
  */
-proto.actions.OracleField.prototype.setOracletypeList = function(value) {
+proto.actions.OracleField.prototype.setOracletypesList = function(value) {
   return jspb.Message.setField(this, 4, value || []);
 };
 
@@ -13690,7 +13690,7 @@ proto.actions.OracleField.prototype.setOracletypeList = function(value) {
  * @param {number=} opt_index
  * @return {!proto.actions.OracleField} returns this
  */
-proto.actions.OracleField.prototype.addOracletype = function(value, opt_index) {
+proto.actions.OracleField.prototype.addOracletypes = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 4, value, opt_index);
 };
 
@@ -13699,41 +13699,41 @@ proto.actions.OracleField.prototype.addOracletype = function(value, opt_index) {
  * Clears the list making it empty but non-null.
  * @return {!proto.actions.OracleField} returns this
  */
-proto.actions.OracleField.prototype.clearOracletypeList = function() {
-  return this.setOracletypeList([]);
+proto.actions.OracleField.prototype.clearOracletypesList = function() {
+  return this.setOracletypesList([]);
 };
 
 
 /**
- * optional bytes ServiceContractAddress = 5;
+ * optional bytes EntityContract = 5;
  * @return {!(string|Uint8Array)}
  */
-proto.actions.OracleField.prototype.getServicecontractaddress = function() {
+proto.actions.OracleField.prototype.getEntitycontract = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /**
- * optional bytes ServiceContractAddress = 5;
- * This is a type-conversion wrapper around `getServicecontractaddress()`
+ * optional bytes EntityContract = 5;
+ * This is a type-conversion wrapper around `getEntitycontract()`
  * @return {string}
  */
-proto.actions.OracleField.prototype.getServicecontractaddress_asB64 = function() {
+proto.actions.OracleField.prototype.getEntitycontract_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getServicecontractaddress()));
+      this.getEntitycontract()));
 };
 
 
 /**
- * optional bytes ServiceContractAddress = 5;
+ * optional bytes EntityContract = 5;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getServicecontractaddress()`
+ * This is a type-conversion wrapper around `getEntitycontract()`
  * @return {!Uint8Array}
  */
-proto.actions.OracleField.prototype.getServicecontractaddress_asU8 = function() {
+proto.actions.OracleField.prototype.getEntitycontract_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getServicecontractaddress()));
+      this.getEntitycontract()));
 };
 
 
@@ -13741,7 +13741,7 @@ proto.actions.OracleField.prototype.getServicecontractaddress_asU8 = function() 
  * @param {!(string|Uint8Array)} value
  * @return {!proto.actions.OracleField} returns this
  */
-proto.actions.OracleField.prototype.setServicecontractaddress = function(value) {
+proto.actions.OracleField.prototype.setEntitycontract = function(value) {
   return jspb.Message.setProto3BytesField(this, 5, value);
 };
 

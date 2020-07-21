@@ -2,15 +2,15 @@
 description: A Oracle defines the details of a public Oracle.
 type: object
 properties:
-  OracleType:
+  OracleTypes:
     description:  >
       The type of the oracle. 0 = Identity, 1 = Authority, 2 = Event. More than one value can be
       included to specify the oracle has more than one type.
     type: array
     items:
       type: number
-  ServiceContractAddress:
-    description: The contract address of the service contract on chain that defines the oracle.
+  EntityContract:
+    description: The entity contract address of the service on chain that defines the oracle.
     type: string
     example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
 

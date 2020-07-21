@@ -393,8 +393,8 @@ message OracleField {
     reserved                                         1;   // Deprecated Entity
     reserved                                         2;   // Deprecated URL
     reserved                                         3;   // Deprecated PublicKey
-    repeated uint32 OracleType                     = 4;   // uint[]
-    bytes ServiceContractAddress                   = 5;   // Address
+    repeated uint32 OracleTypes                    = 4;   // uint[]
+    bytes EntityContract                           = 5;   // Address
 }
 
 // Field - Quantity Index

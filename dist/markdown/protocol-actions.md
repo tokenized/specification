@@ -4393,7 +4393,7 @@ A Oracle defines the details of a public Oracle.
     </tr>
 
     <tr>
-        <td>OracleType</td>
+        <td>OracleTypes</td>
         <td>
             uint(1)[tiny]
         </td>
@@ -4404,12 +4404,12 @@ A Oracle defines the details of a public Oracle.
     </tr>
 
     <tr>
-        <td>ServiceContractAddress</td>
+        <td>EntityContract</td>
         <td>
             <a href="#alias-address">Address</a>
         </td>
         <td>
-            The contract address of the service contract on chain that defines the oracle.
+            The entity contract address of the service on chain that defines the oracle.
             
         </td>
     </tr>

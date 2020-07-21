@@ -1373,11 +1373,11 @@ func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 
 // OracleField Permission / Amendment Field Indices
 const (
-	DeprecatedOracleFieldEntity       = uint32(1)
-	DeprecatedOracleFieldURL          = uint32(2)
-	DeprecatedOracleFieldPublicKey    = uint32(3)
-	OracleFieldOracleType             = uint32(4)
-	OracleFieldServiceContractAddress = uint32(5)
+	DeprecatedOracleFieldEntity    = uint32(1)
+	DeprecatedOracleFieldURL       = uint32(2)
+	DeprecatedOracleFieldPublicKey = uint32(3)
+	OracleFieldOracleTypes         = uint32(4)
+	OracleFieldEntityContract      = uint32(5)
 )
 
 // ApplyAmendment updates a OracleField based on amendment data.
@@ -1395,63 +1395,63 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 
 	case DeprecatedOracleFieldPublicKey: // deprecated
 
-	case OracleFieldOracleType: // []uint32
+	case OracleFieldOracleTypes: // []uint32
 		switch operation {
 		case 0: // Modify
 			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify OracleType : %v",
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify OracleTypes : %v",
 					fip)
 			}
-			if int(fip[1]) >= len(a.OracleType) {
-				return nil, fmt.Errorf("Amendment element index out of range for modify OracleType : %d", fip[1])
+			if int(fip[1]) >= len(a.OracleTypes) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify OracleTypes : %d", fip[1])
 			}
 			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for OracleType : %v", fip)
+				return nil, fmt.Errorf("Amendment field index path too deep for OracleTypes : %v", fip)
 			}
 			if len(data) != 1 {
-				return nil, fmt.Errorf("OracleType amendment value is wrong size : %d", len(data))
+				return nil, fmt.Errorf("OracleTypes amendment value is wrong size : %d", len(data))
 			}
 			buf := bytes.NewBuffer(data)
-			if err := binary.Read(buf, binary.LittleEndian, &a.OracleType[fip[1]]); err != nil {
-				return nil, fmt.Errorf("OracleType amendment value failed to deserialize : %s", err)
+			if err := binary.Read(buf, binary.LittleEndian, &a.OracleTypes[fip[1]]); err != nil {
+				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s", err)
 			}
 			return append(fip[:1], fip[2:]...), nil
 
 		case 1: // Add element
 			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add OracleType : %v",
+				return nil, fmt.Errorf("Amendment field index path too deep for add OracleTypes : %v",
 					fip)
 			}
 			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for OracleType : %v", fip)
+				return nil, fmt.Errorf("Amendment field index path too deep for OracleTypes : %v", fip)
 			}
 			if len(data) != 1 {
-				return nil, fmt.Errorf("OracleType amendment value is wrong size : %d", len(data))
+				return nil, fmt.Errorf("OracleTypes amendment value is wrong size : %d", len(data))
 			}
 			buf := bytes.NewBuffer(data)
 			var newValue uint32
 			if err := binary.Read(buf, binary.LittleEndian, &newValue); err != nil {
-				return nil, fmt.Errorf("OracleType amendment value failed to deserialize : %s", err)
+				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s", err)
 			}
-			a.OracleType = append(a.OracleType, newValue)
+			a.OracleTypes = append(a.OracleTypes, newValue)
 			return fip[:], nil
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete OracleType : %v",
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete OracleTypes : %v",
 					fip)
 			}
-			if int(fip[1]) >= len(a.OracleType) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete OracleType : %d", fip[1])
+			if int(fip[1]) >= len(a.OracleTypes) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete OracleTypes : %d", fip[1])
 			}
 
 			// Remove item from list
-			a.OracleType = append(a.OracleType[:fip[1]], a.OracleType[fip[1]+1:]...)
+			a.OracleTypes = append(a.OracleTypes[:fip[1]], a.OracleTypes[fip[1]+1:]...)
 			return append(fip[:1], fip[2:]...), nil
 		}
 
-	case OracleFieldServiceContractAddress: // bytes
-		a.ServiceContractAddress = data
+	case OracleFieldEntityContract: // bytes
+		a.EntityContract = data
 		return fip[:], nil
 
 	}

@@ -66,11 +66,11 @@
       "Oracles": [
         {
           "Entity": null,
-          "OracleType": [
+          "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+          "OracleTypes": [
             null
           ],
           "PublicKey": null,
-          "ServiceContractAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
       ],
@@ -170,11 +170,11 @@
       "Oracles": [
         {
           "Entity": null,
-          "OracleType": [
+          "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+          "OracleTypes": [
             null
           ],
           "PublicKey": null,
-          "ServiceContractAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
       ],
@@ -271,11 +271,11 @@
       ],
       "EntityOracle": {
         "Entity": null,
-        "OracleType": [
+        "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+        "OracleTypes": [
           null
         ],
         "PublicKey": null,
-        "ServiceContractAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
         "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
       },
       "EntityOracleSigBlockHeight": null,
