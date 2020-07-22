@@ -14,6 +14,7 @@ import (
 
 // TransferOracleSigHash returns a Double SHA256 of the data required to identify a
 //   token receiver approval by an oracle.
+// approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. The signature will be considered valid
 //   until 1 hour past the timestamp of the block after the block hash specified (chain tip).
 func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddress, assetCode []byte,
@@ -35,6 +36,7 @@ func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 
 // ContractOracleSigHash returns a Double SHA256 of the data required to identify a
 //   contract creator by an oracle.
+// approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. The signature will be considered valid
 //   until 1 hour past the timestamp of the block after the block hash specified (chain tip).
 func ContractOracleSigHash(ctx context.Context, adminAddresses []bitcoin.RawAddress,
@@ -63,6 +65,7 @@ func ContractOracleSigHash(ctx context.Context, adminAddresses []bitcoin.RawAddr
 
 // EntityPubKeyOracleSigHash returns a Double SHA256 of the data required to verify an association
 //   between an entity and a public key by an oracle.
+// approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. This gives a timestamp to the signature.
 func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
 	pubKey bitcoin.PublicKey, blockHash *bitcoin.Hash32, approved uint8) ([]byte, error) {
@@ -86,6 +89,7 @@ func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
 
 // EntityXPubOracleSigHash returns a Double SHA256 of the data required to verify an association
 //   between an entity and an extended public key by an oracle.
+// approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. This gives a timestamp to the signature.
 func EntityXPubOracleSigHash(ctx context.Context, entity *actions.EntityField,
 	xpub bitcoin.ExtendedKeys, blockHash *bitcoin.Hash32, approved uint8) ([]byte, error) {

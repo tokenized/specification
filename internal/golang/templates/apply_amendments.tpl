@@ -32,21 +32,14 @@
 			a.{{ .Name }}[fip[1]] = data
 			return append(fip[:1], fip[2:]...), nil
 			{{- else if eq .BaseType "uint" }}
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
-			}
-			if len(data) != {{ .BaseSize }} {
-				return nil, fmt.Errorf("{{ .Name }} amendment value is wrong size : %d", len(data))
-			}
 			buf := bytes.NewBuffer(data)
-			if err := binary.Read(buf, binary.LittleEndian, &a.{{ .Name }}[fip[1]]); err != nil {
+			if value, err := ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
+			} else {
+				a.{{ .Name }}[fip[1]] = {{ .GoSingularType }}(value)
 			}
 			return append(fip[:1], fip[2:]...), nil
 			{{- else if eq .BaseType "bool" }}
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
-			}
 			if len(data) != 1 {
 				return nil, fmt.Errorf("{{ .Name }} amendment value is wrong size : %d", len(data))
 			}
@@ -82,7 +75,15 @@
 			a.{{ .Name }} = append(a.{{ .Name }}, newValue)
 			{{- else if eq .BaseType "varbin" }}
 			newValue := data
-			{{- else if eq .BaseType "uint" "bool" }}
+			{{- else if eq .BaseType "uint" }}
+			var newValue {{ .GoSingularType }}
+			buf := bytes.NewBuffer(data)
+			if value, err := ReadBase128VarInt(buf); err != nil {
+				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
+			} else {
+				newValue = {{ .GoSingularType }}(value)
+			}
+			{{- else if eq .BaseType "bool" }}
 			if len(fip) > 1 {
 				return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
 			}
@@ -135,12 +136,11 @@
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
 		}
-		if len(data) != {{ .BaseSize }} {
-			return nil, fmt.Errorf("{{ .Name }} amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.{{ .Name }}); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
+		} else {
+			a.{{ .Name }} = {{ .GoSingularType }}(value)
 		}
 		return fip[:], nil
 		{{- else if eq .BaseType "bool" }}

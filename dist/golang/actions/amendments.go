@@ -62,12 +62,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for BodyOfAgreementType : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("BodyOfAgreementType amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.BodyOfAgreementType); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("BodyOfAgreementType amendment value failed to deserialize : %s", err)
+		} else {
+			a.BodyOfAgreementType = uint32(value)
 		}
 		return fip[:], nil
 
@@ -131,12 +130,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractExpiration : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("ContractExpiration amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.ContractExpiration); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractExpiration amendment value failed to deserialize : %s", err)
+		} else {
+			a.ContractExpiration = uint64(value)
 		}
 		return fip[:], nil
 
@@ -161,12 +159,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractFee : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("ContractFee amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.ContractFee); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractFee amendment value failed to deserialize : %s", err)
+		} else {
+			a.ContractFee = uint64(value)
 		}
 		return fip[:], nil
 
@@ -220,12 +217,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for RestrictedQtyAssets : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("RestrictedQtyAssets amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.RestrictedQtyAssets); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("RestrictedQtyAssets amendment value failed to deserialize : %s", err)
+		} else {
+			a.RestrictedQtyAssets = uint64(value)
 		}
 		return fip[:], nil
 
@@ -305,12 +301,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractRevision : %v", fip)
 		}
-		if len(data) != 4 {
-			return nil, fmt.Errorf("ContractRevision amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.ContractRevision); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractRevision amendment value failed to deserialize : %s", err)
+		} else {
+			a.ContractRevision = uint32(value)
 		}
 		return fip[:], nil
 
@@ -318,12 +313,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Timestamp : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("Timestamp amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Timestamp); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Timestamp amendment value failed to deserialize : %s", err)
+		} else {
+			a.Timestamp = uint64(value)
 		}
 		return fip[:], nil
 
@@ -339,12 +333,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractType : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("ContractType amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.ContractType); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractType amendment value failed to deserialize : %s", err)
+		} else {
+			a.ContractType = uint32(value)
 		}
 		return fip[:], nil
 
@@ -485,12 +478,11 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for AssetIndex : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("AssetIndex amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.AssetIndex); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("AssetIndex amendment value failed to deserialize : %s", err)
+		} else {
+			a.AssetIndex = uint64(value)
 		}
 		return fip[:], nil
 
@@ -577,12 +569,11 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for VoteMultiplier : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("VoteMultiplier amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.VoteMultiplier); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("VoteMultiplier amendment value failed to deserialize : %s", err)
+		} else {
+			a.VoteMultiplier = uint32(value)
 		}
 		return fip[:], nil
 
@@ -616,12 +607,11 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for AssetModificationGovernance : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("AssetModificationGovernance amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.AssetModificationGovernance); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("AssetModificationGovernance amendment value failed to deserialize : %s", err)
+		} else {
+			a.AssetModificationGovernance = uint32(value)
 		}
 		return fip[:], nil
 
@@ -629,12 +619,11 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for TokenQty : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("TokenQty amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.TokenQty); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("TokenQty amendment value failed to deserialize : %s", err)
+		} else {
+			a.TokenQty = uint64(value)
 		}
 		return fip[:], nil
 
@@ -650,12 +639,11 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for AssetRevision : %v", fip)
 		}
-		if len(data) != 4 {
-			return nil, fmt.Errorf("AssetRevision amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.AssetRevision); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("AssetRevision amendment value failed to deserialize : %s", err)
+		} else {
+			a.AssetRevision = uint32(value)
 		}
 		return fip[:], nil
 
@@ -663,12 +651,11 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Timestamp : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("Timestamp amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Timestamp); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Timestamp amendment value failed to deserialize : %s", err)
+		} else {
+			a.Timestamp = uint64(value)
 		}
 		return fip[:], nil
 
@@ -699,12 +686,11 @@ func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Type : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("Type amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Type); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
+		} else {
+			a.Type = uint32(value)
 		}
 		return fip[:], nil
 
@@ -746,12 +732,11 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for BlockHeight : %v", fip)
 		}
-		if len(data) != 4 {
-			return nil, fmt.Errorf("BlockHeight amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.BlockHeight); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("BlockHeight amendment value failed to deserialize : %s", err)
+		} else {
+			a.BlockHeight = uint32(value)
 		}
 		return fip[:], nil
 
@@ -759,12 +744,11 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Expiration : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("Expiration amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Expiration); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Expiration amendment value failed to deserialize : %s", err)
+		} else {
+			a.Expiration = uint64(value)
 		}
 		return fip[:], nil
 
@@ -797,12 +781,11 @@ func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32, da
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Operation : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("Operation amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Operation); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Operation amendment value failed to deserialize : %s", err)
+		} else {
+			a.Operation = uint32(value)
 		}
 		return fip[:], nil
 
@@ -842,12 +825,11 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("Quantity amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Quantity); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Quantity amendment value failed to deserialize : %s", err)
+		} else {
+			a.Quantity = uint64(value)
 		}
 		return fip[:], nil
 
@@ -855,12 +837,11 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigAlgorithm : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("OracleSigAlgorithm amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.OracleSigAlgorithm); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleSigAlgorithm amendment value failed to deserialize : %s", err)
+		} else {
+			a.OracleSigAlgorithm = uint32(value)
 		}
 		return fip[:], nil
 
@@ -868,12 +849,11 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleIndex : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("OracleIndex amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.OracleIndex); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleIndex amendment value failed to deserialize : %s", err)
+		} else {
+			a.OracleIndex = uint32(value)
 		}
 		return fip[:], nil
 
@@ -885,12 +865,11 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigBlockHeight : %v", fip)
 		}
-		if len(data) != 4 {
-			return nil, fmt.Errorf("OracleSigBlockHeight amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.OracleSigBlockHeight); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleSigBlockHeight amendment value failed to deserialize : %s", err)
+		} else {
+			a.OracleSigBlockHeight = uint32(value)
 		}
 		return fip[:], nil
 
@@ -920,12 +899,11 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractIndex : %v", fip)
 		}
-		if len(data) != 2 {
-			return nil, fmt.Errorf("ContractIndex amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.ContractIndex); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractIndex amendment value failed to deserialize : %s", err)
+		} else {
+			a.ContractIndex = uint32(value)
 		}
 		return fip[:], nil
 
@@ -1009,12 +987,11 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractIndex : %v", fip)
 		}
-		if len(data) != 2 {
-			return nil, fmt.Errorf("ContractIndex amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.ContractIndex); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractIndex amendment value failed to deserialize : %s", err)
+		} else {
+			a.ContractIndex = uint32(value)
 		}
 		return fip[:], nil
 
@@ -1353,12 +1330,11 @@ func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Type : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("Type amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Type); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
+		} else {
+			a.Type = uint32(value)
 		}
 		return fip[:], nil
 
@@ -1405,15 +1381,11 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 			if int(fip[1]) >= len(a.OracleTypes) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify OracleTypes : %d", fip[1])
 			}
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for OracleTypes : %v", fip)
-			}
-			if len(data) != 1 {
-				return nil, fmt.Errorf("OracleTypes amendment value is wrong size : %d", len(data))
-			}
 			buf := bytes.NewBuffer(data)
-			if err := binary.Read(buf, binary.LittleEndian, &a.OracleTypes[fip[1]]); err != nil {
+			if value, err := ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s", err)
+			} else {
+				a.OracleTypes[fip[1]] = uint32(value)
 			}
 			return append(fip[:1], fip[2:]...), nil
 
@@ -1422,16 +1394,12 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 				return nil, fmt.Errorf("Amendment field index path too deep for add OracleTypes : %v",
 					fip)
 			}
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for OracleTypes : %v", fip)
-			}
-			if len(data) != 1 {
-				return nil, fmt.Errorf("OracleTypes amendment value is wrong size : %d", len(data))
-			}
-			buf := bytes.NewBuffer(data)
 			var newValue uint32
-			if err := binary.Read(buf, binary.LittleEndian, &newValue); err != nil {
+			buf := bytes.NewBuffer(data)
+			if value, err := ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s", err)
+			} else {
+				newValue = uint32(value)
 			}
 			a.OracleTypes = append(a.OracleTypes, newValue)
 			return fip[:], nil
@@ -1478,12 +1446,11 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Index : %v", fip)
 		}
-		if len(data) != 2 {
-			return nil, fmt.Errorf("Index amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Index); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Index amendment value failed to deserialize : %s", err)
+		} else {
+			a.Index = uint32(value)
 		}
 		return fip[:], nil
 
@@ -1491,12 +1458,11 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("Quantity amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Quantity); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Quantity amendment value failed to deserialize : %s", err)
+		} else {
+			a.Quantity = uint64(value)
 		}
 		return fip[:], nil
 
@@ -1585,12 +1551,11 @@ func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Type : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("Type amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Type); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
+		} else {
+			a.Type = uint32(value)
 		}
 		return fip[:], nil
 
@@ -1633,12 +1598,11 @@ func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("Quantity amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.Quantity); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Quantity amendment value failed to deserialize : %s", err)
+		} else {
+			a.Quantity = uint64(value)
 		}
 		return fip[:], nil
 
@@ -1678,12 +1642,11 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for TallyLogic : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("TallyLogic amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.TallyLogic); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("TallyLogic amendment value failed to deserialize : %s", err)
+		} else {
+			a.TallyLogic = uint32(value)
 		}
 		return fip[:], nil
 
@@ -1691,12 +1654,11 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ThresholdPercentage : %v", fip)
 		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("ThresholdPercentage amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.ThresholdPercentage); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ThresholdPercentage amendment value failed to deserialize : %s", err)
+		} else {
+			a.ThresholdPercentage = uint32(value)
 		}
 		return fip[:], nil
 
@@ -1717,12 +1679,11 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for HolderProposalFee : %v", fip)
 		}
-		if len(data) != 8 {
-			return nil, fmt.Errorf("HolderProposalFee amendment value is wrong size : %d", len(data))
-		}
 		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.HolderProposalFee); err != nil {
+		if value, err := ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("HolderProposalFee amendment value failed to deserialize : %s", err)
+		} else {
+			a.HolderProposalFee = uint64(value)
 		}
 		return fip[:], nil
 
