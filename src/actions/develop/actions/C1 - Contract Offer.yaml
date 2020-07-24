@@ -101,6 +101,10 @@ fields:
     label: Issuer
     description: "The issuer of this contract."
     type: Entity
+    only_valid_when:
+      field_name: ContractType
+      values:
+        - 0
 
   - name: IssuerLogoURL
     label: Issuer Logo URL
@@ -186,11 +190,23 @@ fields:
     label: Entity Contract
     description: "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract."
     type: Address
+    only_valid_when:
+      field_name: ContractType
+      values:
+        - 1
+    required_when:
+      field_name: ContractType
+      values:
+        - 1
 
   - name: OperatorEntityContract
     label: Operator Entity Contract
     description: "The address for the operator's entity contract."
     type: Address
+    only_valid_when:
+      field_name: ContractOperatorIncluded
+      values:
+        - true
 
   - name: ContractType
     label: Contract Type
@@ -206,6 +222,10 @@ fields:
     label: Services
     description: The services provided by the contract entity.
     type: Service[]
+    only_valid_when:
+      field_name: ContractType
+      values:
+        - 0
 
   - name: AdminIdentityCertificates
     label: Administrator Identity Certificates

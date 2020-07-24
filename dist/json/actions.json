@@ -776,6 +776,12 @@
           "description": "The issuer of this contract.",
           "label": "Issuer",
           "name": "Issuer",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              0
+            ]
+          },
           "type": "Entity"
         },
         {
@@ -876,12 +882,30 @@
           "description": "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.",
           "label": "Entity Contract",
           "name": "EntityContract",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              1
+            ]
+          },
+          "required_when": {
+            "field_name": "ContractType",
+            "values": [
+              1
+            ]
+          },
           "type": "Address"
         },
         {
           "description": "The address for the operator's entity contract.",
           "label": "Operator Entity Contract",
           "name": "OperatorEntityContract",
+          "only_valid_when": {
+            "field_name": "ContractOperatorIncluded",
+            "values": [
+              true
+            ]
+          },
           "type": "Address"
         },
         {
@@ -900,6 +924,12 @@
           "description": "The services provided by the contract entity.",
           "label": "Services",
           "name": "Services",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              0
+            ]
+          },
           "type": "Service[]"
         },
         {
@@ -1016,6 +1046,12 @@
           "description": "The issuer of this contract.",
           "label": "Issuer",
           "name": "Issuer",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              0
+            ]
+          },
           "type": "Entity"
         },
         {
@@ -1126,6 +1162,18 @@
           "description": "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.",
           "label": "Entity Contract",
           "name": "EntityContract",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              1
+            ]
+          },
+          "required_when": {
+            "field_name": "ContractType",
+            "values": [
+              1
+            ]
+          },
           "type": "Address"
         },
         {
@@ -1150,6 +1198,12 @@
           "description": "The services provided by the contract entity.",
           "label": "Services",
           "name": "Services",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              0
+            ]
+          },
           "type": "Service[]"
         },
         {

@@ -103,6 +103,60 @@ func postProcessFields(fields []Field, fTypes []FieldType, aliases []Field) {
 				fields[i].CompoundField = &fType
 				break
 			}
+
+			for i, field := range fType.Fields {
+				if field.OnlyValidWhen != nil {
+					for _, f := range fType.Fields {
+						if f.Type != "deprecated" && f.Name == field.OnlyValidWhen.FieldName {
+							field.OnlyValidWhen.FieldGoType = f.GoType()
+							fType.Fields[i] = field
+							break
+						}
+					}
+					if len(field.OnlyValidWhen.FieldGoType) == 0 {
+						fmt.Printf("Failed to find OnlyValidWhen field %s\n", field.OnlyValidWhen.FieldName)
+					}
+				}
+				if field.RequiredWhen != nil {
+					for _, f := range fType.Fields {
+						if f.Type != "deprecated" && f.Name == field.RequiredWhen.FieldName {
+							field.RequiredWhen.FieldGoType = f.GoType()
+							fType.Fields[i] = field
+							break
+						}
+					}
+					if len(field.RequiredWhen.FieldGoType) == 0 {
+						fmt.Printf("Failed to find RequiredWhen field %s\n", field.RequiredWhen.FieldName)
+					}
+				}
+			}
+		}
+
+		for i, field := range fields {
+			if field.OnlyValidWhen != nil {
+				for _, f := range fields {
+					if f.Type != "deprecated" && f.Name == field.OnlyValidWhen.FieldName {
+						field.OnlyValidWhen.FieldGoType = f.GoType()
+						fields[i] = field
+						break
+					}
+				}
+				if len(field.OnlyValidWhen.FieldGoType) == 0 {
+					fmt.Printf("Failed to find OnlyValidWhen field %s\n", field.OnlyValidWhen.FieldName)
+				}
+			}
+			if field.RequiredWhen != nil {
+				for _, f := range fields {
+					if f.Type != "deprecated" && f.Name == field.RequiredWhen.FieldName {
+						field.RequiredWhen.FieldGoType = f.GoType()
+						fields[i] = field
+						break
+					}
+				}
+				if len(field.RequiredWhen.FieldGoType) == 0 {
+					fmt.Printf("Failed to find RequiredWhen field %s\n", field.RequiredWhen.FieldName)
+				}
+			}
 		}
 	}
 }
