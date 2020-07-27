@@ -7,29 +7,29 @@ import (
 
 // Field defines the expected properties of a field definition in the specification YAML.
 type Field struct {
-	Name           string     `yaml:"name"`
-	Label          string     `yaml:"label"`
-	Description    string     `yaml:"description"`
-	Notes          string     `yaml:"notes"`
-	Type           string     `yaml:"type"`
-	Size           int        `yaml:"size"`
-	ListSize       string     `yaml:"listSize"`
-	VarSize        string     `yaml:"varSize"`
-	Example        string     `yaml:"example"`
-	Options        []string   `yaml:"options"`
+	Name           string              `yaml:"name"`
+	Label          string              `yaml:"label"`
+	Description    string              `yaml:"description"`
+	Notes          string              `yaml:"notes"`
+	Type           string              `yaml:"type"`
+	Size           int                 `yaml:"size"`
+	ListSize       string              `yaml:"listSize"`
+	VarSize        string              `yaml:"varSize"`
+	Example        string              `yaml:"example"`
+	Options        []string            `yaml:"options"`
 	OnlyValidWhen  *RelatedFieldValues `yaml:"only_valid_when"` // specifies a field is only valid when another field has specific values
-	RequiredWhen    *RelatedFieldValues `yaml:"required_when"` // specifies a field is required when another field has specific values
-	Resource       string     `yaml:"resource"`
-	IsCompoundType bool       `yaml:"is_compound_type"`
-	AliasField     *Field     `yaml:"-"`
-	CompoundField  *FieldType `yaml:"-"`
+	RequiredWhen   *RelatedFieldValues `yaml:"required_when"`   // specifies a field is required when another field has specific values
+	Resource       string              `yaml:"resource"`
+	IsCompoundType bool                `yaml:"is_compound_type"`
+	AliasField     *Field              `yaml:"-"`
+	CompoundField  *FieldType          `yaml:"-"`
 }
 
 // RelatedFieldValues specifies that a field is only valid to be specified when another field has one of
 // the listed values.
 type RelatedFieldValues struct {
-	FieldName string `yaml:"field_name"`
-	Values []string `yaml:"values"`
+	FieldName   string   `yaml:"field_name"`
+	Values      []string `yaml:"values"`
 	FieldGoType string
 }
 

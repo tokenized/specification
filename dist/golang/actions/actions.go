@@ -312,6 +312,8 @@ func (a *Rejection) Code() string {
 }
 
 // Helper functions for amendments
+
+// ReadBase128VarInt reads a base 128 variable encoded integer from the reader.
 func ReadBase128VarInt(r io.ByteReader) (int, error) {
 	value := uint32(0)
 	done := false
@@ -332,6 +334,7 @@ func ReadBase128VarInt(r io.ByteReader) (int, error) {
 	return int(value), nil
 }
 
+// WriteBase128VarInt writes a base 128 variable encoded integer to the writer.
 func WriteBase128VarInt(w io.ByteWriter, value int) error {
 	v := uint32(value)
 	for {
