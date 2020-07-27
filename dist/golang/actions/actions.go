@@ -100,14 +100,17 @@ const (
 	// CodeRejection identifies a payload as a Rejection action message.
 	CodeRejection = "M2"
 
-	// OracleTypeIdentity identifies an identity oracle
-	OracleTypeIdentity = uint32(0)
+	// ServiceTypeIdentityOracle identifies an identity oracle
+	ServiceTypeIdentityOracle = uint32(0)
 
-	// OracleTypeAuthority identifies an authority oracle
-	OracleTypeAuthority = uint32(1)
+	// ServiceTypeAuthorityOracle identifies an authority oracle
+	ServiceTypeAuthorityOracle = uint32(1)
 
-	// OracleTypeEvent identifies an event oracle
-	OracleTypeEvent = uint32(2)
+	// ServiceTypeEventOracle identifies an event oracle
+	ServiceTypeEventOracle = uint32(2)
+
+	// ServiceTypeContractOperator identifies a contract operator service
+	ServiceTypeContractOperator = uint32(3)
 
 	// ComplianceActionFreeze identifies a freeze type
 	ComplianceActionFreeze = "F"
