@@ -135,7 +135,7 @@ func StrYamlDescription(s, pad string) string {
 
 		if len(line)+len(p) > 100-padLen {
 			// line length exceeded. Add the line to our lines
-			lines = append(lines, pad + line)
+			lines = append(lines, pad+line)
 			line = ""
 		}
 
@@ -147,14 +147,14 @@ func StrYamlDescription(s, pad string) string {
 		}
 
 		if line[len(line)-1] == '\n' {
-			lines = append(lines, pad + line[:len(line)-1])
+			lines = append(lines, pad+line[:len(line)-1])
 			line = ""
 		}
 	}
 
 	// make sure to append any remaining non-empty line
 	if line != pad {
-		lines = append(lines, pad + line)
+		lines = append(lines, pad+line)
 	}
 
 	return strings.Join(lines, "\n")
@@ -196,7 +196,7 @@ func StrKebabCase(str string) string {
 func FixedHex(size int) string {
 	b := make([]byte, size)
 	for i, _ := range b {
-		b[i] = byte((i+3) * 7)
+		b[i] = byte((i + 3) * 7)
 	}
 	return fmt.Sprintf("%x", b)
 }

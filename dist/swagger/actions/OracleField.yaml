@@ -2,25 +2,15 @@
 description: A Oracle defines the details of a public Oracle.
 type: object
 properties:
-  Entity:
-    description: Identifying information about the oracle.
-    type: object
-    $ref: "#/components/schemas/EntityField"
-  URL:
-    description: "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint"
-    type: string
-    example: "http://oracle.tokenized.com/api/3650d9/version2010"
-  PublicKey:
-    description:  >
-      Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm
-      digital signed proofs for transfers.  Can also be the same public address that controls a
-      Tokenized Oracle.
-    type: string
-  OracleType:
+  OracleTypes:
     description:  >
       The type of the oracle. 0 = Identity, 1 = Authority, 2 = Event. More than one value can be
       included to specify the oracle has more than one type.
     type: array
     items:
       type: number
+  EntityContract:
+    description: The entity contract address of the service on chain that defines the oracle.
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
 

@@ -129,7 +129,8 @@ message EntityField {
     repeated AdministratorField Administration     = 13;  // Administrator[]
     repeated ManagerField Management               = 14;  // Manager[]
     string DomainName                              = 15;  // varchar
-    bytes EntityContractAddress                    = 16;  // Address
+    reserved                                         16;  // Deprecated EntityContractAddress
+    string PaymailHandle                           = 17;  // varchar
 }
 
 // Field - Identity Oracle Proof

@@ -3,6 +3,7 @@ package messages
 import (
 	"bytes"
 	"fmt"
+	"io"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
@@ -332,4 +333,42 @@ func (a *InitiateThread) Serialize(buf *bytes.Buffer) error {
 
 	_, err = buf.Write(data)
 	return err
+}
+
+// Helper functions for amendments
+
+// ReadBase128VarInt reads a base 128 variable encoded integer from the reader.
+func ReadBase128VarInt(r io.ByteReader) (int, error) {
+	value := uint32(0)
+	done := false
+	bitOffset := uint32(0)
+	for !done {
+		subValue, err := r.ReadByte()
+		if err != nil {
+			return int(value), err
+		}
+
+		done = (subValue & 0x80) == 0 // High bit not set
+		subValue = subValue & 0x7f    // Remove high bit
+
+		value += uint32(subValue) << bitOffset
+		bitOffset += 7
+	}
+
+	return int(value), nil
+}
+
+// WriteBase128VarInt writes a base 128 variable encoded integer to the writer.
+func WriteBase128VarInt(w io.ByteWriter, value int) error {
+	v := uint32(value)
+	for {
+		if v < 128 {
+			return w.WriteByte(byte(v))
+		}
+		subValue := (byte(v&0x7f) | 0x80) // Get last 7 bits and set high bit
+		if err := w.WriteByte(subValue); err != nil {
+			return err
+		}
+		v = v >> 7
+	}
 }

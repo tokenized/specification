@@ -53,9 +53,9 @@ Permissions:
       - [Issuer, PhoneNumber]
       - [IssuerLogoURL]
       - [ContractOperator]
-      - [AdminOracle]
-      - [AdminOracleSignature]
-      - [AdminOracleSigBlockHeight]
+      - [AdminIdentityOracle]
+      - [AdminIdentityOracleSignature]
+      - [AdminIdentityOracleSigBlockHeight]
       - [ContractFee]
 
   - Name: Administrator Proposal Ordinary Resolution

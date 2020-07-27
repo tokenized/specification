@@ -9,19 +9,19 @@ message ContractOffer {
     string ContractName                            = 1;   // varchar
     uint32 BodyOfAgreementType                     = 2;   // uint
     bytes BodyOfAgreement                          = 3;   // varbin
-    string ContractType                            = 4;   // varchar
+    reserved                                         4;   // Deprecated ContractType
     repeated DocumentField SupportingDocs          = 5;   // Document[]
     string GoverningLaw                            = 6;   // fixedchar
     string Jurisdiction                            = 7;   // fixedchar
     uint64 ContractExpiration                      = 8;   // Timestamp
     string ContractURI                             = 9;   // varchar
     EntityField Issuer                             = 10;   // Entity
-    string IssuerLogoURL                           = 11;  // varchar
+    reserved                                         11;  // Deprecated IssuerLogoURL
     bool ContractOperatorIncluded                  = 12;  // bool
-    EntityField ContractOperator                   = 13;  // Entity
-    OracleField AdminOracle                        = 14;  // Oracle
-    bytes AdminOracleSignature                     = 15;  // varbin
-    uint32 AdminOracleSigBlockHeight               = 16;  // uint
+    reserved                                         13;  // Deprecated ContractOperator
+    reserved                                         14;  // Deprecated AdminIdentityOracle
+    reserved                                         15;  // Deprecated AdminIdentityOracleSignature
+    reserved                                         16;  // Deprecated AdminIdentityOracleSigBlockHeight
     uint64 ContractFee                             = 17;  // uint
     repeated VotingSystemField VotingSystems       = 18;  // VotingSystem[]
     bytes ContractPermissions                      = 19;  // varbin
@@ -30,6 +30,11 @@ message ContractOffer {
     bool HolderProposal                            = 22;  // bool
     repeated OracleField Oracles                   = 23;  // Oracle[]
     bytes MasterAddress                            = 24;  // Address
+    bytes EntityContract                           = 25;  // Address
+    bytes OperatorEntityContract                   = 26;  // Address
+    uint32 ContractType                            = 27;  // uint
+    repeated ServiceField Services                 = 28;  // Service[]
+    repeated AdminIdentityCertificateField AdminIdentityCertificates = 29;  // AdminIdentityCertificate[]
 }
 
 // Message - Contract Formation (C2)
@@ -37,18 +42,18 @@ message ContractFormation {
     string ContractName                            = 1;   // varchar
     uint32 BodyOfAgreementType                     = 2;   // uint
     bytes BodyOfAgreement                          = 3;   // varbin
-    string ContractType                            = 4;   // varchar
+    reserved                                         4;   // Deprecated ContractType
     repeated DocumentField SupportingDocs          = 5;   // Document[]
     string GoverningLaw                            = 6;   // fixedchar
     string Jurisdiction                            = 7;   // fixedchar
     uint64 ContractExpiration                      = 8;   // Timestamp
     string ContractURI                             = 9;   // varchar
     EntityField Issuer                             = 10;   // Entity
-    string IssuerLogoURL                           = 11;  // varchar
-    EntityField ContractOperator                   = 12;  // Entity
-    OracleField AdminOracle                        = 13;  // Oracle
-    bytes AdminOracleSignature                     = 14;  // varbin
-    uint32 AdminOracleSigBlockHeight               = 15;  // uint
+    reserved                                         11;  // Deprecated IssuerLogoURL
+    reserved                                         12;  // Deprecated ContractOperator
+    reserved                                         13;  // Deprecated AdminOracle
+    reserved                                         14;  // Deprecated AdminOracleSignature
+    reserved                                         15;  // Deprecated AdminOracleSigBlockHeight
     uint64 ContractFee                             = 16;  // uint
     repeated VotingSystemField VotingSystems       = 17;  // VotingSystem[]
     bytes ContractPermissions                      = 18;  // varbin
@@ -59,6 +64,13 @@ message ContractFormation {
     bytes MasterAddress                            = 23;  // Address
     uint32 ContractRevision                        = 24;  // uint
     uint64 Timestamp                               = 25;  // Timestamp
+    bytes EntityContract                           = 26;  // Address
+    bytes OperatorEntityContract                   = 27;  // Address
+    uint32 ContractType                            = 28;  // uint
+    repeated ServiceField Services                 = 29;  // Service[]
+    repeated AdminIdentityCertificateField AdminIdentityCertificates = 30;  // AdminIdentityCertificate[]
+    bytes AdminAddress                             = 31;  // Address
+    bytes OperatorAddress                          = 32;  // Address
 }
 
 // Message - Contract Amendment (C3)
@@ -300,6 +312,14 @@ message AdministratorField {
     string Name                                    = 2;   // varchar
 }
 
+// Field - Administrator Identity Certificate
+message AdminIdentityCertificateField {
+    bytes EntityContract                           = 1;   // Address
+    bytes Signature                                = 2;   // varbin
+    uint32 BlockHeight                             = 3;   // uint
+    uint64 Expiration                              = 4;   // Timestamp
+}
+
 // Field - Amendment
 message AmendmentField {
     bytes FieldIndexPath                           = 1;   // varbin
@@ -358,7 +378,8 @@ message EntityField {
     repeated AdministratorField Administration     = 13;  // Administrator[]
     repeated ManagerField Management               = 14;  // Manager[]
     string DomainName                              = 15;  // varchar
-    bytes EntityContractAddress                    = 16;  // Address
+    reserved                                         16;  // Deprecated EntityContractAddress
+    string PaymailHandle                           = 17;  // varchar
 }
 
 // Field - Manager
@@ -369,10 +390,11 @@ message ManagerField {
 
 // Field - Oracle
 message OracleField {
-    EntityField Entity                             = 1;   // Entity
-    string URL                                     = 2;   // varchar
-    bytes PublicKey                                = 3;   // varbin
-    repeated uint32 OracleType                     = 4;   // uint[]
+    reserved                                         1;   // Deprecated Entity
+    reserved                                         2;   // Deprecated URL
+    reserved                                         3;   // Deprecated PublicKey
+    repeated uint32 OracleTypes                    = 4;   // uint[]
+    bytes EntityContract                           = 5;   // Address
 }
 
 // Field - Quantity Index
@@ -385,6 +407,13 @@ message QuantityIndexField {
 message ReferenceTransactionField {
     bytes Transaction                              = 1;   // varbin
     repeated bytes Outputs                         = 2;   // varbin[]
+}
+
+// Field - Service
+message ServiceField {
+    uint32 Type                                    = 1;   // uint
+    string URL                                     = 2;   // varchar
+    bytes PublicKey                                = 3;   // PublicKey
 }
 
 // Field - Target Address

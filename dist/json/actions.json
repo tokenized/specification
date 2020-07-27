@@ -81,6 +81,13 @@
       "name": "TxId",
       "size": 32,
       "type": "bin"
+    },
+    {
+      "description": "Represents a compressed public key.",
+      "example": "027fed903fe7d94a7a5bab491fb728aebcc74260840c0b3d4dadb870cd34ffbfc4",
+      "name": "PublicKey",
+      "size": 33,
+      "type": "bin"
     }
   ],
   "fieldTypes": [
@@ -104,6 +111,38 @@
       ],
       "label": "Administrator",
       "name": "Administrator"
+    },
+    {
+      "description": "A certificate provided by an identity oracle to verify the administrator address is associated  with the issuer entity identification information. Also if a contract operator is provided then it verifies that the contract operator address is associated with the specified contract  operator identity information. For a child contract that references a parent entity contract the certificate verifies that the administrator address is associated with that entity contract.\n",
+      "fields": [
+        {
+          "description": "The entity contract address of the service on chain that defines the identity oracle.",
+          "label": "Entity Contract",
+          "name": "EntityContract",
+          "type": "Address"
+        },
+        {
+          "description": "The signature provided by the oracle specified. The first input must correspond to the  administration entity and, if a contract operator is included, the second input must  correspond to the contract operator entity.\"\n",
+          "label": "Signature",
+          "name": "Signature",
+          "type": "varbin"
+        },
+        {
+          "description": "The block height of the block hash used in the oracle signature.",
+          "label": "Block height",
+          "name": "BlockHeight",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "Oracles have the option to specify an expiration after which a new certificate should be  provided.\n",
+          "label": "Expiration",
+          "name": "Expiration",
+          "type": "Timestamp"
+        }
+      ],
+      "label": "Administrator Identity Certificate",
+      "name": "AdminIdentityCertificate"
     },
     {
       "description": "An Amendment is used to describe the modification of a single field in a Contract or Asset, as defined in the ContractFormation and AssetCreation messages.",
@@ -420,10 +459,18 @@
           "varSize": "tiny"
         },
         {
-          "description": "Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.",
+          "description": "Deprecated for separate field in contract. Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.",
           "label": "Entity Contract Address",
           "name": "EntityContractAddress",
-          "type": "Address"
+          "type": "deprecated"
+        },
+        {
+          "description": "Length 0-255 bytes. Handle containing an alias and domain name performing queries defined in the Paymail protocol.",
+          "example": "satoshi@tokenized.id",
+          "label": "Paymail Handle",
+          "name": "PaymailHandle",
+          "type": "varchar",
+          "varSize": "tiny"
         }
       ],
       "label": "Entity",
@@ -454,28 +501,28 @@
       "description": "A Oracle defines the details of a public Oracle.",
       "fields": [
         {
-          "description": "Identifying information about the oracle.",
+          "description": "Deprecated for service contract address. Identifying information about the oracle.",
           "label": "Oracle Entity",
           "name": "Entity",
-          "type": "Entity"
+          "type": "deprecated"
         },
         {
-          "description": "Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint",
+          "description": "Deprecated for service contract address. Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint",
           "example": "http://oracle.tokenized.com/api/3650d9/version2010",
           "label": "Oracle URL",
           "name": "URL",
-          "type": "varchar"
+          "type": "deprecated"
         },
         {
-          "description": "Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle.",
+          "description": "Deprecated for service contract address. Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle.",
           "label": "Oracle Public Key",
           "name": "PublicKey",
-          "type": "varbin"
+          "type": "deprecated"
         },
         {
           "description": "The type of the oracle. 0 = Identity, 1 = Authority, 2 = Event. More than one value can be included to specify the oracle has more than one type.",
-          "label": "Oracle Type",
-          "name": "OracleType",
+          "label": "Oracle Types",
+          "name": "OracleTypes",
           "options": [
             0,
             1,
@@ -483,6 +530,12 @@
           ],
           "size": 1,
           "type": "uint[]"
+        },
+        {
+          "description": "The entity contract address of the service on chain that defines the oracle.",
+          "label": "Entity Contract",
+          "name": "EntityContract",
+          "type": "Address"
         }
       ],
       "label": "Oracle",
@@ -533,6 +586,39 @@
       ],
       "label": "Reference Transaction",
       "name": "ReferenceTransaction"
+    },
+    {
+      "description": "A definition of a service provided by an identity oracle to verify the administrator address is associated  with the issuer entity identification information. Also if a contract operator is provided then it verifies that the contract operator address is associated with the specified contract  operator identity information. For a child contract that references a parent entity contract the certificate verifies that the administrator address is associated with that entity contract.\n",
+      "fields": [
+        {
+          "description": "Describes the type of service.\n  0 - Identity Oracle\n  1 - Authority Oracle\n  2 - Event Oracle\n  3 - Contract Operator\n",
+          "example": 0,
+          "label": "Type",
+          "name": "Type",
+          "options": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "The base URL of the service. For each service type there are predefined methods for  determining the specific endpoints.\n",
+          "label": "URL",
+          "name": "URL",
+          "type": "varchar"
+        },
+        {
+          "description": "The public key used to verify and authorize the service.",
+          "label": "Public Key",
+          "name": "PublicKey",
+          "type": "PublicKey"
+        }
+      ],
+      "label": "Service",
+      "name": "Service"
     },
     {
       "description": "A TargetAddress defines a public address and quantity.",
@@ -642,11 +728,11 @@
           "varSize": "medium"
         },
         {
-          "description": "Describes the purpose of the contract.",
+          "description": "Deprecated for more specific type. Describes the purpose of the contract.",
           "example": "Shareholder Agreement",
           "label": "Contract Type",
           "name": "ContractType",
-          "type": "varchar"
+          "type": "deprecated"
         },
         {
           "description": "Supporting documents that are important to the contract.",
@@ -690,6 +776,12 @@
           "description": "The issuer of this contract.",
           "label": "Issuer",
           "name": "Issuer",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              0
+            ]
+          },
           "type": "Entity"
         },
         {
@@ -697,7 +789,7 @@
           "example": "https://example.com/images/logo.png",
           "label": "Issuer Logo URL",
           "name": "IssuerLogoURL",
-          "type": "varchar"
+          "type": "deprecated"
         },
         {
           "description": "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization.",
@@ -706,29 +798,29 @@
           "type": "bool"
         },
         {
-          "description": "An additional entity with operator access to the contract.",
+          "description": "Deprecated for operator entity contract address. An additional entity with operator access to the contract.",
           "label": "Contract Operator",
           "name": "ContractOperator",
-          "type": "Entity"
+          "type": "deprecated"
         },
         {
-          "description": "The oracle that provided the signature used to verify the administration's identity.",
+          "description": "The oracle that provided the signature used to verify the administration's identity and association with a parent contract if one is specified.",
           "label": "Administration Oracle",
-          "name": "AdminOracle",
-          "type": "Oracle"
+          "name": "AdminIdentityOracle",
+          "type": "deprecated"
         },
         {
           "description": "The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.",
-          "label": "Administration Oracle Signature",
-          "name": "AdminOracleSignature",
-          "type": "varbin"
+          "label": "Administration Identity Oracle Signature",
+          "name": "AdminIdentityOracleSignature",
+          "type": "deprecated"
         },
         {
           "description": "The block height of the block hash used in the oracle signature.",
-          "label": "Administration Oracle Signature Block height",
-          "name": "AdminOracleSigBlockHeight",
+          "label": "Administration Identity Oracle Signature Block height",
+          "name": "AdminIdentityOracleSigBlockHeight",
           "size": 4,
-          "type": "uint"
+          "type": "deprecated"
         },
         {
           "description": "Satoshis required to be paid to the contract for each asset action.",
@@ -785,6 +877,66 @@
           "label": "Master Address",
           "name": "MasterAddress",
           "type": "Address"
+        },
+        {
+          "description": "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.",
+          "label": "Entity Contract",
+          "name": "EntityContract",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              1
+            ]
+          },
+          "required_when": {
+            "field_name": "ContractType",
+            "values": [
+              1
+            ]
+          },
+          "type": "Address"
+        },
+        {
+          "description": "The address for the operator's entity contract.",
+          "label": "Operator Entity Contract",
+          "name": "OperatorEntityContract",
+          "only_valid_when": {
+            "field_name": "ContractOperatorIncluded",
+            "values": [
+              true
+            ]
+          },
+          "type": "Address"
+        },
+        {
+          "description": "Describes the purpose of the contract. 0 - Entity, 1 - Asset",
+          "example": 0,
+          "label": "Contract Type",
+          "name": "ContractType",
+          "options": [
+            0,
+            1
+          ],
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "The services provided by the contract entity.",
+          "label": "Services",
+          "name": "Services",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              0
+            ]
+          },
+          "type": "Service[]"
+        },
+        {
+          "description": "Certificates providing proof of administrator/operator identities.",
+          "label": "Administrator Identity Certificates",
+          "name": "AdminIdentityCertificates",
+          "type": "AdminIdentityCertificate[]"
         }
       ],
       "label": "Contract Offer",
@@ -846,11 +998,11 @@
           "varSize": "medium"
         },
         {
-          "description": "Describes the purpose of the contract.",
+          "description": "Deprecated for more specific type. Describes the purpose of the contract.",
           "example": "Shareholder Agreement",
           "label": "Contract Type",
           "name": "ContractType",
-          "type": "varchar"
+          "type": "deprecated"
         },
         {
           "description": "Supporting documents that are important to the contract.",
@@ -894,39 +1046,45 @@
           "description": "The issuer of this contract.",
           "label": "Issuer",
           "name": "Issuer",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              0
+            ]
+          },
           "type": "Entity"
         },
         {
-          "description": "The URL of the issuer's logo.",
+          "description": "Deprecated for data in the issuer entity. The URL of the issuer's logo.",
           "example": "https://example.tld/images/logo.png",
           "label": "Issuer Logo URL",
           "name": "IssuerLogoURL",
-          "type": "varchar"
+          "type": "deprecated"
         },
         {
-          "description": "An additional entity with operator access to the contract.",
+          "description": "Deprecated for operator entity contract address. An additional entity with operator access to the contract.",
           "label": "Contract Operator",
           "name": "ContractOperator",
-          "type": "Entity"
+          "type": "deprecated"
         },
         {
           "description": "The oracle that provided the signature used to verify the administration's identity.",
           "label": "Administration Oracle",
           "name": "AdminOracle",
-          "type": "Oracle"
+          "type": "deprecated"
         },
         {
           "description": "The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.",
           "label": "Administration Oracle Signature",
           "name": "AdminOracleSignature",
-          "type": "varbin"
+          "type": "deprecated"
         },
         {
           "description": "The block height of the block hash used in the oracle signature.",
           "label": "Administration Oracle Signature Block height",
           "name": "AdminOracleSigBlockHeight",
           "size": 4,
-          "type": "uint"
+          "type": "deprecated"
         },
         {
           "description": "Satoshis required to be paid to the contract for each asset action.",
@@ -989,7 +1147,7 @@
           "example": "0",
           "label": "Contract Revision",
           "name": "ContractRevision",
-          "notes": "Can't be changed by the administration or smart contract operator.",
+          "notes": "Can't be changed by the administration, operator. Smart contract controls.",
           "size": 4,
           "type": "uint"
         },
@@ -997,8 +1155,74 @@
           "description": "Timestamp in nanoseconds of when the smart contract created the action.",
           "label": "Timestamp",
           "name": "Timestamp",
-          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "notes": "Can't be changed by the administration, operator. Smart contract controls.",
           "type": "Timestamp"
+        },
+        {
+          "description": "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.",
+          "label": "Entity Contract",
+          "name": "EntityContract",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              1
+            ]
+          },
+          "required_when": {
+            "field_name": "ContractType",
+            "values": [
+              1
+            ]
+          },
+          "type": "Address"
+        },
+        {
+          "description": "The address for the operator's entity contract.",
+          "label": "Operator Entity Contract",
+          "name": "OperatorEntityContract",
+          "type": "Address"
+        },
+        {
+          "description": "Describes the purpose of the contract. 0 - Entity, 1 - Asset",
+          "example": 0,
+          "label": "Contract Type",
+          "name": "ContractType",
+          "options": [
+            0,
+            1
+          ],
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "description": "The services provided by the contract entity.",
+          "label": "Services",
+          "name": "Services",
+          "only_valid_when": {
+            "field_name": "ContractType",
+            "values": [
+              0
+            ]
+          },
+          "type": "Service[]"
+        },
+        {
+          "description": "Certificates providing proof of administrator/operator identities.",
+          "label": "Administrator Identity Certificates",
+          "name": "AdminIdentityCertificates",
+          "type": "AdminIdentityCertificate[]"
+        },
+        {
+          "description": "The address of the contract's administrator. This is not contained in the contract offer  payload, but determined by the inputs of the contract offer transaction and included here by  the smart contract agent as a convenience.\n",
+          "label": "Administrator Address",
+          "name": "AdminAddress",
+          "type": "Address"
+        },
+        {
+          "description": "The address of the contract's operator. This is not contained in the contract offer payload,  but determined by the inputs of the contract offer transaction and included here by the  smart contract agent as a convenience.\"\n",
+          "label": "Operator Address",
+          "name": "OperatorAddress",
+          "type": "Address"
         }
       ],
       "label": "Contract Formation",
@@ -1493,6 +1717,7 @@
           "example": "456789",
           "label": "Asset Revision",
           "name": "AssetRevision",
+          "notes": "Can't be changed by the administration, operator. Smart contract controls.",
           "size": 4,
           "type": "uint"
         },
@@ -1500,7 +1725,7 @@
           "description": "Timestamp in nanoseconds of when the smart contract created the action.",
           "label": "Timestamp",
           "name": "Timestamp",
-          "notes": "Cannot be changed by the administration or operator. Smart contract controls.",
+          "notes": "Can't be changed by the administration, operator. Smart contract controls.",
           "type": "Timestamp"
         }
       ],

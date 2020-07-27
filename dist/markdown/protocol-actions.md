@@ -98,12 +98,10 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>ContractType</td>
+        <td>(Deprecated)ContractType</td>
+        <td>deprecated</td>
         <td>
-            varchar(tiny)
-        </td>
-        <td>
-            Describes the purpose of the contract.
+            Deprecated for more specific type. Describes the purpose of the contract.
              Example: Shareholder Agreement
         </td>
     </tr>
@@ -175,10 +173,8 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>IssuerLogoURL</td>
-        <td>
-            varchar(tiny)
-        </td>
+        <td>(Deprecated)IssuerLogoURL</td>
+        <td>deprecated</td>
         <td>
             The URL of the issuer&#39;s logo.
              Example: https://example.com/images/logo.png
@@ -197,32 +193,26 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>ContractOperator</td>
+        <td>(Deprecated)ContractOperator</td>
+        <td>deprecated</td>
         <td>
-            <a href="#type-entity">Entity</a>
-        </td>
-        <td>
-            An additional entity with operator access to the contract.
+            Deprecated for operator entity contract address. An additional entity with operator access to the contract.
             
         </td>
     </tr>
 
     <tr>
-        <td>AdminOracle</td>
+        <td>(Deprecated)AdminIdentityOracle</td>
+        <td>deprecated</td>
         <td>
-            <a href="#type-oracle">Oracle</a>
-        </td>
-        <td>
-            The oracle that provided the signature used to verify the administration&#39;s identity.
+            The oracle that provided the signature used to verify the administration&#39;s identity and association with a parent contract if one is specified.
             
         </td>
     </tr>
 
     <tr>
-        <td>AdminOracleSignature</td>
-        <td>
-            varbin(tiny)
-        </td>
+        <td>(Deprecated)AdminIdentityOracleSignature</td>
+        <td>deprecated</td>
         <td>
             The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.
             
@@ -230,10 +220,8 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>AdminOracleSigBlockHeight</td>
-        <td>
-            uint(4)
-        </td>
+        <td>(Deprecated)AdminIdentityOracleSigBlockHeight</td>
+        <td>deprecated</td>
         <td>
             The block height of the block hash used in the oracle signature.
             
@@ -324,6 +312,61 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             The address of the contract&#39;s master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>EntityContract</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The address of the contract&#39;s parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>OperatorEntityContract</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The address for the operator&#39;s entity contract.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ContractType</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            Describes the purpose of the contract. 0 - Entity, 1 - Asset
+             Example: 0
+        </td>
+    </tr>
+
+    <tr>
+        <td>Services</td>
+        <td>
+            <a href="#type-service">Service[tiny]</a>
+        </td>
+        <td>
+            The services provided by the contract entity.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>AdminIdentityCertificates</td>
+        <td>
+            <a href="#type-admin-identity-certificate">AdminIdentityCertificate[tiny]</a>
+        </td>
+        <td>
+            Certificates providing proof of administrator/operator identities.
             
         </td>
     </tr>
@@ -426,12 +469,10 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
     </tr>
 
     <tr>
-        <td>ContractType</td>
+        <td>(Deprecated)ContractType</td>
+        <td>deprecated</td>
         <td>
-            varchar(tiny)
-        </td>
-        <td>
-            Describes the purpose of the contract.
+            Deprecated for more specific type. Describes the purpose of the contract.
              Example: Shareholder Agreement
         </td>
     </tr>
@@ -503,32 +544,26 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
     </tr>
 
     <tr>
-        <td>IssuerLogoURL</td>
+        <td>(Deprecated)IssuerLogoURL</td>
+        <td>deprecated</td>
         <td>
-            varchar(tiny)
-        </td>
-        <td>
-            The URL of the issuer&#39;s logo.
+            Deprecated for data in the issuer entity. The URL of the issuer&#39;s logo.
              Example: https://example.tld/images/logo.png
         </td>
     </tr>
 
     <tr>
-        <td>ContractOperator</td>
+        <td>(Deprecated)ContractOperator</td>
+        <td>deprecated</td>
         <td>
-            <a href="#type-entity">Entity</a>
-        </td>
-        <td>
-            An additional entity with operator access to the contract.
+            Deprecated for operator entity contract address. An additional entity with operator access to the contract.
             
         </td>
     </tr>
 
     <tr>
-        <td>AdminOracle</td>
-        <td>
-            <a href="#type-oracle">Oracle</a>
-        </td>
+        <td>(Deprecated)AdminOracle</td>
+        <td>deprecated</td>
         <td>
             The oracle that provided the signature used to verify the administration&#39;s identity.
             
@@ -536,10 +571,8 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
     </tr>
 
     <tr>
-        <td>AdminOracleSignature</td>
-        <td>
-            varbin(tiny)
-        </td>
+        <td>(Deprecated)AdminOracleSignature</td>
+        <td>deprecated</td>
         <td>
             The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.
             
@@ -547,10 +580,8 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
     </tr>
 
     <tr>
-        <td>AdminOracleSigBlockHeight</td>
-        <td>
-            uint(4)
-        </td>
+        <td>(Deprecated)AdminOracleSigBlockHeight</td>
+        <td>deprecated</td>
         <td>
             The block height of the block hash used in the oracle signature.
             
@@ -652,7 +683,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         </td>
         <td>
             A counter for the number of times this contract has been revised using an amendment action.
-            Can&#39;t be changed by the administration or smart contract operator. Example: 0
+            Can&#39;t be changed by the administration, operator. Smart contract controls. Example: 0
         </td>
     </tr>
 
@@ -663,7 +694,86 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         </td>
         <td>
             Timestamp in nanoseconds of when the smart contract created the action.
-            Cannot be changed by the administration, operator. Smart contract controls.
+            Can&#39;t be changed by the administration, operator. Smart contract controls.
+        </td>
+    </tr>
+
+    <tr>
+        <td>EntityContract</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The address of the contract&#39;s parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>OperatorEntityContract</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The address for the operator&#39;s entity contract.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ContractType</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            Describes the purpose of the contract. 0 - Entity, 1 - Asset
+             Example: 0
+        </td>
+    </tr>
+
+    <tr>
+        <td>Services</td>
+        <td>
+            <a href="#type-service">Service[tiny]</a>
+        </td>
+        <td>
+            The services provided by the contract entity.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>AdminIdentityCertificates</td>
+        <td>
+            <a href="#type-admin-identity-certificate">AdminIdentityCertificate[tiny]</a>
+        </td>
+        <td>
+            Certificates providing proof of administrator/operator identities.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>AdminAddress</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The address of the contract&#39;s administrator. This is not contained in the contract offer  payload, but determined by the inputs of the contract offer transaction and included here by  the smart contract agent as a convenience.
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>OperatorAddress</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The address of the contract&#39;s operator. This is not contained in the contract offer payload,  but determined by the inputs of the contract offer transaction and included here by the  smart contract agent as a convenience.&#34;
+
+            
         </td>
     </tr>
 
@@ -1503,7 +1613,7 @@ This action creates an asset in response to the administration&#39;s instruction
         </td>
         <td>
             A counter for the number of times this asset has been revised using a modification action.
-             Example: 456789
+            Can&#39;t be changed by the administration, operator. Smart contract controls. Example: 456789
         </td>
     </tr>
 
@@ -1514,7 +1624,7 @@ This action creates an asset in response to the administration&#39;s instruction
         </td>
         <td>
             Timestamp in nanoseconds of when the smart contract created the action.
-            Cannot be changed by the administration or operator. Smart contract controls.
+            Can&#39;t be changed by the administration, operator. Smart contract controls.
         </td>
     </tr>
 
@@ -3584,6 +3694,7 @@ Used to reject request actions that do not comply with the Contract. If money is
 
 <div class="content-list collection-method-list" markdown="1">
 - [Administrator](#type-administrator)
+- [Administrator Identity Certificate](#type-admin-identity-certificate)
 - [Amendment](#type-amendment)
 - [AssetReceiver](#type-asset-receiver)
 - [Asset Settlement](#type-asset-settlement)
@@ -3594,6 +3705,7 @@ Used to reject request actions that do not comply with the Contract. If money is
 - [Oracle](#type-oracle)
 - [Quantity Index](#type-quantity-index)
 - [Reference Transaction](#type-reference-transaction)
+- [Service](#type-service)
 - [Target Address](#type-target-address)
 - [Voting System](#type-voting-system)
 </div>
@@ -3630,6 +3742,68 @@ Administrator is used to refer to a Administration role in an Entity.
         <td>
             Length 0-255 bytes. 0 is valid.
              Example: Satoshi Nakamoto
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-admin-identity-certificate"></a>
+### Administrator Identity Certificate
+
+A certificate provided by an identity oracle to verify the administrator address is associated  with the issuer entity identification information. Also if a contract operator is provided then it verifies that the contract operator address is associated with the specified contract  operator identity information. For a child contract that references a parent entity contract the certificate verifies that the administrator address is associated with that entity contract.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>EntityContract</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The entity contract address of the service on chain that defines the identity oracle.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Signature</td>
+        <td>
+            varbin(tiny)
+        </td>
+        <td>
+            The signature provided by the oracle specified. The first input must correspond to the  administration entity and, if a contract operator is included, the second input must  correspond to the contract operator entity.&#34;
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>BlockHeight</td>
+        <td>
+            uint(4)
+        </td>
+        <td>
+            The block height of the block hash used in the oracle signature.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Expiration</td>
+        <td>
+            <a href="#alias-timestamp">Timestamp</a>
+        </td>
+        <td>
+            Oracles have the option to specify an expiration after which a new certificate should be  provided.
+
+            
         </td>
     </tr>
 
@@ -4120,13 +4294,22 @@ Entity represents the details of a legal Entity, such as a public or private com
     </tr>
 
     <tr>
-        <td>EntityContractAddress</td>
+        <td>(Deprecated)EntityContractAddress</td>
+        <td>deprecated</td>
         <td>
-            <a href="#alias-address">Address</a>
+            Deprecated for separate field in contract. Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>PaymailHandle</td>
+        <td>
+            varchar(tiny)
         </td>
         <td>
-            Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.
-            
+            Length 0-255 bytes. Handle containing an alias and domain name performing queries defined in the Paymail protocol.
+             Example: satoshi@tokenized.id
         </td>
     </tr>
 
@@ -4183,45 +4366,50 @@ A Oracle defines the details of a public Oracle.
         <th>Description</th>
     </tr>
     <tr>
-        <td>Entity</td>
+        <td>(Deprecated)Entity</td>
+        <td>deprecated</td>
         <td>
-            <a href="#type-entity">Entity</a>
-        </td>
-        <td>
-            Identifying information about the oracle.
+            Deprecated for service contract address. Identifying information about the oracle.
             
         </td>
     </tr>
 
     <tr>
-        <td>URL</td>
+        <td>(Deprecated)URL</td>
+        <td>deprecated</td>
         <td>
-            varchar(tiny)
-        </td>
-        <td>
-            Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint
+            Deprecated for service contract address. Length 0-255 bytes. 0 is valid. If applicable: URL for REST/RPC Endpoint
              Example: http://oracle.tokenized.com/api/3650d9/version2010
         </td>
     </tr>
 
     <tr>
-        <td>PublicKey</td>
+        <td>(Deprecated)PublicKey</td>
+        <td>deprecated</td>
         <td>
-            varbin(tiny)
-        </td>
-        <td>
-            Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle.
+            Deprecated for service contract address. Length 0-255 bytes. 0 is not valid. Oracle Public Key (eg. Bitcoin Public key), used to confirm digital signed proofs for transfers.  Can also be the same public address that controls a Tokenized Oracle.
             
         </td>
     </tr>
 
     <tr>
-        <td>OracleType</td>
+        <td>OracleTypes</td>
         <td>
             uint(1)[tiny]
         </td>
         <td>
             The type of the oracle. 0 = Identity, 1 = Authority, 2 = Event. More than one value can be included to specify the oracle has more than one type.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>EntityContract</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The entity contract address of the service on chain that defines the oracle.
             
         </td>
     </tr>
@@ -4296,6 +4484,61 @@ A bitcoin transaction and the outputs that it spends.
         </td>
         <td>
             The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P format. There must be the same count as there are inputs in the contained transaction and they must be in the same order.
+            
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-service"></a>
+### Service
+
+A definition of a service provided by an identity oracle to verify the administrator address is associated  with the issuer entity identification information. Also if a contract operator is provided then it verifies that the contract operator address is associated with the specified contract  operator identity information. For a child contract that references a parent entity contract the certificate verifies that the administrator address is associated with that entity contract.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            Describes the type of service.
+  0 - Identity Oracle
+  1 - Authority Oracle
+  2 - Event Oracle
+  3 - Contract Operator
+
+             Example: 0
+        </td>
+    </tr>
+
+    <tr>
+        <td>URL</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            The base URL of the service. For each service type there are predefined methods for  determining the specific endpoints.
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>PublicKey</td>
+        <td>
+            <a href="#alias-public-key">PublicKey</a>
+        </td>
+        <td>
+            The public key used to verify and authorize the service.
             
         </td>
     </tr>
@@ -4539,6 +4782,16 @@ A VotingSystem defines all details of a Voting System.
             <td>
                 Represents a Bitcoin transaction ID, the double SHA256 hash of the serialized transaction.
                  Example: 9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506
+            </td>
+        </tr>
+        <tr id="alias-public-key">
+            <td>PublicKey</td>
+            <td>
+                bin(33)
+            </td>
+            <td>
+                Represents a compressed public key.
+                 Example: 027fed903fe7d94a7a5bab491fb728aebcc74260840c0b3d4dadb870cd34ffbfc4
             </td>
         </tr>
 </table>

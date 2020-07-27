@@ -1,0 +1,39 @@
+
+name: Service
+label: Service
+description: >
+  A definition of a service provided by an identity oracle to verify the administrator address is associated 
+  with the issuer entity identification information. Also if a contract operator is provided then
+  it verifies that the contract operator address is associated with the specified contract 
+  operator identity information. For a child contract that references a parent entity contract
+  the certificate verifies that the administrator address is associated with that entity contract.
+
+fields:
+  - name: Type
+    label: Type
+    description: |
+      Describes the type of service.
+        0 - Identity Oracle
+        1 - Authority Oracle
+        2 - Event Oracle
+        3 - Contract Operator
+    type: uint
+    size: 1
+    options:
+      - 0
+      - 1
+      - 2
+      - 3
+    example: 0
+
+  - name: URL
+    label: URL
+    description: >
+      The base URL of the service. For each service type there are predefined methods for 
+      determining the specific endpoints.
+    type: varchar
+
+  - name: PublicKey
+    label: Public Key
+    description: The public key used to verify and authorize the service.
+    type: PublicKey

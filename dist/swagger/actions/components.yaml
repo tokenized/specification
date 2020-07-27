@@ -54,6 +54,8 @@ components:
       $ref: ./_components/schemas/tokenized/actions/Rejection.yaml
     AdministratorField:
       $ref: ./_components/schemas/tokenized/actions/AdministratorField.yaml
+    AdminIdentityCertificateField:
+      $ref: ./_components/schemas/tokenized/actions/AdminIdentityCertificateField.yaml
     AmendmentField:
       $ref: ./_components/schemas/tokenized/actions/AmendmentField.yaml
     AssetReceiverField:
@@ -74,6 +76,8 @@ components:
       $ref: ./_components/schemas/tokenized/actions/QuantityIndexField.yaml
     ReferenceTransactionField:
       $ref: ./_components/schemas/tokenized/actions/ReferenceTransactionField.yaml
+    ServiceField:
+      $ref: ./_components/schemas/tokenized/actions/ServiceField.yaml
     TargetAddressField:
       $ref: ./_components/schemas/tokenized/actions/TargetAddressField.yaml
     VotingSystemField:

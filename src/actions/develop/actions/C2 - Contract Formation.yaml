@@ -52,8 +52,8 @@ fields:
 
   - name: ContractType
     label: Contract Type
-    description: "Describes the purpose of the contract."
-    type: varchar
+    description: "Deprecated for more specific type. Describes the purpose of the contract."
+    type: deprecated
     example: "Shareholder Agreement"
 
   - name: SupportingDocs
@@ -93,32 +93,36 @@ fields:
     label: Issuer
     description: "The issuer of this contract."
     type: Entity
+    only_valid_when:
+      field_name: ContractType
+      values:
+        - 0
 
   - name: IssuerLogoURL
     label: Issuer Logo URL
-    description: "The URL of the issuer's logo."
-    type: varchar
+    description: "Deprecated for data in the issuer entity. The URL of the issuer's logo."
+    type: deprecated
     example: "https://example.tld/images/logo.png"
 
   - name: ContractOperator
     label: Contract Operator
-    description: "An additional entity with operator access to the contract."
-    type: Entity
+    description: "Deprecated for operator entity contract address. An additional entity with operator access to the contract."
+    type: deprecated
 
   - name: AdminOracle
     label: Administration Oracle
-    type: Oracle
+    type: deprecated
     description: "The oracle that provided the signature used to verify the administration's identity."
 
   - name: AdminOracleSignature
     label: Administration Oracle Signature
-    type: varbin
+    type: deprecated
     description: "The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity."
 
   - name: AdminOracleSigBlockHeight
     label: Administration Oracle Signature Block height
     description: The block height of the block hash used in the oracle signature.
-    type: uint
+    type: deprecated
     size: 4
 
   - name: ContractFee
@@ -175,10 +179,68 @@ fields:
     type: uint
     size: 4
     example: "0"
-    notes: "Can't be changed by the administration or smart contract operator."
+    notes: "Can't be changed by the administration, operator. Smart contract controls."
 
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    notes: "Cannot be changed by the administration, operator. Smart contract controls."
+    notes: "Can't be changed by the administration, operator. Smart contract controls."
+
+  - name: EntityContract
+    label: Entity Contract
+    description: "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract."
+    type: Address
+    only_valid_when:
+      field_name: ContractType
+      values:
+        - 1
+    required_when:
+      field_name: ContractType
+      values:
+        - 1
+
+  - name: OperatorEntityContract
+    label: Operator Entity Contract
+    description: "The address for the operator's entity contract."
+    type: Address
+
+  - name: ContractType
+    label: Contract Type
+    description: "Describes the purpose of the contract. 0 - Entity, 1 - Asset"
+    type: uint 
+    size: 1
+    options:
+      - 0
+      - 1
+    example: 0
+
+  - name: Services
+    label: Services
+    description: The services provided by the contract entity.
+    type: Service[]
+    only_valid_when:
+      field_name: ContractType
+      values:
+        - 0
+
+  - name: AdminIdentityCertificates
+    label: Administrator Identity Certificates
+    description: "Certificates providing proof of administrator/operator identities."
+    type: AdminIdentityCertificate[]
+
+  - name: AdminAddress
+    label: Administrator Address
+    description: >
+      The address of the contract's administrator. This is not contained in the contract offer 
+      payload, but determined by the inputs of the contract offer transaction and included here by 
+      the smart contract agent as a convenience.
+    type: Address
+
+  - name: OperatorAddress
+    label: Operator Address
+    description: >
+      The address of the contract's operator. This is not contained in the contract offer payload, 
+      but determined by the inputs of the contract offer transaction and included here by the 
+      smart contract agent as a convenience."
+    type: Address
