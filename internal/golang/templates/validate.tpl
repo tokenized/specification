@@ -54,6 +54,20 @@ const (
             if {{ .BaseResource }}Data(v) == nil {
                 return fmt.Errorf("{{ .Name }}[%d] resource {{ .BaseResource }} value not defined : %v", i, v)
             }
+        {{- else if .IsAlias }}
+            {{- if eq .AliasField.Name "Address" }}
+            if len(v) > 0 {
+                if err := AddressIsValid(v); err != nil {
+                    return errors.Wrap(err, fmt.Sprintf("{{ .Name }}[%d]", i))
+                }
+            }
+            {{- else if eq .AliasField.Name "PublicKey" }}
+            if len(v) > 0 {
+                if err := PublicKeyIsValid(v); err != nil {
+                    return errors.Wrap(err, fmt.Sprintf("{{ .Name }}[%d]", i))
+                }
+            }
+            {{- end }}
         {{- end }}
         {{- if eq .BaseType "fixedchar" "bin" }}
             if len(v) != 0 && len(v) != {{ .BaseSize }} {
@@ -109,7 +123,22 @@ const (
             if {{ .BaseResource }}Data(a.{{ .Name }}) == nil {
                 return fmt.Errorf("{{ .Name }} resource {{ .BaseResource }} value not defined : %v", a.{{ .Name }})
             }
+        {{- else if .IsAlias }}
+            {{- if eq .AliasField.Name "Address" }}
+        if len(a.{{ .Name }}) > 0 {
+            if err := AddressIsValid(a.{{ .Name }}); err != nil {
+                return errors.Wrap(err, "{{ .Name }}")
+            }
+        }
+            {{- else if eq .AliasField.Name "PublicKey" }}
+        if len(a.{{ .Name }}) > 0 {
+            if err := PublicKeyIsValid(a.{{ .Name }}); err != nil {
+                return errors.Wrap(err, "{{ .Name }}")
+            }
+        }
+            {{- end }}
         {{- end }}
+
         {{- if eq .BaseType "fixedchar" "bin" }}
         if len(a.{{ .Name }}) != 0 && len(a.{{ .Name }}) != {{ .BaseSize }} {
             return fmt.Errorf("{{ .Name }} fixed width field wrong size : %d should be %d",
@@ -237,3 +266,16 @@ func (a *{{.Name}}Field) Validate() error {
     return nil
 }
 {{ end }}
+
+// AddressIsValid returns true if an "Address" alias field is valid.
+func AddressIsValid(b []byte) error {
+    _, err := bitcoin.DecodeRawAddress(b)
+    return err
+}
+
+// PublicKeyIsValid returns true if a "PublicKey" alias field is valid.
+func PublicKeyIsValid(b []byte) error {
+    _, err := bitcoin.PublicKeyFromBytes(b)
+    return err
+}
+

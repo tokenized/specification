@@ -20,7 +20,6 @@ type Field struct {
 	OnlyValidWhen  *RelatedFieldValues `yaml:"only_valid_when"` // specifies a field is only valid when another field has specific values
 	RequiredWhen    *RelatedFieldValues `yaml:"required_when"` // specifies a field is required when another field has specific values
 	Resource       string     `yaml:"resource"`
-	IsAlias        bool       `yaml:"is_alias"`
 	IsCompoundType bool       `yaml:"is_compound_type"`
 	AliasField     *Field     `yaml:"-"`
 	CompoundField  *FieldType `yaml:"-"`
@@ -62,6 +61,11 @@ func (f *Field) IsPrimitive() bool {
 // IsList returns true if the field is a list of objects.
 func (f *Field) IsList() bool {
 	return strings.HasSuffix(f.Type, "[]")
+}
+
+// IsAlias returns true if the field has an alias type.
+func (f *Field) IsAlias() bool {
+	return f.AliasField != nil
 }
 
 func (f *Field) HasOnlyValidWhen() bool {
@@ -151,7 +155,7 @@ func (f *Field) GoSingularType() string {
 	gt := f.BaseType()
 
 	if f.AliasField != nil {
-		gt = f.AliasField.ProtobufType()
+		gt = f.AliasField.GoSingularType()
 	} else {
 		switch gt {
 		case "varchar", "fixedchar":

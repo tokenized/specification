@@ -86,7 +86,7 @@ func fetchFieldExample(field parser.Field) interface{} {
 
 	if len(field.Example) > 0 {
 		result = field.Example
-	} else if field.IsAlias {
+	} else if field.IsAlias() {
 		result = fetchFieldExample(*field.AliasField)
 	}
 

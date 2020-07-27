@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/pkg/errors"
+	"github.com/tokenized/pkg/bitcoin"
 )
 
 const (
@@ -380,6 +381,11 @@ func (a *ChannelPartyField) Validate() error {
 	}
 
 	// Field AdministrativeAddress - varbin
+	if len(a.AdministrativeAddress) > 0 {
+		if err := AddressIsValid(a.AdministrativeAddress); err != nil {
+			return errors.Wrap(err, "AdministrativeAddress")
+		}
+	}
 	if len(a.AdministrativeAddress) > max2ByteInteger {
 		return fmt.Errorf("AdministrativeAddress over max size : %d > %d", len(a.AdministrativeAddress), max2ByteInteger)
 	}
@@ -662,6 +668,11 @@ func (a *TargetAddressField) Validate() error {
 	}
 
 	// Field Address - varbin
+	if len(a.Address) > 0 {
+		if err := AddressIsValid(a.Address); err != nil {
+			return errors.Wrap(err, "Address")
+		}
+	}
 	if len(a.Address) > max2ByteInteger {
 		return fmt.Errorf("Address over max size : %d > %d", len(a.Address), max2ByteInteger)
 	}
@@ -669,4 +680,16 @@ func (a *TargetAddressField) Validate() error {
 	// Field Quantity - uint
 
 	return nil
+}
+
+// AddressIsValid returns true if an "Address" alias field is valid.
+func AddressIsValid(b []byte) error {
+	_, err := bitcoin.DecodeRawAddress(b)
+	return err
+}
+
+// PublicKeyIsValid returns true if a "PublicKey" alias field is valid.
+func PublicKeyIsValid(b []byte) error {
+	_, err := bitcoin.PublicKeyFromBytes(b)
+	return err
 }

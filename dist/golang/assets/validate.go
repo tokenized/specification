@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/pkg/errors"
+	"github.com/tokenized/pkg/bitcoin"
 )
 
 const (
@@ -256,4 +257,16 @@ func (a *AgeRestrictionField) Validate() error {
 	}
 
 	return nil
+}
+
+// AddressIsValid returns true if an "Address" alias field is valid.
+func AddressIsValid(b []byte) error {
+	_, err := bitcoin.DecodeRawAddress(b)
+	return err
+}
+
+// PublicKeyIsValid returns true if a "PublicKey" alias field is valid.
+func PublicKeyIsValid(b []byte) error {
+	_, err := bitcoin.PublicKeyFromBytes(b)
+	return err
 }

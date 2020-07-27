@@ -293,7 +293,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return append(fip[:1], fip[2:]...), nil
 		}
 
-	case ContractFieldMasterAddress: // bytes
+	case ContractFieldMasterAddress: // []byte
 		a.MasterAddress = data
 		return fip[:], nil
 
@@ -321,11 +321,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		}
 		return fip[:], nil
 
-	case ContractFieldEntityContract: // bytes
+	case ContractFieldEntityContract: // []byte
 		a.EntityContract = data
 		return fip[:], nil
 
-	case ContractFieldOperatorEntityContract: // bytes
+	case ContractFieldOperatorEntityContract: // []byte
 		a.OperatorEntityContract = data
 		return fip[:], nil
 
@@ -425,11 +425,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return append(fip[:1], fip[2:]...), nil
 		}
 
-	case ContractFieldAdminAddress: // bytes
+	case ContractFieldAdminAddress: // []byte
 		a.AdminAddress = data
 		return fip[:], nil
 
-	case ContractFieldOperatorAddress: // bytes
+	case ContractFieldOperatorAddress: // []byte
 		a.OperatorAddress = data
 		return fip[:], nil
 
@@ -467,7 +467,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 	}
 
 	switch fip[0] {
-	case AssetFieldAssetCode: // bytes
+	case AssetFieldAssetCode: // []byte
 		if len(data) != 0 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 0)
 		}
@@ -720,7 +720,7 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 	}
 
 	switch fip[0] {
-	case AdminIdentityCertificateFieldEntityContract: // bytes
+	case AdminIdentityCertificateFieldEntityContract: // []byte
 		a.EntityContract = data
 		return fip[:], nil
 
@@ -817,7 +817,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	}
 
 	switch fip[0] {
-	case AssetReceiverFieldAddress: // bytes
+	case AssetReceiverFieldAddress: // []byte
 		a.Address = data
 		return fip[:], nil
 
@@ -911,7 +911,7 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 		a.AssetType = string(data)
 		return fip[:], nil
 
-	case AssetSettlementFieldAssetCode: // bytes
+	case AssetSettlementFieldAssetCode: // []byte
 		if len(data) != 0 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 0)
 		}
@@ -999,7 +999,7 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		a.AssetType = string(data)
 		return fip[:], nil
 
-	case AssetTransferFieldAssetCode: // bytes
+	case AssetTransferFieldAssetCode: // []byte
 		if len(data) != 0 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 0)
 		}
@@ -1418,7 +1418,7 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 			return append(fip[:1], fip[2:]...), nil
 		}
 
-	case OracleFieldEntityContract: // bytes
+	case OracleFieldEntityContract: // []byte
 		a.EntityContract = data
 		return fip[:], nil
 
@@ -1563,7 +1563,7 @@ func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 		a.URL = string(data)
 		return fip[:], nil
 
-	case ServiceFieldPublicKey: // bytes
+	case ServiceFieldPublicKey: // []byte
 		if len(data) != 0 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 0)
 		}
@@ -1590,7 +1590,7 @@ func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	}
 
 	switch fip[0] {
-	case TargetAddressFieldAddress: // bytes
+	case TargetAddressFieldAddress: // []byte
 		a.Address = data
 		return fip[:], nil
 

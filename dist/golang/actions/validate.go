@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/pkg/errors"
+	"github.com/tokenized/pkg/bitcoin"
 )
 
 const (
@@ -119,11 +120,21 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field MasterAddress - varbin
+	if len(a.MasterAddress) > 0 {
+		if err := AddressIsValid(a.MasterAddress); err != nil {
+			return errors.Wrap(err, "MasterAddress")
+		}
+	}
 	if len(a.MasterAddress) > max2ByteInteger {
 		return fmt.Errorf("MasterAddress over max size : %d > %d", len(a.MasterAddress), max2ByteInteger)
 	}
 
 	// Field EntityContract - varbin
+	if len(a.EntityContract) > 0 {
+		if err := AddressIsValid(a.EntityContract); err != nil {
+			return errors.Wrap(err, "EntityContract")
+		}
+	}
 	validValueFoundEntityContract := false
 	for _, v := range []uint32{1} {
 		if a.ContractType == v {
@@ -149,6 +160,11 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field OperatorEntityContract - varbin
+	if len(a.OperatorEntityContract) > 0 {
+		if err := AddressIsValid(a.OperatorEntityContract); err != nil {
+			return errors.Wrap(err, "OperatorEntityContract")
+		}
+	}
 	validValueFoundOperatorEntityContract := false
 	for _, v := range []bool{true} {
 		if a.ContractOperatorIncluded == v {
@@ -313,6 +329,11 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field MasterAddress - varbin
+	if len(a.MasterAddress) > 0 {
+		if err := AddressIsValid(a.MasterAddress); err != nil {
+			return errors.Wrap(err, "MasterAddress")
+		}
+	}
 	if len(a.MasterAddress) > max2ByteInteger {
 		return fmt.Errorf("MasterAddress over max size : %d > %d", len(a.MasterAddress), max2ByteInteger)
 	}
@@ -322,6 +343,11 @@ func (a *ContractFormation) Validate() error {
 	// Field Timestamp - uint
 
 	// Field EntityContract - varbin
+	if len(a.EntityContract) > 0 {
+		if err := AddressIsValid(a.EntityContract); err != nil {
+			return errors.Wrap(err, "EntityContract")
+		}
+	}
 	validValueFoundEntityContract := false
 	for _, v := range []uint32{1} {
 		if a.ContractType == v {
@@ -347,6 +373,11 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field OperatorEntityContract - varbin
+	if len(a.OperatorEntityContract) > 0 {
+		if err := AddressIsValid(a.OperatorEntityContract); err != nil {
+			return errors.Wrap(err, "OperatorEntityContract")
+		}
+	}
 	if len(a.OperatorEntityContract) > max2ByteInteger {
 		return fmt.Errorf("OperatorEntityContract over max size : %d > %d", len(a.OperatorEntityContract), max2ByteInteger)
 	}
@@ -394,11 +425,21 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field AdminAddress - varbin
+	if len(a.AdminAddress) > 0 {
+		if err := AddressIsValid(a.AdminAddress); err != nil {
+			return errors.Wrap(err, "AdminAddress")
+		}
+	}
 	if len(a.AdminAddress) > max2ByteInteger {
 		return fmt.Errorf("AdminAddress over max size : %d > %d", len(a.AdminAddress), max2ByteInteger)
 	}
 
 	// Field OperatorAddress - varbin
+	if len(a.OperatorAddress) > 0 {
+		if err := AddressIsValid(a.OperatorAddress); err != nil {
+			return errors.Wrap(err, "OperatorAddress")
+		}
+	}
 	if len(a.OperatorAddress) > max2ByteInteger {
 		return fmt.Errorf("OperatorAddress over max size : %d > %d", len(a.OperatorAddress), max2ByteInteger)
 	}
@@ -544,6 +585,11 @@ func (a *ContractAddressChange) Validate() error {
 	}
 
 	// Field NewContractAddress - varbin
+	if len(a.NewContractAddress) > 0 {
+		if err := AddressIsValid(a.NewContractAddress); err != nil {
+			return errors.Wrap(err, "NewContractAddress")
+		}
+	}
 	if len(a.NewContractAddress) > max2ByteInteger {
 		return fmt.Errorf("NewContractAddress over max size : %d > %d", len(a.NewContractAddress), max2ByteInteger)
 	}
@@ -757,6 +803,11 @@ func (a *Transfer) Validate() error {
 	// Field ExchangeFee - uint
 
 	// Field ExchangeFeeAddress - varbin
+	if len(a.ExchangeFeeAddress) > 0 {
+		if err := AddressIsValid(a.ExchangeFeeAddress); err != nil {
+			return errors.Wrap(err, "ExchangeFeeAddress")
+		}
+	}
 	if len(a.ExchangeFeeAddress) > max2ByteInteger {
 		return fmt.Errorf("ExchangeFeeAddress over max size : %d > %d", len(a.ExchangeFeeAddress), max2ByteInteger)
 	}
@@ -996,6 +1047,11 @@ func (a *Order) Validate() error {
 	// Field FreezePeriod - uint
 
 	// Field DepositAddress - varbin
+	if len(a.DepositAddress) > 0 {
+		if err := AddressIsValid(a.DepositAddress); err != nil {
+			return errors.Wrap(err, "DepositAddress")
+		}
+	}
 	if len(a.DepositAddress) > max2ByteInteger {
 		return fmt.Errorf("DepositAddress over max size : %d > %d", len(a.DepositAddress), max2ByteInteger)
 	}
@@ -1340,6 +1396,11 @@ func (a *AdminIdentityCertificateField) Validate() error {
 	}
 
 	// Field EntityContract - varbin
+	if len(a.EntityContract) > 0 {
+		if err := AddressIsValid(a.EntityContract); err != nil {
+			return errors.Wrap(err, "EntityContract")
+		}
+	}
 	if len(a.EntityContract) > max2ByteInteger {
 		return fmt.Errorf("EntityContract over max size : %d > %d", len(a.EntityContract), max2ByteInteger)
 	}
@@ -1392,6 +1453,11 @@ func (a *AssetReceiverField) Validate() error {
 	}
 
 	// Field Address - varbin
+	if len(a.Address) > 0 {
+		if err := AddressIsValid(a.Address); err != nil {
+			return errors.Wrap(err, "Address")
+		}
+	}
 	if len(a.Address) > max2ByteInteger {
 		return fmt.Errorf("Address over max size : %d > %d", len(a.Address), max2ByteInteger)
 	}
@@ -1678,6 +1744,11 @@ func (a *OracleField) Validate() error {
 	}
 
 	// Field EntityContract - varbin
+	if len(a.EntityContract) > 0 {
+		if err := AddressIsValid(a.EntityContract); err != nil {
+			return errors.Wrap(err, "EntityContract")
+		}
+	}
 	if len(a.EntityContract) > max2ByteInteger {
 		return fmt.Errorf("EntityContract over max size : %d > %d", len(a.EntityContract), max2ByteInteger)
 	}
@@ -1741,6 +1812,11 @@ func (a *ServiceField) Validate() error {
 	}
 
 	// Field PublicKey - bin
+	if len(a.PublicKey) > 0 {
+		if err := PublicKeyIsValid(a.PublicKey); err != nil {
+			return errors.Wrap(err, "PublicKey")
+		}
+	}
 	if len(a.PublicKey) != 0 && len(a.PublicKey) != 33 {
 		return fmt.Errorf("PublicKey fixed width field wrong size : %d should be %d",
 			len(a.PublicKey), 33)
@@ -1755,6 +1831,11 @@ func (a *TargetAddressField) Validate() error {
 	}
 
 	// Field Address - varbin
+	if len(a.Address) > 0 {
+		if err := AddressIsValid(a.Address); err != nil {
+			return errors.Wrap(err, "Address")
+		}
+	}
 	if len(a.Address) > max2ByteInteger {
 		return fmt.Errorf("Address over max size : %d > %d", len(a.Address), max2ByteInteger)
 	}
@@ -1795,4 +1876,16 @@ func (a *VotingSystemField) Validate() error {
 	// Field HolderProposalFee - uint
 
 	return nil
+}
+
+// AddressIsValid returns true if an "Address" alias field is valid.
+func AddressIsValid(b []byte) error {
+	_, err := bitcoin.DecodeRawAddress(b)
+	return err
+}
+
+// PublicKeyIsValid returns true if a "PublicKey" alias field is valid.
+func PublicKeyIsValid(b []byte) error {
+	_, err := bitcoin.PublicKeyFromBytes(b)
+	return err
 }
