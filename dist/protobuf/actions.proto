@@ -335,6 +335,7 @@ message AssetReceiverField {
     uint32 OracleIndex                             = 4;   // uint
     bytes OracleConfirmationSig                    = 5;   // varbin
     uint32 OracleSigBlockHeight                    = 6;   // uint
+    uint64 OracleSigExpiry                         = 7;   // Timestamp
 }
 
 // Field - Asset Settlement

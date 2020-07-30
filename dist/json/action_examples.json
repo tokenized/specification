@@ -380,6 +380,7 @@
               "OracleIndex": null,
               "OracleSigAlgorithm": "1",
               "OracleSigBlockHeight": null,
+              "OracleSigExpiry": "1594668650000000000",
               "Quantity": "100"
             }
           ],

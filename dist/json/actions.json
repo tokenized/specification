@@ -231,6 +231,12 @@
           "name": "OracleSigBlockHeight",
           "size": 4,
           "type": "uint"
+        },
+        {
+          "description": "This specifies the time at which the Oracle signature expires.",
+          "label": "Oracle Signature Expiry",
+          "name": "OracleSigExpiry",
+          "type": "Timestamp"
         }
       ],
       "label": "AssetReceiver",

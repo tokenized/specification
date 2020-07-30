@@ -1743,6 +1743,11 @@ func (l *AssetReceiverField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("OracleSigBlockHeight integer mismatched")
 	}
 
+	// Field OracleSigExpiry - uint
+	if c.OracleSigExpiry != r.OracleSigExpiry {
+		return false // fmt.Errorf("OracleSigExpiry integer mismatched")
+	}
+
 	return true
 }
 

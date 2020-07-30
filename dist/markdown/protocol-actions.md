@@ -3936,6 +3936,17 @@ An AssetReceiver is a quantity, address, and oracle signature. The quantity coul
         </td>
     </tr>
 
+    <tr>
+        <td>OracleSigExpiry</td>
+        <td>
+            <a href="#alias-timestamp">Timestamp</a>
+        </td>
+        <td>
+            This specifies the time at which the Oracle signature expires.
+            
+        </td>
+    </tr>
+
 </table>
 
 

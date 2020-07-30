@@ -35,4 +35,8 @@ properties:
   OracleSigBlockHeight:
     description: The block height of the block hash used in the oracle signature.
     type: number
+  OracleSigExpiry:
+    description: This specifies the time at which the Oracle signature expires.
+    type: number
+    example: 1594668650000000000
 

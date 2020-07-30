@@ -1488,6 +1488,8 @@ func (a *AssetReceiverField) Validate() error {
 
 	// Field OracleSigBlockHeight - uint
 
+	// Field OracleSigExpiry - uint
+
 	return nil
 }
 
