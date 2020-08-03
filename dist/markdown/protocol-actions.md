@@ -3775,7 +3775,7 @@ A certificate provided by an identity oracle to verify the administrator address
     <tr>
         <td>Signature</td>
         <td>
-            varbin(tiny)
+            <a href="#alias-signature">Signature</a>
         </td>
         <td>
             The signature provided by the oracle specified. The first input must correspond to the  administration entity and, if a contract operator is included, the second input must  correspond to the contract operator entity.&#34;
@@ -3917,7 +3917,7 @@ An AssetReceiver is a quantity, address, and oracle signature. The quantity coul
     <tr>
         <td>OracleConfirmationSig</td>
         <td>
-            varbin(tiny)
+            <a href="#alias-signature">Signature</a>
         </td>
         <td>
             Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA&#43;secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.
@@ -4803,6 +4803,16 @@ A VotingSystem defines all details of a Voting System.
             <td>
                 Represents a compressed public key.
                  Example: 027fed903fe7d94a7a5bab491fb728aebcc74260840c0b3d4dadb870cd34ffbfc4
+            </td>
+        </tr>
+        <tr id="alias-signature">
+            <td>Signature</td>
+            <td>
+                varbin(tiny)
+            </td>
+            <td>
+                Represents a DER encoded elliptic curve signature.
+                 Example: 3044022036164b0c724e6f19e234306444a11631b2f8e47d05468a099928adce0dead62102205138a635827d61915483e7ca1a53b37975a9aa0617c78ef7ac199d94742c36cf
             </td>
         </tr>
 </table>

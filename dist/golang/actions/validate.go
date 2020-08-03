@@ -1406,6 +1406,11 @@ func (a *AdminIdentityCertificateField) Validate() error {
 	}
 
 	// Field Signature - varbin
+	if len(a.Signature) > 0 {
+		if err := SignatureIsValid(a.Signature); err != nil {
+			return errors.Wrap(err, "Signature")
+		}
+	}
 	if len(a.Signature) > max1ByteInteger {
 		return fmt.Errorf("Signature over max size : %d > %d", len(a.Signature), max1ByteInteger)
 	}
@@ -1482,6 +1487,11 @@ func (a *AssetReceiverField) Validate() error {
 	}
 
 	// Field OracleConfirmationSig - varbin
+	if len(a.OracleConfirmationSig) > 0 {
+		if err := SignatureIsValid(a.OracleConfirmationSig); err != nil {
+			return errors.Wrap(err, "OracleConfirmationSig")
+		}
+	}
 	if len(a.OracleConfirmationSig) > max1ByteInteger {
 		return fmt.Errorf("OracleConfirmationSig over max size : %d > %d", len(a.OracleConfirmationSig), max1ByteInteger)
 	}
@@ -1889,5 +1899,11 @@ func AddressIsValid(b []byte) error {
 // PublicKeyIsValid returns true if a "PublicKey" alias field is valid.
 func PublicKeyIsValid(b []byte) error {
 	_, err := bitcoin.PublicKeyFromBytes(b)
+	return err
+}
+
+// SignatureIsValid returns true if a "Signature" alias field is valid.
+func SignatureIsValid(b []byte) error {
+	_, err := bitcoin.SignatureFromBytes(b)
 	return err
 }
