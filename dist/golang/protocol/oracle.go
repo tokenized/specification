@@ -46,27 +46,23 @@ func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 // When a contract provides the EntityContract address instead of an Issuer entity, then that
 // address is written into the hash instead of the Issuer entity.
 // If there is an operator then the OperatorEntityContract address is written into the hash.
-func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddresses []bitcoin.RawAddress,
-	entities []interface{}, blockHash *bitcoin.Hash32, approved uint8) ([]byte, error) {
+func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddress bitcoin.RawAddress,
+	entity interface{}, blockHash *bitcoin.Hash32, approved uint8) ([]byte, error) {
 
 	// Calculate the hash
 	digest := sha256.New()
 
-	for _, admin := range adminAddresses {
-		digest.Write(admin.Bytes())
-	}
-	for _, entity := range entities {
-		switch e := entity.(type) {
-		case *actions.EntityField:
-			data, err := proto.Marshal(e)
-			if err != nil {
-				return nil, errors.Wrap(err, "serialize entity")
-			}
-			digest.Write(data)
-		case bitcoin.RawAddress:
-			if err := e.Serialize(digest); err != nil {
-				return nil, errors.Wrap(err, "serialize entity raw address")
-			}
+	digest.Write(adminAddress.Bytes())
+	switch e := entity.(type) {
+	case *actions.EntityField:
+		data, err := proto.Marshal(e)
+		if err != nil {
+			return nil, errors.Wrap(err, "serialize entity")
+		}
+		digest.Write(data)
+	case bitcoin.RawAddress:
+		if err := e.Serialize(digest); err != nil {
+			return nil, errors.Wrap(err, "serialize entity raw address")
 		}
 	}
 	digest.Write(blockHash[:])
