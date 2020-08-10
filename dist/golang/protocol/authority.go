@@ -6,7 +6,6 @@ import (
 	"encoding/binary"
 
 	"github.com/tokenized/pkg/bitcoin"
-
 	"github.com/tokenized/specification/dist/golang/actions"
 
 	"github.com/golang/protobuf/proto"
