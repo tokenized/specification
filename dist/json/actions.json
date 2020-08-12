@@ -88,6 +88,13 @@
       "name": "PublicKey",
       "size": 33,
       "type": "bin"
+    },
+    {
+      "description": "Represents a DER encoded elliptic curve signature.",
+      "example": "3044022036164b0c724e6f19e234306444a11631b2f8e47d05468a099928adce0dead62102205138a635827d61915483e7ca1a53b37975a9aa0617c78ef7ac199d94742c36cf",
+      "name": "Signature",
+      "type": "varbin",
+      "varSize": "tiny"
     }
   ],
   "fieldTypes": [
@@ -125,7 +132,7 @@
           "description": "The signature provided by the oracle specified. The first input must correspond to the  administration entity and, if a contract operator is included, the second input must  correspond to the contract operator entity.\"\n",
           "label": "Signature",
           "name": "Signature",
-          "type": "varbin"
+          "type": "Signature"
         },
         {
           "description": "The block height of the block hash used in the oracle signature.",
@@ -223,7 +230,7 @@
           "description": "Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.",
           "label": "Oracle Confirmation Signature",
           "name": "OracleConfirmationSig",
-          "type": "varbin"
+          "type": "Signature"
         },
         {
           "description": "The block height of the block hash used in the oracle signature.",
@@ -231,6 +238,12 @@
           "name": "OracleSigBlockHeight",
           "size": 4,
           "type": "uint"
+        },
+        {
+          "description": "This specifies the time at which the Oracle signature expires.",
+          "label": "Oracle Signature Expiry",
+          "name": "OracleSigExpiry",
+          "type": "Timestamp"
         }
       ],
       "label": "AssetReceiver",

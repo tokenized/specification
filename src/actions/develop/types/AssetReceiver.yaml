@@ -35,10 +35,15 @@ fields:
   - name: OracleConfirmationSig
     label: Oracle Confirmation Signature
     description: "Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field."
-    type: varbin
+    type: Signature
 
   - name: OracleSigBlockHeight
     label: Oracle Signature Block height
     description: The block height of the block hash used in the oracle signature.
     type: uint
     size: 4
+
+  - name: OracleSigExpiry
+    label: Oracle Signature Expiry
+    description: "This specifies the time at which the Oracle signature expires."
+    type: Timestamp

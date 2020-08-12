@@ -11637,7 +11637,8 @@ proto.actions.AssetReceiverField.toObject = function(includeInstance, msg) {
     oraclesigalgorithm: jspb.Message.getFieldWithDefault(msg, 3, 0),
     oracleindex: jspb.Message.getFieldWithDefault(msg, 4, 0),
     oracleconfirmationsig: msg.getOracleconfirmationsig_asB64(),
-    oraclesigblockheight: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    oraclesigblockheight: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    oraclesigexpiry: jspb.Message.getFieldWithDefault(msg, 7, 0)
   };
 
   if (includeInstance) {
@@ -11697,6 +11698,10 @@ proto.actions.AssetReceiverField.deserializeBinaryFromReader = function(msg, rea
     case 6:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setOraclesigblockheight(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setOraclesigexpiry(value);
       break;
     default:
       reader.skipField();
@@ -11766,6 +11771,13 @@ proto.actions.AssetReceiverField.serializeBinaryToWriter = function(message, wri
   if (f !== 0) {
     writer.writeUint32(
       6,
+      f
+    );
+  }
+  f = message.getOraclesigexpiry();
+  if (f !== 0) {
+    writer.writeUint64(
+      7,
       f
     );
   }
@@ -11925,6 +11937,24 @@ proto.actions.AssetReceiverField.prototype.getOraclesigblockheight = function() 
  */
 proto.actions.AssetReceiverField.prototype.setOraclesigblockheight = function(value) {
   return jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
+ * optional uint64 OracleSigExpiry = 7;
+ * @return {number}
+ */
+proto.actions.AssetReceiverField.prototype.getOraclesigexpiry = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.actions.AssetReceiverField} returns this
+ */
+proto.actions.AssetReceiverField.prototype.setOraclesigexpiry = function(value) {
+  return jspb.Message.setProto3IntField(this, 7, value);
 };
 
 

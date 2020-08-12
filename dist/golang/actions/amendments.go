@@ -806,6 +806,7 @@ const (
 	AssetReceiverFieldOracleIndex           = uint32(4)
 	AssetReceiverFieldOracleConfirmationSig = uint32(5)
 	AssetReceiverFieldOracleSigBlockHeight  = uint32(6)
+	AssetReceiverFieldOracleSigExpiry       = uint32(7)
 )
 
 // ApplyAmendment updates a AssetReceiverField based on amendment data.
@@ -870,6 +871,18 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("OracleSigBlockHeight amendment value failed to deserialize : %s", err)
 		} else {
 			a.OracleSigBlockHeight = uint32(value)
+		}
+		return fip[:], nil
+
+	case AssetReceiverFieldOracleSigExpiry: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigExpiry : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("OracleSigExpiry amendment value failed to deserialize : %s", err)
+		} else {
+			a.OracleSigExpiry = uint64(value)
 		}
 		return fip[:], nil
 

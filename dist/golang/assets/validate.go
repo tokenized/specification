@@ -270,3 +270,9 @@ func PublicKeyIsValid(b []byte) error {
 	_, err := bitcoin.PublicKeyFromBytes(b)
 	return err
 }
+
+// SignatureIsValid returns true if a "Signature" alias field is valid.
+func SignatureIsValid(b []byte) error {
+	_, err := bitcoin.SignatureFromBytes(b)
+	return err
+}

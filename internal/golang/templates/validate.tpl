@@ -67,6 +67,12 @@ const (
                     return errors.Wrap(err, fmt.Sprintf("{{ .Name }}[%d]", i))
                 }
             }
+            {{- else if eq .AliasField.Name "Signature" }}
+            if len(v) > 0 {
+                if err := SignatureIsValid(v); err != nil {
+                    return errors.Wrap(err, fmt.Sprintf("{{ .Name }}[%d]", i))
+                }
+            }
             {{- end }}
         {{- end }}
         {{- if eq .BaseType "fixedchar" "bin" }}
@@ -133,6 +139,12 @@ const (
             {{- else if eq .AliasField.Name "PublicKey" }}
         if len(a.{{ .Name }}) > 0 {
             if err := PublicKeyIsValid(a.{{ .Name }}); err != nil {
+                return errors.Wrap(err, "{{ .Name }}")
+            }
+        }
+            {{- else if eq .AliasField.Name "Signature" }}
+        if len(a.{{ .Name }}) > 0 {
+            if err := SignatureIsValid(a.{{ .Name }}); err != nil {
                 return errors.Wrap(err, "{{ .Name }}")
             }
         }
@@ -276,6 +288,12 @@ func AddressIsValid(b []byte) error {
 // PublicKeyIsValid returns true if a "PublicKey" alias field is valid.
 func PublicKeyIsValid(b []byte) error {
     _, err := bitcoin.PublicKeyFromBytes(b)
+    return err
+}
+
+// SignatureIsValid returns true if a "Signature" alias field is valid.
+func SignatureIsValid(b []byte) error {
+    _, err := bitcoin.SignatureFromBytes(b)
     return err
 }
 

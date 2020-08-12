@@ -16,7 +16,7 @@ fields:
 
   - name: Signature
     label: Signature
-    type: varbin
+    type: Signature
     description: >
       The signature provided by the oracle specified. The first input must correspond to the 
       administration entity and, if a contract operator is included, the second input must 

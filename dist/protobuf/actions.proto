@@ -315,7 +315,7 @@ message AdministratorField {
 // Field - Administrator Identity Certificate
 message AdminIdentityCertificateField {
     bytes EntityContract                           = 1;   // Address
-    bytes Signature                                = 2;   // varbin
+    bytes Signature                                = 2;   // Signature
     uint32 BlockHeight                             = 3;   // uint
     uint64 Expiration                              = 4;   // Timestamp
 }
@@ -333,8 +333,9 @@ message AssetReceiverField {
     uint64 Quantity                                = 2;   // uint
     uint32 OracleSigAlgorithm                      = 3;   // uint
     uint32 OracleIndex                             = 4;   // uint
-    bytes OracleConfirmationSig                    = 5;   // varbin
+    bytes OracleConfirmationSig                    = 5;   // Signature
     uint32 OracleSigBlockHeight                    = 6;   // uint
+    uint64 OracleSigExpiry                         = 7;   // Timestamp
 }
 
 // Field - Asset Settlement
