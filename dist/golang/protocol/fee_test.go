@@ -126,7 +126,9 @@ func TestAssetDefinitionResponseFees(t *testing.T) {
 
 	t.Logf("%s Size : %d, Funding %d", Success, size, funding)
 
+	var assetCode bitcoin.Hash32
 	assetCreation := &actions.AssetCreation{
+		AssetCode:              assetCode.Bytes(), // Asset code is added by smart contract
 		AdministrationProposal: true,
 		TokenQty:               10000,
 		AssetPayload:           cb,

@@ -90,11 +90,13 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		}
 		value += dustLimit
 
-		// TODO Need last asset creation to know size of response. Determine change in size by
+		// TODO Need last contract formation to know size of response. Determine change in size by
 		// applying amendments.
 
 	case *actions.AssetDefinition:
+		var assetCode bitcoin.Hash32
 		assetCreation := actions.AssetCreation{
+			AssetCode:     assetCode.Bytes(), // Asset code is added by smart contract
 			AssetRevision: 0,
 			Timestamp:     uint64(now.UnixNano()),
 		}
