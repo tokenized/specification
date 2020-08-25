@@ -17,10 +17,5 @@ func TestEmptyDeserialize(t *testing.T) {
 	if !ok {
 		t.Fatalf("Failed deserialize type check for {{.Name}}")
 	}
-    err = action{{.Name}}.Validate()
-    if err != nil && !strings.Contains(err.Error(), "not within options") {
-        // default values aren't always valid 
-		t.Fatalf("Failed validate for {{.Name}} : %s", err)
-    }
 {{ end }}
 }

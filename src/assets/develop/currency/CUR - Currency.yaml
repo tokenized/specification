@@ -20,6 +20,7 @@ fields:
     example: AUD
     description: International Organization for Standardization code for Currency. (Specification/Resources)
     span: full
+    required: true
 
   - name: MonetaryAuthority
     label: Monetary Authority
@@ -42,3 +43,4 @@ fields:
     size: 8
     example: 100
     span: full
+    required: true

@@ -2,8 +2,9 @@ package {{ .Package }}
 
 import (
 	"bytes"
-	"encoding/binary"
 	"fmt"
+
+	"github.com/pkg/errors"
 )
 
 {{- range $i, $message := .Messages }}

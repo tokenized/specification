@@ -1,5 +1,11 @@
 {{$messages := .Messages -}}
 
+{{ define "ListValues" -}}
+{{- range $i, $v := . -}}
+{{ if gt $i 0 }}, {{ end }}{{ $v }}
+{{- end -}}
+{{- end }}
+
 # Protocol Messages
 
 - [Introduction](#introduction)
@@ -69,6 +75,25 @@ The Tokenized protocol features a complete messaging suite for all types of mess
             <td>
                 {{.Description}}
                 {{.Notes}}
+                {{- if .Required }} This field is always required. {{ end }}
+                {{- if .HasRequiredWhen }}
+                    {{- if (eq (len .RequiredWhen.Values) 0) }}
+                This field is required when the field {{ .RequiredWhen.FieldName }} is specified. 
+                    {{- else if (eq (len .RequiredWhen.Values) 1) }}
+                This field is required when the field {{ .RequiredWhen.FieldName }} equals {{ template "ListValues" .RequiredWhen.Values }}. 
+                    {{- else }}
+                This field is required when the field {{ .RequiredWhen.FieldName }} is within the values {{ template "ListValues" .RequiredWhen.Values }}. 
+                    {{- end }}
+                {{- end }}
+                {{- if .HasOnlyValidWhen }}
+                    {{- if (eq (len .OnlyValidWhen.Values) 0) }}
+                This field is only valid when the field {{ .OnlyValidWhen.FieldName }} is specified. 
+                    {{- else if (eq (len .OnlyValidWhen.Values) 1) }}
+                This field is only valid when the field {{ .OnlyValidWhen.FieldName }} equals {{ template "ListValues" .OnlyValidWhen.Values }}. 
+                    {{- else }}
+                This field is only valid when the field {{ .OnlyValidWhen.FieldName }} is within the values {{ template "ListValues" .OnlyValidWhen.Values }}. 
+                    {{- end }}
+                {{- end }}
                 {{- if .Example }} Example: {{.Example}}{{ end }}
             </td>
         </tr>

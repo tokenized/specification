@@ -169,6 +169,7 @@ Allows the administration to tell the smart contract what they want the details 
         <td>
             The issuer of this contract.
             
+            This field is only valid when the field ContractType equals 0.
         </td>
     </tr>
 
@@ -324,6 +325,8 @@ Allows the administration to tell the smart contract what they want the details 
         <td>
             The address of the contract&#39;s parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.
             
+            This field is required when the field ContractType equals 1.
+            This field is only valid when the field ContractType equals 1.
         </td>
     </tr>
 
@@ -335,6 +338,7 @@ Allows the administration to tell the smart contract what they want the details 
         <td>
             The address for the operator&#39;s entity contract.
             
+            This field is only valid when the field ContractOperatorIncluded equals true.
         </td>
     </tr>
 
@@ -357,6 +361,7 @@ Allows the administration to tell the smart contract what they want the details 
         <td>
             The services provided by the contract entity.
             
+            This field is only valid when the field ContractType equals 0.
         </td>
     </tr>
 
@@ -540,6 +545,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         <td>
             The issuer of this contract.
             
+            This field is only valid when the field ContractType equals 0.
         </td>
     </tr>
 
@@ -706,6 +712,8 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         <td>
             The address of the contract&#39;s parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.
             
+            This field is required when the field ContractType equals 1.
+            This field is only valid when the field ContractType equals 1.
         </td>
     </tr>
 
@@ -739,6 +747,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         <td>
             The services provided by the contract entity.
             
+            This field is only valid when the field ContractType equals 0.
         </td>
     </tr>
 
@@ -1380,7 +1389,7 @@ This action is used by the administration to define the properties/characteristi
         </td>
         <td>
             A code representing the type of asset and the structure of the payload.
-            
+             This field is always required. 
         </td>
     </tr>
 
@@ -1391,7 +1400,7 @@ This action is used by the administration to define the properties/characteristi
         </td>
         <td>
             A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.
-            
+             This field is always required. 
         </td>
     </tr>
 

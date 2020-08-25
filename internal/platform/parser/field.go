@@ -19,6 +19,7 @@ type Field struct {
 	Options        []string            `yaml:"options"`
 	OnlyValidWhen  *RelatedFieldValues `yaml:"only_valid_when"` // specifies a field is only valid when another field has specific values
 	RequiredWhen   *RelatedFieldValues `yaml:"required_when"`   // specifies a field is required when another field has specific values
+	Required       bool                `yaml:"required"`
 	Resource       string              `yaml:"resource"`
 	IsCompoundType bool                `yaml:"is_compound_type"`
 	AliasField     *Field              `yaml:"-"`

@@ -15,7 +15,7 @@ const (
 
 func (a *PublicMessage) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Timestamp - uint
@@ -50,7 +50,7 @@ func (a *PublicMessage) Validate() error {
 
 func (a *PrivateMessage) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Timestamp - uint
@@ -85,7 +85,7 @@ func (a *PrivateMessage) Validate() error {
 
 func (a *RevertedTx) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Timestamp - uint
@@ -100,7 +100,7 @@ func (a *RevertedTx) Validate() error {
 
 func (a *Offer) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Timestamp - uint
@@ -115,7 +115,7 @@ func (a *Offer) Validate() error {
 
 func (a *SignatureRequest) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Timestamp - uint
@@ -130,7 +130,7 @@ func (a *SignatureRequest) Validate() error {
 
 func (a *SettlementRequest) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Timestamp - uint
@@ -161,7 +161,7 @@ func (a *SettlementRequest) Validate() error {
 
 func (a *OutputMetadata) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field OutputDescription - varchar
@@ -197,7 +197,7 @@ func (a *OutputMetadata) Validate() error {
 
 func (a *InitiateRelationship) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Type - uint
@@ -266,7 +266,7 @@ func (a *InitiateRelationship) Validate() error {
 
 func (a *PendingAcceptRelationship) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field ProofOfIdentityType - uint
@@ -291,7 +291,7 @@ func (a *PendingAcceptRelationship) Validate() error {
 
 func (a *AcceptRelationship) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field ProofOfIdentityType - uint
@@ -316,7 +316,7 @@ func (a *AcceptRelationship) Validate() error {
 
 func (a *RelationshipAmendment) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Seed - varbin
@@ -338,7 +338,7 @@ func (a *RelationshipAmendment) Validate() error {
 
 func (a *InitiateThread) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Flag - varbin

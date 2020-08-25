@@ -2,8 +2,9 @@ package assets
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
+
+	"github.com/pkg/errors"
 )
 
 // Membership Permission / Amendment Field Indices

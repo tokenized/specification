@@ -54,6 +54,10 @@ fields:
     example: AUD
     span: right
     displayOrder: 4
+    only_valid_when:
+      field_name: Value
+    required_when:
+      field_name: Value
 
   - name: Description
     label: Description
@@ -71,3 +75,7 @@ fields:
     size: 8
     example: 100
     span: full
+    only_valid_when:
+      field_name: Value
+    required_when:
+      field_name: Value

@@ -31,6 +31,11 @@ lint: lint-go
 
 test: test-go
 
+test-all: test-clean-cache test
+
+test-clean-cache:
+	go clean -testcache
+
 format-go:
 	goimports -w $(GO_DIST_DIR)
 

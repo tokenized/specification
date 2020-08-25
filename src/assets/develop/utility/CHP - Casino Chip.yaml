@@ -17,6 +17,7 @@ fields:
     example: AUD
     description: International Organization for Standardization code for Currency. (Specification/Resources)
     span: full
+    required: true
 
   - name: UseType
     label: Use Type
@@ -53,3 +54,4 @@ fields:
     size: 8
     example: 100
     span: full
+    required: true

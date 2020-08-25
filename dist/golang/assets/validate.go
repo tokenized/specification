@@ -15,7 +15,7 @@ const (
 
 func (a *Membership) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AgeRestriction - AgeRestriction
@@ -51,19 +51,25 @@ func (a *Membership) Validate() error {
 	if len(a.Description) > max2ByteInteger {
 		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
 	}
+	if len(a.Description) == 0 {
+		return fmt.Errorf("Description required")
+	}
 
 	return nil
 }
 
 func (a *Currency) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field CurrencyCode - fixedchar
 	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
 		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
 			len(a.CurrencyCode), 3)
+	}
+	if len(a.CurrencyCode) == 0 {
+		return fmt.Errorf("CurrencyCode required")
 	}
 
 	// Field MonetaryAuthority - varchar
@@ -72,13 +78,16 @@ func (a *Currency) Validate() error {
 	}
 
 	// Field Precision - uint
+	if a.Precision == 0 {
+		return fmt.Errorf("Precision required")
+	}
 
 	return nil
 }
 
 func (a *ShareCommon) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Ticker - fixedchar
@@ -97,14 +106,19 @@ func (a *ShareCommon) Validate() error {
 	if len(a.Description) > max2ByteInteger {
 		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
 	}
+	if len(a.Description) == 0 {
+		return fmt.Errorf("Description required")
+	}
 
 	return nil
 }
 
 func (a *Coupon) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
+
+	ValueFieldIsEmpty := a.Value == 0
 
 	// Field RedeemingEntity - varchar
 	if len(a.RedeemingEntity) > max1ByteInteger {
@@ -122,20 +136,35 @@ func (a *Coupon) Validate() error {
 		return fmt.Errorf("Currency fixed width field wrong size : %d should be %d",
 			len(a.Currency), 3)
 	}
+	if ValueFieldIsEmpty && len(a.Currency) != 0 {
+		return fmt.Errorf("Currency is only allowed when Value is specified : %v", a.Value)
+	}
+	if !ValueFieldIsEmpty && len(a.Currency) == 0 {
+		return fmt.Errorf("Currency is required when Value is specified : %v", a.Value)
+	}
 
 	// Field Description - varchar
 	if len(a.Description) > max2ByteInteger {
 		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
 	}
+	if len(a.Description) == 0 {
+		return fmt.Errorf("Description required")
+	}
 
 	// Field Precision - uint
+	if ValueFieldIsEmpty && a.Precision != 0 {
+		return fmt.Errorf("Precision is only allowed when Value is specified : %v", a.Value)
+	}
+	if !ValueFieldIsEmpty && a.Precision == 0 {
+		return fmt.Errorf("Precision is required when Value is specified : %v", a.Value)
+	}
 
 	return nil
 }
 
 func (a *LoyaltyPoints) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AgeRestriction - AgeRestriction
@@ -156,13 +185,16 @@ func (a *LoyaltyPoints) Validate() error {
 	if len(a.Description) > max2ByteInteger {
 		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
 	}
+	if len(a.Description) == 0 {
+		return fmt.Errorf("Description required")
+	}
 
 	return nil
 }
 
 func (a *TicketAdmission) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AgeRestriction - AgeRestriction
@@ -206,19 +238,25 @@ func (a *TicketAdmission) Validate() error {
 	if len(a.Description) > max2ByteInteger {
 		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
 	}
+	if len(a.Description) == 0 {
+		return fmt.Errorf("Description required")
+	}
 
 	return nil
 }
 
 func (a *CasinoChip) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field CurrencyCode - fixedchar
 	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
 		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
 			len(a.CurrencyCode), 3)
+	}
+	if len(a.CurrencyCode) == 0 {
+		return fmt.Errorf("CurrencyCode required")
 	}
 
 	// Field UseType - fixedchar
@@ -237,6 +275,9 @@ func (a *CasinoChip) Validate() error {
 	// Field ExpirationTimestamp - uint
 
 	// Field Precision - uint
+	if a.Precision == 0 {
+		return fmt.Errorf("Precision required")
+	}
 
 	return nil
 }

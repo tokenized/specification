@@ -18,21 +18,53 @@ const (
 {{- end -}}
 {{- end }}
 
+{{ define "SetFieldIsEmpty" -}}
+    {{- if or .IsList (eq .BaseType "fixedchar" "bin" "varbin" "varchar") }}
+    {{ .Name }}FieldIsEmpty := len(a.{{ .Name }}) == 0
+    {{- else if eq .BaseType "uint" }}
+    {{ .Name }}FieldIsEmpty := a.{{ .Name }} == 0
+    {{- else if not .IsPrimitive }}
+    {{ .Name }}FieldIsEmpty := a.{{ .Name }} == nil
+    {{- else }}
+    var {{ .Name }}FieldIsEmpty bool
+    {
+        var z {{ .GoType }} // zero value {{ .BaseType }}
+        {{ .Name }}FieldIsEmpty = a.{{ .Name }} == z
+    }
+    {{- end }}
+{{- end }}
+
+{{ define "IsEmptyCheck" -}}
+    {{- if or .IsList (eq .BaseType "fixedchar" "bin" "varbin" "varchar") -}}
+    len(a.{{ .Name }}) == 0
+    {{- else if eq .BaseType "uint" -}}
+    a.{{ .Name }} == 0
+    {{- else if eq .BaseType "bool" -}}
+    a.{{ .Name }} == false
+    {{- else if not .IsPrimitive -}}
+    a.{{ .Name }} == nil
+    {{- else -}}
+    Unsupported type for empty check {{ .BaseType }}
+    {{- end -}}
+{{- end }}
+
+{{ define "IsNotEmptyCheck" -}}
+    {{- if or .IsList (eq .BaseType "fixedchar" "bin" "varbin" "varchar") -}}
+    len(a.{{ .Name }}) != 0
+    {{- else if eq .BaseType "uint" -}}
+    a.{{ .Name }} != 0
+    {{- else if eq .BaseType "bool" -}}
+    a.{{ .Name }} != false
+    {{- else if not .IsPrimitive -}}
+    a.{{ .Name }} != nil
+    {{- else -}}
+    Unsupported type for not empty check {{ .BaseType }}
+    {{- end -}}
+{{- end }}
+
 {{ define "ValidateField" -}}
     // Field {{ .Name }} - {{ .BaseType }}
     {{- if .IsList }}
-        {{- if .HasOnlyValidWhen }}
-        validValueFound{{ .Name }} := false
-        for _, v := range []{{ .OnlyValidWhen.FieldGoType }}{ {{ template "ListValues" .OnlyValidWhen.Values }} } {
-            if a.{{ .OnlyValidWhen.FieldName }} == v {
-                validValueFound{{ .Name }} = true
-                break
-            }
-        }
-        if !validValueFound{{ .Name }} && len(a.{{ .Name }}) != 0 {
-            return fmt.Errorf("{{ .Name }} not allowed. {{ .OnlyValidWhen.FieldName }} value not within values {{ .OnlyValidWhen.Values }} : %v", a.{{ .OnlyValidWhen.FieldName }})
-        }
-        {{- end }}
         {{- if eq .BaseListSize "tiny" "" }}
         if len(a.{{ .Name }}) > max1ByteInteger {
             return fmt.Errorf("{{ .Name }} list over max length : %d > %d", len(a.{{ .Name }}), max1ByteInteger)
@@ -157,30 +189,6 @@ const (
                 len(a.{{ .Name }}), {{ .BaseSize }})
         }
         {{- else if eq .BaseType "varbin" "varchar" }}
-            {{- if .HasOnlyValidWhen }}
-        validValueFound{{ .Name }} := false
-        for _, v := range []{{ .OnlyValidWhen.FieldGoType }}{ {{ template "ListValues" .OnlyValidWhen.Values }} } {
-            if a.{{ .OnlyValidWhen.FieldName }} == v {
-                validValueFound{{ .Name }} = true
-                break
-            }
-        }
-        if !validValueFound{{ .Name }} && len(a.{{ .Name }}) != 0 {
-            return fmt.Errorf("{{ .Name }} not allowed. {{ .OnlyValidWhen.FieldName }} value not within values {{ .OnlyValidWhen.Values }} : %v", a.{{ .OnlyValidWhen.FieldName }})
-        }
-            {{- end }}
-            {{- if .HasRequiredWhen }}
-        requiredValueFound{{ .Name }} := false
-        for _, v := range []{{ .RequiredWhen.FieldGoType }}{ {{ template "ListValues" .RequiredWhen.Values }} } {
-            if a.{{ .RequiredWhen.FieldName }} == v {
-                requiredValueFound{{ .Name }} = true
-                break
-            }
-        }
-        if requiredValueFound{{ .Name }} && len(a.{{ .Name }}) == 0 {
-            return fmt.Errorf("{{ .Name }} required. {{ .RequiredWhen.FieldName }} value within values {{ .RequiredWhen.Values }} : %v", a.{{ .RequiredWhen.FieldName }})
-        }
-            {{- end }}
             {{- if eq .BaseVarSize "tiny" "" }}
         if len(a.{{ .Name }}) > max1ByteInteger {
             return fmt.Errorf("{{ .Name }} over max size : %d > %d", len(a.{{ .Name }}), max1ByteInteger)
@@ -218,43 +226,83 @@ const (
         }
             {{- end }}
         {{- else if not .IsPrimitive }}
-            {{- if .HasOnlyValidWhen }}
-        validValueFound{{ .Name }} := false
-        for _, v := range []{{ .OnlyValidWhen.FieldGoType }}{ {{ template "ListValues" .OnlyValidWhen.Values }} } {
-            if a.{{ .OnlyValidWhen.FieldName }} == v {
-                validValueFound{{ .Name }} = true
-                break
-            }
-        }
-        if !validValueFound{{ .Name }} && a.{{ .Name }} != nil {
-            return fmt.Errorf("{{ .Name }} not allowed. {{ .OnlyValidWhen.FieldName }} value not within values {{ .OnlyValidWhen.Values }} : %v", a.{{ .OnlyValidWhen.FieldName }})
-        }
-            {{- end }}
-            {{- if .HasRequiredWhen }}
-        requiredValueFound{{ .Name }} := false
-        for _, v := range []{{ .RequiredWhen.FieldGoType }}{ {{ template "ListValues" .RequiredWhen.Values }} } {
-            if a.{{ .RequiredWhen.FieldName }} == v {
-                requiredValueFound{{ .Name }} = true
-                break
-            }
-        }
-        if requiredValueFound{{ .Name }} && a.{{ .Name }} == nil {
-            return fmt.Errorf("{{ .Name }} required. {{ .RequiredWhen.FieldName }} value within values {{ .RequiredWhen.Values }} : %v", a.{{ .RequiredWhen.FieldName }})
-        }
-            {{- end }}
         if err := a.{{ .Name }}.Validate(); err != nil {
             return errors.Wrap(err, "{{ .Name }}")
         }
         {{- end }}
+    {{- end }}
+    {{- if .HasOnlyValidWhen }}
+        {{- if (eq (len .OnlyValidWhen.Values) 0) }}
+    if {{ .OnlyValidWhen.FieldName }}FieldIsEmpty && {{ template "IsNotEmptyCheck" . }} {
+        return fmt.Errorf("{{ .Name }} is only allowed when {{ .OnlyValidWhen.FieldName }} is specified : %v", a.{{ .OnlyValidWhen.FieldName }})
+    }
+        {{- else }}
+    validValueFound{{ .Name }} := false
+    for _, v := range []{{ .OnlyValidWhen.FieldGoType }}{ {{ template "ListValues" .OnlyValidWhen.Values }} } {
+        if a.{{ .OnlyValidWhen.FieldName }} == v {
+            validValueFound{{ .Name }} = true
+            break
+        }
+    }
+    if !validValueFound{{ .Name }} && {{ template "IsNotEmptyCheck" . }} {
+        return fmt.Errorf("{{ .Name }} is only allowed when {{ .OnlyValidWhen.FieldName }} value is within values {{ .OnlyValidWhen.Values }} : %v", a.{{ .OnlyValidWhen.FieldName }})
+    }
+        {{- end }}
+    {{- end }}
+    {{- if .HasRequiredWhen }}
+        {{- if (eq (len .RequiredWhen.Values) 0) }}
+    if !{{ .RequiredWhen.FieldName }}FieldIsEmpty && {{ template "IsEmptyCheck" . }} {
+        return fmt.Errorf("{{ .Name }} is required when {{ .RequiredWhen.FieldName }} is specified : %v", a.{{ .RequiredWhen.FieldName }})
+    }
+        {{- else }}
+    requiredValueFound{{ .Name }} := false
+    for _, v := range []{{ .RequiredWhen.FieldGoType }}{ {{ template "ListValues" .RequiredWhen.Values }} } {
+        if a.{{ .RequiredWhen.FieldName }} == v {
+            requiredValueFound{{ .Name }} = true
+            break
+        }
+    }
+    if requiredValueFound{{ .Name }} && {{ template "IsEmptyCheck" . }} {
+        return fmt.Errorf("{{ .Name }} is required when {{ .RequiredWhen.FieldName }} value is within values {{ .RequiredWhen.Values }} : %v", a.{{ .RequiredWhen.FieldName }})
+    }
+        {{- end }}
+    {{- end }}
+    {{- if .Required }}
+    if {{ template "IsEmptyCheck" . }} {
+        return fmt.Errorf("{{ .Name }} required")
+    }
     {{- end }}
 {{ end }}
 
 {{ range .Messages }}
 func (a *{{.Name}}) Validate() error {
     if a == nil {
-        return nil
+        return errors.New("Empty")
     }
-    {{ range .Fields }}
+    {{ $fields := .Fields }}
+    {{ range $i, $field := $fields }}
+        {{- if ne $field.Type "deprecated" }}
+            {{- $has_empty_check := false }}
+            {{ range $j, $subfield := $fields }}
+                {{- if ne $subfield.Type "deprecated" }}
+                    {{- if $subfield.HasOnlyValidWhen }}
+                        {{- if and (eq $subfield.OnlyValidWhen.FieldName $field.Name) (eq (len $subfield.OnlyValidWhen.Values) 0) }}
+                            {{- $has_empty_check = true }}
+                        {{- end }}
+                    {{- end }}
+                    {{- if $subfield.HasRequiredWhen }}
+                        {{- if and (eq $subfield.RequiredWhen.FieldName $field.Name) (eq (len $subfield.RequiredWhen.Values) 0) }}
+                            {{- $has_empty_check = true }}
+                        {{- end }}
+                    {{- end }}
+                {{- end }}
+            {{- end }}
+            {{- if $has_empty_check }}
+    {{ template "SetFieldIsEmpty" $field -}}
+            {{- end }}
+        {{- end }}
+    {{- end }}
+    {{ range $fields }}
         {{- if ne .Type "deprecated" }}
         {{ template "ValidateField" . -}}
         {{- end }}

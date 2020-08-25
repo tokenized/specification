@@ -15,7 +15,7 @@ const (
 
 func (a *ContractOffer) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field ContractName - varchar
@@ -70,6 +70,9 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field Issuer - Entity
+	if err := a.Issuer.Validate(); err != nil {
+		return errors.Wrap(err, "Issuer")
+	}
 	validValueFoundIssuer := false
 	for _, v := range []uint32{0} {
 		if a.ContractType == v {
@@ -78,10 +81,7 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 	if !validValueFoundIssuer && a.Issuer != nil {
-		return fmt.Errorf("Issuer not allowed. ContractType value not within values [0] : %v", a.ContractType)
-	}
-	if err := a.Issuer.Validate(); err != nil {
-		return errors.Wrap(err, "Issuer")
+		return fmt.Errorf("Issuer is only allowed when ContractType value is within values [0] : %v", a.ContractType)
 	}
 
 	// Field ContractOperatorIncluded - bool
@@ -135,6 +135,9 @@ func (a *ContractOffer) Validate() error {
 			return errors.Wrap(err, "EntityContract")
 		}
 	}
+	if len(a.EntityContract) > max2ByteInteger {
+		return fmt.Errorf("EntityContract over max size : %d > %d", len(a.EntityContract), max2ByteInteger)
+	}
 	validValueFoundEntityContract := false
 	for _, v := range []uint32{1} {
 		if a.ContractType == v {
@@ -143,7 +146,7 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 	if !validValueFoundEntityContract && len(a.EntityContract) != 0 {
-		return fmt.Errorf("EntityContract not allowed. ContractType value not within values [1] : %v", a.ContractType)
+		return fmt.Errorf("EntityContract is only allowed when ContractType value is within values [1] : %v", a.ContractType)
 	}
 	requiredValueFoundEntityContract := false
 	for _, v := range []uint32{1} {
@@ -153,10 +156,7 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 	if requiredValueFoundEntityContract && len(a.EntityContract) == 0 {
-		return fmt.Errorf("EntityContract required. ContractType value within values [1] : %v", a.ContractType)
-	}
-	if len(a.EntityContract) > max2ByteInteger {
-		return fmt.Errorf("EntityContract over max size : %d > %d", len(a.EntityContract), max2ByteInteger)
+		return fmt.Errorf("EntityContract is required when ContractType value is within values [1] : %v", a.ContractType)
 	}
 
 	// Field OperatorEntityContract - varbin
@@ -164,6 +164,9 @@ func (a *ContractOffer) Validate() error {
 		if err := AddressIsValid(a.OperatorEntityContract); err != nil {
 			return errors.Wrap(err, "OperatorEntityContract")
 		}
+	}
+	if len(a.OperatorEntityContract) > max2ByteInteger {
+		return fmt.Errorf("OperatorEntityContract over max size : %d > %d", len(a.OperatorEntityContract), max2ByteInteger)
 	}
 	validValueFoundOperatorEntityContract := false
 	for _, v := range []bool{true} {
@@ -173,10 +176,7 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 	if !validValueFoundOperatorEntityContract && len(a.OperatorEntityContract) != 0 {
-		return fmt.Errorf("OperatorEntityContract not allowed. ContractOperatorIncluded value not within values [true] : %v", a.ContractOperatorIncluded)
-	}
-	if len(a.OperatorEntityContract) > max2ByteInteger {
-		return fmt.Errorf("OperatorEntityContract over max size : %d > %d", len(a.OperatorEntityContract), max2ByteInteger)
+		return fmt.Errorf("OperatorEntityContract is only allowed when ContractOperatorIncluded value is within values [true] : %v", a.ContractOperatorIncluded)
 	}
 
 	// Field ContractType - uint
@@ -192,6 +192,14 @@ func (a *ContractOffer) Validate() error {
 	}
 
 	// Field Services - Service
+	if len(a.Services) > max1ByteInteger {
+		return fmt.Errorf("Services list over max length : %d > %d", len(a.Services), max1ByteInteger)
+	}
+	for i, v := range a.Services {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Services[%d]", i))
+		}
+	}
 	validValueFoundServices := false
 	for _, v := range []uint32{0} {
 		if a.ContractType == v {
@@ -200,15 +208,7 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 	if !validValueFoundServices && len(a.Services) != 0 {
-		return fmt.Errorf("Services not allowed. ContractType value not within values [0] : %v", a.ContractType)
-	}
-	if len(a.Services) > max1ByteInteger {
-		return fmt.Errorf("Services list over max length : %d > %d", len(a.Services), max1ByteInteger)
-	}
-	for i, v := range a.Services {
-		if err := v.Validate(); err != nil {
-			return errors.Wrap(err, fmt.Sprintf("Services[%d]", i))
-		}
+		return fmt.Errorf("Services is only allowed when ContractType value is within values [0] : %v", a.ContractType)
 	}
 
 	// Field AdminIdentityCertificates - AdminIdentityCertificate
@@ -226,7 +226,7 @@ func (a *ContractOffer) Validate() error {
 
 func (a *ContractFormation) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field ContractName - varchar
@@ -281,6 +281,9 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field Issuer - Entity
+	if err := a.Issuer.Validate(); err != nil {
+		return errors.Wrap(err, "Issuer")
+	}
 	validValueFoundIssuer := false
 	for _, v := range []uint32{0} {
 		if a.ContractType == v {
@@ -289,10 +292,7 @@ func (a *ContractFormation) Validate() error {
 		}
 	}
 	if !validValueFoundIssuer && a.Issuer != nil {
-		return fmt.Errorf("Issuer not allowed. ContractType value not within values [0] : %v", a.ContractType)
-	}
-	if err := a.Issuer.Validate(); err != nil {
-		return errors.Wrap(err, "Issuer")
+		return fmt.Errorf("Issuer is only allowed when ContractType value is within values [0] : %v", a.ContractType)
 	}
 
 	// Field ContractFee - uint
@@ -348,6 +348,9 @@ func (a *ContractFormation) Validate() error {
 			return errors.Wrap(err, "EntityContract")
 		}
 	}
+	if len(a.EntityContract) > max2ByteInteger {
+		return fmt.Errorf("EntityContract over max size : %d > %d", len(a.EntityContract), max2ByteInteger)
+	}
 	validValueFoundEntityContract := false
 	for _, v := range []uint32{1} {
 		if a.ContractType == v {
@@ -356,7 +359,7 @@ func (a *ContractFormation) Validate() error {
 		}
 	}
 	if !validValueFoundEntityContract && len(a.EntityContract) != 0 {
-		return fmt.Errorf("EntityContract not allowed. ContractType value not within values [1] : %v", a.ContractType)
+		return fmt.Errorf("EntityContract is only allowed when ContractType value is within values [1] : %v", a.ContractType)
 	}
 	requiredValueFoundEntityContract := false
 	for _, v := range []uint32{1} {
@@ -366,10 +369,7 @@ func (a *ContractFormation) Validate() error {
 		}
 	}
 	if requiredValueFoundEntityContract && len(a.EntityContract) == 0 {
-		return fmt.Errorf("EntityContract required. ContractType value within values [1] : %v", a.ContractType)
-	}
-	if len(a.EntityContract) > max2ByteInteger {
-		return fmt.Errorf("EntityContract over max size : %d > %d", len(a.EntityContract), max2ByteInteger)
+		return fmt.Errorf("EntityContract is required when ContractType value is within values [1] : %v", a.ContractType)
 	}
 
 	// Field OperatorEntityContract - varbin
@@ -395,6 +395,14 @@ func (a *ContractFormation) Validate() error {
 	}
 
 	// Field Services - Service
+	if len(a.Services) > max1ByteInteger {
+		return fmt.Errorf("Services list over max length : %d > %d", len(a.Services), max1ByteInteger)
+	}
+	for i, v := range a.Services {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Services[%d]", i))
+		}
+	}
 	validValueFoundServices := false
 	for _, v := range []uint32{0} {
 		if a.ContractType == v {
@@ -403,15 +411,7 @@ func (a *ContractFormation) Validate() error {
 		}
 	}
 	if !validValueFoundServices && len(a.Services) != 0 {
-		return fmt.Errorf("Services not allowed. ContractType value not within values [0] : %v", a.ContractType)
-	}
-	if len(a.Services) > max1ByteInteger {
-		return fmt.Errorf("Services list over max length : %d > %d", len(a.Services), max1ByteInteger)
-	}
-	for i, v := range a.Services {
-		if err := v.Validate(); err != nil {
-			return errors.Wrap(err, fmt.Sprintf("Services[%d]", i))
-		}
+		return fmt.Errorf("Services is only allowed when ContractType value is within values [0] : %v", a.ContractType)
 	}
 
 	// Field AdminIdentityCertificates - AdminIdentityCertificate
@@ -449,7 +449,7 @@ func (a *ContractFormation) Validate() error {
 
 func (a *ContractAmendment) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field ChangeAdministrationAddress - bool
@@ -479,7 +479,7 @@ func (a *ContractAmendment) Validate() error {
 
 func (a *StaticContractFormation) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field ContractName - varchar
@@ -581,7 +581,7 @@ func (a *StaticContractFormation) Validate() error {
 
 func (a *ContractAddressChange) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field NewContractAddress - varbin
@@ -601,7 +601,7 @@ func (a *ContractAddressChange) Validate() error {
 
 func (a *AssetDefinition) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AssetPermissions - varbin
@@ -657,10 +657,16 @@ func (a *AssetDefinition) Validate() error {
 		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
 			len(a.AssetType), 3)
 	}
+	if len(a.AssetType) == 0 {
+		return fmt.Errorf("AssetType required")
+	}
 
 	// Field AssetPayload - varbin
 	if len(a.AssetPayload) > max2ByteInteger {
 		return fmt.Errorf("AssetPayload over max size : %d > %d", len(a.AssetPayload), max2ByteInteger)
+	}
+	if len(a.AssetPayload) == 0 {
+		return fmt.Errorf("AssetPayload required")
 	}
 
 	return nil
@@ -668,7 +674,7 @@ func (a *AssetDefinition) Validate() error {
 
 func (a *AssetCreation) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AssetCode - bin
@@ -747,7 +753,7 @@ func (a *AssetCreation) Validate() error {
 
 func (a *AssetModification) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AssetType - fixedchar
@@ -785,7 +791,7 @@ func (a *AssetModification) Validate() error {
 
 func (a *Transfer) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Assets - AssetTransfer
@@ -817,7 +823,7 @@ func (a *Transfer) Validate() error {
 
 func (a *Settlement) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Assets - AssetSettlement
@@ -837,7 +843,7 @@ func (a *Settlement) Validate() error {
 
 func (a *Proposal) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Type - uint
@@ -907,7 +913,7 @@ func (a *Proposal) Validate() error {
 
 func (a *Vote) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Timestamp - uint
@@ -917,7 +923,7 @@ func (a *Vote) Validate() error {
 
 func (a *BallotCast) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field VoteTxId - bin
@@ -936,7 +942,7 @@ func (a *BallotCast) Validate() error {
 
 func (a *BallotCounted) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field VoteTxId - bin
@@ -959,7 +965,7 @@ func (a *BallotCounted) Validate() error {
 
 func (a *Result) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AssetType - fixedchar
@@ -1007,7 +1013,7 @@ func (a *Result) Validate() error {
 
 func (a *Order) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field ComplianceAction - fixedchar
@@ -1130,7 +1136,7 @@ func (a *Order) Validate() error {
 
 func (a *Freeze) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AssetType - fixedchar
@@ -1164,7 +1170,7 @@ func (a *Freeze) Validate() error {
 
 func (a *Thaw) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field FreezeTxId - bin
@@ -1180,7 +1186,7 @@ func (a *Thaw) Validate() error {
 
 func (a *Confiscation) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AssetType - fixedchar
@@ -1214,7 +1220,7 @@ func (a *Confiscation) Validate() error {
 
 func (a *Reconciliation) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AssetType - fixedchar
@@ -1246,7 +1252,7 @@ func (a *Reconciliation) Validate() error {
 
 func (a *Establishment) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Message - varchar
@@ -1259,7 +1265,7 @@ func (a *Establishment) Validate() error {
 
 func (a *Addition) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field Message - varchar
@@ -1272,7 +1278,7 @@ func (a *Addition) Validate() error {
 
 func (a *Alteration) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field EntryTxID - bin
@@ -1291,7 +1297,7 @@ func (a *Alteration) Validate() error {
 
 func (a *Removal) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field EntryTxID - bin
@@ -1310,7 +1316,7 @@ func (a *Removal) Validate() error {
 
 func (a *Message) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field SenderIndexes - uint
@@ -1338,7 +1344,7 @@ func (a *Message) Validate() error {
 
 func (a *Rejection) Validate() error {
 	if a == nil {
-		return nil
+		return errors.New("Empty")
 	}
 
 	// Field AddressIndexes - uint

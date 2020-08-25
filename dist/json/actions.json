@@ -1584,12 +1584,14 @@
           "description": "A code representing the type of asset and the structure of the payload.",
           "label": "Asset Type",
           "name": "AssetType",
+          "required": true,
           "type": "AssetType"
         },
         {
           "description": "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.",
           "label": "Asset Payload",
           "name": "AssetPayload",
+          "required": true,
           "type": "varbin",
           "varSize": "small"
         }
