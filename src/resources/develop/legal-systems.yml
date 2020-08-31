@@ -1,0 +1,1958 @@
+name: Legal Systems
+description: >
+    Legal Systems for Governing Law/Choice of Law
+
+codeType:
+    type: fixedchar
+    size: 5
+
+values:
+  - code: GBREW
+    name: Law of England and Wales
+    metadata:
+      type: Common law
+      description: Primarily common law, with early Roman and some modern continental European influences.
+
+  - code: GBRS
+    name: Law of Scotland
+    metadata:
+      type: Common law
+      description: Based on Roman and continental law, with common law elements dating back to the High Middle Ages. 
+
+  - code: AFG
+    name: Law of Afghanistan
+    metadata:
+      type: Civil law and sharia law
+      description: Islamic law & American/British law after invasion.
+      
+  - code: ALB
+    name: Law of Albania
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic Civil law. The Civil Code of the Republic of Albania, 1991.
+      
+  - code: DZA
+    name: Law of Algeria
+    metadata:
+      type: Civil law and sharia law
+      description: The Algerian judicial system is based on a civil law system with codes adapted from the French legal system. Personal status laws are based on Islamic law.
+  
+  - code: ASM
+    name: Law of American Samoa
+    metadata:
+      type: Common law
+      description: Based on law of the United States.
+  
+  - code: AND
+    name: Law of Andorra
+    metadata:
+      type: Civil law
+      description: Courts apply the customary laws of Andorra, supplemented with Roman law and customary Catalan law.
+  
+  - code: AGO
+    name: Law of Angola
+    metadata:
+      type: Civil law
+      description: Based on Portuguese civil law.
+  
+  - code: AIA
+    name: Law of Anguilla
+    metadata:
+      type: Common law and statute
+      description: A combination of common law and statute, and is based heavily upon English law.
+  
+  - code: ATG
+    name: Law of Antigua and Barbuda
+    metadata:
+      type: Common law
+      description: Based on English common law.
+  
+  - code: ARG
+    name: Law of Argentina
+    metadata:
+      type: Civil law
+      description: The Legal system of Argentina is a Civil law legal system. The pillar of the Civil system is the Constitution of Argentina (1853).
+  
+  - code: ARM
+    name: Law of Armenia
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic Civil law and traditional Armenian law.
+        
+  - code: ABW
+    name: Law of Aruba
+    metadata:
+      type: Civil law
+      description: Based on Dutch civil law.
+        
+  - code: AUS
+    name: Law of Australia
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUNSW
+    name: Law of New South Wales
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUQLD
+    name: Law of Queensland
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUSA
+    name: Law of South Australia
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUTAS
+    name: Law of Tasmania
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUVIC
+    name: Law of Victoria
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUWA
+    name: Law of Western Australia
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUACT
+    name: Law of Australian Capital Territory
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUNT
+    name: Law of Northern Territory
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: AUJBT
+    name: Law of Jervis Bay Territory (Australian Capital Territory)
+    metadata:
+      type: Common law
+      description: Although the Jervis Bay Territory is not part of the Australian Capital Territory, the laws of the ACT apply.
+        
+  - code: AUT
+    name: Law of Austria
+    metadata:
+      type: Civil law
+      description: Based on Germanic Civil law.
+        
+  - code: AZE
+    name: Law of Azerbaijan
+    metadata:
+      type: Civil law
+      description: Based on German, French, Russian and traditional Azerbaijani Law.
+        
+  - code: BHS
+    name: Law of Bahamas
+    metadata:
+      type: Common law
+      description: Based on English common law.
+        
+  - code: BHR
+    name: Law of Bahrain
+    metadata:
+      type: Civil law and sharia law
+      description: Bahrain's legal system is based on civil law, customs, and Sharia'a (Islamic jurisprudence). The system mostly derives from the legal system of Egypt, which is based on the legal system of France.
+        
+  - code: BGD
+    name: Law of Bangladesh
+    metadata:
+      type: Common law and sharia law
+      description: Based on English common law, with family law heavily based on Shar'iah law.
+        
+  - code: BRB
+    name: Law of Barbados
+    metadata:
+      type: Common law
+      description: Based on English common law.
+        
+  - code: BLR
+    name: Law of Belarus
+    metadata:
+      type: Civil law
+      description: Based on Germanic Civil law.
+        
+  - code: BEL
+    name: Law of Belgium
+    metadata:
+      type: Civil law
+      description: The Napoleonic Code is still in use, although it is heavily modified (especially concerning family law).
+        
+  - code: BLZ
+    name: Law of Belize
+    metadata:
+      type: Common law
+      description: Based on English common law.   
+        
+  - code: BEN
+    name: Law of Benin
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic Civil law.
+        
+  - code: BMU
+    name: Law of Bermuda 
+    metadata:
+      type: Common law
+      description: Based on the common law legal system of England and Wales.
+        
+  - code: BTN
+    name: Law of Bhutan
+    metadata:
+      type: Common law
+      description: Based on English common law, with Indian influence. Religious law influences personal law.
+        
+  - code: BOL
+    name: Law of Bolivia
+    metadata:
+      type: Civil law
+      description: Influenced by the Napoleonic Code.
+        
+  - code: BES
+    name: Law of Bonaire St Eustasuis and Saba
+    metadata:
+      type: Civil law
+      description: The main body of civil law is the Civil Code. In the years to come the applicable former Netherlands Antilles legislation on St. Eustatius will gradually be replaced by Dutch legislation.
+        
+  - code: BIH
+    name: Law of Bosnia and Herzegovina
+    metadata:
+      type: Civil law
+      description: Influenced by Austrian law. The Swiss civil law (Zivilgesetzbuch) was a model for the Law on Obligations of 1978.
+        
+  - code: BWA
+    name: Law of Botswana
+    metadata:
+      type: Civil law and common law
+      description: Based on South African law. An 1891 proclamation by the High Commissioner for Southern Africa applied the law of the Cape Colony (now part of South Africa) to the Bechuanaland Protectorate (now Botswana).
+        
+  - code: BRA
+    name: Law of Brazil
+    metadata:
+      type: Civil law
+      description: Based on German, Italian, French and Portuguese law. However, in 2004 the Federal Constitution was amended to grant the Supreme Federal Court authority to issue binding precedents (súmulas vinculantes) to settle controversies involving constitutional law - a mechanism that echoes the stare decisis principle typically found in common law systems.
+        
+  - code: VGB
+    name: Law of British Virgin Islands
+    metadata:
+      type: Common law
+      description: Based on English common law.
+        
+  - code: BRN
+    name: Law of Brunei
+    metadata:
+      type: Common law and sharia law
+      description: Most laws under Common Law and the Sharia Penal Code apply to all people in Brunei, regardless of nationality or religion. 
+        
+  - code: BGR
+    name: Law of Bulgaria
+    metadata:
+      type: Civil law
+      description: Civil Law system influenced by Germanic and Roman law systems.
+        
+  - code: BFA
+    name: Law of Burkina Faso
+    metadata:
+      type: Civil law
+      description: Based on French civil law system.
+        
+  - code: BDI
+    name: Law of Burundi
+    metadata:
+      type: Civil law and customary law
+      description: Mixed legal system of Belgian civil law and customary law.
+        
+  - code: KHM
+    name: Law of Cambodia
+    metadata:
+      type: Civil law
+      description: The Cambodian legal system is based largely on the French civil system, and is statute based.
+        
+  - code: CMR
+    name: Law of Cameroon
+    metadata:
+      type: Civil law and common law
+      description: Cameroon is a bijural system with the English Common Law operating in the two Anglophone regions of North West and South West and the French Civil Law operating in the eight francophone regions of Adamaoua, Centre, East, Far North, Littoral, North, West and South.
+   
+  - code: CAN
+    name: Law of Canada
+    metadata:
+      type: Common law
+      description: Based on English common law, except in Quebec Quebec, where a civil law system based on French law prevails in most matters of a civil nature, such as obligations (contract and delict), property law, family law and private matters. Federal statutes take into account the bijuridical nature of Canada and use both common law and civil law terms where appropriate.
+
+  - code: CAAB
+    name: Law of Alberta
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CABC
+    name: Law of British Columbia
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CAMB
+    name: Law of Manitoba
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CANB
+    name: Law of New Brunswick
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CANL
+    name: Law of Newfoundland and Labrador
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CANS
+    name: Law of Nova Scotia
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CAON
+    name: Law of Ontario
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CAPE
+    name: Law of Prince Edward Island
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CAQC
+    name: Law of Quebec
+    metadata:
+      type: Civil law and common law
+      description: The Civil Code of Quebec is the civil code currently in force. Canadian (federal) criminal law in force in Quebec is based on common law, but federal statutes of or relating to private law take into account the bijuridical nature of Canada and use both common law and civil law terms where appropriate.
+        
+  - code: CASK
+    name: Law of Saskatchewan
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CANT
+    name: Law of Northwest Territories
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CANU
+    name: Law of Nunavut
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CAYT
+    name: Law of Yukon
+    metadata:
+      type: Common law
+      description: Based on English common law.
+
+  - code: CPV
+    name: Law of Cape Verde
+    metadata:
+      type: Civil law
+      description: Based on Portuguese civil law.
+        
+  - code: CYM
+    name: Law of Cayman Islands
+    metadata:
+      type: Common law
+      description: Based on English common law.
+        
+  - code: CAF
+    name: Law of Central African Republic
+    metadata:
+      type: Civil law
+      description: Based on French civil law system.
+         
+  - code: TCD
+    name: Law of Chad
+    metadata:
+      type: Civil law
+      description: Based on French civil law system.       
+         
+  - code: CHL
+    name: Law of Chile
+    metadata:
+      type: Civil law
+      description: Chile's legal system is civil law based. It is primarily based on the Chilean Civil Code of 1855, derived from Spanish law and other codes of Continental Europe of the 19th century. 
+         
+  - code: CHN
+    name: Law of People's Republic of China
+    metadata:
+      type: Civil law
+      description: Based on Germanic Civil law with influences from the Soviet Socialist law from Soviet Union.
+         
+  - code: CXR
+    name: Law of Christmas Island (Western Australia)
+    metadata:
+      type: Common law
+      description: The Christmas Island Act - applies Western Australian laws on Christmas Island, including the Local Government Act 1995 (WA)
+          
+  - code: CCK
+    name: Law of Cocos Islands (Western Australia)
+    metadata:
+      type: Common law
+      description: The Territories Law Reform Act 1992 (Cth) amended the Cocos (Keeling) Islands Act to introduce a modern body of Australian law to the Cocos (Keeling) Islands, including provisions to enliven the application of most Australian Government laws and regulations and to apply Western Australian laws to the territory.    
+         
+  - code: COL
+    name: Law of Colombia
+    metadata:
+      type: Civil law
+      description: Based on the Chilean Civil Law. Civil code introduced in 1873. Nearly faithful reproduction of the Chilean civil code.
+         
+  - code: COM
+    name: Law of Comoros
+    metadata:
+      type: Civil law and sharia law
+      description: The Comorian legal system rests on Islamic law and an inherited French legal code. Village elders or civilian courts settle most disputes. 
+         
+  - code: COG
+    name: Law of Republic of the Congo
+    metadata:
+      type: Civil law
+      description: Based on the Napoleonic Civil law.
+         
+  - code: COD
+    name: Law of Democratic Republic of the Congo
+    metadata:
+      type: Civil law
+      description: Based on Belgian civil law.
+         
+  - code: COK
+    name: Law of Cook Islands
+    metadata:
+      type: Common law
+      description: Constitution of the Cook Islands - the supreme law. English common law and equity - except so far as inconsistent with the Cook Islands Act 1915 (NZ) or inappropriate to the circumstances of the country or inconsistent with the Constitution.
+         
+  - code: CRI
+    name: Law of Costa Rica
+    metadata:
+      type: Civil law
+      description: The present Civil Code went into effect 1 January 1888, and was influenced by the Napoleonic Code and the Spanish Civil Code of 1889.
+         
+  - code: HRV
+    name: Law of Croatia
+    metadata:
+      type: Civil law
+      description: Based on the Germanic Civil Law. Croatian Law system is largely influenced by German and Austrian law systems.
+         
+  - code: CUB
+    name: Law of Cuba
+    metadata:
+      type: Civil law
+      description: Influenced by Spanish and American law with large elements of Communist legal theory.
+         
+  - code: CUW
+    name: Law of Curacao
+    metadata:
+      type: Civil law
+      description: Based on Dutch Civil Law.
+         
+  - code: CYP
+    name: Law of Cyprus
+    metadata:
+      type: Civil law and common law
+      description: Based on English common law as inherited from British colonisation, with civil law influences, particularly in criminal law.
+         
+  - code: CZE
+    name: Law of Czech Republic
+    metadata:
+      type: Civil law
+      description: Based on Belgian civil law.
+                  
+  - code: DNK
+    name: Law of Denmark
+    metadata:
+      type: Civil law
+      description: Based on North Germanic law. Scandinavian-North Germanic civil law.
+                  
+  - code: DJI
+    name: Law of Djibouti
+    metadata:
+      type: Civil law and sharia law
+      description: Djibouti's legal and judicial system is largely inspired by the French legislation. Laws are codified in which the system of the country is based on the coexistence of Islamic law (Sharia), customary law and civil law inherited the French Napoleon Code.
+         
+  - code: DMA
+    name: Law of Dominica
+    metadata:
+      type: Common law
+      description: Based on English common law.     
+         
+  - code: DOM
+    name: Law of Dominican Republic
+    metadata:
+      type: Civil law
+      description: Based on the Napoleonic Code.
+         
+  - code: TLS
+    name: Law of Timor-Leste
+    metadata:
+      type: Civil law
+      description: Based on Portuguese civil law.
+         
+  - code: ECU
+    name: Law of Ecuador
+    metadata:
+      type: Civil law
+      description: Based on the Chilean civil law. Civil code introduced in 1861.
+         
+  - code: EGY
+    name: Law of Egypt
+    metadata:
+      type: Civil law and sharia law
+      description: Family Law (personal Statute) for Muslims based on Islamic Jurisprudence, Separate Personal Statute for non Muslims, and all other branches of Law are based on French civil law system.
+         
+  - code: SLV
+    name: Law of El Salvador
+    metadata:
+      type: Civil law
+      description: Civil law system with minor common law influence; judicial review of legislative acts in the Supreme Court.
+         
+  - code: GNQ
+    name: Law of Equatorial Guinea
+    metadata:
+      type: Civil law
+      description: Based on Portuguese civil law.
+         
+  - code: ERI
+    name: Law of Eritrea
+    metadata:
+      type: Civil law and sharia law and Customary law
+      description: Mixed legal system of civil, customary, and Islamic religious law.
+         
+  - code: EST
+    name: Law of Estonia
+    metadata:
+      type: Civil law
+      description: Based on German civil law.
+         
+  - code: ETH
+    name: Law of Ethiopia
+    metadata:
+      type: Civil law
+      description: Ethiopia's legal system largely belongs in the civil law system. Conversely, the case law system is a distinguishing feature of the common law system.
+         
+  - code: FLK
+    name: Law of Falkland Islands (England and Wales)
+    metadata:
+      type: Common law
+      description: English common law and local statutes.
+         
+  - code: FRO
+    name: Law of Faroe Islands (Denmark)
+    metadata:
+      type: Civil law
+      description: The laws of Denmark apply where applicable. The Faroe Islands have the exclusive right to legislate and govern independently in a wide range of areas.  The Faroese court system is under the jurisdiction of the high courts in Denmark.
+         
+  - code: FJI
+    name: Law of Fiji
+    metadata:
+      type: Common law
+      description: Based on English common law.
+         
+  - code: FIN
+    name: Law of Finland
+    metadata:
+      type: Civil law
+      description: Based on Nordic law.
+         
+  - code: FRA
+    name: Law of France
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic code (code civil of 1804).
+         
+  - code: GUF
+    name: Law of French Guiana (France)
+    metadata:
+      type: Civil law
+      description: Is an overseas department and region of France. 
+         
+  - code: PYF
+    name: Law of French Polynesia (France)
+    metadata:
+      type: Civil law
+      description: Is an overseas department and region of France.
+         
+  - code: ATF
+    name: Law of French Southern and Antarctic Lands (France)
+    metadata:
+      type: Civil law
+      description: Is an overseas department and region of France. 
+         
+  - code: GAB
+    name: Law of Gabon
+    metadata:
+      type: Civil law
+      description: Based on French civil law system.
+         
+  - code: GMB
+    name: Law of The Gambia
+    metadata:
+      type: Common law and sharia law and Customary law
+      description: English common law, Islamic law and customary law.
+         
+  - code: GEO
+    name: Law of Georgia
+    metadata:
+      type: Civil law
+      description: Civil law system.
+         
+  - code: DEU
+    name: Law of Germany
+    metadata:
+      type: Civil law
+      description: Based on Germanic civil law. The Bürgerliches Gesetzbuch of 1900 ("BGB"). The BGB is influenced both by Roman and German law traditions.
+         
+  - code: GHA
+    name: Law of Ghana
+    metadata:
+      type: Common law and customary law
+      description: Mixed system of English common law and customary law.
+         
+  - code: GIB
+    name: Law of Gibraltar
+    metadata:
+      type: Common law
+      description: Based on English common law.
+         
+  - code: GRC
+    name: Law of Greece
+    metadata:
+      type: Civil law
+      description: Greece is a civil law country.
+         
+  - code: GRL
+    name: Law of Greenland (Denmark)
+    metadata:
+      type: Civil law
+      description: The laws of Denmark apply where applicable and Greenlandic law applies to other areas.
+         
+  - code: GRD
+    name: Law of Grenada
+    metadata:
+      type: Common law
+      description: Based on English common law.
+         
+  - code: GLP
+    name: Law of Guadeloupe (France)
+    metadata:
+      type: Civil law
+      description: Guadeloupe honors the French Constitution of September 1958, and utilizes the French legal system.
+         
+  - code: GUM
+    name: Law of Guam (United States)
+    metadata:
+      type: Common law
+      description: The legal and judicial system in Guam is the same as in any other U.S. state or territory. All proceedings are in English, and based on the American common law legal system and US standards of integrity. 
+         
+  - code: GTM
+    name: Law of Guatemala
+    metadata:
+      type: Civil law
+      description: Guatemala is a civil-law country.  
+         
+  - code: GGY
+    name: Law of Guernsey 
+    metadata:
+      type: Civil law and common law
+      description: Customary legal system based on Norman customary law; includes elements of the French civil code and English common law.
+         
+  - code: GIN
+    name: Law of Guinea
+    metadata:
+      type: Civil law
+      description: Based on French civil law system, customary law, and decree.
+         
+  - code: GNB
+    name: Law of Guinea-Bissau
+    metadata:
+      type: Civil law
+      description: Based on Portuguese civil law.
+         
+  - code: GUY
+    name: Law of Guyana
+    metadata:
+      type: Civil law and common law
+      description: Vestiges of a Dutch legal system remain, particularly in the area of land tenure. However, the common law of Britain is the basis for the legal system of Guyana. 
+         
+  - code: HTI
+    name: Law of Haiti
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic civil law.
+         
+  - code: HMD
+    name: Law of Heard Island and McDonalds Islands (Australian Capital Territory)
+    metadata:
+      type: Common law
+      description: The administration of the territory is established in the Heard Island and McDonald Islands Act 1953, which places it under the laws of the Australian Capital Territory and the jurisdiction of the Supreme Court of the Australian Capital Territory.
+         
+  - code: HND
+    name: Law of Honduras
+    metadata:
+      type: Civil law
+      description: Because Honduras is a Civil law country, there is not much role for precedent or judicial review.
+         
+  - code: HKG
+    name: Law of Hong Kong
+    metadata:
+      type: Common law
+      description: Principally based on English common law.
+         
+  - code: HUN
+    name: Law of Hungary
+    metadata:
+      type: Civil law
+      description: Based on Germanic, codified Roman law with elements from Napoleonic civil law.
+         
+  - code: ISL
+    name: Law of Iceland
+    metadata:
+      type: Civil law
+      description: Based on North Germanic law. Germanic traditional laws and influenced by Medieval Norwegian and Danish laws.
+         
+  - code: IND
+    name: Law of India
+    metadata:
+      type: Common law and sharia law
+      description: Based on English common law, except in Goa, Daman and Diu and Dadra and Nagar Haveli which follow a Civil law system based on the Portuguese Civil Law. Muslim personal law based on sharia law applies to Muslims. Exceptions for Muslims in Goa state, where the Goa Civil Code applies to all persons irrespective of religion, and for Muslims who marry under the Special Marriage Act, 1954.
+         
+  - code: INDN
+    name: Law of Dadra and Nagar Haveli
+    metadata:
+      type: Civil law
+      description: Goa, Daman and Diu and Dadra and Nagar Haveli which follow a Civil law system based on the Portuguese Civil Law.
+         
+  - code: INDD
+    name: Law of Daman and Diu
+    metadata:
+      type: Civil law
+      description: Goa, Daman and Diu and Dadra and Nagar Haveli which follow a Civil law system based on the Portuguese Civil Law.
+        
+  - code: INGA
+    name: Law of Goa
+    metadata:
+      type: Civil law
+      description: Goa, Daman and Diu and Dadra and Nagar Haveli which follow a Civil law system based on the Portuguese Civil Law.
+         
+  - code: IDN
+    name: Law of Indonesia
+    metadata:
+      type: Civil law
+      description: Based on a civil law system, intermixed with customary law and the Roman Dutch law.
+         
+  - code: IRN
+    name: Law of Iran
+    metadata:
+      type: Religious law
+      description: Religious legal system based on secular and Islamic law.
+         
+  - code: IRQ
+    name: Law of Iraq
+    metadata:
+      type: Civil law and Religious law
+      description: Mixed legal system of civil and Islamic law.
+         
+  - code: IRL
+    name: Law of Ireland
+    metadata:
+      type: Common law
+      description: Based on Irish law before 1922, which was itself based on English common law.
+         
+  - code: IMN
+    name: Isle of Man
+    metadata:
+      type: Common law
+      description: The legal system on the Isle of Man is Manx customary law, a form of common law. Manx law originally derived from Gaelic Brehon law and Norse Udal law.
+         
+  - code: ISR
+    name: Law of Israel
+    metadata:
+      type: Common law
+      description: Based on English common law arising from the period of the British Mandate (which includes laws arising from previous Ottoman rule), also incorporating civil law and fragments of Halakha and Sharia for family law cases.
+         
+  - code: ITA
+    name: Law of Italy
+    metadata:
+      type: Civil law
+      description: Based on Germanic civil law, with elements of the Napoleonic civil code; civil code of 1942 replaced the original one of 1865.
+          
+  - code: CIV
+    name: Law of Cote d'Ivoire
+    metadata:
+      type: Civil law
+      description: Based on French civil law system.      
+          
+  - code: JAM
+    name: Law of Jamaica
+    metadata:
+      type: Common law
+      description: Based on English common law.
+          
+  - code: JPN
+    name: Law of Japan
+    metadata:
+      type: Civil law
+      description: Based on Germanic civil law. Japanese civil code of 1895.
+          
+  - code: JEY
+    name: Law of Jersey
+    metadata:
+      type: Civil law and common law
+      description: The Bailiwick of Jersey's legal system draws on local legislation enacted by the States of Jersey, Norman customary law, English common law and modern French civil law.
+          
+  - code: JOR
+    name: Law of Jordan
+    metadata:
+      type: Civil law and sharia law
+      description: Mainly based on French Civil Code and Ottoman Majalla, Islamic law applicable to family law.
+          
+  - code: KAZ
+    name: Law of Kazakhstan
+    metadata:
+      type: Civil law
+      description: The legal system of Kazakhstan is based on civil law and founded-on statutory legislation (the civil code), which provides for a hierarchy of legal acts.
+          
+  - code: KEN
+    name: Law of Kenya
+    metadata:
+      type: Common law
+      description: The Kenyan legal system is descended from the British Common Law system.   
+          
+  - code: KIR
+    name: Law of Kiribati
+    metadata:
+      type: Common law
+      description: Based on English common law. 
+          
+  - code: KWT
+    name: Law of Kuwait
+    metadata:
+      type: Civil law and Sharia Law
+      description: Follows the "civil law system" modeled on the French legal system. Sharia law governs only family law for Muslim residents.
+           
+  - code: KGZ
+    name: Law of Kyrgyzstan
+    metadata:
+      type: Civil law
+      description: Civil law system, which includes features of French civil law and Russian Federation laws.     
+           
+  - code: LAO
+    name: Law of Laos
+    metadata:
+      type: Civil law
+      description: Inherited a typical civil law-based legal system from the French colonial administrators. 
+           
+  - code: LVA
+    name: Law of Latvia
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic and German civil law, as it was historically before the Soviet occupation. 
+           
+  - code: LBN
+    name: Law of Lebanon
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic civil law.
+           
+  - code: LSO
+    name: Law of Lesotho
+    metadata:
+      type: Civil law and common law
+      description: Based on South African law. An 1884 proclamation by the High Commissioner for Southern Africa applied the law of the Cape Colony (now part of South Africa) to Basutoland (now Lesotho).
+           
+  - code: LBR
+    name: Law of Liberia
+    metadata:
+      type: Common law
+      description: Based on Anglo-American and customary law.
+           
+  - code: LBY
+    name: Law of Libya
+    metadata:
+      type: Civil and Religious law
+      description: Islamic law. Based on Napoleonic civil law, with Ottoman, Italian, and Egyptian sources.
+           
+  - code: LIE
+    name: Law of Liechtenstein
+    metadata:
+      type: Civil law
+      description: A civil law country. The source of the law is statute, which is enacted by the parliament.
+           
+  - code: LTU
+    name: Law of Lithuania
+    metadata:
+      type: Civil law
+      description: Modeled after Dutch civil law.
+           
+  - code: LUX
+    name: Law of Luxembourg
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic civil law.
+           
+  - code: MAC
+    name: Law of Macau
+    metadata:
+      type: Civil law
+      description: Based on the Portuguese civil law; also influenced by the law of the PRC.
+           
+  - code: MKD
+    name: Law of Macedonia
+    metadata:
+      type: Civil law
+      description: Civil law system; judicial review of legislative acts.   
+           
+  - code: MDG
+    name: Law of Madagascar
+    metadata:
+      type: Civil law
+      description: Civil law system based on the old French civil code and customary law in matters of marriage, family, and obligation.
+           
+  - code: MWI
+    name: Law of Malawi
+    metadata:
+      type: Common law and customary law
+      description: Mixed legal system of English common law and customary law; judicial review of legislative acts in the Supreme Court of Appeal.
+           
+  - code: MYS
+    name: Law of Malaysia
+    metadata:
+      type: Common law and sharia law
+      description: Based on English common law, personal law based on sharia law applies to Muslims.
+           
+  - code: MDV
+    name: Law of Maldives
+    metadata:
+      type: Common law and Religious law
+      description: Based on an admixture of Islamic Law and English common law.
+           
+  - code: MLI
+    name: Law of Mali
+    metadata:
+      type: Civil law and customary law
+      description: Derives from French civil law and customary law.
+           
+  - code: MLT
+    name: Law of Malta
+    metadata:
+      type: Civil law and common law
+      description: Napoleonic Code with influences from Italian Civil Law. English common law however is also a source of Maltese Law, most notably in Public Law.
+           
+  - code: MHL
+    name: Law of Marshall Islands
+    metadata:
+      type: Common law
+      description: Based on law of the United States.
+           
+  - code: MTQ
+    name: Law of Martinique (France)
+    metadata:
+      type: Civil law
+      description: The French system of justice is in force.
+                             
+  - code: MRT
+    name: Law of Mauritania
+    metadata:
+      type: Religious law
+      description: Mix of Islamic law and French Civil Codes, Islamic law largely applicable to family law.
+           
+  - code: MUS
+    name: Law of Mauritius
+    metadata:
+      type: Civil law and common law
+      description: Laws governing the Mauritian penal system are derived partly from French civil law and British common law.
+           
+  - code: MYT
+    name: Law of Mayotte (France)
+    metadata:
+      type: Civil law
+      description: Local judicial, economic and social laws and customs were changed to conform with French law.
+           
+  - code: MEX
+    name: Law of Mexico
+    metadata:
+      type: Civil law
+      description: The origins of Mexico's legal system are both ancient and classical, based on the Roman and French legal systems.
+                 
+  - code: FSM
+    name: Law of Micronesia
+    metadata:
+      type: Common law and customary law
+      description: Mixed legal system of common and customary law.
+                       
+  - code: MDA
+    name: Law of Moldova
+    metadata:
+      type: Civil law
+      description: Civil law system with Germanic law influences; Constitutional Court review of legislative acts.
+                             
+  - code: MCO
+    name: Law of Monaco
+    metadata:
+      type: Civil law
+      description: Has its own legal system, Law Courts and Appeal Court. Its law is largely but not entirely based on the French Code Civil.
+                       
+  - code: MNG
+    name: Law of Mongolia
+    metadata:
+      type: Civil law
+      description: Based on Germanic civil law.
+                       
+  - code: MNE
+    name: Law of Montenegro
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic and German civil law. 
+                       
+  - code: MSR
+    name: Law of Montserrat (England and Wales)
+    metadata:
+      type: Common law
+      description: English common law.
+                             
+  - code: MAR
+    name: Law of Morocco
+    metadata:
+      type: Civil law and sharia law
+      description: Mix of Islamic law and French Civil Codes, Islamic law largely applicable to family law. Halakha recognized to family law cases for Jewish citizens.
+                       
+  - code: MOZ
+    name: Law of Mozambique
+    metadata:
+      type: Civil law
+      description: Based on Portuguese civil law.
+                       
+  - code: MMR
+    name: Law of Myanmar
+    metadata:
+      type: Common law
+      description: Based on English common law.
+                       
+  - code: NAM
+    name: Law of Namibia
+    metadata:
+      type: Civil law and common law
+      description: Based on South African law. 
+                             
+  - code: NRU
+    name: Law of Nauru
+    metadata:
+      type: Common law
+      description: Based on English common law. 
+                             
+  - code: NPL
+    name: Law of Nepal
+    metadata:
+      type: Common law, Civil law and Religous law
+      description: English common law and Hindu legal concepts; note - new criminal and civil codes came into effect on 17 August 2018
+                             
+  - code: NLD
+    name: Law of Netherlands
+    metadata:
+      type: Civil law
+      description: Based on Napoleonic code with German law influence.
+                             
+  - code: NCL
+    name: Law of New Caledonia
+    metadata:
+      type: Civil law
+      description: Civil law system based on French civil law.
+                             
+  - code: NZL
+    name: Law of New Zealand
+    metadata:
+      type: Common law
+      description: Based on English common law.
+                             
+  - code: NIC
+    name: Law of Nicaragua
+    metadata:
+      type: Civil law
+      description: Civil law system; Supreme Court may review administrative acts.
+                             
+  - code: NER
+    name: Law of Niger 
+    metadata:
+      type: Civil law, Religious law and Customary law
+      description: Mixed legal system of civil law, based on French civil law, Islamic law, and customary law.
+                             
+  - code: NGA
+    name: Law of Nigeria
+    metadata:
+      type: Common law and sharia law
+      description: Sharia in the northern states, common law in the south and at the federal level.
+                                   
+  - code: NIU
+    name: Law of Niue
+    metadata:
+      type: Common law and customary law
+      description: Certain British and New Zealand Acts; common law; customary law.
+                                   
+  - code: NFK
+    name: Law of Norfolk Island (New South Wales)
+    metadata:
+      type: Common law
+      description: The Norfolk Island Regional Council operates under an applied version of NSW Local Government legislation, the Local Government Act 1993 (NSW)(NI).
+                             
+  - code: NZL
+    name: Law of New Zealand
+    metadata:
+      type: Common law
+      description: Based on English common law.
+                                                          
+  - code: PRK
+    name: Law of North Korea
+    metadata:
+      type: Civil law
+      description: Codified civil law system, which was inherited from colonial Japan and is similar to South Korea's system.
+                                   
+  - code: MNP
+    name: Law of Northern Mariana Islands (United States)
+    metadata:
+      type: Common law
+      description: Laws of the US apply, except for customs and some aspects of taxation.
+                                         
+  - code: NOR
+    name: Law of Norway
+    metadata:
+      type: Civil law
+      description: Based on Civil Code.
+                                         
+  - code: OMN
+    name: Law of Oman
+    metadata:
+      type: Civil law and sharia law
+      description: Sharia and tribal custom laws.
+                                         
+  - code: PAK
+    name: Law of Pakistan
+    metadata:
+      type: Common law and sharia law
+      description: Based on English Common Law, some Islamic law applications in inheritance. Tribal Law in FATA.
+                                         
+  - code: PLW
+    name: Law of Palau
+    metadata:
+      type: Common law
+      description: Based on law of the United States.
+                                         
+  - code: PSE
+    name: Law of Palestinian Territory
+    metadata:
+      type: Islamic customary law 
+      description: Islamic customary law applies in Palestinian ruled territory.
+                                         
+  - code: PAN
+    name: Law of Panama
+    metadata:
+      type: Civil law
+      description: Based on civil law with influences from Spanish legal tradition and Roman laws.
+                                         
+  - code: PNG
+    name: Law of Papua New Guinea
+    metadata:
+      type: Common law
+      description: The legal system is based on English common law.
+                                         
+  - code: PRY
+    name: Law of Paraguay
+    metadata:
+      type: Civil law
+      description: The Paraguayan Civil Code in force since 1987 is largely influenced by the Napoleonic Code and the Argentinian Code.                                         
+  
+  - code: PER
+    name: Law of Peru
+    metadata:
+      type: Civil law
+      description: Based on civil law system; accepts compulsory International Court of Justice ICJ jurisdiction with despotic and corrupting reservations.
+                                         
+  - code: PHL
+    name: Law of Philippines
+    metadata:
+      type: Civil law and common law
+      description: Based on Spanish law; influenced by U.S. common law after 1898 Spanish– and Philippine–American Wars, personal law based on sharia law applies to Muslims.
+                                         
+  - code: PCN
+    name: Law of Pitcairn Islands (England and Wales)
+    metadata:
+      type: Common law and Ordinances
+      description: Comprises (a) laws (called "ordinances") made by the Governor, (b) United Kingdom legislation and Orders in Council extending to Pitcairn, and (c) the common law, rules of equity, and statutes of general application as in force in England for the time being, so far as local circumstances and the limits of local jurisdiction permit, and subject to any existing or future ordinance.
+                                         
+  - code: POL
+    name: Law of Poland
+    metadata:
+      type: Civil law
+      description: The Polish Civil Code in force since 1965.
+                                         
+  - code: PRT
+    name: Law of Portugal
+    metadata:
+      type: Civil law
+      description: Influenced by the Napoleonic Code and later by the German civil law.
+                                         
+  - code: PRI
+    name: Law of Puerto Rico
+    metadata:
+      type: Civil law and common law
+      description: Based on Spanish law; influenced by U.S. common law after 1898; federal laws (based on common law) are in effect because of federal Supremacy Clause.
+                                         
+  - code: QAT
+    name: Law of Qatar
+    metadata:
+      type: Civil law and sharia law
+      description: Based on Islamic law and Egyptian civil law system (after the French civil law system).
+                                         
+  - code: REU
+    name: Law of Réunion (France)
+    metadata:
+      type: Civil law
+      description: Governed by French law, and its constitution is the French constitution of 28 September 1958.
+                                         
+  - code: ROU
+    name: Law of  Romania
+    metadata:
+      type: Civil law
+      description: Civil Code came into force in 2011. Based on the Civil Code of Quebec, but also influenced by the Napoleonic Code and other French-inspired codes (such as those of Italy, Spain and Switzerland).
+                                         
+  - code: RUS
+    name: Law of Russia
+    metadata:
+      type: Civil law
+      description: Civil Law system descendant from Roman Law through Byzantine tradition. Heavily influenced by German and Dutch norms in 1700–1800s. Socialist-style modification in 1900s, and Continental European Law influences since 1990s.
+                                         
+  - code: RWA
+    name: Law of Rwanda
+    metadata:
+      type: Civil and common law
+      description: Mixture of Belgian civil law and English common law.
+                                         
+  - code: SHN
+    name: Law of Saint Helena Ascension and Tristan da Cunha (England and Wales)
+    metadata:
+      type: Common law and local statues
+      description: English common law and local statutes.
+                                         
+  - code: KNA
+    name: Law of Saint Kitts and Nevis
+    metadata:
+      type: Common law
+      description: Based on English common law and statutory acts of the House of Assembly.
+                                         
+  - code: LCA
+    name: Law of Saint Lucia
+    metadata:
+      type: Civil law and common law
+      description: Because it was both a French and English colony before it gained independence on February 11, 1979, the legal system is a mix of civil and English common law.
+                                         
+  - code: SPM
+    name: Law of Saint Pierre and Miquelon (France)
+    metadata:
+      type: Civil law
+      description: French civil law.
+                                         
+  - code: VCT
+    name: Law of Saint Vincent and the Grenadines
+    metadata:
+      type: Common law
+      description: Based on English common law.
+                                         
+  - code: BLM
+    name: Law of Saint-Barthelemy (France)
+    metadata:
+      type: Civil law
+      description: French civil law.
+                                         
+  - code: MAF
+    name: Law of Saint-Martin (France)
+    metadata:
+      type: Civil law
+      description: French civil law.
+                                               
+  - code: WSM
+    name: Law of Samoa
+    metadata:
+      type: Common law and customary law
+      description: Mixed legal system of English common law and customary law; judicial review of legislative acts with respect to fundamental rights of the citizen.
+                                               
+  - code: SMR
+    name: Law of San Marino
+    metadata:
+      type: Civil law
+      description: Civil law system with Italian civil law influences.
+                                                     
+  - code: STP
+    name: Law of São Tomé and Príncipe
+    metadata:
+      type: Civil law
+      description: Based on Portuguese civil law.
+                                                     
+  - code: SAU
+    name: Law of Saudi Arabia
+    metadata:
+      type: Religious law
+      description: Islamic law.
+                                                     
+  - code: SAU
+    name: Law of Saudi Arabia
+    metadata:
+      type: Religious law
+      description: Islamic law.
+                                                           
+  - code: SEN
+    name: Law of Senegal
+    metadata:
+      type: Civil law
+      description: Civil law system based on French law; judicial review of legislative acts in Constitutional Court.
+                                                           
+  - code: SRB
+    name: Law of Serbia
+    metadata:
+      type: Civil law
+      description:  The Swiss civil law (Zivilgesetzbuch) was a model for the Law on Obligations of 1978.
+                                                           
+  - code: SYC
+    name: Law of Seychelles
+    metadata:
+      type: Civil law and common law
+      description:  The substantive civil law is based on the French Civil Code. Otherwise the criminal law and court procedure are based on the English common law. 
+                                                     
+  - code: SLE
+    name: Law of Sierra Leone (England and Wales)
+    metadata:
+      type: Common law and Customary law
+      description: Mixed legal system of English common law and customary law.
+                                                     
+  - code: SGP
+    name: Law of Singapore
+    metadata:
+      type: Common law
+      description: Based on English common law, but Muslims are subject to the Administration of Muslim Law Act, which gives the Sharia Court jurisdiction over Muslim personal law.
+                                                        
+  - code: SXM
+    name: Law of Sint Maarten
+    metadata:
+      type: Civil law and common law
+      description: Based on Dutch civil law system with some English common law influence.                                                          
+
+  - code: SVK
+    name: Law of Slovakia
+    metadata:
+      type: Civil law
+      description: Descended from the Civil Code of the Austrian Empire (1811), influenced by German (1939–45) and Soviet (1947/68–89) legal codes during occupation periods, substantially reformed to remove Soviet influence and elements of socialist law after the Velvet Revolution (1989).
+                                                     
+  - code: SVN
+    name: Law of Slovenia
+    metadata:
+      type: Civil law
+      description: A Civil Law system influenced mostly by Germanic and Austro-Hungarian law systems.
+                                                        
+  - code: SLB
+    name: Law of Solomon Islands
+    metadata:
+      type: Common law and Customary law
+      description: Mixed legal system of English common law and customary law.                              
+                                                              
+  - code: SOM
+    name: Law of Somalia
+    metadata:
+      type: Civil law, Sharia law and Customary law
+      description: Mixed legal system of civil law, Islamic (sharia) law, and customary law (referred to as Xeer). 
+                                                              
+  - code: ZAF
+    name: Law of South Africa
+    metadata:
+      type: Civil law and common law
+      description: An amalgam of Roman-Dutch civil law and English common law, as well as Customary Law.   
+                                                                    
+  - code: SGS
+    name: Law of South Georgia and the South Sandwich Islands (England and Wales)
+    metadata:
+      type: Common law
+      description: The laws of the UK, where applicable, apply; the senior magistrate from the Falkland Islands presides over the Magistrates Court.
+                                                                    
+  - code: KOR
+    name: Law of South Korea
+    metadata:
+      type: Civil law
+      description: Based on German civil law system. Also largely influenced by Japanese civil law which itself modelled after German one. Korean Civil Code was introduced 1958 and fully enacted by 1960.
+                                                                      
+  - code: SSD
+    name: Law of South Sudan
+    metadata:
+      type: Statutory and Customary law
+      description: Legal system is built on the combination of statutory and customary laws. South Sudan has enacted dozens of laws since 2005, but their use in legal disputes and courts is limited.
+
+  - code: ESP
+    name: Law of Spain
+    metadata:
+      type: Civil law 
+      description: An amalgam of Roman-Dutch civil law and English common law, as well as Customary Law.  
+                                                                    
+  - code: LKA
+    name: Law of Sri Lanka
+    metadata:
+      type: Civil law and common law
+      description: An amalgam of English common law, Roman-Dutch civil law and Customary Law.
+                                                                          
+  - code: SDN
+    name: Law of Sudan
+    metadata:
+      type: Religious law
+      description: Based on Islamic law.
+                                                                          
+  - code: SUR
+    name: Law of Suriname
+    metadata:
+      type: Civil law
+      description: Based on Dutch civil law.
+                                                                                
+  - code: SJM
+    name: Law of Svalbard and Jan Mayen (Norway)
+    metadata:
+      type: Civil law
+      description: The laws of Norway where applicable apply; only the laws of Norway made explicitly applicable to Svalbard have effect there; the Svalbard Act and the Svalbard Environmental Protection Act, and certain regulations, apply only to Svalbard; the Spitsbergen Treaty and the Svalbard Treaty grant certain rights to citizens and corporations of signatory nations; as of June 2017, 45 nations had ratified the Svalbard Treaty.
+                                                                            
+  - code: SWZ
+    name: Law of Eswatini	
+    metadata:
+      type: Civil law and common law
+      description: Based on South African law. A 1907 proclamation by the High Commissioner for Southern Africa applied the Roman-Dutch common law of the Transvaal Colony (now part of South Africa) to the Swaziland Protectorate (now Eswatini).                                                                          
+  
+  - code: SWE
+    name: Law of Sweden
+    metadata:
+      type: Civil law
+      description: Scandinavian-North Germanic civil law. 
+  
+  - code: CHE
+    name: Law of Switzerland
+    metadata:
+      type: Civil law
+      description: The Swiss Civil Code of 1908 and 1912 (obligations; fifth book).
+  
+  - code: SYR
+    name: Law of Syria
+    metadata:
+      type: Civil law and sharia law
+      description: Mainly based on Napoleonic/French Civil Code. Islamic law applicable to family law. Non Muslims follow their own family laws. 
+        
+  - code: TWN
+    name: Law of Taiwan
+    metadata:
+      type: Civil law
+      description: Influenced by German Civil Code. Enacted in 1931. 
+        
+  - code: TJK
+    name: Law of Tajikistan
+    metadata:
+      type: Civil law
+      description: Civil law system.
+              
+  - code: TZA
+    name: Law of Tanzania
+    metadata:
+      type: Common law
+      description: Tanzania’s legal system is based on the English Common Law system. It derived this system from its British colonial legacy, as it does the system of government, which is based to a large degree on the Westminster parliamentary model.
+              
+  - code: THA
+    name: Law of Thailand
+    metadata:
+      type: Civil law and common law
+      description: The Thai legal system became an amalgam of German, Swiss, French, English, Japanese, Italian, Indian and American laws and practices. Even today, Islamic laws and practices exist in four southern provinces. 
+        
+  - code: TGO
+    name: Law of Togo
+    metadata:
+      type: Civil law and customary law
+      description: Togo has a civil law system based on the French model mixed with customary law.
+        
+  - code: TKL
+    name: Law of Tokelau
+    metadata:
+      type: Common law
+      description: Certain British and NZ Acts of Parliament; Rules of the Tokelau General fono; British common law as at 14 January 1840.
+        
+  - code: TON
+    name: Law of Trinidad and Tobago
+    metadata:
+      type: Common law
+      description: Based on English common law.
+        
+  - code: TTO
+    name: Law of Trinidad and Tobago
+    metadata:
+      type: Common law
+      description: Based on English common law.
+        
+  - code: TUN
+    name: Law of Tunisia
+    metadata:
+      type: Civil law
+      description: The Tunisian legal system is based on French civil law system.
+        
+  - code: TUR
+    name: Law of Turkey
+    metadata:
+      type: Civil law
+      description: Modeled after the Swiss civil law (Zivilgesetzbuch) of 1907.
+        
+  - code: TKM
+    name: Law of Turkmenistan
+    metadata:
+      type: Civil law and Islamic law
+      description: The legal system in Turkmenistan is a civil law system, with Islamic law influences.
+              
+  - code: TCA
+    name: Law of Turks and Caicos Island
+    metadata:
+      type: Common Law
+      description: A British Overseas Territory and a common law jurisdiction which is modeled on the English legal system. 
+              
+  - code: TUV
+    name: Law of Tuvalu
+    metadata:
+      type: Common law
+      description: Based on English common law.
+                    
+  - code: UGA
+    name: Law of Uganda
+    metadata:
+      type: Common law
+      description: Based on English common law.
+                          
+  - code: UKR
+    name: Law of Ukraine
+    metadata:
+      type: Civil law
+      description: Civil Code of Ukraine of 2004.
+                                
+  - code: ARE
+    name: Law of United Arab Emirates
+    metadata:
+      type: Common Law, civil law and sharia law
+      description: Based on Islamic law and Egyptian civil law system (after the French civil law system). Based on Common law system in the Dubai International Financial Center (DIFC Courts) and Abu Dhabi Global Market (ADGM) Courts (after the English Common law system).
+                          
+  - code: GBREW
+    name: Law of England and Wales
+    metadata:
+      type: Common law
+      description: Primarily common law, with early Roman and some modern continental European influences.
+                          
+  - code: GBRS
+    name: Law of Scotland
+    metadata:
+      type: Civil law and common law
+      description: Based on Roman and continental law, with common law elements dating back to the High Middle Ages. 
+                                
+  - code: GBRNI
+    name: Law of Northern Ireland
+    metadata:
+      type: Common law
+      description: Based on Irish law before 1921, in turn based on English common law.
+                                
+  - code: URY
+    name: Law of Uruguay
+    metadata:
+      type: Civil law
+      description: Civil law system, with public law based on the 1967 Constitution, amended in 1989, 1994, 1997, and 2004.
+                                
+  - code: VIR
+    name: Law of US Virgin Islands (United States)
+    metadata:
+      type: Common law
+      description: The virgin Islands legal system transitioned from danish law to the American common law tradition.
+                                  
+  - code: USA
+    name: Law of United States
+    metadata:
+      type: Common law
+      description: Federal courts and 49 states use the legal system based on English common law. Law in the state of Louisiana is based on French and Spanish civil law.
+
+  - code: USAK
+    name: Law of Alaska
+    metadata:
+      type: Common law
+      description: Based on english common law.
+
+  - code: USAL
+    name: Law of Alabama
+    metadata:
+      type: Common law
+      description: Based on english common law.
+
+  - code: USAR
+    name: Law of Arkansas
+    metadata:
+      type: Common law
+      description: Based on english common law.
+      
+  - code: USAZ
+    name: Law of Arizona
+    metadata:
+      type: Common law
+      description: Based on english common law.
+      
+  - code: USCA
+    name: Law of California
+    metadata:
+      type: Common law
+      description: Based on english common law.
+      
+  - code: USCO
+    name: Law of Colorado
+    metadata:
+      type: Common law
+      description: Based on english common law.
+      
+  - code: USCT
+    name: Law of Connecticut
+    metadata:
+      type: Common law
+      description: Based on english common law.
+      
+  - code: USDC
+    name: Law of Washington D.C.
+    metadata:
+      type: Common law
+      description: Based on english common law.
+      
+  - code: USDE
+    name: Law of Delaware
+    metadata:
+      type: Common law
+      description: Based on english common law.
+      
+  - code: USFL
+    name: Law of Florida
+    metadata:
+      type: Common law
+      description: Based on english common law.
+
+  - code: USGA
+    name: Law of Georgia
+    metadata:
+      type: Common law
+      description: Georgia's legal system is based on common law.
+      
+  - code: USHI
+    name: Law of Hawaii
+    metadata:
+      type: Common law
+      description: Based on english common law.
+      
+  - code: USIA
+    name: Law of Iowa
+    metadata:
+      type: Common law
+      description: Based on english common law.
+            
+  - code: USID
+    name: Law of Idaho
+    metadata:
+      type: Common law
+      description: Based on english common law.
+            
+  - code: USIL
+    name: Law of Illinois
+    metadata:
+      type: Common law
+      description: Based on english common law.
+            
+  - code: USIN
+    name: Law of Indiana 
+    metadata:
+      type: Common law
+      description: Based on english common law.
+            
+  - code: USKS
+    name: Law of Kansas 
+    metadata:
+      type: Common law
+      description: Based on english common law.
+            
+  - code: USKY
+    name: Law of Kentucky
+    metadata:
+      type: Common law
+      description: Based on english common law.
+
+  - code: USLA
+    name: Law of Louisiana
+    metadata:
+      type: Civil law and common law
+      description: Based on French and Spanish civil law, but federal laws (based on common law) are also in effect in Louisiana because of federal Supremacy Clause.
+            
+  - code: USMA
+    name: Law of Massachusetts
+    metadata:
+      type: Common law
+      description: Based on english common law.
+            
+  - code: USMD
+    name: Law of Maryland
+    metadata:
+      type: Common law
+      description: Based on english common law.
+            
+  - code: USME
+    name: Law of Maine
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USMI
+    name: Law of Michigan
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USMN
+    name: Law of Minnesota
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USMO
+    name: Law of Missouri
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USMS
+    name: Law of Mississippi
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USMT
+    name: Law of Montana
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USNC
+    name: Law of North Carolina
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USND
+    name: Law of North Dakota
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USNE
+    name: Law of Nebraska
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USNH
+    name: Law of New Hampshire
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USNJ
+    name: Law of New Jersey
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USNM
+    name: Law of New Mexico
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USNV
+    name: Law of Nevada
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USNY
+    name: Law of New York
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USOH
+    name: Law of Ohio
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USOK
+    name: Law of Oklahoma
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USOR
+    name: Law of Oregon
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USPA
+    name: Law of Pennsylvania
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USRI
+    name: Law of Rhode Island
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USSC
+    name: Law of South Carolina
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USSD
+    name: Law of South Dakota
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USTN
+    name: Law of Tennessee
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USTX
+    name: Law of Texas
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USUT
+    name: Law of Utah
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USVA
+    name: Law of Virginia
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USVT
+    name: Law of Vermont
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USWA
+    name: Law of Washington
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USWI
+    name: Law of Wisconsin
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USWV
+    name: Law of West Virginia
+    metadata:
+      type: Common law
+      description: Based on english common law.
+                  
+  - code: USwy
+    name: Law of Wyoming
+    metadata:
+      type: Common law
+      description: Based on english common law.
+
+  - code: UZB
+    name: Law of Uzbekistan
+    metadata:
+      type: Civil law
+      description: Represents an evolution of Soviet civil law. Overwhelmingly strong impact of the Communist legal theory is traceable.
+                                     
+  - code: VUT
+    name: Law of Vanuatu
+    metadata:
+      type: Civil law and common law
+      description: Consists of a mixed system combining the legacy of English common law, French civil law and indigenous customary law.  
+                                    
+  - code: VAT
+    name: Law of Vatican City
+    metadata:
+      type: Civil law and canon law
+      description: Based on Roman & Italian civil law and Catholic canon law.
+                                    
+  - code: VEN
+    name: Law of Venezuela
+    metadata:
+      type: Civil law
+      description: Venezuela's legal system has a legislative origin, grounded on "written law" (civil law).
+                                    
+  - code: VNM
+    name: Law of Vietnam
+    metadata:
+      type: Civil law
+      description: Communist legal theory and French civil law.
+                                    
+  - code: WLF
+    name: Law of Wallis and Futuna (France)
+    metadata:
+      type: Civil law and Customary law
+      description: Uses both the French legal system and customary local laws.
+                                    
+  - code: YEM
+    name: Law of Yemen
+    metadata:
+      type: Civil, Common, Customary and Religious law
+      description: Mixed legal system of Islamic (sharia) law, Napoleonic law, English common law, and customary law.
+                                    
+  - code: ZMB
+    name: Law of Zambia
+    metadata:
+      type: Common law and Customary law
+      description: Zambian legal system is largely based on English Common Law. Customary laws relating to particular communities around the country are also recognised by the constitution. 
+                                    
+  - code: ZWE
+    name: Law of Zimbabwe
+    metadata:
+      type: Civil law and common law
+      description: Based on South African law. An 1891 proclamation by the High Commissioner for Southern Africa applied the law of the Cape Colony (now part of South Africa) to Southern Rhodesia (now Zimbabwe).
