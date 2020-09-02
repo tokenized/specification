@@ -67,6 +67,8 @@ func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddress bitcoi
 		if err := e.Serialize(digest); err != nil {
 			return nil, errors.Wrap(err, "serialize entity raw address")
 		}
+	default:
+		return nil, errors.New("Unsupported entity data type")
 	}
 	digest.Write(blockHash[:])
 	binary.Write(digest, DefaultEndian, &expiration)
