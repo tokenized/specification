@@ -224,8 +224,15 @@ func (id *TxId) Set(value []byte) error {
 }
 
 // AssetID encodes an asset ID.
+//
 // AssetID = AssetType(3 characters) + base58(AssetCode + checksum)
+//
+// There is a special case for BSV, which will be returned as BSV.
 func AssetID(assetType string, code AssetCode) string {
+	if assetType == "BSV" {
+		return assetType
+	}
+
 	data := code.Bytes()
 
 	// Perform Double SHA-256 hash
