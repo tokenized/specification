@@ -4,9 +4,9 @@
     "label": "Contract Offer",
     "name": "ContractOffer",
     "fields": {
-      "(Deprecated)AdminIdentityOracle": null,
-      "(Deprecated)AdminIdentityOracleSigBlockHeight": null,
-      "(Deprecated)AdminIdentityOracleSignature": null,
+      "(Deprecated)AdminOracle": null,
+      "(Deprecated)AdminOracleSigBlockHeight": null,
+      "(Deprecated)AdminOracleSignature": null,
       "(Deprecated)ContractOperator": null,
       "(Deprecated)ContractType": "Shareholder Agreement",
       "(Deprecated)IssuerLogoURL": "https://example.com/images/logo.png",

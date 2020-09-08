@@ -19,9 +19,9 @@ message ContractOffer {
     reserved                                         11;  // Deprecated IssuerLogoURL
     bool ContractOperatorIncluded                  = 12;  // bool
     reserved                                         13;  // Deprecated ContractOperator
-    reserved                                         14;  // Deprecated AdminIdentityOracle
-    reserved                                         15;  // Deprecated AdminIdentityOracleSignature
-    reserved                                         16;  // Deprecated AdminIdentityOracleSigBlockHeight
+    reserved                                         14;  // Deprecated AdminOracle
+    reserved                                         15;  // Deprecated AdminOracleSignature
+    reserved                                         16;  // Deprecated AdminOracleSigBlockHeight
     uint64 ContractFee                             = 17;  // uint
     repeated VotingSystemField VotingSystems       = 18;  // VotingSystem[]
     bytes ContractPermissions                      = 19;  // varbin

@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/tokenized/specification/dist/golang/internal"
+
 	"github.com/pkg/errors"
 )
 
@@ -80,6 +82,102 @@ func (a *Membership) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 	return nil, fmt.Errorf("Unknown Membership amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two Memberships and returns
+// amendment data.
+func (a *Membership) CreateAmendments(fip []uint32,
+	newValue *Membership) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// AgeRestriction AgeRestrictionField
+	fip = append(ofip, MembershipFieldAgeRestriction)
+	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
+	if err != nil {
+		return nil, errors.Wrap(err, "AgeRestriction")
+	}
+	result = append(result, AgeRestrictionAmendments...)
+
+	// ValidFrom uint64
+	fip = append(ofip, MembershipFieldValidFrom)
+	if a.ValidFrom != newValue.ValidFrom {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ValidFrom)); err != nil {
+			return nil, errors.Wrap(err, "ValidFrom")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ExpirationTimestamp uint64
+	fip = append(ofip, MembershipFieldExpirationTimestamp)
+	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ExpirationTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpirationTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ID string
+	fip = append(ofip, MembershipFieldID)
+	if a.ID != newValue.ID {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.ID),
+		})
+	}
+
+	// MembershipClass string
+	fip = append(ofip, MembershipFieldMembershipClass)
+	if a.MembershipClass != newValue.MembershipClass {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.MembershipClass),
+		})
+	}
+
+	// RoleType string
+	fip = append(ofip, MembershipFieldRoleType)
+	if a.RoleType != newValue.RoleType {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.RoleType),
+		})
+	}
+
+	// MembershipType string
+	fip = append(ofip, MembershipFieldMembershipType)
+	if a.MembershipType != newValue.MembershipType {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.MembershipType),
+		})
+	}
+
+	// Description string
+	fip = append(ofip, MembershipFieldDescription)
+	if a.Description != newValue.Description {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Description),
+		})
+	}
+
+	return result, nil
+}
+
 // Currency Permission / Amendment Field Indices
 const (
 	CurrencyFieldCurrencyCode          = uint32(1)
@@ -124,6 +222,55 @@ func (a *Currency) ApplyAmendment(fip []uint32, operation uint32, data []byte) (
 	return nil, fmt.Errorf("Unknown Currency amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two Currencys and returns
+// amendment data.
+func (a *Currency) CreateAmendments(fip []uint32,
+	newValue *Currency) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// CurrencyCode string
+	fip = append(ofip, CurrencyFieldCurrencyCode)
+	if a.CurrencyCode != newValue.CurrencyCode {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.CurrencyCode),
+		})
+	}
+
+	// MonetaryAuthority string
+	fip = append(ofip, CurrencyFieldMonetaryAuthority)
+	if a.MonetaryAuthority != newValue.MonetaryAuthority {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.MonetaryAuthority),
+		})
+	}
+
+	// deprecated Description deprecated
+
+	// Precision uint64
+	fip = append(ofip, CurrencyFieldPrecision)
+	if a.Precision != newValue.Precision {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Precision)); err != nil {
+			return nil, errors.Wrap(err, "Precision")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // ShareCommon Permission / Amendment Field Indices
 const (
 	ShareCommonFieldTicker      = uint32(1)
@@ -155,6 +302,48 @@ func (a *ShareCommon) ApplyAmendment(fip []uint32, operation uint32, data []byte
 	}
 
 	return nil, fmt.Errorf("Unknown ShareCommon amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two ShareCommons and returns
+// amendment data.
+func (a *ShareCommon) CreateAmendments(fip []uint32,
+	newValue *ShareCommon) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Ticker string
+	fip = append(ofip, ShareCommonFieldTicker)
+	if a.Ticker != newValue.Ticker {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Ticker),
+		})
+	}
+
+	// ISIN string
+	fip = append(ofip, ShareCommonFieldISIN)
+	if a.ISIN != newValue.ISIN {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.ISIN),
+		})
+	}
+
+	// Description string
+	fip = append(ofip, ShareCommonFieldDescription)
+	if a.Description != newValue.Description {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Description),
+		})
+	}
+
+	return result, nil
 }
 
 // Coupon Permission / Amendment Field Indices
@@ -242,6 +431,104 @@ func (a *Coupon) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]
 	return nil, fmt.Errorf("Unknown Coupon amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two Coupons and returns
+// amendment data.
+func (a *Coupon) CreateAmendments(fip []uint32,
+	newValue *Coupon) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// RedeemingEntity string
+	fip = append(ofip, CouponFieldRedeemingEntity)
+	if a.RedeemingEntity != newValue.RedeemingEntity {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.RedeemingEntity),
+		})
+	}
+
+	// IssueDate uint64
+	fip = append(ofip, CouponFieldIssueDate)
+	if a.IssueDate != newValue.IssueDate {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.IssueDate)); err != nil {
+			return nil, errors.Wrap(err, "IssueDate")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ExpiryDate uint64
+	fip = append(ofip, CouponFieldExpiryDate)
+	if a.ExpiryDate != newValue.ExpiryDate {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ExpiryDate)); err != nil {
+			return nil, errors.Wrap(err, "ExpiryDate")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Value uint64
+	fip = append(ofip, CouponFieldValue)
+	if a.Value != newValue.Value {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Value)); err != nil {
+			return nil, errors.Wrap(err, "Value")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Currency string
+	fip = append(ofip, CouponFieldCurrency)
+	if a.Currency != newValue.Currency {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Currency),
+		})
+	}
+
+	// Description string
+	fip = append(ofip, CouponFieldDescription)
+	if a.Description != newValue.Description {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Description),
+		})
+	}
+
+	// Precision uint64
+	fip = append(ofip, CouponFieldPrecision)
+	if a.Precision != newValue.Precision {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Precision)); err != nil {
+			return nil, errors.Wrap(err, "Precision")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // LoyaltyPoints Permission / Amendment Field Indices
 const (
 	LoyaltyPointsFieldAgeRestriction      = uint32(1)
@@ -298,6 +585,75 @@ func (a *LoyaltyPoints) ApplyAmendment(fip []uint32, operation uint32, data []by
 	}
 
 	return nil, fmt.Errorf("Unknown LoyaltyPoints amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two LoyaltyPointss and returns
+// amendment data.
+func (a *LoyaltyPoints) CreateAmendments(fip []uint32,
+	newValue *LoyaltyPoints) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// AgeRestriction AgeRestrictionField
+	fip = append(ofip, LoyaltyPointsFieldAgeRestriction)
+	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
+	if err != nil {
+		return nil, errors.Wrap(err, "AgeRestriction")
+	}
+	result = append(result, AgeRestrictionAmendments...)
+
+	// OfferName string
+	fip = append(ofip, LoyaltyPointsFieldOfferName)
+	if a.OfferName != newValue.OfferName {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.OfferName),
+		})
+	}
+
+	// ValidFrom uint64
+	fip = append(ofip, LoyaltyPointsFieldValidFrom)
+	if a.ValidFrom != newValue.ValidFrom {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ValidFrom)); err != nil {
+			return nil, errors.Wrap(err, "ValidFrom")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ExpirationTimestamp uint64
+	fip = append(ofip, LoyaltyPointsFieldExpirationTimestamp)
+	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ExpirationTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpirationTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Description string
+	fip = append(ofip, LoyaltyPointsFieldDescription)
+	if a.Description != newValue.Description {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Description),
+		})
+	}
+
+	return result, nil
 }
 
 // TicketAdmission Permission / Amendment Field Indices
@@ -391,6 +747,125 @@ func (a *TicketAdmission) ApplyAmendment(fip []uint32, operation uint32, data []
 	return nil, fmt.Errorf("Unknown TicketAdmission amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two TicketAdmissions and returns
+// amendment data.
+func (a *TicketAdmission) CreateAmendments(fip []uint32,
+	newValue *TicketAdmission) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// AgeRestriction AgeRestrictionField
+	fip = append(ofip, TicketAdmissionFieldAgeRestriction)
+	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
+	if err != nil {
+		return nil, errors.Wrap(err, "AgeRestriction")
+	}
+	result = append(result, AgeRestrictionAmendments...)
+
+	// AdmissionType string
+	fip = append(ofip, TicketAdmissionFieldAdmissionType)
+	if a.AdmissionType != newValue.AdmissionType {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.AdmissionType),
+		})
+	}
+
+	// Venue string
+	fip = append(ofip, TicketAdmissionFieldVenue)
+	if a.Venue != newValue.Venue {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Venue),
+		})
+	}
+
+	// Class string
+	fip = append(ofip, TicketAdmissionFieldClass)
+	if a.Class != newValue.Class {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Class),
+		})
+	}
+
+	// Area string
+	fip = append(ofip, TicketAdmissionFieldArea)
+	if a.Area != newValue.Area {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Area),
+		})
+	}
+
+	// Seat string
+	fip = append(ofip, TicketAdmissionFieldSeat)
+	if a.Seat != newValue.Seat {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Seat),
+		})
+	}
+
+	// StartTimeDate uint64
+	fip = append(ofip, TicketAdmissionFieldStartTimeDate)
+	if a.StartTimeDate != newValue.StartTimeDate {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.StartTimeDate)); err != nil {
+			return nil, errors.Wrap(err, "StartTimeDate")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ValidFrom uint64
+	fip = append(ofip, TicketAdmissionFieldValidFrom)
+	if a.ValidFrom != newValue.ValidFrom {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ValidFrom)); err != nil {
+			return nil, errors.Wrap(err, "ValidFrom")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ExpirationTimestamp uint64
+	fip = append(ofip, TicketAdmissionFieldExpirationTimestamp)
+	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ExpirationTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpirationTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Description string
+	fip = append(ofip, TicketAdmissionFieldDescription)
+	if a.Description != newValue.Description {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Description),
+		})
+	}
+
+	return result, nil
+}
+
 // CasinoChip Permission / Amendment Field Indices
 const (
 	CasinoChipFieldCurrencyCode        = uint32(1)
@@ -462,6 +937,89 @@ func (a *CasinoChip) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 	return nil, fmt.Errorf("Unknown CasinoChip amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two CasinoChips and returns
+// amendment data.
+func (a *CasinoChip) CreateAmendments(fip []uint32,
+	newValue *CasinoChip) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// CurrencyCode string
+	fip = append(ofip, CasinoChipFieldCurrencyCode)
+	if a.CurrencyCode != newValue.CurrencyCode {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.CurrencyCode),
+		})
+	}
+
+	// UseType string
+	fip = append(ofip, CasinoChipFieldUseType)
+	if a.UseType != newValue.UseType {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.UseType),
+		})
+	}
+
+	// AgeRestriction AgeRestrictionField
+	fip = append(ofip, CasinoChipFieldAgeRestriction)
+	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
+	if err != nil {
+		return nil, errors.Wrap(err, "AgeRestriction")
+	}
+	result = append(result, AgeRestrictionAmendments...)
+
+	// ValidFrom uint64
+	fip = append(ofip, CasinoChipFieldValidFrom)
+	if a.ValidFrom != newValue.ValidFrom {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ValidFrom)); err != nil {
+			return nil, errors.Wrap(err, "ValidFrom")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ExpirationTimestamp uint64
+	fip = append(ofip, CasinoChipFieldExpirationTimestamp)
+	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ExpirationTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpirationTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Precision uint64
+	fip = append(ofip, CasinoChipFieldPrecision)
+	if a.Precision != newValue.Precision {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Precision)); err != nil {
+			return nil, errors.Wrap(err, "Precision")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // AgeRestrictionField Permission / Amendment Field Indices
 const (
 	AgeRestrictionFieldLower = uint32(1)
@@ -504,4 +1062,47 @@ func (a *AgeRestrictionField) ApplyAmendment(fip []uint32, operation uint32, dat
 	}
 
 	return nil, fmt.Errorf("Unknown AgeRestriction amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two AgeRestrictions and returns
+// amendment data.
+func (a *AgeRestrictionField) CreateAmendments(fip []uint32,
+	newValue *AgeRestrictionField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Lower uint32
+	fip = append(ofip, AgeRestrictionFieldLower)
+	if a.Lower != newValue.Lower {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Lower)); err != nil {
+			return nil, errors.Wrap(err, "Lower")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Upper uint32
+	fip = append(ofip, AgeRestrictionFieldUpper)
+	if a.Upper != newValue.Upper {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Upper)); err != nil {
+			return nil, errors.Wrap(err, "Upper")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
 }
