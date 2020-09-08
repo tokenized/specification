@@ -27,14 +27,14 @@ func TestContractCreateAmendments(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		current    *ContractOffer
+		current    *ContractFormation
 		newValue   *ContractOffer
 		err        error
 		amendments []*AmendmentField
 	}{
 		{
 			name: "Change name",
-			current: &ContractOffer{
+			current: &ContractFormation{
 				ContractName:        "Original Name",
 				MasterAddress:       address1.Bytes(),
 				RestrictedQtyAssets: 1,
@@ -55,7 +55,7 @@ func TestContractCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Change restricted quantity",
-			current: &ContractOffer{
+			current: &ContractFormation{
 				ContractName:        "Original Name",
 				MasterAddress:       address1.Bytes(),
 				RestrictedQtyAssets: 1,
@@ -76,7 +76,7 @@ func TestContractCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Change 2 fields",
-			current: &ContractOffer{
+			current: &ContractFormation{
 				ContractName:        "Original Name",
 				MasterAddress:       address1.Bytes(),
 				RestrictedQtyAssets: 1,
@@ -102,7 +102,7 @@ func TestContractCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Change service key",
-			current: &ContractOffer{
+			current: &ContractFormation{
 				ContractName:        "Original Name",
 				MasterAddress:       address1.Bytes(),
 				RestrictedQtyAssets: 1,
@@ -138,7 +138,7 @@ func TestContractCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Remove last service",
-			current: &ContractOffer{
+			current: &ContractFormation{
 				ContractName:        "Original Name",
 				MasterAddress:       address1.Bytes(),
 				RestrictedQtyAssets: 1,
@@ -180,7 +180,7 @@ func TestContractCreateAmendments(t *testing.T) {
 			// template functionality, the difference is detected as modifying the first item, then
 			// removing the second item.
 			name: "Remove first service",
-			current: &ContractOffer{
+			current: &ContractFormation{
 				ContractName:        "Original Name",
 				MasterAddress:       address1.Bytes(),
 				RestrictedQtyAssets: 1,
@@ -309,14 +309,14 @@ func TestContractCreateAmendments(t *testing.T) {
 func TestAssetCreateAmendments(t *testing.T) {
 	tests := []struct {
 		name       string
-		current    *AssetDefinition
+		current    *AssetCreation
 		newValue   *AssetDefinition
 		err        error
 		amendments []*AmendmentField
 	}{
 		{
 			name: "Change transfers permitted",
-			current: &AssetDefinition{
+			current: &AssetCreation{
 				TransfersPermitted: false,
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           10000,
@@ -341,7 +341,7 @@ func TestAssetCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Change asset type",
-			current: &AssetDefinition{
+			current: &AssetCreation{
 				TransfersPermitted: false,
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           10000,
@@ -366,7 +366,7 @@ func TestAssetCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Change token quantity",
-			current: &AssetDefinition{
+			current: &AssetCreation{
 				TransfersPermitted: false,
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           10000,
@@ -391,7 +391,7 @@ func TestAssetCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Change two fields",
-			current: &AssetDefinition{
+			current: &AssetCreation{
 				TransfersPermitted: false,
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           10000,

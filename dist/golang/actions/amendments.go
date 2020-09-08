@@ -45,8 +45,9 @@ const (
 )
 
 // CreateAmendments determines the differences between two ContractOffers and returns
-// amendment data.
-func (a *ContractOffer) CreateAmendments(newValue *ContractOffer) ([]*AmendmentField, error) {
+// amendment data. Use the current value of contract formation, and pass in the new values as a
+// contract offer.
+func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*AmendmentField, error) {
 	if err := newValue.Validate(); err != nil {
 		return nil, errors.Wrap(err, "new value invalid")
 	}
@@ -846,8 +847,9 @@ const (
 )
 
 // CreateAmendments determines the differences between two AssetDefinitions and returns
-// amendment data.
-func (a *AssetDefinition) CreateAmendments(newValue *AssetDefinition) ([]*AmendmentField, error) {
+// amendment data. Use the current value of asset creation, and pass in the new values as an asset
+// definition.
+func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*AmendmentField, error) {
 	if err := newValue.Validate(); err != nil {
 		return nil, errors.Wrap(err, "new value invalid")
 	}

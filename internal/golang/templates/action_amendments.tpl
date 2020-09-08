@@ -27,8 +27,9 @@ const (
 )
 
 // CreateAmendments determines the differences between two {{ $message.Name }}s and returns
-// amendment data.
-func (a *{{ $message.Name }}) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
+// amendment data. Use the current value of contract formation, and pass in the new values as a
+// contract offer.
+func (a *ContractFormation) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
 	if err := newValue.Validate(); err != nil {
 		return nil, errors.Wrap(err, "new value invalid")
 	}
@@ -96,8 +97,9 @@ const (
 )
 
 // CreateAmendments determines the differences between two {{ $message.Name }}s and returns
-// amendment data.
-func (a *{{ $message.Name }}) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
+// amendment data. Use the current value of asset creation, and pass in the new values as an asset
+// definition.
+func (a *AssetCreation) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
 	if err := newValue.Validate(); err != nil {
 		return nil, errors.Wrap(err, "new value invalid")
 	}
