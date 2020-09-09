@@ -11,6 +11,7 @@ import (
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
+	"github.com/tokenized/specification/dist/golang/assets"
 	"github.com/tokenized/specification/dist/golang/messages"
 
 	"github.com/pkg/errors"
@@ -384,6 +385,7 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 	ac.AssetRevision = amendment.AssetRevision + 1
 	ac.Timestamp = uint64(now.UnixNano())
 
+	var payload assets.Asset
 	for i, amendment := range amendment.Amendments {
 		fip, err := actions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
 		if err != nil {
@@ -393,8 +395,25 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 			return 0, 0, fmt.Errorf("Amendment %d has no field specified", i)
 		}
 
-		if _, err := ac.ApplyAmendment(fip, amendment.Operation, amendment.Data); err != nil {
-			return 0, 0, errors.Wrapf(err, "apply amendment %d", i)
+		if fip[0] == actions.AssetFieldAssetPayload {
+			if payload == nil {
+				// Get payload object
+				payload, err = assets.Deserialize([]byte(ac.AssetType), ac.AssetPayload)
+				if err != nil {
+					return 0, 0, fmt.Errorf("Asset payload deserialize failed : %s %s",
+						ac.AssetType, err)
+				}
+			}
+
+			_, err = payload.ApplyAmendment(fip[1:], amendment.Operation, amendment.Data)
+			if err != nil {
+				return 0, 0, errors.Wrapf(err, "apply payload amendment %d", i)
+			}
+
+		} else {
+			if _, err := ac.ApplyAmendment(fip, amendment.Operation, amendment.Data); err != nil {
+				return 0, 0, errors.Wrapf(err, "apply amendment %d", i)
+			}
 		}
 	}
 
@@ -409,6 +428,15 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 		size += wire.VarIntSerializeSize(uint64(2)) + outputSize
 	}
 	value += dustLimit
+
+	if payload != nil {
+		// Serialize updated payload
+		var buf bytes.Buffer
+		if err := payload.Serialize(&buf); err != nil {
+			return 0, 0, errors.Wrap(err, "serialize payload")
+		}
+		ac.AssetPayload = buf.Bytes()
+	}
 
 	script, err := Serialize(ac, isTest)
 	if err != nil {
