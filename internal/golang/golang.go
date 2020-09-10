@@ -26,6 +26,8 @@ func Compile(
 		distPath+"/golang/"+"actions/resources.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/actions_test.tpl",
 		distPath+"/golang/"+"actions/actions_test.go")
+	parser.TemplateToFile(actions, "internal/golang/templates/write_deterministic.tpl",
+		distPath+"/golang/"+"actions/write_deterministic.go")
 
 	// Assets
 	parser.TemplateToFile(assets, "internal/golang/templates/assets.tpl",
