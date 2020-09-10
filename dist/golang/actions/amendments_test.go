@@ -54,6 +54,33 @@ func TestContractCreateAmendments(t *testing.T) {
 			},
 		},
 		{
+			name: "Change issuer name",
+			current: &ContractFormation{
+				ContractName:        "Original Name",
+				MasterAddress:       address1.Bytes(),
+				RestrictedQtyAssets: 1,
+				Issuer: &EntityField{
+					Name: "Original",
+				},
+			},
+			newValue: &ContractOffer{
+				ContractName:        "Original Name",
+				MasterAddress:       address1.Bytes(),
+				RestrictedQtyAssets: 1,
+				Issuer: &EntityField{
+					Name: "New",
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{2, byte(ContractFieldIssuer), byte(EntityFieldName)},
+					Operation:      0,
+					Data:           []byte("New"),
+				},
+			},
+		},
+		{
 			name: "Change restricted quantity",
 			current: &ContractFormation{
 				ContractName:        "Original Name",
