@@ -203,7 +203,7 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>(Deprecated)AdminIdentityOracle</td>
+        <td>(Deprecated)AdminOracle</td>
         <td>deprecated</td>
         <td>
             The oracle that provided the signature used to verify the administration&#39;s identity and association with a parent contract if one is specified.
@@ -212,7 +212,7 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>(Deprecated)AdminIdentityOracleSignature</td>
+        <td>(Deprecated)AdminOracleSignature</td>
         <td>deprecated</td>
         <td>
             The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.
@@ -221,7 +221,7 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>(Deprecated)AdminIdentityOracleSigBlockHeight</td>
+        <td>(Deprecated)AdminOracleSigBlockHeight</td>
         <td>deprecated</td>
         <td>
             The block height of the block hash used in the oracle signature.

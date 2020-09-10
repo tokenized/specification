@@ -5,50 +5,475 @@ import (
 	"encoding/binary"
 	"fmt"
 
+	"github.com/tokenized/specification/dist/golang/internal"
+
 	proto "github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
 // Contract Permission / Amendment Field Indices
 const (
-	ContractFieldContractName                        = uint32(1)
-	ContractFieldBodyOfAgreementType                 = uint32(2)
-	ContractFieldBodyOfAgreement                     = uint32(3)
-	DeprecatedContractFieldContractType              = uint32(4)
-	ContractFieldSupportingDocs                      = uint32(5)
-	ContractFieldGoverningLaw                        = uint32(6)
-	ContractFieldJurisdiction                        = uint32(7)
-	ContractFieldContractExpiration                  = uint32(8)
-	ContractFieldContractURI                         = uint32(9)
-	ContractFieldIssuer                              = uint32(10)
-	DeprecatedContractFieldIssuerLogoURL             = uint32(11)
-	DeprecatedContractFieldContractOperator          = uint32(12)
-	DeprecatedContractFieldAdminOracle               = uint32(13)
-	DeprecatedContractFieldAdminOracleSignature      = uint32(14)
-	DeprecatedContractFieldAdminOracleSigBlockHeight = uint32(15)
-	ContractFieldContractFee                         = uint32(16)
-	ContractFieldVotingSystems                       = uint32(17)
-	ContractFieldContractPermissions                 = uint32(18)
-	ContractFieldRestrictedQtyAssets                 = uint32(19)
-	ContractFieldAdministrationProposal              = uint32(20)
-	ContractFieldHolderProposal                      = uint32(21)
-	ContractFieldOracles                             = uint32(22)
-	ContractFieldMasterAddress                       = uint32(23)
-	ContractFieldContractRevision                    = uint32(24)
-	ContractFieldTimestamp                           = uint32(25)
-	ContractFieldEntityContract                      = uint32(26)
-	ContractFieldOperatorEntityContract              = uint32(27)
-	ContractFieldContractType                        = uint32(28)
-	ContractFieldServices                            = uint32(29)
-	ContractFieldAdminIdentityCertificates           = uint32(30)
-	ContractFieldAdminAddress                        = uint32(31)
-	ContractFieldOperatorAddress                     = uint32(32)
+	ContractFieldContractName                         = uint32(1)
+	ContractFieldBodyOfAgreementType                  = uint32(2)
+	ContractFieldBodyOfAgreement                      = uint32(3)
+	DeprecatedContractFieldContractType               = uint32(4)
+	ContractFieldSupportingDocs                       = uint32(5)
+	ContractFieldGoverningLaw                         = uint32(6)
+	ContractFieldJurisdiction                         = uint32(7)
+	ContractFieldContractExpiration                   = uint32(8)
+	ContractFieldContractURI                          = uint32(9)
+	ContractFieldIssuer                               = uint32(10)
+	DeprecatedContractFieldIssuerLogoURL              = uint32(11)
+	NotAmendableContractFieldContractOperatorIncluded = uint32(12)
+	DeprecatedContractFieldContractOperator           = uint32(13)
+	DeprecatedContractFieldAdminOracle                = uint32(14)
+	DeprecatedContractFieldAdminOracleSignature       = uint32(15)
+	DeprecatedContractFieldAdminOracleSigBlockHeight  = uint32(16)
+	ContractFieldContractFee                          = uint32(17)
+	ContractFieldVotingSystems                        = uint32(18)
+	ContractFieldContractPermissions                  = uint32(19)
+	ContractFieldRestrictedQtyAssets                  = uint32(20)
+	ContractFieldAdministrationProposal               = uint32(21)
+	ContractFieldHolderProposal                       = uint32(22)
+	ContractFieldOracles                              = uint32(23)
+	NotAmendableContractFieldMasterAddress            = uint32(24)
+	ContractFieldEntityContract                       = uint32(25)
+	ContractFieldOperatorEntityContract               = uint32(26)
+	ContractFieldContractType                         = uint32(27)
+	ContractFieldServices                             = uint32(28)
+	ContractFieldAdminIdentityCertificates            = uint32(29)
 )
+
+// CreateAmendments determines the differences between two ContractOffers and returns
+// amendment data. Use the current value of contract formation, and pass in the new values as a
+// contract offer.
+func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*AmendmentField, error) {
+	if err := newValue.Validate(); err != nil {
+		return nil, errors.Wrap(err, "new value invalid")
+	}
+
+	var result []*internal.Amendment
+	var fip []uint32
+
+	// ContractName string
+	fip = []uint32{ContractFieldContractName}
+	if a.ContractName != newValue.ContractName {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.ContractName),
+		})
+	}
+
+	// BodyOfAgreementType uint32
+	fip = []uint32{ContractFieldBodyOfAgreementType}
+	if a.BodyOfAgreementType != newValue.BodyOfAgreementType {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.BodyOfAgreementType)); err != nil {
+			return nil, errors.Wrap(err, "BodyOfAgreementType")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// BodyOfAgreement []byte
+	fip = []uint32{ContractFieldBodyOfAgreement}
+	if !bytes.Equal(a.BodyOfAgreement, newValue.BodyOfAgreement) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.BodyOfAgreement,
+		})
+	}
+
+	// deprecated ContractType deprecated
+
+	// SupportingDocs []DocumentField
+	fip = []uint32{ContractFieldSupportingDocs}
+	SupportingDocsMin := len(a.SupportingDocs)
+	if SupportingDocsMin > len(newValue.SupportingDocs) {
+		SupportingDocsMin = len(newValue.SupportingDocs)
+	}
+
+	// Compare values
+	for i := 0; i < SupportingDocsMin; i++ {
+		lfip := append(fip, uint32(i))
+		SupportingDocsAmendments, err := a.SupportingDocs[i].CreateAmendments(lfip,
+			newValue.SupportingDocs[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "SupportingDocs%d", i)
+		}
+		result = append(result, SupportingDocsAmendments...)
+	}
+
+	SupportingDocsMax := len(a.SupportingDocs)
+	if SupportingDocsMax < len(newValue.SupportingDocs) {
+		SupportingDocsMax = len(newValue.SupportingDocs)
+	}
+
+	// Add/Remove values
+	for i := SupportingDocsMin; i < SupportingDocsMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.SupportingDocs) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.SupportingDocs[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize SupportingDocs %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// GoverningLaw string
+	fip = []uint32{ContractFieldGoverningLaw}
+	if a.GoverningLaw != newValue.GoverningLaw {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.GoverningLaw),
+		})
+	}
+
+	// Jurisdiction string
+	fip = []uint32{ContractFieldJurisdiction}
+	if a.Jurisdiction != newValue.Jurisdiction {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Jurisdiction),
+		})
+	}
+
+	// ContractExpiration uint64
+	fip = []uint32{ContractFieldContractExpiration}
+	if a.ContractExpiration != newValue.ContractExpiration {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ContractExpiration)); err != nil {
+			return nil, errors.Wrap(err, "ContractExpiration")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ContractURI string
+	fip = []uint32{ContractFieldContractURI}
+	if a.ContractURI != newValue.ContractURI {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.ContractURI),
+		})
+	}
+
+	// Issuer EntityField
+	fip = []uint32{ContractFieldIssuer}
+	IssuerAmendments, err := a.Issuer.CreateAmendments(fip, newValue.Issuer)
+	if err != nil {
+		return nil, errors.Wrap(err, "Issuer")
+	}
+	result = append(result, IssuerAmendments...)
+
+	// deprecated IssuerLogoURL deprecated
+
+	// deprecated ContractOperator deprecated
+
+	// deprecated AdminOracle deprecated
+
+	// deprecated AdminOracleSignature deprecated
+
+	// deprecated AdminOracleSigBlockHeight deprecated
+
+	// ContractFee uint64
+	fip = []uint32{ContractFieldContractFee}
+	if a.ContractFee != newValue.ContractFee {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ContractFee)); err != nil {
+			return nil, errors.Wrap(err, "ContractFee")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// VotingSystems []VotingSystemField
+	fip = []uint32{ContractFieldVotingSystems}
+	VotingSystemsMin := len(a.VotingSystems)
+	if VotingSystemsMin > len(newValue.VotingSystems) {
+		VotingSystemsMin = len(newValue.VotingSystems)
+	}
+
+	// Compare values
+	for i := 0; i < VotingSystemsMin; i++ {
+		lfip := append(fip, uint32(i))
+		VotingSystemsAmendments, err := a.VotingSystems[i].CreateAmendments(lfip,
+			newValue.VotingSystems[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "VotingSystems%d", i)
+		}
+		result = append(result, VotingSystemsAmendments...)
+	}
+
+	VotingSystemsMax := len(a.VotingSystems)
+	if VotingSystemsMax < len(newValue.VotingSystems) {
+		VotingSystemsMax = len(newValue.VotingSystems)
+	}
+
+	// Add/Remove values
+	for i := VotingSystemsMin; i < VotingSystemsMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.VotingSystems) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.VotingSystems[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize VotingSystems %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// ContractPermissions []byte
+	fip = []uint32{ContractFieldContractPermissions}
+	if !bytes.Equal(a.ContractPermissions, newValue.ContractPermissions) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.ContractPermissions,
+		})
+	}
+
+	// RestrictedQtyAssets uint64
+	fip = []uint32{ContractFieldRestrictedQtyAssets}
+	if a.RestrictedQtyAssets != newValue.RestrictedQtyAssets {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.RestrictedQtyAssets)); err != nil {
+			return nil, errors.Wrap(err, "RestrictedQtyAssets")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// AdministrationProposal bool
+	fip = []uint32{ContractFieldAdministrationProposal}
+	if a.AdministrationProposal != newValue.AdministrationProposal {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.AdministrationProposal); err != nil {
+			return nil, errors.Wrap(err, "AdministrationProposal")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// HolderProposal bool
+	fip = []uint32{ContractFieldHolderProposal}
+	if a.HolderProposal != newValue.HolderProposal {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.HolderProposal); err != nil {
+			return nil, errors.Wrap(err, "HolderProposal")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Oracles []OracleField
+	fip = []uint32{ContractFieldOracles}
+	OraclesMin := len(a.Oracles)
+	if OraclesMin > len(newValue.Oracles) {
+		OraclesMin = len(newValue.Oracles)
+	}
+
+	// Compare values
+	for i := 0; i < OraclesMin; i++ {
+		lfip := append(fip, uint32(i))
+		OraclesAmendments, err := a.Oracles[i].CreateAmendments(lfip,
+			newValue.Oracles[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "Oracles%d", i)
+		}
+		result = append(result, OraclesAmendments...)
+	}
+
+	OraclesMax := len(a.Oracles)
+	if OraclesMax < len(newValue.Oracles) {
+		OraclesMax = len(newValue.Oracles)
+	}
+
+	// Add/Remove values
+	for i := OraclesMin; i < OraclesMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.Oracles) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.Oracles[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize Oracles %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// EntityContract []byte
+	fip = []uint32{ContractFieldEntityContract}
+	if !bytes.Equal(a.EntityContract, newValue.EntityContract) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.EntityContract,
+		})
+	}
+
+	// OperatorEntityContract []byte
+	fip = []uint32{ContractFieldOperatorEntityContract}
+	if !bytes.Equal(a.OperatorEntityContract, newValue.OperatorEntityContract) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.OperatorEntityContract,
+		})
+	}
+
+	// ContractType uint32
+	fip = []uint32{ContractFieldContractType}
+	if a.ContractType != newValue.ContractType {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ContractType)); err != nil {
+			return nil, errors.Wrap(err, "ContractType")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Services []ServiceField
+	fip = []uint32{ContractFieldServices}
+	ServicesMin := len(a.Services)
+	if ServicesMin > len(newValue.Services) {
+		ServicesMin = len(newValue.Services)
+	}
+
+	// Compare values
+	for i := 0; i < ServicesMin; i++ {
+		lfip := append(fip, uint32(i))
+		ServicesAmendments, err := a.Services[i].CreateAmendments(lfip,
+			newValue.Services[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "Services%d", i)
+		}
+		result = append(result, ServicesAmendments...)
+	}
+
+	ServicesMax := len(a.Services)
+	if ServicesMax < len(newValue.Services) {
+		ServicesMax = len(newValue.Services)
+	}
+
+	// Add/Remove values
+	for i := ServicesMin; i < ServicesMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.Services) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.Services[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize Services %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// AdminIdentityCertificates []AdminIdentityCertificateField
+	fip = []uint32{ContractFieldAdminIdentityCertificates}
+	AdminIdentityCertificatesMin := len(a.AdminIdentityCertificates)
+	if AdminIdentityCertificatesMin > len(newValue.AdminIdentityCertificates) {
+		AdminIdentityCertificatesMin = len(newValue.AdminIdentityCertificates)
+	}
+
+	// Compare values
+	for i := 0; i < AdminIdentityCertificatesMin; i++ {
+		lfip := append(fip, uint32(i))
+		AdminIdentityCertificatesAmendments, err := a.AdminIdentityCertificates[i].CreateAmendments(lfip,
+			newValue.AdminIdentityCertificates[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "AdminIdentityCertificates%d", i)
+		}
+		result = append(result, AdminIdentityCertificatesAmendments...)
+	}
+
+	AdminIdentityCertificatesMax := len(a.AdminIdentityCertificates)
+	if AdminIdentityCertificatesMax < len(newValue.AdminIdentityCertificates) {
+		AdminIdentityCertificatesMax = len(newValue.AdminIdentityCertificates)
+	}
+
+	// Add/Remove values
+	for i := AdminIdentityCertificatesMin; i < AdminIdentityCertificatesMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.AdminIdentityCertificates) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.AdminIdentityCertificates[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize AdminIdentityCertificates %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	r, err := convertAmendments(result)
+	if err != nil {
+		return nil, errors.Wrap(err, "convert amendments")
+	}
+
+	return r, nil
+}
 
 // ApplyAmendment updates a ContractFormation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty contract amendment field index path")
 	}
@@ -293,33 +718,8 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return append(fip[:1], fip[2:]...), nil
 		}
 
-	case ContractFieldMasterAddress: // []byte
-		a.MasterAddress = data
-		return fip[:], nil
-
-	case ContractFieldContractRevision: // uint32
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for ContractRevision : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("ContractRevision amendment value failed to deserialize : %s", err)
-		} else {
-			a.ContractRevision = uint32(value)
-		}
-		return fip[:], nil
-
-	case ContractFieldTimestamp: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for Timestamp : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("Timestamp amendment value failed to deserialize : %s", err)
-		} else {
-			a.Timestamp = uint64(value)
-		}
-		return fip[:], nil
+	case NotAmendableContractFieldMasterAddress: // []byte
+		return nil, fmt.Errorf("MasterAddress field not amendable")
 
 	case ContractFieldEntityContract: // []byte
 		a.EntityContract = data
@@ -425,14 +825,6 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return append(fip[:1], fip[2:]...), nil
 		}
 
-	case ContractFieldAdminAddress: // []byte
-		a.AdminAddress = data
-		return fip[:], nil
-
-	case ContractFieldOperatorAddress: // []byte
-		a.OperatorAddress = data
-		return fip[:], nil
-
 	}
 
 	return nil, fmt.Errorf("Unknown contract amendment field index : %v", fip)
@@ -440,51 +832,233 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // Asset Permission / Amendment Field Indices
 const (
-	AssetFieldAssetCode                   = uint32(1)
-	AssetFieldAssetIndex                  = uint32(2)
-	AssetFieldAssetPermissions            = uint32(3)
-	AssetFieldTransfersPermitted          = uint32(4)
-	AssetFieldTradeRestrictions           = uint32(5)
-	AssetFieldEnforcementOrdersPermitted  = uint32(6)
-	AssetFieldVotingRights                = uint32(7)
-	AssetFieldVoteMultiplier              = uint32(8)
-	AssetFieldAdministrationProposal      = uint32(9)
-	AssetFieldHolderProposal              = uint32(10)
-	AssetFieldAssetModificationGovernance = uint32(11)
-	AssetFieldTokenQty                    = uint32(12)
-	AssetFieldAssetType                   = uint32(13)
-	AssetFieldAssetPayload                = uint32(14)
-	AssetFieldAssetRevision               = uint32(15)
-	AssetFieldTimestamp                   = uint32(16)
+	AssetFieldAssetPermissions            = uint32(1)
+	AssetFieldTransfersPermitted          = uint32(2)
+	AssetFieldTradeRestrictions           = uint32(3)
+	AssetFieldEnforcementOrdersPermitted  = uint32(4)
+	AssetFieldVotingRights                = uint32(5)
+	AssetFieldVoteMultiplier              = uint32(6)
+	AssetFieldAdministrationProposal      = uint32(7)
+	AssetFieldHolderProposal              = uint32(8)
+	AssetFieldAssetModificationGovernance = uint32(9)
+	AssetFieldTokenQty                    = uint32(10)
+	AssetFieldAssetType                   = uint32(11)
+	AssetFieldAssetPayload                = uint32(12)
 )
+
+// CreateAmendments determines the differences between two AssetDefinitions and returns
+// amendment data. Use the current value of asset creation, and pass in the new values as an asset
+// definition.
+func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*AmendmentField, error) {
+	if err := newValue.Validate(); err != nil {
+		return nil, errors.Wrap(err, "new value invalid")
+	}
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	var fip []uint32
+
+	// AssetPermissions []byte
+	fip = []uint32{AssetFieldAssetPermissions}
+	if !bytes.Equal(a.AssetPermissions, newValue.AssetPermissions) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.AssetPermissions,
+		})
+	}
+
+	// TransfersPermitted bool
+	fip = []uint32{AssetFieldTransfersPermitted}
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// TradeRestrictions []string
+	fip = []uint32{AssetFieldTradeRestrictions}
+	TradeRestrictionsMin := len(a.TradeRestrictions)
+	if TradeRestrictionsMin > len(newValue.TradeRestrictions) {
+		TradeRestrictionsMin = len(newValue.TradeRestrictions)
+	}
+
+	// Compare values
+	for i := 0; i < TradeRestrictionsMin; i++ {
+		lfip := append(fip, uint32(i))
+		if a.TradeRestrictions[i] != newValue.TradeRestrictions[i] {
+			result = append(result, &internal.Amendment{
+				FIP:       lfip,
+				Operation: 0, // Modify element
+				Data:      []byte(newValue.TradeRestrictions[i]),
+			})
+		}
+	}
+
+	TradeRestrictionsMax := len(a.TradeRestrictions)
+	if TradeRestrictionsMax < len(newValue.TradeRestrictions) {
+		TradeRestrictionsMax = len(newValue.TradeRestrictions)
+	}
+
+	// Add/Remove values
+	for i := TradeRestrictionsMin; i < TradeRestrictionsMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.TradeRestrictions) {
+			amendment.Operation = 1 // Add element
+			amendment.Data = []byte(newValue.TradeRestrictions[i])
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// EnforcementOrdersPermitted bool
+	fip = []uint32{AssetFieldEnforcementOrdersPermitted}
+	if a.EnforcementOrdersPermitted != newValue.EnforcementOrdersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.EnforcementOrdersPermitted); err != nil {
+			return nil, errors.Wrap(err, "EnforcementOrdersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// VotingRights bool
+	fip = []uint32{AssetFieldVotingRights}
+	if a.VotingRights != newValue.VotingRights {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.VotingRights); err != nil {
+			return nil, errors.Wrap(err, "VotingRights")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// VoteMultiplier uint32
+	fip = []uint32{AssetFieldVoteMultiplier}
+	if a.VoteMultiplier != newValue.VoteMultiplier {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.VoteMultiplier)); err != nil {
+			return nil, errors.Wrap(err, "VoteMultiplier")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// AdministrationProposal bool
+	fip = []uint32{AssetFieldAdministrationProposal}
+	if a.AdministrationProposal != newValue.AdministrationProposal {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.AdministrationProposal); err != nil {
+			return nil, errors.Wrap(err, "AdministrationProposal")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// HolderProposal bool
+	fip = []uint32{AssetFieldHolderProposal}
+	if a.HolderProposal != newValue.HolderProposal {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.HolderProposal); err != nil {
+			return nil, errors.Wrap(err, "HolderProposal")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// AssetModificationGovernance uint32
+	fip = []uint32{AssetFieldAssetModificationGovernance}
+	if a.AssetModificationGovernance != newValue.AssetModificationGovernance {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.AssetModificationGovernance)); err != nil {
+			return nil, errors.Wrap(err, "AssetModificationGovernance")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// TokenQty uint64
+	fip = []uint32{AssetFieldTokenQty}
+	if a.TokenQty != newValue.TokenQty {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.TokenQty)); err != nil {
+			return nil, errors.Wrap(err, "TokenQty")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// AssetType string
+	fip = []uint32{AssetFieldAssetType}
+	if a.AssetType != newValue.AssetType {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.AssetType),
+		})
+	}
+
+	// AssetPayload []byte
+	fip = []uint32{AssetFieldAssetPayload}
+	if !bytes.Equal(a.AssetPayload, newValue.AssetPayload) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.AssetPayload,
+		})
+	}
+
+	r, err := convertAmendments(result)
+	if err != nil {
+		return nil, errors.Wrap(err, "convert amendments")
+	}
+
+	return r, nil
+}
 
 // ApplyAmendment updates a AssetCreation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty asset amendment field index path")
 	}
 
 	switch fip[0] {
-	case AssetFieldAssetCode: // []byte
-		if len(data) != 0 {
-			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 0)
-		}
-		copy(a.AssetCode, data)
-		return fip[:], nil
-
-	case AssetFieldAssetIndex: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for AssetIndex : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("AssetIndex amendment value failed to deserialize : %s", err)
-		} else {
-			a.AssetIndex = uint64(value)
-		}
-		return fip[:], nil
 
 	case AssetFieldAssetPermissions: // []byte
 		a.AssetPermissions = data
@@ -635,30 +1209,6 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 		a.AssetPayload = data
 		return fip[:], nil
 
-	case AssetFieldAssetRevision: // uint32
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for AssetRevision : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("AssetRevision amendment value failed to deserialize : %s", err)
-		} else {
-			a.AssetRevision = uint32(value)
-		}
-		return fip[:], nil
-
-	case AssetFieldTimestamp: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for Timestamp : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("Timestamp amendment value failed to deserialize : %s", err)
-		} else {
-			a.Timestamp = uint64(value)
-		}
-		return fip[:], nil
-
 	}
 
 	return nil, fmt.Errorf("Unknown asset amendment field index : %v", fip)
@@ -673,7 +1223,9 @@ const (
 // ApplyAmendment updates a AdministratorField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Administrator amendment field index path")
 	}
@@ -703,6 +1255,44 @@ func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	return nil, fmt.Errorf("Unknown Administrator amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two Administrators and returns
+// amendment data.
+func (a *AdministratorField) CreateAmendments(fip []uint32,
+	newValue *AdministratorField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Type uint32
+	fip = append(ofip, AdministratorFieldType)
+	if a.Type != newValue.Type {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Type)); err != nil {
+			return nil, errors.Wrap(err, "Type")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Name string
+	fip = append(ofip, AdministratorFieldName)
+	if a.Name != newValue.Name {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Name),
+		})
+	}
+
+	return result, nil
+}
+
 // AdminIdentityCertificateField Permission / Amendment Field Indices
 const (
 	AdminIdentityCertificateFieldEntityContract = uint32(1)
@@ -714,7 +1304,9 @@ const (
 // ApplyAmendment updates a AdminIdentityCertificateField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty AdminIdentityCertificate amendment field index path")
 	}
@@ -757,6 +1349,67 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 	return nil, fmt.Errorf("Unknown AdminIdentityCertificate amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two AdminIdentityCertificates and returns
+// amendment data.
+func (a *AdminIdentityCertificateField) CreateAmendments(fip []uint32,
+	newValue *AdminIdentityCertificateField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// EntityContract []byte
+	fip = append(ofip, AdminIdentityCertificateFieldEntityContract)
+	if !bytes.Equal(a.EntityContract, newValue.EntityContract) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.EntityContract,
+		})
+	}
+
+	// Signature []byte
+	fip = append(ofip, AdminIdentityCertificateFieldSignature)
+	if !bytes.Equal(a.Signature, newValue.Signature) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.Signature,
+		})
+	}
+
+	// BlockHeight uint32
+	fip = append(ofip, AdminIdentityCertificateFieldBlockHeight)
+	if a.BlockHeight != newValue.BlockHeight {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.BlockHeight)); err != nil {
+			return nil, errors.Wrap(err, "BlockHeight")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Expiration uint64
+	fip = append(ofip, AdminIdentityCertificateFieldExpiration)
+	if a.Expiration != newValue.Expiration {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Expiration)); err != nil {
+			return nil, errors.Wrap(err, "Expiration")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // AmendmentField Permission / Amendment Field Indices
 const (
 	AmendmentFieldFieldIndexPath = uint32(1)
@@ -767,7 +1420,9 @@ const (
 // ApplyAmendment updates a AmendmentField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Amendment amendment field index path")
 	}
@@ -798,6 +1453,53 @@ func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32, da
 	return nil, fmt.Errorf("Unknown Amendment amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two Amendments and returns
+// amendment data.
+func (a *AmendmentField) CreateAmendments(fip []uint32,
+	newValue *AmendmentField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// FieldIndexPath []byte
+	fip = append(ofip, AmendmentFieldFieldIndexPath)
+	if !bytes.Equal(a.FieldIndexPath, newValue.FieldIndexPath) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.FieldIndexPath,
+		})
+	}
+
+	// Operation uint32
+	fip = append(ofip, AmendmentFieldOperation)
+	if a.Operation != newValue.Operation {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Operation)); err != nil {
+			return nil, errors.Wrap(err, "Operation")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Data []byte
+	fip = append(ofip, AmendmentFieldData)
+	if !bytes.Equal(a.Data, newValue.Data) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.Data,
+		})
+	}
+
+	return result, nil
+}
+
 // AssetReceiverField Permission / Amendment Field Indices
 const (
 	AssetReceiverFieldAddress               = uint32(1)
@@ -812,7 +1514,9 @@ const (
 // ApplyAmendment updates a AssetReceiverField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty AssetReceiver amendment field index path")
 	}
@@ -891,6 +1595,109 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	return nil, fmt.Errorf("Unknown AssetReceiver amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two AssetReceivers and returns
+// amendment data.
+func (a *AssetReceiverField) CreateAmendments(fip []uint32,
+	newValue *AssetReceiverField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Address []byte
+	fip = append(ofip, AssetReceiverFieldAddress)
+	if !bytes.Equal(a.Address, newValue.Address) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.Address,
+		})
+	}
+
+	// Quantity uint64
+	fip = append(ofip, AssetReceiverFieldQuantity)
+	if a.Quantity != newValue.Quantity {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Quantity)); err != nil {
+			return nil, errors.Wrap(err, "Quantity")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// OracleSigAlgorithm uint32
+	fip = append(ofip, AssetReceiverFieldOracleSigAlgorithm)
+	if a.OracleSigAlgorithm != newValue.OracleSigAlgorithm {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.OracleSigAlgorithm)); err != nil {
+			return nil, errors.Wrap(err, "OracleSigAlgorithm")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// OracleIndex uint32
+	fip = append(ofip, AssetReceiverFieldOracleIndex)
+	if a.OracleIndex != newValue.OracleIndex {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.OracleIndex)); err != nil {
+			return nil, errors.Wrap(err, "OracleIndex")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// OracleConfirmationSig []byte
+	fip = append(ofip, AssetReceiverFieldOracleConfirmationSig)
+	if !bytes.Equal(a.OracleConfirmationSig, newValue.OracleConfirmationSig) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.OracleConfirmationSig,
+		})
+	}
+
+	// OracleSigBlockHeight uint32
+	fip = append(ofip, AssetReceiverFieldOracleSigBlockHeight)
+	if a.OracleSigBlockHeight != newValue.OracleSigBlockHeight {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.OracleSigBlockHeight)); err != nil {
+			return nil, errors.Wrap(err, "OracleSigBlockHeight")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// OracleSigExpiry uint64
+	fip = append(ofip, AssetReceiverFieldOracleSigExpiry)
+	if a.OracleSigExpiry != newValue.OracleSigExpiry {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.OracleSigExpiry)); err != nil {
+			return nil, errors.Wrap(err, "OracleSigExpiry")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // AssetSettlementField Permission / Amendment Field Indices
 const (
 	AssetSettlementFieldContractIndex = uint32(1)
@@ -902,7 +1709,9 @@ const (
 // ApplyAmendment updates a AssetSettlementField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty AssetSettlement amendment field index path")
 	}
@@ -925,8 +1734,8 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 		return fip[:], nil
 
 	case AssetSettlementFieldAssetCode: // []byte
-		if len(data) != 0 {
-			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 0)
+		if len(data) != 32 {
+			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 32)
 		}
 		copy(a.AssetCode, data)
 		return fip[:], nil
@@ -978,6 +1787,96 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 	return nil, fmt.Errorf("Unknown AssetSettlement amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two AssetSettlements and returns
+// amendment data.
+func (a *AssetSettlementField) CreateAmendments(fip []uint32,
+	newValue *AssetSettlementField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// ContractIndex uint32
+	fip = append(ofip, AssetSettlementFieldContractIndex)
+	if a.ContractIndex != newValue.ContractIndex {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ContractIndex)); err != nil {
+			return nil, errors.Wrap(err, "ContractIndex")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// AssetType string
+	fip = append(ofip, AssetSettlementFieldAssetType)
+	if a.AssetType != newValue.AssetType {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.AssetType),
+		})
+	}
+
+	// AssetCode []byte
+	fip = append(ofip, AssetSettlementFieldAssetCode)
+	if !bytes.Equal(a.AssetCode[:], newValue.AssetCode[:]) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.AssetCode[:],
+		})
+	}
+
+	// Settlements []QuantityIndexField
+	fip = append(ofip, AssetSettlementFieldSettlements)
+	SettlementsMin := len(a.Settlements)
+	if SettlementsMin > len(newValue.Settlements) {
+		SettlementsMin = len(newValue.Settlements)
+	}
+
+	// Compare values
+	for i := 0; i < SettlementsMin; i++ {
+		lfip := append(fip, uint32(i))
+		SettlementsAmendments, err := a.Settlements[i].CreateAmendments(lfip,
+			newValue.Settlements[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "Settlements%d", i)
+		}
+		result = append(result, SettlementsAmendments...)
+	}
+
+	SettlementsMax := len(a.Settlements)
+	if SettlementsMax < len(newValue.Settlements) {
+		SettlementsMax = len(newValue.Settlements)
+	}
+
+	// Add/Remove values
+	for i := SettlementsMin; i < SettlementsMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.Settlements) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.Settlements[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize Settlements %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	return result, nil
+}
+
 // AssetTransferField Permission / Amendment Field Indices
 const (
 	AssetTransferFieldContractIndex  = uint32(1)
@@ -990,7 +1889,9 @@ const (
 // ApplyAmendment updates a AssetTransferField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty AssetTransfer amendment field index path")
 	}
@@ -1013,8 +1914,8 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		return fip[:], nil
 
 	case AssetTransferFieldAssetCode: // []byte
-		if len(data) != 0 {
-			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 0)
+		if len(data) != 32 {
+			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 32)
 		}
 		copy(a.AssetCode, data)
 		return fip[:], nil
@@ -1108,6 +2009,139 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	return nil, fmt.Errorf("Unknown AssetTransfer amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two AssetTransfers and returns
+// amendment data.
+func (a *AssetTransferField) CreateAmendments(fip []uint32,
+	newValue *AssetTransferField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// ContractIndex uint32
+	fip = append(ofip, AssetTransferFieldContractIndex)
+	if a.ContractIndex != newValue.ContractIndex {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ContractIndex)); err != nil {
+			return nil, errors.Wrap(err, "ContractIndex")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// AssetType string
+	fip = append(ofip, AssetTransferFieldAssetType)
+	if a.AssetType != newValue.AssetType {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.AssetType),
+		})
+	}
+
+	// AssetCode []byte
+	fip = append(ofip, AssetTransferFieldAssetCode)
+	if !bytes.Equal(a.AssetCode[:], newValue.AssetCode[:]) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.AssetCode[:],
+		})
+	}
+
+	// AssetSenders []QuantityIndexField
+	fip = append(ofip, AssetTransferFieldAssetSenders)
+	AssetSendersMin := len(a.AssetSenders)
+	if AssetSendersMin > len(newValue.AssetSenders) {
+		AssetSendersMin = len(newValue.AssetSenders)
+	}
+
+	// Compare values
+	for i := 0; i < AssetSendersMin; i++ {
+		lfip := append(fip, uint32(i))
+		AssetSendersAmendments, err := a.AssetSenders[i].CreateAmendments(lfip,
+			newValue.AssetSenders[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "AssetSenders%d", i)
+		}
+		result = append(result, AssetSendersAmendments...)
+	}
+
+	AssetSendersMax := len(a.AssetSenders)
+	if AssetSendersMax < len(newValue.AssetSenders) {
+		AssetSendersMax = len(newValue.AssetSenders)
+	}
+
+	// Add/Remove values
+	for i := AssetSendersMin; i < AssetSendersMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.AssetSenders) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.AssetSenders[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize AssetSenders %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// AssetReceivers []AssetReceiverField
+	fip = append(ofip, AssetTransferFieldAssetReceivers)
+	AssetReceiversMin := len(a.AssetReceivers)
+	if AssetReceiversMin > len(newValue.AssetReceivers) {
+		AssetReceiversMin = len(newValue.AssetReceivers)
+	}
+
+	// Compare values
+	for i := 0; i < AssetReceiversMin; i++ {
+		lfip := append(fip, uint32(i))
+		AssetReceiversAmendments, err := a.AssetReceivers[i].CreateAmendments(lfip,
+			newValue.AssetReceivers[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "AssetReceivers%d", i)
+		}
+		result = append(result, AssetReceiversAmendments...)
+	}
+
+	AssetReceiversMax := len(a.AssetReceivers)
+	if AssetReceiversMax < len(newValue.AssetReceivers) {
+		AssetReceiversMax = len(newValue.AssetReceivers)
+	}
+
+	// Add/Remove values
+	for i := AssetReceiversMin; i < AssetReceiversMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.AssetReceivers) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.AssetReceivers[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize AssetReceivers %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	return result, nil
+}
+
 // DocumentField Permission / Amendment Field Indices
 const (
 	DocumentFieldName     = uint32(1)
@@ -1118,7 +2152,9 @@ const (
 // ApplyAmendment updates a DocumentField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *DocumentField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *DocumentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Document amendment field index path")
 	}
@@ -1139,6 +2175,48 @@ func (a *DocumentField) ApplyAmendment(fip FieldIndexPath, operation uint32, dat
 	}
 
 	return nil, fmt.Errorf("Unknown Document amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two Documents and returns
+// amendment data.
+func (a *DocumentField) CreateAmendments(fip []uint32,
+	newValue *DocumentField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Name string
+	fip = append(ofip, DocumentFieldName)
+	if a.Name != newValue.Name {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Name),
+		})
+	}
+
+	// Type string
+	fip = append(ofip, DocumentFieldType)
+	if a.Type != newValue.Type {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Type),
+		})
+	}
+
+	// Contents []byte
+	fip = append(ofip, DocumentFieldContents)
+	if !bytes.Equal(a.Contents, newValue.Contents) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.Contents,
+		})
+	}
+
+	return result, nil
 }
 
 // EntityField Permission / Amendment Field Indices
@@ -1165,7 +2243,9 @@ const (
 // ApplyAmendment updates a EntityField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Entity amendment field index path")
 	}
@@ -1321,6 +2401,235 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 	return nil, fmt.Errorf("Unknown Entity amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two Entitys and returns
+// amendment data.
+func (a *EntityField) CreateAmendments(fip []uint32,
+	newValue *EntityField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Name string
+	fip = append(ofip, EntityFieldName)
+	if a.Name != newValue.Name {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Name),
+		})
+	}
+
+	// Type string
+	fip = append(ofip, EntityFieldType)
+	if a.Type != newValue.Type {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Type),
+		})
+	}
+
+	// LEI string
+	fip = append(ofip, EntityFieldLEI)
+	if a.LEI != newValue.LEI {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.LEI),
+		})
+	}
+
+	// UnitNumber string
+	fip = append(ofip, EntityFieldUnitNumber)
+	if a.UnitNumber != newValue.UnitNumber {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.UnitNumber),
+		})
+	}
+
+	// BuildingNumber string
+	fip = append(ofip, EntityFieldBuildingNumber)
+	if a.BuildingNumber != newValue.BuildingNumber {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.BuildingNumber),
+		})
+	}
+
+	// Street string
+	fip = append(ofip, EntityFieldStreet)
+	if a.Street != newValue.Street {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Street),
+		})
+	}
+
+	// SuburbCity string
+	fip = append(ofip, EntityFieldSuburbCity)
+	if a.SuburbCity != newValue.SuburbCity {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.SuburbCity),
+		})
+	}
+
+	// TerritoryStateProvinceCode string
+	fip = append(ofip, EntityFieldTerritoryStateProvinceCode)
+	if a.TerritoryStateProvinceCode != newValue.TerritoryStateProvinceCode {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.TerritoryStateProvinceCode),
+		})
+	}
+
+	// CountryCode string
+	fip = append(ofip, EntityFieldCountryCode)
+	if a.CountryCode != newValue.CountryCode {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.CountryCode),
+		})
+	}
+
+	// PostalZIPCode string
+	fip = append(ofip, EntityFieldPostalZIPCode)
+	if a.PostalZIPCode != newValue.PostalZIPCode {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.PostalZIPCode),
+		})
+	}
+
+	// EmailAddress string
+	fip = append(ofip, EntityFieldEmailAddress)
+	if a.EmailAddress != newValue.EmailAddress {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.EmailAddress),
+		})
+	}
+
+	// PhoneNumber string
+	fip = append(ofip, EntityFieldPhoneNumber)
+	if a.PhoneNumber != newValue.PhoneNumber {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.PhoneNumber),
+		})
+	}
+
+	// Administration []AdministratorField
+	fip = append(ofip, EntityFieldAdministration)
+	AdministrationMin := len(a.Administration)
+	if AdministrationMin > len(newValue.Administration) {
+		AdministrationMin = len(newValue.Administration)
+	}
+
+	// Compare values
+	for i := 0; i < AdministrationMin; i++ {
+		lfip := append(fip, uint32(i))
+		AdministrationAmendments, err := a.Administration[i].CreateAmendments(lfip,
+			newValue.Administration[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "Administration%d", i)
+		}
+		result = append(result, AdministrationAmendments...)
+	}
+
+	AdministrationMax := len(a.Administration)
+	if AdministrationMax < len(newValue.Administration) {
+		AdministrationMax = len(newValue.Administration)
+	}
+
+	// Add/Remove values
+	for i := AdministrationMin; i < AdministrationMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.Administration) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.Administration[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize Administration %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// Management []ManagerField
+	fip = append(ofip, EntityFieldManagement)
+	ManagementMin := len(a.Management)
+	if ManagementMin > len(newValue.Management) {
+		ManagementMin = len(newValue.Management)
+	}
+
+	// Compare values
+	for i := 0; i < ManagementMin; i++ {
+		lfip := append(fip, uint32(i))
+		ManagementAmendments, err := a.Management[i].CreateAmendments(lfip,
+			newValue.Management[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "Management%d", i)
+		}
+		result = append(result, ManagementAmendments...)
+	}
+
+	ManagementMax := len(a.Management)
+	if ManagementMax < len(newValue.Management) {
+		ManagementMax = len(newValue.Management)
+	}
+
+	// Add/Remove values
+	for i := ManagementMin; i < ManagementMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.Management) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.Management[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize Management %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// DomainName string
+	fip = append(ofip, EntityFieldDomainName)
+	if a.DomainName != newValue.DomainName {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.DomainName),
+		})
+	}
+
+	// deprecated EntityContractAddress deprecated
+
+	// PaymailHandle string
+	fip = append(ofip, EntityFieldPaymailHandle)
+	if a.PaymailHandle != newValue.PaymailHandle {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.PaymailHandle),
+		})
+	}
+
+	return result, nil
+}
+
 // ManagerField Permission / Amendment Field Indices
 const (
 	ManagerFieldType = uint32(1)
@@ -1330,7 +2639,9 @@ const (
 // ApplyAmendment updates a ManagerField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Manager amendment field index path")
 	}
@@ -1360,6 +2671,44 @@ func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 	return nil, fmt.Errorf("Unknown Manager amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two Managers and returns
+// amendment data.
+func (a *ManagerField) CreateAmendments(fip []uint32,
+	newValue *ManagerField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Type uint32
+	fip = append(ofip, ManagerFieldType)
+	if a.Type != newValue.Type {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Type)); err != nil {
+			return nil, errors.Wrap(err, "Type")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Name string
+	fip = append(ofip, ManagerFieldName)
+	if a.Name != newValue.Name {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Name),
+		})
+	}
+
+	return result, nil
+}
+
 // OracleField Permission / Amendment Field Indices
 const (
 	DeprecatedOracleFieldEntity    = uint32(1)
@@ -1372,7 +2721,9 @@ const (
 // ApplyAmendment updates a OracleField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Oracle amendment field index path")
 	}
@@ -1440,6 +2791,85 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32, data 
 	return nil, fmt.Errorf("Unknown Oracle amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two Oracles and returns
+// amendment data.
+func (a *OracleField) CreateAmendments(fip []uint32,
+	newValue *OracleField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// deprecated Entity deprecated
+
+	// deprecated URL deprecated
+
+	// deprecated PublicKey deprecated
+
+	// OracleTypes []uint32
+	fip = append(ofip, OracleFieldOracleTypes)
+	OracleTypesMin := len(a.OracleTypes)
+	if OracleTypesMin > len(newValue.OracleTypes) {
+		OracleTypesMin = len(newValue.OracleTypes)
+	}
+
+	// Compare values
+	for i := 0; i < OracleTypesMin; i++ {
+		lfip := append(fip, uint32(i))
+		if a.OracleTypes[i] != newValue.OracleTypes[i] {
+			var buf bytes.Buffer
+			if err := WriteBase128VarInt(&buf, int(newValue.OracleTypes[i])); err != nil {
+				return nil, errors.Wrapf(err, "OracleTypes %d", i)
+			}
+
+			result = append(result, &internal.Amendment{
+				FIP:       lfip,
+				Operation: 0, // Modify element
+				Data:      buf.Bytes(),
+			})
+		}
+	}
+
+	OracleTypesMax := len(a.OracleTypes)
+	if OracleTypesMax < len(newValue.OracleTypes) {
+		OracleTypesMax = len(newValue.OracleTypes)
+	}
+
+	// Add/Remove values
+	for i := OracleTypesMin; i < OracleTypesMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.OracleTypes) {
+			amendment.Operation = 1 // Add element
+			var buf bytes.Buffer
+			if err := WriteBase128VarInt(&buf, int(newValue.OracleTypes[i])); err != nil {
+				return nil, errors.Wrapf(err, "OracleTypes %d", i)
+			}
+			amendment.Data = buf.Bytes()
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// EntityContract []byte
+	fip = append(ofip, OracleFieldEntityContract)
+	if !bytes.Equal(a.EntityContract, newValue.EntityContract) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.EntityContract,
+		})
+	}
+
+	return result, nil
+}
+
 // QuantityIndexField Permission / Amendment Field Indices
 const (
 	QuantityIndexFieldIndex    = uint32(1)
@@ -1449,7 +2879,9 @@ const (
 // ApplyAmendment updates a QuantityIndexField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty QuantityIndex amendment field index path")
 	}
@@ -1484,6 +2916,49 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	return nil, fmt.Errorf("Unknown QuantityIndex amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two QuantityIndexs and returns
+// amendment data.
+func (a *QuantityIndexField) CreateAmendments(fip []uint32,
+	newValue *QuantityIndexField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Index uint32
+	fip = append(ofip, QuantityIndexFieldIndex)
+	if a.Index != newValue.Index {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Index)); err != nil {
+			return nil, errors.Wrap(err, "Index")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Quantity uint64
+	fip = append(ofip, QuantityIndexFieldQuantity)
+	if a.Quantity != newValue.Quantity {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Quantity)); err != nil {
+			return nil, errors.Wrap(err, "Quantity")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // ReferenceTransactionField Permission / Amendment Field Indices
 const (
 	ReferenceTransactionFieldTransaction = uint32(1)
@@ -1493,7 +2968,9 @@ const (
 // ApplyAmendment updates a ReferenceTransactionField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty ReferenceTransaction amendment field index path")
 	}
@@ -1544,6 +3021,70 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation
 	return nil, fmt.Errorf("Unknown ReferenceTransaction amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two ReferenceTransactions and returns
+// amendment data.
+func (a *ReferenceTransactionField) CreateAmendments(fip []uint32,
+	newValue *ReferenceTransactionField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Transaction []byte
+	fip = append(ofip, ReferenceTransactionFieldTransaction)
+	if !bytes.Equal(a.Transaction, newValue.Transaction) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.Transaction,
+		})
+	}
+
+	// Outputs [][]byte
+	fip = append(ofip, ReferenceTransactionFieldOutputs)
+	OutputsMin := len(a.Outputs)
+	if OutputsMin > len(newValue.Outputs) {
+		OutputsMin = len(newValue.Outputs)
+	}
+
+	// Compare values
+	for i := 0; i < OutputsMin; i++ {
+		lfip := append(fip, uint32(i))
+		if !bytes.Equal(a.Outputs[i], newValue.Outputs[i]) {
+			result = append(result, &internal.Amendment{
+				FIP:       lfip,
+				Operation: 0, // Modify element
+				Data:      newValue.Outputs[i],
+			})
+		}
+	}
+
+	OutputsMax := len(a.Outputs)
+	if OutputsMax < len(newValue.Outputs) {
+		OutputsMax = len(newValue.Outputs)
+	}
+
+	// Add/Remove values
+	for i := OutputsMin; i < OutputsMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.Outputs) {
+			amendment.Operation = 1 // Add element
+			amendment.Data = newValue.Outputs[i]
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	return result, nil
+}
+
 // ServiceField Permission / Amendment Field Indices
 const (
 	ServiceFieldType      = uint32(1)
@@ -1554,7 +3095,9 @@ const (
 // ApplyAmendment updates a ServiceField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Service amendment field index path")
 	}
@@ -1577,8 +3120,8 @@ func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 		return fip[:], nil
 
 	case ServiceFieldPublicKey: // []byte
-		if len(data) != 0 {
-			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 0)
+		if len(data) != 33 {
+			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 33)
 		}
 		copy(a.PublicKey, data)
 		return fip[:], nil
@@ -1586,6 +3129,53 @@ func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32, data
 	}
 
 	return nil, fmt.Errorf("Unknown Service amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two Services and returns
+// amendment data.
+func (a *ServiceField) CreateAmendments(fip []uint32,
+	newValue *ServiceField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Type uint32
+	fip = append(ofip, ServiceFieldType)
+	if a.Type != newValue.Type {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Type)); err != nil {
+			return nil, errors.Wrap(err, "Type")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// URL string
+	fip = append(ofip, ServiceFieldURL)
+	if a.URL != newValue.URL {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.URL),
+		})
+	}
+
+	// PublicKey []byte
+	fip = append(ofip, ServiceFieldPublicKey)
+	if !bytes.Equal(a.PublicKey[:], newValue.PublicKey[:]) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.PublicKey[:],
+		})
+	}
+
+	return result, nil
 }
 
 // TargetAddressField Permission / Amendment Field Indices
@@ -1597,7 +3187,9 @@ const (
 // ApplyAmendment updates a TargetAddressField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty TargetAddress amendment field index path")
 	}
@@ -1624,6 +3216,44 @@ func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	return nil, fmt.Errorf("Unknown TargetAddress amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two TargetAddresss and returns
+// amendment data.
+func (a *TargetAddressField) CreateAmendments(fip []uint32,
+	newValue *TargetAddressField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Address []byte
+	fip = append(ofip, TargetAddressFieldAddress)
+	if !bytes.Equal(a.Address, newValue.Address) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.Address,
+		})
+	}
+
+	// Quantity uint64
+	fip = append(ofip, TargetAddressFieldQuantity)
+	if a.Quantity != newValue.Quantity {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.Quantity)); err != nil {
+			return nil, errors.Wrap(err, "Quantity")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // VotingSystemField Permission / Amendment Field Indices
 const (
 	VotingSystemFieldName                    = uint32(1)
@@ -1637,7 +3267,9 @@ const (
 // ApplyAmendment updates a VotingSystemField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32, data []byte) (FieldIndexPath, error) {
+func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty VotingSystem amendment field index path")
 	}
@@ -1703,4 +3335,111 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	}
 
 	return nil, fmt.Errorf("Unknown VotingSystem amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two VotingSystems and returns
+// amendment data.
+func (a *VotingSystemField) CreateAmendments(fip []uint32,
+	newValue *VotingSystemField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	// Name string
+	fip = append(ofip, VotingSystemFieldName)
+	if a.Name != newValue.Name {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Name),
+		})
+	}
+
+	// VoteType string
+	fip = append(ofip, VotingSystemFieldVoteType)
+	if a.VoteType != newValue.VoteType {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.VoteType),
+		})
+	}
+
+	// TallyLogic uint32
+	fip = append(ofip, VotingSystemFieldTallyLogic)
+	if a.TallyLogic != newValue.TallyLogic {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.TallyLogic)); err != nil {
+			return nil, errors.Wrap(err, "TallyLogic")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ThresholdPercentage uint32
+	fip = append(ofip, VotingSystemFieldThresholdPercentage)
+	if a.ThresholdPercentage != newValue.ThresholdPercentage {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.ThresholdPercentage)); err != nil {
+			return nil, errors.Wrap(err, "ThresholdPercentage")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// VoteMultiplierPermitted bool
+	fip = append(ofip, VotingSystemFieldVoteMultiplierPermitted)
+	if a.VoteMultiplierPermitted != newValue.VoteMultiplierPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.VoteMultiplierPermitted); err != nil {
+			return nil, errors.Wrap(err, "VoteMultiplierPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// HolderProposalFee uint64
+	fip = append(ofip, VotingSystemFieldHolderProposalFee)
+	if a.HolderProposalFee != newValue.HolderProposalFee {
+		var buf bytes.Buffer
+		if err := WriteBase128VarInt(&buf, int(newValue.HolderProposalFee)); err != nil {
+			return nil, errors.Wrap(err, "HolderProposalFee")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
+func convertAmendments(amendments []*internal.Amendment) ([]*AmendmentField, error) {
+	var result []*AmendmentField
+	for _, am := range amendments {
+		b, err := FieldIndexPath(am.FIP).Bytes()
+		if err != nil {
+			return nil, errors.Wrap(err, "fip")
+		}
+
+		result = append(result, &AmendmentField{
+			FieldIndexPath: b,
+			Operation:      am.Operation,
+			Data:           am.Data,
+		})
+	}
+
+	return result, nil
 }

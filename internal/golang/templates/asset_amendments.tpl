@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/tokenized/specification/dist/golang/internal"
+
 	"github.com/pkg/errors"
 )
 
@@ -41,6 +43,31 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip []uint32, operation uint32, dat
 	return nil, fmt.Errorf("Unknown {{ $message.Name }} amendment field index : %v", fip)
 }
 
+// CreateAmendments determines the differences between two {{ $message.Name }}s and returns
+// amendment data.
+func (a *{{ $message.Name }}) CreateAmendments(fip []uint32,
+	newValue *{{ $message.Name }}) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	{{ range $offset, $field := .Fields }}
+		{{- if eq $field.Type "deprecated" }}
+	// deprecated {{ $field.Name }} {{ $field.GoType }}
+		{{- else }}
+	// {{ $field.Name }} {{ $field.GoType }}
+	fip = append(ofip, {{ $message.Name }}Field{{ $field.Name }})
+	{{- template "CreateAmendmentField" $field }}
+		{{- end }}
+	{{ end }}
+
+	return result, nil
+}
+
 {{ end }}
 
 
@@ -76,6 +103,31 @@ func (a *{{ $message.Name }}Field) ApplyAmendment(fip []uint32, operation uint32
 	}
 
 	return nil, fmt.Errorf("Unknown {{ $message.Name }} amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two {{ $message.Name }}s and returns
+// amendment data.
+func (a *{{ $message.Name }}Field) CreateAmendments(fip []uint32,
+	newValue *{{ $message.Name }}Field) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip // save original to be appended for each field
+
+	{{ range $offset, $field := .Fields }}
+		{{- if eq $field.Type "deprecated" }}
+	// deprecated {{ $field.Name }} {{ $field.GoType }}
+		{{- else }}
+	// {{ $field.Name }} {{ $field.GoType }}
+	fip = append(ofip, {{ $message.Name }}Field{{ $field.Name }})
+	{{- template "CreateAmendmentField" $field }}
+		{{- end }}
+	{{ end }}
+
+	return result, nil
 }
 
 {{ end }}

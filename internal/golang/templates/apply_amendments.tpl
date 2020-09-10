@@ -4,11 +4,11 @@
 	{{- if .IsList }}
 		switch operation {
 		case 0: // Modify
-			{{- if .IsCompoundType }}
+		{{- if .IsCompoundType }}
 			if len(fip) < 3 { // includes list index and subfield index
-			{{- else }}
+		{{- else }}
 			if len(fip) != 2 { // includes list index
-			{{- end }}
+		{{- end }}
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify {{ .Name }} : %v",
 					fip)
 			}
@@ -16,22 +16,22 @@
 				return nil, fmt.Errorf("Amendment element index out of range for modify {{ .Name }} : %d", fip[1])
 			}
 
-			{{- if .IsCompoundType }}
+		{{- if .IsCompoundType }}
 			result, err := a.{{ .Name }}[fip[1]].ApplyAmendment(fip[2:], operation, data)
 			return append(fip[:1], result...), err
-			{{- else if eq .BaseType "fixedchar" "varchar" }}
+		{{- else if eq .BaseType "fixedchar" "varchar" }}
 			a.{{ .Name }}[fip[1]] = string(data)
 			return append(fip[:1], fip[2:]...), nil
-			{{- else if eq .BaseType "bin" }}
-			if len(data) != {{ .Size }} {
-				return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .Size }})
+		{{- else if eq .BaseType "bin" }}
+			if len(data) != {{ .BaseSize }} {
+				return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .BaseSize }})
 			}
 			copy(a.{{ .Name }}[fip[1]], data)
 			return append(fip[:1], fip[2:]...), nil
-			{{- else if eq .BaseType "varbin" }}
+		{{- else if eq .BaseType "varbin" }}
 			a.{{ .Name }}[fip[1]] = data
 			return append(fip[:1], fip[2:]...), nil
-			{{- else if eq .BaseType "uint" }}
+		{{- else if eq .BaseType "uint" }}
 			buf := bytes.NewBuffer(data)
 			if value, err := ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
@@ -39,7 +39,7 @@
 				a.{{ .Name }}[fip[1]] = {{ .GoSingularType }}(value)
 			}
 			return append(fip[:1], fip[2:]...), nil
-			{{- else if eq .BaseType "bool" }}
+		{{- else if eq .BaseType "bool" }}
 			if len(data) != 1 {
 				return nil, fmt.Errorf("{{ .Name }} amendment value is wrong size : %d", len(data))
 			}
@@ -48,7 +48,7 @@
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 			}
 			return append(fip[:1], fip[2:]...), nil
-			{{- end }}
+		{{- end }}
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -56,7 +56,7 @@
 					fip)
 			}
 
-			{{- if .IsCompoundType }}
+		{{- if .IsCompoundType }}
 			newValue := &{{ .GoSingularType }}{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -64,18 +64,18 @@
 						err)
 				}
 			}
-			{{- else if eq .BaseType "fixedchar" "varchar" }}
+		{{- else if eq .BaseType "fixedchar" "varchar" }}
 			newValue := string(data)
-			{{- else if eq .BaseType "bin" }}
-			if len(data) != {{ .Size }} {
-				return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .Size }})
+		{{- else if eq .BaseType "bin" }}
+			if len(data) != {{ .BaseSize }} {
+				return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .BaseSize }})
 			}
 			var newValue [{{ .BaseSize }}]byte
 			copy(newValue, data)
 			a.{{ .Name }} = append(a.{{ .Name }}, newValue)
-			{{- else if eq .BaseType "varbin" }}
+		{{- else if eq .BaseType "varbin" }}
 			newValue := data
-			{{- else if eq .BaseType "uint" }}
+		{{- else if eq .BaseType "uint" }}
 			var newValue {{ .GoSingularType }}
 			buf := bytes.NewBuffer(data)
 			if value, err := ReadBase128VarInt(buf); err != nil {
@@ -83,7 +83,7 @@
 			} else {
 				newValue = {{ .GoSingularType }}(value)
 			}
-			{{- else if eq .BaseType "bool" }}
+		{{- else if eq .BaseType "bool" }}
 			if len(fip) > 1 {
 				return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
 			}
@@ -95,7 +95,7 @@
 			if err := binary.Read(buf, binary.LittleEndian, &newValue); err != nil {
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 			}
-			{{- end }}
+		{{- end }}
 			a.{{ .Name }} = append(a.{{ .Name }}, newValue)
 			return fip[:], nil
 
@@ -124,8 +124,8 @@
 		a.{{ .Name }} = string(data)
 		return fip[:], nil
 		{{- else if eq .BaseType "bin" }}
-		if len(data) != {{ .Size }} {
-			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .Size }})
+		if len(data) != {{ .BaseSize }} {
+			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .BaseSize }})
 		}
 		copy(a.{{ .Name }}, data)
 		return fip[:], nil
