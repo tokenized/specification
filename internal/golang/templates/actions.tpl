@@ -128,3 +128,19 @@ func WriteBase128VarInt(w io.ByteWriter, value int) error {
 		v = v >> 7
 	}
 }
+
+// WriteBase128VarInt64 writes a base 128 variable encoded integer to the writer.
+func WriteBase128VarInt64(w io.Writer, value uint64) error {
+	v := value
+	for {
+		if v < 128 {
+			_, err := w.Write([]byte{byte(v)})
+			return err
+		}
+		subValue := (byte(v&0x7f) | 0x80) // Get last 7 bits and set high bit
+		if _, err := w.Write([]byte{subValue}); err != nil {
+			return err
+		}
+		v = v >> 7
+	}
+}

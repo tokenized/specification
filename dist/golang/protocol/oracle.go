@@ -8,7 +8,6 @@ import (
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/actions"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -23,13 +22,11 @@ func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 
 	// Calculate the hash
 	digest := sha256.New()
-
 	digest.Write(receiverAddress.Bytes())
 	digest.Write(contractAddress.Bytes())
 	digest.Write(assetCode)
 	digest.Write(blockHash[:])
 	binary.Write(digest, DefaultEndian, &expiration)
-
 	binary.Write(digest, DefaultEndian, &approved)
 
 	hash := sha256.Sum256(digest.Sum(nil))
@@ -52,17 +49,12 @@ func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddress bitcoi
 
 	// Calculate the hash
 	digest := sha256.New()
-
 	digest.Write(adminAddress.Bytes())
 	switch e := entity.(type) {
 	case *actions.EntityField:
-		// TODO There is an issue with protobuf not being deterministic. The marshalled data may not
-		// always be marshalled the same, so the signature hash may not match. --ce
-		data, err := proto.Marshal(e)
-		if err != nil {
+		if err := e.WriteDeterministic(digest); err != nil {
 			return nil, errors.Wrap(err, "serialize entity")
 		}
-		digest.Write(data)
 	case bitcoin.RawAddress:
 		if err := e.Serialize(digest); err != nil {
 			return nil, errors.Wrap(err, "serialize entity raw address")
@@ -72,7 +64,6 @@ func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddress bitcoi
 	}
 	digest.Write(blockHash[:])
 	binary.Write(digest, DefaultEndian, &expiration)
-
 	binary.Write(digest, DefaultEndian, &approved)
 
 	hash := sha256.Sum256(digest.Sum(nil))
@@ -88,15 +79,11 @@ func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
 
 	// Calculate the hash
 	digest := sha256.New()
-
-	data, err := proto.Marshal(entity)
-	if err != nil {
-		return nil, errors.Wrap(err, "Failed to serialize entity")
+	if err := entity.WriteDeterministic(digest); err != nil {
+		return nil, errors.Wrap(err, "serialize entity")
 	}
-	digest.Write(data)
 	digest.Write(pubKey.Bytes())
 	digest.Write(blockHash[:])
-
 	binary.Write(digest, DefaultEndian, &approved)
 
 	hash := sha256.Sum256(digest.Sum(nil))
@@ -112,17 +99,11 @@ func EntityXPubOracleSigHash(ctx context.Context, entity *actions.EntityField,
 
 	// Calculate the hash
 	digest := sha256.New()
-
-	// TODO There is an issue with protobuf not being deterministic. The marshalled data may not
-	// always be marshalled the same, so the signature hash may not match. --ce
-	data, err := proto.Marshal(entity)
-	if err != nil {
-		return nil, errors.Wrap(err, "Failed to serialize entity")
+	if err := entity.WriteDeterministic(digest); err != nil {
+		return nil, errors.Wrap(err, "serialize entity")
 	}
-	digest.Write(data)
 	digest.Write(xpub.Bytes())
 	digest.Write(blockHash[:])
-
 	binary.Write(digest, DefaultEndian, &approved)
 
 	hash := sha256.Sum256(digest.Sum(nil))
