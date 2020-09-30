@@ -7,7 +7,6 @@ import (
 )
 
 func TestAssetID(t *testing.T) {
-
 	// Random asset code
 	b := make([]byte, 32)
 	rand.Read(b)
@@ -29,5 +28,18 @@ func TestAssetID(t *testing.T) {
 
 	if !bytes.Equal(rAssetCode.Bytes(), b) {
 		t.Fatalf("Incorrect asset code : got %x, want %x", rAssetCode.Bytes(), b)
+	}
+}
+
+func TestAssetID_BSV(t *testing.T) {
+	b := make([]byte, 32)
+	code := *AssetCodeFromBytes(b)
+
+	assetType := "BSV"
+
+	id := AssetID(assetType, code)
+
+	if id != assetType {
+		t.Fatalf("got %v, want %v", id, assetType)
 	}
 }

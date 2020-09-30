@@ -1,0 +1,13 @@
+
+description:  >
+  A pending accept to a relationship that provides information about a requested participant.
+type: object
+properties:
+  ProofOfIdentityType:
+    description: The type/format of the sender's proof of identity.
+    type: number
+  ProofOfIdentity:
+    description: Sender's proof of identity.
+    type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
+

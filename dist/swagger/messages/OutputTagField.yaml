@@ -1,0 +1,9 @@
+
+description:  >
+  A tag or category of an output used to categorize and organize outputs from different transactions.
+type: object
+properties:
+  Tag:
+    description: The text of the tag.
+    type: string
+

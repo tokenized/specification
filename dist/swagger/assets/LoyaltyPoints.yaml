@@ -1,0 +1,21 @@
+
+description: A Loyalty Point
+type: object
+properties:
+  AgeRestriction:
+    description: Age restriction is used to specify required ages for asset ownership.
+    type: object
+    $ref: "#/components/schemas/AgeRestrictionField"
+  OfferName:
+    type: string
+    example: "Qantas Frequent Flyer Points"
+  ValidFrom:
+    type: number
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+  ExpirationTimestamp:
+    type: number
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+  Description:
+    type: string
+    example: "Coingeek Conference - London (November 2018)."
+

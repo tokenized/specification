@@ -242,10 +242,18 @@
           "varSize": "tiny"
         },
         {
-          "description": "Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.",
+          "description": "Deprecated for separate field in contract. Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.",
           "label": "Entity Contract Address",
           "name": "EntityContractAddress",
-          "type": "Address"
+          "type": "deprecated"
+        },
+        {
+          "description": "Length 0-255 bytes. Handle containing an alias and domain name performing queries defined in the Paymail protocol.",
+          "example": "satoshi@tokenized.id",
+          "label": "Paymail Handle",
+          "name": "PaymailHandle",
+          "type": "varchar",
+          "varSize": "tiny"
         }
       ],
       "label": "Entity",

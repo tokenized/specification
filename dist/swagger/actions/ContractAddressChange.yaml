@@ -1,0 +1,16 @@
+
+description:  >
+  This txn is signed by the master contract key defined in the contract formation and changes the
+  active contract address which the contract uses to receive and respond to requests. This is a worst
+  case scenario fallback to only be used when the contract private key is believed to be exposed.
+type: object
+properties:
+  NewContractAddress:
+    description: The address to be used by all future requests/responses for the contract.
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
+  Timestamp:
+    description: Timestamp in nanoseconds of when the action was created.
+    type: number
+    example: 1594668650000000000
+

@@ -1,0 +1,9 @@
+
+description: Establishes an on-chain register.
+type: object
+properties:
+  Message:
+    description: A custom message to include with this action.
+    type: string
+    example: "North America Whitelist"
+

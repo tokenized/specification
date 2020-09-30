@@ -22,8 +22,7 @@ fields:
   - name: NewContractAddress
     label: New Contract Address
     description: The address to be used by all future requests/responses for the contract.
-    type: varbin
-    varSize: small
+    type: Address
 
   - name: Timestamp
     label: Timestamp

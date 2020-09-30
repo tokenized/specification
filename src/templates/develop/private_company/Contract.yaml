@@ -39,6 +39,7 @@ Permissions:
       - [Oracles, Entity]
       - [Oracles, URL]
       - [Oracles, PublicKey]
+      - [Services]
 
   - Name: Administrator Direct
     Permitted: true
@@ -53,9 +54,7 @@ Permissions:
       - [Issuer, PhoneNumber]
       - [IssuerLogoURL]
       - [ContractOperator]
-      - [AdminOracle]
-      - [AdminOracleSignature]
-      - [AdminOracleSigBlockHeight]
+      - [AdminIdentityCertificates]
       - [ContractFee]
 
   - Name: Administrator Proposal Ordinary Resolution
@@ -68,6 +67,7 @@ Permissions:
     Fields:
       - [Issuer, Name]
       - [Issuer, Type]
+      - [EntityContract]
 
   - Name: Administrator Proposal Special Resolution
     Permitted: false

@@ -7,21 +7,31 @@ import (
 
 // Field defines the expected properties of a field definition in the specification YAML.
 type Field struct {
-	Name           string     `yaml:"name"`
-	Label          string     `yaml:"label"`
-	Description    string     `yaml:"description"`
-	Notes          string     `yaml:"notes"`
-	Type           string     `yaml:"type"`
-	Size           int        `yaml:"size"`
-	ListSize       string     `yaml:"listSize"`
-	VarSize        string     `yaml:"varSize"`
-	Example        string     `yaml:"example"`
-	Options        []string   `yaml:"options"`
-	Resource       string     `yaml:"resource"`
-	IsAlias        bool       `yaml:"is_alias"`
-	IsCompoundType bool       `yaml:"is_compound_type"`
-	AliasField     *Field     `yaml:"-"`
-	CompoundField  *FieldType `yaml:"-"`
+	Name           string              `yaml:"name"`
+	Label          string              `yaml:"label"`
+	Description    string              `yaml:"description"`
+	Notes          string              `yaml:"notes"`
+	Type           string              `yaml:"type"`
+	Size           int                 `yaml:"size"`
+	ListSize       string              `yaml:"listSize"`
+	VarSize        string              `yaml:"varSize"`
+	Example        string              `yaml:"example"`
+	Options        []string            `yaml:"options"`
+	OnlyValidWhen  *RelatedFieldValues `yaml:"only_valid_when"` // specifies a field is only valid when another field has specific values
+	RequiredWhen   *RelatedFieldValues `yaml:"required_when"`   // specifies a field is required when another field has specific values
+	Required       bool                `yaml:"required"`
+	Resource       string              `yaml:"resource"`
+	IsCompoundType bool                `yaml:"is_compound_type"`
+	AliasField     *Field              `yaml:"-"`
+	CompoundField  *FieldType          `yaml:"-"`
+}
+
+// RelatedFieldValues specifies that a field is only valid to be specified when another field has one of
+// the listed values.
+type RelatedFieldValues struct {
+	FieldName   string   `yaml:"field_name"`
+	Values      []string `yaml:"values"`
+	FieldGoType string
 }
 
 // IsPrimitive returns true if the field is "primitive". Not a complex type. i.e. fieldtype or
@@ -54,12 +64,33 @@ func (f *Field) IsList() bool {
 	return strings.HasSuffix(f.Type, "[]")
 }
 
+// IsAlias returns true if the field has an alias type.
+func (f *Field) IsAlias() bool {
+	return f.AliasField != nil
+}
+
+func (f *Field) HasOnlyValidWhen() bool {
+	return f.OnlyValidWhen != nil
+}
+
+func (f *Field) HasRequiredWhen() bool {
+	return f.RequiredWhen != nil
+}
+
 // BaseType returns the base type of the field, with no modifiers like list type.
 func (f *Field) BaseType() string {
 	if f.AliasField != nil {
 		return f.AliasField.BaseType()
 	}
 	return strings.Replace(f.Type, "[]", "", 1)
+}
+
+// BaseExample returns the base example of the field.
+func (f *Field) BaseExample() string {
+	if f.AliasField != nil {
+		return f.AliasField.BaseExample()
+	}
+	return f.Example
 }
 
 // BaseTypeRaw returns the raw base type
@@ -125,7 +156,7 @@ func (f *Field) GoSingularType() string {
 	gt := f.BaseType()
 
 	if f.AliasField != nil {
-		gt = f.AliasField.ProtobufType()
+		gt = f.AliasField.GoSingularType()
 	} else {
 		switch gt {
 		case "varchar", "fixedchar":

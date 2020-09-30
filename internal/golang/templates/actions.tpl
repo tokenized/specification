@@ -26,14 +26,17 @@ const (
 	Code{{.Name}} = "{{.Code}}"
 {{ end }}
 
-	// OracleTypeIdentity identifies an identity oracle
-	OracleTypeIdentity = uint32(0)
+	// ServiceTypeIdentityOracle identifies an identity oracle
+	ServiceTypeIdentityOracle = uint32(0)
 
-	// OracleTypeAuthority identifies an authority oracle
-	OracleTypeAuthority = uint32(1)
+	// ServiceTypeAuthorityOracle identifies an authority oracle
+	ServiceTypeAuthorityOracle = uint32(1)
 
-	// OracleTypeEvent identifies an event oracle
-	OracleTypeEvent = uint32(2)
+	// ServiceTypeEventOracle identifies an event oracle
+	ServiceTypeEventOracle = uint32(2)
+
+	// ServiceTypeContractOperator identifies a contract operator service
+	ServiceTypeContractOperator = uint32(3)
 
 	// ComplianceActionFreeze identifies a freeze type
 	ComplianceActionFreeze = "F"
@@ -46,6 +49,12 @@ const (
 
 	// ComplianceActionReconciliation identifies a reconcilation type
 	ComplianceActionReconciliation = "R"
+
+	// ContractTypeEntity identifies an entity contract
+	ContractTypeEntity = uint32(0)
+
+	// ContractTypeAsset identifies an asset contract
+	ContractTypeAsset = uint32(1)
 )
 
 // NewActionFromCode returns a new object of the correct type for the code.
@@ -81,3 +90,57 @@ func (a *{{.Name}}) Code() string {
 	return Code{{.Name}}
 }
 {{ end }}
+
+// Helper functions for amendments
+
+// ReadBase128VarInt reads a base 128 variable encoded integer from the reader.
+func ReadBase128VarInt(r io.ByteReader) (int, error) {
+	value := uint32(0)
+	done := false
+	bitOffset := uint32(0)
+	for !done {
+		subValue, err := r.ReadByte()
+		if err != nil {
+			return int(value), err
+		}
+
+		done = (subValue & 0x80) == 0 // High bit not set
+		subValue = subValue & 0x7f    // Remove high bit
+
+		value += uint32(subValue) << bitOffset
+		bitOffset += 7
+	}
+
+	return int(value), nil
+}
+
+// WriteBase128VarInt writes a base 128 variable encoded integer to the writer.
+func WriteBase128VarInt(w io.ByteWriter, value int) error {
+	v := uint32(value)
+	for {
+		if v < 128 {
+			return w.WriteByte(byte(v))
+		}
+		subValue := (byte(v&0x7f) | 0x80) // Get last 7 bits and set high bit
+		if err := w.WriteByte(subValue); err != nil {
+			return err
+		}
+		v = v >> 7
+	}
+}
+
+// WriteBase128VarInt64 writes a base 128 variable encoded integer to the writer.
+func WriteBase128VarInt64(w io.Writer, value uint64) error {
+	v := value
+	for {
+		if v < 128 {
+			_, err := w.Write([]byte{byte(v)})
+			return err
+		}
+		subValue := (byte(v&0x7f) | 0x80) // Get last 7 bits and set high bit
+		if _, err := w.Write([]byte{subValue}); err != nil {
+			return err
+		}
+		v = v >> 7
+	}
+}

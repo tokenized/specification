@@ -1,0 +1,16 @@
+
+description:  >
+  The contract responding to an Order action to thaw assets. To be used to comply with contractual
+  obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to
+  resume normal exchange and governance activities.
+type: object
+properties:
+  FreezeTxId:
+    description: The tx id of the freeze action that is being reversed.
+    type: string
+    example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+  Timestamp:
+    description: Timestamp in nanoseconds of when the smart contract created the action.
+    type: number
+    example: 1594668650000000000
+

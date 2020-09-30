@@ -1,0 +1,27 @@
+
+description:  >
+  Metadata associated with the output. Aka Transaction details. It is used to describe the purpose of
+  the transaction and add other relevant information. Often encrypted (DH, RSA) to make it private
+  for one or more parties.  DH for b2b where multiple parties can see the description.  RSA or the
+  like for descriptions only visible to one of the transacting parties. Optional
+type: object
+properties:
+  OutputDescription:
+    description: A Description that accompanies the output. A transaction description.
+    type: string
+    example: "eg. Invoice 3024, Pay Mike back for camping."
+  Tags:
+    description: Predefined values for describing the output.
+    type: array
+    items:
+      type: number
+  CustomTags:
+    description:  >
+      Free form text fields for describing the output. Groceries, Moomba Gas Compressor Project, Cash
+      Register 3, Fitness, Entertainment, Special, VIP Section, North Carolina Store, Waitress: Cindy
+      Smith, etc.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/OutputTagField"
+

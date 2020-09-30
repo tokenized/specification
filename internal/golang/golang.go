@@ -14,7 +14,8 @@ func Compile(
 	parser.TemplateToFile(actions, "internal/golang/templates/actions.tpl",
 		distPath+"/golang/"+"actions/actions.go")
 	parser.TemplateToFile(actions,
-		"internal/golang/templates/apply_amendments.tpl", // Pull in ApplyAmendmentField
+		"internal/golang/templates/apply_amendments.tpl",  // Pull in ApplyAmendmentField
+		"internal/golang/templates/create_amendments.tpl", // Pull in CreateAmendmentField
 		"internal/golang/templates/action_amendments.tpl",
 		distPath+"/golang/"+"actions/amendments.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/validate.tpl",
@@ -25,12 +26,15 @@ func Compile(
 		distPath+"/golang/"+"actions/resources.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/actions_test.tpl",
 		distPath+"/golang/"+"actions/actions_test.go")
+	parser.TemplateToFile(actions, "internal/golang/templates/write_deterministic.tpl",
+		distPath+"/golang/"+"actions/write_deterministic.go")
 
 	// Assets
 	parser.TemplateToFile(assets, "internal/golang/templates/assets.tpl",
 		distPath+"/golang/"+"assets/assets.go")
 	parser.TemplateToFile(assets,
-		"internal/golang/templates/apply_amendments.tpl", // Pull in ApplyAmendmentField
+		"internal/golang/templates/apply_amendments.tpl",  // Pull in ApplyAmendmentField
+		"internal/golang/templates/create_amendments.tpl", // Pull in CreateAmendmentField
 		"internal/golang/templates/asset_amendments.tpl",
 		distPath+"/golang/"+"assets/amendments.go")
 	parser.TemplateToFile(assets, "internal/golang/templates/validate.tpl",

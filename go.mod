@@ -8,9 +8,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.5
-	github.com/tokenized/envelope v0.2.2-0.20200610050705-ccdbc90b7869
-	github.com/tokenized/pkg v0.0.0-20200609212132-64f71e49483f
-	golang.org/x/lint v0.0.0-20191125180803-fdd1cda4f05f // indirect
-	golang.org/x/tools v0.0.0-20200107184032-11e9d9cc0042 // indirect
+	github.com/tokenized/envelope v0.3.0
+	github.com/tokenized/pkg v0.2.0
 	gopkg.in/yaml.v2 v2.2.7
 )

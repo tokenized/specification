@@ -1,0 +1,13 @@
+
+description: A period of time. Begin and end can be optional depending on context.
+type: object
+properties:
+  Begin:
+    description: The start of the period
+    type: number
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+  End:
+    description: The end of the period
+    type: number
+    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+

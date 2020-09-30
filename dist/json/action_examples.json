@@ -4,81 +4,31 @@
     "label": "Contract Offer",
     "name": "ContractOffer",
     "fields": {
-      "AdminOracle": {
-        "Entity": {
-          "Administration": [
-            {
-              "Name": "Satoshi Nakamoto",
-              "Type": "7"
-            }
-          ],
-          "BuildingNumber": "13577",
-          "CountryCode": "USA",
-          "DomainName": "tokenized.com",
-          "EmailAddress": "satoshi@tokenized.com",
-          "EntityContractAddress": null,
-          "LEI": "54930084UKLVMY22DS16",
-          "Management": [
-            {
-              "Name": "Satoshi Nakamoto",
-              "Type": "5"
-            }
-          ],
-          "Name": "Tesla Inc.",
-          "PhoneNumber": "0448484848",
-          "PostalZIPCode": "50210",
-          "Street": "Fairmont Ave",
-          "SuburbCity": "Robinoh",
-          "TerritoryStateProvinceCode": "BC",
-          "Type": "P",
-          "UnitNumber": "2"
-        },
-        "OracleType": [
-          null
-        ],
-        "PublicKey": null,
-        "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
-      },
-      "AdminOracleSigBlockHeight": null,
-      "AdminOracleSignature": null,
+      "(Deprecated)AdminOracle": null,
+      "(Deprecated)AdminOracleSigBlockHeight": null,
+      "(Deprecated)AdminOracleSignature": null,
+      "(Deprecated)ContractOperator": null,
+      "(Deprecated)ContractType": "Shareholder Agreement",
+      "(Deprecated)IssuerLogoURL": "https://example.com/images/logo.png",
+      "AdminIdentityCertificates": [
+        {
+          "BlockHeight": null,
+          "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+          "Expiration": "1594668650000000000",
+          "Signature": "3044022036164b0c724e6f19e234306444a11631b2f8e47d05468a099928adce0dead62102205138a635827d61915483e7ca1a53b37975a9aa0617c78ef7ac199d94742c36cf"
+        }
+      ],
       "AdministrationProposal": "true",
       "BodyOfAgreement": null,
       "BodyOfAgreementType": "1",
-      "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "ContractExpiration": "1594668650000000000",
       "ContractFee": null,
       "ContractName": "Tesla - Shareholder Agreement",
-      "ContractOperator": {
-        "Administration": [
-          {
-            "Name": "Satoshi Nakamoto",
-            "Type": "7"
-          }
-        ],
-        "BuildingNumber": "13577",
-        "CountryCode": "USA",
-        "DomainName": "tokenized.com",
-        "EmailAddress": "satoshi@tokenized.com",
-        "EntityContractAddress": null,
-        "LEI": "54930084UKLVMY22DS16",
-        "Management": [
-          {
-            "Name": "Satoshi Nakamoto",
-            "Type": "5"
-          }
-        ],
-        "Name": "Tesla Inc.",
-        "PhoneNumber": "0448484848",
-        "PostalZIPCode": "50210",
-        "Street": "Fairmont Ave",
-        "SuburbCity": "Robinoh",
-        "TerritoryStateProvinceCode": "BC",
-        "Type": "P",
-        "UnitNumber": "2"
-      },
       "ContractOperatorIncluded": null,
       "ContractPermissions": null,
-      "ContractType": "Shareholder Agreement",
+      "ContractType": "0",
       "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+      "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
       "GoverningLaw": "USA",
       "HolderProposal": "true",
       "Issuer": {
@@ -101,6 +51,7 @@
           }
         ],
         "Name": "Tesla Inc.",
+        "PaymailHandle": "satoshi@tokenized.id",
         "PhoneNumber": "0448484848",
         "PostalZIPCode": "50210",
         "Street": "Fairmont Ave",
@@ -109,40 +60,14 @@
         "Type": "P",
         "UnitNumber": "2"
       },
-      "IssuerLogoURL": "https://example.com/images/logo.png",
       "Jurisdiction": "US-CA",
-      "MasterAddress": null,
+      "MasterAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+      "OperatorEntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
       "Oracles": [
         {
-          "Entity": {
-            "Administration": [
-              {
-                "Name": "Satoshi Nakamoto",
-                "Type": "7"
-              }
-            ],
-            "BuildingNumber": "13577",
-            "CountryCode": "USA",
-            "DomainName": "tokenized.com",
-            "EmailAddress": "satoshi@tokenized.com",
-            "EntityContractAddress": null,
-            "LEI": "54930084UKLVMY22DS16",
-            "Management": [
-              {
-                "Name": "Satoshi Nakamoto",
-                "Type": "5"
-              }
-            ],
-            "Name": "Tesla Inc.",
-            "PhoneNumber": "0448484848",
-            "PostalZIPCode": "50210",
-            "Street": "Fairmont Ave",
-            "SuburbCity": "Robinoh",
-            "TerritoryStateProvinceCode": "BC",
-            "Type": "P",
-            "UnitNumber": "2"
-          },
-          "OracleType": [
+          "Entity": null,
+          "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+          "OracleTypes": [
             null
           ],
           "PublicKey": null,
@@ -150,6 +75,13 @@
         }
       ],
       "RestrictedQtyAssets": "1",
+      "Services": [
+        {
+          "PublicKey": "027fed903fe7d94a7a5bab491fb728aebcc74260840c0b3d4dadb870cd34ffbfc4",
+          "Type": "0",
+          "URL": null
+        }
+      ],
       "SupportingDocs": [
         {
           "Contents": null,
@@ -174,81 +106,32 @@
     "label": "Contract Formation",
     "name": "ContractFormation",
     "fields": {
-      "AdminOracle": {
-        "Entity": {
-          "Administration": [
-            {
-              "Name": "Satoshi Nakamoto",
-              "Type": "7"
-            }
-          ],
-          "BuildingNumber": "13577",
-          "CountryCode": "USA",
-          "DomainName": "tokenized.com",
-          "EmailAddress": "satoshi@tokenized.com",
-          "EntityContractAddress": null,
-          "LEI": "54930084UKLVMY22DS16",
-          "Management": [
-            {
-              "Name": "Satoshi Nakamoto",
-              "Type": "5"
-            }
-          ],
-          "Name": "Tesla Inc.",
-          "PhoneNumber": "0448484848",
-          "PostalZIPCode": "50210",
-          "Street": "Fairmont Ave",
-          "SuburbCity": "Robinoh",
-          "TerritoryStateProvinceCode": "BC",
-          "Type": "P",
-          "UnitNumber": "2"
-        },
-        "OracleType": [
-          null
-        ],
-        "PublicKey": null,
-        "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
-      },
-      "AdminOracleSigBlockHeight": null,
-      "AdminOracleSignature": null,
+      "(Deprecated)AdminOracle": null,
+      "(Deprecated)AdminOracleSigBlockHeight": null,
+      "(Deprecated)AdminOracleSignature": null,
+      "(Deprecated)ContractOperator": null,
+      "(Deprecated)ContractType": "Shareholder Agreement",
+      "(Deprecated)IssuerLogoURL": "https://example.tld/images/logo.png",
+      "AdminAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+      "AdminIdentityCertificates": [
+        {
+          "BlockHeight": null,
+          "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+          "Expiration": "1594668650000000000",
+          "Signature": "3044022036164b0c724e6f19e234306444a11631b2f8e47d05468a099928adce0dead62102205138a635827d61915483e7ca1a53b37975a9aa0617c78ef7ac199d94742c36cf"
+        }
+      ],
       "AdministrationProposal": "true",
       "BodyOfAgreement": null,
       "BodyOfAgreementType": "1",
-      "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "ContractExpiration": "1594668650000000000",
       "ContractFee": null,
       "ContractName": "Tesla - Shareholder Agreement",
-      "ContractOperator": {
-        "Administration": [
-          {
-            "Name": "Satoshi Nakamoto",
-            "Type": "7"
-          }
-        ],
-        "BuildingNumber": "13577",
-        "CountryCode": "USA",
-        "DomainName": "tokenized.com",
-        "EmailAddress": "satoshi@tokenized.com",
-        "EntityContractAddress": null,
-        "LEI": "54930084UKLVMY22DS16",
-        "Management": [
-          {
-            "Name": "Satoshi Nakamoto",
-            "Type": "5"
-          }
-        ],
-        "Name": "Tesla Inc.",
-        "PhoneNumber": "0448484848",
-        "PostalZIPCode": "50210",
-        "Street": "Fairmont Ave",
-        "SuburbCity": "Robinoh",
-        "TerritoryStateProvinceCode": "BC",
-        "Type": "P",
-        "UnitNumber": "2"
-      },
       "ContractPermissions": null,
       "ContractRevision": "0",
-      "ContractType": "Shareholder Agreement",
+      "ContractType": "0",
       "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
+      "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
       "GoverningLaw": "USA",
       "HolderProposal": "true",
       "Issuer": {
@@ -271,6 +154,7 @@
           }
         ],
         "Name": "Tesla Inc.",
+        "PaymailHandle": "satoshi@tokenized.id",
         "PhoneNumber": "0448484848",
         "PostalZIPCode": "50210",
         "Street": "Fairmont Ave",
@@ -279,40 +163,15 @@
         "Type": "P",
         "UnitNumber": "2"
       },
-      "IssuerLogoURL": "https://example.tld/images/logo.png",
       "Jurisdiction": "US-CA",
-      "MasterAddress": null,
+      "MasterAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+      "OperatorAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+      "OperatorEntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
       "Oracles": [
         {
-          "Entity": {
-            "Administration": [
-              {
-                "Name": "Satoshi Nakamoto",
-                "Type": "7"
-              }
-            ],
-            "BuildingNumber": "13577",
-            "CountryCode": "USA",
-            "DomainName": "tokenized.com",
-            "EmailAddress": "satoshi@tokenized.com",
-            "EntityContractAddress": null,
-            "LEI": "54930084UKLVMY22DS16",
-            "Management": [
-              {
-                "Name": "Satoshi Nakamoto",
-                "Type": "5"
-              }
-            ],
-            "Name": "Tesla Inc.",
-            "PhoneNumber": "0448484848",
-            "PostalZIPCode": "50210",
-            "Street": "Fairmont Ave",
-            "SuburbCity": "Robinoh",
-            "TerritoryStateProvinceCode": "BC",
-            "Type": "P",
-            "UnitNumber": "2"
-          },
-          "OracleType": [
+          "Entity": null,
+          "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+          "OracleTypes": [
             null
           ],
           "PublicKey": null,
@@ -320,6 +179,13 @@
         }
       ],
       "RestrictedQtyAssets": "1",
+      "Services": [
+        {
+          "PublicKey": "027fed903fe7d94a7a5bab491fb728aebcc74260840c0b3d4dadb870cd34ffbfc4",
+          "Type": "0",
+          "URL": null
+        }
+      ],
       "SupportingDocs": [
         {
           "Contents": null,
@@ -327,7 +193,7 @@
           "Type": "application/pdf"
         }
       ],
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "Timestamp": "1594668650000000000",
       "VotingSystems": [
         {
           "HolderProposalFee": "100",
@@ -365,13 +231,13 @@
     "fields": {
       "BodyOfAgreement": null,
       "BodyOfAgreementType": "1",
-      "ContractCode": null,
-      "ContractExpiration": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "ContractCode": "260840c0b3d4dadb870cd34ffbfc47fed903fe7d94a7a5bab491fb728aebcc74",
+      "ContractExpiration": "1594668650000000000",
       "ContractName": "Tesla - Shareholder Agreement",
       "ContractRevision": "0",
       "ContractType": "Non-Disclosure Agreement",
       "ContractURI": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
-      "EffectiveDate": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "EffectiveDate": "1594668650000000000",
       "Entities": [
         {
           "Administration": [
@@ -393,6 +259,7 @@
             }
           ],
           "Name": "Tesla Inc.",
+          "PaymailHandle": "satoshi@tokenized.id",
           "PhoneNumber": "0448484848",
           "PostalZIPCode": "50210",
           "Street": "Fairmont Ave",
@@ -403,35 +270,9 @@
         }
       ],
       "EntityOracle": {
-        "Entity": {
-          "Administration": [
-            {
-              "Name": "Satoshi Nakamoto",
-              "Type": "7"
-            }
-          ],
-          "BuildingNumber": "13577",
-          "CountryCode": "USA",
-          "DomainName": "tokenized.com",
-          "EmailAddress": "satoshi@tokenized.com",
-          "EntityContractAddress": null,
-          "LEI": "54930084UKLVMY22DS16",
-          "Management": [
-            {
-              "Name": "Satoshi Nakamoto",
-              "Type": "5"
-            }
-          ],
-          "Name": "Tesla Inc.",
-          "PhoneNumber": "0448484848",
-          "PostalZIPCode": "50210",
-          "Street": "Fairmont Ave",
-          "SuburbCity": "Robinoh",
-          "TerritoryStateProvinceCode": "BC",
-          "Type": "P",
-          "UnitNumber": "2"
-        },
-        "OracleType": [
+        "Entity": null,
+        "EntityContract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+        "OracleTypes": [
           null
         ],
         "PublicKey": null,
@@ -456,8 +297,8 @@
     "label": "Contract Address Change",
     "name": "ContractAddressChange",
     "fields": {
-      "NewContractAddress": null,
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "NewContractAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+      "Timestamp": "1594668650000000000"
     }
   },
   {
@@ -469,7 +310,7 @@
       "AssetModificationGovernance": "1",
       "AssetPayload": null,
       "AssetPermissions": null,
-      "AssetType": null,
+      "AssetType": "CUR",
       "EnforcementOrdersPermitted": "1",
       "HolderProposal": "true",
       "TokenQty": "1000000",
@@ -487,21 +328,21 @@
     "name": "AssetCreation",
     "fields": {
       "AdministrationProposal": "true",
-      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetIndex": "0",
       "AssetModificationGovernance": "1",
       "AssetPayload": null,
       "AssetPermissions": null,
       "AssetRevision": "456789",
-      "AssetType": null,
-      "EnforcementOrdersPermitted": "1",
+      "AssetType": "CUR",
+      "EnforcementOrdersPermitted": "true",
       "HolderProposal": "true",
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "Timestamp": "1594668650000000000",
       "TokenQty": "1000000",
       "TradeRestrictions": [
         "GBR"
       ],
-      "TransfersPermitted": "1",
+      "TransfersPermitted": "true",
       "VoteMultiplier": "3",
       "VotingRights": "true"
     }
@@ -518,7 +359,7 @@
           "Operation": "0"
         }
       ],
-      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetRevision": "0",
       "AssetType": "SHC",
       "RefTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
@@ -531,14 +372,15 @@
     "fields": {
       "Assets": [
         {
-          "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+          "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
           "AssetReceivers": [
             {
-              "Address": null,
-              "OracleConfirmationSig": null,
+              "Address": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+              "OracleConfirmationSig": "3044022036164b0c724e6f19e234306444a11631b2f8e47d05468a099928adce0dead62102205138a635827d61915483e7ca1a53b37975a9aa0617c78ef7ac199d94742c36cf",
               "OracleIndex": null,
               "OracleSigAlgorithm": "1",
               "OracleSigBlockHeight": null,
+              "OracleSigExpiry": "1594668650000000000",
               "Quantity": "100"
             }
           ],
@@ -553,8 +395,8 @@
         }
       ],
       "ExchangeFee": "0.01",
-      "ExchangeFeeAddress": null,
-      "OfferExpiry": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "ExchangeFeeAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+      "OfferExpiry": "1594668650000000000"
     }
   },
   {
@@ -564,7 +406,7 @@
     "fields": {
       "Assets": [
         {
-          "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+          "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
           "AssetType": "SHC",
           "ContractIndex": null,
           "Settlements": [
@@ -575,7 +417,7 @@
           ]
         }
       ],
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "Timestamp": "1594668650000000000"
     }
   },
   {
@@ -583,7 +425,7 @@
     "label": "Proposal",
     "name": "Proposal",
     "fields": {
-      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetType": "SHC",
       "ProposalDescription": "Change the name of the Contract.",
       "ProposalDocumentHash": "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec",
@@ -595,7 +437,7 @@
         }
       ],
       "Type": null,
-      "VoteCutOffTimestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "VoteCutOffTimestamp": "1594668650000000000",
       "VoteMax": "15",
       "VoteOptions": "ABCDEFGHIJKLMNO",
       "VoteSystem": "1"
@@ -606,7 +448,7 @@
     "label": "Vote",
     "name": "Vote",
     "fields": {
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "Timestamp": "1594668650000000000"
     }
   },
   {
@@ -624,7 +466,7 @@
     "name": "BallotCounted",
     "fields": {
       "Quantity": null,
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "Timestamp": "1594668650000000000",
       "Vote": "A",
       "VoteTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
     }
@@ -634,7 +476,7 @@
     "label": "Result",
     "name": "Result",
     "fields": {
-      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetType": "SHC",
       "OptionTally": [
         null
@@ -647,7 +489,7 @@
         }
       ],
       "Result": null,
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "Timestamp": "1594668650000000000",
       "VoteTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
     }
   },
@@ -658,7 +500,7 @@
     "fields": {
       "(Deprecated)RefTxs": null,
       "(Deprecated)SupportingEvidenceHash": null,
-      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetType": "SHC",
       "AuthorityName": "Supreme and District Courts Brisbane",
       "AuthorityPublicKey": null,
@@ -669,7 +511,7 @@
         }
       ],
       "ComplianceAction": "F",
-      "DepositAddress": null,
+      "DepositAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
       "FreezePeriod": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
       "FreezeTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
       "Message": "Compelled by a court order.",
@@ -687,7 +529,7 @@
       "SupportingEvidenceFormat": null,
       "TargetAddresses": [
         {
-          "Address": null,
+          "Address": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
           "Quantity": "10000"
         }
       ]
@@ -698,16 +540,16 @@
     "label": "Freeze",
     "name": "Freeze",
     "fields": {
-      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetType": "SHC",
-      "FreezePeriod": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "FreezePeriod": "1594668650000000000",
       "Quantities": [
         {
           "Index": "0",
           "Quantity": "100"
         }
       ],
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "Timestamp": "1594668650000000000"
     }
   },
   {
@@ -716,7 +558,7 @@
     "name": "Thaw",
     "fields": {
       "FreezeTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "Timestamp": "1594668650000000000"
     }
   },
   {
@@ -724,7 +566,7 @@
     "label": "Confiscation",
     "name": "Confiscation",
     "fields": {
-      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetType": "SHC",
       "DepositQty": "10000",
       "Quantities": [
@@ -733,7 +575,7 @@
           "Quantity": "100"
         }
       ],
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "Timestamp": "1594668650000000000"
     }
   },
   {
@@ -741,7 +583,7 @@
     "label": "Reconciliation",
     "name": "Reconciliation",
     "fields": {
-      "AssetCode": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetType": "SHC",
       "Quantities": [
         {
@@ -749,7 +591,7 @@
           "Quantity": "100"
         }
       ],
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "Timestamp": "1594668650000000000"
     }
   },
   {
@@ -812,7 +654,7 @@
       "Message": "Sorry, you don't have enough tokens.",
       "RejectAddressIndex": null,
       "RejectionCode": "1",
-      "Timestamp": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)"
+      "Timestamp": "1594668650000000000"
     }
   }
 ]

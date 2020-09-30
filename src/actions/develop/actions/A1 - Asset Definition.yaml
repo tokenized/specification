@@ -96,9 +96,11 @@ fields:
     label: Asset Type
     description: "A code representing the type of asset and the structure of the payload."
     type: AssetType
+    required: true
 
   - name: AssetPayload
     label: Asset Payload
     description: "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details."
     type: varbin
     varSize: small
+    required: true

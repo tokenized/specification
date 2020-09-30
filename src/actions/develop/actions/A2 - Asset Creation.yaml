@@ -45,7 +45,7 @@ fields:
     label: Transfers Permitted
     description: "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers."
     type: bool
-    example: 1
+    example: true
 
   - name: TradeRestrictions
     label: Trade Restrictions
@@ -57,7 +57,7 @@ fields:
     label: Enforcement Orders Permitted
     description: "Set to true if the administration is permitted to make enforcement orders on user tokens and balances, otherwise set to false to disable this feature."
     type: bool
-    example: 1
+    example: true
 
   - name: VotingRights
     label: Voting Rights
@@ -119,9 +119,10 @@ fields:
     type: uint
     size: 4
     example: "456789"
+    notes: "Can't be changed by the administration, operator. Smart contract controls."
 
   - name: Timestamp
     label: Timestamp
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
-    notes: "Cannot be changed by the administration or operator. Smart contract controls."
+    notes: "Can't be changed by the administration, operator. Smart contract controls."

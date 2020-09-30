@@ -1,0 +1,84 @@
+components:
+  tokenized:
+    ContractOffer:
+      $ref: ./_components/schemas/tokenized/actions/ContractOffer.yaml
+    ContractFormation:
+      $ref: ./_components/schemas/tokenized/actions/ContractFormation.yaml
+    ContractAmendment:
+      $ref: ./_components/schemas/tokenized/actions/ContractAmendment.yaml
+    StaticContractFormation:
+      $ref: ./_components/schemas/tokenized/actions/StaticContractFormation.yaml
+    ContractAddressChange:
+      $ref: ./_components/schemas/tokenized/actions/ContractAddressChange.yaml
+    AssetDefinition:
+      $ref: ./_components/schemas/tokenized/actions/AssetDefinition.yaml
+    AssetCreation:
+      $ref: ./_components/schemas/tokenized/actions/AssetCreation.yaml
+    AssetModification:
+      $ref: ./_components/schemas/tokenized/actions/AssetModification.yaml
+    Transfer:
+      $ref: ./_components/schemas/tokenized/actions/Transfer.yaml
+    Settlement:
+      $ref: ./_components/schemas/tokenized/actions/Settlement.yaml
+    Proposal:
+      $ref: ./_components/schemas/tokenized/actions/Proposal.yaml
+    Vote:
+      $ref: ./_components/schemas/tokenized/actions/Vote.yaml
+    BallotCast:
+      $ref: ./_components/schemas/tokenized/actions/BallotCast.yaml
+    BallotCounted:
+      $ref: ./_components/schemas/tokenized/actions/BallotCounted.yaml
+    Result:
+      $ref: ./_components/schemas/tokenized/actions/Result.yaml
+    Order:
+      $ref: ./_components/schemas/tokenized/actions/Order.yaml
+    Freeze:
+      $ref: ./_components/schemas/tokenized/actions/Freeze.yaml
+    Thaw:
+      $ref: ./_components/schemas/tokenized/actions/Thaw.yaml
+    Confiscation:
+      $ref: ./_components/schemas/tokenized/actions/Confiscation.yaml
+    Reconciliation:
+      $ref: ./_components/schemas/tokenized/actions/Reconciliation.yaml
+    Establishment:
+      $ref: ./_components/schemas/tokenized/actions/Establishment.yaml
+    Addition:
+      $ref: ./_components/schemas/tokenized/actions/Addition.yaml
+    Alteration:
+      $ref: ./_components/schemas/tokenized/actions/Alteration.yaml
+    Removal:
+      $ref: ./_components/schemas/tokenized/actions/Removal.yaml
+    Message:
+      $ref: ./_components/schemas/tokenized/actions/Message.yaml
+    Rejection:
+      $ref: ./_components/schemas/tokenized/actions/Rejection.yaml
+    AdministratorField:
+      $ref: ./_components/schemas/tokenized/actions/AdministratorField.yaml
+    AdminIdentityCertificateField:
+      $ref: ./_components/schemas/tokenized/actions/AdminIdentityCertificateField.yaml
+    AmendmentField:
+      $ref: ./_components/schemas/tokenized/actions/AmendmentField.yaml
+    AssetReceiverField:
+      $ref: ./_components/schemas/tokenized/actions/AssetReceiverField.yaml
+    AssetSettlementField:
+      $ref: ./_components/schemas/tokenized/actions/AssetSettlementField.yaml
+    AssetTransferField:
+      $ref: ./_components/schemas/tokenized/actions/AssetTransferField.yaml
+    DocumentField:
+      $ref: ./_components/schemas/tokenized/actions/DocumentField.yaml
+    EntityField:
+      $ref: ./_components/schemas/tokenized/actions/EntityField.yaml
+    ManagerField:
+      $ref: ./_components/schemas/tokenized/actions/ManagerField.yaml
+    OracleField:
+      $ref: ./_components/schemas/tokenized/actions/OracleField.yaml
+    QuantityIndexField:
+      $ref: ./_components/schemas/tokenized/actions/QuantityIndexField.yaml
+    ReferenceTransactionField:
+      $ref: ./_components/schemas/tokenized/actions/ReferenceTransactionField.yaml
+    ServiceField:
+      $ref: ./_components/schemas/tokenized/actions/ServiceField.yaml
+    TargetAddressField:
+      $ref: ./_components/schemas/tokenized/actions/TargetAddressField.yaml
+    VotingSystemField:
+      $ref: ./_components/schemas/tokenized/actions/VotingSystemField.yaml

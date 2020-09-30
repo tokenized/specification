@@ -1,0 +1,33 @@
+
+description:  >
+  The message action is a general purpose communication action. 'Twitter/SMS' for
+  Issuers/Investors/Users. The message txn can also be used for passing partially signed txns
+  on-chain, establishing private communication channels and EDI (receipting, invoices, PO, and
+  private offers/bids). The messages are broken down by type for easy filtering in the a user's
+  wallet. The Message Types are listed in the Message Types table.
+type: object
+properties:
+  SenderIndexes:
+    description:  >
+      Associates the message to a particular input by the index. If none are specified then the first
+      input is assumed.
+    type: array
+    items:
+      type: number
+  ReceiverIndexes:
+    description:  >
+      Associates the message to a particular output by the index. If none are specified then the
+      first output is assumed.
+    type: array
+    items:
+      type: number
+  MessageCode:
+    type: number
+  MessagePayload:
+    description:  >
+      Public or private (RSA public key, Diffie-Hellman). Issuers/Contracts can send the signifying
+      amount of satoshis to themselves for public announcements or private 'notes' if encrypted. See
+      Message Types for a full list of potential use cases.
+    type: string
+    example: "Hello world!"
+

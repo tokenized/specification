@@ -1,0 +1,11 @@
+
+description: Reference to a bitcoin transaction output.
+type: object
+properties:
+  TxId:
+    type: string
+    example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+  OutputIndex:
+    description: The index of the output within the referenced transaction.
+    type: number
+

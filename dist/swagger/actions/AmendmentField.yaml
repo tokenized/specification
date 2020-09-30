@@ -1,0 +1,23 @@
+
+description:  >
+  An Amendment is used to describe the modification of a single field in a Contract or Asset, as
+  defined in the ContractFormation and AssetCreation messages.
+type: object
+properties:
+  FieldIndexPath:
+    description: List of indices that identify the field/sub-field to be amended.
+    type: string
+  Operation:
+    description:  >
+      0 = Modify. 1 = Add an element to the data to the array of elements. 2 = Delete the element
+      listed in the Element field. The Add and Delete operations only apply to a particilar element
+      of a complex array type. For example, it could be used to remove a particular VotingSystem from
+      a Contract.
+    type: number
+    example: 0
+  Data:
+    description:  >
+      New data for the amended subfield. Data type depends on the the type of the field being
+      amended. The value should be serialize as defined by the protocol.
+    type: string
+

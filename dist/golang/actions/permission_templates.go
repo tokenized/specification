@@ -86,6 +86,7 @@ var PrivateCompany = PermissionConfig{
 				FieldIndexPath{23, 1},     // [Oracles Entity]
 				FieldIndexPath{23, 2},     // [Oracles URL]
 				FieldIndexPath{23, 3},     // [Oracles PublicKey]
+				FieldIndexPath{28},        // [Services]
 			},
 		},
 		Permission{ // Administrator Direct
@@ -101,9 +102,7 @@ var PrivateCompany = PermissionConfig{
 				FieldIndexPath{10, 12}, // [Issuer PhoneNumber]
 				FieldIndexPath{11},     // [IssuerLogoURL]
 				FieldIndexPath{13},     // [ContractOperator]
-				FieldIndexPath{14},     // [AdminOracle]
-				FieldIndexPath{15},     // [AdminOracleSignature]
-				FieldIndexPath{16},     // [AdminOracleSigBlockHeight]
+				FieldIndexPath{29},     // [AdminIdentityCertificates]
 				FieldIndexPath{17},     // [ContractFee]
 			},
 		},
@@ -116,6 +115,7 @@ var PrivateCompany = PermissionConfig{
 			Fields: []FieldIndexPath{
 				FieldIndexPath{10, 1}, // [Issuer Name]
 				FieldIndexPath{10, 2}, // [Issuer Type]
+				FieldIndexPath{25},    // [EntityContract]
 			},
 		},
 		Permission{ // Administrator Proposal Special Resolution

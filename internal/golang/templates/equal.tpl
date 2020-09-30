@@ -9,10 +9,10 @@ import (
 {{ define "EqualField" -}}
     // Field {{ .Name }} - {{ .BaseType }}
     {{- if .IsList }}
-        if len(l.{{ .Name }}) != len(r.{{ .Name }}) {
+        if len(c.{{ .Name }}) != len(r.{{ .Name }}) {
             return false // fmt.Errorf("List length mismatched")
         }
-        for i, v := range l.{{ .Name }} {
+        for i, v := range c.{{ .Name }} {
         {{- if eq .BaseType "bin" "varbin" }}
             if !bytes.Equal(v, r.{{ .Name }}[i]) {
                 return false // fmt.Errorf("Element {{ .Name }} bytes mismatched")
@@ -32,23 +32,23 @@ import (
         {{- end }}
         }
     {{- else if eq .BaseType "bin" "varbin" }}
-		if !bytes.Equal(l.{{ .Name }}, r.{{ .Name }}) {
+		if !bytes.Equal(c.{{ .Name }}, r.{{ .Name }}) {
 			return false // fmt.Errorf("{{ .Name }} bytes mismatched")
 		}
     {{- else if eq .BaseType "fixedchar" "varchar" }}
-		if l.{{ .Name }} != r.{{ .Name }} {
+		if c.{{ .Name }} != r.{{ .Name }} {
 			return false // fmt.Errorf("{{ .Name }} string mismatched")
 		}
     {{- else if eq .BaseType "uint" }}
-	if l.{{ .Name }} != r.{{ .Name }} {
+	if c.{{ .Name }} != r.{{ .Name }} {
 		return false // fmt.Errorf("{{ .Name }} integer mismatched")
 	}
     {{- else if eq .BaseType "bool" }}
-	if l.{{ .Name }} != r.{{ .Name }} {
+	if c.{{ .Name }} != r.{{ .Name }} {
 		return false // fmt.Errorf("{{ .Name }} boolean mismatched")
 	}
     {{- else }}
-        if !l.Equal(r.{{ .Name }}) {
+        if !c.{{ .Name }}.Equal(r.{{ .Name }}) {
             return false // fmt.Errorf("{{ .Name }} : %s", err)
         }
     {{- end }}
@@ -56,10 +56,18 @@ import (
 
 {{ range .Messages }}
 func (l *{{.Name}}) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &{{.Name}}{}
 	}
-	r, ok := right.(*{{.Name}})
+	cr := right
+	if cr == nil {
+		cr = &{{.Name}}{}
+	}
+	r, ok := cr.(*{{.Name}})
 	if !ok {
 		return false
 	}
@@ -76,12 +84,20 @@ func (l *{{.Name}}) Equal(right proto.Message) bool {
 
 {{ range .FieldTypes }}
 func (l *{{.Name}}Field) Equal(right proto.Message) bool {
-	if l == nil {
-		return right == nil
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &{{.Name}}Field{}
 	}
 	r, ok := right.(*{{.Name}}Field)
 	if !ok {
 		return false
+	}
+
+	if r == nil {
+		r = &{{.Name}}Field{}
 	}
 
 	{{ range .Fields }}

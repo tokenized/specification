@@ -1,0 +1,150 @@
+
+description:  >
+  Allows the administration to tell the smart contract what they want the details (labels, data,
+  T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer
+  action 'initializes' a generic smart contract that has been spun up by either the smart contract
+  operator or the administration. This on-chain action allows for the positive response from the
+  smart contract with either a Contract Formation Action or a Rejection Action.
+type: object
+properties:
+  ContractName:
+    description:  >
+      Can be any unique identifying string, including human readable names for branding/vanity
+      purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public
+      address is lost, then the administration will have to reissue the entire contract, Asset
+      Definition and tokens with the new public address. Smart contracts can be branded and
+      specialized to suit any terms and conditions.
+    type: string
+    example: "Tesla - Shareholder Agreement"
+  BodyOfAgreementType:
+    description:  >
+      0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+    type: number
+    example: 1
+  BodyOfAgreement:
+    description:  >
+      SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full
+      terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is
+      specific to the smart contract and relevant Assets.  Legal and technical information.
+    type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
+  SupportingDocs:
+    description: Supporting documents that are important to the contract.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/DocumentField"
+  GoverningLaw:
+    description:  >
+      5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be
+      settled by this law in the jurisdiction specified below. Private dispute resolution
+      organizations can be used as well.  A custom code just needs to be defined.
+    type: string
+    example: "USA"
+  Jurisdiction:
+    description:  >
+      Legal proceedings/arbitration will take place using the specified Governing Law in this
+      location.
+    type: string
+    example: "US-CA"
+  ContractExpiration:
+    description:  >
+      All actions related to the contract will cease to work after this timestamp. The smart contract
+      will stop running.  This will allow many token use cases to be able to calculate total smart
+      contract running costs for the entire life of the contract. Eg. an issuer is creating tickets
+      for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send
+      transactions up until the 6th of June.  Wallets can use this to forget tokens that are no
+      longer valid - or at least store them in an 'Expired' folder.
+    type: number
+    example: 1594668650000000000
+  ContractURI:
+    description:  >
+      Points to an information page that also has a copy of the Contract.  Anyone can go to the
+      website to have a look at the price/token, information about the issuer (company), information
+      about the asset, legal information, etc.  There will also be a way for token owners to vote on
+      this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or
+      txn-id for on-chain information or even a public address (DNS).
+    type: string
+    example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
+  Issuer:
+    description: The issuer of this contract.
+    type: object
+    $ref: "#/components/schemas/EntityField"
+  ContractOperatorIncluded:
+    description:  >
+      If true, then the second input is a contract operator. If false, then all additional inputs are
+      just funding and "includes" fields are skipped in serialization.
+    type: boolean
+  ContractFee:
+    description: Satoshis required to be paid to the contract for each asset action.
+    type: number
+  VotingSystems:
+    description: A list of voting systems.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/VotingSystemField"
+  ContractPermissions:
+    description:  >
+      A set of permission objects containing switches and field references that define the
+      permissions for modifying this contract. See the Permission documentation for more detail.
+    type: string
+    example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
+  RestrictedQtyAssets:
+    description:  >
+      Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display
+      an infinity symbol in UI
+    type: number
+    example: 1
+  AdministrationProposal:
+    description:  >
+      Set to true if the administration is permitted to make proposals outside of the smart contract
+      scope.
+    type: boolean
+    example: true
+  HolderProposal:
+    description:  >
+      Set to true if a holder is permitted to make proposals outside of the smart contract scope.
+    type: boolean
+    example: true
+  Oracles:
+    description:  >
+      A list of oracles that provide approval for all token transfers for all assets under the
+      contract.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/OracleField"
+  MasterAddress:
+    description:  >
+      The address of the contract's master key. This key has the ability to change the active
+      contract address in case of a security failure with the active contract key.
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
+  EntityContract:
+    description:  >
+      The address of the contract's parent entity. This is optional for entity contracts, but
+      required for asset and service contracts to identify the entity parent contract.
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
+  OperatorEntityContract:
+    description: The address for the operator's entity contract.
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
+  ContractType:
+    description: Describes the purpose of the contract. 0 - Entity, 1 - Asset
+    type: number
+    example: 0
+  Services:
+    description: The services provided by the contract entity.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/ServiceField"
+  AdminIdentityCertificates:
+    description: Certificates providing proof of administrator/operator identities.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/AdminIdentityCertificateField"
+

@@ -132,6 +132,7 @@
           "example": "AUD",
           "label": "Currency Code",
           "name": "CurrencyCode",
+          "required": true,
           "span": "full",
           "type": "CurrencyType"
         },
@@ -156,6 +157,7 @@
           "example": 100,
           "label": "Precision",
           "name": "Precision",
+          "required": true,
           "size": 8,
           "span": "full",
           "type": "uint"
@@ -262,6 +264,12 @@
           "example": "AUD",
           "label": "Currency",
           "name": "Currency",
+          "only_valid_when": {
+            "field_name": "Value"
+          },
+          "required_when": {
+            "field_name": "Value"
+          },
           "span": "right",
           "type": "CurrencyType"
         },
@@ -280,6 +288,12 @@
           "example": 100,
           "label": "Precision",
           "name": "Precision",
+          "only_valid_when": {
+            "field_name": "Value"
+          },
+          "required_when": {
+            "field_name": "Value"
+          },
           "size": 8,
           "span": "full",
           "type": "uint"
@@ -465,6 +479,7 @@
           "example": "AUD",
           "label": "Currency Code",
           "name": "CurrencyCode",
+          "required": true,
           "span": "full",
           "type": "CurrencyType"
         },
@@ -506,6 +521,7 @@
           "example": 100,
           "label": "Precision",
           "name": "Precision",
+          "required": true,
           "size": 8,
           "span": "full",
           "type": "uint"

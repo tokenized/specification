@@ -10,8 +10,8 @@ import (
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
-
 	"github.com/tokenized/specification/dist/golang/actions"
+	"github.com/tokenized/specification/dist/golang/assets"
 	"github.com/tokenized/specification/dist/golang/messages"
 
 	"github.com/pkg/errors"
@@ -20,11 +20,16 @@ import (
 // EstimatedResponse calculates information about the contract's response to a request.
 //   fees is the sum of all contract related fees including base contract fee, proposal fee, and
 ///  others. dustLimit is based on the expected P2PKH notification outputs.
-// WARNING: This function is inaccurate and incomplete!
-// Returns
-//   estimated size of response tx in bytes.
-//   estimated funding needed, not including contract/proposal fees.
-//   error if there were any
+// WARNING: This function is really only accurate for ContractOffer and AssetDefinition txs. Other
+// actions might be wrong.
+// WARNING: This still makes assumptions that some of the addresses are P2PKH.
+// For transfers use EstimatedTransferResponse.
+// For contract amendments use EstimatedContractAmendmentResponse.
+// For asset modifications use EstimatedAssetModificationResponse.
+// Returns:
+// estimated size of response tx in bytes.
+// estimated funding needed.
+// error if there were any
 func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees uint64, isTest bool) (int, uint64, error) {
 	// Find Tokenized OP_RETURN
 	var err error
@@ -49,7 +54,10 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 	switch request := action.(type) {
 	case *actions.ContractOffer:
-		contractFormation := actions.ContractFormation{Timestamp: uint64(now.UnixNano())}
+		contractFormation := actions.ContractFormation{
+			ContractRevision: 0,
+			Timestamp:        uint64(now.UnixNano()),
+		}
 		response = &contractFormation
 
 		// 1 input from contract
@@ -57,33 +65,25 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		// P2PKH dust output to contract, contract fee, and op return output
 		if fees > 0 {
-			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
+			size += wire.VarIntSerializeSize(uint64(3)) + (2 * txbuilder.P2PKHOutputSize)
 			value += fees
 		} else {
-			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
+			size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
 		}
 		value += dustLimit
 
-	case *actions.ContractAmendment:
-		contractFormation := actions.ContractFormation{Timestamp: uint64(now.UnixNano())}
-		response = &contractFormation
-
-		// 1 input from contract
-		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.MaximumP2PKHInputSize
-
-		// P2PKH dust output to contract, contract fee, and op return output
-		if fees > 0 {
-			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
-			value += fees
-		} else {
-			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
+		contractFormation.AdminAddress = make([]byte, 21) // P2PKH Address
+		if request.ContractOperatorIncluded {
+			contractFormation.OperatorAddress = make([]byte, 21) // P2PKH Address
 		}
-		value += dustLimit
-
-		// TODO Need last asset creation to know size of response. Determine change in size by applying amendments.
 
 	case *actions.AssetDefinition:
-		assetCreation := actions.AssetCreation{Timestamp: uint64(now.UnixNano())}
+		var assetCode bitcoin.Hash32
+		assetCreation := actions.AssetCreation{
+			AssetCode:     assetCode.Bytes(), // Asset code is added by smart contract
+			AssetRevision: 0,
+			Timestamp:     uint64(now.UnixNano()),
+		}
 		response = &assetCreation
 
 		// 1 input from contract
@@ -91,30 +91,12 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		// P2PKH dust output to contract, and op return output
 		if fees > 0 {
-			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
+			size += wire.VarIntSerializeSize(uint64(3)) + (2 * txbuilder.P2PKHOutputSize)
 			value += fees
 		} else {
-			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
+			size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
 		}
 		value += dustLimit
-
-	case *actions.AssetModification:
-		assetCreation := actions.AssetCreation{Timestamp: uint64(now.UnixNano())}
-		response = &assetCreation
-
-		// 1 input from contract
-		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.MaximumP2PKHInputSize
-
-		// P2PKH dust output to contract, and op return output
-		if fees > 0 {
-			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
-			value += fees
-		} else {
-			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
-		}
-		value += dustLimit
-
-		// TODO Need last asset creation to know size of response. Determine change in size by applying amendments.
 
 	case *actions.Transfer:
 		settlement := &actions.Settlement{Timestamp: uint64(now.UnixNano())}
@@ -217,10 +199,10 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 			// P2PKH dust output to contract, and op return output
 			if fees > 0 {
-				size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
+				size += wire.VarIntSerializeSize(uint64(3)) + (2 * txbuilder.P2PKHOutputSize)
 				value += fees
 			} else {
-				size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
+				size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
 			}
 			value += dustLimit
 		} else {
@@ -239,10 +221,10 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 			// P2PKH dust output to contract, and op return output
 			if fees > 0 {
-				size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
+				size += wire.VarIntSerializeSize(uint64(3)) + (2 * txbuilder.P2PKHOutputSize)
 				value += fees
 			} else {
-				size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
+				size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
 			}
 			value += dustLimit
 		}
@@ -256,10 +238,10 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		// P2PKH dust output to contract, and op return output
 		if fees > 0 {
-			size += wire.VarIntSerializeSize(uint64(3)) + (3 * txbuilder.P2PKHOutputSize)
+			size += wire.VarIntSerializeSize(uint64(3)) + (2 * txbuilder.P2PKHOutputSize)
 			value += fees
 		} else {
-			size += wire.VarIntSerializeSize(uint64(2)) + (2 * txbuilder.P2PKHOutputSize)
+			size += wire.VarIntSerializeSize(uint64(2)) + txbuilder.P2PKHOutputSize
 		}
 		value += dustLimit
 
@@ -274,6 +256,191 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 	script, err := Serialize(response, isTest)
 	if err != nil {
 		return 0, 0, errors.Wrap(err, "Failed to serialize response envelope")
+	}
+
+	// OP_RETURN output size
+	size += txbuilder.OutputBaseSize + wire.VarIntSerializeSize(uint64(len(script))) + len(script)
+
+	return size, value, nil
+}
+
+// EstimatedContractAmendmentResponse calculates information about the contract's response to an
+// amendment request.
+// dustFeeRate is the fee rate used to calculate the dust limit for outputs.
+// WARNING: This still makes assumptions that some of the addresses are P2PKH.
+// Returns:
+// estimated size of response tx in bytes.
+// estimated funding needed.
+// error if there were any
+func EstimatedContractAmendmentResponse(amendTx *wire.MsgTx, cf *actions.ContractFormation,
+	dustFeeRate float32, isTest bool) (int, uint64, error) {
+
+	// Find Tokenized OP_RETURN
+	var err error
+	var action actions.Action
+	found := false
+	for _, output := range amendTx.TxOut {
+		action, err = Deserialize(output.PkScript, isTest)
+		if err == nil {
+			found = true
+			break
+		}
+	}
+	if !found {
+		return 0, 0, errors.New("Tokenized OP_RETURN not found")
+	}
+
+	amendment, ok := action.(*actions.ContractAmendment)
+	if !ok {
+		return 0, 0, errors.New("Action is not a ContractAmendment")
+	}
+
+	outputSize := amendTx.TxOut[0].SerializeSize()
+	dustLimit := txbuilder.DustLimitForOutput(amendTx.TxOut[0], dustFeeRate)
+
+	// Build sample response and calculate values based on expected response inputs and outputs.
+	size := txbuilder.BaseTxSize
+	value := uint64(0)
+	now := time.Now()
+
+	cf.ContractRevision = amendment.ContractRevision + 1
+	cf.Timestamp = uint64(now.UnixNano())
+
+	for i, amendment := range amendment.Amendments {
+		fip, err := actions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+		if err != nil {
+			return 0, 0, errors.Wrapf(err, "parse field index path %d", i)
+		}
+		if len(fip) == 0 {
+			return 0, 0, fmt.Errorf("Amendment %d has no field specified", i)
+		}
+
+		if _, err := cf.ApplyAmendment(fip, amendment.Operation, amendment.Data); err != nil {
+			return 0, 0, errors.Wrapf(err, "apply amendment %d", i)
+		}
+	}
+
+	// 1 input from contract
+	size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.MaximumP2PKHInputSize
+
+	// P2PKH dust output to contract, contract fee, and op return output
+	if cf.ContractFee > 0 {
+		size += wire.VarIntSerializeSize(uint64(3)) + (2 * outputSize)
+		value += cf.ContractFee
+	} else {
+		size += wire.VarIntSerializeSize(uint64(2)) + outputSize
+	}
+	value += dustLimit
+
+	script, err := Serialize(cf, isTest)
+	if err != nil {
+		return 0, 0, errors.Wrap(err, "Failed to serialize contract formation envelope")
+	}
+
+	// OP_RETURN output size
+	size += txbuilder.OutputBaseSize + wire.VarIntSerializeSize(uint64(len(script))) + len(script)
+
+	return size, value, nil
+}
+
+// EstimatedAssetModificationResponse calculates information about the contract's response to an
+// asset modification request.
+// dustFeeRate is the fee rate used to calculate the dust limit for outputs.
+// WARNING: This still makes assumptions that some of the addresses are P2PKH.
+// Returns:
+// estimated size of response tx in bytes.
+// estimated funding needed.
+// error if there were any
+func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCreation,
+	contractFee uint64, dustFeeRate float32, isTest bool) (int, uint64, error) {
+
+	// Find Tokenized OP_RETURN
+	var err error
+	var action actions.Action
+	found := false
+	for _, output := range amendTx.TxOut {
+		action, err = Deserialize(output.PkScript, isTest)
+		if err == nil {
+			found = true
+			break
+		}
+	}
+	if !found {
+		return 0, 0, errors.New("Tokenized OP_RETURN not found")
+	}
+
+	amendment, ok := action.(*actions.AssetModification)
+	if !ok {
+		return 0, 0, errors.New("Action is not a AssetModification")
+	}
+
+	outputSize := amendTx.TxOut[0].SerializeSize()
+	dustLimit := txbuilder.DustLimitForOutput(amendTx.TxOut[0], dustFeeRate)
+
+	// Build sample response and calculate values based on expected response inputs and outputs.
+	size := txbuilder.BaseTxSize
+	value := uint64(0)
+	now := time.Now()
+
+	ac.AssetRevision = amendment.AssetRevision + 1
+	ac.Timestamp = uint64(now.UnixNano())
+
+	var payload assets.Asset
+	for i, amendment := range amendment.Amendments {
+		fip, err := actions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+		if err != nil {
+			return 0, 0, errors.Wrapf(err, "parse field index path %d", i)
+		}
+		if len(fip) == 0 {
+			return 0, 0, fmt.Errorf("Amendment %d has no field specified", i)
+		}
+
+		if fip[0] == actions.AssetFieldAssetPayload {
+			if payload == nil {
+				// Get payload object
+				payload, err = assets.Deserialize([]byte(ac.AssetType), ac.AssetPayload)
+				if err != nil {
+					return 0, 0, fmt.Errorf("Asset payload deserialize failed : %s %s",
+						ac.AssetType, err)
+				}
+			}
+
+			_, err = payload.ApplyAmendment(fip[1:], amendment.Operation, amendment.Data)
+			if err != nil {
+				return 0, 0, errors.Wrapf(err, "apply payload amendment %d", i)
+			}
+
+		} else {
+			if _, err := ac.ApplyAmendment(fip, amendment.Operation, amendment.Data); err != nil {
+				return 0, 0, errors.Wrapf(err, "apply amendment %d", i)
+			}
+		}
+	}
+
+	// 1 input from contract
+	size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.MaximumP2PKHInputSize
+
+	// P2PKH dust output to contract, contract fee, and op return output
+	if contractFee > 0 {
+		size += wire.VarIntSerializeSize(uint64(3)) + (2 * outputSize)
+		value += contractFee
+	} else {
+		size += wire.VarIntSerializeSize(uint64(2)) + outputSize
+	}
+	value += dustLimit
+
+	if payload != nil {
+		// Serialize updated payload
+		var buf bytes.Buffer
+		if err := payload.Serialize(&buf); err != nil {
+			return 0, 0, errors.Wrap(err, "serialize payload")
+		}
+		ac.AssetPayload = buf.Bytes()
+	}
+
+	script, err := Serialize(ac, isTest)
+	if err != nil {
+		return 0, 0, errors.Wrap(err, "Failed to serialize contract formation envelope")
 	}
 
 	// OP_RETURN output size
