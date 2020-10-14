@@ -2,12 +2,12 @@ package protocol
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"math"
 	"time"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
@@ -107,7 +107,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 		outputCount := 0
 		if fees > 0 {
-			// TODO Update to support multi-contract transfers where there will be more than one fee.
+			// Fort multi-contract transfers use EstimatedTransferResponse below.
 			outputCount += 1
 			size += txbuilder.P2PKHOutputSize
 			value += fees
@@ -499,29 +499,23 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	}
 
 	// Build sample response tx and payload and calculate values based on expected response inputs
-	//   and outputs.
-	settlementSize := make([]uint64, len(request.Assets))
+	// and outputs.
+	accumulatedSettlementData := make([][]byte, len(request.Assets))
+	var previousSettlementData []byte
+	fullSettlementSize := uint64(0)
 	boomerang := uint64(0) // used for funding inter-contract communication
 	now := time.Now()
 	// Auditable estimation construction
 	fundingForBSV := make([]uint64, len(request.Assets))
 	fundingForTokens := make([]uint64, len(request.Assets))
 	p2PKHInputCount := 0
-
-	// 1 input from contract
-	p2PKHInputCount++
-
 	p2PKHOutputCount := 0
-	for _, fee := range fees {
-		if fee > 0 {
-			p2PKHOutputCount++
-		}
-	}
 
 	settlement := &actions.Settlement{Timestamp: uint64(now.UnixNano())}
 
 	// Calculate response tx and settlement payload size.
-	used := make(map[bitcoin.Hash20]bool)
+	// Indexes to addreses that already have outputs so they can be reused.
+	addressIndexes := make(map[bitcoin.Hash20]uint32)
 	var previousContractScript []byte
 	multiContract := false
 	masterContractIndex := uint32(0xffffffff) // First contract listed
@@ -534,38 +528,50 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 
 	for i, asset := range request.Assets {
 		settleAsset := &actions.AssetSettlementField{
-			AssetType: asset.AssetType,
-			AssetCode: asset.AssetCode,
+			ContractIndex: uint32(i),
+			AssetType:     asset.AssetType,
+			AssetCode:     asset.AssetCode,
+		}
+
+		if len(asset.AssetSenders) == 0 {
+			// Needs to be at least 1 sender
+			return nil, 0, errors.New("Senders missing")
 		}
 
 		// No settlement needed for bitcoin transfers. Just outputs.
 		if asset.AssetType != "BSV" {
 			if !bytes.Equal(previousContractScript, requestTx.TxOut[asset.ContractIndex].PkScript) {
 				multiContract = true
+				p2PKHInputCount++ // input from each contract
 			}
 			previousContractScript = requestTx.TxOut[asset.ContractIndex].PkScript
 
-			// Bitcoin senders don't get an output
-			// Sig script is probably still empty, so assume each sender is unique and the address is
-			//   not reused. So each will get a notification output.
+			// Sig script is probably still empty, so assume each sender is unique and the address
+			// is not reused. So each will get a notification output.
 			for range asset.AssetSenders {
 				// Use max quantity to ensure overestimation, since we can't use a
 				//   real value without knowing the resulting balance.
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(p2PKHOutputCount),
+						Index:    127,
 						Quantity: math.MaxUint64,
 					})
 
 				p2PKHOutputCount++
-				fundingForTokens[i] += dustLimit // Dust will be put in each notification output.
+				fundingForTokens[masterContractIndex] += dustLimit // Dust will be put in each notification output.
 			}
 
 		} else {
+			// Bitcoin senders don't need an output because they don't need a settlement entry.
 			for _, sender := range asset.AssetSenders {
 				// For the amount that needs to be sent
 				fundingForBSV[masterContractIndex] += sender.Quantity
 			}
+		}
+
+		if len(asset.AssetReceivers) == 0 {
+			// Needs to be at least 1 receiver
+			return nil, 0, errors.New("Receivers missing")
 		}
 
 		for _, receiver := range asset.AssetReceivers {
@@ -577,196 +583,206 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			if err != nil {
 				return nil, 0, errors.Wrap(err, "hashing address")
 			}
-			_, exists := used[*hash]
-
-			if asset.AssetType == "BSV" {
-				if !exists {
-					p2PKHOutputCount++
-					// Do not add funding since we are receiving BSV.
-				}
-				used[*hash] = false
-
-			} else {
-				// Use max quantity to ensure overestimation, since we can't use a
-				//   real value without knowing the resulting balance.
-				settleAsset.Settlements = append(settleAsset.Settlements,
-					&actions.QuantityIndexField{
-						Index:    uint32(p2PKHOutputCount),
-						Quantity: math.MaxUint64,
-					})
-				if !exists {
-					used[*hash] = true
-					p2PKHOutputCount++
-
-					// Dust will be put in each notification output.
-					fundingForTokens[masterContractIndex] += dustLimit
-				}
+			addressIndex, exists := addressIndexes[*hash]
+			if !exists {
+				addressIndex = uint32(p2PKHOutputCount)
+				addressIndexes[*hash] = addressIndex
+				p2PKHOutputCount++
 			}
-		}
 
-		if len(asset.AssetReceivers) == 0 { // Needs to be at least 1 receiver
+			addressDustLimit, err := txbuilder.DustLimitForAddress(raddress, feeRate)
+			if err != nil {
+				return nil, 0, errors.Wrap(err, "address dust limit")
+			}
+
 			if asset.AssetType != "BSV" {
-				fundingForTokens[masterContractIndex] += dustLimit // Needed for output
+				if !exists {
+					// Dust will be put in each notification output.
+					fundingForTokens[masterContractIndex] += addressDustLimit
+				}
 
+				// Use max quantity to ensure over estimation, since we can't use a real value
+				// without knowing the resulting balance.
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
-						Index:    uint32(p2PKHOutputCount),
+						Index:    addressIndex,
 						Quantity: math.MaxUint64,
 					})
-
 			}
-			p2PKHOutputCount++
 		}
 
-		if asset.AssetType != "BSV" {
+		if asset.AssetType == "BSV" {
+			accumulatedSettlementData[i] = previousSettlementData
+		} else {
 			settlement.Assets = append(settlement.Assets, settleAsset)
 
 			// Calculate settlement size at this contract
-			script, err := Serialize(settlement, isTest)
-			if err != nil {
+			if accumulatedSettlementData[i], err = Serialize(settlement, isTest); err != nil {
 				return nil, 0, errors.Wrap(err, "Failed to serialize settlement")
 			}
-			settlementSize[i] = uint64(len(script))
+
+			fullSettlementSize = uint64(len(accumulatedSettlementData[i]))
+			previousSettlementData = accumulatedSettlementData[i]
+		}
+
+		// An output for each contract's fee address, if they have a contract fee.
+		if fees[i] > 0 {
+			p2PKHOutputCount++
 		}
 	}
 
-	// Calculate funding from parts
+	// Calculate settlement tx funding from parts
 	txSizeInputs := wire.VarIntSerializeSize(uint64(p2PKHInputCount)) +
 		p2PKHInputCount*txbuilder.MaximumP2PKHInputSize
 	txSizeP2PKHOutputs := p2PKHOutputCount * txbuilder.P2PKHOutputSize
-	txSizeSettlements := 0
-	for _, size := range settlementSize {
-		if size > 0 {
-			txSizeSettlements += int(txbuilder.OutputBaseSize+wire.VarIntSerializeSize(size)) +
-				int(size)
-		}
-	}
-	txSizeOutputCount := wire.VarIntSerializeSize(uint64(p2PKHOutputCount + 1)) // +1 for contract
-	size := txbuilder.BaseTxSize + txSizeInputs + txSizeOutputCount + txSizeP2PKHOutputs + txSizeSettlements
-	txFee := int(math.Ceil(float64(size) * float64(feeRate)))
+	txSizeSettlements := int(txbuilder.OutputBaseSize+
+		wire.VarIntSerializeSize(fullSettlementSize)) + int(fullSettlementSize)
+	txSizeOutputCount := wire.VarIntSerializeSize(uint64(p2PKHOutputCount))
+	settlementTxSize := txbuilder.BaseTxSize + txSizeInputs + txSizeOutputCount +
+		txSizeP2PKHOutputs + txSizeSettlements
+	settlementTxFee := int(math.Ceil(float64(settlementTxSize) * float64(feeRate)))
 
+	// Sum funding for each contract's output.
 	funding := make([]uint64, len(request.Assets))
 	for i := range funding {
 		funding[i] = fees[i] + fundingForBSV[i] + fundingForTokens[i]
 	}
-	funding[masterContractIndex] += uint64(txFee)
+	funding[masterContractIndex] += uint64(settlementTxFee)
 
-	// Calculate boomerang funding
+	// Calculate boomerang funding for inter-contract settlement.
+	if !multiContract {
+		return funding, boomerang, nil
+	}
+
 	isMaster := true
 	requestContractFees := []*messages.TargetAddressField{}
-	if multiContract {
-		for i, asset := range request.Assets {
-			// No boomerang for bitcoin transfers.
-			if asset.AssetType == "BSV" {
-				continue
-			}
+	previousSettlementData = nil
+	txHash := requestTx.TxHash()
+	for i, asset := range request.Assets {
+		// No boomerang for bitcoin transfers.
+		if asset.AssetType == "BSV" {
+			continue
+		}
 
-			if isMaster { // first contract (master) receives original response
-				requestContractFees = append(requestContractFees,
-					&messages.TargetAddressField{
-						Address:  make([]byte, 22),
-						Quantity: fees[i],
-					})
-				isMaster = false
-				continue
-			}
-
-			// Add boomerang funding to send settlement request to this contract
-			settleRequest := &messages.SettlementRequest{
-				Timestamp:    uint64(now.UnixNano()),
-				TransferTxId: make([]byte, 32),
-				ContractFees: requestContractFees,
-				Settlement:   make([]byte, settlementSize[i]),
-			}
-			var srBuf bytes.Buffer
-			err = settleRequest.Serialize(&srBuf)
-			if err != nil {
-				return nil, 0, errors.Wrap(err, "serialize settle request payload")
-			}
-
-			settleRequestMessage := &actions.Message{
-				SenderIndexes:   []uint32{0},
-				ReceiverIndexes: []uint32{0},
-				MessageCode:     messages.CodeSettlementRequest,
-				MessagePayload:  srBuf.Bytes(),
-			}
-
-			// Wrapped in tx
-			settleRequestTx := wire.NewMsgTx(1)
-
-			// Input from previous contract
-			hash, err := bitcoin.NewHash32(settleRequest.TransferTxId)
-			if err != nil {
-				return nil, 0, errors.Wrap(err, "create hash")
-			}
-			settleRequestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(hash, 2),
-				make([]byte, txbuilder.MaximumP2PKHInputSize)))
-
-			// Output to this contract
-			settleRequestTx.AddTxOut(wire.NewTxOut(100000, make([]byte, txbuilder.P2PKHOutputSize)))
-
-			// Output for op return
-			settleRequestScript, err := Serialize(settleRequestMessage, isTest)
-			if err != nil {
-				return nil, 0, errors.Wrap(err, "serialize settlement request action")
-			}
-			settleRequestTx.AddTxOut(wire.NewTxOut(0, settleRequestScript))
-
-			var srTxBuf bytes.Buffer
-			err = settleRequestTx.Serialize(&srTxBuf)
-			if err != nil {
-				return nil, 0, errors.Wrap(err, "serialize settlement request tx")
-			}
-			boomerang += uint64(float32(srTxBuf.Len()) * feeRate)
-
-			// Add boomerang funding to send signature request back from this contract
-			sigRequest := &messages.SignatureRequest{
-				Timestamp: uint64(now.UnixNano()),
-				Payload:   make([]byte, size), // Full settlement tx
-			}
-			var sigBuf bytes.Buffer
-			err = sigRequest.Serialize(&sigBuf)
-			if err != nil {
-				return nil, 0, errors.Wrap(err, "serialize signature request payload")
-			}
-
-			sigRequestMessage := &actions.Message{
-				SenderIndexes:   []uint32{0},
-				ReceiverIndexes: []uint32{0},
-				MessageCode:     messages.CodeSignatureRequest,
-				MessagePayload:  sigBuf.Bytes(),
-			}
-
-			// Wrapped in tx
-			sigRequestTx := wire.NewMsgTx(1)
-
-			// Input from previous contract
-			sigRequestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(hash, 2),
-				make([]byte, txbuilder.MaximumP2PKHInputSize)))
-
-			// Output to this contract
-			sigRequestTx.AddTxOut(wire.NewTxOut(100000, make([]byte, txbuilder.P2PKHOutputSize)))
-
-			// Output for op return
-			sigRequestScript, err := Serialize(sigRequestMessage, isTest)
-			if err != nil {
-				return nil, 0, errors.Wrap(err, "serialize signature request action")
-			}
-			sigRequestTx.AddTxOut(wire.NewTxOut(0, sigRequestScript))
-
-			var sigTxBuf bytes.Buffer
-			err = sigRequestTx.Serialize(&sigTxBuf)
-			if err != nil {
-				return nil, 0, errors.Wrap(err, "serialize signature request tx")
-			}
-			boomerang += uint64(float32(sigTxBuf.Len()) * feeRate)
-
+		if isMaster {
 			requestContractFees = append(requestContractFees,
 				&messages.TargetAddressField{
 					Address:  make([]byte, 22),
 					Quantity: fees[i],
 				})
+
+			previousSettlementData = accumulatedSettlementData[i]
+
+			// The first (master) contract receives original response and needs no funding.
+			isMaster = false
+			continue
 		}
+
+		// Add boomerang funding to send settlement request to this contract
+		settleRequest := &messages.SettlementRequest{
+			Timestamp:    uint64(now.UnixNano()),
+			TransferTxId: requestTx.TxHash().Bytes(),
+			ContractFees: requestContractFees,
+			Settlement:   previousSettlementData,
+		}
+
+		var srBuf bytes.Buffer
+		if err := settleRequest.Serialize(&srBuf); err != nil {
+			return nil, 0, errors.Wrap(err, "serialize settle request payload")
+		}
+
+		settleRequestMessage := &actions.Message{
+			SenderIndexes:   []uint32{0},
+			ReceiverIndexes: []uint32{0},
+			MessageCode:     messages.CodeSettlementRequest,
+			MessagePayload:  srBuf.Bytes(),
+		}
+
+		settleRequestScript, err := Serialize(settleRequestMessage, isTest)
+		if err != nil {
+			return nil, 0, errors.Wrap(err, "serialize settlement request action")
+		}
+
+		// Wrapped in tx
+		settleRequestTx := wire.NewMsgTx(1)
+
+		// Input from previous contract
+		settleRequestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(txHash, 2),
+			make([]byte, txbuilder.MaximumP2PKHSigScriptSize)))
+
+		// Output to this contract
+		settleRequestTx.AddTxOut(wire.NewTxOut(100000, make([]byte,
+			txbuilder.P2PKHOutputScriptSize)))
+
+		// Output for op return
+		settleRequestTx.AddTxOut(wire.NewTxOut(0, settleRequestScript))
+
+		txHash = settleRequestTx.TxHash()
+
+		var srTxBuf bytes.Buffer
+		err = settleRequestTx.Serialize(&srTxBuf)
+		if err != nil {
+			return nil, 0, errors.Wrap(err, "serialize settlement request tx")
+		}
+		boomerang += uint64(math.Ceil(float64(srTxBuf.Len()) * float64(feeRate)))
+		// We don't need to add dust here because the remaining funding is passed along and must
+		// include the final dust so will always be at least dust.
+		// boomerang += dustLimit // Dust output to next contract
+
+		// Add boomerang funding to send signature request to the previous contract.
+
+		// Subtract out missing signature scripts from previous contracts that haven't signed yet.
+		adjustedSettleTxSize := settlementTxSize - (i * int(txbuilder.MaximumP2PKHSigScriptSize))
+
+		sigRequest := &messages.SignatureRequest{
+			Timestamp: uint64(now.UnixNano()),
+			Payload:   make([]byte, adjustedSettleTxSize), // Full settlement tx
+		}
+
+		var sigBuf bytes.Buffer
+		if err := sigRequest.Serialize(&sigBuf); err != nil {
+			return nil, 0, errors.Wrap(err, "serialize signature request payload")
+		}
+
+		sigRequestMessage := &actions.Message{
+			SenderIndexes:   []uint32{0},
+			ReceiverIndexes: []uint32{0},
+			MessageCode:     messages.CodeSignatureRequest,
+			MessagePayload:  sigBuf.Bytes(),
+		}
+
+		// Wrapped in tx
+		sigRequestTx := wire.NewMsgTx(1)
+
+		// Input from previous contract
+		sigRequestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(txHash, 2),
+			make([]byte, txbuilder.MaximumP2PKHSigScriptSize)))
+
+		// Output to this contract
+		sigRequestTx.AddTxOut(wire.NewTxOut(100000, make([]byte,
+			txbuilder.P2PKHOutputScriptSize)))
+
+		// Output for op return
+		sigRequestScript, err := Serialize(sigRequestMessage, isTest)
+		if err != nil {
+			return nil, 0, errors.Wrap(err, "serialize signature request action")
+		}
+		sigRequestTx.AddTxOut(wire.NewTxOut(0, sigRequestScript))
+
+		txHash = sigRequestTx.TxHash()
+
+		var sigTxBuf bytes.Buffer
+		if err := sigRequestTx.Serialize(&sigTxBuf); err != nil {
+			return nil, 0, errors.Wrap(err, "serialize signature request tx")
+		}
+		boomerang += uint64(math.Ceil(float64(sigTxBuf.Len()) * float64(feeRate)))
+		boomerang += dustLimit // Dust output to previous contract
+
+		requestContractFees = append(requestContractFees,
+			&messages.TargetAddressField{
+				Address:  make([]byte, 22),
+				Quantity: fees[i],
+			})
 	}
 
 	return funding, boomerang, nil

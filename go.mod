@@ -9,6 +9,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.5
 	github.com/tokenized/envelope v0.3.0
-	github.com/tokenized/pkg v0.2.0
+	github.com/tokenized/pkg v0.2.1-0.20201014031640-06091b48e0d4
 	gopkg.in/yaml.v2 v2.2.7
 )
