@@ -30,7 +30,9 @@ import (
 // estimated size of response tx in bytes.
 // estimated funding needed.
 // error if there were any
-func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees uint64, isTest bool) (int, uint64, error) {
+func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees uint64,
+	isTest bool) (int, uint64, error) {
+
 	// Find Tokenized OP_RETURN
 	var err error
 	var action actions.Action
@@ -533,11 +535,6 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			AssetCode:     asset.AssetCode,
 		}
 
-		if len(asset.AssetSenders) == 0 {
-			// Needs to be at least 1 sender
-			return nil, 0, errors.New("Senders missing")
-		}
-
 		// No settlement needed for bitcoin transfers. Just outputs.
 		if asset.AssetType != "BSV" {
 			if !bytes.Equal(previousContractScript, requestTx.TxOut[asset.ContractIndex].PkScript) {
@@ -567,11 +564,6 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 				// For the amount that needs to be sent
 				fundingForBSV[masterContractIndex] += sender.Quantity
 			}
-		}
-
-		if len(asset.AssetReceivers) == 0 {
-			// Needs to be at least 1 receiver
-			return nil, 0, errors.New("Receivers missing")
 		}
 
 		for _, receiver := range asset.AssetReceivers {
