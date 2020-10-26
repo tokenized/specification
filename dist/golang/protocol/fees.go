@@ -520,12 +520,12 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	addressIndexes := make(map[bitcoin.Hash20]uint32)
 	var previousContractScript []byte
 	multiContract := false
-	masterContractIndex := uint32(0xffffffff) // First contract listed
+	masterContractIndex := uint32(0) // First smart contract agent listed, indexed by assets.
 	for _, asset := range request.Assets {
 		if asset.AssetType != "BSV" {
-			masterContractIndex = asset.ContractIndex
 			break
 		}
+		masterContractIndex++
 	}
 
 	for i, asset := range request.Assets {
