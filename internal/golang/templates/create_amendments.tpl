@@ -117,7 +117,22 @@
 	}
 
 	{{- else }}
-		{{- if .IsCompoundType }}
+		{{- if eq .Name "AssetType" }}
+		// AssetType modifications not allowed
+		{{- else if eq .Name "AssetPayload" }}
+	if a.AssetType != newValue.AssetType {
+		return nil, fmt.Errorf("Asset type modification not allowed : %s -> %s", a.AssetType,
+			newValue.AssetType)
+	}
+
+	payloadAmendments, err := assets.CreatePayloadAmendments(fip, []byte(a.AssetType),
+		a.AssetPayload, newValue.AssetPayload)
+	if err != nil {
+		return nil, errors.Wrap(err, "{{ .Name }}")
+	}
+	result = append(result, payloadAmendments...)
+		{{- else if .IsCompoundType }}
+
 	{{ .Name }}Amendments, err := a.{{ .Name }}.CreateAmendments(fip, newValue.{{ .Name }})
 	if err != nil {
 		return nil, errors.Wrap(err, "{{ .Name }}")

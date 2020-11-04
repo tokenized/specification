@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
+	"github.com/tokenized/specification/dist/golang/assets"
 	"github.com/tokenized/specification/dist/golang/internal"
 
 	proto "github.com/golang/protobuf/proto"
@@ -175,6 +176,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 	// Issuer EntityField
 	fip = []uint32{ContractFieldIssuer}
+
 	IssuerAmendments, err := a.Issuer.CreateAmendments(fip, newValue.Issuer)
 	if err != nil {
 		return nil, errors.Wrap(err, "Issuer")
@@ -1024,21 +1026,21 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 
 	// AssetType string
 	fip = []uint32{AssetFieldAssetType}
-	if a.AssetType != newValue.AssetType {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.AssetType),
-		})
-	}
+	// AssetType modifications not allowed
 
 	// AssetPayload []byte
 	fip = []uint32{AssetFieldAssetPayload}
-	if !bytes.Equal(a.AssetPayload, newValue.AssetPayload) {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: newValue.AssetPayload,
-		})
+	if a.AssetType != newValue.AssetType {
+		return nil, fmt.Errorf("Asset type modification not allowed : %s -> %s", a.AssetType,
+			newValue.AssetType)
 	}
+
+	payloadAmendments, err := assets.CreatePayloadAmendments(fip, []byte(a.AssetType),
+		a.AssetPayload, newValue.AssetPayload)
+	if err != nil {
+		return nil, errors.Wrap(err, "AssetPayload")
+	}
+	result = append(result, payloadAmendments...)
 
 	r, err := convertAmendments(result)
 	if err != nil {
@@ -1815,12 +1817,7 @@ func (a *AssetSettlementField) CreateAmendments(fip []uint32,
 
 	// AssetType string
 	fip = append(ofip, AssetSettlementFieldAssetType)
-	if a.AssetType != newValue.AssetType {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.AssetType),
-		})
-	}
+	// AssetType modifications not allowed
 
 	// AssetCode []byte
 	fip = append(ofip, AssetSettlementFieldAssetCode)
@@ -2037,12 +2034,7 @@ func (a *AssetTransferField) CreateAmendments(fip []uint32,
 
 	// AssetType string
 	fip = append(ofip, AssetTransferFieldAssetType)
-	if a.AssetType != newValue.AssetType {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.AssetType),
-		})
-	}
+	// AssetType modifications not allowed
 
 	// AssetCode []byte
 	fip = append(ofip, AssetTransferFieldAssetCode)

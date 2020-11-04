@@ -131,3 +131,28 @@ func (a *{{ $message.Name }}Field) CreateAmendments(fip []uint32,
 }
 
 {{ end }}
+
+// CreatePayloadAmendments deserializes asset payloads and create amendments for them.
+func CreatePayloadAmendments(fip []uint32,
+	assetType, payload, newPayload []byte) ([]*internal.Amendment, error) {
+
+	current, err := Deserialize(assetType, payload)
+	if err != nil {
+		return nil, errors.Wrap(err, "deserialize payload")
+	}
+
+	new, err := Deserialize(assetType, newPayload)
+	if err != nil {
+		return nil, errors.Wrap(err, "deserialize payload")
+	}
+
+	var result []*internal.Amendment
+	switch c := current.(type) {
+{{- range $i, $message := .Messages }}
+	case *{{ $message.Name }}:
+		result, err = c.CreateAmendments(fip, new.(*{{ $message.Name }}))
+{{ end }}
+	}
+
+	return result, nil
+}

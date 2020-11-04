@@ -96,6 +96,7 @@ func (a *Membership) CreateAmendments(fip []uint32,
 
 	// AgeRestriction AgeRestrictionField
 	fip = append(ofip, MembershipFieldAgeRestriction)
+
 	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
 	if err != nil {
 		return nil, errors.Wrap(err, "AgeRestriction")
@@ -601,6 +602,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip []uint32,
 
 	// AgeRestriction AgeRestrictionField
 	fip = append(ofip, LoyaltyPointsFieldAgeRestriction)
+
 	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
 	if err != nil {
 		return nil, errors.Wrap(err, "AgeRestriction")
@@ -761,6 +763,7 @@ func (a *TicketAdmission) CreateAmendments(fip []uint32,
 
 	// AgeRestriction AgeRestrictionField
 	fip = append(ofip, TicketAdmissionFieldAgeRestriction)
+
 	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
 	if err != nil {
 		return nil, errors.Wrap(err, "AgeRestriction")
@@ -969,6 +972,7 @@ func (a *CasinoChip) CreateAmendments(fip []uint32,
 
 	// AgeRestriction AgeRestrictionField
 	fip = append(ofip, CasinoChipFieldAgeRestriction)
+
 	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
 	if err != nil {
 		return nil, errors.Wrap(err, "AgeRestriction")
@@ -1102,6 +1106,48 @@ func (a *AgeRestrictionField) CreateAmendments(fip []uint32,
 			FIP:  fip,
 			Data: buf.Bytes(),
 		})
+	}
+
+	return result, nil
+}
+
+// CreatePayloadAmendments deserializes asset payloads and create amendments for them.
+func CreatePayloadAmendments(fip []uint32,
+	assetType, payload, newPayload []byte) ([]*internal.Amendment, error) {
+
+	current, err := Deserialize(assetType, payload)
+	if err != nil {
+		return nil, errors.Wrap(err, "deserialize payload")
+	}
+
+	new, err := Deserialize(assetType, newPayload)
+	if err != nil {
+		return nil, errors.Wrap(err, "deserialize payload")
+	}
+
+	var result []*internal.Amendment
+	switch c := current.(type) {
+	case *Membership:
+		result, err = c.CreateAmendments(fip, new.(*Membership))
+
+	case *Currency:
+		result, err = c.CreateAmendments(fip, new.(*Currency))
+
+	case *ShareCommon:
+		result, err = c.CreateAmendments(fip, new.(*ShareCommon))
+
+	case *Coupon:
+		result, err = c.CreateAmendments(fip, new.(*Coupon))
+
+	case *LoyaltyPoints:
+		result, err = c.CreateAmendments(fip, new.(*LoyaltyPoints))
+
+	case *TicketAdmission:
+		result, err = c.CreateAmendments(fip, new.(*TicketAdmission))
+
+	case *CasinoChip:
+		result, err = c.CreateAmendments(fip, new.(*CasinoChip))
+
 	}
 
 	return result, nil
