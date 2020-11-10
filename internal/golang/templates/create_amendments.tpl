@@ -45,7 +45,7 @@
 		{{- else if eq .BaseType "uint" }}
 		if a.{{ .Name }}[i] != newValue.{{ .Name }}[i] {
 			var buf bytes.Buffer
-			if err := WriteBase128VarInt(&buf, int(newValue.{{ .Name }}[i])); err != nil {
+			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.{{ .Name }}[i])); err != nil {
 				return nil, errors.Wrapf(err, "{{ .Name }} %d", i)
 			}
 
@@ -98,7 +98,7 @@
 			amendment.Data = newValue.{{ .Name }}[i]
 		{{- else if eq .BaseType "uint" }}
 			var buf bytes.Buffer
-			if err := WriteBase128VarInt(&buf, int(newValue.{{ .Name }}[i])); err != nil {
+			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.{{ .Name }}[i])); err != nil {
 				return nil, errors.Wrapf(err, "{{ .Name }} %d", i)
 			}
 			amendment.Data = buf.Bytes()
@@ -162,7 +162,7 @@
 		{{- else if eq .BaseType "uint" }}
 	if a.{{ .Name }} != newValue.{{ .Name }} {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.{{ .Name }})); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.{{ .Name }})); err != nil {
 			return nil, errors.Wrap(err, "{{ .Name }}")
 		}
 

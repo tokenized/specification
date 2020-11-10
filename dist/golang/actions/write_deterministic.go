@@ -5,6 +5,7 @@ import (
 	"io"
 
 	"github.com/pkg/errors"
+	"github.com/tokenized/pkg/bitcoin"
 )
 
 // WriteDeterministic writes data from a ContractOffer in a deterministic way so the data can
@@ -14,7 +15,7 @@ func (a *ContractOffer) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractName")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.BodyOfAgreementType)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.BodyOfAgreementType)); err != nil {
 		return errors.Wrap(err, "BodyOfAgreementType")
 	}
 
@@ -36,7 +37,7 @@ func (a *ContractOffer) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Jurisdiction")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractExpiration)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractExpiration)); err != nil {
 		return errors.Wrap(err, "ContractExpiration")
 	}
 
@@ -52,7 +53,7 @@ func (a *ContractOffer) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractOperatorIncluded")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractFee)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractFee)); err != nil {
 		return errors.Wrap(err, "ContractFee")
 	}
 
@@ -66,7 +67,7 @@ func (a *ContractOffer) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractPermissions")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.RestrictedQtyAssets)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.RestrictedQtyAssets)); err != nil {
 		return errors.Wrap(err, "RestrictedQtyAssets")
 	}
 
@@ -96,7 +97,7 @@ func (a *ContractOffer) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "OperatorEntityContract")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractType)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractType)); err != nil {
 		return errors.Wrap(err, "ContractType")
 	}
 
@@ -122,7 +123,7 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractName")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.BodyOfAgreementType)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.BodyOfAgreementType)); err != nil {
 		return errors.Wrap(err, "BodyOfAgreementType")
 	}
 
@@ -144,7 +145,7 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Jurisdiction")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractExpiration)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractExpiration)); err != nil {
 		return errors.Wrap(err, "ContractExpiration")
 	}
 
@@ -156,7 +157,7 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Issuer")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractFee)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractFee)); err != nil {
 		return errors.Wrap(err, "ContractFee")
 	}
 
@@ -170,7 +171,7 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractPermissions")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.RestrictedQtyAssets)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.RestrictedQtyAssets)); err != nil {
 		return errors.Wrap(err, "RestrictedQtyAssets")
 	}
 
@@ -192,11 +193,11 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "MasterAddress")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractRevision)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractRevision)); err != nil {
 		return errors.Wrap(err, "ContractRevision")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -208,7 +209,7 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "OperatorEntityContract")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractType)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractType)); err != nil {
 		return errors.Wrap(err, "ContractType")
 	}
 
@@ -246,7 +247,7 @@ func (a *ContractAmendment) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ChangeOperatorAddress")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractRevision)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractRevision)); err != nil {
 		return errors.Wrap(err, "ContractRevision")
 	}
 
@@ -274,7 +275,7 @@ func (a *StaticContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractCode")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.BodyOfAgreementType)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.BodyOfAgreementType)); err != nil {
 		return errors.Wrap(err, "BodyOfAgreementType")
 	}
 
@@ -292,7 +293,7 @@ func (a *StaticContractFormation) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractRevision)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractRevision)); err != nil {
 		return errors.Wrap(err, "ContractRevision")
 	}
 
@@ -304,11 +305,11 @@ func (a *StaticContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Jurisdiction")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.EffectiveDate)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.EffectiveDate)); err != nil {
 		return errors.Wrap(err, "EffectiveDate")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ContractExpiration)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractExpiration)); err != nil {
 		return errors.Wrap(err, "ContractExpiration")
 	}
 
@@ -334,7 +335,7 @@ func (a *StaticContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "EntityOracleSignature")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.EntityOracleSigBlockHeight)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.EntityOracleSigBlockHeight)); err != nil {
 		return errors.Wrap(err, "EntityOracleSigBlockHeight")
 	}
 
@@ -348,7 +349,7 @@ func (a *ContractAddressChange) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "NewContractAddress")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -380,7 +381,7 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "VotingRights")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.VoteMultiplier)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.VoteMultiplier)); err != nil {
 		return errors.Wrap(err, "VoteMultiplier")
 	}
 
@@ -392,11 +393,11 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "HolderProposal")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.AssetModificationGovernance)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetModificationGovernance)); err != nil {
 		return errors.Wrap(err, "AssetModificationGovernance")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.TokenQty)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.TokenQty)); err != nil {
 		return errors.Wrap(err, "TokenQty")
 	}
 
@@ -418,7 +419,7 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetCode")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.AssetIndex)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetIndex)); err != nil {
 		return errors.Wrap(err, "AssetIndex")
 	}
 
@@ -444,7 +445,7 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "VotingRights")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.VoteMultiplier)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.VoteMultiplier)); err != nil {
 		return errors.Wrap(err, "VoteMultiplier")
 	}
 
@@ -456,11 +457,11 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "HolderProposal")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.AssetModificationGovernance)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetModificationGovernance)); err != nil {
 		return errors.Wrap(err, "AssetModificationGovernance")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.TokenQty)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.TokenQty)); err != nil {
 		return errors.Wrap(err, "TokenQty")
 	}
 
@@ -472,11 +473,11 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetPayload")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.AssetRevision)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetRevision)); err != nil {
 		return errors.Wrap(err, "AssetRevision")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -494,7 +495,7 @@ func (a *AssetModification) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetCode")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.AssetRevision)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetRevision)); err != nil {
 		return errors.Wrap(err, "AssetRevision")
 	}
 
@@ -520,11 +521,11 @@ func (a *Transfer) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.OfferExpiry)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.OfferExpiry)); err != nil {
 		return errors.Wrap(err, "OfferExpiry")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ExchangeFee)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ExchangeFee)); err != nil {
 		return errors.Wrap(err, "ExchangeFee")
 	}
 
@@ -544,7 +545,7 @@ func (a *Settlement) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -554,7 +555,7 @@ func (a *Settlement) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Proposal in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Proposal) WriteDeterministic(w io.Writer) error {
-	if err := WriteBase128VarInt64(w, uint64(a.Type)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Type)); err != nil {
 		return errors.Wrap(err, "Type")
 	}
 
@@ -566,7 +567,7 @@ func (a *Proposal) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetCode")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.VoteSystem)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.VoteSystem)); err != nil {
 		return errors.Wrap(err, "VoteSystem")
 	}
 
@@ -580,7 +581,7 @@ func (a *Proposal) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "VoteOptions")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.VoteMax)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.VoteMax)); err != nil {
 		return errors.Wrap(err, "VoteMax")
 	}
 
@@ -592,7 +593,7 @@ func (a *Proposal) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ProposalDocumentHash")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.VoteCutOffTimestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.VoteCutOffTimestamp)); err != nil {
 		return errors.Wrap(err, "VoteCutOffTimestamp")
 	}
 
@@ -602,7 +603,7 @@ func (a *Proposal) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Vote in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Vote) WriteDeterministic(w io.Writer) error {
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -634,11 +635,11 @@ func (a *BallotCounted) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Vote")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Quantity)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Quantity)); err != nil {
 		return errors.Wrap(err, "Quantity")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -667,7 +668,7 @@ func (a *Result) WriteDeterministic(w io.Writer) error {
 	}
 
 	for i, item := range a.OptionTally {
-		if err := WriteBase128VarInt64(w, uint64(item)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(w, uint64(item)); err != nil {
 			return errors.Wrapf(err, "OptionTally %d", i)
 		}
 	}
@@ -676,7 +677,7 @@ func (a *Result) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Result")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -708,7 +709,7 @@ func (a *Order) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "FreezeTxId")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.FreezePeriod)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.FreezePeriod)); err != nil {
 		return errors.Wrap(err, "FreezePeriod")
 	}
 
@@ -724,7 +725,7 @@ func (a *Order) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AuthorityPublicKey")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.SignatureAlgorithm)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.SignatureAlgorithm)); err != nil {
 		return errors.Wrap(err, "SignatureAlgorithm")
 	}
 
@@ -742,7 +743,7 @@ func (a *Order) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Message")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.SupportingEvidenceFormat)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.SupportingEvidenceFormat)); err != nil {
 		return errors.Wrap(err, "SupportingEvidenceFormat")
 	}
 
@@ -776,11 +777,11 @@ func (a *Freeze) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.FreezePeriod)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.FreezePeriod)); err != nil {
 		return errors.Wrap(err, "FreezePeriod")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -794,7 +795,7 @@ func (a *Thaw) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "FreezeTxId")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -818,11 +819,11 @@ func (a *Confiscation) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.DepositQty)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.DepositQty)); err != nil {
 		return errors.Wrap(err, "DepositQty")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -846,7 +847,7 @@ func (a *Reconciliation) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -905,18 +906,18 @@ func (a *Removal) WriteDeterministic(w io.Writer) error {
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Message) WriteDeterministic(w io.Writer) error {
 	for i, item := range a.SenderIndexes {
-		if err := WriteBase128VarInt64(w, uint64(item)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(w, uint64(item)); err != nil {
 			return errors.Wrapf(err, "SenderIndexes %d", i)
 		}
 	}
 
 	for i, item := range a.ReceiverIndexes {
-		if err := WriteBase128VarInt64(w, uint64(item)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(w, uint64(item)); err != nil {
 			return errors.Wrapf(err, "ReceiverIndexes %d", i)
 		}
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.MessageCode)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.MessageCode)); err != nil {
 		return errors.Wrap(err, "MessageCode")
 	}
 
@@ -931,16 +932,16 @@ func (a *Message) WriteDeterministic(w io.Writer) error {
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Rejection) WriteDeterministic(w io.Writer) error {
 	for i, item := range a.AddressIndexes {
-		if err := WriteBase128VarInt64(w, uint64(item)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(w, uint64(item)); err != nil {
 			return errors.Wrapf(err, "AddressIndexes %d", i)
 		}
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.RejectAddressIndex)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.RejectAddressIndex)); err != nil {
 		return errors.Wrap(err, "RejectAddressIndex")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.RejectionCode)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.RejectionCode)); err != nil {
 		return errors.Wrap(err, "RejectionCode")
 	}
 
@@ -948,7 +949,7 @@ func (a *Rejection) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Message")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Timestamp)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
 	}
 
@@ -958,7 +959,7 @@ func (a *Rejection) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Administrator in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *AdministratorField) WriteDeterministic(w io.Writer) error {
-	if err := WriteBase128VarInt64(w, uint64(a.Type)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Type)); err != nil {
 		return errors.Wrap(err, "Type")
 	}
 
@@ -980,11 +981,11 @@ func (a *AdminIdentityCertificateField) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Signature")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.BlockHeight)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.BlockHeight)); err != nil {
 		return errors.Wrap(err, "BlockHeight")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Expiration)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Expiration)); err != nil {
 		return errors.Wrap(err, "Expiration")
 	}
 
@@ -998,7 +999,7 @@ func (a *AmendmentField) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "FieldIndexPath")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Operation)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Operation)); err != nil {
 		return errors.Wrap(err, "Operation")
 	}
 
@@ -1016,15 +1017,15 @@ func (a *AssetReceiverField) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Address")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Quantity)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Quantity)); err != nil {
 		return errors.Wrap(err, "Quantity")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.OracleSigAlgorithm)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.OracleSigAlgorithm)); err != nil {
 		return errors.Wrap(err, "OracleSigAlgorithm")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.OracleIndex)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.OracleIndex)); err != nil {
 		return errors.Wrap(err, "OracleIndex")
 	}
 
@@ -1032,11 +1033,11 @@ func (a *AssetReceiverField) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "OracleConfirmationSig")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.OracleSigBlockHeight)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.OracleSigBlockHeight)); err != nil {
 		return errors.Wrap(err, "OracleSigBlockHeight")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.OracleSigExpiry)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.OracleSigExpiry)); err != nil {
 		return errors.Wrap(err, "OracleSigExpiry")
 	}
 
@@ -1046,7 +1047,7 @@ func (a *AssetReceiverField) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a AssetSettlement in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *AssetSettlementField) WriteDeterministic(w io.Writer) error {
-	if err := WriteBase128VarInt64(w, uint64(a.ContractIndex)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractIndex)); err != nil {
 		return errors.Wrap(err, "ContractIndex")
 	}
 
@@ -1070,7 +1071,7 @@ func (a *AssetSettlementField) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a AssetTransfer in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *AssetTransferField) WriteDeterministic(w io.Writer) error {
-	if err := WriteBase128VarInt64(w, uint64(a.ContractIndex)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractIndex)); err != nil {
 		return errors.Wrap(err, "ContractIndex")
 	}
 
@@ -1192,7 +1193,7 @@ func (a *EntityField) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Manager in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *ManagerField) WriteDeterministic(w io.Writer) error {
-	if err := WriteBase128VarInt64(w, uint64(a.Type)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Type)); err != nil {
 		return errors.Wrap(err, "Type")
 	}
 
@@ -1208,7 +1209,7 @@ func (a *ManagerField) WriteDeterministic(w io.Writer) error {
 func (a *OracleField) WriteDeterministic(w io.Writer) error {
 
 	for i, item := range a.OracleTypes {
-		if err := WriteBase128VarInt64(w, uint64(item)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(w, uint64(item)); err != nil {
 			return errors.Wrapf(err, "OracleTypes %d", i)
 		}
 	}
@@ -1223,11 +1224,11 @@ func (a *OracleField) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a QuantityIndex in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *QuantityIndexField) WriteDeterministic(w io.Writer) error {
-	if err := WriteBase128VarInt64(w, uint64(a.Index)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Index)); err != nil {
 		return errors.Wrap(err, "Index")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Quantity)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Quantity)); err != nil {
 		return errors.Wrap(err, "Quantity")
 	}
 
@@ -1253,7 +1254,7 @@ func (a *ReferenceTransactionField) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Service in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *ServiceField) WriteDeterministic(w io.Writer) error {
-	if err := WriteBase128VarInt64(w, uint64(a.Type)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Type)); err != nil {
 		return errors.Wrap(err, "Type")
 	}
 
@@ -1275,7 +1276,7 @@ func (a *TargetAddressField) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Address")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.Quantity)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Quantity)); err != nil {
 		return errors.Wrap(err, "Quantity")
 	}
 
@@ -1293,11 +1294,11 @@ func (a *VotingSystemField) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "VoteType")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.TallyLogic)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.TallyLogic)); err != nil {
 		return errors.Wrap(err, "TallyLogic")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.ThresholdPercentage)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ThresholdPercentage)); err != nil {
 		return errors.Wrap(err, "ThresholdPercentage")
 	}
 
@@ -1305,7 +1306,7 @@ func (a *VotingSystemField) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "VoteMultiplierPermitted")
 	}
 
-	if err := WriteBase128VarInt64(w, uint64(a.HolderProposalFee)); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.HolderProposalFee)); err != nil {
 		return errors.Wrap(err, "HolderProposalFee")
 	}
 

@@ -33,7 +33,7 @@
 			return append(fip[:1], fip[2:]...), nil
 		{{- else if eq .BaseType "uint" }}
 			buf := bytes.NewBuffer(data)
-			if value, err := ReadBase128VarInt(buf); err != nil {
+			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 			} else {
 				a.{{ .Name }}[fip[1]] = {{ .GoSingularType }}(value)
@@ -78,7 +78,7 @@
 		{{- else if eq .BaseType "uint" }}
 			var newValue {{ .GoSingularType }}
 			buf := bytes.NewBuffer(data)
-			if value, err := ReadBase128VarInt(buf); err != nil {
+			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 			} else {
 				newValue = {{ .GoSingularType }}(value)
@@ -137,7 +137,7 @@
 			return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 		} else {
 			a.{{ .Name }} = {{ .GoSingularType }}(value)

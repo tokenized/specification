@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/internal"
 
 	"github.com/pkg/errors"
@@ -38,7 +39,7 @@ func (a *Membership) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 			return nil, fmt.Errorf("Amendment field index path too deep for ValidFrom : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ValidFrom amendment value failed to deserialize : %s", err)
 		} else {
 			a.ValidFrom = uint64(value)
@@ -50,7 +51,7 @@ func (a *Membership) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
 		} else {
 			a.ExpirationTimestamp = uint64(value)
@@ -107,7 +108,7 @@ func (a *Membership) CreateAmendments(fip []uint32,
 	fip = append(ofip, MembershipFieldValidFrom)
 	if a.ValidFrom != newValue.ValidFrom {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ValidFrom)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFrom)); err != nil {
 			return nil, errors.Wrap(err, "ValidFrom")
 		}
 
@@ -121,7 +122,7 @@ func (a *Membership) CreateAmendments(fip []uint32,
 	fip = append(ofip, MembershipFieldExpirationTimestamp)
 	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ExpirationTimestamp)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
 			return nil, errors.Wrap(err, "ExpirationTimestamp")
 		}
 
@@ -211,7 +212,7 @@ func (a *Currency) ApplyAmendment(fip []uint32, operation uint32, data []byte) (
 			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
 		} else {
 			a.Precision = uint64(value)
@@ -259,7 +260,7 @@ func (a *Currency) CreateAmendments(fip []uint32,
 	fip = append(ofip, CurrencyFieldPrecision)
 	if a.Precision != newValue.Precision {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Precision)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Precision)); err != nil {
 			return nil, errors.Wrap(err, "Precision")
 		}
 
@@ -376,7 +377,7 @@ func (a *Coupon) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]
 			return nil, fmt.Errorf("Amendment field index path too deep for IssueDate : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("IssueDate amendment value failed to deserialize : %s", err)
 		} else {
 			a.IssueDate = uint64(value)
@@ -388,7 +389,7 @@ func (a *Coupon) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]
 			return nil, fmt.Errorf("Amendment field index path too deep for ExpiryDate : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ExpiryDate amendment value failed to deserialize : %s", err)
 		} else {
 			a.ExpiryDate = uint64(value)
@@ -400,7 +401,7 @@ func (a *Coupon) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]
 			return nil, fmt.Errorf("Amendment field index path too deep for Value : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Value amendment value failed to deserialize : %s", err)
 		} else {
 			a.Value = uint64(value)
@@ -420,7 +421,7 @@ func (a *Coupon) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]
 			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
 		} else {
 			a.Precision = uint64(value)
@@ -457,7 +458,7 @@ func (a *Coupon) CreateAmendments(fip []uint32,
 	fip = append(ofip, CouponFieldIssueDate)
 	if a.IssueDate != newValue.IssueDate {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.IssueDate)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.IssueDate)); err != nil {
 			return nil, errors.Wrap(err, "IssueDate")
 		}
 
@@ -471,7 +472,7 @@ func (a *Coupon) CreateAmendments(fip []uint32,
 	fip = append(ofip, CouponFieldExpiryDate)
 	if a.ExpiryDate != newValue.ExpiryDate {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ExpiryDate)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpiryDate)); err != nil {
 			return nil, errors.Wrap(err, "ExpiryDate")
 		}
 
@@ -485,7 +486,7 @@ func (a *Coupon) CreateAmendments(fip []uint32,
 	fip = append(ofip, CouponFieldValue)
 	if a.Value != newValue.Value {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Value)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Value)); err != nil {
 			return nil, errors.Wrap(err, "Value")
 		}
 
@@ -517,7 +518,7 @@ func (a *Coupon) CreateAmendments(fip []uint32,
 	fip = append(ofip, CouponFieldPrecision)
 	if a.Precision != newValue.Precision {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Precision)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Precision)); err != nil {
 			return nil, errors.Wrap(err, "Precision")
 		}
 
@@ -560,7 +561,7 @@ func (a *LoyaltyPoints) ApplyAmendment(fip []uint32, operation uint32, data []by
 			return nil, fmt.Errorf("Amendment field index path too deep for ValidFrom : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ValidFrom amendment value failed to deserialize : %s", err)
 		} else {
 			a.ValidFrom = uint64(value)
@@ -572,7 +573,7 @@ func (a *LoyaltyPoints) ApplyAmendment(fip []uint32, operation uint32, data []by
 			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
 		} else {
 			a.ExpirationTimestamp = uint64(value)
@@ -622,7 +623,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip []uint32,
 	fip = append(ofip, LoyaltyPointsFieldValidFrom)
 	if a.ValidFrom != newValue.ValidFrom {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ValidFrom)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFrom)); err != nil {
 			return nil, errors.Wrap(err, "ValidFrom")
 		}
 
@@ -636,7 +637,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip []uint32,
 	fip = append(ofip, LoyaltyPointsFieldExpirationTimestamp)
 	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ExpirationTimestamp)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
 			return nil, errors.Wrap(err, "ExpirationTimestamp")
 		}
 
@@ -709,7 +710,7 @@ func (a *TicketAdmission) ApplyAmendment(fip []uint32, operation uint32, data []
 			return nil, fmt.Errorf("Amendment field index path too deep for StartTimeDate : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("StartTimeDate amendment value failed to deserialize : %s", err)
 		} else {
 			a.StartTimeDate = uint64(value)
@@ -721,7 +722,7 @@ func (a *TicketAdmission) ApplyAmendment(fip []uint32, operation uint32, data []
 			return nil, fmt.Errorf("Amendment field index path too deep for ValidFrom : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ValidFrom amendment value failed to deserialize : %s", err)
 		} else {
 			a.ValidFrom = uint64(value)
@@ -733,7 +734,7 @@ func (a *TicketAdmission) ApplyAmendment(fip []uint32, operation uint32, data []
 			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
 		} else {
 			a.ExpirationTimestamp = uint64(value)
@@ -819,7 +820,7 @@ func (a *TicketAdmission) CreateAmendments(fip []uint32,
 	fip = append(ofip, TicketAdmissionFieldStartTimeDate)
 	if a.StartTimeDate != newValue.StartTimeDate {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.StartTimeDate)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.StartTimeDate)); err != nil {
 			return nil, errors.Wrap(err, "StartTimeDate")
 		}
 
@@ -833,7 +834,7 @@ func (a *TicketAdmission) CreateAmendments(fip []uint32,
 	fip = append(ofip, TicketAdmissionFieldValidFrom)
 	if a.ValidFrom != newValue.ValidFrom {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ValidFrom)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFrom)); err != nil {
 			return nil, errors.Wrap(err, "ValidFrom")
 		}
 
@@ -847,7 +848,7 @@ func (a *TicketAdmission) CreateAmendments(fip []uint32,
 	fip = append(ofip, TicketAdmissionFieldExpirationTimestamp)
 	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ExpirationTimestamp)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
 			return nil, errors.Wrap(err, "ExpirationTimestamp")
 		}
 
@@ -904,7 +905,7 @@ func (a *CasinoChip) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 			return nil, fmt.Errorf("Amendment field index path too deep for ValidFrom : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ValidFrom amendment value failed to deserialize : %s", err)
 		} else {
 			a.ValidFrom = uint64(value)
@@ -916,7 +917,7 @@ func (a *CasinoChip) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
 		} else {
 			a.ExpirationTimestamp = uint64(value)
@@ -928,7 +929,7 @@ func (a *CasinoChip) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
 		} else {
 			a.Precision = uint64(value)
@@ -983,7 +984,7 @@ func (a *CasinoChip) CreateAmendments(fip []uint32,
 	fip = append(ofip, CasinoChipFieldValidFrom)
 	if a.ValidFrom != newValue.ValidFrom {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ValidFrom)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFrom)); err != nil {
 			return nil, errors.Wrap(err, "ValidFrom")
 		}
 
@@ -997,7 +998,7 @@ func (a *CasinoChip) CreateAmendments(fip []uint32,
 	fip = append(ofip, CasinoChipFieldExpirationTimestamp)
 	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ExpirationTimestamp)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
 			return nil, errors.Wrap(err, "ExpirationTimestamp")
 		}
 
@@ -1011,7 +1012,7 @@ func (a *CasinoChip) CreateAmendments(fip []uint32,
 	fip = append(ofip, CasinoChipFieldPrecision)
 	if a.Precision != newValue.Precision {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Precision)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Precision)); err != nil {
 			return nil, errors.Wrap(err, "Precision")
 		}
 
@@ -1045,7 +1046,7 @@ func (a *AgeRestrictionField) ApplyAmendment(fip []uint32, operation uint32, dat
 			return nil, fmt.Errorf("Amendment field index path too deep for Lower : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Lower amendment value failed to deserialize : %s", err)
 		} else {
 			a.Lower = uint32(value)
@@ -1057,7 +1058,7 @@ func (a *AgeRestrictionField) ApplyAmendment(fip []uint32, operation uint32, dat
 			return nil, fmt.Errorf("Amendment field index path too deep for Upper : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Upper amendment value failed to deserialize : %s", err)
 		} else {
 			a.Upper = uint32(value)
@@ -1084,7 +1085,7 @@ func (a *AgeRestrictionField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AgeRestrictionFieldLower)
 	if a.Lower != newValue.Lower {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Lower)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Lower)); err != nil {
 			return nil, errors.Wrap(err, "Lower")
 		}
 
@@ -1098,7 +1099,7 @@ func (a *AgeRestrictionField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AgeRestrictionFieldUpper)
 	if a.Upper != newValue.Upper {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Upper)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Upper)); err != nil {
 			return nil, errors.Wrap(err, "Upper")
 		}
 

@@ -19,7 +19,7 @@
 			return errors.Wrapf(err, "{{ .Name }} %d", i)
 		}
 		{{- else if eq .BaseType "uint" }}
-		if err := WriteBase128VarInt64(w, uint64(item)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(w, uint64(item)); err != nil {
 			return errors.Wrapf(err, "{{ .Name }} %d", i)
 		}
 		{{- else if eq .BaseType "bool" }}
@@ -47,7 +47,7 @@
 		return errors.Wrap(err, "{{ .Name }}")
 	}
 	{{- else if eq .BaseType "uint" }}
-	if err := WriteBase128VarInt64(w, uint64(a.{{ .Name }})); err != nil {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.{{ .Name }})); err != nil {
 		return errors.Wrap(err, "{{ .Name }}")
 	}
 	{{- else if eq .BaseType "bool" }}
