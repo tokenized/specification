@@ -47,11 +47,10 @@ fields:
     type: bool
     example: true
 
-  - name: TradeRestrictions
+  - name: TradeRestrictionsDeprecated
     label: Trade Restrictions
-    description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
-    type: Polity[]
-    listSize: small
+    description: "Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
+    type: deprecated
 
   - name: EnforcementOrdersPermitted
     label: Enforcement Orders Permitted
@@ -126,3 +125,9 @@ fields:
     description: "Timestamp in nanoseconds of when the smart contract created the action."
     type: Timestamp
     notes: "Can't be changed by the administration, operator. Smart contract controls."
+
+  - name: TradeRestrictions
+    label: Trade Restrictions
+    description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
+    type: Polity[]
+    listSize: small

@@ -5,8 +5,12 @@ package {{ .Package }}
 /************************************ {{ .Name }} ************************************/
 const (
 {{- range $j, $value := .Values}}
-	// {{ $value.Name }} - {{ $value.Description }}
-	{{ $resource.Name }}{{ stripwhitespace $value.Name }} = {{ if eq $resource.CodeType.BaseType "fixedchar" "varchar" }}"{{ $value.Code }}"{{ else }}{{ $value.Code }}{{ end }}
+	{{ $name := $value.Name }}
+	{{ if eq (len $name) 0 -}}
+	{{ $name = stripwhitespace $value.Label -}}
+	{{ end -}}
+	// {{ $name }} - {{ $value.Description }}
+	{{ $resource.Name }}{{ stripwhitespace $name }} = {{ if eq $resource.CodeType.BaseType "fixedchar" "varchar" }}"{{ $value.Code }}"{{ else }}{{ $value.Code }}{{ end }}
 {{ end }}
 )
 
@@ -21,9 +25,13 @@ type {{ .Name }}Code struct {
 func {{ $resource.Name }}Data(code {{ $resource.CodeType.GoType }}) *{{ $resource.Name }}Code {
 	switch code {
 {{- range $j, $value := $resource.Values }}
-	case {{ $resource.Name }}{{ stripwhitespace $value.Name }}:
+	{{ $name := $value.Name }}
+	{{ if eq (len $name) 0 -}}
+	{{ $name = stripwhitespace $value.Label -}}
+	{{ end -}}
+	case {{ $resource.Name }}{{ stripwhitespace $name }}:
 		return &{{ $resource.Name }}Code{
-			Name: "{{ $value.Name }}",
+			Name: "{{ $name }}",
 			Label: "{{ $value.Label }}",
 			Description: "{{ $value.Description }}",
 			MetaData: `{{ $value.MetaDataJSON }}`,
@@ -38,9 +46,13 @@ func {{ $resource.Name }}Data(code {{ $resource.CodeType.GoType }}) *{{ $resourc
 func {{ $resource.Name }}Map() map[{{ $resource.CodeType.GoType }}]*{{ $resource.Name }}Code {
 	return map[{{ $resource.CodeType.GoType }}]*{{ $resource.Name }}Code {
 {{- range $j, $value := $resource.Values }}
-		{{ $resource.Name }}{{ stripwhitespace $value.Name }} :
+		{{ $name := $value.Name }}
+		{{ if eq (len $name) 0 -}}
+		{{ $name = stripwhitespace $value.Label -}}
+		{{ end -}}
+		{{ $resource.Name }}{{ stripwhitespace $name }} :
 			&{{ $resource.Name }}Code{
-				Name: "{{ $value.Name }}",
+				Name: "{{ $name }}",
 				Label: "{{ $value.Label }}",
 				Description: "{{ $value.Description }}",
 				MetaData: `{{ $value.MetaDataJSON }}`,

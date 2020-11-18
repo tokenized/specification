@@ -37,11 +37,10 @@ fields:
     type: bool
     example: 1
 
-  - name: TradeRestrictions
+  - name: TradeRestrictionsDeprecated
     label: Trade Restrictions
-    description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
-    type: Polity[]
-    listSize: small
+    description: "Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
+    type: deprecated
 
   - name: EnforcementOrdersPermitted
     label: Enforcement Orders Permitted
@@ -104,3 +103,9 @@ fields:
     type: varbin
     varSize: small
     required: true
+
+  - name: TradeRestrictions
+    label: Trade Restrictions
+    description: "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
+    type: Polity[]
+    listSize: small

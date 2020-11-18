@@ -118,23 +118,19 @@ Allows the administration to tell the smart contract what they want the details 
     </tr>
 
     <tr>
-        <td>GoverningLaw</td>
+        <td>(Deprecated)GoverningLaw</td>
+        <td>deprecated</td>
         <td>
-            fixedchar(5)
-        </td>
-        <td>
-            5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-            Governing Law - Amendments can be restricted to a vote. Example: USA
+            Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+            Governing Legal System - Amendments can be restricted to a vote. Example: USA
         </td>
     </tr>
 
     <tr>
-        <td>Jurisdiction</td>
+        <td>(Deprecated)Jurisdiction</td>
+        <td>deprecated</td>
         <td>
-            fixedchar(5)
-        </td>
-        <td>
-            Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+            Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location.
             Jurisdiction - Amendments can be restricted to a vote. Example: US-CA
         </td>
     </tr>
@@ -376,6 +372,28 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
     </tr>
 
+    <tr>
+        <td>GoverningLaw</td>
+        <td>
+            <a href="#alias-legal-system">LegalSystem</a>
+        </td>
+        <td>
+            5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+            Governing Legal System - Amendments can be restricted to a vote. Example: USA
+        </td>
+    </tr>
+
+    <tr>
+        <td>Jurisdiction</td>
+        <td>
+            <a href="#alias-polity">Polity</a>
+        </td>
+        <td>
+            Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+            Jurisdiction - Amendments can be restricted to a vote. Example: US-CA
+        </td>
+    </tr>
+
 </table>
 
 ##### Transaction Summary
@@ -494,23 +512,19 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
     </tr>
 
     <tr>
-        <td>GoverningLaw</td>
+        <td>(Deprecated)GoverningLaw</td>
+        <td>deprecated</td>
         <td>
-            fixedchar(5)
-        </td>
-        <td>
-            5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
-            Governing Law - Amendments can be restricted to a vote. Example: USA
+            Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+            Governing Legal System - Amendments can be restricted to a vote. Example: USA
         </td>
     </tr>
 
     <tr>
-        <td>Jurisdiction</td>
+        <td>(Deprecated)Jurisdiction</td>
+        <td>deprecated</td>
         <td>
-            fixedchar(5)
-        </td>
-        <td>
-            Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+            Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location.
             Jurisdiction - Amendments can be restricted to a vote. Example: US-CA
         </td>
     </tr>
@@ -786,6 +800,28 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         </td>
     </tr>
 
+    <tr>
+        <td>GoverningLaw</td>
+        <td>
+            <a href="#alias-legal-system">LegalSystem</a>
+        </td>
+        <td>
+            5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+            Governing Legal System - Amendments can be restricted to a vote. Example: USA
+        </td>
+    </tr>
+
+    <tr>
+        <td>Jurisdiction</td>
+        <td>
+            <a href="#alias-polity">Polity</a>
+        </td>
+        <td>
+            Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+            Jurisdiction - Amendments can be restricted to a vote. Example: US-CA
+        </td>
+    </tr>
+
 </table>
 
 ##### Transaction Summary
@@ -1039,23 +1075,19 @@ Static Contract Formation Action
     </tr>
 
     <tr>
-        <td>GoverningLaw</td>
+        <td>(Deprecated)GoverningLawDeprecated</td>
+        <td>deprecated</td>
         <td>
-            fixedchar(5)
-        </td>
-        <td>
-            5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+            Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
              Example: USA
         </td>
     </tr>
 
     <tr>
-        <td>Jurisdiction</td>
+        <td>(Deprecated)JurisdictionDeprecated</td>
+        <td>deprecated</td>
         <td>
-            fixedchar(5)
-        </td>
-        <td>
-            Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+            Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location.
              Example: US-CA
         </td>
     </tr>
@@ -1145,6 +1177,28 @@ Static Contract Formation Action
         <td>
             The block height of the block hash used in the oracle signature.
             
+        </td>
+    </tr>
+
+    <tr>
+        <td>GoverningLaw</td>
+        <td>
+            <a href="#alias-legal-system">LegalSystem</a>
+        </td>
+        <td>
+            5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+            Governing Legal System - Amendments can be restricted to a vote. Example: USA
+        </td>
+    </tr>
+
+    <tr>
+        <td>Jurisdiction</td>
+        <td>
+            <a href="#alias-polity">Polity</a>
+        </td>
+        <td>
+            Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+            Jurisdiction - Amendments can be restricted to a vote. Example: US-CA
         </td>
     </tr>
 
@@ -1295,12 +1349,10 @@ This action is used by the administration to define the properties/characteristi
     </tr>
 
     <tr>
-        <td>TradeRestrictions</td>
+        <td>(Deprecated)TradeRestrictionsDeprecated</td>
+        <td>deprecated</td>
         <td>
-            <a href="#alias-fixedchar">Polity[small]</a>
-        </td>
-        <td>
-            If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
+            Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
             
         </td>
     </tr>
@@ -1401,6 +1453,17 @@ This action is used by the administration to define the properties/characteristi
         <td>
             A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.
              This field is always required. 
+        </td>
+    </tr>
+
+    <tr>
+        <td>TradeRestrictions</td>
+        <td>
+            <a href="#alias-varchar">Polity[small]</a>
+        </td>
+        <td>
+            If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
+            
         </td>
     </tr>
 
@@ -1506,12 +1569,10 @@ This action creates an asset in response to the administration&#39;s instruction
     </tr>
 
     <tr>
-        <td>TradeRestrictions</td>
+        <td>(Deprecated)TradeRestrictionsDeprecated</td>
+        <td>deprecated</td>
         <td>
-            <a href="#alias-fixedchar">Polity[small]</a>
-        </td>
-        <td>
-            If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
+            Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
             
         </td>
     </tr>
@@ -1634,6 +1695,17 @@ This action creates an asset in response to the administration&#39;s instruction
         <td>
             Timestamp in nanoseconds of when the smart contract created the action.
             Can&#39;t be changed by the administration, operator. Smart contract controls.
+        </td>
+    </tr>
+
+    <tr>
+        <td>TradeRestrictions</td>
+        <td>
+            <a href="#alias-varchar">Polity[small]</a>
+        </td>
+        <td>
+            If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
+            
         </td>
     </tr>
 
@@ -4717,11 +4789,21 @@ A VotingSystem defines all details of a Voting System.
         <tr id="alias-polity">
             <td>Polity</td>
             <td>
-                fixedchar(3)
+                varchar(tiny)
             </td>
             <td>
                 Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3)
                  Example: GBR
+            </td>
+        </tr>
+        <tr id="alias-legal-system">
+            <td>LegalSystem</td>
+            <td>
+                varchar(tiny)
+            </td>
+            <td>
+                LegalSystems (Legal Systems for Governing Law/Choice of Law
+                 Example: GBREW
             </td>
         </tr>
         <tr id="alias-rejection-code">

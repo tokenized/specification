@@ -9,7 +9,9 @@
       "(Deprecated)AdminOracleSignature": null,
       "(Deprecated)ContractOperator": null,
       "(Deprecated)ContractType": "Shareholder Agreement",
+      "(Deprecated)GoverningLaw": "USA",
       "(Deprecated)IssuerLogoURL": "https://example.com/images/logo.png",
+      "(Deprecated)Jurisdiction": "US-CA",
       "AdminIdentityCertificates": [
         {
           "BlockHeight": null,
@@ -111,7 +113,9 @@
       "(Deprecated)AdminOracleSignature": null,
       "(Deprecated)ContractOperator": null,
       "(Deprecated)ContractType": "Shareholder Agreement",
+      "(Deprecated)GoverningLaw": "USA",
       "(Deprecated)IssuerLogoURL": "https://example.tld/images/logo.png",
+      "(Deprecated)Jurisdiction": "US-CA",
       "AdminAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
       "AdminIdentityCertificates": [
         {
@@ -229,6 +233,8 @@
     "label": "Static Contract Formation",
     "name": "StaticContractFormation",
     "fields": {
+      "(Deprecated)GoverningLawDeprecated": "USA",
+      "(Deprecated)JurisdictionDeprecated": "US-CA",
       "BodyOfAgreement": null,
       "BodyOfAgreementType": "1",
       "ContractCode": "260840c0b3d4dadb870cd34ffbfc47fed903fe7d94a7a5bab491fb728aebcc74",
@@ -306,6 +312,7 @@
     "label": "Asset Definition",
     "name": "AssetDefinition",
     "fields": {
+      "(Deprecated)TradeRestrictionsDeprecated": null,
       "AdministrationProposal": "true",
       "AssetModificationGovernance": "1",
       "AssetPayload": null,
@@ -327,6 +334,7 @@
     "label": "Asset Creation",
     "name": "AssetCreation",
     "fields": {
+      "(Deprecated)TradeRestrictionsDeprecated": null,
       "AdministrationProposal": "true",
       "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
       "AssetIndex": "0",

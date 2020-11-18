@@ -50,18 +50,6 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 
-	// Field GoverningLaw - fixedchar
-	if len(a.GoverningLaw) != 0 && len(a.GoverningLaw) != 5 {
-		return fmt.Errorf("GoverningLaw fixed width field wrong size : %d should be %d",
-			len(a.GoverningLaw), 5)
-	}
-
-	// Field Jurisdiction - fixedchar
-	if len(a.Jurisdiction) != 0 && len(a.Jurisdiction) != 5 {
-		return fmt.Errorf("Jurisdiction fixed width field wrong size : %d should be %d",
-			len(a.Jurisdiction), 5)
-	}
-
 	// Field ContractExpiration - uint
 
 	// Field ContractURI - varchar
@@ -221,6 +209,16 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 
+	// Field GoverningLaw - varchar  (LegalSystems Resource)
+	if len(a.GoverningLaw) > max1ByteInteger {
+		return fmt.Errorf("GoverningLaw over max size : %d > %d", len(a.GoverningLaw), max1ByteInteger)
+	}
+
+	// Field Jurisdiction - varchar  (Polities Resource)
+	if len(a.Jurisdiction) > max1ByteInteger {
+		return fmt.Errorf("Jurisdiction over max size : %d > %d", len(a.Jurisdiction), max1ByteInteger)
+	}
+
 	return nil
 }
 
@@ -259,18 +257,6 @@ func (a *ContractFormation) Validate() error {
 		if err := v.Validate(); err != nil {
 			return errors.Wrap(err, fmt.Sprintf("SupportingDocs[%d]", i))
 		}
-	}
-
-	// Field GoverningLaw - fixedchar
-	if len(a.GoverningLaw) != 0 && len(a.GoverningLaw) != 5 {
-		return fmt.Errorf("GoverningLaw fixed width field wrong size : %d should be %d",
-			len(a.GoverningLaw), 5)
-	}
-
-	// Field Jurisdiction - fixedchar
-	if len(a.Jurisdiction) != 0 && len(a.Jurisdiction) != 5 {
-		return fmt.Errorf("Jurisdiction fixed width field wrong size : %d should be %d",
-			len(a.Jurisdiction), 5)
 	}
 
 	// Field ContractExpiration - uint
@@ -444,6 +430,16 @@ func (a *ContractFormation) Validate() error {
 		return fmt.Errorf("OperatorAddress over max size : %d > %d", len(a.OperatorAddress), max2ByteInteger)
 	}
 
+	// Field GoverningLaw - varchar  (LegalSystems Resource)
+	if len(a.GoverningLaw) > max1ByteInteger {
+		return fmt.Errorf("GoverningLaw over max size : %d > %d", len(a.GoverningLaw), max1ByteInteger)
+	}
+
+	// Field Jurisdiction - varchar  (Polities Resource)
+	if len(a.Jurisdiction) > max1ByteInteger {
+		return fmt.Errorf("Jurisdiction over max size : %d > %d", len(a.Jurisdiction), max1ByteInteger)
+	}
+
 	return nil
 }
 
@@ -527,18 +523,6 @@ func (a *StaticContractFormation) Validate() error {
 
 	// Field ContractRevision - uint
 
-	// Field GoverningLaw - fixedchar
-	if len(a.GoverningLaw) != 0 && len(a.GoverningLaw) != 5 {
-		return fmt.Errorf("GoverningLaw fixed width field wrong size : %d should be %d",
-			len(a.GoverningLaw), 5)
-	}
-
-	// Field Jurisdiction - fixedchar
-	if len(a.Jurisdiction) != 0 && len(a.Jurisdiction) != 5 {
-		return fmt.Errorf("Jurisdiction fixed width field wrong size : %d should be %d",
-			len(a.Jurisdiction), 5)
-	}
-
 	// Field EffectiveDate - uint
 
 	// Field ContractExpiration - uint
@@ -576,6 +560,16 @@ func (a *StaticContractFormation) Validate() error {
 
 	// Field EntityOracleSigBlockHeight - uint
 
+	// Field GoverningLaw - varchar  (LegalSystems Resource)
+	if len(a.GoverningLaw) > max1ByteInteger {
+		return fmt.Errorf("GoverningLaw over max size : %d > %d", len(a.GoverningLaw), max1ByteInteger)
+	}
+
+	// Field Jurisdiction - varchar  (Polities Resource)
+	if len(a.Jurisdiction) > max1ByteInteger {
+		return fmt.Errorf("Jurisdiction over max size : %d > %d", len(a.Jurisdiction), max1ByteInteger)
+	}
+
 	return nil
 }
 
@@ -610,20 +604,6 @@ func (a *AssetDefinition) Validate() error {
 	}
 
 	// Field TransfersPermitted - bool
-
-	// Field TradeRestrictions - fixedchar
-	if len(a.TradeRestrictions) > max2ByteInteger {
-		return fmt.Errorf("TradeRestrictions list over max length : %d > %d", len(a.TradeRestrictions), max2ByteInteger)
-	}
-	for i, v := range a.TradeRestrictions {
-		if PolitiesData(v) == nil {
-			return fmt.Errorf("TradeRestrictions[%d] resource Polities value not defined : %v", i, v)
-		}
-		if len(v) != 0 && len(v) != 3 {
-			return fmt.Errorf("TradeRestrictions[%d] fixed width element wrong size : %d should be %d",
-				i, len(v), 3)
-		}
-	}
 
 	// Field EnforcementOrdersPermitted - bool
 
@@ -669,6 +649,16 @@ func (a *AssetDefinition) Validate() error {
 		return fmt.Errorf("AssetPayload required")
 	}
 
+	// Field TradeRestrictions - varchar  (Polities Resource)
+	if len(a.TradeRestrictions) > max2ByteInteger {
+		return fmt.Errorf("TradeRestrictions list over max length : %d > %d", len(a.TradeRestrictions), max2ByteInteger)
+	}
+	for i, v := range a.TradeRestrictions {
+		if len(v) > max1ByteInteger {
+			return fmt.Errorf("[%d] TradeRestrictions size over max value : %d > %d", i, len(v), max1ByteInteger)
+		}
+	}
+
 	return nil
 }
 
@@ -691,20 +681,6 @@ func (a *AssetCreation) Validate() error {
 	}
 
 	// Field TransfersPermitted - bool
-
-	// Field TradeRestrictions - fixedchar
-	if len(a.TradeRestrictions) > max2ByteInteger {
-		return fmt.Errorf("TradeRestrictions list over max length : %d > %d", len(a.TradeRestrictions), max2ByteInteger)
-	}
-	for i, v := range a.TradeRestrictions {
-		if PolitiesData(v) == nil {
-			return fmt.Errorf("TradeRestrictions[%d] resource Polities value not defined : %v", i, v)
-		}
-		if len(v) != 0 && len(v) != 3 {
-			return fmt.Errorf("TradeRestrictions[%d] fixed width element wrong size : %d should be %d",
-				i, len(v), 3)
-		}
-	}
 
 	// Field EnforcementOrdersPermitted - bool
 
@@ -747,6 +723,16 @@ func (a *AssetCreation) Validate() error {
 	// Field AssetRevision - uint
 
 	// Field Timestamp - uint
+
+	// Field TradeRestrictions - varchar  (Polities Resource)
+	if len(a.TradeRestrictions) > max2ByteInteger {
+		return fmt.Errorf("TradeRestrictions list over max length : %d > %d", len(a.TradeRestrictions), max2ByteInteger)
+	}
+	for i, v := range a.TradeRestrictions {
+		if len(v) > max1ByteInteger {
+			return fmt.Errorf("[%d] TradeRestrictions size over max value : %d > %d", i, len(v), max1ByteInteger)
+		}
+	}
 
 	return nil
 }
@@ -1357,7 +1343,7 @@ func (a *Rejection) Validate() error {
 		return fmt.Errorf("RejectAddressIndex over max value : %d > %d", a.RejectAddressIndex, max2ByteInteger)
 	}
 
-	// Field RejectionCode - uint
+	// Field RejectionCode - uint  (Rejections Resource)
 	if RejectionsData(a.RejectionCode) == nil {
 		return fmt.Errorf("RejectionCode resource Rejections value not defined : %v", a.RejectionCode)
 	}
@@ -1380,7 +1366,7 @@ func (a *AdministratorField) Validate() error {
 		return nil
 	}
 
-	// Field Type - uint
+	// Field Type - uint  (Roles Resource)
 	if RolesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Roles value not defined : %v", a.Type)
 	}
@@ -1622,7 +1608,7 @@ func (a *EntityField) Validate() error {
 		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
 	}
 
-	// Field Type - fixedchar
+	// Field Type - fixedchar  (Entities Resource)
 	if EntitiesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Entities value not defined : %v", a.Type)
 	}
@@ -1723,7 +1709,7 @@ func (a *ManagerField) Validate() error {
 		return nil
 	}
 
-	// Field Type - uint
+	// Field Type - uint  (Roles Resource)
 	if RolesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Roles value not defined : %v", a.Type)
 	}

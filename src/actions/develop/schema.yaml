@@ -44,6 +44,7 @@ messages:
 resources:
   - "../../resources/develop/Entities"
   - "../../resources/develop/Polities"
+  - "../../resources/develop/LegalSystems"
   - "../../resources/develop/Roles"
   - "../../resources/develop/Rejections"
   - "../../resources/develop/Tags"
@@ -83,11 +84,18 @@ fieldAliases:
     example: "I"
 
   - name: Polity
-    type: fixedchar
-    size: 3
+    type: varchar
+    varSize: tiny
     resource: Polities
     example: GBR
     description: "Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3)"
+
+  - name: LegalSystem
+    type: varchar
+    varSize: tiny
+    resource: LegalSystems
+    example: GBREW
+    description: "LegalSystems (Legal Systems for Governing Law/Choice of Law"
 
   - name: RejectionCode
     type: uint

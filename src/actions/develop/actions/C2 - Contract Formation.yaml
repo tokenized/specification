@@ -63,17 +63,15 @@ fields:
 
   - name: GoverningLaw
     label: Governing Law
-    description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
-    type: fixedchar
-    size: 5
+    description: "Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    type: deprecated
     example: "USA"
-    notes: "Governing Law - Amendments can be restricted to a vote."
+    notes: "Governing Legal System - Amendments can be restricted to a vote."
 
   - name: Jurisdiction
     label: Jurisdiction
-    description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
-    type: fixedchar
-    size: 5
+    description: "Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    type: deprecated
     example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."
 
@@ -244,3 +242,17 @@ fields:
       but determined by the inputs of the contract offer transaction and included here by the 
       smart contract agent as a convenience."
     type: Address
+
+  - name: GoverningLaw
+    label: Governing Law
+    description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    type: LegalSystem
+    example: "USA"
+    notes: "Governing Legal System - Amendments can be restricted to a vote."
+
+  - name: Jurisdiction
+    label: Jurisdiction
+    description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    type: Polity
+    example: "US-CA"
+    notes: "Jurisdiction - Amendments can be restricted to a vote."

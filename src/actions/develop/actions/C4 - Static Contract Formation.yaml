@@ -65,18 +65,16 @@ fields:
     size: 4
     example: "0"
 
-  - name: GoverningLaw
+  - name: GoverningLawDeprecated
     label: Governing Law
-    description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
-    type: fixedchar
-    size: 5
+    description: "Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    type: deprecated
     example: "USA"
 
-  - name: Jurisdiction
+  - name: JurisdictionDeprecated
     label: Jurisdiction
-    description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
-    type: fixedchar
-    size: 5
+    description: "Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    type: deprecated
     example: "US-CA"
 
   - name: EffectiveDate
@@ -120,3 +118,17 @@ fields:
     description: The block height of the block hash used in the oracle signature.
     type: uint
     size: 4
+
+  - name: GoverningLaw
+    label: Governing Law
+    description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    type: LegalSystem
+    example: "USA"
+    notes: "Governing Legal System - Amendments can be restricted to a vote."
+
+  - name: Jurisdiction
+    label: Jurisdiction
+    description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    type: Polity
+    example: "US-CA"
+    notes: "Jurisdiction - Amendments can be restricted to a vote."

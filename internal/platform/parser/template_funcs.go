@@ -174,6 +174,7 @@ func StrStripWhiteSpace(str string) string {
 		case '\'':
 		case '(':
 		case ')':
+		case '.':
 		default:
 			result += string(c)
 		}

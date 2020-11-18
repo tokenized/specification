@@ -28,13 +28,6 @@ properties:
       peer-to-peer transfers.
     type: boolean
     example: true
-  TradeRestrictions:
-    description:  >
-      If specified, the asset can only be traded within the specified trade restriction zone. For
-      example, AUS would restrict to Australian residents only.
-    type: array
-    items:
-      type: string
   EnforcementOrdersPermitted:
     description:  >
       Set to true if the administration is permitted to make enforcement orders on user tokens and
@@ -102,4 +95,11 @@ properties:
     description: Timestamp in nanoseconds of when the smart contract created the action.
     type: number
     example: 1594668650000000000
+  TradeRestrictions:
+    description:  >
+      If specified, the asset can only be traded within the specified trade restriction zone. For
+      example, AUS would restrict to Australian residents only.
+    type: array
+    items:
+      type: string
 

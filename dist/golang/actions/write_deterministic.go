@@ -29,14 +29,6 @@ func (a *ContractOffer) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
-	if _, err := w.Write([]byte(a.GoverningLaw)); err != nil {
-		return errors.Wrap(err, "GoverningLaw")
-	}
-
-	if _, err := w.Write([]byte(a.Jurisdiction)); err != nil {
-		return errors.Wrap(err, "Jurisdiction")
-	}
-
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractExpiration)); err != nil {
 		return errors.Wrap(err, "ContractExpiration")
 	}
@@ -113,6 +105,14 @@ func (a *ContractOffer) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
+	if _, err := w.Write([]byte(a.GoverningLaw)); err != nil {
+		return errors.Wrap(err, "GoverningLaw")
+	}
+
+	if _, err := w.Write([]byte(a.Jurisdiction)); err != nil {
+		return errors.Wrap(err, "Jurisdiction")
+	}
+
 	return nil
 }
 
@@ -135,14 +135,6 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		if err := item.WriteDeterministic(w); err != nil {
 			return errors.Wrapf(err, "SupportingDocs %d", i)
 		}
-	}
-
-	if _, err := w.Write([]byte(a.GoverningLaw)); err != nil {
-		return errors.Wrap(err, "GoverningLaw")
-	}
-
-	if _, err := w.Write([]byte(a.Jurisdiction)); err != nil {
-		return errors.Wrap(err, "Jurisdiction")
 	}
 
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractExpiration)); err != nil {
@@ -233,6 +225,14 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "OperatorAddress")
 	}
 
+	if _, err := w.Write([]byte(a.GoverningLaw)); err != nil {
+		return errors.Wrap(err, "GoverningLaw")
+	}
+
+	if _, err := w.Write([]byte(a.Jurisdiction)); err != nil {
+		return errors.Wrap(err, "Jurisdiction")
+	}
+
 	return nil
 }
 
@@ -297,14 +297,6 @@ func (a *StaticContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractRevision")
 	}
 
-	if _, err := w.Write([]byte(a.GoverningLaw)); err != nil {
-		return errors.Wrap(err, "GoverningLaw")
-	}
-
-	if _, err := w.Write([]byte(a.Jurisdiction)); err != nil {
-		return errors.Wrap(err, "Jurisdiction")
-	}
-
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.EffectiveDate)); err != nil {
 		return errors.Wrap(err, "EffectiveDate")
 	}
@@ -339,6 +331,14 @@ func (a *StaticContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "EntityOracleSigBlockHeight")
 	}
 
+	if _, err := w.Write([]byte(a.GoverningLaw)); err != nil {
+		return errors.Wrap(err, "GoverningLaw")
+	}
+
+	if _, err := w.Write([]byte(a.Jurisdiction)); err != nil {
+		return errors.Wrap(err, "Jurisdiction")
+	}
+
 	return nil
 }
 
@@ -365,12 +365,6 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 
 	if err := binary.Write(w, binary.LittleEndian, a.TransfersPermitted); err != nil {
 		return errors.Wrap(err, "TransfersPermitted")
-	}
-
-	for i, item := range a.TradeRestrictions {
-		if _, err := w.Write([]byte(item)); err != nil {
-			return errors.Wrapf(err, "TradeRestrictions %d", i)
-		}
 	}
 
 	if err := binary.Write(w, binary.LittleEndian, a.EnforcementOrdersPermitted); err != nil {
@@ -409,6 +403,12 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetPayload")
 	}
 
+	for i, item := range a.TradeRestrictions {
+		if _, err := w.Write([]byte(item)); err != nil {
+			return errors.Wrapf(err, "TradeRestrictions %d", i)
+		}
+	}
+
 	return nil
 }
 
@@ -429,12 +429,6 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 
 	if err := binary.Write(w, binary.LittleEndian, a.TransfersPermitted); err != nil {
 		return errors.Wrap(err, "TransfersPermitted")
-	}
-
-	for i, item := range a.TradeRestrictions {
-		if _, err := w.Write([]byte(item)); err != nil {
-			return errors.Wrapf(err, "TradeRestrictions %d", i)
-		}
 	}
 
 	if err := binary.Write(w, binary.LittleEndian, a.EnforcementOrdersPermitted); err != nil {
@@ -479,6 +473,12 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
 		return errors.Wrap(err, "Timestamp")
+	}
+
+	for i, item := range a.TradeRestrictions {
+		if _, err := w.Write([]byte(item)); err != nil {
+			return errors.Wrapf(err, "TradeRestrictions %d", i)
+		}
 	}
 
 	return nil

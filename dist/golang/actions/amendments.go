@@ -20,8 +20,8 @@ const (
 	ContractFieldBodyOfAgreement                      = uint32(3)
 	DeprecatedContractFieldContractType               = uint32(4)
 	ContractFieldSupportingDocs                       = uint32(5)
-	ContractFieldGoverningLaw                         = uint32(6)
-	ContractFieldJurisdiction                         = uint32(7)
+	DeprecatedContractFieldGoverningLaw               = uint32(6)
+	DeprecatedContractFieldJurisdiction               = uint32(7)
 	ContractFieldContractExpiration                   = uint32(8)
 	ContractFieldContractURI                          = uint32(9)
 	ContractFieldIssuer                               = uint32(10)
@@ -44,6 +44,8 @@ const (
 	ContractFieldContractType                         = uint32(27)
 	ContractFieldServices                             = uint32(28)
 	ContractFieldAdminIdentityCertificates            = uint32(29)
+	ContractFieldGoverningLaw                         = uint32(30)
+	ContractFieldJurisdiction                         = uint32(31)
 )
 
 // CreateAmendments determines the differences between two ContractOffers and returns
@@ -134,23 +136,9 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		result = append(result, amendment)
 	}
 
-	// GoverningLaw string
-	fip = []uint32{ContractFieldGoverningLaw}
-	if a.GoverningLaw != newValue.GoverningLaw {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.GoverningLaw),
-		})
-	}
+	// deprecated GoverningLaw deprecated
 
-	// Jurisdiction string
-	fip = []uint32{ContractFieldJurisdiction}
-	if a.Jurisdiction != newValue.Jurisdiction {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.Jurisdiction),
-		})
-	}
+	// deprecated Jurisdiction deprecated
 
 	// ContractExpiration uint64
 	fip = []uint32{ContractFieldContractExpiration}
@@ -463,6 +451,24 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		result = append(result, amendment)
 	}
 
+	// GoverningLaw string
+	fip = []uint32{ContractFieldGoverningLaw}
+	if a.GoverningLaw != newValue.GoverningLaw {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.GoverningLaw),
+		})
+	}
+
+	// Jurisdiction string
+	fip = []uint32{ContractFieldJurisdiction}
+	if a.Jurisdiction != newValue.Jurisdiction {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Jurisdiction),
+		})
+	}
+
 	r, err := convertAmendments(result)
 	if err != nil {
 		return nil, errors.Wrap(err, "convert amendments")
@@ -546,13 +552,9 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return append(fip[:1], fip[2:]...), nil
 		}
 
-	case ContractFieldGoverningLaw: // string
-		a.GoverningLaw = string(data)
-		return fip[:], nil
+	case DeprecatedContractFieldGoverningLaw: // deprecated
 
-	case ContractFieldJurisdiction: // string
-		a.Jurisdiction = string(data)
-		return fip[:], nil
+	case DeprecatedContractFieldJurisdiction: // deprecated
 
 	case ContractFieldContractExpiration: // uint64
 		if len(fip) > 1 {
@@ -828,6 +830,20 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return append(fip[:1], fip[2:]...), nil
 		}
 
+	case ContractFieldGoverningLaw: // string
+		if LegalSystemsData(a.GoverningLaw) == nil {
+			return nil, fmt.Errorf("LegalSystems resource value not defined : %v", a.GoverningLaw)
+		}
+		a.GoverningLaw = string(data)
+		return fip[:], nil
+
+	case ContractFieldJurisdiction: // string
+		if PolitiesData(a.Jurisdiction) == nil {
+			return nil, fmt.Errorf("Polities resource value not defined : %v", a.Jurisdiction)
+		}
+		a.Jurisdiction = string(data)
+		return fip[:], nil
+
 	}
 
 	return nil, fmt.Errorf("Unknown contract amendment field index : %v", fip)
@@ -835,18 +851,19 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // Asset Permission / Amendment Field Indices
 const (
-	AssetFieldAssetPermissions            = uint32(1)
-	AssetFieldTransfersPermitted          = uint32(2)
-	AssetFieldTradeRestrictions           = uint32(3)
-	AssetFieldEnforcementOrdersPermitted  = uint32(4)
-	AssetFieldVotingRights                = uint32(5)
-	AssetFieldVoteMultiplier              = uint32(6)
-	AssetFieldAdministrationProposal      = uint32(7)
-	AssetFieldHolderProposal              = uint32(8)
-	AssetFieldAssetModificationGovernance = uint32(9)
-	AssetFieldTokenQty                    = uint32(10)
-	AssetFieldAssetType                   = uint32(11)
-	AssetFieldAssetPayload                = uint32(12)
+	AssetFieldAssetPermissions                      = uint32(1)
+	AssetFieldTransfersPermitted                    = uint32(2)
+	DeprecatedAssetFieldTradeRestrictionsDeprecated = uint32(3)
+	AssetFieldEnforcementOrdersPermitted            = uint32(4)
+	AssetFieldVotingRights                          = uint32(5)
+	AssetFieldVoteMultiplier                        = uint32(6)
+	AssetFieldAdministrationProposal                = uint32(7)
+	AssetFieldHolderProposal                        = uint32(8)
+	AssetFieldAssetModificationGovernance           = uint32(9)
+	AssetFieldTokenQty                              = uint32(10)
+	AssetFieldAssetType                             = uint32(11)
+	AssetFieldAssetPayload                          = uint32(12)
+	AssetFieldTradeRestrictions                     = uint32(13)
 )
 
 // CreateAmendments determines the differences between two AssetDefinitions and returns
@@ -887,45 +904,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 		})
 	}
 
-	// TradeRestrictions []string
-	fip = []uint32{AssetFieldTradeRestrictions}
-	TradeRestrictionsMin := len(a.TradeRestrictions)
-	if TradeRestrictionsMin > len(newValue.TradeRestrictions) {
-		TradeRestrictionsMin = len(newValue.TradeRestrictions)
-	}
-
-	// Compare values
-	for i := 0; i < TradeRestrictionsMin; i++ {
-		lfip := append(fip, uint32(i))
-		if a.TradeRestrictions[i] != newValue.TradeRestrictions[i] {
-			result = append(result, &internal.Amendment{
-				FIP:       lfip,
-				Operation: 0, // Modify element
-				Data:      []byte(newValue.TradeRestrictions[i]),
-			})
-		}
-	}
-
-	TradeRestrictionsMax := len(a.TradeRestrictions)
-	if TradeRestrictionsMax < len(newValue.TradeRestrictions) {
-		TradeRestrictionsMax = len(newValue.TradeRestrictions)
-	}
-
-	// Add/Remove values
-	for i := TradeRestrictionsMin; i < TradeRestrictionsMax; i++ {
-		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
-		}
-
-		if i < len(newValue.TradeRestrictions) {
-			amendment.Operation = 1 // Add element
-			amendment.Data = []byte(newValue.TradeRestrictions[i])
-		} else {
-			amendment.Operation = 2 // Remove element
-		}
-
-		result = append(result, amendment)
-	}
+	// deprecated TradeRestrictionsDeprecated deprecated
 
 	// EnforcementOrdersPermitted bool
 	fip = []uint32{AssetFieldEnforcementOrdersPermitted}
@@ -1043,6 +1022,46 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	}
 	result = append(result, payloadAmendments...)
 
+	// TradeRestrictions []string
+	fip = []uint32{AssetFieldTradeRestrictions}
+	TradeRestrictionsMin := len(a.TradeRestrictions)
+	if TradeRestrictionsMin > len(newValue.TradeRestrictions) {
+		TradeRestrictionsMin = len(newValue.TradeRestrictions)
+	}
+
+	// Compare values
+	for i := 0; i < TradeRestrictionsMin; i++ {
+		lfip := append(fip, uint32(i))
+		if a.TradeRestrictions[i] != newValue.TradeRestrictions[i] {
+			result = append(result, &internal.Amendment{
+				FIP:       lfip,
+				Operation: 0, // Modify element
+				Data:      []byte(newValue.TradeRestrictions[i]),
+			})
+		}
+	}
+
+	TradeRestrictionsMax := len(a.TradeRestrictions)
+	if TradeRestrictionsMax < len(newValue.TradeRestrictions) {
+		TradeRestrictionsMax = len(newValue.TradeRestrictions)
+	}
+
+	// Add/Remove values
+	for i := TradeRestrictionsMin; i < TradeRestrictionsMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.TradeRestrictions) {
+			amendment.Operation = 1 // Add element
+			amendment.Data = []byte(newValue.TradeRestrictions[i])
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
 	r, err := convertAmendments(result)
 	if err != nil {
 		return nil, errors.Wrap(err, "convert amendments")
@@ -1080,41 +1099,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		}
 		return fip[:], nil
 
-	case AssetFieldTradeRestrictions: // []string
-		switch operation {
-		case 0: // Modify
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify TradeRestrictions : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.TradeRestrictions) {
-				return nil, fmt.Errorf("Amendment element index out of range for modify TradeRestrictions : %d", fip[1])
-			}
-			a.TradeRestrictions[fip[1]] = string(data)
-			return append(fip[:1], fip[2:]...), nil
-
-		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add TradeRestrictions : %v",
-					fip)
-			}
-			newValue := string(data)
-			a.TradeRestrictions = append(a.TradeRestrictions, newValue)
-			return fip[:], nil
-
-		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete TradeRestrictions : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.TradeRestrictions) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete TradeRestrictions : %d", fip[1])
-			}
-
-			// Remove item from list
-			a.TradeRestrictions = append(a.TradeRestrictions[:fip[1]], a.TradeRestrictions[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
-		}
+	case DeprecatedAssetFieldTradeRestrictionsDeprecated: // deprecated
 
 	case AssetFieldEnforcementOrdersPermitted: // bool
 		if len(fip) > 1 {
@@ -1211,6 +1196,42 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	case AssetFieldAssetPayload: // []byte
 		a.AssetPayload = data
 		return fip[:], nil
+
+	case AssetFieldTradeRestrictions: // []string
+		switch operation {
+		case 0: // Modify
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify TradeRestrictions : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.TradeRestrictions) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify TradeRestrictions : %d", fip[1])
+			}
+			a.TradeRestrictions[fip[1]] = string(data)
+			return append(fip[:1], fip[2:]...), nil
+
+		case 1: // Add element
+			if len(fip) > 1 {
+				return nil, fmt.Errorf("Amendment field index path too deep for add TradeRestrictions : %v",
+					fip)
+			}
+			newValue := string(data)
+			a.TradeRestrictions = append(a.TradeRestrictions, newValue)
+			return fip[:], nil
+
+		case 2: // Delete element
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete TradeRestrictions : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.TradeRestrictions) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete TradeRestrictions : %d", fip[1])
+			}
+
+			// Remove item from list
+			a.TradeRestrictions = append(a.TradeRestrictions[:fip[1]], a.TradeRestrictions[fip[1]+1:]...)
+			return append(fip[:1], fip[2:]...), nil
+		}
 
 	}
 

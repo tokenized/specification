@@ -63,7 +63,7 @@ const (
 {{- end }}
 
 {{ define "ValidateField" -}}
-    // Field {{ .Name }} - {{ .BaseType }}
+    // Field {{ .Name }} - {{ .BaseType }} {{ if gt (len .BaseResource) 0 }} ({{ .BaseResource }} Resource) {{ end }}
     {{- if .IsList }}
         {{- if eq .BaseListSize "tiny" "" }}
         if len(a.{{ .Name }}) > max1ByteInteger {
@@ -82,7 +82,7 @@ const (
         {{- end }}
         {{- if and (or (ne .BaseType "uint") (and (ne .BaseSize 4) (ne .BaseSize 8))) (or (ne .BaseType "varbin") (ne .BaseVarSize "large")) }}
         for i, v := range a.{{ .Name }} {
-        {{- if gt (len .BaseResource) 0 }}
+        {{- if and (gt (len .BaseResource) 0) (ne .BaseResource "LegalSystems") (ne .BaseResource "Polities") }}
             if {{ .BaseResource }}Data(v) == nil {
                 return fmt.Errorf("{{ .Name }}[%d] resource {{ .BaseResource }} value not defined : %v", i, v)
             }
@@ -157,7 +157,7 @@ const (
         }
         {{- end }}
     {{- else }}
-        {{- if gt (len .BaseResource) 0 }}
+        {{- if and (gt (len .BaseResource) 0) (ne .BaseResource "LegalSystems") (ne .BaseResource "Polities") }}
             if {{ .BaseResource }}Data(a.{{ .Name }}) == nil {
                 return fmt.Errorf("{{ .Name }} resource {{ .BaseResource }} value not defined : %v", a.{{ .Name }})
             }
