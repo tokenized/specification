@@ -831,16 +831,10 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		}
 
 	case ContractFieldGoverningLaw: // string
-		if LegalSystemsData(a.GoverningLaw) == nil {
-			return nil, fmt.Errorf("LegalSystems resource value not defined : %v", a.GoverningLaw)
-		}
 		a.GoverningLaw = string(data)
 		return fip[:], nil
 
 	case ContractFieldJurisdiction: // string
-		if PolitiesData(a.Jurisdiction) == nil {
-			return nil, fmt.Errorf("Polities resource value not defined : %v", a.Jurisdiction)
-		}
 		a.Jurisdiction = string(data)
 		return fip[:], nil
 

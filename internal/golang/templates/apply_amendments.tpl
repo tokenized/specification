@@ -113,7 +113,7 @@
 			return append(fip[:1], fip[2:]...), nil
 		}
 	{{- else }}
-		{{- if gt (len .BaseResource) 0 }}
+		{{- if and (gt (len .BaseResource) 0) (ne .BaseResource "LegalSystems") (ne .BaseResource "Polities") }}
 		if {{ .BaseResource }}Data(a.{{ .Name }}) == nil {
 			return nil, fmt.Errorf("{{ .BaseResource }} resource value not defined : %v", a.{{ .Name }})
 		}
