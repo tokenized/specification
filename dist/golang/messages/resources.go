@@ -2,6 +2,7 @@ package messages
 
 /************************************ Entities ************************************/
 const (
+
 	// Unspecified -
 	EntitiesUnspecified = ""
 
@@ -52,6 +53,7 @@ type EntitiesCode struct {
 // EntitiesData holds a mapping of Entities codes.
 func EntitiesData(code string) *EntitiesCode {
 	switch code {
+
 	case EntitiesUnspecified:
 		return &EntitiesCode{
 			Name:        "Unspecified",
@@ -59,6 +61,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case EntitiesIndividual:
 		return &EntitiesCode{
 			Name:        "Individual",
@@ -66,6 +69,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":null,"roles":{"administrators":{"agent":[],"legalGuardian":[],"principal":null},"associates":{"accountant":[],"advisor":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"friend":[],"governmentAgency":[],"suppliers":[]},"managers":null,"members":{"principal":null}},"type":"Legal"}`,
 		}
+
 	case EntitiesPublicCompany:
 		return &EntitiesCode{
 			Name:        "PublicCompany",
@@ -73,6 +77,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"companyConstitution":null},"roles":{"administrators":{"chairman":null,"director":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"ceo":null,"cfo":null,"coo":null,"cto":null,"executive":[],"secretary":null},"members":{"shareholder":[],"significantShareholder":[]}},"type":"Legal"}`,
 		}
+
 	case EntitiesPrivateCompany:
 		return &EntitiesCode{
 			Name:        "PrivateCompany",
@@ -80,6 +85,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"companyConstitution":null},"roles":{"administrators":{"chairman":null,"director":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"ceo":null,"cfo":null,"coo":null,"cto":null,"executive":[],"secretary":null},"members":{"shareholder":[],"significantShareholder":[]}},"type":"Legal"}`,
 		}
+
 	case EntitiesLimitedPartnership:
 		return &EntitiesCode{
 			Name:        "LimitedPartnership",
@@ -87,6 +93,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"partnershipAgreement":null},"roles":{"administrators":{"partner":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"managingPartner":[]},"members":{"partner":[]}},"type":"Ownership"}`,
 		}
+
 	case EntitiesUnlimitedPartnership:
 		return &EntitiesCode{
 			Name:        "UnlimitedPartnership",
@@ -94,6 +101,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"partnershipAgreement":null},"roles":{"administrators":{"partner":[]},"associates":{"accountant":[],"advisor":[],"contractor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"managingPartner":[]},"members":{"partner":[]}},"type":"Ownership"}`,
 		}
+
 	case EntitiesSoleProprietorship:
 		return &EntitiesCode{
 			Name:        "SoleProprietorship",
@@ -101,6 +109,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":null,"roles":{"administrators":{"agent":[],"proprietor":null},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"members":{"proprietor":null}},"type":"Ownership"}`,
 		}
+
 	case EntitiesStatutoryCompany:
 		return &EntitiesCode{
 			Name:        "StatutoryCompany",
@@ -108,6 +117,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"companyConstitution":null},"roles":{"administrators":{"chairman":null,"director":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"ceo":null,"cfo":null,"coo":null,"cto":null,"executive":[],"secretary":null},"members":{"nationState":null}},"type":"Legal"}`,
 		}
+
 	case EntitiesNonProfitOrganization:
 		return &EntitiesCode{
 			Name:        "NonProfitOrganization",
@@ -115,6 +125,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"organizationConstitution":null},"role":{"administrators":{"chairman":null,"director":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"ceo":null,"cfo":null,"coo":null,"cto":null,"executive":[],"secretary":null}},"type":"Legal"}`,
 		}
+
 	case EntitiesNationState:
 		return &EntitiesCode{
 			Name:        "NationState",
@@ -122,6 +133,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"nationalConstitution":null},"role":{"administrators":null,"associates":null,"collaborators":null,"managers":null,"members":{"citizen":[]}},"type":"Legal"}`,
 		}
+
 	case EntitiesGovernmentAgency:
 		return &EntitiesCode{
 			Name:        "GovernmentAgency",
@@ -129,6 +141,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"charter":null},"role":{"administrators":null,"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"members":null},"type":"Legal"}`,
 		}
+
 	case EntitiesUnitTrust:
 		return &EntitiesCode{
 			Name:        "UnitTrust",
@@ -136,6 +149,7 @@ func EntitiesData(code string) *EntitiesCode {
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"trustDeed":null},"roles":{"administrators":{"protector":[],"trustee":[]},"associates":{"accountant":[],"advisor":[],"custodian":[],"employee":[],"lawyer":[],"manager":[],"settlor":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"members":{"unitholder":[]}},"type":"Ownership"}`,
 		}
+
 	case EntitiesDiscretionaryTrust:
 		return &EntitiesCode{
 			Name:        "DiscretionaryTrust",
@@ -151,78 +165,91 @@ func EntitiesData(code string) *EntitiesCode {
 // EntitiesMap returns a mapping of Entities objects with the code as the key.
 func EntitiesMap() map[string]*EntitiesCode {
 	return map[string]*EntitiesCode{
+
 		EntitiesUnspecified: &EntitiesCode{
 			Name:        "Unspecified",
 			Label:       "Unspecified",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		EntitiesIndividual: &EntitiesCode{
 			Name:        "Individual",
 			Label:       "Individual",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":null,"roles":{"administrators":{"agent":[],"legalGuardian":[],"principal":null},"associates":{"accountant":[],"advisor":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"friend":[],"governmentAgency":[],"suppliers":[]},"managers":null,"members":{"principal":null}},"type":"Legal"}`,
 		},
+
 		EntitiesPublicCompany: &EntitiesCode{
 			Name:        "PublicCompany",
 			Label:       "Public Company Limited by Shares",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"companyConstitution":null},"roles":{"administrators":{"chairman":null,"director":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"ceo":null,"cfo":null,"coo":null,"cto":null,"executive":[],"secretary":null},"members":{"shareholder":[],"significantShareholder":[]}},"type":"Legal"}`,
 		},
+
 		EntitiesPrivateCompany: &EntitiesCode{
 			Name:        "PrivateCompany",
 			Label:       "Private Company Limited by Shares",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"companyConstitution":null},"roles":{"administrators":{"chairman":null,"director":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"ceo":null,"cfo":null,"coo":null,"cto":null,"executive":[],"secretary":null},"members":{"shareholder":[],"significantShareholder":[]}},"type":"Legal"}`,
 		},
+
 		EntitiesLimitedPartnership: &EntitiesCode{
 			Name:        "LimitedPartnership",
 			Label:       "Limited Partnership",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"partnershipAgreement":null},"roles":{"administrators":{"partner":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"managingPartner":[]},"members":{"partner":[]}},"type":"Ownership"}`,
 		},
+
 		EntitiesUnlimitedPartnership: &EntitiesCode{
 			Name:        "UnlimitedPartnership",
 			Label:       "Unlimited Partnership",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"partnershipAgreement":null},"roles":{"administrators":{"partner":[]},"associates":{"accountant":[],"advisor":[],"contractor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"managingPartner":[]},"members":{"partner":[]}},"type":"Ownership"}`,
 		},
+
 		EntitiesSoleProprietorship: &EntitiesCode{
 			Name:        "SoleProprietorship",
 			Label:       "Sole Proprietorship",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":null,"roles":{"administrators":{"agent":[],"proprietor":null},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"members":{"proprietor":null}},"type":"Ownership"}`,
 		},
+
 		EntitiesStatutoryCompany: &EntitiesCode{
 			Name:        "StatutoryCompany",
 			Label:       "Statutory Company",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"companyConstitution":null},"roles":{"administrators":{"chairman":null,"director":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"ceo":null,"cfo":null,"coo":null,"cto":null,"executive":[],"secretary":null},"members":{"nationState":null}},"type":"Legal"}`,
 		},
+
 		EntitiesNonProfitOrganization: &EntitiesCode{
 			Name:        "NonProfitOrganization",
 			Label:       "Non-Profit Organization",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"organizationConstitution":null},"role":{"administrators":{"chairman":null,"director":[]},"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"managers":{"ceo":null,"cfo":null,"coo":null,"cto":null,"executive":[],"secretary":null}},"type":"Legal"}`,
 		},
+
 		EntitiesNationState: &EntitiesCode{
 			Name:        "NationState",
 			Label:       "Nation State",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"nationalConstitution":null},"role":{"administrators":null,"associates":null,"collaborators":null,"managers":null,"members":{"citizen":[]}},"type":"Legal"}`,
 		},
+
 		EntitiesGovernmentAgency: &EntitiesCode{
 			Name:        "GovernmentAgency",
 			Label:       "Government Agency",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"charter":null},"role":{"administrators":null,"associates":{"accountant":[],"advisor":[],"employee":[],"lawyer":[],"manager":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"members":null},"type":"Legal"}`,
 		},
+
 		EntitiesUnitTrust: &EntitiesCode{
 			Name:        "UnitTrust",
 			Label:       "Unit Trust",
 			Description: "",
 			MetaData:    `{"constitutionalDocument":{"trustDeed":null},"roles":{"administrators":{"protector":[],"trustee":[]},"associates":{"accountant":[],"advisor":[],"custodian":[],"employee":[],"lawyer":[],"manager":[],"settlor":[],"trader":[]},"collaborators":{"customer":[],"governmentAgency":[],"supplier":[]},"members":{"unitholder":[]}},"type":"Ownership"}`,
 		},
+
 		EntitiesDiscretionaryTrust: &EntitiesCode{
 			Name:        "DiscretionaryTrust",
 			Label:       "Discretionary Trust",
@@ -234,6 +261,7 @@ func EntitiesMap() map[string]*EntitiesCode {
 
 /************************************ Roles ************************************/
 const (
+
 	// Accountant -
 	RolesAccountant = 1
 
@@ -332,6 +360,7 @@ type RolesCode struct {
 // RolesData holds a mapping of Roles codes.
 func RolesData(code uint32) *RolesCode {
 	switch code {
+
 	case RolesAccountant:
 		return &RolesCode{
 			Name:        "Accountant",
@@ -339,6 +368,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesAdvisor:
 		return &RolesCode{
 			Name:        "Advisor",
@@ -346,6 +376,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesAgent:
 		return &RolesCode{
 			Name:        "Agent",
@@ -353,6 +384,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesBeneficiary:
 		return &RolesCode{
 			Name:        "Beneficiary",
@@ -360,6 +392,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesCEO:
 		return &RolesCode{
 			Name:        "CEO",
@@ -367,6 +400,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesCFO:
 		return &RolesCode{
 			Name:        "CFO",
@@ -374,6 +408,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesChair:
 		return &RolesCode{
 			Name:        "Chair",
@@ -381,6 +416,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesCOO:
 		return &RolesCode{
 			Name:        "COO",
@@ -388,6 +424,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesCTO:
 		return &RolesCode{
 			Name:        "CTO",
@@ -395,6 +432,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesCustodian:
 		return &RolesCode{
 			Name:        "Custodian",
@@ -402,6 +440,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesDirector:
 		return &RolesCode{
 			Name:        "Director",
@@ -409,6 +448,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesExecutive:
 		return &RolesCode{
 			Name:        "Executive",
@@ -416,6 +456,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesLawyer:
 		return &RolesCode{
 			Name:        "Lawyer",
@@ -423,6 +464,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesLegalGuardian:
 		return &RolesCode{
 			Name:        "Legal Guardian",
@@ -430,6 +472,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesLimitedPartner:
 		return &RolesCode{
 			Name:        "Limited Partner",
@@ -437,6 +480,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesManager:
 		return &RolesCode{
 			Name:        "Manager",
@@ -444,6 +488,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesManagingPartner:
 		return &RolesCode{
 			Name:        "Managing Partner",
@@ -451,6 +496,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesMember:
 		return &RolesCode{
 			Name:        "Member",
@@ -458,6 +504,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "Shareholder",
 			MetaData:    `{}`,
 		}
+
 	case RolesPartner:
 		return &RolesCode{
 			Name:        "Partner",
@@ -465,6 +512,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesPrincipal:
 		return &RolesCode{
 			Name:        "Principal",
@@ -472,6 +520,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesProprietor:
 		return &RolesCode{
 			Name:        "Proprietor",
@@ -479,6 +528,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesProtector:
 		return &RolesCode{
 			Name:        "Protector",
@@ -486,6 +536,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesSecretary:
 		return &RolesCode{
 			Name:        "Secretary",
@@ -493,6 +544,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesSettlor:
 		return &RolesCode{
 			Name:        "Settlor",
@@ -500,6 +552,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesSignificantMember:
 		return &RolesCode{
 			Name:        "Significant Member",
@@ -507,6 +560,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "Major Shareholder",
 			MetaData:    `{}`,
 		}
+
 	case RolesSmartContractOperator:
 		return &RolesCode{
 			Name:        "Smart Contract Operator",
@@ -514,6 +568,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesTrader:
 		return &RolesCode{
 			Name:        "Trader",
@@ -521,6 +576,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesTrustee:
 		return &RolesCode{
 			Name:        "Trustee",
@@ -528,6 +584,7 @@ func RolesData(code uint32) *RolesCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case RolesUnitHolder:
 		return &RolesCode{
 			Name:        "Unit Holder",
@@ -543,174 +600,203 @@ func RolesData(code uint32) *RolesCode {
 // RolesMap returns a mapping of Roles objects with the code as the key.
 func RolesMap() map[uint32]*RolesCode {
 	return map[uint32]*RolesCode{
+
 		RolesAccountant: &RolesCode{
 			Name:        "Accountant",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesAdvisor: &RolesCode{
 			Name:        "Advisor",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesAgent: &RolesCode{
 			Name:        "Agent",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesBeneficiary: &RolesCode{
 			Name:        "Beneficiary",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesCEO: &RolesCode{
 			Name:        "CEO",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesCFO: &RolesCode{
 			Name:        "CFO",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesChair: &RolesCode{
 			Name:        "Chair",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesCOO: &RolesCode{
 			Name:        "COO",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesCTO: &RolesCode{
 			Name:        "CTO",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesCustodian: &RolesCode{
 			Name:        "Custodian",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesDirector: &RolesCode{
 			Name:        "Director",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesExecutive: &RolesCode{
 			Name:        "Executive",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesLawyer: &RolesCode{
 			Name:        "Lawyer",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesLegalGuardian: &RolesCode{
 			Name:        "Legal Guardian",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesLimitedPartner: &RolesCode{
 			Name:        "Limited Partner",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesManager: &RolesCode{
 			Name:        "Manager",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesManagingPartner: &RolesCode{
 			Name:        "Managing Partner",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesMember: &RolesCode{
 			Name:        "Member",
 			Label:       "",
 			Description: "Shareholder",
 			MetaData:    `{}`,
 		},
+
 		RolesPartner: &RolesCode{
 			Name:        "Partner",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesPrincipal: &RolesCode{
 			Name:        "Principal",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesProprietor: &RolesCode{
 			Name:        "Proprietor",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesProtector: &RolesCode{
 			Name:        "Protector",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesSecretary: &RolesCode{
 			Name:        "Secretary",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesSettlor: &RolesCode{
 			Name:        "Settlor",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesSignificantMember: &RolesCode{
 			Name:        "Significant Member",
 			Label:       "",
 			Description: "Major Shareholder",
 			MetaData:    `{}`,
 		},
+
 		RolesSmartContractOperator: &RolesCode{
 			Name:        "Smart Contract Operator",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesTrader: &RolesCode{
 			Name:        "Trader",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesTrustee: &RolesCode{
 			Name:        "Trustee",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		RolesUnitHolder: &RolesCode{
 			Name:        "Unit Holder",
 			Label:       "",
@@ -722,6 +808,7 @@ func RolesMap() map[uint32]*RolesCode {
 
 /************************************ Tags ************************************/
 const (
+
 	// Housing -
 	TagsHousing = 1
 
@@ -820,6 +907,7 @@ type TagsCode struct {
 // TagsData holds a mapping of Tags codes.
 func TagsData(code uint32) *TagsCode {
 	switch code {
+
 	case TagsHousing:
 		return &TagsCode{
 			Name:        "Housing",
@@ -827,6 +915,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsUtilities:
 		return &TagsCode{
 			Name:        "Utilities",
@@ -834,6 +923,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsFood:
 		return &TagsCode{
 			Name:        "Food",
@@ -841,6 +931,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsMedical:
 		return &TagsCode{
 			Name:        "Medical",
@@ -848,6 +939,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsFinancialServices:
 		return &TagsCode{
 			Name:        "Financial Services",
@@ -855,6 +947,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsEntertainment:
 		return &TagsCode{
 			Name:        "Entertainment",
@@ -862,6 +955,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsSales:
 		return &TagsCode{
 			Name:        "Sales",
@@ -869,6 +963,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsAutomotive:
 		return &TagsCode{
 			Name:        "Automotive",
@@ -876,6 +971,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsTransportation:
 		return &TagsCode{
 			Name:        "Transportation",
@@ -883,6 +979,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsFitness:
 		return &TagsCode{
 			Name:        "Fitness",
@@ -890,6 +987,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsElectricity:
 		return &TagsCode{
 			Name:        "Electricity",
@@ -897,6 +995,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsWater:
 		return &TagsCode{
 			Name:        "Water",
@@ -904,6 +1003,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsInternet:
 		return &TagsCode{
 			Name:        "Internet",
@@ -911,6 +1011,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsMedicine:
 		return &TagsCode{
 			Name:        "Medicine",
@@ -918,6 +1019,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsService:
 		return &TagsCode{
 			Name:        "Service",
@@ -925,6 +1027,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsRepair:
 		return &TagsCode{
 			Name:        "Repair",
@@ -932,6 +1035,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsSupplies:
 		return &TagsCode{
 			Name:        "Supplies",
@@ -939,6 +1043,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsParts:
 		return &TagsCode{
 			Name:        "Parts",
@@ -946,6 +1051,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsLabor:
 		return &TagsCode{
 			Name:        "Labor",
@@ -953,6 +1059,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsTip:
 		return &TagsCode{
 			Name:        "Tip",
@@ -960,6 +1067,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsMedia:
 		return &TagsCode{
 			Name:        "Media",
@@ -967,6 +1075,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsMusic:
 		return &TagsCode{
 			Name:        "Music",
@@ -974,6 +1083,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsVideo:
 		return &TagsCode{
 			Name:        "Video",
@@ -981,6 +1091,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsPhoto:
 		return &TagsCode{
 			Name:        "Photo",
@@ -988,6 +1099,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsAudio:
 		return &TagsCode{
 			Name:        "Audio",
@@ -995,6 +1107,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsAlcohol:
 		return &TagsCode{
 			Name:        "Alcohol",
@@ -1002,6 +1115,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsTobacco:
 		return &TagsCode{
 			Name:        "Tobacco",
@@ -1009,6 +1123,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsDiscounted:
 		return &TagsCode{
 			Name:        "Discounted",
@@ -1016,6 +1131,7 @@ func TagsData(code uint32) *TagsCode {
 			Description: "",
 			MetaData:    `{}`,
 		}
+
 	case TagsPromotional:
 		return &TagsCode{
 			Name:        "Promotional",
@@ -1031,174 +1147,203 @@ func TagsData(code uint32) *TagsCode {
 // TagsMap returns a mapping of Tags objects with the code as the key.
 func TagsMap() map[uint32]*TagsCode {
 	return map[uint32]*TagsCode{
+
 		TagsHousing: &TagsCode{
 			Name:        "Housing",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsUtilities: &TagsCode{
 			Name:        "Utilities",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsFood: &TagsCode{
 			Name:        "Food",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsMedical: &TagsCode{
 			Name:        "Medical",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsFinancialServices: &TagsCode{
 			Name:        "Financial Services",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsEntertainment: &TagsCode{
 			Name:        "Entertainment",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsSales: &TagsCode{
 			Name:        "Sales",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsAutomotive: &TagsCode{
 			Name:        "Automotive",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsTransportation: &TagsCode{
 			Name:        "Transportation",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsFitness: &TagsCode{
 			Name:        "Fitness",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsElectricity: &TagsCode{
 			Name:        "Electricity",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsWater: &TagsCode{
 			Name:        "Water",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsInternet: &TagsCode{
 			Name:        "Internet",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsMedicine: &TagsCode{
 			Name:        "Medicine",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsService: &TagsCode{
 			Name:        "Service",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsRepair: &TagsCode{
 			Name:        "Repair",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsSupplies: &TagsCode{
 			Name:        "Supplies",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsParts: &TagsCode{
 			Name:        "Parts",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsLabor: &TagsCode{
 			Name:        "Labor",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsTip: &TagsCode{
 			Name:        "Tip",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsMedia: &TagsCode{
 			Name:        "Media",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsMusic: &TagsCode{
 			Name:        "Music",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsVideo: &TagsCode{
 			Name:        "Video",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsPhoto: &TagsCode{
 			Name:        "Photo",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsAudio: &TagsCode{
 			Name:        "Audio",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsAlcohol: &TagsCode{
 			Name:        "Alcohol",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsTobacco: &TagsCode{
 			Name:        "Tobacco",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsDiscounted: &TagsCode{
 			Name:        "Discounted",
 			Label:       "",
 			Description: "",
 			MetaData:    `{}`,
 		},
+
 		TagsPromotional: &TagsCode{
 			Name:        "Promotional",
 			Label:       "",

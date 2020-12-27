@@ -44,19 +44,6 @@ properties:
     description: Counter 0 to (2^32)-1
     type: number
     example: 0
-  GoverningLaw:
-    description:  >
-      5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be
-      settled by this law in the jurisdiction specified below. Private dispute resolution
-      organizations can be used as well.  A custom code just needs to be defined.
-    type: string
-    example: "USA"
-  Jurisdiction:
-    description:  >
-      Legal proceedings/arbitration will take place using the specified Governing Law in this
-      location.
-    type: string
-    example: "US-CA"
   EffectiveDate:
     description: Start date of the contract.
     type: number
@@ -103,4 +90,17 @@ properties:
   EntityOracleSigBlockHeight:
     description: The block height of the block hash used in the oracle signature.
     type: number
+  GoverningLaw:
+    description:  >
+      5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be
+      settled by this law in the jurisdiction specified below. Private dispute resolution
+      organizations can be used as well.  A custom code just needs to be defined.
+    type: string
+    example: "GBREW"
+  Jurisdiction:
+    description:  >
+      Legal proceedings/arbitration will take place using the specified Governing Law in this
+      location.
+    type: string
+    example: "GBR"
 

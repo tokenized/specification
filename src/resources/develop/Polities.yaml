@@ -1230,38 +1230,38 @@ values:
     name: Mexico
     metadata:
       states:
-      MXAGU: Aguascalientes
-      MXBCN: Baja California
-      MXBCS: Baja California Sur
-      MXCHP: Chiapas
-      MXCHH: Chihuahua
-      MXCAM: Campeche
-      MXCOA: Coahuila
-      MXCOL: Colima
-      MXDIF: Distrito Federal
-      MXDUR: Durango
-      MXGUA: Guanajuato
-      MXGRO: Guerrero
-      MXHID: Hidalgo
-      MXJAL: Jalisco
-      MXMEX: Mexico (Federal District)
-      MXMIC: Michoacán
-      MXMOR: Morelos
-      MXNAY: Nayarit
-      MXNLE: Nuevo León
-      MXOAX: Oaxaca
-      MXPUE: Puebla
-      MXQUE: Querétaro
-      MXROO: Quintana Roo
-      MXSLP: San Luis Potosí
-      MXSIN: Sinaloa
-      MXSON: Sonora
-      MXTAB: Tabasco
-      MXTAM: Tamaulipas
-      MXTLA: Tlaxcala
-      MXVER: Veracruz
-      MXYUC: Yucatán
-      MXZAC: Zacatecas
+        MXAGU: Aguascalientes
+        MXBCN: Baja California
+        MXBCS: Baja California Sur
+        MXCHP: Chiapas
+        MXCHH: Chihuahua
+        MXCAM: Campeche
+        MXCOA: Coahuila
+        MXCOL: Colima
+        MXDIF: Distrito Federal
+        MXDUR: Durango
+        MXGUA: Guanajuato
+        MXGRO: Guerrero
+        MXHID: Hidalgo
+        MXJAL: Jalisco
+        MXMEX: Mexico (Federal District)
+        MXMIC: Michoacán
+        MXMOR: Morelos
+        MXNAY: Nayarit
+        MXNLE: Nuevo León
+        MXOAX: Oaxaca
+        MXPUE: Puebla
+        MXQUE: Querétaro
+        MXROO: Quintana Roo
+        MXSLP: San Luis Potosí
+        MXSIN: Sinaloa
+        MXSON: Sonora
+        MXTAB: Tabasco
+        MXTAM: Tamaulipas
+        MXTLA: Tlaxcala
+        MXVER: Veracruz
+        MXYUC: Yucatán
+        MXZAC: Zacatecas
       flag: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg"
       phone_code: "+52"
 

@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/pkg/errors"
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/specification/dist/golang/assets"
+
+	"github.com/pkg/errors"
 )
 
 func TestContractCreateAmendments(t *testing.T) {
@@ -334,6 +336,12 @@ func TestContractCreateAmendments(t *testing.T) {
 }
 
 func TestAssetCreateAmendments(t *testing.T) {
+	currency := &assets.Currency{
+		CurrencyCode: "USD",
+		Precision:    100,
+	}
+	currencyPayload, _ := currency.Bytes()
+
 	tests := []struct {
 		name       string
 		current    *AssetCreation
@@ -348,14 +356,14 @@ func TestAssetCreateAmendments(t *testing.T) {
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           10000,
 				AssetType:          "CUR",
-				AssetPayload:       []byte{1},
+				AssetPayload:       currencyPayload,
 			},
 			newValue: &AssetDefinition{
 				TransfersPermitted: true,
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           10000,
 				AssetType:          "CUR",
-				AssetPayload:       []byte{1},
+				AssetPayload:       currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
@@ -367,45 +375,20 @@ func TestAssetCreateAmendments(t *testing.T) {
 			},
 		},
 		{
-			name: "Change asset type",
-			current: &AssetCreation{
-				TransfersPermitted: false,
-				TradeRestrictions:  []string{"AUS"},
-				TokenQty:           10000,
-				AssetType:          "CUR",
-				AssetPayload:       []byte{1},
-			},
-			newValue: &AssetDefinition{
-				TransfersPermitted: false,
-				TradeRestrictions:  []string{"AUS"},
-				TokenQty:           10000,
-				AssetType:          "COU",
-				AssetPayload:       []byte{1},
-			},
-			err: nil,
-			amendments: []*AmendmentField{
-				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldAssetType)},
-					Operation:      0,
-					Data:           []byte("COU"),
-				},
-			},
-		},
-		{
 			name: "Change token quantity",
 			current: &AssetCreation{
 				TransfersPermitted: false,
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           10000,
 				AssetType:          "CUR",
-				AssetPayload:       []byte{1},
+				AssetPayload:       currencyPayload,
 			},
 			newValue: &AssetDefinition{
 				TransfersPermitted: false,
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           100000,
 				AssetType:          "CUR",
-				AssetPayload:       []byte{1},
+				AssetPayload:       currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
@@ -423,26 +406,26 @@ func TestAssetCreateAmendments(t *testing.T) {
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           10000,
 				AssetType:          "CUR",
-				AssetPayload:       []byte{1},
+				AssetPayload:       currencyPayload,
 			},
 			newValue: &AssetDefinition{
-				TransfersPermitted: false,
+				TransfersPermitted: true,
 				TradeRestrictions:  []string{"AUS"},
 				TokenQty:           100000,
-				AssetType:          "COU",
-				AssetPayload:       []byte{1},
+				AssetType:          "CUR",
+				AssetPayload:       currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
 				&AmendmentField{
+					FieldIndexPath: []byte{1, byte(AssetFieldTransfersPermitted)},
+					Operation:      0,
+					Data:           []byte{1},
+				},
+				&AmendmentField{
 					FieldIndexPath: []byte{1, byte(AssetFieldTokenQty)},
 					Operation:      0,
 					Data:           []byte{160, 141, 6}, // base 128 var int encoding of 100000
-				},
-				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldAssetType)},
-					Operation:      0,
-					Data:           []byte("COU"),
 				},
 			},
 		},
@@ -514,6 +497,62 @@ func TestAssetCreateAmendments(t *testing.T) {
 				return
 			}
 		})
+	}
+}
+
+func TestAssetCreateAmendmentsCouponName(t *testing.T) {
+	currentCoupon := &assets.Coupon{
+		Currency:    "USD",
+		Value:       1,
+		Precision:   100,
+		Description: "Test Coupon",
+	}
+
+	cb, _ := currentCoupon.Bytes()
+
+	current := &AssetCreation{
+		TransfersPermitted: false,
+		TradeRestrictions:  []string{"AUS"},
+		TokenQty:           10000,
+		AssetType:          assets.CodeCoupon,
+		AssetPayload:       cb,
+	}
+
+	newCoupon := &assets.Coupon{
+		Currency:    "USD",
+		Value:       1,
+		Precision:   100,
+		Description: "New Test Coupon",
+	}
+
+	nb, _ := newCoupon.Bytes()
+
+	newValue := &AssetDefinition{
+		TransfersPermitted: false,
+		TradeRestrictions:  []string{"AUS"},
+		TokenQty:           10000,
+		AssetType:          assets.CodeCoupon,
+		AssetPayload:       nb,
+	}
+
+	amendments, err := current.CreateAmendments(newValue)
+	if err != nil {
+		t.Fatalf("Failed to create amendments : %s", err)
+	}
+
+	if len(amendments) != 1 {
+		t.Fatalf("Wrong amendment count : got %d, want %d", len(amendments), 1)
+	}
+
+	// Check amendment
+	expectedAmendment := &AmendmentField{
+		FieldIndexPath: []byte{2, byte(AssetFieldAssetPayload), byte(assets.CouponFieldDescription)},
+		Operation:      0,
+		Data:           []byte("New Test Coupon"),
+	}
+
+	if !amendments[0].Equal(expectedAmendment) {
+		t.Fatalf("Wrong amendment : \n   got %+v\n  want %+v", amendments[0], expectedAmendment)
 	}
 }
 

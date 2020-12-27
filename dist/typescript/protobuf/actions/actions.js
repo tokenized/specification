@@ -960,8 +960,6 @@ proto.actions.ContractOffer.toObject = function(includeInstance, msg) {
     bodyofagreement: msg.getBodyofagreement_asB64(),
     supportingdocsList: jspb.Message.toObjectList(msg.getSupportingdocsList(),
     proto.actions.DocumentField.toObject, includeInstance),
-    governinglaw: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    jurisdiction: jspb.Message.getFieldWithDefault(msg, 7, ""),
     contractexpiration: jspb.Message.getFieldWithDefault(msg, 8, 0),
     contracturi: jspb.Message.getFieldWithDefault(msg, 9, ""),
     issuer: (f = msg.getIssuer()) && proto.actions.EntityField.toObject(includeInstance, f),
@@ -982,7 +980,9 @@ proto.actions.ContractOffer.toObject = function(includeInstance, msg) {
     servicesList: jspb.Message.toObjectList(msg.getServicesList(),
     proto.actions.ServiceField.toObject, includeInstance),
     adminidentitycertificatesList: jspb.Message.toObjectList(msg.getAdminidentitycertificatesList(),
-    proto.actions.AdminIdentityCertificateField.toObject, includeInstance)
+    proto.actions.AdminIdentityCertificateField.toObject, includeInstance),
+    governinglaw: jspb.Message.getFieldWithDefault(msg, 30, ""),
+    jurisdiction: jspb.Message.getFieldWithDefault(msg, 31, "")
   };
 
   if (includeInstance) {
@@ -1035,14 +1035,6 @@ proto.actions.ContractOffer.deserializeBinaryFromReader = function(msg, reader) 
       var value = new proto.actions.DocumentField;
       reader.readMessage(value,proto.actions.DocumentField.deserializeBinaryFromReader);
       msg.addSupportingdocs(value);
-      break;
-    case 6:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setGoverninglaw(value);
-      break;
-    case 7:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setJurisdiction(value);
       break;
     case 8:
       var value = /** @type {number} */ (reader.readUint64());
@@ -1117,6 +1109,14 @@ proto.actions.ContractOffer.deserializeBinaryFromReader = function(msg, reader) 
       reader.readMessage(value,proto.actions.AdminIdentityCertificateField.deserializeBinaryFromReader);
       msg.addAdminidentitycertificates(value);
       break;
+    case 30:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGoverninglaw(value);
+      break;
+    case 31:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setJurisdiction(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1173,20 +1173,6 @@ proto.actions.ContractOffer.serializeBinaryToWriter = function(message, writer) 
       5,
       f,
       proto.actions.DocumentField.serializeBinaryToWriter
-    );
-  }
-  f = message.getGoverninglaw();
-  if (f.length > 0) {
-    writer.writeString(
-      6,
-      f
-    );
-  }
-  f = message.getJurisdiction();
-  if (f.length > 0) {
-    writer.writeString(
-      7,
-      f
     );
   }
   f = message.getContractexpiration();
@@ -1313,6 +1299,20 @@ proto.actions.ContractOffer.serializeBinaryToWriter = function(message, writer) 
       proto.actions.AdminIdentityCertificateField.serializeBinaryToWriter
     );
   }
+  f = message.getGoverninglaw();
+  if (f.length > 0) {
+    writer.writeString(
+      30,
+      f
+    );
+  }
+  f = message.getJurisdiction();
+  if (f.length > 0) {
+    writer.writeString(
+      31,
+      f
+    );
+  }
 };
 
 
@@ -1429,42 +1429,6 @@ proto.actions.ContractOffer.prototype.addSupportingdocs = function(opt_value, op
  */
 proto.actions.ContractOffer.prototype.clearSupportingdocsList = function() {
   return this.setSupportingdocsList([]);
-};
-
-
-/**
- * optional string GoverningLaw = 6;
- * @return {string}
- */
-proto.actions.ContractOffer.prototype.getGoverninglaw = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.actions.ContractOffer} returns this
- */
-proto.actions.ContractOffer.prototype.setGoverninglaw = function(value) {
-  return jspb.Message.setProto3StringField(this, 6, value);
-};
-
-
-/**
- * optional string Jurisdiction = 7;
- * @return {string}
- */
-proto.actions.ContractOffer.prototype.getJurisdiction = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.actions.ContractOffer} returns this
- */
-proto.actions.ContractOffer.prototype.setJurisdiction = function(value) {
-  return jspb.Message.setProto3StringField(this, 7, value);
 };
 
 
@@ -1969,6 +1933,42 @@ proto.actions.ContractOffer.prototype.clearAdminidentitycertificatesList = funct
 };
 
 
+/**
+ * optional string GoverningLaw = 30;
+ * @return {string}
+ */
+proto.actions.ContractOffer.prototype.getGoverninglaw = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 30, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.actions.ContractOffer} returns this
+ */
+proto.actions.ContractOffer.prototype.setGoverninglaw = function(value) {
+  return jspb.Message.setProto3StringField(this, 30, value);
+};
+
+
+/**
+ * optional string Jurisdiction = 31;
+ * @return {string}
+ */
+proto.actions.ContractOffer.prototype.getJurisdiction = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 31, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.actions.ContractOffer} returns this
+ */
+proto.actions.ContractOffer.prototype.setJurisdiction = function(value) {
+  return jspb.Message.setProto3StringField(this, 31, value);
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -2013,8 +2013,6 @@ proto.actions.ContractFormation.toObject = function(includeInstance, msg) {
     bodyofagreement: msg.getBodyofagreement_asB64(),
     supportingdocsList: jspb.Message.toObjectList(msg.getSupportingdocsList(),
     proto.actions.DocumentField.toObject, includeInstance),
-    governinglaw: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    jurisdiction: jspb.Message.getFieldWithDefault(msg, 7, ""),
     contractexpiration: jspb.Message.getFieldWithDefault(msg, 8, 0),
     contracturi: jspb.Message.getFieldWithDefault(msg, 9, ""),
     issuer: (f = msg.getIssuer()) && proto.actions.EntityField.toObject(includeInstance, f),
@@ -2038,7 +2036,9 @@ proto.actions.ContractFormation.toObject = function(includeInstance, msg) {
     adminidentitycertificatesList: jspb.Message.toObjectList(msg.getAdminidentitycertificatesList(),
     proto.actions.AdminIdentityCertificateField.toObject, includeInstance),
     adminaddress: msg.getAdminaddress_asB64(),
-    operatoraddress: msg.getOperatoraddress_asB64()
+    operatoraddress: msg.getOperatoraddress_asB64(),
+    governinglaw: jspb.Message.getFieldWithDefault(msg, 33, ""),
+    jurisdiction: jspb.Message.getFieldWithDefault(msg, 34, "")
   };
 
   if (includeInstance) {
@@ -2091,14 +2091,6 @@ proto.actions.ContractFormation.deserializeBinaryFromReader = function(msg, read
       var value = new proto.actions.DocumentField;
       reader.readMessage(value,proto.actions.DocumentField.deserializeBinaryFromReader);
       msg.addSupportingdocs(value);
-      break;
-    case 6:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setGoverninglaw(value);
-      break;
-    case 7:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setJurisdiction(value);
       break;
     case 8:
       var value = /** @type {number} */ (reader.readUint64());
@@ -2185,6 +2177,14 @@ proto.actions.ContractFormation.deserializeBinaryFromReader = function(msg, read
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setOperatoraddress(value);
       break;
+    case 33:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGoverninglaw(value);
+      break;
+    case 34:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setJurisdiction(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -2241,20 +2241,6 @@ proto.actions.ContractFormation.serializeBinaryToWriter = function(message, writ
       5,
       f,
       proto.actions.DocumentField.serializeBinaryToWriter
-    );
-  }
-  f = message.getGoverninglaw();
-  if (f.length > 0) {
-    writer.writeString(
-      6,
-      f
-    );
-  }
-  f = message.getJurisdiction();
-  if (f.length > 0) {
-    writer.writeString(
-      7,
-      f
     );
   }
   f = message.getContractexpiration();
@@ -2402,6 +2388,20 @@ proto.actions.ContractFormation.serializeBinaryToWriter = function(message, writ
       f
     );
   }
+  f = message.getGoverninglaw();
+  if (f.length > 0) {
+    writer.writeString(
+      33,
+      f
+    );
+  }
+  f = message.getJurisdiction();
+  if (f.length > 0) {
+    writer.writeString(
+      34,
+      f
+    );
+  }
 };
 
 
@@ -2518,42 +2518,6 @@ proto.actions.ContractFormation.prototype.addSupportingdocs = function(opt_value
  */
 proto.actions.ContractFormation.prototype.clearSupportingdocsList = function() {
   return this.setSupportingdocsList([]);
-};
-
-
-/**
- * optional string GoverningLaw = 6;
- * @return {string}
- */
-proto.actions.ContractFormation.prototype.getGoverninglaw = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.actions.ContractFormation} returns this
- */
-proto.actions.ContractFormation.prototype.setGoverninglaw = function(value) {
-  return jspb.Message.setProto3StringField(this, 6, value);
-};
-
-
-/**
- * optional string Jurisdiction = 7;
- * @return {string}
- */
-proto.actions.ContractFormation.prototype.getJurisdiction = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.actions.ContractFormation} returns this
- */
-proto.actions.ContractFormation.prototype.setJurisdiction = function(value) {
-  return jspb.Message.setProto3StringField(this, 7, value);
 };
 
 
@@ -3160,6 +3124,42 @@ proto.actions.ContractFormation.prototype.setOperatoraddress = function(value) {
 };
 
 
+/**
+ * optional string GoverningLaw = 33;
+ * @return {string}
+ */
+proto.actions.ContractFormation.prototype.getGoverninglaw = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 33, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.actions.ContractFormation} returns this
+ */
+proto.actions.ContractFormation.prototype.setGoverninglaw = function(value) {
+  return jspb.Message.setProto3StringField(this, 33, value);
+};
+
+
+/**
+ * optional string Jurisdiction = 34;
+ * @return {string}
+ */
+proto.actions.ContractFormation.prototype.getJurisdiction = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 34, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.actions.ContractFormation} returns this
+ */
+proto.actions.ContractFormation.prototype.setJurisdiction = function(value) {
+  return jspb.Message.setProto3StringField(this, 34, value);
+};
+
+
 
 /**
  * List of repeated fields within this message type.
@@ -3511,8 +3511,6 @@ proto.actions.StaticContractFormation.toObject = function(includeInstance, msg) 
     supportingdocsList: jspb.Message.toObjectList(msg.getSupportingdocsList(),
     proto.actions.DocumentField.toObject, includeInstance),
     contractrevision: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    governinglaw: jspb.Message.getFieldWithDefault(msg, 8, ""),
-    jurisdiction: jspb.Message.getFieldWithDefault(msg, 9, ""),
     effectivedate: jspb.Message.getFieldWithDefault(msg, 10, 0),
     contractexpiration: jspb.Message.getFieldWithDefault(msg, 11, 0),
     contracturi: jspb.Message.getFieldWithDefault(msg, 12, ""),
@@ -3521,7 +3519,9 @@ proto.actions.StaticContractFormation.toObject = function(includeInstance, msg) 
     proto.actions.EntityField.toObject, includeInstance),
     entityoracle: (f = msg.getEntityoracle()) && proto.actions.OracleField.toObject(includeInstance, f),
     entityoraclesignature: msg.getEntityoraclesignature_asB64(),
-    entityoraclesigblockheight: jspb.Message.getFieldWithDefault(msg, 17, 0)
+    entityoraclesigblockheight: jspb.Message.getFieldWithDefault(msg, 17, 0),
+    governinglaw: jspb.Message.getFieldWithDefault(msg, 18, ""),
+    jurisdiction: jspb.Message.getFieldWithDefault(msg, 19, "")
   };
 
   if (includeInstance) {
@@ -3587,14 +3587,6 @@ proto.actions.StaticContractFormation.deserializeBinaryFromReader = function(msg
       var value = /** @type {number} */ (reader.readUint32());
       msg.setContractrevision(value);
       break;
-    case 8:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setGoverninglaw(value);
-      break;
-    case 9:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setJurisdiction(value);
-      break;
     case 10:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setEffectivedate(value);
@@ -3628,6 +3620,14 @@ proto.actions.StaticContractFormation.deserializeBinaryFromReader = function(msg
     case 17:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setEntityoraclesigblockheight(value);
+      break;
+    case 18:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGoverninglaw(value);
+      break;
+    case 19:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setJurisdiction(value);
       break;
     default:
       reader.skipField();
@@ -3708,20 +3708,6 @@ proto.actions.StaticContractFormation.serializeBinaryToWriter = function(message
       f
     );
   }
-  f = message.getGoverninglaw();
-  if (f.length > 0) {
-    writer.writeString(
-      8,
-      f
-    );
-  }
-  f = message.getJurisdiction();
-  if (f.length > 0) {
-    writer.writeString(
-      9,
-      f
-    );
-  }
   f = message.getEffectivedate();
   if (f !== 0) {
     writer.writeUint64(
@@ -3777,6 +3763,20 @@ proto.actions.StaticContractFormation.serializeBinaryToWriter = function(message
   if (f !== 0) {
     writer.writeUint32(
       17,
+      f
+    );
+  }
+  f = message.getGoverninglaw();
+  if (f.length > 0) {
+    writer.writeString(
+      18,
+      f
+    );
+  }
+  f = message.getJurisdiction();
+  if (f.length > 0) {
+    writer.writeString(
+      19,
       f
     );
   }
@@ -3974,42 +3974,6 @@ proto.actions.StaticContractFormation.prototype.getContractrevision = function()
  */
 proto.actions.StaticContractFormation.prototype.setContractrevision = function(value) {
   return jspb.Message.setProto3IntField(this, 7, value);
-};
-
-
-/**
- * optional string GoverningLaw = 8;
- * @return {string}
- */
-proto.actions.StaticContractFormation.prototype.getGoverninglaw = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.actions.StaticContractFormation} returns this
- */
-proto.actions.StaticContractFormation.prototype.setGoverninglaw = function(value) {
-  return jspb.Message.setProto3StringField(this, 8, value);
-};
-
-
-/**
- * optional string Jurisdiction = 9;
- * @return {string}
- */
-proto.actions.StaticContractFormation.prototype.getJurisdiction = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.actions.StaticContractFormation} returns this
- */
-proto.actions.StaticContractFormation.prototype.setJurisdiction = function(value) {
-  return jspb.Message.setProto3StringField(this, 9, value);
 };
 
 
@@ -4244,6 +4208,42 @@ proto.actions.StaticContractFormation.prototype.setEntityoraclesigblockheight = 
 };
 
 
+/**
+ * optional string GoverningLaw = 18;
+ * @return {string}
+ */
+proto.actions.StaticContractFormation.prototype.getGoverninglaw = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 18, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.actions.StaticContractFormation} returns this
+ */
+proto.actions.StaticContractFormation.prototype.setGoverninglaw = function(value) {
+  return jspb.Message.setProto3StringField(this, 18, value);
+};
+
+
+/**
+ * optional string Jurisdiction = 19;
+ * @return {string}
+ */
+proto.actions.StaticContractFormation.prototype.getJurisdiction = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 19, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.actions.StaticContractFormation} returns this
+ */
+proto.actions.StaticContractFormation.prototype.setJurisdiction = function(value) {
+  return jspb.Message.setProto3StringField(this, 19, value);
+};
+
+
 
 
 
@@ -4434,7 +4434,7 @@ proto.actions.ContractAddressChange.prototype.setTimestamp = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.actions.AssetDefinition.repeatedFields_ = [3];
+proto.actions.AssetDefinition.repeatedFields_ = [13];
 
 
 
@@ -4469,7 +4469,6 @@ proto.actions.AssetDefinition.toObject = function(includeInstance, msg) {
   var f, obj = {
     assetpermissions: msg.getAssetpermissions_asB64(),
     transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 2, false),
-    traderestrictionsList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
     enforcementorderspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
     votingrights: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
     votemultiplier: jspb.Message.getFieldWithDefault(msg, 6, 0),
@@ -4478,7 +4477,8 @@ proto.actions.AssetDefinition.toObject = function(includeInstance, msg) {
     assetmodificationgovernance: jspb.Message.getFieldWithDefault(msg, 9, 0),
     tokenqty: jspb.Message.getFieldWithDefault(msg, 10, 0),
     assettype: jspb.Message.getFieldWithDefault(msg, 11, ""),
-    assetpayload: msg.getAssetpayload_asB64()
+    assetpayload: msg.getAssetpayload_asB64(),
+    traderestrictionsList: (f = jspb.Message.getRepeatedField(msg, 13)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -4523,10 +4523,6 @@ proto.actions.AssetDefinition.deserializeBinaryFromReader = function(msg, reader
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setTransferspermitted(value);
       break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.addTraderestrictions(value);
-      break;
     case 4:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setEnforcementorderspermitted(value);
@@ -4562,6 +4558,10 @@ proto.actions.AssetDefinition.deserializeBinaryFromReader = function(msg, reader
     case 12:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAssetpayload(value);
+      break;
+    case 13:
+      var value = /** @type {string} */ (reader.readString());
+      msg.addTraderestrictions(value);
       break;
     default:
       reader.skipField();
@@ -4603,13 +4603,6 @@ proto.actions.AssetDefinition.serializeBinaryToWriter = function(message, writer
   if (f) {
     writer.writeBool(
       2,
-      f
-    );
-  }
-  f = message.getTraderestrictionsList();
-  if (f.length > 0) {
-    writer.writeRepeatedString(
-      3,
       f
     );
   }
@@ -4676,6 +4669,13 @@ proto.actions.AssetDefinition.serializeBinaryToWriter = function(message, writer
       f
     );
   }
+  f = message.getTraderestrictionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      13,
+      f
+    );
+  }
 };
 
 
@@ -4736,43 +4736,6 @@ proto.actions.AssetDefinition.prototype.getTransferspermitted = function() {
  */
 proto.actions.AssetDefinition.prototype.setTransferspermitted = function(value) {
   return jspb.Message.setProto3BooleanField(this, 2, value);
-};
-
-
-/**
- * repeated string TradeRestrictions = 3;
- * @return {!Array<string>}
- */
-proto.actions.AssetDefinition.prototype.getTraderestrictionsList = function() {
-  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 3));
-};
-
-
-/**
- * @param {!Array<string>} value
- * @return {!proto.actions.AssetDefinition} returns this
- */
-proto.actions.AssetDefinition.prototype.setTraderestrictionsList = function(value) {
-  return jspb.Message.setField(this, 3, value || []);
-};
-
-
-/**
- * @param {string} value
- * @param {number=} opt_index
- * @return {!proto.actions.AssetDefinition} returns this
- */
-proto.actions.AssetDefinition.prototype.addTraderestrictions = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.actions.AssetDefinition} returns this
- */
-proto.actions.AssetDefinition.prototype.clearTraderestrictionsList = function() {
-  return this.setTraderestrictionsList([]);
 };
 
 
@@ -4962,13 +4925,50 @@ proto.actions.AssetDefinition.prototype.setAssetpayload = function(value) {
 };
 
 
+/**
+ * repeated string TradeRestrictions = 13;
+ * @return {!Array<string>}
+ */
+proto.actions.AssetDefinition.prototype.getTraderestrictionsList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 13));
+};
+
+
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.actions.AssetDefinition} returns this
+ */
+proto.actions.AssetDefinition.prototype.setTraderestrictionsList = function(value) {
+  return jspb.Message.setField(this, 13, value || []);
+};
+
+
+/**
+ * @param {string} value
+ * @param {number=} opt_index
+ * @return {!proto.actions.AssetDefinition} returns this
+ */
+proto.actions.AssetDefinition.prototype.addTraderestrictions = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 13, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.actions.AssetDefinition} returns this
+ */
+proto.actions.AssetDefinition.prototype.clearTraderestrictionsList = function() {
+  return this.setTraderestrictionsList([]);
+};
+
+
 
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
  * @const
  */
-proto.actions.AssetCreation.repeatedFields_ = [5];
+proto.actions.AssetCreation.repeatedFields_ = [17];
 
 
 
@@ -5005,7 +5005,6 @@ proto.actions.AssetCreation.toObject = function(includeInstance, msg) {
     assetindex: jspb.Message.getFieldWithDefault(msg, 2, 0),
     assetpermissions: msg.getAssetpermissions_asB64(),
     transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
-    traderestrictionsList: (f = jspb.Message.getRepeatedField(msg, 5)) == null ? undefined : f,
     enforcementorderspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
     votingrights: jspb.Message.getBooleanFieldWithDefault(msg, 7, false),
     votemultiplier: jspb.Message.getFieldWithDefault(msg, 8, 0),
@@ -5016,7 +5015,8 @@ proto.actions.AssetCreation.toObject = function(includeInstance, msg) {
     assettype: jspb.Message.getFieldWithDefault(msg, 13, ""),
     assetpayload: msg.getAssetpayload_asB64(),
     assetrevision: jspb.Message.getFieldWithDefault(msg, 15, 0),
-    timestamp: jspb.Message.getFieldWithDefault(msg, 16, 0)
+    timestamp: jspb.Message.getFieldWithDefault(msg, 16, 0),
+    traderestrictionsList: (f = jspb.Message.getRepeatedField(msg, 17)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -5069,10 +5069,6 @@ proto.actions.AssetCreation.deserializeBinaryFromReader = function(msg, reader) 
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setTransferspermitted(value);
       break;
-    case 5:
-      var value = /** @type {string} */ (reader.readString());
-      msg.addTraderestrictions(value);
-      break;
     case 6:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setEnforcementorderspermitted(value);
@@ -5116,6 +5112,10 @@ proto.actions.AssetCreation.deserializeBinaryFromReader = function(msg, reader) 
     case 16:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setTimestamp(value);
+      break;
+    case 17:
+      var value = /** @type {string} */ (reader.readString());
+      msg.addTraderestrictions(value);
       break;
     default:
       reader.skipField();
@@ -5171,13 +5171,6 @@ proto.actions.AssetCreation.serializeBinaryToWriter = function(message, writer) 
   if (f) {
     writer.writeBool(
       4,
-      f
-    );
-  }
-  f = message.getTraderestrictionsList();
-  if (f.length > 0) {
-    writer.writeRepeatedString(
-      5,
       f
     );
   }
@@ -5255,6 +5248,13 @@ proto.actions.AssetCreation.serializeBinaryToWriter = function(message, writer) 
   if (f !== 0) {
     writer.writeUint64(
       16,
+      f
+    );
+  }
+  f = message.getTraderestrictionsList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      17,
       f
     );
   }
@@ -5378,43 +5378,6 @@ proto.actions.AssetCreation.prototype.getTransferspermitted = function() {
  */
 proto.actions.AssetCreation.prototype.setTransferspermitted = function(value) {
   return jspb.Message.setProto3BooleanField(this, 4, value);
-};
-
-
-/**
- * repeated string TradeRestrictions = 5;
- * @return {!Array<string>}
- */
-proto.actions.AssetCreation.prototype.getTraderestrictionsList = function() {
-  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 5));
-};
-
-
-/**
- * @param {!Array<string>} value
- * @return {!proto.actions.AssetCreation} returns this
- */
-proto.actions.AssetCreation.prototype.setTraderestrictionsList = function(value) {
-  return jspb.Message.setField(this, 5, value || []);
-};
-
-
-/**
- * @param {string} value
- * @param {number=} opt_index
- * @return {!proto.actions.AssetCreation} returns this
- */
-proto.actions.AssetCreation.prototype.addTraderestrictions = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 5, value, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.actions.AssetCreation} returns this
- */
-proto.actions.AssetCreation.prototype.clearTraderestrictionsList = function() {
-  return this.setTraderestrictionsList([]);
 };
 
 
@@ -5637,6 +5600,43 @@ proto.actions.AssetCreation.prototype.getTimestamp = function() {
  */
 proto.actions.AssetCreation.prototype.setTimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 16, value);
+};
+
+
+/**
+ * repeated string TradeRestrictions = 17;
+ * @return {!Array<string>}
+ */
+proto.actions.AssetCreation.prototype.getTraderestrictionsList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 17));
+};
+
+
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.actions.AssetCreation} returns this
+ */
+proto.actions.AssetCreation.prototype.setTraderestrictionsList = function(value) {
+  return jspb.Message.setField(this, 17, value || []);
+};
+
+
+/**
+ * @param {string} value
+ * @param {number=} opt_index
+ * @return {!proto.actions.AssetCreation} returns this
+ */
+proto.actions.AssetCreation.prototype.addTraderestrictions = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 17, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.actions.AssetCreation} returns this
+ */
+proto.actions.AssetCreation.prototype.clearTraderestrictionsList = function() {
+  return this.setTraderestrictionsList([]);
 };
 
 

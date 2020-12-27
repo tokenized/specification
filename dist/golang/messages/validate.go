@@ -169,7 +169,7 @@ func (a *OutputMetadata) Validate() error {
 		return fmt.Errorf("OutputDescription over max size : %d > %d", len(a.OutputDescription), max4ByteInteger)
 	}
 
-	// Field Tags - uint
+	// Field Tags - uint  (Tags Resource)
 	if len(a.Tags) > max1ByteInteger {
 		return fmt.Errorf("Tags list over max length : %d > %d", len(a.Tags), max1ByteInteger)
 	}
@@ -359,7 +359,7 @@ func (a *AdministratorField) Validate() error {
 		return nil
 	}
 
-	// Field Type - uint
+	// Field Type - uint  (Roles Resource)
 	if RolesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Roles value not defined : %v", a.Type)
 	}
@@ -428,7 +428,7 @@ func (a *EntityField) Validate() error {
 		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
 	}
 
-	// Field Type - fixedchar
+	// Field Type - fixedchar  (Entities Resource)
 	if EntitiesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Entities value not defined : %v", a.Type)
 	}
@@ -552,7 +552,7 @@ func (a *ManagerField) Validate() error {
 		return nil
 	}
 
-	// Field Type - uint
+	// Field Type - uint  (Roles Resource)
 	if RolesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Roles value not defined : %v", a.Type)
 	}

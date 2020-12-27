@@ -45,7 +45,7 @@
 		{{- else if eq .BaseType "uint" }}
 		if a.{{ .Name }}[i] != newValue.{{ .Name }}[i] {
 			var buf bytes.Buffer
-			if err := WriteBase128VarInt(&buf, int(newValue.{{ .Name }}[i])); err != nil {
+			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.{{ .Name }}[i])); err != nil {
 				return nil, errors.Wrapf(err, "{{ .Name }} %d", i)
 			}
 
@@ -98,7 +98,7 @@
 			amendment.Data = newValue.{{ .Name }}[i]
 		{{- else if eq .BaseType "uint" }}
 			var buf bytes.Buffer
-			if err := WriteBase128VarInt(&buf, int(newValue.{{ .Name }}[i])); err != nil {
+			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.{{ .Name }}[i])); err != nil {
 				return nil, errors.Wrapf(err, "{{ .Name }} %d", i)
 			}
 			amendment.Data = buf.Bytes()
@@ -117,7 +117,22 @@
 	}
 
 	{{- else }}
-		{{- if .IsCompoundType }}
+		{{- if eq .Name "AssetType" }}
+		// AssetType modifications not allowed
+		{{- else if eq .Name "AssetPayload" }}
+	if a.AssetType != newValue.AssetType {
+		return nil, fmt.Errorf("Asset type modification not allowed : %s -> %s", a.AssetType,
+			newValue.AssetType)
+	}
+
+	payloadAmendments, err := assets.CreatePayloadAmendments(fip, []byte(a.AssetType),
+		a.AssetPayload, newValue.AssetPayload)
+	if err != nil {
+		return nil, errors.Wrap(err, "{{ .Name }}")
+	}
+	result = append(result, payloadAmendments...)
+		{{- else if .IsCompoundType }}
+
 	{{ .Name }}Amendments, err := a.{{ .Name }}.CreateAmendments(fip, newValue.{{ .Name }})
 	if err != nil {
 		return nil, errors.Wrap(err, "{{ .Name }}")
@@ -147,7 +162,7 @@
 		{{- else if eq .BaseType "uint" }}
 	if a.{{ .Name }} != newValue.{{ .Name }} {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.{{ .Name }})); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.{{ .Name }})); err != nil {
 			return nil, errors.Wrap(err, "{{ .Name }}")
 		}
 

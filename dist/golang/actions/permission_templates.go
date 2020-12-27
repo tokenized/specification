@@ -167,15 +167,15 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []FieldIndexPath{
-					FieldIndexPath{1}, // [AssetPermissions]
-					FieldIndexPath{2}, // [TransfersPermitted]
-					FieldIndexPath{3}, // [TradeRestrictions]
-					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
-					FieldIndexPath{5}, // [VotingRights]
-					FieldIndexPath{6}, // [VoteMultiplier]
-					FieldIndexPath{7}, // [AdministrationProposal]
-					FieldIndexPath{8}, // [HolderProposal]
-					FieldIndexPath{9}, // [AssetModificationGovernance]
+					FieldIndexPath{1},  // [AssetPermissions]
+					FieldIndexPath{2},  // [TransfersPermitted]
+					FieldIndexPath{13}, // [TradeRestrictions]
+					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
+					FieldIndexPath{5},  // [VotingRights]
+					FieldIndexPath{6},  // [VoteMultiplier]
+					FieldIndexPath{7},  // [AdministrationProposal]
+					FieldIndexPath{8},  // [HolderProposal]
+					FieldIndexPath{9},  // [AssetModificationGovernance]
 				},
 			},
 			Permission{ // Administrator Direct
@@ -202,15 +202,15 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []FieldIndexPath{
-					FieldIndexPath{1}, // [AssetPermissions]
-					FieldIndexPath{2}, // [TransfersPermitted]
-					FieldIndexPath{3}, // [TradeRestrictions]
-					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
-					FieldIndexPath{5}, // [VotingRights]
-					FieldIndexPath{6}, // [VoteMultiplier]
-					FieldIndexPath{7}, // [AdministrationProposal]
-					FieldIndexPath{8}, // [HolderProposal]
-					FieldIndexPath{9}, // [AssetModificationGovernance]
+					FieldIndexPath{1},  // [AssetPermissions]
+					FieldIndexPath{2},  // [TransfersPermitted]
+					FieldIndexPath{13}, // [TradeRestrictions]
+					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
+					FieldIndexPath{5},  // [VotingRights]
+					FieldIndexPath{6},  // [VoteMultiplier]
+					FieldIndexPath{7},  // [AdministrationProposal]
+					FieldIndexPath{8},  // [HolderProposal]
+					FieldIndexPath{9},  // [AssetModificationGovernance]
 				},
 			},
 			Permission{ // Administrator Direct
@@ -238,15 +238,15 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []FieldIndexPath{
-					FieldIndexPath{1}, // [AssetPermissions]
-					FieldIndexPath{2}, // [TransfersPermitted]
-					FieldIndexPath{3}, // [TradeRestrictions]
-					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
-					FieldIndexPath{5}, // [VotingRights]
-					FieldIndexPath{6}, // [VoteMultiplier]
-					FieldIndexPath{7}, // [AdministrationProposal]
-					FieldIndexPath{8}, // [HolderProposal]
-					FieldIndexPath{9}, // [AssetModificationGovernance]
+					FieldIndexPath{1},  // [AssetPermissions]
+					FieldIndexPath{2},  // [TransfersPermitted]
+					FieldIndexPath{13}, // [TradeRestrictions]
+					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
+					FieldIndexPath{5},  // [VotingRights]
+					FieldIndexPath{6},  // [VoteMultiplier]
+					FieldIndexPath{7},  // [AdministrationProposal]
+					FieldIndexPath{8},  // [HolderProposal]
+					FieldIndexPath{9},  // [AssetModificationGovernance]
 				},
 			},
 			Permission{ // Administrator Direct
@@ -282,7 +282,7 @@ var PrivateCompany = PermissionConfig{
 				Fields: []FieldIndexPath{
 					FieldIndexPath{1},     // [AssetPermissions]
 					FieldIndexPath{2},     // [TransfersPermitted]
-					FieldIndexPath{3},     // [TradeRestrictions]
+					FieldIndexPath{13},    // [TradeRestrictions]
 					FieldIndexPath{4},     // [EnforcementOrdersPermitted]
 					FieldIndexPath{5},     // [VotingRights]
 					FieldIndexPath{6},     // [VoteMultiplier]
@@ -333,7 +333,7 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []FieldIndexPath{
-					FieldIndexPath{3},     // [TradeRestrictions]
+					FieldIndexPath{13},    // [TradeRestrictions]
 					FieldIndexPath{4},     // [EnforcementOrdersPermitted]
 					FieldIndexPath{9},     // [AssetModificationGovernance]
 					FieldIndexPath{12, 3}, // [AssetPayload ExpirationTimestamp]
@@ -381,9 +381,9 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, true, false, false},
 				Fields: []FieldIndexPath{
-					FieldIndexPath{3}, // [TradeRestrictions]
-					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
-					FieldIndexPath{9}, // [AssetModificationGovernance]
+					FieldIndexPath{13}, // [TradeRestrictions]
+					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
+					FieldIndexPath{9},  // [AssetModificationGovernance]
 				},
 			},
 		},
@@ -395,15 +395,15 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []FieldIndexPath{
-					FieldIndexPath{1}, // [AssetPermissions]
-					FieldIndexPath{2}, // [TransfersPermitted]
-					FieldIndexPath{3}, // [TradeRestrictions]
-					FieldIndexPath{4}, // [EnforcementOrdersPermitted]
-					FieldIndexPath{5}, // [VotingRights]
-					FieldIndexPath{6}, // [VoteMultiplier]
-					FieldIndexPath{7}, // [AdministrationProposal]
-					FieldIndexPath{8}, // [HolderProposal]
-					FieldIndexPath{9}, // [AssetModificationGovernance]
+					FieldIndexPath{1},  // [AssetPermissions]
+					FieldIndexPath{2},  // [TransfersPermitted]
+					FieldIndexPath{13}, // [TradeRestrictions]
+					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
+					FieldIndexPath{5},  // [VotingRights]
+					FieldIndexPath{6},  // [VoteMultiplier]
+					FieldIndexPath{7},  // [AdministrationProposal]
+					FieldIndexPath{8},  // [HolderProposal]
+					FieldIndexPath{9},  // [AssetModificationGovernance]
 				},
 			},
 			Permission{ // Administrator Direct

@@ -5,6 +5,8 @@ import (
 	"encoding/binary"
 	"fmt"
 
+	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/specification/dist/golang/assets"
 	"github.com/tokenized/specification/dist/golang/internal"
 
 	proto "github.com/golang/protobuf/proto"
@@ -18,8 +20,8 @@ const (
 	ContractFieldBodyOfAgreement                      = uint32(3)
 	DeprecatedContractFieldContractType               = uint32(4)
 	ContractFieldSupportingDocs                       = uint32(5)
-	ContractFieldGoverningLaw                         = uint32(6)
-	ContractFieldJurisdiction                         = uint32(7)
+	DeprecatedContractFieldGoverningLaw               = uint32(6)
+	DeprecatedContractFieldJurisdiction               = uint32(7)
 	ContractFieldContractExpiration                   = uint32(8)
 	ContractFieldContractURI                          = uint32(9)
 	ContractFieldIssuer                               = uint32(10)
@@ -42,6 +44,8 @@ const (
 	ContractFieldContractType                         = uint32(27)
 	ContractFieldServices                             = uint32(28)
 	ContractFieldAdminIdentityCertificates            = uint32(29)
+	ContractFieldGoverningLaw                         = uint32(30)
+	ContractFieldJurisdiction                         = uint32(31)
 )
 
 // CreateAmendments determines the differences between two ContractOffers and returns
@@ -68,7 +72,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	fip = []uint32{ContractFieldBodyOfAgreementType}
 	if a.BodyOfAgreementType != newValue.BodyOfAgreementType {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.BodyOfAgreementType)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.BodyOfAgreementType)); err != nil {
 			return nil, errors.Wrap(err, "BodyOfAgreementType")
 		}
 
@@ -132,29 +136,15 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		result = append(result, amendment)
 	}
 
-	// GoverningLaw string
-	fip = []uint32{ContractFieldGoverningLaw}
-	if a.GoverningLaw != newValue.GoverningLaw {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.GoverningLaw),
-		})
-	}
+	// deprecated GoverningLaw deprecated
 
-	// Jurisdiction string
-	fip = []uint32{ContractFieldJurisdiction}
-	if a.Jurisdiction != newValue.Jurisdiction {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.Jurisdiction),
-		})
-	}
+	// deprecated Jurisdiction deprecated
 
 	// ContractExpiration uint64
 	fip = []uint32{ContractFieldContractExpiration}
 	if a.ContractExpiration != newValue.ContractExpiration {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ContractExpiration)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ContractExpiration)); err != nil {
 			return nil, errors.Wrap(err, "ContractExpiration")
 		}
 
@@ -175,6 +165,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 	// Issuer EntityField
 	fip = []uint32{ContractFieldIssuer}
+
 	IssuerAmendments, err := a.Issuer.CreateAmendments(fip, newValue.Issuer)
 	if err != nil {
 		return nil, errors.Wrap(err, "Issuer")
@@ -195,7 +186,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	fip = []uint32{ContractFieldContractFee}
 	if a.ContractFee != newValue.ContractFee {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ContractFee)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ContractFee)); err != nil {
 			return nil, errors.Wrap(err, "ContractFee")
 		}
 
@@ -261,7 +252,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	fip = []uint32{ContractFieldRestrictedQtyAssets}
 	if a.RestrictedQtyAssets != newValue.RestrictedQtyAssets {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.RestrictedQtyAssets)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.RestrictedQtyAssets)); err != nil {
 			return nil, errors.Wrap(err, "RestrictedQtyAssets")
 		}
 
@@ -364,7 +355,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	fip = []uint32{ContractFieldContractType}
 	if a.ContractType != newValue.ContractType {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ContractType)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ContractType)); err != nil {
 			return nil, errors.Wrap(err, "ContractType")
 		}
 
@@ -460,6 +451,24 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		result = append(result, amendment)
 	}
 
+	// GoverningLaw string
+	fip = []uint32{ContractFieldGoverningLaw}
+	if a.GoverningLaw != newValue.GoverningLaw {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.GoverningLaw),
+		})
+	}
+
+	// Jurisdiction string
+	fip = []uint32{ContractFieldJurisdiction}
+	if a.Jurisdiction != newValue.Jurisdiction {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Jurisdiction),
+		})
+	}
+
 	r, err := convertAmendments(result)
 	if err != nil {
 		return nil, errors.Wrap(err, "convert amendments")
@@ -488,7 +497,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for BodyOfAgreementType : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("BodyOfAgreementType amendment value failed to deserialize : %s", err)
 		} else {
 			a.BodyOfAgreementType = uint32(value)
@@ -543,20 +552,16 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return append(fip[:1], fip[2:]...), nil
 		}
 
-	case ContractFieldGoverningLaw: // string
-		a.GoverningLaw = string(data)
-		return fip[:], nil
+	case DeprecatedContractFieldGoverningLaw: // deprecated
 
-	case ContractFieldJurisdiction: // string
-		a.Jurisdiction = string(data)
-		return fip[:], nil
+	case DeprecatedContractFieldJurisdiction: // deprecated
 
 	case ContractFieldContractExpiration: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractExpiration : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractExpiration amendment value failed to deserialize : %s", err)
 		} else {
 			a.ContractExpiration = uint64(value)
@@ -585,7 +590,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractFee : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractFee amendment value failed to deserialize : %s", err)
 		} else {
 			a.ContractFee = uint64(value)
@@ -643,7 +648,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for RestrictedQtyAssets : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("RestrictedQtyAssets amendment value failed to deserialize : %s", err)
 		} else {
 			a.RestrictedQtyAssets = uint64(value)
@@ -734,7 +739,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractType : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractType amendment value failed to deserialize : %s", err)
 		} else {
 			a.ContractType = uint32(value)
@@ -825,6 +830,14 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return append(fip[:1], fip[2:]...), nil
 		}
 
+	case ContractFieldGoverningLaw: // string
+		a.GoverningLaw = string(data)
+		return fip[:], nil
+
+	case ContractFieldJurisdiction: // string
+		a.Jurisdiction = string(data)
+		return fip[:], nil
+
 	}
 
 	return nil, fmt.Errorf("Unknown contract amendment field index : %v", fip)
@@ -832,18 +845,19 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // Asset Permission / Amendment Field Indices
 const (
-	AssetFieldAssetPermissions            = uint32(1)
-	AssetFieldTransfersPermitted          = uint32(2)
-	AssetFieldTradeRestrictions           = uint32(3)
-	AssetFieldEnforcementOrdersPermitted  = uint32(4)
-	AssetFieldVotingRights                = uint32(5)
-	AssetFieldVoteMultiplier              = uint32(6)
-	AssetFieldAdministrationProposal      = uint32(7)
-	AssetFieldHolderProposal              = uint32(8)
-	AssetFieldAssetModificationGovernance = uint32(9)
-	AssetFieldTokenQty                    = uint32(10)
-	AssetFieldAssetType                   = uint32(11)
-	AssetFieldAssetPayload                = uint32(12)
+	AssetFieldAssetPermissions                      = uint32(1)
+	AssetFieldTransfersPermitted                    = uint32(2)
+	DeprecatedAssetFieldTradeRestrictionsDeprecated = uint32(3)
+	AssetFieldEnforcementOrdersPermitted            = uint32(4)
+	AssetFieldVotingRights                          = uint32(5)
+	AssetFieldVoteMultiplier                        = uint32(6)
+	AssetFieldAdministrationProposal                = uint32(7)
+	AssetFieldHolderProposal                        = uint32(8)
+	AssetFieldAssetModificationGovernance           = uint32(9)
+	AssetFieldTokenQty                              = uint32(10)
+	AssetFieldAssetType                             = uint32(11)
+	AssetFieldAssetPayload                          = uint32(12)
+	AssetFieldTradeRestrictions                     = uint32(13)
 )
 
 // CreateAmendments determines the differences between two AssetDefinitions and returns
@@ -884,45 +898,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 		})
 	}
 
-	// TradeRestrictions []string
-	fip = []uint32{AssetFieldTradeRestrictions}
-	TradeRestrictionsMin := len(a.TradeRestrictions)
-	if TradeRestrictionsMin > len(newValue.TradeRestrictions) {
-		TradeRestrictionsMin = len(newValue.TradeRestrictions)
-	}
-
-	// Compare values
-	for i := 0; i < TradeRestrictionsMin; i++ {
-		lfip := append(fip, uint32(i))
-		if a.TradeRestrictions[i] != newValue.TradeRestrictions[i] {
-			result = append(result, &internal.Amendment{
-				FIP:       lfip,
-				Operation: 0, // Modify element
-				Data:      []byte(newValue.TradeRestrictions[i]),
-			})
-		}
-	}
-
-	TradeRestrictionsMax := len(a.TradeRestrictions)
-	if TradeRestrictionsMax < len(newValue.TradeRestrictions) {
-		TradeRestrictionsMax = len(newValue.TradeRestrictions)
-	}
-
-	// Add/Remove values
-	for i := TradeRestrictionsMin; i < TradeRestrictionsMax; i++ {
-		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
-		}
-
-		if i < len(newValue.TradeRestrictions) {
-			amendment.Operation = 1 // Add element
-			amendment.Data = []byte(newValue.TradeRestrictions[i])
-		} else {
-			amendment.Operation = 2 // Remove element
-		}
-
-		result = append(result, amendment)
-	}
+	// deprecated TradeRestrictionsDeprecated deprecated
 
 	// EnforcementOrdersPermitted bool
 	fip = []uint32{AssetFieldEnforcementOrdersPermitted}
@@ -956,7 +932,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	fip = []uint32{AssetFieldVoteMultiplier}
 	if a.VoteMultiplier != newValue.VoteMultiplier {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.VoteMultiplier)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.VoteMultiplier)); err != nil {
 			return nil, errors.Wrap(err, "VoteMultiplier")
 		}
 
@@ -998,7 +974,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	fip = []uint32{AssetFieldAssetModificationGovernance}
 	if a.AssetModificationGovernance != newValue.AssetModificationGovernance {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.AssetModificationGovernance)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.AssetModificationGovernance)); err != nil {
 			return nil, errors.Wrap(err, "AssetModificationGovernance")
 		}
 
@@ -1012,7 +988,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	fip = []uint32{AssetFieldTokenQty}
 	if a.TokenQty != newValue.TokenQty {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.TokenQty)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.TokenQty)); err != nil {
 			return nil, errors.Wrap(err, "TokenQty")
 		}
 
@@ -1024,20 +1000,60 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 
 	// AssetType string
 	fip = []uint32{AssetFieldAssetType}
-	if a.AssetType != newValue.AssetType {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.AssetType),
-		})
-	}
+	// AssetType modifications not allowed
 
 	// AssetPayload []byte
 	fip = []uint32{AssetFieldAssetPayload}
-	if !bytes.Equal(a.AssetPayload, newValue.AssetPayload) {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: newValue.AssetPayload,
-		})
+	if a.AssetType != newValue.AssetType {
+		return nil, fmt.Errorf("Asset type modification not allowed : %s -> %s", a.AssetType,
+			newValue.AssetType)
+	}
+
+	payloadAmendments, err := assets.CreatePayloadAmendments(fip, []byte(a.AssetType),
+		a.AssetPayload, newValue.AssetPayload)
+	if err != nil {
+		return nil, errors.Wrap(err, "AssetPayload")
+	}
+	result = append(result, payloadAmendments...)
+
+	// TradeRestrictions []string
+	fip = []uint32{AssetFieldTradeRestrictions}
+	TradeRestrictionsMin := len(a.TradeRestrictions)
+	if TradeRestrictionsMin > len(newValue.TradeRestrictions) {
+		TradeRestrictionsMin = len(newValue.TradeRestrictions)
+	}
+
+	// Compare values
+	for i := 0; i < TradeRestrictionsMin; i++ {
+		lfip := append(fip, uint32(i))
+		if a.TradeRestrictions[i] != newValue.TradeRestrictions[i] {
+			result = append(result, &internal.Amendment{
+				FIP:       lfip,
+				Operation: 0, // Modify element
+				Data:      []byte(newValue.TradeRestrictions[i]),
+			})
+		}
+	}
+
+	TradeRestrictionsMax := len(a.TradeRestrictions)
+	if TradeRestrictionsMax < len(newValue.TradeRestrictions) {
+		TradeRestrictionsMax = len(newValue.TradeRestrictions)
+	}
+
+	// Add/Remove values
+	for i := TradeRestrictionsMin; i < TradeRestrictionsMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.TradeRestrictions) {
+			amendment.Operation = 1 // Add element
+			amendment.Data = []byte(newValue.TradeRestrictions[i])
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
 	}
 
 	r, err := convertAmendments(result)
@@ -1077,41 +1093,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		}
 		return fip[:], nil
 
-	case AssetFieldTradeRestrictions: // []string
-		switch operation {
-		case 0: // Modify
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify TradeRestrictions : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.TradeRestrictions) {
-				return nil, fmt.Errorf("Amendment element index out of range for modify TradeRestrictions : %d", fip[1])
-			}
-			a.TradeRestrictions[fip[1]] = string(data)
-			return append(fip[:1], fip[2:]...), nil
-
-		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add TradeRestrictions : %v",
-					fip)
-			}
-			newValue := string(data)
-			a.TradeRestrictions = append(a.TradeRestrictions, newValue)
-			return fip[:], nil
-
-		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete TradeRestrictions : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.TradeRestrictions) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete TradeRestrictions : %d", fip[1])
-			}
-
-			// Remove item from list
-			a.TradeRestrictions = append(a.TradeRestrictions[:fip[1]], a.TradeRestrictions[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
-		}
+	case DeprecatedAssetFieldTradeRestrictionsDeprecated: // deprecated
 
 	case AssetFieldEnforcementOrdersPermitted: // bool
 		if len(fip) > 1 {
@@ -1144,7 +1126,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for VoteMultiplier : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("VoteMultiplier amendment value failed to deserialize : %s", err)
 		} else {
 			a.VoteMultiplier = uint32(value)
@@ -1182,7 +1164,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for AssetModificationGovernance : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("AssetModificationGovernance amendment value failed to deserialize : %s", err)
 		} else {
 			a.AssetModificationGovernance = uint32(value)
@@ -1194,7 +1176,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for TokenQty : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("TokenQty amendment value failed to deserialize : %s", err)
 		} else {
 			a.TokenQty = uint64(value)
@@ -1208,6 +1190,42 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	case AssetFieldAssetPayload: // []byte
 		a.AssetPayload = data
 		return fip[:], nil
+
+	case AssetFieldTradeRestrictions: // []string
+		switch operation {
+		case 0: // Modify
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify TradeRestrictions : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.TradeRestrictions) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify TradeRestrictions : %d", fip[1])
+			}
+			a.TradeRestrictions[fip[1]] = string(data)
+			return append(fip[:1], fip[2:]...), nil
+
+		case 1: // Add element
+			if len(fip) > 1 {
+				return nil, fmt.Errorf("Amendment field index path too deep for add TradeRestrictions : %v",
+					fip)
+			}
+			newValue := string(data)
+			a.TradeRestrictions = append(a.TradeRestrictions, newValue)
+			return fip[:], nil
+
+		case 2: // Delete element
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete TradeRestrictions : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.TradeRestrictions) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete TradeRestrictions : %d", fip[1])
+			}
+
+			// Remove item from list
+			a.TradeRestrictions = append(a.TradeRestrictions[:fip[1]], a.TradeRestrictions[fip[1]+1:]...)
+			return append(fip[:1], fip[2:]...), nil
+		}
 
 	}
 
@@ -1239,7 +1257,7 @@ func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for Type : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
 		} else {
 			a.Type = uint32(value)
@@ -1271,7 +1289,7 @@ func (a *AdministratorField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AdministratorFieldType)
 	if a.Type != newValue.Type {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Type)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Type)); err != nil {
 			return nil, errors.Wrap(err, "Type")
 		}
 
@@ -1325,7 +1343,7 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 			return nil, fmt.Errorf("Amendment field index path too deep for BlockHeight : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("BlockHeight amendment value failed to deserialize : %s", err)
 		} else {
 			a.BlockHeight = uint32(value)
@@ -1337,7 +1355,7 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 			return nil, fmt.Errorf("Amendment field index path too deep for Expiration : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Expiration amendment value failed to deserialize : %s", err)
 		} else {
 			a.Expiration = uint64(value)
@@ -1383,7 +1401,7 @@ func (a *AdminIdentityCertificateField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AdminIdentityCertificateFieldBlockHeight)
 	if a.BlockHeight != newValue.BlockHeight {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.BlockHeight)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.BlockHeight)); err != nil {
 			return nil, errors.Wrap(err, "BlockHeight")
 		}
 
@@ -1397,7 +1415,7 @@ func (a *AdminIdentityCertificateField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AdminIdentityCertificateFieldExpiration)
 	if a.Expiration != newValue.Expiration {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Expiration)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Expiration)); err != nil {
 			return nil, errors.Wrap(err, "Expiration")
 		}
 
@@ -1437,7 +1455,7 @@ func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for Operation : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Operation amendment value failed to deserialize : %s", err)
 		} else {
 			a.Operation = uint32(value)
@@ -1478,7 +1496,7 @@ func (a *AmendmentField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AmendmentFieldOperation)
 	if a.Operation != newValue.Operation {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Operation)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Operation)); err != nil {
 			return nil, errors.Wrap(err, "Operation")
 		}
 
@@ -1531,7 +1549,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Quantity amendment value failed to deserialize : %s", err)
 		} else {
 			a.Quantity = uint64(value)
@@ -1543,7 +1561,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigAlgorithm : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleSigAlgorithm amendment value failed to deserialize : %s", err)
 		} else {
 			a.OracleSigAlgorithm = uint32(value)
@@ -1555,7 +1573,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleIndex : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleIndex amendment value failed to deserialize : %s", err)
 		} else {
 			a.OracleIndex = uint32(value)
@@ -1571,7 +1589,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigBlockHeight : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleSigBlockHeight amendment value failed to deserialize : %s", err)
 		} else {
 			a.OracleSigBlockHeight = uint32(value)
@@ -1583,7 +1601,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigExpiry : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleSigExpiry amendment value failed to deserialize : %s", err)
 		} else {
 			a.OracleSigExpiry = uint64(value)
@@ -1620,7 +1638,7 @@ func (a *AssetReceiverField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AssetReceiverFieldQuantity)
 	if a.Quantity != newValue.Quantity {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Quantity)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Quantity)); err != nil {
 			return nil, errors.Wrap(err, "Quantity")
 		}
 
@@ -1634,7 +1652,7 @@ func (a *AssetReceiverField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AssetReceiverFieldOracleSigAlgorithm)
 	if a.OracleSigAlgorithm != newValue.OracleSigAlgorithm {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.OracleSigAlgorithm)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleSigAlgorithm)); err != nil {
 			return nil, errors.Wrap(err, "OracleSigAlgorithm")
 		}
 
@@ -1648,7 +1666,7 @@ func (a *AssetReceiverField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AssetReceiverFieldOracleIndex)
 	if a.OracleIndex != newValue.OracleIndex {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.OracleIndex)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleIndex)); err != nil {
 			return nil, errors.Wrap(err, "OracleIndex")
 		}
 
@@ -1671,7 +1689,7 @@ func (a *AssetReceiverField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AssetReceiverFieldOracleSigBlockHeight)
 	if a.OracleSigBlockHeight != newValue.OracleSigBlockHeight {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.OracleSigBlockHeight)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleSigBlockHeight)); err != nil {
 			return nil, errors.Wrap(err, "OracleSigBlockHeight")
 		}
 
@@ -1685,7 +1703,7 @@ func (a *AssetReceiverField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AssetReceiverFieldOracleSigExpiry)
 	if a.OracleSigExpiry != newValue.OracleSigExpiry {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.OracleSigExpiry)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleSigExpiry)); err != nil {
 			return nil, errors.Wrap(err, "OracleSigExpiry")
 		}
 
@@ -1722,7 +1740,7 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractIndex : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractIndex amendment value failed to deserialize : %s", err)
 		} else {
 			a.ContractIndex = uint32(value)
@@ -1803,7 +1821,7 @@ func (a *AssetSettlementField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AssetSettlementFieldContractIndex)
 	if a.ContractIndex != newValue.ContractIndex {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ContractIndex)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ContractIndex)); err != nil {
 			return nil, errors.Wrap(err, "ContractIndex")
 		}
 
@@ -1815,12 +1833,7 @@ func (a *AssetSettlementField) CreateAmendments(fip []uint32,
 
 	// AssetType string
 	fip = append(ofip, AssetSettlementFieldAssetType)
-	if a.AssetType != newValue.AssetType {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.AssetType),
-		})
-	}
+	// AssetType modifications not allowed
 
 	// AssetCode []byte
 	fip = append(ofip, AssetSettlementFieldAssetCode)
@@ -1902,7 +1915,7 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractIndex : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractIndex amendment value failed to deserialize : %s", err)
 		} else {
 			a.ContractIndex = uint32(value)
@@ -2025,7 +2038,7 @@ func (a *AssetTransferField) CreateAmendments(fip []uint32,
 	fip = append(ofip, AssetTransferFieldContractIndex)
 	if a.ContractIndex != newValue.ContractIndex {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ContractIndex)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ContractIndex)); err != nil {
 			return nil, errors.Wrap(err, "ContractIndex")
 		}
 
@@ -2037,12 +2050,7 @@ func (a *AssetTransferField) CreateAmendments(fip []uint32,
 
 	// AssetType string
 	fip = append(ofip, AssetTransferFieldAssetType)
-	if a.AssetType != newValue.AssetType {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.AssetType),
-		})
-	}
+	// AssetType modifications not allowed
 
 	// AssetCode []byte
 	fip = append(ofip, AssetTransferFieldAssetCode)
@@ -2655,7 +2663,7 @@ func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for Type : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
 		} else {
 			a.Type = uint32(value)
@@ -2687,7 +2695,7 @@ func (a *ManagerField) CreateAmendments(fip []uint32,
 	fip = append(ofip, ManagerFieldType)
 	if a.Type != newValue.Type {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Type)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Type)); err != nil {
 			return nil, errors.Wrap(err, "Type")
 		}
 
@@ -2746,7 +2754,7 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				return nil, fmt.Errorf("Amendment element index out of range for modify OracleTypes : %d", fip[1])
 			}
 			buf := bytes.NewBuffer(data)
-			if value, err := ReadBase128VarInt(buf); err != nil {
+			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s", err)
 			} else {
 				a.OracleTypes[fip[1]] = uint32(value)
@@ -2760,7 +2768,7 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			}
 			var newValue uint32
 			buf := bytes.NewBuffer(data)
-			if value, err := ReadBase128VarInt(buf); err != nil {
+			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s", err)
 			} else {
 				newValue = uint32(value)
@@ -2821,7 +2829,7 @@ func (a *OracleField) CreateAmendments(fip []uint32,
 		lfip := append(fip, uint32(i))
 		if a.OracleTypes[i] != newValue.OracleTypes[i] {
 			var buf bytes.Buffer
-			if err := WriteBase128VarInt(&buf, int(newValue.OracleTypes[i])); err != nil {
+			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleTypes[i])); err != nil {
 				return nil, errors.Wrapf(err, "OracleTypes %d", i)
 			}
 
@@ -2847,7 +2855,7 @@ func (a *OracleField) CreateAmendments(fip []uint32,
 		if i < len(newValue.OracleTypes) {
 			amendment.Operation = 1 // Add element
 			var buf bytes.Buffer
-			if err := WriteBase128VarInt(&buf, int(newValue.OracleTypes[i])); err != nil {
+			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleTypes[i])); err != nil {
 				return nil, errors.Wrapf(err, "OracleTypes %d", i)
 			}
 			amendment.Data = buf.Bytes()
@@ -2892,7 +2900,7 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for Index : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Index amendment value failed to deserialize : %s", err)
 		} else {
 			a.Index = uint32(value)
@@ -2904,7 +2912,7 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Quantity amendment value failed to deserialize : %s", err)
 		} else {
 			a.Quantity = uint64(value)
@@ -2932,7 +2940,7 @@ func (a *QuantityIndexField) CreateAmendments(fip []uint32,
 	fip = append(ofip, QuantityIndexFieldIndex)
 	if a.Index != newValue.Index {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Index)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Index)); err != nil {
 			return nil, errors.Wrap(err, "Index")
 		}
 
@@ -2946,7 +2954,7 @@ func (a *QuantityIndexField) CreateAmendments(fip []uint32,
 	fip = append(ofip, QuantityIndexFieldQuantity)
 	if a.Quantity != newValue.Quantity {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Quantity)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Quantity)); err != nil {
 			return nil, errors.Wrap(err, "Quantity")
 		}
 
@@ -3108,7 +3116,7 @@ func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for Type : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
 		} else {
 			a.Type = uint32(value)
@@ -3147,7 +3155,7 @@ func (a *ServiceField) CreateAmendments(fip []uint32,
 	fip = append(ofip, ServiceFieldType)
 	if a.Type != newValue.Type {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Type)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Type)); err != nil {
 			return nil, errors.Wrap(err, "Type")
 		}
 
@@ -3204,7 +3212,7 @@ func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Quantity amendment value failed to deserialize : %s", err)
 		} else {
 			a.Quantity = uint64(value)
@@ -3241,7 +3249,7 @@ func (a *TargetAddressField) CreateAmendments(fip []uint32,
 	fip = append(ofip, TargetAddressFieldQuantity)
 	if a.Quantity != newValue.Quantity {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.Quantity)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Quantity)); err != nil {
 			return nil, errors.Wrap(err, "Quantity")
 		}
 
@@ -3288,7 +3296,7 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for TallyLogic : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("TallyLogic amendment value failed to deserialize : %s", err)
 		} else {
 			a.TallyLogic = uint32(value)
@@ -3300,7 +3308,7 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for ThresholdPercentage : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ThresholdPercentage amendment value failed to deserialize : %s", err)
 		} else {
 			a.ThresholdPercentage = uint32(value)
@@ -3325,7 +3333,7 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			return nil, fmt.Errorf("Amendment field index path too deep for HolderProposalFee : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
-		if value, err := ReadBase128VarInt(buf); err != nil {
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("HolderProposalFee amendment value failed to deserialize : %s", err)
 		} else {
 			a.HolderProposalFee = uint64(value)
@@ -3371,7 +3379,7 @@ func (a *VotingSystemField) CreateAmendments(fip []uint32,
 	fip = append(ofip, VotingSystemFieldTallyLogic)
 	if a.TallyLogic != newValue.TallyLogic {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.TallyLogic)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.TallyLogic)); err != nil {
 			return nil, errors.Wrap(err, "TallyLogic")
 		}
 
@@ -3385,7 +3393,7 @@ func (a *VotingSystemField) CreateAmendments(fip []uint32,
 	fip = append(ofip, VotingSystemFieldThresholdPercentage)
 	if a.ThresholdPercentage != newValue.ThresholdPercentage {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.ThresholdPercentage)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ThresholdPercentage)); err != nil {
 			return nil, errors.Wrap(err, "ThresholdPercentage")
 		}
 
@@ -3413,7 +3421,7 @@ func (a *VotingSystemField) CreateAmendments(fip []uint32,
 	fip = append(ofip, VotingSystemFieldHolderProposalFee)
 	if a.HolderProposalFee != newValue.HolderProposalFee {
 		var buf bytes.Buffer
-		if err := WriteBase128VarInt(&buf, int(newValue.HolderProposalFee)); err != nil {
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.HolderProposalFee)); err != nil {
 			return nil, errors.Wrap(err, "HolderProposalFee")
 		}
 

@@ -48,16 +48,6 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field GoverningLaw - fixedchar
-	if c.GoverningLaw != r.GoverningLaw {
-		return false // fmt.Errorf("GoverningLaw string mismatched")
-	}
-
-	// Field Jurisdiction - fixedchar
-	if c.Jurisdiction != r.Jurisdiction {
-		return false // fmt.Errorf("Jurisdiction string mismatched")
-	}
-
 	// Field ContractExpiration - uint
 	if c.ContractExpiration != r.ContractExpiration {
 		return false // fmt.Errorf("ContractExpiration integer mismatched")
@@ -163,6 +153,16 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		}
 	}
 
+	// Field GoverningLaw - varchar
+	if c.GoverningLaw != r.GoverningLaw {
+		return false // fmt.Errorf("GoverningLaw string mismatched")
+	}
+
+	// Field Jurisdiction - varchar
+	if c.Jurisdiction != r.Jurisdiction {
+		return false // fmt.Errorf("Jurisdiction string mismatched")
+	}
+
 	return true
 }
 
@@ -206,16 +206,6 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		if !v.Equal(r.SupportingDocs[i]) {
 			return false // fmt.Errorf("SupportingDocs[%d] : %s", i, err)
 		}
-	}
-
-	// Field GoverningLaw - fixedchar
-	if c.GoverningLaw != r.GoverningLaw {
-		return false // fmt.Errorf("GoverningLaw string mismatched")
-	}
-
-	// Field Jurisdiction - fixedchar
-	if c.Jurisdiction != r.Jurisdiction {
-		return false // fmt.Errorf("Jurisdiction string mismatched")
 	}
 
 	// Field ContractExpiration - uint
@@ -338,6 +328,16 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("OperatorAddress bytes mismatched")
 	}
 
+	// Field GoverningLaw - varchar
+	if c.GoverningLaw != r.GoverningLaw {
+		return false // fmt.Errorf("GoverningLaw string mismatched")
+	}
+
+	// Field Jurisdiction - varchar
+	if c.Jurisdiction != r.Jurisdiction {
+		return false // fmt.Errorf("Jurisdiction string mismatched")
+	}
+
 	return true
 }
 
@@ -448,16 +448,6 @@ func (l *StaticContractFormation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ContractRevision integer mismatched")
 	}
 
-	// Field GoverningLaw - fixedchar
-	if c.GoverningLaw != r.GoverningLaw {
-		return false // fmt.Errorf("GoverningLaw string mismatched")
-	}
-
-	// Field Jurisdiction - fixedchar
-	if c.Jurisdiction != r.Jurisdiction {
-		return false // fmt.Errorf("Jurisdiction string mismatched")
-	}
-
 	// Field EffectiveDate - uint
 	if c.EffectiveDate != r.EffectiveDate {
 		return false // fmt.Errorf("EffectiveDate integer mismatched")
@@ -501,6 +491,16 @@ func (l *StaticContractFormation) Equal(right proto.Message) bool {
 	// Field EntityOracleSigBlockHeight - uint
 	if c.EntityOracleSigBlockHeight != r.EntityOracleSigBlockHeight {
 		return false // fmt.Errorf("EntityOracleSigBlockHeight integer mismatched")
+	}
+
+	// Field GoverningLaw - varchar
+	if c.GoverningLaw != r.GoverningLaw {
+		return false // fmt.Errorf("GoverningLaw string mismatched")
+	}
+
+	// Field Jurisdiction - varchar
+	if c.Jurisdiction != r.Jurisdiction {
+		return false // fmt.Errorf("Jurisdiction string mismatched")
 	}
 
 	return true
@@ -563,16 +563,6 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
 	}
 
-	// Field TradeRestrictions - fixedchar
-	if len(c.TradeRestrictions) != len(r.TradeRestrictions) {
-		return false // fmt.Errorf("List length mismatched")
-	}
-	for i, v := range c.TradeRestrictions {
-		if v != r.TradeRestrictions[i] {
-			return false // fmt.Errorf("Element TradeRestrictions string mismatched")
-		}
-	}
-
 	// Field EnforcementOrdersPermitted - bool
 	if c.EnforcementOrdersPermitted != r.EnforcementOrdersPermitted {
 		return false // fmt.Errorf("EnforcementOrdersPermitted boolean mismatched")
@@ -618,6 +608,16 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetPayload bytes mismatched")
 	}
 
+	// Field TradeRestrictions - varchar
+	if len(c.TradeRestrictions) != len(r.TradeRestrictions) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.TradeRestrictions {
+		if v != r.TradeRestrictions[i] {
+			return false // fmt.Errorf("Element TradeRestrictions string mismatched")
+		}
+	}
+
 	return true
 }
 
@@ -656,16 +656,6 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 	// Field TransfersPermitted - bool
 	if c.TransfersPermitted != r.TransfersPermitted {
 		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
-	}
-
-	// Field TradeRestrictions - fixedchar
-	if len(c.TradeRestrictions) != len(r.TradeRestrictions) {
-		return false // fmt.Errorf("List length mismatched")
-	}
-	for i, v := range c.TradeRestrictions {
-		if v != r.TradeRestrictions[i] {
-			return false // fmt.Errorf("Element TradeRestrictions string mismatched")
-		}
 	}
 
 	// Field EnforcementOrdersPermitted - bool
@@ -721,6 +711,16 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 	// Field Timestamp - uint
 	if c.Timestamp != r.Timestamp {
 		return false // fmt.Errorf("Timestamp integer mismatched")
+	}
+
+	// Field TradeRestrictions - varchar
+	if len(c.TradeRestrictions) != len(r.TradeRestrictions) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.TradeRestrictions {
+		if v != r.TradeRestrictions[i] {
+			return false // fmt.Errorf("Element TradeRestrictions string mismatched")
+		}
 	}
 
 	return true

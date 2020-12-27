@@ -11,8 +11,8 @@ message ContractOffer {
     bytes BodyOfAgreement                          = 3;   // varbin
     reserved                                         4;   // Deprecated ContractType
     repeated DocumentField SupportingDocs          = 5;   // Document[]
-    string GoverningLaw                            = 6;   // fixedchar
-    string Jurisdiction                            = 7;   // fixedchar
+    reserved                                         6;   // Deprecated GoverningLaw
+    reserved                                         7;   // Deprecated Jurisdiction
     uint64 ContractExpiration                      = 8;   // Timestamp
     string ContractURI                             = 9;   // varchar
     EntityField Issuer                             = 10;   // Entity
@@ -35,6 +35,8 @@ message ContractOffer {
     uint32 ContractType                            = 27;  // uint
     repeated ServiceField Services                 = 28;  // Service[]
     repeated AdminIdentityCertificateField AdminIdentityCertificates = 29;  // AdminIdentityCertificate[]
+    string GoverningLaw                            = 30;  // LegalSystem
+    string Jurisdiction                            = 31;  // Polity
 }
 
 // Message - Contract Formation (C2)
@@ -44,8 +46,8 @@ message ContractFormation {
     bytes BodyOfAgreement                          = 3;   // varbin
     reserved                                         4;   // Deprecated ContractType
     repeated DocumentField SupportingDocs          = 5;   // Document[]
-    string GoverningLaw                            = 6;   // fixedchar
-    string Jurisdiction                            = 7;   // fixedchar
+    reserved                                         6;   // Deprecated GoverningLaw
+    reserved                                         7;   // Deprecated Jurisdiction
     uint64 ContractExpiration                      = 8;   // Timestamp
     string ContractURI                             = 9;   // varchar
     EntityField Issuer                             = 10;   // Entity
@@ -71,6 +73,8 @@ message ContractFormation {
     repeated AdminIdentityCertificateField AdminIdentityCertificates = 30;  // AdminIdentityCertificate[]
     bytes AdminAddress                             = 31;  // Address
     bytes OperatorAddress                          = 32;  // Address
+    string GoverningLaw                            = 33;  // LegalSystem
+    string Jurisdiction                            = 34;  // Polity
 }
 
 // Message - Contract Amendment (C3)
@@ -91,8 +95,8 @@ message StaticContractFormation {
     string ContractType                            = 5;   // varchar
     repeated DocumentField SupportingDocs          = 6;   // Document[]
     uint32 ContractRevision                        = 7;   // uint
-    string GoverningLaw                            = 8;   // fixedchar
-    string Jurisdiction                            = 9;   // fixedchar
+    reserved                                         8;   // Deprecated GoverningLawDeprecated
+    reserved                                         9;   // Deprecated JurisdictionDeprecated
     uint64 EffectiveDate                           = 10;   // Timestamp
     uint64 ContractExpiration                      = 11;  // Timestamp
     string ContractURI                             = 12;  // varchar
@@ -101,6 +105,8 @@ message StaticContractFormation {
     OracleField EntityOracle                       = 15;  // Oracle
     bytes EntityOracleSignature                    = 16;  // varbin
     uint32 EntityOracleSigBlockHeight              = 17;  // uint
+    string GoverningLaw                            = 18;  // LegalSystem
+    string Jurisdiction                            = 19;  // Polity
 }
 
 // Message - Contract Address Change (C5)
@@ -113,7 +119,7 @@ message ContractAddressChange {
 message AssetDefinition {
     bytes AssetPermissions                         = 1;   // varbin
     bool TransfersPermitted                        = 2;   // bool
-    repeated string TradeRestrictions              = 3;   // Polity[]
+    reserved                                         3;   // Deprecated TradeRestrictionsDeprecated
     bool EnforcementOrdersPermitted                = 4;   // bool
     bool VotingRights                              = 5;   // bool
     uint32 VoteMultiplier                          = 6;   // uint
@@ -123,6 +129,7 @@ message AssetDefinition {
     uint64 TokenQty                                = 10;   // uint
     string AssetType                               = 11;  // AssetType
     bytes AssetPayload                             = 12;  // varbin
+    repeated string TradeRestrictions              = 13;  // Polity[]
 }
 
 // Message - Asset Creation (A2)
@@ -131,7 +138,7 @@ message AssetCreation {
     uint64 AssetIndex                              = 2;   // uint
     bytes AssetPermissions                         = 3;   // varbin
     bool TransfersPermitted                        = 4;   // bool
-    repeated string TradeRestrictions              = 5;   // Polity[]
+    reserved                                         5;   // Deprecated TradeRestrictionsDeprecated
     bool EnforcementOrdersPermitted                = 6;   // bool
     bool VotingRights                              = 7;   // bool
     uint32 VoteMultiplier                          = 8;   // uint
@@ -143,6 +150,7 @@ message AssetCreation {
     bytes AssetPayload                             = 14;  // varbin
     uint32 AssetRevision                           = 15;  // uint
     uint64 Timestamp                               = 16;  // Timestamp
+    repeated string TradeRestrictions              = 17;  // Polity[]
 }
 
 // Message - Asset Modification (A3)
