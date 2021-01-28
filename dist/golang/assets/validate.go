@@ -55,6 +55,8 @@ func (a *Membership) Validate() error {
 		return fmt.Errorf("Description required")
 	}
 
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -110,6 +112,8 @@ func (a *ShareCommon) Validate() error {
 		return fmt.Errorf("Description required")
 	}
 
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -159,6 +163,8 @@ func (a *Coupon) Validate() error {
 		return fmt.Errorf("Precision is required when Value is specified : %v", a.Value)
 	}
 
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -188,6 +194,8 @@ func (a *LoyaltyPoints) Validate() error {
 	if len(a.Description) == 0 {
 		return fmt.Errorf("Description required")
 	}
+
+	// Field TransfersPermitted - bool
 
 	return nil
 }
@@ -242,6 +250,8 @@ func (a *TicketAdmission) Validate() error {
 		return fmt.Errorf("Description required")
 	}
 
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -278,6 +288,8 @@ func (a *CasinoChip) Validate() error {
 	if a.Precision == 0 {
 		return fmt.Errorf("Precision required")
 	}
+
+	// Field TransfersPermitted - bool
 
 	return nil
 }

@@ -24,10 +24,10 @@ type Asset interface {
 
 const (
 	// CodeMembership identifies a payload as a Membership asset message.
-	CodeMembership = "MEM"
+	CodeMembership = "MBR"
 
 	// CodeCurrency identifies a payload as a Currency asset message.
-	CodeCurrency = "CUR"
+	CodeCurrency = "CCY"
 
 	// CodeShareCommon identifies a payload as a ShareCommon asset message.
 	CodeShareCommon = "SHC"

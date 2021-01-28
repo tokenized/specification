@@ -558,11 +558,6 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetPermissions bytes mismatched")
 	}
 
-	// Field TransfersPermitted - bool
-	if c.TransfersPermitted != r.TransfersPermitted {
-		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
-	}
-
 	// Field EnforcementOrdersPermitted - bool
 	if c.EnforcementOrdersPermitted != r.EnforcementOrdersPermitted {
 		return false // fmt.Errorf("EnforcementOrdersPermitted boolean mismatched")
@@ -593,9 +588,9 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetModificationGovernance integer mismatched")
 	}
 
-	// Field TokenQty - uint
-	if c.TokenQty != r.TokenQty {
-		return false // fmt.Errorf("TokenQty integer mismatched")
+	// Field AuthorizedTokenQty - uint
+	if c.AuthorizedTokenQty != r.AuthorizedTokenQty {
+		return false // fmt.Errorf("AuthorizedTokenQty integer mismatched")
 	}
 
 	// Field AssetType - fixedchar
@@ -653,11 +648,6 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetPermissions bytes mismatched")
 	}
 
-	// Field TransfersPermitted - bool
-	if c.TransfersPermitted != r.TransfersPermitted {
-		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
-	}
-
 	// Field EnforcementOrdersPermitted - bool
 	if c.EnforcementOrdersPermitted != r.EnforcementOrdersPermitted {
 		return false // fmt.Errorf("EnforcementOrdersPermitted boolean mismatched")
@@ -688,9 +678,9 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetModificationGovernance integer mismatched")
 	}
 
-	// Field TokenQty - uint
-	if c.TokenQty != r.TokenQty {
-		return false // fmt.Errorf("TokenQty integer mismatched")
+	// Field AuthorizedTokenQty - uint
+	if c.AuthorizedTokenQty != r.AuthorizedTokenQty {
+		return false // fmt.Errorf("AuthorizedTokenQty integer mismatched")
 	}
 
 	// Field AssetType - fixedchar

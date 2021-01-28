@@ -603,8 +603,6 @@ func (a *AssetDefinition) Validate() error {
 		return fmt.Errorf("AssetPermissions over max size : %d > %d", len(a.AssetPermissions), max2ByteInteger)
 	}
 
-	// Field TransfersPermitted - bool
-
 	// Field EnforcementOrdersPermitted - bool
 
 	// Field VotingRights - bool
@@ -630,7 +628,7 @@ func (a *AssetDefinition) Validate() error {
 		return fmt.Errorf("AssetModificationGovernance value not within options [0 1] : %d", a.AssetModificationGovernance)
 	}
 
-	// Field TokenQty - uint
+	// Field AuthorizedTokenQty - uint
 
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
@@ -668,9 +666,9 @@ func (a *AssetCreation) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field AssetIndex - uint
@@ -679,8 +677,6 @@ func (a *AssetCreation) Validate() error {
 	if len(a.AssetPermissions) > max2ByteInteger {
 		return fmt.Errorf("AssetPermissions over max size : %d > %d", len(a.AssetPermissions), max2ByteInteger)
 	}
-
-	// Field TransfersPermitted - bool
 
 	// Field EnforcementOrdersPermitted - bool
 
@@ -707,7 +703,7 @@ func (a *AssetCreation) Validate() error {
 		return fmt.Errorf("AssetModificationGovernance value not within options [0 1] : %d", a.AssetModificationGovernance)
 	}
 
-	// Field TokenQty - uint
+	// Field AuthorizedTokenQty - uint
 
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
@@ -749,9 +745,9 @@ func (a *AssetModification) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field AssetRevision - uint
@@ -851,9 +847,9 @@ func (a *Proposal) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field VoteSystem - uint
@@ -961,9 +957,9 @@ func (a *Result) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field ProposedAmendments - Amendment
@@ -1015,9 +1011,9 @@ func (a *Order) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field TargetAddresses - TargetAddress
@@ -1132,9 +1128,9 @@ func (a *Freeze) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1182,9 +1178,9 @@ func (a *Confiscation) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1216,9 +1212,9 @@ func (a *Reconciliation) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1512,9 +1508,9 @@ func (a *AssetSettlementField) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field Settlements - QuantityIndex
@@ -1547,9 +1543,9 @@ func (a *AssetTransferField) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field AssetSenders - QuantityIndex

@@ -33,4 +33,9 @@ properties:
       decimal places in a dollar amount "$1.00". In this scenario 100 tokens are worth $1.
     type: number
     example: 100
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
 

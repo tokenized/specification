@@ -13,8 +13,8 @@ version: 1
 
 # Register Supported Messages
 messages:
-  - "identity/MEM - Membership"
-  - "currency/CUR - Currency"
+  - "identity/MBR - Membership"
+  - "currency/CCY - Currency"
   - "security/SHC - Common Share"
   - "utility/COU - Coupon"
   - "utility/LOY - Loyalty Points"

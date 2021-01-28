@@ -4468,14 +4468,13 @@ proto.actions.AssetDefinition.prototype.toObject = function(opt_includeInstance)
 proto.actions.AssetDefinition.toObject = function(includeInstance, msg) {
   var f, obj = {
     assetpermissions: msg.getAssetpermissions_asB64(),
-    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 2, false),
     enforcementorderspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
     votingrights: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
     votemultiplier: jspb.Message.getFieldWithDefault(msg, 6, 0),
     administrationproposal: jspb.Message.getBooleanFieldWithDefault(msg, 7, false),
     holderproposal: jspb.Message.getBooleanFieldWithDefault(msg, 8, false),
     assetmodificationgovernance: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    tokenqty: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    authorizedtokenqty: jspb.Message.getFieldWithDefault(msg, 10, 0),
     assettype: jspb.Message.getFieldWithDefault(msg, 11, ""),
     assetpayload: msg.getAssetpayload_asB64(),
     traderestrictionsList: (f = jspb.Message.getRepeatedField(msg, 13)) == null ? undefined : f
@@ -4519,10 +4518,6 @@ proto.actions.AssetDefinition.deserializeBinaryFromReader = function(msg, reader
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAssetpermissions(value);
       break;
-    case 2:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setTransferspermitted(value);
-      break;
     case 4:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setEnforcementorderspermitted(value);
@@ -4549,7 +4544,7 @@ proto.actions.AssetDefinition.deserializeBinaryFromReader = function(msg, reader
       break;
     case 10:
       var value = /** @type {number} */ (reader.readUint64());
-      msg.setTokenqty(value);
+      msg.setAuthorizedtokenqty(value);
       break;
     case 11:
       var value = /** @type {string} */ (reader.readString());
@@ -4599,13 +4594,6 @@ proto.actions.AssetDefinition.serializeBinaryToWriter = function(message, writer
       f
     );
   }
-  f = message.getTransferspermitted();
-  if (f) {
-    writer.writeBool(
-      2,
-      f
-    );
-  }
   f = message.getEnforcementorderspermitted();
   if (f) {
     writer.writeBool(
@@ -4648,7 +4636,7 @@ proto.actions.AssetDefinition.serializeBinaryToWriter = function(message, writer
       f
     );
   }
-  f = message.getTokenqty();
+  f = message.getAuthorizedtokenqty();
   if (f !== 0) {
     writer.writeUint64(
       10,
@@ -4718,24 +4706,6 @@ proto.actions.AssetDefinition.prototype.getAssetpermissions_asU8 = function() {
  */
 proto.actions.AssetDefinition.prototype.setAssetpermissions = function(value) {
   return jspb.Message.setProto3BytesField(this, 1, value);
-};
-
-
-/**
- * optional bool TransfersPermitted = 2;
- * @return {boolean}
- */
-proto.actions.AssetDefinition.prototype.getTransferspermitted = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
-};
-
-
-/**
- * @param {boolean} value
- * @return {!proto.actions.AssetDefinition} returns this
- */
-proto.actions.AssetDefinition.prototype.setTransferspermitted = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 2, value);
 };
 
 
@@ -4848,10 +4818,10 @@ proto.actions.AssetDefinition.prototype.setAssetmodificationgovernance = functio
 
 
 /**
- * optional uint64 TokenQty = 10;
+ * optional uint64 AuthorizedTokenQty = 10;
  * @return {number}
  */
-proto.actions.AssetDefinition.prototype.getTokenqty = function() {
+proto.actions.AssetDefinition.prototype.getAuthorizedtokenqty = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
 };
 
@@ -4860,7 +4830,7 @@ proto.actions.AssetDefinition.prototype.getTokenqty = function() {
  * @param {number} value
  * @return {!proto.actions.AssetDefinition} returns this
  */
-proto.actions.AssetDefinition.prototype.setTokenqty = function(value) {
+proto.actions.AssetDefinition.prototype.setAuthorizedtokenqty = function(value) {
   return jspb.Message.setProto3IntField(this, 10, value);
 };
 
@@ -5004,14 +4974,13 @@ proto.actions.AssetCreation.toObject = function(includeInstance, msg) {
     assetcode: msg.getAssetcode_asB64(),
     assetindex: jspb.Message.getFieldWithDefault(msg, 2, 0),
     assetpermissions: msg.getAssetpermissions_asB64(),
-    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
     enforcementorderspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 6, false),
     votingrights: jspb.Message.getBooleanFieldWithDefault(msg, 7, false),
     votemultiplier: jspb.Message.getFieldWithDefault(msg, 8, 0),
     administrationproposal: jspb.Message.getBooleanFieldWithDefault(msg, 9, false),
     holderproposal: jspb.Message.getBooleanFieldWithDefault(msg, 10, false),
     assetmodificationgovernance: jspb.Message.getFieldWithDefault(msg, 11, 0),
-    tokenqty: jspb.Message.getFieldWithDefault(msg, 12, 0),
+    authorizedtokenqty: jspb.Message.getFieldWithDefault(msg, 12, 0),
     assettype: jspb.Message.getFieldWithDefault(msg, 13, ""),
     assetpayload: msg.getAssetpayload_asB64(),
     assetrevision: jspb.Message.getFieldWithDefault(msg, 15, 0),
@@ -5065,10 +5034,6 @@ proto.actions.AssetCreation.deserializeBinaryFromReader = function(msg, reader) 
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setAssetpermissions(value);
       break;
-    case 4:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setTransferspermitted(value);
-      break;
     case 6:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setEnforcementorderspermitted(value);
@@ -5095,7 +5060,7 @@ proto.actions.AssetCreation.deserializeBinaryFromReader = function(msg, reader) 
       break;
     case 12:
       var value = /** @type {number} */ (reader.readUint64());
-      msg.setTokenqty(value);
+      msg.setAuthorizedtokenqty(value);
       break;
     case 13:
       var value = /** @type {string} */ (reader.readString());
@@ -5167,13 +5132,6 @@ proto.actions.AssetCreation.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getTransferspermitted();
-  if (f) {
-    writer.writeBool(
-      4,
-      f
-    );
-  }
   f = message.getEnforcementorderspermitted();
   if (f) {
     writer.writeBool(
@@ -5216,7 +5174,7 @@ proto.actions.AssetCreation.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getTokenqty();
+  f = message.getAuthorizedtokenqty();
   if (f !== 0) {
     writer.writeUint64(
       12,
@@ -5364,24 +5322,6 @@ proto.actions.AssetCreation.prototype.setAssetpermissions = function(value) {
 
 
 /**
- * optional bool TransfersPermitted = 4;
- * @return {boolean}
- */
-proto.actions.AssetCreation.prototype.getTransferspermitted = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
-};
-
-
-/**
- * @param {boolean} value
- * @return {!proto.actions.AssetCreation} returns this
- */
-proto.actions.AssetCreation.prototype.setTransferspermitted = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 4, value);
-};
-
-
-/**
  * optional bool EnforcementOrdersPermitted = 6;
  * @return {boolean}
  */
@@ -5490,10 +5430,10 @@ proto.actions.AssetCreation.prototype.setAssetmodificationgovernance = function(
 
 
 /**
- * optional uint64 TokenQty = 12;
+ * optional uint64 AuthorizedTokenQty = 12;
  * @return {number}
  */
-proto.actions.AssetCreation.prototype.getTokenqty = function() {
+proto.actions.AssetCreation.prototype.getAuthorizedtokenqty = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
 };
 
@@ -5502,7 +5442,7 @@ proto.actions.AssetCreation.prototype.getTokenqty = function() {
  * @param {number} value
  * @return {!proto.actions.AssetCreation} returns this
  */
-proto.actions.AssetCreation.prototype.setTokenqty = function(value) {
+proto.actions.AssetCreation.prototype.setAuthorizedtokenqty = function(value) {
   return jspb.Message.setProto3IntField(this, 12, value);
 };
 

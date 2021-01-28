@@ -4,26 +4,26 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/binary"
-	"encoding/hex"
 	"fmt"
 	"strconv"
 	"time"
 
 	"github.com/tokenized/envelope/pkg/golang/envelope"
-	v0 "github.com/tokenized/envelope/pkg/golang/envelope/v0"
+	envelopeV0 "github.com/tokenized/envelope/pkg/golang/envelope/v0"
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/actions"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
+	"golang.org/x/crypto/ripemd160"
 )
 
 const (
 	// ProtocolID is the current protocol ID
-	ProtocolID = "tokenized"
+	ProtocolID = "TKN"
 
 	// TestProtocolID is the current protocol ID for testing.
-	TestProtocolID = "test.tokenized"
+	TestProtocolID = "test.TKN"
 
 	// Version of the Tokenized protocol.
 	Version = uint64(0)
@@ -31,6 +31,10 @@ const (
 	FlagProtocolID = "flag"
 
 	FlagVersion = uint64(0)
+
+	AssetCodeSize = 20
+
+	ContractCodeSize = 32
 )
 
 var (
@@ -94,7 +98,7 @@ func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error
 		return nil, errors.Wrap(err, "serialize action")
 	}
 
-	message := v0.NewMessage(GetProtocolID(isTest), Version, payload)
+	message := envelopeV0.NewMessage(GetProtocolID(isTest), Version, payload)
 	message.SetPayloadIdentifier([]byte(action.Code()))
 
 	return message, nil
@@ -103,7 +107,7 @@ func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error
 // SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
 //   message.
 func SerializeFlagOutputScript(flag []byte) ([]byte, error) {
-	message := v0.NewMessage([]byte(FlagProtocolID), FlagVersion, flag)
+	message := envelopeV0.NewMessage([]byte(FlagProtocolID), FlagVersion, flag)
 	var buf bytes.Buffer
 	if err := message.Serialize(&buf); err != nil {
 		return nil, errors.Wrap(err, "Failed to serialize flag envelope")
@@ -132,95 +136,28 @@ func DeserializeFlagOutputScript(script []byte) ([]byte, error) {
 	return message.Payload(), nil
 }
 
-// ------------------------------------------------------------------------------------------------
-// TxId represents a Bitcoin transaction ID. (Double SHA256 of tx data)
-type TxId struct {
-	data [32]byte
+// AssetCodeFromContract generates a "unique" deterministic asset code from a contract public key
+//   hash and an asset index.
+func AssetCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) bitcoin.Hash20 {
+	hash256 := sha256.New()
+	hash256.Write(contractAddress.Bytes())
+	binary.Write(hash256, DefaultEndian, &index)
+	hash := hash256.Sum(nil)
+
+	hash160 := ripemd160.New()
+	hash160.Write(hash)
+	hash = hash160.Sum(nil)
+
+	var result bitcoin.Hash20
+	copy(result[:], hash)
+	return result
 }
 
-var zeroTxId TxId
-
-func TxIdFromBytes(data []byte) *TxId {
-	var result TxId
-	copy(result.data[:], data)
-	return &result
-}
-
-func DeserializeTxId(buf *bytes.Reader) (*TxId, error) {
-	var result TxId
-	if _, err := buf.Read(result.data[:]); err != nil {
-		return nil, err
-	}
-	return &result, nil
-}
-
-// Validate returns an error if the value is invalid
-func (id *TxId) Validate() error {
-	return nil
-}
-
-// IsZero returns true if the tx id is all zeros.
-func (id *TxId) IsZero() bool {
-	if id == nil {
-		return true
-	}
-	return bytes.Equal(id.data[:], zeroTxId.data[:])
-}
-
-// Equal returns true if the specified values are the same.
-func (id *TxId) Equal(other TxId) bool {
-	if id == nil {
-		return id == nil
-	}
-	return bytes.Equal(id.data[:], other.data[:])
-}
-
-// Bytes returns the byte slice for the TxId.
-func (id *TxId) Bytes() []byte {
-	if id == nil {
-		return nil
-	}
-	return id.data[:]
-}
-
-// String converts to a string
-func (id *TxId) String() string {
-	return fmt.Sprintf("%x", id.data[:])
-}
-
-// Serialize serializes a txid into a buffer.
-func (id *TxId) Serialize(buf *bytes.Buffer) error {
-	_, err := buf.Write(id.data[:])
-	return err
-}
-
-// MarshalJSON converts to json.
-func (id *TxId) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf("\"%x\"", id.data)), nil
-}
-
-// UnmarshalJSON converts from json.
-func (id *TxId) UnmarshalJSON(data []byte) error {
-	if len(data) < 2 {
-		return fmt.Errorf("Too short for TxId hex data : %d", len(data))
-	}
-	n, err := hex.Decode(id.data[:], data[1:len(data)-1])
-	if err != nil {
-		return err
-	}
-	if n != 32 {
-		return fmt.Errorf("Invalid TxId size : %d", n)
-	}
-	return nil
-}
-
-// Set sets the value specified
-func (id *TxId) Set(value []byte) error {
-	if len(value) != len(id.data) {
-		return errors.New("Invalid value length for txid")
-	}
-	copy(id.data[:], value)
-	return nil
+// AssetCodeFromBytes returns a AssetCode with the specified bytes.
+func AssetCodeFromBytes(b []byte) bitcoin.Hash20 {
+	var result bitcoin.Hash20
+	copy(result[:], b)
+	return result
 }
 
 // AssetID encodes an asset ID.
@@ -228,152 +165,62 @@ func (id *TxId) Set(value []byte) error {
 // AssetID = AssetType(3 characters) + base58(AssetCode + checksum)
 //
 // There is a special case for BSV, which will be returned as BSV.
-func AssetID(assetType string, code AssetCode) string {
+func AssetID(assetType string, code bitcoin.Hash20) string {
 	if assetType == "BSV" {
 		return assetType
 	}
 
-	data := code.Bytes()
+	b := code.Bytes()
 
 	// Perform Double SHA-256 hash
-	checksum := bitcoin.DoubleSha256(data)
+	checksum := bitcoin.DoubleSha256(b)
 
 	// Append the first 4 checksum bytes
-	data = append(data, checksum[:4]...)
+	b = append(b, checksum[:4]...)
 
 	// Prepend with type and encode as text with base 58.
-	return assetType + bitcoin.Base58(data)
+	return assetType + bitcoin.Base58(b)
 }
 
 // DecodeAssetID decodes the asset type and asset code from an asset ID.
-func DecodeAssetID(id string) (string, AssetCode, error) {
+func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
 	if id == "BSV" {
 		// Bitcoin asset id. Asset code all zeros.
-		return "BSV", *AssetCodeFromBytes(make([]byte, 32)), nil
+		return "BSV", bitcoin.Hash20{}, nil
 	}
 
-	if len(id) < 35 {
-		return "", AssetCode{}, fmt.Errorf("Asset ID too short : %s", id)
+	if len(id) < AssetCodeSize+3 {
+		return "", bitcoin.Hash20{}, fmt.Errorf("Asset ID too short : %s", id)
 	}
 
 	assetType := id[:3]
 	text := id[3:]
 
-	data := bitcoin.Base58Decode(text)
+	b := bitcoin.Base58Decode(text)
 
-	if len(data) < 5 {
-		return "", AssetCode{}, fmt.Errorf("Asset ID too short : %s", id)
+	if len(b) != AssetCodeSize+4 {
+		return "", bitcoin.Hash20{}, fmt.Errorf("Asset ID too short : %s", id)
 	}
 
 	// Verify checksum
-	l := len(data)
-	checksum := data[l-4:]
-	data = data[:l-4]
-	hash := bitcoin.DoubleSha256(data)
+	checksum := b[AssetCodeSize:]
+	b = b[:AssetCodeSize]
+	hash := bitcoin.DoubleSha256(b)
 	if !bytes.Equal(hash[:4], checksum) {
-		return "", AssetCode{}, fmt.Errorf("Invalid Asset ID checksum : %s", id)
+		return "", bitcoin.Hash20{}, fmt.Errorf("Invalid Asset ID checksum : %s", id)
 	}
 
-	return assetType, *AssetCodeFromBytes(data), nil
-}
-
-// ------------------------------------------------------------------------------------------------
-// AssetCode represents a unique identifier for a Tokenized asset.
-type AssetCode struct {
-	data [32]byte
-}
-
-// Validate returns an error if the value is invalid
-func (code *AssetCode) Validate() error {
-	return nil
-}
-
-// IsZero returns true if the AssetCode is all zeroes. (empty)
-func (code *AssetCode) IsZero() bool {
-	if code == nil {
-		return true
-	}
-	zero := make([]byte, 32)
-	return bytes.Equal(code.data[:], zero)
-}
-
-// Equal returns true if the specified asset code is the same value.
-func (code *AssetCode) Equal(other AssetCode) bool {
-	return bytes.Equal(code.data[:], other.data[:])
-}
-
-// AssetCodeFromContract generates a "unique" deterministic asset code from a contract public key
-//   hash and an asset index.
-func AssetCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) *AssetCode {
-	hash256 := sha256.New()
-	hash256.Write(contractAddress.Bytes())
-	binary.Write(hash256, DefaultEndian, &index)
-	hash := hash256.Sum(nil)
-
-	var result AssetCode
-	copy(result.data[:], hash)
-	return &result
-}
-
-// AssetCodeFromBytes returns a AssetCode with the specified bytes.
-func AssetCodeFromBytes(data []byte) *AssetCode {
-	var result AssetCode
-	copy(result.data[:], data)
-	return &result
-}
-
-func DeserializeAssetCode(buf *bytes.Reader) (*AssetCode, error) {
-	var result AssetCode
-	if _, err := buf.Read(result.data[:]); err != nil {
-		return nil, err
-	}
-	return &result, nil
-}
-
-// Bytes returns a byte slice containing the AssetCode.
-func (code *AssetCode) Bytes() []byte {
-	if code == nil {
-		return nil
-	}
-	return code.data[:]
-}
-
-// String converts to a string
-func (code *AssetCode) String() string {
-	return fmt.Sprintf("%x", code.data[:])
-}
-
-// Serialize serializes an asset code into a buffer.
-func (code *AssetCode) Serialize(buf *bytes.Buffer) error {
-	_, err := buf.Write(code.data[:])
-	return err
-}
-
-// MarshalJSON converts to json.
-func (code *AssetCode) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf("\"%x\"", code.data)), nil
-}
-
-// UnmarshalJSON converts from json.
-func (code *AssetCode) UnmarshalJSON(data []byte) error {
-	if len(data) < 2 {
-		return fmt.Errorf("Too short for AssetCode hex data : %d", len(data))
-	}
-	n, err := hex.Decode(code.data[:], data[1:len(data)-1])
+	code, err := bitcoin.NewHash20(b)
 	if err != nil {
-		return err
+		return "", bitcoin.Hash20{}, errors.Wrap(err, "new hash")
 	}
-	if n != 32 {
-		return fmt.Errorf("Invalid AssetCode size : %d", n)
-	}
-	return nil
+
+	return assetType, *code, nil
 }
 
 // ------------------------------------------------------------------------------------------------
 // ContractCode represents a unique identifier for a Tokenized static contract.
-type ContractCode struct {
-	data [32]byte
-}
+type ContractCode bitcoin.Hash32
 
 // Validate returns an error if the value is invalid
 func (code *ContractCode) Validate() error {
@@ -385,67 +232,15 @@ func (code *ContractCode) IsZero() bool {
 	if code == nil {
 		return true
 	}
-	zero := make([]byte, 32, 32)
-	return bytes.Equal(code.data[:], zero)
-}
-
-// Equal returns true if the specified values are the same.
-func (code *ContractCode) Equal(other ContractCode) bool {
-	return bytes.Equal(code.data[:], other.data[:])
+	zero := make([]byte, ContractCodeSize)
+	return bytes.Equal(code[:], zero)
 }
 
 // AssetCodeFromBytes returns a ContractCode with the specified bytes.
-func ContractCodeFromBytes(data []byte) *ContractCode {
+func ContractCodeFromBytes(b []byte) *ContractCode {
 	var result ContractCode
-	copy(result.data[:], data)
+	copy(result[:], b)
 	return &result
-}
-
-func DeserializeContractCode(buf *bytes.Reader) (*ContractCode, error) {
-	var result ContractCode
-	if _, err := buf.Read(result.data[:]); err != nil {
-		return nil, err
-	}
-	return &result, nil
-}
-
-// Bytes returns a byte slice containing the ContractCode.
-func (code *ContractCode) Bytes() []byte {
-	if code == nil {
-		return nil
-	}
-	return code.data[:]
-}
-
-// String converts to a string
-func (code *ContractCode) String() string {
-	return fmt.Sprintf("%x", code.data[:])
-}
-
-// Serialize serializes a contract code into a buffer.
-func (code *ContractCode) Serialize(buf *bytes.Buffer) error {
-	_, err := buf.Write(code.data[:])
-	return err
-}
-
-// MarshalJSON converts to json.
-func (code *ContractCode) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf("\"%x\"", code.data)), nil
-}
-
-// UnmarshalJSON converts from json.
-func (code *ContractCode) UnmarshalJSON(data []byte) error {
-	if len(data) < 2 {
-		return fmt.Errorf("Too short for ContractCode hex data : %d", len(data))
-	}
-	n, err := hex.Decode(code.data[:], data[1:len(data)-1])
-	if err != nil {
-		return err
-	}
-	if n != 32 {
-		return fmt.Errorf("Invalid ContractCode size : %d", n)
-	}
-	return nil
 }
 
 // ------------------------------------------------------------------------------------------------

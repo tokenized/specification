@@ -61,6 +61,11 @@ func (l *Membership) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
 	return true
 }
 
@@ -131,6 +136,11 @@ func (l *ShareCommon) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
 	return true
 }
 
@@ -186,6 +196,11 @@ func (l *Coupon) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Precision integer mismatched")
 	}
 
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
 	return true
 }
 
@@ -229,6 +244,11 @@ func (l *LoyaltyPoints) Equal(right proto.Message) bool {
 	// Field Description - varchar
 	if c.Description != r.Description {
 		return false // fmt.Errorf("Description string mismatched")
+	}
+
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
 	}
 
 	return true
@@ -301,6 +321,11 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
 	return true
 }
 
@@ -349,6 +374,11 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 	// Field Precision - uint
 	if c.Precision != r.Precision {
 		return false // fmt.Errorf("Precision integer mismatched")
+	}
+
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
 	}
 
 	return true

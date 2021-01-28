@@ -2,6 +2,7 @@ package assets
 
 import (
 	"bytes"
+	"encoding/binary"
 	"fmt"
 
 	"github.com/tokenized/pkg/bitcoin"
@@ -20,6 +21,7 @@ const (
 	MembershipFieldRoleType            = uint32(6)
 	MembershipFieldMembershipType      = uint32(7)
 	MembershipFieldDescription         = uint32(8)
+	MembershipFieldTransfersPermitted  = uint32(9)
 )
 
 // ApplyAmendment updates a Membership based on amendment data.
@@ -76,6 +78,19 @@ func (a *Membership) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 
 	case MembershipFieldDescription: // string
 		a.Description = string(data)
+		return fip[:], nil
+
+	case MembershipFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
+		}
 		return fip[:], nil
 
 	}
@@ -177,6 +192,20 @@ func (a *Membership) CreateAmendments(fip []uint32,
 		})
 	}
 
+	// TransfersPermitted bool
+	fip = append(ofip, MembershipFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
 	return result, nil
 }
 
@@ -275,9 +304,10 @@ func (a *Currency) CreateAmendments(fip []uint32,
 
 // ShareCommon Permission / Amendment Field Indices
 const (
-	ShareCommonFieldTicker      = uint32(1)
-	ShareCommonFieldISIN        = uint32(2)
-	ShareCommonFieldDescription = uint32(3)
+	ShareCommonFieldTicker             = uint32(1)
+	ShareCommonFieldISIN               = uint32(2)
+	ShareCommonFieldDescription        = uint32(3)
+	ShareCommonFieldTransfersPermitted = uint32(4)
 )
 
 // ApplyAmendment updates a ShareCommon based on amendment data.
@@ -299,6 +329,19 @@ func (a *ShareCommon) ApplyAmendment(fip []uint32, operation uint32, data []byte
 
 	case ShareCommonFieldDescription: // string
 		a.Description = string(data)
+		return fip[:], nil
+
+	case ShareCommonFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
+		}
 		return fip[:], nil
 
 	}
@@ -345,18 +388,33 @@ func (a *ShareCommon) CreateAmendments(fip []uint32,
 		})
 	}
 
+	// TransfersPermitted bool
+	fip = append(ofip, ShareCommonFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
 	return result, nil
 }
 
 // Coupon Permission / Amendment Field Indices
 const (
-	CouponFieldRedeemingEntity = uint32(1)
-	CouponFieldIssueDate       = uint32(2)
-	CouponFieldExpiryDate      = uint32(3)
-	CouponFieldValue           = uint32(4)
-	CouponFieldCurrency        = uint32(5)
-	CouponFieldDescription     = uint32(6)
-	CouponFieldPrecision       = uint32(7)
+	CouponFieldRedeemingEntity    = uint32(1)
+	CouponFieldIssueDate          = uint32(2)
+	CouponFieldExpiryDate         = uint32(3)
+	CouponFieldValue              = uint32(4)
+	CouponFieldCurrency           = uint32(5)
+	CouponFieldDescription        = uint32(6)
+	CouponFieldPrecision          = uint32(7)
+	CouponFieldTransfersPermitted = uint32(8)
 )
 
 // ApplyAmendment updates a Coupon based on amendment data.
@@ -425,6 +483,19 @@ func (a *Coupon) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]
 			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
 		} else {
 			a.Precision = uint64(value)
+		}
+		return fip[:], nil
+
+	case CouponFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
 		}
 		return fip[:], nil
 
@@ -528,6 +599,20 @@ func (a *Coupon) CreateAmendments(fip []uint32,
 		})
 	}
 
+	// TransfersPermitted bool
+	fip = append(ofip, CouponFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
 	return result, nil
 }
 
@@ -538,6 +623,7 @@ const (
 	LoyaltyPointsFieldValidFrom           = uint32(3)
 	LoyaltyPointsFieldExpirationTimestamp = uint32(4)
 	LoyaltyPointsFieldDescription         = uint32(5)
+	LoyaltyPointsFieldTransfersPermitted  = uint32(6)
 )
 
 // ApplyAmendment updates a LoyaltyPoints based on amendment data.
@@ -582,6 +668,19 @@ func (a *LoyaltyPoints) ApplyAmendment(fip []uint32, operation uint32, data []by
 
 	case LoyaltyPointsFieldDescription: // string
 		a.Description = string(data)
+		return fip[:], nil
+
+	case LoyaltyPointsFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
+		}
 		return fip[:], nil
 
 	}
@@ -656,6 +755,20 @@ func (a *LoyaltyPoints) CreateAmendments(fip []uint32,
 		})
 	}
 
+	// TransfersPermitted bool
+	fip = append(ofip, LoyaltyPointsFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
 	return result, nil
 }
 
@@ -671,6 +784,7 @@ const (
 	TicketAdmissionFieldValidFrom           = uint32(8)
 	TicketAdmissionFieldExpirationTimestamp = uint32(9)
 	TicketAdmissionFieldDescription         = uint32(10)
+	TicketAdmissionFieldTransfersPermitted  = uint32(11)
 )
 
 // ApplyAmendment updates a TicketAdmission based on amendment data.
@@ -743,6 +857,19 @@ func (a *TicketAdmission) ApplyAmendment(fip []uint32, operation uint32, data []
 
 	case TicketAdmissionFieldDescription: // string
 		a.Description = string(data)
+		return fip[:], nil
+
+	case TicketAdmissionFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
+		}
 		return fip[:], nil
 
 	}
@@ -867,6 +994,20 @@ func (a *TicketAdmission) CreateAmendments(fip []uint32,
 		})
 	}
 
+	// TransfersPermitted bool
+	fip = append(ofip, TicketAdmissionFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
 	return result, nil
 }
 
@@ -878,6 +1019,7 @@ const (
 	CasinoChipFieldValidFrom           = uint32(4)
 	CasinoChipFieldExpirationTimestamp = uint32(5)
 	CasinoChipFieldPrecision           = uint32(6)
+	CasinoChipFieldTransfersPermitted  = uint32(7)
 )
 
 // ApplyAmendment updates a CasinoChip based on amendment data.
@@ -933,6 +1075,19 @@ func (a *CasinoChip) ApplyAmendment(fip []uint32, operation uint32, data []byte)
 			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
 		} else {
 			a.Precision = uint64(value)
+		}
+		return fip[:], nil
+
+	case CasinoChipFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
 		}
 		return fip[:], nil
 
@@ -1014,6 +1169,20 @@ func (a *CasinoChip) CreateAmendments(fip []uint32,
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Precision)); err != nil {
 			return nil, errors.Wrap(err, "Precision")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// TransfersPermitted bool
+	fip = append(ofip, CasinoChipFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
 		}
 
 		result = append(result, &internal.Amendment{

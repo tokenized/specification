@@ -846,7 +846,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 // Asset Permission / Amendment Field Indices
 const (
 	AssetFieldAssetPermissions                      = uint32(1)
-	AssetFieldTransfersPermitted                    = uint32(2)
+	DeprecatedAssetFieldTransfersPermitted          = uint32(2)
 	DeprecatedAssetFieldTradeRestrictionsDeprecated = uint32(3)
 	AssetFieldEnforcementOrdersPermitted            = uint32(4)
 	AssetFieldVotingRights                          = uint32(5)
@@ -854,7 +854,7 @@ const (
 	AssetFieldAdministrationProposal                = uint32(7)
 	AssetFieldHolderProposal                        = uint32(8)
 	AssetFieldAssetModificationGovernance           = uint32(9)
-	AssetFieldTokenQty                              = uint32(10)
+	AssetFieldAuthorizedTokenQty                    = uint32(10)
 	AssetFieldAssetType                             = uint32(11)
 	AssetFieldAssetPayload                          = uint32(12)
 	AssetFieldTradeRestrictions                     = uint32(13)
@@ -884,19 +884,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 		})
 	}
 
-	// TransfersPermitted bool
-	fip = []uint32{AssetFieldTransfersPermitted}
-	if a.TransfersPermitted != newValue.TransfersPermitted {
-		var buf bytes.Buffer
-		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
-			return nil, errors.Wrap(err, "TransfersPermitted")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
+	// deprecated TransfersPermitted deprecated
 
 	// deprecated TradeRestrictionsDeprecated deprecated
 
@@ -984,12 +972,12 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 		})
 	}
 
-	// TokenQty uint64
-	fip = []uint32{AssetFieldTokenQty}
-	if a.TokenQty != newValue.TokenQty {
+	// AuthorizedTokenQty uint64
+	fip = []uint32{AssetFieldAuthorizedTokenQty}
+	if a.AuthorizedTokenQty != newValue.AuthorizedTokenQty {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.TokenQty)); err != nil {
-			return nil, errors.Wrap(err, "TokenQty")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.AuthorizedTokenQty)); err != nil {
+			return nil, errors.Wrap(err, "AuthorizedTokenQty")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -1080,18 +1068,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		a.AssetPermissions = data
 		return fip[:], nil
 
-	case AssetFieldTransfersPermitted: // bool
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
-		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
-		}
-		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
-			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
-		}
-		return fip[:], nil
+	case DeprecatedAssetFieldTransfersPermitted: // deprecated
 
 	case DeprecatedAssetFieldTradeRestrictionsDeprecated: // deprecated
 
@@ -1171,15 +1148,15 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		}
 		return fip[:], nil
 
-	case AssetFieldTokenQty: // uint64
+	case AssetFieldAuthorizedTokenQty: // uint64
 		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for TokenQty : %v", fip)
+			return nil, fmt.Errorf("Amendment field index path too deep for AuthorizedTokenQty : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("TokenQty amendment value failed to deserialize : %s", err)
+			return nil, fmt.Errorf("AuthorizedTokenQty amendment value failed to deserialize : %s", err)
 		} else {
-			a.TokenQty = uint64(value)
+			a.AuthorizedTokenQty = uint64(value)
 		}
 		return fip[:], nil
 
@@ -1752,8 +1729,8 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 		return fip[:], nil
 
 	case AssetSettlementFieldAssetCode: // []byte
-		if len(data) != 32 {
-			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 32)
+		if len(data) != 20 {
+			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 20)
 		}
 		copy(a.AssetCode, data)
 		return fip[:], nil
@@ -1927,8 +1904,8 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		return fip[:], nil
 
 	case AssetTransferFieldAssetCode: // []byte
-		if len(data) != 32 {
-			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 32)
+		if len(data) != 20 {
+			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 20)
 		}
 		copy(a.AssetCode, data)
 		return fip[:], nil

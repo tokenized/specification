@@ -118,7 +118,7 @@ message ContractAddressChange {
 // Message - Asset Definition (A1)
 message AssetDefinition {
     bytes AssetPermissions                         = 1;   // varbin
-    bool TransfersPermitted                        = 2;   // bool
+    reserved                                         2;   // Deprecated TransfersPermitted
     reserved                                         3;   // Deprecated TradeRestrictionsDeprecated
     bool EnforcementOrdersPermitted                = 4;   // bool
     bool VotingRights                              = 5;   // bool
@@ -126,7 +126,7 @@ message AssetDefinition {
     bool AdministrationProposal                    = 7;   // bool
     bool HolderProposal                            = 8;   // bool
     uint32 AssetModificationGovernance             = 9;   // uint
-    uint64 TokenQty                                = 10;   // uint
+    uint64 AuthorizedTokenQty                      = 10;   // uint
     string AssetType                               = 11;  // AssetType
     bytes AssetPayload                             = 12;  // varbin
     repeated string TradeRestrictions              = 13;  // Polity[]
@@ -137,7 +137,7 @@ message AssetCreation {
     bytes AssetCode                                = 1;   // AssetCode
     uint64 AssetIndex                              = 2;   // uint
     bytes AssetPermissions                         = 3;   // varbin
-    bool TransfersPermitted                        = 4;   // bool
+    reserved                                         4;   // Deprecated TransfersPermitted
     reserved                                         5;   // Deprecated TradeRestrictionsDeprecated
     bool EnforcementOrdersPermitted                = 6;   // bool
     bool VotingRights                              = 7;   // bool
@@ -145,7 +145,7 @@ message AssetCreation {
     bool AdministrationProposal                    = 9;   // bool
     bool HolderProposal                            = 10;   // bool
     uint32 AssetModificationGovernance             = 11;  // uint
-    uint64 TokenQty                                = 12;  // uint
+    uint64 AuthorizedTokenQty                      = 12;  // uint
     string AssetType                               = 13;  // AssetType
     bytes AssetPayload                             = 14;  // varbin
     uint32 AssetRevision                           = 15;  // uint

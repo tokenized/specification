@@ -64,16 +64,16 @@
     },
     {
       "description": "A code representing the type of asset and the structure of the payload.",
-      "example": "CUR",
+      "example": "CCY",
       "name": "AssetType",
       "size": 3,
       "type": "fixedchar"
     },
     {
       "description": "Represents a unique identifier for an asset/token.",
-      "example": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "example": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "name": "AssetCode",
-      "size": 32,
+      "size": 20,
       "type": "bin"
     },
     {
@@ -1560,11 +1560,10 @@
           "varSize": "small"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
-          "example": 1,
+          "description": "Deprecated to move into specific asset types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
-          "type": "bool"
+          "type": "deprecated"
         },
         {
           "description": "Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
@@ -1624,8 +1623,8 @@
         {
           "description": "The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
           "example": "1000000",
-          "label": "Token Quantity",
-          "name": "TokenQty",
+          "label": "Authorized Token Quantity",
+          "name": "AuthorizedTokenQty",
           "size": 8,
           "type": "uint"
         },
@@ -1700,11 +1699,10 @@
           "varSize": "small"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
-          "example": true,
+          "description": "Deprecated to move into specific asset types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
-          "type": "bool"
+          "type": "deprecated"
         },
         {
           "description": "Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
@@ -1764,8 +1762,8 @@
         {
           "description": "The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
           "example": "1000000",
-          "label": "Token Quantity",
-          "name": "TokenQty",
+          "label": "Authorized Token Quantity",
+          "name": "AuthorizedTokenQty",
           "size": 8,
           "type": "uint"
         },

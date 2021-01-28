@@ -40,7 +40,7 @@
   ],
   "messages": [
     {
-      "code": "MEM",
+      "code": "MBR",
       "description": "A Membership",
       "fields": [
         {
@@ -106,6 +106,12 @@
           "span": "full",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Membership",
@@ -124,7 +130,7 @@
       "name": "Membership"
     },
     {
-      "code": "CUR",
+      "code": "CCY",
       "description": "Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of Australia, ECB, Bank of England).  Currency is free of counterparty risk except for the risks associated with the management of the currency by the monetary authority and its recognition as acceptable legal tender by the market and associated government(s).  Custody of currency must be backed by a 1:1 ratio, or a full reserve. A currency asset type should be considered the digital equivalent of physical cash.",
       "fields": [
         {
@@ -205,6 +211,12 @@
           "span": "full",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Share - Common",
@@ -297,6 +309,12 @@
           "size": 8,
           "span": "full",
           "type": "uint"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Coupon",
@@ -353,6 +371,12 @@
           "span": "full",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Loyalty Points",
@@ -456,6 +480,12 @@
           "span": "full",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Ticket (Admission)",
@@ -525,6 +555,12 @@
           "size": 8,
           "span": "full",
           "type": "uint"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Casino Chip",

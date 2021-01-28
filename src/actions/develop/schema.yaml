@@ -127,13 +127,13 @@ fieldAliases:
     type: fixedchar
     size: 3
     description: A code representing the type of asset and the structure of the payload.
-    example: "CUR"
+    example: "CCY"
 
   - name: AssetCode
     type: bin
-    size: 32
+    size: 20
     description: "Represents a unique identifier for an asset/token."
-    example: "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe"
+    example: "0e6996402ea456156838652e3bd82c6c0986ef79"
 
   - name: Timestamp
     type: uint

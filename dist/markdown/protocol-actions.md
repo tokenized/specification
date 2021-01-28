@@ -1338,13 +1338,11 @@ This action is used by the administration to define the properties/characteristi
     </tr>
 
     <tr>
-        <td>TransfersPermitted</td>
+        <td>(Deprecated)TransfersPermitted</td>
+        <td>deprecated</td>
         <td>
-            bool
-        </td>
-        <td>
-            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
-             Example: 1
+            Deprecated to move into specific asset types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+            
         </td>
     </tr>
 
@@ -1424,7 +1422,7 @@ This action is used by the administration to define the properties/characteristi
     </tr>
 
     <tr>
-        <td>TokenQty</td>
+        <td>AuthorizedTokenQty</td>
         <td>
             uint(8)
         </td>
@@ -1558,13 +1556,11 @@ This action creates an asset in response to the administration&#39;s instruction
     </tr>
 
     <tr>
-        <td>TransfersPermitted</td>
+        <td>(Deprecated)TransfersPermitted</td>
+        <td>deprecated</td>
         <td>
-            bool
-        </td>
-        <td>
-            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
-             Example: true
+            Deprecated to move into specific asset types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+            
         </td>
     </tr>
 
@@ -1644,7 +1640,7 @@ This action creates an asset in response to the administration&#39;s instruction
     </tr>
 
     <tr>
-        <td>TokenQty</td>
+        <td>AuthorizedTokenQty</td>
         <td>
             uint(8)
         </td>
@@ -4853,17 +4849,17 @@ A VotingSystem defines all details of a Voting System.
             </td>
             <td>
                 A code representing the type of asset and the structure of the payload.
-                 Example: CUR
+                 Example: CCY
             </td>
         </tr>
         <tr id="alias-asset-code">
             <td>AssetCode</td>
             <td>
-                bin(32)
+                bin(20)
             </td>
             <td>
                 Represents a unique identifier for an asset/token.
-                 Example: 0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe
+                 Example: 0e6996402ea456156838652e3bd82c6c0986ef79
             </td>
         </tr>
         <tr id="alias-timestamp">

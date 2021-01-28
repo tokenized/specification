@@ -122,6 +122,17 @@ A Membership
         </td>
     </tr>
 
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+            
+        </td>
+    </tr>
+
 </table>
 
 
@@ -227,6 +238,17 @@ Common stock represents ownership interests in companies.
         </td>
     </tr>
 
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+            
+        </td>
+    </tr>
+
 </table>
 
 
@@ -323,6 +345,17 @@ A voucher entitling the holder to a discount on a particular product or service.
         </td>
     </tr>
 
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+            
+        </td>
+    </tr>
+
 </table>
 
 
@@ -390,6 +423,17 @@ A Loyalty Point
         <td>
             
              This field is always required.  Example: Coingeek Conference - London (November 2018).
+        </td>
+    </tr>
+
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+            
         </td>
     </tr>
 
@@ -518,6 +562,17 @@ Admission ticket
         </td>
     </tr>
 
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+            
+        </td>
+    </tr>
+
 </table>
 
 
@@ -596,6 +651,17 @@ Casino Chip
         <td>
             Required field to specify the decimal precision of a currency. It will normally be the &#34;precision&#34; value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
              This field is always required.  Example: 100
+        </td>
+    </tr>
+
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+            
         </td>
     </tr>
 

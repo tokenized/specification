@@ -1,8 +1,8 @@
 #
-# MEM - Membership
+# MBR - Membership
 #
 
-code: MEM
+code: MBR
 name: Membership
 label: Membership
 description: A Membership
@@ -74,3 +74,8 @@ fields:
     span: full
     displayOrder: 1
     required: true
+
+  - name: TransfersPermitted
+    label: Transfers Permitted
+    description: "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers."
+    type: bool

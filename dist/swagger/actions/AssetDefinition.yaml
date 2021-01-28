@@ -12,12 +12,6 @@ properties:
       permissions for modifying this asset. See the Permission documentation for more detail.
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
-  TransfersPermitted:
-    description:  >
-      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
-      peer-to-peer transfers.
-    type: boolean
-    example: 1
   EnforcementOrdersPermitted:
     description:  >
       Set to true if the administration is permitted to make enforcement orders on user tokens and
@@ -58,7 +52,7 @@ properties:
       the voting rules.
     type: number
     example: 1
-  TokenQty:
+  AuthorizedTokenQty:
     description:  >
       The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If
       the value is 1 then it becomes a non-fungible token, where the contract would have many assets.
@@ -69,7 +63,7 @@ properties:
   AssetType:
     description: A code representing the type of asset and the structure of the payload.
     type: string
-    example: "CUR"
+    example: "CCY"
   AssetPayload:
     description:  >
       A custom payload that contains meta data about this asset. Payload structure and length is

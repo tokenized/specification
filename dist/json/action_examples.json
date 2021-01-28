@@ -313,18 +313,18 @@
     "name": "AssetDefinition",
     "fields": {
       "(Deprecated)TradeRestrictionsDeprecated": null,
+      "(Deprecated)TransfersPermitted": null,
       "AdministrationProposal": "true",
       "AssetModificationGovernance": "1",
       "AssetPayload": null,
       "AssetPermissions": null,
-      "AssetType": "CUR",
+      "AssetType": "CCY",
+      "AuthorizedTokenQty": "1000000",
       "EnforcementOrdersPermitted": "1",
       "HolderProposal": "true",
-      "TokenQty": "1000000",
       "TradeRestrictions": [
         "GBR"
       ],
-      "TransfersPermitted": "1",
       "VoteMultiplier": "3",
       "VotingRights": "true"
     }
@@ -335,22 +335,22 @@
     "name": "AssetCreation",
     "fields": {
       "(Deprecated)TradeRestrictionsDeprecated": null,
+      "(Deprecated)TransfersPermitted": null,
       "AdministrationProposal": "true",
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "AssetIndex": "0",
       "AssetModificationGovernance": "1",
       "AssetPayload": null,
       "AssetPermissions": null,
       "AssetRevision": "456789",
-      "AssetType": "CUR",
+      "AssetType": "CCY",
+      "AuthorizedTokenQty": "1000000",
       "EnforcementOrdersPermitted": "true",
       "HolderProposal": "true",
       "Timestamp": "1594668650000000000",
-      "TokenQty": "1000000",
       "TradeRestrictions": [
         "GBR"
       ],
-      "TransfersPermitted": "true",
       "VoteMultiplier": "3",
       "VotingRights": "true"
     }
@@ -367,7 +367,7 @@
           "Operation": "0"
         }
       ],
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "AssetRevision": "0",
       "AssetType": "SHC",
       "RefTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
@@ -380,7 +380,7 @@
     "fields": {
       "Assets": [
         {
-          "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+          "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
           "AssetReceivers": [
             {
               "Address": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
@@ -414,7 +414,7 @@
     "fields": {
       "Assets": [
         {
-          "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+          "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
           "AssetType": "SHC",
           "ContractIndex": null,
           "Settlements": [
@@ -433,7 +433,7 @@
     "label": "Proposal",
     "name": "Proposal",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "AssetType": "SHC",
       "ProposalDescription": "Change the name of the Contract.",
       "ProposalDocumentHash": "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec",
@@ -484,7 +484,7 @@
     "label": "Result",
     "name": "Result",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "AssetType": "SHC",
       "OptionTally": [
         null
@@ -508,7 +508,7 @@
     "fields": {
       "(Deprecated)RefTxs": null,
       "(Deprecated)SupportingEvidenceHash": null,
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "AssetType": "SHC",
       "AuthorityName": "Supreme and District Courts Brisbane",
       "AuthorityPublicKey": null,
@@ -548,7 +548,7 @@
     "label": "Freeze",
     "name": "Freeze",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "AssetType": "SHC",
       "FreezePeriod": "1594668650000000000",
       "Quantities": [
@@ -574,7 +574,7 @@
     "label": "Confiscation",
     "name": "Confiscation",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "AssetType": "SHC",
       "DepositQty": "10000",
       "Quantities": [
@@ -591,7 +591,7 @@
     "label": "Reconciliation",
     "name": "Reconciliation",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "AssetType": "SHC",
       "Quantities": [
         {

@@ -363,10 +363,6 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetPermissions")
 	}
 
-	if err := binary.Write(w, binary.LittleEndian, a.TransfersPermitted); err != nil {
-		return errors.Wrap(err, "TransfersPermitted")
-	}
-
 	if err := binary.Write(w, binary.LittleEndian, a.EnforcementOrdersPermitted); err != nil {
 		return errors.Wrap(err, "EnforcementOrdersPermitted")
 	}
@@ -391,8 +387,8 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetModificationGovernance")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.TokenQty)); err != nil {
-		return errors.Wrap(err, "TokenQty")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AuthorizedTokenQty)); err != nil {
+		return errors.Wrap(err, "AuthorizedTokenQty")
 	}
 
 	if _, err := w.Write([]byte(a.AssetType)); err != nil {
@@ -427,10 +423,6 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetPermissions")
 	}
 
-	if err := binary.Write(w, binary.LittleEndian, a.TransfersPermitted); err != nil {
-		return errors.Wrap(err, "TransfersPermitted")
-	}
-
 	if err := binary.Write(w, binary.LittleEndian, a.EnforcementOrdersPermitted); err != nil {
 		return errors.Wrap(err, "EnforcementOrdersPermitted")
 	}
@@ -455,8 +447,8 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetModificationGovernance")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.TokenQty)); err != nil {
-		return errors.Wrap(err, "TokenQty")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AuthorizedTokenQty)); err != nil {
+		return errors.Wrap(err, "AuthorizedTokenQty")
 	}
 
 	if _, err := w.Write([]byte(a.AssetType)); err != nil {
