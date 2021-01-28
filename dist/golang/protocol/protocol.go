@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/binary"
 	"fmt"
+	"io"
 	"strconv"
 	"time"
 
@@ -254,9 +255,9 @@ func NewTimestamp(value uint64) Timestamp {
 	return Timestamp{nanoseconds: value}
 }
 
-func DeserializeTimestamp(buf *bytes.Reader) (Timestamp, error) {
+func DeserializeTimestamp(r io.Reader) (Timestamp, error) {
 	var result Timestamp
-	if err := binary.Read(buf, DefaultEndian, &result.nanoseconds); err != nil {
+	if err := binary.Read(r, DefaultEndian, &result.nanoseconds); err != nil {
 		return result, err
 	}
 	return result, nil
@@ -293,15 +294,15 @@ func (t *Timestamp) String() string {
 }
 
 // Serialize serializes a timestamp into a buffer.
-func (time *Timestamp) Serialize(buf *bytes.Buffer) error {
-	if err := binary.Write(buf, DefaultEndian, &time.nanoseconds); err != nil {
+func (time *Timestamp) Serialize(w io.Writer) error {
+	if err := binary.Write(w, DefaultEndian, &time.nanoseconds); err != nil {
 		return err
 	}
 	return nil
 }
 
 // MarshalJSON converts to json.
-func (time *Timestamp) MarshalJSON() ([]byte, error) {
+func (time Timestamp) MarshalJSON() ([]byte, error) {
 	return []byte(strconv.FormatUint(time.nanoseconds, 10)), nil
 }
 
