@@ -56,6 +56,36 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for ContractAddressChange")
 	}
 
+	// BodyOfAgreementDefinition identifies a payload as a BodyOfAgreementDefinition message.
+	actionBodyOfAgreementDefinition, err := Deserialize([]byte(CodeBodyOfAgreementDefinition), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for BodyOfAgreementDefinition : %s", err)
+	}
+	_, ok = actionBodyOfAgreementDefinition.(*BodyOfAgreementDefinition)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for BodyOfAgreementDefinition")
+	}
+
+	// BodyOfAgreement identifies a payload as a BodyOfAgreement message.
+	actionBodyOfAgreement, err := Deserialize([]byte(CodeBodyOfAgreement), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for BodyOfAgreement : %s", err)
+	}
+	_, ok = actionBodyOfAgreement.(*BodyOfAgreement)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for BodyOfAgreement")
+	}
+
+	// BodyOfAgreementModification identifies a payload as a BodyOfAgreementModification message.
+	actionBodyOfAgreementModification, err := Deserialize([]byte(CodeBodyOfAgreementModification), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for BodyOfAgreementModification : %s", err)
+	}
+	_, ok = actionBodyOfAgreementModification.(*BodyOfAgreementModification)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for BodyOfAgreementModification")
+	}
+
 	// AssetDefinition identifies a payload as a AssetDefinition message.
 	actionAssetDefinition, err := Deserialize([]byte(CodeAssetDefinition), nil)
 	if err != nil {

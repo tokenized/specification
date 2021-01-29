@@ -536,6 +536,156 @@ func (l *ContractAddressChange) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *BodyOfAgreementDefinition) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &BodyOfAgreementDefinition{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &BodyOfAgreementDefinition{}
+	}
+	r, ok := cr.(*BodyOfAgreementDefinition)
+	if !ok {
+		return false
+	}
+
+	// Field Chapters - Chapter
+	if len(c.Chapters) != len(r.Chapters) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Chapters {
+		if !v.Equal(r.Chapters[i]) {
+			return false // fmt.Errorf("Chapters[%d] : %s", i, err)
+		}
+	}
+
+	// Field Definitions - Definition
+	if len(c.Definitions) != len(r.Definitions) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Definitions {
+		if !v.Equal(r.Definitions[i]) {
+			return false // fmt.Errorf("Definitions[%d] : %s", i, err)
+		}
+	}
+
+	// Field Variables - Variable
+	if len(c.Variables) != len(r.Variables) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Variables {
+		if !v.Equal(r.Variables[i]) {
+			return false // fmt.Errorf("Variables[%d] : %s", i, err)
+		}
+	}
+
+	return true
+}
+
+func (l *BodyOfAgreement) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &BodyOfAgreement{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &BodyOfAgreement{}
+	}
+	r, ok := cr.(*BodyOfAgreement)
+	if !ok {
+		return false
+	}
+
+	// Field Chapters - Chapter
+	if len(c.Chapters) != len(r.Chapters) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Chapters {
+		if !v.Equal(r.Chapters[i]) {
+			return false // fmt.Errorf("Chapters[%d] : %s", i, err)
+		}
+	}
+
+	// Field Definitions - Definition
+	if len(c.Definitions) != len(r.Definitions) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Definitions {
+		if !v.Equal(r.Definitions[i]) {
+			return false // fmt.Errorf("Definitions[%d] : %s", i, err)
+		}
+	}
+
+	// Field Variables - Variable
+	if len(c.Variables) != len(r.Variables) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Variables {
+		if !v.Equal(r.Variables[i]) {
+			return false // fmt.Errorf("Variables[%d] : %s", i, err)
+		}
+	}
+
+	// Field Revision - uint
+	if c.Revision != r.Revision {
+		return false // fmt.Errorf("Revision integer mismatched")
+	}
+
+	// Field Timestamp - uint
+	if c.Timestamp != r.Timestamp {
+		return false // fmt.Errorf("Timestamp integer mismatched")
+	}
+
+	return true
+}
+
+func (l *BodyOfAgreementModification) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &BodyOfAgreementModification{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &BodyOfAgreementModification{}
+	}
+	r, ok := cr.(*BodyOfAgreementModification)
+	if !ok {
+		return false
+	}
+
+	// Field Revision - uint
+	if c.Revision != r.Revision {
+		return false // fmt.Errorf("Revision integer mismatched")
+	}
+
+	// Field Amendments - Amendment
+	if len(c.Amendments) != len(r.Amendments) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Amendments {
+		if !v.Equal(r.Amendments[i]) {
+			return false // fmt.Errorf("Amendments[%d] : %s", i, err)
+		}
+	}
+
+	// Field RefTxID - bin
+	if !bytes.Equal(c.RefTxID, r.RefTxID) {
+		return false // fmt.Errorf("RefTxID bytes mismatched")
+	}
+
+	return true
+}
+
 func (l *AssetDefinition) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
@@ -1841,6 +1991,116 @@ func (l *AssetTransferField) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *ChapterField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ChapterField{}
+	}
+	r, ok := right.(*ChapterField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &ChapterField{}
+	}
+
+	// Field Title - varchar
+	if c.Title != r.Title {
+		return false // fmt.Errorf("Title string mismatched")
+	}
+
+	// Field Preamble - varchar
+	if c.Preamble != r.Preamble {
+		return false // fmt.Errorf("Preamble string mismatched")
+	}
+
+	// Field Articles - Clause
+	if len(c.Articles) != len(r.Articles) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Articles {
+		if !v.Equal(r.Articles[i]) {
+			return false // fmt.Errorf("Articles[%d] : %s", i, err)
+		}
+	}
+
+	return true
+}
+
+func (l *ClauseField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ClauseField{}
+	}
+	r, ok := right.(*ClauseField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &ClauseField{}
+	}
+
+	// Field Title - varchar
+	if c.Title != r.Title {
+		return false // fmt.Errorf("Title string mismatched")
+	}
+
+	// Field Body - varchar
+	if c.Body != r.Body {
+		return false // fmt.Errorf("Body string mismatched")
+	}
+
+	// Field Children - Clause
+	if len(c.Children) != len(r.Children) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Children {
+		if !v.Equal(r.Children[i]) {
+			return false // fmt.Errorf("Children[%d] : %s", i, err)
+		}
+	}
+
+	return true
+}
+
+func (l *DefinitionField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &DefinitionField{}
+	}
+	r, ok := right.(*DefinitionField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &DefinitionField{}
+	}
+
+	// Field Name - varchar
+	if c.Name != r.Name {
+		return false // fmt.Errorf("Name string mismatched")
+	}
+
+	// Field Description - varchar
+	if c.Description != r.Description {
+		return false // fmt.Errorf("Description string mismatched")
+	}
+
+	return true
+}
+
 func (l *DocumentField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
@@ -2176,6 +2436,36 @@ func (l *TargetAddressField) Equal(right proto.Message) bool {
 	// Field Quantity - uint
 	if c.Quantity != r.Quantity {
 		return false // fmt.Errorf("Quantity integer mismatched")
+	}
+
+	return true
+}
+
+func (l *VariableField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &VariableField{}
+	}
+	r, ok := right.(*VariableField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &VariableField{}
+	}
+
+	// Field Name - varchar
+	if c.Name != r.Name {
+		return false // fmt.Errorf("Name string mismatched")
+	}
+
+	// Field Description - varchar
+	if c.Description != r.Description {
+		return false // fmt.Errorf("Description string mismatched")
 	}
 
 	return true

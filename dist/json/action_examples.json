@@ -308,6 +308,100 @@
     }
   },
   {
+    "code": "C6",
+    "label": "Body Of Agreement Definition",
+    "name": "BodyOfAgreementDefinition",
+    "fields": {
+      "Chapters": [
+        {
+          "Articles": [
+            {
+              "Body": null,
+              "Children": [
+                {
+                  "Body": null,
+                  "Children": null,
+                  "Title": null
+                }
+              ],
+              "Title": null
+            }
+          ],
+          "Preamble": null,
+          "Title": null
+        }
+      ],
+      "Definitions": [
+        {
+          "Description": null,
+          "Name": null
+        }
+      ],
+      "Variables": [
+        {
+          "Description": null,
+          "Name": null
+        }
+      ]
+    }
+  },
+  {
+    "code": "C7",
+    "label": "Body Of Agreement",
+    "name": "BodyOfAgreement",
+    "fields": {
+      "Chapters": [
+        {
+          "Articles": [
+            {
+              "Body": null,
+              "Children": [
+                {
+                  "Body": null,
+                  "Children": null,
+                  "Title": null
+                }
+              ],
+              "Title": null
+            }
+          ],
+          "Preamble": null,
+          "Title": null
+        }
+      ],
+      "Definitions": [
+        {
+          "Description": null,
+          "Name": null
+        }
+      ],
+      "Revision": "0",
+      "Timestamp": "1594668650000000000",
+      "Variables": [
+        {
+          "Description": null,
+          "Name": null
+        }
+      ]
+    }
+  },
+  {
+    "code": "C8",
+    "label": "Body Of Agreement Modification",
+    "name": "BodyOfAgreementModification",
+    "fields": {
+      "Amendments": [
+        {
+          "Data": null,
+          "FieldIndexPath": null,
+          "Operation": "0"
+        }
+      ],
+      "RefTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
+      "Revision": "0"
+    }
+  },
+  {
     "code": "A1",
     "label": "Asset Definition",
     "name": "AssetDefinition",

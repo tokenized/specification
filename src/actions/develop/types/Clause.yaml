@@ -1,0 +1,24 @@
+
+name: Clause
+label: Clause
+description: >
+  A clause is the standard piece of an agreement, contained in each of the sub-levels of the 
+  agreement. Articles, Sections, Subsections, Paragraphs, and Subparagraphs.
+
+fields:
+  - name: Title
+    label: Title
+    description: "The title of the clause."
+    type: varchar
+    varSize: tiny
+
+  - name: Body
+    label: Body
+    description: "The body of the clause."
+    type: varchar
+    varSize: small
+
+  - name: Children
+    label: Children
+    description: "A list of clauses under this clause."
+    type: Clause[]

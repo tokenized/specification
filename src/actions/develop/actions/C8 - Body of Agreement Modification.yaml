@@ -1,0 +1,41 @@
+#
+# Body of Agreement Modification Action: Allows the administration to modify the agreement for the contract.
+#
+
+code: C8
+name: BodyOfAgreementModification
+label: "Body Of Agreement Modification"
+description: "Allows the administration to modify the agreement for the contract."
+
+metadata:
+  validation: BodyOfAgreement
+  rejection: Rejection
+
+  inputs:
+    - name: Administration
+      label: "Administration's Public Address"
+
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+
+fields:
+
+  - name: Revision
+    label: Revision
+    description: "The current revision figure to ensure the modification provided is based on the latest version."
+    type: uint
+    size: 4
+    example: 0
+    notes: "Cannot be Amended"
+
+  - name: Amendments
+    label: Amendments
+    type: Amendment[]
+    description: A collection of modifications to perform on this asset.
+
+  - name: RefTxID
+    label: Ref Tx ID
+    description: "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details."
+    type: TxId
+

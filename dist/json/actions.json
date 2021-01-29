@@ -334,6 +334,81 @@
       "name": "AssetTransfer"
     },
     {
+      "description": "A chapter is the top level structure of an agreement. It contains articles.\n",
+      "fields": [
+        {
+          "description": "The title of the chapter.",
+          "label": "Title",
+          "name": "Title",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "The introduction to the chapter.",
+          "label": "Preamble",
+          "name": "Preamble",
+          "type": "varchar",
+          "varSize": "small"
+        },
+        {
+          "description": "A list of articles for the chapter.",
+          "label": "Articles",
+          "name": "Articles",
+          "type": "Clause[]"
+        }
+      ],
+      "label": "Chapter",
+      "name": "Chapter"
+    },
+    {
+      "description": "A clause is the standard piece of an agreement, contained in each of the sub-levels of the  agreement. Articles, Sections, Subsections, Paragraphs, and Subparagraphs.\n",
+      "fields": [
+        {
+          "description": "The title of the clause.",
+          "label": "Title",
+          "name": "Title",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "The body of the clause.",
+          "label": "Body",
+          "name": "Body",
+          "type": "varchar",
+          "varSize": "small"
+        },
+        {
+          "description": "A list of clauses under this clause.",
+          "label": "Children",
+          "name": "Children",
+          "type": "Clause[]"
+        }
+      ],
+      "label": "Clause",
+      "name": "Clause"
+    },
+    {
+      "description": "A definition defines values specified throughout an agreement.\n",
+      "fields": [
+        {
+          "description": "The name of the value being defined. Linked to from within the agreement with curly braces {}  around the name.\n",
+          "label": "Name",
+          "name": "Name",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "The description of the name.",
+          "label": "Description",
+          "name": "Description",
+          "type": "varchar",
+          "varSize": "small"
+        }
+      ],
+      "label": "Definition",
+      "name": "Definition"
+    },
+    {
       "description": "A file containing data.",
       "fields": [
         {
@@ -663,6 +738,27 @@
       "name": "TargetAddress"
     },
     {
+      "description": "Variables within the agreement that have values defined outside of the agreement.\n",
+      "fields": [
+        {
+          "description": "The name of the value that can be defined outside of the agreement.\n",
+          "label": "Name",
+          "name": "Name",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "The description of the variable.",
+          "label": "Description",
+          "name": "Description",
+          "type": "varchar",
+          "varSize": "small"
+        }
+      ],
+      "label": "Variable",
+      "name": "Variable"
+    },
+    {
       "description": "A VotingSystem defines all details of a Voting System.",
       "fields": [
         {
@@ -728,7 +824,7 @@
           "type": "varchar"
         },
         {
-          "description": "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2  action\n",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
@@ -742,7 +838,7 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
           "type": "varbin",
@@ -1012,7 +1108,7 @@
           "type": "varchar"
         },
         {
-          "description": "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2  action\n",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
@@ -1026,7 +1122,7 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
           "type": "varbin",
@@ -1547,6 +1643,149 @@
         ]
       },
       "name": "ContractAddressChange"
+    },
+    {
+      "code": "C6",
+      "description": "Allows the administration to define the agreement for the contract.",
+      "fields": [
+        {
+          "description": "A list of chapters for the agreement.",
+          "label": "Chapters",
+          "name": "Chapters",
+          "type": "Chapter[]"
+        },
+        {
+          "description": "Definition of values within the agreement.",
+          "label": "Definitions",
+          "name": "Definitions",
+          "type": "Definition[]"
+        },
+        {
+          "description": "Variables within the agreement that have values defined outside of the agreement.",
+          "label": "Variables",
+          "name": "Variables",
+          "type": "Variable[]"
+        }
+      ],
+      "label": "Body Of Agreement Definition",
+      "metadata": {
+        "inputs": [
+          {
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          }
+        ],
+        "outputs": [
+          {
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "BodyOfAgreement"
+      },
+      "name": "BodyOfAgreementDefinition"
+    },
+    {
+      "code": "C7",
+      "description": "Provides the current version of the body of agreement for the contract.",
+      "fields": [
+        {
+          "description": "A list of chapters for the agreement.",
+          "label": "Chapters",
+          "name": "Chapters",
+          "type": "Chapter[]"
+        },
+        {
+          "description": "Definition of values within the agreement.",
+          "label": "Definitions",
+          "name": "Definitions",
+          "type": "Definition[]"
+        },
+        {
+          "description": "Variables within the agreement that have values defined outside of the agreement.",
+          "label": "Variables",
+          "name": "Variables",
+          "type": "Variable[]"
+        },
+        {
+          "description": "A counter for the number of times this agreement has been revised using a modification action.",
+          "example": "0",
+          "label": "Revision",
+          "name": "Revision",
+          "notes": "Can't be changed by the administration, operator. Smart contract controls.",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Can't be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "label": "Body Of Agreement",
+      "metadata": {
+        "inputs": [
+          {
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "outputs": [
+          {
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ]
+      },
+      "name": "BodyOfAgreement"
+    },
+    {
+      "code": "C8",
+      "description": "Allows the administration to modify the agreement for the contract.",
+      "fields": [
+        {
+          "description": "The current revision figure to ensure the modification provided is based on the latest version.",
+          "example": 0,
+          "label": "Revision",
+          "name": "Revision",
+          "notes": "Cannot be Amended",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "A collection of modifications to perform on this asset.",
+          "label": "Amendments",
+          "name": "Amendments",
+          "type": "Amendment[]"
+        },
+        {
+          "description": "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details.",
+          "label": "Ref Tx ID",
+          "name": "RefTxID",
+          "type": "TxId"
+        }
+      ],
+      "label": "Body Of Agreement Modification",
+      "metadata": {
+        "inputs": [
+          {
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          }
+        ],
+        "outputs": [
+          {
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "BodyOfAgreement"
+      },
+      "name": "BodyOfAgreementModification"
     },
     {
       "code": "A1",

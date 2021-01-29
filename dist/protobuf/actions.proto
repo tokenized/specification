@@ -115,6 +115,29 @@ message ContractAddressChange {
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
+// Message - Body Of Agreement Definition (C6)
+message BodyOfAgreementDefinition {
+    repeated ChapterField Chapters                 = 1;   // Chapter[]
+    repeated DefinitionField Definitions           = 2;   // Definition[]
+    repeated VariableField Variables               = 3;   // Variable[]
+}
+
+// Message - Body Of Agreement (C7)
+message BodyOfAgreement {
+    repeated ChapterField Chapters                 = 1;   // Chapter[]
+    repeated DefinitionField Definitions           = 2;   // Definition[]
+    repeated VariableField Variables               = 3;   // Variable[]
+    uint32 Revision                                = 4;   // uint
+    uint64 Timestamp                               = 5;   // Timestamp
+}
+
+// Message - Body Of Agreement Modification (C8)
+message BodyOfAgreementModification {
+    uint32 Revision                                = 1;   // uint
+    repeated AmendmentField Amendments             = 2;   // Amendment[]
+    bytes RefTxID                                  = 3;   // TxId
+}
+
 // Message - Asset Definition (A1)
 message AssetDefinition {
     bytes AssetPermissions                         = 1;   // varbin
@@ -363,6 +386,26 @@ message AssetTransferField {
     repeated AssetReceiverField AssetReceivers     = 5;   // AssetReceiver[]
 }
 
+// Field - Chapter
+message ChapterField {
+    string Title                                   = 1;   // varchar
+    string Preamble                                = 2;   // varchar
+    repeated ClauseField Articles                  = 3;   // Clause[]
+}
+
+// Field - Clause
+message ClauseField {
+    string Title                                   = 1;   // varchar
+    string Body                                    = 2;   // varchar
+    repeated ClauseField Children                  = 3;   // Clause[]
+}
+
+// Field - Definition
+message DefinitionField {
+    string Name                                    = 1;   // varchar
+    string Description                             = 2;   // varchar
+}
+
 // Field - Document
 message DocumentField {
     string Name                                    = 1;   // varchar
@@ -429,6 +472,12 @@ message ServiceField {
 message TargetAddressField {
     bytes Address                                  = 1;   // Address
     uint64 Quantity                                = 2;   // uint
+}
+
+// Field - Variable
+message VariableField {
+    string Name                                    = 1;   // varchar
+    string Description                             = 2;   // varchar
 }
 
 // Field - Voting System

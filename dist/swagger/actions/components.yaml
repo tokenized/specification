@@ -10,6 +10,12 @@ components:
       $ref: ./_components/schemas/tokenized/actions/StaticContractFormation.yaml
     ContractAddressChange:
       $ref: ./_components/schemas/tokenized/actions/ContractAddressChange.yaml
+    BodyOfAgreementDefinition:
+      $ref: ./_components/schemas/tokenized/actions/BodyOfAgreementDefinition.yaml
+    BodyOfAgreement:
+      $ref: ./_components/schemas/tokenized/actions/BodyOfAgreement.yaml
+    BodyOfAgreementModification:
+      $ref: ./_components/schemas/tokenized/actions/BodyOfAgreementModification.yaml
     AssetDefinition:
       $ref: ./_components/schemas/tokenized/actions/AssetDefinition.yaml
     AssetCreation:
@@ -64,6 +70,12 @@ components:
       $ref: ./_components/schemas/tokenized/actions/AssetSettlementField.yaml
     AssetTransferField:
       $ref: ./_components/schemas/tokenized/actions/AssetTransferField.yaml
+    ChapterField:
+      $ref: ./_components/schemas/tokenized/actions/ChapterField.yaml
+    ClauseField:
+      $ref: ./_components/schemas/tokenized/actions/ClauseField.yaml
+    DefinitionField:
+      $ref: ./_components/schemas/tokenized/actions/DefinitionField.yaml
     DocumentField:
       $ref: ./_components/schemas/tokenized/actions/DocumentField.yaml
     EntityField:
@@ -80,5 +92,7 @@ components:
       $ref: ./_components/schemas/tokenized/actions/ServiceField.yaml
     TargetAddressField:
       $ref: ./_components/schemas/tokenized/actions/TargetAddressField.yaml
+    VariableField:
+      $ref: ./_components/schemas/tokenized/actions/VariableField.yaml
     VotingSystemField:
       $ref: ./_components/schemas/tokenized/actions/VotingSystemField.yaml

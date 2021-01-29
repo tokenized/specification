@@ -1,0 +1,23 @@
+
+description: Allows the administration to define the agreement for the contract.
+type: object
+properties:
+  Chapters:
+    description: A list of chapters for the agreement.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/ChapterField"
+  Definitions:
+    description: Definition of values within the agreement.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/DefinitionField"
+  Variables:
+    description: Variables within the agreement that have values defined outside of the agreement.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/VariableField"
+

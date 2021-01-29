@@ -21,6 +21,9 @@ See the [Transactions article](../concepts/transactions) for details on how to c
 - [Contract Amendment](#action-contract-amendment)
 - [Static Contract Formation](#action-static-contract-formation)
 - [Contract Address Change](#action-contract-address-change)
+- [Body Of Agreement Definition](#action-body-of-agreement-definition)
+- [Body Of Agreement](#action-body-of-agreement)
+- [Body Of Agreement Modification](#action-body-of-agreement-modification)
 - [Asset Definition](#action-asset-definition)
 - [Asset Creation](#action-asset-creation)
 - [Asset Modification](#action-asset-modification)
@@ -81,7 +84,8 @@ Allows the administration to tell the smart contract what they want the details 
             uint(1)
         </td>
         <td>
-            0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2  action
+
             Body of Agreement - Amendments can be restricted to a vote. Example: 1
         </td>
     </tr>
@@ -92,7 +96,8 @@ Allows the administration to tell the smart contract what they want the details 
             varbin(medium)
         </td>
         <td>
-            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.
+            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.
+
             
         </td>
     </tr>
@@ -475,7 +480,8 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             uint(1)
         </td>
         <td>
-            0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format
+            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2  action
+
             Body of Agreement - Amendments can be restricted to a vote. Example: 1
         </td>
     </tr>
@@ -486,7 +492,8 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             varbin(medium)
         </td>
         <td>
-            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.
+            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.
+
             
         </td>
     </tr>
@@ -1298,6 +1305,298 @@ This txn is signed by the master contract key defined in the contract formation 
         <td class="text-center">0</td>
         <td>Contract Public Address</td>
         <td>Currently active, and soon to be deactivated, contract address.</td>
+    </tr>
+</table>
+
+
+<hr />
+
+
+
+<a name="action-body-of-agreement-definition"></a>
+#### Body Of Agreement Definition
+
+Allows the administration to define the agreement for the contract.
+
+<table>
+    <tr>
+        <th style="width:15%">Action Code</th>
+        <td>C6</td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Chapters</td>
+        <td>
+            <a href="#type-chapter">Chapter[tiny]</a>
+        </td>
+        <td>
+            A list of chapters for the agreement.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Definitions</td>
+        <td>
+            <a href="#type-definition">Definition[tiny]</a>
+        </td>
+        <td>
+            Definition of values within the agreement.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Variables</td>
+        <td>
+            <a href="#type-variable">Variable[tiny]</a>
+        </td>
+        <td>
+            Variables within the agreement that have values defined outside of the agreement.
+            
+        </td>
+    </tr>
+
+</table>
+
+##### Transaction Summary
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Input</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Administration&#39;s Public Address</td>
+        <td></td>
+    </tr>
+</table>
+
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Output</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Contract Public Address</td>
+        <td></td>
+    </tr>
+</table>
+
+
+<hr />
+
+
+
+<a name="action-body-of-agreement"></a>
+#### Body Of Agreement
+
+Provides the current version of the body of agreement for the contract.
+
+<table>
+    <tr>
+        <th style="width:15%">Action Code</th>
+        <td>C7</td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Chapters</td>
+        <td>
+            <a href="#type-chapter">Chapter[tiny]</a>
+        </td>
+        <td>
+            A list of chapters for the agreement.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Definitions</td>
+        <td>
+            <a href="#type-definition">Definition[tiny]</a>
+        </td>
+        <td>
+            Definition of values within the agreement.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Variables</td>
+        <td>
+            <a href="#type-variable">Variable[tiny]</a>
+        </td>
+        <td>
+            Variables within the agreement that have values defined outside of the agreement.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Revision</td>
+        <td>
+            uint(4)
+        </td>
+        <td>
+            A counter for the number of times this agreement has been revised using a modification action.
+            Can&#39;t be changed by the administration, operator. Smart contract controls. Example: 0
+        </td>
+    </tr>
+
+    <tr>
+        <td>Timestamp</td>
+        <td>
+            <a href="#alias-timestamp">Timestamp</a>
+        </td>
+        <td>
+            Timestamp in nanoseconds of when the smart contract created the action.
+            Can&#39;t be changed by the administration, operator. Smart contract controls.
+        </td>
+    </tr>
+
+</table>
+
+##### Transaction Summary
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Input</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Contract Public Address</td>
+        <td></td>
+    </tr>
+</table>
+
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Output</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Contract Public Address</td>
+        <td></td>
+    </tr>
+</table>
+
+
+<hr />
+
+
+
+<a name="action-body-of-agreement-modification"></a>
+#### Body Of Agreement Modification
+
+Allows the administration to modify the agreement for the contract.
+
+<table>
+    <tr>
+        <th style="width:15%">Action Code</th>
+        <td>C8</td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Revision</td>
+        <td>
+            uint(4)
+        </td>
+        <td>
+            The current revision figure to ensure the modification provided is based on the latest version.
+            Cannot be Amended Example: 0
+        </td>
+    </tr>
+
+    <tr>
+        <td>Amendments</td>
+        <td>
+            <a href="#type-amendment">Amendment[tiny]</a>
+        </td>
+        <td>
+            A collection of modifications to perform on this asset.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>RefTxID</td>
+        <td>
+            <a href="#alias-tx-id">TxId</a>
+        </td>
+        <td>
+            The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details.
+            
+        </td>
+    </tr>
+
+</table>
+
+##### Transaction Summary
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Input</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Administration&#39;s Public Address</td>
+        <td></td>
+    </tr>
+</table>
+
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Output</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Contract Public Address</td>
+        <td></td>
     </tr>
 </table>
 
@@ -3776,6 +4075,9 @@ Used to reject request actions that do not comply with the Contract. If money is
 - [AssetReceiver](#type-asset-receiver)
 - [Asset Settlement](#type-asset-settlement)
 - [Asset Transfer](#type-asset-transfer)
+- [Chapter](#type-chapter)
+- [Clause](#type-clause)
+- [Definition](#type-definition)
 - [Document](#type-document)
 - [Entity](#type-entity)
 - [Manager](#type-manager)
@@ -3784,6 +4086,7 @@ Used to reject request actions that do not comply with the Contract. If money is
 - [Reference Transaction](#type-reference-transaction)
 - [Service](#type-service)
 - [Target Address](#type-target-address)
+- [Variable](#type-variable)
 - [Voting System](#type-voting-system)
 </div>
 
@@ -4149,6 +4452,143 @@ AssetTransfer is the data required to transfer an asset.
         </td>
         <td>
             Each element has the value of tokens to be received, the address, and an oracle signature if required.
+            
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-chapter"></a>
+### Chapter
+
+A chapter is the top level structure of an agreement. It contains articles.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Title</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            The title of the chapter.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Preamble</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            The introduction to the chapter.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Articles</td>
+        <td>
+            <a href="#type-clause">Clause[tiny]</a>
+        </td>
+        <td>
+            A list of articles for the chapter.
+            
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-clause"></a>
+### Clause
+
+A clause is the standard piece of an agreement, contained in each of the sub-levels of the  agreement. Articles, Sections, Subsections, Paragraphs, and Subparagraphs.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Title</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            The title of the clause.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Body</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            The body of the clause.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Children</td>
+        <td>
+            <a href="#type-clause">Clause[tiny]</a>
+        </td>
+        <td>
+            A list of clauses under this clause.
+            
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-definition"></a>
+### Definition
+
+A definition defines values specified throughout an agreement.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            The name of the value being defined. Linked to from within the agreement with curly braces {}  around the name.
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Description</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            The description of the name.
             
         </td>
     </tr>
@@ -4665,6 +5105,45 @@ A TargetAddress defines a public address and quantity.
         <td>
             Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.
              Example: 10000
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-variable"></a>
+### Variable
+
+Variables within the agreement that have values defined outside of the agreement.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            The name of the value that can be defined outside of the agreement.
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Description</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            The description of the variable.
+            
         </td>
     </tr>
 

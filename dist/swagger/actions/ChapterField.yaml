@@ -1,0 +1,17 @@
+
+description: A chapter is the top level structure of an agreement. It contains articles.
+type: object
+properties:
+  Title:
+    description: The title of the chapter.
+    type: string
+  Preamble:
+    description: The introduction to the chapter.
+    type: string
+  Articles:
+    description: A list of articles for the chapter.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/ClauseField"
+

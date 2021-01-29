@@ -18,6 +18,9 @@ messages:
   - "actions/C3 - Contract Amendment"
   - "actions/C4 - Static Contract Formation"
   - "actions/C5 - Contract Address Change"
+  - "actions/C6 - Body of Agreement Definition"
+  - "actions/C7 - Body of Agreement"
+  - "actions/C8 - Body of Agreement Modification"
   - "actions/A1 - Asset Definition"
   - "actions/A2 - Asset Creation"
   - "actions/A3 - Asset Modification"
@@ -57,6 +60,9 @@ fieldTypes:
   - "types/AssetReceiver"
   - "types/AssetSettlement"
   - "types/AssetTransfer"
+  - "types/Chapter"
+  - "types/Clause"
+  - "types/Definition"
   - "types/Document"
   - "types/Entity"
   - "types/Manager"
@@ -65,6 +71,7 @@ fieldTypes:
   - "types/ReferenceTransaction"
   - "types/Service"
   - "types/TargetAddress"
+  - "types/Variable"
   - "types/VotingSystem"
 
 # Define Field Aliases

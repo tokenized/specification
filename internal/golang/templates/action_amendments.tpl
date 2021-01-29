@@ -84,6 +84,73 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip FieldIndexPath, operation uint3
 	return nil, fmt.Errorf("Unknown contract amendment field index : %v", fip)
 }
 
+	{{- else if eq $message.Name "BodyOfAgreementDefinition" }}
+// BodyOfAgreement Permission / Modification Field Indices
+const (
+		{{- range $i, $field := .Fields }}
+			{{- if eq $field.Type "deprecated" }}
+	DeprecatedBodyOfAgreementField{{ $field.Name }} = uint32({{add $i 1}})
+			{{- else }}
+	BodyOfAgreementField{{ $field.Name }} = uint32({{add $i 1}})
+			{{- end }}
+		{{- end }}
+)
+
+// CreateAmendments determines the differences between two {{ $message.Name }}s and returns
+// amendment data. Use the current value of agreement, and pass in the new values as a
+// agreement definition.
+func (a *BodyOfAgreement) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
+	if err := newValue.Validate(); err != nil {
+		return nil, errors.Wrap(err, "new value invalid")
+	}
+
+	var result []*internal.Amendment
+	var fip []uint32
+
+	{{ range $offset, $field := .Fields }}
+		{{- if eq $field.Type "deprecated" }}
+	// deprecated {{ $field.Name }} {{ $field.GoType }}
+		{{- else }}
+	// {{ $field.Name }} {{ $field.GoType }}
+	fip = []uint32{BodyOfAgreementField{{ $field.Name }}}
+	{{- template "CreateAmendmentField" $field }}
+		{{- end }}
+	{{ end }}
+
+	r, err := convertAmendments(result)
+	if err != nil {
+		return nil, errors.Wrap(err, "convert amendments")
+	}
+
+	return r, nil
+}
+
+	{{- else if eq $message.Name "BodyOfAgreement" }}
+
+// ApplyAmendment updates a {{ $message.Name }} based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *{{ $message.Name }}) ApplyAmendment(fip FieldIndexPath, operation uint32,
+	data []byte) (FieldIndexPath, error) {
+
+	if len(fip) == 0 {
+		return nil, errors.New("Empty agreement amendment field index path")
+	}
+
+	switch fip[0] {
+		{{- range $offset, $field := .Fields }}
+			{{- if eq $field.Type "deprecated" }}
+	case DeprecatedBodyOfAgreementField{{ $field.Name }}: // {{ $field.GoType }}
+			{{- else if not (eq $field.Name "Revision" "Timestamp") }}
+	case BodyOfAgreementField{{ $field.Name }}: // {{ $field.GoType }}
+	{{- template "ApplyAmendmentField" $field }}
+			{{- end }}
+		{{ end }}
+	}
+
+	return nil, fmt.Errorf("Unknown agreement amendment field index : %v", fip)
+}
+
 	{{- else if eq $message.Name "AssetDefinition" }}
 // Asset Permission / Amendment Field Indices
 const (

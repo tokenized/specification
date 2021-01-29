@@ -36,6 +36,15 @@ const (
 	// CodeContractAddressChange identifies a payload as a ContractAddressChange action message.
 	CodeContractAddressChange = "C5"
 
+	// CodeBodyOfAgreementDefinition identifies a payload as a BodyOfAgreementDefinition action message.
+	CodeBodyOfAgreementDefinition = "C6"
+
+	// CodeBodyOfAgreement identifies a payload as a BodyOfAgreement action message.
+	CodeBodyOfAgreement = "C7"
+
+	// CodeBodyOfAgreementModification identifies a payload as a BodyOfAgreementModification action message.
+	CodeBodyOfAgreementModification = "C8"
+
 	// CodeAssetDefinition identifies a payload as a AssetDefinition action message.
 	CodeAssetDefinition = "A1"
 
@@ -143,6 +152,12 @@ func NewActionFromCode(code string) Action {
 		return &StaticContractFormation{}
 	case CodeContractAddressChange:
 		return &ContractAddressChange{}
+	case CodeBodyOfAgreementDefinition:
+		return &BodyOfAgreementDefinition{}
+	case CodeBodyOfAgreement:
+		return &BodyOfAgreement{}
+	case CodeBodyOfAgreementModification:
+		return &BodyOfAgreementModification{}
 	case CodeAssetDefinition:
 		return &AssetDefinition{}
 	case CodeAssetCreation:
@@ -224,6 +239,18 @@ func (a *StaticContractFormation) Code() string {
 
 func (a *ContractAddressChange) Code() string {
 	return CodeContractAddressChange
+}
+
+func (a *BodyOfAgreementDefinition) Code() string {
+	return CodeBodyOfAgreementDefinition
+}
+
+func (a *BodyOfAgreement) Code() string {
+	return CodeBodyOfAgreement
+}
+
+func (a *BodyOfAgreementModification) Code() string {
+	return CodeBodyOfAgreementModification
 }
 
 func (a *AssetDefinition) Code() string {

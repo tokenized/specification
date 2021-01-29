@@ -34,7 +34,11 @@ fields:
 
   - name: BodyOfAgreementType
     label: Body of Agreement Type
-    description: "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
+    description: >
+      0 - No Body of agreement included
+      1 - SHA-256 Hash
+      2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2 
+      action
     type: uint
     size: 1
     example: "1"
@@ -46,7 +50,11 @@ fields:
 
   - name: BodyOfAgreement
     label: Body of Agreement
-    description: "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information."
+    description: >
+      SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the 
+      full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is 
+      specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal 
+      and technical information.
     type: varbin
     varSize: medium
 

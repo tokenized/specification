@@ -593,6 +593,112 @@ func (a *ContractAddressChange) Validate() error {
 	return nil
 }
 
+func (a *BodyOfAgreementDefinition) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field Chapters - Chapter
+	if len(a.Chapters) > max1ByteInteger {
+		return fmt.Errorf("Chapters list over max length : %d > %d", len(a.Chapters), max1ByteInteger)
+	}
+	for i, v := range a.Chapters {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Chapters[%d]", i))
+		}
+	}
+
+	// Field Definitions - Definition
+	if len(a.Definitions) > max1ByteInteger {
+		return fmt.Errorf("Definitions list over max length : %d > %d", len(a.Definitions), max1ByteInteger)
+	}
+	for i, v := range a.Definitions {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Definitions[%d]", i))
+		}
+	}
+
+	// Field Variables - Variable
+	if len(a.Variables) > max1ByteInteger {
+		return fmt.Errorf("Variables list over max length : %d > %d", len(a.Variables), max1ByteInteger)
+	}
+	for i, v := range a.Variables {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Variables[%d]", i))
+		}
+	}
+
+	return nil
+}
+
+func (a *BodyOfAgreement) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field Chapters - Chapter
+	if len(a.Chapters) > max1ByteInteger {
+		return fmt.Errorf("Chapters list over max length : %d > %d", len(a.Chapters), max1ByteInteger)
+	}
+	for i, v := range a.Chapters {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Chapters[%d]", i))
+		}
+	}
+
+	// Field Definitions - Definition
+	if len(a.Definitions) > max1ByteInteger {
+		return fmt.Errorf("Definitions list over max length : %d > %d", len(a.Definitions), max1ByteInteger)
+	}
+	for i, v := range a.Definitions {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Definitions[%d]", i))
+		}
+	}
+
+	// Field Variables - Variable
+	if len(a.Variables) > max1ByteInteger {
+		return fmt.Errorf("Variables list over max length : %d > %d", len(a.Variables), max1ByteInteger)
+	}
+	for i, v := range a.Variables {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Variables[%d]", i))
+		}
+	}
+
+	// Field Revision - uint
+
+	// Field Timestamp - uint
+
+	return nil
+}
+
+func (a *BodyOfAgreementModification) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field Revision - uint
+
+	// Field Amendments - Amendment
+	if len(a.Amendments) > max1ByteInteger {
+		return fmt.Errorf("Amendments list over max length : %d > %d", len(a.Amendments), max1ByteInteger)
+	}
+	for i, v := range a.Amendments {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Amendments[%d]", i))
+		}
+	}
+
+	// Field RefTxID - bin
+	if len(a.RefTxID) != 0 && len(a.RefTxID) != 32 {
+		return fmt.Errorf("RefTxID fixed width field wrong size : %d should be %d",
+			len(a.RefTxID), 32)
+	}
+
+	return nil
+}
+
 func (a *AssetDefinition) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
@@ -1571,6 +1677,80 @@ func (a *AssetTransferField) Validate() error {
 	return nil
 }
 
+func (a *ChapterField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Title - varchar
+	if len(a.Title) > max1ByteInteger {
+		return fmt.Errorf("Title over max size : %d > %d", len(a.Title), max1ByteInteger)
+	}
+
+	// Field Preamble - varchar
+	if len(a.Preamble) > max2ByteInteger {
+		return fmt.Errorf("Preamble over max size : %d > %d", len(a.Preamble), max2ByteInteger)
+	}
+
+	// Field Articles - Clause
+	if len(a.Articles) > max1ByteInteger {
+		return fmt.Errorf("Articles list over max length : %d > %d", len(a.Articles), max1ByteInteger)
+	}
+	for i, v := range a.Articles {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Articles[%d]", i))
+		}
+	}
+
+	return nil
+}
+
+func (a *ClauseField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Title - varchar
+	if len(a.Title) > max1ByteInteger {
+		return fmt.Errorf("Title over max size : %d > %d", len(a.Title), max1ByteInteger)
+	}
+
+	// Field Body - varchar
+	if len(a.Body) > max2ByteInteger {
+		return fmt.Errorf("Body over max size : %d > %d", len(a.Body), max2ByteInteger)
+	}
+
+	// Field Children - Clause
+	if len(a.Children) > max1ByteInteger {
+		return fmt.Errorf("Children list over max length : %d > %d", len(a.Children), max1ByteInteger)
+	}
+	for i, v := range a.Children {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Children[%d]", i))
+		}
+	}
+
+	return nil
+}
+
+func (a *DefinitionField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
+	}
+
+	// Field Description - varchar
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	}
+
+	return nil
+}
+
 func (a *DocumentField) Validate() error {
 	if a == nil {
 		return nil
@@ -1841,6 +2021,24 @@ func (a *TargetAddressField) Validate() error {
 	}
 
 	// Field Quantity - uint
+
+	return nil
+}
+
+func (a *VariableField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
+	}
+
+	// Field Description - varchar
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	}
 
 	return nil
 }

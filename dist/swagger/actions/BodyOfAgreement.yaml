@@ -1,0 +1,32 @@
+
+description: Provides the current version of the body of agreement for the contract.
+type: object
+properties:
+  Chapters:
+    description: A list of chapters for the agreement.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/ChapterField"
+  Definitions:
+    description: Definition of values within the agreement.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/DefinitionField"
+  Variables:
+    description: Variables within the agreement that have values defined outside of the agreement.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/VariableField"
+  Revision:
+    description:  >
+      A counter for the number of times this agreement has been revised using a modification action.
+    type: number
+    example: 0
+  Timestamp:
+    description: Timestamp in nanoseconds of when the smart contract created the action.
+    type: number
+    example: 1594668650000000000
+

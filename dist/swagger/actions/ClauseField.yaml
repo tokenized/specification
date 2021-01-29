@@ -1,0 +1,19 @@
+
+description:  >
+  A clause is the standard piece of an agreement, contained in each of the sub-levels of the 
+  agreement. Articles, Sections, Subsections, Paragraphs, and Subparagraphs.
+type: object
+properties:
+  Title:
+    description: The title of the clause.
+    type: string
+  Body:
+    description: The body of the clause.
+    type: string
+  Children:
+    description: A list of clauses under this clause.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/ClauseField"
+
