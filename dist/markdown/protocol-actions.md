@@ -21,9 +21,9 @@ See the [Transactions article](../concepts/transactions) for details on how to c
 - [Contract Amendment](#action-contract-amendment)
 - [Static Contract Formation](#action-static-contract-formation)
 - [Contract Address Change](#action-contract-address-change)
-- [Body Of Agreement Definition](#action-body-of-agreement-definition)
-- [Body Of Agreement](#action-body-of-agreement)
-- [Body Of Agreement Modification](#action-body-of-agreement-modification)
+- [Body Of Agreement Offer](#action-body-of-agreement-offer)
+- [Body Of Agreement Formation](#action-body-of-agreement-formation)
+- [Body Of Agreement Amendment](#action-body-of-agreement-amendment)
 - [Asset Definition](#action-asset-definition)
 - [Asset Creation](#action-asset-creation)
 - [Asset Modification](#action-asset-modification)
@@ -84,7 +84,7 @@ Allows the administration to tell the smart contract what they want the details 
             uint(1)
         </td>
         <td>
-            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2  action
+            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action
 
             Body of Agreement - Amendments can be restricted to a vote. Example: 1
         </td>
@@ -96,9 +96,10 @@ Allows the administration to tell the smart contract what they want the details 
             varbin(medium)
         </td>
         <td>
-            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.
+            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.
 
             
+            This field is only valid when the field BodyOfAgreementType equals 1.
         </td>
     </tr>
 
@@ -480,7 +481,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             uint(1)
         </td>
         <td>
-            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2  action
+            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action
 
             Body of Agreement - Amendments can be restricted to a vote. Example: 1
         </td>
@@ -492,9 +493,10 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             varbin(medium)
         </td>
         <td>
-            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.
+            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.
 
             
+            This field is only valid when the field BodyOfAgreementType equals 1.
         </td>
     </tr>
 
@@ -1313,8 +1315,8 @@ This txn is signed by the master contract key defined in the contract formation 
 
 
 
-<a name="action-body-of-agreement-definition"></a>
-#### Body Of Agreement Definition
+<a name="action-body-of-agreement-offer"></a>
+#### Body Of Agreement Offer
 
 Allows the administration to define the agreement for the contract.
 
@@ -1346,21 +1348,10 @@ Allows the administration to define the agreement for the contract.
     <tr>
         <td>Definitions</td>
         <td>
-            <a href="#type-definition">Definition[tiny]</a>
+            <a href="#type-defined-term">DefinedTerm[tiny]</a>
         </td>
         <td>
             Definition of values within the agreement.
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>Variables</td>
-        <td>
-            <a href="#type-variable">Variable[tiny]</a>
-        </td>
-        <td>
-            Variables within the agreement that have values defined outside of the agreement.
             
         </td>
     </tr>
@@ -1403,8 +1394,8 @@ Allows the administration to define the agreement for the contract.
 
 
 
-<a name="action-body-of-agreement"></a>
-#### Body Of Agreement
+<a name="action-body-of-agreement-formation"></a>
+#### Body Of Agreement Formation
 
 Provides the current version of the body of agreement for the contract.
 
@@ -1436,21 +1427,10 @@ Provides the current version of the body of agreement for the contract.
     <tr>
         <td>Definitions</td>
         <td>
-            <a href="#type-definition">Definition[tiny]</a>
+            <a href="#type-defined-term">DefinedTerm[tiny]</a>
         </td>
         <td>
-            Definition of values within the agreement.
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>Variables</td>
-        <td>
-            <a href="#type-variable">Variable[tiny]</a>
-        </td>
-        <td>
-            Variables within the agreement that have values defined outside of the agreement.
+            Definition of terms within the agreement.
             
         </td>
     </tr>
@@ -1515,8 +1495,8 @@ Provides the current version of the body of agreement for the contract.
 
 
 
-<a name="action-body-of-agreement-modification"></a>
-#### Body Of Agreement Modification
+<a name="action-body-of-agreement-amendment"></a>
+#### Body Of Agreement Amendment
 
 Allows the administration to modify the agreement for the contract.
 
@@ -1726,7 +1706,7 @@ This action is used by the administration to define the properties/characteristi
             uint(8)
         </td>
         <td>
-            The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.
+            The number of tokens authorized to be issued for this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.
              Example: 1000000
         </td>
     </tr>
@@ -1944,7 +1924,7 @@ This action creates an asset in response to the administration&#39;s instruction
             uint(8)
         </td>
         <td>
-            The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.
+            The number of tokens authorized to be issued for this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.
              Example: 1000000
         </td>
     </tr>
@@ -4077,7 +4057,7 @@ Used to reject request actions that do not comply with the Contract. If money is
 - [Asset Transfer](#type-asset-transfer)
 - [Chapter](#type-chapter)
 - [Clause](#type-clause)
-- [Definition](#type-definition)
+- [Defined Term](#type-defined-term)
 - [Document](#type-document)
 - [Entity](#type-entity)
 - [Manager](#type-manager)
@@ -4086,7 +4066,6 @@ Used to reject request actions that do not comply with the Contract. If money is
 - [Reference Transaction](#type-reference-transaction)
 - [Service](#type-service)
 - [Target Address](#type-target-address)
-- [Variable](#type-variable)
 - [Voting System](#type-voting-system)
 </div>
 
@@ -4558,10 +4537,10 @@ A clause is the standard piece of an agreement, contained in each of the sub-lev
 
 
 
-<a name="type-definition"></a>
-### Definition
+<a name="type-defined-term"></a>
+### Defined Term
 
-A definition defines values specified throughout an agreement.
+A definition define a term specified throughout an agreement.
 
 
 <table>
@@ -4571,24 +4550,24 @@ A definition defines values specified throughout an agreement.
         <th>Description</th>
     </tr>
     <tr>
-        <td>Name</td>
+        <td>Term</td>
         <td>
             varchar(tiny)
         </td>
         <td>
-            The name of the value being defined. Linked to from within the agreement with curly braces {}  around the name.
+            The name of the term being defined. Linked to from within the agreement with curly braces {}  around the name.
 
             
         </td>
     </tr>
 
     <tr>
-        <td>Description</td>
+        <td>Definition</td>
         <td>
             varchar(small)
         </td>
         <td>
-            The description of the name.
+            The definition of the name.
             
         </td>
     </tr>
@@ -5105,45 +5084,6 @@ A TargetAddress defines a public address and quantity.
         <td>
             Qty of tokens to be frozen, thawed, confiscated or reconciled. For Contract-wide freezes 0 will be used.
              Example: 10000
-        </td>
-    </tr>
-
-</table>
-
-
-
-<a name="type-variable"></a>
-### Variable
-
-Variables within the agreement that have values defined outside of the agreement.
-
-
-<table>
-    <tr>
-        <th style="width:15%">Field</th>
-        <th style="width:15%">Type</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td>
-            varchar(tiny)
-        </td>
-        <td>
-            The name of the value that can be defined outside of the agreement.
-
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>Description</td>
-        <td>
-            varchar(small)
-        </td>
-        <td>
-            The description of the variable.
-            
         </td>
     </tr>
 

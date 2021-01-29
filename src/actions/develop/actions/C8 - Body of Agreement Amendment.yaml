@@ -1,10 +1,10 @@
 #
-# Body of Agreement Modification Action: Allows the administration to modify the agreement for the contract.
+# Body of Agreement Amendment Action: Allows the administration to modify the agreement for the contract.
 #
 
 code: C8
-name: BodyOfAgreementModification
-label: "Body Of Agreement Modification"
+name: BodyOfAgreementAmendment
+label: "Body Of Agreement Amendment"
 description: "Allows the administration to modify the agreement for the contract."
 
 metadata:

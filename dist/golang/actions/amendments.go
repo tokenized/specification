@@ -843,303 +843,6 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	return nil, fmt.Errorf("Unknown contract amendment field index : %v", fip)
 }
 
-// BodyOfAgreement Permission / Modification Field Indices
-const (
-	BodyOfAgreementFieldChapters    = uint32(1)
-	BodyOfAgreementFieldDefinitions = uint32(2)
-	BodyOfAgreementFieldVariables   = uint32(3)
-)
-
-// CreateAmendments determines the differences between two BodyOfAgreementDefinitions and returns
-// amendment data. Use the current value of agreement, and pass in the new values as a
-// agreement definition.
-func (a *BodyOfAgreement) CreateAmendments(newValue *BodyOfAgreementDefinition) ([]*AmendmentField, error) {
-	if err := newValue.Validate(); err != nil {
-		return nil, errors.Wrap(err, "new value invalid")
-	}
-
-	var result []*internal.Amendment
-	var fip []uint32
-
-	// Chapters []ChapterField
-	fip = []uint32{BodyOfAgreementFieldChapters}
-	ChaptersMin := len(a.Chapters)
-	if ChaptersMin > len(newValue.Chapters) {
-		ChaptersMin = len(newValue.Chapters)
-	}
-
-	// Compare values
-	for i := 0; i < ChaptersMin; i++ {
-		lfip := append(fip, uint32(i))
-		ChaptersAmendments, err := a.Chapters[i].CreateAmendments(lfip,
-			newValue.Chapters[i])
-		if err != nil {
-			return nil, errors.Wrapf(err, "Chapters%d", i)
-		}
-		result = append(result, ChaptersAmendments...)
-	}
-
-	ChaptersMax := len(a.Chapters)
-	if ChaptersMax < len(newValue.Chapters) {
-		ChaptersMax = len(newValue.Chapters)
-	}
-
-	// Add/Remove values
-	for i := ChaptersMin; i < ChaptersMax; i++ {
-		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
-		}
-
-		if i < len(newValue.Chapters) {
-			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Chapters[i])
-			if err != nil {
-				return nil, errors.Wrapf(err, "serialize Chapters %d", i)
-			}
-			amendment.Data = b
-		} else {
-			amendment.Operation = 2 // Remove element
-		}
-
-		result = append(result, amendment)
-	}
-
-	// Definitions []DefinitionField
-	fip = []uint32{BodyOfAgreementFieldDefinitions}
-	DefinitionsMin := len(a.Definitions)
-	if DefinitionsMin > len(newValue.Definitions) {
-		DefinitionsMin = len(newValue.Definitions)
-	}
-
-	// Compare values
-	for i := 0; i < DefinitionsMin; i++ {
-		lfip := append(fip, uint32(i))
-		DefinitionsAmendments, err := a.Definitions[i].CreateAmendments(lfip,
-			newValue.Definitions[i])
-		if err != nil {
-			return nil, errors.Wrapf(err, "Definitions%d", i)
-		}
-		result = append(result, DefinitionsAmendments...)
-	}
-
-	DefinitionsMax := len(a.Definitions)
-	if DefinitionsMax < len(newValue.Definitions) {
-		DefinitionsMax = len(newValue.Definitions)
-	}
-
-	// Add/Remove values
-	for i := DefinitionsMin; i < DefinitionsMax; i++ {
-		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
-		}
-
-		if i < len(newValue.Definitions) {
-			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Definitions[i])
-			if err != nil {
-				return nil, errors.Wrapf(err, "serialize Definitions %d", i)
-			}
-			amendment.Data = b
-		} else {
-			amendment.Operation = 2 // Remove element
-		}
-
-		result = append(result, amendment)
-	}
-
-	// Variables []VariableField
-	fip = []uint32{BodyOfAgreementFieldVariables}
-	VariablesMin := len(a.Variables)
-	if VariablesMin > len(newValue.Variables) {
-		VariablesMin = len(newValue.Variables)
-	}
-
-	// Compare values
-	for i := 0; i < VariablesMin; i++ {
-		lfip := append(fip, uint32(i))
-		VariablesAmendments, err := a.Variables[i].CreateAmendments(lfip,
-			newValue.Variables[i])
-		if err != nil {
-			return nil, errors.Wrapf(err, "Variables%d", i)
-		}
-		result = append(result, VariablesAmendments...)
-	}
-
-	VariablesMax := len(a.Variables)
-	if VariablesMax < len(newValue.Variables) {
-		VariablesMax = len(newValue.Variables)
-	}
-
-	// Add/Remove values
-	for i := VariablesMin; i < VariablesMax; i++ {
-		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
-		}
-
-		if i < len(newValue.Variables) {
-			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Variables[i])
-			if err != nil {
-				return nil, errors.Wrapf(err, "serialize Variables %d", i)
-			}
-			amendment.Data = b
-		} else {
-			amendment.Operation = 2 // Remove element
-		}
-
-		result = append(result, amendment)
-	}
-
-	r, err := convertAmendments(result)
-	if err != nil {
-		return nil, errors.Wrap(err, "convert amendments")
-	}
-
-	return r, nil
-}
-
-// ApplyAmendment updates a BodyOfAgreement based on amendment data.
-// Note: This does not check permissions or data validity. This does check data format.
-// fip must have at least one value.
-func (a *BodyOfAgreement) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
-
-	if len(fip) == 0 {
-		return nil, errors.New("Empty agreement amendment field index path")
-	}
-
-	switch fip[0] {
-	case BodyOfAgreementFieldChapters: // []ChapterField
-		switch operation {
-		case 0: // Modify
-			if len(fip) < 3 { // includes list index and subfield index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Chapters : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.Chapters) {
-				return nil, fmt.Errorf("Amendment element index out of range for modify Chapters : %d", fip[1])
-			}
-			result, err := a.Chapters[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
-
-		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Chapters : %v",
-					fip)
-			}
-			newValue := &ChapterField{}
-			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
-					return nil, fmt.Errorf("Amendment addition to Chapters failed to deserialize : %s",
-						err)
-				}
-			}
-			a.Chapters = append(a.Chapters, newValue)
-			return fip[:], nil
-
-		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Chapters : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.Chapters) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Chapters : %d", fip[1])
-			}
-
-			// Remove item from list
-			a.Chapters = append(a.Chapters[:fip[1]], a.Chapters[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
-		}
-
-	case BodyOfAgreementFieldDefinitions: // []DefinitionField
-		switch operation {
-		case 0: // Modify
-			if len(fip) < 3 { // includes list index and subfield index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Definitions : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.Definitions) {
-				return nil, fmt.Errorf("Amendment element index out of range for modify Definitions : %d", fip[1])
-			}
-			result, err := a.Definitions[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
-
-		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Definitions : %v",
-					fip)
-			}
-			newValue := &DefinitionField{}
-			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
-					return nil, fmt.Errorf("Amendment addition to Definitions failed to deserialize : %s",
-						err)
-				}
-			}
-			a.Definitions = append(a.Definitions, newValue)
-			return fip[:], nil
-
-		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Definitions : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.Definitions) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Definitions : %d", fip[1])
-			}
-
-			// Remove item from list
-			a.Definitions = append(a.Definitions[:fip[1]], a.Definitions[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
-		}
-
-	case BodyOfAgreementFieldVariables: // []VariableField
-		switch operation {
-		case 0: // Modify
-			if len(fip) < 3 { // includes list index and subfield index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Variables : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.Variables) {
-				return nil, fmt.Errorf("Amendment element index out of range for modify Variables : %d", fip[1])
-			}
-			result, err := a.Variables[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
-
-		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Variables : %v",
-					fip)
-			}
-			newValue := &VariableField{}
-			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
-					return nil, fmt.Errorf("Amendment addition to Variables failed to deserialize : %s",
-						err)
-				}
-			}
-			a.Variables = append(a.Variables, newValue)
-			return fip[:], nil
-
-		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Variables : %v",
-					fip)
-			}
-			if int(fip[1]) >= len(a.Variables) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Variables : %d", fip[1])
-			}
-
-			// Remove item from list
-			a.Variables = append(a.Variables[:fip[1]], a.Variables[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
-		}
-
-	}
-
-	return nil, fmt.Errorf("Unknown agreement amendment field index : %v", fip)
-}
-
 // Asset Permission / Amendment Field Indices
 const (
 	AssetFieldAssetPermissions                      = uint32(1)
@@ -2722,40 +2425,40 @@ func (a *ClauseField) CreateAmendments(fip []uint32,
 	return result, nil
 }
 
-// DefinitionField Permission / Amendment Field Indices
+// DefinedTermField Permission / Amendment Field Indices
 const (
-	DefinitionFieldName        = uint32(1)
-	DefinitionFieldDescription = uint32(2)
+	DefinedTermFieldTerm       = uint32(1)
+	DefinedTermFieldDefinition = uint32(2)
 )
 
-// ApplyAmendment updates a DefinitionField based on amendment data.
+// ApplyAmendment updates a DefinedTermField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *DefinitionField) ApplyAmendment(fip FieldIndexPath, operation uint32,
+func (a *DefinedTermField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	data []byte) (FieldIndexPath, error) {
 
 	if len(fip) == 0 {
-		return nil, errors.New("Empty Definition amendment field index path")
+		return nil, errors.New("Empty DefinedTerm amendment field index path")
 	}
 
 	switch fip[0] {
-	case DefinitionFieldName: // string
-		a.Name = string(data)
+	case DefinedTermFieldTerm: // string
+		a.Term = string(data)
 		return fip[:], nil
 
-	case DefinitionFieldDescription: // string
-		a.Description = string(data)
+	case DefinedTermFieldDefinition: // string
+		a.Definition = string(data)
 		return fip[:], nil
 
 	}
 
-	return nil, fmt.Errorf("Unknown Definition amendment field index : %v", fip)
+	return nil, fmt.Errorf("Unknown DefinedTerm amendment field index : %v", fip)
 }
 
-// CreateAmendments determines the differences between two Definitions and returns
+// CreateAmendments determines the differences between two DefinedTerms and returns
 // amendment data.
-func (a *DefinitionField) CreateAmendments(fip []uint32,
-	newValue *DefinitionField) ([]*internal.Amendment, error) {
+func (a *DefinedTermField) CreateAmendments(fip []uint32,
+	newValue *DefinedTermField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
 		return nil, nil
@@ -2764,21 +2467,21 @@ func (a *DefinitionField) CreateAmendments(fip []uint32,
 	var result []*internal.Amendment
 	ofip := fip // save original to be appended for each field
 
-	// Name string
-	fip = append(ofip, DefinitionFieldName)
-	if a.Name != newValue.Name {
+	// Term string
+	fip = append(ofip, DefinedTermFieldTerm)
+	if a.Term != newValue.Term {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: []byte(newValue.Name),
+			Data: []byte(newValue.Term),
 		})
 	}
 
-	// Description string
-	fip = append(ofip, DefinitionFieldDescription)
-	if a.Description != newValue.Description {
+	// Definition string
+	fip = append(ofip, DefinedTermFieldDefinition)
+	if a.Definition != newValue.Definition {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: []byte(newValue.Description),
+			Data: []byte(newValue.Definition),
 		})
 	}
 
@@ -3891,69 +3594,6 @@ func (a *TargetAddressField) CreateAmendments(fip []uint32,
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
 			Data: buf.Bytes(),
-		})
-	}
-
-	return result, nil
-}
-
-// VariableField Permission / Amendment Field Indices
-const (
-	VariableFieldName        = uint32(1)
-	VariableFieldDescription = uint32(2)
-)
-
-// ApplyAmendment updates a VariableField based on amendment data.
-// Note: This does not check permissions or data validity. This does check data format.
-// fip must have at least one value.
-func (a *VariableField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
-
-	if len(fip) == 0 {
-		return nil, errors.New("Empty Variable amendment field index path")
-	}
-
-	switch fip[0] {
-	case VariableFieldName: // string
-		a.Name = string(data)
-		return fip[:], nil
-
-	case VariableFieldDescription: // string
-		a.Description = string(data)
-		return fip[:], nil
-
-	}
-
-	return nil, fmt.Errorf("Unknown Variable amendment field index : %v", fip)
-}
-
-// CreateAmendments determines the differences between two Variables and returns
-// amendment data.
-func (a *VariableField) CreateAmendments(fip []uint32,
-	newValue *VariableField) ([]*internal.Amendment, error) {
-
-	if a.Equal(newValue) {
-		return nil, nil
-	}
-
-	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
-
-	// Name string
-	fip = append(ofip, VariableFieldName)
-	if a.Name != newValue.Name {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.Name),
-		})
-	}
-
-	// Description string
-	fip = append(ofip, VariableFieldDescription)
-	if a.Description != newValue.Description {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.Description),
 		})
 	}
 

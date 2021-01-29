@@ -2,15 +2,19 @@ package actions
 
 import (
 	"fmt"
+	"regexp"
+
+	"github.com/tokenized/pkg/bitcoin"
 
 	"github.com/pkg/errors"
-	"github.com/tokenized/pkg/bitcoin"
 )
 
 const (
 	max1ByteInteger = 255
 	max2ByteInteger = 65535
 	max4ByteInteger = 4294967295
+
+	maxArticleDepth = 4
 )
 
 func (a *ContractOffer) Validate() error {
@@ -38,6 +42,16 @@ func (a *ContractOffer) Validate() error {
 	// Field BodyOfAgreement - varbin
 	if len(a.BodyOfAgreement) > max4ByteInteger {
 		return fmt.Errorf("BodyOfAgreement over max size : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
+	}
+	validValueFoundBodyOfAgreement := false
+	for _, v := range []uint32{1} {
+		if a.BodyOfAgreementType == v {
+			validValueFoundBodyOfAgreement = true
+			break
+		}
+	}
+	if !validValueFoundBodyOfAgreement && len(a.BodyOfAgreement) != 0 {
+		return fmt.Errorf("BodyOfAgreement is only allowed when BodyOfAgreementType value is within values [1] : %v", a.BodyOfAgreementType)
 	}
 
 	// Field SupportingDocs - Document
@@ -247,6 +261,16 @@ func (a *ContractFormation) Validate() error {
 	// Field BodyOfAgreement - varbin
 	if len(a.BodyOfAgreement) > max4ByteInteger {
 		return fmt.Errorf("BodyOfAgreement over max size : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
+	}
+	validValueFoundBodyOfAgreement := false
+	for _, v := range []uint32{1} {
+		if a.BodyOfAgreementType == v {
+			validValueFoundBodyOfAgreement = true
+			break
+		}
+	}
+	if !validValueFoundBodyOfAgreement && len(a.BodyOfAgreement) != 0 {
+		return fmt.Errorf("BodyOfAgreement is only allowed when BodyOfAgreementType value is within values [1] : %v", a.BodyOfAgreementType)
 	}
 
 	// Field SupportingDocs - Document
@@ -593,9 +617,18 @@ func (a *ContractAddressChange) Validate() error {
 	return nil
 }
 
-func (a *BodyOfAgreementDefinition) Validate() error {
+func (a *BodyOfAgreementOffer) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
+	}
+	// Check depth or articles. Articles, Sections, Subsections, Paragraphs, Subparagraphs.
+	terms := make(map[string]int)
+	for _, chapter := range a.Chapters {
+		terms = chapter.Terms(terms)
+	}
+
+	if err := checkTerms(a.Definitions, terms); err != nil {
+		return err
 	}
 
 	// Field Chapters - Chapter
@@ -608,32 +641,31 @@ func (a *BodyOfAgreementDefinition) Validate() error {
 		}
 	}
 
-	// Field Definitions - Definition
+	// Field Definitions - DefinedTerm
 	if len(a.Definitions) > max1ByteInteger {
 		return fmt.Errorf("Definitions list over max length : %d > %d", len(a.Definitions), max1ByteInteger)
 	}
 	for i, v := range a.Definitions {
 		if err := v.Validate(); err != nil {
 			return errors.Wrap(err, fmt.Sprintf("Definitions[%d]", i))
-		}
-	}
-
-	// Field Variables - Variable
-	if len(a.Variables) > max1ByteInteger {
-		return fmt.Errorf("Variables list over max length : %d > %d", len(a.Variables), max1ByteInteger)
-	}
-	for i, v := range a.Variables {
-		if err := v.Validate(); err != nil {
-			return errors.Wrap(err, fmt.Sprintf("Variables[%d]", i))
 		}
 	}
 
 	return nil
 }
 
-func (a *BodyOfAgreement) Validate() error {
+func (a *BodyOfAgreementFormation) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
+	}
+	// Check depth or articles. Articles, Sections, Subsections, Paragraphs, Subparagraphs.
+	terms := make(map[string]int)
+	for _, chapter := range a.Chapters {
+		terms = chapter.Terms(terms)
+	}
+
+	if err := checkTerms(a.Definitions, terms); err != nil {
+		return err
 	}
 
 	// Field Chapters - Chapter
@@ -646,23 +678,13 @@ func (a *BodyOfAgreement) Validate() error {
 		}
 	}
 
-	// Field Definitions - Definition
+	// Field Definitions - DefinedTerm
 	if len(a.Definitions) > max1ByteInteger {
 		return fmt.Errorf("Definitions list over max length : %d > %d", len(a.Definitions), max1ByteInteger)
 	}
 	for i, v := range a.Definitions {
 		if err := v.Validate(); err != nil {
 			return errors.Wrap(err, fmt.Sprintf("Definitions[%d]", i))
-		}
-	}
-
-	// Field Variables - Variable
-	if len(a.Variables) > max1ByteInteger {
-		return fmt.Errorf("Variables list over max length : %d > %d", len(a.Variables), max1ByteInteger)
-	}
-	for i, v := range a.Variables {
-		if err := v.Validate(); err != nil {
-			return errors.Wrap(err, fmt.Sprintf("Variables[%d]", i))
 		}
 	}
 
@@ -673,7 +695,7 @@ func (a *BodyOfAgreement) Validate() error {
 	return nil
 }
 
-func (a *BodyOfAgreementModification) Validate() error {
+func (a *BodyOfAgreementAmendment) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
 	}
@@ -1681,6 +1703,13 @@ func (a *ChapterField) Validate() error {
 	if a == nil {
 		return nil
 	}
+	// Check depth or articles. Articles, Sections, Subsections, Paragraphs, Subparagraphs.
+	for i, article := range a.Articles {
+		if article.Depth() > maxArticleDepth {
+			return fmt.Errorf("Article %d over max depth : %d > %d", i, article.Depth(),
+				maxArticleDepth)
+		}
+	}
 
 	// Field Title - varchar
 	if len(a.Title) > max1ByteInteger {
@@ -1733,19 +1762,19 @@ func (a *ClauseField) Validate() error {
 	return nil
 }
 
-func (a *DefinitionField) Validate() error {
+func (a *DefinedTermField) Validate() error {
 	if a == nil {
 		return nil
 	}
 
-	// Field Name - varchar
-	if len(a.Name) > max1ByteInteger {
-		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
+	// Field Term - varchar
+	if len(a.Term) > max1ByteInteger {
+		return fmt.Errorf("Term over max size : %d > %d", len(a.Term), max1ByteInteger)
 	}
 
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	// Field Definition - varchar
+	if len(a.Definition) > max2ByteInteger {
+		return fmt.Errorf("Definition over max size : %d > %d", len(a.Definition), max2ByteInteger)
 	}
 
 	return nil
@@ -2025,24 +2054,6 @@ func (a *TargetAddressField) Validate() error {
 	return nil
 }
 
-func (a *VariableField) Validate() error {
-	if a == nil {
-		return nil
-	}
-
-	// Field Name - varchar
-	if len(a.Name) > max1ByteInteger {
-		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
-	}
-
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
-	}
-
-	return nil
-}
-
 func (a *VotingSystemField) Validate() error {
 	if a == nil {
 		return nil
@@ -2092,4 +2103,94 @@ func PublicKeyIsValid(b []byte) error {
 func SignatureIsValid(b []byte) error {
 	_, err := bitcoin.SignatureFromBytes(b)
 	return err
+}
+func (c *ClauseField) Depth() int {
+	if len(c.Children) == 0 {
+		return 0 // no children
+	}
+
+	depth := 0
+	for _, child := range c.Children {
+		childDepth := child.Depth()
+		if childDepth > depth {
+			depth = childDepth
+		}
+	}
+
+	return depth + 1
+}
+
+// escape backslashes to get single backslashes in regex
+var termRegEx = regexp.MustCompile("(?:\\{)(.+?)(?:\\})")
+
+// findTerms adds any terms contained in the text to the map.
+func findTerms(text string, terms map[string]int) map[string]int {
+	matches := termRegEx.FindAllStringSubmatch(text, -1)
+	for _, match := range matches {
+		// index 1 for first regex group
+		terms[match[1]] = 1
+	}
+	return terms
+}
+
+// Terms adds any terms in the chapter or its articles to the map.
+func (c *ChapterField) Terms(terms map[string]int) map[string]int {
+	terms = findTerms(c.Title, terms)
+	terms = findTerms(c.Preamble, terms)
+
+	for _, article := range c.Articles {
+		terms = article.Terms(terms)
+	}
+
+	return terms
+}
+
+// Terms adds any terms in the clause or its children to the map.
+func (c *ClauseField) Terms(terms map[string]int) map[string]int {
+	terms = findTerms(c.Title, terms)
+	terms = findTerms(c.Body, terms)
+
+	for _, child := range c.Children {
+		terms = child.Terms(terms)
+	}
+
+	return terms
+}
+
+// checkTerms returns an error if any of the defined terms are not found in the referenced terms
+// map or if any of the referenced terms are not in the defined terms.
+func checkTerms(defined []*DefinedTermField, referenced map[string]int) error {
+	// Check that all referenced terms are defined.
+	var undefined []string
+	for term, _ := range referenced {
+		found := false
+		for _, defined := range defined {
+			if term == defined.Term {
+				found = true
+				break
+			}
+		}
+
+		if !found {
+			undefined = append(undefined, term)
+		}
+	}
+
+	if len(undefined) > 0 {
+		return fmt.Errorf("Undefined terms : %v", undefined)
+	}
+
+	// Check that all defined terms are referenced
+	var unreferenced []string
+	for _, defined := range defined {
+		if _, exists := referenced[defined.Term]; !exists {
+			unreferenced = append(unreferenced, defined.Term)
+		}
+	}
+
+	if len(unreferenced) > 0 {
+		return fmt.Errorf("Unreferenced defined terms : %v", unreferenced)
+	}
+
+	return nil
 }

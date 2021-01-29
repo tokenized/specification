@@ -54,10 +54,10 @@ properties:
     example: 1
   AuthorizedTokenQty:
     description:  >
-      The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If
-      the value is 1 then it becomes a non-fungible token, where the contract would have many assets.
-      Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent
-      a decomissioned asset where all tokens have been revoked.
+      The number of tokens authorized to be issued for this asset. Set to greater than zero for
+      fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract
+      would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be
+      issued later, or to represent a decomissioned asset where all tokens have been revoked.
     type: number
     example: 1000000
   AssetType:

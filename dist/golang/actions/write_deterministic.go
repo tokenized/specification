@@ -356,9 +356,9 @@ func (a *ContractAddressChange) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a BodyOfAgreementDefinition in a deterministic way so the data can
+// WriteDeterministic writes data from a BodyOfAgreementOffer in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *BodyOfAgreementDefinition) WriteDeterministic(w io.Writer) error {
+func (a *BodyOfAgreementOffer) WriteDeterministic(w io.Writer) error {
 	for i, item := range a.Chapters {
 		if err := item.WriteDeterministic(w); err != nil {
 			return errors.Wrapf(err, "Chapters %d", i)
@@ -368,21 +368,15 @@ func (a *BodyOfAgreementDefinition) WriteDeterministic(w io.Writer) error {
 	for i, item := range a.Definitions {
 		if err := item.WriteDeterministic(w); err != nil {
 			return errors.Wrapf(err, "Definitions %d", i)
-		}
-	}
-
-	for i, item := range a.Variables {
-		if err := item.WriteDeterministic(w); err != nil {
-			return errors.Wrapf(err, "Variables %d", i)
 		}
 	}
 
 	return nil
 }
 
-// WriteDeterministic writes data from a BodyOfAgreement in a deterministic way so the data can
+// WriteDeterministic writes data from a BodyOfAgreementFormation in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *BodyOfAgreement) WriteDeterministic(w io.Writer) error {
+func (a *BodyOfAgreementFormation) WriteDeterministic(w io.Writer) error {
 	for i, item := range a.Chapters {
 		if err := item.WriteDeterministic(w); err != nil {
 			return errors.Wrapf(err, "Chapters %d", i)
@@ -392,12 +386,6 @@ func (a *BodyOfAgreement) WriteDeterministic(w io.Writer) error {
 	for i, item := range a.Definitions {
 		if err := item.WriteDeterministic(w); err != nil {
 			return errors.Wrapf(err, "Definitions %d", i)
-		}
-	}
-
-	for i, item := range a.Variables {
-		if err := item.WriteDeterministic(w); err != nil {
-			return errors.Wrapf(err, "Variables %d", i)
 		}
 	}
 
@@ -412,9 +400,9 @@ func (a *BodyOfAgreement) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a BodyOfAgreementModification in a deterministic way so the data can
+// WriteDeterministic writes data from a BodyOfAgreementAmendment in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *BodyOfAgreementModification) WriteDeterministic(w io.Writer) error {
+func (a *BodyOfAgreementAmendment) WriteDeterministic(w io.Writer) error {
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Revision)); err != nil {
 		return errors.Wrap(err, "Revision")
 	}
@@ -1206,15 +1194,15 @@ func (a *ClauseField) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a Definition in a deterministic way so the data can
+// WriteDeterministic writes data from a DefinedTerm in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *DefinitionField) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write([]byte(a.Name)); err != nil {
-		return errors.Wrap(err, "Name")
+func (a *DefinedTermField) WriteDeterministic(w io.Writer) error {
+	if _, err := w.Write([]byte(a.Term)); err != nil {
+		return errors.Wrap(err, "Term")
 	}
 
-	if _, err := w.Write([]byte(a.Description)); err != nil {
-		return errors.Wrap(err, "Description")
+	if _, err := w.Write([]byte(a.Definition)); err != nil {
+		return errors.Wrap(err, "Definition")
 	}
 
 	return nil
@@ -1400,20 +1388,6 @@ func (a *TargetAddressField) WriteDeterministic(w io.Writer) error {
 
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Quantity)); err != nil {
 		return errors.Wrap(err, "Quantity")
-	}
-
-	return nil
-}
-
-// WriteDeterministic writes data from a Variable in a deterministic way so the data can
-// be used to sign an object. The data output can not be parsed back into an object.
-func (a *VariableField) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write([]byte(a.Name)); err != nil {
-		return errors.Wrap(err, "Name")
-	}
-
-	if _, err := w.Write([]byte(a.Description)); err != nil {
-		return errors.Wrap(err, "Description")
 	}
 
 	return nil

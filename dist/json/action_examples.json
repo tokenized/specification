@@ -309,8 +309,8 @@
   },
   {
     "code": "C6",
-    "label": "Body Of Agreement Definition",
-    "name": "BodyOfAgreementDefinition",
+    "label": "Body Of Agreement Offer",
+    "name": "BodyOfAgreementOffer",
     "fields": {
       "Chapters": [
         {
@@ -333,22 +333,16 @@
       ],
       "Definitions": [
         {
-          "Description": null,
-          "Name": null
-        }
-      ],
-      "Variables": [
-        {
-          "Description": null,
-          "Name": null
+          "Definition": null,
+          "Term": null
         }
       ]
     }
   },
   {
     "code": "C7",
-    "label": "Body Of Agreement",
-    "name": "BodyOfAgreement",
+    "label": "Body Of Agreement Formation",
+    "name": "BodyOfAgreementFormation",
     "fields": {
       "Chapters": [
         {
@@ -371,24 +365,18 @@
       ],
       "Definitions": [
         {
-          "Description": null,
-          "Name": null
+          "Definition": null,
+          "Term": null
         }
       ],
       "Revision": "0",
-      "Timestamp": "1594668650000000000",
-      "Variables": [
-        {
-          "Description": null,
-          "Name": null
-        }
-      ]
+      "Timestamp": "1594668650000000000"
     }
   },
   {
     "code": "C8",
-    "label": "Body Of Agreement Modification",
-    "name": "BodyOfAgreementModification",
+    "label": "Body Of Agreement Amendment",
+    "name": "BodyOfAgreementAmendment",
     "fields": {
       "Amendments": [
         {

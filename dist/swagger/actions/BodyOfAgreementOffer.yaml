@@ -13,11 +13,5 @@ properties:
     type: array
     items:
       type: object
-      $ref: "#/components/schemas/DefinitionField"
-  Variables:
-    description: Variables within the agreement that have values defined outside of the agreement.
-    type: array
-    items:
-      type: object
-      $ref: "#/components/schemas/VariableField"
+      $ref: "#/components/schemas/DefinedTermField"
 

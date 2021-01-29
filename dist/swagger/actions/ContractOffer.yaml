@@ -19,14 +19,14 @@ properties:
   BodyOfAgreementType:
     description:  >
       0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where
-      the agreement is specified with a separate B1/B2  action
+      the agreement is specified with a separate C6/C7  action
     type: number
     example: 1
   BodyOfAgreement:
     description:  >
       SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the 
       full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is 
-      specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal 
+      specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal 
       and technical information.
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"

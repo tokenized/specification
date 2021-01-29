@@ -1,10 +1,10 @@
 #
-# Body of Agreement Action: Provides the current version of the body of agreement for the contract.
+# Body of Agreement Formation Action: Provides the current version of the body of agreement for the contract.
 #
 
 code: C7
-name: BodyOfAgreement
-label: "Body Of Agreement"
+name: BodyOfAgreementFormation
+label: "Body Of Agreement Formation"
 description: "Provides the current version of the body of agreement for the contract."
 
 metadata:
@@ -24,13 +24,8 @@ fields:
 
   - name: Definitions
     label: Definitions
-    description: "Definition of values within the agreement."
-    type: Definition[]
-
-  - name: Variables
-    label: Variables
-    description: "Variables within the agreement that have values defined outside of the agreement."
-    type: Variable[]
+    description: "Definition of terms within the agreement."
+    type: DefinedTerm[]
 
   - name: Revision
     label: Revision

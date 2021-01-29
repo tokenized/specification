@@ -536,19 +536,19 @@ func (l *ContractAddressChange) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *BodyOfAgreementDefinition) Equal(right proto.Message) bool {
+func (l *BodyOfAgreementOffer) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &BodyOfAgreementDefinition{}
+		c = &BodyOfAgreementOffer{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &BodyOfAgreementDefinition{}
+		cr = &BodyOfAgreementOffer{}
 	}
-	r, ok := cr.(*BodyOfAgreementDefinition)
+	r, ok := cr.(*BodyOfAgreementOffer)
 	if !ok {
 		return false
 	}
@@ -563,42 +563,32 @@ func (l *BodyOfAgreementDefinition) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field Definitions - Definition
+	// Field Definitions - DefinedTerm
 	if len(c.Definitions) != len(r.Definitions) {
 		return false // fmt.Errorf("List length mismatched")
 	}
 	for i, v := range c.Definitions {
 		if !v.Equal(r.Definitions[i]) {
 			return false // fmt.Errorf("Definitions[%d] : %s", i, err)
-		}
-	}
-
-	// Field Variables - Variable
-	if len(c.Variables) != len(r.Variables) {
-		return false // fmt.Errorf("List length mismatched")
-	}
-	for i, v := range c.Variables {
-		if !v.Equal(r.Variables[i]) {
-			return false // fmt.Errorf("Variables[%d] : %s", i, err)
 		}
 	}
 
 	return true
 }
 
-func (l *BodyOfAgreement) Equal(right proto.Message) bool {
+func (l *BodyOfAgreementFormation) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &BodyOfAgreement{}
+		c = &BodyOfAgreementFormation{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &BodyOfAgreement{}
+		cr = &BodyOfAgreementFormation{}
 	}
-	r, ok := cr.(*BodyOfAgreement)
+	r, ok := cr.(*BodyOfAgreementFormation)
 	if !ok {
 		return false
 	}
@@ -613,23 +603,13 @@ func (l *BodyOfAgreement) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field Definitions - Definition
+	// Field Definitions - DefinedTerm
 	if len(c.Definitions) != len(r.Definitions) {
 		return false // fmt.Errorf("List length mismatched")
 	}
 	for i, v := range c.Definitions {
 		if !v.Equal(r.Definitions[i]) {
 			return false // fmt.Errorf("Definitions[%d] : %s", i, err)
-		}
-	}
-
-	// Field Variables - Variable
-	if len(c.Variables) != len(r.Variables) {
-		return false // fmt.Errorf("List length mismatched")
-	}
-	for i, v := range c.Variables {
-		if !v.Equal(r.Variables[i]) {
-			return false // fmt.Errorf("Variables[%d] : %s", i, err)
 		}
 	}
 
@@ -646,19 +626,19 @@ func (l *BodyOfAgreement) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *BodyOfAgreementModification) Equal(right proto.Message) bool {
+func (l *BodyOfAgreementAmendment) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &BodyOfAgreementModification{}
+		c = &BodyOfAgreementAmendment{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &BodyOfAgreementModification{}
+		cr = &BodyOfAgreementAmendment{}
 	}
-	r, ok := cr.(*BodyOfAgreementModification)
+	r, ok := cr.(*BodyOfAgreementAmendment)
 	if !ok {
 		return false
 	}
@@ -2071,31 +2051,31 @@ func (l *ClauseField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *DefinitionField) Equal(right proto.Message) bool {
+func (l *DefinedTermField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &DefinitionField{}
+		c = &DefinedTermField{}
 	}
-	r, ok := right.(*DefinitionField)
+	r, ok := right.(*DefinedTermField)
 	if !ok {
 		return false
 	}
 
 	if r == nil {
-		r = &DefinitionField{}
+		r = &DefinedTermField{}
 	}
 
-	// Field Name - varchar
-	if c.Name != r.Name {
-		return false // fmt.Errorf("Name string mismatched")
+	// Field Term - varchar
+	if c.Term != r.Term {
+		return false // fmt.Errorf("Term string mismatched")
 	}
 
-	// Field Description - varchar
-	if c.Description != r.Description {
-		return false // fmt.Errorf("Description string mismatched")
+	// Field Definition - varchar
+	if c.Definition != r.Definition {
+		return false // fmt.Errorf("Definition string mismatched")
 	}
 
 	return true
@@ -2436,36 +2416,6 @@ func (l *TargetAddressField) Equal(right proto.Message) bool {
 	// Field Quantity - uint
 	if c.Quantity != r.Quantity {
 		return false // fmt.Errorf("Quantity integer mismatched")
-	}
-
-	return true
-}
-
-func (l *VariableField) Equal(right proto.Message) bool {
-	c := l
-	if c == nil {
-		if right == nil {
-			return true
-		}
-		c = &VariableField{}
-	}
-	r, ok := right.(*VariableField)
-	if !ok {
-		return false
-	}
-
-	if r == nil {
-		r = &VariableField{}
-	}
-
-	// Field Name - varchar
-	if c.Name != r.Name {
-		return false // fmt.Errorf("Name string mismatched")
-	}
-
-	// Field Description - varchar
-	if c.Description != r.Description {
-		return false // fmt.Errorf("Description string mismatched")
 	}
 
 	return true

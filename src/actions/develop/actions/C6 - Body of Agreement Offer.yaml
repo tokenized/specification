@@ -1,10 +1,10 @@
 #
-# Body of Agreement Definition Action: Allows the administration to define the agreement for the contract.
+# Body of Agreement Offer Action: Allows the administration to define the agreement for the contract.
 #
 
 code: C6
-name: BodyOfAgreementDefinition
-label: "Body Of Agreement Definition"
+name: BodyOfAgreementOffer
+label: "Body Of Agreement Offer"
 description: "Allows the administration to define the agreement for the contract."
 
 metadata:
@@ -28,9 +28,4 @@ fields:
   - name: Definitions
     label: Definitions
     description: "Definition of values within the agreement."
-    type: Definition[]
-
-  - name: Variables
-    label: Variables
-    description: "Variables within the agreement that have values defined outside of the agreement."
-    type: Variable[]
+    type: DefinedTerm[]

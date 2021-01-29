@@ -9,17 +9,11 @@ properties:
       type: object
       $ref: "#/components/schemas/ChapterField"
   Definitions:
-    description: Definition of values within the agreement.
+    description: Definition of terms within the agreement.
     type: array
     items:
       type: object
-      $ref: "#/components/schemas/DefinitionField"
-  Variables:
-    description: Variables within the agreement that have values defined outside of the agreement.
-    type: array
-    items:
-      type: object
-      $ref: "#/components/schemas/VariableField"
+      $ref: "#/components/schemas/DefinedTermField"
   Revision:
     description:  >
       A counter for the number of times this agreement has been revised using a modification action.

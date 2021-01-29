@@ -56,34 +56,34 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for ContractAddressChange")
 	}
 
-	// BodyOfAgreementDefinition identifies a payload as a BodyOfAgreementDefinition message.
-	actionBodyOfAgreementDefinition, err := Deserialize([]byte(CodeBodyOfAgreementDefinition), nil)
+	// BodyOfAgreementOffer identifies a payload as a BodyOfAgreementOffer message.
+	actionBodyOfAgreementOffer, err := Deserialize([]byte(CodeBodyOfAgreementOffer), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for BodyOfAgreementDefinition : %s", err)
+		t.Fatalf("Failed deserialize for BodyOfAgreementOffer : %s", err)
 	}
-	_, ok = actionBodyOfAgreementDefinition.(*BodyOfAgreementDefinition)
+	_, ok = actionBodyOfAgreementOffer.(*BodyOfAgreementOffer)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for BodyOfAgreementDefinition")
+		t.Fatalf("Failed deserialize type check for BodyOfAgreementOffer")
 	}
 
-	// BodyOfAgreement identifies a payload as a BodyOfAgreement message.
-	actionBodyOfAgreement, err := Deserialize([]byte(CodeBodyOfAgreement), nil)
+	// BodyOfAgreementFormation identifies a payload as a BodyOfAgreementFormation message.
+	actionBodyOfAgreementFormation, err := Deserialize([]byte(CodeBodyOfAgreementFormation), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for BodyOfAgreement : %s", err)
+		t.Fatalf("Failed deserialize for BodyOfAgreementFormation : %s", err)
 	}
-	_, ok = actionBodyOfAgreement.(*BodyOfAgreement)
+	_, ok = actionBodyOfAgreementFormation.(*BodyOfAgreementFormation)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for BodyOfAgreement")
+		t.Fatalf("Failed deserialize type check for BodyOfAgreementFormation")
 	}
 
-	// BodyOfAgreementModification identifies a payload as a BodyOfAgreementModification message.
-	actionBodyOfAgreementModification, err := Deserialize([]byte(CodeBodyOfAgreementModification), nil)
+	// BodyOfAgreementAmendment identifies a payload as a BodyOfAgreementAmendment message.
+	actionBodyOfAgreementAmendment, err := Deserialize([]byte(CodeBodyOfAgreementAmendment), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for BodyOfAgreementModification : %s", err)
+		t.Fatalf("Failed deserialize for BodyOfAgreementAmendment : %s", err)
 	}
-	_, ok = actionBodyOfAgreementModification.(*BodyOfAgreementModification)
+	_, ok = actionBodyOfAgreementAmendment.(*BodyOfAgreementAmendment)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for BodyOfAgreementModification")
+		t.Fatalf("Failed deserialize type check for BodyOfAgreementAmendment")
 	}
 
 	// AssetDefinition identifies a payload as a AssetDefinition message.

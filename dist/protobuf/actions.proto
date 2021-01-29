@@ -115,24 +115,22 @@ message ContractAddressChange {
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
-// Message - Body Of Agreement Definition (C6)
-message BodyOfAgreementDefinition {
+// Message - Body Of Agreement Offer (C6)
+message BodyOfAgreementOffer {
     repeated ChapterField Chapters                 = 1;   // Chapter[]
-    repeated DefinitionField Definitions           = 2;   // Definition[]
-    repeated VariableField Variables               = 3;   // Variable[]
+    repeated DefinedTermField Definitions          = 2;   // DefinedTerm[]
 }
 
-// Message - Body Of Agreement (C7)
-message BodyOfAgreement {
+// Message - Body Of Agreement Formation (C7)
+message BodyOfAgreementFormation {
     repeated ChapterField Chapters                 = 1;   // Chapter[]
-    repeated DefinitionField Definitions           = 2;   // Definition[]
-    repeated VariableField Variables               = 3;   // Variable[]
-    uint32 Revision                                = 4;   // uint
-    uint64 Timestamp                               = 5;   // Timestamp
+    repeated DefinedTermField Definitions          = 2;   // DefinedTerm[]
+    uint32 Revision                                = 3;   // uint
+    uint64 Timestamp                               = 4;   // Timestamp
 }
 
-// Message - Body Of Agreement Modification (C8)
-message BodyOfAgreementModification {
+// Message - Body Of Agreement Amendment (C8)
+message BodyOfAgreementAmendment {
     uint32 Revision                                = 1;   // uint
     repeated AmendmentField Amendments             = 2;   // Amendment[]
     bytes RefTxID                                  = 3;   // TxId
@@ -400,10 +398,10 @@ message ClauseField {
     repeated ClauseField Children                  = 3;   // Clause[]
 }
 
-// Field - Definition
-message DefinitionField {
-    string Name                                    = 1;   // varchar
-    string Description                             = 2;   // varchar
+// Field - Defined Term
+message DefinedTermField {
+    string Term                                    = 1;   // varchar
+    string Definition                              = 2;   // varchar
 }
 
 // Field - Document
@@ -472,12 +470,6 @@ message ServiceField {
 message TargetAddressField {
     bytes Address                                  = 1;   // Address
     uint64 Quantity                                = 2;   // uint
-}
-
-// Field - Variable
-message VariableField {
-    string Name                                    = 1;   // varchar
-    string Description                             = 2;   // varchar
 }
 
 // Field - Voting System

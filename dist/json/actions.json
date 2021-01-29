@@ -388,25 +388,25 @@
       "name": "Clause"
     },
     {
-      "description": "A definition defines values specified throughout an agreement.\n",
+      "description": "A definition define a term specified throughout an agreement.\n",
       "fields": [
         {
-          "description": "The name of the value being defined. Linked to from within the agreement with curly braces {}  around the name.\n",
-          "label": "Name",
-          "name": "Name",
+          "description": "The name of the term being defined. Linked to from within the agreement with curly braces {}  around the name.\n",
+          "label": "Term",
+          "name": "Term",
           "type": "varchar",
           "varSize": "tiny"
         },
         {
-          "description": "The description of the name.",
-          "label": "Description",
-          "name": "Description",
+          "description": "The definition of the name.",
+          "label": "Definition",
+          "name": "Definition",
           "type": "varchar",
           "varSize": "small"
         }
       ],
-      "label": "Definition",
-      "name": "Definition"
+      "label": "Defined Term",
+      "name": "DefinedTerm"
     },
     {
       "description": "A file containing data.",
@@ -738,27 +738,6 @@
       "name": "TargetAddress"
     },
     {
-      "description": "Variables within the agreement that have values defined outside of the agreement.\n",
-      "fields": [
-        {
-          "description": "The name of the value that can be defined outside of the agreement.\n",
-          "label": "Name",
-          "name": "Name",
-          "type": "varchar",
-          "varSize": "tiny"
-        },
-        {
-          "description": "The description of the variable.",
-          "label": "Description",
-          "name": "Description",
-          "type": "varchar",
-          "varSize": "small"
-        }
-      ],
-      "label": "Variable",
-      "name": "Variable"
-    },
-    {
       "description": "A VotingSystem defines all details of a Voting System.",
       "fields": [
         {
@@ -824,7 +803,7 @@
           "type": "varchar"
         },
         {
-          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2  action\n",
+          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action\n",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
@@ -838,9 +817,15 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
+          "only_valid_when": {
+            "field_name": "BodyOfAgreementType",
+            "values": [
+              1
+            ]
+          },
           "type": "varbin",
           "varSize": "medium"
         },
@@ -1108,7 +1093,7 @@
           "type": "varchar"
         },
         {
-          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate B1/B2  action\n",
+          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action\n",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
@@ -1122,9 +1107,15 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a B1/B2 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
+          "only_valid_when": {
+            "field_name": "BodyOfAgreementType",
+            "values": [
+              1
+            ]
+          },
           "type": "varbin",
           "varSize": "medium"
         },
@@ -1658,16 +1649,10 @@
           "description": "Definition of values within the agreement.",
           "label": "Definitions",
           "name": "Definitions",
-          "type": "Definition[]"
-        },
-        {
-          "description": "Variables within the agreement that have values defined outside of the agreement.",
-          "label": "Variables",
-          "name": "Variables",
-          "type": "Variable[]"
+          "type": "DefinedTerm[]"
         }
       ],
-      "label": "Body Of Agreement Definition",
+      "label": "Body Of Agreement Offer",
       "metadata": {
         "inputs": [
           {
@@ -1684,7 +1669,7 @@
         "rejection": "Rejection",
         "validation": "BodyOfAgreement"
       },
-      "name": "BodyOfAgreementDefinition"
+      "name": "BodyOfAgreementOffer"
     },
     {
       "code": "C7",
@@ -1697,16 +1682,10 @@
           "type": "Chapter[]"
         },
         {
-          "description": "Definition of values within the agreement.",
+          "description": "Definition of terms within the agreement.",
           "label": "Definitions",
           "name": "Definitions",
-          "type": "Definition[]"
-        },
-        {
-          "description": "Variables within the agreement that have values defined outside of the agreement.",
-          "label": "Variables",
-          "name": "Variables",
-          "type": "Variable[]"
+          "type": "DefinedTerm[]"
         },
         {
           "description": "A counter for the number of times this agreement has been revised using a modification action.",
@@ -1725,7 +1704,7 @@
           "type": "Timestamp"
         }
       ],
-      "label": "Body Of Agreement",
+      "label": "Body Of Agreement Formation",
       "metadata": {
         "inputs": [
           {
@@ -1740,7 +1719,7 @@
           }
         ]
       },
-      "name": "BodyOfAgreement"
+      "name": "BodyOfAgreementFormation"
     },
     {
       "code": "C8",
@@ -1768,7 +1747,7 @@
           "type": "TxId"
         }
       ],
-      "label": "Body Of Agreement Modification",
+      "label": "Body Of Agreement Amendment",
       "metadata": {
         "inputs": [
           {
@@ -1785,7 +1764,7 @@
         "rejection": "Rejection",
         "validation": "BodyOfAgreement"
       },
-      "name": "BodyOfAgreementModification"
+      "name": "BodyOfAgreementAmendment"
     },
     {
       "code": "A1",
@@ -1860,7 +1839,7 @@
           "type": "uint"
         },
         {
-          "description": "The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
+          "description": "The number of tokens authorized to be issued for this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
           "example": "1000000",
           "label": "Authorized Token Quantity",
           "name": "AuthorizedTokenQty",
@@ -1999,7 +1978,7 @@
           "type": "uint"
         },
         {
-          "description": "The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
+          "description": "The number of tokens authorized to be issued for this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
           "example": "1000000",
           "label": "Authorized Token Quantity",
           "name": "AuthorizedTokenQty",
