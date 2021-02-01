@@ -9019,6 +9019,12 @@
           "name": "ContractExists"
         },
         {
+          "code": 11,
+          "description": "The contract address specified does not have an active contract.",
+          "label": "Contract Does Not Exist",
+          "name": "ContractDoesNotExist"
+        },
+        {
           "code": 12,
           "description": "Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.",
           "label": "Contract Asset Quantity Reduction",
@@ -9203,6 +9209,18 @@
           "description": "The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.",
           "label": "Invalid Signature",
           "name": "InvalidSignature"
+        },
+        {
+          "code": 90,
+          "description": "The agreement already exists and can't be recreated.",
+          "label": "Agreement Already Exists",
+          "name": "AgreementExists"
+        },
+        {
+          "code": 91,
+          "description": "The agreement address specified does not have an active agreement.",
+          "label": "Agreement Does Not Exist",
+          "name": "AgreementDoesNotExist"
         }
       ]
     },

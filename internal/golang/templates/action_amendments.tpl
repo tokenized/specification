@@ -84,7 +84,7 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip FieldIndexPath, operation uint3
 	return nil, fmt.Errorf("Unknown contract amendment field index : %v", fip)
 }
 
-	{{- else if eq $message.Name "BodyOfAgreementDefinition" }}
+	{{- else if eq $message.Name "BodyOfAgreementOffer" }}
 // BodyOfAgreement Permission / Modification Field Indices
 const (
 		{{- range $i, $field := .Fields }}
@@ -99,7 +99,7 @@ const (
 // CreateAmendments determines the differences between two {{ $message.Name }}s and returns
 // amendment data. Use the current value of agreement, and pass in the new values as a
 // agreement definition.
-func (a *BodyOfAgreement) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
+func (a *BodyOfAgreementFormation) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
 	if err := newValue.Validate(); err != nil {
 		return nil, errors.Wrap(err, "new value invalid")
 	}
@@ -125,7 +125,7 @@ func (a *BodyOfAgreement) CreateAmendments(newValue *{{ $message.Name }}) ([]*Am
 	return r, nil
 }
 
-	{{- else if eq $message.Name "BodyOfAgreement" }}
+	{{- else if eq $message.Name "BodyOfAgreementFormation" }}
 
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.

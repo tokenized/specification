@@ -44,6 +44,11 @@ values:
     label: Contract Already Exists
     description: The contract already exists and can't be recreated.
 
+  - code: 11
+    name: ContractDoesNotExist
+    label: Contract Does Not Exist
+    description: The contract address specified does not have an active contract.
+
   - code: 12
     name: ContractAssetQtyReduction
     label: Contract Asset Quantity Reduction
@@ -213,3 +218,15 @@ values:
     name: InvalidSignature
     label: Invalid Signature
     description: The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.
+
+#################################### Contract ####################################
+
+  - code: 90
+    name: AgreementExists
+    label: Agreement Already Exists
+    description: The agreement already exists and can't be recreated.
+
+  - code: 91
+    name: AgreementDoesNotExist
+    label: Agreement Does Not Exist
+    description: The agreement address specified does not have an active agreement.
