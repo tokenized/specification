@@ -230,3 +230,8 @@ values:
     name: AgreementDoesNotExist
     label: Agreement Does Not Exist
     description: The agreement address specified does not have an active agreement.
+
+  - code: 93
+    name: AgreementRevision
+    label: Agreement Revision
+    description: The agreement revision in the request is not current.

@@ -9221,6 +9221,12 @@
           "description": "The agreement address specified does not have an active agreement.",
           "label": "Agreement Does Not Exist",
           "name": "AgreementDoesNotExist"
+        },
+        {
+          "code": 93,
+          "description": "The agreement revision in the request is not current.",
+          "label": "Agreement Revision",
+          "name": "AgreementRevision"
         }
       ]
     },

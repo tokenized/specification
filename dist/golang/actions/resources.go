@@ -11259,6 +11259,9 @@ const (
 
 	// AgreementDoesNotExist - The agreement address specified does not have an active agreement.
 	RejectionsAgreementDoesNotExist = 91
+
+	// AgreementRevision - The agreement revision in the request is not current.
+	RejectionsAgreementRevision = 93
 )
 
 type RejectionsCode struct {
@@ -11599,6 +11602,14 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Description: "The agreement address specified does not have an active agreement.",
 			MetaData:    `{}`,
 		}
+
+	case RejectionsAgreementRevision:
+		return &RejectionsCode{
+			Name:        "AgreementRevision",
+			Label:       "Agreement Revision",
+			Description: "The agreement revision in the request is not current.",
+			MetaData:    `{}`,
+		}
 	default:
 		return nil
 	}
@@ -11892,6 +11903,13 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Name:        "AgreementDoesNotExist",
 			Label:       "Agreement Does Not Exist",
 			Description: "The agreement address specified does not have an active agreement.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsAgreementRevision: &RejectionsCode{
+			Name:        "AgreementRevision",
+			Label:       "Agreement Revision",
+			Description: "The agreement revision in the request is not current.",
 			MetaData:    `{}`,
 		},
 	}
