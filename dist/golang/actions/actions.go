@@ -137,6 +137,17 @@ const (
 
 	// ContractTypeAsset identifies an asset contract
 	ContractTypeAsset = uint32(1)
+
+	// ContractBodyOfAgreementTypeNone identifies a contract with no body of agreement specified.
+	ContractBodyOfAgreementTypeNone = uint32(0)
+
+	// ContractBodyOfAgreementTypeHash identifies a contract with the hash of the body of agreement
+	// document included.
+	ContractBodyOfAgreementTypeHash = uint32(1)
+
+	// ContractBodyOfAgreementTypeFull identifies a contract with the a full body of agreement
+	// specified in a BodyOfAgreementFormation action.
+	ContractBodyOfAgreementTypeFull = uint32(2)
 )
 
 // NewActionFromCode returns a new object of the correct type for the code.
