@@ -1,7 +1,10 @@
 package {{ .Package }}
 
 import (
+	"bytes"
 	"fmt"
+
+	"github.com/tokenized/specification/dist/golang/permissions"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
@@ -18,7 +21,8 @@ type Asset interface {
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
 
-	ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]uint32, error)
+	ApplyAmendment(fip permissions.FieldIndexPath, operation uint32, data []byte,
+		permissions permissions.Permissions) (permissions.Permissions, error)
 }
 
 const (

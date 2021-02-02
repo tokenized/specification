@@ -5,9 +5,12 @@ import (
 	"encoding/binary"
 	"fmt"
 
+	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/specification/dist/golang/assets"
 	"github.com/tokenized/specification/dist/golang/internal"
+	"github.com/tokenized/specification/dist/golang/permissions"
 
-	proto "github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -60,8 +63,8 @@ func (a *ContractFormation) CreateAmendments(newValue *{{ $message.Name }}) ([]*
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty contract amendment field index path")
@@ -130,8 +133,8 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *{{ $message.Name }
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty agreement amendment field index path")
@@ -200,8 +203,8 @@ func (a *AssetCreation) CreateAmendments(newValue *{{ $message.Name }}) ([]*Amen
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty asset amendment field index path")
@@ -238,8 +241,8 @@ const (
 // ApplyAmendment updates a {{ $message.Name }}Field based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}Field) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *{{ $message.Name }}Field) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty {{ $message.Name }} amendment field index path")
@@ -261,7 +264,7 @@ func (a *{{ $message.Name }}Field) ApplyAmendment(fip FieldIndexPath, operation 
 
 // CreateAmendments determines the differences between two {{ $message.Name }}s and returns
 // amendment data.
-func (a *{{ $message.Name }}Field) CreateAmendments(fip []uint32,
+func (a *{{ $message.Name }}Field) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *{{ $message.Name }}Field) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -290,7 +293,7 @@ func (a *{{ $message.Name }}Field) CreateAmendments(fip []uint32,
 func convertAmendments(amendments []*internal.Amendment) ([]*AmendmentField, error) {
 	var result []*AmendmentField
 	for _, am := range amendments {
-		b, err := FieldIndexPath(am.FIP).Bytes()
+		b, err := permissions.FieldIndexPath(am.FIP).Bytes()
 		if err != nil {
 			return nil, errors.Wrap(err, "fip")
 		}

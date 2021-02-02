@@ -13,6 +13,7 @@ import (
 	"github.com/tokenized/specification/dist/golang/actions"
 	"github.com/tokenized/specification/dist/golang/assets"
 	"github.com/tokenized/specification/dist/golang/messages"
+	"github.com/tokenized/specification/dist/golang/permissions"
 
 	"github.com/pkg/errors"
 )
@@ -309,7 +310,7 @@ func EstimatedContractAmendmentResponse(amendTx *wire.MsgTx, cf *actions.Contrac
 	cf.Timestamp = uint64(now.UnixNano())
 
 	for i, amendment := range amendment.Amendments {
-		fip, err := actions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+		fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
 		if err != nil {
 			return 0, 0, errors.Wrapf(err, "parse field index path %d", i)
 		}
@@ -317,7 +318,7 @@ func EstimatedContractAmendmentResponse(amendTx *wire.MsgTx, cf *actions.Contrac
 			return 0, 0, fmt.Errorf("Amendment %d has no field specified", i)
 		}
 
-		if _, err := cf.ApplyAmendment(fip, amendment.Operation, amendment.Data); err != nil {
+		if _, err := cf.ApplyAmendment(fip, amendment.Operation, amendment.Data, nil); err != nil {
 			return 0, 0, errors.Wrapf(err, "apply amendment %d", i)
 		}
 	}
@@ -389,7 +390,7 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 
 	var payload assets.Asset
 	for i, amendment := range amendment.Amendments {
-		fip, err := actions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+		fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
 		if err != nil {
 			return 0, 0, errors.Wrapf(err, "parse field index path %d", i)
 		}
@@ -407,13 +408,14 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 				}
 			}
 
-			_, err = payload.ApplyAmendment(fip[1:], amendment.Operation, amendment.Data)
+			_, err = payload.ApplyAmendment(fip[1:], amendment.Operation, amendment.Data, nil)
 			if err != nil {
 				return 0, 0, errors.Wrapf(err, "apply payload amendment %d", i)
 			}
 
 		} else {
-			if _, err := ac.ApplyAmendment(fip, amendment.Operation, amendment.Data); err != nil {
+			if _, err := ac.ApplyAmendment(fip, amendment.Operation, amendment.Data,
+				nil); err != nil {
 				return 0, 0, errors.Wrapf(err, "apply amendment %d", i)
 			}
 		}

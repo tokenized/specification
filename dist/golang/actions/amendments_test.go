@@ -1,11 +1,12 @@
 package actions
 
 import (
-	"encoding/json"
 	"testing"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/specification/dist/golang/assets"
+	"github.com/tokenized/specification/dist/golang/permissions"
 
 	"github.com/pkg/errors"
 )
@@ -308,13 +309,13 @@ func TestContractCreateAmendments(t *testing.T) {
 				return
 			}
 			for i, amendment := range amendments {
-				fip, err := FieldIndexPathFromBytes(amendment.FieldIndexPath)
+				fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
 				if err != nil {
 					t.Errorf("Failed to parse FIP : %s", err)
 					return
 				}
 
-				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data)
+				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data, nil)
 				if err != nil {
 					t.Errorf("Failed to apply amendment %d : %s", i, err)
 					return
@@ -471,13 +472,13 @@ func TestAssetCreateAmendments(t *testing.T) {
 				return
 			}
 			for i, amendment := range amendments {
-				fip, err := FieldIndexPathFromBytes(amendment.FieldIndexPath)
+				fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
 				if err != nil {
 					t.Errorf("Failed to parse FIP : %s", err)
 					return
 				}
 
-				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data)
+				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data, nil)
 				if err != nil {
 					t.Errorf("Failed to apply amendment %d : %s", i, err)
 					return

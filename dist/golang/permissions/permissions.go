@@ -1,4 +1,4 @@
-package actions
+package permissions
 
 import (
 	"bytes"
@@ -7,6 +7,10 @@ import (
 
 	"github.com/dgryski/go-bitstream"
 	"github.com/pkg/errors"
+)
+
+var (
+	ErrMissingElementIndex = errors.New("Missing element index")
 )
 
 // Permission represents the permissions assigned to a specific set of fields.
@@ -29,13 +33,40 @@ type Permission struct {
 // Permissions is a list of permission objects for a set of fields.
 type Permissions []Permission
 
+func (p Permission) Copy() Permission {
+	result := p
+
+	result.VotingSystemsAllowed = make([]bool, len(p.VotingSystemsAllowed))
+	copy(result.VotingSystemsAllowed, p.VotingSystemsAllowed)
+
+	result.Fields = make([]FieldIndexPath, len(p.Fields))
+	for i, fip := range p.Fields {
+		result.Fields[i] = make(FieldIndexPath, len(fip))
+		copy(result.Fields[i], fip)
+	}
+
+	return result
+}
+
+func (ps Permissions) Copy() Permissions {
+	result := make(Permissions, len(ps))
+	for i, p := range ps {
+		result[i] = p.Copy()
+	}
+	return result
+}
+
 // FieldIndexPath is an "index path" to the field being specified. The index for each field is
-//   specified in protobuf. Each item in the list is a level. The first item is the top level field
-//   index and each item following is an index to sub-field within that field.
+// specified. Each item in the list is a level. The first item is the top level field index and each
+// item following is an index to sub-field within that field or an element with a list if it is a
+// list. For list indexes a zero means it applies to all elements of the list, the first element
+// is referred to by 1 and so on.
 // Examples:
 //   First field [ 0 ]
 //   Third field [ 2 ]
 //   Second field of the fifth top level field [ 4, 1 ]
+//   All elements of the list that is the 4th field [ 5, 0 ]
+//   The second item in the list that is the 5th field [ 6, 2 ]
 type FieldIndexPath []uint32
 
 // PermissionOf returns the permission object associated with a specified field index path.
@@ -46,6 +77,7 @@ func (ps Permissions) PermissionOf(fip FieldIndexPath) Permission {
 	depth := 0
 
 	for _, p := range ps {
+		// Find deepest path match specified in permissions.
 		for _, pfip := range p.Fields {
 			match := pfip.MatchDepth(fip)
 			if match > depth {
@@ -59,6 +91,64 @@ func (ps Permissions) PermissionOf(fip FieldIndexPath) Permission {
 	}
 
 	return result
+}
+
+func (ps Permissions) SubPermissions(fip FieldIndexPath, operation uint32,
+	isList bool) (Permissions, error) {
+
+	var result Permissions
+	for _, permission := range ps {
+		var match *Permission
+		for _, pfip := range permission.Fields {
+			if len(pfip) == 0 {
+				continue
+			}
+
+			if pfip[0] == fip[0] {
+				if isList {
+					if operation == 0 || operation == 2 {
+						// modify or delete (refers to specific element)
+						if len(fip) < 2 {
+							// No element index
+							return nil, ErrMissingElementIndex
+						}
+
+						if len(pfip) != 1 && // permissions specify this deep
+							pfip[1] != 0 && // permissions don't specify all elements
+							pfip[1]-1 != fip[1] { // permissions don't specify this element
+							continue // not a match
+						}
+					} else {
+						// add (refers to new element)
+						if len(pfip) != 1 && // permissions specify this deep
+							pfip[1] != 0 { // permissions don't specify all elements
+							continue // not a match
+						}
+					}
+				}
+
+				if match == nil {
+					newPermission := permission.Copy()
+					match = &newPermission
+				}
+
+				// Remove matching field index so it is lined up for subfields
+				match.Fields = append(match.Fields, pfip[1:])
+			}
+		}
+
+		if match == nil && len(permission.Fields) == 0 {
+			// General match
+			newPermission := permission.Copy()
+			match = &newPermission
+		}
+
+		if match != nil {
+			result = append(result, *match)
+		}
+	}
+
+	return result, nil
 }
 
 // PermissionsFromBytes reads raw auth flag data into an array of permission structs.

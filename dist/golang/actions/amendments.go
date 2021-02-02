@@ -8,8 +8,9 @@ import (
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/assets"
 	"github.com/tokenized/specification/dist/golang/internal"
+	"github.com/tokenized/specification/dist/golang/permissions"
 
-	proto "github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -480,8 +481,8 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 // ApplyAmendment updates a ContractFormation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty contract amendment field index path")
@@ -490,7 +491,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	switch fip[0] {
 	case ContractFieldContractName: // string
 		a.ContractName = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldBodyOfAgreementType: // uint32
 		if len(fip) > 1 {
@@ -502,11 +503,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.BodyOfAgreementType = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldBodyOfAgreement: // []byte
 		a.BodyOfAgreement = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case DeprecatedContractFieldContractType: // deprecated
 
@@ -520,8 +521,13 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.SupportingDocs) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify SupportingDocs : %d", fip[1])
 			}
-			result, err := a.SupportingDocs[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.SupportingDocs[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -536,7 +542,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.SupportingDocs = append(a.SupportingDocs, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -549,7 +555,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.SupportingDocs = append(a.SupportingDocs[:fip[1]], a.SupportingDocs[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case DeprecatedContractFieldGoverningLaw: // deprecated
@@ -566,14 +572,20 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.ContractExpiration = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldContractURI: // string
 		a.ContractURI = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldIssuer: // EntityField
-		return a.Issuer.ApplyAmendment(fip[1:], operation, data)
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, false)
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.Issuer.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
 	case DeprecatedContractFieldIssuerLogoURL: // deprecated
 
@@ -595,7 +607,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.ContractFee = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldVotingSystems: // []VotingSystemField
 		switch operation {
@@ -607,8 +619,13 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.VotingSystems) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify VotingSystems : %d", fip[1])
 			}
-			result, err := a.VotingSystems[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.VotingSystems[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -623,7 +640,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.VotingSystems = append(a.VotingSystems, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -636,12 +653,12 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.VotingSystems = append(a.VotingSystems[:fip[1]], a.VotingSystems[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case ContractFieldContractPermissions: // []byte
 		a.ContractPermissions = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldRestrictedQtyAssets: // uint64
 		if len(fip) > 1 {
@@ -653,7 +670,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.RestrictedQtyAssets = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldAdministrationProposal: // bool
 		if len(fip) > 1 {
@@ -666,7 +683,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if err := binary.Read(buf, binary.LittleEndian, &a.AdministrationProposal); err != nil {
 			return nil, fmt.Errorf("AdministrationProposal amendment value failed to deserialize : %s", err)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldHolderProposal: // bool
 		if len(fip) > 1 {
@@ -679,7 +696,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if err := binary.Read(buf, binary.LittleEndian, &a.HolderProposal); err != nil {
 			return nil, fmt.Errorf("HolderProposal amendment value failed to deserialize : %s", err)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldOracles: // []OracleField
 		switch operation {
@@ -691,8 +708,13 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.Oracles) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Oracles : %d", fip[1])
 			}
-			result, err := a.Oracles[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Oracles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -707,7 +729,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.Oracles = append(a.Oracles, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -720,7 +742,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.Oracles = append(a.Oracles[:fip[1]], a.Oracles[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case NotAmendableContractFieldMasterAddress: // []byte
@@ -728,11 +750,11 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 	case ContractFieldEntityContract: // []byte
 		a.EntityContract = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldOperatorEntityContract: // []byte
 		a.OperatorEntityContract = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldContractType: // uint32
 		if len(fip) > 1 {
@@ -744,7 +766,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.ContractType = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldServices: // []ServiceField
 		switch operation {
@@ -756,8 +778,13 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.Services) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Services : %d", fip[1])
 			}
-			result, err := a.Services[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Services[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -772,7 +799,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.Services = append(a.Services, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -785,7 +812,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.Services = append(a.Services[:fip[1]], a.Services[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case ContractFieldAdminIdentityCertificates: // []AdminIdentityCertificateField
@@ -798,8 +825,13 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.AdminIdentityCertificates) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify AdminIdentityCertificates : %d", fip[1])
 			}
-			result, err := a.AdminIdentityCertificates[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AdminIdentityCertificates[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -814,7 +846,7 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.AdminIdentityCertificates = append(a.AdminIdentityCertificates, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -827,16 +859,16 @@ func (a *ContractFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.AdminIdentityCertificates = append(a.AdminIdentityCertificates[:fip[1]], a.AdminIdentityCertificates[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case ContractFieldGoverningLaw: // string
 		a.GoverningLaw = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldJurisdiction: // string
 		a.Jurisdiction = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -957,8 +989,8 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 // ApplyAmendment updates a BodyOfAgreementFormation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *BodyOfAgreementFormation) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty agreement amendment field index path")
@@ -975,8 +1007,13 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip FieldIndexPath, operation 
 			if int(fip[1]) >= len(a.Chapters) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Chapters : %d", fip[1])
 			}
-			result, err := a.Chapters[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Chapters[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -991,7 +1028,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip FieldIndexPath, operation 
 				}
 			}
 			a.Chapters = append(a.Chapters, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -1004,7 +1041,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip FieldIndexPath, operation 
 
 			// Remove item from list
 			a.Chapters = append(a.Chapters[:fip[1]], a.Chapters[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case BodyOfAgreementFieldDefinitions: // []DefinedTermField
@@ -1017,8 +1054,13 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip FieldIndexPath, operation 
 			if int(fip[1]) >= len(a.Definitions) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Definitions : %d", fip[1])
 			}
-			result, err := a.Definitions[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Definitions[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -1033,7 +1075,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip FieldIndexPath, operation 
 				}
 			}
 			a.Definitions = append(a.Definitions, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -1046,7 +1088,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip FieldIndexPath, operation 
 
 			// Remove item from list
 			a.Definitions = append(a.Definitions[:fip[1]], a.Definitions[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	}
@@ -1266,8 +1308,8 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 // ApplyAmendment updates a AssetCreation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty asset amendment field index path")
@@ -1277,7 +1319,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 	case AssetFieldAssetPermissions: // []byte
 		a.AssetPermissions = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case DeprecatedAssetFieldTransfersPermitted: // deprecated
 
@@ -1294,7 +1336,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if err := binary.Read(buf, binary.LittleEndian, &a.EnforcementOrdersPermitted); err != nil {
 			return nil, fmt.Errorf("EnforcementOrdersPermitted amendment value failed to deserialize : %s", err)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldVotingRights: // bool
 		if len(fip) > 1 {
@@ -1307,7 +1349,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if err := binary.Read(buf, binary.LittleEndian, &a.VotingRights); err != nil {
 			return nil, fmt.Errorf("VotingRights amendment value failed to deserialize : %s", err)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldVoteMultiplier: // uint32
 		if len(fip) > 1 {
@@ -1319,7 +1361,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.VoteMultiplier = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldAdministrationProposal: // bool
 		if len(fip) > 1 {
@@ -1332,7 +1374,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if err := binary.Read(buf, binary.LittleEndian, &a.AdministrationProposal); err != nil {
 			return nil, fmt.Errorf("AdministrationProposal amendment value failed to deserialize : %s", err)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldHolderProposal: // bool
 		if len(fip) > 1 {
@@ -1345,7 +1387,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if err := binary.Read(buf, binary.LittleEndian, &a.HolderProposal); err != nil {
 			return nil, fmt.Errorf("HolderProposal amendment value failed to deserialize : %s", err)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldAssetModificationGovernance: // uint32
 		if len(fip) > 1 {
@@ -1357,7 +1399,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.AssetModificationGovernance = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldAuthorizedTokenQty: // uint64
 		if len(fip) > 1 {
@@ -1369,15 +1411,15 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.AuthorizedTokenQty = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldAssetType: // string
 		a.AssetType = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldAssetPayload: // []byte
 		a.AssetPayload = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetFieldTradeRestrictions: // []string
 		switch operation {
@@ -1390,7 +1432,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				return nil, fmt.Errorf("Amendment element index out of range for modify TradeRestrictions : %d", fip[1])
 			}
 			a.TradeRestrictions[fip[1]] = string(data)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -1399,7 +1441,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			}
 			newValue := string(data)
 			a.TradeRestrictions = append(a.TradeRestrictions, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -1412,7 +1454,7 @@ func (a *AssetCreation) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.TradeRestrictions = append(a.TradeRestrictions[:fip[1]], a.TradeRestrictions[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	}
@@ -1429,8 +1471,8 @@ const (
 // ApplyAmendment updates a AdministratorField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *AdministratorField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Administrator amendment field index path")
@@ -1450,11 +1492,11 @@ func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.Type = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AdministratorFieldName: // string
 		a.Name = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -1463,7 +1505,7 @@ func (a *AdministratorField) ApplyAmendment(fip FieldIndexPath, operation uint32
 
 // CreateAmendments determines the differences between two Administrators and returns
 // amendment data.
-func (a *AdministratorField) CreateAmendments(fip []uint32,
+func (a *AdministratorField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AdministratorField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -1510,8 +1552,8 @@ const (
 // ApplyAmendment updates a AdminIdentityCertificateField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *AdminIdentityCertificateField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty AdminIdentityCertificate amendment field index path")
@@ -1520,11 +1562,11 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 	switch fip[0] {
 	case AdminIdentityCertificateFieldEntityContract: // []byte
 		a.EntityContract = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AdminIdentityCertificateFieldSignature: // []byte
 		a.Signature = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AdminIdentityCertificateFieldBlockHeight: // uint32
 		if len(fip) > 1 {
@@ -1536,7 +1578,7 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 		} else {
 			a.BlockHeight = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AdminIdentityCertificateFieldExpiration: // uint64
 		if len(fip) > 1 {
@@ -1548,7 +1590,7 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 		} else {
 			a.Expiration = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -1557,7 +1599,7 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip FieldIndexPath, opera
 
 // CreateAmendments determines the differences between two AdminIdentityCertificates and returns
 // amendment data.
-func (a *AdminIdentityCertificateField) CreateAmendments(fip []uint32,
+func (a *AdminIdentityCertificateField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AdminIdentityCertificateField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -1626,8 +1668,8 @@ const (
 // ApplyAmendment updates a AmendmentField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *AmendmentField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Amendment amendment field index path")
@@ -1636,7 +1678,7 @@ func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	switch fip[0] {
 	case AmendmentFieldFieldIndexPath: // []byte
 		a.FieldIndexPath = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AmendmentFieldOperation: // uint32
 		if len(fip) > 1 {
@@ -1648,11 +1690,11 @@ func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.Operation = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AmendmentFieldData: // []byte
 		a.Data = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -1661,7 +1703,7 @@ func (a *AmendmentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two Amendments and returns
 // amendment data.
-func (a *AmendmentField) CreateAmendments(fip []uint32,
+func (a *AmendmentField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AmendmentField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -1720,8 +1762,8 @@ const (
 // ApplyAmendment updates a AssetReceiverField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *AssetReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty AssetReceiver amendment field index path")
@@ -1730,7 +1772,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	switch fip[0] {
 	case AssetReceiverFieldAddress: // []byte
 		a.Address = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetReceiverFieldQuantity: // uint64
 		if len(fip) > 1 {
@@ -1742,7 +1784,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.Quantity = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetReceiverFieldOracleSigAlgorithm: // uint32
 		if len(fip) > 1 {
@@ -1754,7 +1796,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.OracleSigAlgorithm = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetReceiverFieldOracleIndex: // uint32
 		if len(fip) > 1 {
@@ -1766,11 +1808,11 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.OracleIndex = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetReceiverFieldOracleConfirmationSig: // []byte
 		a.OracleConfirmationSig = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetReceiverFieldOracleSigBlockHeight: // uint32
 		if len(fip) > 1 {
@@ -1782,7 +1824,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.OracleSigBlockHeight = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetReceiverFieldOracleSigExpiry: // uint64
 		if len(fip) > 1 {
@@ -1794,7 +1836,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.OracleSigExpiry = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -1803,7 +1845,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip FieldIndexPath, operation uint32
 
 // CreateAmendments determines the differences between two AssetReceivers and returns
 // amendment data.
-func (a *AssetReceiverField) CreateAmendments(fip []uint32,
+func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AssetReceiverField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -1915,8 +1957,8 @@ const (
 // ApplyAmendment updates a AssetSettlementField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty AssetSettlement amendment field index path")
@@ -1933,18 +1975,18 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 		} else {
 			a.ContractIndex = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetSettlementFieldAssetType: // string
 		a.AssetType = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetSettlementFieldAssetCode: // []byte
 		if len(data) != 20 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 20)
 		}
 		copy(a.AssetCode, data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetSettlementFieldSettlements: // []QuantityIndexField
 		switch operation {
@@ -1956,8 +1998,13 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 			if int(fip[1]) >= len(a.Settlements) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Settlements : %d", fip[1])
 			}
-			result, err := a.Settlements[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Settlements[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -1972,7 +2019,7 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 				}
 			}
 			a.Settlements = append(a.Settlements, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -1985,7 +2032,7 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 
 			// Remove item from list
 			a.Settlements = append(a.Settlements[:fip[1]], a.Settlements[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	}
@@ -1995,7 +2042,7 @@ func (a *AssetSettlementField) ApplyAmendment(fip FieldIndexPath, operation uint
 
 // CreateAmendments determines the differences between two AssetSettlements and returns
 // amendment data.
-func (a *AssetSettlementField) CreateAmendments(fip []uint32,
+func (a *AssetSettlementField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AssetSettlementField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -2090,8 +2137,8 @@ const (
 // ApplyAmendment updates a AssetTransferField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty AssetTransfer amendment field index path")
@@ -2108,18 +2155,18 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.ContractIndex = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetTransferFieldAssetType: // string
 		a.AssetType = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetTransferFieldAssetCode: // []byte
 		if len(data) != 20 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 20)
 		}
 		copy(a.AssetCode, data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case AssetTransferFieldAssetSenders: // []QuantityIndexField
 		switch operation {
@@ -2131,8 +2178,13 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			if int(fip[1]) >= len(a.AssetSenders) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify AssetSenders : %d", fip[1])
 			}
-			result, err := a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -2147,7 +2199,7 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 				}
 			}
 			a.AssetSenders = append(a.AssetSenders, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -2160,7 +2212,7 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 
 			// Remove item from list
 			a.AssetSenders = append(a.AssetSenders[:fip[1]], a.AssetSenders[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case AssetTransferFieldAssetReceivers: // []AssetReceiverField
@@ -2173,8 +2225,13 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 			if int(fip[1]) >= len(a.AssetReceivers) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify AssetReceivers : %d", fip[1])
 			}
-			result, err := a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -2189,7 +2246,7 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 				}
 			}
 			a.AssetReceivers = append(a.AssetReceivers, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -2202,7 +2259,7 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 
 			// Remove item from list
 			a.AssetReceivers = append(a.AssetReceivers[:fip[1]], a.AssetReceivers[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	}
@@ -2212,7 +2269,7 @@ func (a *AssetTransferField) ApplyAmendment(fip FieldIndexPath, operation uint32
 
 // CreateAmendments determines the differences between two AssetTransfers and returns
 // amendment data.
-func (a *AssetTransferField) CreateAmendments(fip []uint32,
+func (a *AssetTransferField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AssetTransferField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -2348,8 +2405,8 @@ const (
 // ApplyAmendment updates a ChapterField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ChapterField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Chapter amendment field index path")
@@ -2358,11 +2415,11 @@ func (a *ChapterField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	switch fip[0] {
 	case ChapterFieldTitle: // string
 		a.Title = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ChapterFieldPreamble: // string
 		a.Preamble = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ChapterFieldArticles: // []ClauseField
 		switch operation {
@@ -2374,8 +2431,13 @@ func (a *ChapterField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.Articles) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Articles : %d", fip[1])
 			}
-			result, err := a.Articles[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Articles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -2390,7 +2452,7 @@ func (a *ChapterField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.Articles = append(a.Articles, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -2403,7 +2465,7 @@ func (a *ChapterField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.Articles = append(a.Articles[:fip[1]], a.Articles[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	}
@@ -2413,7 +2475,7 @@ func (a *ChapterField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two Chapters and returns
 // amendment data.
-func (a *ChapterField) CreateAmendments(fip []uint32,
+func (a *ChapterField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ChapterField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -2497,8 +2559,8 @@ const (
 // ApplyAmendment updates a ClauseField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ClauseField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Clause amendment field index path")
@@ -2507,11 +2569,11 @@ func (a *ClauseField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	switch fip[0] {
 	case ClauseFieldTitle: // string
 		a.Title = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ClauseFieldBody: // string
 		a.Body = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ClauseFieldChildren: // []ClauseField
 		switch operation {
@@ -2523,8 +2585,13 @@ func (a *ClauseField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.Children) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Children : %d", fip[1])
 			}
-			result, err := a.Children[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Children[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -2539,7 +2606,7 @@ func (a *ClauseField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.Children = append(a.Children, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -2552,7 +2619,7 @@ func (a *ClauseField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.Children = append(a.Children[:fip[1]], a.Children[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	}
@@ -2562,7 +2629,7 @@ func (a *ClauseField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two Clauses and returns
 // amendment data.
-func (a *ClauseField) CreateAmendments(fip []uint32,
+func (a *ClauseField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ClauseField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -2645,8 +2712,8 @@ const (
 // ApplyAmendment updates a DefinedTermField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *DefinedTermField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *DefinedTermField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty DefinedTerm amendment field index path")
@@ -2655,11 +2722,11 @@ func (a *DefinedTermField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	switch fip[0] {
 	case DefinedTermFieldTerm: // string
 		a.Term = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case DefinedTermFieldDefinition: // string
 		a.Definition = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -2668,7 +2735,7 @@ func (a *DefinedTermField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two DefinedTerms and returns
 // amendment data.
-func (a *DefinedTermField) CreateAmendments(fip []uint32,
+func (a *DefinedTermField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *DefinedTermField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -2709,8 +2776,8 @@ const (
 // ApplyAmendment updates a DocumentField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *DocumentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *DocumentField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Document amendment field index path")
@@ -2719,15 +2786,15 @@ func (a *DocumentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	switch fip[0] {
 	case DocumentFieldName: // string
 		a.Name = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case DocumentFieldType: // string
 		a.Type = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case DocumentFieldContents: // []byte
 		a.Contents = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -2736,7 +2803,7 @@ func (a *DocumentField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two Documents and returns
 // amendment data.
-func (a *DocumentField) CreateAmendments(fip []uint32,
+func (a *DocumentField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *DocumentField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -2800,8 +2867,8 @@ const (
 // ApplyAmendment updates a EntityField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Entity amendment field index path")
@@ -2810,54 +2877,54 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	switch fip[0] {
 	case EntityFieldName: // string
 		a.Name = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldType: // string
 		if EntitiesData(a.Type) == nil {
 			return nil, fmt.Errorf("Entities resource value not defined : %v", a.Type)
 		}
 		a.Type = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldLEI: // string
 		a.LEI = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldUnitNumber: // string
 		a.UnitNumber = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldBuildingNumber: // string
 		a.BuildingNumber = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldStreet: // string
 		a.Street = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldSuburbCity: // string
 		a.SuburbCity = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldTerritoryStateProvinceCode: // string
 		a.TerritoryStateProvinceCode = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldCountryCode: // string
 		a.CountryCode = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldPostalZIPCode: // string
 		a.PostalZIPCode = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldEmailAddress: // string
 		a.EmailAddress = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldPhoneNumber: // string
 		a.PhoneNumber = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case EntityFieldAdministration: // []AdministratorField
 		switch operation {
@@ -2869,8 +2936,13 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.Administration) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Administration : %d", fip[1])
 			}
-			result, err := a.Administration[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Administration[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -2885,7 +2957,7 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.Administration = append(a.Administration, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -2898,7 +2970,7 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.Administration = append(a.Administration[:fip[1]], a.Administration[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case EntityFieldManagement: // []ManagerField
@@ -2911,8 +2983,13 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			if int(fip[1]) >= len(a.Management) {
 				return nil, fmt.Errorf("Amendment element index out of range for modify Management : %d", fip[1])
 			}
-			result, err := a.Management[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Management[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -2927,7 +3004,7 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				}
 			}
 			a.Management = append(a.Management, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -2940,18 +3017,18 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.Management = append(a.Management[:fip[1]], a.Management[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case EntityFieldDomainName: // string
 		a.DomainName = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case DeprecatedEntityFieldEntityContractAddress: // deprecated
 
 	case EntityFieldPaymailHandle: // string
 		a.PaymailHandle = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -2960,7 +3037,7 @@ func (a *EntityField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two Entitys and returns
 // amendment data.
-func (a *EntityField) CreateAmendments(fip []uint32,
+func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *EntityField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -3196,8 +3273,8 @@ const (
 // ApplyAmendment updates a ManagerField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *ManagerField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Manager amendment field index path")
@@ -3217,11 +3294,11 @@ func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.Type = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ManagerFieldName: // string
 		a.Name = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -3230,7 +3307,7 @@ func (a *ManagerField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two Managers and returns
 // amendment data.
-func (a *ManagerField) CreateAmendments(fip []uint32,
+func (a *ManagerField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ManagerField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -3278,8 +3355,8 @@ const (
 // ApplyAmendment updates a OracleField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Oracle amendment field index path")
@@ -3308,7 +3385,7 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 			} else {
 				a.OracleTypes[fip[1]] = uint32(value)
 			}
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -3323,7 +3400,7 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 				newValue = uint32(value)
 			}
 			a.OracleTypes = append(a.OracleTypes, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -3336,12 +3413,12 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 			// Remove item from list
 			a.OracleTypes = append(a.OracleTypes[:fip[1]], a.OracleTypes[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	case OracleFieldEntityContract: // []byte
 		a.EntityContract = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -3350,7 +3427,7 @@ func (a *OracleField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two Oracles and returns
 // amendment data.
-func (a *OracleField) CreateAmendments(fip []uint32,
+func (a *OracleField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *OracleField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -3436,8 +3513,8 @@ const (
 // ApplyAmendment updates a QuantityIndexField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *QuantityIndexField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty QuantityIndex amendment field index path")
@@ -3454,7 +3531,7 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.Index = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case QuantityIndexFieldQuantity: // uint64
 		if len(fip) > 1 {
@@ -3466,7 +3543,7 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.Quantity = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -3475,7 +3552,7 @@ func (a *QuantityIndexField) ApplyAmendment(fip FieldIndexPath, operation uint32
 
 // CreateAmendments determines the differences between two QuantityIndexs and returns
 // amendment data.
-func (a *QuantityIndexField) CreateAmendments(fip []uint32,
+func (a *QuantityIndexField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *QuantityIndexField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -3525,8 +3602,8 @@ const (
 // ApplyAmendment updates a ReferenceTransactionField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty ReferenceTransaction amendment field index path")
@@ -3535,7 +3612,7 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation
 	switch fip[0] {
 	case ReferenceTransactionFieldTransaction: // []byte
 		a.Transaction = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ReferenceTransactionFieldOutputs: // [][]byte
 		switch operation {
@@ -3548,7 +3625,7 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation
 				return nil, fmt.Errorf("Amendment element index out of range for modify Outputs : %d", fip[1])
 			}
 			a.Outputs[fip[1]] = data
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 1: // Add element
 			if len(fip) > 1 {
@@ -3557,7 +3634,7 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation
 			}
 			newValue := data
 			a.Outputs = append(a.Outputs, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -3570,7 +3647,7 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation
 
 			// Remove item from list
 			a.Outputs = append(a.Outputs[:fip[1]], a.Outputs[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	}
@@ -3580,7 +3657,7 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip FieldIndexPath, operation
 
 // CreateAmendments determines the differences between two ReferenceTransactions and returns
 // amendment data.
-func (a *ReferenceTransactionField) CreateAmendments(fip []uint32,
+func (a *ReferenceTransactionField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ReferenceTransactionField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -3652,8 +3729,8 @@ const (
 // ApplyAmendment updates a ServiceField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *ServiceField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty Service amendment field index path")
@@ -3670,18 +3747,18 @@ func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.Type = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ServiceFieldURL: // string
 		a.URL = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case ServiceFieldPublicKey: // []byte
 		if len(data) != 33 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 33)
 		}
 		copy(a.PublicKey, data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -3690,7 +3767,7 @@ func (a *ServiceField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two Services and returns
 // amendment data.
-func (a *ServiceField) CreateAmendments(fip []uint32,
+func (a *ServiceField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ServiceField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -3744,8 +3821,8 @@ const (
 // ApplyAmendment updates a TargetAddressField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *TargetAddressField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty TargetAddress amendment field index path")
@@ -3754,7 +3831,7 @@ func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32
 	switch fip[0] {
 	case TargetAddressFieldAddress: // []byte
 		a.Address = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case TargetAddressFieldQuantity: // uint64
 		if len(fip) > 1 {
@@ -3766,7 +3843,7 @@ func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32
 		} else {
 			a.Quantity = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -3775,7 +3852,7 @@ func (a *TargetAddressField) ApplyAmendment(fip FieldIndexPath, operation uint32
 
 // CreateAmendments determines the differences between two TargetAddresss and returns
 // amendment data.
-func (a *TargetAddressField) CreateAmendments(fip []uint32,
+func (a *TargetAddressField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *TargetAddressField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -3824,8 +3901,8 @@ const (
 // ApplyAmendment updates a VotingSystemField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
-	data []byte) (FieldIndexPath, error) {
+func (a *VotingSystemField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
 		return nil, errors.New("Empty VotingSystem amendment field index path")
@@ -3834,11 +3911,11 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 	switch fip[0] {
 	case VotingSystemFieldName: // string
 		a.Name = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case VotingSystemFieldVoteType: // string
 		a.VoteType = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case VotingSystemFieldTallyLogic: // uint32
 		if len(fip) > 1 {
@@ -3850,7 +3927,7 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.TallyLogic = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case VotingSystemFieldThresholdPercentage: // uint32
 		if len(fip) > 1 {
@@ -3862,7 +3939,7 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.ThresholdPercentage = uint32(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case VotingSystemFieldVoteMultiplierPermitted: // bool
 		if len(fip) > 1 {
@@ -3875,7 +3952,7 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		if err := binary.Read(buf, binary.LittleEndian, &a.VoteMultiplierPermitted); err != nil {
 			return nil, fmt.Errorf("VoteMultiplierPermitted amendment value failed to deserialize : %s", err)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	case VotingSystemFieldHolderProposalFee: // uint64
 		if len(fip) > 1 {
@@ -3887,7 +3964,7 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 		} else {
 			a.HolderProposalFee = uint64(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -3896,7 +3973,7 @@ func (a *VotingSystemField) ApplyAmendment(fip FieldIndexPath, operation uint32,
 
 // CreateAmendments determines the differences between two VotingSystems and returns
 // amendment data.
-func (a *VotingSystemField) CreateAmendments(fip []uint32,
+func (a *VotingSystemField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *VotingSystemField) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -3986,7 +4063,7 @@ func (a *VotingSystemField) CreateAmendments(fip []uint32,
 func convertAmendments(amendments []*internal.Amendment) ([]*AmendmentField, error) {
 	var result []*AmendmentField
 	for _, am := range amendments {
-		b, err := FieldIndexPath(am.FIP).Bytes()
+		b, err := permissions.FieldIndexPath(am.FIP).Bytes()
 		if err != nil {
 			return nil, errors.Wrap(err, "fip")
 		}

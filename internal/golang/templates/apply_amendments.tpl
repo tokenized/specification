@@ -17,20 +17,25 @@
 			}
 
 		{{- if .IsCompoundType }}
-			result, err := a.{{ .Name }}[fip[1]].ApplyAmendment(fip[2:], operation, data)
-			return append(fip[:1], result...), err
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.{{ .Name }}[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 		{{- else if eq .BaseType "fixedchar" "varchar" }}
 			a.{{ .Name }}[fip[1]] = string(data)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- else if eq .BaseType "bin" }}
 			if len(data) != {{ .BaseSize }} {
 				return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .BaseSize }})
 			}
 			copy(a.{{ .Name }}[fip[1]], data)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- else if eq .BaseType "varbin" }}
 			a.{{ .Name }}[fip[1]] = data
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- else if eq .BaseType "uint" }}
 			buf := bytes.NewBuffer(data)
 			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
@@ -38,7 +43,7 @@
 			} else {
 				a.{{ .Name }}[fip[1]] = {{ .GoSingularType }}(value)
 			}
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- else if eq .BaseType "bool" }}
 			if len(data) != 1 {
 				return nil, fmt.Errorf("{{ .Name }} amendment value is wrong size : %d", len(data))
@@ -47,7 +52,7 @@
 			if err := binary.Read(buf, binary.LittleEndian, &a.{{ .Name }}[fip[1]]); err != nil {
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 			}
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- end }}
 
 		case 1: // Add element
@@ -97,7 +102,7 @@
 			}
 		{{- end }}
 			a.{{ .Name }} = append(a.{{ .Name }}, newValue)
-			return fip[:], nil
+			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 
 		case 2: // Delete element
 			if len(fip) != 2 { // includes list index
@@ -110,7 +115,7 @@
 
 			// Remove item from list
 			a.{{ .Name }} = append(a.{{ .Name }}[:fip[1]], a.{{ .Name }}[fip[1]+1:]...)
-			return append(fip[:1], fip[2:]...), nil
+			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		}
 	{{- else }}
 		{{- if and (gt (len .BaseResource) 0) (ne .BaseResource "LegalSystems") (ne .BaseResource "Polities") }}
@@ -119,19 +124,25 @@
 		}
 		{{- end }}
 		{{- if .IsCompoundType }}
-		return a.{{ .Name }}.ApplyAmendment(fip[1:], operation, data)
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.{{ .Name }}.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		{{- else if eq .BaseType "fixedchar" "varchar" }}
 		a.{{ .Name }} = string(data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- else if eq .BaseType "bin" }}
 		if len(data) != {{ .BaseSize }} {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .BaseSize }})
 		}
 		copy(a.{{ .Name }}, data)
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- else if eq .BaseType "varbin" }}
 		a.{{ .Name }} = data
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- else if eq .BaseType "uint" }}
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
@@ -142,7 +153,7 @@
 		} else {
 			a.{{ .Name }} = {{ .GoSingularType }}(value)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- else if eq .BaseType "bool" }}
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
@@ -154,7 +165,7 @@
 		if err := binary.Read(buf, binary.LittleEndian, &a.{{ .Name }}); err != nil {
 			return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 		}
-		return fip[:], nil
+		return permissions.SubPermissions(fip, operation, {{ .IsList }})
 		{{- end }}
 	{{- end }}
 {{- end }}
