@@ -38,7 +38,7 @@ func (a *ContractFormation) CreateAmendments(newValue *{{ $message.Name }}) ([]*
 	}
 
 	var result []*internal.Amendment
-	var fip []uint32
+	var fip permissions.FieldIndexPath
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}
@@ -108,7 +108,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *{{ $message.Name }
 	}
 
 	var result []*internal.Amendment
-	var fip []uint32
+	var fip permissions.FieldIndexPath
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}
@@ -179,7 +179,7 @@ func (a *AssetCreation) CreateAmendments(newValue *{{ $message.Name }}) ([]*Amen
 	}
 
 	var result []*internal.Amendment
-	var fip []uint32
+	var fip permissions.FieldIndexPath
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}
@@ -272,7 +272,7 @@ func (a *{{ $message.Name }}Field) CreateAmendments(fip permissions.FieldIndexPa
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}

@@ -117,7 +117,7 @@ func (a *Membership) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// AgeRestriction AgeRestrictionField
 	fip = append(ofip, MembershipFieldAgeRestriction)
@@ -274,7 +274,7 @@ func (a *Currency) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// CurrencyCode string
 	fip = append(ofip, CurrencyFieldCurrencyCode)
@@ -372,7 +372,7 @@ func (a *ShareCommon) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Ticker string
 	fip = append(ofip, ShareCommonFieldTicker)
@@ -529,7 +529,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// RedeemingEntity string
 	fip = append(ofip, CouponFieldRedeemingEntity)
@@ -721,7 +721,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// AgeRestriction AgeRestrictionField
 	fip = append(ofip, LoyaltyPointsFieldAgeRestriction)
@@ -918,7 +918,7 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// AgeRestriction AgeRestrictionField
 	fip = append(ofip, TicketAdmissionFieldAgeRestriction)
@@ -1145,7 +1145,7 @@ func (a *CasinoChip) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// CurrencyCode string
 	fip = append(ofip, CasinoChipFieldCurrencyCode)
@@ -1289,7 +1289,7 @@ func (a *AgeRestrictionField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Lower uint32
 	fip = append(ofip, AgeRestrictionFieldLower)

@@ -336,6 +336,314 @@ func TestContractCreateAmendments(t *testing.T) {
 	}
 }
 
+func TestBodyOfAgreementApplyAmendments(t *testing.T) {
+	tests := []struct {
+		name              string
+		current           *BodyOfAgreementFormation
+		newValue          *BodyOfAgreementOffer
+		permissions       permissions.Permissions
+		resultPermissions permissions.Permissions
+		err               error
+	}{
+		{
+			name: "Change Title",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "",
+						Articles: []*ClauseField{},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title 2",
+						Preamble: "",
+						Articles: []*ClauseField{},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			resultPermissions: permissions.Permissions{
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+		{
+			name: "Change Preamble Permissions",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble 1",
+						Articles: []*ClauseField{},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{ // match all
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{
+							BodyOfAgreementFieldChapters,
+							0,
+							ChapterFieldPreamble,
+						},
+					},
+				},
+			},
+			resultPermissions: permissions.Permissions{
+				permissions.Permission{ // general match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+				permissions.Permission{ // specific match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+		{
+			name: "Change Article Title",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{
+							&ClauseField{
+								Title: "Article Title",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{
+							&ClauseField{
+								Title: "Article Title 2",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{ // non-match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{8},
+					},
+				},
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{
+							BodyOfAgreementFieldChapters,
+							0,
+							ChapterFieldArticles,
+							ClauseFieldTitle,
+						},
+					},
+				},
+			},
+			resultPermissions: permissions.Permissions{
+				permissions.Permission{ // specific match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+		{
+			name: "Change Clause Body",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{
+							&ClauseField{
+								Title: "Article Title",
+								Children: []*ClauseField{
+									&ClauseField{
+										Body: "Clause Title",
+									},
+								},
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{
+							&ClauseField{
+								Title: "Article Title",
+								Children: []*ClauseField{
+									&ClauseField{
+										Body: "Clause Title 2",
+									},
+								},
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{ // non-match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{8},
+					},
+				},
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{
+							BodyOfAgreementFieldChapters,
+							0,
+							ChapterFieldArticles,
+							0,
+							ClauseFieldChildren,
+							0,
+							ClauseFieldBody,
+						},
+					},
+				},
+			},
+			resultPermissions: permissions.Permissions{
+				permissions.Permission{ // specific match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			amendments, err := tt.current.CreateAmendments(tt.newValue)
+			if err != nil {
+				t.Errorf("Failed to create amendments : %s", err)
+				return
+			}
+
+			amended := &BodyOfAgreementFormation{}
+			if err := convert(amended, tt.current); err != nil {
+				t.Errorf("Failed to convert current value : %s", err)
+				return
+			}
+
+			for i, amendment := range amendments {
+				fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+				if err != nil {
+					t.Errorf("Failed to parse FIP : %s", err)
+					return
+				}
+
+				resultPermissions, err := amended.ApplyAmendment(fip, amendment.Operation,
+					amendment.Data, tt.permissions)
+				if err != nil {
+					t.Errorf("Failed to apply amendment %d : %s", i, err)
+					return
+				}
+
+				if !resultPermissions.Equal(tt.resultPermissions) {
+					t.Errorf("Wrong result permissions : \ngot  %+v\nwant %+v", resultPermissions,
+						tt.resultPermissions)
+				}
+			}
+
+			newValue := &BodyOfAgreementFormation{}
+			if err := convert(newValue, tt.newValue); err != nil {
+				t.Errorf("Failed to convert new value : %s", err)
+				return
+			}
+			if !amended.Equal(newValue) {
+				t.Errorf("Amended value doesn't match : \n  got  %+v\n  want %+v", *amended,
+					*newValue)
+				return
+			}
+		})
+	}
+}
+
 func TestAssetCreateAmendments(t *testing.T) {
 	currency := &assets.Currency{
 		CurrencyCode: "USD",

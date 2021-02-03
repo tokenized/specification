@@ -226,3 +226,250 @@ func Test_FailSerializePermissions(t *testing.T) {
 		})
 	}
 }
+
+func Test_SubPermissions(t *testing.T) {
+
+	tests := []struct {
+		name              string
+		permissions       Permissions
+		fip               FieldIndexPath
+		operation         uint32
+		isList            bool
+		resultPermissions Permissions
+	}{
+		{
+			name: "empty",
+			permissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []FieldIndexPath{},
+				},
+			},
+			fip:       FieldIndexPath{1},
+			operation: 0,
+			isList:    false,
+			resultPermissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []FieldIndexPath{},
+				},
+			},
+		},
+		{
+			name: "matching entry",
+			permissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{3},
+					},
+				},
+			},
+			fip:       FieldIndexPath{3},
+			operation: 0,
+			isList:    false,
+			resultPermissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []FieldIndexPath{},
+				},
+			},
+		},
+		{
+			name: "deeper match",
+			permissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{3, 1},
+					},
+				},
+			},
+			fip:       FieldIndexPath{3},
+			operation: 0,
+			isList:    false,
+			resultPermissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{1},
+					},
+				},
+			},
+		},
+		{
+			name: "non-matching paths in match",
+			permissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{3, 1},
+						FieldIndexPath{4},
+						FieldIndexPath{5, 3},
+					},
+				},
+			},
+			fip:       FieldIndexPath{3},
+			operation: 0,
+			isList:    false,
+			resultPermissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{1},
+					},
+				},
+			},
+		},
+		{
+			name: "list match all",
+			permissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{3, 0, 5}, // 0 means match all list indexes
+					},
+				},
+			},
+			fip:       FieldIndexPath{3, 2},
+			operation: 0,
+			isList:    true,
+			resultPermissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{5},
+					},
+				},
+			},
+		},
+		{
+			name: "list match specific",
+			permissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{3, 2, 5}, // 2 is a specific list index match
+					},
+				},
+			},
+			fip:       FieldIndexPath{3, 1}, // permission index minus one for "match all" zero offset
+			operation: 0,
+			isList:    true,
+			resultPermissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{5},
+					},
+				},
+			},
+		},
+		{
+			name: "list non-match",
+			permissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{3, 2, 5}, // 2 is a specific list index match
+					},
+				},
+			},
+			fip:       FieldIndexPath{3, 3},
+			operation: 0,
+			isList:    true,
+			resultPermissions: Permissions{
+				Permission{ // default match
+					Permitted: true,
+				},
+			},
+		},
+		{
+			name: "list default match",
+			permissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: true,
+					HolderProposal:         false,
+					AdministrativeMatter:   false,
+					Fields:                 []FieldIndexPath{},
+				},
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []FieldIndexPath{
+						FieldIndexPath{3, 2, 5}, // 2 is a specific list index match
+					},
+				},
+			},
+			fip:       FieldIndexPath{3, 3},
+			operation: 0,
+			isList:    true,
+			resultPermissions: Permissions{
+				Permission{
+					Permitted:              false,
+					AdministrationProposal: true,
+					HolderProposal:         false,
+					AdministrativeMatter:   false,
+					Fields:                 []FieldIndexPath{},
+				},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resultPermissions, err := tt.permissions.SubPermissions(tt.fip, tt.operation, tt.isList)
+			if err != nil {
+				t.Errorf("Failed to get sub permissions : %s", err)
+				return
+			}
+
+			if !resultPermissions.Equal(tt.resultPermissions) {
+				t.Errorf("Wrong result permissions : \ngot  %+v\nwant %+v", resultPermissions,
+					tt.resultPermissions)
+			}
+		})
+	}
+}

@@ -58,7 +58,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	}
 
 	var result []*internal.Amendment
-	var fip []uint32
+	var fip permissions.FieldIndexPath
 
 	// ContractName string
 	fip = []uint32{ContractFieldContractName}
@@ -890,7 +890,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 	}
 
 	var result []*internal.Amendment
-	var fip []uint32
+	var fip permissions.FieldIndexPath
 
 	// Chapters []ChapterField
 	fip = []uint32{BodyOfAgreementFieldChapters}
@@ -1126,7 +1126,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	}
 
 	var result []*internal.Amendment
-	var fip []uint32
+	var fip permissions.FieldIndexPath
 
 	// AssetPermissions []byte
 	fip = []uint32{AssetFieldAssetPermissions}
@@ -1513,7 +1513,7 @@ func (a *AdministratorField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Type uint32
 	fip = append(ofip, AdministratorFieldType)
@@ -1607,7 +1607,7 @@ func (a *AdminIdentityCertificateField) CreateAmendments(fip permissions.FieldIn
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// EntityContract []byte
 	fip = append(ofip, AdminIdentityCertificateFieldEntityContract)
@@ -1711,7 +1711,7 @@ func (a *AmendmentField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// FieldIndexPath []byte
 	fip = append(ofip, AmendmentFieldFieldIndexPath)
@@ -1853,7 +1853,7 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Address []byte
 	fip = append(ofip, AssetReceiverFieldAddress)
@@ -2050,7 +2050,7 @@ func (a *AssetSettlementField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// ContractIndex uint32
 	fip = append(ofip, AssetSettlementFieldContractIndex)
@@ -2277,7 +2277,7 @@ func (a *AssetTransferField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// ContractIndex uint32
 	fip = append(ofip, AssetTransferFieldContractIndex)
@@ -2483,7 +2483,7 @@ func (a *ChapterField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Title string
 	fip = append(ofip, ChapterFieldTitle)
@@ -2637,7 +2637,7 @@ func (a *ClauseField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Title string
 	fip = append(ofip, ClauseFieldTitle)
@@ -2743,7 +2743,7 @@ func (a *DefinedTermField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Term string
 	fip = append(ofip, DefinedTermFieldTerm)
@@ -2811,7 +2811,7 @@ func (a *DocumentField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Name string
 	fip = append(ofip, DocumentFieldName)
@@ -3045,7 +3045,7 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Name string
 	fip = append(ofip, EntityFieldName)
@@ -3315,7 +3315,7 @@ func (a *ManagerField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Type uint32
 	fip = append(ofip, ManagerFieldType)
@@ -3435,7 +3435,7 @@ func (a *OracleField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// deprecated Entity deprecated
 
@@ -3560,7 +3560,7 @@ func (a *QuantityIndexField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Index uint32
 	fip = append(ofip, QuantityIndexFieldIndex)
@@ -3665,7 +3665,7 @@ func (a *ReferenceTransactionField) CreateAmendments(fip permissions.FieldIndexP
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Transaction []byte
 	fip = append(ofip, ReferenceTransactionFieldTransaction)
@@ -3775,7 +3775,7 @@ func (a *ServiceField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Type uint32
 	fip = append(ofip, ServiceFieldType)
@@ -3860,7 +3860,7 @@ func (a *TargetAddressField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Address []byte
 	fip = append(ofip, TargetAddressFieldAddress)
@@ -3981,7 +3981,7 @@ func (a *VotingSystemField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	// Name string
 	fip = append(ofip, VotingSystemFieldName)

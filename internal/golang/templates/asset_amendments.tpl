@@ -58,7 +58,7 @@ func (a *{{ $message.Name }}) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}
@@ -122,7 +122,7 @@ func (a *{{ $message.Name }}Field) CreateAmendments(fip permissions.FieldIndexPa
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}
