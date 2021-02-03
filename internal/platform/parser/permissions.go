@@ -181,6 +181,18 @@ func TranslatePermission(assetType string, actions, assets, schema Schema, permi
 		first := true
 		fieldIndexPath := make([]int, 0, len(permission.Fields))
 		for j, fieldName := range fieldNames {
+			if fieldName == "0" {
+				// match all for list index
+				if first {
+					first = false
+				} else {
+					file.WriteString(", ")
+				}
+				file.WriteString("0")
+				fieldIndexPath = append(fieldIndexPath, 0)
+				continue
+			}
+
 			found := false
 			fieldType := ""
 			for i, field := range fields {

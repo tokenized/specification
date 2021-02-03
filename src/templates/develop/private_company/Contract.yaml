@@ -35,10 +35,10 @@ Permissions:
       - [Issuer, TerritoryStateProvinceCode]
       - [Issuer, Management, Type]
       - [Issuer, Management, Name]
-      - [VotingSystems, HolderProposalFee]
-      - [Oracles, Entity]
-      - [Oracles, URL]
-      - [Oracles, PublicKey]
+      - [VotingSystems, 0, HolderProposalFee]
+      - [Oracles, 0, Entity]
+      - [Oracles, 0, URL]
+      - [Oracles, 0, PublicKey]
       - [Services]
 
   - Name: Administrator Direct
@@ -101,9 +101,9 @@ Permissions:
     VotingSystemsAllowed:
       - Unanimous Resolution
     Fields:
-      - [VotingSystems, Name]
-      - [VotingSystems, VoteType]
-      - [VotingSystems, TallyLogic]
-      - [VotingSystems, ThresholdPercentage]
-      - [VotingSystems, VoteMultiplierPermitted]
+      - [VotingSystems, 0, Name]
+      - [VotingSystems, 0, VoteType]
+      - [VotingSystems, 0, TallyLogic]
+      - [VotingSystems, 0, ThresholdPercentage]
+      - [VotingSystems, 0, VoteMultiplierPermitted]
       - [ContractPermissions]

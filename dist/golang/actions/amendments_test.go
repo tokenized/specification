@@ -432,18 +432,18 @@ func TestBodyOfAgreementApplyAmendments(t *testing.T) {
 				},
 			},
 			resultPermissions: permissions.Permissions{
-				permissions.Permission{ // general match
-					Permitted:              false,
-					AdministrationProposal: false,
-					HolderProposal:         true,
-					AdministrativeMatter:   false,
-					Fields:                 []permissions.FieldIndexPath{},
-				},
 				permissions.Permission{ // specific match
 					Permitted:              false,
 					AdministrationProposal: false,
 					HolderProposal:         false,
 					AdministrativeMatter:   true,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+				permissions.Permission{ // general match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
 					Fields:                 []permissions.FieldIndexPath{},
 				},
 			},

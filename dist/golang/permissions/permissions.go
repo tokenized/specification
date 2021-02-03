@@ -127,11 +127,17 @@ func (ps Permissions) PermissionOf(fip FieldIndexPath) Permission {
 	return result
 }
 
+// SubPermissions returns all permissions related to the specified path and operation. isList
+// specified if the current field is a list of items. It is used to narrow down permissions when
+// working through an amendment.
+// The permissions are returned in order with the first item the most specific to the field. The
+// most specific to the field is the one with the closest path.
 func (ps Permissions) SubPermissions(fip FieldIndexPath, operation uint32,
 	isList bool) (Permissions, error) {
 
 	var result Permissions
 	for _, permission := range ps {
+		pathMatch := false
 		var match *Permission
 		for _, pfip := range permission.Fields {
 			if len(pfip) == 0 {
@@ -165,6 +171,7 @@ func (ps Permissions) SubPermissions(fip FieldIndexPath, operation uint32,
 					newPermission := permission.Copy()
 					newPermission.Fields = nil
 					match = &newPermission
+					pathMatch = true
 				}
 
 				// Remove matching field index so it is lined up for subfields
@@ -185,7 +192,11 @@ func (ps Permissions) SubPermissions(fip FieldIndexPath, operation uint32,
 		}
 
 		if match != nil {
-			result = append(result, *match)
+			if pathMatch {
+				result = append(Permissions{*match}, result...) // add to beginning
+			} else {
+				result = append(result, *match) // add to end
+			}
 		}
 	}
 

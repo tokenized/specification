@@ -84,10 +84,10 @@ var PrivateCompany = PermissionConfig{
 				permissions.FieldIndexPath{10, 8},     // [Issuer TerritoryStateProvinceCode]
 				permissions.FieldIndexPath{10, 14, 1}, // [Issuer Management Type]
 				permissions.FieldIndexPath{10, 14, 2}, // [Issuer Management Name]
-				permissions.FieldIndexPath{18, 6},     // [VotingSystems HolderProposalFee]
-				permissions.FieldIndexPath{23, 1},     // [Oracles Entity]
-				permissions.FieldIndexPath{23, 2},     // [Oracles URL]
-				permissions.FieldIndexPath{23, 3},     // [Oracles PublicKey]
+				permissions.FieldIndexPath{18, 0, 6},  // [VotingSystems 0 HolderProposalFee]
+				permissions.FieldIndexPath{23, 0, 1},  // [Oracles 0 Entity]
+				permissions.FieldIndexPath{23, 0, 2},  // [Oracles 0 URL]
+				permissions.FieldIndexPath{23, 0, 3},  // [Oracles 0 PublicKey]
 				permissions.FieldIndexPath{28},        // [Services]
 			},
 		},
@@ -151,12 +151,12 @@ var PrivateCompany = PermissionConfig{
 			AdministrativeMatter:   false,
 			VotingSystemsAllowed:   []bool{true, false, false, false, false},
 			Fields: []permissions.FieldIndexPath{
-				permissions.FieldIndexPath{18, 1}, // [VotingSystems Name]
-				permissions.FieldIndexPath{18, 2}, // [VotingSystems VoteType]
-				permissions.FieldIndexPath{18, 3}, // [VotingSystems TallyLogic]
-				permissions.FieldIndexPath{18, 4}, // [VotingSystems ThresholdPercentage]
-				permissions.FieldIndexPath{18, 5}, // [VotingSystems VoteMultiplierPermitted]
-				permissions.FieldIndexPath{19},    // [ContractPermissions]
+				permissions.FieldIndexPath{18, 0, 1}, // [VotingSystems 0 Name]
+				permissions.FieldIndexPath{18, 0, 2}, // [VotingSystems 0 VoteType]
+				permissions.FieldIndexPath{18, 0, 3}, // [VotingSystems 0 TallyLogic]
+				permissions.FieldIndexPath{18, 0, 4}, // [VotingSystems 0 ThresholdPercentage]
+				permissions.FieldIndexPath{18, 0, 5}, // [VotingSystems 0 VoteMultiplierPermitted]
+				permissions.FieldIndexPath{19},       // [ContractPermissions]
 			},
 		},
 	},
