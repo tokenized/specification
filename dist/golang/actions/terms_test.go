@@ -13,7 +13,7 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title",
 			chapter: &ChapterField{
-				Title:    "Testing definition of {Term1}",
+				Title:    "Testing definition of [Term1]()",
 				Articles: []*ClauseField{},
 			},
 			terms: []string{"Term1"},
@@ -21,7 +21,7 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title 2 terms",
 			chapter: &ChapterField{
-				Title:    "{Term2} Testing definition of {Term1}",
+				Title:    "[Term2]() Testing definition of [Term1]()",
 				Articles: []*ClauseField{},
 			},
 			terms: []string{"Term2", "Term1"},
@@ -29,7 +29,7 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title 2 terms",
 			chapter: &ChapterField{
-				Title:    "{Term2} Testing definition of {Term1}",
+				Title:    "[Term2]() Testing definition of [Term1]()",
 				Articles: []*ClauseField{},
 			},
 			terms: []string{"Term2", "Term1"},
@@ -37,8 +37,8 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title and preamble",
 			chapter: &ChapterField{
-				Title:    "Testing definition of {Term1}",
-				Preamble: "This is {Term2} text",
+				Title:    "Testing definition of [Term1]()",
+				Preamble: "This is [Term2]() text",
 				Articles: []*ClauseField{},
 			},
 			terms: []string{"Term2", "Term1"},
@@ -46,11 +46,11 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title and preamble and clause",
 			chapter: &ChapterField{
-				Title:    "Testing definition of {Term1}",
-				Preamble: "This is {Term2} text",
+				Title:    "Testing definition of [Term1]()",
+				Preamble: "This is [Term2]() text",
 				Articles: []*ClauseField{
 					&ClauseField{
-						Title: "Contains {Term3}",
+						Title: "Contains [Term3]()",
 					},
 				},
 			},
@@ -61,7 +61,7 @@ func TestFindTerms(t *testing.T) {
 			chapter: &ChapterField{
 				Articles: []*ClauseField{
 					&ClauseField{
-						Body: "Contains {Term3}",
+						Body: "Contains [Term3]()",
 					},
 				},
 			},
@@ -74,7 +74,7 @@ func TestFindTerms(t *testing.T) {
 					&ClauseField{
 						Children: []*ClauseField{
 							&ClauseField{
-								Body: "Contains {Term3}",
+								Body: "Contains [Term3]()",
 							},
 						},
 					},
@@ -91,7 +91,7 @@ func TestFindTerms(t *testing.T) {
 							&ClauseField{
 								Children: []*ClauseField{
 									&ClauseField{
-										Body: "Contains {Term3}",
+										Body: "Contains [Term3]()",
 									},
 								},
 							},

@@ -396,7 +396,7 @@ func (c *ClauseField) Depth() int {
 
 {{- if $termsNeeded }}
 // escape backslashes to get single backslashes in regex
-var termRegEx = regexp.MustCompile("(?:\\{)(.+?)(?:\\})")
+var termRegEx = regexp.MustCompile("(?:\\[)(.+?)(?:\\]\\(\\))")
 
 // findTerms adds any terms contained in the text to the map.
 func findTerms(text string, terms map[string]int) map[string]int {

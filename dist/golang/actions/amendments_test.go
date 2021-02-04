@@ -1,6 +1,7 @@
 package actions
 
 import (
+	"bytes"
 	"testing"
 
 	"github.com/tokenized/pkg/bitcoin"
@@ -27,6 +28,21 @@ func TestContractCreateAmendments(t *testing.T) {
 		t.Fatalf("Failed to generate key : %s", err)
 	}
 	publicKey2 := key2.PublicKey()
+
+	entityKey, err := bitcoin.GenerateKey(bitcoin.MainNet)
+	if err != nil {
+		t.Fatalf("Failed to generate key : %s", err)
+	}
+	entityAddress, err := entityKey.RawAddress()
+	if err != nil {
+		t.Fatalf("Failed to generate address : %s", err)
+	}
+
+	var buf bytes.Buffer
+	if err := bitcoin.WriteBase128VarInt(&buf, uint64(1)); err != nil {
+		t.Fatalf("Failed to write var int 1 : %s", err)
+	}
+	varInt1 := buf.Bytes()
 
 	tests := []struct {
 		name       string
@@ -262,6 +278,40 @@ func TestContractCreateAmendments(t *testing.T) {
 				&AmendmentField{ // remove second service
 					FieldIndexPath: []byte{2, byte(ContractFieldServices), 1},
 					Operation:      2,
+				},
+			},
+		},
+		{
+			name: "Change oracle type",
+			current: &ContractFormation{
+				ContractName: "Original Name",
+				Oracles: []*OracleField{
+					&OracleField{
+						OracleTypes:    []uint32{0},
+						EntityContract: entityAddress.Bytes(),
+					},
+				},
+				MasterAddress:       address1.Bytes(),
+				RestrictedQtyAssets: 1,
+			},
+			newValue: &ContractOffer{
+				ContractName: "Original Name",
+				Oracles: []*OracleField{
+					&OracleField{
+						OracleTypes:    []uint32{1},
+						EntityContract: entityAddress.Bytes(),
+					},
+				},
+				MasterAddress:       address1.Bytes(),
+				RestrictedQtyAssets: 1,
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{4, byte(ContractFieldOracles), 0,
+						byte(OracleFieldOracleTypes), 0},
+					Operation: 0,
+					Data:      varInt1,
 				},
 			},
 		},
