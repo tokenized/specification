@@ -127,7 +127,8 @@ func TestAssetCreateAmendments(t *testing.T) {
 
 			amended := tt.current
 			for i, amendment := range amendments {
-				_, err = amended.ApplyAmendment(amendment.FIP[1:], amendment.Operation, amendment.Data)
+				_, err = amended.ApplyAmendment(amendment.FIP[1:], amendment.Operation,
+					amendment.Data, nil)
 				if err != nil {
 					t.Errorf("Failed to apply amendment %d : %s", i, err)
 					return

@@ -2,15 +2,19 @@ package actions
 
 import (
 	"fmt"
+	"regexp"
+
+	"github.com/tokenized/pkg/bitcoin"
 
 	"github.com/pkg/errors"
-	"github.com/tokenized/pkg/bitcoin"
 )
 
 const (
 	max1ByteInteger = 255
 	max2ByteInteger = 65535
 	max4ByteInteger = 4294967295
+
+	maxArticleDepth = 4
 )
 
 func (a *ContractOffer) Validate() error {
@@ -38,6 +42,16 @@ func (a *ContractOffer) Validate() error {
 	// Field BodyOfAgreement - varbin
 	if len(a.BodyOfAgreement) > max4ByteInteger {
 		return fmt.Errorf("BodyOfAgreement over max size : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
+	}
+	validValueFoundBodyOfAgreement := false
+	for _, v := range []uint32{1} {
+		if a.BodyOfAgreementType == v {
+			validValueFoundBodyOfAgreement = true
+			break
+		}
+	}
+	if !validValueFoundBodyOfAgreement && len(a.BodyOfAgreement) != 0 {
+		return fmt.Errorf("BodyOfAgreement is only allowed when BodyOfAgreementType value is within values [1] : %v", a.BodyOfAgreementType)
 	}
 
 	// Field SupportingDocs - Document
@@ -247,6 +261,16 @@ func (a *ContractFormation) Validate() error {
 	// Field BodyOfAgreement - varbin
 	if len(a.BodyOfAgreement) > max4ByteInteger {
 		return fmt.Errorf("BodyOfAgreement over max size : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
+	}
+	validValueFoundBodyOfAgreement := false
+	for _, v := range []uint32{1} {
+		if a.BodyOfAgreementType == v {
+			validValueFoundBodyOfAgreement = true
+			break
+		}
+	}
+	if !validValueFoundBodyOfAgreement && len(a.BodyOfAgreement) != 0 {
+		return fmt.Errorf("BodyOfAgreement is only allowed when BodyOfAgreementType value is within values [1] : %v", a.BodyOfAgreementType)
 	}
 
 	// Field SupportingDocs - Document
@@ -593,6 +617,110 @@ func (a *ContractAddressChange) Validate() error {
 	return nil
 }
 
+func (a *BodyOfAgreementOffer) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+	// Check depth or articles. Articles, Sections, Subsections, Paragraphs, Subparagraphs.
+	terms := make(map[string]int)
+	for _, chapter := range a.Chapters {
+		terms = chapter.Terms(terms)
+	}
+
+	if err := checkTerms(a.Definitions, terms); err != nil {
+		return err
+	}
+
+	// Field Chapters - Chapter
+	if len(a.Chapters) > max1ByteInteger {
+		return fmt.Errorf("Chapters list over max length : %d > %d", len(a.Chapters), max1ByteInteger)
+	}
+	for i, v := range a.Chapters {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Chapters[%d]", i))
+		}
+	}
+
+	// Field Definitions - DefinedTerm
+	if len(a.Definitions) > max1ByteInteger {
+		return fmt.Errorf("Definitions list over max length : %d > %d", len(a.Definitions), max1ByteInteger)
+	}
+	for i, v := range a.Definitions {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Definitions[%d]", i))
+		}
+	}
+
+	return nil
+}
+
+func (a *BodyOfAgreementFormation) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+	// Check depth or articles. Articles, Sections, Subsections, Paragraphs, Subparagraphs.
+	terms := make(map[string]int)
+	for _, chapter := range a.Chapters {
+		terms = chapter.Terms(terms)
+	}
+
+	if err := checkTerms(a.Definitions, terms); err != nil {
+		return err
+	}
+
+	// Field Chapters - Chapter
+	if len(a.Chapters) > max1ByteInteger {
+		return fmt.Errorf("Chapters list over max length : %d > %d", len(a.Chapters), max1ByteInteger)
+	}
+	for i, v := range a.Chapters {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Chapters[%d]", i))
+		}
+	}
+
+	// Field Definitions - DefinedTerm
+	if len(a.Definitions) > max1ByteInteger {
+		return fmt.Errorf("Definitions list over max length : %d > %d", len(a.Definitions), max1ByteInteger)
+	}
+	for i, v := range a.Definitions {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Definitions[%d]", i))
+		}
+	}
+
+	// Field Revision - uint
+
+	// Field Timestamp - uint
+
+	return nil
+}
+
+func (a *BodyOfAgreementAmendment) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field Revision - uint
+
+	// Field Amendments - Amendment
+	if len(a.Amendments) > max1ByteInteger {
+		return fmt.Errorf("Amendments list over max length : %d > %d", len(a.Amendments), max1ByteInteger)
+	}
+	for i, v := range a.Amendments {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Amendments[%d]", i))
+		}
+	}
+
+	// Field RefTxID - bin
+	if len(a.RefTxID) != 0 && len(a.RefTxID) != 32 {
+		return fmt.Errorf("RefTxID fixed width field wrong size : %d should be %d",
+			len(a.RefTxID), 32)
+	}
+
+	return nil
+}
+
 func (a *AssetDefinition) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
@@ -602,8 +730,6 @@ func (a *AssetDefinition) Validate() error {
 	if len(a.AssetPermissions) > max2ByteInteger {
 		return fmt.Errorf("AssetPermissions over max size : %d > %d", len(a.AssetPermissions), max2ByteInteger)
 	}
-
-	// Field TransfersPermitted - bool
 
 	// Field EnforcementOrdersPermitted - bool
 
@@ -630,7 +756,7 @@ func (a *AssetDefinition) Validate() error {
 		return fmt.Errorf("AssetModificationGovernance value not within options [0 1] : %d", a.AssetModificationGovernance)
 	}
 
-	// Field TokenQty - uint
+	// Field AuthorizedTokenQty - uint
 
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
@@ -668,9 +794,9 @@ func (a *AssetCreation) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field AssetIndex - uint
@@ -679,8 +805,6 @@ func (a *AssetCreation) Validate() error {
 	if len(a.AssetPermissions) > max2ByteInteger {
 		return fmt.Errorf("AssetPermissions over max size : %d > %d", len(a.AssetPermissions), max2ByteInteger)
 	}
-
-	// Field TransfersPermitted - bool
 
 	// Field EnforcementOrdersPermitted - bool
 
@@ -707,7 +831,7 @@ func (a *AssetCreation) Validate() error {
 		return fmt.Errorf("AssetModificationGovernance value not within options [0 1] : %d", a.AssetModificationGovernance)
 	}
 
-	// Field TokenQty - uint
+	// Field AuthorizedTokenQty - uint
 
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
@@ -749,9 +873,9 @@ func (a *AssetModification) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field AssetRevision - uint
@@ -851,9 +975,9 @@ func (a *Proposal) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field VoteSystem - uint
@@ -961,9 +1085,9 @@ func (a *Result) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field ProposedAmendments - Amendment
@@ -1015,9 +1139,9 @@ func (a *Order) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field TargetAddresses - TargetAddress
@@ -1132,9 +1256,9 @@ func (a *Freeze) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1182,9 +1306,9 @@ func (a *Confiscation) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1216,9 +1340,9 @@ func (a *Reconciliation) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1512,9 +1636,9 @@ func (a *AssetSettlementField) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field Settlements - QuantityIndex
@@ -1547,9 +1671,9 @@ func (a *AssetTransferField) Validate() error {
 	}
 
 	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 32 {
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
 		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 32)
+			len(a.AssetCode), 20)
 	}
 
 	// Field AssetSenders - QuantityIndex
@@ -1570,6 +1694,87 @@ func (a *AssetTransferField) Validate() error {
 		if err := v.Validate(); err != nil {
 			return errors.Wrap(err, fmt.Sprintf("AssetReceivers[%d]", i))
 		}
+	}
+
+	return nil
+}
+
+func (a *ChapterField) Validate() error {
+	if a == nil {
+		return nil
+	}
+	// Check depth or articles. Articles, Sections, Subsections, Paragraphs, Subparagraphs.
+	for i, article := range a.Articles {
+		if article.Depth() > maxArticleDepth {
+			return fmt.Errorf("Article %d over max depth : %d > %d", i, article.Depth(),
+				maxArticleDepth)
+		}
+	}
+
+	// Field Title - varchar
+	if len(a.Title) > max1ByteInteger {
+		return fmt.Errorf("Title over max size : %d > %d", len(a.Title), max1ByteInteger)
+	}
+
+	// Field Preamble - varchar
+	if len(a.Preamble) > max2ByteInteger {
+		return fmt.Errorf("Preamble over max size : %d > %d", len(a.Preamble), max2ByteInteger)
+	}
+
+	// Field Articles - Clause
+	if len(a.Articles) > max1ByteInteger {
+		return fmt.Errorf("Articles list over max length : %d > %d", len(a.Articles), max1ByteInteger)
+	}
+	for i, v := range a.Articles {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Articles[%d]", i))
+		}
+	}
+
+	return nil
+}
+
+func (a *ClauseField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Title - varchar
+	if len(a.Title) > max1ByteInteger {
+		return fmt.Errorf("Title over max size : %d > %d", len(a.Title), max1ByteInteger)
+	}
+
+	// Field Body - varchar
+	if len(a.Body) > max2ByteInteger {
+		return fmt.Errorf("Body over max size : %d > %d", len(a.Body), max2ByteInteger)
+	}
+
+	// Field Children - Clause
+	if len(a.Children) > max1ByteInteger {
+		return fmt.Errorf("Children list over max length : %d > %d", len(a.Children), max1ByteInteger)
+	}
+	for i, v := range a.Children {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Children[%d]", i))
+		}
+	}
+
+	return nil
+}
+
+func (a *DefinedTermField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Term - varchar
+	if len(a.Term) > max1ByteInteger {
+		return fmt.Errorf("Term over max size : %d > %d", len(a.Term), max1ByteInteger)
+	}
+
+	// Field Definition - varchar
+	if len(a.Definition) > max2ByteInteger {
+		return fmt.Errorf("Definition over max size : %d > %d", len(a.Definition), max2ByteInteger)
 	}
 
 	return nil
@@ -1898,4 +2103,94 @@ func PublicKeyIsValid(b []byte) error {
 func SignatureIsValid(b []byte) error {
 	_, err := bitcoin.SignatureFromBytes(b)
 	return err
+}
+func (c *ClauseField) Depth() int {
+	if len(c.Children) == 0 {
+		return 0 // no children
+	}
+
+	depth := 0
+	for _, child := range c.Children {
+		childDepth := child.Depth()
+		if childDepth > depth {
+			depth = childDepth
+		}
+	}
+
+	return depth + 1
+}
+
+// escape backslashes to get single backslashes in regex
+var termRegEx = regexp.MustCompile("(?:\\[)(.+?)(?:\\]\\(\\))")
+
+// findTerms adds any terms contained in the text to the map.
+func findTerms(text string, terms map[string]int) map[string]int {
+	matches := termRegEx.FindAllStringSubmatch(text, -1)
+	for _, match := range matches {
+		// index 1 for first regex group
+		terms[match[1]] = 1
+	}
+	return terms
+}
+
+// Terms adds any terms in the chapter or its articles to the map.
+func (c *ChapterField) Terms(terms map[string]int) map[string]int {
+	terms = findTerms(c.Title, terms)
+	terms = findTerms(c.Preamble, terms)
+
+	for _, article := range c.Articles {
+		terms = article.Terms(terms)
+	}
+
+	return terms
+}
+
+// Terms adds any terms in the clause or its children to the map.
+func (c *ClauseField) Terms(terms map[string]int) map[string]int {
+	terms = findTerms(c.Title, terms)
+	terms = findTerms(c.Body, terms)
+
+	for _, child := range c.Children {
+		terms = child.Terms(terms)
+	}
+
+	return terms
+}
+
+// checkTerms returns an error if any of the defined terms are not found in the referenced terms
+// map or if any of the referenced terms are not in the defined terms.
+func checkTerms(defined []*DefinedTermField, referenced map[string]int) error {
+	// Check that all referenced terms are defined.
+	var undefined []string
+	for term, _ := range referenced {
+		found := false
+		for _, defined := range defined {
+			if term == defined.Term {
+				found = true
+				break
+			}
+		}
+
+		if !found {
+			undefined = append(undefined, term)
+		}
+	}
+
+	if len(undefined) > 0 {
+		return fmt.Errorf("Undefined terms : %v", undefined)
+	}
+
+	// Check that all defined terms are referenced
+	var unreferenced []string
+	for _, defined := range defined {
+		if _, exists := referenced[defined.Term]; !exists {
+			unreferenced = append(unreferenced, defined.Term)
+		}
+	}
+
+	if len(unreferenced) > 0 {
+		return fmt.Errorf("Unreferenced defined terms : %v", unreferenced)
+	}
+
+	return nil
 }

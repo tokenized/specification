@@ -1,11 +1,13 @@
 package actions
 
 import (
-	"encoding/json"
+	"bytes"
 	"testing"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/specification/dist/golang/assets"
+	"github.com/tokenized/specification/dist/golang/permissions"
 
 	"github.com/pkg/errors"
 )
@@ -26,6 +28,21 @@ func TestContractCreateAmendments(t *testing.T) {
 		t.Fatalf("Failed to generate key : %s", err)
 	}
 	publicKey2 := key2.PublicKey()
+
+	entityKey, err := bitcoin.GenerateKey(bitcoin.MainNet)
+	if err != nil {
+		t.Fatalf("Failed to generate key : %s", err)
+	}
+	entityAddress, err := entityKey.RawAddress()
+	if err != nil {
+		t.Fatalf("Failed to generate address : %s", err)
+	}
+
+	var buf bytes.Buffer
+	if err := bitcoin.WriteBase128VarInt(&buf, uint64(1)); err != nil {
+		t.Fatalf("Failed to write var int 1 : %s", err)
+	}
+	varInt1 := buf.Bytes()
 
 	tests := []struct {
 		name       string
@@ -264,6 +281,40 @@ func TestContractCreateAmendments(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "Change oracle type",
+			current: &ContractFormation{
+				ContractName: "Original Name",
+				Oracles: []*OracleField{
+					&OracleField{
+						OracleTypes:    []uint32{0},
+						EntityContract: entityAddress.Bytes(),
+					},
+				},
+				MasterAddress:       address1.Bytes(),
+				RestrictedQtyAssets: 1,
+			},
+			newValue: &ContractOffer{
+				ContractName: "Original Name",
+				Oracles: []*OracleField{
+					&OracleField{
+						OracleTypes:    []uint32{1},
+						EntityContract: entityAddress.Bytes(),
+					},
+				},
+				MasterAddress:       address1.Bytes(),
+				RestrictedQtyAssets: 1,
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{4, byte(ContractFieldOracles), 0,
+						byte(OracleFieldOracleTypes), 0},
+					Operation: 0,
+					Data:      varInt1,
+				},
+			},
+		},
 	}
 
 	for _, tt := range tests {
@@ -308,13 +359,13 @@ func TestContractCreateAmendments(t *testing.T) {
 				return
 			}
 			for i, amendment := range amendments {
-				fip, err := FieldIndexPathFromBytes(amendment.FieldIndexPath)
+				fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
 				if err != nil {
 					t.Errorf("Failed to parse FIP : %s", err)
 					return
 				}
 
-				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data)
+				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data, nil)
 				if err != nil {
 					t.Errorf("Failed to apply amendment %d : %s", i, err)
 					return
@@ -322,6 +373,314 @@ func TestContractCreateAmendments(t *testing.T) {
 			}
 
 			newValue := &ContractFormation{}
+			if err := convert(newValue, tt.newValue); err != nil {
+				t.Errorf("Failed to convert new value : %s", err)
+				return
+			}
+			if !amended.Equal(newValue) {
+				t.Errorf("Amended value doesn't match : \n  got  %+v\n  want %+v", *amended,
+					*newValue)
+				return
+			}
+		})
+	}
+}
+
+func TestBodyOfAgreementApplyAmendments(t *testing.T) {
+	tests := []struct {
+		name              string
+		current           *BodyOfAgreementFormation
+		newValue          *BodyOfAgreementOffer
+		permissions       permissions.Permissions
+		resultPermissions permissions.Permissions
+		err               error
+	}{
+		{
+			name: "Change Title",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "",
+						Articles: []*ClauseField{},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title 2",
+						Preamble: "",
+						Articles: []*ClauseField{},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			resultPermissions: permissions.Permissions{
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+		{
+			name: "Change Preamble Permissions",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble 1",
+						Articles: []*ClauseField{},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{ // match all
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{
+							BodyOfAgreementFieldChapters,
+							0,
+							ChapterFieldPreamble,
+						},
+					},
+				},
+			},
+			resultPermissions: permissions.Permissions{
+				permissions.Permission{ // specific match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+				permissions.Permission{ // general match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+		{
+			name: "Change Article Title",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{
+							&ClauseField{
+								Title: "Article Title",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{
+							&ClauseField{
+								Title: "Article Title 2",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{ // non-match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{8},
+					},
+				},
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{
+							BodyOfAgreementFieldChapters,
+							0,
+							ChapterFieldArticles,
+							ClauseFieldTitle,
+						},
+					},
+				},
+			},
+			resultPermissions: permissions.Permissions{
+				permissions.Permission{ // specific match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+		{
+			name: "Change Clause Body",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{
+							&ClauseField{
+								Title: "Article Title",
+								Children: []*ClauseField{
+									&ClauseField{
+										Body: "Clause Title",
+									},
+								},
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Agreement Title",
+						Preamble: "Preamble",
+						Articles: []*ClauseField{
+							&ClauseField{
+								Title: "Article Title",
+								Children: []*ClauseField{
+									&ClauseField{
+										Body: "Clause Title 2",
+									},
+								},
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{ // non-match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{8},
+					},
+				},
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields: []permissions.FieldIndexPath{
+						permissions.FieldIndexPath{
+							BodyOfAgreementFieldChapters,
+							0,
+							ChapterFieldArticles,
+							0,
+							ClauseFieldChildren,
+							0,
+							ClauseFieldBody,
+						},
+					},
+				},
+			},
+			resultPermissions: permissions.Permissions{
+				permissions.Permission{ // specific match
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         false,
+					AdministrativeMatter:   true,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			amendments, err := tt.current.CreateAmendments(tt.newValue)
+			if err != nil {
+				t.Errorf("Failed to create amendments : %s", err)
+				return
+			}
+
+			amended := &BodyOfAgreementFormation{}
+			if err := convert(amended, tt.current); err != nil {
+				t.Errorf("Failed to convert current value : %s", err)
+				return
+			}
+
+			for i, amendment := range amendments {
+				fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+				if err != nil {
+					t.Errorf("Failed to parse FIP : %s", err)
+					return
+				}
+
+				resultPermissions, err := amended.ApplyAmendment(fip, amendment.Operation,
+					amendment.Data, tt.permissions)
+				if err != nil {
+					t.Errorf("Failed to apply amendment %d : %s", i, err)
+					return
+				}
+
+				if !resultPermissions.Equal(tt.resultPermissions) {
+					t.Errorf("Wrong result permissions : \ngot  %+v\nwant %+v", resultPermissions,
+						tt.resultPermissions)
+				}
+			}
+
+			newValue := &BodyOfAgreementFormation{}
 			if err := convert(newValue, tt.newValue); err != nil {
 				t.Errorf("Failed to convert new value : %s", err)
 				return
@@ -352,23 +711,23 @@ func TestAssetCreateAmendments(t *testing.T) {
 		{
 			name: "Change transfers permitted",
 			current: &AssetCreation{
-				TransfersPermitted: false,
-				TradeRestrictions:  []string{"AUS"},
-				TokenQty:           10000,
-				AssetType:          "CUR",
-				AssetPayload:       currencyPayload,
+				EnforcementOrdersPermitted: false,
+				TradeRestrictions:          []string{"AUS"},
+				AuthorizedTokenQty:         10000,
+				AssetType:                  "CCY",
+				AssetPayload:               currencyPayload,
 			},
 			newValue: &AssetDefinition{
-				TransfersPermitted: true,
-				TradeRestrictions:  []string{"AUS"},
-				TokenQty:           10000,
-				AssetType:          "CUR",
-				AssetPayload:       currencyPayload,
+				EnforcementOrdersPermitted: true,
+				TradeRestrictions:          []string{"AUS"},
+				AuthorizedTokenQty:         10000,
+				AssetType:                  "CCY",
+				AssetPayload:               currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldTransfersPermitted)},
+					FieldIndexPath: []byte{1, byte(AssetFieldEnforcementOrdersPermitted)},
 					Operation:      0,
 					Data:           []byte{1},
 				},
@@ -377,23 +736,21 @@ func TestAssetCreateAmendments(t *testing.T) {
 		{
 			name: "Change token quantity",
 			current: &AssetCreation{
-				TransfersPermitted: false,
 				TradeRestrictions:  []string{"AUS"},
-				TokenQty:           10000,
-				AssetType:          "CUR",
+				AuthorizedTokenQty: 10000,
+				AssetType:          "CCY",
 				AssetPayload:       currencyPayload,
 			},
 			newValue: &AssetDefinition{
-				TransfersPermitted: false,
 				TradeRestrictions:  []string{"AUS"},
-				TokenQty:           100000,
-				AssetType:          "CUR",
+				AuthorizedTokenQty: 100000,
+				AssetType:          "CCY",
 				AssetPayload:       currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldTokenQty)},
+					FieldIndexPath: []byte{1, byte(AssetFieldAuthorizedTokenQty)},
 					Operation:      0,
 					Data:           []byte{160, 141, 6}, // base 128 var int encoding of 100000
 				},
@@ -402,28 +759,28 @@ func TestAssetCreateAmendments(t *testing.T) {
 		{
 			name: "Change two fields",
 			current: &AssetCreation{
-				TransfersPermitted: false,
-				TradeRestrictions:  []string{"AUS"},
-				TokenQty:           10000,
-				AssetType:          "CUR",
-				AssetPayload:       currencyPayload,
+				EnforcementOrdersPermitted: false,
+				TradeRestrictions:          []string{"AUS"},
+				AuthorizedTokenQty:         10000,
+				AssetType:                  "CCY",
+				AssetPayload:               currencyPayload,
 			},
 			newValue: &AssetDefinition{
-				TransfersPermitted: true,
-				TradeRestrictions:  []string{"AUS"},
-				TokenQty:           100000,
-				AssetType:          "CUR",
-				AssetPayload:       currencyPayload,
+				EnforcementOrdersPermitted: true,
+				TradeRestrictions:          []string{"AUS"},
+				AuthorizedTokenQty:         100000,
+				AssetType:                  "CCY",
+				AssetPayload:               currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldTransfersPermitted)},
+					FieldIndexPath: []byte{1, byte(AssetFieldEnforcementOrdersPermitted)},
 					Operation:      0,
 					Data:           []byte{1},
 				},
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldTokenQty)},
+					FieldIndexPath: []byte{1, byte(AssetFieldAuthorizedTokenQty)},
 					Operation:      0,
 					Data:           []byte{160, 141, 6}, // base 128 var int encoding of 100000
 				},
@@ -473,13 +830,13 @@ func TestAssetCreateAmendments(t *testing.T) {
 				return
 			}
 			for i, amendment := range amendments {
-				fip, err := FieldIndexPathFromBytes(amendment.FieldIndexPath)
+				fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
 				if err != nil {
 					t.Errorf("Failed to parse FIP : %s", err)
 					return
 				}
 
-				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data)
+				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data, nil)
 				if err != nil {
 					t.Errorf("Failed to apply amendment %d : %s", i, err)
 					return
@@ -511,9 +868,8 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 	cb, _ := currentCoupon.Bytes()
 
 	current := &AssetCreation{
-		TransfersPermitted: false,
 		TradeRestrictions:  []string{"AUS"},
-		TokenQty:           10000,
+		AuthorizedTokenQty: 10000,
 		AssetType:          assets.CodeCoupon,
 		AssetPayload:       cb,
 	}
@@ -528,9 +884,8 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 	nb, _ := newCoupon.Bytes()
 
 	newValue := &AssetDefinition{
-		TransfersPermitted: false,
 		TradeRestrictions:  []string{"AUS"},
-		TokenQty:           10000,
+		AuthorizedTokenQty: 10000,
 		AssetType:          assets.CodeCoupon,
 		AssetPayload:       nb,
 	}

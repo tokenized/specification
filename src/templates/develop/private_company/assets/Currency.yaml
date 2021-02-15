@@ -1,6 +1,6 @@
 # Currency
 Name: Currency
-AssetType: CUR
+AssetType: CCY
 
 Permissions:
   - Name: Administrative Vote Special Board Resolution
@@ -12,7 +12,6 @@ Permissions:
       - Special Board Resolution
     Fields:
       - [AssetPermissions]
-      - [TransfersPermitted]
       - [TradeRestrictions]
       - [EnforcementOrdersPermitted]
       - [VotingRights]
@@ -28,7 +27,7 @@ Permissions:
     AdministrativeMatter: false
     VotingSystemsAllowed:
     Fields:
-      - [TokenQty]
+      - [AuthorizedTokenQty]
 
   - Name: Administrator/Administrative Vote Special Board Resolution
     Permitted: false

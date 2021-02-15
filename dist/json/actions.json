@@ -64,16 +64,16 @@
     },
     {
       "description": "A code representing the type of asset and the structure of the payload.",
-      "example": "CUR",
+      "example": "CCY",
       "name": "AssetType",
       "size": 3,
       "type": "fixedchar"
     },
     {
       "description": "Represents a unique identifier for an asset/token.",
-      "example": "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe",
+      "example": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "name": "AssetCode",
-      "size": 32,
+      "size": 20,
       "type": "bin"
     },
     {
@@ -332,6 +332,81 @@
       ],
       "label": "Asset Transfer",
       "name": "AssetTransfer"
+    },
+    {
+      "description": "A chapter is the top level structure of an agreement. It contains articles.\n",
+      "fields": [
+        {
+          "description": "The title of the chapter.",
+          "label": "Title",
+          "name": "Title",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "The introduction to the chapter.",
+          "label": "Preamble",
+          "name": "Preamble",
+          "type": "varchar",
+          "varSize": "small"
+        },
+        {
+          "description": "A list of articles for the chapter.",
+          "label": "Articles",
+          "name": "Articles",
+          "type": "Clause[]"
+        }
+      ],
+      "label": "Chapter",
+      "name": "Chapter"
+    },
+    {
+      "description": "A clause is the standard piece of an agreement, contained in each of the sub-levels of the  agreement. Articles, Sections, Subsections, Paragraphs, and Subparagraphs.\n",
+      "fields": [
+        {
+          "description": "The title of the clause.",
+          "label": "Title",
+          "name": "Title",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "The body of the clause.",
+          "label": "Body",
+          "name": "Body",
+          "type": "varchar",
+          "varSize": "small"
+        },
+        {
+          "description": "A list of clauses under this clause.",
+          "label": "Children",
+          "name": "Children",
+          "type": "Clause[]"
+        }
+      ],
+      "label": "Clause",
+      "name": "Clause"
+    },
+    {
+      "description": "A definition define a term specified throughout an agreement.\n",
+      "fields": [
+        {
+          "description": "The name of the term being defined. Linked to from within the agreement with curly braces {}  around the name.\n",
+          "label": "Term",
+          "name": "Term",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "The definition of the name.",
+          "label": "Definition",
+          "name": "Definition",
+          "type": "varchar",
+          "varSize": "small"
+        }
+      ],
+      "label": "Defined Term",
+      "name": "DefinedTerm"
     },
     {
       "description": "A file containing data.",
@@ -728,7 +803,7 @@
           "type": "varchar"
         },
         {
-          "description": "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action\n",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
@@ -742,9 +817,15 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
+          "only_valid_when": {
+            "field_name": "BodyOfAgreementType",
+            "values": [
+              1
+            ]
+          },
           "type": "varbin",
           "varSize": "medium"
         },
@@ -1012,7 +1093,7 @@
           "type": "varchar"
         },
         {
-          "description": "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format",
+          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action\n",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
@@ -1026,9 +1107,15 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
+          "only_valid_when": {
+            "field_name": "BodyOfAgreementType",
+            "values": [
+              1
+            ]
+          },
           "type": "varbin",
           "varSize": "medium"
         },
@@ -1549,6 +1636,137 @@
       "name": "ContractAddressChange"
     },
     {
+      "code": "C6",
+      "description": "Allows the administration to define the agreement for the contract.",
+      "fields": [
+        {
+          "description": "A list of chapters for the agreement.",
+          "label": "Chapters",
+          "name": "Chapters",
+          "type": "Chapter[]"
+        },
+        {
+          "description": "Definition of values within the agreement.",
+          "label": "Definitions",
+          "name": "Definitions",
+          "type": "DefinedTerm[]"
+        }
+      ],
+      "label": "Body Of Agreement Offer",
+      "metadata": {
+        "inputs": [
+          {
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          }
+        ],
+        "outputs": [
+          {
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "BodyOfAgreement"
+      },
+      "name": "BodyOfAgreementOffer"
+    },
+    {
+      "code": "C7",
+      "description": "Provides the current version of the body of agreement for the contract.",
+      "fields": [
+        {
+          "description": "A list of chapters for the agreement.",
+          "label": "Chapters",
+          "name": "Chapters",
+          "type": "Chapter[]"
+        },
+        {
+          "description": "Definition of terms within the agreement.",
+          "label": "Definitions",
+          "name": "Definitions",
+          "type": "DefinedTerm[]"
+        },
+        {
+          "description": "A counter for the number of times this agreement has been revised using a modification action.",
+          "example": "0",
+          "label": "Revision",
+          "name": "Revision",
+          "notes": "Can't be changed by the administration, operator. Smart contract controls.",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Can't be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "label": "Body Of Agreement Formation",
+      "metadata": {
+        "inputs": [
+          {
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "outputs": [
+          {
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ]
+      },
+      "name": "BodyOfAgreementFormation"
+    },
+    {
+      "code": "C8",
+      "description": "Allows the administration to modify the agreement for the contract.",
+      "fields": [
+        {
+          "description": "The current revision figure to ensure the modification provided is based on the latest version.",
+          "example": 0,
+          "label": "Revision",
+          "name": "Revision",
+          "notes": "Cannot be Amended",
+          "size": 4,
+          "type": "uint"
+        },
+        {
+          "description": "A collection of modifications to perform on this asset.",
+          "label": "Amendments",
+          "name": "Amendments",
+          "type": "Amendment[]"
+        },
+        {
+          "description": "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details.",
+          "label": "Ref Tx ID",
+          "name": "RefTxID",
+          "type": "TxId"
+        }
+      ],
+      "label": "Body Of Agreement Amendment",
+      "metadata": {
+        "inputs": [
+          {
+            "label": "Administration's Public Address",
+            "name": "Administration"
+          }
+        ],
+        "outputs": [
+          {
+            "label": "Contract Public Address",
+            "name": "Contract"
+          }
+        ],
+        "rejection": "Rejection",
+        "validation": "BodyOfAgreement"
+      },
+      "name": "BodyOfAgreementAmendment"
+    },
+    {
       "code": "A1",
       "description": "This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum). An asset is always linked to a contract that is identified by the public address of the Contract wallet.\n",
       "fields": [
@@ -1560,11 +1778,10 @@
           "varSize": "small"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
-          "example": 1,
+          "description": "Deprecated to move into specific asset types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
-          "type": "bool"
+          "type": "deprecated"
         },
         {
           "description": "Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
@@ -1622,10 +1839,10 @@
           "type": "uint"
         },
         {
-          "description": "The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
+          "description": "The number of tokens authorized to be issued for this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
           "example": "1000000",
-          "label": "Token Quantity",
-          "name": "TokenQty",
+          "label": "Authorized Token Quantity",
+          "name": "AuthorizedTokenQty",
           "size": 8,
           "type": "uint"
         },
@@ -1700,11 +1917,10 @@
           "varSize": "small"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
-          "example": true,
+          "description": "Deprecated to move into specific asset types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
-          "type": "bool"
+          "type": "deprecated"
         },
         {
           "description": "Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
@@ -1762,10 +1978,10 @@
           "type": "uint"
         },
         {
-          "description": "The number of tokens to issue with this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
+          "description": "The number of tokens authorized to be issued for this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
           "example": "1000000",
-          "label": "Token Quantity",
-          "name": "TokenQty",
+          "label": "Authorized Token Quantity",
+          "name": "AuthorizedTokenQty",
           "size": 8,
           "type": "uint"
         },
@@ -8803,6 +9019,12 @@
           "name": "ContractExists"
         },
         {
+          "code": 11,
+          "description": "The contract address specified does not have an active contract.",
+          "label": "Contract Does Not Exist",
+          "name": "ContractDoesNotExist"
+        },
+        {
           "code": 12,
           "description": "Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.",
           "label": "Contract Asset Quantity Reduction",
@@ -8987,6 +9209,24 @@
           "description": "The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.",
           "label": "Invalid Signature",
           "name": "InvalidSignature"
+        },
+        {
+          "code": 90,
+          "description": "The agreement already exists and can't be recreated.",
+          "label": "Agreement Already Exists",
+          "name": "AgreementExists"
+        },
+        {
+          "code": 91,
+          "description": "The agreement address specified does not have an active agreement.",
+          "label": "Agreement Does Not Exist",
+          "name": "AgreementDoesNotExist"
+        },
+        {
+          "code": 93,
+          "description": "The agreement revision in the request is not current.",
+          "label": "Agreement Revision",
+          "name": "AgreementRevision"
         }
       ]
     },

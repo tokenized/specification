@@ -18,4 +18,9 @@ properties:
   Description:
     type: string
     example: "Coingeek Conference - London (November 2018)."
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
 

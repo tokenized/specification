@@ -12,7 +12,7 @@ Permissions:
       - Special Board Resolution
     Fields:
       - [AssetPermissions]
-      - [TransfersPermitted]
+      - [AssetPayload, TransfersPermitted]
       - [TradeRestrictions]
       - [EnforcementOrdersPermitted]
       - [VotingRights]
@@ -30,7 +30,7 @@ Permissions:
     AdministrativeMatter: false
     VotingSystemsAllowed:
     Fields:
-      - [TokenQty]
+      - [AuthorizedTokenQty]
       - [AssetPayload, ValidFrom]
       - [AssetPayload, ExpirationTimestamp]
       - [AssetPayload, Description]

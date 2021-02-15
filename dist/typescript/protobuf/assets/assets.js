@@ -229,7 +229,8 @@ proto.assets.Membership.toObject = function(includeInstance, msg) {
     membershipclass: jspb.Message.getFieldWithDefault(msg, 5, ""),
     roletype: jspb.Message.getFieldWithDefault(msg, 6, ""),
     membershiptype: jspb.Message.getFieldWithDefault(msg, 7, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 8, "")
+    description: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 9, false)
   };
 
   if (includeInstance) {
@@ -298,6 +299,10 @@ proto.assets.Membership.deserializeBinaryFromReader = function(msg, reader) {
     case 8:
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
+      break;
+    case 9:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setTransferspermitted(value);
       break;
     default:
       reader.skipField();
@@ -382,6 +387,13 @@ proto.assets.Membership.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       8,
+      f
+    );
+  }
+  f = message.getTransferspermitted();
+  if (f) {
+    writer.writeBool(
+      9,
       f
     );
   }
@@ -548,6 +560,24 @@ proto.assets.Membership.prototype.getDescription = function() {
  */
 proto.assets.Membership.prototype.setDescription = function(value) {
   return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional bool TransfersPermitted = 9;
+ * @return {boolean}
+ */
+proto.assets.Membership.prototype.getTransferspermitted = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 9, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.assets.Membership} returns this
+ */
+proto.assets.Membership.prototype.setTransferspermitted = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 9, value);
 };
 
 
@@ -775,7 +805,8 @@ proto.assets.ShareCommon.toObject = function(includeInstance, msg) {
   var f, obj = {
     ticker: jspb.Message.getFieldWithDefault(msg, 1, ""),
     isin: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    description: jspb.Message.getFieldWithDefault(msg, 3, "")
+    description: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -824,6 +855,10 @@ proto.assets.ShareCommon.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
       break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setTransferspermitted(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -871,6 +906,13 @@ proto.assets.ShareCommon.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getTransferspermitted();
+  if (f) {
+    writer.writeBool(
+      4,
       f
     );
   }
@@ -931,6 +973,24 @@ proto.assets.ShareCommon.prototype.setDescription = function(value) {
 };
 
 
+/**
+ * optional bool TransfersPermitted = 4;
+ * @return {boolean}
+ */
+proto.assets.ShareCommon.prototype.getTransferspermitted = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.assets.ShareCommon} returns this
+ */
+proto.assets.ShareCommon.prototype.setTransferspermitted = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
+};
+
+
 
 
 
@@ -969,7 +1029,8 @@ proto.assets.Coupon.toObject = function(includeInstance, msg) {
     value: jspb.Message.getFieldWithDefault(msg, 4, 0),
     currency: jspb.Message.getFieldWithDefault(msg, 5, ""),
     description: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    precision: jspb.Message.getFieldWithDefault(msg, 7, 0)
+    precision: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 8, false)
   };
 
   if (includeInstance) {
@@ -1033,6 +1094,10 @@ proto.assets.Coupon.deserializeBinaryFromReader = function(msg, reader) {
     case 7:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setPrecision(value);
+      break;
+    case 8:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setTransferspermitted(value);
       break;
     default:
       reader.skipField();
@@ -1109,6 +1174,13 @@ proto.assets.Coupon.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeUint64(
       7,
+      f
+    );
+  }
+  f = message.getTransferspermitted();
+  if (f) {
+    writer.writeBool(
+      8,
       f
     );
   }
@@ -1241,6 +1313,24 @@ proto.assets.Coupon.prototype.setPrecision = function(value) {
 };
 
 
+/**
+ * optional bool TransfersPermitted = 8;
+ * @return {boolean}
+ */
+proto.assets.Coupon.prototype.getTransferspermitted = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 8, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.assets.Coupon} returns this
+ */
+proto.assets.Coupon.prototype.setTransferspermitted = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 8, value);
+};
+
+
 
 
 
@@ -1277,7 +1367,8 @@ proto.assets.LoyaltyPoints.toObject = function(includeInstance, msg) {
     offername: jspb.Message.getFieldWithDefault(msg, 2, ""),
     validfrom: jspb.Message.getFieldWithDefault(msg, 3, 0),
     expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    description: jspb.Message.getFieldWithDefault(msg, 5, "")
+    description: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 6, false)
   };
 
   if (includeInstance) {
@@ -1334,6 +1425,10 @@ proto.assets.LoyaltyPoints.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
+      break;
+    case 6:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setTransferspermitted(value);
       break;
     default:
       reader.skipField();
@@ -1397,6 +1492,13 @@ proto.assets.LoyaltyPoints.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       5,
+      f
+    );
+  }
+  f = message.getTransferspermitted();
+  if (f) {
+    writer.writeBool(
+      6,
       f
     );
   }
@@ -1512,6 +1614,24 @@ proto.assets.LoyaltyPoints.prototype.setDescription = function(value) {
 };
 
 
+/**
+ * optional bool TransfersPermitted = 6;
+ * @return {boolean}
+ */
+proto.assets.LoyaltyPoints.prototype.getTransferspermitted = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.assets.LoyaltyPoints} returns this
+ */
+proto.assets.LoyaltyPoints.prototype.setTransferspermitted = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 6, value);
+};
+
+
 
 
 
@@ -1553,7 +1673,8 @@ proto.assets.TicketAdmission.toObject = function(includeInstance, msg) {
     starttimedate: jspb.Message.getFieldWithDefault(msg, 7, 0),
     validfrom: jspb.Message.getFieldWithDefault(msg, 8, 0),
     expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    description: jspb.Message.getFieldWithDefault(msg, 10, "")
+    description: jspb.Message.getFieldWithDefault(msg, 10, ""),
+    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 11, false)
   };
 
   if (includeInstance) {
@@ -1630,6 +1751,10 @@ proto.assets.TicketAdmission.deserializeBinaryFromReader = function(msg, reader)
     case 10:
       var value = /** @type {string} */ (reader.readString());
       msg.setDescription(value);
+      break;
+    case 11:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setTransferspermitted(value);
       break;
     default:
       reader.skipField();
@@ -1728,6 +1853,13 @@ proto.assets.TicketAdmission.serializeBinaryToWriter = function(message, writer)
   if (f.length > 0) {
     writer.writeString(
       10,
+      f
+    );
+  }
+  f = message.getTransferspermitted();
+  if (f) {
+    writer.writeBool(
+      11,
       f
     );
   }
@@ -1933,6 +2065,24 @@ proto.assets.TicketAdmission.prototype.setDescription = function(value) {
 };
 
 
+/**
+ * optional bool TransfersPermitted = 11;
+ * @return {boolean}
+ */
+proto.assets.TicketAdmission.prototype.getTransferspermitted = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 11, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.assets.TicketAdmission} returns this
+ */
+proto.assets.TicketAdmission.prototype.setTransferspermitted = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 11, value);
+};
+
+
 
 
 
@@ -1970,7 +2120,8 @@ proto.assets.CasinoChip.toObject = function(includeInstance, msg) {
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
     validfrom: jspb.Message.getFieldWithDefault(msg, 4, 0),
     expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    precision: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    precision: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 7, false)
   };
 
   if (includeInstance) {
@@ -2031,6 +2182,10 @@ proto.assets.CasinoChip.deserializeBinaryFromReader = function(msg, reader) {
     case 6:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setPrecision(value);
+      break;
+    case 7:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setTransferspermitted(value);
       break;
     default:
       reader.skipField();
@@ -2101,6 +2256,13 @@ proto.assets.CasinoChip.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeUint64(
       6,
+      f
+    );
+  }
+  f = message.getTransferspermitted();
+  if (f) {
+    writer.writeBool(
+      7,
       f
     );
   }
@@ -2231,6 +2393,24 @@ proto.assets.CasinoChip.prototype.getPrecision = function() {
  */
 proto.assets.CasinoChip.prototype.setPrecision = function(value) {
   return jspb.Message.setProto3IntField(this, 6, value);
+};
+
+
+/**
+ * optional bool TransfersPermitted = 7;
+ * @return {boolean}
+ */
+proto.assets.CasinoChip.prototype.getTransferspermitted = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 7, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.assets.CasinoChip} returns this
+ */
+proto.assets.CasinoChip.prototype.setTransferspermitted = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 7, value);
 };
 
 

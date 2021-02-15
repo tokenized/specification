@@ -1,9 +1,11 @@
 package actions
 
+import "github.com/tokenized/specification/dist/golang/permissions"
+
 type PermissionConfig struct {
 	VotingSystems       []VotingSystemField
-	ContractPermissions Permissions
-	AssetPermissions    map[string]Permissions
+	ContractPermissions permissions.Permissions
+	AssetPermissions    map[string]permissions.Permissions
 }
 
 var PrivateCompany = PermissionConfig{
@@ -49,381 +51,380 @@ var PrivateCompany = PermissionConfig{
 			HolderProposalFee:       1000000,
 		},
 	},
-	ContractPermissions: Permissions{
-		Permission{ // Administration Proposal Unanimous Resolution
+	ContractPermissions: permissions.Permissions{
+		permissions.Permission{ // Administration Proposal Unanimous Resolution
 			Permitted:              false,
 			AdministrationProposal: true,
 			HolderProposal:         false,
 			AdministrativeMatter:   false,
 			VotingSystemsAllowed:   []bool{true, false, false, false, false},
-			Fields: []FieldIndexPath{
-				FieldIndexPath{1}, // [ContractName]
-				FieldIndexPath{2}, // [BodyOfAgreementType]
-				FieldIndexPath{3}, // [BodyOfAgreement]
-				FieldIndexPath{4}, // [ContractType]
-				FieldIndexPath{5}, // [SupportingDocs]
-				FieldIndexPath{6}, // [GoverningLaw]
-				FieldIndexPath{7}, // [Jurisdiction]
+			Fields: []permissions.FieldIndexPath{
+				permissions.FieldIndexPath{1}, // [ContractName]
+				permissions.FieldIndexPath{2}, // [BodyOfAgreementType]
+				permissions.FieldIndexPath{3}, // [BodyOfAgreement]
+				permissions.FieldIndexPath{4}, // [ContractType]
+				permissions.FieldIndexPath{5}, // [SupportingDocs]
+				permissions.FieldIndexPath{6}, // [GoverningLaw]
+				permissions.FieldIndexPath{7}, // [Jurisdiction]
 			},
 		},
-		Permission{ // General Board Resolution
+		permissions.Permission{ // General Board Resolution
 			Permitted:              false,
 			AdministrationProposal: false,
 			HolderProposal:         false,
 			AdministrativeMatter:   true,
 			VotingSystemsAllowed:   []bool{false, false, false, true, false},
-			Fields: []FieldIndexPath{
-				FieldIndexPath{8},         // [ContractExpiration]
-				FieldIndexPath{10, 3},     // [Issuer LEI]
-				FieldIndexPath{10, 4},     // [Issuer UnitNumber]
-				FieldIndexPath{10, 5},     // [Issuer BuildingNumber]
-				FieldIndexPath{10, 6},     // [Issuer Street]
-				FieldIndexPath{10, 7},     // [Issuer SuburbCity]
-				FieldIndexPath{10, 8},     // [Issuer TerritoryStateProvinceCode]
-				FieldIndexPath{10, 14, 1}, // [Issuer Management Type]
-				FieldIndexPath{10, 14, 2}, // [Issuer Management Name]
-				FieldIndexPath{18, 6},     // [VotingSystems HolderProposalFee]
-				FieldIndexPath{23, 1},     // [Oracles Entity]
-				FieldIndexPath{23, 2},     // [Oracles URL]
-				FieldIndexPath{23, 3},     // [Oracles PublicKey]
-				FieldIndexPath{28},        // [Services]
+			Fields: []permissions.FieldIndexPath{
+				permissions.FieldIndexPath{8},         // [ContractExpiration]
+				permissions.FieldIndexPath{10, 3},     // [Issuer LEI]
+				permissions.FieldIndexPath{10, 4},     // [Issuer UnitNumber]
+				permissions.FieldIndexPath{10, 5},     // [Issuer BuildingNumber]
+				permissions.FieldIndexPath{10, 6},     // [Issuer Street]
+				permissions.FieldIndexPath{10, 7},     // [Issuer SuburbCity]
+				permissions.FieldIndexPath{10, 8},     // [Issuer TerritoryStateProvinceCode]
+				permissions.FieldIndexPath{10, 14, 1}, // [Issuer Management Type]
+				permissions.FieldIndexPath{10, 14, 2}, // [Issuer Management Name]
+				permissions.FieldIndexPath{18, 0, 6},  // [VotingSystems 0 HolderProposalFee]
+				permissions.FieldIndexPath{23, 0, 1},  // [Oracles 0 Entity]
+				permissions.FieldIndexPath{23, 0, 2},  // [Oracles 0 URL]
+				permissions.FieldIndexPath{23, 0, 3},  // [Oracles 0 PublicKey]
+				permissions.FieldIndexPath{28},        // [Services]
 			},
 		},
-		Permission{ // Administrator Direct
+		permissions.Permission{ // Administrator Direct
 			Permitted:              true,
 			AdministrationProposal: false,
 			HolderProposal:         false,
 			AdministrativeMatter:   false,
 			VotingSystemsAllowed:   []bool{false, false, false, false, false},
-			Fields: []FieldIndexPath{
-				FieldIndexPath{9},      // [ContractURI]
-				FieldIndexPath{10, 10}, // [Issuer PostalZIPCode]
-				FieldIndexPath{10, 11}, // [Issuer EmailAddress]
-				FieldIndexPath{10, 12}, // [Issuer PhoneNumber]
-				FieldIndexPath{11},     // [IssuerLogoURL]
-				FieldIndexPath{13},     // [ContractOperator]
-				FieldIndexPath{29},     // [AdminIdentityCertificates]
-				FieldIndexPath{17},     // [ContractFee]
+			Fields: []permissions.FieldIndexPath{
+				permissions.FieldIndexPath{9},      // [ContractURI]
+				permissions.FieldIndexPath{10, 10}, // [Issuer PostalZIPCode]
+				permissions.FieldIndexPath{10, 11}, // [Issuer EmailAddress]
+				permissions.FieldIndexPath{10, 12}, // [Issuer PhoneNumber]
+				permissions.FieldIndexPath{11},     // [IssuerLogoURL]
+				permissions.FieldIndexPath{13},     // [ContractOperator]
+				permissions.FieldIndexPath{29},     // [AdminIdentityCertificates]
+				permissions.FieldIndexPath{17},     // [ContractFee]
 			},
 		},
-		Permission{ // Administrator Proposal Ordinary Resolution
+		permissions.Permission{ // Administrator Proposal Ordinary Resolution
 			Permitted:              false,
 			AdministrationProposal: true,
 			HolderProposal:         false,
 			AdministrativeMatter:   false,
 			VotingSystemsAllowed:   []bool{false, true, false, false, false},
-			Fields: []FieldIndexPath{
-				FieldIndexPath{10, 1}, // [Issuer Name]
-				FieldIndexPath{10, 2}, // [Issuer Type]
-				FieldIndexPath{25},    // [EntityContract]
+			Fields: []permissions.FieldIndexPath{
+				permissions.FieldIndexPath{10, 1}, // [Issuer Name]
+				permissions.FieldIndexPath{10, 2}, // [Issuer Type]
+				permissions.FieldIndexPath{25},    // [EntityContract]
 			},
 		},
-		Permission{ // Administrator Proposal Special Resolution
+		permissions.Permission{ // Administrator Proposal Special Resolution
 			Permitted:              false,
 			AdministrationProposal: true,
 			HolderProposal:         false,
 			AdministrativeMatter:   false,
 			VotingSystemsAllowed:   []bool{false, false, true, false, false},
-			Fields: []FieldIndexPath{
-				FieldIndexPath{10, 9}, // [Issuer CountryCode]
-				FieldIndexPath{20},    // [RestrictedQtyAssets]
+			Fields: []permissions.FieldIndexPath{
+				permissions.FieldIndexPath{10, 9}, // [Issuer CountryCode]
+				permissions.FieldIndexPath{20},    // [RestrictedQtyAssets]
 			},
 		},
-		Permission{ // Administrator/Holder Proposal Special Resolution
+		permissions.Permission{ // Administrator/Holder Proposal Special Resolution
 			Permitted:              false,
 			AdministrationProposal: true,
 			HolderProposal:         true,
 			AdministrativeMatter:   false,
 			VotingSystemsAllowed:   []bool{false, false, true, false, false},
-			Fields: []FieldIndexPath{
-				FieldIndexPath{10, 13, 1}, // [Issuer Administration Type]
-				FieldIndexPath{10, 13, 2}, // [Issuer Administration Name]
-				FieldIndexPath{21},        // [AdministrationProposal]
-				FieldIndexPath{22},        // [HolderProposal]
+			Fields: []permissions.FieldIndexPath{
+				permissions.FieldIndexPath{10, 13, 1}, // [Issuer Administration Type]
+				permissions.FieldIndexPath{10, 13, 2}, // [Issuer Administration Name]
+				permissions.FieldIndexPath{21},        // [AdministrationProposal]
+				permissions.FieldIndexPath{22},        // [HolderProposal]
 			},
 		},
-		Permission{ // Administrator/Holder Proposal Unanimous Resolution
+		permissions.Permission{ // Administrator/Holder Proposal Unanimous Resolution
 			Permitted:              false,
 			AdministrationProposal: true,
 			HolderProposal:         true,
 			AdministrativeMatter:   false,
 			VotingSystemsAllowed:   []bool{true, false, false, false, false},
-			Fields: []FieldIndexPath{
-				FieldIndexPath{18, 1}, // [VotingSystems Name]
-				FieldIndexPath{18, 2}, // [VotingSystems VoteType]
-				FieldIndexPath{18, 3}, // [VotingSystems TallyLogic]
-				FieldIndexPath{18, 4}, // [VotingSystems ThresholdPercentage]
-				FieldIndexPath{18, 5}, // [VotingSystems VoteMultiplierPermitted]
-				FieldIndexPath{19},    // [ContractPermissions]
+			Fields: []permissions.FieldIndexPath{
+				permissions.FieldIndexPath{18, 0, 1}, // [VotingSystems 0 Name]
+				permissions.FieldIndexPath{18, 0, 2}, // [VotingSystems 0 VoteType]
+				permissions.FieldIndexPath{18, 0, 3}, // [VotingSystems 0 TallyLogic]
+				permissions.FieldIndexPath{18, 0, 4}, // [VotingSystems 0 ThresholdPercentage]
+				permissions.FieldIndexPath{18, 0, 5}, // [VotingSystems 0 VoteMultiplierPermitted]
+				permissions.FieldIndexPath{19},       // [ContractPermissions]
 			},
 		},
 	},
-	AssetPermissions: map[string]Permissions{
-		"CHP": Permissions{
-			Permission{ // Administrative Vote Special Board Resolution
+	AssetPermissions: map[string]permissions.Permissions{
+		"CCY": permissions.Permissions{
+			permissions.Permission{ // Administrative Vote Special Board Resolution
 				Permitted:              false,
 				AdministrationProposal: false,
 				HolderProposal:         false,
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},  // [AssetPermissions]
-					FieldIndexPath{2},  // [TransfersPermitted]
-					FieldIndexPath{13}, // [TradeRestrictions]
-					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
-					FieldIndexPath{5},  // [VotingRights]
-					FieldIndexPath{6},  // [VoteMultiplier]
-					FieldIndexPath{7},  // [AdministrationProposal]
-					FieldIndexPath{8},  // [HolderProposal]
-					FieldIndexPath{9},  // [AssetModificationGovernance]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{1},  // [AssetPermissions]
+					permissions.FieldIndexPath{13}, // [TradeRestrictions]
+					permissions.FieldIndexPath{4},  // [EnforcementOrdersPermitted]
+					permissions.FieldIndexPath{5},  // [VotingRights]
+					permissions.FieldIndexPath{6},  // [VoteMultiplier]
+					permissions.FieldIndexPath{7},  // [AdministrationProposal]
+					permissions.FieldIndexPath{8},  // [HolderProposal]
+					permissions.FieldIndexPath{9},  // [AssetModificationGovernance]
 				},
 			},
-			Permission{ // Administrator Direct
+			permissions.Permission{ // Administrator Direct
 				Permitted:              true,
 				AdministrationProposal: false,
 				HolderProposal:         false,
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{10},    // [TokenQty]
-					FieldIndexPath{12, 1}, // [AssetPayload CurrencyCode]
-					FieldIndexPath{12, 2}, // [AssetPayload UseType]
-					FieldIndexPath{12, 3}, // [AssetPayload AgeRestriction]
-					FieldIndexPath{12, 4}, // [AssetPayload ValidFrom]
-					FieldIndexPath{12, 5}, // [AssetPayload ExpirationTimestamp]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{10}, // [AuthorizedTokenQty]
 				},
 			},
-		},
-		"COU": Permissions{
-			Permission{ // Administrative Vote Special Board Resolution
-				Permitted:              false,
-				AdministrationProposal: false,
-				HolderProposal:         false,
-				AdministrativeMatter:   true,
-				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},  // [AssetPermissions]
-					FieldIndexPath{2},  // [TransfersPermitted]
-					FieldIndexPath{13}, // [TradeRestrictions]
-					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
-					FieldIndexPath{5},  // [VotingRights]
-					FieldIndexPath{6},  // [VoteMultiplier]
-					FieldIndexPath{7},  // [AdministrationProposal]
-					FieldIndexPath{8},  // [HolderProposal]
-					FieldIndexPath{9},  // [AssetModificationGovernance]
-				},
-			},
-			Permission{ // Administrator Direct
-				Permitted:              true,
-				AdministrationProposal: false,
-				HolderProposal:         false,
-				AdministrativeMatter:   false,
-				VotingSystemsAllowed:   []bool{false, false, false, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{10},    // [TokenQty]
-					FieldIndexPath{12, 1}, // [AssetPayload RedeemingEntity]
-					FieldIndexPath{12, 2}, // [AssetPayload IssueDate]
-					FieldIndexPath{12, 3}, // [AssetPayload ExpiryDate]
-					FieldIndexPath{12, 4}, // [AssetPayload Value]
-					FieldIndexPath{12, 5}, // [AssetPayload Currency]
-					FieldIndexPath{12, 6}, // [AssetPayload Description]
-				},
-			},
-		},
-		"CUR": Permissions{
-			Permission{ // Administrative Vote Special Board Resolution
-				Permitted:              false,
-				AdministrationProposal: false,
-				HolderProposal:         false,
-				AdministrativeMatter:   true,
-				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},  // [AssetPermissions]
-					FieldIndexPath{2},  // [TransfersPermitted]
-					FieldIndexPath{13}, // [TradeRestrictions]
-					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
-					FieldIndexPath{5},  // [VotingRights]
-					FieldIndexPath{6},  // [VoteMultiplier]
-					FieldIndexPath{7},  // [AdministrationProposal]
-					FieldIndexPath{8},  // [HolderProposal]
-					FieldIndexPath{9},  // [AssetModificationGovernance]
-				},
-			},
-			Permission{ // Administrator Direct
-				Permitted:              true,
-				AdministrationProposal: false,
-				HolderProposal:         false,
-				AdministrativeMatter:   false,
-				VotingSystemsAllowed:   []bool{false, false, false, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{10}, // [TokenQty]
-				},
-			},
-			Permission{ // Administrator/Administrative Vote Special Board Resolution
+			permissions.Permission{ // Administrator/Administrative Vote Special Board Resolution
 				Permitted:              false,
 				AdministrationProposal: true,
 				HolderProposal:         false,
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{12, 1}, // [AssetPayload CurrencyCode]
-					FieldIndexPath{12, 2}, // [AssetPayload MonetaryAuthority]
-					FieldIndexPath{12, 3}, // [AssetPayload Description]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{12, 1}, // [AssetPayload CurrencyCode]
+					permissions.FieldIndexPath{12, 2}, // [AssetPayload MonetaryAuthority]
+					permissions.FieldIndexPath{12, 3}, // [AssetPayload Description]
 				},
 			},
 		},
-		"LOY": Permissions{
-			Permission{ // Administrative Vote Special Board Resolution
+		"CHP": permissions.Permissions{
+			permissions.Permission{ // Administrative Vote Special Board Resolution
 				Permitted:              false,
 				AdministrationProposal: false,
 				HolderProposal:         false,
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},     // [AssetPermissions]
-					FieldIndexPath{2},     // [TransfersPermitted]
-					FieldIndexPath{13},    // [TradeRestrictions]
-					FieldIndexPath{4},     // [EnforcementOrdersPermitted]
-					FieldIndexPath{5},     // [VotingRights]
-					FieldIndexPath{6},     // [VoteMultiplier]
-					FieldIndexPath{7},     // [AdministrationProposal]
-					FieldIndexPath{8},     // [HolderProposal]
-					FieldIndexPath{9},     // [AssetModificationGovernance]
-					FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
-					FieldIndexPath{12, 2}, // [AssetPayload OfferName]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{1},     // [AssetPermissions]
+					permissions.FieldIndexPath{12, 7}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{13},    // [TradeRestrictions]
+					permissions.FieldIndexPath{4},     // [EnforcementOrdersPermitted]
+					permissions.FieldIndexPath{5},     // [VotingRights]
+					permissions.FieldIndexPath{6},     // [VoteMultiplier]
+					permissions.FieldIndexPath{7},     // [AdministrationProposal]
+					permissions.FieldIndexPath{8},     // [HolderProposal]
+					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
 				},
 			},
-			Permission{ // Administrator Direct
+			permissions.Permission{ // Administrator Direct
 				Permitted:              true,
 				AdministrationProposal: false,
 				HolderProposal:         false,
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{10},    // [TokenQty]
-					FieldIndexPath{12, 3}, // [AssetPayload ValidFrom]
-					FieldIndexPath{12, 4}, // [AssetPayload ExpirationTimestamp]
-					FieldIndexPath{12, 5}, // [AssetPayload Description]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
+					permissions.FieldIndexPath{12, 1}, // [AssetPayload CurrencyCode]
+					permissions.FieldIndexPath{12, 2}, // [AssetPayload UseType]
+					permissions.FieldIndexPath{12, 3}, // [AssetPayload AgeRestriction]
+					permissions.FieldIndexPath{12, 4}, // [AssetPayload ValidFrom]
+					permissions.FieldIndexPath{12, 5}, // [AssetPayload ExpirationTimestamp]
 				},
 			},
 		},
-		"MEM": Permissions{
-			Permission{ // Administrator/Holder Special Board Resolution
+		"COU": permissions.Permissions{
+			permissions.Permission{ // Administrative Vote Special Board Resolution
+				Permitted:              false,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   true,
+				VotingSystemsAllowed:   []bool{false, false, false, false, true},
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{1},     // [AssetPermissions]
+					permissions.FieldIndexPath{12, 8}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{13},    // [TradeRestrictions]
+					permissions.FieldIndexPath{4},     // [EnforcementOrdersPermitted]
+					permissions.FieldIndexPath{5},     // [VotingRights]
+					permissions.FieldIndexPath{6},     // [VoteMultiplier]
+					permissions.FieldIndexPath{7},     // [AdministrationProposal]
+					permissions.FieldIndexPath{8},     // [HolderProposal]
+					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
+				},
+			},
+			permissions.Permission{ // Administrator Direct
+				Permitted:              true,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{false, false, false, false, false},
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
+					permissions.FieldIndexPath{12, 1}, // [AssetPayload RedeemingEntity]
+					permissions.FieldIndexPath{12, 2}, // [AssetPayload IssueDate]
+					permissions.FieldIndexPath{12, 3}, // [AssetPayload ExpiryDate]
+					permissions.FieldIndexPath{12, 4}, // [AssetPayload Value]
+					permissions.FieldIndexPath{12, 5}, // [AssetPayload Currency]
+					permissions.FieldIndexPath{12, 6}, // [AssetPayload Description]
+				},
+			},
+		},
+		"LOY": permissions.Permissions{
+			permissions.Permission{ // Administrative Vote Special Board Resolution
+				Permitted:              false,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   true,
+				VotingSystemsAllowed:   []bool{false, false, false, false, true},
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{1},     // [AssetPermissions]
+					permissions.FieldIndexPath{12, 6}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{13},    // [TradeRestrictions]
+					permissions.FieldIndexPath{4},     // [EnforcementOrdersPermitted]
+					permissions.FieldIndexPath{5},     // [VotingRights]
+					permissions.FieldIndexPath{6},     // [VoteMultiplier]
+					permissions.FieldIndexPath{7},     // [AdministrationProposal]
+					permissions.FieldIndexPath{8},     // [HolderProposal]
+					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
+					permissions.FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
+					permissions.FieldIndexPath{12, 2}, // [AssetPayload OfferName]
+				},
+			},
+			permissions.Permission{ // Administrator Direct
+				Permitted:              true,
+				AdministrationProposal: false,
+				HolderProposal:         false,
+				AdministrativeMatter:   false,
+				VotingSystemsAllowed:   []bool{false, false, false, false, false},
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
+					permissions.FieldIndexPath{12, 3}, // [AssetPayload ValidFrom]
+					permissions.FieldIndexPath{12, 4}, // [AssetPayload ExpirationTimestamp]
+					permissions.FieldIndexPath{12, 5}, // [AssetPayload Description]
+				},
+			},
+		},
+		"MBR": permissions.Permissions{
+			permissions.Permission{ // Administrator/Holder Special Board Resolution
 				Permitted:              false,
 				AdministrationProposal: true,
 				HolderProposal:         true,
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},     // [AssetPermissions]
-					FieldIndexPath{2},     // [TransfersPermitted]
-					FieldIndexPath{5},     // [VotingRights]
-					FieldIndexPath{6},     // [VoteMultiplier]
-					FieldIndexPath{7},     // [AdministrationProposal]
-					FieldIndexPath{8},     // [HolderProposal]
-					FieldIndexPath{10},    // [TokenQty]
-					FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
-					FieldIndexPath{12, 2}, // [AssetPayload ValidFrom]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{1},     // [AssetPermissions]
+					permissions.FieldIndexPath{12, 9}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{5},     // [VotingRights]
+					permissions.FieldIndexPath{6},     // [VoteMultiplier]
+					permissions.FieldIndexPath{7},     // [AdministrationProposal]
+					permissions.FieldIndexPath{8},     // [HolderProposal]
+					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
+					permissions.FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
+					permissions.FieldIndexPath{12, 2}, // [AssetPayload ValidFrom]
 				},
 			},
-			Permission{ // Administrator Special Board Resolution
+			permissions.Permission{ // Administrator Special Board Resolution
 				Permitted:              false,
 				AdministrationProposal: true,
 				HolderProposal:         false,
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{13},    // [TradeRestrictions]
-					FieldIndexPath{4},     // [EnforcementOrdersPermitted]
-					FieldIndexPath{9},     // [AssetModificationGovernance]
-					FieldIndexPath{12, 3}, // [AssetPayload ExpirationTimestamp]
-					FieldIndexPath{12, 4}, // [AssetPayload ID]
-					FieldIndexPath{12, 5}, // [AssetPayload MembershipClass]
-					FieldIndexPath{12, 6}, // [AssetPayload RoleType]
-					FieldIndexPath{12, 7}, // [AssetPayload MembershipType]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{13},    // [TradeRestrictions]
+					permissions.FieldIndexPath{4},     // [EnforcementOrdersPermitted]
+					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
+					permissions.FieldIndexPath{12, 3}, // [AssetPayload ExpirationTimestamp]
+					permissions.FieldIndexPath{12, 4}, // [AssetPayload ID]
+					permissions.FieldIndexPath{12, 5}, // [AssetPayload MembershipClass]
+					permissions.FieldIndexPath{12, 6}, // [AssetPayload RoleType]
+					permissions.FieldIndexPath{12, 7}, // [AssetPayload MembershipType]
 				},
 			},
-			Permission{ // Administrative Vote General Board Resolution
+			permissions.Permission{ // Administrative Vote General Board Resolution
 				Permitted:              false,
 				AdministrationProposal: false,
 				HolderProposal:         false,
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, true, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{12, 8}, // [AssetPayload Description]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{12, 8}, // [AssetPayload Description]
 				},
 			},
 		},
-		"SHC": Permissions{
-			Permission{ // Administrator/Holder Special Resolution
+		"SHC": permissions.Permissions{
+			permissions.Permission{ // Administrator/Holder Special Resolution
 				Permitted:              false,
 				AdministrationProposal: true,
 				HolderProposal:         true,
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, true, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},     // [AssetPermissions]
-					FieldIndexPath{2},     // [TransfersPermitted]
-					FieldIndexPath{5},     // [VotingRights]
-					FieldIndexPath{6},     // [VoteMultiplier]
-					FieldIndexPath{7},     // [AdministrationProposal]
-					FieldIndexPath{8},     // [HolderProposal]
-					FieldIndexPath{10},    // [TokenQty]
-					FieldIndexPath{12, 1}, // [AssetPayload Ticker]
-					FieldIndexPath{12, 2}, // [AssetPayload ISIN]
-					FieldIndexPath{12, 3}, // [AssetPayload Description]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{1},     // [AssetPermissions]
+					permissions.FieldIndexPath{12, 4}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{5},     // [VotingRights]
+					permissions.FieldIndexPath{6},     // [VoteMultiplier]
+					permissions.FieldIndexPath{7},     // [AdministrationProposal]
+					permissions.FieldIndexPath{8},     // [HolderProposal]
+					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
+					permissions.FieldIndexPath{12, 1}, // [AssetPayload Ticker]
+					permissions.FieldIndexPath{12, 2}, // [AssetPayload ISIN]
+					permissions.FieldIndexPath{12, 3}, // [AssetPayload Description]
 				},
 			},
-			Permission{ // Administrator Special Resolution
+			permissions.Permission{ // Administrator Special Resolution
 				Permitted:              false,
 				AdministrationProposal: true,
 				HolderProposal:         false,
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, true, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{13}, // [TradeRestrictions]
-					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
-					FieldIndexPath{9},  // [AssetModificationGovernance]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{13}, // [TradeRestrictions]
+					permissions.FieldIndexPath{4},  // [EnforcementOrdersPermitted]
+					permissions.FieldIndexPath{9},  // [AssetModificationGovernance]
 				},
 			},
 		},
-		"TIC": Permissions{
-			Permission{ // Administrative Vote Special Board Resolution
+		"TIC": permissions.Permissions{
+			permissions.Permission{ // Administrative Vote Special Board Resolution
 				Permitted:              false,
 				AdministrationProposal: false,
 				HolderProposal:         false,
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{1},  // [AssetPermissions]
-					FieldIndexPath{2},  // [TransfersPermitted]
-					FieldIndexPath{13}, // [TradeRestrictions]
-					FieldIndexPath{4},  // [EnforcementOrdersPermitted]
-					FieldIndexPath{5},  // [VotingRights]
-					FieldIndexPath{6},  // [VoteMultiplier]
-					FieldIndexPath{7},  // [AdministrationProposal]
-					FieldIndexPath{8},  // [HolderProposal]
-					FieldIndexPath{9},  // [AssetModificationGovernance]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{1},      // [AssetPermissions]
+					permissions.FieldIndexPath{12, 11}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{13},     // [TradeRestrictions]
+					permissions.FieldIndexPath{4},      // [EnforcementOrdersPermitted]
+					permissions.FieldIndexPath{5},      // [VotingRights]
+					permissions.FieldIndexPath{6},      // [VoteMultiplier]
+					permissions.FieldIndexPath{7},      // [AdministrationProposal]
+					permissions.FieldIndexPath{8},      // [HolderProposal]
+					permissions.FieldIndexPath{9},      // [AssetModificationGovernance]
 				},
 			},
-			Permission{ // Administrator Direct
+			permissions.Permission{ // Administrator Direct
 				Permitted:              true,
 				AdministrationProposal: false,
 				HolderProposal:         false,
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
-				Fields: []FieldIndexPath{
-					FieldIndexPath{10},     // [TokenQty]
-					FieldIndexPath{12, 1},  // [AssetPayload AgeRestriction]
-					FieldIndexPath{12, 2},  // [AssetPayload AdmissionType]
-					FieldIndexPath{12, 3},  // [AssetPayload Venue]
-					FieldIndexPath{12, 4},  // [AssetPayload Class]
-					FieldIndexPath{12, 5},  // [AssetPayload Area]
-					FieldIndexPath{12, 6},  // [AssetPayload Seat]
-					FieldIndexPath{12, 7},  // [AssetPayload StartTimeDate]
-					FieldIndexPath{12, 8},  // [AssetPayload ValidFrom]
-					FieldIndexPath{12, 9},  // [AssetPayload ExpirationTimestamp]
-					FieldIndexPath{12, 10}, // [AssetPayload Description]
+				Fields: []permissions.FieldIndexPath{
+					permissions.FieldIndexPath{10},     // [AuthorizedTokenQty]
+					permissions.FieldIndexPath{12, 1},  // [AssetPayload AgeRestriction]
+					permissions.FieldIndexPath{12, 2},  // [AssetPayload AdmissionType]
+					permissions.FieldIndexPath{12, 3},  // [AssetPayload Venue]
+					permissions.FieldIndexPath{12, 4},  // [AssetPayload Class]
+					permissions.FieldIndexPath{12, 5},  // [AssetPayload Area]
+					permissions.FieldIndexPath{12, 6},  // [AssetPayload Seat]
+					permissions.FieldIndexPath{12, 7},  // [AssetPayload StartTimeDate]
+					permissions.FieldIndexPath{12, 8},  // [AssetPayload ValidFrom]
+					permissions.FieldIndexPath{12, 9},  // [AssetPayload ExpirationTimestamp]
+					permissions.FieldIndexPath{12, 10}, // [AssetPayload Description]
 				},
 			},
 		},

@@ -1,12 +1,15 @@
-package actions
+package permissions
 
 import (
 	"bytes"
 	"fmt"
-	"strconv"
 
 	"github.com/dgryski/go-bitstream"
 	"github.com/pkg/errors"
+)
+
+var (
+	ErrMissingElementIndex = errors.New("Missing element index")
 )
 
 // Permission represents the permissions assigned to a specific set of fields.
@@ -29,14 +32,76 @@ type Permission struct {
 // Permissions is a list of permission objects for a set of fields.
 type Permissions []Permission
 
-// FieldIndexPath is an "index path" to the field being specified. The index for each field is
-//   specified in protobuf. Each item in the list is a level. The first item is the top level field
-//   index and each item following is an index to sub-field within that field.
-// Examples:
-//   First field [ 0 ]
-//   Third field [ 2 ]
-//   Second field of the fifth top level field [ 4, 1 ]
-type FieldIndexPath []uint32
+func (p Permission) Copy() Permission {
+	result := p
+
+	result.VotingSystemsAllowed = make([]bool, len(p.VotingSystemsAllowed))
+	copy(result.VotingSystemsAllowed, p.VotingSystemsAllowed)
+
+	result.Fields = make([]FieldIndexPath, len(p.Fields))
+	for i, fip := range p.Fields {
+		result.Fields[i] = make(FieldIndexPath, len(fip))
+		copy(result.Fields[i], fip)
+	}
+
+	return result
+}
+
+func (ps Permissions) Copy() Permissions {
+	result := make(Permissions, len(ps))
+	for i, p := range ps {
+		result[i] = p.Copy()
+	}
+	return result
+}
+
+func (p Permission) Equal(other Permission) bool {
+	if p.Permitted != other.Permitted {
+		return false
+	}
+	if p.AdministrationProposal != other.AdministrationProposal {
+		return false
+	}
+	if p.HolderProposal != other.HolderProposal {
+		return false
+	}
+	if p.AdministrativeMatter != other.AdministrativeMatter {
+		return false
+	}
+
+	if len(p.VotingSystemsAllowed) != len(other.VotingSystemsAllowed) {
+		return false
+	}
+	for i, vsa := range p.VotingSystemsAllowed {
+		if vsa != other.VotingSystemsAllowed[i] {
+			return false
+		}
+	}
+
+	if len(p.Fields) != len(other.Fields) {
+		return false
+	}
+	for i, fip := range p.Fields {
+		if !fip.Equal(other.Fields[i]) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func (ps Permissions) Equal(other Permissions) bool {
+	if len(ps) != len(other) {
+		return false
+	}
+	for i, p := range ps {
+		if !p.Equal(other[i]) {
+			return false
+		}
+	}
+
+	return true
+}
 
 // PermissionOf returns the permission object associated with a specified field index path.
 func (ps Permissions) PermissionOf(fip FieldIndexPath) Permission {
@@ -46,6 +111,7 @@ func (ps Permissions) PermissionOf(fip FieldIndexPath) Permission {
 	depth := 0
 
 	for _, p := range ps {
+		// Find deepest path match specified in permissions.
 		for _, pfip := range p.Fields {
 			match := pfip.MatchDepth(fip)
 			if match > depth {
@@ -59,6 +125,90 @@ func (ps Permissions) PermissionOf(fip FieldIndexPath) Permission {
 	}
 
 	return result
+}
+
+// SubPermissions returns all permissions related to the specified path and operation. isList
+// specified if the current field is a list of items. It is used to narrow down permissions when
+// working through an amendment.
+// The permissions are returned in order with the first item the most specific to the field. The
+// most specific to the field is the one with the closest path.
+func (ps Permissions) SubPermissions(fip FieldIndexPath, operation uint32,
+	isList bool) (Permissions, error) {
+
+	var result Permissions
+	for _, permission := range ps {
+		pathMatch := false
+		var match *Permission
+		for _, pfip := range permission.Fields {
+			if len(pfip) == 0 {
+				continue
+			}
+
+			if pfip[0] == fip[0] {
+				if isList {
+					if operation == 0 || operation == 2 {
+						// modify or delete (refers to specific element)
+						if len(fip) < 2 {
+							// No element index
+							return nil, ErrMissingElementIndex
+						}
+
+						if len(pfip) != 1 && // permissions specify this deep
+							pfip[1] != 0 && // permissions don't specify all elements
+							pfip[1]-1 != fip[1] { // permissions don't specify this element
+							continue // not a match
+						}
+					} else {
+						// add (refers to new element)
+						if len(pfip) != 1 && // permissions specify this deep
+							pfip[1] != 0 { // permissions don't specify all elements
+							continue // not a match
+						}
+					}
+				}
+
+				if match == nil {
+					newPermission := permission.Copy()
+					newPermission.Fields = nil
+					match = &newPermission
+					pathMatch = true
+				}
+
+				// Remove matching field index so it is lined up for subfields
+				toRemove := 1
+				if isList {
+					toRemove++
+				}
+				if len(pfip) > toRemove {
+					match.Fields = append(match.Fields, pfip[toRemove:])
+				}
+			}
+		}
+
+		if match == nil && len(permission.Fields) == 0 {
+			// General match
+			newPermission := permission.Copy()
+			match = &newPermission
+		}
+
+		if match != nil {
+			if pathMatch {
+				result = append(Permissions{*match}, result...) // add to beginning
+			} else {
+				result = append(result, *match) // add to end
+			}
+		}
+	}
+
+	if len(result) == 0 {
+		// No matches so fall back to default
+		result = append(result, Permission{
+			Permitted: true,
+		})
+
+	}
+
+	return result, nil
 }
 
 // PermissionsFromBytes reads raw auth flag data into an array of permission structs.
@@ -89,7 +239,8 @@ func PermissionsFromBytes(b []byte, votingSystemCount int) (Permissions, error) 
 				for i, index := range fieldIndexPath {
 					if i >= len(fip) {
 						if i > 0 {
-							return nil, fmt.Errorf("Duplicate partial field index path %v", fieldIndexPath)
+							return nil, fmt.Errorf("Duplicate partial field index path %v",
+								fieldIndexPath)
 						}
 						break
 					}
@@ -256,114 +407,4 @@ func (p Permission) write(w *bitstream.BitWriter) error {
 	}
 
 	return nil
-}
-
-func (fip FieldIndexPath) MatchDepth(rfip FieldIndexPath) int {
-	depth := 0
-	for i, val := range fip {
-		if i >= len(rfip) {
-			break
-		}
-		if val != rfip[i] {
-			break
-		}
-		depth++
-	}
-	return depth
-}
-
-func FieldIndexPathFromBytes(b []byte) (FieldIndexPath, error) {
-	buf := bytes.NewBuffer(b)
-	r := bitstream.NewReader(buf)
-	return readFieldIndexPath(r)
-}
-
-func readFieldIndexPath(r *bitstream.BitReader) (FieldIndexPath, error) {
-	count, err := readBase128VarInt(r)
-	if err != nil {
-		return nil, err
-	}
-	fip := make(FieldIndexPath, count)
-	for i, _ := range fip {
-		fip[i], err = readBase128VarInt(r)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return fip, nil
-}
-
-// Bytes writes a field index path into bytes.
-func (fip FieldIndexPath) Bytes() ([]byte, error) {
-	var buf bytes.Buffer
-	w := bitstream.NewWriter(&buf)
-
-	err := fip.write(w)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := w.Flush(bitstream.Zero); err != nil {
-		return nil, errors.Wrap(err, "Failed to write field index path")
-	}
-	return buf.Bytes(), nil
-}
-
-func (fip FieldIndexPath) write(w *bitstream.BitWriter) error {
-	if err := writeBase128VarInt(w, uint32(len(fip))); err != nil {
-		return err
-	}
-	for _, index := range fip {
-		if err := writeBase128VarInt(w, index); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (fip FieldIndexPath) String() string {
-	result := ""
-	first := true
-	for _, index := range fip {
-		if first {
-			first = false
-		} else {
-			result += " / "
-		}
-		result += strconv.Itoa(int(index))
-	}
-	return result
-}
-
-func readBase128VarInt(r *bitstream.BitReader) (uint32, error) {
-	value := uint32(0)
-	done := false
-	bitOffset := uint32(0)
-	for !done {
-		subValue, err := r.ReadByte()
-		if err != nil {
-			return value, err
-		}
-
-		done = (subValue & 0x80) == 0 // High bit not set
-		subValue = subValue & 0x7f    // Remove high bit
-
-		value += uint32(subValue) << bitOffset
-		bitOffset += 7
-	}
-
-	return value, nil
-}
-
-func writeBase128VarInt(w *bitstream.BitWriter, value uint32) error {
-	for {
-		if value < 128 {
-			return w.WriteByte(byte(value))
-		}
-		subValue := (byte(value&0x7f) | 0x80) // Get last 7 bits and set high bit
-		if err := w.WriteByte(subValue); err != nil {
-			return err
-		}
-		value = value >> 7
-	}
 }

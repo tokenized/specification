@@ -36,6 +36,15 @@ const (
 	// CodeContractAddressChange identifies a payload as a ContractAddressChange action message.
 	CodeContractAddressChange = "C5"
 
+	// CodeBodyOfAgreementOffer identifies a payload as a BodyOfAgreementOffer action message.
+	CodeBodyOfAgreementOffer = "C6"
+
+	// CodeBodyOfAgreementFormation identifies a payload as a BodyOfAgreementFormation action message.
+	CodeBodyOfAgreementFormation = "C7"
+
+	// CodeBodyOfAgreementAmendment identifies a payload as a BodyOfAgreementAmendment action message.
+	CodeBodyOfAgreementAmendment = "C8"
+
 	// CodeAssetDefinition identifies a payload as a AssetDefinition action message.
 	CodeAssetDefinition = "A1"
 
@@ -128,6 +137,17 @@ const (
 
 	// ContractTypeAsset identifies an asset contract
 	ContractTypeAsset = uint32(1)
+
+	// ContractBodyOfAgreementTypeNone identifies a contract with no body of agreement specified.
+	ContractBodyOfAgreementTypeNone = uint32(0)
+
+	// ContractBodyOfAgreementTypeHash identifies a contract with the hash of the body of agreement
+	// document included.
+	ContractBodyOfAgreementTypeHash = uint32(1)
+
+	// ContractBodyOfAgreementTypeFull identifies a contract with the a full body of agreement
+	// specified in a BodyOfAgreementFormation action.
+	ContractBodyOfAgreementTypeFull = uint32(2)
 )
 
 // NewActionFromCode returns a new object of the correct type for the code.
@@ -143,6 +163,12 @@ func NewActionFromCode(code string) Action {
 		return &StaticContractFormation{}
 	case CodeContractAddressChange:
 		return &ContractAddressChange{}
+	case CodeBodyOfAgreementOffer:
+		return &BodyOfAgreementOffer{}
+	case CodeBodyOfAgreementFormation:
+		return &BodyOfAgreementFormation{}
+	case CodeBodyOfAgreementAmendment:
+		return &BodyOfAgreementAmendment{}
 	case CodeAssetDefinition:
 		return &AssetDefinition{}
 	case CodeAssetCreation:
@@ -224,6 +250,18 @@ func (a *StaticContractFormation) Code() string {
 
 func (a *ContractAddressChange) Code() string {
 	return CodeContractAddressChange
+}
+
+func (a *BodyOfAgreementOffer) Code() string {
+	return CodeBodyOfAgreementOffer
+}
+
+func (a *BodyOfAgreementFormation) Code() string {
+	return CodeBodyOfAgreementFormation
+}
+
+func (a *BodyOfAgreementAmendment) Code() string {
+	return CodeBodyOfAgreementAmendment
 }
 
 func (a *AssetDefinition) Code() string {

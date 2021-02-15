@@ -115,10 +115,31 @@ message ContractAddressChange {
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
+// Message - Body Of Agreement Offer (C6)
+message BodyOfAgreementOffer {
+    repeated ChapterField Chapters                 = 1;   // Chapter[]
+    repeated DefinedTermField Definitions          = 2;   // DefinedTerm[]
+}
+
+// Message - Body Of Agreement Formation (C7)
+message BodyOfAgreementFormation {
+    repeated ChapterField Chapters                 = 1;   // Chapter[]
+    repeated DefinedTermField Definitions          = 2;   // DefinedTerm[]
+    uint32 Revision                                = 3;   // uint
+    uint64 Timestamp                               = 4;   // Timestamp
+}
+
+// Message - Body Of Agreement Amendment (C8)
+message BodyOfAgreementAmendment {
+    uint32 Revision                                = 1;   // uint
+    repeated AmendmentField Amendments             = 2;   // Amendment[]
+    bytes RefTxID                                  = 3;   // TxId
+}
+
 // Message - Asset Definition (A1)
 message AssetDefinition {
     bytes AssetPermissions                         = 1;   // varbin
-    bool TransfersPermitted                        = 2;   // bool
+    reserved                                         2;   // Deprecated TransfersPermitted
     reserved                                         3;   // Deprecated TradeRestrictionsDeprecated
     bool EnforcementOrdersPermitted                = 4;   // bool
     bool VotingRights                              = 5;   // bool
@@ -126,7 +147,7 @@ message AssetDefinition {
     bool AdministrationProposal                    = 7;   // bool
     bool HolderProposal                            = 8;   // bool
     uint32 AssetModificationGovernance             = 9;   // uint
-    uint64 TokenQty                                = 10;   // uint
+    uint64 AuthorizedTokenQty                      = 10;   // uint
     string AssetType                               = 11;  // AssetType
     bytes AssetPayload                             = 12;  // varbin
     repeated string TradeRestrictions              = 13;  // Polity[]
@@ -137,7 +158,7 @@ message AssetCreation {
     bytes AssetCode                                = 1;   // AssetCode
     uint64 AssetIndex                              = 2;   // uint
     bytes AssetPermissions                         = 3;   // varbin
-    bool TransfersPermitted                        = 4;   // bool
+    reserved                                         4;   // Deprecated TransfersPermitted
     reserved                                         5;   // Deprecated TradeRestrictionsDeprecated
     bool EnforcementOrdersPermitted                = 6;   // bool
     bool VotingRights                              = 7;   // bool
@@ -145,7 +166,7 @@ message AssetCreation {
     bool AdministrationProposal                    = 9;   // bool
     bool HolderProposal                            = 10;   // bool
     uint32 AssetModificationGovernance             = 11;  // uint
-    uint64 TokenQty                                = 12;  // uint
+    uint64 AuthorizedTokenQty                      = 12;  // uint
     string AssetType                               = 13;  // AssetType
     bytes AssetPayload                             = 14;  // varbin
     uint32 AssetRevision                           = 15;  // uint
@@ -361,6 +382,26 @@ message AssetTransferField {
     bytes AssetCode                                = 3;   // AssetCode
     repeated QuantityIndexField AssetSenders       = 4;   // QuantityIndex[]
     repeated AssetReceiverField AssetReceivers     = 5;   // AssetReceiver[]
+}
+
+// Field - Chapter
+message ChapterField {
+    string Title                                   = 1;   // varchar
+    string Preamble                                = 2;   // varchar
+    repeated ClauseField Articles                  = 3;   // Clause[]
+}
+
+// Field - Clause
+message ClauseField {
+    string Title                                   = 1;   // varchar
+    string Body                                    = 2;   // varchar
+    repeated ClauseField Children                  = 3;   // Clause[]
+}
+
+// Field - Defined Term
+message DefinedTermField {
+    string Term                                    = 1;   // varchar
+    string Definition                              = 2;   // varchar
 }
 
 // Field - Document

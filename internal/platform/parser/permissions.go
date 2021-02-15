@@ -17,10 +17,12 @@ func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFi
 
 	f.WriteString("package actions\n")
 	f.WriteString("\n")
+	f.WriteString("import \"github.com/tokenized/specification/dist/golang/permissions\"\n")
+	f.WriteString("\n")
 	f.WriteString("type PermissionConfig struct {\n")
 	f.WriteString("    VotingSystems       []VotingSystemField\n")
-	f.WriteString("    ContractPermissions Permissions\n")
-	f.WriteString("    AssetPermissions    map[string]Permissions\n")
+	f.WriteString("    ContractPermissions permissions.Permissions\n")
+	f.WriteString("    AssetPermissions    map[string]permissions.Permissions\n")
 	f.WriteString("}\n")
 
 	path = filepath.FromSlash(path)
@@ -91,7 +93,7 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 	}
 	file.WriteString("    },\n")
 
-	file.WriteString("    ContractPermissions: Permissions{\n")
+	file.WriteString("    ContractPermissions: permissions.Permissions{\n")
 	fips := make([][]int, 0)
 	var err error
 	for _, permission := range data.ContractPermissions {
@@ -109,9 +111,9 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 	}
 	sort.Strings(assetTypes)
 
-	file.WriteString("    AssetPermissions: map[string]Permissions{\n")
+	file.WriteString("    AssetPermissions: map[string]permissions.Permissions{\n")
 	for _, assetType := range assetTypes {
-		file.WriteString(fmt.Sprintf("        \"%s\": Permissions{\n", assetType))
+		file.WriteString(fmt.Sprintf("        \"%s\": permissions.Permissions{\n", assetType))
 		fips = make([][]int, 0)
 		for _, permission := range data.AssetPermissions[assetType] {
 			fips, err = TranslatePermission(assetType, actions, assets, assets, permission,
@@ -131,7 +133,7 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 func TranslatePermission(assetType string, actions, assets, schema Schema, permission Permission,
 	votingSystems []VotingSystem, structName string, fips [][]int, file *os.File) ([][]int, error) {
 
-	file.WriteString(fmt.Sprintf("        Permission{ // %s\n", permission.Name))
+	file.WriteString(fmt.Sprintf("        permissions.Permission{ // %s\n", permission.Name))
 
 	// Authorization flags
 	file.WriteString(fmt.Sprintf("            Permitted: %t,\n", permission.Permitted))
@@ -160,7 +162,7 @@ func TranslatePermission(assetType string, actions, assets, schema Schema, permi
 	file.WriteString("},\n")
 
 	// Fields
-	file.WriteString("            Fields: []FieldIndexPath{\n")
+	file.WriteString("            Fields: []permissions.FieldIndexPath{\n")
 	for _, fieldNames := range permission.Fields {
 		var fields []Field
 		found := false
@@ -175,10 +177,22 @@ func TranslatePermission(assetType string, actions, assets, schema Schema, permi
 		if !found {
 			return fips, fmt.Errorf("Failed to find %s message", container)
 		}
-		file.WriteString(fmt.Sprintf("                FieldIndexPath{"))
+		file.WriteString(fmt.Sprintf("                permissions.FieldIndexPath{"))
 		first := true
 		fieldIndexPath := make([]int, 0, len(permission.Fields))
 		for j, fieldName := range fieldNames {
+			if fieldName == "0" {
+				// match all for list index
+				if first {
+					first = false
+				} else {
+					file.WriteString(", ")
+				}
+				file.WriteString("0")
+				fieldIndexPath = append(fieldIndexPath, 0)
+				continue
+			}
+
 			found := false
 			fieldType := ""
 			for i, field := range fields {

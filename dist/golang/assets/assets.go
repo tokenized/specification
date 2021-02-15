@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/tokenized/specification/dist/golang/permissions"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
@@ -19,15 +21,16 @@ type Asset interface {
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
 
-	ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]uint32, error)
+	ApplyAmendment(fip permissions.FieldIndexPath, operation uint32, data []byte,
+		permissions permissions.Permissions) (permissions.Permissions, error)
 }
 
 const (
 	// CodeMembership identifies a payload as a Membership asset message.
-	CodeMembership = "MEM"
+	CodeMembership = "MBR"
 
 	// CodeCurrency identifies a payload as a Currency asset message.
-	CodeCurrency = "CUR"
+	CodeCurrency = "CCY"
 
 	// CodeShareCommon identifies a payload as a ShareCommon asset message.
 	CodeShareCommon = "SHC"

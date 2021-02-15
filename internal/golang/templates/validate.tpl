@@ -2,6 +2,9 @@ package {{ .Package }}
 
 import (
     "fmt"
+    "regexp"
+
+    "github.com/tokenized/pkg/bitcoin"
 
     "github.com/pkg/errors"
 )
@@ -10,6 +13,8 @@ const (
     max1ByteInteger = 255
     max2ByteInteger = 65535
     max4ByteInteger = 4294967295
+
+    maxArticleDepth = 4
 )
 
 {{ define "ListValues" -}}
@@ -274,11 +279,25 @@ const (
     {{- end }}
 {{ end }}
 
+{{- $termsNeeded := false }}
+
 {{ range .Messages }}
 func (a *{{.Name}}) Validate() error {
     if a == nil {
         return errors.New("Empty")
     }
+    {{- if eq .Name "BodyOfAgreementOffer" "BodyOfAgreementFormation" }}
+        {{- $termsNeeded = true }}
+    // Check depth or articles. Articles, Sections, Subsections, Paragraphs, Subparagraphs.
+    terms := make(map[string]int)
+    for _, chapter := range a.Chapters {
+        terms = chapter.Terms(terms)
+    }
+
+    if err := checkTerms(a.Definitions, terms); err != nil {
+        return err
+    }
+    {{- end }}
     {{ $fields := .Fields }}
     {{ range $i, $field := $fields }}
         {{- if ne $field.Type "deprecated" }}
@@ -312,11 +331,23 @@ func (a *{{.Name}}) Validate() error {
 }
 {{ end }}
 
+{{- $clauseDepthNeeded := false }}
+
 {{ range .FieldTypes }}
 func (a *{{.Name}}Field) Validate() error {
     if a == nil {
         return nil
     }
+    {{- if eq .Name "Chapter" }}
+        {{- $clauseDepthNeeded = true }}
+    // Check depth or articles. Articles, Sections, Subsections, Paragraphs, Subparagraphs.
+    for i, article := range a.Articles {
+        if article.Depth() > maxArticleDepth {
+            return fmt.Errorf("Article %d over max depth : %d > %d", i, article.Depth(),
+                maxArticleDepth)
+        }
+    }
+    {{- end }}
     {{ range .Fields }}
         {{- if ne .Type "deprecated" }}
         {{ template "ValidateField" . -}}
@@ -345,3 +376,97 @@ func SignatureIsValid(b []byte) error {
     return err
 }
 
+{{- if $clauseDepthNeeded }}
+func (c *ClauseField) Depth() int {
+    if len(c.Children) == 0 {
+        return 0 // no children
+    }
+
+    depth := 0
+    for _, child := range c.Children {
+        childDepth := child.Depth()
+        if childDepth > depth {
+            depth = childDepth
+        }
+    }
+
+    return depth + 1
+}
+{{- end }}
+
+{{- if $termsNeeded }}
+// escape backslashes to get single backslashes in regex
+var termRegEx = regexp.MustCompile("(?:\\[)(.+?)(?:\\]\\(\\))")
+
+// findTerms adds any terms contained in the text to the map.
+func findTerms(text string, terms map[string]int) map[string]int {
+    matches := termRegEx.FindAllStringSubmatch(text, -1)
+    for _, match := range matches {
+        // index 1 for first regex group
+        terms[match[1]] = 1
+    }
+    return terms
+}
+
+// Terms adds any terms in the chapter or its articles to the map.
+func (c *ChapterField) Terms(terms map[string]int) map[string]int {
+    terms = findTerms(c.Title, terms)
+    terms = findTerms(c.Preamble, terms)
+
+    for _, article := range c.Articles {
+        terms = article.Terms(terms)
+    }
+
+    return terms
+}
+
+// Terms adds any terms in the clause or its children to the map.
+func (c *ClauseField) Terms(terms map[string]int) map[string]int {
+    terms = findTerms(c.Title, terms)
+    terms = findTerms(c.Body, terms)
+
+    for _, child := range c.Children {
+        terms = child.Terms(terms)
+    }
+
+    return terms
+}
+
+// checkTerms returns an error if any of the defined terms are not found in the referenced terms
+// map or if any of the referenced terms are not in the defined terms.
+func checkTerms(defined []*DefinedTermField, referenced map[string]int) error {
+    // Check that all referenced terms are defined.
+    var undefined []string
+    for term, _ := range referenced {
+        found := false
+        for _, defined := range defined {
+            if term == defined.Term {
+                found = true
+                break
+            }
+        }
+
+        if !found {
+            undefined = append(undefined, term)
+        }
+    }
+
+    if len(undefined) > 0 {
+        return fmt.Errorf("Undefined terms : %v", undefined)
+    }
+
+    // Check that all defined terms are referenced
+    var unreferenced []string
+    for _, defined := range defined {
+        if _, exists := referenced[defined.Term]; !exists {
+            unreferenced = append(unreferenced, defined.Term)
+        }
+    }
+
+    if len(unreferenced) > 0 {
+        return fmt.Errorf("Unreferenced defined terms : %v", unreferenced)
+    }
+
+    return nil
+}
+{{- end }}

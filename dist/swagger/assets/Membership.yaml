@@ -27,4 +27,9 @@ properties:
   Description:
     type: string
     example: "Rights and duties listed."
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
 

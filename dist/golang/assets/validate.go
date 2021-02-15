@@ -3,14 +3,17 @@ package assets
 import (
 	"fmt"
 
-	"github.com/pkg/errors"
 	"github.com/tokenized/pkg/bitcoin"
+
+	"github.com/pkg/errors"
 )
 
 const (
 	max1ByteInteger = 255
 	max2ByteInteger = 65535
 	max4ByteInteger = 4294967295
+
+	maxArticleDepth = 4
 )
 
 func (a *Membership) Validate() error {
@@ -54,6 +57,8 @@ func (a *Membership) Validate() error {
 	if len(a.Description) == 0 {
 		return fmt.Errorf("Description required")
 	}
+
+	// Field TransfersPermitted - bool
 
 	return nil
 }
@@ -110,6 +115,8 @@ func (a *ShareCommon) Validate() error {
 		return fmt.Errorf("Description required")
 	}
 
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -159,6 +166,8 @@ func (a *Coupon) Validate() error {
 		return fmt.Errorf("Precision is required when Value is specified : %v", a.Value)
 	}
 
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -188,6 +197,8 @@ func (a *LoyaltyPoints) Validate() error {
 	if len(a.Description) == 0 {
 		return fmt.Errorf("Description required")
 	}
+
+	// Field TransfersPermitted - bool
 
 	return nil
 }
@@ -242,6 +253,8 @@ func (a *TicketAdmission) Validate() error {
 		return fmt.Errorf("Description required")
 	}
 
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -278,6 +291,8 @@ func (a *CasinoChip) Validate() error {
 	if a.Precision == 0 {
 		return fmt.Errorf("Precision required")
 	}
+
+	// Field TransfersPermitted - bool
 
 	return nil
 }
