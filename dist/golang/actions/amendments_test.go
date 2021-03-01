@@ -9,6 +9,7 @@ import (
 	"github.com/tokenized/specification/dist/golang/assets"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -373,6 +374,221 @@ func TestContractCreateAmendments(t *testing.T) {
 			}
 
 			newValue := &ContractFormation{}
+			if err := convert(newValue, tt.newValue); err != nil {
+				t.Errorf("Failed to convert new value : %s", err)
+				return
+			}
+			if !amended.Equal(newValue) {
+				t.Errorf("Amended value doesn't match : \n  got  %+v\n  want %+v", *amended,
+					*newValue)
+				return
+			}
+		})
+	}
+}
+
+func TestBodyOfAgreementCreateAmendments(t *testing.T) {
+
+	newTerm := &DefinedTermField{
+		Term:       "New Term",
+		Definition: "Definition of new term",
+	}
+
+	newTermBytes, err := proto.Marshal(newTerm)
+	if err != nil {
+		t.Fatalf("Failed to marshal new term : %s", err)
+	}
+
+	tests := []struct {
+		name       string
+		current    *BodyOfAgreementFormation
+		newValue   *BodyOfAgreementOffer
+		err        error
+		amendments []*AmendmentField
+	}{
+		{
+			name: "Change Title",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title: "Title 1",
+						// Preamble             string
+						// Articles             []*ClauseField
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title: "Title 2",
+						// Preamble             string
+						// Articles             []*ClauseField
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(3), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldTitle),
+					},
+					Operation: 0,
+					Data:      []byte("Title 2"),
+				},
+			},
+		},
+		{
+			name: "Add Definition",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title: "Title 1",
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [New Term]().",
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "New Term",
+						Definition: "Definition of new term",
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(3), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldPreamble),
+					},
+					Operation: 0,
+					Data:      []byte("Use of [New Term]()."),
+				},
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(2), // number of items in field index path
+						byte(BodyOfAgreementFieldDefinitions),
+						byte(0), // first term
+					},
+					Operation: AmendmentOperationAddElement,
+					Data:      newTermBytes,
+				},
+			},
+		},
+		{
+			name: "Remove Definition",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title: "Title 1",
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(3), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldPreamble),
+					},
+					Operation: 0,
+					Data:      nil,
+				},
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(2), // number of items in field index path
+						byte(BodyOfAgreementFieldDefinitions),
+						byte(0), // first term
+					},
+					Operation: AmendmentOperationRemoveElement,
+				},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			amendments, err := tt.current.CreateAmendments(tt.newValue)
+			if err != nil {
+				if tt.err == nil {
+					t.Errorf("Failed to create amendments : %s", err)
+					return
+				}
+
+				if tt.err.Error() != err.Error() {
+					t.Errorf("Wrong error : got %s, want %s", err, tt.err)
+					return
+				}
+
+				return
+			}
+
+			if tt.err != nil {
+				t.Errorf("Error not returned : want %s", tt.err)
+				return
+			}
+
+			if len(amendments) != len(tt.amendments) {
+				t.Errorf("Wrong amendment count : got %d, want %d\n%+v", len(amendments),
+					len(tt.amendments), amendments)
+				return
+			}
+
+			for i := range amendments {
+				if !amendments[i].Equal(tt.amendments[i]) {
+					t.Errorf("Wrong amendment %d : \n  got  %+v\n  want %+v", i, *amendments[i],
+						*tt.amendments[i])
+					return
+				}
+			}
+
+			amended := &BodyOfAgreementFormation{}
+			if err := convert(amended, tt.current); err != nil {
+				t.Errorf("Failed to convert current value : %s", err)
+				return
+			}
+			for i, amendment := range amendments {
+				fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+				if err != nil {
+					t.Errorf("Failed to parse FIP : %s", err)
+					return
+				}
+
+				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data, nil)
+				if err != nil {
+					t.Errorf("Failed to apply amendment %d : %s", i, err)
+					return
+				}
+			}
+
+			newValue := &BodyOfAgreementFormation{}
 			if err := convert(newValue, tt.newValue); err != nil {
 				t.Errorf("Failed to convert new value : %s", err)
 				return

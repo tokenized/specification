@@ -56,8 +56,8 @@
 		{{- end }}
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add {{ .Name }} : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add {{ .Name }} : %v",
 					fip)
 			}
 
@@ -84,16 +84,15 @@
 			var newValue {{ .GoSingularType }}
 			buf := bytes.NewBuffer(data)
 			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
+				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s",
+					err)
 			} else {
 				newValue = {{ .GoSingularType }}(value)
 			}
 		{{- else if eq .BaseType "bool" }}
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %v", fip)
-			}
-			if len(data) != {{ .BaseSize }} {
-				return nil, fmt.Errorf("{{ .Name }} amendment value is wrong size : %d", len(data))
+			if len(data) != 1 {
+				return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %x",
+					data)
 			}
 			buf := bytes.NewBuffer(data)
 			var newValue {{ .GoSingularType }}
@@ -101,7 +100,18 @@
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 			}
 		{{- end }}
-			a.{{ .Name }} = append(a.{{ .Name }}, newValue)
+			if len(a.{{ .Name }}) <= int(fip[1]) {
+				// Append item to the end
+				a.{{ .Name }} = append(a.{{ .Name }}, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.{{ .Name }}[:fip[1]]
+				after := make([]{{ .GoSingularTypeWithPointer }}, len(a.{{ .Name }})-int(fip[1]))
+				copy(after, a.{{ .Name }}[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.{{ .Name }} = append(before, newValue)
+				a.{{ .Name }} = append(a.{{ .Name }}, after...)
+			}
 			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 
 		case 2: // Delete element

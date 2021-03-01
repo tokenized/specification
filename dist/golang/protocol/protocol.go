@@ -183,6 +183,24 @@ func AssetID(assetType string, code bitcoin.Hash20) string {
 	return assetType + bitcoin.Base58(b)
 }
 
+// AssetIDForRaw returns the asset ID for an asset type and asset code in byte slice form.
+func AssetIDForRaw(assetType string, assetCode []byte) (string, error) {
+	code, err := bitcoin.NewHash20(assetCode)
+	if err != nil {
+		return "", errors.Wrap(err, "asset code")
+	}
+
+	return AssetID(assetType, *code), nil
+}
+
+func AssetIDForTransfer(f *actions.AssetTransferField) (string, error) {
+	return AssetIDForRaw(f.AssetType, f.AssetCode)
+}
+
+func AssetIDForSettlement(f *actions.AssetSettlementField) (string, error) {
+	return AssetIDForRaw(f.AssetType, f.AssetCode)
+}
+
 // DecodeAssetID decodes the asset type and asset code from an asset ID.
 func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
 	if id == "BSV" {
@@ -190,7 +208,7 @@ func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
 		return "BSV", bitcoin.Hash20{}, nil
 	}
 
-	if len(id) < AssetCodeSize+3 {
+	if len(id) < AssetCodeSize+7 {
 		return "", bitcoin.Hash20{}, fmt.Errorf("Asset ID too short : %s", id)
 	}
 
@@ -200,7 +218,8 @@ func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
 	b := bitcoin.Base58Decode(text)
 
 	if len(b) != AssetCodeSize+4 {
-		return "", bitcoin.Hash20{}, fmt.Errorf("Asset ID too short : %s", id)
+		return "", bitcoin.Hash20{}, fmt.Errorf("Asset code data wrong size : %s : got %d, want %d",
+			id, len(b), AssetCodeSize+4)
 	}
 
 	// Verify checksum

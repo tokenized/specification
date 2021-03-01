@@ -14,6 +14,17 @@ import (
 	"github.com/pkg/errors"
 )
 
+const (
+	// AmendmentOperationModify specifies an amendment is modifying a value.
+	AmendmentOperationModify = uint32(0)
+
+	// AmendmentOperationAddElement specifies an amendment is adding a new element to a list.
+	AmendmentOperationAddElement = uint32(1)
+
+	// AmendmentOperationRemoveElement specifies an amendment is removing an element from a list.
+	AmendmentOperationRemoveElement = uint32(2)
+)
+
 // Contract Permission / Amendment Field Indices
 const (
 	ContractFieldContractName                         = uint32(1)
@@ -530,8 +541,8 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.SupportingDocs[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add SupportingDocs : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add SupportingDocs : %v",
 					fip)
 			}
 			newValue := &DocumentField{}
@@ -541,7 +552,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
-			a.SupportingDocs = append(a.SupportingDocs, newValue)
+			if len(a.SupportingDocs) <= int(fip[1]) {
+				// Append item to the end
+				a.SupportingDocs = append(a.SupportingDocs, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.SupportingDocs[:fip[1]]
+				after := make([]*DocumentField, len(a.SupportingDocs)-int(fip[1]))
+				copy(after, a.SupportingDocs[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.SupportingDocs = append(before, newValue)
+				a.SupportingDocs = append(a.SupportingDocs, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -628,8 +650,8 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.VotingSystems[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add VotingSystems : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add VotingSystems : %v",
 					fip)
 			}
 			newValue := &VotingSystemField{}
@@ -639,7 +661,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
-			a.VotingSystems = append(a.VotingSystems, newValue)
+			if len(a.VotingSystems) <= int(fip[1]) {
+				// Append item to the end
+				a.VotingSystems = append(a.VotingSystems, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.VotingSystems[:fip[1]]
+				after := make([]*VotingSystemField, len(a.VotingSystems)-int(fip[1]))
+				copy(after, a.VotingSystems[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.VotingSystems = append(before, newValue)
+				a.VotingSystems = append(a.VotingSystems, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -717,8 +750,8 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.Oracles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Oracles : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Oracles : %v",
 					fip)
 			}
 			newValue := &OracleField{}
@@ -728,7 +761,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
-			a.Oracles = append(a.Oracles, newValue)
+			if len(a.Oracles) <= int(fip[1]) {
+				// Append item to the end
+				a.Oracles = append(a.Oracles, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Oracles[:fip[1]]
+				after := make([]*OracleField, len(a.Oracles)-int(fip[1]))
+				copy(after, a.Oracles[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Oracles = append(before, newValue)
+				a.Oracles = append(a.Oracles, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -787,8 +831,8 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.Services[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Services : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Services : %v",
 					fip)
 			}
 			newValue := &ServiceField{}
@@ -798,7 +842,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
-			a.Services = append(a.Services, newValue)
+			if len(a.Services) <= int(fip[1]) {
+				// Append item to the end
+				a.Services = append(a.Services, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Services[:fip[1]]
+				after := make([]*ServiceField, len(a.Services)-int(fip[1]))
+				copy(after, a.Services[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Services = append(before, newValue)
+				a.Services = append(a.Services, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -834,8 +889,8 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.AdminIdentityCertificates[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add AdminIdentityCertificates : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add AdminIdentityCertificates : %v",
 					fip)
 			}
 			newValue := &AdminIdentityCertificateField{}
@@ -845,7 +900,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
-			a.AdminIdentityCertificates = append(a.AdminIdentityCertificates, newValue)
+			if len(a.AdminIdentityCertificates) <= int(fip[1]) {
+				// Append item to the end
+				a.AdminIdentityCertificates = append(a.AdminIdentityCertificates, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.AdminIdentityCertificates[:fip[1]]
+				after := make([]*AdminIdentityCertificateField, len(a.AdminIdentityCertificates)-int(fip[1]))
+				copy(after, a.AdminIdentityCertificates[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.AdminIdentityCertificates = append(before, newValue)
+				a.AdminIdentityCertificates = append(a.AdminIdentityCertificates, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -1016,8 +1082,8 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			return a.Chapters[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Chapters : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Chapters : %v",
 					fip)
 			}
 			newValue := &ChapterField{}
@@ -1027,7 +1093,18 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 						err)
 				}
 			}
-			a.Chapters = append(a.Chapters, newValue)
+			if len(a.Chapters) <= int(fip[1]) {
+				// Append item to the end
+				a.Chapters = append(a.Chapters, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Chapters[:fip[1]]
+				after := make([]*ChapterField, len(a.Chapters)-int(fip[1]))
+				copy(after, a.Chapters[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Chapters = append(before, newValue)
+				a.Chapters = append(a.Chapters, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -1063,8 +1140,8 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			return a.Definitions[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Definitions : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Definitions : %v",
 					fip)
 			}
 			newValue := &DefinedTermField{}
@@ -1074,7 +1151,18 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 						err)
 				}
 			}
-			a.Definitions = append(a.Definitions, newValue)
+			if len(a.Definitions) <= int(fip[1]) {
+				// Append item to the end
+				a.Definitions = append(a.Definitions, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Definitions[:fip[1]]
+				after := make([]*DefinedTermField, len(a.Definitions)-int(fip[1]))
+				copy(after, a.Definitions[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Definitions = append(before, newValue)
+				a.Definitions = append(a.Definitions, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -1435,12 +1523,23 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add TradeRestrictions : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add TradeRestrictions : %v",
 					fip)
 			}
 			newValue := string(data)
-			a.TradeRestrictions = append(a.TradeRestrictions, newValue)
+			if len(a.TradeRestrictions) <= int(fip[1]) {
+				// Append item to the end
+				a.TradeRestrictions = append(a.TradeRestrictions, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.TradeRestrictions[:fip[1]]
+				after := make([]string, len(a.TradeRestrictions)-int(fip[1]))
+				copy(after, a.TradeRestrictions[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.TradeRestrictions = append(before, newValue)
+				a.TradeRestrictions = append(a.TradeRestrictions, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -2007,8 +2106,8 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 			return a.Settlements[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Settlements : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Settlements : %v",
 					fip)
 			}
 			newValue := &QuantityIndexField{}
@@ -2018,7 +2117,18 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 						err)
 				}
 			}
-			a.Settlements = append(a.Settlements, newValue)
+			if len(a.Settlements) <= int(fip[1]) {
+				// Append item to the end
+				a.Settlements = append(a.Settlements, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Settlements[:fip[1]]
+				after := make([]*QuantityIndexField, len(a.Settlements)-int(fip[1]))
+				copy(after, a.Settlements[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Settlements = append(before, newValue)
+				a.Settlements = append(a.Settlements, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -2187,8 +2297,8 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 			return a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add AssetSenders : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add AssetSenders : %v",
 					fip)
 			}
 			newValue := &QuantityIndexField{}
@@ -2198,7 +2308,18 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 						err)
 				}
 			}
-			a.AssetSenders = append(a.AssetSenders, newValue)
+			if len(a.AssetSenders) <= int(fip[1]) {
+				// Append item to the end
+				a.AssetSenders = append(a.AssetSenders, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.AssetSenders[:fip[1]]
+				after := make([]*QuantityIndexField, len(a.AssetSenders)-int(fip[1]))
+				copy(after, a.AssetSenders[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.AssetSenders = append(before, newValue)
+				a.AssetSenders = append(a.AssetSenders, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -2234,8 +2355,8 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 			return a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add AssetReceivers : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add AssetReceivers : %v",
 					fip)
 			}
 			newValue := &AssetReceiverField{}
@@ -2245,7 +2366,18 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 						err)
 				}
 			}
-			a.AssetReceivers = append(a.AssetReceivers, newValue)
+			if len(a.AssetReceivers) <= int(fip[1]) {
+				// Append item to the end
+				a.AssetReceivers = append(a.AssetReceivers, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.AssetReceivers[:fip[1]]
+				after := make([]*AssetReceiverField, len(a.AssetReceivers)-int(fip[1]))
+				copy(after, a.AssetReceivers[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.AssetReceivers = append(before, newValue)
+				a.AssetReceivers = append(a.AssetReceivers, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -2440,8 +2572,8 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 			return a.Articles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Articles : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Articles : %v",
 					fip)
 			}
 			newValue := &ClauseField{}
@@ -2451,7 +2583,18 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 						err)
 				}
 			}
-			a.Articles = append(a.Articles, newValue)
+			if len(a.Articles) <= int(fip[1]) {
+				// Append item to the end
+				a.Articles = append(a.Articles, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Articles[:fip[1]]
+				after := make([]*ClauseField, len(a.Articles)-int(fip[1]))
+				copy(after, a.Articles[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Articles = append(before, newValue)
+				a.Articles = append(a.Articles, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -2594,8 +2737,8 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return a.Children[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Children : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Children : %v",
 					fip)
 			}
 			newValue := &ClauseField{}
@@ -2605,7 +2748,18 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 						err)
 				}
 			}
-			a.Children = append(a.Children, newValue)
+			if len(a.Children) <= int(fip[1]) {
+				// Append item to the end
+				a.Children = append(a.Children, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Children[:fip[1]]
+				after := make([]*ClauseField, len(a.Children)-int(fip[1]))
+				copy(after, a.Children[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Children = append(before, newValue)
+				a.Children = append(a.Children, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -2945,8 +3099,8 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return a.Administration[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Administration : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Administration : %v",
 					fip)
 			}
 			newValue := &AdministratorField{}
@@ -2956,7 +3110,18 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 						err)
 				}
 			}
-			a.Administration = append(a.Administration, newValue)
+			if len(a.Administration) <= int(fip[1]) {
+				// Append item to the end
+				a.Administration = append(a.Administration, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Administration[:fip[1]]
+				after := make([]*AdministratorField, len(a.Administration)-int(fip[1]))
+				copy(after, a.Administration[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Administration = append(before, newValue)
+				a.Administration = append(a.Administration, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -2992,8 +3157,8 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return a.Management[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Management : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Management : %v",
 					fip)
 			}
 			newValue := &ManagerField{}
@@ -3003,7 +3168,18 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 						err)
 				}
 			}
-			a.Management = append(a.Management, newValue)
+			if len(a.Management) <= int(fip[1]) {
+				// Append item to the end
+				a.Management = append(a.Management, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Management[:fip[1]]
+				after := make([]*ManagerField, len(a.Management)-int(fip[1]))
+				copy(after, a.Management[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Management = append(before, newValue)
+				a.Management = append(a.Management, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -3388,18 +3564,30 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add OracleTypes : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add OracleTypes : %v",
 					fip)
 			}
 			var newValue uint32
 			buf := bytes.NewBuffer(data)
 			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s", err)
+				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s",
+					err)
 			} else {
 				newValue = uint32(value)
 			}
-			a.OracleTypes = append(a.OracleTypes, newValue)
+			if len(a.OracleTypes) <= int(fip[1]) {
+				// Append item to the end
+				a.OracleTypes = append(a.OracleTypes, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.OracleTypes[:fip[1]]
+				after := make([]uint32, len(a.OracleTypes)-int(fip[1]))
+				copy(after, a.OracleTypes[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.OracleTypes = append(before, newValue)
+				a.OracleTypes = append(a.OracleTypes, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
@@ -3628,12 +3816,23 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPat
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 1: // Add element
-			if len(fip) > 1 {
-				return nil, fmt.Errorf("Amendment field index path too deep for add Outputs : %v",
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add Outputs : %v",
 					fip)
 			}
 			newValue := data
-			a.Outputs = append(a.Outputs, newValue)
+			if len(a.Outputs) <= int(fip[1]) {
+				// Append item to the end
+				a.Outputs = append(a.Outputs, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.Outputs[:fip[1]]
+				after := make([][]byte, len(a.Outputs)-int(fip[1]))
+				copy(after, a.Outputs[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.Outputs = append(before, newValue)
+				a.Outputs = append(a.Outputs, after...)
+			}
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element

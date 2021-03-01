@@ -14,6 +14,17 @@ import (
 	"github.com/pkg/errors"
 )
 
+const (
+	// AmendmentOperationModify specifies an amendment is modifying a value.
+	AmendmentOperationModify = uint32(0)
+
+	// AmendmentOperationAddElement specifies an amendment is adding a new element to a list.
+	AmendmentOperationAddElement = uint32(1)
+
+	// AmendmentOperationRemoveElement specifies an amendment is removing an element from a list.
+	AmendmentOperationRemoveElement = uint32(2)
+)
+
 {{- range $i, $message := .Messages }}
 	{{- if eq $message.Name "ContractOffer" }}
 // Contract Permission / Amendment Field Indices
