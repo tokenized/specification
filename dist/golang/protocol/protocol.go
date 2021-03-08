@@ -185,6 +185,10 @@ func AssetID(assetType string, code bitcoin.Hash20) string {
 
 // AssetIDForRaw returns the asset ID for an asset type and asset code in byte slice form.
 func AssetIDForRaw(assetType string, assetCode []byte) (string, error) {
+	if assetType == "BSV" {
+		return assetType, nil
+	}
+
 	code, err := bitcoin.NewHash20(assetCode)
 	if err != nil {
 		return "", errors.Wrap(err, "asset code")
