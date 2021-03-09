@@ -5,11 +5,11 @@
 code: BFR
 name: BondFixedRate
 label: Bond - Fixed Rate
-description: Common stock represents ownership interests in companies.
+description: A fixed rate bond is a bond that pays the same level of interest over its entire term. An investor who wants to earn a guaranteed interest rate for a specified term could purchase a fixed rate bond in the form of a Treasury, corporate bond, municipal bond, or certificate of deposit (CD).
 
 metadata:
   kind: Security
-  category: Bond Fixed Rate Security
+  category: Debt Security
   examples:
     - Chicago, Midway Airport, Series 2001A
 
@@ -45,7 +45,7 @@ fields:
 
   - name: Collateral 
     label: Collateral
-    description: The collateral securing the bond.
+    description: An asset that secures securing the bond.  If null, then the bond is unsecured.
     type: varchar 
     varSize: small
 
