@@ -23,13 +23,13 @@ properties:
     example: "Sec 1, Row 3, Seat 5, or A122"
   StartTimeDate:
     type: number
-    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+    example: 1594668650000000000
   ValidFrom:
     type: number
-    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+    example: 1594668650000000000
   ExpirationTimestamp:
     type: number
-    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+    example: 1594668650000000000
   Description:
     type: string
     example: "Coingeek Conference - London (November 2018)."

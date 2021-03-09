@@ -8,10 +8,10 @@ properties:
     example: "Woolworths - Robina Town Centre"
   IssueDate:
     type: number
-    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+    example: 1594668650000000000
   ExpiryDate:
     type: number
-    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+    example: 1594668650000000000
   Value:
     type: number
     example: Denominated in the smallest unit of currency specified in the Currency subfield.

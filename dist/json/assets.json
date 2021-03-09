@@ -9,7 +9,7 @@
     },
     {
       "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.",
-      "example": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "example": 1594668650000000000,
       "name": "Timestamp",
       "size": 8,
       "type": "uint"
@@ -547,7 +547,7 @@
           "type": "Timestamp"
         },
         {
-          "description": "Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.",
+          "description": "Required field to specify the decimal precision of a currency. It will normally be the  \"precision\" value associated with the CurrencyCode. It is the number of decimal places between  the number of tokens and the common unit of measure. For example, in AUD, the common unit is  the dollar, but a token would only be worth a penny. So the precision should be 2 for the two  decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
           "example": 100,
           "label": "Precision",
           "name": "Precision",
