@@ -442,8 +442,8 @@ const (
 	BondFixedRateFieldInterestRate               = uint32(6)
 	BondFixedRateFieldInterestPaymentInitialDate = uint32(7)
 	BondFixedRateFieldInterestPaymentDateDeltas  = uint32(8)
-	BondFixedRateFieldLatePaymentWindow          = uint32(9)
-	BondFixedRateFieldLatePaymentPenaltyRate     = uint32(10)
+	BondFixedRateFieldLatePaymentPenaltyRate     = uint32(9)
+	BondFixedRateFieldLatePaymentWindow          = uint32(10)
 	BondFixedRateFieldLatePaymentPenaltyPeriod   = uint32(11)
 	BondFixedRateFieldMaturityDate               = uint32(12)
 	BondFixedRateFieldAgeRestriction             = uint32(13)
@@ -566,6 +566,15 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
+	case BondFixedRateFieldLatePaymentPenaltyRate: // RateField
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, false)
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.LatePaymentPenaltyRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
+
 	case BondFixedRateFieldLatePaymentWindow: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for LatePaymentWindow : %v", fip)
@@ -577,15 +586,6 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			a.LatePaymentWindow = uint64(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
-
-	case BondFixedRateFieldLatePaymentPenaltyRate: // RateField
-
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
-		}
-
-		return a.LatePaymentPenaltyRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
 	case BondFixedRateFieldLatePaymentPenaltyPeriod: // uint64
 		if len(fip) > 1 {
@@ -767,6 +767,15 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 		result = append(result, amendment)
 	}
 
+	// LatePaymentPenaltyRate RateField
+	fip = append(ofip, BondFixedRateFieldLatePaymentPenaltyRate)
+
+	LatePaymentPenaltyRateAmendments, err := a.LatePaymentPenaltyRate.CreateAmendments(fip, newValue.LatePaymentPenaltyRate)
+	if err != nil {
+		return nil, errors.Wrap(err, "LatePaymentPenaltyRate")
+	}
+	result = append(result, LatePaymentPenaltyRateAmendments...)
+
 	// LatePaymentWindow uint64
 	fip = append(ofip, BondFixedRateFieldLatePaymentWindow)
 	if a.LatePaymentWindow != newValue.LatePaymentWindow {
@@ -780,15 +789,6 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 			Data: buf.Bytes(),
 		})
 	}
-
-	// LatePaymentPenaltyRate RateField
-	fip = append(ofip, BondFixedRateFieldLatePaymentPenaltyRate)
-
-	LatePaymentPenaltyRateAmendments, err := a.LatePaymentPenaltyRate.CreateAmendments(fip, newValue.LatePaymentPenaltyRate)
-	if err != nil {
-		return nil, errors.Wrap(err, "LatePaymentPenaltyRate")
-	}
-	result = append(result, LatePaymentPenaltyRateAmendments...)
 
 	// LatePaymentPenaltyPeriod uint64
 	fip = append(ofip, BondFixedRateFieldLatePaymentPenaltyPeriod)

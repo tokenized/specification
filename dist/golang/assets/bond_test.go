@@ -61,11 +61,7 @@ func TestInterestPaymentListSizes(t *testing.T) {
 
 func TestParValueRequired(t *testing.T) {
 	bond := &BondFixedRate{
-		Name: "Bond",
-		InterestRate: &RateField{
-			Precision: 2,
-			Value:     1,
-		},
+		Name:         "Bond",
 		MaturityDate: 1,
 	}
 

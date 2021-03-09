@@ -358,6 +358,12 @@
           "description": "Unix epoch date time (in seconds) for the first interest payment.",
           "label": "Interest Payment Intiial Date",
           "name": "InterestPaymentInitialDate",
+          "only_valid_when": {
+            "field_name": "InterestRate"
+          },
+          "required_when": {
+            "field_name": "InterestRate"
+          },
           "type": "TimestampSeconds"
         },
         {
@@ -365,13 +371,13 @@
           "label": "Interest Payment Date Deltas",
           "listSize": "small",
           "name": "InterestPaymentDateDeltas",
+          "only_valid_when": {
+            "field_name": "InterestRate"
+          },
+          "required_when": {
+            "field_name": "InterestRate"
+          },
           "type": "Seconds[]"
-        },
-        {
-          "description": "The amount of time after a payment is due before the late payment penalty is applied.\n",
-          "label": "Late Payment Window",
-          "name": "LatePaymentWindow",
-          "type": "TimestampSeconds"
         },
         {
           "description": "The rate of the penalty per the penalty period.",
@@ -380,9 +386,21 @@
           "type": "Rate"
         },
         {
+          "description": "The amount of time after a payment is due before the late payment penalty is applied.\n",
+          "label": "Late Payment Window",
+          "name": "LatePaymentWindow",
+          "only_valid_when": {
+            "field_name": "LatePaymentPenaltyRate"
+          },
+          "type": "TimestampSeconds"
+        },
+        {
           "description": "The period at which the late payment penalty accrues.",
           "label": "Late Payment Penalty Period",
           "name": "LatePaymentPenaltyPeriod",
+          "only_valid_when": {
+            "field_name": "LatePaymentPenaltyRate"
+          },
           "type": "TimestampSeconds"
         },
         {

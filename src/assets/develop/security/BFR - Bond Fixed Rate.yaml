@@ -67,6 +67,10 @@ fields:
     label: Interest Payment Intiial Date
     description: Unix epoch date time (in seconds) for the first interest payment.
     type: TimestampSeconds
+    only_valid_when:
+      field_name: InterestRate
+    required_when:
+      field_name: InterestRate
 
   - name: InterestPaymentDateDeltas
     label: Interest Payment Date Deltas
@@ -75,22 +79,30 @@ fields:
       seconds from the previous payment.
     type: Seconds[]
     listSize: small
-
-  - name: LatePaymentWindow
-    label: Late Payment Window
-    description: >
-      The amount of time after a payment is due before the late payment penalty is applied.
-    type: TimestampSeconds
+    only_valid_when:
+      field_name: InterestRate
+    required_when:
+      field_name: InterestRate
 
   - name: LatePaymentPenaltyRate
     label: Late Payment Penalty Rate
     description: The rate of the penalty per the penalty period.
     type: Rate
 
+  - name: LatePaymentWindow
+    label: Late Payment Window
+    description: >
+      The amount of time after a payment is due before the late payment penalty is applied.
+    type: TimestampSeconds
+    only_valid_when:
+      field_name: LatePaymentPenaltyRate
+
   - name: LatePaymentPenaltyPeriod
     label: Late Payment Penalty Period
     description: The period at which the late payment penalty accrues.
     type: TimestampSeconds
+    only_valid_when:
+      field_name: LatePaymentPenaltyRate
 
   - name: MaturityDate
     label: Maturity Date

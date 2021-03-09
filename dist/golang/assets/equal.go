@@ -206,14 +206,14 @@ func (l *BondFixedRate) Equal(right proto.Message) bool {
 		}
 	}
 
-	// Field LatePaymentWindow - uint
-	if c.LatePaymentWindow != r.LatePaymentWindow {
-		return false // fmt.Errorf("LatePaymentWindow integer mismatched")
-	}
-
 	// Field LatePaymentPenaltyRate - Rate
 	if !c.LatePaymentPenaltyRate.Equal(r.LatePaymentPenaltyRate) {
 		return false // fmt.Errorf("LatePaymentPenaltyRate : %s", err)
+	}
+
+	// Field LatePaymentWindow - uint
+	if c.LatePaymentWindow != r.LatePaymentWindow {
+		return false // fmt.Errorf("LatePaymentWindow integer mismatched")
 	}
 
 	// Field LatePaymentPenaltyPeriod - uint

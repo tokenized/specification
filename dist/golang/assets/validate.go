@@ -128,6 +128,10 @@ func (a *BondFixedRate) Validate() error {
 		return errors.New("Empty")
 	}
 
+	InterestRateFieldIsEmpty := a.InterestRate == nil
+
+	LatePaymentPenaltyRateFieldIsEmpty := a.LatePaymentPenaltyRate == nil
+
 	// Field Name - varchar
 	if len(a.Name) > max1ByteInteger {
 		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
@@ -176,20 +180,38 @@ func (a *BondFixedRate) Validate() error {
 	}
 
 	// Field InterestPaymentInitialDate - uint
+	if InterestRateFieldIsEmpty && a.InterestPaymentInitialDate != 0 {
+		return fmt.Errorf("InterestPaymentInitialDate is only allowed when InterestRate is specified : %v", a.InterestRate)
+	}
+	if !InterestRateFieldIsEmpty && a.InterestPaymentInitialDate == 0 {
+		return fmt.Errorf("InterestPaymentInitialDate is required when InterestRate is specified : %v", a.InterestRate)
+	}
 
 	// Field InterestPaymentDateDeltas - uint
 	if len(a.InterestPaymentDateDeltas) > max2ByteInteger {
 		return fmt.Errorf("InterestPaymentDateDeltas list over max length : %d > %d", len(a.InterestPaymentDateDeltas), max2ByteInteger)
 	}
-
-	// Field LatePaymentWindow - uint
+	if InterestRateFieldIsEmpty && len(a.InterestPaymentDateDeltas) != 0 {
+		return fmt.Errorf("InterestPaymentDateDeltas is only allowed when InterestRate is specified : %v", a.InterestRate)
+	}
+	if !InterestRateFieldIsEmpty && len(a.InterestPaymentDateDeltas) == 0 {
+		return fmt.Errorf("InterestPaymentDateDeltas is required when InterestRate is specified : %v", a.InterestRate)
+	}
 
 	// Field LatePaymentPenaltyRate - Rate
 	if err := a.LatePaymentPenaltyRate.Validate(); err != nil {
 		return errors.Wrap(err, "LatePaymentPenaltyRate")
 	}
 
+	// Field LatePaymentWindow - uint
+	if LatePaymentPenaltyRateFieldIsEmpty && a.LatePaymentWindow != 0 {
+		return fmt.Errorf("LatePaymentWindow is only allowed when LatePaymentPenaltyRate is specified : %v", a.LatePaymentPenaltyRate)
+	}
+
 	// Field LatePaymentPenaltyPeriod - uint
+	if LatePaymentPenaltyRateFieldIsEmpty && a.LatePaymentPenaltyPeriod != 0 {
+		return fmt.Errorf("LatePaymentPenaltyPeriod is only allowed when LatePaymentPenaltyRate is specified : %v", a.LatePaymentPenaltyRate)
+	}
 
 	// Field MaturityDate - uint
 	if a.MaturityDate == 0 {

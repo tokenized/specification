@@ -44,15 +44,15 @@ properties:
     type: array
     items:
       type: number
+  LatePaymentPenaltyRate:
+    description: The rate of the penalty per the penalty period.
+    type: object
+    $ref: "#/components/schemas/RateField"
   LatePaymentWindow:
     description:  >
       The amount of time after a payment is due before the late payment penalty is applied.
     type: number
     example: 1594668654
-  LatePaymentPenaltyRate:
-    description: The rate of the penalty per the penalty period.
-    type: object
-    $ref: "#/components/schemas/RateField"
   LatePaymentPenaltyPeriod:
     description: The period at which the late payment penalty accrues.
     type: number

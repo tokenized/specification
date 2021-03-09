@@ -1104,8 +1104,8 @@ proto.assets.BondFixedRate.toObject = function(includeInstance, msg) {
     interestrate: (f = msg.getInterestrate()) && proto.assets.RateField.toObject(includeInstance, f),
     interestpaymentinitialdate: jspb.Message.getFieldWithDefault(msg, 7, 0),
     interestpaymentdatedeltasList: (f = jspb.Message.getRepeatedField(msg, 8)) == null ? undefined : f,
-    latepaymentwindow: jspb.Message.getFieldWithDefault(msg, 9, 0),
     latepaymentpenaltyrate: (f = msg.getLatepaymentpenaltyrate()) && proto.assets.RateField.toObject(includeInstance, f),
+    latepaymentwindow: jspb.Message.getFieldWithDefault(msg, 10, 0),
     latepaymentpenaltyperiod: jspb.Message.getFieldWithDefault(msg, 11, 0),
     maturitydate: jspb.Message.getFieldWithDefault(msg, 12, 0),
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
@@ -1181,13 +1181,13 @@ proto.assets.BondFixedRate.deserializeBinaryFromReader = function(msg, reader) {
       msg.setInterestpaymentdatedeltasList(value);
       break;
     case 9:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setLatepaymentwindow(value);
-      break;
-    case 10:
       var value = new proto.assets.RateField;
       reader.readMessage(value,proto.assets.RateField.deserializeBinaryFromReader);
       msg.setLatepaymentpenaltyrate(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setLatepaymentwindow(value);
       break;
     case 11:
       var value = /** @type {number} */ (reader.readUint64());
@@ -1293,19 +1293,19 @@ proto.assets.BondFixedRate.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getLatepaymentwindow();
-  if (f !== 0) {
-    writer.writeUint64(
-      9,
-      f
-    );
-  }
   f = message.getLatepaymentpenaltyrate();
   if (f != null) {
     writer.writeMessage(
-      10,
+      9,
       f,
       proto.assets.RateField.serializeBinaryToWriter
+    );
+  }
+  f = message.getLatepaymentwindow();
+  if (f !== 0) {
+    writer.writeUint64(
+      10,
+      f
     );
   }
   f = message.getLatepaymentpenaltyperiod();
@@ -1542,30 +1542,12 @@ proto.assets.BondFixedRate.prototype.clearInterestpaymentdatedeltasList = functi
 
 
 /**
- * optional uint64 LatePaymentWindow = 9;
- * @return {number}
- */
-proto.assets.BondFixedRate.prototype.getLatepaymentwindow = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.assets.BondFixedRate} returns this
- */
-proto.assets.BondFixedRate.prototype.setLatepaymentwindow = function(value) {
-  return jspb.Message.setProto3IntField(this, 9, value);
-};
-
-
-/**
- * optional RateField LatePaymentPenaltyRate = 10;
+ * optional RateField LatePaymentPenaltyRate = 9;
  * @return {?proto.assets.RateField}
  */
 proto.assets.BondFixedRate.prototype.getLatepaymentpenaltyrate = function() {
   return /** @type{?proto.assets.RateField} */ (
-    jspb.Message.getWrapperField(this, proto.assets.RateField, 10));
+    jspb.Message.getWrapperField(this, proto.assets.RateField, 9));
 };
 
 
@@ -1574,7 +1556,7 @@ proto.assets.BondFixedRate.prototype.getLatepaymentpenaltyrate = function() {
  * @return {!proto.assets.BondFixedRate} returns this
 */
 proto.assets.BondFixedRate.prototype.setLatepaymentpenaltyrate = function(value) {
-  return jspb.Message.setWrapperField(this, 10, value);
+  return jspb.Message.setWrapperField(this, 9, value);
 };
 
 
@@ -1592,7 +1574,25 @@ proto.assets.BondFixedRate.prototype.clearLatepaymentpenaltyrate = function() {
  * @return {boolean}
  */
 proto.assets.BondFixedRate.prototype.hasLatepaymentpenaltyrate = function() {
-  return jspb.Message.getField(this, 10) != null;
+  return jspb.Message.getField(this, 9) != null;
+};
+
+
+/**
+ * optional uint64 LatePaymentWindow = 10;
+ * @return {number}
+ */
+proto.assets.BondFixedRate.prototype.getLatepaymentwindow = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.assets.BondFixedRate} returns this
+ */
+proto.assets.BondFixedRate.prototype.setLatepaymentwindow = function(value) {
+  return jspb.Message.setProto3IntField(this, 10, value);
 };
 
 

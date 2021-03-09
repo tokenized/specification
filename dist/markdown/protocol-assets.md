@@ -345,6 +345,8 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
         <td>
             Unix epoch date time (in seconds) for the first interest payment.
             
+            This field is required when the field InterestRate is specified.
+            This field is only valid when the field InterestRate is specified.
         </td>
     </tr>
 
@@ -357,18 +359,8 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
             Number of seconds from the previous interest payment until the next payment. A delta in seconds from the previous payment.
 
             
-        </td>
-    </tr>
-
-    <tr>
-        <td>LatePaymentWindow</td>
-        <td>
-            <a href="#alias-uint">TimestampSeconds</a>
-        </td>
-        <td>
-            The amount of time after a payment is due before the late payment penalty is applied.
-
-            
+            This field is required when the field InterestRate is specified.
+            This field is only valid when the field InterestRate is specified.
         </td>
     </tr>
 
@@ -384,6 +376,19 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
     </tr>
 
     <tr>
+        <td>LatePaymentWindow</td>
+        <td>
+            <a href="#alias-uint">TimestampSeconds</a>
+        </td>
+        <td>
+            The amount of time after a payment is due before the late payment penalty is applied.
+
+            
+            This field is only valid when the field LatePaymentPenaltyRate is specified.
+        </td>
+    </tr>
+
+    <tr>
         <td>LatePaymentPenaltyPeriod</td>
         <td>
             <a href="#alias-uint">TimestampSeconds</a>
@@ -391,6 +396,7 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
         <td>
             The period at which the late payment penalty accrues.
             
+            This field is only valid when the field LatePaymentPenaltyRate is specified.
         </td>
     </tr>
 

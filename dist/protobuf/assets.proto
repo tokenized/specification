@@ -43,8 +43,8 @@ message BondFixedRate {
     RateField InterestRate                         = 6;   // Rate
     uint64 InterestPaymentInitialDate              = 7;   // TimestampSeconds
     repeated uint64 InterestPaymentDateDeltas      = 8;   // Seconds[]
-    uint64 LatePaymentWindow                       = 9;   // TimestampSeconds
-    RateField LatePaymentPenaltyRate               = 10;   // Rate
+    RateField LatePaymentPenaltyRate               = 9;   // Rate
+    uint64 LatePaymentWindow                       = 10;   // TimestampSeconds
     uint64 LatePaymentPenaltyPeriod                = 11;  // TimestampSeconds
     uint64 MaturityDate                            = 12;  // Timestamp
     AgeRestrictionField AgeRestriction             = 13;  // AgeRestriction
