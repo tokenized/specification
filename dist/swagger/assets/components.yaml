@@ -6,6 +6,8 @@ components:
       $ref: ./_components/schemas/tokenized/assets/Currency.yaml
     ShareCommon:
       $ref: ./_components/schemas/tokenized/assets/ShareCommon.yaml
+    BondFixedRate:
+      $ref: ./_components/schemas/tokenized/assets/BondFixedRate.yaml
     Coupon:
       $ref: ./_components/schemas/tokenized/assets/Coupon.yaml
     LoyaltyPoints:
@@ -16,3 +18,11 @@ components:
       $ref: ./_components/schemas/tokenized/assets/CasinoChip.yaml
     AgeRestrictionField:
       $ref: ./_components/schemas/tokenized/assets/AgeRestrictionField.yaml
+    CurrencyValueField:
+      $ref: ./_components/schemas/tokenized/assets/CurrencyValueField.yaml
+    RateField:
+      $ref: ./_components/schemas/tokenized/assets/RateField.yaml
+    PeriodField:
+      $ref: ./_components/schemas/tokenized/assets/PeriodField.yaml
+    TimeField:
+      $ref: ./_components/schemas/tokenized/assets/TimeField.yaml

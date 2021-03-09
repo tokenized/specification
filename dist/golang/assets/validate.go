@@ -68,7 +68,10 @@ func (a *Currency) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field CurrencyCode - fixedchar
+	// Field CurrencyCode - fixedchar  (Currencies Resource)
+	if CurrenciesData(a.CurrencyCode) == nil {
+		return fmt.Errorf("CurrencyCode resource Currencies value not defined : %v", a.CurrencyCode)
+	}
 	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
 		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
 			len(a.CurrencyCode), 3)
@@ -120,12 +123,75 @@ func (a *ShareCommon) Validate() error {
 	return nil
 }
 
-func (a *Coupon) Validate() error {
+func (a *BondFixedRate) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
 	}
 
-	ValueFieldIsEmpty := a.Value == 0
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
+	}
+
+	// Field Type - fixedchar
+	if len(a.Type) != 0 && len(a.Type) != 1 {
+		return fmt.Errorf("Type fixed width field wrong size : %d should be %d",
+			len(a.Type), 1)
+	}
+
+	// Field ISIN - varchar
+	if len(a.ISIN) > max1ByteInteger {
+		return fmt.Errorf("ISIN over max size : %d > %d", len(a.ISIN), max1ByteInteger)
+	}
+
+	// Field Collateral - varchar
+	if len(a.Collateral) > max2ByteInteger {
+		return fmt.Errorf("Collateral over max size : %d > %d", len(a.Collateral), max2ByteInteger)
+	}
+
+	// Field ParValue - CurrencyValue
+	if err := a.ParValue.Validate(); err != nil {
+		return errors.Wrap(err, "ParValue")
+	}
+
+	// Field InterestRate - Rate
+	if err := a.InterestRate.Validate(); err != nil {
+		return errors.Wrap(err, "InterestRate")
+	}
+
+	// Field InterestPaymentPeriod - Period
+	if err := a.InterestPaymentPeriod.Validate(); err != nil {
+		return errors.Wrap(err, "InterestPaymentPeriod")
+	}
+
+	// Field LatePaymentPenaltyRate - Rate
+	if err := a.LatePaymentPenaltyRate.Validate(); err != nil {
+		return errors.Wrap(err, "LatePaymentPenaltyRate")
+	}
+
+	// Field LatePaymentPenaltyPeriod - Period
+	if err := a.LatePaymentPenaltyPeriod.Validate(); err != nil {
+		return errors.Wrap(err, "LatePaymentPenaltyPeriod")
+	}
+
+	// Field LatePaymentWindow - uint
+
+	// Field MaturityDate - uint
+
+	// Field AgeRestriction - AgeRestriction
+	if err := a.AgeRestriction.Validate(); err != nil {
+		return errors.Wrap(err, "AgeRestriction")
+	}
+
+	// Field TransfersPermitted - bool
+
+	return nil
+}
+
+func (a *Coupon) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
 
 	// Field RedeemingEntity - varchar
 	if len(a.RedeemingEntity) > max1ByteInteger {
@@ -136,20 +202,6 @@ func (a *Coupon) Validate() error {
 
 	// Field ExpiryDate - uint
 
-	// Field Value - uint
-
-	// Field Currency - fixedchar
-	if len(a.Currency) != 0 && len(a.Currency) != 3 {
-		return fmt.Errorf("Currency fixed width field wrong size : %d should be %d",
-			len(a.Currency), 3)
-	}
-	if ValueFieldIsEmpty && len(a.Currency) != 0 {
-		return fmt.Errorf("Currency is only allowed when Value is specified : %v", a.Value)
-	}
-	if !ValueFieldIsEmpty && len(a.Currency) == 0 {
-		return fmt.Errorf("Currency is required when Value is specified : %v", a.Value)
-	}
-
 	// Field Description - varchar
 	if len(a.Description) > max2ByteInteger {
 		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
@@ -158,15 +210,12 @@ func (a *Coupon) Validate() error {
 		return fmt.Errorf("Description required")
 	}
 
-	// Field Precision - uint
-	if ValueFieldIsEmpty && a.Precision != 0 {
-		return fmt.Errorf("Precision is only allowed when Value is specified : %v", a.Value)
-	}
-	if !ValueFieldIsEmpty && a.Precision == 0 {
-		return fmt.Errorf("Precision is required when Value is specified : %v", a.Value)
-	}
-
 	// Field TransfersPermitted - bool
+
+	// Field Value - CurrencyValue
+	if err := a.Value.Validate(); err != nil {
+		return errors.Wrap(err, "Value")
+	}
 
 	return nil
 }
@@ -263,7 +312,10 @@ func (a *CasinoChip) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field CurrencyCode - fixedchar
+	// Field CurrencyCode - fixedchar  (Currencies Resource)
+	if CurrenciesData(a.CurrencyCode) == nil {
+		return fmt.Errorf("CurrencyCode resource Currencies value not defined : %v", a.CurrencyCode)
+	}
 	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
 		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
 			len(a.CurrencyCode), 3)
@@ -311,6 +363,101 @@ func (a *AgeRestrictionField) Validate() error {
 	if a.Upper > uint32(max1ByteInteger) {
 		return fmt.Errorf("Upper over max value : %d > %d", a.Upper, max1ByteInteger)
 	}
+
+	return nil
+}
+
+func (a *CurrencyValueField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Value - uint
+	if a.Value == 0 {
+		return fmt.Errorf("Value required")
+	}
+
+	// Field CurrencyCode - fixedchar  (Currencies Resource)
+	if CurrenciesData(a.CurrencyCode) == nil {
+		return fmt.Errorf("CurrencyCode resource Currencies value not defined : %v", a.CurrencyCode)
+	}
+	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
+		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
+			len(a.CurrencyCode), 3)
+	}
+	if len(a.CurrencyCode) == 0 {
+		return fmt.Errorf("CurrencyCode required")
+	}
+
+	// Field Precision - uint
+	if a.Precision > uint32(max1ByteInteger) {
+		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
+	}
+	if a.Precision == 0 {
+		return fmt.Errorf("Precision required")
+	}
+
+	return nil
+}
+
+func (a *RateField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Precision - uint
+	if a.Precision > uint32(max1ByteInteger) {
+		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
+	}
+
+	// Field Value - uint
+
+	return nil
+}
+
+func (a *PeriodField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Unit - fixedchar  (TimeUnit Resource)
+	if TimeUnitData(a.Unit) == nil {
+		return fmt.Errorf("Unit resource TimeUnit value not defined : %v", a.Unit)
+	}
+	if len(a.Unit) != 0 && len(a.Unit) != 1 {
+		return fmt.Errorf("Unit fixed width field wrong size : %d should be %d",
+			len(a.Unit), 1)
+	}
+
+	// Field UnitCount - uint
+
+	// Field EndUnit - uint
+
+	// Field EndIndex - uint
+
+	// Field EndCount - uint
+
+	// Field EndTime - Time
+	if err := a.EndTime.Validate(); err != nil {
+		return errors.Wrap(err, "EndTime")
+	}
+
+	return nil
+}
+
+func (a *TimeField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Time - uint
+
+	// Field TimeZoneOffset - uint
+	if a.TimeZoneOffset > uint32(max2ByteInteger) {
+		return fmt.Errorf("TimeZoneOffset over max value : %d > %d", a.TimeZoneOffset, max2ByteInteger)
+	}
+
+	// Field TimeZonePositive - bool
 
 	return nil
 }

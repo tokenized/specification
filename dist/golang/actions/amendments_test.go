@@ -1075,9 +1075,11 @@ func TestAssetCreateAmendments(t *testing.T) {
 
 func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 	currentCoupon := &assets.Coupon{
-		Currency:    "USD",
-		Value:       1,
-		Precision:   100,
+		Value: &assets.CurrencyValueField{
+			Value:        100,
+			CurrencyCode: "USD",
+			Precision:    2,
+		},
 		Description: "Test Coupon",
 	}
 
@@ -1091,9 +1093,11 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 	}
 
 	newCoupon := &assets.Coupon{
-		Currency:    "USD",
-		Value:       1,
-		Precision:   100,
+		Value: &assets.CurrencyValueField{
+			Value:        100,
+			CurrencyCode: "USD",
+			Precision:    2,
+		},
 		Description: "New Test Coupon",
 	}
 

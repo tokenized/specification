@@ -16,6 +16,7 @@ messages:
   - "identity/MBR - Membership"
   - "currency/CCY - Currency"
   - "security/SHC - Common Share"
+  - "security/BFR - Bond Fixed Rate"
   - "utility/COU - Coupon"
   - "utility/LOY - Loyalty Points"
   - "utility/TIC - Admission Ticket"
@@ -24,21 +25,37 @@ messages:
 # Register Resources
 resources:
   - "../../resources/develop/Currencies"
+  - "../../resources/develop/TimeUnit"
 
 # Register Field Types
 fieldTypes:
   - "types/AgeRestriction"
+  - "types/CurrencyValue"
+  - "types/Rate"
+  - "types/Period"
+  - "types/Time"
 
 # Define Field Aliases
 fieldAliases:
   - name: CurrencyType
     type: fixedchar
     size: 3
-    description: "International Organization for Standardization code for Currency. 3 character code."
-    example: "AUD"
+    description: >
+      International Organization for Standardization code for Currency. 3 character code.
+    example: AUD
+    resource: Currencies
 
   - name: Timestamp
     type: uint
     size: 8
-    description: "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch."
+    description: >
+      Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds 
+      since the Unix epoch.
     example: 1594668650000000000
+
+  - name: TimeUnit
+    type: fixedchar
+    size: 1
+    description: Unit of time.
+    example: M
+    resource: TimeUnit

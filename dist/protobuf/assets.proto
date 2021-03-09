@@ -33,16 +33,34 @@ message ShareCommon {
     bool TransfersPermitted                        = 4;   // bool
 }
 
+// Message - Bond - Fixed Rate (BFR)
+message BondFixedRate {
+    string Name                                    = 1;   // varchar
+    string Type                                    = 2;   // fixedchar
+    string ISIN                                    = 3;   // varchar
+    string Collateral                              = 4;   // varchar
+    CurrencyValueField ParValue                    = 5;   // CurrencyValue
+    RateField InterestRate                         = 6;   // Rate
+    PeriodField InterestPaymentPeriod              = 7;   // Period
+    RateField LatePaymentPenaltyRate               = 8;   // Rate
+    PeriodField LatePaymentPenaltyPeriod           = 9;   // Period
+    uint64 LatePaymentWindow                       = 10;   // uint
+    uint64 MaturityDate                            = 11;  // Timestamp
+    AgeRestrictionField AgeRestriction             = 12;  // AgeRestriction
+    bool TransfersPermitted                        = 13;  // bool
+}
+
 // Message - Coupon (COU)
 message Coupon {
     string RedeemingEntity                         = 1;   // varchar
     uint64 IssueDate                               = 2;   // Timestamp
     uint64 ExpiryDate                              = 3;   // Timestamp
-    uint64 Value                                   = 4;   // uint
-    string Currency                                = 5;   // CurrencyType
+    reserved                                         4;   // Deprecated Value
+    reserved                                         5;   // Deprecated Currency
     string Description                             = 6;   // varchar
-    uint64 Precision                               = 7;   // uint
+    reserved                                         7;   // Deprecated Precision
     bool TransfersPermitted                        = 8;   // bool
+    CurrencyValueField Value                       = 9;   // CurrencyValue
 }
 
 // Message - Loyalty Points (LOY)
@@ -86,5 +104,35 @@ message CasinoChip {
 message AgeRestrictionField {
     uint32 Lower                                   = 1;   // uint
     uint32 Upper                                   = 2;   // uint
+}
+
+// Field - Currency Value
+message CurrencyValueField {
+    uint64 Value                                   = 1;   // uint
+    string CurrencyCode                            = 2;   // CurrencyType
+    uint32 Precision                               = 3;   // uint
+}
+
+// Field - Rate
+message RateField {
+    uint32 Precision                               = 1;   // uint
+    uint64 Value                                   = 2;   // uint
+}
+
+// Field - Period
+message PeriodField {
+    string Unit                                    = 1;   // TimeUnit
+    uint64 UnitCount                               = 2;   // uint
+    uint64 EndUnit                                 = 3;   // uint
+    uint64 EndIndex                                = 4;   // uint
+    uint64 EndCount                                = 5;   // uint
+    TimeField EndTime                              = 6;   // Time
+}
+
+// Field - Time
+message TimeField {
+    uint64 Time                                    = 1;   // uint
+    uint32 TimeZoneOffset                          = 2;   // uint
+    bool TimeZonePositive                          = 3;   // bool
 }
 

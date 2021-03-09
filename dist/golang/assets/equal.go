@@ -144,6 +144,91 @@ func (l *ShareCommon) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *BondFixedRate) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &BondFixedRate{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &BondFixedRate{}
+	}
+	r, ok := cr.(*BondFixedRate)
+	if !ok {
+		return false
+	}
+
+	// Field Name - varchar
+	if c.Name != r.Name {
+		return false // fmt.Errorf("Name string mismatched")
+	}
+
+	// Field Type - fixedchar
+	if c.Type != r.Type {
+		return false // fmt.Errorf("Type string mismatched")
+	}
+
+	// Field ISIN - varchar
+	if c.ISIN != r.ISIN {
+		return false // fmt.Errorf("ISIN string mismatched")
+	}
+
+	// Field Collateral - varchar
+	if c.Collateral != r.Collateral {
+		return false // fmt.Errorf("Collateral string mismatched")
+	}
+
+	// Field ParValue - CurrencyValue
+	if !c.ParValue.Equal(r.ParValue) {
+		return false // fmt.Errorf("ParValue : %s", err)
+	}
+
+	// Field InterestRate - Rate
+	if !c.InterestRate.Equal(r.InterestRate) {
+		return false // fmt.Errorf("InterestRate : %s", err)
+	}
+
+	// Field InterestPaymentPeriod - Period
+	if !c.InterestPaymentPeriod.Equal(r.InterestPaymentPeriod) {
+		return false // fmt.Errorf("InterestPaymentPeriod : %s", err)
+	}
+
+	// Field LatePaymentPenaltyRate - Rate
+	if !c.LatePaymentPenaltyRate.Equal(r.LatePaymentPenaltyRate) {
+		return false // fmt.Errorf("LatePaymentPenaltyRate : %s", err)
+	}
+
+	// Field LatePaymentPenaltyPeriod - Period
+	if !c.LatePaymentPenaltyPeriod.Equal(r.LatePaymentPenaltyPeriod) {
+		return false // fmt.Errorf("LatePaymentPenaltyPeriod : %s", err)
+	}
+
+	// Field LatePaymentWindow - uint
+	if c.LatePaymentWindow != r.LatePaymentWindow {
+		return false // fmt.Errorf("LatePaymentWindow integer mismatched")
+	}
+
+	// Field MaturityDate - uint
+	if c.MaturityDate != r.MaturityDate {
+		return false // fmt.Errorf("MaturityDate integer mismatched")
+	}
+
+	// Field AgeRestriction - AgeRestriction
+	if !c.AgeRestriction.Equal(r.AgeRestriction) {
+		return false // fmt.Errorf("AgeRestriction : %s", err)
+	}
+
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
+	return true
+}
+
 func (l *Coupon) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
@@ -176,29 +261,19 @@ func (l *Coupon) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ExpiryDate integer mismatched")
 	}
 
-	// Field Value - uint
-	if c.Value != r.Value {
-		return false // fmt.Errorf("Value integer mismatched")
-	}
-
-	// Field Currency - fixedchar
-	if c.Currency != r.Currency {
-		return false // fmt.Errorf("Currency string mismatched")
-	}
-
 	// Field Description - varchar
 	if c.Description != r.Description {
 		return false // fmt.Errorf("Description string mismatched")
 	}
 
-	// Field Precision - uint
-	if c.Precision != r.Precision {
-		return false // fmt.Errorf("Precision integer mismatched")
-	}
-
 	// Field TransfersPermitted - bool
 	if c.TransfersPermitted != r.TransfersPermitted {
 		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
+	// Field Value - CurrencyValue
+	if !c.Value.Equal(r.Value) {
+		return false // fmt.Errorf("Value : %s", err)
 	}
 
 	return true
@@ -409,6 +484,156 @@ func (l *AgeRestrictionField) Equal(right proto.Message) bool {
 	// Field Upper - uint
 	if c.Upper != r.Upper {
 		return false // fmt.Errorf("Upper integer mismatched")
+	}
+
+	return true
+}
+
+func (l *CurrencyValueField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &CurrencyValueField{}
+	}
+	r, ok := right.(*CurrencyValueField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &CurrencyValueField{}
+	}
+
+	// Field Value - uint
+	if c.Value != r.Value {
+		return false // fmt.Errorf("Value integer mismatched")
+	}
+
+	// Field CurrencyCode - fixedchar
+	if c.CurrencyCode != r.CurrencyCode {
+		return false // fmt.Errorf("CurrencyCode string mismatched")
+	}
+
+	// Field Precision - uint
+	if c.Precision != r.Precision {
+		return false // fmt.Errorf("Precision integer mismatched")
+	}
+
+	return true
+}
+
+func (l *RateField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &RateField{}
+	}
+	r, ok := right.(*RateField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &RateField{}
+	}
+
+	// Field Precision - uint
+	if c.Precision != r.Precision {
+		return false // fmt.Errorf("Precision integer mismatched")
+	}
+
+	// Field Value - uint
+	if c.Value != r.Value {
+		return false // fmt.Errorf("Value integer mismatched")
+	}
+
+	return true
+}
+
+func (l *PeriodField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &PeriodField{}
+	}
+	r, ok := right.(*PeriodField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &PeriodField{}
+	}
+
+	// Field Unit - fixedchar
+	if c.Unit != r.Unit {
+		return false // fmt.Errorf("Unit string mismatched")
+	}
+
+	// Field UnitCount - uint
+	if c.UnitCount != r.UnitCount {
+		return false // fmt.Errorf("UnitCount integer mismatched")
+	}
+
+	// Field EndUnit - uint
+	if c.EndUnit != r.EndUnit {
+		return false // fmt.Errorf("EndUnit integer mismatched")
+	}
+
+	// Field EndIndex - uint
+	if c.EndIndex != r.EndIndex {
+		return false // fmt.Errorf("EndIndex integer mismatched")
+	}
+
+	// Field EndCount - uint
+	if c.EndCount != r.EndCount {
+		return false // fmt.Errorf("EndCount integer mismatched")
+	}
+
+	// Field EndTime - Time
+	if !c.EndTime.Equal(r.EndTime) {
+		return false // fmt.Errorf("EndTime : %s", err)
+	}
+
+	return true
+}
+
+func (l *TimeField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &TimeField{}
+	}
+	r, ok := right.(*TimeField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &TimeField{}
+	}
+
+	// Field Time - uint
+	if c.Time != r.Time {
+		return false // fmt.Errorf("Time integer mismatched")
+	}
+
+	// Field TimeZoneOffset - uint
+	if c.TimeZoneOffset != r.TimeZoneOffset {
+		return false // fmt.Errorf("TimeZoneOffset integer mismatched")
+	}
+
+	// Field TimeZonePositive - bool
+	if c.TimeZonePositive != r.TimeZonePositive {
+		return false // fmt.Errorf("TimeZonePositive boolean mismatched")
 	}
 
 	return true

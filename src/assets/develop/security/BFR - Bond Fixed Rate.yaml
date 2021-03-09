@@ -1,0 +1,99 @@
+#
+# BFR - Bond Fixed Rate
+#
+
+code: BFR
+name: BondFixedRate
+label: Bond - Fixed Rate
+description: Common stock represents ownership interests in companies.
+
+metadata:
+  kind: Security
+  category: Bond Fixed Rate Security
+  examples:
+    - Chicago, Midway Airport, Series 2001A
+
+fields:
+  - name: Name
+    label: Name
+    description: Name of bond
+    type: varchar
+    example: City of Chicago, Midway Airport, Series 2001A
+
+  - name: Type 
+    label: Type
+    description: >
+      Type of bond.
+        C - Corporate
+        M - Municipal
+        G - Government / Sovereign
+    type: fixedchar 
+    size: 1 
+    options:
+      - C 
+      - M 
+      - G
+    example: C
+
+  - name: ISIN
+    label: ISIN/CUSIP (optional)
+    description: >
+      International Securities Identification Number or Committee on Uniform Securities 
+      Identification Procedures.
+    type: varchar
+    example: US0004026250
+
+  - name: Collateral 
+    label: Collateral
+    description: The collateral securing the bond.
+    type: varchar 
+    varSize: small
+
+  - name: ParValue
+    label: Par Value
+    description: Par value of the bond.
+    type: CurrencyValue
+
+  - name: InterestRate
+    label: Interest Rate
+    description: The fixed interest rate of the bond.
+    type: Rate
+
+  - name: InterestPaymentPeriod
+    label: Interest Payment Period 
+    description: The period of the interest payments.
+    type: Period
+
+  - name: LatePaymentPenaltyRate
+    label: Late Payment Penalty Rate
+    description: The rate of the penalty per the penalty period.
+    type: Rate 
+
+  - name: LatePaymentPenaltyPeriod
+    label: Late Payment Penalty Period 
+    description: The period at which the late payment penalty accrues.
+    type: Period
+
+  - name: LatePaymentWindow
+    label: Late Payment Window 
+    description: The amount of time in nanoseconds when the late payment penalty is applied.
+    type: uint 
+    size: 8
+
+  - name: MaturityDate
+    label: Maturity Date
+    description: The date of the maturity of the bond.
+    type: Timestamp
+
+  - name: AgeRestriction
+    label: Age Restriction
+    type: AgeRestriction
+    description: Age restriction is used to specify required ages for asset ownership.
+
+  - name: TransfersPermitted
+    label: Transfers Permitted
+    description: >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent 
+      peer-to-peer transfers.
+    type: bool
+

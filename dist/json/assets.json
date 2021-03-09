@@ -1,18 +1,27 @@
 {
   "fieldAliases": [
     {
-      "description": "International Organization for Standardization code for Currency. 3 character code.",
+      "description": "International Organization for Standardization code for Currency. 3 character code.\n",
       "example": "AUD",
       "name": "CurrencyType",
+      "resource": "Currencies",
       "size": 3,
       "type": "fixedchar"
     },
     {
-      "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.",
+      "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds  since the Unix epoch.\n",
       "example": 1594668650000000000,
       "name": "Timestamp",
       "size": 8,
       "type": "uint"
+    },
+    {
+      "description": "Unit of time.",
+      "example": "M",
+      "name": "TimeUnit",
+      "resource": "TimeUnit",
+      "size": 1,
+      "type": "fixedchar"
     }
   ],
   "fieldTypes": [
@@ -36,6 +45,137 @@
       ],
       "label": "Age Restriction",
       "name": "AgeRestriction"
+    },
+    {
+      "description": "A value specified in terms of a currency.",
+      "fields": [
+        {
+          "description": "Denominated in precision specified in Precision field.",
+          "example": 100,
+          "label": "Value",
+          "name": "Value",
+          "required": true,
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "International Organization for Standardization code for Currency. Currency for coupon. From  resources/currency.\n",
+          "example": "AUD",
+          "label": "Currency Code",
+          "name": "CurrencyCode",
+          "required": true,
+          "type": "CurrencyType"
+        },
+        {
+          "description": "Required field to specify the decimal precision of the value. It will normally be the  \"precision\" value associated with the Currency. It is the number of decimal places between  the number of tokens and the common unit of measure. For example, in AUD, the common unit is  the dollar, but a token would only be worth a penny. So the precision should be 2 for the  two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
+          "example": 2,
+          "label": "Precision",
+          "name": "Precision",
+          "required": true,
+          "size": 1,
+          "type": "uint"
+        }
+      ],
+      "label": "Currency Value",
+      "name": "CurrencyValue"
+    },
+    {
+      "description": "A rate value specified in terms of a precision.",
+      "fields": [
+        {
+          "description": "Required field to specify the decimal precision of the value. It will normally be the  \"precision\" value associated with the Currency. It is the number of decimal places between  the number of tokens and the common unit of measure. For example, in AUD, the common unit is  the dollar, but a token would only be worth a penny. So the precision should be 2 for the  two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
+          "example": 2,
+          "label": "Precision",
+          "name": "Precision",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "example": "Denominated in precision specified in Precision field.",
+          "label": "Value",
+          "name": "Value",
+          "size": 8,
+          "span": "right",
+          "type": "uint"
+        }
+      ],
+      "label": "Rate",
+      "name": "Rate"
+    },
+    {
+      "description": "A period of a repeated event. To represent a payment frequency i.e. \"every 18 months on the 3rd  Monday of the month at 11:59 PM\".\n",
+      "fields": [
+        {
+          "description": "The unit of time used to specify the period.",
+          "label": "Unit",
+          "name": "Unit",
+          "type": "TimeUnit"
+        },
+        {
+          "description": "Number of units of the duration of the period. Example 18 with Unit M for every 18 months.\n",
+          "example": 18,
+          "label": "Unit Count",
+          "name": "UnitCount",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "The time unit specifying the end of the period i.e. \"The 3rd Monday of the month\"",
+          "label": "End Unit",
+          "name": "EndUnit",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "The index of the EndUnit. Day of week starts on Sunday so if EndUnit is 'w' then Sunday is represented by 0, and Monday would be 1. If EndUnit is 'M' then January is 0.\n",
+          "label": "End Index",
+          "name": "EndIndex",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "The count of the EndUnit to represent the end of the period. If EndUnit is 'w' and EndIndex is 1 (Monday), then EndCount of 3 means 3rd Monday of the month.\n",
+          "label": "End Count",
+          "name": "EndCount",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "The time of day the period ends.",
+          "label": "End Time",
+          "name": "EndTime",
+          "type": "Time"
+        }
+      ],
+      "label": "Period",
+      "name": "Period"
+    },
+    {
+      "description": "Time of day.",
+      "fields": [
+        {
+          "description": "The time of day. In nanoseconds since the start of day. Zero is midnight.",
+          "label": "Time",
+          "name": "Time",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "The minutes difference be UTC (Coordinated Universal Time) and the time zone.",
+          "label": "Time Zone Offset",
+          "name": "TimeZoneOffset",
+          "size": 2,
+          "type": "uint"
+        },
+        {
+          "description": "True if the TimeZoneOffset is positive from UTC. False if negative.",
+          "label": "Time Zone Positive",
+          "name": "TimeZonePositive",
+          "type": "bool"
+        }
+      ],
+      "label": "Time",
+      "name": "Time"
     }
   ],
   "messages": [
@@ -232,6 +372,110 @@
       "name": "ShareCommon"
     },
     {
+      "code": "BFR",
+      "description": "Common stock represents ownership interests in companies.",
+      "fields": [
+        {
+          "description": "Name of bond",
+          "example": "City of Chicago, Midway Airport, Series 2001A",
+          "label": "Name",
+          "name": "Name",
+          "type": "varchar"
+        },
+        {
+          "description": "Type of bond.\n  C - Corporate\n  M - Municipal\n  G - Government / Sovereign\n",
+          "example": "C",
+          "label": "Type",
+          "name": "Type",
+          "options": [
+            "C",
+            "M",
+            "G"
+          ],
+          "size": 1,
+          "type": "fixedchar"
+        },
+        {
+          "description": "International Securities Identification Number or Committee on Uniform Securities  Identification Procedures.\n",
+          "example": "US0004026250",
+          "label": "ISIN/CUSIP (optional)",
+          "name": "ISIN",
+          "type": "varchar"
+        },
+        {
+          "description": "The collateral securing the bond.",
+          "label": "Collateral",
+          "name": "Collateral",
+          "type": "varchar",
+          "varSize": "small"
+        },
+        {
+          "description": "Par value of the bond.",
+          "label": "Par Value",
+          "name": "ParValue",
+          "type": "CurrencyValue"
+        },
+        {
+          "description": "The fixed interest rate of the bond.",
+          "label": "Interest Rate",
+          "name": "InterestRate",
+          "type": "Rate"
+        },
+        {
+          "description": "The period of the interest payments.",
+          "label": "Interest Payment Period",
+          "name": "InterestPaymentPeriod",
+          "type": "Period"
+        },
+        {
+          "description": "The rate of the penalty per the penalty period.",
+          "label": "Late Payment Penalty Rate",
+          "name": "LatePaymentPenaltyRate",
+          "type": "Rate"
+        },
+        {
+          "description": "The period at which the late payment penalty accrues.",
+          "label": "Late Payment Penalty Period",
+          "name": "LatePaymentPenaltyPeriod",
+          "type": "Period"
+        },
+        {
+          "description": "The amount of time in nanoseconds when the late payment penalty is applied.",
+          "label": "Late Payment Window",
+          "name": "LatePaymentWindow",
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "The date of the maturity of the bond.",
+          "label": "Maturity Date",
+          "name": "MaturityDate",
+          "type": "Timestamp"
+        },
+        {
+          "description": "Age restriction is used to specify required ages for asset ownership.",
+          "label": "Age Restriction",
+          "name": "AgeRestriction",
+          "type": "AgeRestriction"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent  peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        }
+      ],
+      "label": "Bond - Fixed Rate",
+      "metadata": {
+        "category": "Bond Fixed Rate Security",
+        "examples": [
+          "Chicago, Midway Airport, Series 2001A"
+        ],
+        "kind": "Security"
+      },
+      "name": "BondFixedRate"
+    },
+    {
       "code": "COU",
       "description": "A voucher entitling the holder to a discount on a particular product or service.",
       "fields": [
@@ -262,28 +506,17 @@
           "type": "Timestamp"
         },
         {
-          "displayOrder": 4,
-          "example": "Denominated in the smallest unit of currency specified in the Currency subfield.",
+          "example": "Deprecated for new Currency Value type. Denominated in the smallest unit of currency specified  in the Currency subfield.\n",
           "label": "Value",
           "name": "Value",
-          "size": 8,
-          "span": "right",
-          "type": "uint"
+          "type": "deprecated"
         },
         {
-          "description": "International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.",
-          "displayOrder": 4,
+          "description": "Deprecated for new Currency Value type. International Organization for Standardization code  for Currency. Currency for coupon. From resources/currency.\n",
           "example": "AUD",
           "label": "Currency",
           "name": "Currency",
-          "only_valid_when": {
-            "field_name": "Value"
-          },
-          "required_when": {
-            "field_name": "Value"
-          },
-          "span": "right",
-          "type": "CurrencyType"
+          "type": "deprecated"
         },
         {
           "displayOrder": 1,
@@ -296,25 +529,22 @@
           "varSize": "small"
         },
         {
-          "description": "Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.",
-          "example": 100,
+          "description": "Deprecated for new Currency Value type. Required field to specify the decimal precision of a  currency. It will normally be the \"precision\" value associated with the Currency. It is the  number of decimal places between the number of tokens and the common unit of measure. For  example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So  the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this  scenario 100 tokens are worth $1.\n",
           "label": "Precision",
           "name": "Precision",
-          "only_valid_when": {
-            "field_name": "Value"
-          },
-          "required_when": {
-            "field_name": "Value"
-          },
-          "size": 8,
-          "span": "full",
-          "type": "uint"
+          "type": "deprecated"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent  peer-to-peer transfers.\n",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
           "type": "bool"
+        },
+        {
+          "description": "Value of each coupon specified in a currency.",
+          "label": "Value",
+          "name": "Value",
+          "type": "CurrencyValue"
         }
       ],
       "label": "Coupon",
@@ -2821,6 +3051,66 @@
             "symbol": "ZK"
           },
           "name": "ZambianKwacha"
+        }
+      ]
+    },
+    {
+      "codeType": {
+        "size": 1,
+        "type": "fixedchar"
+      },
+      "description": "A unit of time used for a period specification.",
+      "name": "TimeUnit",
+      "values": [
+        {
+          "code": "Y",
+          "label": "Year",
+          "name": "Year"
+        },
+        {
+          "code": "M",
+          "label": "Month",
+          "name": "Month"
+        },
+        {
+          "code": "W",
+          "label": "Week",
+          "name": "Week"
+        },
+        {
+          "code": "D",
+          "label": "Day",
+          "name": "Day"
+        },
+        {
+          "code": "w",
+          "label": "Day of Week",
+          "name": "Day of Week"
+        },
+        {
+          "code": "H",
+          "label": "Hour",
+          "name": "Hour"
+        },
+        {
+          "code": "m",
+          "label": "Minute",
+          "name": "Minute"
+        },
+        {
+          "code": "s",
+          "label": "Second",
+          "name": "Second"
+        },
+        {
+          "code": "l",
+          "label": "Millisecond",
+          "name": "Millisecond"
+        },
+        {
+          "code": "n",
+          "label": "Nanosecond",
+          "name": "Nanosecond"
         }
       ]
     }

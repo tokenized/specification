@@ -1,0 +1,61 @@
+
+description: Common stock represents ownership interests in companies.
+type: object
+properties:
+  Name:
+    description: Name of bond
+    type: string
+    example: "City of Chicago, Midway Airport, Series 2001A"
+  Type:
+    description: Type of bond.
+  C - Corporate
+  M - Municipal
+  G - Government / Sovereign
+    type: string
+    example: "C"
+  ISIN:
+    description:  >
+      International Securities Identification Number or Committee on Uniform Securities 
+      Identification Procedures.
+    type: string
+    example: "US0004026250"
+  Collateral:
+    description: The collateral securing the bond.
+    type: string
+  ParValue:
+    description: Par value of the bond.
+    type: object
+    $ref: "#/components/schemas/CurrencyValueField"
+  InterestRate:
+    description: The fixed interest rate of the bond.
+    type: object
+    $ref: "#/components/schemas/RateField"
+  InterestPaymentPeriod:
+    description: The period of the interest payments.
+    type: object
+    $ref: "#/components/schemas/PeriodField"
+  LatePaymentPenaltyRate:
+    description: The rate of the penalty per the penalty period.
+    type: object
+    $ref: "#/components/schemas/RateField"
+  LatePaymentPenaltyPeriod:
+    description: The period at which the late payment penalty accrues.
+    type: object
+    $ref: "#/components/schemas/PeriodField"
+  LatePaymentWindow:
+    description: The amount of time in nanoseconds when the late payment penalty is applied.
+    type: number
+  MaturityDate:
+    description: The date of the maturity of the bond.
+    type: number
+    example: 1594668650000000000
+  AgeRestriction:
+    description: Age restriction is used to specify required ages for asset ownership.
+    type: object
+    $ref: "#/components/schemas/AgeRestrictionField"
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent 
+      peer-to-peer transfers.
+    type: boolean
+

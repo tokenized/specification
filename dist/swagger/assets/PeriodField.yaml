@@ -1,0 +1,33 @@
+
+description:  >
+  A period of a repeated event. To represent a payment frequency i.e. "every 18 months on the 3rd 
+  Monday of the month at 11:59 PM".
+type: object
+properties:
+  Unit:
+    description: The unit of time used to specify the period.
+    type: string
+    example: "M"
+  UnitCount:
+    description:  >
+      Number of units of the duration of the period. Example 18 with Unit M for every 18 months.
+    type: number
+    example: 18
+  EndUnit:
+    description: The time unit specifying the end of the period i.e. "The 3rd Monday of the month"
+    type: number
+  EndIndex:
+    description:  >
+      The index of the EndUnit. Day of week starts on Sunday so if EndUnit is 'w' then Sunday is
+      represented by 0, and Monday would be 1. If EndUnit is 'M' then January is 0.
+    type: number
+  EndCount:
+    description:  >
+      The count of the EndUnit to represent the end of the period. If EndUnit is 'w' and EndIndex is
+      1 (Monday), then EndCount of 3 means 3rd Monday of the month.
+    type: number
+  EndTime:
+    description: The time of day the period ends.
+    type: object
+    $ref: "#/components/schemas/TimeField"
+
