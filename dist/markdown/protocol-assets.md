@@ -278,7 +278,7 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
     </tr>
 
     <tr>
-        <td>Type</td>
+        <td>BondType</td>
         <td>
             fixedchar(1)
         </td>
@@ -288,7 +288,7 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
   M - Municipal
   G - Government / Sovereign
 
-             Example: C
+             This field is always required.  Example: C
         </td>
     </tr>
 
@@ -322,7 +322,7 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
         </td>
         <td>
             Par value of the bond. The value that will be paid at maturity.
-            
+             This field is always required. 
         </td>
     </tr>
 
@@ -779,6 +779,7 @@ Casino Chip
         </td>
         <td>
             International Organization for Standardization code for Currency. (Specification/Resources)
+
              This field is always required.  Example: AUD
         </td>
     </tr>
@@ -833,7 +834,7 @@ Casino Chip
             uint(8)
         </td>
         <td>
-            Required field to specify the decimal precision of a currency. It will normally be the  &#34;precision&#34; value associated with the CurrencyCode. It is the number of decimal places between  the number of tokens and the common unit of measure. For example, in AUD, the common unit is  the dollar, but a token would only be worth a penny. So the precision should be 2 for the two  decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
+            Required field to specify the decimal precision of a currency. It will normally be the &#34;precision&#34; value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
 
              This field is always required.  Example: 100
         </td>

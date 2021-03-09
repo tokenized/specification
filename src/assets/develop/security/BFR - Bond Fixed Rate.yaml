@@ -22,8 +22,8 @@ fields:
     type: varchar
     example: City of Chicago, Midway Airport, Series 2001A
 
-  - name: Type
-    label: Type
+  - name: BondType
+    label: Bond Type
     description: >
       Type of bond.
         C - Corporate
@@ -36,6 +36,7 @@ fields:
       - M
       - G
     example: C
+    required: true
 
   - name: ISIN
     label: ISIN/CUSIP (optional)
@@ -55,6 +56,7 @@ fields:
     label: Par Value
     description: Par value of the bond. The value that will be paid at maturity.
     type: CurrencyValue
+    required: true
 
   - name: InterestRate
     label: Interest Rate

@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func TestPaymentListSizes(t *testing.T) {
+func TestInterestPaymentListSizes(t *testing.T) {
 	bondHourly := &BondFixedRate{
 		Name: "Hourly bond",
 		InterestRate: &RateField{
@@ -57,4 +57,54 @@ func TestPaymentListSizes(t *testing.T) {
 
 	t.Logf("Monthly Bond for 30 years : %d payment deltas, %d bytes",
 		len(bondMonthly.InterestPaymentDateDeltas), len(b))
+}
+
+func TestParValueRequired(t *testing.T) {
+	bond := &BondFixedRate{
+		Name: "Bond",
+		InterestRate: &RateField{
+			Precision: 2,
+			Value:     1,
+		},
+	}
+
+	if err := bond.Validate(); err == nil {
+		t.Errorf("Bond without type should be invalid")
+	} else {
+		t.Logf("Bond is correctly invalid without type : %s", err)
+	}
+
+	bond.BondType = BondTypeCorporate
+
+	if err := bond.Validate(); err == nil {
+		t.Errorf("Bond without par value should be invalid")
+	} else {
+		t.Logf("Bond is correctly invalid without par value : %s", err)
+	}
+
+	bond.ParValue = &CurrencyValueField{
+		Value:     100,
+		Precision: 2,
+	}
+
+	if err := bond.Validate(); err == nil {
+		t.Errorf("Bond without par value currency code should be invalid")
+	} else {
+		t.Logf("Bond is correctly invalid without par value currency code : %s", err)
+	}
+
+	bond.ParValue.CurrencyCode = "AUD"
+	bond.ParValue.Value = 0
+
+	if err := bond.Validate(); err == nil {
+		t.Errorf("Bond without par value value should be invalid")
+	} else {
+		t.Logf("Bond is correctly invalid without par value value : %s", err)
+	}
+
+	bond.ParValue.Value = 100
+
+	if err := bond.Validate(); err != nil {
+		t.Errorf("Bond should be valid : %s", err)
+	}
 }

@@ -435,7 +435,7 @@ func (a *ShareCommon) CreateAmendments(fip permissions.FieldIndexPath,
 // BondFixedRate Permission / Amendment Field Indices
 const (
 	BondFixedRateFieldName                       = uint32(1)
-	BondFixedRateFieldType                       = uint32(2)
+	BondFixedRateFieldBondType                   = uint32(2)
 	BondFixedRateFieldISIN                       = uint32(3)
 	BondFixedRateFieldCollateral                 = uint32(4)
 	BondFixedRateFieldParValue                   = uint32(5)
@@ -465,8 +465,8 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		a.Name = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case BondFixedRateFieldType: // string
-		a.Type = string(data)
+	case BondFixedRateFieldBondType: // string
+		a.BondType = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
 	case BondFixedRateFieldISIN: // string
@@ -659,12 +659,12 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Type string
-	fip = append(ofip, BondFixedRateFieldType)
-	if a.Type != newValue.Type {
+	// BondType string
+	fip = append(ofip, BondFixedRateFieldBondType)
+	if a.BondType != newValue.BondType {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: []byte(newValue.Type),
+			Data: []byte(newValue.BondType),
 		})
 	}
 

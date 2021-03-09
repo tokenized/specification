@@ -39,6 +39,15 @@ const (
 
 	// BondTypeGovernment specifies a government bond.
 	BondTypeGovernment = "G"
+
+	// CasinoChipUseTypeRealMoney specifies a casino chip is real money.
+	CasinoChipUseTypeRealMoney = "R"
+
+	// CasinoChipUseTypeSocial specifies a casino chip is social.
+	CasinoChipUseTypeSocial = "S"
+
+	// CasinoChipUseTypeFreePlay specifies a casino chip is free play.
+	CasinoChipUseTypeFreePlay = "F"
 )
 
 // NewAssetFromCode returns a new object of the correct type for the code.

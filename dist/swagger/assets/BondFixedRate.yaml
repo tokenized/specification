@@ -9,7 +9,7 @@ properties:
     description: Name of bond
     type: string
     example: "City of Chicago, Midway Airport, Series 2001A"
-  Type:
+  BondType:
     description: Type of bond.
   C - Corporate
   M - Municipal

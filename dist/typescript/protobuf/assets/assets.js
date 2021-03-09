@@ -1097,7 +1097,7 @@ proto.assets.BondFixedRate.prototype.toObject = function(opt_includeInstance) {
 proto.assets.BondFixedRate.toObject = function(includeInstance, msg) {
   var f, obj = {
     name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    type: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    bondtype: jspb.Message.getFieldWithDefault(msg, 2, ""),
     isin: jspb.Message.getFieldWithDefault(msg, 3, ""),
     collateral: jspb.Message.getFieldWithDefault(msg, 4, ""),
     parvalue: (f = msg.getParvalue()) && proto.assets.CurrencyValueField.toObject(includeInstance, f),
@@ -1152,7 +1152,7 @@ proto.assets.BondFixedRate.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setType(value);
+      msg.setBondtype(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
@@ -1242,7 +1242,7 @@ proto.assets.BondFixedRate.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getType();
+  f = message.getBondtype();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -1359,10 +1359,10 @@ proto.assets.BondFixedRate.prototype.setName = function(value) {
 
 
 /**
- * optional string Type = 2;
+ * optional string BondType = 2;
  * @return {string}
  */
-proto.assets.BondFixedRate.prototype.getType = function() {
+proto.assets.BondFixedRate.prototype.getBondtype = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -1371,7 +1371,7 @@ proto.assets.BondFixedRate.prototype.getType = function() {
  * @param {string} value
  * @return {!proto.assets.BondFixedRate} returns this
  */
-proto.assets.BondFixedRate.prototype.setType = function(value) {
+proto.assets.BondFixedRate.prototype.setBondtype = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 

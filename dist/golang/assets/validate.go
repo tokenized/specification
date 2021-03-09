@@ -133,10 +133,23 @@ func (a *BondFixedRate) Validate() error {
 		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
 	}
 
-	// Field Type - fixedchar
-	if len(a.Type) != 0 && len(a.Type) != 1 {
-		return fmt.Errorf("Type fixed width field wrong size : %d should be %d",
-			len(a.Type), 1)
+	// Field BondType - fixedchar
+	if len(a.BondType) != 0 && len(a.BondType) != 1 {
+		return fmt.Errorf("BondType fixed width field wrong size : %d should be %d",
+			len(a.BondType), 1)
+	}
+	foundBondType := false
+	for _, o := range []string{"C", "M", "G"} {
+		if a.BondType == o {
+			foundBondType = true
+			break
+		}
+	}
+	if !foundBondType {
+		return fmt.Errorf("BondType value not within options [C M G] : %s", a.BondType)
+	}
+	if len(a.BondType) == 0 {
+		return fmt.Errorf("BondType required")
 	}
 
 	// Field ISIN - varchar
@@ -152,6 +165,9 @@ func (a *BondFixedRate) Validate() error {
 	// Field ParValue - CurrencyValue
 	if err := a.ParValue.Validate(); err != nil {
 		return errors.Wrap(err, "ParValue")
+	}
+	if a.ParValue == nil {
+		return fmt.Errorf("ParValue required")
 	}
 
 	// Field InterestRate - Rate
@@ -327,6 +343,16 @@ func (a *CasinoChip) Validate() error {
 	if len(a.UseType) != 0 && len(a.UseType) != 1 {
 		return fmt.Errorf("UseType fixed width field wrong size : %d should be %d",
 			len(a.UseType), 1)
+	}
+	foundUseType := false
+	for _, o := range []string{"R", "S", "F"} {
+		if a.UseType == o {
+			foundUseType = true
+			break
+		}
+	}
+	if !foundUseType {
+		return fmt.Errorf("UseType value not within options [R S F] : %s", a.UseType)
 	}
 
 	// Field AgeRestriction - AgeRestriction

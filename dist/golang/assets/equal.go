@@ -166,9 +166,9 @@ func (l *BondFixedRate) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Name string mismatched")
 	}
 
-	// Field Type - fixedchar
-	if c.Type != r.Type {
-		return false // fmt.Errorf("Type string mismatched")
+	// Field BondType - fixedchar
+	if c.BondType != r.BondType {
+		return false // fmt.Errorf("BondType string mismatched")
 	}
 
 	// Field ISIN - varchar

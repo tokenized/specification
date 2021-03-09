@@ -36,7 +36,7 @@ message ShareCommon {
 // Message - Bond - Fixed Rate (BFR)
 message BondFixedRate {
     string Name                                    = 1;   // varchar
-    string Type                                    = 2;   // fixedchar
+    string BondType                                = 2;   // fixedchar
     string ISIN                                    = 3;   // varchar
     string Collateral                              = 4;   // varchar
     CurrencyValueField ParValue                    = 5;   // CurrencyValue
