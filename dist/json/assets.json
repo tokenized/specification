@@ -9,19 +9,25 @@
       "type": "fixedchar"
     },
     {
-      "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds  since the Unix epoch.\n",
+      "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.\n",
       "example": 1594668650000000000,
       "name": "Timestamp",
       "size": 8,
       "type": "uint"
     },
     {
-      "description": "Unit of time.",
-      "example": "M",
-      "name": "TimeUnit",
-      "resource": "TimeUnit",
-      "size": 1,
-      "type": "fixedchar"
+      "description": "Represents a time encoded as a 64 bit unsigned integer representing the number of seconds since the Unix epoch.\n",
+      "example": 1594668654,
+      "name": "TimestampSeconds",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "description": "Represents a time delta encoded as a 64 bit unsigned integer representing the number of seconds since a previous timestamp.\n",
+      "example": 1500,
+      "name": "Seconds",
+      "size": 8,
+      "type": "uint"
     }
   ],
   "fieldTypes": [
@@ -101,81 +107,6 @@
       ],
       "label": "Rate",
       "name": "Rate"
-    },
-    {
-      "description": "A period of a repeated event. To represent a payment frequency i.e. \"every 18 months on the 3rd  Monday of the month at 11:59 PM\".\n",
-      "fields": [
-        {
-          "description": "The unit of time used to specify the period.",
-          "label": "Unit",
-          "name": "Unit",
-          "type": "TimeUnit"
-        },
-        {
-          "description": "Number of units of the duration of the period. Example 18 with Unit M for every 18 months.\n",
-          "example": 18,
-          "label": "Unit Count",
-          "name": "UnitCount",
-          "size": 8,
-          "type": "uint"
-        },
-        {
-          "description": "The time unit specifying the end of the period i.e. \"The 3rd Monday of the month\"",
-          "label": "End Unit",
-          "name": "EndUnit",
-          "size": 8,
-          "type": "uint"
-        },
-        {
-          "description": "The index of the EndUnit. Day of week starts on Sunday so if EndUnit is 'w' then Sunday is represented by 0, and Monday would be 1. If EndUnit is 'M' then January is 0.\n",
-          "label": "End Index",
-          "name": "EndIndex",
-          "size": 8,
-          "type": "uint"
-        },
-        {
-          "description": "The count of the EndUnit to represent the end of the period. If EndUnit is 'w' and EndIndex is 1 (Monday), then EndCount of 3 means 3rd Monday of the month.\n",
-          "label": "End Count",
-          "name": "EndCount",
-          "size": 8,
-          "type": "uint"
-        },
-        {
-          "description": "The time of day the period ends.",
-          "label": "End Time",
-          "name": "EndTime",
-          "type": "Time"
-        }
-      ],
-      "label": "Period",
-      "name": "Period"
-    },
-    {
-      "description": "Time of day.",
-      "fields": [
-        {
-          "description": "The time of day. In nanoseconds since the start of day. Zero is midnight.",
-          "label": "Time",
-          "name": "Time",
-          "size": 8,
-          "type": "uint"
-        },
-        {
-          "description": "The minutes difference be UTC (Coordinated Universal Time) and the time zone.",
-          "label": "Time Zone Offset",
-          "name": "TimeZoneOffset",
-          "size": 2,
-          "type": "uint"
-        },
-        {
-          "description": "True if the TimeZoneOffset is positive from UTC. False if negative.",
-          "label": "Time Zone Positive",
-          "name": "TimeZonePositive",
-          "type": "bool"
-        }
-      ],
-      "label": "Time",
-      "name": "Time"
     }
   ],
   "messages": [
@@ -373,7 +304,7 @@
     },
     {
       "code": "BFR",
-      "description": "Common stock represents ownership interests in companies.",
+      "description": "A fixed rate bond is a bond that pays the same level of interest over its entire term. An investor who wants to earn a guaranteed interest rate for a specified term could purchase a fixed rate bond in the form of a Treasury, corporate bond, municipal bond, or certificate of deposit (CD).\n",
       "fields": [
         {
           "description": "Name of bond",
@@ -396,21 +327,21 @@
           "type": "fixedchar"
         },
         {
-          "description": "International Securities Identification Number or Committee on Uniform Securities  Identification Procedures.\n",
+          "description": "International Securities Identification Number or Committee on Uniform Securities Identification Procedures.\n",
           "example": "US0004026250",
           "label": "ISIN/CUSIP (optional)",
           "name": "ISIN",
           "type": "varchar"
         },
         {
-          "description": "The collateral securing the bond.",
+          "description": "The collateral securing the bond. Empty when there is no collateral.",
           "label": "Collateral",
           "name": "Collateral",
           "type": "varchar",
           "varSize": "small"
         },
         {
-          "description": "Par value of the bond.",
+          "description": "Par value of the bond. The value that will be paid at maturity.",
           "label": "Par Value",
           "name": "ParValue",
           "type": "CurrencyValue"
@@ -422,10 +353,23 @@
           "type": "Rate"
         },
         {
-          "description": "The period of the interest payments.",
-          "label": "Interest Payment Period",
-          "name": "InterestPaymentPeriod",
-          "type": "Period"
+          "description": "Unix epoch date time (in seconds) for the first interest payment.",
+          "label": "Interest Payment Intiial Date",
+          "name": "InterestPaymentInitialDate",
+          "type": "TimestampSeconds"
+        },
+        {
+          "description": "Number of seconds from the previous interest payment until the next payment. A delta in seconds from the previous payment.\n",
+          "label": "Interest Payment Date Deltas",
+          "listSize": "small",
+          "name": "InterestPaymentDateDeltas",
+          "type": "Seconds[]"
+        },
+        {
+          "description": "The amount of time after a payment is due before the late payment penalty is applied.\n",
+          "label": "Late Payment Window",
+          "name": "LatePaymentWindow",
+          "type": "TimestampSeconds"
         },
         {
           "description": "The rate of the penalty per the penalty period.",
@@ -437,17 +381,10 @@
           "description": "The period at which the late payment penalty accrues.",
           "label": "Late Payment Penalty Period",
           "name": "LatePaymentPenaltyPeriod",
-          "type": "Period"
+          "type": "TimestampSeconds"
         },
         {
-          "description": "The amount of time in nanoseconds when the late payment penalty is applied.",
-          "label": "Late Payment Window",
-          "name": "LatePaymentWindow",
-          "size": 8,
-          "type": "uint"
-        },
-        {
-          "description": "The date of the maturity of the bond.",
+          "description": "The date of the maturity of the bond. When the par value is paid.",
           "label": "Maturity Date",
           "name": "MaturityDate",
           "type": "Timestamp"
@@ -459,7 +396,7 @@
           "type": "AgeRestriction"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent  peer-to-peer transfers.\n",
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
           "type": "bool"
@@ -3051,66 +2988,6 @@
             "symbol": "ZK"
           },
           "name": "ZambianKwacha"
-        }
-      ]
-    },
-    {
-      "codeType": {
-        "size": 1,
-        "type": "fixedchar"
-      },
-      "description": "A unit of time used for a period specification.",
-      "name": "TimeUnit",
-      "values": [
-        {
-          "code": "Y",
-          "label": "Year",
-          "name": "Year"
-        },
-        {
-          "code": "M",
-          "label": "Month",
-          "name": "Month"
-        },
-        {
-          "code": "W",
-          "label": "Week",
-          "name": "Week"
-        },
-        {
-          "code": "D",
-          "label": "Day",
-          "name": "Day"
-        },
-        {
-          "code": "w",
-          "label": "Day of Week",
-          "name": "Day of Week"
-        },
-        {
-          "code": "H",
-          "label": "Hour",
-          "name": "Hour"
-        },
-        {
-          "code": "m",
-          "label": "Minute",
-          "name": "Minute"
-        },
-        {
-          "code": "s",
-          "label": "Second",
-          "name": "Second"
-        },
-        {
-          "code": "l",
-          "label": "Millisecond",
-          "name": "Millisecond"
-        },
-        {
-          "code": "n",
-          "label": "Nanosecond",
-          "name": "Nanosecond"
         }
       ]
     }

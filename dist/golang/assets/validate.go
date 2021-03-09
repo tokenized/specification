@@ -159,22 +159,21 @@ func (a *BondFixedRate) Validate() error {
 		return errors.Wrap(err, "InterestRate")
 	}
 
-	// Field InterestPaymentPeriod - Period
-	if err := a.InterestPaymentPeriod.Validate(); err != nil {
-		return errors.Wrap(err, "InterestPaymentPeriod")
+	// Field InterestPaymentInitialDate - uint
+
+	// Field InterestPaymentDateDeltas - uint
+	if len(a.InterestPaymentDateDeltas) > max2ByteInteger {
+		return fmt.Errorf("InterestPaymentDateDeltas list over max length : %d > %d", len(a.InterestPaymentDateDeltas), max2ByteInteger)
 	}
+
+	// Field LatePaymentWindow - uint
 
 	// Field LatePaymentPenaltyRate - Rate
 	if err := a.LatePaymentPenaltyRate.Validate(); err != nil {
 		return errors.Wrap(err, "LatePaymentPenaltyRate")
 	}
 
-	// Field LatePaymentPenaltyPeriod - Period
-	if err := a.LatePaymentPenaltyPeriod.Validate(); err != nil {
-		return errors.Wrap(err, "LatePaymentPenaltyPeriod")
-	}
-
-	// Field LatePaymentWindow - uint
+	// Field LatePaymentPenaltyPeriod - uint
 
 	// Field MaturityDate - uint
 
@@ -411,53 +410,6 @@ func (a *RateField) Validate() error {
 	}
 
 	// Field Value - uint
-
-	return nil
-}
-
-func (a *PeriodField) Validate() error {
-	if a == nil {
-		return nil
-	}
-
-	// Field Unit - fixedchar  (TimeUnit Resource)
-	if TimeUnitData(a.Unit) == nil {
-		return fmt.Errorf("Unit resource TimeUnit value not defined : %v", a.Unit)
-	}
-	if len(a.Unit) != 0 && len(a.Unit) != 1 {
-		return fmt.Errorf("Unit fixed width field wrong size : %d should be %d",
-			len(a.Unit), 1)
-	}
-
-	// Field UnitCount - uint
-
-	// Field EndUnit - uint
-
-	// Field EndIndex - uint
-
-	// Field EndCount - uint
-
-	// Field EndTime - Time
-	if err := a.EndTime.Validate(); err != nil {
-		return errors.Wrap(err, "EndTime")
-	}
-
-	return nil
-}
-
-func (a *TimeField) Validate() error {
-	if a == nil {
-		return nil
-	}
-
-	// Field Time - uint
-
-	// Field TimeZoneOffset - uint
-	if a.TimeZoneOffset > uint32(max2ByteInteger) {
-		return fmt.Errorf("TimeZoneOffset over max value : %d > %d", a.TimeZoneOffset, max2ByteInteger)
-	}
-
-	// Field TimeZonePositive - bool
 
 	return nil
 }

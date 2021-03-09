@@ -257,7 +257,8 @@ Common stock represents ownership interests in companies.
 <a name="bond-fixed-rate"></a>
 #### Bond - Fixed Rate
 
-Common stock represents ownership interests in companies.
+A fixed rate bond is a bond that pays the same level of interest over its entire term. An investor who wants to earn a guaranteed interest rate for a specified term could purchase a fixed rate bond in the form of a Treasury, corporate bond, municipal bond, or certificate of deposit (CD).
+
 
 <table>
     <tr>
@@ -297,7 +298,7 @@ Common stock represents ownership interests in companies.
             varchar(tiny)
         </td>
         <td>
-            International Securities Identification Number or Committee on Uniform Securities  Identification Procedures.
+            International Securities Identification Number or Committee on Uniform Securities Identification Procedures.
 
              Example: US0004026250
         </td>
@@ -309,7 +310,7 @@ Common stock represents ownership interests in companies.
             varchar(small)
         </td>
         <td>
-            The collateral securing the bond.
+            The collateral securing the bond. Empty when there is no collateral.
             
         </td>
     </tr>
@@ -320,7 +321,7 @@ Common stock represents ownership interests in companies.
             <a href="#type-currency-value">CurrencyValue</a>
         </td>
         <td>
-            Par value of the bond.
+            Par value of the bond. The value that will be paid at maturity.
             
         </td>
     </tr>
@@ -337,12 +338,36 @@ Common stock represents ownership interests in companies.
     </tr>
 
     <tr>
-        <td>InterestPaymentPeriod</td>
+        <td>InterestPaymentInitialDate</td>
         <td>
-            <a href="#type-period">Period</a>
+            <a href="#alias-uint">TimestampSeconds</a>
         </td>
         <td>
-            The period of the interest payments.
+            Unix epoch date time (in seconds) for the first interest payment.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>InterestPaymentDateDeltas</td>
+        <td>
+            <a href="#alias-uint">uint[0]</a>
+        </td>
+        <td>
+            Number of seconds from the previous interest payment until the next payment. A delta in seconds from the previous payment.
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>LatePaymentWindow</td>
+        <td>
+            <a href="#alias-uint">TimestampSeconds</a>
+        </td>
+        <td>
+            The amount of time after a payment is due before the late payment penalty is applied.
+
             
         </td>
     </tr>
@@ -361,21 +386,10 @@ Common stock represents ownership interests in companies.
     <tr>
         <td>LatePaymentPenaltyPeriod</td>
         <td>
-            <a href="#type-period">Period</a>
+            <a href="#alias-uint">TimestampSeconds</a>
         </td>
         <td>
             The period at which the late payment penalty accrues.
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>LatePaymentWindow</td>
-        <td>
-            uint(8)
-        </td>
-        <td>
-            The amount of time in nanoseconds when the late payment penalty is applied.
             
         </td>
     </tr>
@@ -386,7 +400,7 @@ Common stock represents ownership interests in companies.
             <a href="#alias-uint">Timestamp</a>
         </td>
         <td>
-            The date of the maturity of the bond.
+            The date of the maturity of the bond. When the par value is paid.
             
         </td>
     </tr>
@@ -408,7 +422,7 @@ Common stock represents ownership interests in companies.
             bool
         </td>
         <td>
-            Set to true if transfers are permitted between two parties, otherwise set to false to prevent  peer-to-peer transfers.
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
 
             
         </td>
@@ -847,8 +861,6 @@ Casino Chip
 - [Age Restriction](#type-age-restriction)
 - [Currency Value](#type-currency-value)
 - [Rate](#type-rate)
-- [Period](#type-period)
-- [Time](#type-time)
 </div>
 
 
@@ -978,139 +990,6 @@ A rate value specified in terms of a precision.
 
 
 
-<a name="type-period"></a>
-### Period
-
-A period of a repeated event. To represent a payment frequency i.e. &#34;every 18 months on the 3rd  Monday of the month at 11:59 PM&#34;.
-
-
-<table>
-    <tr>
-        <th style="width:15%">Field</th>
-        <th style="width:15%">Type</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>Unit</td>
-        <td>
-            <a href="#alias-fixedchar">TimeUnit</a>
-        </td>
-        <td>
-            The unit of time used to specify the period.
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>UnitCount</td>
-        <td>
-            uint(8)
-        </td>
-        <td>
-            Number of units of the duration of the period. Example 18 with Unit M for every 18 months.
-
-             Example: 18
-        </td>
-    </tr>
-
-    <tr>
-        <td>EndUnit</td>
-        <td>
-            uint(8)
-        </td>
-        <td>
-            The time unit specifying the end of the period i.e. &#34;The 3rd Monday of the month&#34;
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>EndIndex</td>
-        <td>
-            uint(8)
-        </td>
-        <td>
-            The index of the EndUnit. Day of week starts on Sunday so if EndUnit is &#39;w&#39; then Sunday is represented by 0, and Monday would be 1. If EndUnit is &#39;M&#39; then January is 0.
-
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>EndCount</td>
-        <td>
-            uint(8)
-        </td>
-        <td>
-            The count of the EndUnit to represent the end of the period. If EndUnit is &#39;w&#39; and EndIndex is 1 (Monday), then EndCount of 3 means 3rd Monday of the month.
-
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>EndTime</td>
-        <td>
-            <a href="#type-time">Time</a>
-        </td>
-        <td>
-            The time of day the period ends.
-            
-        </td>
-    </tr>
-
-</table>
-
-
-
-<a name="type-time"></a>
-### Time
-
-Time of day.
-
-<table>
-    <tr>
-        <th style="width:15%">Field</th>
-        <th style="width:15%">Type</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>Time</td>
-        <td>
-            uint(8)
-        </td>
-        <td>
-            The time of day. In nanoseconds since the start of day. Zero is midnight.
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>TimeZoneOffset</td>
-        <td>
-            uint(2)
-        </td>
-        <td>
-            The minutes difference be UTC (Coordinated Universal Time) and the time zone.
-            
-        </td>
-    </tr>
-
-    <tr>
-        <td>TimeZonePositive</td>
-        <td>
-            bool
-        </td>
-        <td>
-            True if the TimeZoneOffset is positive from UTC. False if negative.
-            
-        </td>
-    </tr>
-
-</table>
-
-
-
 <a name="field-aliases"></a>
 ## Field Aliases
 
@@ -1137,19 +1016,31 @@ Time of day.
                 uint(8)
             </td>
             <td>
-                Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds  since the Unix epoch.
+                Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.
 
                  Example: 1594668650000000000
             </td>
         </tr>
-        <tr id="alias-time-unit">
-            <td>TimeUnit</td>
+        <tr id="alias-timestamp-seconds">
+            <td>TimestampSeconds</td>
             <td>
-                fixedchar(1)
+                uint(8)
             </td>
             <td>
-                Unit of time.
-                 Example: M
+                Represents a time encoded as a 64 bit unsigned integer representing the number of seconds since the Unix epoch.
+
+                 Example: 1594668654
+            </td>
+        </tr>
+        <tr id="alias-seconds">
+            <td>Seconds</td>
+            <td>
+                uint(8)
+            </td>
+            <td>
+                Represents a time delta encoded as a 64 bit unsigned integer representing the number of seconds since a previous timestamp.
+
+                 Example: 1500
             </td>
         </tr>
 </table>

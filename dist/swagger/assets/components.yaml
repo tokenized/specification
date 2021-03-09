@@ -22,7 +22,3 @@ components:
       $ref: ./_components/schemas/tokenized/assets/CurrencyValueField.yaml
     RateField:
       $ref: ./_components/schemas/tokenized/assets/RateField.yaml
-    PeriodField:
-      $ref: ./_components/schemas/tokenized/assets/PeriodField.yaml
-    TimeField:
-      $ref: ./_components/schemas/tokenized/assets/TimeField.yaml

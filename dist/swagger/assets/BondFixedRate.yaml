@@ -1,5 +1,8 @@
 
-description: Common stock represents ownership interests in companies.
+description:  >
+  A fixed rate bond is a bond that pays the same level of interest over its entire term. An investor
+  who wants to earn a guaranteed interest rate for a specified term could purchase a fixed rate bond
+  in the form of a Treasury, corporate bond, municipal bond, or certificate of deposit (CD).
 type: object
 properties:
   Name:
@@ -15,38 +18,47 @@ properties:
     example: "C"
   ISIN:
     description:  >
-      International Securities Identification Number or Committee on Uniform Securities 
+      International Securities Identification Number or Committee on Uniform Securities
       Identification Procedures.
     type: string
     example: "US0004026250"
   Collateral:
-    description: The collateral securing the bond.
+    description: The collateral securing the bond. Empty when there is no collateral.
     type: string
   ParValue:
-    description: Par value of the bond.
+    description: Par value of the bond. The value that will be paid at maturity.
     type: object
     $ref: "#/components/schemas/CurrencyValueField"
   InterestRate:
     description: The fixed interest rate of the bond.
     type: object
     $ref: "#/components/schemas/RateField"
-  InterestPaymentPeriod:
-    description: The period of the interest payments.
-    type: object
-    $ref: "#/components/schemas/PeriodField"
+  InterestPaymentInitialDate:
+    description: Unix epoch date time (in seconds) for the first interest payment.
+    type: number
+    example: 1594668654
+  InterestPaymentDateDeltas:
+    description:  >
+      Number of seconds from the previous interest payment until the next payment. A delta in seconds
+      from the previous payment.
+    type: array
+    items:
+      type: number
+  LatePaymentWindow:
+    description:  >
+      The amount of time after a payment is due before the late payment penalty is applied.
+    type: number
+    example: 1594668654
   LatePaymentPenaltyRate:
     description: The rate of the penalty per the penalty period.
     type: object
     $ref: "#/components/schemas/RateField"
   LatePaymentPenaltyPeriod:
     description: The period at which the late payment penalty accrues.
-    type: object
-    $ref: "#/components/schemas/PeriodField"
-  LatePaymentWindow:
-    description: The amount of time in nanoseconds when the late payment penalty is applied.
     type: number
+    example: 1594668654
   MaturityDate:
-    description: The date of the maturity of the bond.
+    description: The date of the maturity of the bond. When the par value is paid.
     type: number
     example: 1594668650000000000
   AgeRestriction:
@@ -55,7 +67,7 @@ properties:
     $ref: "#/components/schemas/AgeRestrictionField"
   TransfersPermitted:
     description:  >
-      Set to true if transfers are permitted between two parties, otherwise set to false to prevent 
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
       peer-to-peer transfers.
     type: boolean
 

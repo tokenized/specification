@@ -41,13 +41,14 @@ message BondFixedRate {
     string Collateral                              = 4;   // varchar
     CurrencyValueField ParValue                    = 5;   // CurrencyValue
     RateField InterestRate                         = 6;   // Rate
-    PeriodField InterestPaymentPeriod              = 7;   // Period
-    RateField LatePaymentPenaltyRate               = 8;   // Rate
-    PeriodField LatePaymentPenaltyPeriod           = 9;   // Period
-    uint64 LatePaymentWindow                       = 10;   // uint
-    uint64 MaturityDate                            = 11;  // Timestamp
-    AgeRestrictionField AgeRestriction             = 12;  // AgeRestriction
-    bool TransfersPermitted                        = 13;  // bool
+    uint64 InterestPaymentInitialDate              = 7;   // TimestampSeconds
+    repeated uint64 InterestPaymentDateDeltas      = 8;   // Seconds[]
+    uint64 LatePaymentWindow                       = 9;   // TimestampSeconds
+    RateField LatePaymentPenaltyRate               = 10;   // Rate
+    uint64 LatePaymentPenaltyPeriod                = 11;  // TimestampSeconds
+    uint64 MaturityDate                            = 12;  // Timestamp
+    AgeRestrictionField AgeRestriction             = 13;  // AgeRestriction
+    bool TransfersPermitted                        = 14;  // bool
 }
 
 // Message - Coupon (COU)
@@ -117,22 +118,5 @@ message CurrencyValueField {
 message RateField {
     uint32 Precision                               = 1;   // uint
     uint64 Value                                   = 2;   // uint
-}
-
-// Field - Period
-message PeriodField {
-    string Unit                                    = 1;   // TimeUnit
-    uint64 UnitCount                               = 2;   // uint
-    uint64 EndUnit                                 = 3;   // uint
-    uint64 EndIndex                                = 4;   // uint
-    uint64 EndCount                                = 5;   // uint
-    TimeField EndTime                              = 6;   // Time
-}
-
-// Field - Time
-message TimeField {
-    uint64 Time                                    = 1;   // uint
-    uint32 TimeZoneOffset                          = 2;   // uint
-    bool TimeZonePositive                          = 3;   // bool
 }
 

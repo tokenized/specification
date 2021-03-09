@@ -25,15 +25,12 @@ messages:
 # Register Resources
 resources:
   - "../../resources/develop/Currencies"
-  - "../../resources/develop/TimeUnit"
 
 # Register Field Types
 fieldTypes:
   - "types/AgeRestriction"
   - "types/CurrencyValue"
   - "types/Rate"
-  - "types/Period"
-  - "types/Time"
 
 # Define Field Aliases
 fieldAliases:
@@ -49,13 +46,22 @@ fieldAliases:
     type: uint
     size: 8
     description: >
-      Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds 
+      Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds
       since the Unix epoch.
     example: 1594668650000000000
 
-  - name: TimeUnit
-    type: fixedchar
-    size: 1
-    description: Unit of time.
-    example: M
-    resource: TimeUnit
+  - name: TimestampSeconds
+    type: uint
+    size: 8
+    description: >
+      Represents a time encoded as a 64 bit unsigned integer representing the number of seconds
+      since the Unix epoch.
+    example: 1594668654
+
+  - name: Seconds
+    type: uint
+    size: 8
+    description: >
+      Represents a time delta encoded as a 64 bit unsigned integer representing the number of
+      seconds since a previous timestamp.
+    example: 1500

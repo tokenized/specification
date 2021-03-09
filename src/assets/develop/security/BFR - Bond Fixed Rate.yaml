@@ -5,7 +5,10 @@
 code: BFR
 name: BondFixedRate
 label: Bond - Fixed Rate
-description: Common stock represents ownership interests in companies.
+description: >
+  A fixed rate bond is a bond that pays the same level of interest over its entire term. An investor
+  who wants to earn a guaranteed interest rate for a specified term could purchase a fixed rate bond
+  in the form of a Treasury, corporate bond, municipal bond, or certificate of deposit (CD).
 
 metadata:
   kind: Security
@@ -20,38 +23,38 @@ fields:
     type: varchar
     example: City of Chicago, Midway Airport, Series 2001A
 
-  - name: Type 
+  - name: Type
     label: Type
     description: >
       Type of bond.
         C - Corporate
         M - Municipal
         G - Government / Sovereign
-    type: fixedchar 
-    size: 1 
+    type: fixedchar
+    size: 1
     options:
-      - C 
-      - M 
+      - C
+      - M
       - G
     example: C
 
   - name: ISIN
     label: ISIN/CUSIP (optional)
     description: >
-      International Securities Identification Number or Committee on Uniform Securities 
+      International Securities Identification Number or Committee on Uniform Securities
       Identification Procedures.
     type: varchar
     example: US0004026250
 
-  - name: Collateral 
+  - name: Collateral
     label: Collateral
-    description: The collateral securing the bond.
-    type: varchar 
+    description: The collateral securing the bond. Empty when there is no collateral.
+    type: varchar
     varSize: small
 
   - name: ParValue
     label: Par Value
-    description: Par value of the bond.
+    description: Par value of the bond. The value that will be paid at maturity.
     type: CurrencyValue
 
   - name: InterestRate
@@ -59,30 +62,38 @@ fields:
     description: The fixed interest rate of the bond.
     type: Rate
 
-  - name: InterestPaymentPeriod
-    label: Interest Payment Period 
-    description: The period of the interest payments.
-    type: Period
+  - name: InterestPaymentInitialDate
+    label: Interest Payment Intiial Date
+    description: Unix epoch date time (in seconds) for the first interest payment.
+    type: TimestampSeconds
+
+  - name: InterestPaymentDateDeltas
+    label: Interest Payment Date Deltas
+    description: >
+      Number of seconds from the previous interest payment until the next payment. A delta in
+      seconds from the previous payment.
+    type: Seconds[]
+    listSize: small
+
+  - name: LatePaymentWindow
+    label: Late Payment Window
+    description: >
+      The amount of time after a payment is due before the late payment penalty is applied.
+    type: TimestampSeconds
 
   - name: LatePaymentPenaltyRate
     label: Late Payment Penalty Rate
     description: The rate of the penalty per the penalty period.
-    type: Rate 
+    type: Rate
 
   - name: LatePaymentPenaltyPeriod
-    label: Late Payment Penalty Period 
+    label: Late Payment Penalty Period
     description: The period at which the late payment penalty accrues.
-    type: Period
-
-  - name: LatePaymentWindow
-    label: Late Payment Window 
-    description: The amount of time in nanoseconds when the late payment penalty is applied.
-    type: uint 
-    size: 8
+    type: TimestampSeconds
 
   - name: MaturityDate
     label: Maturity Date
-    description: The date of the maturity of the bond.
+    description: The date of the maturity of the bond. When the par value is paid.
     type: Timestamp
 
   - name: AgeRestriction
@@ -93,7 +104,6 @@ fields:
   - name: TransfersPermitted
     label: Transfers Permitted
     description: >
-      Set to true if transfers are permitted between two parties, otherwise set to false to prevent 
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
       peer-to-peer transfers.
     type: bool
-

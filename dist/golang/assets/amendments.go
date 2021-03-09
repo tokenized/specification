@@ -434,19 +434,20 @@ func (a *ShareCommon) CreateAmendments(fip permissions.FieldIndexPath,
 
 // BondFixedRate Permission / Amendment Field Indices
 const (
-	BondFixedRateFieldName                     = uint32(1)
-	BondFixedRateFieldType                     = uint32(2)
-	BondFixedRateFieldISIN                     = uint32(3)
-	BondFixedRateFieldCollateral               = uint32(4)
-	BondFixedRateFieldParValue                 = uint32(5)
-	BondFixedRateFieldInterestRate             = uint32(6)
-	BondFixedRateFieldInterestPaymentPeriod    = uint32(7)
-	BondFixedRateFieldLatePaymentPenaltyRate   = uint32(8)
-	BondFixedRateFieldLatePaymentPenaltyPeriod = uint32(9)
-	BondFixedRateFieldLatePaymentWindow        = uint32(10)
-	BondFixedRateFieldMaturityDate             = uint32(11)
-	BondFixedRateFieldAgeRestriction           = uint32(12)
-	BondFixedRateFieldTransfersPermitted       = uint32(13)
+	BondFixedRateFieldName                       = uint32(1)
+	BondFixedRateFieldType                       = uint32(2)
+	BondFixedRateFieldISIN                       = uint32(3)
+	BondFixedRateFieldCollateral                 = uint32(4)
+	BondFixedRateFieldParValue                   = uint32(5)
+	BondFixedRateFieldInterestRate               = uint32(6)
+	BondFixedRateFieldInterestPaymentInitialDate = uint32(7)
+	BondFixedRateFieldInterestPaymentDateDeltas  = uint32(8)
+	BondFixedRateFieldLatePaymentWindow          = uint32(9)
+	BondFixedRateFieldLatePaymentPenaltyRate     = uint32(10)
+	BondFixedRateFieldLatePaymentPenaltyPeriod   = uint32(11)
+	BondFixedRateFieldMaturityDate               = uint32(12)
+	BondFixedRateFieldAgeRestriction             = uint32(13)
+	BondFixedRateFieldTransfersPermitted         = uint32(14)
 )
 
 // ApplyAmendment updates a BondFixedRate based on amendment data.
@@ -494,32 +495,76 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 
 		return a.InterestRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
-	case BondFixedRateFieldInterestPaymentPeriod: // PeriodField
-
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+	case BondFixedRateFieldInterestPaymentInitialDate: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for InterestPaymentInitialDate : %v", fip)
 		}
-
-		return a.InterestPaymentPeriod.ApplyAmendment(fip[1:], operation, data, subPermissions)
-
-	case BondFixedRateFieldLatePaymentPenaltyRate: // RateField
-
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("InterestPaymentInitialDate amendment value failed to deserialize : %s", err)
+		} else {
+			a.InterestPaymentInitialDate = uint64(value)
 		}
+		return permissions.SubPermissions(fip, operation, false)
 
-		return a.LatePaymentPenaltyRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
+	case BondFixedRateFieldInterestPaymentDateDeltas: // []uint64
+		switch operation {
+		case 0: // Modify
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify InterestPaymentDateDeltas : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.InterestPaymentDateDeltas) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify InterestPaymentDateDeltas : %d", fip[1])
+			}
+			buf := bytes.NewBuffer(data)
+			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+				return nil, fmt.Errorf("InterestPaymentDateDeltas amendment value failed to deserialize : %s", err)
+			} else {
+				a.InterestPaymentDateDeltas[fip[1]] = uint64(value)
+			}
+			return permissions.SubPermissions(fip, operation, true)
 
-	case BondFixedRateFieldLatePaymentPenaltyPeriod: // PeriodField
+		case 1: // Add element
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add InterestPaymentDateDeltas : %v",
+					fip)
+			}
+			var newValue uint64
+			buf := bytes.NewBuffer(data)
+			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+				return nil, fmt.Errorf("InterestPaymentDateDeltas amendment value failed to deserialize : %s",
+					err)
+			} else {
+				newValue = uint64(value)
+			}
+			if len(a.InterestPaymentDateDeltas) <= int(fip[1]) {
+				// Append item to the end
+				a.InterestPaymentDateDeltas = append(a.InterestPaymentDateDeltas, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.InterestPaymentDateDeltas[:fip[1]]
+				after := make([]uint64, len(a.InterestPaymentDateDeltas)-int(fip[1]))
+				copy(after, a.InterestPaymentDateDeltas[fip[1]+1:]) // copy so slice reuse won't overwrite
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+				a.InterestPaymentDateDeltas = append(before, newValue)
+				a.InterestPaymentDateDeltas = append(a.InterestPaymentDateDeltas, after...)
+			}
+			return permissions.SubPermissions(fip, operation, true)
+
+		case 2: // Delete element
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete InterestPaymentDateDeltas : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.InterestPaymentDateDeltas) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete InterestPaymentDateDeltas : %d", fip[1])
+			}
+
+			// Remove item from list
+			a.InterestPaymentDateDeltas = append(a.InterestPaymentDateDeltas[:fip[1]], a.InterestPaymentDateDeltas[fip[1]+1:]...)
+			return permissions.SubPermissions(fip, operation, true)
 		}
-
-		return a.LatePaymentPenaltyPeriod.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
 	case BondFixedRateFieldLatePaymentWindow: // uint64
 		if len(fip) > 1 {
@@ -530,6 +575,27 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return nil, fmt.Errorf("LatePaymentWindow amendment value failed to deserialize : %s", err)
 		} else {
 			a.LatePaymentWindow = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	case BondFixedRateFieldLatePaymentPenaltyRate: // RateField
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, false)
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.LatePaymentPenaltyRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
+
+	case BondFixedRateFieldLatePaymentPenaltyPeriod: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for LatePaymentPenaltyPeriod : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("LatePaymentPenaltyPeriod amendment value failed to deserialize : %s", err)
+		} else {
+			a.LatePaymentPenaltyPeriod = uint64(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -638,14 +704,82 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 	result = append(result, InterestRateAmendments...)
 
-	// InterestPaymentPeriod PeriodField
-	fip = append(ofip, BondFixedRateFieldInterestPaymentPeriod)
+	// InterestPaymentInitialDate uint64
+	fip = append(ofip, BondFixedRateFieldInterestPaymentInitialDate)
+	if a.InterestPaymentInitialDate != newValue.InterestPaymentInitialDate {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.InterestPaymentInitialDate)); err != nil {
+			return nil, errors.Wrap(err, "InterestPaymentInitialDate")
+		}
 
-	InterestPaymentPeriodAmendments, err := a.InterestPaymentPeriod.CreateAmendments(fip, newValue.InterestPaymentPeriod)
-	if err != nil {
-		return nil, errors.Wrap(err, "InterestPaymentPeriod")
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
 	}
-	result = append(result, InterestPaymentPeriodAmendments...)
+
+	// InterestPaymentDateDeltas []uint64
+	fip = append(ofip, BondFixedRateFieldInterestPaymentDateDeltas)
+	InterestPaymentDateDeltasMin := len(a.InterestPaymentDateDeltas)
+	if InterestPaymentDateDeltasMin > len(newValue.InterestPaymentDateDeltas) {
+		InterestPaymentDateDeltasMin = len(newValue.InterestPaymentDateDeltas)
+	}
+
+	// Compare values
+	for i := 0; i < InterestPaymentDateDeltasMin; i++ {
+		lfip := append(fip, uint32(i))
+		if a.InterestPaymentDateDeltas[i] != newValue.InterestPaymentDateDeltas[i] {
+			var buf bytes.Buffer
+			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.InterestPaymentDateDeltas[i])); err != nil {
+				return nil, errors.Wrapf(err, "InterestPaymentDateDeltas %d", i)
+			}
+
+			result = append(result, &internal.Amendment{
+				FIP:       lfip,
+				Operation: 0, // Modify element
+				Data:      buf.Bytes(),
+			})
+		}
+	}
+
+	InterestPaymentDateDeltasMax := len(a.InterestPaymentDateDeltas)
+	if InterestPaymentDateDeltasMax < len(newValue.InterestPaymentDateDeltas) {
+		InterestPaymentDateDeltasMax = len(newValue.InterestPaymentDateDeltas)
+	}
+
+	// Add/Remove values
+	for i := InterestPaymentDateDeltasMin; i < InterestPaymentDateDeltasMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.InterestPaymentDateDeltas) {
+			amendment.Operation = 1 // Add element
+			var buf bytes.Buffer
+			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.InterestPaymentDateDeltas[i])); err != nil {
+				return nil, errors.Wrapf(err, "InterestPaymentDateDeltas %d", i)
+			}
+			amendment.Data = buf.Bytes()
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// LatePaymentWindow uint64
+	fip = append(ofip, BondFixedRateFieldLatePaymentWindow)
+	if a.LatePaymentWindow != newValue.LatePaymentWindow {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.LatePaymentWindow)); err != nil {
+			return nil, errors.Wrap(err, "LatePaymentWindow")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
 
 	// LatePaymentPenaltyRate RateField
 	fip = append(ofip, BondFixedRateFieldLatePaymentPenaltyRate)
@@ -656,21 +790,12 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 	result = append(result, LatePaymentPenaltyRateAmendments...)
 
-	// LatePaymentPenaltyPeriod PeriodField
+	// LatePaymentPenaltyPeriod uint64
 	fip = append(ofip, BondFixedRateFieldLatePaymentPenaltyPeriod)
-
-	LatePaymentPenaltyPeriodAmendments, err := a.LatePaymentPenaltyPeriod.CreateAmendments(fip, newValue.LatePaymentPenaltyPeriod)
-	if err != nil {
-		return nil, errors.Wrap(err, "LatePaymentPenaltyPeriod")
-	}
-	result = append(result, LatePaymentPenaltyPeriodAmendments...)
-
-	// LatePaymentWindow uint64
-	fip = append(ofip, BondFixedRateFieldLatePaymentWindow)
-	if a.LatePaymentWindow != newValue.LatePaymentWindow {
+	if a.LatePaymentPenaltyPeriod != newValue.LatePaymentPenaltyPeriod {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.LatePaymentWindow)); err != nil {
-			return nil, errors.Wrap(err, "LatePaymentWindow")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.LatePaymentPenaltyPeriod)); err != nil {
+			return nil, errors.Wrap(err, "LatePaymentPenaltyPeriod")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -1776,301 +1901,6 @@ func (a *RateField) CreateAmendments(fip permissions.FieldIndexPath,
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Value)); err != nil {
 			return nil, errors.Wrap(err, "Value")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
-
-	return result, nil
-}
-
-// PeriodField Permission / Amendment Field Indices
-const (
-	PeriodFieldUnit      = uint32(1)
-	PeriodFieldUnitCount = uint32(2)
-	PeriodFieldEndUnit   = uint32(3)
-	PeriodFieldEndIndex  = uint32(4)
-	PeriodFieldEndCount  = uint32(5)
-	PeriodFieldEndTime   = uint32(6)
-)
-
-// ApplyAmendment updates a PeriodField based on amendment data.
-// Note: This does not check permissions or data validity. This does check data format.
-// fip must have at least one value.
-func (a *PeriodField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
-	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
-
-	if len(fip) == 0 {
-		return nil, errors.New("Empty Period amendment field index path")
-	}
-
-	switch fip[0] {
-	case PeriodFieldUnit: // string
-
-		if TimeUnitData(a.Unit) == nil {
-			return nil, fmt.Errorf("TimeUnit resource value not defined : %v", a.Unit)
-		}
-		a.Unit = string(data)
-		return permissions.SubPermissions(fip, operation, false)
-	case PeriodFieldUnitCount: // uint64
-
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for UnitCount : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("UnitCount amendment value failed to deserialize : %s", err)
-		} else {
-			a.UnitCount = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
-	case PeriodFieldEndUnit: // uint64
-
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for EndUnit : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("EndUnit amendment value failed to deserialize : %s", err)
-		} else {
-			a.EndUnit = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
-	case PeriodFieldEndIndex: // uint64
-
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for EndIndex : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("EndIndex amendment value failed to deserialize : %s", err)
-		} else {
-			a.EndIndex = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
-	case PeriodFieldEndCount: // uint64
-
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for EndCount : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("EndCount amendment value failed to deserialize : %s", err)
-		} else {
-			a.EndCount = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
-	case PeriodFieldEndTime: // TimeField
-
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
-		}
-
-		return a.EndTime.ApplyAmendment(fip[1:], operation, data, subPermissions)
-	}
-
-	return nil, fmt.Errorf("Unknown Period amendment field index : %v", fip)
-}
-
-// CreateAmendments determines the differences between two Periods and returns
-// amendment data.
-func (a *PeriodField) CreateAmendments(fip permissions.FieldIndexPath,
-	newValue *PeriodField) ([]*internal.Amendment, error) {
-
-	if a.Equal(newValue) {
-		return nil, nil
-	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
-
-	// Unit string
-	fip = append(ofip, PeriodFieldUnit)
-	if a.Unit != newValue.Unit {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.Unit),
-		})
-	}
-
-	// UnitCount uint64
-	fip = append(ofip, PeriodFieldUnitCount)
-	if a.UnitCount != newValue.UnitCount {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.UnitCount)); err != nil {
-			return nil, errors.Wrap(err, "UnitCount")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
-
-	// EndUnit uint64
-	fip = append(ofip, PeriodFieldEndUnit)
-	if a.EndUnit != newValue.EndUnit {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.EndUnit)); err != nil {
-			return nil, errors.Wrap(err, "EndUnit")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
-
-	// EndIndex uint64
-	fip = append(ofip, PeriodFieldEndIndex)
-	if a.EndIndex != newValue.EndIndex {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.EndIndex)); err != nil {
-			return nil, errors.Wrap(err, "EndIndex")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
-
-	// EndCount uint64
-	fip = append(ofip, PeriodFieldEndCount)
-	if a.EndCount != newValue.EndCount {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.EndCount)); err != nil {
-			return nil, errors.Wrap(err, "EndCount")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
-
-	// EndTime TimeField
-	fip = append(ofip, PeriodFieldEndTime)
-
-	EndTimeAmendments, err := a.EndTime.CreateAmendments(fip, newValue.EndTime)
-	if err != nil {
-		return nil, errors.Wrap(err, "EndTime")
-	}
-	result = append(result, EndTimeAmendments...)
-
-	return result, nil
-}
-
-// TimeField Permission / Amendment Field Indices
-const (
-	TimeFieldTime             = uint32(1)
-	TimeFieldTimeZoneOffset   = uint32(2)
-	TimeFieldTimeZonePositive = uint32(3)
-)
-
-// ApplyAmendment updates a TimeField based on amendment data.
-// Note: This does not check permissions or data validity. This does check data format.
-// fip must have at least one value.
-func (a *TimeField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
-	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
-
-	if len(fip) == 0 {
-		return nil, errors.New("Empty Time amendment field index path")
-	}
-
-	switch fip[0] {
-	case TimeFieldTime: // uint64
-
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for Time : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("Time amendment value failed to deserialize : %s", err)
-		} else {
-			a.Time = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
-	case TimeFieldTimeZoneOffset: // uint32
-
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for TimeZoneOffset : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("TimeZoneOffset amendment value failed to deserialize : %s", err)
-		} else {
-			a.TimeZoneOffset = uint32(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
-	case TimeFieldTimeZonePositive: // bool
-
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for TimeZonePositive : %v", fip)
-		}
-		if len(data) != 1 {
-			return nil, fmt.Errorf("TimeZonePositive amendment value is wrong size : %d", len(data))
-		}
-		buf := bytes.NewBuffer(data)
-		if err := binary.Read(buf, binary.LittleEndian, &a.TimeZonePositive); err != nil {
-			return nil, fmt.Errorf("TimeZonePositive amendment value failed to deserialize : %s", err)
-		}
-		return permissions.SubPermissions(fip, operation, false)
-	}
-
-	return nil, fmt.Errorf("Unknown Time amendment field index : %v", fip)
-}
-
-// CreateAmendments determines the differences between two Times and returns
-// amendment data.
-func (a *TimeField) CreateAmendments(fip permissions.FieldIndexPath,
-	newValue *TimeField) ([]*internal.Amendment, error) {
-
-	if a.Equal(newValue) {
-		return nil, nil
-	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
-
-	// Time uint64
-	fip = append(ofip, TimeFieldTime)
-	if a.Time != newValue.Time {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Time)); err != nil {
-			return nil, errors.Wrap(err, "Time")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
-
-	// TimeZoneOffset uint32
-	fip = append(ofip, TimeFieldTimeZoneOffset)
-	if a.TimeZoneOffset != newValue.TimeZoneOffset {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.TimeZoneOffset)); err != nil {
-			return nil, errors.Wrap(err, "TimeZoneOffset")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
-
-	// TimeZonePositive bool
-	fip = append(ofip, TimeFieldTimeZonePositive)
-	if a.TimeZonePositive != newValue.TimeZonePositive {
-		var buf bytes.Buffer
-		if err := binary.Write(&buf, binary.LittleEndian, newValue.TimeZonePositive); err != nil {
-			return nil, errors.Wrap(err, "TimeZonePositive")
 		}
 
 		result = append(result, &internal.Amendment{

@@ -19,7 +19,6 @@ Resources are used to define lists of values, like the definitions of the possib
 - [Rejections](#resource-rejections)
 - [Roles](#resource-roles)
 - [Tags](#resource-tags)
-- [TimeUnit](#resource-time-unit)
 </div>
 
 <a name="resource-currencies"></a>
@@ -937,26 +936,5 @@ Predefined tags for output metadata. Multiple values can be assigned to an outpu
 - Tobacco
 - Discounted
 - Promotional
-</div>
-
-
-<a name="resource-time-unit"></a>
-#### TimeUnit
-
-A unit of time used for a period specification.
-
-[View Source File](https://github.com/tokenized/specification/blob/master/src/resources/develop/TimeUnit.yaml)
-
-<div class="content-list collection-method-list" markdown="1">
-- Year
-- Month
-- Week
-- Day
-- Day of Week
-- Hour
-- Minute
-- Second
-- Millisecond
-- Nanosecond
 </div>
 
