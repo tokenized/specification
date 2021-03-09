@@ -192,6 +192,9 @@ func (a *BondFixedRate) Validate() error {
 	// Field LatePaymentPenaltyPeriod - uint
 
 	// Field MaturityDate - uint
+	if a.MaturityDate == 0 {
+		return fmt.Errorf("MaturityDate required")
+	}
 
 	// Field AgeRestriction - AgeRestriction
 	if err := a.AgeRestriction.Validate(); err != nil {
@@ -353,6 +356,9 @@ func (a *CasinoChip) Validate() error {
 	}
 	if !foundUseType {
 		return fmt.Errorf("UseType value not within options [R S F] : %s", a.UseType)
+	}
+	if len(a.UseType) == 0 {
+		return fmt.Errorf("UseType required")
 	}
 
 	// Field AgeRestriction - AgeRestriction

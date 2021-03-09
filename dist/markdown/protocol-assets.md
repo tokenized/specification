@@ -401,7 +401,7 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
         </td>
         <td>
             The date of the maturity of the bond. When the par value is paid.
-            
+             This field is always required. 
         </td>
     </tr>
 
@@ -791,7 +791,7 @@ Casino Chip
         </td>
         <td>
             Real Money (R), Social (S), Free Play (F)
-             Example: R
+             This field is always required.  Example: R
         </td>
     </tr>
 

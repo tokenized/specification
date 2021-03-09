@@ -30,7 +30,7 @@ fields:
       - 'R'
       - 'S'
       - 'F'
-    require: true
+    required: true
 
   - name: AgeRestriction
     label: Age Restriction

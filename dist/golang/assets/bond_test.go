@@ -66,6 +66,7 @@ func TestParValueRequired(t *testing.T) {
 			Precision: 2,
 			Value:     1,
 		},
+		MaturityDate: 1,
 	}
 
 	if err := bond.Validate(); err == nil {
@@ -103,6 +104,15 @@ func TestParValueRequired(t *testing.T) {
 	}
 
 	bond.ParValue.Value = 100
+	bond.MaturityDate = 0
+
+	if err := bond.Validate(); err == nil {
+		t.Errorf("Bond without maturity date should be invalid")
+	} else {
+		t.Logf("Bond is correctly invalid without maturity date : %s", err)
+	}
+
+	bond.MaturityDate = 1
 
 	if err := bond.Validate(); err != nil {
 		t.Errorf("Bond should be valid : %s", err)

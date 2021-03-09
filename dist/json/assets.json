@@ -389,6 +389,7 @@
           "description": "The date of the maturity of the bond. When the par value is paid.",
           "label": "Maturity Date",
           "name": "MaturityDate",
+          "required": true,
           "type": "Timestamp"
         },
         {
@@ -691,7 +692,7 @@
             "S",
             "F"
           ],
-          "require": true,
+          "required": true,
           "size": 1,
           "type": "fixedchar"
         },

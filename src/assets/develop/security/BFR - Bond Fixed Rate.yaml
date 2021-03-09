@@ -96,6 +96,7 @@ fields:
     label: Maturity Date
     description: The date of the maturity of the bond. When the par value is paid.
     type: Timestamp
+    required: true
 
   - name: AgeRestriction
     label: Age Restriction
