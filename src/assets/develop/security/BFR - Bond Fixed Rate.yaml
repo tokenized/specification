@@ -11,8 +11,7 @@ description: >
   in the form of a Treasury, corporate bond, municipal bond, or certificate of deposit (CD).
 
 metadata:
-  kind: Security
-  category: Bond Fixed Rate Security
+  kind: Debt Security
   examples:
     - Chicago, Midway Airport, Series 2001A
 
@@ -48,7 +47,7 @@ fields:
 
   - name: Collateral
     label: Collateral
-    description: The collateral securing the bond. Empty when there is no collateral.
+    description: An asset that secures securing the bond.  If null, then the bond is unsecured.
     type: varchar
     varSize: small
 

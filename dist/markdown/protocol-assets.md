@@ -310,7 +310,7 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
             varchar(small)
         </td>
         <td>
-            The collateral securing the bond. Empty when there is no collateral.
+            An asset that secures securing the bond.  If null, then the bond is unsecured.
             
         </td>
     </tr>

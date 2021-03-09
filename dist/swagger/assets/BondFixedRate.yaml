@@ -23,7 +23,7 @@ properties:
     type: string
     example: "US0004026250"
   Collateral:
-    description: The collateral securing the bond. Empty when there is no collateral.
+    description: An asset that secures securing the bond.  If null, then the bond is unsecured.
     type: string
   ParValue:
     description: Par value of the bond. The value that will be paid at maturity.

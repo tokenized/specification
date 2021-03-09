@@ -334,7 +334,7 @@
           "type": "varchar"
         },
         {
-          "description": "The collateral securing the bond. Empty when there is no collateral.",
+          "description": "An asset that secures securing the bond.  If null, then the bond is unsecured.",
           "label": "Collateral",
           "name": "Collateral",
           "type": "varchar",
@@ -404,11 +404,10 @@
       ],
       "label": "Bond - Fixed Rate",
       "metadata": {
-        "category": "Bond Fixed Rate Security",
         "examples": [
           "Chicago, Midway Airport, Series 2001A"
         ],
-        "kind": "Security"
+        "kind": "Debt Security"
       },
       "name": "BondFixedRate"
     },
