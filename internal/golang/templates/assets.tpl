@@ -30,6 +30,15 @@ const (
 	// Code{{.Name}} identifies a payload as a {{.Name}} asset message.
 	Code{{.Name}} = "{{.Code}}"
 {{ end }}
+
+	// BondTypeCorporate specifies a corporate bond.
+	BondTypeCorporate = "C"
+
+	// BondTypeMunicipal specifies a municipal bond.
+	BondTypeMunicipal = "M"
+
+	// BondTypeGovernment specifies a government bond.
+	BondTypeGovernment = "G"
 )
 
 // NewAssetFromCode returns a new object of the correct type for the code.
