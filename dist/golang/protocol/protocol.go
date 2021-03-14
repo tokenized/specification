@@ -36,6 +36,8 @@ const (
 	AssetCodeSize = 20
 
 	ContractCodeSize = 32
+
+	BSVAssetID = "BSV"
 )
 
 var (
@@ -167,7 +169,7 @@ func AssetCodeFromBytes(b []byte) bitcoin.Hash20 {
 //
 // There is a special case for BSV, which will be returned as BSV.
 func AssetID(assetType string, code bitcoin.Hash20) string {
-	if assetType == "BSV" {
+	if assetType == BSVAssetID {
 		return assetType
 	}
 
@@ -185,7 +187,7 @@ func AssetID(assetType string, code bitcoin.Hash20) string {
 
 // AssetIDForRaw returns the asset ID for an asset type and asset code in byte slice form.
 func AssetIDForRaw(assetType string, assetCode []byte) (string, error) {
-	if assetType == "BSV" {
+	if assetType == BSVAssetID {
 		return assetType, nil
 	}
 
@@ -207,9 +209,9 @@ func AssetIDForSettlement(f *actions.AssetSettlementField) (string, error) {
 
 // DecodeAssetID decodes the asset type and asset code from an asset ID.
 func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
-	if id == "BSV" {
+	if id == BSVAssetID {
 		// Bitcoin asset id. Asset code all zeros.
-		return "BSV", bitcoin.Hash20{}, nil
+		return BSVAssetID, bitcoin.Hash20{}, nil
 	}
 
 	if len(id) < AssetCodeSize+7 {

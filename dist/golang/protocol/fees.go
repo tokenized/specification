@@ -145,7 +145,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 				AssetCode: asset.AssetCode,
 			}
 			// No settlement needed for bitcoin transfers. Just outputs.
-			if asset.AssetType != "BSV" {
+			if asset.AssetType != BSVAssetID {
 				if len(contractScript) == 0 {
 					contractScript = requestTx.TxOut[asset.ContractIndex].PkScript
 				} else if !bytes.Equal(contractScript, requestTx.TxOut[asset.ContractIndex].PkScript) {
@@ -157,7 +157,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 
 			// Sig script is probably still empty, so assume each sender is unique and the
 			//   address is not reused. So each will get a notification output.
-			if asset.AssetType != "BSV" {
+			if asset.AssetType != BSVAssetID {
 				for _, _ = range asset.AssetSenders {
 					// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
 					//   real value without knowing the resulting balance.
@@ -167,7 +167,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 							Quantity: 100000,
 						})
 					outputCount += 1
-					if asset.AssetType != "BSV" {
+					if asset.AssetType != BSVAssetID {
 						value += dustLimit // Dust will be put in each notification output.
 					}
 				}
@@ -193,11 +193,11 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 							Quantity: 100000,
 						})
 					outputCount += 1
-					if asset.AssetType != "BSV" {
+					if asset.AssetType != BSVAssetID {
 						value += dustLimit // Dust will be put in each notification output.
 					}
 				}
-				if asset.AssetType == "BSV" {
+				if asset.AssetType == BSVAssetID {
 					if isDust {
 						value -= dustLimit
 					}
@@ -625,7 +625,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	multiContract := false
 	masterContractIndex := uint32(0) // First smart contract agent listed, indexed by assets.
 	for _, asset := range request.Assets {
-		if asset.AssetType != "BSV" {
+		if asset.AssetType != BSVAssetID {
 			break
 		}
 		masterContractIndex++
@@ -639,7 +639,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 		}
 
 		// No settlement needed for bitcoin transfers. Just outputs.
-		if asset.AssetType != "BSV" {
+		if asset.AssetType != BSVAssetID {
 			if !bytes.Equal(previousContractScript, requestTx.TxOut[asset.ContractIndex].PkScript) {
 				multiContract = true
 				p2PKHInputCount++ // input from each contract
@@ -690,7 +690,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 				return nil, 0, errors.Wrap(err, "address dust limit")
 			}
 
-			if asset.AssetType != "BSV" {
+			if asset.AssetType != BSVAssetID {
 				if !exists {
 					// Dust will be put in each notification output.
 					fundingForTokens[masterContractIndex] += addressDustLimit
@@ -706,7 +706,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			}
 		}
 
-		if asset.AssetType == "BSV" {
+		if asset.AssetType == BSVAssetID {
 			accumulatedSettlementData[i] = previousSettlementData
 		} else {
 			settlement.Assets = append(settlement.Assets, settleAsset)
@@ -755,7 +755,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	txHash := requestTx.TxHash()
 	for i, asset := range request.Assets {
 		// No boomerang for bitcoin transfers.
-		if asset.AssetType == "BSV" {
+		if asset.AssetType == BSVAssetID {
 			continue
 		}
 
