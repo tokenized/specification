@@ -584,13 +584,11 @@ A Loyalty Point
     </tr>
 
     <tr>
-        <td>ValidFrom</td>
-        <td>
-            <a href="#alias-uint">Timestamp</a>
-        </td>
+        <td>(Deprecated)ValidFrom</td>
+        <td>deprecated</td>
         <td>
             
-             Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 
@@ -601,7 +599,7 @@ A Loyalty Point
         </td>
         <td>
             
-             Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 
@@ -715,18 +713,16 @@ Admission ticket
         </td>
         <td>
             
-             Example: Mon Nov 05 2018 09:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 
     <tr>
-        <td>ValidFrom</td>
-        <td>
-            <a href="#alias-uint">Timestamp</a>
-        </td>
+        <td>(Deprecated)ValidFrom</td>
+        <td>deprecated</td>
         <td>
             
-             Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 
@@ -737,7 +733,7 @@ Admission ticket
         </td>
         <td>
             
-             Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 
@@ -813,13 +809,11 @@ Casino Chip
     </tr>
 
     <tr>
-        <td>ValidFrom</td>
-        <td>
-            <a href="#alias-uint">Timestamp</a>
-        </td>
+        <td>(Deprecated)ValidFrom</td>
+        <td>deprecated</td>
         <td>
             
-             Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 
@@ -830,7 +824,7 @@ Casino Chip
         </td>
         <td>
             
-             Example: Fri Nov 09 2018 09:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 

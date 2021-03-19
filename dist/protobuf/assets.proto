@@ -68,7 +68,7 @@ message Coupon {
 message LoyaltyPoints {
     AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
     string OfferName                               = 2;   // varchar
-    uint64 ValidFrom                               = 3;   // Timestamp
+    reserved                                         3;   // Deprecated ValidFrom
     uint64 ExpirationTimestamp                     = 4;   // Timestamp
     string Description                             = 5;   // varchar
     bool TransfersPermitted                        = 6;   // bool
@@ -83,7 +83,7 @@ message TicketAdmission {
     string Area                                    = 5;   // varchar
     string Seat                                    = 6;   // varchar
     uint64 StartTimeDate                           = 7;   // Timestamp
-    uint64 ValidFrom                               = 8;   // Timestamp
+    reserved                                         8;   // Deprecated ValidFrom
     uint64 ExpirationTimestamp                     = 9;   // Timestamp
     string Description                             = 10;   // varchar
     bool TransfersPermitted                        = 11;  // bool
@@ -94,7 +94,7 @@ message CasinoChip {
     string CurrencyCode                            = 1;   // CurrencyType
     string UseType                                 = 2;   // fixedchar
     AgeRestrictionField AgeRestriction             = 3;   // AgeRestriction
-    uint64 ValidFrom                               = 4;   // Timestamp
+    reserved                                         4;   // Deprecated ValidFrom
     uint64 ExpirationTimestamp                     = 5;   // Timestamp
     uint64 Precision                               = 6;   // uint
     bool TransfersPermitted                        = 7;   // bool

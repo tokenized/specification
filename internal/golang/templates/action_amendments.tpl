@@ -90,6 +90,13 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 		return nil, fmt.Errorf("{{ $field.Name }} field not amendable")
 			{{- else if not (eq $field.Name "ContractRevision" "Timestamp" "AdminAddress" "OperatorAddress") }}
 	case ContractField{{ $field.Name }}: // {{ $field.GoType }}
+				{{- if .IsCompoundType }}
+		if len(fip) == 1 && len(data) == 0 {
+			a.{{ $field.Name }} = nil
+			return permissions.SubPermissions(fip[1:], operation, {{ $field.IsList }})
+		}
+				{{- end }}
+
 	{{- template "ApplyAmendmentField" $field }}
 			{{- end }}
 		{{ end }}
@@ -227,6 +234,13 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 	case DeprecatedAssetField{{ $field.Name }}: // {{ $field.GoType }}
 		{{- else if not (eq $field.Name "AssetCode" "AssetIndex" "AssetRevision" "Timestamp") }}
 	case AssetField{{ $field.Name }}: // {{ $field.GoType }}
+				{{- if .IsCompoundType }}
+		if len(fip) == 1 && len(data) == 0 {
+			a.{{ $field.Name }} = nil
+			return permissions.SubPermissions(fip[1:], operation, {{ $field.IsList }})
+		}
+				{{- end }}
+
 	{{- template "ApplyAmendmentField" $field }}
 			{{- end }}
 		{{ end }}
@@ -278,12 +292,22 @@ func (a *{{ $message.Name }}Field) ApplyAmendment(fip permissions.FieldIndexPath
 func (a *{{ $message.Name }}Field) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *{{ $message.Name }}Field) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP: fip,
+			Operation: 0, // Modify element
+			Data: nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}

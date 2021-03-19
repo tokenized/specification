@@ -48,6 +48,10 @@ func (a *Membership) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 
 	switch fip[0] {
 	case MembershipFieldAgeRestriction: // AgeRestrictionField
+		if len(fip) == 1 && len(data) == 0 {
+			a.AgeRestriction = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -478,6 +482,10 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		return permissions.SubPermissions(fip, operation, false)
 
 	case BondFixedRateFieldParValue: // CurrencyValueField
+		if len(fip) == 1 && len(data) == 0 {
+			a.ParValue = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -487,6 +495,10 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		return a.ParValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
 	case BondFixedRateFieldInterestRate: // RateField
+		if len(fip) == 1 && len(data) == 0 {
+			a.InterestRate = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -567,6 +579,10 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 
 	case BondFixedRateFieldLatePaymentPenaltyRate: // RateField
+		if len(fip) == 1 && len(data) == 0 {
+			a.LatePaymentPenaltyRate = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -612,6 +628,10 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		return permissions.SubPermissions(fip, operation, false)
 
 	case BondFixedRateFieldAgeRestriction: // AgeRestrictionField
+		if len(fip) == 1 && len(data) == 0 {
+			a.AgeRestriction = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -920,6 +940,10 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 		return permissions.SubPermissions(fip, operation, false)
 
 	case CouponFieldValue: // CurrencyValueField
+		if len(fip) == 1 && len(data) == 0 {
+			a.Value = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -1027,7 +1051,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 const (
 	LoyaltyPointsFieldAgeRestriction      = uint32(1)
 	LoyaltyPointsFieldOfferName           = uint32(2)
-	LoyaltyPointsFieldValidFrom           = uint32(3)
+	DeprecatedLoyaltyPointsFieldValidFrom = uint32(3)
 	LoyaltyPointsFieldExpirationTimestamp = uint32(4)
 	LoyaltyPointsFieldDescription         = uint32(5)
 	LoyaltyPointsFieldTransfersPermitted  = uint32(6)
@@ -1045,6 +1069,10 @@ func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation
 
 	switch fip[0] {
 	case LoyaltyPointsFieldAgeRestriction: // AgeRestrictionField
+		if len(fip) == 1 && len(data) == 0 {
+			a.AgeRestriction = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -1057,17 +1085,7 @@ func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		a.OfferName = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case LoyaltyPointsFieldValidFrom: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for ValidFrom : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("ValidFrom amendment value failed to deserialize : %s", err)
-		} else {
-			a.ValidFrom = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedLoyaltyPointsFieldValidFrom: // deprecated
 
 	case LoyaltyPointsFieldExpirationTimestamp: // uint64
 		if len(fip) > 1 {
@@ -1133,19 +1151,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// ValidFrom uint64
-	fip = append(ofip, LoyaltyPointsFieldValidFrom)
-	if a.ValidFrom != newValue.ValidFrom {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFrom)); err != nil {
-			return nil, errors.Wrap(err, "ValidFrom")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
+	// deprecated ValidFrom deprecated
 
 	// ExpirationTimestamp uint64
 	fip = append(ofip, LoyaltyPointsFieldExpirationTimestamp)
@@ -1196,7 +1202,7 @@ const (
 	TicketAdmissionFieldArea                = uint32(5)
 	TicketAdmissionFieldSeat                = uint32(6)
 	TicketAdmissionFieldStartTimeDate       = uint32(7)
-	TicketAdmissionFieldValidFrom           = uint32(8)
+	DeprecatedTicketAdmissionFieldValidFrom = uint32(8)
 	TicketAdmissionFieldExpirationTimestamp = uint32(9)
 	TicketAdmissionFieldDescription         = uint32(10)
 	TicketAdmissionFieldTransfersPermitted  = uint32(11)
@@ -1214,6 +1220,10 @@ func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operati
 
 	switch fip[0] {
 	case TicketAdmissionFieldAgeRestriction: // AgeRestrictionField
+		if len(fip) == 1 && len(data) == 0 {
+			a.AgeRestriction = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -1254,17 +1264,7 @@ func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operati
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case TicketAdmissionFieldValidFrom: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for ValidFrom : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("ValidFrom amendment value failed to deserialize : %s", err)
-		} else {
-			a.ValidFrom = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedTicketAdmissionFieldValidFrom: // deprecated
 
 	case TicketAdmissionFieldExpirationTimestamp: // uint64
 		if len(fip) > 1 {
@@ -1380,19 +1380,7 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// ValidFrom uint64
-	fip = append(ofip, TicketAdmissionFieldValidFrom)
-	if a.ValidFrom != newValue.ValidFrom {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFrom)); err != nil {
-			return nil, errors.Wrap(err, "ValidFrom")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
+	// deprecated ValidFrom deprecated
 
 	// ExpirationTimestamp uint64
 	fip = append(ofip, TicketAdmissionFieldExpirationTimestamp)
@@ -1439,7 +1427,7 @@ const (
 	CasinoChipFieldCurrencyCode        = uint32(1)
 	CasinoChipFieldUseType             = uint32(2)
 	CasinoChipFieldAgeRestriction      = uint32(3)
-	CasinoChipFieldValidFrom           = uint32(4)
+	DeprecatedCasinoChipFieldValidFrom = uint32(4)
 	CasinoChipFieldExpirationTimestamp = uint32(5)
 	CasinoChipFieldPrecision           = uint32(6)
 	CasinoChipFieldTransfersPermitted  = uint32(7)
@@ -1468,6 +1456,10 @@ func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 		return permissions.SubPermissions(fip, operation, false)
 
 	case CasinoChipFieldAgeRestriction: // AgeRestrictionField
+		if len(fip) == 1 && len(data) == 0 {
+			a.AgeRestriction = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -1476,17 +1468,7 @@ func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 
 		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
-	case CasinoChipFieldValidFrom: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for ValidFrom : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("ValidFrom amendment value failed to deserialize : %s", err)
-		} else {
-			a.ValidFrom = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedCasinoChipFieldValidFrom: // deprecated
 
 	case CasinoChipFieldExpirationTimestamp: // uint64
 		if len(fip) > 1 {
@@ -1569,19 +1551,7 @@ func (a *CasinoChip) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 	result = append(result, AgeRestrictionAmendments...)
 
-	// ValidFrom uint64
-	fip = append(ofip, CasinoChipFieldValidFrom)
-	if a.ValidFrom != newValue.ValidFrom {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFrom)); err != nil {
-			return nil, errors.Wrap(err, "ValidFrom")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
+	// deprecated ValidFrom deprecated
 
 	// ExpirationTimestamp uint64
 	fip = append(ofip, CasinoChipFieldExpirationTimestamp)

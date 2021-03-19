@@ -275,8 +275,6 @@ func (a *LoyaltyPoints) Validate() error {
 		return fmt.Errorf("OfferName over max size : %d > %d", len(a.OfferName), max1ByteInteger)
 	}
 
-	// Field ValidFrom - uint
-
 	// Field ExpirationTimestamp - uint
 
 	// Field Description - varchar
@@ -329,8 +327,6 @@ func (a *TicketAdmission) Validate() error {
 	}
 
 	// Field StartTimeDate - uint
-
-	// Field ValidFrom - uint
 
 	// Field ExpirationTimestamp - uint
 
@@ -387,8 +383,6 @@ func (a *CasinoChip) Validate() error {
 	if err := a.AgeRestriction.Validate(); err != nil {
 		return errors.Wrap(err, "AgeRestriction")
 	}
-
-	// Field ValidFrom - uint
 
 	// Field ExpirationTimestamp - uint
 

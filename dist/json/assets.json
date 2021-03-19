@@ -534,16 +534,12 @@
           "type": "varchar"
         },
         {
-          "displayOrder": 3,
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Valid From",
           "name": "ValidFrom",
-          "span": "right",
-          "type": "Timestamp"
+          "type": "deprecated"
         },
         {
           "displayOrder": 3,
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
           "span": "right",
@@ -636,23 +632,18 @@
         {
           "default": "now",
           "displayOrder": 2,
-          "example": "Mon Nov 05 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Start Time and Date",
           "name": "StartTimeDate",
           "span": "left",
           "type": "Timestamp"
         },
         {
-          "displayOrder": 3,
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Valid From",
           "name": "ValidFrom",
-          "span": "right",
-          "type": "Timestamp"
+          "type": "deprecated"
         },
         {
           "displayOrder": 3,
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
           "span": "right",
@@ -721,14 +712,11 @@
           "type": "AgeRestriction"
         },
         {
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Valid From",
           "name": "ValidFrom",
-          "span": "right",
-          "type": "Timestamp"
+          "type": "deprecated"
         },
         {
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
           "span": "right",

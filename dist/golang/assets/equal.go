@@ -316,11 +316,6 @@ func (l *LoyaltyPoints) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("OfferName string mismatched")
 	}
 
-	// Field ValidFrom - uint
-	if c.ValidFrom != r.ValidFrom {
-		return false // fmt.Errorf("ValidFrom integer mismatched")
-	}
-
 	// Field ExpirationTimestamp - uint
 	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
@@ -391,11 +386,6 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("StartTimeDate integer mismatched")
 	}
 
-	// Field ValidFrom - uint
-	if c.ValidFrom != r.ValidFrom {
-		return false // fmt.Errorf("ValidFrom integer mismatched")
-	}
-
 	// Field ExpirationTimestamp - uint
 	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
@@ -444,11 +434,6 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 	// Field AgeRestriction - AgeRestriction
 	if !c.AgeRestriction.Equal(r.AgeRestriction) {
 		return false // fmt.Errorf("AgeRestriction : %s", err)
-	}
-
-	// Field ValidFrom - uint
-	if c.ValidFrom != r.ValidFrom {
-		return false // fmt.Errorf("ValidFrom integer mismatched")
 	}
 
 	// Field ExpirationTimestamp - uint

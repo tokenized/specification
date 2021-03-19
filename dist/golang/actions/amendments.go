@@ -523,6 +523,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 	case DeprecatedContractFieldContractType: // deprecated
 
 	case ContractFieldSupportingDocs: // []DocumentField
+		if len(fip) == 1 && len(data) == 0 {
+			a.SupportingDocs = nil
+			return permissions.SubPermissions(fip[1:], operation, true)
+		}
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -601,6 +605,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldIssuer: // EntityField
+		if len(fip) == 1 && len(data) == 0 {
+			a.Issuer = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
 
 		subPermissions, err := permissions.SubPermissions(fip, operation, false)
 		if err != nil {
@@ -632,6 +640,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldVotingSystems: // []VotingSystemField
+		if len(fip) == 1 && len(data) == 0 {
+			a.VotingSystems = nil
+			return permissions.SubPermissions(fip[1:], operation, true)
+		}
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -732,6 +744,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldOracles: // []OracleField
+		if len(fip) == 1 && len(data) == 0 {
+			a.Oracles = nil
+			return permissions.SubPermissions(fip[1:], operation, true)
+		}
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -813,6 +829,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldServices: // []ServiceField
+		if len(fip) == 1 && len(data) == 0 {
+			a.Services = nil
+			return permissions.SubPermissions(fip[1:], operation, true)
+		}
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -871,6 +891,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		}
 
 	case ContractFieldAdminIdentityCertificates: // []AdminIdentityCertificateField
+		if len(fip) == 1 && len(data) == 0 {
+			a.AdminIdentityCertificates = nil
+			return permissions.SubPermissions(fip[1:], operation, true)
+		}
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -1607,12 +1631,22 @@ func (a *AdministratorField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 func (a *AdministratorField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AdministratorField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Type uint32
 	fip = append(ofip, AdministratorFieldType)
@@ -1701,12 +1735,22 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip permissions.FieldInde
 func (a *AdminIdentityCertificateField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AdminIdentityCertificateField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// EntityContract []byte
 	fip = append(ofip, AdminIdentityCertificateFieldEntityContract)
@@ -1805,12 +1849,22 @@ func (a *AmendmentField) ApplyAmendment(fip permissions.FieldIndexPath, operatio
 func (a *AmendmentField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AmendmentField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// FieldIndexPath []byte
 	fip = append(ofip, AmendmentFieldFieldIndexPath)
@@ -1947,12 +2001,22 @@ func (a *AssetReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AssetReceiverField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Address []byte
 	fip = append(ofip, AssetReceiverFieldAddress)
@@ -2155,12 +2219,22 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 func (a *AssetSettlementField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AssetSettlementField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// ContractIndex uint32
 	fip = append(ofip, AssetSettlementFieldContractIndex)
@@ -2404,12 +2478,22 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 func (a *AssetTransferField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *AssetTransferField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// ContractIndex uint32
 	fip = append(ofip, AssetTransferFieldContractIndex)
@@ -2621,12 +2705,22 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 func (a *ChapterField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ChapterField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Title string
 	fip = append(ofip, ChapterFieldTitle)
@@ -2786,12 +2880,22 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 func (a *ClauseField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ClauseField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Title string
 	fip = append(ofip, ClauseFieldTitle)
@@ -2892,12 +2996,22 @@ func (a *DefinedTermField) ApplyAmendment(fip permissions.FieldIndexPath, operat
 func (a *DefinedTermField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *DefinedTermField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Term string
 	fip = append(ofip, DefinedTermFieldTerm)
@@ -2960,12 +3074,22 @@ func (a *DocumentField) ApplyAmendment(fip permissions.FieldIndexPath, operation
 func (a *DocumentField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *DocumentField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Name string
 	fip = append(ofip, DocumentFieldName)
@@ -3216,12 +3340,22 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *EntityField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Name string
 	fip = append(ofip, EntityFieldName)
@@ -3486,12 +3620,22 @@ func (a *ManagerField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 func (a *ManagerField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ManagerField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Type uint32
 	fip = append(ofip, ManagerFieldType)
@@ -3618,12 +3762,22 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 func (a *OracleField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *OracleField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// deprecated Entity deprecated
 
@@ -3743,12 +3897,22 @@ func (a *QuantityIndexField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 func (a *QuantityIndexField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *QuantityIndexField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Index uint32
 	fip = append(ofip, QuantityIndexFieldIndex)
@@ -3859,12 +4023,22 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPat
 func (a *ReferenceTransactionField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ReferenceTransactionField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Transaction []byte
 	fip = append(ofip, ReferenceTransactionFieldTransaction)
@@ -3969,12 +4143,22 @@ func (a *ServiceField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 func (a *ServiceField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *ServiceField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Type uint32
 	fip = append(ofip, ServiceFieldType)
@@ -4054,12 +4238,22 @@ func (a *TargetAddressField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 func (a *TargetAddressField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *TargetAddressField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Address []byte
 	fip = append(ofip, TargetAddressFieldAddress)
@@ -4175,12 +4369,22 @@ func (a *VotingSystemField) ApplyAmendment(fip permissions.FieldIndexPath, opera
 func (a *VotingSystemField) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *VotingSystemField) ([]*internal.Amendment, error) {
 
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
 	if a.Equal(newValue) {
 		return nil, nil
 	}
-
-	var result []*internal.Amendment
-	ofip := fip.Copy() // save original to be appended for each field
 
 	// Name string
 	fip = append(ofip, VotingSystemFieldName)
