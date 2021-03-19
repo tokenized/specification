@@ -28,15 +28,11 @@ fields:
 
   - name: ValidFrom
     label: Valid From
-    type: Timestamp
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
-    span: right
-    displayOrder: 3
+    type: deprecated
 
   - name: ExpirationTimestamp
     label: Expiration Timestamp
     type: Timestamp
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
     span: right
     displayOrder: 3
 

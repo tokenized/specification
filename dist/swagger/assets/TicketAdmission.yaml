@@ -24,9 +24,6 @@ properties:
   StartTimeDate:
     type: number
     example: 1594668650000000000
-  ValidFrom:
-    type: number
-    example: 1594668650000000000
   ExpirationTimestamp:
     type: number
     example: 1594668650000000000

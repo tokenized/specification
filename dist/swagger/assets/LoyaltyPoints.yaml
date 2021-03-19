@@ -9,9 +9,6 @@ properties:
   OfferName:
     type: string
     example: "Qantas Frequent Flyer Points"
-  ValidFrom:
-    type: number
-    example: 1594668650000000000
   ExpirationTimestamp:
     type: number
     example: 1594668650000000000

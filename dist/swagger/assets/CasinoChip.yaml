@@ -15,9 +15,6 @@ properties:
     description: Age restriction is used to specify required ages for asset ownership.
     type: object
     $ref: "#/components/schemas/AgeRestrictionField"
-  ValidFrom:
-    type: number
-    example: 1594668650000000000
   ExpirationTimestamp:
     type: number
     example: 1594668650000000000
