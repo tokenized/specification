@@ -102,7 +102,7 @@ values:
     name: AustralianDollar
     label: Australian dollar
     metadata:
-      symbol: "$"
+      symbol: "A$"
       precision: 2
       fractional_unit: Cent
       polity:

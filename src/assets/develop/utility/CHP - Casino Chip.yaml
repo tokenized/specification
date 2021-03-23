@@ -22,14 +22,13 @@ fields:
 
   - name: UseType
     label: Use Type
-    description: "Real Money (R), Social (S), Free Play (F)"
+    description: "Real Money (R), Social (S)"
     type: fixedchar
     size: 1
     example: "R"
     options:
       - 'R'
       - 'S'
-      - 'F'
     required: true
 
   - name: AgeRestriction
@@ -62,5 +61,22 @@ fields:
 
   - name: TransfersPermitted
     label: Transfers Permitted
-    description: "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers."
+    description: >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
     type: bool
+
+  - name: CasinoName
+    label: Casino Name
+    description: >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: varchar
+    varSize: tiny
+    required: true
+
+  - name: FaceValue
+    label: Face Value
+    description: Face value of each coupon specified in a currency.
+    type: CurrencyValue
+    required: true

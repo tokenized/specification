@@ -8,7 +8,7 @@ properties:
     type: string
     example: "AUD"
   UseType:
-    description: Real Money (R), Social (S), Free Play (F)
+    description: Real Money (R), Social (S)
     type: string
     example: "R"
   AgeRestriction:
@@ -32,4 +32,13 @@ properties:
       Set to true if transfers are permitted between two parties, otherwise set to false to prevent
       peer-to-peer transfers.
     type: boolean
+  CasinoName:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: string
+  FaceValue:
+    description: Face value of each coupon specified in a currency.
+    type: object
+    $ref: "#/components/schemas/CurrencyValueField"
 

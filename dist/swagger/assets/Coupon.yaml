@@ -6,22 +6,26 @@ properties:
     description: The entity responsible for redemption of this coupon.
     type: string
     example: "Woolworths - Robina Town Centre"
-  IssueDate:
+  ValidFromTimestamp:
     type: number
     example: 1594668650000000000
-  ExpiryDate:
+  ExpiryTimestamp:
     type: number
     example: 1594668650000000000
-  Description:
+  CouponName:
     type: string
     example: "Gift Card"
   TransfersPermitted:
     description:  >
-      Set to true if transfers are permitted between two parties, otherwise set to false to prevent 
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
       peer-to-peer transfers.
     type: boolean
-  Value:
-    description: Value of each coupon specified in a currency.
+  FaceValue:
+    description: Face value of each coupon specified in a currency.
     type: object
     $ref: "#/components/schemas/CurrencyValueField"
+  RedemptionVenue:
+    type: string
+  Details:
+    type: string
 

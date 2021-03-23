@@ -261,19 +261,19 @@ func (l *Coupon) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("RedeemingEntity string mismatched")
 	}
 
-	// Field IssueDate - uint
-	if c.IssueDate != r.IssueDate {
-		return false // fmt.Errorf("IssueDate integer mismatched")
+	// Field ValidFromTimestamp - uint
+	if c.ValidFromTimestamp != r.ValidFromTimestamp {
+		return false // fmt.Errorf("ValidFromTimestamp integer mismatched")
 	}
 
-	// Field ExpiryDate - uint
-	if c.ExpiryDate != r.ExpiryDate {
-		return false // fmt.Errorf("ExpiryDate integer mismatched")
+	// Field ExpiryTimestamp - uint
+	if c.ExpiryTimestamp != r.ExpiryTimestamp {
+		return false // fmt.Errorf("ExpiryTimestamp integer mismatched")
 	}
 
-	// Field Description - varchar
-	if c.Description != r.Description {
-		return false // fmt.Errorf("Description string mismatched")
+	// Field CouponName - varchar
+	if c.CouponName != r.CouponName {
+		return false // fmt.Errorf("CouponName string mismatched")
 	}
 
 	// Field TransfersPermitted - bool
@@ -281,9 +281,19 @@ func (l *Coupon) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
 	}
 
-	// Field Value - CurrencyValue
-	if !c.Value.Equal(r.Value) {
-		return false // fmt.Errorf("Value : %s", err)
+	// Field FaceValue - CurrencyValue
+	if !c.FaceValue.Equal(r.FaceValue) {
+		return false // fmt.Errorf("FaceValue : %s", err)
+	}
+
+	// Field RedemptionVenue - varchar
+	if c.RedemptionVenue != r.RedemptionVenue {
+		return false // fmt.Errorf("RedemptionVenue string mismatched")
+	}
+
+	// Field Details - varchar
+	if c.Details != r.Details {
+		return false // fmt.Errorf("Details string mismatched")
 	}
 
 	return true
@@ -311,9 +321,9 @@ func (l *LoyaltyPoints) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AgeRestriction : %s", err)
 	}
 
-	// Field OfferName - varchar
-	if c.OfferName != r.OfferName {
-		return false // fmt.Errorf("OfferName string mismatched")
+	// Field ProgramName - varchar
+	if c.ProgramName != r.ProgramName {
+		return false // fmt.Errorf("ProgramName string mismatched")
 	}
 
 	// Field ExpirationTimestamp - uint
@@ -321,9 +331,9 @@ func (l *LoyaltyPoints) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
 	}
 
-	// Field Description - varchar
-	if c.Description != r.Description {
-		return false // fmt.Errorf("Description string mismatched")
+	// Field Details - varchar
+	if c.Details != r.Details {
+		return false // fmt.Errorf("Details string mismatched")
 	}
 
 	// Field TransfersPermitted - bool
@@ -356,19 +366,9 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AgeRestriction : %s", err)
 	}
 
-	// Field AdmissionType - fixedchar
-	if c.AdmissionType != r.AdmissionType {
-		return false // fmt.Errorf("AdmissionType string mismatched")
-	}
-
 	// Field Venue - varchar
 	if c.Venue != r.Venue {
 		return false // fmt.Errorf("Venue string mismatched")
-	}
-
-	// Field Class - varchar
-	if c.Class != r.Class {
-		return false // fmt.Errorf("Class string mismatched")
 	}
 
 	// Field Area - varchar
@@ -381,24 +381,34 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Seat string mismatched")
 	}
 
-	// Field StartTimeDate - uint
-	if c.StartTimeDate != r.StartTimeDate {
-		return false // fmt.Errorf("StartTimeDate integer mismatched")
+	// Field EventTimestamp - uint
+	if c.EventTimestamp != r.EventTimestamp {
+		return false // fmt.Errorf("EventTimestamp integer mismatched")
 	}
 
-	// Field ExpirationTimestamp - uint
-	if c.ExpirationTimestamp != r.ExpirationTimestamp {
-		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
-	}
-
-	// Field Description - varchar
-	if c.Description != r.Description {
-		return false // fmt.Errorf("Description string mismatched")
+	// Field EventName - varchar
+	if c.EventName != r.EventName {
+		return false // fmt.Errorf("EventName string mismatched")
 	}
 
 	// Field TransfersPermitted - bool
 	if c.TransfersPermitted != r.TransfersPermitted {
 		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
+	// Field Details - varchar
+	if c.Details != r.Details {
+		return false // fmt.Errorf("Details string mismatched")
+	}
+
+	// Field Section - varchar
+	if c.Section != r.Section {
+		return false // fmt.Errorf("Section string mismatched")
+	}
+
+	// Field Row - varchar
+	if c.Row != r.Row {
+		return false // fmt.Errorf("Row string mismatched")
 	}
 
 	return true
@@ -449,6 +459,16 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 	// Field TransfersPermitted - bool
 	if c.TransfersPermitted != r.TransfersPermitted {
 		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
+	// Field CasinoName - varchar
+	if c.CasinoName != r.CasinoName {
+		return false // fmt.Errorf("CasinoName string mismatched")
+	}
+
+	// Field FaceValue - CurrencyValue
+	if !c.FaceValue.Equal(r.FaceValue) {
+		return false // fmt.Errorf("FaceValue : %s", err)
 	}
 
 	return true

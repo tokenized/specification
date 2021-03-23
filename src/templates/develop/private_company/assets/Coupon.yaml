@@ -30,8 +30,6 @@ Permissions:
     Fields:
       - [AuthorizedTokenQty]
       - [AssetPayload, RedeemingEntity]
-      - [AssetPayload, IssueDate]
-      - [AssetPayload, ExpiryDate]
-      - [AssetPayload, Value]
-      - [AssetPayload, Currency]
-      - [AssetPayload, Description]
+      - [AssetPayload, ExpiryTimestamp]
+      - [AssetPayload, FaceValue]
+      - [AssetPayload, Details]

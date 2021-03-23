@@ -448,60 +448,68 @@
         {
           "default": "now",
           "displayOrder": 3,
-          "example": "Sat Dec 12 2015 18:00:00 GMT+1000 (AEST)",
-          "label": "Issue Date",
-          "name": "IssueDate",
+          "label": "Valid From Timestamp",
+          "name": "ValidFromTimestamp",
           "span": "left",
           "type": "Timestamp"
         },
         {
           "displayOrder": 4,
-          "example": "Sat Dec 12 2020 18:00:00 GMT+1000 (AEST)",
-          "label": "Expiry Date",
-          "name": "ExpiryDate",
+          "label": "Expiry Timestamp",
+          "name": "ExpiryTimestamp",
           "span": "right",
           "type": "Timestamp"
         },
         {
-          "example": "Deprecated for new Currency Value type. Denominated in the smallest unit of currency specified  in the Currency subfield.\n",
+          "example": "Deprecated for new Currency Value type. Denominated in the smallest unit of currency specified in the Currency subfield.\n",
           "label": "Value",
           "name": "Value",
           "type": "deprecated"
         },
         {
-          "description": "Deprecated for new Currency Value type. International Organization for Standardization code  for Currency. Currency for coupon. From resources/currency.\n",
+          "description": "Deprecated for new Currency Value type. International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.\n",
           "example": "AUD",
           "label": "Currency",
           "name": "Currency",
           "type": "deprecated"
         },
         {
-          "displayOrder": 1,
           "example": "Gift Card",
-          "label": "Description",
-          "name": "Description",
+          "label": "Coupon Name",
+          "name": "CouponName",
           "required": true,
-          "span": "full",
           "type": "varchar",
-          "varSize": "small"
+          "varSize": "tiny"
         },
         {
-          "description": "Deprecated for new Currency Value type. Required field to specify the decimal precision of a  currency. It will normally be the \"precision\" value associated with the Currency. It is the  number of decimal places between the number of tokens and the common unit of measure. For  example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So  the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this  scenario 100 tokens are worth $1.\n",
+          "description": "Deprecated for new Currency Value type. Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
           "label": "Precision",
           "name": "Precision",
           "type": "deprecated"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent  peer-to-peer transfers.\n",
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
           "type": "bool"
         },
         {
-          "description": "Value of each coupon specified in a currency.",
-          "label": "Value",
-          "name": "Value",
+          "description": "Face value of each coupon specified in a currency.",
+          "label": "Face Value",
+          "name": "FaceValue",
           "type": "CurrencyValue"
+        },
+        {
+          "label": "Redemption Venue",
+          "name": "RedemptionVenue",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "label": "Details",
+          "name": "Details",
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Coupon",
@@ -528,9 +536,9 @@
         },
         {
           "example": "Qantas Frequent Flyer Points",
-          "label": "Offer Name",
-          "name": "OfferName",
-          "options": null,
+          "label": "Program Name",
+          "name": "ProgramName",
+          "required": true,
           "type": "varchar"
         },
         {
@@ -539,24 +547,18 @@
           "type": "deprecated"
         },
         {
-          "displayOrder": 3,
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
-          "span": "right",
           "type": "Timestamp"
         },
         {
-          "displayOrder": 1,
-          "example": "Coingeek Conference - London (November 2018).",
-          "label": "Description",
-          "name": "Description",
-          "required": true,
-          "span": "full",
+          "label": "Details",
+          "name": "Details",
           "type": "varchar",
           "varSize": "small"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
           "type": "bool"
@@ -584,57 +586,39 @@
           "type": "AgeRestriction"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
-          "example": "MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition",
           "label": "Admission Type",
           "name": "AdmissionType",
-          "size": 3,
-          "span": "left",
-          "type": "fixedchar"
+          "type": "deprecated"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
           "example": "Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1",
           "label": "Venue",
           "name": "Venue",
-          "span": "left",
           "type": "varchar"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
           "example": "Gold Class, Platinum, VIP, Section A, etc.",
           "label": "Class",
           "name": "Class",
-          "span": "left",
-          "type": "varchar"
+          "type": "deprecated"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
           "example": "Upper Bowl",
           "label": "Area",
           "name": "Area",
-          "span": "left",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
-          "example": "Sec 1, Row 3, Seat 5, or A122",
+          "example": "Seat 5, or A122",
           "label": "Seat",
           "name": "Seat",
-          "span": "left",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
-          "label": "Start Time and Date",
-          "name": "StartTimeDate",
-          "span": "left",
+          "label": "Event Timestamp",
+          "name": "EventTimestamp",
           "type": "Timestamp"
         },
         {
@@ -643,27 +627,43 @@
           "type": "deprecated"
         },
         {
-          "displayOrder": 3,
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
-          "span": "right",
-          "type": "Timestamp"
+          "type": "deprecated"
         },
         {
-          "displayOrder": 1,
           "example": "Coingeek Conference - London (November 2018).",
-          "label": "Description",
-          "name": "Description",
+          "label": "Event Name",
+          "name": "EventName",
           "required": true,
-          "span": "full",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        },
+        {
+          "label": "Details",
+          "name": "Details",
           "type": "varchar",
           "varSize": "small"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
-          "label": "Transfers Permitted",
-          "name": "TransfersPermitted",
-          "type": "bool"
+          "example": "Sec 1",
+          "label": "Section",
+          "name": "Section",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "example": "Sec 1",
+          "label": "Row",
+          "name": "Row",
+          "type": "varchar",
+          "varSize": "tiny"
         }
       ],
       "label": "Ticket (Admission)",
@@ -692,14 +692,13 @@
           "type": "CurrencyType"
         },
         {
-          "description": "Real Money (R), Social (S), Free Play (F)",
+          "description": "Real Money (R), Social (S)",
           "example": "R",
           "label": "Use Type",
           "name": "UseType",
           "options": [
             "R",
-            "S",
-            "F"
+            "S"
           ],
           "required": true,
           "size": 1,
@@ -733,10 +732,25 @@
           "type": "uint"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
           "type": "bool"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Casino Name",
+          "name": "CasinoName",
+          "required": true,
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "Face value of each coupon specified in a currency.",
+          "label": "Face Value",
+          "name": "FaceValue",
+          "required": true,
+          "type": "CurrencyValue"
         }
       ],
       "label": "Casino Chip",
@@ -869,7 +883,7 @@
               "TUV"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "A$"
           },
           "name": "AustralianDollar"
         },

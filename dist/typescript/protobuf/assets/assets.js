@@ -1720,11 +1720,13 @@ proto.assets.Coupon.prototype.toObject = function(opt_includeInstance) {
 proto.assets.Coupon.toObject = function(includeInstance, msg) {
   var f, obj = {
     redeemingentity: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    issuedate: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    expirydate: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    description: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    validfromtimestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    expirytimestamp: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    couponname: jspb.Message.getFieldWithDefault(msg, 6, ""),
     transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 8, false),
-    value: (f = msg.getValue()) && proto.assets.CurrencyValueField.toObject(includeInstance, f)
+    facevalue: (f = msg.getFacevalue()) && proto.assets.CurrencyValueField.toObject(includeInstance, f),
+    redemptionvenue: jspb.Message.getFieldWithDefault(msg, 10, ""),
+    details: jspb.Message.getFieldWithDefault(msg, 11, "")
   };
 
   if (includeInstance) {
@@ -1767,15 +1769,15 @@ proto.assets.Coupon.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 2:
       var value = /** @type {number} */ (reader.readUint64());
-      msg.setIssuedate(value);
+      msg.setValidfromtimestamp(value);
       break;
     case 3:
       var value = /** @type {number} */ (reader.readUint64());
-      msg.setExpirydate(value);
+      msg.setExpirytimestamp(value);
       break;
     case 6:
       var value = /** @type {string} */ (reader.readString());
-      msg.setDescription(value);
+      msg.setCouponname(value);
       break;
     case 8:
       var value = /** @type {boolean} */ (reader.readBool());
@@ -1784,7 +1786,15 @@ proto.assets.Coupon.deserializeBinaryFromReader = function(msg, reader) {
     case 9:
       var value = new proto.assets.CurrencyValueField;
       reader.readMessage(value,proto.assets.CurrencyValueField.deserializeBinaryFromReader);
-      msg.setValue(value);
+      msg.setFacevalue(value);
+      break;
+    case 10:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRedemptionvenue(value);
+      break;
+    case 11:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDetails(value);
       break;
     default:
       reader.skipField();
@@ -1822,21 +1832,21 @@ proto.assets.Coupon.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getIssuedate();
+  f = message.getValidfromtimestamp();
   if (f !== 0) {
     writer.writeUint64(
       2,
       f
     );
   }
-  f = message.getExpirydate();
+  f = message.getExpirytimestamp();
   if (f !== 0) {
     writer.writeUint64(
       3,
       f
     );
   }
-  f = message.getDescription();
+  f = message.getCouponname();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -1850,12 +1860,26 @@ proto.assets.Coupon.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getValue();
+  f = message.getFacevalue();
   if (f != null) {
     writer.writeMessage(
       9,
       f,
       proto.assets.CurrencyValueField.serializeBinaryToWriter
+    );
+  }
+  f = message.getRedemptionvenue();
+  if (f.length > 0) {
+    writer.writeString(
+      10,
+      f
+    );
+  }
+  f = message.getDetails();
+  if (f.length > 0) {
+    writer.writeString(
+      11,
+      f
     );
   }
 };
@@ -1880,10 +1904,10 @@ proto.assets.Coupon.prototype.setRedeemingentity = function(value) {
 
 
 /**
- * optional uint64 IssueDate = 2;
+ * optional uint64 ValidFromTimestamp = 2;
  * @return {number}
  */
-proto.assets.Coupon.prototype.getIssuedate = function() {
+proto.assets.Coupon.prototype.getValidfromtimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
@@ -1892,16 +1916,16 @@ proto.assets.Coupon.prototype.getIssuedate = function() {
  * @param {number} value
  * @return {!proto.assets.Coupon} returns this
  */
-proto.assets.Coupon.prototype.setIssuedate = function(value) {
+proto.assets.Coupon.prototype.setValidfromtimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
 /**
- * optional uint64 ExpiryDate = 3;
+ * optional uint64 ExpiryTimestamp = 3;
  * @return {number}
  */
-proto.assets.Coupon.prototype.getExpirydate = function() {
+proto.assets.Coupon.prototype.getExpirytimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
@@ -1910,16 +1934,16 @@ proto.assets.Coupon.prototype.getExpirydate = function() {
  * @param {number} value
  * @return {!proto.assets.Coupon} returns this
  */
-proto.assets.Coupon.prototype.setExpirydate = function(value) {
+proto.assets.Coupon.prototype.setExpirytimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
 /**
- * optional string Description = 6;
+ * optional string CouponName = 6;
  * @return {string}
  */
-proto.assets.Coupon.prototype.getDescription = function() {
+proto.assets.Coupon.prototype.getCouponname = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
@@ -1928,7 +1952,7 @@ proto.assets.Coupon.prototype.getDescription = function() {
  * @param {string} value
  * @return {!proto.assets.Coupon} returns this
  */
-proto.assets.Coupon.prototype.setDescription = function(value) {
+proto.assets.Coupon.prototype.setCouponname = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 
@@ -1952,10 +1976,10 @@ proto.assets.Coupon.prototype.setTransferspermitted = function(value) {
 
 
 /**
- * optional CurrencyValueField Value = 9;
+ * optional CurrencyValueField FaceValue = 9;
  * @return {?proto.assets.CurrencyValueField}
  */
-proto.assets.Coupon.prototype.getValue = function() {
+proto.assets.Coupon.prototype.getFacevalue = function() {
   return /** @type{?proto.assets.CurrencyValueField} */ (
     jspb.Message.getWrapperField(this, proto.assets.CurrencyValueField, 9));
 };
@@ -1965,7 +1989,7 @@ proto.assets.Coupon.prototype.getValue = function() {
  * @param {?proto.assets.CurrencyValueField|undefined} value
  * @return {!proto.assets.Coupon} returns this
 */
-proto.assets.Coupon.prototype.setValue = function(value) {
+proto.assets.Coupon.prototype.setFacevalue = function(value) {
   return jspb.Message.setWrapperField(this, 9, value);
 };
 
@@ -1974,8 +1998,8 @@ proto.assets.Coupon.prototype.setValue = function(value) {
  * Clears the message field making it undefined.
  * @return {!proto.assets.Coupon} returns this
  */
-proto.assets.Coupon.prototype.clearValue = function() {
-  return this.setValue(undefined);
+proto.assets.Coupon.prototype.clearFacevalue = function() {
+  return this.setFacevalue(undefined);
 };
 
 
@@ -1983,8 +2007,44 @@ proto.assets.Coupon.prototype.clearValue = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.assets.Coupon.prototype.hasValue = function() {
+proto.assets.Coupon.prototype.hasFacevalue = function() {
   return jspb.Message.getField(this, 9) != null;
+};
+
+
+/**
+ * optional string RedemptionVenue = 10;
+ * @return {string}
+ */
+proto.assets.Coupon.prototype.getRedemptionvenue = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.assets.Coupon} returns this
+ */
+proto.assets.Coupon.prototype.setRedemptionvenue = function(value) {
+  return jspb.Message.setProto3StringField(this, 10, value);
+};
+
+
+/**
+ * optional string Details = 11;
+ * @return {string}
+ */
+proto.assets.Coupon.prototype.getDetails = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.assets.Coupon} returns this
+ */
+proto.assets.Coupon.prototype.setDetails = function(value) {
+  return jspb.Message.setProto3StringField(this, 11, value);
 };
 
 
@@ -2021,9 +2081,9 @@ proto.assets.LoyaltyPoints.prototype.toObject = function(opt_includeInstance) {
 proto.assets.LoyaltyPoints.toObject = function(includeInstance, msg) {
   var f, obj = {
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
-    offername: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    programname: jspb.Message.getFieldWithDefault(msg, 2, ""),
     expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    description: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    details: jspb.Message.getFieldWithDefault(msg, 5, ""),
     transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 6, false)
   };
 
@@ -2068,7 +2128,7 @@ proto.assets.LoyaltyPoints.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setOffername(value);
+      msg.setProgramname(value);
       break;
     case 4:
       var value = /** @type {number} */ (reader.readUint64());
@@ -2076,7 +2136,7 @@ proto.assets.LoyaltyPoints.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 5:
       var value = /** @type {string} */ (reader.readString());
-      msg.setDescription(value);
+      msg.setDetails(value);
       break;
     case 6:
       var value = /** @type {boolean} */ (reader.readBool());
@@ -2119,7 +2179,7 @@ proto.assets.LoyaltyPoints.serializeBinaryToWriter = function(message, writer) {
       proto.assets.AgeRestrictionField.serializeBinaryToWriter
     );
   }
-  f = message.getOffername();
+  f = message.getProgramname();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -2133,7 +2193,7 @@ proto.assets.LoyaltyPoints.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getDescription();
+  f = message.getDetails();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -2188,10 +2248,10 @@ proto.assets.LoyaltyPoints.prototype.hasAgerestriction = function() {
 
 
 /**
- * optional string OfferName = 2;
+ * optional string ProgramName = 2;
  * @return {string}
  */
-proto.assets.LoyaltyPoints.prototype.getOffername = function() {
+proto.assets.LoyaltyPoints.prototype.getProgramname = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -2200,7 +2260,7 @@ proto.assets.LoyaltyPoints.prototype.getOffername = function() {
  * @param {string} value
  * @return {!proto.assets.LoyaltyPoints} returns this
  */
-proto.assets.LoyaltyPoints.prototype.setOffername = function(value) {
+proto.assets.LoyaltyPoints.prototype.setProgramname = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
@@ -2224,10 +2284,10 @@ proto.assets.LoyaltyPoints.prototype.setExpirationtimestamp = function(value) {
 
 
 /**
- * optional string Description = 5;
+ * optional string Details = 5;
  * @return {string}
  */
-proto.assets.LoyaltyPoints.prototype.getDescription = function() {
+proto.assets.LoyaltyPoints.prototype.getDetails = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
@@ -2236,7 +2296,7 @@ proto.assets.LoyaltyPoints.prototype.getDescription = function() {
  * @param {string} value
  * @return {!proto.assets.LoyaltyPoints} returns this
  */
-proto.assets.LoyaltyPoints.prototype.setDescription = function(value) {
+proto.assets.LoyaltyPoints.prototype.setDetails = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
 };
 
@@ -2292,15 +2352,15 @@ proto.assets.TicketAdmission.prototype.toObject = function(opt_includeInstance) 
 proto.assets.TicketAdmission.toObject = function(includeInstance, msg) {
   var f, obj = {
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
-    admissiontype: jspb.Message.getFieldWithDefault(msg, 2, ""),
     venue: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    pb_class: jspb.Message.getFieldWithDefault(msg, 4, ""),
     area: jspb.Message.getFieldWithDefault(msg, 5, ""),
     seat: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    starttimedate: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    description: jspb.Message.getFieldWithDefault(msg, 10, ""),
-    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 11, false)
+    eventtimestamp: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    eventname: jspb.Message.getFieldWithDefault(msg, 10, ""),
+    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 11, false),
+    details: jspb.Message.getFieldWithDefault(msg, 12, ""),
+    section: jspb.Message.getFieldWithDefault(msg, 13, ""),
+    row: jspb.Message.getFieldWithDefault(msg, 14, "")
   };
 
   if (includeInstance) {
@@ -2342,17 +2402,9 @@ proto.assets.TicketAdmission.deserializeBinaryFromReader = function(msg, reader)
       reader.readMessage(value,proto.assets.AgeRestrictionField.deserializeBinaryFromReader);
       msg.setAgerestriction(value);
       break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setAdmissiontype(value);
-      break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setVenue(value);
-      break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setClass(value);
       break;
     case 5:
       var value = /** @type {string} */ (reader.readString());
@@ -2364,19 +2416,27 @@ proto.assets.TicketAdmission.deserializeBinaryFromReader = function(msg, reader)
       break;
     case 7:
       var value = /** @type {number} */ (reader.readUint64());
-      msg.setStarttimedate(value);
-      break;
-    case 9:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setExpirationtimestamp(value);
+      msg.setEventtimestamp(value);
       break;
     case 10:
       var value = /** @type {string} */ (reader.readString());
-      msg.setDescription(value);
+      msg.setEventname(value);
       break;
     case 11:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setTransferspermitted(value);
+      break;
+    case 12:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDetails(value);
+      break;
+    case 13:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSection(value);
+      break;
+    case 14:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRow(value);
       break;
     default:
       reader.skipField();
@@ -2415,24 +2475,10 @@ proto.assets.TicketAdmission.serializeBinaryToWriter = function(message, writer)
       proto.assets.AgeRestrictionField.serializeBinaryToWriter
     );
   }
-  f = message.getAdmissiontype();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
   f = message.getVenue();
   if (f.length > 0) {
     writer.writeString(
       3,
-      f
-    );
-  }
-  f = message.getClass();
-  if (f.length > 0) {
-    writer.writeString(
-      4,
       f
     );
   }
@@ -2450,21 +2496,14 @@ proto.assets.TicketAdmission.serializeBinaryToWriter = function(message, writer)
       f
     );
   }
-  f = message.getStarttimedate();
+  f = message.getEventtimestamp();
   if (f !== 0) {
     writer.writeUint64(
       7,
       f
     );
   }
-  f = message.getExpirationtimestamp();
-  if (f !== 0) {
-    writer.writeUint64(
-      9,
-      f
-    );
-  }
-  f = message.getDescription();
+  f = message.getEventname();
   if (f.length > 0) {
     writer.writeString(
       10,
@@ -2475,6 +2514,27 @@ proto.assets.TicketAdmission.serializeBinaryToWriter = function(message, writer)
   if (f) {
     writer.writeBool(
       11,
+      f
+    );
+  }
+  f = message.getDetails();
+  if (f.length > 0) {
+    writer.writeString(
+      12,
+      f
+    );
+  }
+  f = message.getSection();
+  if (f.length > 0) {
+    writer.writeString(
+      13,
+      f
+    );
+  }
+  f = message.getRow();
+  if (f.length > 0) {
+    writer.writeString(
+      14,
       f
     );
   }
@@ -2519,24 +2579,6 @@ proto.assets.TicketAdmission.prototype.hasAgerestriction = function() {
 
 
 /**
- * optional string AdmissionType = 2;
- * @return {string}
- */
-proto.assets.TicketAdmission.prototype.getAdmissiontype = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.assets.TicketAdmission} returns this
- */
-proto.assets.TicketAdmission.prototype.setAdmissiontype = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
  * optional string Venue = 3;
  * @return {string}
  */
@@ -2551,24 +2593,6 @@ proto.assets.TicketAdmission.prototype.getVenue = function() {
  */
 proto.assets.TicketAdmission.prototype.setVenue = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string Class = 4;
- * @return {string}
- */
-proto.assets.TicketAdmission.prototype.getClass = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.assets.TicketAdmission} returns this
- */
-proto.assets.TicketAdmission.prototype.setClass = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
@@ -2609,10 +2633,10 @@ proto.assets.TicketAdmission.prototype.setSeat = function(value) {
 
 
 /**
- * optional uint64 StartTimeDate = 7;
+ * optional uint64 EventTimestamp = 7;
  * @return {number}
  */
-proto.assets.TicketAdmission.prototype.getStarttimedate = function() {
+proto.assets.TicketAdmission.prototype.getEventtimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
@@ -2621,34 +2645,16 @@ proto.assets.TicketAdmission.prototype.getStarttimedate = function() {
  * @param {number} value
  * @return {!proto.assets.TicketAdmission} returns this
  */
-proto.assets.TicketAdmission.prototype.setStarttimedate = function(value) {
+proto.assets.TicketAdmission.prototype.setEventtimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 7, value);
 };
 
 
 /**
- * optional uint64 ExpirationTimestamp = 9;
- * @return {number}
- */
-proto.assets.TicketAdmission.prototype.getExpirationtimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.assets.TicketAdmission} returns this
- */
-proto.assets.TicketAdmission.prototype.setExpirationtimestamp = function(value) {
-  return jspb.Message.setProto3IntField(this, 9, value);
-};
-
-
-/**
- * optional string Description = 10;
+ * optional string EventName = 10;
  * @return {string}
  */
-proto.assets.TicketAdmission.prototype.getDescription = function() {
+proto.assets.TicketAdmission.prototype.getEventname = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
 };
 
@@ -2657,7 +2663,7 @@ proto.assets.TicketAdmission.prototype.getDescription = function() {
  * @param {string} value
  * @return {!proto.assets.TicketAdmission} returns this
  */
-proto.assets.TicketAdmission.prototype.setDescription = function(value) {
+proto.assets.TicketAdmission.prototype.setEventname = function(value) {
   return jspb.Message.setProto3StringField(this, 10, value);
 };
 
@@ -2677,6 +2683,60 @@ proto.assets.TicketAdmission.prototype.getTransferspermitted = function() {
  */
 proto.assets.TicketAdmission.prototype.setTransferspermitted = function(value) {
   return jspb.Message.setProto3BooleanField(this, 11, value);
+};
+
+
+/**
+ * optional string Details = 12;
+ * @return {string}
+ */
+proto.assets.TicketAdmission.prototype.getDetails = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.assets.TicketAdmission} returns this
+ */
+proto.assets.TicketAdmission.prototype.setDetails = function(value) {
+  return jspb.Message.setProto3StringField(this, 12, value);
+};
+
+
+/**
+ * optional string Section = 13;
+ * @return {string}
+ */
+proto.assets.TicketAdmission.prototype.getSection = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.assets.TicketAdmission} returns this
+ */
+proto.assets.TicketAdmission.prototype.setSection = function(value) {
+  return jspb.Message.setProto3StringField(this, 13, value);
+};
+
+
+/**
+ * optional string Row = 14;
+ * @return {string}
+ */
+proto.assets.TicketAdmission.prototype.getRow = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 14, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.assets.TicketAdmission} returns this
+ */
+proto.assets.TicketAdmission.prototype.setRow = function(value) {
+  return jspb.Message.setProto3StringField(this, 14, value);
 };
 
 
@@ -2717,7 +2777,9 @@ proto.assets.CasinoChip.toObject = function(includeInstance, msg) {
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
     expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 5, 0),
     precision: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 7, false)
+    transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 7, false),
+    casinoname: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    facevalue: (f = msg.getFacevalue()) && proto.assets.CurrencyValueField.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2778,6 +2840,15 @@ proto.assets.CasinoChip.deserializeBinaryFromReader = function(msg, reader) {
     case 7:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setTransferspermitted(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setCasinoname(value);
+      break;
+    case 9:
+      var value = new proto.assets.CurrencyValueField;
+      reader.readMessage(value,proto.assets.CurrencyValueField.deserializeBinaryFromReader);
+      msg.setFacevalue(value);
       break;
     default:
       reader.skipField();
@@ -2849,6 +2920,21 @@ proto.assets.CasinoChip.serializeBinaryToWriter = function(message, writer) {
     writer.writeBool(
       7,
       f
+    );
+  }
+  f = message.getCasinoname();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
+      f
+    );
+  }
+  f = message.getFacevalue();
+  if (f != null) {
+    writer.writeMessage(
+      9,
+      f,
+      proto.assets.CurrencyValueField.serializeBinaryToWriter
     );
   }
 };
@@ -2978,6 +3064,61 @@ proto.assets.CasinoChip.prototype.getTransferspermitted = function() {
  */
 proto.assets.CasinoChip.prototype.setTransferspermitted = function(value) {
   return jspb.Message.setProto3BooleanField(this, 7, value);
+};
+
+
+/**
+ * optional string CasinoName = 8;
+ * @return {string}
+ */
+proto.assets.CasinoChip.prototype.getCasinoname = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.assets.CasinoChip} returns this
+ */
+proto.assets.CasinoChip.prototype.setCasinoname = function(value) {
+  return jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional CurrencyValueField FaceValue = 9;
+ * @return {?proto.assets.CurrencyValueField}
+ */
+proto.assets.CasinoChip.prototype.getFacevalue = function() {
+  return /** @type{?proto.assets.CurrencyValueField} */ (
+    jspb.Message.getWrapperField(this, proto.assets.CurrencyValueField, 9));
+};
+
+
+/**
+ * @param {?proto.assets.CurrencyValueField|undefined} value
+ * @return {!proto.assets.CasinoChip} returns this
+*/
+proto.assets.CasinoChip.prototype.setFacevalue = function(value) {
+  return jspb.Message.setWrapperField(this, 9, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.assets.CasinoChip} returns this
+ */
+proto.assets.CasinoChip.prototype.clearFacevalue = function() {
+  return this.setFacevalue(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.assets.CasinoChip.prototype.hasFacevalue = function() {
+  return jspb.Message.getField(this, 9) != null;
 };
 
 

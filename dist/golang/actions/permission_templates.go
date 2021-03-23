@@ -263,13 +263,11 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 1}, // [AssetPayload RedeemingEntity]
-					permissions.FieldIndexPath{12, 2}, // [AssetPayload IssueDate]
-					permissions.FieldIndexPath{12, 3}, // [AssetPayload ExpiryDate]
-					permissions.FieldIndexPath{12, 4}, // [AssetPayload Value]
-					permissions.FieldIndexPath{12, 5}, // [AssetPayload Currency]
-					permissions.FieldIndexPath{12, 6}, // [AssetPayload Description]
+					permissions.FieldIndexPath{10},     // [AuthorizedTokenQty]
+					permissions.FieldIndexPath{12, 1},  // [AssetPayload RedeemingEntity]
+					permissions.FieldIndexPath{12, 3},  // [AssetPayload ExpiryTimestamp]
+					permissions.FieldIndexPath{12, 9},  // [AssetPayload FaceValue]
+					permissions.FieldIndexPath{12, 11}, // [AssetPayload Details]
 				},
 			},
 		},
@@ -291,7 +289,7 @@ var PrivateCompany = PermissionConfig{
 					permissions.FieldIndexPath{8},     // [HolderProposal]
 					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
 					permissions.FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
-					permissions.FieldIndexPath{12, 2}, // [AssetPayload OfferName]
+					permissions.FieldIndexPath{12, 2}, // [AssetPayload ProgramName]
 				},
 			},
 			permissions.Permission{ // Administrator Direct
@@ -302,9 +300,8 @@ var PrivateCompany = PermissionConfig{
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 3}, // [AssetPayload ValidFrom]
 					permissions.FieldIndexPath{12, 4}, // [AssetPayload ExpirationTimestamp]
-					permissions.FieldIndexPath{12, 5}, // [AssetPayload Description]
+					permissions.FieldIndexPath{12, 5}, // [AssetPayload Details]
 				},
 			},
 		},
@@ -416,15 +413,13 @@ var PrivateCompany = PermissionConfig{
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{10},     // [AuthorizedTokenQty]
 					permissions.FieldIndexPath{12, 1},  // [AssetPayload AgeRestriction]
-					permissions.FieldIndexPath{12, 2},  // [AssetPayload AdmissionType]
 					permissions.FieldIndexPath{12, 3},  // [AssetPayload Venue]
-					permissions.FieldIndexPath{12, 4},  // [AssetPayload Class]
 					permissions.FieldIndexPath{12, 5},  // [AssetPayload Area]
+					permissions.FieldIndexPath{12, 13}, // [AssetPayload Section]
+					permissions.FieldIndexPath{12, 14}, // [AssetPayload Row]
 					permissions.FieldIndexPath{12, 6},  // [AssetPayload Seat]
-					permissions.FieldIndexPath{12, 7},  // [AssetPayload StartTimeDate]
-					permissions.FieldIndexPath{12, 8},  // [AssetPayload ValidFrom]
-					permissions.FieldIndexPath{12, 9},  // [AssetPayload ExpirationTimestamp]
-					permissions.FieldIndexPath{12, 10}, // [AssetPayload Description]
+					permissions.FieldIndexPath{12, 7},  // [AssetPayload EventTimestamp]
+					permissions.FieldIndexPath{12, 12}, // [AssetPayload Details]
 				},
 			},
 		},

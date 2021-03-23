@@ -867,14 +867,16 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 // Coupon Permission / Amendment Field Indices
 const (
 	CouponFieldRedeemingEntity     = uint32(1)
-	CouponFieldIssueDate           = uint32(2)
-	CouponFieldExpiryDate          = uint32(3)
+	CouponFieldValidFromTimestamp  = uint32(2)
+	CouponFieldExpiryTimestamp     = uint32(3)
 	DeprecatedCouponFieldValue     = uint32(4)
 	DeprecatedCouponFieldCurrency  = uint32(5)
-	CouponFieldDescription         = uint32(6)
+	CouponFieldCouponName          = uint32(6)
 	DeprecatedCouponFieldPrecision = uint32(7)
 	CouponFieldTransfersPermitted  = uint32(8)
-	CouponFieldValue               = uint32(9)
+	CouponFieldFaceValue           = uint32(9)
+	CouponFieldRedemptionVenue     = uint32(10)
+	CouponFieldDetails             = uint32(11)
 )
 
 // ApplyAmendment updates a Coupon based on amendment data.
@@ -892,27 +894,27 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 		a.RedeemingEntity = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CouponFieldIssueDate: // uint64
+	case CouponFieldValidFromTimestamp: // uint64
 		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for IssueDate : %v", fip)
+			return nil, fmt.Errorf("Amendment field index path too deep for ValidFromTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("IssueDate amendment value failed to deserialize : %s", err)
+			return nil, fmt.Errorf("ValidFromTimestamp amendment value failed to deserialize : %s", err)
 		} else {
-			a.IssueDate = uint64(value)
+			a.ValidFromTimestamp = uint64(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CouponFieldExpiryDate: // uint64
+	case CouponFieldExpiryTimestamp: // uint64
 		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for ExpiryDate : %v", fip)
+			return nil, fmt.Errorf("Amendment field index path too deep for ExpiryTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("ExpiryDate amendment value failed to deserialize : %s", err)
+			return nil, fmt.Errorf("ExpiryTimestamp amendment value failed to deserialize : %s", err)
 		} else {
-			a.ExpiryDate = uint64(value)
+			a.ExpiryTimestamp = uint64(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -920,8 +922,8 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 
 	case DeprecatedCouponFieldCurrency: // deprecated
 
-	case CouponFieldDescription: // string
-		a.Description = string(data)
+	case CouponFieldCouponName: // string
+		a.CouponName = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
 	case DeprecatedCouponFieldPrecision: // deprecated
@@ -939,9 +941,9 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CouponFieldValue: // CurrencyValueField
+	case CouponFieldFaceValue: // CurrencyValueField
 		if len(fip) == 1 && len(data) == 0 {
-			a.Value = nil
+			a.FaceValue = nil
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
@@ -950,7 +952,15 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 			return nil, errors.Wrap(err, "sub permissions")
 		}
 
-		return a.Value.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
+
+	case CouponFieldRedemptionVenue: // string
+		a.RedemptionVenue = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case CouponFieldDetails: // string
+		a.Details = string(data)
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -978,12 +988,12 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// IssueDate uint64
-	fip = append(ofip, CouponFieldIssueDate)
-	if a.IssueDate != newValue.IssueDate {
+	// ValidFromTimestamp uint64
+	fip = append(ofip, CouponFieldValidFromTimestamp)
+	if a.ValidFromTimestamp != newValue.ValidFromTimestamp {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.IssueDate)); err != nil {
-			return nil, errors.Wrap(err, "IssueDate")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFromTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ValidFromTimestamp")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -992,12 +1002,12 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// ExpiryDate uint64
-	fip = append(ofip, CouponFieldExpiryDate)
-	if a.ExpiryDate != newValue.ExpiryDate {
+	// ExpiryTimestamp uint64
+	fip = append(ofip, CouponFieldExpiryTimestamp)
+	if a.ExpiryTimestamp != newValue.ExpiryTimestamp {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpiryDate)); err != nil {
-			return nil, errors.Wrap(err, "ExpiryDate")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpiryTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpiryTimestamp")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -1010,12 +1020,12 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 
 	// deprecated Currency deprecated
 
-	// Description string
-	fip = append(ofip, CouponFieldDescription)
-	if a.Description != newValue.Description {
+	// CouponName string
+	fip = append(ofip, CouponFieldCouponName)
+	if a.CouponName != newValue.CouponName {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: []byte(newValue.Description),
+			Data: []byte(newValue.CouponName),
 		})
 	}
 
@@ -1035,14 +1045,32 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Value CurrencyValueField
-	fip = append(ofip, CouponFieldValue)
+	// FaceValue CurrencyValueField
+	fip = append(ofip, CouponFieldFaceValue)
 
-	ValueAmendments, err := a.Value.CreateAmendments(fip, newValue.Value)
+	FaceValueAmendments, err := a.FaceValue.CreateAmendments(fip, newValue.FaceValue)
 	if err != nil {
-		return nil, errors.Wrap(err, "Value")
+		return nil, errors.Wrap(err, "FaceValue")
 	}
-	result = append(result, ValueAmendments...)
+	result = append(result, FaceValueAmendments...)
+
+	// RedemptionVenue string
+	fip = append(ofip, CouponFieldRedemptionVenue)
+	if a.RedemptionVenue != newValue.RedemptionVenue {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.RedemptionVenue),
+		})
+	}
+
+	// Details string
+	fip = append(ofip, CouponFieldDetails)
+	if a.Details != newValue.Details {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Details),
+		})
+	}
 
 	return result, nil
 }
@@ -1050,10 +1078,10 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 // LoyaltyPoints Permission / Amendment Field Indices
 const (
 	LoyaltyPointsFieldAgeRestriction      = uint32(1)
-	LoyaltyPointsFieldOfferName           = uint32(2)
+	LoyaltyPointsFieldProgramName         = uint32(2)
 	DeprecatedLoyaltyPointsFieldValidFrom = uint32(3)
 	LoyaltyPointsFieldExpirationTimestamp = uint32(4)
-	LoyaltyPointsFieldDescription         = uint32(5)
+	LoyaltyPointsFieldDetails             = uint32(5)
 	LoyaltyPointsFieldTransfersPermitted  = uint32(6)
 )
 
@@ -1081,8 +1109,8 @@ func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation
 
 		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
-	case LoyaltyPointsFieldOfferName: // string
-		a.OfferName = string(data)
+	case LoyaltyPointsFieldProgramName: // string
+		a.ProgramName = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
 	case DeprecatedLoyaltyPointsFieldValidFrom: // deprecated
@@ -1099,8 +1127,8 @@ func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case LoyaltyPointsFieldDescription: // string
-		a.Description = string(data)
+	case LoyaltyPointsFieldDetails: // string
+		a.Details = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
 	case LoyaltyPointsFieldTransfersPermitted: // bool
@@ -1142,12 +1170,12 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 	result = append(result, AgeRestrictionAmendments...)
 
-	// OfferName string
-	fip = append(ofip, LoyaltyPointsFieldOfferName)
-	if a.OfferName != newValue.OfferName {
+	// ProgramName string
+	fip = append(ofip, LoyaltyPointsFieldProgramName)
+	if a.ProgramName != newValue.ProgramName {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: []byte(newValue.OfferName),
+			Data: []byte(newValue.ProgramName),
 		})
 	}
 
@@ -1167,12 +1195,12 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Description string
-	fip = append(ofip, LoyaltyPointsFieldDescription)
-	if a.Description != newValue.Description {
+	// Details string
+	fip = append(ofip, LoyaltyPointsFieldDetails)
+	if a.Details != newValue.Details {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: []byte(newValue.Description),
+			Data: []byte(newValue.Details),
 		})
 	}
 
@@ -1195,17 +1223,20 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 
 // TicketAdmission Permission / Amendment Field Indices
 const (
-	TicketAdmissionFieldAgeRestriction      = uint32(1)
-	TicketAdmissionFieldAdmissionType       = uint32(2)
-	TicketAdmissionFieldVenue               = uint32(3)
-	TicketAdmissionFieldClass               = uint32(4)
-	TicketAdmissionFieldArea                = uint32(5)
-	TicketAdmissionFieldSeat                = uint32(6)
-	TicketAdmissionFieldStartTimeDate       = uint32(7)
-	DeprecatedTicketAdmissionFieldValidFrom = uint32(8)
-	TicketAdmissionFieldExpirationTimestamp = uint32(9)
-	TicketAdmissionFieldDescription         = uint32(10)
-	TicketAdmissionFieldTransfersPermitted  = uint32(11)
+	TicketAdmissionFieldAgeRestriction                = uint32(1)
+	DeprecatedTicketAdmissionFieldAdmissionType       = uint32(2)
+	TicketAdmissionFieldVenue                         = uint32(3)
+	DeprecatedTicketAdmissionFieldClass               = uint32(4)
+	TicketAdmissionFieldArea                          = uint32(5)
+	TicketAdmissionFieldSeat                          = uint32(6)
+	TicketAdmissionFieldEventTimestamp                = uint32(7)
+	DeprecatedTicketAdmissionFieldValidFrom           = uint32(8)
+	DeprecatedTicketAdmissionFieldExpirationTimestamp = uint32(9)
+	TicketAdmissionFieldEventName                     = uint32(10)
+	TicketAdmissionFieldTransfersPermitted            = uint32(11)
+	TicketAdmissionFieldDetails                       = uint32(12)
+	TicketAdmissionFieldSection                       = uint32(13)
+	TicketAdmissionFieldRow                           = uint32(14)
 )
 
 // ApplyAmendment updates a TicketAdmission based on amendment data.
@@ -1232,17 +1263,13 @@ func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operati
 
 		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
-	case TicketAdmissionFieldAdmissionType: // string
-		a.AdmissionType = string(data)
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedTicketAdmissionFieldAdmissionType: // deprecated
 
 	case TicketAdmissionFieldVenue: // string
 		a.Venue = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case TicketAdmissionFieldClass: // string
-		a.Class = string(data)
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedTicketAdmissionFieldClass: // deprecated
 
 	case TicketAdmissionFieldArea: // string
 		a.Area = string(data)
@@ -1252,34 +1279,24 @@ func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operati
 		a.Seat = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case TicketAdmissionFieldStartTimeDate: // uint64
+	case TicketAdmissionFieldEventTimestamp: // uint64
 		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for StartTimeDate : %v", fip)
+			return nil, fmt.Errorf("Amendment field index path too deep for EventTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("StartTimeDate amendment value failed to deserialize : %s", err)
+			return nil, fmt.Errorf("EventTimestamp amendment value failed to deserialize : %s", err)
 		} else {
-			a.StartTimeDate = uint64(value)
+			a.EventTimestamp = uint64(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
 	case DeprecatedTicketAdmissionFieldValidFrom: // deprecated
 
-	case TicketAdmissionFieldExpirationTimestamp: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
-		} else {
-			a.ExpirationTimestamp = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedTicketAdmissionFieldExpirationTimestamp: // deprecated
 
-	case TicketAdmissionFieldDescription: // string
-		a.Description = string(data)
+	case TicketAdmissionFieldEventName: // string
+		a.EventName = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
 	case TicketAdmissionFieldTransfersPermitted: // bool
@@ -1293,6 +1310,18 @@ func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operati
 		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
 			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
 		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	case TicketAdmissionFieldDetails: // string
+		a.Details = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case TicketAdmissionFieldSection: // string
+		a.Section = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case TicketAdmissionFieldRow: // string
+		a.Row = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
 	}
@@ -1321,14 +1350,7 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 	result = append(result, AgeRestrictionAmendments...)
 
-	// AdmissionType string
-	fip = append(ofip, TicketAdmissionFieldAdmissionType)
-	if a.AdmissionType != newValue.AdmissionType {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.AdmissionType),
-		})
-	}
+	// deprecated AdmissionType deprecated
 
 	// Venue string
 	fip = append(ofip, TicketAdmissionFieldVenue)
@@ -1339,14 +1361,7 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Class string
-	fip = append(ofip, TicketAdmissionFieldClass)
-	if a.Class != newValue.Class {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.Class),
-		})
-	}
+	// deprecated Class deprecated
 
 	// Area string
 	fip = append(ofip, TicketAdmissionFieldArea)
@@ -1366,12 +1381,12 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// StartTimeDate uint64
-	fip = append(ofip, TicketAdmissionFieldStartTimeDate)
-	if a.StartTimeDate != newValue.StartTimeDate {
+	// EventTimestamp uint64
+	fip = append(ofip, TicketAdmissionFieldEventTimestamp)
+	if a.EventTimestamp != newValue.EventTimestamp {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.StartTimeDate)); err != nil {
-			return nil, errors.Wrap(err, "StartTimeDate")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.EventTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "EventTimestamp")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -1382,26 +1397,14 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 
 	// deprecated ValidFrom deprecated
 
-	// ExpirationTimestamp uint64
-	fip = append(ofip, TicketAdmissionFieldExpirationTimestamp)
-	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
-			return nil, errors.Wrap(err, "ExpirationTimestamp")
-		}
+	// deprecated ExpirationTimestamp deprecated
 
+	// EventName string
+	fip = append(ofip, TicketAdmissionFieldEventName)
+	if a.EventName != newValue.EventName {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
-
-	// Description string
-	fip = append(ofip, TicketAdmissionFieldDescription)
-	if a.Description != newValue.Description {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.Description),
+			Data: []byte(newValue.EventName),
 		})
 	}
 
@@ -1419,6 +1422,33 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
+	// Details string
+	fip = append(ofip, TicketAdmissionFieldDetails)
+	if a.Details != newValue.Details {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Details),
+		})
+	}
+
+	// Section string
+	fip = append(ofip, TicketAdmissionFieldSection)
+	if a.Section != newValue.Section {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Section),
+		})
+	}
+
+	// Row string
+	fip = append(ofip, TicketAdmissionFieldRow)
+	if a.Row != newValue.Row {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Row),
+		})
+	}
+
 	return result, nil
 }
 
@@ -1431,6 +1461,8 @@ const (
 	CasinoChipFieldExpirationTimestamp = uint32(5)
 	CasinoChipFieldPrecision           = uint32(6)
 	CasinoChipFieldTransfersPermitted  = uint32(7)
+	CasinoChipFieldCasinoName          = uint32(8)
+	CasinoChipFieldFaceValue           = uint32(9)
 )
 
 // ApplyAmendment updates a CasinoChip based on amendment data.
@@ -1506,6 +1538,23 @@ func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
 		}
 		return permissions.SubPermissions(fip, operation, false)
+
+	case CasinoChipFieldCasinoName: // string
+		a.CasinoName = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case CasinoChipFieldFaceValue: // CurrencyValueField
+		if len(fip) == 1 && len(data) == 0 {
+			a.FaceValue = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, false)
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
 	}
 
@@ -1594,6 +1643,24 @@ func (a *CasinoChip) CreateAmendments(fip permissions.FieldIndexPath,
 			Data: buf.Bytes(),
 		})
 	}
+
+	// CasinoName string
+	fip = append(ofip, CasinoChipFieldCasinoName)
+	if a.CasinoName != newValue.CasinoName {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.CasinoName),
+		})
+	}
+
+	// FaceValue CurrencyValueField
+	fip = append(ofip, CasinoChipFieldFaceValue)
+
+	FaceValueAmendments, err := a.FaceValue.CreateAmendments(fip, newValue.FaceValue)
+	if err != nil {
+		return nil, errors.Wrap(err, "FaceValue")
+	}
+	result = append(result, FaceValueAmendments...)
 
 	return result, nil
 }

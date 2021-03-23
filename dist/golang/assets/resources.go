@@ -538,7 +538,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "AustralianDollar",
 			Label:       "Australian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Australia","polity":["AUS","NRU","KIR","TUV"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Australia","polity":["AUS","NRU","KIR","TUV"],"precision":2,"symbol":"A$"}`,
 		}
 
 	case CurrenciesArubanFlorin:
@@ -1770,7 +1770,7 @@ func CurrenciesMap() map[string]*CurrenciesCode {
 			Name:        "AustralianDollar",
 			Label:       "Australian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Australia","polity":["AUS","NRU","KIR","TUV"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Australia","polity":["AUS","NRU","KIR","TUV"],"precision":2,"symbol":"A$"}`,
 		},
 
 		CurrenciesArubanFlorin: &CurrenciesCode{

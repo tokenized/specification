@@ -1197,12 +1197,12 @@ func TestAssetCreateAmendments(t *testing.T) {
 
 func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 	currentCoupon := &assets.Coupon{
-		Value: &assets.CurrencyValueField{
+		FaceValue: &assets.CurrencyValueField{
 			Value:        100,
 			CurrencyCode: "USD",
 			Precision:    2,
 		},
-		Description: "Test Coupon",
+		CouponName: "Test Coupon",
 	}
 
 	cb, _ := currentCoupon.Bytes()
@@ -1215,12 +1215,12 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 	}
 
 	newCoupon := &assets.Coupon{
-		Value: &assets.CurrencyValueField{
+		FaceValue: &assets.CurrencyValueField{
 			Value:        100,
 			CurrencyCode: "USD",
 			Precision:    2,
 		},
-		Description: "New Test Coupon",
+		CouponName: "New Test Coupon",
 	}
 
 	nb, _ := newCoupon.Bytes()
@@ -1243,7 +1243,7 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 
 	// Check amendment
 	expectedAmendment := &AmendmentField{
-		FieldIndexPath: []byte{2, byte(AssetFieldAssetPayload), byte(assets.CouponFieldDescription)},
+		FieldIndexPath: []byte{2, byte(AssetFieldAssetPayload), byte(assets.CouponFieldCouponName)},
 		Operation:      0,
 		Data:           []byte("New Test Coupon"),
 	}

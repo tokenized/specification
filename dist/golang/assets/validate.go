@@ -238,23 +238,33 @@ func (a *Coupon) Validate() error {
 		return fmt.Errorf("RedeemingEntity over max size : %d > %d", len(a.RedeemingEntity), max1ByteInteger)
 	}
 
-	// Field IssueDate - uint
+	// Field ValidFromTimestamp - uint
 
-	// Field ExpiryDate - uint
+	// Field ExpiryTimestamp - uint
 
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	// Field CouponName - varchar
+	if len(a.CouponName) > max1ByteInteger {
+		return fmt.Errorf("CouponName over max size : %d > %d", len(a.CouponName), max1ByteInteger)
 	}
-	if len(a.Description) == 0 {
-		return fmt.Errorf("Description required")
+	if len(a.CouponName) == 0 {
+		return fmt.Errorf("CouponName required")
 	}
 
 	// Field TransfersPermitted - bool
 
-	// Field Value - CurrencyValue
-	if err := a.Value.Validate(); err != nil {
-		return errors.Wrap(err, "Value")
+	// Field FaceValue - CurrencyValue
+	if err := a.FaceValue.Validate(); err != nil {
+		return errors.Wrap(err, "FaceValue")
+	}
+
+	// Field RedemptionVenue - varchar
+	if len(a.RedemptionVenue) > max1ByteInteger {
+		return fmt.Errorf("RedemptionVenue over max size : %d > %d", len(a.RedemptionVenue), max1ByteInteger)
+	}
+
+	// Field Details - varchar
+	if len(a.Details) > max2ByteInteger {
+		return fmt.Errorf("Details over max size : %d > %d", len(a.Details), max2ByteInteger)
 	}
 
 	return nil
@@ -270,19 +280,19 @@ func (a *LoyaltyPoints) Validate() error {
 		return errors.Wrap(err, "AgeRestriction")
 	}
 
-	// Field OfferName - varchar
-	if len(a.OfferName) > max1ByteInteger {
-		return fmt.Errorf("OfferName over max size : %d > %d", len(a.OfferName), max1ByteInteger)
+	// Field ProgramName - varchar
+	if len(a.ProgramName) > max1ByteInteger {
+		return fmt.Errorf("ProgramName over max size : %d > %d", len(a.ProgramName), max1ByteInteger)
+	}
+	if len(a.ProgramName) == 0 {
+		return fmt.Errorf("ProgramName required")
 	}
 
 	// Field ExpirationTimestamp - uint
 
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
-	}
-	if len(a.Description) == 0 {
-		return fmt.Errorf("Description required")
+	// Field Details - varchar
+	if len(a.Details) > max2ByteInteger {
+		return fmt.Errorf("Details over max size : %d > %d", len(a.Details), max2ByteInteger)
 	}
 
 	// Field TransfersPermitted - bool
@@ -300,20 +310,9 @@ func (a *TicketAdmission) Validate() error {
 		return errors.Wrap(err, "AgeRestriction")
 	}
 
-	// Field AdmissionType - fixedchar
-	if len(a.AdmissionType) != 0 && len(a.AdmissionType) != 3 {
-		return fmt.Errorf("AdmissionType fixed width field wrong size : %d should be %d",
-			len(a.AdmissionType), 3)
-	}
-
 	// Field Venue - varchar
 	if len(a.Venue) > max1ByteInteger {
 		return fmt.Errorf("Venue over max size : %d > %d", len(a.Venue), max1ByteInteger)
-	}
-
-	// Field Class - varchar
-	if len(a.Class) > max1ByteInteger {
-		return fmt.Errorf("Class over max size : %d > %d", len(a.Class), max1ByteInteger)
 	}
 
 	// Field Area - varchar
@@ -326,19 +325,32 @@ func (a *TicketAdmission) Validate() error {
 		return fmt.Errorf("Seat over max size : %d > %d", len(a.Seat), max1ByteInteger)
 	}
 
-	// Field StartTimeDate - uint
+	// Field EventTimestamp - uint
 
-	// Field ExpirationTimestamp - uint
-
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	// Field EventName - varchar
+	if len(a.EventName) > max1ByteInteger {
+		return fmt.Errorf("EventName over max size : %d > %d", len(a.EventName), max1ByteInteger)
 	}
-	if len(a.Description) == 0 {
-		return fmt.Errorf("Description required")
+	if len(a.EventName) == 0 {
+		return fmt.Errorf("EventName required")
 	}
 
 	// Field TransfersPermitted - bool
+
+	// Field Details - varchar
+	if len(a.Details) > max2ByteInteger {
+		return fmt.Errorf("Details over max size : %d > %d", len(a.Details), max2ByteInteger)
+	}
+
+	// Field Section - varchar
+	if len(a.Section) > max1ByteInteger {
+		return fmt.Errorf("Section over max size : %d > %d", len(a.Section), max1ByteInteger)
+	}
+
+	// Field Row - varchar
+	if len(a.Row) > max1ByteInteger {
+		return fmt.Errorf("Row over max size : %d > %d", len(a.Row), max1ByteInteger)
+	}
 
 	return nil
 }
@@ -366,14 +378,14 @@ func (a *CasinoChip) Validate() error {
 			len(a.UseType), 1)
 	}
 	foundUseType := false
-	for _, o := range []string{"R", "S", "F"} {
+	for _, o := range []string{"R", "S"} {
 		if a.UseType == o {
 			foundUseType = true
 			break
 		}
 	}
 	if !foundUseType {
-		return fmt.Errorf("UseType value not within options [R S F] : %s", a.UseType)
+		return fmt.Errorf("UseType value not within options [R S] : %s", a.UseType)
 	}
 	if len(a.UseType) == 0 {
 		return fmt.Errorf("UseType required")
@@ -392,6 +404,22 @@ func (a *CasinoChip) Validate() error {
 	}
 
 	// Field TransfersPermitted - bool
+
+	// Field CasinoName - varchar
+	if len(a.CasinoName) > max1ByteInteger {
+		return fmt.Errorf("CasinoName over max size : %d > %d", len(a.CasinoName), max1ByteInteger)
+	}
+	if len(a.CasinoName) == 0 {
+		return fmt.Errorf("CasinoName required")
+	}
+
+	// Field FaceValue - CurrencyValue
+	if err := a.FaceValue.Validate(); err != nil {
+		return errors.Wrap(err, "FaceValue")
+	}
+	if a.FaceValue == nil {
+		return fmt.Errorf("FaceValue required")
+	}
 
 	return nil
 }

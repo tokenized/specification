@@ -461,24 +461,24 @@ A voucher entitling the holder to a discount on a particular product or service.
     </tr>
 
     <tr>
-        <td>IssueDate</td>
+        <td>ValidFromTimestamp</td>
         <td>
             <a href="#alias-uint">Timestamp</a>
         </td>
         <td>
             
-             Example: Sat Dec 12 2015 18:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 
     <tr>
-        <td>ExpiryDate</td>
+        <td>ExpiryTimestamp</td>
         <td>
             <a href="#alias-uint">Timestamp</a>
         </td>
         <td>
             
-             Example: Sat Dec 12 2020 18:00:00 GMT&#43;1000 (AEST)
+            
         </td>
     </tr>
 
@@ -487,7 +487,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <td>deprecated</td>
         <td>
             
-             Example: Deprecated for new Currency Value type. Denominated in the smallest unit of currency specified  in the Currency subfield.
+             Example: Deprecated for new Currency Value type. Denominated in the smallest unit of currency specified in the Currency subfield.
 
         </td>
     </tr>
@@ -496,16 +496,16 @@ A voucher entitling the holder to a discount on a particular product or service.
         <td>(Deprecated)Currency</td>
         <td>deprecated</td>
         <td>
-            Deprecated for new Currency Value type. International Organization for Standardization code  for Currency. Currency for coupon. From resources/currency.
+            Deprecated for new Currency Value type. International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.
 
              Example: AUD
         </td>
     </tr>
 
     <tr>
-        <td>Description</td>
+        <td>CouponName</td>
         <td>
-            varchar(small)
+            varchar(tiny)
         </td>
         <td>
             
@@ -517,7 +517,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <td>(Deprecated)Precision</td>
         <td>deprecated</td>
         <td>
-            Deprecated for new Currency Value type. Required field to specify the decimal precision of a  currency. It will normally be the &#34;precision&#34; value associated with the Currency. It is the  number of decimal places between the number of tokens and the common unit of measure. For  example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So  the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this  scenario 100 tokens are worth $1.
+            Deprecated for new Currency Value type. Required field to specify the decimal precision of a currency. It will normally be the &#34;precision&#34; value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
 
             
         </td>
@@ -529,19 +529,41 @@ A voucher entitling the holder to a discount on a particular product or service.
             bool
         </td>
         <td>
-            Set to true if transfers are permitted between two parties, otherwise set to false to prevent  peer-to-peer transfers.
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
 
             
         </td>
     </tr>
 
     <tr>
-        <td>Value</td>
+        <td>FaceValue</td>
         <td>
             <a href="#type-currency-value">CurrencyValue</a>
         </td>
         <td>
-            Value of each coupon specified in a currency.
+            Face value of each coupon specified in a currency.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>RedemptionVenue</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Details</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            
             
         </td>
     </tr>
@@ -573,13 +595,13 @@ A Loyalty Point
     </tr>
 
     <tr>
-        <td>OfferName</td>
+        <td>ProgramName</td>
         <td>
             varchar(tiny)
         </td>
         <td>
             
-             Example: Qantas Frequent Flyer Points
+             This field is always required.  Example: Qantas Frequent Flyer Points
         </td>
     </tr>
 
@@ -604,13 +626,13 @@ A Loyalty Point
     </tr>
 
     <tr>
-        <td>Description</td>
+        <td>Details</td>
         <td>
             varchar(small)
         </td>
         <td>
             
-             This field is always required.  Example: Coingeek Conference - London (November 2018).
+            
         </td>
     </tr>
 
@@ -621,6 +643,7 @@ A Loyalty Point
         </td>
         <td>
             Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+
             
         </td>
     </tr>
@@ -652,13 +675,11 @@ Admission ticket
     </tr>
 
     <tr>
-        <td>AdmissionType</td>
-        <td>
-            fixedchar(3)
-        </td>
+        <td>(Deprecated)AdmissionType</td>
+        <td>deprecated</td>
         <td>
             
-             Example: MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition
+            
         </td>
     </tr>
 
@@ -674,10 +695,8 @@ Admission ticket
     </tr>
 
     <tr>
-        <td>Class</td>
-        <td>
-            varchar(tiny)
-        </td>
+        <td>(Deprecated)Class</td>
+        <td>deprecated</td>
         <td>
             
              Example: Gold Class, Platinum, VIP, Section A, etc.
@@ -702,12 +721,12 @@ Admission ticket
         </td>
         <td>
             
-             Example: Sec 1, Row 3, Seat 5, or A122
+             Example: Seat 5, or A122
         </td>
     </tr>
 
     <tr>
-        <td>StartTimeDate</td>
+        <td>EventTimestamp</td>
         <td>
             <a href="#alias-uint">Timestamp</a>
         </td>
@@ -727,10 +746,8 @@ Admission ticket
     </tr>
 
     <tr>
-        <td>ExpirationTimestamp</td>
-        <td>
-            <a href="#alias-uint">Timestamp</a>
-        </td>
+        <td>(Deprecated)ExpirationTimestamp</td>
+        <td>deprecated</td>
         <td>
             
             
@@ -738,9 +755,9 @@ Admission ticket
     </tr>
 
     <tr>
-        <td>Description</td>
+        <td>EventName</td>
         <td>
-            varchar(small)
+            varchar(tiny)
         </td>
         <td>
             
@@ -755,7 +772,41 @@ Admission ticket
         </td>
         <td>
             Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+
             
+        </td>
+    </tr>
+
+    <tr>
+        <td>Details</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Section</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            
+             Example: Sec 1
+        </td>
+    </tr>
+
+    <tr>
+        <td>Row</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            
+             Example: Sec 1
         </td>
     </tr>
 
@@ -792,7 +843,7 @@ Casino Chip
             fixedchar(1)
         </td>
         <td>
-            Real Money (R), Social (S), Free Play (F)
+            Real Money (R), Social (S)
              This field is always required.  Example: R
         </td>
     </tr>
@@ -847,7 +898,31 @@ Casino Chip
         </td>
         <td>
             Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+
             
+        </td>
+    </tr>
+
+    <tr>
+        <td>CasinoName</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+
+             This field is always required. 
+        </td>
+    </tr>
+
+    <tr>
+        <td>FaceValue</td>
+        <td>
+            <a href="#type-currency-value">CurrencyValue</a>
+        </td>
+        <td>
+            Face value of each coupon specified in a currency.
+             This field is always required. 
         </td>
     </tr>
 
