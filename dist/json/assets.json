@@ -883,7 +883,7 @@
               "TUV"
             ],
             "precision": 2,
-            "symbol": "A$"
+            "symbol": "$"
           },
           "name": "AustralianDollar"
         },
