@@ -240,7 +240,7 @@ func (a *Coupon) Validate() error {
 
 	// Field ValidFromTimestamp - uint
 
-	// Field ExpiryTimestamp - uint
+	// Field ExpirationTimestamp - uint
 
 	// Field CouponName - varchar
 	if len(a.CouponName) > max1ByteInteger {
@@ -360,18 +360,6 @@ func (a *CasinoChip) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field CurrencyCode - fixedchar  (Currencies Resource)
-	if CurrenciesData(a.CurrencyCode) == nil {
-		return fmt.Errorf("CurrencyCode resource Currencies value not defined : %v", a.CurrencyCode)
-	}
-	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
-		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
-			len(a.CurrencyCode), 3)
-	}
-	if len(a.CurrencyCode) == 0 {
-		return fmt.Errorf("CurrencyCode required")
-	}
-
 	// Field UseType - fixedchar
 	if len(a.UseType) != 0 && len(a.UseType) != 1 {
 		return fmt.Errorf("UseType fixed width field wrong size : %d should be %d",
@@ -397,11 +385,6 @@ func (a *CasinoChip) Validate() error {
 	}
 
 	// Field ExpirationTimestamp - uint
-
-	// Field Precision - uint
-	if a.Precision == 0 {
-		return fmt.Errorf("Precision required")
-	}
 
 	// Field TransfersPermitted - bool
 

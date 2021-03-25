@@ -1721,7 +1721,7 @@ proto.assets.Coupon.toObject = function(includeInstance, msg) {
   var f, obj = {
     redeemingentity: jspb.Message.getFieldWithDefault(msg, 1, ""),
     validfromtimestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    expirytimestamp: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 3, 0),
     couponname: jspb.Message.getFieldWithDefault(msg, 6, ""),
     transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 8, false),
     facevalue: (f = msg.getFacevalue()) && proto.assets.CurrencyValueField.toObject(includeInstance, f),
@@ -1773,7 +1773,7 @@ proto.assets.Coupon.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 3:
       var value = /** @type {number} */ (reader.readUint64());
-      msg.setExpirytimestamp(value);
+      msg.setExpirationtimestamp(value);
       break;
     case 6:
       var value = /** @type {string} */ (reader.readString());
@@ -1839,7 +1839,7 @@ proto.assets.Coupon.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getExpirytimestamp();
+  f = message.getExpirationtimestamp();
   if (f !== 0) {
     writer.writeUint64(
       3,
@@ -1922,10 +1922,10 @@ proto.assets.Coupon.prototype.setValidfromtimestamp = function(value) {
 
 
 /**
- * optional uint64 ExpiryTimestamp = 3;
+ * optional uint64 ExpirationTimestamp = 3;
  * @return {number}
  */
-proto.assets.Coupon.prototype.getExpirytimestamp = function() {
+proto.assets.Coupon.prototype.getExpirationtimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
@@ -1934,7 +1934,7 @@ proto.assets.Coupon.prototype.getExpirytimestamp = function() {
  * @param {number} value
  * @return {!proto.assets.Coupon} returns this
  */
-proto.assets.Coupon.prototype.setExpirytimestamp = function(value) {
+proto.assets.Coupon.prototype.setExpirationtimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 3, value);
 };
 
@@ -2772,11 +2772,9 @@ proto.assets.CasinoChip.prototype.toObject = function(opt_includeInstance) {
  */
 proto.assets.CasinoChip.toObject = function(includeInstance, msg) {
   var f, obj = {
-    currencycode: jspb.Message.getFieldWithDefault(msg, 1, ""),
     usetype: jspb.Message.getFieldWithDefault(msg, 2, ""),
     agerestriction: (f = msg.getAgerestriction()) && proto.assets.AgeRestrictionField.toObject(includeInstance, f),
     expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    precision: jspb.Message.getFieldWithDefault(msg, 6, 0),
     transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 7, false),
     casinoname: jspb.Message.getFieldWithDefault(msg, 8, ""),
     facevalue: (f = msg.getFacevalue()) && proto.assets.CurrencyValueField.toObject(includeInstance, f)
@@ -2816,10 +2814,6 @@ proto.assets.CasinoChip.deserializeBinaryFromReader = function(msg, reader) {
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setCurrencycode(value);
-      break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
       msg.setUsetype(value);
@@ -2832,10 +2826,6 @@ proto.assets.CasinoChip.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setExpirationtimestamp(value);
-      break;
-    case 6:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setPrecision(value);
       break;
     case 7:
       var value = /** @type {boolean} */ (reader.readBool());
@@ -2879,13 +2869,6 @@ proto.assets.CasinoChip.prototype.serializeBinary = function() {
  */
 proto.assets.CasinoChip.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getCurrencycode();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
   f = message.getUsetype();
   if (f.length > 0) {
     writer.writeString(
@@ -2905,13 +2888,6 @@ proto.assets.CasinoChip.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeUint64(
       5,
-      f
-    );
-  }
-  f = message.getPrecision();
-  if (f !== 0) {
-    writer.writeUint64(
-      6,
       f
     );
   }
@@ -2937,24 +2913,6 @@ proto.assets.CasinoChip.serializeBinaryToWriter = function(message, writer) {
       proto.assets.CurrencyValueField.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * optional string CurrencyCode = 1;
- * @return {string}
- */
-proto.assets.CasinoChip.prototype.getCurrencycode = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.assets.CasinoChip} returns this
- */
-proto.assets.CasinoChip.prototype.setCurrencycode = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -3028,24 +2986,6 @@ proto.assets.CasinoChip.prototype.getExpirationtimestamp = function() {
  */
 proto.assets.CasinoChip.prototype.setExpirationtimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 5, value);
-};
-
-
-/**
- * optional uint64 Precision = 6;
- * @return {number}
- */
-proto.assets.CasinoChip.prototype.getPrecision = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.assets.CasinoChip} returns this
- */
-proto.assets.CasinoChip.prototype.setPrecision = function(value) {
-  return jspb.Message.setProto3IntField(this, 6, value);
 };
 
 

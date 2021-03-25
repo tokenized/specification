@@ -9,7 +9,7 @@ properties:
   ValidFromTimestamp:
     type: number
     example: 1594668650000000000
-  ExpiryTimestamp:
+  ExpirationTimestamp:
     type: number
     example: 1594668650000000000
   CouponName:

@@ -55,7 +55,7 @@ message BondFixedRate {
 message Coupon {
     string RedeemingEntity                         = 1;   // varchar
     uint64 ValidFromTimestamp                      = 2;   // Timestamp
-    uint64 ExpiryTimestamp                         = 3;   // Timestamp
+    uint64 ExpirationTimestamp                     = 3;   // Timestamp
     reserved                                         4;   // Deprecated Value
     reserved                                         5;   // Deprecated Currency
     string CouponName                              = 6;   // varchar
@@ -96,12 +96,12 @@ message TicketAdmission {
 
 // Message - Casino Chip (CHP)
 message CasinoChip {
-    string CurrencyCode                            = 1;   // CurrencyType
+    reserved                                         1;   // Deprecated CurrencyCode
     string UseType                                 = 2;   // fixedchar
     AgeRestrictionField AgeRestriction             = 3;   // AgeRestriction
     reserved                                         4;   // Deprecated ValidFrom
     uint64 ExpirationTimestamp                     = 5;   // Timestamp
-    uint64 Precision                               = 6;   // uint
+    reserved                                         6;   // Deprecated Precision
     bool TransfersPermitted                        = 7;   // bool
     string CasinoName                              = 8;   // varchar
     CurrencyValueField FaceValue                   = 9;   // CurrencyValue

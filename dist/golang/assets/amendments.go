@@ -868,7 +868,7 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 const (
 	CouponFieldRedeemingEntity     = uint32(1)
 	CouponFieldValidFromTimestamp  = uint32(2)
-	CouponFieldExpiryTimestamp     = uint32(3)
+	CouponFieldExpirationTimestamp = uint32(3)
 	DeprecatedCouponFieldValue     = uint32(4)
 	DeprecatedCouponFieldCurrency  = uint32(5)
 	CouponFieldCouponName          = uint32(6)
@@ -906,15 +906,15 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CouponFieldExpiryTimestamp: // uint64
+	case CouponFieldExpirationTimestamp: // uint64
 		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for ExpiryTimestamp : %v", fip)
+			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("ExpiryTimestamp amendment value failed to deserialize : %s", err)
+			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
 		} else {
-			a.ExpiryTimestamp = uint64(value)
+			a.ExpirationTimestamp = uint64(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1002,12 +1002,12 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// ExpiryTimestamp uint64
-	fip = append(ofip, CouponFieldExpiryTimestamp)
-	if a.ExpiryTimestamp != newValue.ExpiryTimestamp {
+	// ExpirationTimestamp uint64
+	fip = append(ofip, CouponFieldExpirationTimestamp)
+	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpiryTimestamp)); err != nil {
-			return nil, errors.Wrap(err, "ExpiryTimestamp")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpirationTimestamp")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -1454,15 +1454,15 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 
 // CasinoChip Permission / Amendment Field Indices
 const (
-	CasinoChipFieldCurrencyCode        = uint32(1)
-	CasinoChipFieldUseType             = uint32(2)
-	CasinoChipFieldAgeRestriction      = uint32(3)
-	DeprecatedCasinoChipFieldValidFrom = uint32(4)
-	CasinoChipFieldExpirationTimestamp = uint32(5)
-	CasinoChipFieldPrecision           = uint32(6)
-	CasinoChipFieldTransfersPermitted  = uint32(7)
-	CasinoChipFieldCasinoName          = uint32(8)
-	CasinoChipFieldFaceValue           = uint32(9)
+	DeprecatedCasinoChipFieldCurrencyCode = uint32(1)
+	CasinoChipFieldUseType                = uint32(2)
+	CasinoChipFieldAgeRestriction         = uint32(3)
+	DeprecatedCasinoChipFieldValidFrom    = uint32(4)
+	CasinoChipFieldExpirationTimestamp    = uint32(5)
+	DeprecatedCasinoChipFieldPrecision    = uint32(6)
+	CasinoChipFieldTransfersPermitted     = uint32(7)
+	CasinoChipFieldCasinoName             = uint32(8)
+	CasinoChipFieldFaceValue              = uint32(9)
 )
 
 // ApplyAmendment updates a CasinoChip based on amendment data.
@@ -1476,12 +1476,7 @@ func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 	}
 
 	switch fip[0] {
-	case CasinoChipFieldCurrencyCode: // string
-		if CurrenciesData(a.CurrencyCode) == nil {
-			return nil, fmt.Errorf("Currencies resource value not defined : %v", a.CurrencyCode)
-		}
-		a.CurrencyCode = string(data)
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedCasinoChipFieldCurrencyCode: // deprecated
 
 	case CasinoChipFieldUseType: // string
 		a.UseType = string(data)
@@ -1514,17 +1509,7 @@ func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CasinoChipFieldPrecision: // uint64
-		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
-		}
-		buf := bytes.NewBuffer(data)
-		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
-		} else {
-			a.Precision = uint64(value)
-		}
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedCasinoChipFieldPrecision: // deprecated
 
 	case CasinoChipFieldTransfersPermitted: // bool
 		if len(fip) > 1 {
@@ -1573,14 +1558,7 @@ func (a *CasinoChip) CreateAmendments(fip permissions.FieldIndexPath,
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
 
-	// CurrencyCode string
-	fip = append(ofip, CasinoChipFieldCurrencyCode)
-	if a.CurrencyCode != newValue.CurrencyCode {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.CurrencyCode),
-		})
-	}
+	// deprecated CurrencyCode deprecated
 
 	// UseType string
 	fip = append(ofip, CasinoChipFieldUseType)
@@ -1616,19 +1594,7 @@ func (a *CasinoChip) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Precision uint64
-	fip = append(ofip, CasinoChipFieldPrecision)
-	if a.Precision != newValue.Precision {
-		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Precision)); err != nil {
-			return nil, errors.Wrap(err, "Precision")
-		}
-
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: buf.Bytes(),
-		})
-	}
+	// deprecated Precision deprecated
 
 	// TransfersPermitted bool
 	fip = append(ofip, CasinoChipFieldTransfersPermitted)

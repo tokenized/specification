@@ -21,36 +21,24 @@ fields:
     description: The entity responsible for redemption of this coupon.
     type: varchar
     example: Woolworths - Robina Town Centre
-    span: full
-    displayOrder: 2
 
   - name: ValidFromTimestamp
     label: Valid From Timestamp
     type: Timestamp
-    span: left
-    displayOrder: 3
-    default: now
 
-  - name: ExpiryTimestamp
-    label: Expiry Timestamp
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
     type: Timestamp
-    span: right
-    displayOrder: 4
 
   - name: Value
     label: Value
     type: deprecated
-    example: >
-      Deprecated for new Currency Value type. Denominated in the smallest unit of currency specified
-      in the Currency subfield.
+    description: Deprecated for FaceValue.
 
   - name: Currency
     label: Currency
     type: deprecated
-    description: >
-      Deprecated for new Currency Value type. International Organization for Standardization code
-      for Currency. Currency for coupon. From resources/currency.
-    example: AUD
+    description: Deprecated for FaceValue.
 
   - name: CouponName
     label: Coupon Name
@@ -62,13 +50,7 @@ fields:
   - name: Precision
     label: Precision
     type: deprecated
-    description: >
-      Deprecated for new Currency Value type. Required field to specify the decimal precision of a
-      currency. It will normally be the "precision" value associated with the Currency. It is the
-      number of decimal places between the number of tokens and the common unit of measure. For
-      example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So
-      the precision should be 2 for the two decimal places in a dollar amount "$1.00". In this
-      scenario 100 tokens are worth $1.
+    description: Deprecated for FaceValue.
 
   - name: TransfersPermitted
     label: Transfers Permitted

@@ -472,7 +472,7 @@ A voucher entitling the holder to a discount on a particular product or service.
     </tr>
 
     <tr>
-        <td>ExpiryTimestamp</td>
+        <td>ExpirationTimestamp</td>
         <td>
             <a href="#alias-uint">Timestamp</a>
         </td>
@@ -486,9 +486,8 @@ A voucher entitling the holder to a discount on a particular product or service.
         <td>(Deprecated)Value</td>
         <td>deprecated</td>
         <td>
+            Deprecated for FaceValue.
             
-             Example: Deprecated for new Currency Value type. Denominated in the smallest unit of currency specified in the Currency subfield.
-
         </td>
     </tr>
 
@@ -496,9 +495,8 @@ A voucher entitling the holder to a discount on a particular product or service.
         <td>(Deprecated)Currency</td>
         <td>deprecated</td>
         <td>
-            Deprecated for new Currency Value type. International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.
-
-             Example: AUD
+            Deprecated for FaceValue.
+            
         </td>
     </tr>
 
@@ -517,8 +515,7 @@ A voucher entitling the holder to a discount on a particular product or service.
         <td>(Deprecated)Precision</td>
         <td>deprecated</td>
         <td>
-            Deprecated for new Currency Value type. Required field to specify the decimal precision of a currency. It will normally be the &#34;precision&#34; value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
-
+            Deprecated for FaceValue.
             
         </td>
     </tr>
@@ -826,14 +823,11 @@ Casino Chip
         <th>Description</th>
     </tr>
     <tr>
-        <td>CurrencyCode</td>
+        <td>(Deprecated)CurrencyCode</td>
+        <td>deprecated</td>
         <td>
-            <a href="#alias-fixedchar">CurrencyType</a>
-        </td>
-        <td>
-            International Organization for Standardization code for Currency. (Specification/Resources)
-
-             This field is always required.  Example: AUD
+            Deprecated for FaceValue
+            
         </td>
     </tr>
 
@@ -880,14 +874,11 @@ Casino Chip
     </tr>
 
     <tr>
-        <td>Precision</td>
+        <td>(Deprecated)Precision</td>
+        <td>deprecated</td>
         <td>
-            uint(8)
-        </td>
-        <td>
-            Required field to specify the decimal precision of a currency. It will normally be the &#34;precision&#34; value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
-
-             This field is always required.  Example: 100
+            Deprecated for FaceValue
+            
         </td>
     </tr>
 
@@ -909,8 +900,7 @@ Casino Chip
             varchar(tiny)
         </td>
         <td>
-            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
-
+            The name of the casino, or host, of the chip.
              This field is always required. 
         </td>
     </tr>

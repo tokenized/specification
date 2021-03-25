@@ -2,11 +2,6 @@
 description: Casino Chip
 type: object
 properties:
-  CurrencyCode:
-    description:  >
-      International Organization for Standardization code for Currency. (Specification/Resources)
-    type: string
-    example: "AUD"
   UseType:
     description: Real Money (R), Social (S)
     type: string
@@ -18,24 +13,13 @@ properties:
   ExpirationTimestamp:
     type: number
     example: 1594668650000000000
-  Precision:
-    description:  >
-      Required field to specify the decimal precision of a currency. It will normally be the
-      "precision" value associated with the CurrencyCode. It is the number of decimal places between
-      the number of tokens and the common unit of measure. For example, in AUD, the common unit is
-      the dollar, but a token would only be worth a penny. So the precision should be 2 for the two
-      decimal places in a dollar amount "$1.00". In this scenario 100 tokens are worth $1.
-    type: number
-    example: 100
   TransfersPermitted:
     description:  >
       Set to true if transfers are permitted between two parties, otherwise set to false to prevent
       peer-to-peer transfers.
     type: boolean
   CasinoName:
-    description:  >
-      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
-      peer-to-peer transfers.
+    description: The name of the casino, or host, of the chip.
     type: string
   FaceValue:
     description: Face value of each coupon specified in a currency.

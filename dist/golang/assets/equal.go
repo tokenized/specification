@@ -266,9 +266,9 @@ func (l *Coupon) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ValidFromTimestamp integer mismatched")
 	}
 
-	// Field ExpiryTimestamp - uint
-	if c.ExpiryTimestamp != r.ExpiryTimestamp {
-		return false // fmt.Errorf("ExpiryTimestamp integer mismatched")
+	// Field ExpirationTimestamp - uint
+	if c.ExpirationTimestamp != r.ExpirationTimestamp {
+		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
 	}
 
 	// Field CouponName - varchar
@@ -431,11 +431,6 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field CurrencyCode - fixedchar
-	if c.CurrencyCode != r.CurrencyCode {
-		return false // fmt.Errorf("CurrencyCode string mismatched")
-	}
-
 	// Field UseType - fixedchar
 	if c.UseType != r.UseType {
 		return false // fmt.Errorf("UseType string mismatched")
@@ -449,11 +444,6 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 	// Field ExpirationTimestamp - uint
 	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
-	}
-
-	// Field Precision - uint
-	if c.Precision != r.Precision {
-		return false // fmt.Errorf("Precision integer mismatched")
 	}
 
 	// Field TransfersPermitted - bool

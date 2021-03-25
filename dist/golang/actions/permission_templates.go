@@ -229,7 +229,7 @@ var PrivateCompany = PermissionConfig{
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 1}, // [AssetPayload CurrencyCode]
+					permissions.FieldIndexPath{12, 9}, // [AssetPayload FaceValue]
 					permissions.FieldIndexPath{12, 2}, // [AssetPayload UseType]
 					permissions.FieldIndexPath{12, 3}, // [AssetPayload AgeRestriction]
 					permissions.FieldIndexPath{12, 4}, // [AssetPayload ValidFrom]
@@ -265,7 +265,7 @@ var PrivateCompany = PermissionConfig{
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{10},     // [AuthorizedTokenQty]
 					permissions.FieldIndexPath{12, 1},  // [AssetPayload RedeemingEntity]
-					permissions.FieldIndexPath{12, 3},  // [AssetPayload ExpiryTimestamp]
+					permissions.FieldIndexPath{12, 3},  // [AssetPayload ExpirationTimestamp]
 					permissions.FieldIndexPath{12, 9},  // [AssetPayload FaceValue]
 					permissions.FieldIndexPath{12, 11}, // [AssetPayload Details]
 				},

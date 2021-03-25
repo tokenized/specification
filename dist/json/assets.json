@@ -438,37 +438,29 @@
       "fields": [
         {
           "description": "The entity responsible for redemption of this coupon.",
-          "displayOrder": 2,
           "example": "Woolworths - Robina Town Centre",
           "label": "Redeeming Entity",
           "name": "RedeemingEntity",
-          "span": "full",
           "type": "varchar"
         },
         {
-          "default": "now",
-          "displayOrder": 3,
           "label": "Valid From Timestamp",
           "name": "ValidFromTimestamp",
-          "span": "left",
           "type": "Timestamp"
         },
         {
-          "displayOrder": 4,
-          "label": "Expiry Timestamp",
-          "name": "ExpiryTimestamp",
-          "span": "right",
+          "label": "Expiration Timestamp",
+          "name": "ExpirationTimestamp",
           "type": "Timestamp"
         },
         {
-          "example": "Deprecated for new Currency Value type. Denominated in the smallest unit of currency specified in the Currency subfield.\n",
+          "description": "Deprecated for FaceValue.",
           "label": "Value",
           "name": "Value",
           "type": "deprecated"
         },
         {
-          "description": "Deprecated for new Currency Value type. International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.\n",
-          "example": "AUD",
+          "description": "Deprecated for FaceValue.",
           "label": "Currency",
           "name": "Currency",
           "type": "deprecated"
@@ -482,7 +474,7 @@
           "varSize": "tiny"
         },
         {
-          "description": "Deprecated for new Currency Value type. Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
+          "description": "Deprecated for FaceValue.",
           "label": "Precision",
           "name": "Precision",
           "type": "deprecated"
@@ -683,13 +675,10 @@
       "description": "Casino Chip",
       "fields": [
         {
-          "description": "International Organization for Standardization code for Currency. (Specification/Resources)\n",
-          "example": "AUD",
+          "description": "Deprecated for FaceValue",
           "label": "Currency Code",
           "name": "CurrencyCode",
-          "required": true,
-          "span": "full",
-          "type": "CurrencyType"
+          "type": "deprecated"
         },
         {
           "description": "Real Money (R), Social (S)",
@@ -718,18 +707,13 @@
         {
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
-          "span": "right",
           "type": "Timestamp"
         },
         {
-          "description": "Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
-          "example": 100,
+          "description": "Deprecated for FaceValue",
           "label": "Precision",
           "name": "Precision",
-          "required": true,
-          "size": 8,
-          "span": "full",
-          "type": "uint"
+          "type": "deprecated"
         },
         {
           "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
@@ -738,7 +722,7 @@
           "type": "bool"
         },
         {
-          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "description": "The name of the casino, or host, of the chip.",
           "label": "Casino Name",
           "name": "CasinoName",
           "required": true,
