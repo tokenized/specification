@@ -723,7 +723,7 @@ Admission ticket
     </tr>
 
     <tr>
-        <td>EventTimestamp</td>
+        <td>EventStartTimestamp</td>
         <td>
             <a href="#alias-uint">Timestamp</a>
         </td>
@@ -804,6 +804,17 @@ Admission ticket
         <td>
             
              Example: Sec 1
+        </td>
+    </tr>
+
+    <tr>
+        <td>EventEndTimestamp</td>
+        <td>
+            <a href="#alias-uint">Timestamp</a>
+        </td>
+        <td>
+            
+            
         </td>
     </tr>
 

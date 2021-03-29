@@ -418,7 +418,8 @@ var PrivateCompany = PermissionConfig{
 					permissions.FieldIndexPath{12, 13}, // [AssetPayload Section]
 					permissions.FieldIndexPath{12, 14}, // [AssetPayload Row]
 					permissions.FieldIndexPath{12, 6},  // [AssetPayload Seat]
-					permissions.FieldIndexPath{12, 7},  // [AssetPayload EventTimestamp]
+					permissions.FieldIndexPath{12, 7},  // [AssetPayload EventStartTimestamp]
+					permissions.FieldIndexPath{12, 15}, // [AssetPayload EventEndTimestamp]
 					permissions.FieldIndexPath{12, 12}, // [AssetPayload Details]
 				},
 			},

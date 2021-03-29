@@ -15,7 +15,7 @@ properties:
   Seat:
     type: string
     example: "Seat 5, or A122"
-  EventTimestamp:
+  EventStartTimestamp:
     type: number
     example: 1594668650000000000
   EventName:
@@ -34,4 +34,7 @@ properties:
   Row:
     type: string
     example: "Sec 1"
+  EventEndTimestamp:
+    type: number
+    example: 1594668650000000000
 

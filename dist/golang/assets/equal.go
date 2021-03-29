@@ -381,9 +381,9 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Seat string mismatched")
 	}
 
-	// Field EventTimestamp - uint
-	if c.EventTimestamp != r.EventTimestamp {
-		return false // fmt.Errorf("EventTimestamp integer mismatched")
+	// Field EventStartTimestamp - uint
+	if c.EventStartTimestamp != r.EventStartTimestamp {
+		return false // fmt.Errorf("EventStartTimestamp integer mismatched")
 	}
 
 	// Field EventName - varchar
@@ -409,6 +409,11 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 	// Field Row - varchar
 	if c.Row != r.Row {
 		return false // fmt.Errorf("Row string mismatched")
+	}
+
+	// Field EventEndTimestamp - uint
+	if c.EventEndTimestamp != r.EventEndTimestamp {
+		return false // fmt.Errorf("EventEndTimestamp integer mismatched")
 	}
 
 	return true

@@ -1229,7 +1229,7 @@ const (
 	DeprecatedTicketAdmissionFieldClass               = uint32(4)
 	TicketAdmissionFieldArea                          = uint32(5)
 	TicketAdmissionFieldSeat                          = uint32(6)
-	TicketAdmissionFieldEventTimestamp                = uint32(7)
+	TicketAdmissionFieldEventStartTimestamp           = uint32(7)
 	DeprecatedTicketAdmissionFieldValidFrom           = uint32(8)
 	DeprecatedTicketAdmissionFieldExpirationTimestamp = uint32(9)
 	TicketAdmissionFieldEventName                     = uint32(10)
@@ -1237,6 +1237,7 @@ const (
 	TicketAdmissionFieldDetails                       = uint32(12)
 	TicketAdmissionFieldSection                       = uint32(13)
 	TicketAdmissionFieldRow                           = uint32(14)
+	TicketAdmissionFieldEventEndTimestamp             = uint32(15)
 )
 
 // ApplyAmendment updates a TicketAdmission based on amendment data.
@@ -1279,15 +1280,15 @@ func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operati
 		a.Seat = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case TicketAdmissionFieldEventTimestamp: // uint64
+	case TicketAdmissionFieldEventStartTimestamp: // uint64
 		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for EventTimestamp : %v", fip)
+			return nil, fmt.Errorf("Amendment field index path too deep for EventStartTimestamp : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("EventTimestamp amendment value failed to deserialize : %s", err)
+			return nil, fmt.Errorf("EventStartTimestamp amendment value failed to deserialize : %s", err)
 		} else {
-			a.EventTimestamp = uint64(value)
+			a.EventStartTimestamp = uint64(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1322,6 +1323,18 @@ func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operati
 
 	case TicketAdmissionFieldRow: // string
 		a.Row = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case TicketAdmissionFieldEventEndTimestamp: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for EventEndTimestamp : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("EventEndTimestamp amendment value failed to deserialize : %s", err)
+		} else {
+			a.EventEndTimestamp = uint64(value)
+		}
 		return permissions.SubPermissions(fip, operation, false)
 
 	}
@@ -1381,12 +1394,12 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// EventTimestamp uint64
-	fip = append(ofip, TicketAdmissionFieldEventTimestamp)
-	if a.EventTimestamp != newValue.EventTimestamp {
+	// EventStartTimestamp uint64
+	fip = append(ofip, TicketAdmissionFieldEventStartTimestamp)
+	if a.EventStartTimestamp != newValue.EventStartTimestamp {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.EventTimestamp)); err != nil {
-			return nil, errors.Wrap(err, "EventTimestamp")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.EventStartTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "EventStartTimestamp")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -1446,6 +1459,20 @@ func (a *TicketAdmission) CreateAmendments(fip permissions.FieldIndexPath,
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
 			Data: []byte(newValue.Row),
+		})
+	}
+
+	// EventEndTimestamp uint64
+	fip = append(ofip, TicketAdmissionFieldEventEndTimestamp)
+	if a.EventEndTimestamp != newValue.EventEndTimestamp {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.EventEndTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "EventEndTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
 		})
 	}
 

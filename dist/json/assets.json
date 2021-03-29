@@ -609,8 +609,8 @@
           "varSize": "tiny"
         },
         {
-          "label": "Event Timestamp",
-          "name": "EventTimestamp",
+          "label": "Event Start Timestamp",
+          "name": "EventStartTimestamp",
           "type": "Timestamp"
         },
         {
@@ -656,6 +656,11 @@
           "name": "Row",
           "type": "varchar",
           "varSize": "tiny"
+        },
+        {
+          "label": "Event End Timestamp",
+          "name": "EventEndTimestamp",
+          "type": "Timestamp"
         }
       ],
       "label": "Ticket (Admission)",

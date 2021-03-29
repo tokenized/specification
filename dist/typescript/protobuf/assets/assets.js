@@ -2355,12 +2355,13 @@ proto.assets.TicketAdmission.toObject = function(includeInstance, msg) {
     venue: jspb.Message.getFieldWithDefault(msg, 3, ""),
     area: jspb.Message.getFieldWithDefault(msg, 5, ""),
     seat: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    eventtimestamp: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    eventstarttimestamp: jspb.Message.getFieldWithDefault(msg, 7, 0),
     eventname: jspb.Message.getFieldWithDefault(msg, 10, ""),
     transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 11, false),
     details: jspb.Message.getFieldWithDefault(msg, 12, ""),
     section: jspb.Message.getFieldWithDefault(msg, 13, ""),
-    row: jspb.Message.getFieldWithDefault(msg, 14, "")
+    row: jspb.Message.getFieldWithDefault(msg, 14, ""),
+    eventendtimestamp: jspb.Message.getFieldWithDefault(msg, 15, 0)
   };
 
   if (includeInstance) {
@@ -2416,7 +2417,7 @@ proto.assets.TicketAdmission.deserializeBinaryFromReader = function(msg, reader)
       break;
     case 7:
       var value = /** @type {number} */ (reader.readUint64());
-      msg.setEventtimestamp(value);
+      msg.setEventstarttimestamp(value);
       break;
     case 10:
       var value = /** @type {string} */ (reader.readString());
@@ -2437,6 +2438,10 @@ proto.assets.TicketAdmission.deserializeBinaryFromReader = function(msg, reader)
     case 14:
       var value = /** @type {string} */ (reader.readString());
       msg.setRow(value);
+      break;
+    case 15:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setEventendtimestamp(value);
       break;
     default:
       reader.skipField();
@@ -2496,7 +2501,7 @@ proto.assets.TicketAdmission.serializeBinaryToWriter = function(message, writer)
       f
     );
   }
-  f = message.getEventtimestamp();
+  f = message.getEventstarttimestamp();
   if (f !== 0) {
     writer.writeUint64(
       7,
@@ -2535,6 +2540,13 @@ proto.assets.TicketAdmission.serializeBinaryToWriter = function(message, writer)
   if (f.length > 0) {
     writer.writeString(
       14,
+      f
+    );
+  }
+  f = message.getEventendtimestamp();
+  if (f !== 0) {
+    writer.writeUint64(
+      15,
       f
     );
   }
@@ -2633,10 +2645,10 @@ proto.assets.TicketAdmission.prototype.setSeat = function(value) {
 
 
 /**
- * optional uint64 EventTimestamp = 7;
+ * optional uint64 EventStartTimestamp = 7;
  * @return {number}
  */
-proto.assets.TicketAdmission.prototype.getEventtimestamp = function() {
+proto.assets.TicketAdmission.prototype.getEventstarttimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
@@ -2645,7 +2657,7 @@ proto.assets.TicketAdmission.prototype.getEventtimestamp = function() {
  * @param {number} value
  * @return {!proto.assets.TicketAdmission} returns this
  */
-proto.assets.TicketAdmission.prototype.setEventtimestamp = function(value) {
+proto.assets.TicketAdmission.prototype.setEventstarttimestamp = function(value) {
   return jspb.Message.setProto3IntField(this, 7, value);
 };
 
@@ -2737,6 +2749,24 @@ proto.assets.TicketAdmission.prototype.getRow = function() {
  */
 proto.assets.TicketAdmission.prototype.setRow = function(value) {
   return jspb.Message.setProto3StringField(this, 14, value);
+};
+
+
+/**
+ * optional uint64 EventEndTimestamp = 15;
+ * @return {number}
+ */
+proto.assets.TicketAdmission.prototype.getEventendtimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 15, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.assets.TicketAdmission} returns this
+ */
+proto.assets.TicketAdmission.prototype.setEventendtimestamp = function(value) {
+  return jspb.Message.setProto3IntField(this, 15, value);
 };
 
 

@@ -325,7 +325,7 @@ func (a *TicketAdmission) Validate() error {
 		return fmt.Errorf("Seat over max size : %d > %d", len(a.Seat), max1ByteInteger)
 	}
 
-	// Field EventTimestamp - uint
+	// Field EventStartTimestamp - uint
 
 	// Field EventName - varchar
 	if len(a.EventName) > max1ByteInteger {
@@ -351,6 +351,8 @@ func (a *TicketAdmission) Validate() error {
 	if len(a.Row) > max1ByteInteger {
 		return fmt.Errorf("Row over max size : %d > %d", len(a.Row), max1ByteInteger)
 	}
+
+	// Field EventEndTimestamp - uint
 
 	return nil
 }

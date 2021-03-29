@@ -84,7 +84,7 @@ message TicketAdmission {
     reserved                                         4;   // Deprecated Class
     string Area                                    = 5;   // varchar
     string Seat                                    = 6;   // varchar
-    uint64 EventTimestamp                          = 7;   // Timestamp
+    uint64 EventStartTimestamp                     = 7;   // Timestamp
     reserved                                         8;   // Deprecated ValidFrom
     reserved                                         9;   // Deprecated ExpirationTimestamp
     string EventName                               = 10;   // varchar
@@ -92,6 +92,7 @@ message TicketAdmission {
     string Details                                 = 12;  // varchar
     string Section                                 = 13;  // varchar
     string Row                                     = 14;  // varchar
+    uint64 EventEndTimestamp                       = 15;  // Timestamp
 }
 
 // Message - Casino Chip (CHP)

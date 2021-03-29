@@ -35,5 +35,6 @@ Permissions:
       - [AssetPayload, Section]
       - [AssetPayload, Row]
       - [AssetPayload, Seat]
-      - [AssetPayload, EventTimestamp]
+      - [AssetPayload, EventStartTimestamp]
+      - [AssetPayload, EventEndTimestamp]
       - [AssetPayload, Details]

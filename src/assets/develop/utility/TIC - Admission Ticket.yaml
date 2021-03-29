@@ -47,8 +47,8 @@ fields:
     varSize: tiny
     example: Seat 5, or A122
 
-  - name: EventTimestamp
-    label: Event Timestamp
+  - name: EventStartTimestamp
+    label: Event Start Timestamp
     type: Timestamp
 
   - name: ValidFrom
@@ -89,3 +89,7 @@ fields:
     type: varchar
     varSize: tiny
     example: Sec 1
+
+  - name: EventEndTimestamp
+    label: Event End Timestamp
+    type: Timestamp
