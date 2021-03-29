@@ -18,13 +18,13 @@ fields:
 
   - name: UseType
     label: Use Type
-    description: "Real Money (R), Social (S)"
+    description: "Real Money (R), Free Play (F)"
     type: fixedchar
     size: 1
     example: "R"
     options:
       - 'R'
-      - 'S'
+      - 'F'
     required: true
 
   - name: AgeRestriction

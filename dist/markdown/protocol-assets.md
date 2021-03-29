@@ -848,7 +848,7 @@ Casino Chip
             fixedchar(1)
         </td>
         <td>
-            Real Money (R), Social (S)
+            Real Money (R), Free Play (F)
              This field is always required.  Example: R
         </td>
     </tr>

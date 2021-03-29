@@ -368,14 +368,14 @@ func (a *CasinoChip) Validate() error {
 			len(a.UseType), 1)
 	}
 	foundUseType := false
-	for _, o := range []string{"R", "S"} {
+	for _, o := range []string{"R", "F"} {
 		if a.UseType == o {
 			foundUseType = true
 			break
 		}
 	}
 	if !foundUseType {
-		return fmt.Errorf("UseType value not within options [R S] : %s", a.UseType)
+		return fmt.Errorf("UseType value not within options [R F] : %s", a.UseType)
 	}
 	if len(a.UseType) == 0 {
 		return fmt.Errorf("UseType required")

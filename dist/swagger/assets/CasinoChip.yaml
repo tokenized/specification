@@ -3,7 +3,7 @@ description: Casino Chip
 type: object
 properties:
   UseType:
-    description: Real Money (R), Social (S)
+    description: Real Money (R), Free Play (F)
     type: string
     example: "R"
   AgeRestriction:

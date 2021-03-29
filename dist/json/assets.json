@@ -686,13 +686,13 @@
           "type": "deprecated"
         },
         {
-          "description": "Real Money (R), Social (S)",
+          "description": "Real Money (R), Free Play (F)",
           "example": "R",
           "label": "Use Type",
           "name": "UseType",
           "options": [
             "R",
-            "S"
+            "F"
           ],
           "required": true,
           "size": 1,
