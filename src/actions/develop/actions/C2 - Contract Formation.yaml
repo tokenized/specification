@@ -24,11 +24,7 @@ metadata:
 fields:
   - name: ContractName
     label: Contract Name
-    description: >
-      Can be any unique identifying string, including human readable names for branding/vanity purposes.
-      Contract identifier (instance) is the bitcoin public key hash address.
-      If the public address is lost, then the administration will have to reissue the entire contract, asset definition and tokens with the new public address.
-      Smart contracts can be branded and specialized to suit any terms and conditions.
+    description: The name/title of the contract.
     type: varchar
     example: "Tesla - Shareholder Agreement"
 
@@ -37,7 +33,7 @@ fields:
     description: >
       0 - No Body of agreement included
       1 - SHA-256 Hash
-      2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7 
+      2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7
       action
     type: uint
     size: 1
@@ -51,9 +47,9 @@ fields:
   - name: BodyOfAgreement
     label: Body of Agreement
     description: >
-      SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the 
-      full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is 
-      specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal 
+      SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the
+      full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is
+      specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal
       and technical information.
     type: varbin
     varSize: medium
@@ -218,7 +214,7 @@ fields:
   - name: ContractType
     label: Contract Type
     description: "Describes the purpose of the contract. 0 - Entity, 1 - Asset"
-    type: uint 
+    type: uint
     size: 1
     options:
       - 0
@@ -242,16 +238,16 @@ fields:
   - name: AdminAddress
     label: Administrator Address
     description: >
-      The address of the contract's administrator. This is not contained in the contract offer 
-      payload, but determined by the inputs of the contract offer transaction and included here by 
+      The address of the contract's administrator. This is not contained in the contract offer
+      payload, but determined by the inputs of the contract offer transaction and included here by
       the smart contract agent as a convenience.
     type: Address
 
   - name: OperatorAddress
     label: Operator Address
     description: >
-      The address of the contract's operator. This is not contained in the contract offer payload, 
-      but determined by the inputs of the contract offer transaction and included here by the 
+      The address of the contract's operator. This is not contained in the contract offer payload,
+      but determined by the inputs of the contract offer transaction and included here by the
       smart contract agent as a convenience."
     type: Address
 

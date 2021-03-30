@@ -72,8 +72,7 @@ Allows the administration to tell the smart contract what they want the details 
             varchar(tiny)
         </td>
         <td>
-            Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.
-
+            The name/title of the contract.
              Example: Tesla - Shareholder Agreement
         </td>
     </tr>
@@ -84,7 +83,7 @@ Allows the administration to tell the smart contract what they want the details 
             uint(1)
         </td>
         <td>
-            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action
+            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7 action
 
             Body of Agreement - Amendments can be restricted to a vote. Example: 1
         </td>
@@ -96,7 +95,7 @@ Allows the administration to tell the smart contract what they want the details 
             varbin(medium)
         </td>
         <td>
-            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.
+            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal and technical information.
 
             
             This field is only valid when the field BodyOfAgreementType equals 1.
@@ -469,8 +468,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             varchar(tiny)
         </td>
         <td>
-            Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the administration will have to reissue the entire contract, asset definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.
-
+            The name/title of the contract.
              Example: Tesla - Shareholder Agreement
         </td>
     </tr>
@@ -481,7 +479,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             uint(1)
         </td>
         <td>
-            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action
+            0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7 action
 
             Body of Agreement - Amendments can be restricted to a vote. Example: 1
         </td>
@@ -493,7 +491,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             varbin(medium)
         </td>
         <td>
-            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.
+            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal and technical information.
 
             
             This field is only valid when the field BodyOfAgreementType equals 1.
@@ -791,7 +789,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             <a href="#alias-address">Address</a>
         </td>
         <td>
-            The address of the contract&#39;s administrator. This is not contained in the contract offer  payload, but determined by the inputs of the contract offer transaction and included here by  the smart contract agent as a convenience.
+            The address of the contract&#39;s administrator. This is not contained in the contract offer payload, but determined by the inputs of the contract offer transaction and included here by the smart contract agent as a convenience.
 
             
         </td>
@@ -803,7 +801,7 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
             <a href="#alias-address">Address</a>
         </td>
         <td>
-            The address of the contract&#39;s operator. This is not contained in the contract offer payload,  but determined by the inputs of the contract offer transaction and included here by the  smart contract agent as a convenience.&#34;
+            The address of the contract&#39;s operator. This is not contained in the contract offer payload, but determined by the inputs of the contract offer transaction and included here by the smart contract agent as a convenience.&#34;
 
             
         </td>

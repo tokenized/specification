@@ -796,14 +796,14 @@
       "description": "Allows the administration to tell the smart contract what they want the details (labels, data, T\u0026C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.",
       "fields": [
         {
-          "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
+          "description": "The name/title of the contract.",
           "example": "Tesla - Shareholder Agreement",
           "label": "Contract Name",
           "name": "ContractName",
           "type": "varchar"
         },
         {
-          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action\n",
+          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7 action\n",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
@@ -817,7 +817,7 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
           "only_valid_when": {
@@ -1086,14 +1086,14 @@
       "description": "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf.",
       "fields": [
         {
-          "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public key hash address. If the public address is lost, then the administration will have to reissue the entire contract, asset definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
+          "description": "The name/title of the contract.",
           "example": "Tesla - Shareholder Agreement",
           "label": "Contract Name",
           "name": "ContractName",
           "type": "varchar"
         },
         {
-          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7  action\n",
+          "description": "0 - No Body of agreement included 1 - SHA-256 Hash 2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7 action\n",
           "example": "1",
           "label": "Body of Agreement Type",
           "name": "BodyOfAgreementType",
@@ -1107,7 +1107,7 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the  full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is  specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal  and technical information.\n",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
           "only_valid_when": {
@@ -1333,13 +1333,13 @@
           "type": "AdminIdentityCertificate[]"
         },
         {
-          "description": "The address of the contract's administrator. This is not contained in the contract offer  payload, but determined by the inputs of the contract offer transaction and included here by  the smart contract agent as a convenience.\n",
+          "description": "The address of the contract's administrator. This is not contained in the contract offer payload, but determined by the inputs of the contract offer transaction and included here by the smart contract agent as a convenience.\n",
           "label": "Administrator Address",
           "name": "AdminAddress",
           "type": "Address"
         },
         {
-          "description": "The address of the contract's operator. This is not contained in the contract offer payload,  but determined by the inputs of the contract offer transaction and included here by the  smart contract agent as a convenience.\"\n",
+          "description": "The address of the contract's operator. This is not contained in the contract offer payload, but determined by the inputs of the contract offer transaction and included here by the smart contract agent as a convenience.\"\n",
           "label": "Operator Address",
           "name": "OperatorAddress",
           "type": "Address"
