@@ -2,11 +2,25 @@ package {{ .Package }}
 
 import (
 	"bytes"
+	"encoding/binary"
 	"fmt"
 
+	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/internal"
+	"github.com/tokenized/specification/dist/golang/permissions"
 
 	"github.com/pkg/errors"
+)
+
+const (
+	// AmendmentOperationModify specifies an amendment is modifying a value.
+	AmendmentOperationModify = uint32(0)
+
+	// AmendmentOperationAddElement specifies an amendment is adding a new element to a list.
+	AmendmentOperationAddElement = uint32(1)
+
+	// AmendmentOperationRemoveElement specifies an amendment is removing an element from a list.
+	AmendmentOperationRemoveElement = uint32(2)
 )
 
 {{- range $i, $message := .Messages }}
@@ -24,7 +38,9 @@ const (
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]uint32, error) {
+func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty asset amendment field index path")
 	}
@@ -35,6 +51,13 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip []uint32, operation uint32, dat
 	case Deprecated{{ $message.Name }}Field{{ $field.Name }}: // {{ $field.GoType }}
 		{{- else }}
 	case {{ $message.Name }}Field{{ $field.Name }}: // {{ $field.GoType }}
+			{{- if .IsCompoundType }}
+		if len(fip) == 1 && len(data) == 0 {
+			a.{{ $field.Name }} = nil
+			return permissions.SubPermissions(fip[1:], operation, {{ $field.IsList }})
+		}
+			{{- end }}
+
 	{{- template "ApplyAmendmentField" $field }}
 		{{- end}}
 	{{ end }}
@@ -45,7 +68,7 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip []uint32, operation uint32, dat
 
 // CreateAmendments determines the differences between two {{ $message.Name }}s and returns
 // amendment data.
-func (a *{{ $message.Name }}) CreateAmendments(fip []uint32,
+func (a *{{ $message.Name }}) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *{{ $message.Name }}) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -53,7 +76,7 @@ func (a *{{ $message.Name }}) CreateAmendments(fip []uint32,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}
@@ -86,7 +109,9 @@ const (
 // ApplyAmendment updates a {{ $message.Name }}Field based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}Field) ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]uint32, error) {
+func (a *{{ $message.Name }}Field) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
 	if len(fip) == 0 {
 		return nil, errors.New("Empty {{ $message.Name }} amendment field index path")
 	}
@@ -107,7 +132,7 @@ func (a *{{ $message.Name }}Field) ApplyAmendment(fip []uint32, operation uint32
 
 // CreateAmendments determines the differences between two {{ $message.Name }}s and returns
 // amendment data.
-func (a *{{ $message.Name }}Field) CreateAmendments(fip []uint32,
+func (a *{{ $message.Name }}Field) CreateAmendments(fip permissions.FieldIndexPath,
 	newValue *{{ $message.Name }}Field) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
@@ -115,7 +140,7 @@ func (a *{{ $message.Name }}Field) CreateAmendments(fip []uint32,
 	}
 
 	var result []*internal.Amendment
-	ofip := fip // save original to be appended for each field
+	ofip := fip.Copy() // save original to be appended for each field
 
 	{{ range $offset, $field := .Fields }}
 		{{- if eq $field.Type "deprecated" }}
@@ -133,7 +158,7 @@ func (a *{{ $message.Name }}Field) CreateAmendments(fip []uint32,
 {{ end }}
 
 // CreatePayloadAmendments deserializes asset payloads and create amendments for them.
-func CreatePayloadAmendments(fip []uint32,
+func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 	assetType, payload, newPayload []byte) ([]*internal.Amendment, error) {
 
 	current, err := Deserialize(assetType, payload)

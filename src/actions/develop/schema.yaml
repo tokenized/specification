@@ -18,6 +18,9 @@ messages:
   - "actions/C3 - Contract Amendment"
   - "actions/C4 - Static Contract Formation"
   - "actions/C5 - Contract Address Change"
+  - "actions/C6 - Body of Agreement Offer"
+  - "actions/C7 - Body of Agreement Formation"
+  - "actions/C8 - Body of Agreement Amendment"
   - "actions/A1 - Asset Definition"
   - "actions/A2 - Asset Creation"
   - "actions/A3 - Asset Modification"
@@ -57,6 +60,9 @@ fieldTypes:
   - "types/AssetReceiver"
   - "types/AssetSettlement"
   - "types/AssetTransfer"
+  - "types/Chapter"
+  - "types/Clause"
+  - "types/DefinedTerm"
   - "types/Document"
   - "types/Entity"
   - "types/Manager"
@@ -127,13 +133,13 @@ fieldAliases:
     type: fixedchar
     size: 3
     description: A code representing the type of asset and the structure of the payload.
-    example: "CUR"
+    example: "CCY"
 
   - name: AssetCode
     type: bin
-    size: 32
+    size: 20
     description: "Represents a unique identifier for an asset/token."
-    example: "0e6996402ea456156838652e3bd82c6c0986ef7925021d31f3d397bdcdd985fe"
+    example: "0e6996402ea456156838652e3bd82c6c0986ef79"
 
   - name: Timestamp
     type: uint

@@ -1,0 +1,31 @@
+#
+# Body of Agreement Offer Action: Allows the administration to define the agreement for the contract.
+#
+
+code: C6
+name: BodyOfAgreementOffer
+label: "Body Of Agreement Offer"
+description: "Allows the administration to define the agreement for the contract."
+
+metadata:
+  validation: BodyOfAgreement
+  rejection: Rejection
+
+  inputs:
+    - name: Administration
+      label: "Administration's Public Address"
+
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+
+fields:
+  - name: Chapters
+    label: Chapters
+    description: "A list of chapters for the agreement."
+    type: Chapter[]
+
+  - name: Definitions
+    label: Definitions
+    description: "Definition of values within the agreement."
+    type: DefinedTerm[]

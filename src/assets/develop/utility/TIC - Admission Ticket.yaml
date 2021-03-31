@@ -23,72 +23,73 @@ fields:
 
   - name: AdmissionType
     label: Admission Type
-    type: fixedchar
-    size: 3
-    example: MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition
-    span: left
-    displayOrder: 2
-    default: now
+    type: deprecated
 
   - name: Venue
     label: Venue
     type: varchar
     example: Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1
-    span: left
-    displayOrder: 2
-    default: now
 
   - name: Class
     label: Class
-    type: varchar
+    type: deprecated
     example: Gold Class, Platinum, VIP, Section A, etc.
-    span: left
-    displayOrder: 2
-    default: now
 
   - name: Area
     label: Area
     type: varchar
+    varSize: tiny
     example: Upper Bowl
-    span: left
-    displayOrder: 2
-    default: now
 
   - name: Seat
     label: Seat
     type: varchar
-    example: Sec 1, Row 3, Seat 5, or A122
-    span: left
-    displayOrder: 2
-    default: now
+    varSize: tiny
+    example: Seat 5, or A122
 
-  - name: StartTimeDate
-    label: Start Time and Date
+  - name: EventStartTimestamp
+    label: Event Start Timestamp
     type: Timestamp
-    example: Mon Nov 05 2018 09:00:00 GMT+1000 (AEST)
-    span: left
-    displayOrder: 2
-    default: now
 
   - name: ValidFrom
     label: Valid From
-    type: Timestamp
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
-    span: right
-    displayOrder: 3
+    type: deprecated
 
   - name: ExpirationTimestamp
     label: Expiration Timestamp
-    type: Timestamp
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
-    span: right
-    displayOrder: 3
+    type: deprecated
 
-  - name: Description
-    label: Description
+  - name: EventName
+    label: Event Name
+    type: varchar
+    varSize: tiny
+    example: Coingeek Conference - London (November 2018).
+    required: true
+
+  - name: TransfersPermitted
+    label: Transfers Permitted
+    description: >
+        Set to true if transfers are permitted between two parties, otherwise set to false to
+        prevent peer-to-peer transfers.
+    type: bool
+
+  - name: Details
+    label: Details
     type: varchar
     varSize: small
-    example: Coingeek Conference - London (November 2018).
-    span: full
-    displayOrder: 1
-    required: true
+
+  - name: Section
+    label: Section
+    type: varchar
+    varSize: tiny
+    example: Sec 1
+
+  - name: Row
+    label: Row
+    type: varchar
+    varSize: tiny
+    example: Sec 1
+
+  - name: EventEndTimestamp
+    label: Event End Timestamp
+    type: Timestamp

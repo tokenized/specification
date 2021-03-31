@@ -32,17 +32,17 @@ metadata:
 fields:
   - name: ContractName
     label: Contract Name
-    description: >
-      Can be any unique identifying string, including human readable names for branding/vanity purposes.
-      Contract identifier (instance) is the bitcoin public key hash address.
-      If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address.
-      Smart contracts can be branded and specialized to suit any terms and conditions.
+    description: The name/title of the contract.
     type: varchar
     example: "Tesla - Shareholder Agreement"
 
   - name: BodyOfAgreementType
     label: Body of Agreement Type
-    description: "0 - No Body of agreement included, 1 - SHA-256 Hash, 2 - Tokenized Body of Agreement Format"
+    description: >
+      0 - No Body of agreement included
+      1 - SHA-256 Hash
+      2 - Tokenized Body of Agreement Format where the agreement is specified with a separate C6/C7
+      action
     type: uint
     size: 1
     example: "1"
@@ -54,9 +54,17 @@ fields:
 
   - name: BodyOfAgreement
     label: Body of Agreement
-    description: "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information."
+    description: >
+      SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the
+      full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is
+      specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal
+      and technical information.
     type: varbin
     varSize: medium
+    only_valid_when:
+      field_name: BodyOfAgreementType
+      values:
+        - 1
 
   - name: ContractType
     label: Contract Type
@@ -209,7 +217,7 @@ fields:
   - name: ContractType
     label: Contract Type
     description: "Describes the purpose of the contract. 0 - Entity, 1 - Asset"
-    type: uint 
+    type: uint
     size: 1
     options:
       - 0

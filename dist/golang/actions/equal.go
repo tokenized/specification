@@ -536,6 +536,136 @@ func (l *ContractAddressChange) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *BodyOfAgreementOffer) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &BodyOfAgreementOffer{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &BodyOfAgreementOffer{}
+	}
+	r, ok := cr.(*BodyOfAgreementOffer)
+	if !ok {
+		return false
+	}
+
+	// Field Chapters - Chapter
+	if len(c.Chapters) != len(r.Chapters) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Chapters {
+		if !v.Equal(r.Chapters[i]) {
+			return false // fmt.Errorf("Chapters[%d] : %s", i, err)
+		}
+	}
+
+	// Field Definitions - DefinedTerm
+	if len(c.Definitions) != len(r.Definitions) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Definitions {
+		if !v.Equal(r.Definitions[i]) {
+			return false // fmt.Errorf("Definitions[%d] : %s", i, err)
+		}
+	}
+
+	return true
+}
+
+func (l *BodyOfAgreementFormation) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &BodyOfAgreementFormation{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &BodyOfAgreementFormation{}
+	}
+	r, ok := cr.(*BodyOfAgreementFormation)
+	if !ok {
+		return false
+	}
+
+	// Field Chapters - Chapter
+	if len(c.Chapters) != len(r.Chapters) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Chapters {
+		if !v.Equal(r.Chapters[i]) {
+			return false // fmt.Errorf("Chapters[%d] : %s", i, err)
+		}
+	}
+
+	// Field Definitions - DefinedTerm
+	if len(c.Definitions) != len(r.Definitions) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Definitions {
+		if !v.Equal(r.Definitions[i]) {
+			return false // fmt.Errorf("Definitions[%d] : %s", i, err)
+		}
+	}
+
+	// Field Revision - uint
+	if c.Revision != r.Revision {
+		return false // fmt.Errorf("Revision integer mismatched")
+	}
+
+	// Field Timestamp - uint
+	if c.Timestamp != r.Timestamp {
+		return false // fmt.Errorf("Timestamp integer mismatched")
+	}
+
+	return true
+}
+
+func (l *BodyOfAgreementAmendment) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &BodyOfAgreementAmendment{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &BodyOfAgreementAmendment{}
+	}
+	r, ok := cr.(*BodyOfAgreementAmendment)
+	if !ok {
+		return false
+	}
+
+	// Field Revision - uint
+	if c.Revision != r.Revision {
+		return false // fmt.Errorf("Revision integer mismatched")
+	}
+
+	// Field Amendments - Amendment
+	if len(c.Amendments) != len(r.Amendments) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Amendments {
+		if !v.Equal(r.Amendments[i]) {
+			return false // fmt.Errorf("Amendments[%d] : %s", i, err)
+		}
+	}
+
+	// Field RefTxID - bin
+	if !bytes.Equal(c.RefTxID, r.RefTxID) {
+		return false // fmt.Errorf("RefTxID bytes mismatched")
+	}
+
+	return true
+}
+
 func (l *AssetDefinition) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
@@ -556,11 +686,6 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 	// Field AssetPermissions - varbin
 	if !bytes.Equal(c.AssetPermissions, r.AssetPermissions) {
 		return false // fmt.Errorf("AssetPermissions bytes mismatched")
-	}
-
-	// Field TransfersPermitted - bool
-	if c.TransfersPermitted != r.TransfersPermitted {
-		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
 	}
 
 	// Field EnforcementOrdersPermitted - bool
@@ -593,9 +718,9 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetModificationGovernance integer mismatched")
 	}
 
-	// Field TokenQty - uint
-	if c.TokenQty != r.TokenQty {
-		return false // fmt.Errorf("TokenQty integer mismatched")
+	// Field AuthorizedTokenQty - uint
+	if c.AuthorizedTokenQty != r.AuthorizedTokenQty {
+		return false // fmt.Errorf("AuthorizedTokenQty integer mismatched")
 	}
 
 	// Field AssetType - fixedchar
@@ -653,11 +778,6 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetPermissions bytes mismatched")
 	}
 
-	// Field TransfersPermitted - bool
-	if c.TransfersPermitted != r.TransfersPermitted {
-		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
-	}
-
 	// Field EnforcementOrdersPermitted - bool
 	if c.EnforcementOrdersPermitted != r.EnforcementOrdersPermitted {
 		return false // fmt.Errorf("EnforcementOrdersPermitted boolean mismatched")
@@ -688,9 +808,9 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AssetModificationGovernance integer mismatched")
 	}
 
-	// Field TokenQty - uint
-	if c.TokenQty != r.TokenQty {
-		return false // fmt.Errorf("TokenQty integer mismatched")
+	// Field AuthorizedTokenQty - uint
+	if c.AuthorizedTokenQty != r.AuthorizedTokenQty {
+		return false // fmt.Errorf("AuthorizedTokenQty integer mismatched")
 	}
 
 	// Field AssetType - fixedchar
@@ -1846,6 +1966,116 @@ func (l *AssetTransferField) Equal(right proto.Message) bool {
 		if !v.Equal(r.AssetReceivers[i]) {
 			return false // fmt.Errorf("AssetReceivers[%d] : %s", i, err)
 		}
+	}
+
+	return true
+}
+
+func (l *ChapterField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ChapterField{}
+	}
+	r, ok := right.(*ChapterField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &ChapterField{}
+	}
+
+	// Field Title - varchar
+	if c.Title != r.Title {
+		return false // fmt.Errorf("Title string mismatched")
+	}
+
+	// Field Preamble - varchar
+	if c.Preamble != r.Preamble {
+		return false // fmt.Errorf("Preamble string mismatched")
+	}
+
+	// Field Articles - Clause
+	if len(c.Articles) != len(r.Articles) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Articles {
+		if !v.Equal(r.Articles[i]) {
+			return false // fmt.Errorf("Articles[%d] : %s", i, err)
+		}
+	}
+
+	return true
+}
+
+func (l *ClauseField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ClauseField{}
+	}
+	r, ok := right.(*ClauseField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &ClauseField{}
+	}
+
+	// Field Title - varchar
+	if c.Title != r.Title {
+		return false // fmt.Errorf("Title string mismatched")
+	}
+
+	// Field Body - varchar
+	if c.Body != r.Body {
+		return false // fmt.Errorf("Body string mismatched")
+	}
+
+	// Field Children - Clause
+	if len(c.Children) != len(r.Children) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Children {
+		if !v.Equal(r.Children[i]) {
+			return false // fmt.Errorf("Children[%d] : %s", i, err)
+		}
+	}
+
+	return true
+}
+
+func (l *DefinedTermField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &DefinedTermField{}
+	}
+	r, ok := right.(*DefinedTermField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &DefinedTermField{}
+	}
+
+	// Field Term - varchar
+	if c.Term != r.Term {
+		return false // fmt.Errorf("Term string mismatched")
+	}
+
+	// Field Definition - varchar
+	if c.Definition != r.Definition {
+		return false // fmt.Errorf("Definition string mismatched")
 	}
 
 	return true

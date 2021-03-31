@@ -1,0 +1,23 @@
+
+name: Chapter
+label: Chapter
+description: >
+  A chapter is the top level structure of an agreement. It contains articles.
+
+fields:
+  - name: Title
+    label: Title
+    description: "The title of the chapter."
+    type: varchar
+    varSize: tiny
+
+  - name: Preamble
+    label: Preamble
+    type: varchar
+    varSize: small
+    description: "The introduction to the chapter."
+
+  - name: Articles
+    label: Articles
+    description: "A list of articles for the chapter."
+    type: Clause[]

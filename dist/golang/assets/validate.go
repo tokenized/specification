@@ -3,14 +3,17 @@ package assets
 import (
 	"fmt"
 
-	"github.com/pkg/errors"
 	"github.com/tokenized/pkg/bitcoin"
+
+	"github.com/pkg/errors"
 )
 
 const (
 	max1ByteInteger = 255
 	max2ByteInteger = 65535
 	max4ByteInteger = 4294967295
+
+	maxArticleDepth = 4
 )
 
 func (a *Membership) Validate() error {
@@ -55,6 +58,8 @@ func (a *Membership) Validate() error {
 		return fmt.Errorf("Description required")
 	}
 
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -63,7 +68,10 @@ func (a *Currency) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field CurrencyCode - fixedchar
+	// Field CurrencyCode - fixedchar  (Currencies Resource)
+	if CurrenciesData(a.CurrencyCode) == nil {
+		return fmt.Errorf("CurrencyCode resource Currencies value not defined : %v", a.CurrencyCode)
+	}
 	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
 		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
 			len(a.CurrencyCode), 3)
@@ -110,6 +118,113 @@ func (a *ShareCommon) Validate() error {
 		return fmt.Errorf("Description required")
 	}
 
+	// Field TransfersPermitted - bool
+
+	return nil
+}
+
+func (a *BondFixedRate) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	InterestRateFieldIsEmpty := a.InterestRate == nil
+
+	LatePaymentPenaltyRateFieldIsEmpty := a.LatePaymentPenaltyRate == nil
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
+	}
+
+	// Field BondType - fixedchar
+	if len(a.BondType) != 0 && len(a.BondType) != 1 {
+		return fmt.Errorf("BondType fixed width field wrong size : %d should be %d",
+			len(a.BondType), 1)
+	}
+	foundBondType := false
+	for _, o := range []string{"C", "M", "G"} {
+		if a.BondType == o {
+			foundBondType = true
+			break
+		}
+	}
+	if !foundBondType {
+		return fmt.Errorf("BondType value not within options [C M G] : %s", a.BondType)
+	}
+	if len(a.BondType) == 0 {
+		return fmt.Errorf("BondType required")
+	}
+
+	// Field ISIN - varchar
+	if len(a.ISIN) > max1ByteInteger {
+		return fmt.Errorf("ISIN over max size : %d > %d", len(a.ISIN), max1ByteInteger)
+	}
+
+	// Field Collateral - varchar
+	if len(a.Collateral) > max2ByteInteger {
+		return fmt.Errorf("Collateral over max size : %d > %d", len(a.Collateral), max2ByteInteger)
+	}
+
+	// Field ParValue - CurrencyValue
+	if err := a.ParValue.Validate(); err != nil {
+		return errors.Wrap(err, "ParValue")
+	}
+	if a.ParValue == nil {
+		return fmt.Errorf("ParValue required")
+	}
+
+	// Field InterestRate - Rate
+	if err := a.InterestRate.Validate(); err != nil {
+		return errors.Wrap(err, "InterestRate")
+	}
+
+	// Field InterestPaymentInitialDate - uint
+	if InterestRateFieldIsEmpty && a.InterestPaymentInitialDate != 0 {
+		return fmt.Errorf("InterestPaymentInitialDate is only allowed when InterestRate is specified : %v", a.InterestRate)
+	}
+	if !InterestRateFieldIsEmpty && a.InterestPaymentInitialDate == 0 {
+		return fmt.Errorf("InterestPaymentInitialDate is required when InterestRate is specified : %v", a.InterestRate)
+	}
+
+	// Field InterestPaymentDateDeltas - uint
+	if len(a.InterestPaymentDateDeltas) > max2ByteInteger {
+		return fmt.Errorf("InterestPaymentDateDeltas list over max length : %d > %d", len(a.InterestPaymentDateDeltas), max2ByteInteger)
+	}
+	if InterestRateFieldIsEmpty && len(a.InterestPaymentDateDeltas) != 0 {
+		return fmt.Errorf("InterestPaymentDateDeltas is only allowed when InterestRate is specified : %v", a.InterestRate)
+	}
+	if !InterestRateFieldIsEmpty && len(a.InterestPaymentDateDeltas) == 0 {
+		return fmt.Errorf("InterestPaymentDateDeltas is required when InterestRate is specified : %v", a.InterestRate)
+	}
+
+	// Field LatePaymentPenaltyRate - Rate
+	if err := a.LatePaymentPenaltyRate.Validate(); err != nil {
+		return errors.Wrap(err, "LatePaymentPenaltyRate")
+	}
+
+	// Field LatePaymentWindow - uint
+	if LatePaymentPenaltyRateFieldIsEmpty && a.LatePaymentWindow != 0 {
+		return fmt.Errorf("LatePaymentWindow is only allowed when LatePaymentPenaltyRate is specified : %v", a.LatePaymentPenaltyRate)
+	}
+
+	// Field LatePaymentPenaltyPeriod - uint
+	if LatePaymentPenaltyRateFieldIsEmpty && a.LatePaymentPenaltyPeriod != 0 {
+		return fmt.Errorf("LatePaymentPenaltyPeriod is only allowed when LatePaymentPenaltyRate is specified : %v", a.LatePaymentPenaltyRate)
+	}
+
+	// Field MaturityDate - uint
+	if a.MaturityDate == 0 {
+		return fmt.Errorf("MaturityDate required")
+	}
+
+	// Field AgeRestriction - AgeRestriction
+	if err := a.AgeRestriction.Validate(); err != nil {
+		return errors.Wrap(err, "AgeRestriction")
+	}
+
+	// Field TransfersPermitted - bool
+
 	return nil
 }
 
@@ -118,45 +233,38 @@ func (a *Coupon) Validate() error {
 		return errors.New("Empty")
 	}
 
-	ValueFieldIsEmpty := a.Value == 0
-
 	// Field RedeemingEntity - varchar
 	if len(a.RedeemingEntity) > max1ByteInteger {
 		return fmt.Errorf("RedeemingEntity over max size : %d > %d", len(a.RedeemingEntity), max1ByteInteger)
 	}
 
-	// Field IssueDate - uint
+	// Field ValidFromTimestamp - uint
 
-	// Field ExpiryDate - uint
+	// Field ExpirationTimestamp - uint
 
-	// Field Value - uint
-
-	// Field Currency - fixedchar
-	if len(a.Currency) != 0 && len(a.Currency) != 3 {
-		return fmt.Errorf("Currency fixed width field wrong size : %d should be %d",
-			len(a.Currency), 3)
+	// Field CouponName - varchar
+	if len(a.CouponName) > max1ByteInteger {
+		return fmt.Errorf("CouponName over max size : %d > %d", len(a.CouponName), max1ByteInteger)
 	}
-	if ValueFieldIsEmpty && len(a.Currency) != 0 {
-		return fmt.Errorf("Currency is only allowed when Value is specified : %v", a.Value)
-	}
-	if !ValueFieldIsEmpty && len(a.Currency) == 0 {
-		return fmt.Errorf("Currency is required when Value is specified : %v", a.Value)
+	if len(a.CouponName) == 0 {
+		return fmt.Errorf("CouponName required")
 	}
 
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
-	}
-	if len(a.Description) == 0 {
-		return fmt.Errorf("Description required")
+	// Field TransfersPermitted - bool
+
+	// Field FaceValue - CurrencyValue
+	if err := a.FaceValue.Validate(); err != nil {
+		return errors.Wrap(err, "FaceValue")
 	}
 
-	// Field Precision - uint
-	if ValueFieldIsEmpty && a.Precision != 0 {
-		return fmt.Errorf("Precision is only allowed when Value is specified : %v", a.Value)
+	// Field RedemptionVenue - varchar
+	if len(a.RedemptionVenue) > max1ByteInteger {
+		return fmt.Errorf("RedemptionVenue over max size : %d > %d", len(a.RedemptionVenue), max1ByteInteger)
 	}
-	if !ValueFieldIsEmpty && a.Precision == 0 {
-		return fmt.Errorf("Precision is required when Value is specified : %v", a.Value)
+
+	// Field Details - varchar
+	if len(a.Details) > max2ByteInteger {
+		return fmt.Errorf("Details over max size : %d > %d", len(a.Details), max2ByteInteger)
 	}
 
 	return nil
@@ -172,22 +280,22 @@ func (a *LoyaltyPoints) Validate() error {
 		return errors.Wrap(err, "AgeRestriction")
 	}
 
-	// Field OfferName - varchar
-	if len(a.OfferName) > max1ByteInteger {
-		return fmt.Errorf("OfferName over max size : %d > %d", len(a.OfferName), max1ByteInteger)
+	// Field ProgramName - varchar
+	if len(a.ProgramName) > max1ByteInteger {
+		return fmt.Errorf("ProgramName over max size : %d > %d", len(a.ProgramName), max1ByteInteger)
 	}
-
-	// Field ValidFrom - uint
+	if len(a.ProgramName) == 0 {
+		return fmt.Errorf("ProgramName required")
+	}
 
 	// Field ExpirationTimestamp - uint
 
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	// Field Details - varchar
+	if len(a.Details) > max2ByteInteger {
+		return fmt.Errorf("Details over max size : %d > %d", len(a.Details), max2ByteInteger)
 	}
-	if len(a.Description) == 0 {
-		return fmt.Errorf("Description required")
-	}
+
+	// Field TransfersPermitted - bool
 
 	return nil
 }
@@ -202,20 +310,9 @@ func (a *TicketAdmission) Validate() error {
 		return errors.Wrap(err, "AgeRestriction")
 	}
 
-	// Field AdmissionType - fixedchar
-	if len(a.AdmissionType) != 0 && len(a.AdmissionType) != 3 {
-		return fmt.Errorf("AdmissionType fixed width field wrong size : %d should be %d",
-			len(a.AdmissionType), 3)
-	}
-
 	// Field Venue - varchar
 	if len(a.Venue) > max1ByteInteger {
 		return fmt.Errorf("Venue over max size : %d > %d", len(a.Venue), max1ByteInteger)
-	}
-
-	// Field Class - varchar
-	if len(a.Class) > max1ByteInteger {
-		return fmt.Errorf("Class over max size : %d > %d", len(a.Class), max1ByteInteger)
 	}
 
 	// Field Area - varchar
@@ -228,19 +325,34 @@ func (a *TicketAdmission) Validate() error {
 		return fmt.Errorf("Seat over max size : %d > %d", len(a.Seat), max1ByteInteger)
 	}
 
-	// Field StartTimeDate - uint
+	// Field EventStartTimestamp - uint
 
-	// Field ValidFrom - uint
-
-	// Field ExpirationTimestamp - uint
-
-	// Field Description - varchar
-	if len(a.Description) > max2ByteInteger {
-		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	// Field EventName - varchar
+	if len(a.EventName) > max1ByteInteger {
+		return fmt.Errorf("EventName over max size : %d > %d", len(a.EventName), max1ByteInteger)
 	}
-	if len(a.Description) == 0 {
-		return fmt.Errorf("Description required")
+	if len(a.EventName) == 0 {
+		return fmt.Errorf("EventName required")
 	}
+
+	// Field TransfersPermitted - bool
+
+	// Field Details - varchar
+	if len(a.Details) > max2ByteInteger {
+		return fmt.Errorf("Details over max size : %d > %d", len(a.Details), max2ByteInteger)
+	}
+
+	// Field Section - varchar
+	if len(a.Section) > max1ByteInteger {
+		return fmt.Errorf("Section over max size : %d > %d", len(a.Section), max1ByteInteger)
+	}
+
+	// Field Row - varchar
+	if len(a.Row) > max1ByteInteger {
+		return fmt.Errorf("Row over max size : %d > %d", len(a.Row), max1ByteInteger)
+	}
+
+	// Field EventEndTimestamp - uint
 
 	return nil
 }
@@ -250,19 +362,23 @@ func (a *CasinoChip) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field CurrencyCode - fixedchar
-	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
-		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
-			len(a.CurrencyCode), 3)
-	}
-	if len(a.CurrencyCode) == 0 {
-		return fmt.Errorf("CurrencyCode required")
-	}
-
 	// Field UseType - fixedchar
 	if len(a.UseType) != 0 && len(a.UseType) != 1 {
 		return fmt.Errorf("UseType fixed width field wrong size : %d should be %d",
 			len(a.UseType), 1)
+	}
+	foundUseType := false
+	for _, o := range []string{"R", "F"} {
+		if a.UseType == o {
+			foundUseType = true
+			break
+		}
+	}
+	if !foundUseType {
+		return fmt.Errorf("UseType value not within options [R F] : %s", a.UseType)
+	}
+	if len(a.UseType) == 0 {
+		return fmt.Errorf("UseType required")
 	}
 
 	// Field AgeRestriction - AgeRestriction
@@ -270,13 +386,24 @@ func (a *CasinoChip) Validate() error {
 		return errors.Wrap(err, "AgeRestriction")
 	}
 
-	// Field ValidFrom - uint
-
 	// Field ExpirationTimestamp - uint
 
-	// Field Precision - uint
-	if a.Precision == 0 {
-		return fmt.Errorf("Precision required")
+	// Field TransfersPermitted - bool
+
+	// Field CasinoName - varchar
+	if len(a.CasinoName) > max1ByteInteger {
+		return fmt.Errorf("CasinoName over max size : %d > %d", len(a.CasinoName), max1ByteInteger)
+	}
+	if len(a.CasinoName) == 0 {
+		return fmt.Errorf("CasinoName required")
+	}
+
+	// Field FaceValue - CurrencyValue
+	if err := a.FaceValue.Validate(); err != nil {
+		return errors.Wrap(err, "FaceValue")
+	}
+	if a.FaceValue == nil {
+		return fmt.Errorf("FaceValue required")
 	}
 
 	return nil
@@ -296,6 +423,54 @@ func (a *AgeRestrictionField) Validate() error {
 	if a.Upper > uint32(max1ByteInteger) {
 		return fmt.Errorf("Upper over max value : %d > %d", a.Upper, max1ByteInteger)
 	}
+
+	return nil
+}
+
+func (a *CurrencyValueField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Value - uint
+	if a.Value == 0 {
+		return fmt.Errorf("Value required")
+	}
+
+	// Field CurrencyCode - fixedchar  (Currencies Resource)
+	if CurrenciesData(a.CurrencyCode) == nil {
+		return fmt.Errorf("CurrencyCode resource Currencies value not defined : %v", a.CurrencyCode)
+	}
+	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
+		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
+			len(a.CurrencyCode), 3)
+	}
+	if len(a.CurrencyCode) == 0 {
+		return fmt.Errorf("CurrencyCode required")
+	}
+
+	// Field Precision - uint
+	if a.Precision > uint32(max1ByteInteger) {
+		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
+	}
+	if a.Precision == 0 {
+		return fmt.Errorf("Precision required")
+	}
+
+	return nil
+}
+
+func (a *RateField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Precision - uint
+	if a.Precision > uint32(max1ByteInteger) {
+		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
+	}
+
+	// Field Value - uint
 
 	return nil
 }

@@ -70,6 +70,11 @@ func fetchFieldExample(field parser.Field) interface{} {
 	if field.IsCompoundType {
 		fields := make(map[string]interface{})
 		for _, cField := range field.CompoundField.Fields {
+			if cField.Name == field.Name {
+				fields[cField.Name] = nil
+				continue
+			}
+
 			fields[cField.Name] = fetchFieldExample(cField)
 		}
 

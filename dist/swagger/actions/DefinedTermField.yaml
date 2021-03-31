@@ -1,0 +1,13 @@
+
+description: A definition define a term specified throughout an agreement.
+type: object
+properties:
+  Term:
+    description:  >
+      The name of the term being defined. Linked to from within the agreement with curly braces {} 
+      around the name.
+    type: string
+  Definition:
+    description: The definition of the name.
+    type: string
+

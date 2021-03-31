@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/tokenized/specification/dist/golang/permissions"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
@@ -19,18 +21,22 @@ type Asset interface {
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
 
-	ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]uint32, error)
+	ApplyAmendment(fip permissions.FieldIndexPath, operation uint32, data []byte,
+		permissions permissions.Permissions) (permissions.Permissions, error)
 }
 
 const (
 	// CodeMembership identifies a payload as a Membership asset message.
-	CodeMembership = "MEM"
+	CodeMembership = "MBR"
 
 	// CodeCurrency identifies a payload as a Currency asset message.
-	CodeCurrency = "CUR"
+	CodeCurrency = "CCY"
 
 	// CodeShareCommon identifies a payload as a ShareCommon asset message.
 	CodeShareCommon = "SHC"
+
+	// CodeBondFixedRate identifies a payload as a BondFixedRate asset message.
+	CodeBondFixedRate = "BFR"
 
 	// CodeCoupon identifies a payload as a Coupon asset message.
 	CodeCoupon = "COU"
@@ -43,6 +49,24 @@ const (
 
 	// CodeCasinoChip identifies a payload as a CasinoChip asset message.
 	CodeCasinoChip = "CHP"
+
+	// BondTypeCorporate specifies a corporate bond.
+	BondTypeCorporate = "C"
+
+	// BondTypeMunicipal specifies a municipal bond.
+	BondTypeMunicipal = "M"
+
+	// BondTypeGovernment specifies a government bond.
+	BondTypeGovernment = "G"
+
+	// CasinoChipUseTypeRealMoney specifies a casino chip is real money.
+	CasinoChipUseTypeRealMoney = "R"
+
+	// CasinoChipUseTypeSocial specifies a casino chip is social.
+	CasinoChipUseTypeSocial = "S"
+
+	// CasinoChipUseTypeFreePlay specifies a casino chip is free play.
+	CasinoChipUseTypeFreePlay = "F"
 )
 
 // NewAssetFromCode returns a new object of the correct type for the code.
@@ -54,6 +78,8 @@ func NewAssetFromCode(code string) Asset {
 		return &Currency{}
 	case CodeShareCommon:
 		return &ShareCommon{}
+	case CodeBondFixedRate:
+		return &BondFixedRate{}
 	case CodeCoupon:
 		return &Coupon{}
 	case CodeLoyaltyPoints:
@@ -134,6 +160,25 @@ func (a *ShareCommon) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize ShareCommon")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *BondFixedRate) Code() string {
+	return CodeBondFixedRate
+}
+
+func (a *BondFixedRate) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *BondFixedRate) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize BondFixedRate")
 	}
 
 	_, err = buf.Write(data)

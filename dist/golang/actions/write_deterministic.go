@@ -356,15 +356,75 @@ func (a *ContractAddressChange) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
+// WriteDeterministic writes data from a BodyOfAgreementOffer in a deterministic way so the data can
+// be used to sign an object. The data output can not be parsed back into an object.
+func (a *BodyOfAgreementOffer) WriteDeterministic(w io.Writer) error {
+	for i, item := range a.Chapters {
+		if err := item.WriteDeterministic(w); err != nil {
+			return errors.Wrapf(err, "Chapters %d", i)
+		}
+	}
+
+	for i, item := range a.Definitions {
+		if err := item.WriteDeterministic(w); err != nil {
+			return errors.Wrapf(err, "Definitions %d", i)
+		}
+	}
+
+	return nil
+}
+
+// WriteDeterministic writes data from a BodyOfAgreementFormation in a deterministic way so the data can
+// be used to sign an object. The data output can not be parsed back into an object.
+func (a *BodyOfAgreementFormation) WriteDeterministic(w io.Writer) error {
+	for i, item := range a.Chapters {
+		if err := item.WriteDeterministic(w); err != nil {
+			return errors.Wrapf(err, "Chapters %d", i)
+		}
+	}
+
+	for i, item := range a.Definitions {
+		if err := item.WriteDeterministic(w); err != nil {
+			return errors.Wrapf(err, "Definitions %d", i)
+		}
+	}
+
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Revision)); err != nil {
+		return errors.Wrap(err, "Revision")
+	}
+
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
+		return errors.Wrap(err, "Timestamp")
+	}
+
+	return nil
+}
+
+// WriteDeterministic writes data from a BodyOfAgreementAmendment in a deterministic way so the data can
+// be used to sign an object. The data output can not be parsed back into an object.
+func (a *BodyOfAgreementAmendment) WriteDeterministic(w io.Writer) error {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Revision)); err != nil {
+		return errors.Wrap(err, "Revision")
+	}
+
+	for i, item := range a.Amendments {
+		if err := item.WriteDeterministic(w); err != nil {
+			return errors.Wrapf(err, "Amendments %d", i)
+		}
+	}
+
+	if _, err := w.Write(a.RefTxID[:]); err != nil {
+		return errors.Wrap(err, "RefTxID")
+	}
+
+	return nil
+}
+
 // WriteDeterministic writes data from a AssetDefinition in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 	if _, err := w.Write(a.AssetPermissions); err != nil {
 		return errors.Wrap(err, "AssetPermissions")
-	}
-
-	if err := binary.Write(w, binary.LittleEndian, a.TransfersPermitted); err != nil {
-		return errors.Wrap(err, "TransfersPermitted")
 	}
 
 	if err := binary.Write(w, binary.LittleEndian, a.EnforcementOrdersPermitted); err != nil {
@@ -391,8 +451,8 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetModificationGovernance")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.TokenQty)); err != nil {
-		return errors.Wrap(err, "TokenQty")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AuthorizedTokenQty)); err != nil {
+		return errors.Wrap(err, "AuthorizedTokenQty")
 	}
 
 	if _, err := w.Write([]byte(a.AssetType)); err != nil {
@@ -427,10 +487,6 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetPermissions")
 	}
 
-	if err := binary.Write(w, binary.LittleEndian, a.TransfersPermitted); err != nil {
-		return errors.Wrap(err, "TransfersPermitted")
-	}
-
 	if err := binary.Write(w, binary.LittleEndian, a.EnforcementOrdersPermitted); err != nil {
 		return errors.Wrap(err, "EnforcementOrdersPermitted")
 	}
@@ -455,8 +511,8 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "AssetModificationGovernance")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.TokenQty)); err != nil {
-		return errors.Wrap(err, "TokenQty")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AuthorizedTokenQty)); err != nil {
+		return errors.Wrap(err, "AuthorizedTokenQty")
 	}
 
 	if _, err := w.Write([]byte(a.AssetType)); err != nil {
@@ -1093,6 +1149,60 @@ func (a *AssetTransferField) WriteDeterministic(w io.Writer) error {
 		if err := item.WriteDeterministic(w); err != nil {
 			return errors.Wrapf(err, "AssetReceivers %d", i)
 		}
+	}
+
+	return nil
+}
+
+// WriteDeterministic writes data from a Chapter in a deterministic way so the data can
+// be used to sign an object. The data output can not be parsed back into an object.
+func (a *ChapterField) WriteDeterministic(w io.Writer) error {
+	if _, err := w.Write([]byte(a.Title)); err != nil {
+		return errors.Wrap(err, "Title")
+	}
+
+	if _, err := w.Write([]byte(a.Preamble)); err != nil {
+		return errors.Wrap(err, "Preamble")
+	}
+
+	for i, item := range a.Articles {
+		if err := item.WriteDeterministic(w); err != nil {
+			return errors.Wrapf(err, "Articles %d", i)
+		}
+	}
+
+	return nil
+}
+
+// WriteDeterministic writes data from a Clause in a deterministic way so the data can
+// be used to sign an object. The data output can not be parsed back into an object.
+func (a *ClauseField) WriteDeterministic(w io.Writer) error {
+	if _, err := w.Write([]byte(a.Title)); err != nil {
+		return errors.Wrap(err, "Title")
+	}
+
+	if _, err := w.Write([]byte(a.Body)); err != nil {
+		return errors.Wrap(err, "Body")
+	}
+
+	for i, item := range a.Children {
+		if err := item.WriteDeterministic(w); err != nil {
+			return errors.Wrapf(err, "Children %d", i)
+		}
+	}
+
+	return nil
+}
+
+// WriteDeterministic writes data from a DefinedTerm in a deterministic way so the data can
+// be used to sign an object. The data output can not be parsed back into an object.
+func (a *DefinedTermField) WriteDeterministic(w io.Writer) error {
+	if _, err := w.Write([]byte(a.Term)); err != nil {
+		return errors.Wrap(err, "Term")
+	}
+
+	if _, err := w.Write([]byte(a.Definition)); err != nil {
+		return errors.Wrap(err, "Definition")
 	}
 
 	return nil

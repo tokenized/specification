@@ -1,0 +1,42 @@
+#
+# Body of Agreement Formation Action: Provides the current version of the body of agreement for the contract.
+#
+
+code: C7
+name: BodyOfAgreementFormation
+label: "Body Of Agreement Formation"
+description: "Provides the current version of the body of agreement for the contract."
+
+metadata:
+  inputs:
+    - name: Contract
+      label: "Contract Public Address"
+
+  outputs:
+    - name: Contract
+      label: "Contract Public Address"
+
+fields:
+  - name: Chapters
+    label: Chapters
+    description: "A list of chapters for the agreement."
+    type: Chapter[]
+
+  - name: Definitions
+    label: Definitions
+    description: "Definition of terms within the agreement."
+    type: DefinedTerm[]
+
+  - name: Revision
+    label: Revision
+    description: "A counter for the number of times this agreement has been revised using a modification action."
+    type: uint
+    size: 4
+    example: "0"
+    notes: "Can't be changed by the administration, operator. Smart contract controls."
+
+  - name: Timestamp
+    label: Timestamp
+    description: "Timestamp in nanoseconds of when the smart contract created the action."
+    type: Timestamp
+    notes: "Can't be changed by the administration, operator. Smart contract controls."

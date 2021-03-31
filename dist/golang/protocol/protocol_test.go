@@ -4,13 +4,14 @@ import (
 	"bytes"
 	"crypto/rand"
 	"testing"
+
+	"github.com/tokenized/pkg/bitcoin"
 )
 
 func TestAssetID(t *testing.T) {
 	// Random asset code
-	b := make([]byte, 32)
-	rand.Read(b)
-	code := *AssetCodeFromBytes(b)
+	var code bitcoin.Hash20
+	rand.Read(code[:])
 
 	assetType := "SHR"
 
@@ -26,16 +27,15 @@ func TestAssetID(t *testing.T) {
 		t.Fatalf("Incorrect asset type : got %s, want %s", rAssetType, assetType)
 	}
 
-	if !bytes.Equal(rAssetCode.Bytes(), b) {
-		t.Fatalf("Incorrect asset code : got %x, want %x", rAssetCode.Bytes(), b)
+	if !bytes.Equal(rAssetCode.Bytes(), code[:]) {
+		t.Fatalf("Incorrect asset code : got %x, want %x", rAssetCode.Bytes(), code[:])
 	}
 }
 
 func TestAssetID_BSV(t *testing.T) {
-	b := make([]byte, 32)
-	code := *AssetCodeFromBytes(b)
+	var code bitcoin.Hash20
 
-	assetType := "BSV"
+	assetType := BSVAssetID
 
 	id := AssetID(assetType, code)
 

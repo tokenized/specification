@@ -1,16 +1,31 @@
 {
   "fieldAliases": [
     {
-      "description": "International Organization for Standardization code for Currency. 3 character code.",
+      "description": "International Organization for Standardization code for Currency. 3 character code.\n",
       "example": "AUD",
       "name": "CurrencyType",
+      "resource": "Currencies",
       "size": 3,
       "type": "fixedchar"
     },
     {
-      "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.",
-      "example": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.\n",
+      "example": 1594668650000000000,
       "name": "Timestamp",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "description": "Represents a time encoded as a 64 bit unsigned integer representing the number of seconds since the Unix epoch.\n",
+      "example": 1594668654,
+      "name": "TimestampSeconds",
+      "size": 8,
+      "type": "uint"
+    },
+    {
+      "description": "Represents a time delta encoded as a 64 bit unsigned integer representing the number of seconds since a previous timestamp.\n",
+      "example": 1500,
+      "name": "Seconds",
       "size": 8,
       "type": "uint"
     }
@@ -36,11 +51,67 @@
       ],
       "label": "Age Restriction",
       "name": "AgeRestriction"
+    },
+    {
+      "description": "A value specified in terms of a currency.",
+      "fields": [
+        {
+          "description": "Denominated in precision specified in Precision field.",
+          "example": 100,
+          "label": "Value",
+          "name": "Value",
+          "required": true,
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "International Organization for Standardization code for Currency. Currency for coupon. From  resources/currency.\n",
+          "example": "AUD",
+          "label": "Currency Code",
+          "name": "CurrencyCode",
+          "required": true,
+          "type": "CurrencyType"
+        },
+        {
+          "description": "Required field to specify the decimal precision of the value. It will normally be the  \"precision\" value associated with the Currency. It is the number of decimal places between  the number of tokens and the common unit of measure. For example, in AUD, the common unit is  the dollar, but a token would only be worth a penny. So the precision should be 2 for the  two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
+          "example": 2,
+          "label": "Precision",
+          "name": "Precision",
+          "required": true,
+          "size": 1,
+          "type": "uint"
+        }
+      ],
+      "label": "Currency Value",
+      "name": "CurrencyValue"
+    },
+    {
+      "description": "A rate value specified in terms of a precision.",
+      "fields": [
+        {
+          "description": "Required field to specify the decimal precision of the value. It will normally be the  \"precision\" value associated with the Currency. It is the number of decimal places between  the number of tokens and the common unit of measure. For example, in AUD, the common unit is  the dollar, but a token would only be worth a penny. So the precision should be 2 for the  two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
+          "example": 2,
+          "label": "Precision",
+          "name": "Precision",
+          "size": 1,
+          "type": "uint"
+        },
+        {
+          "example": "Denominated in precision specified in Precision field.",
+          "label": "Value",
+          "name": "Value",
+          "size": 8,
+          "span": "right",
+          "type": "uint"
+        }
+      ],
+      "label": "Rate",
+      "name": "Rate"
     }
   ],
   "messages": [
     {
-      "code": "MEM",
+      "code": "MBR",
       "description": "A Membership",
       "fields": [
         {
@@ -106,6 +177,12 @@
           "span": "full",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Membership",
@@ -124,7 +201,7 @@
       "name": "Membership"
     },
     {
-      "code": "CUR",
+      "code": "CCY",
       "description": "Currency, fiat money, cash.  Issued by a monetary authority (eg. Reserve Bank of Australia, ECB, Bank of England).  Currency is free of counterparty risk except for the risks associated with the management of the currency by the monetary authority and its recognition as acceptable legal tender by the market and associated government(s).  Custody of currency must be backed by a 1:1 ratio, or a full reserve. A currency asset type should be considered the digital equivalent of physical cash.",
       "fields": [
         {
@@ -205,6 +282,12 @@
           "span": "full",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Share - Common",
@@ -220,83 +303,205 @@
       "name": "ShareCommon"
     },
     {
+      "code": "BFR",
+      "description": "A fixed rate bond is a bond that pays the same level of interest over its entire term. An investor who wants to earn a guaranteed interest rate for a specified term could purchase a fixed rate bond in the form of a Treasury, corporate bond, municipal bond, or certificate of deposit (CD).\n",
+      "fields": [
+        {
+          "description": "Name of bond",
+          "example": "City of Chicago, Midway Airport, Series 2001A",
+          "label": "Name",
+          "name": "Name",
+          "type": "varchar"
+        },
+        {
+          "description": "Type of bond.\n  C - Corporate\n  M - Municipal\n  G - Government / Sovereign\n",
+          "example": "C",
+          "label": "Bond Type",
+          "name": "BondType",
+          "options": [
+            "C",
+            "M",
+            "G"
+          ],
+          "required": true,
+          "size": 1,
+          "type": "fixedchar"
+        },
+        {
+          "description": "International Securities Identification Number or Committee on Uniform Securities Identification Procedures.\n",
+          "example": "US0004026250",
+          "label": "ISIN/CUSIP (optional)",
+          "name": "ISIN",
+          "type": "varchar"
+        },
+        {
+          "description": "An asset that secures securing the bond.  If null, then the bond is unsecured.",
+          "label": "Collateral",
+          "name": "Collateral",
+          "type": "varchar",
+          "varSize": "small"
+        },
+        {
+          "description": "Par value of the bond. The value that will be paid at maturity.",
+          "label": "Par Value",
+          "name": "ParValue",
+          "required": true,
+          "type": "CurrencyValue"
+        },
+        {
+          "description": "The fixed interest rate of the bond.",
+          "label": "Interest Rate",
+          "name": "InterestRate",
+          "type": "Rate"
+        },
+        {
+          "description": "Unix epoch date time (in seconds) for the first interest payment.",
+          "label": "Interest Payment Intiial Date",
+          "name": "InterestPaymentInitialDate",
+          "only_valid_when": {
+            "field_name": "InterestRate"
+          },
+          "required_when": {
+            "field_name": "InterestRate"
+          },
+          "type": "TimestampSeconds"
+        },
+        {
+          "description": "Number of seconds from the previous interest payment until the next payment. A delta in seconds from the previous payment.\n",
+          "label": "Interest Payment Date Deltas",
+          "listSize": "small",
+          "name": "InterestPaymentDateDeltas",
+          "only_valid_when": {
+            "field_name": "InterestRate"
+          },
+          "required_when": {
+            "field_name": "InterestRate"
+          },
+          "type": "Seconds[]"
+        },
+        {
+          "description": "The rate of the penalty per the penalty period.",
+          "label": "Late Payment Penalty Rate",
+          "name": "LatePaymentPenaltyRate",
+          "type": "Rate"
+        },
+        {
+          "description": "The amount of time after a payment is due before the late payment penalty is applied.\n",
+          "label": "Late Payment Window",
+          "name": "LatePaymentWindow",
+          "only_valid_when": {
+            "field_name": "LatePaymentPenaltyRate"
+          },
+          "type": "TimestampSeconds"
+        },
+        {
+          "description": "The period at which the late payment penalty accrues.",
+          "label": "Late Payment Penalty Period",
+          "name": "LatePaymentPenaltyPeriod",
+          "only_valid_when": {
+            "field_name": "LatePaymentPenaltyRate"
+          },
+          "type": "TimestampSeconds"
+        },
+        {
+          "description": "The date of the maturity of the bond. When the par value is paid.",
+          "label": "Maturity Date",
+          "name": "MaturityDate",
+          "required": true,
+          "type": "Timestamp"
+        },
+        {
+          "description": "Age restriction is used to specify required ages for asset ownership.",
+          "label": "Age Restriction",
+          "name": "AgeRestriction",
+          "type": "AgeRestriction"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        }
+      ],
+      "label": "Bond - Fixed Rate",
+      "metadata": {
+        "examples": [
+          "Chicago, Midway Airport, Series 2001A"
+        ],
+        "kind": "Debt Security"
+      },
+      "name": "BondFixedRate"
+    },
+    {
       "code": "COU",
       "description": "A voucher entitling the holder to a discount on a particular product or service.",
       "fields": [
         {
           "description": "The entity responsible for redemption of this coupon.",
-          "displayOrder": 2,
           "example": "Woolworths - Robina Town Centre",
           "label": "Redeeming Entity",
           "name": "RedeemingEntity",
-          "span": "full",
           "type": "varchar"
         },
         {
-          "default": "now",
-          "displayOrder": 3,
-          "example": "Sat Dec 12 2015 18:00:00 GMT+1000 (AEST)",
-          "label": "Issue Date",
-          "name": "IssueDate",
-          "span": "left",
+          "label": "Valid From Timestamp",
+          "name": "ValidFromTimestamp",
           "type": "Timestamp"
         },
         {
-          "displayOrder": 4,
-          "example": "Sat Dec 12 2020 18:00:00 GMT+1000 (AEST)",
-          "label": "Expiry Date",
-          "name": "ExpiryDate",
-          "span": "right",
+          "label": "Expiration Timestamp",
+          "name": "ExpirationTimestamp",
           "type": "Timestamp"
         },
         {
-          "displayOrder": 4,
-          "example": "Denominated in the smallest unit of currency specified in the Currency subfield.",
+          "description": "Deprecated for FaceValue.",
           "label": "Value",
           "name": "Value",
-          "size": 8,
-          "span": "right",
-          "type": "uint"
+          "type": "deprecated"
         },
         {
-          "description": "International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.",
-          "displayOrder": 4,
-          "example": "AUD",
+          "description": "Deprecated for FaceValue.",
           "label": "Currency",
           "name": "Currency",
-          "only_valid_when": {
-            "field_name": "Value"
-          },
-          "required_when": {
-            "field_name": "Value"
-          },
-          "span": "right",
-          "type": "CurrencyType"
+          "type": "deprecated"
         },
         {
-          "displayOrder": 1,
           "example": "Gift Card",
-          "label": "Description",
-          "name": "Description",
+          "label": "Coupon Name",
+          "name": "CouponName",
           "required": true,
-          "span": "full",
           "type": "varchar",
-          "varSize": "small"
+          "varSize": "tiny"
         },
         {
-          "description": "Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.",
-          "example": 100,
+          "description": "Deprecated for FaceValue.",
           "label": "Precision",
           "name": "Precision",
-          "only_valid_when": {
-            "field_name": "Value"
-          },
-          "required_when": {
-            "field_name": "Value"
-          },
-          "size": 8,
-          "span": "full",
-          "type": "uint"
+          "type": "deprecated"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        },
+        {
+          "description": "Face value of each coupon specified in a currency.",
+          "label": "Face Value",
+          "name": "FaceValue",
+          "type": "CurrencyValue"
+        },
+        {
+          "label": "Redemption Venue",
+          "name": "RedemptionVenue",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "label": "Details",
+          "name": "Details",
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Coupon",
@@ -323,36 +528,32 @@
         },
         {
           "example": "Qantas Frequent Flyer Points",
-          "label": "Offer Name",
-          "name": "OfferName",
-          "options": null,
+          "label": "Program Name",
+          "name": "ProgramName",
+          "required": true,
           "type": "varchar"
         },
         {
-          "displayOrder": 3,
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Valid From",
           "name": "ValidFrom",
-          "span": "right",
-          "type": "Timestamp"
+          "type": "deprecated"
         },
         {
-          "displayOrder": 3,
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
-          "span": "right",
           "type": "Timestamp"
         },
         {
-          "displayOrder": 1,
-          "example": "Coingeek Conference - London (November 2018).",
-          "label": "Description",
-          "name": "Description",
-          "required": true,
-          "span": "full",
+          "label": "Details",
+          "name": "Details",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Loyalty Points",
@@ -377,85 +578,89 @@
           "type": "AgeRestriction"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
-          "example": "MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition",
           "label": "Admission Type",
           "name": "AdmissionType",
-          "size": 3,
-          "span": "left",
-          "type": "fixedchar"
+          "type": "deprecated"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
           "example": "Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1",
           "label": "Venue",
           "name": "Venue",
-          "span": "left",
           "type": "varchar"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
           "example": "Gold Class, Platinum, VIP, Section A, etc.",
           "label": "Class",
           "name": "Class",
-          "span": "left",
-          "type": "varchar"
+          "type": "deprecated"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
           "example": "Upper Bowl",
           "label": "Area",
           "name": "Area",
-          "span": "left",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
-          "example": "Sec 1, Row 3, Seat 5, or A122",
+          "example": "Seat 5, or A122",
           "label": "Seat",
           "name": "Seat",
-          "span": "left",
-          "type": "varchar"
+          "type": "varchar",
+          "varSize": "tiny"
         },
         {
-          "default": "now",
-          "displayOrder": 2,
-          "example": "Mon Nov 05 2018 09:00:00 GMT+1000 (AEST)",
-          "label": "Start Time and Date",
-          "name": "StartTimeDate",
-          "span": "left",
+          "label": "Event Start Timestamp",
+          "name": "EventStartTimestamp",
           "type": "Timestamp"
         },
         {
-          "displayOrder": 3,
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Valid From",
           "name": "ValidFrom",
-          "span": "right",
-          "type": "Timestamp"
+          "type": "deprecated"
         },
         {
-          "displayOrder": 3,
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
-          "span": "right",
-          "type": "Timestamp"
+          "type": "deprecated"
         },
         {
-          "displayOrder": 1,
           "example": "Coingeek Conference - London (November 2018).",
-          "label": "Description",
-          "name": "Description",
+          "label": "Event Name",
+          "name": "EventName",
           "required": true,
-          "span": "full",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        },
+        {
+          "label": "Details",
+          "name": "Details",
           "type": "varchar",
           "varSize": "small"
+        },
+        {
+          "example": "Sec 1",
+          "label": "Section",
+          "name": "Section",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "example": "Sec 1",
+          "label": "Row",
+          "name": "Row",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "label": "Event End Timestamp",
+          "name": "EventEndTimestamp",
+          "type": "Timestamp"
         }
       ],
       "label": "Ticket (Admission)",
@@ -475,24 +680,21 @@
       "description": "Casino Chip",
       "fields": [
         {
-          "description": "International Organization for Standardization code for Currency. (Specification/Resources)",
-          "example": "AUD",
+          "description": "Deprecated for FaceValue",
           "label": "Currency Code",
           "name": "CurrencyCode",
-          "required": true,
-          "span": "full",
-          "type": "CurrencyType"
+          "type": "deprecated"
         },
         {
-          "description": "Real Money (R), Social (S), Free Play (F)",
+          "description": "Real Money (R), Free Play (F)",
           "example": "R",
           "label": "Use Type",
           "name": "UseType",
           "options": [
             "R",
-            "S",
             "F"
           ],
+          "required": true,
           "size": 1,
           "type": "fixedchar"
         },
@@ -503,28 +705,41 @@
           "type": "AgeRestriction"
         },
         {
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Valid From",
           "name": "ValidFrom",
-          "span": "right",
-          "type": "Timestamp"
+          "type": "deprecated"
         },
         {
-          "example": "Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)",
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
-          "span": "right",
           "type": "Timestamp"
         },
         {
-          "description": "Required field to specify the decimal precision of a currency. It will normally be the \"precision\" value associated with the CurrencyCode. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.",
-          "example": 100,
+          "description": "Deprecated for FaceValue",
           "label": "Precision",
           "name": "Precision",
+          "type": "deprecated"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        },
+        {
+          "description": "The name of the casino, or host, of the chip.",
+          "label": "Casino Name",
+          "name": "CasinoName",
           "required": true,
-          "size": 8,
-          "span": "full",
-          "type": "uint"
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "Face value of each coupon specified in a currency.",
+          "label": "Face Value",
+          "name": "FaceValue",
+          "required": true,
+          "type": "CurrencyValue"
         }
       ],
       "label": "Casino Chip",

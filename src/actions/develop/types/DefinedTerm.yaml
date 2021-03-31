@@ -1,0 +1,20 @@
+
+name: DefinedTerm
+label: Defined Term
+description: >
+  A definition define a term specified throughout an agreement.
+
+fields:
+  - name: Term
+    label: Term
+    description: >
+      The name of the term being defined. Linked to from within the agreement with curly braces {} 
+      around the name.
+    type: varchar
+    varSize: tiny
+
+  - name: Definition
+    label: Definition
+    type: varchar
+    varSize: small
+    description: "The definition of the name."

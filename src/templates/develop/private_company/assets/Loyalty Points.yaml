@@ -12,7 +12,7 @@ Permissions:
       - Special Board Resolution
     Fields:
       - [AssetPermissions]
-      - [TransfersPermitted]
+      - [AssetPayload, TransfersPermitted]
       - [TradeRestrictions]
       - [EnforcementOrdersPermitted]
       - [VotingRights]
@@ -21,7 +21,7 @@ Permissions:
       - [HolderProposal]
       - [AssetModificationGovernance]
       - [AssetPayload, AgeRestriction]
-      - [AssetPayload, OfferName]
+      - [AssetPayload, ProgramName]
 
   - Name: Administrator Direct
     Permitted: true
@@ -30,7 +30,6 @@ Permissions:
     AdministrativeMatter: false
     VotingSystemsAllowed:
     Fields:
-      - [TokenQty]
-      - [AssetPayload, ValidFrom]
+      - [AuthorizedTokenQty]
       - [AssetPayload, ExpirationTimestamp]
-      - [AssetPayload, Description]
+      - [AssetPayload, Details]

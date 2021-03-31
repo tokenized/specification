@@ -21,7 +21,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// Message - Membership (MEM)
+// Message - Membership (MBR)
 type Membership struct {
 	AgeRestriction       *AgeRestrictionField `protobuf:"bytes,1,opt,name=AgeRestriction,proto3" json:"AgeRestriction,omitempty"`
 	ValidFrom            uint64               `protobuf:"varint,2,opt,name=ValidFrom,proto3" json:"ValidFrom,omitempty"`
@@ -31,6 +31,7 @@ type Membership struct {
 	RoleType             string               `protobuf:"bytes,6,opt,name=RoleType,proto3" json:"RoleType,omitempty"`
 	MembershipType       string               `protobuf:"bytes,7,opt,name=MembershipType,proto3" json:"MembershipType,omitempty"`
 	Description          string               `protobuf:"bytes,8,opt,name=Description,proto3" json:"Description,omitempty"`
+	TransfersPermitted   bool                 `protobuf:"varint,9,opt,name=TransfersPermitted,proto3" json:"TransfersPermitted,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
 	XXX_unrecognized     []byte               `json:"-"`
 	XXX_sizecache        int32                `json:"-"`
@@ -117,7 +118,14 @@ func (m *Membership) GetDescription() string {
 	return ""
 }
 
-// Message - Currency (CUR)
+func (m *Membership) GetTransfersPermitted() bool {
+	if m != nil {
+		return m.TransfersPermitted
+	}
+	return false
+}
+
+// Message - Currency (CCY)
 type Currency struct {
 	CurrencyCode         string   `protobuf:"bytes,1,opt,name=CurrencyCode,proto3" json:"CurrencyCode,omitempty"`
 	MonetaryAuthority    string   `protobuf:"bytes,2,opt,name=MonetaryAuthority,proto3" json:"MonetaryAuthority,omitempty"`
@@ -178,6 +186,7 @@ type ShareCommon struct {
 	Ticker               string   `protobuf:"bytes,1,opt,name=Ticker,proto3" json:"Ticker,omitempty"`
 	ISIN                 string   `protobuf:"bytes,2,opt,name=ISIN,proto3" json:"ISIN,omitempty"`
 	Description          string   `protobuf:"bytes,3,opt,name=Description,proto3" json:"Description,omitempty"`
+	TransfersPermitted   bool     `protobuf:"varint,4,opt,name=TransfersPermitted,proto3" json:"TransfersPermitted,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -229,25 +238,177 @@ func (m *ShareCommon) GetDescription() string {
 	return ""
 }
 
+func (m *ShareCommon) GetTransfersPermitted() bool {
+	if m != nil {
+		return m.TransfersPermitted
+	}
+	return false
+}
+
+// Message - Bond - Fixed Rate (BFR)
+type BondFixedRate struct {
+	Name                       string               `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
+	BondType                   string               `protobuf:"bytes,2,opt,name=BondType,proto3" json:"BondType,omitempty"`
+	ISIN                       string               `protobuf:"bytes,3,opt,name=ISIN,proto3" json:"ISIN,omitempty"`
+	Collateral                 string               `protobuf:"bytes,4,opt,name=Collateral,proto3" json:"Collateral,omitempty"`
+	ParValue                   *CurrencyValueField  `protobuf:"bytes,5,opt,name=ParValue,proto3" json:"ParValue,omitempty"`
+	InterestRate               *RateField           `protobuf:"bytes,6,opt,name=InterestRate,proto3" json:"InterestRate,omitempty"`
+	InterestPaymentInitialDate uint64               `protobuf:"varint,7,opt,name=InterestPaymentInitialDate,proto3" json:"InterestPaymentInitialDate,omitempty"`
+	InterestPaymentDateDeltas  []uint64             `protobuf:"varint,8,rep,packed,name=InterestPaymentDateDeltas,proto3" json:"InterestPaymentDateDeltas,omitempty"`
+	LatePaymentPenaltyRate     *RateField           `protobuf:"bytes,9,opt,name=LatePaymentPenaltyRate,proto3" json:"LatePaymentPenaltyRate,omitempty"`
+	LatePaymentWindow          uint64               `protobuf:"varint,10,opt,name=LatePaymentWindow,proto3" json:"LatePaymentWindow,omitempty"`
+	LatePaymentPenaltyPeriod   uint64               `protobuf:"varint,11,opt,name=LatePaymentPenaltyPeriod,proto3" json:"LatePaymentPenaltyPeriod,omitempty"`
+	MaturityDate               uint64               `protobuf:"varint,12,opt,name=MaturityDate,proto3" json:"MaturityDate,omitempty"`
+	AgeRestriction             *AgeRestrictionField `protobuf:"bytes,13,opt,name=AgeRestriction,proto3" json:"AgeRestriction,omitempty"`
+	TransfersPermitted         bool                 `protobuf:"varint,14,opt,name=TransfersPermitted,proto3" json:"TransfersPermitted,omitempty"`
+	XXX_NoUnkeyedLiteral       struct{}             `json:"-"`
+	XXX_unrecognized           []byte               `json:"-"`
+	XXX_sizecache              int32                `json:"-"`
+}
+
+func (m *BondFixedRate) Reset()         { *m = BondFixedRate{} }
+func (m *BondFixedRate) String() string { return proto.CompactTextString(m) }
+func (*BondFixedRate) ProtoMessage()    {}
+func (*BondFixedRate) Descriptor() ([]byte, []int) {
+	return fileDescriptor_610ca40ce07a87fe, []int{3}
+}
+
+func (m *BondFixedRate) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BondFixedRate.Unmarshal(m, b)
+}
+func (m *BondFixedRate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BondFixedRate.Marshal(b, m, deterministic)
+}
+func (m *BondFixedRate) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BondFixedRate.Merge(m, src)
+}
+func (m *BondFixedRate) XXX_Size() int {
+	return xxx_messageInfo_BondFixedRate.Size(m)
+}
+func (m *BondFixedRate) XXX_DiscardUnknown() {
+	xxx_messageInfo_BondFixedRate.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BondFixedRate proto.InternalMessageInfo
+
+func (m *BondFixedRate) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *BondFixedRate) GetBondType() string {
+	if m != nil {
+		return m.BondType
+	}
+	return ""
+}
+
+func (m *BondFixedRate) GetISIN() string {
+	if m != nil {
+		return m.ISIN
+	}
+	return ""
+}
+
+func (m *BondFixedRate) GetCollateral() string {
+	if m != nil {
+		return m.Collateral
+	}
+	return ""
+}
+
+func (m *BondFixedRate) GetParValue() *CurrencyValueField {
+	if m != nil {
+		return m.ParValue
+	}
+	return nil
+}
+
+func (m *BondFixedRate) GetInterestRate() *RateField {
+	if m != nil {
+		return m.InterestRate
+	}
+	return nil
+}
+
+func (m *BondFixedRate) GetInterestPaymentInitialDate() uint64 {
+	if m != nil {
+		return m.InterestPaymentInitialDate
+	}
+	return 0
+}
+
+func (m *BondFixedRate) GetInterestPaymentDateDeltas() []uint64 {
+	if m != nil {
+		return m.InterestPaymentDateDeltas
+	}
+	return nil
+}
+
+func (m *BondFixedRate) GetLatePaymentPenaltyRate() *RateField {
+	if m != nil {
+		return m.LatePaymentPenaltyRate
+	}
+	return nil
+}
+
+func (m *BondFixedRate) GetLatePaymentWindow() uint64 {
+	if m != nil {
+		return m.LatePaymentWindow
+	}
+	return 0
+}
+
+func (m *BondFixedRate) GetLatePaymentPenaltyPeriod() uint64 {
+	if m != nil {
+		return m.LatePaymentPenaltyPeriod
+	}
+	return 0
+}
+
+func (m *BondFixedRate) GetMaturityDate() uint64 {
+	if m != nil {
+		return m.MaturityDate
+	}
+	return 0
+}
+
+func (m *BondFixedRate) GetAgeRestriction() *AgeRestrictionField {
+	if m != nil {
+		return m.AgeRestriction
+	}
+	return nil
+}
+
+func (m *BondFixedRate) GetTransfersPermitted() bool {
+	if m != nil {
+		return m.TransfersPermitted
+	}
+	return false
+}
+
 // Message - Coupon (COU)
 type Coupon struct {
-	RedeemingEntity      string   `protobuf:"bytes,1,opt,name=RedeemingEntity,proto3" json:"RedeemingEntity,omitempty"`
-	IssueDate            uint64   `protobuf:"varint,2,opt,name=IssueDate,proto3" json:"IssueDate,omitempty"`
-	ExpiryDate           uint64   `protobuf:"varint,3,opt,name=ExpiryDate,proto3" json:"ExpiryDate,omitempty"`
-	Value                uint64   `protobuf:"varint,4,opt,name=Value,proto3" json:"Value,omitempty"`
-	Currency             string   `protobuf:"bytes,5,opt,name=Currency,proto3" json:"Currency,omitempty"`
-	Description          string   `protobuf:"bytes,6,opt,name=Description,proto3" json:"Description,omitempty"`
-	Precision            uint64   `protobuf:"varint,7,opt,name=Precision,proto3" json:"Precision,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	RedeemingEntity      string              `protobuf:"bytes,1,opt,name=RedeemingEntity,proto3" json:"RedeemingEntity,omitempty"`
+	ValidFromTimestamp   uint64              `protobuf:"varint,2,opt,name=ValidFromTimestamp,proto3" json:"ValidFromTimestamp,omitempty"`
+	ExpirationTimestamp  uint64              `protobuf:"varint,3,opt,name=ExpirationTimestamp,proto3" json:"ExpirationTimestamp,omitempty"`
+	CouponName           string              `protobuf:"bytes,6,opt,name=CouponName,proto3" json:"CouponName,omitempty"`
+	TransfersPermitted   bool                `protobuf:"varint,8,opt,name=TransfersPermitted,proto3" json:"TransfersPermitted,omitempty"`
+	FaceValue            *CurrencyValueField `protobuf:"bytes,9,opt,name=FaceValue,proto3" json:"FaceValue,omitempty"`
+	RedemptionVenue      string              `protobuf:"bytes,10,opt,name=RedemptionVenue,proto3" json:"RedemptionVenue,omitempty"`
+	Details              string              `protobuf:"bytes,11,opt,name=Details,proto3" json:"Details,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
+	XXX_unrecognized     []byte              `json:"-"`
+	XXX_sizecache        int32               `json:"-"`
 }
 
 func (m *Coupon) Reset()         { *m = Coupon{} }
 func (m *Coupon) String() string { return proto.CompactTextString(m) }
 func (*Coupon) ProtoMessage()    {}
 func (*Coupon) Descriptor() ([]byte, []int) {
-	return fileDescriptor_610ca40ce07a87fe, []int{3}
+	return fileDescriptor_610ca40ce07a87fe, []int{4}
 }
 
 func (m *Coupon) XXX_Unmarshal(b []byte) error {
@@ -275,55 +436,62 @@ func (m *Coupon) GetRedeemingEntity() string {
 	return ""
 }
 
-func (m *Coupon) GetIssueDate() uint64 {
+func (m *Coupon) GetValidFromTimestamp() uint64 {
 	if m != nil {
-		return m.IssueDate
+		return m.ValidFromTimestamp
 	}
 	return 0
 }
 
-func (m *Coupon) GetExpiryDate() uint64 {
+func (m *Coupon) GetExpirationTimestamp() uint64 {
 	if m != nil {
-		return m.ExpiryDate
+		return m.ExpirationTimestamp
 	}
 	return 0
 }
 
-func (m *Coupon) GetValue() uint64 {
+func (m *Coupon) GetCouponName() string {
 	if m != nil {
-		return m.Value
-	}
-	return 0
-}
-
-func (m *Coupon) GetCurrency() string {
-	if m != nil {
-		return m.Currency
+		return m.CouponName
 	}
 	return ""
 }
 
-func (m *Coupon) GetDescription() string {
+func (m *Coupon) GetTransfersPermitted() bool {
 	if m != nil {
-		return m.Description
+		return m.TransfersPermitted
+	}
+	return false
+}
+
+func (m *Coupon) GetFaceValue() *CurrencyValueField {
+	if m != nil {
+		return m.FaceValue
+	}
+	return nil
+}
+
+func (m *Coupon) GetRedemptionVenue() string {
+	if m != nil {
+		return m.RedemptionVenue
 	}
 	return ""
 }
 
-func (m *Coupon) GetPrecision() uint64 {
+func (m *Coupon) GetDetails() string {
 	if m != nil {
-		return m.Precision
+		return m.Details
 	}
-	return 0
+	return ""
 }
 
 // Message - Loyalty Points (LOY)
 type LoyaltyPoints struct {
 	AgeRestriction       *AgeRestrictionField `protobuf:"bytes,1,opt,name=AgeRestriction,proto3" json:"AgeRestriction,omitempty"`
-	OfferName            string               `protobuf:"bytes,2,opt,name=OfferName,proto3" json:"OfferName,omitempty"`
-	ValidFrom            uint64               `protobuf:"varint,3,opt,name=ValidFrom,proto3" json:"ValidFrom,omitempty"`
+	ProgramName          string               `protobuf:"bytes,2,opt,name=ProgramName,proto3" json:"ProgramName,omitempty"`
 	ExpirationTimestamp  uint64               `protobuf:"varint,4,opt,name=ExpirationTimestamp,proto3" json:"ExpirationTimestamp,omitempty"`
-	Description          string               `protobuf:"bytes,5,opt,name=Description,proto3" json:"Description,omitempty"`
+	Details              string               `protobuf:"bytes,5,opt,name=Details,proto3" json:"Details,omitempty"`
+	TransfersPermitted   bool                 `protobuf:"varint,6,opt,name=TransfersPermitted,proto3" json:"TransfersPermitted,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
 	XXX_unrecognized     []byte               `json:"-"`
 	XXX_sizecache        int32                `json:"-"`
@@ -333,7 +501,7 @@ func (m *LoyaltyPoints) Reset()         { *m = LoyaltyPoints{} }
 func (m *LoyaltyPoints) String() string { return proto.CompactTextString(m) }
 func (*LoyaltyPoints) ProtoMessage()    {}
 func (*LoyaltyPoints) Descriptor() ([]byte, []int) {
-	return fileDescriptor_610ca40ce07a87fe, []int{4}
+	return fileDescriptor_610ca40ce07a87fe, []int{5}
 }
 
 func (m *LoyaltyPoints) XXX_Unmarshal(b []byte) error {
@@ -361,18 +529,11 @@ func (m *LoyaltyPoints) GetAgeRestriction() *AgeRestrictionField {
 	return nil
 }
 
-func (m *LoyaltyPoints) GetOfferName() string {
+func (m *LoyaltyPoints) GetProgramName() string {
 	if m != nil {
-		return m.OfferName
+		return m.ProgramName
 	}
 	return ""
-}
-
-func (m *LoyaltyPoints) GetValidFrom() uint64 {
-	if m != nil {
-		return m.ValidFrom
-	}
-	return 0
 }
 
 func (m *LoyaltyPoints) GetExpirationTimestamp() uint64 {
@@ -382,25 +543,33 @@ func (m *LoyaltyPoints) GetExpirationTimestamp() uint64 {
 	return 0
 }
 
-func (m *LoyaltyPoints) GetDescription() string {
+func (m *LoyaltyPoints) GetDetails() string {
 	if m != nil {
-		return m.Description
+		return m.Details
 	}
 	return ""
+}
+
+func (m *LoyaltyPoints) GetTransfersPermitted() bool {
+	if m != nil {
+		return m.TransfersPermitted
+	}
+	return false
 }
 
 // Message - Ticket (Admission) (TIC)
 type TicketAdmission struct {
 	AgeRestriction       *AgeRestrictionField `protobuf:"bytes,1,opt,name=AgeRestriction,proto3" json:"AgeRestriction,omitempty"`
-	AdmissionType        string               `protobuf:"bytes,2,opt,name=AdmissionType,proto3" json:"AdmissionType,omitempty"`
 	Venue                string               `protobuf:"bytes,3,opt,name=Venue,proto3" json:"Venue,omitempty"`
-	Class                string               `protobuf:"bytes,4,opt,name=Class,proto3" json:"Class,omitempty"`
 	Area                 string               `protobuf:"bytes,5,opt,name=Area,proto3" json:"Area,omitempty"`
 	Seat                 string               `protobuf:"bytes,6,opt,name=Seat,proto3" json:"Seat,omitempty"`
-	StartTimeDate        uint64               `protobuf:"varint,7,opt,name=StartTimeDate,proto3" json:"StartTimeDate,omitempty"`
-	ValidFrom            uint64               `protobuf:"varint,8,opt,name=ValidFrom,proto3" json:"ValidFrom,omitempty"`
-	ExpirationTimestamp  uint64               `protobuf:"varint,9,opt,name=ExpirationTimestamp,proto3" json:"ExpirationTimestamp,omitempty"`
-	Description          string               `protobuf:"bytes,10,opt,name=Description,proto3" json:"Description,omitempty"`
+	EventStartTimestamp  uint64               `protobuf:"varint,7,opt,name=EventStartTimestamp,proto3" json:"EventStartTimestamp,omitempty"`
+	EventName            string               `protobuf:"bytes,10,opt,name=EventName,proto3" json:"EventName,omitempty"`
+	TransfersPermitted   bool                 `protobuf:"varint,11,opt,name=TransfersPermitted,proto3" json:"TransfersPermitted,omitempty"`
+	Details              string               `protobuf:"bytes,12,opt,name=Details,proto3" json:"Details,omitempty"`
+	Section              string               `protobuf:"bytes,13,opt,name=Section,proto3" json:"Section,omitempty"`
+	Row                  string               `protobuf:"bytes,14,opt,name=Row,proto3" json:"Row,omitempty"`
+	EventEndTimestamp    uint64               `protobuf:"varint,15,opt,name=EventEndTimestamp,proto3" json:"EventEndTimestamp,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
 	XXX_unrecognized     []byte               `json:"-"`
 	XXX_sizecache        int32                `json:"-"`
@@ -410,7 +579,7 @@ func (m *TicketAdmission) Reset()         { *m = TicketAdmission{} }
 func (m *TicketAdmission) String() string { return proto.CompactTextString(m) }
 func (*TicketAdmission) ProtoMessage()    {}
 func (*TicketAdmission) Descriptor() ([]byte, []int) {
-	return fileDescriptor_610ca40ce07a87fe, []int{5}
+	return fileDescriptor_610ca40ce07a87fe, []int{6}
 }
 
 func (m *TicketAdmission) XXX_Unmarshal(b []byte) error {
@@ -438,23 +607,9 @@ func (m *TicketAdmission) GetAgeRestriction() *AgeRestrictionField {
 	return nil
 }
 
-func (m *TicketAdmission) GetAdmissionType() string {
-	if m != nil {
-		return m.AdmissionType
-	}
-	return ""
-}
-
 func (m *TicketAdmission) GetVenue() string {
 	if m != nil {
 		return m.Venue
-	}
-	return ""
-}
-
-func (m *TicketAdmission) GetClass() string {
-	if m != nil {
-		return m.Class
 	}
 	return ""
 }
@@ -473,42 +628,63 @@ func (m *TicketAdmission) GetSeat() string {
 	return ""
 }
 
-func (m *TicketAdmission) GetStartTimeDate() uint64 {
+func (m *TicketAdmission) GetEventStartTimestamp() uint64 {
 	if m != nil {
-		return m.StartTimeDate
+		return m.EventStartTimestamp
 	}
 	return 0
 }
 
-func (m *TicketAdmission) GetValidFrom() uint64 {
+func (m *TicketAdmission) GetEventName() string {
 	if m != nil {
-		return m.ValidFrom
-	}
-	return 0
-}
-
-func (m *TicketAdmission) GetExpirationTimestamp() uint64 {
-	if m != nil {
-		return m.ExpirationTimestamp
-	}
-	return 0
-}
-
-func (m *TicketAdmission) GetDescription() string {
-	if m != nil {
-		return m.Description
+		return m.EventName
 	}
 	return ""
 }
 
+func (m *TicketAdmission) GetTransfersPermitted() bool {
+	if m != nil {
+		return m.TransfersPermitted
+	}
+	return false
+}
+
+func (m *TicketAdmission) GetDetails() string {
+	if m != nil {
+		return m.Details
+	}
+	return ""
+}
+
+func (m *TicketAdmission) GetSection() string {
+	if m != nil {
+		return m.Section
+	}
+	return ""
+}
+
+func (m *TicketAdmission) GetRow() string {
+	if m != nil {
+		return m.Row
+	}
+	return ""
+}
+
+func (m *TicketAdmission) GetEventEndTimestamp() uint64 {
+	if m != nil {
+		return m.EventEndTimestamp
+	}
+	return 0
+}
+
 // Message - Casino Chip (CHP)
 type CasinoChip struct {
-	CurrencyCode         string               `protobuf:"bytes,1,opt,name=CurrencyCode,proto3" json:"CurrencyCode,omitempty"`
 	UseType              string               `protobuf:"bytes,2,opt,name=UseType,proto3" json:"UseType,omitempty"`
 	AgeRestriction       *AgeRestrictionField `protobuf:"bytes,3,opt,name=AgeRestriction,proto3" json:"AgeRestriction,omitempty"`
-	ValidFrom            uint64               `protobuf:"varint,4,opt,name=ValidFrom,proto3" json:"ValidFrom,omitempty"`
 	ExpirationTimestamp  uint64               `protobuf:"varint,5,opt,name=ExpirationTimestamp,proto3" json:"ExpirationTimestamp,omitempty"`
-	Precision            uint64               `protobuf:"varint,6,opt,name=Precision,proto3" json:"Precision,omitempty"`
+	TransfersPermitted   bool                 `protobuf:"varint,7,opt,name=TransfersPermitted,proto3" json:"TransfersPermitted,omitempty"`
+	CasinoName           string               `protobuf:"bytes,8,opt,name=CasinoName,proto3" json:"CasinoName,omitempty"`
+	FaceValue            *CurrencyValueField  `protobuf:"bytes,9,opt,name=FaceValue,proto3" json:"FaceValue,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
 	XXX_unrecognized     []byte               `json:"-"`
 	XXX_sizecache        int32                `json:"-"`
@@ -518,7 +694,7 @@ func (m *CasinoChip) Reset()         { *m = CasinoChip{} }
 func (m *CasinoChip) String() string { return proto.CompactTextString(m) }
 func (*CasinoChip) ProtoMessage()    {}
 func (*CasinoChip) Descriptor() ([]byte, []int) {
-	return fileDescriptor_610ca40ce07a87fe, []int{6}
+	return fileDescriptor_610ca40ce07a87fe, []int{7}
 }
 
 func (m *CasinoChip) XXX_Unmarshal(b []byte) error {
@@ -539,13 +715,6 @@ func (m *CasinoChip) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_CasinoChip proto.InternalMessageInfo
 
-func (m *CasinoChip) GetCurrencyCode() string {
-	if m != nil {
-		return m.CurrencyCode
-	}
-	return ""
-}
-
 func (m *CasinoChip) GetUseType() string {
 	if m != nil {
 		return m.UseType
@@ -560,13 +729,6 @@ func (m *CasinoChip) GetAgeRestriction() *AgeRestrictionField {
 	return nil
 }
 
-func (m *CasinoChip) GetValidFrom() uint64 {
-	if m != nil {
-		return m.ValidFrom
-	}
-	return 0
-}
-
 func (m *CasinoChip) GetExpirationTimestamp() uint64 {
 	if m != nil {
 		return m.ExpirationTimestamp
@@ -574,11 +736,25 @@ func (m *CasinoChip) GetExpirationTimestamp() uint64 {
 	return 0
 }
 
-func (m *CasinoChip) GetPrecision() uint64 {
+func (m *CasinoChip) GetTransfersPermitted() bool {
 	if m != nil {
-		return m.Precision
+		return m.TransfersPermitted
 	}
-	return 0
+	return false
+}
+
+func (m *CasinoChip) GetCasinoName() string {
+	if m != nil {
+		return m.CasinoName
+	}
+	return ""
+}
+
+func (m *CasinoChip) GetFaceValue() *CurrencyValueField {
+	if m != nil {
+		return m.FaceValue
+	}
+	return nil
 }
 
 // Field - Age Restriction
@@ -594,7 +770,7 @@ func (m *AgeRestrictionField) Reset()         { *m = AgeRestrictionField{} }
 func (m *AgeRestrictionField) String() string { return proto.CompactTextString(m) }
 func (*AgeRestrictionField) ProtoMessage()    {}
 func (*AgeRestrictionField) Descriptor() ([]byte, []int) {
-	return fileDescriptor_610ca40ce07a87fe, []int{7}
+	return fileDescriptor_610ca40ce07a87fe, []int{8}
 }
 
 func (m *AgeRestrictionField) XXX_Unmarshal(b []byte) error {
@@ -629,61 +805,193 @@ func (m *AgeRestrictionField) GetUpper() uint32 {
 	return 0
 }
 
+// Field - Currency Value
+type CurrencyValueField struct {
+	Value                uint64   `protobuf:"varint,1,opt,name=Value,proto3" json:"Value,omitempty"`
+	CurrencyCode         string   `protobuf:"bytes,2,opt,name=CurrencyCode,proto3" json:"CurrencyCode,omitempty"`
+	Precision            uint32   `protobuf:"varint,3,opt,name=Precision,proto3" json:"Precision,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CurrencyValueField) Reset()         { *m = CurrencyValueField{} }
+func (m *CurrencyValueField) String() string { return proto.CompactTextString(m) }
+func (*CurrencyValueField) ProtoMessage()    {}
+func (*CurrencyValueField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_610ca40ce07a87fe, []int{9}
+}
+
+func (m *CurrencyValueField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CurrencyValueField.Unmarshal(m, b)
+}
+func (m *CurrencyValueField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CurrencyValueField.Marshal(b, m, deterministic)
+}
+func (m *CurrencyValueField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CurrencyValueField.Merge(m, src)
+}
+func (m *CurrencyValueField) XXX_Size() int {
+	return xxx_messageInfo_CurrencyValueField.Size(m)
+}
+func (m *CurrencyValueField) XXX_DiscardUnknown() {
+	xxx_messageInfo_CurrencyValueField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CurrencyValueField proto.InternalMessageInfo
+
+func (m *CurrencyValueField) GetValue() uint64 {
+	if m != nil {
+		return m.Value
+	}
+	return 0
+}
+
+func (m *CurrencyValueField) GetCurrencyCode() string {
+	if m != nil {
+		return m.CurrencyCode
+	}
+	return ""
+}
+
+func (m *CurrencyValueField) GetPrecision() uint32 {
+	if m != nil {
+		return m.Precision
+	}
+	return 0
+}
+
+// Field - Rate
+type RateField struct {
+	Precision            uint32   `protobuf:"varint,1,opt,name=Precision,proto3" json:"Precision,omitempty"`
+	Value                uint64   `protobuf:"varint,2,opt,name=Value,proto3" json:"Value,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RateField) Reset()         { *m = RateField{} }
+func (m *RateField) String() string { return proto.CompactTextString(m) }
+func (*RateField) ProtoMessage()    {}
+func (*RateField) Descriptor() ([]byte, []int) {
+	return fileDescriptor_610ca40ce07a87fe, []int{10}
+}
+
+func (m *RateField) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RateField.Unmarshal(m, b)
+}
+func (m *RateField) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RateField.Marshal(b, m, deterministic)
+}
+func (m *RateField) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RateField.Merge(m, src)
+}
+func (m *RateField) XXX_Size() int {
+	return xxx_messageInfo_RateField.Size(m)
+}
+func (m *RateField) XXX_DiscardUnknown() {
+	xxx_messageInfo_RateField.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RateField proto.InternalMessageInfo
+
+func (m *RateField) GetPrecision() uint32 {
+	if m != nil {
+		return m.Precision
+	}
+	return 0
+}
+
+func (m *RateField) GetValue() uint64 {
+	if m != nil {
+		return m.Value
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Membership)(nil), "assets.Membership")
 	proto.RegisterType((*Currency)(nil), "assets.Currency")
 	proto.RegisterType((*ShareCommon)(nil), "assets.ShareCommon")
+	proto.RegisterType((*BondFixedRate)(nil), "assets.BondFixedRate")
 	proto.RegisterType((*Coupon)(nil), "assets.Coupon")
 	proto.RegisterType((*LoyaltyPoints)(nil), "assets.LoyaltyPoints")
 	proto.RegisterType((*TicketAdmission)(nil), "assets.TicketAdmission")
 	proto.RegisterType((*CasinoChip)(nil), "assets.CasinoChip")
 	proto.RegisterType((*AgeRestrictionField)(nil), "assets.AgeRestrictionField")
+	proto.RegisterType((*CurrencyValueField)(nil), "assets.CurrencyValueField")
+	proto.RegisterType((*RateField)(nil), "assets.RateField")
 }
 
 func init() { proto.RegisterFile("assets.proto", fileDescriptor_610ca40ce07a87fe) }
 
 var fileDescriptor_610ca40ce07a87fe = []byte{
-	// 663 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x95, 0x51, 0x6b, 0xdb, 0x3a,
-	0x14, 0xc7, 0x71, 0xe2, 0xa4, 0xc9, 0x69, 0xd3, 0xde, 0xab, 0x5e, 0x2e, 0x61, 0x1b, 0x23, 0x84,
-	0x31, 0xf2, 0x30, 0x9a, 0xb1, 0x31, 0xf6, 0x9c, 0x39, 0x2d, 0x64, 0xb4, 0x5d, 0x71, 0xda, 0x3e,
-	0x6c, 0x4f, 0xaa, 0x7d, 0x9a, 0x88, 0xda, 0x96, 0x91, 0x64, 0x36, 0xef, 0x69, 0x5f, 0x6d, 0x5f,
-	0x65, 0xec, 0x61, 0x5f, 0x62, 0x30, 0x24, 0x39, 0x49, 0xed, 0xb4, 0x10, 0x58, 0xdf, 0x74, 0xfe,
-	0x3a, 0x8e, 0x74, 0x7e, 0xff, 0x73, 0x14, 0xd8, 0xa1, 0x52, 0xa2, 0x92, 0x07, 0xa9, 0xe0, 0x8a,
-	0x93, 0xa6, 0x8d, 0xfa, 0xdf, 0x6b, 0x00, 0x27, 0x18, 0x5f, 0xa1, 0x90, 0x73, 0x96, 0x12, 0x0f,
-	0x76, 0x47, 0x33, 0xf4, 0x51, 0x2a, 0xc1, 0x02, 0xc5, 0x78, 0xd2, 0x75, 0x7a, 0xce, 0x60, 0xfb,
-	0xd5, 0xe3, 0x83, 0xe2, 0xeb, 0xf2, 0xee, 0x11, 0xc3, 0x28, 0xf4, 0x2b, 0x9f, 0x90, 0x27, 0xd0,
-	0xbe, 0xa4, 0x11, 0x0b, 0x8f, 0x04, 0x8f, 0xbb, 0xb5, 0x9e, 0x33, 0x70, 0xfd, 0x95, 0x40, 0x5e,
-	0xc2, 0xfe, 0xe1, 0x97, 0x94, 0x09, 0xaa, 0x73, 0xcf, 0x59, 0x8c, 0x52, 0xd1, 0x38, 0xed, 0xd6,
-	0x4d, 0xde, 0x5d, 0x5b, 0x64, 0x17, 0x6a, 0x93, 0x71, 0xd7, 0xed, 0x39, 0x83, 0xb6, 0x5f, 0x9b,
-	0x8c, 0xc9, 0x00, 0xf6, 0x56, 0x57, 0xf6, 0x22, 0x2a, 0x65, 0xb7, 0x61, 0x36, 0xab, 0x32, 0x79,
-	0x04, 0x2d, 0x9f, 0x47, 0x78, 0x9e, 0xa7, 0xd8, 0x6d, 0x9a, 0x94, 0x65, 0x4c, 0x9e, 0xc3, 0xee,
-	0x2a, 0xdd, 0x64, 0x6c, 0x99, 0x8c, 0x8a, 0x4a, 0x7a, 0xb0, 0x3d, 0x46, 0x19, 0x08, 0x96, 0x1a,
-	0x1e, 0x2d, 0x93, 0x74, 0x5b, 0xea, 0x7f, 0x73, 0xa0, 0xe5, 0x65, 0x42, 0x60, 0x12, 0xe4, 0xa4,
-	0x0f, 0x3b, 0x8b, 0xb5, 0xc7, 0x43, 0x34, 0xfc, 0xda, 0x7e, 0x49, 0x23, 0x2f, 0xe0, 0xdf, 0x13,
-	0x9e, 0xa0, 0xa2, 0x22, 0x1f, 0x65, 0x6a, 0xce, 0x05, 0x53, 0xb9, 0x01, 0xd5, 0xf6, 0xd7, 0x37,
-	0x34, 0xce, 0x33, 0x81, 0x01, 0x93, 0xfa, 0x78, 0xd7, 0xe2, 0x5c, 0x0a, 0xef, 0xdd, 0x56, 0xfd,
-	0x1f, 0xb7, 0xff, 0x09, 0xb6, 0xa7, 0x73, 0x2a, 0xd0, 0xe3, 0x71, 0xcc, 0x13, 0xf2, 0x3f, 0x34,
-	0xcf, 0x59, 0x70, 0x83, 0xa2, 0x38, 0xbe, 0x88, 0x08, 0x01, 0x77, 0x32, 0x9d, 0x9c, 0x16, 0x67,
-	0x99, 0x75, 0xb5, 0xbe, 0xfa, 0x7a, 0x7d, 0x3f, 0x1c, 0x68, 0x7a, 0x3c, 0x4b, 0x79, 0xa2, 0xd1,
-	0xfb, 0x18, 0x22, 0xc6, 0x2c, 0x99, 0x1d, 0x26, 0x4a, 0xdf, 0xdb, 0x9e, 0x50, 0x95, 0xf5, 0xad,
-	0x27, 0x52, 0x66, 0x38, 0xa6, 0x0a, 0x17, 0x4d, 0xb0, 0x14, 0xc8, 0x53, 0x00, 0xe3, 0x74, 0x6e,
-	0xb6, 0xad, 0xf7, 0xb7, 0x14, 0xf2, 0x1f, 0x34, 0x2e, 0x69, 0x94, 0x61, 0x51, 0xaf, 0x0d, 0xb4,
-	0x9d, 0x0b, 0x8e, 0x85, 0xe3, 0x2b, 0xee, 0x95, 0x32, 0x9a, 0x6b, 0x65, 0x94, 0x39, 0x6e, 0x55,
-	0x38, 0xf6, 0x7f, 0x3a, 0xd0, 0x39, 0xe6, 0x39, 0x8d, 0x54, 0x7e, 0xc6, 0x59, 0xa2, 0xe4, 0x83,
-	0xcd, 0xc2, 0x87, 0xeb, 0x6b, 0x14, 0xa7, 0x34, 0xc6, 0x02, 0xfb, 0x4a, 0x28, 0x4f, 0x4a, 0x7d,
-	0xc3, 0x49, 0x71, 0xef, 0x9f, 0x94, 0x0a, 0x84, 0xc6, 0xba, 0x97, 0xbf, 0x6a, 0xb0, 0x67, 0x9a,
-	0x41, 0x8d, 0xc2, 0x98, 0x49, 0x5d, 0xfa, 0xc3, 0x14, 0xfa, 0x0c, 0x3a, 0xcb, 0x5f, 0x34, 0xd3,
-	0x64, 0x8b, 0x2d, 0x8b, 0xc6, 0x57, 0x4c, 0x32, 0x2c, 0xda, 0xcc, 0x06, 0x5a, 0xb5, 0x63, 0x6c,
-	0x67, 0xdc, 0x06, 0xba, 0x59, 0x47, 0x02, 0x69, 0x51, 0x85, 0x59, 0x6b, 0x6d, 0x8a, 0x54, 0x15,
-	0xf6, 0x9a, 0xb5, 0x3e, 0x79, 0xaa, 0xa8, 0x50, 0x1a, 0x83, 0x69, 0x27, 0xeb, 0x6d, 0x59, 0x2c,
-	0xa3, 0x6e, 0x6d, 0x88, 0xba, 0xbd, 0x31, 0x6a, 0x58, 0x47, 0xfd, 0xdb, 0x01, 0xf0, 0xa8, 0x64,
-	0x09, 0xf7, 0xf4, 0xd3, 0xba, 0xc9, 0xc3, 0xd0, 0x85, 0xad, 0x0b, 0x89, 0xb7, 0xf0, 0x2d, 0xc2,
-	0x3b, 0x3c, 0xaa, 0xff, 0xe5, 0xc3, 0xec, 0x6e, 0xc8, 0xa0, 0x71, 0x3f, 0x83, 0xd2, 0x44, 0x35,
-	0xab, 0x13, 0x35, 0x82, 0xfd, 0x3b, 0x2e, 0xa5, 0xcd, 0x3e, 0xe6, 0x9f, 0x8b, 0xa7, 0xa9, 0xe3,
-	0xdb, 0x40, 0xab, 0x17, 0x69, 0x8a, 0xc2, 0xd4, 0xdd, 0xf1, 0x6d, 0xf0, 0xee, 0xed, 0xc7, 0x37,
-	0x33, 0xa6, 0xe6, 0xd9, 0xd5, 0x41, 0xc0, 0xe3, 0xa1, 0xe2, 0x37, 0x98, 0xb0, 0xaf, 0x18, 0x0e,
-	0x65, 0x8a, 0x01, 0xbb, 0x66, 0x81, 0xb9, 0xcf, 0x30, 0x64, 0x52, 0x0d, 0x67, 0x3c, 0xa2, 0xc9,
-	0x6c, 0x68, 0x69, 0x5c, 0x35, 0xcd, 0xbf, 0xdc, 0xeb, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x63,
-	0xe1, 0x6f, 0xcb, 0xf5, 0x06, 0x00, 0x00,
+	// 1057 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x56, 0xcd, 0x6e, 0xdb, 0x46,
+	0x10, 0x86, 0x24, 0x4a, 0x22, 0x47, 0xfe, 0x51, 0x36, 0x45, 0xc0, 0xba, 0x45, 0x20, 0xe8, 0x50,
+	0xe8, 0x50, 0xd8, 0x85, 0x8b, 0xb4, 0x45, 0x51, 0xb4, 0x70, 0x24, 0x1b, 0x90, 0x60, 0x07, 0x02,
+	0xed, 0xb8, 0x40, 0x6f, 0x6b, 0x71, 0x22, 0x2f, 0x42, 0x72, 0x85, 0xdd, 0x55, 0x1d, 0xf5, 0xd4,
+	0x7b, 0x5f, 0xa2, 0x4f, 0xd0, 0x7b, 0x1f, 0xab, 0x40, 0x0f, 0x3d, 0x16, 0x3b, 0x24, 0x45, 0xfd,
+	0xb1, 0x4d, 0x82, 0xdc, 0x76, 0xbe, 0x99, 0xe5, 0xce, 0x7c, 0xf3, 0xed, 0x70, 0x61, 0x8f, 0x6b,
+	0x8d, 0x46, 0x1f, 0xcf, 0x94, 0x34, 0x92, 0x35, 0x52, 0xab, 0xfb, 0x57, 0x15, 0xe0, 0x0a, 0xe3,
+	0x3b, 0x54, 0xfa, 0x5e, 0xcc, 0x58, 0x1f, 0x0e, 0xce, 0xa6, 0x18, 0xa0, 0x36, 0x4a, 0x4c, 0x8c,
+	0x90, 0x89, 0x5f, 0xe9, 0x54, 0x7a, 0xad, 0xd3, 0x4f, 0x8e, 0xb3, 0xdd, 0xeb, 0xde, 0x0b, 0x81,
+	0x51, 0x18, 0x6c, 0x6c, 0x61, 0x9f, 0x82, 0x77, 0xcb, 0x23, 0x11, 0x5e, 0x28, 0x19, 0xfb, 0xd5,
+	0x4e, 0xa5, 0xe7, 0x04, 0x05, 0xc0, 0xbe, 0x80, 0xc7, 0xe7, 0x6f, 0x66, 0x42, 0x71, 0x1b, 0x7b,
+	0x23, 0x62, 0xd4, 0x86, 0xc7, 0x33, 0xbf, 0x46, 0x71, 0xbb, 0x5c, 0xec, 0x00, 0xaa, 0xc3, 0x81,
+	0xef, 0x74, 0x2a, 0x3d, 0x2f, 0xa8, 0x0e, 0x07, 0xac, 0x07, 0x87, 0x45, 0xca, 0xfd, 0x88, 0x6b,
+	0xed, 0xd7, 0xc9, 0xb9, 0x09, 0xb3, 0x23, 0x70, 0x03, 0x19, 0xe1, 0xcd, 0x62, 0x86, 0x7e, 0x83,
+	0x42, 0x96, 0x36, 0xfb, 0x0c, 0x0e, 0x8a, 0x70, 0x8a, 0x68, 0x52, 0xc4, 0x06, 0xca, 0x3a, 0xd0,
+	0x1a, 0xa0, 0x9e, 0x28, 0x31, 0x23, 0x3e, 0x5c, 0x0a, 0x5a, 0x85, 0xd8, 0x31, 0xb0, 0x1b, 0xc5,
+	0x13, 0xfd, 0x0a, 0x95, 0x1e, 0xa3, 0x8a, 0x85, 0x31, 0x18, 0xfa, 0x5e, 0xa7, 0xd2, 0x73, 0x83,
+	0x1d, 0x9e, 0xee, 0xaf, 0x15, 0x70, 0xfb, 0x73, 0xa5, 0x30, 0x99, 0x2c, 0x58, 0x17, 0xf6, 0xf2,
+	0x75, 0x5f, 0x86, 0x48, 0x7c, 0x7b, 0xc1, 0x1a, 0xc6, 0x3e, 0x87, 0x47, 0x57, 0x32, 0x41, 0xc3,
+	0xd5, 0xe2, 0x6c, 0x6e, 0xee, 0xa5, 0x12, 0x66, 0x41, 0xc4, 0x7a, 0xc1, 0xb6, 0xc3, 0xd2, 0x3f,
+	0x56, 0x38, 0x11, 0xda, 0xa6, 0xeb, 0xa4, 0xf4, 0x2f, 0x81, 0x91, 0xe3, 0xd6, 0xda, 0x4e, 0xf7,
+	0xb7, 0x0a, 0xb4, 0xae, 0xef, 0xb9, 0xc2, 0xbe, 0x8c, 0x63, 0x99, 0xb0, 0x27, 0xd0, 0xb8, 0x11,
+	0x93, 0xd7, 0xa8, 0xb2, 0xf3, 0x33, 0x8b, 0x31, 0x70, 0x86, 0xd7, 0xc3, 0x17, 0xd9, 0x61, 0xb4,
+	0xde, 0x24, 0xa4, 0xf6, 0xb6, 0x84, 0x38, 0xa5, 0x84, 0xfc, 0x51, 0x87, 0xfd, 0xe7, 0x32, 0x09,
+	0x2f, 0xc4, 0x1b, 0x0c, 0x03, 0x6e, 0xd0, 0x9e, 0xfb, 0x82, 0xc7, 0x39, 0x1b, 0xb4, 0xb6, 0xcd,
+	0xb4, 0x41, 0xd4, 0xaa, 0x34, 0x9f, 0xa5, 0xbd, 0xcc, 0xb3, 0xb6, 0x92, 0xe7, 0x53, 0x80, 0xbe,
+	0x8c, 0x22, 0x6e, 0x50, 0xf1, 0x28, 0x93, 0xcf, 0x0a, 0xc2, 0xbe, 0x02, 0x77, 0xcc, 0xd5, 0x2d,
+	0x8f, 0xe6, 0x48, 0xfa, 0x69, 0x9d, 0x1e, 0xe5, 0x2a, 0xcf, 0xd9, 0x27, 0x67, 0x2a, 0xf2, 0x65,
+	0x2c, 0x7b, 0x06, 0x7b, 0xc3, 0xc4, 0xa0, 0x42, 0x6d, 0x6c, 0xae, 0x24, 0xac, 0xd6, 0xe9, 0xa3,
+	0x7c, 0xaf, 0xc5, 0xd2, 0x2d, 0x6b, 0x61, 0xec, 0x7b, 0x38, 0xca, 0xed, 0x31, 0x5f, 0xc4, 0x98,
+	0x98, 0x61, 0x22, 0x8c, 0xe0, 0xd1, 0xc0, 0x7e, 0xa4, 0x49, 0x7d, 0xfa, 0x8f, 0x08, 0xf6, 0x1d,
+	0x7c, 0xbc, 0xe1, 0xb5, 0xf0, 0x00, 0x23, 0xc3, 0xb5, 0xef, 0x76, 0x6a, 0x3d, 0x27, 0x28, 0x0f,
+	0x60, 0x43, 0x78, 0x72, 0xc9, 0x0d, 0x66, 0x8e, 0x31, 0x26, 0x3c, 0x32, 0x0b, 0x4a, 0xdf, 0x2b,
+	0x4b, 0xbf, 0x64, 0x83, 0x55, 0xe3, 0x8a, 0xe7, 0x47, 0x91, 0x84, 0xf2, 0xc1, 0x07, 0xca, 0x7f,
+	0xdb, 0xc1, 0xbe, 0x05, 0x7f, 0xfb, 0x3b, 0x63, 0x54, 0x42, 0x86, 0x7e, 0x8b, 0x36, 0x95, 0xfa,
+	0xed, 0xdd, 0xb8, 0xe2, 0x66, 0x6e, 0x55, 0x4d, 0x24, 0xed, 0x51, 0xfc, 0x1a, 0xb6, 0x63, 0x62,
+	0xed, 0xbf, 0xfb, 0xc4, 0xda, 0x2d, 0xd8, 0x83, 0x52, 0xc1, 0xfe, 0x5d, 0x85, 0x46, 0x5f, 0xce,
+	0x67, 0x32, 0xb1, 0xc3, 0x28, 0xc0, 0x10, 0x31, 0x16, 0xc9, 0xf4, 0x3c, 0x31, 0xf6, 0x66, 0xa6,
+	0xa2, 0xdd, 0x84, 0xed, 0x21, 0xcb, 0x29, 0x58, 0xcc, 0xbd, 0x74, 0x3e, 0xee, 0xf0, 0xbc, 0xc7,
+	0xa0, 0x24, 0xc5, 0xdb, 0xac, 0xe8, 0xee, 0x34, 0x72, 0xc5, 0xe7, 0x48, 0x49, 0x99, 0x6e, 0x59,
+	0x99, 0xec, 0x1b, 0xf0, 0x2e, 0xf8, 0x04, 0xd3, 0x2b, 0xe2, 0xfd, 0xef, 0x15, 0x29, 0x82, 0x73,
+	0x56, 0x62, 0x9a, 0x07, 0xb7, 0x98, 0xcc, 0x91, 0x14, 0x92, 0xb1, 0xb2, 0x02, 0x33, 0x1f, 0x9a,
+	0x03, 0x34, 0x5c, 0x44, 0x9a, 0xe4, 0xe0, 0x05, 0xb9, 0x39, 0x72, 0x5c, 0xa7, 0x5d, 0x1f, 0x39,
+	0x6e, 0xbd, 0xdd, 0x18, 0x39, 0x6e, 0xb3, 0xed, 0x76, 0xff, 0xa9, 0xc0, 0xfe, 0xa5, 0x5c, 0x90,
+	0x42, 0xa4, 0x48, 0x8c, 0xfe, 0x30, 0xff, 0xab, 0x0e, 0xb4, 0xc6, 0x4a, 0x4e, 0x15, 0x8f, 0x89,
+	0xb7, 0x74, 0xb6, 0xac, 0x42, 0x65, 0xad, 0x70, 0xca, 0x5b, 0xb1, 0x52, 0x56, 0x7d, 0xad, 0xac,
+	0x92, 0x26, 0x34, 0xca, 0x9a, 0x90, 0x0d, 0xec, 0xdf, 0x6b, 0x70, 0x48, 0x33, 0xd9, 0x9c, 0x85,
+	0xb1, 0xd0, 0x76, 0x94, 0x7f, 0x98, 0xe2, 0x3f, 0x82, 0x7a, 0xda, 0x9f, 0x74, 0x74, 0xa6, 0x86,
+	0x9d, 0xa7, 0x67, 0x0a, 0x79, 0x96, 0x3b, 0xad, 0x2d, 0x76, 0x8d, 0xdc, 0x64, 0xba, 0xa2, 0x35,
+	0x11, 0xf3, 0x33, 0x26, 0xe6, 0xda, 0x70, 0x65, 0x0a, 0x62, 0x9a, 0x19, 0x31, 0xdb, 0x2e, 0xfb,
+	0x77, 0x22, 0x98, 0xa8, 0x4e, 0x35, 0x51, 0x00, 0x25, 0xe4, 0xb4, 0x4a, 0x15, 0xba, 0x42, 0xf3,
+	0xde, 0x3a, 0xcd, 0x3e, 0x34, 0xaf, 0xb1, 0x18, 0x08, 0x5e, 0x90, 0x9b, 0xac, 0x0d, 0xb5, 0x40,
+	0x3e, 0xd0, 0xed, 0xf6, 0x02, 0xbb, 0xb4, 0x13, 0x8d, 0x52, 0x38, 0x4f, 0xc2, 0xa2, 0x86, 0xc3,
+	0x74, 0xa2, 0x6d, 0x39, 0x46, 0x8e, 0x5b, 0x6d, 0xd7, 0x96, 0xea, 0x74, 0xdb, 0xde, 0xc8, 0x71,
+	0xbd, 0x36, 0x74, 0xff, 0xac, 0x02, 0xf4, 0xb9, 0x16, 0x89, 0xec, 0xdb, 0xa7, 0x94, 0x0f, 0xcd,
+	0x97, 0x1a, 0x57, 0xfe, 0x56, 0xb9, 0xb9, 0xa3, 0x6f, 0xb5, 0x77, 0xef, 0x5b, 0x89, 0x24, 0xeb,
+	0xe5, 0x92, 0xdc, 0xcd, 0x6d, 0xb3, 0x94, 0xdb, 0xa7, 0x79, 0x39, 0xd4, 0x2a, 0x37, 0x9b, 0x26,
+	0x4b, 0xe4, 0xfd, 0xa7, 0xc3, 0xc8, 0x71, 0x2b, 0xed, 0xea, 0x92, 0xc1, 0x46, 0xbb, 0xd9, 0x3d,
+	0x83, 0xc7, 0x3b, 0x8a, 0xb6, 0xe2, 0xbc, 0x94, 0x0f, 0xd9, 0xab, 0x64, 0x3f, 0x48, 0x0d, 0x8b,
+	0xbe, 0x9c, 0xcd, 0x50, 0x11, 0xaf, 0xfb, 0x41, 0x6a, 0x74, 0x23, 0x60, 0xdb, 0xa7, 0x92, 0xbc,
+	0x29, 0xc1, 0x0a, 0x11, 0x93, 0x1a, 0x5b, 0x8f, 0xae, 0xea, 0x8e, 0x47, 0xd7, 0xda, 0x33, 0xaa,
+	0x46, 0x27, 0x15, 0x40, 0xf7, 0x07, 0xf0, 0x96, 0x7f, 0xca, 0xf5, 0xd0, 0xca, 0x46, 0x68, 0x91,
+	0x42, 0x75, 0x25, 0x85, 0xe7, 0x5f, 0xff, 0xf4, 0x6c, 0x2a, 0xcc, 0xfd, 0xfc, 0xee, 0x78, 0x22,
+	0xe3, 0x13, 0x23, 0x5f, 0x63, 0x22, 0x7e, 0xc1, 0xf0, 0x44, 0xcf, 0x70, 0x22, 0x5e, 0x89, 0x09,
+	0x35, 0xef, 0x24, 0x14, 0xda, 0x9c, 0x4c, 0x65, 0xc4, 0x93, 0xe9, 0x49, 0x4a, 0xed, 0x5d, 0x83,
+	0x1e, 0xf0, 0x5f, 0xfe, 0x1b, 0x00, 0x00, 0xff, 0xff, 0x60, 0x80, 0x0f, 0x78, 0xd0, 0x0b, 0x00,
+	0x00,
 }

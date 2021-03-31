@@ -819,6 +819,7 @@ Code/Text combinations returned in rejection messages when a request is not acce
 - ContractMoved
 - DoubleSpend
 - ContractExists
+- ContractDoesNotExist
 - ContractAssetQtyReduction
 - ContractFixedQuantity
 - ContractPermissions
@@ -850,6 +851,9 @@ Code/Text combinations returned in rejection messages when a request is not acce
 - NotOperator
 - UnauthorizedAddress
 - InvalidSignature
+- AgreementExists
+- AgreementDoesNotExist
+- AgreementRevision
 </div>
 
 

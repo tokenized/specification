@@ -9,7 +9,7 @@
     },
     {
       "description": "Represents a time, encoded as a 64 bit unsigned integer representing the number of nanoseconds since the Unix epoch.",
-      "example": "Wed May 09 2018 00:00:00 GMT+1000 (AEST)",
+      "example": 1594668650000000000,
       "name": "Timestamp",
       "size": 8,
       "type": "uint"

@@ -11158,6 +11158,9 @@ const (
 	// ContractExists - The contract already exists and can't be recreated.
 	RejectionsContractExists = 10
 
+	// ContractDoesNotExist - The contract address specified does not have an active contract.
+	RejectionsContractDoesNotExist = 11
+
 	// ContractAssetQtyReduction - Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.
 	RejectionsContractAssetQtyReduction = 12
 
@@ -11250,6 +11253,15 @@ const (
 
 	// InvalidSignature - The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.
 	RejectionsInvalidSignature = 80
+
+	// AgreementExists - The agreement already exists and can't be recreated.
+	RejectionsAgreementExists = 90
+
+	// AgreementDoesNotExist - The agreement address specified does not have an active agreement.
+	RejectionsAgreementDoesNotExist = 91
+
+	// AgreementRevision - The agreement revision in the request is not current.
+	RejectionsAgreementRevision = 93
 )
 
 type RejectionsCode struct {
@@ -11316,6 +11328,14 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Name:        "ContractExists",
 			Label:       "Contract Already Exists",
 			Description: "The contract already exists and can't be recreated.",
+			MetaData:    `{}`,
+		}
+
+	case RejectionsContractDoesNotExist:
+		return &RejectionsCode{
+			Name:        "ContractDoesNotExist",
+			Label:       "Contract Does Not Exist",
+			Description: "The contract address specified does not have an active contract.",
 			MetaData:    `{}`,
 		}
 
@@ -11566,6 +11586,30 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Description: "The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.",
 			MetaData:    `{}`,
 		}
+
+	case RejectionsAgreementExists:
+		return &RejectionsCode{
+			Name:        "AgreementExists",
+			Label:       "Agreement Already Exists",
+			Description: "The agreement already exists and can't be recreated.",
+			MetaData:    `{}`,
+		}
+
+	case RejectionsAgreementDoesNotExist:
+		return &RejectionsCode{
+			Name:        "AgreementDoesNotExist",
+			Label:       "Agreement Does Not Exist",
+			Description: "The agreement address specified does not have an active agreement.",
+			MetaData:    `{}`,
+		}
+
+	case RejectionsAgreementRevision:
+		return &RejectionsCode{
+			Name:        "AgreementRevision",
+			Label:       "Agreement Revision",
+			Description: "The agreement revision in the request is not current.",
+			MetaData:    `{}`,
+		}
 	default:
 		return nil
 	}
@@ -11621,6 +11665,13 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Name:        "ContractExists",
 			Label:       "Contract Already Exists",
 			Description: "The contract already exists and can't be recreated.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsContractDoesNotExist: &RejectionsCode{
+			Name:        "ContractDoesNotExist",
+			Label:       "Contract Does Not Exist",
+			Description: "The contract address specified does not have an active contract.",
 			MetaData:    `{}`,
 		},
 
@@ -11838,6 +11889,27 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Name:        "InvalidSignature",
 			Label:       "Invalid Signature",
 			Description: "The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsAgreementExists: &RejectionsCode{
+			Name:        "AgreementExists",
+			Label:       "Agreement Already Exists",
+			Description: "The agreement already exists and can't be recreated.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsAgreementDoesNotExist: &RejectionsCode{
+			Name:        "AgreementDoesNotExist",
+			Label:       "Agreement Does Not Exist",
+			Description: "The agreement address specified does not have an active agreement.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsAgreementRevision: &RejectionsCode{
+			Name:        "AgreementRevision",
+			Label:       "Agreement Revision",
+			Description: "The agreement revision in the request is not current.",
 			MetaData:    `{}`,
 		},
 	}

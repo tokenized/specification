@@ -8,10 +8,10 @@ properties:
     $ref: "#/components/schemas/AgeRestrictionField"
   ValidFrom:
     type: number
-    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+    example: 1594668650000000000
   ExpirationTimestamp:
     type: number
-    example: Wed May 09 2018 00:00:00 GMT+1000 (AEST)
+    example: 1594668650000000000
   ID:
     type: string
     example: "34536457575486868"
@@ -27,4 +27,9 @@ properties:
   Description:
     type: string
     example: "Rights and duties listed."
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
 

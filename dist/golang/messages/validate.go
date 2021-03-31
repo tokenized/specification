@@ -3,14 +3,17 @@ package messages
 import (
 	"fmt"
 
-	"github.com/pkg/errors"
 	"github.com/tokenized/pkg/bitcoin"
+
+	"github.com/pkg/errors"
 )
 
 const (
 	max1ByteInteger = 255
 	max2ByteInteger = 65535
 	max4ByteInteger = 4294967295
+
+	maxArticleDepth = 4
 )
 
 func (a *PublicMessage) Validate() error {

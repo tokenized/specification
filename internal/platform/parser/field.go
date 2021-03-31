@@ -188,6 +188,42 @@ func (f *Field) GoSingularType() string {
 	return gt
 }
 
+func (f *Field) GoSingularTypeWithPointer() string {
+	gt := f.BaseType()
+
+	if f.AliasField != nil {
+		gt = f.AliasField.GoSingularType()
+	} else {
+		switch gt {
+		case "varchar", "fixedchar":
+			gt = "string"
+
+		case "bin", "varbin":
+			gt = "[]byte"
+
+		case "uint":
+			if f.Size > 4 {
+				gt = "uint64"
+			} else {
+				gt = "uint32"
+			}
+
+		case "int":
+			if f.Size > 4 {
+				gt = "int64"
+			} else {
+				gt = "int32"
+			}
+		}
+
+		if f.IsCompoundType {
+			gt = "*" + gt + "Field"
+		}
+	}
+
+	return gt
+}
+
 func (f *Field) GoType() string {
 	gt := f.GoSingularType()
 

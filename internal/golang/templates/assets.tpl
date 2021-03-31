@@ -1,7 +1,10 @@
 package {{ .Package }}
 
 import (
+	"bytes"
 	"fmt"
+
+	"github.com/tokenized/specification/dist/golang/permissions"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
@@ -18,7 +21,8 @@ type Asset interface {
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
 
-	ApplyAmendment(fip []uint32, operation uint32, data []byte) ([]uint32, error)
+	ApplyAmendment(fip permissions.FieldIndexPath, operation uint32, data []byte,
+		permissions permissions.Permissions) (permissions.Permissions, error)
 }
 
 const (
@@ -26,6 +30,24 @@ const (
 	// Code{{.Name}} identifies a payload as a {{.Name}} asset message.
 	Code{{.Name}} = "{{.Code}}"
 {{ end }}
+
+	// BondTypeCorporate specifies a corporate bond.
+	BondTypeCorporate = "C"
+
+	// BondTypeMunicipal specifies a municipal bond.
+	BondTypeMunicipal = "M"
+
+	// BondTypeGovernment specifies a government bond.
+	BondTypeGovernment = "G"
+
+	// CasinoChipUseTypeRealMoney specifies a casino chip is real money.
+	CasinoChipUseTypeRealMoney = "R"
+
+	// CasinoChipUseTypeSocial specifies a casino chip is social.
+	CasinoChipUseTypeSocial = "S"
+
+	// CasinoChipUseTypeFreePlay specifies a casino chip is free play.
+	CasinoChipUseTypeFreePlay = "F"
 )
 
 // NewAssetFromCode returns a new object of the correct type for the code.
