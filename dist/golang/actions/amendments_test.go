@@ -387,6 +387,128 @@ func TestContractCreateAmendments(t *testing.T) {
 	}
 }
 
+func TestContractApplyAmendments(t *testing.T) {
+	tests := []struct {
+		name        string
+		current     *ContractFormation
+		newValue    *ContractOffer
+		permissions permissions.Permissions
+		err         error
+	}{
+		{
+			name: "Change Name",
+			current: &ContractFormation{
+				ContractName: "Name",
+			},
+			newValue: &ContractOffer{
+				ContractName: "NewName",
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+		{
+			name: "Remove Issuer",
+			current: &ContractFormation{
+				Issuer: &EntityField{
+					Name: "Issuer Name",
+					Type: EntitiesIndividual,
+				},
+			},
+			newValue: &ContractOffer{},
+			permissions: permissions.Permissions{
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+		{
+			name: "Remove Administration",
+			current: &ContractFormation{
+				Issuer: &EntityField{
+					Name: "Issuer Name",
+					Type: EntitiesIndividual,
+					Administration: []*AdministratorField{
+						&AdministratorField{
+							Name: "Admin Name",
+						},
+					},
+				},
+			},
+			newValue: &ContractOffer{
+				Issuer: &EntityField{
+					Name: "Issuer Name",
+					Type: EntitiesIndividual,
+				},
+			},
+			permissions: permissions.Permissions{
+				permissions.Permission{
+					Permitted:              false,
+					AdministrationProposal: false,
+					HolderProposal:         true,
+					AdministrativeMatter:   false,
+					Fields:                 []permissions.FieldIndexPath{},
+				},
+			},
+			err: nil,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			amendments, err := tt.current.CreateAmendments(tt.newValue)
+			if err != nil {
+				t.Errorf("Failed to create amendments : %s", err)
+				return
+			}
+
+			amended := &ContractFormation{}
+			if err := convert(amended, tt.current); err != nil {
+				t.Errorf("Failed to convert current value : %s", err)
+				return
+			}
+
+			for i, amendment := range amendments {
+				fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+				if err != nil {
+					t.Errorf("Failed to parse FIP : %s", err)
+					return
+				}
+
+				_, err = amended.ApplyAmendment(fip, amendment.Operation, amendment.Data,
+					tt.permissions)
+				if err != nil {
+					t.Errorf("Failed to apply amendment %d : %s", i, err)
+					return
+				}
+			}
+
+			newValue := &ContractFormation{}
+			if err := convert(newValue, tt.newValue); err != nil {
+				t.Errorf("Failed to convert new value : %s", err)
+				return
+			}
+			if !amended.Equal(newValue) {
+				t.Errorf("Amended value doesn't match : \n  got  %+v\n  want %+v", *amended,
+					*newValue)
+				return
+			}
+		})
+	}
+}
+
 func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 
 	newTerm := &DefinedTermField{
@@ -1075,10 +1197,12 @@ func TestAssetCreateAmendments(t *testing.T) {
 
 func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 	currentCoupon := &assets.Coupon{
-		Currency:    "USD",
-		Value:       1,
-		Precision:   100,
-		Description: "Test Coupon",
+		FaceValue: &assets.CurrencyValueField{
+			Value:        100,
+			CurrencyCode: "USD",
+			Precision:    2,
+		},
+		CouponName: "Test Coupon",
 	}
 
 	cb, _ := currentCoupon.Bytes()
@@ -1091,10 +1215,12 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 	}
 
 	newCoupon := &assets.Coupon{
-		Currency:    "USD",
-		Value:       1,
-		Precision:   100,
-		Description: "New Test Coupon",
+		FaceValue: &assets.CurrencyValueField{
+			Value:        100,
+			CurrencyCode: "USD",
+			Precision:    2,
+		},
+		CouponName: "New Test Coupon",
 	}
 
 	nb, _ := newCoupon.Bytes()
@@ -1117,7 +1243,7 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 
 	// Check amendment
 	expectedAmendment := &AmendmentField{
-		FieldIndexPath: []byte{2, byte(AssetFieldAssetPayload), byte(assets.CouponFieldDescription)},
+		FieldIndexPath: []byte{2, byte(AssetFieldAssetPayload), byte(assets.CouponFieldCouponName)},
 		Operation:      0,
 		Data:           []byte("New Test Coupon"),
 	}

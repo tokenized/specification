@@ -17,11 +17,11 @@ func TestAssetCreateAmendments(t *testing.T) {
 		{
 			name: "Change precision",
 			current: &Currency{
-				CurrencyCode: "AUS",
+				CurrencyCode: "AUD",
 				Precision:    2,
 			},
 			newValue: &Currency{
-				CurrencyCode: "AUS",
+				CurrencyCode: "AUD",
 				Precision:    3,
 			},
 			err: nil,
@@ -36,11 +36,11 @@ func TestAssetCreateAmendments(t *testing.T) {
 		{
 			name: "Change code",
 			current: &Currency{
-				CurrencyCode: "AUS",
+				CurrencyCode: "AUD",
 				Precision:    2,
 			},
 			newValue: &Currency{
-				CurrencyCode: "USA",
+				CurrencyCode: "USD",
 				Precision:    2,
 			},
 			err: nil,
@@ -48,18 +48,18 @@ func TestAssetCreateAmendments(t *testing.T) {
 				&internal.Amendment{
 					FIP:       []uint32{12, CurrencyFieldCurrencyCode},
 					Operation: 0,
-					Data:      []byte("USA"),
+					Data:      []byte("USD"),
 				},
 			},
 		},
 		{
 			name: "Change two fields",
 			current: &Currency{
-				CurrencyCode: "AUS",
+				CurrencyCode: "AUD",
 				Precision:    2,
 			},
 			newValue: &Currency{
-				CurrencyCode: "USA",
+				CurrencyCode: "USD",
 				Precision:    3,
 			},
 			err: nil,
@@ -67,7 +67,7 @@ func TestAssetCreateAmendments(t *testing.T) {
 				&internal.Amendment{
 					FIP:       []uint32{12, CurrencyFieldCurrencyCode},
 					Operation: 0,
-					Data:      []byte("USA"),
+					Data:      []byte("USD"),
 				},
 				&internal.Amendment{
 					FIP:       []uint32{12, CurrencyFieldPrecision},

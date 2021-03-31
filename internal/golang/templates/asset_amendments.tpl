@@ -51,6 +51,13 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 	case Deprecated{{ $message.Name }}Field{{ $field.Name }}: // {{ $field.GoType }}
 		{{- else }}
 	case {{ $message.Name }}Field{{ $field.Name }}: // {{ $field.GoType }}
+			{{- if .IsCompoundType }}
+		if len(fip) == 1 && len(data) == 0 {
+			a.{{ $field.Name }} = nil
+			return permissions.SubPermissions(fip[1:], operation, {{ $field.IsList }})
+		}
+			{{- end }}
+
 	{{- template "ApplyAmendmentField" $field }}
 		{{- end}}
 	{{ end }}

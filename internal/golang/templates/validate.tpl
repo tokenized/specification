@@ -23,6 +23,12 @@ const (
 {{- end -}}
 {{- end }}
 
+{{ define "ListValuesString" -}}
+{{- range $i, $v := . -}}
+{{ if gt $i 0 }}, {{ end }}"{{ $v }}"
+{{- end -}}
+{{- end }}
+
 {{ define "SetFieldIsEmpty" -}}
     {{- if or .IsList (eq .BaseType "fixedchar" "bin" "varbin" "varchar") }}
     {{ .Name }}FieldIsEmpty := len(a.{{ .Name }}) == 0
@@ -117,6 +123,18 @@ const (
                 return fmt.Errorf("{{ .Name }}[%d] fixed width element wrong size : %d should be %d",
                     i, len(v), {{ .BaseSize }})
             }
+            {{- if and (gt (len .BaseOptions) 0) (eq .BaseType "fixedchar") }}
+            found{{ .Name }} := false
+            for _, o := range []{{ .GoSingularType }}{ {{ template "ListValues" .BaseOptions }} } {
+                if v == o {
+                    found{{ .Name }} = true
+                    break
+                }
+            }
+            if !found{{ .Name }} {
+                return fmt.Errorf("{{ .Name }}[%d] value not within options {{ .BaseOptions }} : %s", i, a.{{ .Name }})
+            }
+            {{- end }}
         {{- else if eq .BaseType "varbin" "varchar" }}
             {{- if eq .BaseVarSize "tiny" "" }}
             if len(v) > max1ByteInteger {
@@ -193,6 +211,18 @@ const (
             return fmt.Errorf("{{ .Name }} fixed width field wrong size : %d should be %d",
                 len(a.{{ .Name }}), {{ .BaseSize }})
         }
+            {{- if and (gt (len .BaseOptions) 0) (eq .BaseType "fixedchar") }}
+        found{{ .Name }} := false
+        for _, o := range []{{ .GoSingularType }}{ {{ template "ListValuesString" .BaseOptions }} } {
+            if a.{{ .Name }} == o {
+                found{{ .Name }} = true
+                break
+            }
+        }
+        if !found{{ .Name }} {
+            return fmt.Errorf("{{ .Name }} value not within options {{ .BaseOptions }} : %s", a.{{ .Name }})
+        }
+            {{- end }}
         {{- else if eq .BaseType "varbin" "varchar" }}
             {{- if eq .BaseVarSize "tiny" "" }}
         if len(a.{{ .Name }}) > max1ByteInteger {

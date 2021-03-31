@@ -36,6 +36,16 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for ShareCommon")
 	}
 
+	// BondFixedRate identifies a payload as a BondFixedRate message.
+	assetBondFixedRate, err := Deserialize([]byte(CodeBondFixedRate), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for BondFixedRate : %s", err)
+	}
+	_, ok = assetBondFixedRate.(*BondFixedRate)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for BondFixedRate")
+	}
+
 	// Coupon identifies a payload as a Coupon message.
 	assetCoupon, err := Deserialize([]byte(CodeCoupon), nil)
 	if err != nil {

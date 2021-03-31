@@ -1131,6 +1131,16 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("ComplianceAction fixed width field wrong size : %d should be %d",
 			len(a.ComplianceAction), 1)
 	}
+	foundComplianceAction := false
+	for _, o := range []string{"F", "T", "C", "R"} {
+		if a.ComplianceAction == o {
+			foundComplianceAction = true
+			break
+		}
+	}
+	if !foundComplianceAction {
+		return fmt.Errorf("ComplianceAction value not within options [F T C R] : %s", a.ComplianceAction)
+	}
 
 	// Field AssetType - fixedchar
 	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {

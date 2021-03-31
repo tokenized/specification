@@ -21,66 +21,55 @@ fields:
     description: The entity responsible for redemption of this coupon.
     type: varchar
     example: Woolworths - Robina Town Centre
-    span: full
-    displayOrder: 2
 
-  - name: IssueDate
-    label: Issue Date
+  - name: ValidFromTimestamp
+    label: Valid From Timestamp
     type: Timestamp
-    example: Sat Dec 12 2015 18:00:00 GMT+1000 (AEST)
-    span: left
-    displayOrder: 3
-    default: now
 
-  - name: ExpiryDate
-    label: Expiry Date
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
     type: Timestamp
-    example: Sat Dec 12 2020 18:00:00 GMT+1000 (AEST)
-    span: right
-    displayOrder: 4
 
   - name: Value
     label: Value
-    type: uint
-    size: 8
-    example: Denominated in the smallest unit of currency specified in the Currency subfield.
-    span: right
-    displayOrder: 4
+    type: deprecated
+    description: Deprecated for FaceValue.
 
   - name: Currency
     label: Currency
-    type: CurrencyType
-    description: International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.
-    example: AUD
-    span: right
-    displayOrder: 4
-    only_valid_when:
-      field_name: Value
-    required_when:
-      field_name: Value
+    type: deprecated
+    description: Deprecated for FaceValue.
 
-  - name: Description
-    label: Description
+  - name: CouponName
+    label: Coupon Name
     type: varchar
-    varSize: small
+    varSize: tiny
     example: Gift Card
-    span: full
-    displayOrder: 1
     required: true
 
   - name: Precision
     label: Precision
-    description: Required field to specify the decimal precision of a currency. It will normally be the "precision" value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount "$1.00". In this scenario 100 tokens are worth $1.
-    type: uint
-    size: 8
-    example: 100
-    span: full
-    only_valid_when:
-      field_name: Value
-    required_when:
-      field_name: Value
+    type: deprecated
+    description: Deprecated for FaceValue.
 
   - name: TransfersPermitted
     label: Transfers Permitted
-    description: "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers."
+    description: >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
     type: bool
+
+  - name: FaceValue
+    label: Face Value
+    description: Face value of each coupon specified in a currency.
+    type: CurrencyValue
+
+  - name: RedemptionVenue
+    label: Redemption Venue
+    type: varchar
+    varSize: tiny
+
+  - name: Details
+    label: Details
+    type: varchar
+    varSize: small

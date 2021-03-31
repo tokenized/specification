@@ -35,7 +35,7 @@ func TestAssetID(t *testing.T) {
 func TestAssetID_BSV(t *testing.T) {
 	var code bitcoin.Hash20
 
-	assetType := "BSV"
+	assetType := BSVAssetID
 
 	id := AssetID(assetType, code)
 

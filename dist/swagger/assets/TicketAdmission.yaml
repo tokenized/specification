@@ -6,31 +6,19 @@ properties:
     description: Age restriction is used to specify required ages for asset ownership.
     type: object
     $ref: "#/components/schemas/AgeRestrictionField"
-  AdmissionType:
-    type: string
-    example: "MOV - Movie, CON - Conference, MUS - Music/Concert, GAM - Sports/Game/Athletics, EXH - Exhibition"
   Venue:
     type: string
     example: "Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1"
-  Class:
-    type: string
-    example: "Gold Class, Platinum, VIP, Section A, etc."
   Area:
     type: string
     example: "Upper Bowl"
   Seat:
     type: string
-    example: "Sec 1, Row 3, Seat 5, or A122"
-  StartTimeDate:
+    example: "Seat 5, or A122"
+  EventStartTimestamp:
     type: number
     example: 1594668650000000000
-  ValidFrom:
-    type: number
-    example: 1594668650000000000
-  ExpirationTimestamp:
-    type: number
-    example: 1594668650000000000
-  Description:
+  EventName:
     type: string
     example: "Coingeek Conference - London (November 2018)."
   TransfersPermitted:
@@ -38,4 +26,15 @@ properties:
       Set to true if transfers are permitted between two parties, otherwise set to false to prevent
       peer-to-peer transfers.
     type: boolean
+  Details:
+    type: string
+  Section:
+    type: string
+    example: "Sec 1"
+  Row:
+    type: string
+    example: "Sec 1"
+  EventEndTimestamp:
+    type: number
+    example: 1594668650000000000
 

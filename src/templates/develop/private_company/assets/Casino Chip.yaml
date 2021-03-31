@@ -29,7 +29,7 @@ Permissions:
     VotingSystemsAllowed:
     Fields:
       - [AuthorizedTokenQty]
-      - [AssetPayload, CurrencyCode]
+      - [AssetPayload, FaceValue]
       - [AssetPayload, UseType]
       - [AssetPayload, AgeRestriction]
       - [AssetPayload, ValidFrom]

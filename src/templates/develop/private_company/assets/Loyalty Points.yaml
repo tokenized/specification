@@ -21,7 +21,7 @@ Permissions:
       - [HolderProposal]
       - [AssetModificationGovernance]
       - [AssetPayload, AgeRestriction]
-      - [AssetPayload, OfferName]
+      - [AssetPayload, ProgramName]
 
   - Name: Administrator Direct
     Permitted: true
@@ -31,6 +31,5 @@ Permissions:
     VotingSystemsAllowed:
     Fields:
       - [AuthorizedTokenQty]
-      - [AssetPayload, ValidFrom]
       - [AssetPayload, ExpirationTimestamp]
-      - [AssetPayload, Description]
+      - [AssetPayload, Details]

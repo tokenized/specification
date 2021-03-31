@@ -20,36 +20,28 @@ fields:
     type: AgeRestriction
     description: "Age restriction is used to specify required ages for asset ownership."
 
-  - name: OfferName
-    label: Offer Name
+  - name: ProgramName
+    label: Program Name
     type: varchar
     example: Qantas Frequent Flyer Points
-    options:
+    required: true
 
   - name: ValidFrom
     label: Valid From
-    type: Timestamp
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
-    span: right
-    displayOrder: 3
+    type: deprecated
 
   - name: ExpirationTimestamp
     label: Expiration Timestamp
     type: Timestamp
-    example: Fri Nov 09 2018 09:00:00 GMT+1000 (AEST)
-    span: right
-    displayOrder: 3
 
-  - name: Description
-    label: Description
+  - name: Details
+    label: Details
     type: varchar
     varSize: small
-    example: Coingeek Conference - London (November 2018).
-    span: full
-    displayOrder: 1
-    required: true
 
   - name: TransfersPermitted
     label: Transfers Permitted
-    description: "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers."
+    description: >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
     type: bool
