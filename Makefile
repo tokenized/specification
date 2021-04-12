@@ -11,9 +11,9 @@ all: prepare tools run-generate format test
 run-win: prepare-win tools run-generate format-win
 
 protobuf:
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/actions --js_out=library=actions,binary:dist/typescript/protobuf/actions dist/protobuf/actions.proto
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/assets --js_out=library=assets,binary:dist/typescript/protobuf/assets dist/protobuf/assets.proto
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/messages --js_out=library=messages,binary:dist/typescript/protobuf/messages dist/protobuf/messages.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/actions --js_out=library=actions,binary:dist/typescript/protobuf/actions --python_out=dist/python/ dist/protobuf/actions.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/assets --js_out=library=assets,binary:dist/typescript/protobuf/assets --python_out=dist/python/ dist/protobuf/assets.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/messages --js_out=library=messages,binary:dist/typescript/protobuf/messages --python_out=dist/python/ dist/protobuf/messages.proto
 
 generate-code:
 	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
