@@ -114,7 +114,7 @@ message InformationServiceLicense {
     uint64 ExpirationTimestamp                     = 2;   // Timestamp
     string ServiceName                             = 3;   // varchar
     bool TransfersPermitted                        = 4;   // bool
-    string URL                                     = 5;   // string
+    string URL                                     = 5;   // varchar
 }
 
 

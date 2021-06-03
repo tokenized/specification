@@ -18,6 +18,5 @@ properties:
     type: boolean
   URL:
     description: URL linking to any related documents or media
-    type: object
-    $ref: "#/components/schemas/stringField"
+    type: string
 

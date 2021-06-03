@@ -39,6 +39,7 @@ fields:
 
   - name: URL
     label: URL
-    type: string
+    type: varchar
+    varSize: small
     required: false
     description: "URL linking to any related documents or media"

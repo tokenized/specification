@@ -991,7 +991,7 @@ Information Service License
     <tr>
         <td>URL</td>
         <td>
-            string
+            varchar(small)
         </td>
         <td>
             URL linking to any related documents or media

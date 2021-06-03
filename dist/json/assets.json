@@ -782,7 +782,8 @@
           "label": "URL",
           "name": "URL",
           "required": false,
-          "type": "string"
+          "type": "varchar",
+          "varSize": "small"
         }
       ],
       "label": "Information Service License",

@@ -1721,6 +1721,8 @@ func (a *InformationServiceLicense) ApplyAmendment(fip permissions.FieldIndexPat
 		return permissions.SubPermissions(fip, operation, false)
 
 	case InformationServiceLicenseFieldURL: // string
+		a.URL = string(data)
+		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
@@ -1787,6 +1789,12 @@ func (a *InformationServiceLicense) CreateAmendments(fip permissions.FieldIndexP
 
 	// URL string
 	fip = append(ofip, InformationServiceLicenseFieldURL)
+	if a.URL != newValue.URL {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.URL),
+		})
+	}
 
 	return result, nil
 }

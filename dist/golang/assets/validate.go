@@ -431,9 +431,9 @@ func (a *InformationServiceLicense) Validate() error {
 
 	// Field TransfersPermitted - bool
 
-	// Field URL - string
-	if err := a.URL.Validate(); err != nil {
-		return errors.Wrap(err, "URL")
+	// Field URL - varchar
+	if len(a.URL) > max2ByteInteger {
+		return fmt.Errorf("URL over max size : %d > %d", len(a.URL), max2ByteInteger)
 	}
 
 	return nil

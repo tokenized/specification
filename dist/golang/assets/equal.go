@@ -506,9 +506,9 @@ func (l *InformationServiceLicense) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
 	}
 
-	// Field URL - string
-	if !c.URL.Equal(r.URL) {
-		return false // fmt.Errorf("URL : %s", err)
+	// Field URL - varchar
+	if c.URL != r.URL {
+		return false // fmt.Errorf("URL string mismatched")
 	}
 
 	return true
