@@ -108,6 +108,15 @@ message CasinoChip {
     CurrencyValueField FaceValue                   = 9;   // CurrencyValue
 }
 
+// Message - Information Service License (ISL)
+message InformationServiceLicense {
+    AgeRestrictionField AgeRestriction             = 1;   // AgeRestriction
+    uint64 ExpirationTimestamp                     = 2;   // Timestamp
+    string ServiceName                             = 3;   // varchar
+    bool TransfersPermitted                        = 4;   // bool
+    string URL                                     = 5;   // varchar
+}
+
 
 // Field - Age Restriction
 message AgeRestrictionField {

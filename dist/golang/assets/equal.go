@@ -469,6 +469,51 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *InformationServiceLicense) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &InformationServiceLicense{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &InformationServiceLicense{}
+	}
+	r, ok := cr.(*InformationServiceLicense)
+	if !ok {
+		return false
+	}
+
+	// Field AgeRestriction - AgeRestriction
+	if !c.AgeRestriction.Equal(r.AgeRestriction) {
+		return false // fmt.Errorf("AgeRestriction : %s", err)
+	}
+
+	// Field ExpirationTimestamp - uint
+	if c.ExpirationTimestamp != r.ExpirationTimestamp {
+		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
+	}
+
+	// Field ServiceName - varchar
+	if c.ServiceName != r.ServiceName {
+		return false // fmt.Errorf("ServiceName string mismatched")
+	}
+
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
+	}
+
+	// Field URL - varchar
+	if c.URL != r.URL {
+		return false // fmt.Errorf("URL string mismatched")
+	}
+
+	return true
+}
+
 func (l *AgeRestrictionField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {

@@ -747,6 +747,54 @@
         "kind": "Utility"
       },
       "name": "CasinoChip"
+    },
+    {
+      "code": "ISL",
+      "description": "Information Service License",
+      "fields": [
+        {
+          "description": "Age restriction is used to specify required ages for asset ownership.",
+          "label": "Age Restriction",
+          "name": "AgeRestriction",
+          "type": "AgeRestriction"
+        },
+        {
+          "label": "Expiration Timestamp",
+          "name": "ExpirationTimestamp",
+          "type": "Timestamp"
+        },
+        {
+          "example": null,
+          "label": "Service Name",
+          "name": "ServiceName",
+          "required": true,
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        },
+        {
+          "description": "URL linking to any related documents or media",
+          "label": "URL",
+          "name": "URL",
+          "required": false,
+          "type": "varchar",
+          "varSize": "small"
+        }
+      ],
+      "label": "Information Service License",
+      "metadata": {
+        "category": "License",
+        "examples": [
+          null
+        ],
+        "kind": "Utility"
+      },
+      "name": "InformationServiceLicense"
     }
   ],
   "name": "Tokenized Asset Types",

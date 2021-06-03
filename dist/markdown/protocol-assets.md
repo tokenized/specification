@@ -22,6 +22,7 @@ Asset Types are used with reference to the `AssetPayload` field found in the Ass
 - [Loyalty Points](#loyalty-points)
 - [Ticket (Admission)](#ticket-admission)
 - [Casino Chip](#casino-chip)
+- [Information Service License](#information-service-license)
 </div>
 
 <a name="membership"></a>
@@ -924,6 +925,77 @@ Casino Chip
         <td>
             Face value of each coupon specified in a currency.
              This field is always required. 
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="information-service-license"></a>
+#### Information Service License
+
+Information Service License
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>AgeRestriction</td>
+        <td>
+            <a href="#type-age-restriction">AgeRestriction</a>
+        </td>
+        <td>
+            Age restriction is used to specify required ages for asset ownership.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ExpirationTimestamp</td>
+        <td>
+            <a href="#alias-uint">Timestamp</a>
+        </td>
+        <td>
+            
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ServiceName</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            
+             This field is always required. 
+        </td>
+    </tr>
+
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>URL</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            URL linking to any related documents or media
+            
         </td>
     </tr>
 

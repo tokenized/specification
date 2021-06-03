@@ -1658,6 +1658,147 @@ func (a *CasinoChip) CreateAmendments(fip permissions.FieldIndexPath,
 	return result, nil
 }
 
+// InformationServiceLicense Permission / Amendment Field Indices
+const (
+	InformationServiceLicenseFieldAgeRestriction      = uint32(1)
+	InformationServiceLicenseFieldExpirationTimestamp = uint32(2)
+	InformationServiceLicenseFieldServiceName         = uint32(3)
+	InformationServiceLicenseFieldTransfersPermitted  = uint32(4)
+	InformationServiceLicenseFieldURL                 = uint32(5)
+)
+
+// ApplyAmendment updates a InformationServiceLicense based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *InformationServiceLicense) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
+	if len(fip) == 0 {
+		return nil, errors.New("Empty asset amendment field index path")
+	}
+
+	switch fip[0] {
+	case InformationServiceLicenseFieldAgeRestriction: // AgeRestrictionField
+		if len(fip) == 1 && len(data) == 0 {
+			a.AgeRestriction = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, false)
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+
+	case InformationServiceLicenseFieldExpirationTimestamp: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
+		} else {
+			a.ExpirationTimestamp = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	case InformationServiceLicenseFieldServiceName: // string
+		a.ServiceName = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case InformationServiceLicenseFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	case InformationServiceLicenseFieldURL: // string
+		a.URL = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	}
+
+	return nil, fmt.Errorf("Unknown InformationServiceLicense amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two InformationServiceLicenses and returns
+// amendment data.
+func (a *InformationServiceLicense) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *InformationServiceLicense) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	// AgeRestriction AgeRestrictionField
+	fip = append(ofip, InformationServiceLicenseFieldAgeRestriction)
+
+	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
+	if err != nil {
+		return nil, errors.Wrap(err, "AgeRestriction")
+	}
+	result = append(result, AgeRestrictionAmendments...)
+
+	// ExpirationTimestamp uint64
+	fip = append(ofip, InformationServiceLicenseFieldExpirationTimestamp)
+	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpirationTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// ServiceName string
+	fip = append(ofip, InformationServiceLicenseFieldServiceName)
+	if a.ServiceName != newValue.ServiceName {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.ServiceName),
+		})
+	}
+
+	// TransfersPermitted bool
+	fip = append(ofip, InformationServiceLicenseFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// URL string
+	fip = append(ofip, InformationServiceLicenseFieldURL)
+	if a.URL != newValue.URL {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.URL),
+		})
+	}
+
+	return result, nil
+}
+
 // AgeRestrictionField Permission / Amendment Field Indices
 const (
 	AgeRestrictionFieldLower = uint32(1)
@@ -1981,6 +2122,9 @@ func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 
 	case *CasinoChip:
 		result, err = c.CreateAmendments(fip, new.(*CasinoChip))
+
+	case *InformationServiceLicense:
+		result, err = c.CreateAmendments(fip, new.(*InformationServiceLicense))
 
 	}
 
