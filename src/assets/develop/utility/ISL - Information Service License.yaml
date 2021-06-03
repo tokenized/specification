@@ -19,13 +19,9 @@ fields:
     type: AgeRestriction
     description: "Age restriction is used to specify required ages for asset ownership."
 
-  - name: ValidFrom
-    label: Valid From
-    type: deprecated
-
   - name: ExpirationTimestamp
     label: Expiration Timestamp
-    type: deprecated
+    type: Timestamp
 
   - name: ServiceName
     label: Service Name
