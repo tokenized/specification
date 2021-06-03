@@ -21,6 +21,7 @@ messages:
   - "utility/LOY - Loyalty Points"
   - "utility/TIC - Admission Ticket"
   - "utility/CHP - Casino Chip"
+  - "utility/ISL - Information Service License"
 
 # Register Resources
 resources:
