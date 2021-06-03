@@ -16,6 +16,8 @@ components:
       $ref: ./_components/schemas/tokenized/assets/TicketAdmission.yaml
     CasinoChip:
       $ref: ./_components/schemas/tokenized/assets/CasinoChip.yaml
+    InformationServiceLicense:
+      $ref: ./_components/schemas/tokenized/assets/InformationServiceLicense.yaml
     AgeRestrictionField:
       $ref: ./_components/schemas/tokenized/assets/AgeRestrictionField.yaml
     CurrencyValueField:

@@ -50,6 +50,9 @@ const (
 	// CodeCasinoChip identifies a payload as a CasinoChip asset message.
 	CodeCasinoChip = "CHP"
 
+	// CodeInformationServiceLicense identifies a payload as a InformationServiceLicense asset message.
+	CodeInformationServiceLicense = "ISL"
+
 	// BondTypeCorporate specifies a corporate bond.
 	BondTypeCorporate = "C"
 
@@ -88,6 +91,8 @@ func NewAssetFromCode(code string) Asset {
 		return &TicketAdmission{}
 	case CodeCasinoChip:
 		return &CasinoChip{}
+	case CodeInformationServiceLicense:
+		return &InformationServiceLicense{}
 	default:
 		return nil
 	}
@@ -255,6 +260,25 @@ func (a *CasinoChip) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize CasinoChip")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *InformationServiceLicense) Code() string {
+	return CodeInformationServiceLicense
+}
+
+func (a *InformationServiceLicense) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *InformationServiceLicense) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize InformationServiceLicense")
 	}
 
 	_, err = buf.Write(data)

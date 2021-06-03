@@ -86,4 +86,14 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for CasinoChip")
 	}
 
+	// InformationServiceLicense identifies a payload as a InformationServiceLicense message.
+	assetInformationServiceLicense, err := Deserialize([]byte(CodeInformationServiceLicense), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for InformationServiceLicense : %s", err)
+	}
+	_, ok = assetInformationServiceLicense.(*InformationServiceLicense)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for InformationServiceLicense")
+	}
+
 }

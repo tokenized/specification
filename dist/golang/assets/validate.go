@@ -409,6 +409,36 @@ func (a *CasinoChip) Validate() error {
 	return nil
 }
 
+func (a *InformationServiceLicense) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field AgeRestriction - AgeRestriction
+	if err := a.AgeRestriction.Validate(); err != nil {
+		return errors.Wrap(err, "AgeRestriction")
+	}
+
+	// Field ExpirationTimestamp - uint
+
+	// Field ServiceName - varchar
+	if len(a.ServiceName) > max1ByteInteger {
+		return fmt.Errorf("ServiceName over max size : %d > %d", len(a.ServiceName), max1ByteInteger)
+	}
+	if len(a.ServiceName) == 0 {
+		return fmt.Errorf("ServiceName required")
+	}
+
+	// Field TransfersPermitted - bool
+
+	// Field URL - string
+	if err := a.URL.Validate(); err != nil {
+		return errors.Wrap(err, "URL")
+	}
+
+	return nil
+}
+
 func (a *AgeRestrictionField) Validate() error {
 	if a == nil {
 		return nil
