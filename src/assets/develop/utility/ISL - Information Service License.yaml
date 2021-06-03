@@ -1,0 +1,42 @@
+#
+# ISL - Information Service License
+#
+
+code: ISL
+name: InformationServiceLicense
+label: Information Service License
+description: Information Service License
+
+metadata:
+  kind: Utility
+  category: License
+  examples:
+    -
+
+fields:
+  - name: AgeRestriction
+    label: Age Restriction
+    type: AgeRestriction
+    description: "Age restriction is used to specify required ages for asset ownership."
+
+  - name: ValidFrom
+    label: Valid From
+    type: deprecated
+
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
+    type: deprecated
+
+  - name: ServiceName
+    label: Service Name
+    type: varchar
+    varSize: tiny
+    example:
+    required: true
+
+  - name: TransfersPermitted
+    label: Transfers Permitted
+    description: >
+        Set to true if transfers are permitted between two parties, otherwise set to false to
+        prevent peer-to-peer transfers.
+    type: bool
