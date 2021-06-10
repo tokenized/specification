@@ -14,6 +14,8 @@ components:
       $ref: ./_components/schemas/tokenized/messages/SettlementRequest.yaml
     OutputMetadata:
       $ref: ./_components/schemas/tokenized/messages/OutputMetadata.yaml
+    Distribution:
+      $ref: ./_components/schemas/tokenized/messages/Distribution.yaml
     InitiateRelationship:
       $ref: ./_components/schemas/tokenized/messages/InitiateRelationship.yaml
     PendingAcceptRelationship:

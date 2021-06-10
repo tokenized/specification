@@ -8,7 +8,7 @@ label: "Body Of Agreement Amendment"
 description: "Allows the administration to modify the agreement for the contract."
 
 metadata:
-  validation: BodyOfAgreement
+  validation: BodyOfAgreementFormation
   rejection: Rejection
 
   inputs:

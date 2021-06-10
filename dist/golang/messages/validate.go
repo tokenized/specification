@@ -198,6 +198,25 @@ func (a *OutputMetadata) Validate() error {
 	return nil
 }
 
+func (a *Distribution) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field AssetCode - bin
+	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
+		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
+			len(a.AssetCode), 20)
+	}
+	if len(a.AssetCode) == 0 {
+		return fmt.Errorf("AssetCode required")
+	}
+
+	// Field Timestamp - uint
+
+	return nil
+}
+
 func (a *InitiateRelationship) Validate() error {
 	if a == nil {
 		return errors.New("Empty")

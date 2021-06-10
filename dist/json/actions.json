@@ -1077,7 +1077,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "ContractFormation"
       },
       "name": "ContractOffer"
     },
@@ -1443,7 +1443,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "ContractFormation"
       },
       "name": "ContractAmendment"
     },
@@ -1667,7 +1667,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "BodyOfAgreement"
+        "validation": "BodyOfAgreementFormation"
       },
       "name": "BodyOfAgreementOffer"
     },
@@ -1762,7 +1762,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "BodyOfAgreement"
+        "validation": "BodyOfAgreementFormation"
       },
       "name": "BodyOfAgreementAmendment"
     },
@@ -2153,7 +2153,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "Settlement"
       },
       "name": "Transfer"
     },

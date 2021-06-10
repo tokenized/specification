@@ -42,6 +42,9 @@ const (
 	// CodeOutputMetadata identifies a payload as a OutputMetadata message.
 	CodeOutputMetadata = uint32(1004)
 
+	// CodeDistribution identifies a payload as a Distribution message.
+	CodeDistribution = uint32(1005)
+
 	// CodeInitiateRelationship identifies a payload as a InitiateRelationship message.
 	CodeInitiateRelationship = uint32(2001)
 
@@ -75,6 +78,8 @@ func NewMessageFromCode(code uint32) Message {
 		return &SettlementRequest{}
 	case CodeOutputMetadata:
 		return &OutputMetadata{}
+	case CodeDistribution:
+		return &Distribution{}
 	case CodeInitiateRelationship:
 		return &InitiateRelationship{}
 	case CodePendingAcceptRelationship:
@@ -233,6 +238,25 @@ func (a *OutputMetadata) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize OutputMetadata")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *Distribution) Code() uint32 {
+	return CodeDistribution
+}
+
+func (a *Distribution) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an asset to a byte slice.
+func (a *Distribution) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize Distribution")
 	}
 
 	_, err = buf.Write(data)
