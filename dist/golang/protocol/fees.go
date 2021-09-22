@@ -39,7 +39,7 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 	var action actions.Action
 	found := false
 	for _, output := range requestTx.TxOut {
-		action, err = Deserialize(output.PkScript, isTest)
+		action, err = Deserialize(output.LockingScript, isTest)
 		if err == nil {
 			found = true
 			break
@@ -147,8 +147,8 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 			// No settlement needed for bitcoin transfers. Just outputs.
 			if asset.AssetType != BSVAssetID {
 				if len(contractScript) == 0 {
-					contractScript = requestTx.TxOut[asset.ContractIndex].PkScript
-				} else if !bytes.Equal(contractScript, requestTx.TxOut[asset.ContractIndex].PkScript) {
+					contractScript = requestTx.TxOut[asset.ContractIndex].LockingScript
+				} else if !bytes.Equal(contractScript, requestTx.TxOut[asset.ContractIndex].LockingScript) {
 					return 0, 0, errors.New("More than one contract")
 				}
 
@@ -302,7 +302,7 @@ func EstimatedContractAmendmentResponse(amendTx *wire.MsgTx, formation *actions.
 	var action actions.Action
 	found := false
 	for _, output := range amendTx.TxOut {
-		action, err = Deserialize(output.PkScript, isTest)
+		action, err = Deserialize(output.LockingScript, isTest)
 		if err == nil {
 			found = true
 			break
@@ -383,7 +383,7 @@ func EstimatedBodyOfAgreementAmendmentResponse(amendTx *wire.MsgTx,
 	var action actions.Action
 	found := false
 	for _, output := range amendTx.TxOut {
-		action, err = Deserialize(output.PkScript, isTest)
+		action, err = Deserialize(output.LockingScript, isTest)
 		if err == nil {
 			found = true
 			break
@@ -463,7 +463,7 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 	var action actions.Action
 	found := false
 	for _, output := range amendTx.TxOut {
-		action, err = Deserialize(output.PkScript, isTest)
+		action, err = Deserialize(output.LockingScript, isTest)
 		if err == nil {
 			found = true
 			break
@@ -588,7 +588,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	var ok bool
 	found := false
 	for _, output := range requestTx.TxOut {
-		action, err = Deserialize(output.PkScript, isTest)
+		action, err = Deserialize(output.LockingScript, isTest)
 		if err != nil {
 			continue
 		}
@@ -640,11 +640,11 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 
 		// No settlement needed for bitcoin transfers. Just outputs.
 		if asset.AssetType != BSVAssetID {
-			if !bytes.Equal(previousContractScript, requestTx.TxOut[asset.ContractIndex].PkScript) {
+			if !bytes.Equal(previousContractScript, requestTx.TxOut[asset.ContractIndex].LockingScript) {
 				multiContract = true
 				p2PKHInputCount++ // input from each contract
 			}
-			previousContractScript = requestTx.TxOut[asset.ContractIndex].PkScript
+			previousContractScript = requestTx.TxOut[asset.ContractIndex].LockingScript
 
 			// Sig script is probably still empty, so assume each sender is unique and the address
 			// is not reused. So each will get a notification output.
