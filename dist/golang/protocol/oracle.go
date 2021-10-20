@@ -18,7 +18,7 @@ import (
 //   until 1 hour past the timestamp of the block after the block hash specified (chain tip).
 func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddress,
 	assetCode []byte, receiverAddress bitcoin.RawAddress, blockHash bitcoin.Hash32,
-	expiration uint64, approved uint8) ([]byte, error) {
+	expiration uint64, approved uint8) (*bitcoin.Hash32, error) {
 
 	// Calculate the hash
 	digest := sha256.New()
@@ -29,8 +29,8 @@ func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 	binary.Write(digest, DefaultEndian, &expiration)
 	binary.Write(digest, DefaultEndian, &approved)
 
-	hash := sha256.Sum256(digest.Sum(nil))
-	return hash[:], nil
+	hash := bitcoin.Hash32(sha256.Sum256(digest.Sum(nil)))
+	return &hash, nil
 }
 
 // ContractAdminIdentityOracleSigHash returns a Double SHA256 of the data required to identify a
@@ -45,7 +45,8 @@ func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 // address is written into the hash instead of the Issuer entity.
 // If there is an operator then the OperatorEntityContract address is written into the hash.
 func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddress bitcoin.RawAddress,
-	entity interface{}, blockHash bitcoin.Hash32, expiration uint64, approved uint8) ([]byte, error) {
+	entity interface{}, blockHash bitcoin.Hash32, expiration uint64,
+	approved uint8) (*bitcoin.Hash32, error) {
 
 	// Calculate the hash
 	digest := sha256.New()
@@ -66,8 +67,8 @@ func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddress bitcoi
 	binary.Write(digest, DefaultEndian, &expiration)
 	binary.Write(digest, DefaultEndian, &approved)
 
-	hash := sha256.Sum256(digest.Sum(nil))
-	return hash[:], nil
+	hash := bitcoin.Hash32(sha256.Sum256(digest.Sum(nil)))
+	return &hash, nil
 }
 
 // EntityPubKeyOracleSigHash returns a Double SHA256 of the data required to verify an association
@@ -75,7 +76,7 @@ func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddress bitcoi
 // approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. This gives a timestamp to the signature.
 func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
-	pubKey bitcoin.PublicKey, blockHash bitcoin.Hash32, approved uint8) ([]byte, error) {
+	pubKey bitcoin.PublicKey, blockHash bitcoin.Hash32, approved uint8) (*bitcoin.Hash32, error) {
 
 	// Calculate the hash
 	digest := sha256.New()
@@ -86,8 +87,8 @@ func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
 	digest.Write(blockHash[:])
 	binary.Write(digest, DefaultEndian, &approved)
 
-	hash := sha256.Sum256(digest.Sum(nil))
-	return hash[:], nil
+	hash := bitcoin.Hash32(sha256.Sum256(digest.Sum(nil)))
+	return &hash, nil
 }
 
 // EntityXPubOracleSigHash returns a Double SHA256 of the data required to verify an association
@@ -95,7 +96,7 @@ func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
 // approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. This gives a timestamp to the signature.
 func EntityXPubOracleSigHash(ctx context.Context, entity *actions.EntityField,
-	xpub bitcoin.ExtendedKeys, blockHash bitcoin.Hash32, approved uint8) ([]byte, error) {
+	xpub bitcoin.ExtendedKeys, blockHash bitcoin.Hash32, approved uint8) (*bitcoin.Hash32, error) {
 
 	// Calculate the hash
 	digest := sha256.New()
@@ -106,6 +107,6 @@ func EntityXPubOracleSigHash(ctx context.Context, entity *actions.EntityField,
 	digest.Write(blockHash[:])
 	binary.Write(digest, DefaultEndian, &approved)
 
-	hash := sha256.Sum256(digest.Sum(nil))
-	return hash[:], nil
+	hash := bitcoin.Hash32(sha256.Sum256(digest.Sum(nil)))
+	return &hash, nil
 }

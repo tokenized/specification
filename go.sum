@@ -92,6 +92,8 @@ github.com/tokenized/envelope v0.3.1-0.20210922033544-493809383416 h1:hS5gO+MfNv
 github.com/tokenized/envelope v0.3.1-0.20210922033544-493809383416/go.mod h1:DN0D62OFktw5pqUalvwr8OSYMrilMfS0qEGB6Inekgk=
 github.com/tokenized/pkg v0.3.1-0.20210922033156-c56ef81f8afa h1:DfIHPx7xEJ2PiY3WB4iBi3snU6JhVNO9LFozninIQ2c=
 github.com/tokenized/pkg v0.3.1-0.20210922033156-c56ef81f8afa/go.mod h1:oZmF8k3efqaE9e98cFta++FAzY+tyyfuEv4xkLuWIVk=
+github.com/tokenized/pkg v0.3.1-0.20211020180814-cc423003cad5 h1:Z67IIfFELale4z3/VRS8L6IrrycZz+2IR31+wF/6j84=
+github.com/tokenized/pkg v0.3.1-0.20211020180814-cc423003cad5/go.mod h1:oZmF8k3efqaE9e98cFta++FAzY+tyyfuEv4xkLuWIVk=
 github.com/tyler-smith/go-bip32 v0.0.0-20170922074101-2c9cfd177564 h1:NXXyQVeRVLK8Xu27/hkkjwVOZLk5v4ZBEvvMtqMqznM=
 github.com/tyler-smith/go-bip32 v0.0.0-20170922074101-2c9cfd177564/go.mod h1:0/YuQQF676+d4CMNclTqGUam1EDwz0B8o03K9pQqA3c=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=

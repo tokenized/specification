@@ -16,7 +16,7 @@ import (
 //   be signed by an authority for the OrderSignature field.
 // The Order must be fully populated including the AuthorityName.
 func OrderAuthoritySigHash(ctx context.Context, contractAddress bitcoin.RawAddress,
-	order *actions.Order) ([]byte, error) {
+	order *actions.Order) (*bitcoin.Hash32, error) {
 
 	// Calculate the hash
 	digest := sha256.New()
@@ -50,6 +50,6 @@ func OrderAuthoritySigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 
 	digest.Write(order.DepositAddress)
 
-	hash := sha256.Sum256(digest.Sum(nil))
-	return hash[:], nil
+	hash := bitcoin.Hash32(sha256.Sum256(digest.Sum(nil)))
+	return &hash, nil
 }
