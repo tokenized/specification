@@ -815,8 +815,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 		txHash = settleRequestTx.TxHash()
 
 		var srTxBuf bytes.Buffer
-		err = settleRequestTx.Serialize(&srTxBuf)
-		if err != nil {
+		if err := settleRequestTx.Serialize(&srTxBuf); err != nil {
 			return nil, 0, errors.Wrap(err, "serialize settlement request tx")
 		}
 		boomerang += uint64(math.Ceil(float64(srTxBuf.Len()) * float64(feeRate)))
