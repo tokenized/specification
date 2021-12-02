@@ -578,8 +578,8 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 // All other contract outputs can be dust.
 // Attempts to use the maximum possible size of each element so the returned values are an
 // overestimation, ensuring that a transfer funded in this manner can complete successfully.
-func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate float32,
-	fees []uint64, isTest bool) ([]uint64, uint64, error) {
+func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Script,
+	feeRate, dustFeeRate float32, fees []uint64, isTest bool) ([]uint64, uint64, error) {
 
 	// Find Tokenized Transfer
 	var err error
@@ -613,15 +613,16 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	// Auditable estimation construction
 	fundingForBSV := make([]uint64, len(request.Assets))
 	fundingForTokens := make([]uint64, len(request.Assets))
-	p2PKHInputCount := 0
-	p2PKHOutputCount := 0
+	txSizeInputs := 0
+	txSizeOutputs := 0
+	outputCount := 0
 
 	settlement := &actions.Settlement{Timestamp: uint64(now.UnixNano())}
 
 	// Calculate response tx and settlement payload size.
 	// Indexes to addreses that already have outputs so they can be reused.
 	addressIndexes := make(map[bitcoin.Hash20]uint32)
-	var previousContractScript []byte
+	var previousContractScript bitcoin.Script
 	multiContract := false
 	masterContractIndex := uint32(0) // First smart contract agent listed, indexed by assets.
 	for _, asset := range request.Assets {
@@ -642,22 +643,30 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 		if asset.AssetType != BSVAssetID {
 			if !bytes.Equal(previousContractScript, requestTx.TxOut[asset.ContractIndex].LockingScript) {
 				multiContract = true
-				p2PKHInputCount++ // input from each contract
+				// input from each contract
+				inputSize, err := txbuilder.InputSize(requestTx.TxOut[asset.ContractIndex].LockingScript)
+				if err != nil {
+					return nil, 0, errors.Wrapf(err, "input size")
+				}
+				txSizeInputs += inputSize
 			}
 			previousContractScript = requestTx.TxOut[asset.ContractIndex].LockingScript
 
 			// Sig script is probably still empty, so assume each sender is unique and the address
 			// is not reused. So each will get a notification output.
-			for range asset.AssetSenders {
-				// Use max quantity to ensure overestimation, since we can't use a
-				//   real value without knowing the resulting balance.
+			for _, sender := range asset.AssetSenders {
+				// Use max quantity to ensure overestimation, since we can't use a real value
+				// without knowing the resulting balance.
 				settleAsset.Settlements = append(settleAsset.Settlements,
 					&actions.QuantityIndexField{
 						Index:    127,
 						Quantity: math.MaxUint64,
 					})
 
-				p2PKHOutputCount++
+				txSizeOutputs += txbuilder.OutputSize(inputScripts[sender.Index])
+				outputCount++
+				dustLimit := txbuilder.DustLimitForLockingScript(inputScripts[sender.Index],
+					dustFeeRate)
 				fundingForTokens[masterContractIndex] += dustLimit // Dust will be put in each notification output.
 			}
 
@@ -680,12 +689,17 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			}
 			addressIndex, exists := addressIndexes[*hash]
 			if !exists {
-				addressIndex = uint32(p2PKHOutputCount)
+				addressIndex = uint32(outputCount)
 				addressIndexes[*hash] = addressIndex
-				p2PKHOutputCount++
+				lockingScript, err := raddress.LockingScript()
+				if err != nil {
+					return nil, 0, errors.Wrap(err, "address locking script")
+				}
+				txSizeOutputs += txbuilder.OutputSize(lockingScript)
+				outputCount++
 			}
 
-			addressDustLimit, err := txbuilder.DustLimitForAddress(raddress, feeRate)
+			addressDustLimit, err := txbuilder.DustLimitForAddress(raddress, dustFeeRate)
 			if err != nil {
 				return nil, 0, errors.Wrap(err, "address dust limit")
 			}
@@ -722,19 +736,18 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 
 		// An output for each contract's fee address, if they have a contract fee.
 		if fees[i] > 0 {
-			p2PKHOutputCount++
+			// TODO use contract's actual fee address --ce
+			txSizeOutputs += txbuilder.P2PKHOutputSize
+			outputCount++
 		}
 	}
 
 	// Calculate settlement tx funding from parts
-	txSizeInputs := wire.VarIntSerializeSize(uint64(p2PKHInputCount)) +
-		p2PKHInputCount*txbuilder.MaximumP2PKHInputSize
-	txSizeP2PKHOutputs := p2PKHOutputCount * txbuilder.P2PKHOutputSize
 	txSizeSettlements := int(txbuilder.OutputBaseSize+
 		wire.VarIntSerializeSize(fullSettlementSize)) + int(fullSettlementSize)
-	txSizeOutputCount := wire.VarIntSerializeSize(uint64(p2PKHOutputCount))
+	txSizeOutputCount := wire.VarIntSerializeSize(uint64(outputCount))
 	settlementTxSize := txbuilder.BaseTxSize + txSizeInputs + txSizeOutputCount +
-		txSizeP2PKHOutputs + txSizeSettlements
+		txSizeOutputs + txSizeSettlements
 	settlementTxFee := int(math.Ceil(float64(settlementTxSize) * float64(feeRate)))
 
 	// Sum funding for each contract's output.
@@ -753,6 +766,8 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 	requestContractFees := []*messages.TargetAddressField{}
 	previousSettlementData = nil
 	txHash := requestTx.TxHash()
+	previousLockingScript := requestTx.TxOut[masterContractIndex].LockingScript
+	previousDust := txbuilder.DustLimitForLockingScript(previousLockingScript, dustFeeRate)
 	for i, asset := range request.Assets {
 		// No boomerang for bitcoin transfers.
 		if asset.AssetType == BSVAssetID {
@@ -802,12 +817,16 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 		settleRequestTx := wire.NewMsgTx(1)
 
 		// Input from previous contract
+		scriptSize, err := txbuilder.UnlockingScriptSize(previousLockingScript)
+		if err != nil {
+			return nil, 0, errors.Wrap(err, "unlocking script size")
+		}
+
 		settleRequestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(txHash, 2),
-			make([]byte, txbuilder.MaximumP2PKHSigScriptSize)))
+			make([]byte, scriptSize)))
 
 		// Output to this contract
-		settleRequestTx.AddTxOut(wire.NewTxOut(100000, make([]byte,
-			txbuilder.P2PKHOutputScriptSize)))
+		settleRequestTx.AddTxOut(wire.NewTxOut(100000, make([]byte, len(previousLockingScript))))
 
 		// Output for op return
 		settleRequestTx.AddTxOut(wire.NewTxOut(0, settleRequestScript))
@@ -850,11 +869,10 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 
 		// Input from previous contract
 		sigRequestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(txHash, 2),
-			make([]byte, txbuilder.MaximumP2PKHSigScriptSize)))
+			make([]byte, scriptSize)))
 
 		// Output to this contract
-		sigRequestTx.AddTxOut(wire.NewTxOut(100000, make([]byte,
-			txbuilder.P2PKHOutputScriptSize)))
+		sigRequestTx.AddTxOut(wire.NewTxOut(100000, make([]byte, len(previousLockingScript))))
 
 		// Output for op return
 		sigRequestScript, err := Serialize(sigRequestMessage, isTest)
@@ -870,13 +888,16 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, dustLimit uint64, feeRate 
 			return nil, 0, errors.Wrap(err, "serialize signature request tx")
 		}
 		boomerang += uint64(math.Ceil(float64(sigTxBuf.Len()) * float64(feeRate)))
-		boomerang += dustLimit // Dust output to previous contract
+		boomerang += previousDust // Dust output to previous contract
 
 		requestContractFees = append(requestContractFees,
 			&messages.TargetAddressField{
 				Address:  make([]byte, 22),
 				Quantity: fees[i],
 			})
+
+		previousLockingScript := requestTx.TxOut[asset.ContractIndex].LockingScript
+		previousDust = txbuilder.DustLimitForLockingScript(previousLockingScript, dustFeeRate)
 	}
 
 	return funding, boomerang, nil
