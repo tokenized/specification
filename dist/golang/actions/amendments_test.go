@@ -653,6 +653,120 @@ func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "Add First Article",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(4), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(0), // first article
+					},
+					Operation: 1,
+					Data: []byte{10, 9, 65, 114, 116, 105, 99, 108, 101, 32, 49, 18, 6, 66,
+						111, 100, 121, 32, 49},
+				},
+			},
+		},
+		{
+			name: "Add Second Article",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+							{
+								Title: "Article 2",
+								Body:  "Body 2",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(4), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(1), // second article
+					},
+					Operation: 1,
+					Data: []byte{10, 9, 65, 114, 116, 105, 99, 108, 101, 32, 50, 18, 6, 66,
+						111, 100, 121, 32, 50},
+				},
+			},
+		},
 	}
 
 	for _, tt := range tests {

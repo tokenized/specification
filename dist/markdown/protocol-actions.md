@@ -324,7 +324,8 @@ Allows the administration to tell the smart contract what they want the details 
             <a href="#alias-address">Address</a>
         </td>
         <td>
-            The address of the contract&#39;s parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.
+            The address of the contract&#39;s parent entity. This is not valid for entity contracts, but required for asset and service contracts to identify the entity parent contract.
+
             
             This field is required when the field ContractType equals 1.
             This field is only valid when the field ContractType equals 1.

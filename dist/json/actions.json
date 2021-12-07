@@ -979,7 +979,7 @@
           "type": "Address"
         },
         {
-          "description": "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.",
+          "description": "The address of the contract's parent entity. This is not valid for entity contracts, but required for asset and service contracts to identify the entity parent contract.\n",
           "label": "Entity Contract",
           "name": "EntityContract",
           "only_valid_when": {

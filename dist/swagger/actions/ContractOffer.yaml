@@ -107,7 +107,7 @@ properties:
     example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   EntityContract:
     description:  >
-      The address of the contract's parent entity. This is optional for entity contracts, but
+      The address of the contract's parent entity. This is not valid for entity contracts, but
       required for asset and service contracts to identify the entity parent contract.
     type: string
     example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"

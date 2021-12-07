@@ -542,6 +542,7 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add InterestPaymentDateDeltas : %v",
 					fip)
 			}
+
 			var newValue uint64
 			buf := bytes.NewBuffer(data)
 			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
@@ -550,6 +551,7 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			} else {
 				newValue = uint64(value)
 			}
+
 			if len(a.InterestPaymentDateDeltas) <= int(fip[1]) {
 				// Append item to the end
 				a.InterestPaymentDateDeltas = append(a.InterestPaymentDateDeltas, newValue)

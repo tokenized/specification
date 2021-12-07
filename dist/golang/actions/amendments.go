@@ -545,10 +545,19 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.SupportingDocs[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.SupportingDocs[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add SupportingDocs : %v",
 					fip)
 			}
+
 			newValue := &DocumentField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -556,6 +565,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
+
 			if len(a.SupportingDocs) <= int(fip[1]) {
 				// Append item to the end
 				a.SupportingDocs = append(a.SupportingDocs, newValue)
@@ -662,10 +672,19 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.VotingSystems[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.VotingSystems[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add VotingSystems : %v",
 					fip)
 			}
+
 			newValue := &VotingSystemField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -673,6 +692,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
+
 			if len(a.VotingSystems) <= int(fip[1]) {
 				// Append item to the end
 				a.VotingSystems = append(a.VotingSystems, newValue)
@@ -766,10 +786,19 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.Oracles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Oracles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Oracles : %v",
 					fip)
 			}
+
 			newValue := &OracleField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -777,6 +806,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
+
 			if len(a.Oracles) <= int(fip[1]) {
 				// Append item to the end
 				a.Oracles = append(a.Oracles, newValue)
@@ -851,10 +881,19 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.Services[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Services[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Services : %v",
 					fip)
 			}
+
 			newValue := &ServiceField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -862,6 +901,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
+
 			if len(a.Services) <= int(fip[1]) {
 				// Append item to the end
 				a.Services = append(a.Services, newValue)
@@ -913,10 +953,19 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return a.AdminIdentityCertificates[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.AdminIdentityCertificates[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add AdminIdentityCertificates : %v",
 					fip)
 			}
+
 			newValue := &AdminIdentityCertificateField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -924,6 +973,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 						err)
 				}
 			}
+
 			if len(a.AdminIdentityCertificates) <= int(fip[1]) {
 				// Append item to the end
 				a.AdminIdentityCertificates = append(a.AdminIdentityCertificates, newValue)
@@ -1106,10 +1156,19 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			return a.Chapters[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Chapters[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Chapters : %v",
 					fip)
 			}
+
 			newValue := &ChapterField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -1117,6 +1176,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 						err)
 				}
 			}
+
 			if len(a.Chapters) <= int(fip[1]) {
 				// Append item to the end
 				a.Chapters = append(a.Chapters, newValue)
@@ -1164,10 +1224,19 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			return a.Definitions[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Definitions[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Definitions : %v",
 					fip)
 			}
+
 			newValue := &DefinedTermField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -1175,6 +1244,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 						err)
 				}
 			}
+
 			if len(a.Definitions) <= int(fip[1]) {
 				// Append item to the end
 				a.Definitions = append(a.Definitions, newValue)
@@ -1551,7 +1621,9 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add TradeRestrictions : %v",
 					fip)
 			}
+
 			newValue := string(data)
+
 			if len(a.TradeRestrictions) <= int(fip[1]) {
 				// Append item to the end
 				a.TradeRestrictions = append(a.TradeRestrictions, newValue)
@@ -2170,10 +2242,19 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 			return a.Settlements[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Settlements[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Settlements : %v",
 					fip)
 			}
+
 			newValue := &QuantityIndexField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -2181,6 +2262,7 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 						err)
 				}
 			}
+
 			if len(a.Settlements) <= int(fip[1]) {
 				// Append item to the end
 				a.Settlements = append(a.Settlements, newValue)
@@ -2371,10 +2453,19 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 			return a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add AssetSenders : %v",
 					fip)
 			}
+
 			newValue := &QuantityIndexField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -2382,6 +2473,7 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 						err)
 				}
 			}
+
 			if len(a.AssetSenders) <= int(fip[1]) {
 				// Append item to the end
 				a.AssetSenders = append(a.AssetSenders, newValue)
@@ -2429,10 +2521,19 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 			return a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add AssetReceivers : %v",
 					fip)
 			}
+
 			newValue := &AssetReceiverField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -2440,6 +2541,7 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 						err)
 				}
 			}
+
 			if len(a.AssetReceivers) <= int(fip[1]) {
 				// Append item to the end
 				a.AssetReceivers = append(a.AssetReceivers, newValue)
@@ -2656,10 +2758,19 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 			return a.Articles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Articles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Articles : %v",
 					fip)
 			}
+
 			newValue := &ClauseField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -2667,6 +2778,7 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 						err)
 				}
 			}
+
 			if len(a.Articles) <= int(fip[1]) {
 				// Append item to the end
 				a.Articles = append(a.Articles, newValue)
@@ -2831,10 +2943,19 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return a.Children[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Children[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Children : %v",
 					fip)
 			}
+
 			newValue := &ClauseField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -2842,6 +2963,7 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 						err)
 				}
 			}
+
 			if len(a.Children) <= int(fip[1]) {
 				// Append item to the end
 				a.Children = append(a.Children, newValue)
@@ -3223,10 +3345,19 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return a.Administration[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Administration[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Administration : %v",
 					fip)
 			}
+
 			newValue := &AdministratorField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -3234,6 +3365,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 						err)
 				}
 			}
+
 			if len(a.Administration) <= int(fip[1]) {
 				// Append item to the end
 				a.Administration = append(a.Administration, newValue)
@@ -3281,10 +3413,19 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return a.Management[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+			if len(fip) > 2 { // includes list index
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Management[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Management : %v",
 					fip)
 			}
+
 			newValue := &ManagerField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -3292,6 +3433,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 						err)
 				}
 			}
+
 			if len(a.Management) <= int(fip[1]) {
 				// Append item to the end
 				a.Management = append(a.Management, newValue)
@@ -3712,6 +3854,7 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add OracleTypes : %v",
 					fip)
 			}
+
 			var newValue uint32
 			buf := bytes.NewBuffer(data)
 			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
@@ -3720,6 +3863,7 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			} else {
 				newValue = uint32(value)
 			}
+
 			if len(a.OracleTypes) <= int(fip[1]) {
 				// Append item to the end
 				a.OracleTypes = append(a.OracleTypes, newValue)
@@ -3984,7 +4128,9 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPat
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add Outputs : %v",
 					fip)
 			}
+
 			newValue := data
+
 			if len(a.Outputs) <= int(fip[1]) {
 				// Append item to the end
 				a.Outputs = append(a.Outputs, newValue)
