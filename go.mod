@@ -9,7 +9,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.5
 	github.com/tokenized/envelope v0.3.1-0.20211108215110-702f07a88483
-	github.com/tokenized/pkg v0.3.1-0.20211203160356-4ec05edc6163
+	github.com/tokenized/pkg v0.3.1-0.20220310234239-a48d2b421c28
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
-	gopkg.in/yaml.v2 v2.2.7
+	gopkg.in/yaml.v2 v2.2.8
 )

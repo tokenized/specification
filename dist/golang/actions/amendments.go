@@ -546,6 +546,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -581,12 +582,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete SupportingDocs : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.SupportingDocs[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete SupportingDocs : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.SupportingDocs) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete SupportingDocs : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -673,6 +680,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -708,12 +716,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete VotingSystems : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.VotingSystems[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete VotingSystems : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.VotingSystems) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete VotingSystems : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -787,6 +801,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -822,12 +837,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Oracles : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Oracles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Oracles : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Oracles) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Oracles : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -882,6 +903,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -917,12 +939,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Services : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Services[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Services : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Services) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Services : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -954,6 +982,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -989,12 +1018,18 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete AdminIdentityCertificates : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.AdminIdentityCertificates[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete AdminIdentityCertificates : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.AdminIdentityCertificates) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete AdminIdentityCertificates : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -1157,6 +1192,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -1192,12 +1228,18 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Chapters : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Chapters[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Chapters : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Chapters) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Chapters : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -1225,6 +1267,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -1260,12 +1303,18 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Definitions : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Definitions[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Definitions : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Definitions) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Definitions : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -1639,6 +1688,7 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
+
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete TradeRestrictions : %v",
 					fip)
@@ -2243,6 +2293,7 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2278,12 +2329,18 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Settlements : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Settlements[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Settlements : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Settlements) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Settlements : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -2454,6 +2511,7 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2489,12 +2547,18 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete AssetSenders : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete AssetSenders : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.AssetSenders) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete AssetSenders : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -2522,6 +2586,7 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2557,12 +2622,18 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete AssetReceivers : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete AssetReceivers : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.AssetReceivers) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete AssetReceivers : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -2759,6 +2830,7 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2794,12 +2866,18 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Articles : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Articles[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Articles : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Articles) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Articles : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -2944,6 +3022,7 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2979,12 +3058,18 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Children : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Children[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Children : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Children) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Children : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -3346,6 +3431,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -3381,12 +3467,18 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Administration : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Administration[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Administration : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Administration) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Administration : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -3414,6 +3506,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -3449,12 +3542,18 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
-			if len(fip) != 2 { // includes list index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Management : %v",
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.Management[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Management : %v",
 					fip)
-			}
-			if int(fip[1]) >= len(a.Management) {
-				return nil, fmt.Errorf("Amendment element index out of range for delete Management : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -3879,6 +3978,7 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
+
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete OracleTypes : %v",
 					fip)
@@ -4146,6 +4246,7 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPat
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
+
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Outputs : %v",
 					fip)

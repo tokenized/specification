@@ -567,6 +567,7 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return permissions.SubPermissions(fip, operation, true)
 
 		case 2: // Delete element
+
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete InterestPaymentDateDeltas : %v",
 					fip)

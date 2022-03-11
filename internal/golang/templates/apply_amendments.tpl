@@ -133,6 +133,24 @@
 			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 
 		case 2: // Delete element
+
+		{{- if .IsCompoundType }}
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.{{ .Name }}[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete {{ .Name }} : %v",
+					fip)
+			}
+
+		{{- else }}
+
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete {{ .Name }} : %v",
 					fip)
@@ -140,6 +158,7 @@
 			if int(fip[1]) >= len(a.{{ .Name }}) {
 				return nil, fmt.Errorf("Amendment element index out of range for delete {{ .Name }} : %d", fip[1])
 			}
+		{{- end }}
 
 			// Remove item from list
 			a.{{ .Name }} = append(a.{{ .Name }}[:fip[1]], a.{{ .Name }}[fip[1]+1:]...)
