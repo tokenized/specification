@@ -119,7 +119,7 @@ func (a *PublicMessage) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *PublicMessage) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -138,7 +138,7 @@ func (a *PrivateMessage) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *PrivateMessage) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -157,7 +157,7 @@ func (a *RevertedTx) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *RevertedTx) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -176,7 +176,7 @@ func (a *Offer) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *Offer) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -195,7 +195,7 @@ func (a *SignatureRequest) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *SignatureRequest) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -214,7 +214,7 @@ func (a *SettlementRequest) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *SettlementRequest) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -233,7 +233,7 @@ func (a *OutputMetadata) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *OutputMetadata) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -252,7 +252,7 @@ func (a *Distribution) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *Distribution) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -271,7 +271,7 @@ func (a *InitiateRelationship) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *InitiateRelationship) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -290,7 +290,7 @@ func (a *PendingAcceptRelationship) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *PendingAcceptRelationship) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -309,7 +309,7 @@ func (a *AcceptRelationship) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *AcceptRelationship) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -328,7 +328,7 @@ func (a *RelationshipAmendment) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *RelationshipAmendment) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
@@ -347,7 +347,7 @@ func (a *InitiateThread) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *InitiateThread) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {

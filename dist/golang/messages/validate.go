@@ -203,13 +203,13 @@ func (a *Distribution) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
-	if len(a.AssetCode) == 0 {
-		return fmt.Errorf("AssetCode required")
+	if len(a.InstrumentCode) == 0 {
+		return fmt.Errorf("InstrumentCode required")
 	}
 
 	// Field Timestamp - uint

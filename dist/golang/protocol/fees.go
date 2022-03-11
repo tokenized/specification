@@ -11,7 +11,7 @@ import (
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
-	"github.com/tokenized/specification/dist/golang/assets"
+	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/messages"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
@@ -21,12 +21,12 @@ import (
 // EstimatedResponse calculates information about the contract's response to a request.
 //   fees is the sum of all contract related fees including base contract fee, proposal fee, and
 ///  others. dustLimit is based on the expected P2PKH notification outputs.
-// WARNING: This function is really only accurate for ContractOffer and AssetDefinition txs. Other
+// WARNING: This function is really only accurate for ContractOffer and InstrumentDefinition txs. Other
 // actions might be wrong.
 // WARNING: This still makes assumptions that some of the addresses are P2PKH.
 // For transfers use EstimatedTransferResponse.
 // For contract amendments use EstimatedContractAmendmentResponse.
-// For asset modifications use EstimatedAssetModificationResponse.
+// For instrument modifications use EstimatedInstrumentModificationResponse.
 // Returns:
 // estimated size of response tx in bytes.
 // estimated funding needed.
@@ -99,14 +99,14 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		}
 		value += dustLimit
 
-	case *actions.AssetDefinition:
-		var assetCode bitcoin.Hash32
-		assetCreation := actions.AssetCreation{
-			AssetCode:     assetCode.Bytes(), // Asset code is added by smart contract
-			AssetRevision: 0,
-			Timestamp:     uint64(now.UnixNano()),
+	case *actions.InstrumentDefinition:
+		var instrumentCode bitcoin.Hash32
+		instrumentCreation := actions.InstrumentCreation{
+			InstrumentCode:     instrumentCode.Bytes(), // Instrument code is added by smart contract
+			InstrumentRevision: 0,
+			Timestamp:          uint64(now.UnixNano()),
 		}
-		response = &assetCreation
+		response = &instrumentCreation
 
 		// 1 input from contract
 		size += wire.VarIntSerializeSize(uint64(1)) + txbuilder.MaximumP2PKHInputSize
@@ -138,42 +138,42 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 		// Add receiver outputs needed
 		used := make(map[bitcoin.Hash20]bool)
 		var contractScript []byte
-		for _, asset := range request.Assets {
+		for _, instrument := range request.Instruments {
 
-			settleAsset := &actions.AssetSettlementField{
-				AssetType: asset.AssetType,
-				AssetCode: asset.AssetCode,
+			settleInstrument := &actions.InstrumentSettlementField{
+				InstrumentType: instrument.InstrumentType,
+				InstrumentCode: instrument.InstrumentCode,
 			}
 			// No settlement needed for bitcoin transfers. Just outputs.
-			if asset.AssetType != BSVAssetID {
+			if instrument.InstrumentType != BSVInstrumentID {
 				if len(contractScript) == 0 {
-					contractScript = requestTx.TxOut[asset.ContractIndex].LockingScript
-				} else if !bytes.Equal(contractScript, requestTx.TxOut[asset.ContractIndex].LockingScript) {
+					contractScript = requestTx.TxOut[instrument.ContractIndex].LockingScript
+				} else if !bytes.Equal(contractScript, requestTx.TxOut[instrument.ContractIndex].LockingScript) {
 					return 0, 0, errors.New("More than one contract")
 				}
 
-				settlement.Assets = append(settlement.Assets, settleAsset)
+				settlement.Instruments = append(settlement.Instruments, settleInstrument)
 			}
 
 			// Sig script is probably still empty, so assume each sender is unique and the
 			//   address is not reused. So each will get a notification output.
-			if asset.AssetType != BSVAssetID {
-				for _, _ = range asset.AssetSenders {
+			if instrument.InstrumentType != BSVInstrumentID {
+				for _, _ = range instrument.InstrumentSenders {
 					// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
 					//   real value without knowing the resulting balance.
-					settleAsset.Settlements = append(settleAsset.Settlements,
+					settleInstrument.Settlements = append(settleInstrument.Settlements,
 						&actions.QuantityIndexField{
 							Index:    uint32(outputCount),
 							Quantity: 100000,
 						})
 					outputCount += 1
-					if asset.AssetType != BSVAssetID {
+					if instrument.InstrumentType != BSVInstrumentID {
 						value += dustLimit // Dust will be put in each notification output.
 					}
 				}
 			}
 
-			for _, receiver := range asset.AssetReceivers {
+			for _, receiver := range instrument.InstrumentReceivers {
 				raddress, err := bitcoin.DecodeRawAddress(receiver.Address)
 				if err != nil {
 					return 0, 0, errors.Wrap(err, "parsing address")
@@ -187,17 +187,17 @@ func EstimatedResponse(requestTx *wire.MsgTx, inputIndex int, dustLimit, fees ui
 					used[*hash] = true
 					// Use quantity that is enough for a 3 byte var 128 value, since we can't use a
 					//   real value without knowing the resulting balance.
-					settleAsset.Settlements = append(settleAsset.Settlements,
+					settleInstrument.Settlements = append(settleInstrument.Settlements,
 						&actions.QuantityIndexField{
 							Index:    uint32(outputCount),
 							Quantity: 100000,
 						})
 					outputCount += 1
-					if asset.AssetType != BSVAssetID {
+					if instrument.InstrumentType != BSVInstrumentID {
 						value += dustLimit // Dust will be put in each notification output.
 					}
 				}
-				if asset.AssetType == BSVAssetID {
+				if instrument.InstrumentType == BSVInstrumentID {
 					if isDust {
 						value -= dustLimit
 					}
@@ -447,15 +447,15 @@ func EstimatedBodyOfAgreementAmendmentResponse(amendTx *wire.MsgTx,
 	return size, value, nil
 }
 
-// EstimatedAssetModificationResponse calculates information about the contract's response to an
-// asset modification request.
+// EstimatedInstrumentModificationResponse calculates information about the contract's response to an
+// instrument modification request.
 // dustFeeRate is the fee rate used to calculate the dust limit for outputs.
 // WARNING: This still makes assumptions that some of the addresses are P2PKH.
 // Returns:
 // estimated size of response tx in bytes.
 // estimated funding needed.
 // error if there were any
-func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCreation,
+func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.InstrumentCreation,
 	contractFee uint64, dustFeeRate float32, isTest bool) (int, uint64, error) {
 
 	// Find Tokenized OP_RETURN
@@ -473,9 +473,9 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 		return 0, 0, errors.New("Tokenized OP_RETURN not found")
 	}
 
-	amendment, ok := action.(*actions.AssetModification)
+	amendment, ok := action.(*actions.InstrumentModification)
 	if !ok {
-		return 0, 0, errors.New("Action is not a AssetModification")
+		return 0, 0, errors.New("Action is not a InstrumentModification")
 	}
 
 	outputSize := amendTx.TxOut[0].SerializeSize()
@@ -486,10 +486,10 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 	value := uint64(0)
 	now := time.Now()
 
-	ac.AssetRevision = amendment.AssetRevision + 1
+	ac.InstrumentRevision = amendment.InstrumentRevision + 1
 	ac.Timestamp = uint64(now.UnixNano())
 
-	var payload assets.Asset
+	var payload instruments.Instrument
 	for i, amendment := range amendment.Amendments {
 		fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
 		if err != nil {
@@ -499,13 +499,13 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 			return 0, 0, fmt.Errorf("Amendment %d has no field specified", i)
 		}
 
-		if fip[0] == actions.AssetFieldAssetPayload {
+		if fip[0] == actions.InstrumentFieldInstrumentPayload {
 			if payload == nil {
 				// Get payload object
-				payload, err = assets.Deserialize([]byte(ac.AssetType), ac.AssetPayload)
+				payload, err = instruments.Deserialize([]byte(ac.InstrumentType), ac.InstrumentPayload)
 				if err != nil {
-					return 0, 0, fmt.Errorf("Asset payload deserialize failed : %s %s",
-						ac.AssetType, err)
+					return 0, 0, fmt.Errorf("Instrument payload deserialize failed : %s %s",
+						ac.InstrumentType, err)
 				}
 			}
 
@@ -540,7 +540,7 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 		if err := payload.Serialize(&buf); err != nil {
 			return 0, 0, errors.Wrap(err, "serialize payload")
 		}
-		ac.AssetPayload = buf.Bytes()
+		ac.InstrumentPayload = buf.Bytes()
 	}
 
 	script, err := Serialize(ac, isTest)
@@ -557,12 +557,12 @@ func EstimatedAssetModificationResponse(amendTx *wire.MsgTx, ac *actions.AssetCr
 // EstimatedTransferResponse calculates information about the contract's response to a transfer
 //   request.
 // fees is a list of the contract fee for the contract corresponding to each contract. The list
-//   lines up with the "Assets" list in the transfer.
+//   lines up with the "Instruments" list in the transfer.
 // dustLimit is the smallest amount of satoshis to make an output valid.
 // feeRate is in satoshis per byte.
 // WARNING: This function is inaccurate and incomplete!
 // Returns
-//   estimated funding per "Asset" object in transfer, including contract fees.
+//   estimated funding per "Instrument" object in transfer, including contract fees.
 //   boomerang funding. needs to be added to a second output to the first contract address.
 //     if zero then only one contract is involved and no second output is needed.
 //   error if there were any
@@ -605,14 +605,14 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 
 	// Build sample response tx and payload and calculate values based on expected response inputs
 	// and outputs.
-	accumulatedSettlementData := make([][]byte, len(request.Assets))
+	accumulatedSettlementData := make([][]byte, len(request.Instruments))
 	var previousSettlementData []byte
 	fullSettlementSize := uint64(0)
 	boomerang := uint64(0) // used for funding inter-contract communication
 	now := time.Now()
 	// Auditable estimation construction
-	fundingForBSV := make([]uint64, len(request.Assets))
-	fundingForTokens := make([]uint64, len(request.Assets))
+	fundingForBSV := make([]uint64, len(request.Instruments))
+	fundingForTokens := make([]uint64, len(request.Instruments))
 	txSizeInputs := 0
 	txSizeOutputs := 0
 	outputCount := 0
@@ -624,40 +624,40 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 	addressIndexes := make(map[bitcoin.Hash20]uint32)
 	var previousContractScript bitcoin.Script
 	multiContract := false
-	masterContractIndex := uint32(0) // First smart contract agent listed, indexed by assets.
-	for _, asset := range request.Assets {
-		if asset.AssetType != BSVAssetID {
+	masterContractIndex := uint32(0) // First smart contract agent listed, indexed by instruments.
+	for _, instrument := range request.Instruments {
+		if instrument.InstrumentType != BSVInstrumentID {
 			break
 		}
 		masterContractIndex++
 	}
 
-	for i, asset := range request.Assets {
-		settleAsset := &actions.AssetSettlementField{
-			ContractIndex: uint32(i),
-			AssetType:     asset.AssetType,
-			AssetCode:     asset.AssetCode,
+	for i, instrument := range request.Instruments {
+		settleInstrument := &actions.InstrumentSettlementField{
+			ContractIndex:  uint32(i),
+			InstrumentType: instrument.InstrumentType,
+			InstrumentCode: instrument.InstrumentCode,
 		}
 
 		// No settlement needed for bitcoin transfers. Just outputs.
-		if asset.AssetType != BSVAssetID {
-			if !bytes.Equal(previousContractScript, requestTx.TxOut[asset.ContractIndex].LockingScript) {
+		if instrument.InstrumentType != BSVInstrumentID {
+			if !bytes.Equal(previousContractScript, requestTx.TxOut[instrument.ContractIndex].LockingScript) {
 				multiContract = true
 				// input from each contract
-				inputSize, err := txbuilder.InputSize(requestTx.TxOut[asset.ContractIndex].LockingScript)
+				inputSize, err := txbuilder.InputSize(requestTx.TxOut[instrument.ContractIndex].LockingScript)
 				if err != nil {
 					return nil, 0, errors.Wrapf(err, "input size")
 				}
 				txSizeInputs += inputSize
 			}
-			previousContractScript = requestTx.TxOut[asset.ContractIndex].LockingScript
+			previousContractScript = requestTx.TxOut[instrument.ContractIndex].LockingScript
 
 			// Sig script is probably still empty, so assume each sender is unique and the address
 			// is not reused. So each will get a notification output.
-			for _, sender := range asset.AssetSenders {
+			for _, sender := range instrument.InstrumentSenders {
 				// Use max quantity to ensure overestimation, since we can't use a real value
 				// without knowing the resulting balance.
-				settleAsset.Settlements = append(settleAsset.Settlements,
+				settleInstrument.Settlements = append(settleInstrument.Settlements,
 					&actions.QuantityIndexField{
 						Index:    127,
 						Quantity: math.MaxUint64,
@@ -672,13 +672,13 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 
 		} else {
 			// Bitcoin senders don't need an output because they don't need a settlement entry.
-			for _, sender := range asset.AssetSenders {
+			for _, sender := range instrument.InstrumentSenders {
 				// For the amount that needs to be sent
 				fundingForBSV[masterContractIndex] += sender.Quantity
 			}
 		}
 
-		for _, receiver := range asset.AssetReceivers {
+		for _, receiver := range instrument.InstrumentReceivers {
 			raddress, err := bitcoin.DecodeRawAddress(receiver.Address)
 			if err != nil {
 				return nil, 0, errors.Wrap(err, "parsing address")
@@ -704,7 +704,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 				return nil, 0, errors.Wrap(err, "address dust limit")
 			}
 
-			if asset.AssetType != BSVAssetID {
+			if instrument.InstrumentType != BSVInstrumentID {
 				if !exists {
 					// Dust will be put in each notification output.
 					fundingForTokens[masterContractIndex] += addressDustLimit
@@ -712,7 +712,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 
 				// Use max quantity to ensure over estimation, since we can't use a real value
 				// without knowing the resulting balance.
-				settleAsset.Settlements = append(settleAsset.Settlements,
+				settleInstrument.Settlements = append(settleInstrument.Settlements,
 					&actions.QuantityIndexField{
 						Index:    addressIndex,
 						Quantity: math.MaxUint64,
@@ -720,10 +720,10 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 			}
 		}
 
-		if asset.AssetType == BSVAssetID {
+		if instrument.InstrumentType == BSVInstrumentID {
 			accumulatedSettlementData[i] = previousSettlementData
 		} else {
-			settlement.Assets = append(settlement.Assets, settleAsset)
+			settlement.Instruments = append(settlement.Instruments, settleInstrument)
 
 			// Calculate settlement size at this contract
 			if accumulatedSettlementData[i], err = Serialize(settlement, isTest); err != nil {
@@ -751,7 +751,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 	settlementTxFee := int(math.Ceil(float64(settlementTxSize) * float64(feeRate)))
 
 	// Sum funding for each contract's output.
-	funding := make([]uint64, len(request.Assets))
+	funding := make([]uint64, len(request.Instruments))
 	for i := range funding {
 		funding[i] = fees[i] + fundingForBSV[i] + fundingForTokens[i]
 	}
@@ -768,9 +768,9 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 	txHash := requestTx.TxHash()
 	previousLockingScript := requestTx.TxOut[masterContractIndex].LockingScript
 	previousDust := txbuilder.DustLimitForLockingScript(previousLockingScript, dustFeeRate)
-	for i, asset := range request.Assets {
+	for i, instrument := range request.Instruments {
 		// No boomerang for bitcoin transfers.
-		if asset.AssetType == BSVAssetID {
+		if instrument.InstrumentType == BSVInstrumentID {
 			continue
 		}
 
@@ -896,7 +896,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 				Quantity: fees[i],
 			})
 
-		previousLockingScript := requestTx.TxOut[asset.ContractIndex].LockingScript
+		previousLockingScript := requestTx.TxOut[instrument.ContractIndex].LockingScript
 		previousDust = txbuilder.DustLimitForLockingScript(previousLockingScript, dustFeeRate)
 	}
 

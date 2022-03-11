@@ -31,7 +31,7 @@ var cmdDecode = &cobra.Command{
 			fmt.Printf("message (string)\n%#s\n\n", m)
 			fmt.Printf("message (struct)\n%#+v\n\n", m)
 
-			// TODO: Asset payloads
+			// TODO: Instrument payloads
 
 			// p := m.Type()
 			// if err != nil {

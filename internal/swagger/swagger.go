@@ -9,7 +9,7 @@ import (
 func Compile(
 	srcPath, distPath string,
 	actions parser.Schema,
-	assets parser.Schema,
+	instruments parser.Schema,
 	messages parser.Schema,
 ) {
 	// Actions
@@ -32,25 +32,25 @@ func Compile(
 	parser.TemplateToFile(actions, "internal/swagger/templates/components.tpl",
 		fmt.Sprintf("%s/swagger/actions/components.yaml", distPath))
 
-	// Assets
-	allMessages = assets.Messages
+	// Instruments
+	allMessages = instruments.Messages
 	for _, message := range allMessages {
-		assets.Messages = []parser.Message{message} // Each file only gets one message
-		parser.TemplateToFile(assets, "internal/swagger/templates/message.tpl",
-			fmt.Sprintf("%s/swagger/assets/%s.yaml", distPath, message.Name))
+		instruments.Messages = []parser.Message{message} // Each file only gets one message
+		parser.TemplateToFile(instruments, "internal/swagger/templates/message.tpl",
+			fmt.Sprintf("%s/swagger/instruments/%s.yaml", distPath, message.Name))
 	}
-	assets.Messages = allMessages
+	instruments.Messages = allMessages
 
-	allFields = assets.FieldTypes
+	allFields = instruments.FieldTypes
 	for _, fieldType := range allFields {
-		assets.FieldTypes = []parser.FieldType{fieldType} // Each file only gets one message
-		parser.TemplateToFile(assets, "internal/swagger/templates/field_type.tpl",
-			fmt.Sprintf("%s/swagger/assets/%s.yaml", distPath, fieldType.Name+"Field"))
+		instruments.FieldTypes = []parser.FieldType{fieldType} // Each file only gets one message
+		parser.TemplateToFile(instruments, "internal/swagger/templates/field_type.tpl",
+			fmt.Sprintf("%s/swagger/instruments/%s.yaml", distPath, fieldType.Name+"Field"))
 	}
-	assets.FieldTypes = allFields
+	instruments.FieldTypes = allFields
 
-	parser.TemplateToFile(assets, "internal/swagger/templates/components.tpl",
-		fmt.Sprintf("%s/swagger/assets/components.yaml", distPath))
+	parser.TemplateToFile(instruments, "internal/swagger/templates/components.tpl",
+		fmt.Sprintf("%s/swagger/instruments/components.yaml", distPath))
 
 	// Messages
 	allMessages = messages.Messages

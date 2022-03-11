@@ -32,7 +32,7 @@ fields:
   - name: Amendments
     label: Amendments
     type: Amendment[]
-    description: A collection of modifications to perform on this asset.
+    description: A collection of modifications to perform on this instrument.
 
   - name: RefTxID
     label: Ref Tx ID

@@ -1,15 +1,15 @@
 
 description:  >
-  This action is used by the administration to define the properties/characteristics of the asset
-  (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType +
-  base58(AssetCode + checksum). An asset is always linked to a contract that is identified by the
+  This action is used by the administration to define the properties/characteristics of the instrument
+  (token) that it wants to create. An instrument has a unique identifier called InstrumentID = InstrumentType +
+  base58(InstrumentCode + checksum). An instrument is always linked to a contract that is identified by the
   public address of the Contract wallet.
 type: object
 properties:
-  AssetPermissions:
+  InstrumentPermissions:
     description:  >
       A set of permission objects containing switches and field references that define the
-      permissions for modifying this asset. See the Permission documentation for more detail.
+      permissions for modifying this instrument. See the Permission documentation for more detail.
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   EnforcementOrdersPermitted:
@@ -20,7 +20,7 @@ properties:
     example: 1
   VotingRights:
     description:  >
-      When false holders of this asset will not be able to vote for tokens of this asset even on
+      When false holders of this instrument will not be able to vote for tokens of this instrument even on
       voting systems in which vote multiplers are not permitted.
     type: boolean
     example: true
@@ -28,7 +28,7 @@ properties:
     description:  >
       Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote
       multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then
-      holders of this asset don't get any votes for their tokens.
+      holders of this instrument don't get any votes for their tokens.
     type: number
     example: 3
   AdministrationProposal:
@@ -42,37 +42,37 @@ properties:
       Set to true if a holder is permitted to make proposals outside of the smart contract scope.
     type: boolean
     example: true
-  AssetModificationGovernance:
+  InstrumentModificationGovernance:
     description:  >
-      Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a
+      Supported values: 1 - Contract-wide Instrument Governance. 0 - Instrument-wide Instrument Governance.  If a
       referendum or initiative is used to propose a modification to a subfield controlled by the
-      asset permissions, then the vote will either be a contract-wide vote (all assets vote on the
-      referendum/initiative) or an asset-wide vote (only this asset votes on the
+      instrument permissions, then the vote will either be a contract-wide vote (all instruments vote on the
+      referendum/initiative) or an instrument-wide vote (only this instrument votes on the
       referendum/initiative) depending on the value in this subfield.  The voting system specifies
       the voting rules.
     type: number
     example: 1
   AuthorizedTokenQty:
     description:  >
-      The number of tokens authorized to be issued for this asset. Set to greater than zero for
+      The number of tokens authorized to be issued for this instrument. Set to greater than zero for
       fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract
-      would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be
-      issued later, or to represent a decomissioned asset where all tokens have been revoked.
+      would have many instruments. Set to 0 to represent a placeholder instrument, where tokens are to be
+      issued later, or to represent a decomissioned instrument where all tokens have been revoked.
     type: number
     example: 1000000
-  AssetType:
-    description: A code representing the type of asset and the structure of the payload.
+  InstrumentType:
+    description: A code representing the type of instrument and the structure of the payload.
     type: string
     example: "CCY"
-  AssetPayload:
+  InstrumentPayload:
     description:  >
-      A custom payload that contains meta data about this asset. Payload structure and length is
-      dependent on the asset type chosen. See asset documentation for more details.
+      A custom payload that contains meta data about this instrument. Payload structure and length is
+      dependent on the instrument type chosen. See instrument documentation for more details.
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   TradeRestrictions:
     description:  >
-      If specified, the asset can only be traded within the specified trade restriction zone. For
+      If specified, the instrument can only be traded within the specified trade restriction zone. For
       example, AUS would restrict to Australian residents only.
     type: array
     items:

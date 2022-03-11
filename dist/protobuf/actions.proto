@@ -25,7 +25,7 @@ message ContractOffer {
     uint64 ContractFee                             = 17;  // uint
     repeated VotingSystemField VotingSystems       = 18;  // VotingSystem[]
     bytes ContractPermissions                      = 19;  // varbin
-    uint64 RestrictedQtyAssets                     = 20;  // uint
+    uint64 RestrictedQtyInstruments                = 20;  // uint
     bool AdministrationProposal                    = 21;  // bool
     bool HolderProposal                            = 22;  // bool
     repeated OracleField Oracles                   = 23;  // Oracle[]
@@ -59,7 +59,7 @@ message ContractFormation {
     uint64 ContractFee                             = 16;  // uint
     repeated VotingSystemField VotingSystems       = 17;  // VotingSystem[]
     bytes ContractPermissions                      = 18;  // varbin
-    uint64 RestrictedQtyAssets                     = 19;  // uint
+    uint64 RestrictedQtyInstruments                = 19;  // uint
     bool AdministrationProposal                    = 20;  // bool
     bool HolderProposal                            = 21;  // bool
     repeated OracleField Oracles                   = 22;  // Oracle[]
@@ -136,9 +136,9 @@ message BodyOfAgreementAmendment {
     bytes RefTxID                                  = 3;   // TxId
 }
 
-// Message - Asset Definition (A1)
-message AssetDefinition {
-    bytes AssetPermissions                         = 1;   // varbin
+// Message - Instrument Definition (I1)
+message InstrumentDefinition {
+    bytes InstrumentPermissions                    = 1;   // varbin
     reserved                                         2;   // Deprecated TransfersPermitted
     reserved                                         3;   // Deprecated TradeRestrictionsDeprecated
     bool EnforcementOrdersPermitted                = 4;   // bool
@@ -146,18 +146,18 @@ message AssetDefinition {
     uint32 VoteMultiplier                          = 6;   // uint
     bool AdministrationProposal                    = 7;   // bool
     bool HolderProposal                            = 8;   // bool
-    uint32 AssetModificationGovernance             = 9;   // uint
+    uint32 InstrumentModificationGovernance        = 9;   // uint
     uint64 AuthorizedTokenQty                      = 10;   // uint
-    string AssetType                               = 11;  // AssetType
-    bytes AssetPayload                             = 12;  // varbin
+    string InstrumentType                          = 11;  // InstrumentType
+    bytes InstrumentPayload                        = 12;  // varbin
     repeated string TradeRestrictions              = 13;  // Polity[]
 }
 
-// Message - Asset Creation (A2)
-message AssetCreation {
-    bytes AssetCode                                = 1;   // AssetCode
-    uint64 AssetIndex                              = 2;   // uint
-    bytes AssetPermissions                         = 3;   // varbin
+// Message - Instrument Creation (I2)
+message InstrumentCreation {
+    bytes InstrumentCode                           = 1;   // InstrumentCode
+    uint64 InstrumentIndex                         = 2;   // uint
+    bytes InstrumentPermissions                    = 3;   // varbin
     reserved                                         4;   // Deprecated TransfersPermitted
     reserved                                         5;   // Deprecated TradeRestrictionsDeprecated
     bool EnforcementOrdersPermitted                = 6;   // bool
@@ -165,27 +165,27 @@ message AssetCreation {
     uint32 VoteMultiplier                          = 8;   // uint
     bool AdministrationProposal                    = 9;   // bool
     bool HolderProposal                            = 10;   // bool
-    uint32 AssetModificationGovernance             = 11;  // uint
+    uint32 InstrumentModificationGovernance        = 11;  // uint
     uint64 AuthorizedTokenQty                      = 12;  // uint
-    string AssetType                               = 13;  // AssetType
-    bytes AssetPayload                             = 14;  // varbin
-    uint32 AssetRevision                           = 15;  // uint
+    string InstrumentType                          = 13;  // InstrumentType
+    bytes InstrumentPayload                        = 14;  // varbin
+    uint32 InstrumentRevision                      = 15;  // uint
     uint64 Timestamp                               = 16;  // Timestamp
     repeated string TradeRestrictions              = 17;  // Polity[]
 }
 
-// Message - Asset Modification (A3)
-message AssetModification {
-    string AssetType                               = 1;   // fixedchar
-    bytes AssetCode                                = 2;   // AssetCode
-    uint32 AssetRevision                           = 3;   // uint
+// Message - Instrument Modification (I3)
+message InstrumentModification {
+    string InstrumentType                          = 1;   // fixedchar
+    bytes InstrumentCode                           = 2;   // InstrumentCode
+    uint32 InstrumentRevision                      = 3;   // uint
     repeated AmendmentField Amendments             = 4;   // Amendment[]
     bytes RefTxID                                  = 5;   // TxId
 }
 
 // Message - Transfer (T1)
 message Transfer {
-    repeated AssetTransferField Assets             = 1;   // AssetTransfer[]
+    repeated InstrumentTransferField Instruments   = 1;   // InstrumentTransfer[]
     uint64 OfferExpiry                             = 2;   // Timestamp
     uint64 ExchangeFee                             = 3;   // uint
     bytes ExchangeFeeAddress                       = 4;   // Address
@@ -193,15 +193,15 @@ message Transfer {
 
 // Message - Settlement (T2)
 message Settlement {
-    repeated AssetSettlementField Assets           = 1;   // AssetSettlement[]
+    repeated InstrumentSettlementField Instruments = 1;   // InstrumentSettlement[]
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
 // Message - Proposal (G1)
 message Proposal {
     uint32 Type                                    = 1;   // uint
-    string AssetType                               = 2;   // fixedchar
-    bytes AssetCode                                = 3;   // AssetCode
+    string InstrumentType                          = 2;   // fixedchar
+    bytes InstrumentCode                           = 3;   // InstrumentCode
     uint32 VoteSystem                              = 4;   // uint
     repeated AmendmentField ProposedAmendments     = 5;   // Amendment[]
     string VoteOptions                             = 6;   // varchar
@@ -232,8 +232,8 @@ message BallotCounted {
 
 // Message - Result (G5)
 message Result {
-    string AssetType                               = 1;   // fixedchar
-    bytes AssetCode                                = 2;   // AssetCode
+    string InstrumentType                          = 1;   // fixedchar
+    bytes InstrumentCode                           = 2;   // InstrumentCode
     repeated AmendmentField ProposedAmendments     = 3;   // Amendment[]
     bytes VoteTxId                                 = 4;   // TxId
     repeated uint64 OptionTally                    = 5;   // uint[]
@@ -244,8 +244,8 @@ message Result {
 // Message - Order (E1)
 message Order {
     string ComplianceAction                        = 1;   // fixedchar
-    string AssetType                               = 2;   // fixedchar
-    bytes AssetCode                                = 3;   // AssetCode
+    string InstrumentType                          = 2;   // fixedchar
+    bytes InstrumentCode                           = 3;   // InstrumentCode
     repeated TargetAddressField TargetAddresses    = 4;   // TargetAddress[]
     bytes FreezeTxId                               = 5;   // TxId
     uint64 FreezePeriod                            = 6;   // Timestamp
@@ -265,8 +265,8 @@ message Order {
 
 // Message - Freeze (E2)
 message Freeze {
-    string AssetType                               = 1;   // fixedchar
-    bytes AssetCode                                = 2;   // AssetCode
+    string InstrumentType                          = 1;   // fixedchar
+    bytes InstrumentCode                           = 2;   // InstrumentCode
     repeated QuantityIndexField Quantities         = 3;   // QuantityIndex[]
     uint64 FreezePeriod                            = 4;   // Timestamp
     uint64 Timestamp                               = 5;   // Timestamp
@@ -280,8 +280,8 @@ message Thaw {
 
 // Message - Confiscation (E4)
 message Confiscation {
-    string AssetType                               = 1;   // fixedchar
-    bytes AssetCode                                = 2;   // AssetCode
+    string InstrumentType                          = 1;   // fixedchar
+    bytes InstrumentCode                           = 2;   // InstrumentCode
     repeated QuantityIndexField Quantities         = 3;   // QuantityIndex[]
     uint64 DepositQty                              = 4;   // uint
     uint64 Timestamp                               = 5;   // Timestamp
@@ -289,8 +289,8 @@ message Confiscation {
 
 // Message - Reconciliation (E5)
 message Reconciliation {
-    string AssetType                               = 1;   // fixedchar
-    bytes AssetCode                                = 2;   // AssetCode
+    string InstrumentType                          = 1;   // fixedchar
+    bytes InstrumentCode                           = 2;   // InstrumentCode
     repeated QuantityIndexField Quantities         = 3;   // QuantityIndex[]
     uint64 Timestamp                               = 4;   // Timestamp
 }
@@ -356,8 +356,8 @@ message AmendmentField {
     bytes Data                                     = 3;   // varbin
 }
 
-// Field - AssetReceiver
-message AssetReceiverField {
+// Field - InstrumentReceiver
+message InstrumentReceiverField {
     bytes Address                                  = 1;   // Address
     uint64 Quantity                                = 2;   // uint
     uint32 OracleSigAlgorithm                      = 3;   // uint
@@ -367,21 +367,21 @@ message AssetReceiverField {
     uint64 OracleSigExpiry                         = 7;   // Timestamp
 }
 
-// Field - Asset Settlement
-message AssetSettlementField {
+// Field - Instrument Settlement
+message InstrumentSettlementField {
     uint32 ContractIndex                           = 1;   // uint
-    string AssetType                               = 2;   // fixedchar
-    bytes AssetCode                                = 3;   // AssetCode
+    string InstrumentType                          = 2;   // fixedchar
+    bytes InstrumentCode                           = 3;   // InstrumentCode
     repeated QuantityIndexField Settlements        = 4;   // QuantityIndex[]
 }
 
-// Field - Asset Transfer
-message AssetTransferField {
+// Field - Instrument Transfer
+message InstrumentTransferField {
     uint32 ContractIndex                           = 1;   // uint
-    string AssetType                               = 2;   // fixedchar
-    bytes AssetCode                                = 3;   // AssetCode
-    repeated QuantityIndexField AssetSenders       = 4;   // QuantityIndex[]
-    repeated AssetReceiverField AssetReceivers     = 5;   // AssetReceiver[]
+    string InstrumentType                          = 2;   // fixedchar
+    bytes InstrumentCode                           = 3;   // InstrumentCode
+    repeated QuantityIndexField InstrumentSenders  = 4;   // QuantityIndex[]
+    repeated InstrumentReceiverField InstrumentReceivers = 5;   // InstrumentReceiver[]
 }
 
 // Field - Chapter

@@ -94,8 +94,8 @@ fieldAliases:
     resource: Roles
     description: "A role within an entity. (i.e. CEO, CFO)"
 
-  - name: AssetCode
+  - name: InstrumentCode
     type: bin
     size: 20
-    description: "Represents a unique identifier for an asset/token."
+    description: "Represents a unique identifier for an instrument/token."
     example: "0e6996402ea456156838652e3bd82c6c0986ef79"

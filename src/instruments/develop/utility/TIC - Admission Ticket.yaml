@@ -1,0 +1,95 @@
+#
+# TIC - Admission Ticket
+#
+
+code: TIC
+name: TicketAdmission
+label: Ticket (Admission)
+description: Admission ticket
+
+metadata:
+  kind: Utility
+  category: Ticket
+  examples:
+    - Freddie Mercury Concert
+    - Bitcoin Conference
+    - Zoo Park Entry
+
+fields:
+  - name: AgeRestriction
+    label: Age Restriction
+    type: AgeRestriction
+    description: "Age restriction is used to specify required ages for instrument ownership."
+
+  - name: AdmissionType
+    label: Admission Type
+    type: deprecated
+
+  - name: Venue
+    label: Venue
+    type: varchar
+    example: Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1
+
+  - name: Class
+    label: Class
+    type: deprecated
+    example: Gold Class, Platinum, VIP, Section A, etc.
+
+  - name: Area
+    label: Area
+    type: varchar
+    varSize: tiny
+    example: Upper Bowl
+
+  - name: Seat
+    label: Seat
+    type: varchar
+    varSize: tiny
+    example: Seat 5, or A122
+
+  - name: EventStartTimestamp
+    label: Event Start Timestamp
+    type: Timestamp
+
+  - name: ValidFrom
+    label: Valid From
+    type: deprecated
+
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
+    type: deprecated
+
+  - name: EventName
+    label: Event Name
+    type: varchar
+    varSize: tiny
+    example: Coingeek Conference - London (November 2018).
+    required: true
+
+  - name: TransfersPermitted
+    label: Transfers Permitted
+    description: >
+        Set to true if transfers are permitted between two parties, otherwise set to false to
+        prevent peer-to-peer transfers.
+    type: bool
+
+  - name: Details
+    label: Details
+    type: varchar
+    varSize: small
+
+  - name: Section
+    label: Section
+    type: varchar
+    varSize: tiny
+    example: Sec 1
+
+  - name: Row
+    label: Row
+    type: varchar
+    varSize: tiny
+    example: Sec 1
+
+  - name: EventEndTimestamp
+    label: Event End Timestamp
+    type: Timestamp

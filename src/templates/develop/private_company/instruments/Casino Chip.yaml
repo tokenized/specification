@@ -1,0 +1,36 @@
+# Casino Chip
+Name: CasinoChip
+InstrumentType: CHP
+
+Permissions:
+  - Name: Administrative Vote Special Board Resolution
+    Permitted: false
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: true
+    VotingSystemsAllowed:
+      - Special Board Resolution
+    Fields:
+      - [InstrumentPermissions]
+      - [InstrumentPayload, TransfersPermitted]
+      - [TradeRestrictions]
+      - [EnforcementOrdersPermitted]
+      - [VotingRights]
+      - [VoteMultiplier]
+      - [AdministrationProposal]
+      - [HolderProposal]
+      - [InstrumentModificationGovernance]
+
+  - Name: Administrator Direct
+    Permitted: true
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+    Fields:
+      - [AuthorizedTokenQty]
+      - [InstrumentPayload, FaceValue]
+      - [InstrumentPayload, UseType]
+      - [InstrumentPayload, AgeRestriction]
+      - [InstrumentPayload, ValidFrom]
+      - [InstrumentPayload, ExpirationTimestamp]

@@ -4102,14 +4102,14 @@ export class Data {
     description: The contract already exists and can't be recreated.
 
   - code: 12
-    name: ContractAssetQtyReduction
-    label: Contract Asset Quantity Reduction
-    description: Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.
+    name: ContractInstrumentQtyReduction
+    label: Contract Instrument Quantity Reduction
+    description: Sent when a CA tries to reduce the number of allowed instruments below the number of instruments that already exist for this contract.
 
   - code: 13
     name: ContractFixedQuantity
     label: Contract Fixed Quantity
-    description: Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.
+    description: Sent when the administration attempted to increase the quantity of instruments in a contract beyond the maximum number allowed.
 
   - code: 14
     name: ContractAuthFlags
@@ -4141,37 +4141,37 @@ export class Data {
     label: Contract BothOperatorsRequired
     description: Both operators signatures are required to perform this action.
 
-#################################### Asset ####################################
+#################################### Instrument ####################################
 
   - code: 20
-    name: AssetCodeExists
-    label: Asset Code Already Exists
-    description: The asset code specified already exists and can't be reused.
+    name: InstrumentCodeExists
+    label: Instrument Code Already Exists
+    description: The instrument code specified already exists and can't be reused.
 
   - code: 21
-    name: AssetNotFound
-    label: Asset Not Found
-    description: The asset code is not found.
+    name: InstrumentNotFound
+    label: Instrument Not Found
+    description: The instrument code is not found.
 
   - code: 22
-    name: AssetAuthFlags
-    label: Asset Auth Flags Prohibit
-    description: The asset auth flags don't permit the action requested.
+    name: InstrumentAuthFlags
+    label: Instrument Auth Flags Prohibit
+    description: The instrument auth flags don't permit the action requested.
 
   - code: 23
-    name: AssetFrozen
-    label: Asset Frozen
-    description: The asset is frozen and the request is not permitted while frozen.
+    name: InstrumentFrozen
+    label: Instrument Frozen
+    description: The instrument is frozen and the request is not permitted while frozen.
 
   - code: 24
-    name: AssetRevision
-    label: Asset Revision Incorrect
-    description: The revision in an asset amendment is incorrect.
+    name: InstrumentRevision
+    label: Instrument Revision Incorrect
+    description: The revision in an instrument amendment is incorrect.
 
   - code: 25
-    name: AssetNotPermitted
-    label: Asset Not Permitted
-    description: Action not permitted by asset.
+    name: InstrumentNotPermitted
+    label: Instrument Not Permitted
+    description: Action not permitted by instrument.
 
 #################################### Transfer ####################################
 

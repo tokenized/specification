@@ -96,7 +96,7 @@ Static
 
 Generated
 - actions.ts
-- assets.ts
+- instruments.ts
 - field_types.ts
 - messages.ts
 - rejection_codes.ts

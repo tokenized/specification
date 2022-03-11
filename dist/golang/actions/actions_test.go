@@ -86,34 +86,34 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for BodyOfAgreementAmendment")
 	}
 
-	// AssetDefinition identifies a payload as a AssetDefinition message.
-	actionAssetDefinition, err := Deserialize([]byte(CodeAssetDefinition), nil)
+	// InstrumentDefinition identifies a payload as a InstrumentDefinition message.
+	actionInstrumentDefinition, err := Deserialize([]byte(CodeInstrumentDefinition), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for AssetDefinition : %s", err)
+		t.Fatalf("Failed deserialize for InstrumentDefinition : %s", err)
 	}
-	_, ok = actionAssetDefinition.(*AssetDefinition)
+	_, ok = actionInstrumentDefinition.(*InstrumentDefinition)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for AssetDefinition")
+		t.Fatalf("Failed deserialize type check for InstrumentDefinition")
 	}
 
-	// AssetCreation identifies a payload as a AssetCreation message.
-	actionAssetCreation, err := Deserialize([]byte(CodeAssetCreation), nil)
+	// InstrumentCreation identifies a payload as a InstrumentCreation message.
+	actionInstrumentCreation, err := Deserialize([]byte(CodeInstrumentCreation), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for AssetCreation : %s", err)
+		t.Fatalf("Failed deserialize for InstrumentCreation : %s", err)
 	}
-	_, ok = actionAssetCreation.(*AssetCreation)
+	_, ok = actionInstrumentCreation.(*InstrumentCreation)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for AssetCreation")
+		t.Fatalf("Failed deserialize type check for InstrumentCreation")
 	}
 
-	// AssetModification identifies a payload as a AssetModification message.
-	actionAssetModification, err := Deserialize([]byte(CodeAssetModification), nil)
+	// InstrumentModification identifies a payload as a InstrumentModification message.
+	actionInstrumentModification, err := Deserialize([]byte(CodeInstrumentModification), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for AssetModification : %s", err)
+		t.Fatalf("Failed deserialize for InstrumentModification : %s", err)
 	}
-	_, ok = actionAssetModification.(*AssetModification)
+	_, ok = actionInstrumentModification.(*InstrumentModification)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for AssetModification")
+		t.Fatalf("Failed deserialize type check for InstrumentModification")
 	}
 
 	// Transfer identifies a payload as a Transfer message.

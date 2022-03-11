@@ -3,7 +3,7 @@ package internal
 import "bytes"
 
 // Amendment is an internal data structure used to communicate amendment data between actions and
-// assets, since assets can't see the actions data structure.
+// instruments, since instruments can't see the actions data structure.
 type Amendment struct {
 	FIP       []uint32
 	Operation uint32

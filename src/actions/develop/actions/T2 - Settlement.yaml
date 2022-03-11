@@ -8,24 +8,24 @@ label: Settlement
 description: "Settles the transfer request of bitcoins and tokens from transfer (T1) actions."
 
 metadata:
-  validation: AssetCreation
+  validation: InstrumentCreation
   rejection: Rejection
 
   inputs:
-    - name: AssetXContract
-      label: Contract Public Address (Asset X)
-      comments: Contract (Asset X) in response to a transfer action with Asset X being sent to another address(es).
+    - name: InstrumentXContract
+      label: Contract Public Address (Instrument X)
+      comments: Contract (Instrument X) in response to a transfer action with Instrument X being sent to another address(es).
 
   outputs:
-    - name: AssetXSettlementAddressX
-      label: "Asset 1 Settlement Address X"
-      comments: Address X that is being settled for Asset 1.
+    - name: InstrumentXSettlementAddressX
+      label: "Instrument 1 Settlement Address X"
+      comments: Address X that is being settled for Instrument 1.
 
 fields:
-  - name: Assets
-    label: Assets
-    description: "The Assets settled by the transfer action."
-    type: AssetSettlement[]
+  - name: Instruments
+    label: Instruments
+    description: "The Instruments settled by the transfer action."
+    type: InstrumentSettlement[]
 
   - name: Timestamp
     label: Timestamp

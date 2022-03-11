@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/tokenized/pkg/bitcoin"
-	"github.com/tokenized/specification/dist/golang/assets"
+	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/internal"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
@@ -46,7 +46,7 @@ const (
 	ContractFieldContractFee                          = uint32(17)
 	ContractFieldVotingSystems                        = uint32(18)
 	ContractFieldContractPermissions                  = uint32(19)
-	ContractFieldRestrictedQtyAssets                  = uint32(20)
+	ContractFieldRestrictedQtyInstruments             = uint32(20)
 	ContractFieldAdministrationProposal               = uint32(21)
 	ContractFieldHolderProposal                       = uint32(22)
 	ContractFieldOracles                              = uint32(23)
@@ -260,12 +260,12 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// RestrictedQtyAssets uint64
-	fip = []uint32{ContractFieldRestrictedQtyAssets}
-	if a.RestrictedQtyAssets != newValue.RestrictedQtyAssets {
+	// RestrictedQtyInstruments uint64
+	fip = []uint32{ContractFieldRestrictedQtyInstruments}
+	if a.RestrictedQtyInstruments != newValue.RestrictedQtyInstruments {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.RestrictedQtyAssets)); err != nil {
-			return nil, errors.Wrap(err, "RestrictedQtyAssets")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.RestrictedQtyInstruments)); err != nil {
+			return nil, errors.Wrap(err, "RestrictedQtyInstruments")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -739,15 +739,15 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		a.ContractPermissions = data
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldRestrictedQtyAssets: // uint64
+	case ContractFieldRestrictedQtyInstruments: // uint64
 		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for RestrictedQtyAssets : %v", fip)
+			return nil, fmt.Errorf("Amendment field index path too deep for RestrictedQtyInstruments : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("RestrictedQtyAssets amendment value failed to deserialize : %s", err)
+			return nil, fmt.Errorf("RestrictedQtyInstruments amendment value failed to deserialize : %s", err)
 		} else {
-			a.RestrictedQtyAssets = uint64(value)
+			a.RestrictedQtyInstruments = uint64(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1327,27 +1327,27 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 	return nil, fmt.Errorf("Unknown agreement amendment field index : %v", fip)
 }
 
-// Asset Permission / Amendment Field Indices
+// Instrument Permission / Amendment Field Indices
 const (
-	AssetFieldAssetPermissions                      = uint32(1)
-	DeprecatedAssetFieldTransfersPermitted          = uint32(2)
-	DeprecatedAssetFieldTradeRestrictionsDeprecated = uint32(3)
-	AssetFieldEnforcementOrdersPermitted            = uint32(4)
-	AssetFieldVotingRights                          = uint32(5)
-	AssetFieldVoteMultiplier                        = uint32(6)
-	AssetFieldAdministrationProposal                = uint32(7)
-	AssetFieldHolderProposal                        = uint32(8)
-	AssetFieldAssetModificationGovernance           = uint32(9)
-	AssetFieldAuthorizedTokenQty                    = uint32(10)
-	AssetFieldAssetType                             = uint32(11)
-	AssetFieldAssetPayload                          = uint32(12)
-	AssetFieldTradeRestrictions                     = uint32(13)
+	InstrumentFieldInstrumentPermissions                 = uint32(1)
+	DeprecatedInstrumentFieldTransfersPermitted          = uint32(2)
+	DeprecatedInstrumentFieldTradeRestrictionsDeprecated = uint32(3)
+	InstrumentFieldEnforcementOrdersPermitted            = uint32(4)
+	InstrumentFieldVotingRights                          = uint32(5)
+	InstrumentFieldVoteMultiplier                        = uint32(6)
+	InstrumentFieldAdministrationProposal                = uint32(7)
+	InstrumentFieldHolderProposal                        = uint32(8)
+	InstrumentFieldInstrumentModificationGovernance      = uint32(9)
+	InstrumentFieldAuthorizedTokenQty                    = uint32(10)
+	InstrumentFieldInstrumentType                        = uint32(11)
+	InstrumentFieldInstrumentPayload                     = uint32(12)
+	InstrumentFieldTradeRestrictions                     = uint32(13)
 )
 
-// CreateAmendments determines the differences between two AssetDefinitions and returns
-// amendment data. Use the current value of asset creation, and pass in the new values as an asset
+// CreateAmendments determines the differences between two InstrumentDefinitions and returns
+// amendment data. Use the current value of instrument creation, and pass in the new values as an instrument
 // definition.
-func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*AmendmentField, error) {
+func (a *InstrumentCreation) CreateAmendments(newValue *InstrumentDefinition) ([]*AmendmentField, error) {
 	if err := newValue.Validate(); err != nil {
 		return nil, errors.Wrap(err, "new value invalid")
 	}
@@ -1359,12 +1359,12 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	var result []*internal.Amendment
 	var fip permissions.FieldIndexPath
 
-	// AssetPermissions []byte
-	fip = []uint32{AssetFieldAssetPermissions}
-	if !bytes.Equal(a.AssetPermissions, newValue.AssetPermissions) {
+	// InstrumentPermissions []byte
+	fip = []uint32{InstrumentFieldInstrumentPermissions}
+	if !bytes.Equal(a.InstrumentPermissions, newValue.InstrumentPermissions) {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: newValue.AssetPermissions,
+			Data: newValue.InstrumentPermissions,
 		})
 	}
 
@@ -1373,7 +1373,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	// deprecated TradeRestrictionsDeprecated deprecated
 
 	// EnforcementOrdersPermitted bool
-	fip = []uint32{AssetFieldEnforcementOrdersPermitted}
+	fip = []uint32{InstrumentFieldEnforcementOrdersPermitted}
 	if a.EnforcementOrdersPermitted != newValue.EnforcementOrdersPermitted {
 		var buf bytes.Buffer
 		if err := binary.Write(&buf, binary.LittleEndian, newValue.EnforcementOrdersPermitted); err != nil {
@@ -1387,7 +1387,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	}
 
 	// VotingRights bool
-	fip = []uint32{AssetFieldVotingRights}
+	fip = []uint32{InstrumentFieldVotingRights}
 	if a.VotingRights != newValue.VotingRights {
 		var buf bytes.Buffer
 		if err := binary.Write(&buf, binary.LittleEndian, newValue.VotingRights); err != nil {
@@ -1401,7 +1401,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	}
 
 	// VoteMultiplier uint32
-	fip = []uint32{AssetFieldVoteMultiplier}
+	fip = []uint32{InstrumentFieldVoteMultiplier}
 	if a.VoteMultiplier != newValue.VoteMultiplier {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.VoteMultiplier)); err != nil {
@@ -1415,7 +1415,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	}
 
 	// AdministrationProposal bool
-	fip = []uint32{AssetFieldAdministrationProposal}
+	fip = []uint32{InstrumentFieldAdministrationProposal}
 	if a.AdministrationProposal != newValue.AdministrationProposal {
 		var buf bytes.Buffer
 		if err := binary.Write(&buf, binary.LittleEndian, newValue.AdministrationProposal); err != nil {
@@ -1429,7 +1429,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	}
 
 	// HolderProposal bool
-	fip = []uint32{AssetFieldHolderProposal}
+	fip = []uint32{InstrumentFieldHolderProposal}
 	if a.HolderProposal != newValue.HolderProposal {
 		var buf bytes.Buffer
 		if err := binary.Write(&buf, binary.LittleEndian, newValue.HolderProposal); err != nil {
@@ -1442,12 +1442,12 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 		})
 	}
 
-	// AssetModificationGovernance uint32
-	fip = []uint32{AssetFieldAssetModificationGovernance}
-	if a.AssetModificationGovernance != newValue.AssetModificationGovernance {
+	// InstrumentModificationGovernance uint32
+	fip = []uint32{InstrumentFieldInstrumentModificationGovernance}
+	if a.InstrumentModificationGovernance != newValue.InstrumentModificationGovernance {
 		var buf bytes.Buffer
-		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.AssetModificationGovernance)); err != nil {
-			return nil, errors.Wrap(err, "AssetModificationGovernance")
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.InstrumentModificationGovernance)); err != nil {
+			return nil, errors.Wrap(err, "InstrumentModificationGovernance")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -1457,7 +1457,7 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	}
 
 	// AuthorizedTokenQty uint64
-	fip = []uint32{AssetFieldAuthorizedTokenQty}
+	fip = []uint32{InstrumentFieldAuthorizedTokenQty}
 	if a.AuthorizedTokenQty != newValue.AuthorizedTokenQty {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.AuthorizedTokenQty)); err != nil {
@@ -1470,26 +1470,26 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 		})
 	}
 
-	// AssetType string
-	fip = []uint32{AssetFieldAssetType}
-	// AssetType modifications not allowed
+	// InstrumentType string
+	fip = []uint32{InstrumentFieldInstrumentType}
+	// InstrumentType modifications not allowed
 
-	// AssetPayload []byte
-	fip = []uint32{AssetFieldAssetPayload}
-	if a.AssetType != newValue.AssetType {
-		return nil, fmt.Errorf("Asset type modification not allowed : %s -> %s", a.AssetType,
-			newValue.AssetType)
+	// InstrumentPayload []byte
+	fip = []uint32{InstrumentFieldInstrumentPayload}
+	if a.InstrumentType != newValue.InstrumentType {
+		return nil, fmt.Errorf("Instrument type modification not allowed : %s -> %s", a.InstrumentType,
+			newValue.InstrumentType)
 	}
 
-	payloadAmendments, err := assets.CreatePayloadAmendments(fip, []byte(a.AssetType),
-		a.AssetPayload, newValue.AssetPayload)
+	payloadAmendments, err := instruments.CreatePayloadAmendments(fip, []byte(a.InstrumentType),
+		a.InstrumentPayload, newValue.InstrumentPayload)
 	if err != nil {
-		return nil, errors.Wrap(err, "AssetPayload")
+		return nil, errors.Wrap(err, "InstrumentPayload")
 	}
 	result = append(result, payloadAmendments...)
 
 	// TradeRestrictions []string
-	fip = []uint32{AssetFieldTradeRestrictions}
+	fip = []uint32{InstrumentFieldTradeRestrictions}
 	TradeRestrictionsMin := len(a.TradeRestrictions)
 	if TradeRestrictionsMin > len(newValue.TradeRestrictions) {
 		TradeRestrictionsMin = len(newValue.TradeRestrictions)
@@ -1536,27 +1536,27 @@ func (a *AssetCreation) CreateAmendments(newValue *AssetDefinition) ([]*Amendmen
 	return r, nil
 }
 
-// ApplyAmendment updates a AssetCreation based on amendment data.
+// ApplyAmendment updates a InstrumentCreation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
-		return nil, errors.New("Empty asset amendment field index path")
+		return nil, errors.New("Empty instrument amendment field index path")
 	}
 
 	switch fip[0] {
 
-	case AssetFieldAssetPermissions: // []byte
-		a.AssetPermissions = data
+	case InstrumentFieldInstrumentPermissions: // []byte
+		a.InstrumentPermissions = data
 		return permissions.SubPermissions(fip, operation, false)
 
-	case DeprecatedAssetFieldTransfersPermitted: // deprecated
+	case DeprecatedInstrumentFieldTransfersPermitted: // deprecated
 
-	case DeprecatedAssetFieldTradeRestrictionsDeprecated: // deprecated
+	case DeprecatedInstrumentFieldTradeRestrictionsDeprecated: // deprecated
 
-	case AssetFieldEnforcementOrdersPermitted: // bool
+	case InstrumentFieldEnforcementOrdersPermitted: // bool
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for EnforcementOrdersPermitted : %v", fip)
 		}
@@ -1569,7 +1569,7 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldVotingRights: // bool
+	case InstrumentFieldVotingRights: // bool
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for VotingRights : %v", fip)
 		}
@@ -1582,7 +1582,7 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldVoteMultiplier: // uint32
+	case InstrumentFieldVoteMultiplier: // uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for VoteMultiplier : %v", fip)
 		}
@@ -1594,7 +1594,7 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldAdministrationProposal: // bool
+	case InstrumentFieldAdministrationProposal: // bool
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for AdministrationProposal : %v", fip)
 		}
@@ -1607,7 +1607,7 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldHolderProposal: // bool
+	case InstrumentFieldHolderProposal: // bool
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for HolderProposal : %v", fip)
 		}
@@ -1620,19 +1620,19 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldAssetModificationGovernance: // uint32
+	case InstrumentFieldInstrumentModificationGovernance: // uint32
 		if len(fip) > 1 {
-			return nil, fmt.Errorf("Amendment field index path too deep for AssetModificationGovernance : %v", fip)
+			return nil, fmt.Errorf("Amendment field index path too deep for InstrumentModificationGovernance : %v", fip)
 		}
 		buf := bytes.NewBuffer(data)
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
-			return nil, fmt.Errorf("AssetModificationGovernance amendment value failed to deserialize : %s", err)
+			return nil, fmt.Errorf("InstrumentModificationGovernance amendment value failed to deserialize : %s", err)
 		} else {
-			a.AssetModificationGovernance = uint32(value)
+			a.InstrumentModificationGovernance = uint32(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldAuthorizedTokenQty: // uint64
+	case InstrumentFieldAuthorizedTokenQty: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for AuthorizedTokenQty : %v", fip)
 		}
@@ -1644,15 +1644,15 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldAssetType: // string
-		a.AssetType = string(data)
+	case InstrumentFieldInstrumentType: // string
+		a.InstrumentType = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldAssetPayload: // []byte
-		a.AssetPayload = data
+	case InstrumentFieldInstrumentPayload: // []byte
+		a.InstrumentPayload = data
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetFieldTradeRestrictions: // []string
+	case InstrumentFieldTradeRestrictions: // []string
 		switch operation {
 		case 0: // Modify
 			if len(fip) != 2 { // includes list index
@@ -1704,7 +1704,7 @@ func (a *AssetCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation
 
 	}
 
-	return nil, fmt.Errorf("Unknown asset amendment field index : %v", fip)
+	return nil, fmt.Errorf("Unknown instrument amendment field index : %v", fip)
 }
 
 // AdministratorField Permission / Amendment Field Indices
@@ -2023,33 +2023,33 @@ func (a *AmendmentField) CreateAmendments(fip permissions.FieldIndexPath,
 	return result, nil
 }
 
-// AssetReceiverField Permission / Amendment Field Indices
+// InstrumentReceiverField Permission / Amendment Field Indices
 const (
-	AssetReceiverFieldAddress               = uint32(1)
-	AssetReceiverFieldQuantity              = uint32(2)
-	AssetReceiverFieldOracleSigAlgorithm    = uint32(3)
-	AssetReceiverFieldOracleIndex           = uint32(4)
-	AssetReceiverFieldOracleConfirmationSig = uint32(5)
-	AssetReceiverFieldOracleSigBlockHeight  = uint32(6)
-	AssetReceiverFieldOracleSigExpiry       = uint32(7)
+	InstrumentReceiverFieldAddress               = uint32(1)
+	InstrumentReceiverFieldQuantity              = uint32(2)
+	InstrumentReceiverFieldOracleSigAlgorithm    = uint32(3)
+	InstrumentReceiverFieldOracleIndex           = uint32(4)
+	InstrumentReceiverFieldOracleConfirmationSig = uint32(5)
+	InstrumentReceiverFieldOracleSigBlockHeight  = uint32(6)
+	InstrumentReceiverFieldOracleSigExpiry       = uint32(7)
 )
 
-// ApplyAmendment updates a AssetReceiverField based on amendment data.
+// ApplyAmendment updates a InstrumentReceiverField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InstrumentReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
-		return nil, errors.New("Empty AssetReceiver amendment field index path")
+		return nil, errors.New("Empty InstrumentReceiver amendment field index path")
 	}
 
 	switch fip[0] {
-	case AssetReceiverFieldAddress: // []byte
+	case InstrumentReceiverFieldAddress: // []byte
 		a.Address = data
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetReceiverFieldQuantity: // uint64
+	case InstrumentReceiverFieldQuantity: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
 		}
@@ -2061,7 +2061,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetReceiverFieldOracleSigAlgorithm: // uint32
+	case InstrumentReceiverFieldOracleSigAlgorithm: // uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigAlgorithm : %v", fip)
 		}
@@ -2073,7 +2073,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetReceiverFieldOracleIndex: // uint32
+	case InstrumentReceiverFieldOracleIndex: // uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleIndex : %v", fip)
 		}
@@ -2085,11 +2085,11 @@ func (a *AssetReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetReceiverFieldOracleConfirmationSig: // []byte
+	case InstrumentReceiverFieldOracleConfirmationSig: // []byte
 		a.OracleConfirmationSig = data
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetReceiverFieldOracleSigBlockHeight: // uint32
+	case InstrumentReceiverFieldOracleSigBlockHeight: // uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigBlockHeight : %v", fip)
 		}
@@ -2101,7 +2101,7 @@ func (a *AssetReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetReceiverFieldOracleSigExpiry: // uint64
+	case InstrumentReceiverFieldOracleSigExpiry: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigExpiry : %v", fip)
 		}
@@ -2115,13 +2115,13 @@ func (a *AssetReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 
 	}
 
-	return nil, fmt.Errorf("Unknown AssetReceiver amendment field index : %v", fip)
+	return nil, fmt.Errorf("Unknown InstrumentReceiver amendment field index : %v", fip)
 }
 
-// CreateAmendments determines the differences between two AssetReceivers and returns
+// CreateAmendments determines the differences between two InstrumentReceivers and returns
 // amendment data.
-func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
-	newValue *AssetReceiverField) ([]*internal.Amendment, error) {
+func (a *InstrumentReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *InstrumentReceiverField) ([]*internal.Amendment, error) {
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
@@ -2141,7 +2141,7 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Address []byte
-	fip = append(ofip, AssetReceiverFieldAddress)
+	fip = append(ofip, InstrumentReceiverFieldAddress)
 	if !bytes.Equal(a.Address, newValue.Address) {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
@@ -2150,7 +2150,7 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Quantity uint64
-	fip = append(ofip, AssetReceiverFieldQuantity)
+	fip = append(ofip, InstrumentReceiverFieldQuantity)
 	if a.Quantity != newValue.Quantity {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Quantity)); err != nil {
@@ -2164,7 +2164,7 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// OracleSigAlgorithm uint32
-	fip = append(ofip, AssetReceiverFieldOracleSigAlgorithm)
+	fip = append(ofip, InstrumentReceiverFieldOracleSigAlgorithm)
 	if a.OracleSigAlgorithm != newValue.OracleSigAlgorithm {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleSigAlgorithm)); err != nil {
@@ -2178,7 +2178,7 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// OracleIndex uint32
-	fip = append(ofip, AssetReceiverFieldOracleIndex)
+	fip = append(ofip, InstrumentReceiverFieldOracleIndex)
 	if a.OracleIndex != newValue.OracleIndex {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleIndex)); err != nil {
@@ -2192,7 +2192,7 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// OracleConfirmationSig []byte
-	fip = append(ofip, AssetReceiverFieldOracleConfirmationSig)
+	fip = append(ofip, InstrumentReceiverFieldOracleConfirmationSig)
 	if !bytes.Equal(a.OracleConfirmationSig, newValue.OracleConfirmationSig) {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
@@ -2201,7 +2201,7 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// OracleSigBlockHeight uint32
-	fip = append(ofip, AssetReceiverFieldOracleSigBlockHeight)
+	fip = append(ofip, InstrumentReceiverFieldOracleSigBlockHeight)
 	if a.OracleSigBlockHeight != newValue.OracleSigBlockHeight {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleSigBlockHeight)); err != nil {
@@ -2215,7 +2215,7 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// OracleSigExpiry uint64
-	fip = append(ofip, AssetReceiverFieldOracleSigExpiry)
+	fip = append(ofip, InstrumentReceiverFieldOracleSigExpiry)
 	if a.OracleSigExpiry != newValue.OracleSigExpiry {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleSigExpiry)); err != nil {
@@ -2231,26 +2231,26 @@ func (a *AssetReceiverField) CreateAmendments(fip permissions.FieldIndexPath,
 	return result, nil
 }
 
-// AssetSettlementField Permission / Amendment Field Indices
+// InstrumentSettlementField Permission / Amendment Field Indices
 const (
-	AssetSettlementFieldContractIndex = uint32(1)
-	AssetSettlementFieldAssetType     = uint32(2)
-	AssetSettlementFieldAssetCode     = uint32(3)
-	AssetSettlementFieldSettlements   = uint32(4)
+	InstrumentSettlementFieldContractIndex  = uint32(1)
+	InstrumentSettlementFieldInstrumentType = uint32(2)
+	InstrumentSettlementFieldInstrumentCode = uint32(3)
+	InstrumentSettlementFieldSettlements    = uint32(4)
 )
 
-// ApplyAmendment updates a AssetSettlementField based on amendment data.
+// ApplyAmendment updates a InstrumentSettlementField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
-		return nil, errors.New("Empty AssetSettlement amendment field index path")
+		return nil, errors.New("Empty InstrumentSettlement amendment field index path")
 	}
 
 	switch fip[0] {
-	case AssetSettlementFieldContractIndex: // uint32
+	case InstrumentSettlementFieldContractIndex: // uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractIndex : %v", fip)
 		}
@@ -2262,18 +2262,18 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetSettlementFieldAssetType: // string
-		a.AssetType = string(data)
+	case InstrumentSettlementFieldInstrumentType: // string
+		a.InstrumentType = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetSettlementFieldAssetCode: // []byte
+	case InstrumentSettlementFieldInstrumentCode: // []byte
 		if len(data) != 20 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 20)
 		}
-		copy(a.AssetCode, data)
+		copy(a.InstrumentCode, data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetSettlementFieldSettlements: // []QuantityIndexField
+	case InstrumentSettlementFieldSettlements: // []QuantityIndexField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2350,13 +2350,13 @@ func (a *AssetSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, op
 
 	}
 
-	return nil, fmt.Errorf("Unknown AssetSettlement amendment field index : %v", fip)
+	return nil, fmt.Errorf("Unknown InstrumentSettlement amendment field index : %v", fip)
 }
 
-// CreateAmendments determines the differences between two AssetSettlements and returns
+// CreateAmendments determines the differences between two InstrumentSettlements and returns
 // amendment data.
-func (a *AssetSettlementField) CreateAmendments(fip permissions.FieldIndexPath,
-	newValue *AssetSettlementField) ([]*internal.Amendment, error) {
+func (a *InstrumentSettlementField) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *InstrumentSettlementField) ([]*internal.Amendment, error) {
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
@@ -2376,7 +2376,7 @@ func (a *AssetSettlementField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// ContractIndex uint32
-	fip = append(ofip, AssetSettlementFieldContractIndex)
+	fip = append(ofip, InstrumentSettlementFieldContractIndex)
 	if a.ContractIndex != newValue.ContractIndex {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ContractIndex)); err != nil {
@@ -2389,21 +2389,21 @@ func (a *AssetSettlementField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// AssetType string
-	fip = append(ofip, AssetSettlementFieldAssetType)
-	// AssetType modifications not allowed
+	// InstrumentType string
+	fip = append(ofip, InstrumentSettlementFieldInstrumentType)
+	// InstrumentType modifications not allowed
 
-	// AssetCode []byte
-	fip = append(ofip, AssetSettlementFieldAssetCode)
-	if !bytes.Equal(a.AssetCode[:], newValue.AssetCode[:]) {
+	// InstrumentCode []byte
+	fip = append(ofip, InstrumentSettlementFieldInstrumentCode)
+	if !bytes.Equal(a.InstrumentCode[:], newValue.InstrumentCode[:]) {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: newValue.AssetCode[:],
+			Data: newValue.InstrumentCode[:],
 		})
 	}
 
 	// Settlements []QuantityIndexField
-	fip = append(ofip, AssetSettlementFieldSettlements)
+	fip = append(ofip, InstrumentSettlementFieldSettlements)
 	SettlementsMin := len(a.Settlements)
 	if SettlementsMin > len(newValue.Settlements) {
 		SettlementsMin = len(newValue.Settlements)
@@ -2448,27 +2448,27 @@ func (a *AssetSettlementField) CreateAmendments(fip permissions.FieldIndexPath,
 	return result, nil
 }
 
-// AssetTransferField Permission / Amendment Field Indices
+// InstrumentTransferField Permission / Amendment Field Indices
 const (
-	AssetTransferFieldContractIndex  = uint32(1)
-	AssetTransferFieldAssetType      = uint32(2)
-	AssetTransferFieldAssetCode      = uint32(3)
-	AssetTransferFieldAssetSenders   = uint32(4)
-	AssetTransferFieldAssetReceivers = uint32(5)
+	InstrumentTransferFieldContractIndex       = uint32(1)
+	InstrumentTransferFieldInstrumentType      = uint32(2)
+	InstrumentTransferFieldInstrumentCode      = uint32(3)
+	InstrumentTransferFieldInstrumentSenders   = uint32(4)
+	InstrumentTransferFieldInstrumentReceivers = uint32(5)
 )
 
-// ApplyAmendment updates a AssetTransferField based on amendment data.
+// ApplyAmendment updates a InstrumentTransferField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
-		return nil, errors.New("Empty AssetTransfer amendment field index path")
+		return nil, errors.New("Empty InstrumentTransfer amendment field index path")
 	}
 
 	switch fip[0] {
-	case AssetTransferFieldContractIndex: // uint32
+	case InstrumentTransferFieldContractIndex: // uint32
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractIndex : %v", fip)
 		}
@@ -2480,26 +2480,26 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetTransferFieldAssetType: // string
-		a.AssetType = string(data)
+	case InstrumentTransferFieldInstrumentType: // string
+		a.InstrumentType = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetTransferFieldAssetCode: // []byte
+	case InstrumentTransferFieldInstrumentCode: // []byte
 		if len(data) != 20 {
 			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 20)
 		}
-		copy(a.AssetCode, data)
+		copy(a.InstrumentCode, data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AssetTransferFieldAssetSenders: // []QuantityIndexField
+	case InstrumentTransferFieldInstrumentSenders: // []QuantityIndexField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify AssetSenders : %v",
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify InstrumentSenders : %v",
 					fip)
 			}
-			if int(fip[1]) >= len(a.AssetSenders) {
-				return nil, fmt.Errorf("Amendment element index out of range for modify AssetSenders : %d", fip[1])
+			if int(fip[1]) >= len(a.InstrumentSenders) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify InstrumentSenders : %d", fip[1])
 			}
 
 			subPermissions, err := permissions.SubPermissions(fip, operation, true)
@@ -2507,7 +2507,7 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 				return nil, errors.Wrap(err, "sub permissions")
 			}
 
-			return a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+			return a.InstrumentSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
@@ -2517,32 +2517,32 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 					return nil, errors.Wrap(err, "sub permissions")
 				}
 
-				return a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+				return a.InstrumentSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 			} else if len(fip) < 2 {
-				return nil, fmt.Errorf("Amendment field index path wrong depth for add AssetSenders : %v",
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add InstrumentSenders : %v",
 					fip)
 			}
 
 			newValue := &QuantityIndexField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
-					return nil, fmt.Errorf("Amendment addition to AssetSenders failed to deserialize : %s",
+					return nil, fmt.Errorf("Amendment addition to InstrumentSenders failed to deserialize : %s",
 						err)
 				}
 			}
 
-			if len(a.AssetSenders) <= int(fip[1]) {
+			if len(a.InstrumentSenders) <= int(fip[1]) {
 				// Append item to the end
-				a.AssetSenders = append(a.AssetSenders, newValue)
+				a.InstrumentSenders = append(a.InstrumentSenders, newValue)
 			} else {
 				// Insert item at index specified by fip[1]
-				before := a.AssetSenders[:fip[1]]
-				after := make([]*QuantityIndexField, len(a.AssetSenders)-int(fip[1]))
-				copy(after, a.AssetSenders[fip[1]+1:]) // copy so slice reuse won't overwrite
+				before := a.InstrumentSenders[:fip[1]]
+				after := make([]*QuantityIndexField, len(a.InstrumentSenders)-int(fip[1]))
+				copy(after, a.InstrumentSenders[fip[1]+1:]) // copy so slice reuse won't overwrite
 
-				a.AssetSenders = append(before, newValue)
-				a.AssetSenders = append(a.AssetSenders, after...)
+				a.InstrumentSenders = append(before, newValue)
+				a.InstrumentSenders = append(a.InstrumentSenders, after...)
 			}
 			return permissions.SubPermissions(fip, operation, true)
 
@@ -2554,27 +2554,27 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 					return nil, errors.Wrap(err, "sub permissions")
 				}
 
-				return a.AssetSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+				return a.InstrumentSenders[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 			} else if len(fip) < 2 {
-				return nil, fmt.Errorf("Amendment field index path wrong depth for delete AssetSenders : %v",
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete InstrumentSenders : %v",
 					fip)
 			}
 
 			// Remove item from list
-			a.AssetSenders = append(a.AssetSenders[:fip[1]], a.AssetSenders[fip[1]+1:]...)
+			a.InstrumentSenders = append(a.InstrumentSenders[:fip[1]], a.InstrumentSenders[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case AssetTransferFieldAssetReceivers: // []AssetReceiverField
+	case InstrumentTransferFieldInstrumentReceivers: // []InstrumentReceiverField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
-				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify AssetReceivers : %v",
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify InstrumentReceivers : %v",
 					fip)
 			}
-			if int(fip[1]) >= len(a.AssetReceivers) {
-				return nil, fmt.Errorf("Amendment element index out of range for modify AssetReceivers : %d", fip[1])
+			if int(fip[1]) >= len(a.InstrumentReceivers) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify InstrumentReceivers : %d", fip[1])
 			}
 
 			subPermissions, err := permissions.SubPermissions(fip, operation, true)
@@ -2582,7 +2582,7 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 				return nil, errors.Wrap(err, "sub permissions")
 			}
 
-			return a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+			return a.InstrumentReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
@@ -2592,32 +2592,32 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 					return nil, errors.Wrap(err, "sub permissions")
 				}
 
-				return a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+				return a.InstrumentReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 			} else if len(fip) < 2 {
-				return nil, fmt.Errorf("Amendment field index path wrong depth for add AssetReceivers : %v",
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add InstrumentReceivers : %v",
 					fip)
 			}
 
-			newValue := &AssetReceiverField{}
+			newValue := &InstrumentReceiverField{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
-					return nil, fmt.Errorf("Amendment addition to AssetReceivers failed to deserialize : %s",
+					return nil, fmt.Errorf("Amendment addition to InstrumentReceivers failed to deserialize : %s",
 						err)
 				}
 			}
 
-			if len(a.AssetReceivers) <= int(fip[1]) {
+			if len(a.InstrumentReceivers) <= int(fip[1]) {
 				// Append item to the end
-				a.AssetReceivers = append(a.AssetReceivers, newValue)
+				a.InstrumentReceivers = append(a.InstrumentReceivers, newValue)
 			} else {
 				// Insert item at index specified by fip[1]
-				before := a.AssetReceivers[:fip[1]]
-				after := make([]*AssetReceiverField, len(a.AssetReceivers)-int(fip[1]))
-				copy(after, a.AssetReceivers[fip[1]+1:]) // copy so slice reuse won't overwrite
+				before := a.InstrumentReceivers[:fip[1]]
+				after := make([]*InstrumentReceiverField, len(a.InstrumentReceivers)-int(fip[1]))
+				copy(after, a.InstrumentReceivers[fip[1]+1:]) // copy so slice reuse won't overwrite
 
-				a.AssetReceivers = append(before, newValue)
-				a.AssetReceivers = append(a.AssetReceivers, after...)
+				a.InstrumentReceivers = append(before, newValue)
+				a.InstrumentReceivers = append(a.InstrumentReceivers, after...)
 			}
 			return permissions.SubPermissions(fip, operation, true)
 
@@ -2629,27 +2629,27 @@ func (a *AssetTransferField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 					return nil, errors.Wrap(err, "sub permissions")
 				}
 
-				return a.AssetReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+				return a.InstrumentReceivers[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
 
 			} else if len(fip) < 2 {
-				return nil, fmt.Errorf("Amendment field index path wrong depth for delete AssetReceivers : %v",
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete InstrumentReceivers : %v",
 					fip)
 			}
 
 			// Remove item from list
-			a.AssetReceivers = append(a.AssetReceivers[:fip[1]], a.AssetReceivers[fip[1]+1:]...)
+			a.InstrumentReceivers = append(a.InstrumentReceivers[:fip[1]], a.InstrumentReceivers[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
 	}
 
-	return nil, fmt.Errorf("Unknown AssetTransfer amendment field index : %v", fip)
+	return nil, fmt.Errorf("Unknown InstrumentTransfer amendment field index : %v", fip)
 }
 
-// CreateAmendments determines the differences between two AssetTransfers and returns
+// CreateAmendments determines the differences between two InstrumentTransfers and returns
 // amendment data.
-func (a *AssetTransferField) CreateAmendments(fip permissions.FieldIndexPath,
-	newValue *AssetTransferField) ([]*internal.Amendment, error) {
+func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *InstrumentTransferField) ([]*internal.Amendment, error) {
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
@@ -2669,7 +2669,7 @@ func (a *AssetTransferField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// ContractIndex uint32
-	fip = append(ofip, AssetTransferFieldContractIndex)
+	fip = append(ofip, InstrumentTransferFieldContractIndex)
 	if a.ContractIndex != newValue.ContractIndex {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ContractIndex)); err != nil {
@@ -2682,53 +2682,53 @@ func (a *AssetTransferField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// AssetType string
-	fip = append(ofip, AssetTransferFieldAssetType)
-	// AssetType modifications not allowed
+	// InstrumentType string
+	fip = append(ofip, InstrumentTransferFieldInstrumentType)
+	// InstrumentType modifications not allowed
 
-	// AssetCode []byte
-	fip = append(ofip, AssetTransferFieldAssetCode)
-	if !bytes.Equal(a.AssetCode[:], newValue.AssetCode[:]) {
+	// InstrumentCode []byte
+	fip = append(ofip, InstrumentTransferFieldInstrumentCode)
+	if !bytes.Equal(a.InstrumentCode[:], newValue.InstrumentCode[:]) {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
-			Data: newValue.AssetCode[:],
+			Data: newValue.InstrumentCode[:],
 		})
 	}
 
-	// AssetSenders []QuantityIndexField
-	fip = append(ofip, AssetTransferFieldAssetSenders)
-	AssetSendersMin := len(a.AssetSenders)
-	if AssetSendersMin > len(newValue.AssetSenders) {
-		AssetSendersMin = len(newValue.AssetSenders)
+	// InstrumentSenders []QuantityIndexField
+	fip = append(ofip, InstrumentTransferFieldInstrumentSenders)
+	InstrumentSendersMin := len(a.InstrumentSenders)
+	if InstrumentSendersMin > len(newValue.InstrumentSenders) {
+		InstrumentSendersMin = len(newValue.InstrumentSenders)
 	}
 
 	// Compare values
-	for i := 0; i < AssetSendersMin; i++ {
+	for i := 0; i < InstrumentSendersMin; i++ {
 		lfip := append(fip, uint32(i))
-		AssetSendersAmendments, err := a.AssetSenders[i].CreateAmendments(lfip,
-			newValue.AssetSenders[i])
+		InstrumentSendersAmendments, err := a.InstrumentSenders[i].CreateAmendments(lfip,
+			newValue.InstrumentSenders[i])
 		if err != nil {
-			return nil, errors.Wrapf(err, "AssetSenders%d", i)
+			return nil, errors.Wrapf(err, "InstrumentSenders%d", i)
 		}
-		result = append(result, AssetSendersAmendments...)
+		result = append(result, InstrumentSendersAmendments...)
 	}
 
-	AssetSendersMax := len(a.AssetSenders)
-	if AssetSendersMax < len(newValue.AssetSenders) {
-		AssetSendersMax = len(newValue.AssetSenders)
+	InstrumentSendersMax := len(a.InstrumentSenders)
+	if InstrumentSendersMax < len(newValue.InstrumentSenders) {
+		InstrumentSendersMax = len(newValue.InstrumentSenders)
 	}
 
 	// Add/Remove values
-	for i := AssetSendersMin; i < AssetSendersMax; i++ {
+	for i := InstrumentSendersMin; i < InstrumentSendersMax; i++ {
 		amendment := &internal.Amendment{
 			FIP: append(fip, uint32(i)), // Add array index to path
 		}
 
-		if i < len(newValue.AssetSenders) {
+		if i < len(newValue.InstrumentSenders) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.AssetSenders[i])
+			b, err := proto.Marshal(newValue.InstrumentSenders[i])
 			if err != nil {
-				return nil, errors.Wrapf(err, "serialize AssetSenders %d", i)
+				return nil, errors.Wrapf(err, "serialize InstrumentSenders %d", i)
 			}
 			amendment.Data = b
 		} else {
@@ -2738,40 +2738,40 @@ func (a *AssetTransferField) CreateAmendments(fip permissions.FieldIndexPath,
 		result = append(result, amendment)
 	}
 
-	// AssetReceivers []AssetReceiverField
-	fip = append(ofip, AssetTransferFieldAssetReceivers)
-	AssetReceiversMin := len(a.AssetReceivers)
-	if AssetReceiversMin > len(newValue.AssetReceivers) {
-		AssetReceiversMin = len(newValue.AssetReceivers)
+	// InstrumentReceivers []InstrumentReceiverField
+	fip = append(ofip, InstrumentTransferFieldInstrumentReceivers)
+	InstrumentReceiversMin := len(a.InstrumentReceivers)
+	if InstrumentReceiversMin > len(newValue.InstrumentReceivers) {
+		InstrumentReceiversMin = len(newValue.InstrumentReceivers)
 	}
 
 	// Compare values
-	for i := 0; i < AssetReceiversMin; i++ {
+	for i := 0; i < InstrumentReceiversMin; i++ {
 		lfip := append(fip, uint32(i))
-		AssetReceiversAmendments, err := a.AssetReceivers[i].CreateAmendments(lfip,
-			newValue.AssetReceivers[i])
+		InstrumentReceiversAmendments, err := a.InstrumentReceivers[i].CreateAmendments(lfip,
+			newValue.InstrumentReceivers[i])
 		if err != nil {
-			return nil, errors.Wrapf(err, "AssetReceivers%d", i)
+			return nil, errors.Wrapf(err, "InstrumentReceivers%d", i)
 		}
-		result = append(result, AssetReceiversAmendments...)
+		result = append(result, InstrumentReceiversAmendments...)
 	}
 
-	AssetReceiversMax := len(a.AssetReceivers)
-	if AssetReceiversMax < len(newValue.AssetReceivers) {
-		AssetReceiversMax = len(newValue.AssetReceivers)
+	InstrumentReceiversMax := len(a.InstrumentReceivers)
+	if InstrumentReceiversMax < len(newValue.InstrumentReceivers) {
+		InstrumentReceiversMax = len(newValue.InstrumentReceivers)
 	}
 
 	// Add/Remove values
-	for i := AssetReceiversMin; i < AssetReceiversMax; i++ {
+	for i := InstrumentReceiversMin; i < InstrumentReceiversMax; i++ {
 		amendment := &internal.Amendment{
 			FIP: append(fip, uint32(i)), // Add array index to path
 		}
 
-		if i < len(newValue.AssetReceivers) {
+		if i < len(newValue.InstrumentReceivers) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.AssetReceivers[i])
+			b, err := proto.Marshal(newValue.InstrumentReceivers[i])
 			if err != nil {
-				return nil, errors.Wrapf(err, "serialize AssetReceivers %d", i)
+				return nil, errors.Wrapf(err, "serialize InstrumentReceivers %d", i)
 			}
 			amendment.Data = b
 		} else {

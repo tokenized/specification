@@ -105,7 +105,7 @@ func (a *ContractOffer) Validate() error {
 		return fmt.Errorf("ContractPermissions over max size : %d > %d", len(a.ContractPermissions), max2ByteInteger)
 	}
 
-	// Field RestrictedQtyAssets - uint
+	// Field RestrictedQtyInstruments - uint
 
 	// Field AdministrationProposal - bool
 
@@ -322,7 +322,7 @@ func (a *ContractFormation) Validate() error {
 		return fmt.Errorf("ContractPermissions over max size : %d > %d", len(a.ContractPermissions), max2ByteInteger)
 	}
 
-	// Field RestrictedQtyAssets - uint
+	// Field RestrictedQtyInstruments - uint
 
 	// Field AdministrationProposal - bool
 
@@ -721,14 +721,14 @@ func (a *BodyOfAgreementAmendment) Validate() error {
 	return nil
 }
 
-func (a *AssetDefinition) Validate() error {
+func (a *InstrumentDefinition) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
 	}
 
-	// Field AssetPermissions - varbin
-	if len(a.AssetPermissions) > max2ByteInteger {
-		return fmt.Errorf("AssetPermissions over max size : %d > %d", len(a.AssetPermissions), max2ByteInteger)
+	// Field InstrumentPermissions - varbin
+	if len(a.InstrumentPermissions) > max2ByteInteger {
+		return fmt.Errorf("InstrumentPermissions over max size : %d > %d", len(a.InstrumentPermissions), max2ByteInteger)
 	}
 
 	// Field EnforcementOrdersPermitted - bool
@@ -744,35 +744,35 @@ func (a *AssetDefinition) Validate() error {
 
 	// Field HolderProposal - bool
 
-	// Field AssetModificationGovernance - uint
-	foundAssetModificationGovernance := false
+	// Field InstrumentModificationGovernance - uint
+	foundInstrumentModificationGovernance := false
 	for _, v := range []uint32{0, 1} {
-		if a.AssetModificationGovernance == v {
-			foundAssetModificationGovernance = true
+		if a.InstrumentModificationGovernance == v {
+			foundInstrumentModificationGovernance = true
 			break
 		}
 	}
-	if !foundAssetModificationGovernance {
-		return fmt.Errorf("AssetModificationGovernance value not within options [0 1] : %d", a.AssetModificationGovernance)
+	if !foundInstrumentModificationGovernance {
+		return fmt.Errorf("InstrumentModificationGovernance value not within options [0 1] : %d", a.InstrumentModificationGovernance)
 	}
 
 	// Field AuthorizedTokenQty - uint
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
-	if len(a.AssetType) == 0 {
-		return fmt.Errorf("AssetType required")
+	if len(a.InstrumentType) == 0 {
+		return fmt.Errorf("InstrumentType required")
 	}
 
-	// Field AssetPayload - varbin
-	if len(a.AssetPayload) > max2ByteInteger {
-		return fmt.Errorf("AssetPayload over max size : %d > %d", len(a.AssetPayload), max2ByteInteger)
+	// Field InstrumentPayload - varbin
+	if len(a.InstrumentPayload) > max2ByteInteger {
+		return fmt.Errorf("InstrumentPayload over max size : %d > %d", len(a.InstrumentPayload), max2ByteInteger)
 	}
-	if len(a.AssetPayload) == 0 {
-		return fmt.Errorf("AssetPayload required")
+	if len(a.InstrumentPayload) == 0 {
+		return fmt.Errorf("InstrumentPayload required")
 	}
 
 	// Field TradeRestrictions - varchar  (Polities Resource)
@@ -788,22 +788,22 @@ func (a *AssetDefinition) Validate() error {
 	return nil
 }
 
-func (a *AssetCreation) Validate() error {
+func (a *InstrumentCreation) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
-	// Field AssetIndex - uint
+	// Field InstrumentIndex - uint
 
-	// Field AssetPermissions - varbin
-	if len(a.AssetPermissions) > max2ByteInteger {
-		return fmt.Errorf("AssetPermissions over max size : %d > %d", len(a.AssetPermissions), max2ByteInteger)
+	// Field InstrumentPermissions - varbin
+	if len(a.InstrumentPermissions) > max2ByteInteger {
+		return fmt.Errorf("InstrumentPermissions over max size : %d > %d", len(a.InstrumentPermissions), max2ByteInteger)
 	}
 
 	// Field EnforcementOrdersPermitted - bool
@@ -819,32 +819,32 @@ func (a *AssetCreation) Validate() error {
 
 	// Field HolderProposal - bool
 
-	// Field AssetModificationGovernance - uint
-	foundAssetModificationGovernance := false
+	// Field InstrumentModificationGovernance - uint
+	foundInstrumentModificationGovernance := false
 	for _, v := range []uint32{0, 1} {
-		if a.AssetModificationGovernance == v {
-			foundAssetModificationGovernance = true
+		if a.InstrumentModificationGovernance == v {
+			foundInstrumentModificationGovernance = true
 			break
 		}
 	}
-	if !foundAssetModificationGovernance {
-		return fmt.Errorf("AssetModificationGovernance value not within options [0 1] : %d", a.AssetModificationGovernance)
+	if !foundInstrumentModificationGovernance {
+		return fmt.Errorf("InstrumentModificationGovernance value not within options [0 1] : %d", a.InstrumentModificationGovernance)
 	}
 
 	// Field AuthorizedTokenQty - uint
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetPayload - varbin
-	if len(a.AssetPayload) > max2ByteInteger {
-		return fmt.Errorf("AssetPayload over max size : %d > %d", len(a.AssetPayload), max2ByteInteger)
+	// Field InstrumentPayload - varbin
+	if len(a.InstrumentPayload) > max2ByteInteger {
+		return fmt.Errorf("InstrumentPayload over max size : %d > %d", len(a.InstrumentPayload), max2ByteInteger)
 	}
 
-	// Field AssetRevision - uint
+	// Field InstrumentRevision - uint
 
 	// Field Timestamp - uint
 
@@ -861,24 +861,24 @@ func (a *AssetCreation) Validate() error {
 	return nil
 }
 
-func (a *AssetModification) Validate() error {
+func (a *InstrumentModification) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
-	// Field AssetRevision - uint
+	// Field InstrumentRevision - uint
 
 	// Field Amendments - Amendment
 	if len(a.Amendments) > max1ByteInteger {
@@ -904,13 +904,13 @@ func (a *Transfer) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field Assets - AssetTransfer
-	if len(a.Assets) > max1ByteInteger {
-		return fmt.Errorf("Assets list over max length : %d > %d", len(a.Assets), max1ByteInteger)
+	// Field Instruments - InstrumentTransfer
+	if len(a.Instruments) > max1ByteInteger {
+		return fmt.Errorf("Instruments list over max length : %d > %d", len(a.Instruments), max1ByteInteger)
 	}
-	for i, v := range a.Assets {
+	for i, v := range a.Instruments {
 		if err := v.Validate(); err != nil {
-			return errors.Wrap(err, fmt.Sprintf("Assets[%d]", i))
+			return errors.Wrap(err, fmt.Sprintf("Instruments[%d]", i))
 		}
 	}
 
@@ -936,13 +936,13 @@ func (a *Settlement) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field Assets - AssetSettlement
-	if len(a.Assets) > max1ByteInteger {
-		return fmt.Errorf("Assets list over max length : %d > %d", len(a.Assets), max1ByteInteger)
+	// Field Instruments - InstrumentSettlement
+	if len(a.Instruments) > max1ByteInteger {
+		return fmt.Errorf("Instruments list over max length : %d > %d", len(a.Instruments), max1ByteInteger)
 	}
-	for i, v := range a.Assets {
+	for i, v := range a.Instruments {
 		if err := v.Validate(); err != nil {
-			return errors.Wrap(err, fmt.Sprintf("Assets[%d]", i))
+			return errors.Wrap(err, fmt.Sprintf("Instruments[%d]", i))
 		}
 	}
 
@@ -968,16 +968,16 @@ func (a *Proposal) Validate() error {
 		return fmt.Errorf("Type value not within options [0 1 2] : %d", a.Type)
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
 	// Field VoteSystem - uint
@@ -1078,16 +1078,16 @@ func (a *Result) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
 	// Field ProposedAmendments - Amendment
@@ -1142,16 +1142,16 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("ComplianceAction value not within options [F T C R] : %s", a.ComplianceAction)
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
 	// Field TargetAddresses - TargetAddress
@@ -1259,16 +1259,16 @@ func (a *Freeze) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1309,16 +1309,16 @@ func (a *Confiscation) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1343,16 +1343,16 @@ func (a *Reconciliation) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1578,7 +1578,7 @@ func (a *AmendmentField) Validate() error {
 	return nil
 }
 
-func (a *AssetReceiverField) Validate() error {
+func (a *InstrumentReceiverField) Validate() error {
 	if a == nil {
 		return nil
 	}
@@ -1629,7 +1629,7 @@ func (a *AssetReceiverField) Validate() error {
 	return nil
 }
 
-func (a *AssetSettlementField) Validate() error {
+func (a *InstrumentSettlementField) Validate() error {
 	if a == nil {
 		return nil
 	}
@@ -1639,16 +1639,16 @@ func (a *AssetSettlementField) Validate() error {
 		return fmt.Errorf("ContractIndex over max value : %d > %d", a.ContractIndex, max2ByteInteger)
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
 	// Field Settlements - QuantityIndex
@@ -1664,7 +1664,7 @@ func (a *AssetSettlementField) Validate() error {
 	return nil
 }
 
-func (a *AssetTransferField) Validate() error {
+func (a *InstrumentTransferField) Validate() error {
 	if a == nil {
 		return nil
 	}
@@ -1674,35 +1674,35 @@ func (a *AssetTransferField) Validate() error {
 		return fmt.Errorf("ContractIndex over max value : %d > %d", a.ContractIndex, max2ByteInteger)
 	}
 
-	// Field AssetType - fixedchar
-	if len(a.AssetType) != 0 && len(a.AssetType) != 3 {
-		return fmt.Errorf("AssetType fixed width field wrong size : %d should be %d",
-			len(a.AssetType), 3)
+	// Field InstrumentType - fixedchar
+	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
+		return fmt.Errorf("InstrumentType fixed width field wrong size : %d should be %d",
+			len(a.InstrumentType), 3)
 	}
 
-	// Field AssetCode - bin
-	if len(a.AssetCode) != 0 && len(a.AssetCode) != 20 {
-		return fmt.Errorf("AssetCode fixed width field wrong size : %d should be %d",
-			len(a.AssetCode), 20)
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
 	}
 
-	// Field AssetSenders - QuantityIndex
-	if len(a.AssetSenders) > max1ByteInteger {
-		return fmt.Errorf("AssetSenders list over max length : %d > %d", len(a.AssetSenders), max1ByteInteger)
+	// Field InstrumentSenders - QuantityIndex
+	if len(a.InstrumentSenders) > max1ByteInteger {
+		return fmt.Errorf("InstrumentSenders list over max length : %d > %d", len(a.InstrumentSenders), max1ByteInteger)
 	}
-	for i, v := range a.AssetSenders {
+	for i, v := range a.InstrumentSenders {
 		if err := v.Validate(); err != nil {
-			return errors.Wrap(err, fmt.Sprintf("AssetSenders[%d]", i))
+			return errors.Wrap(err, fmt.Sprintf("InstrumentSenders[%d]", i))
 		}
 	}
 
-	// Field AssetReceivers - AssetReceiver
-	if len(a.AssetReceivers) > max1ByteInteger {
-		return fmt.Errorf("AssetReceivers list over max length : %d > %d", len(a.AssetReceivers), max1ByteInteger)
+	// Field InstrumentReceivers - InstrumentReceiver
+	if len(a.InstrumentReceivers) > max1ByteInteger {
+		return fmt.Errorf("InstrumentReceivers list over max length : %d > %d", len(a.InstrumentReceivers), max1ByteInteger)
 	}
-	for i, v := range a.AssetReceivers {
+	for i, v := range a.InstrumentReceivers {
 		if err := v.Validate(); err != nil {
-			return errors.Wrap(err, fmt.Sprintf("AssetReceivers[%d]", i))
+			return errors.Wrap(err, fmt.Sprintf("InstrumentReceivers[%d]", i))
 		}
 	}
 

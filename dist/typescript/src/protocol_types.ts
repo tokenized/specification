@@ -68,23 +68,23 @@ export class TxId {
 
 const zeroTxId = new TxId();
 
-export class AssetCode {
+export class InstrumentCode {
 	data = Buffer.alloc(32, 0);
 
-	static fromBytes(data: Buffer): AssetCode {
-		const code = new AssetCode();
+	static fromBytes(data: Buffer): InstrumentCode {
+		const code = new InstrumentCode();
 		code.data = Buffer.from(data);
 		return code;
 	}
 
-	static fromContract(contractPKH: Buffer, index: number): AssetCode {
+	static fromContract(contractPKH: Buffer, index: number): InstrumentCode {
 		// TODO
 		// hash256 := sha256.New()
 		// hash256.Write(contractPKH)
 		// binary.Write(hash256, DefaultEndian, &index)
 		// hash := hash256.Sum(nil)
 		console.log(contractPKH, index);
-		const result = new AssetCode();
+		const result = new InstrumentCode();
 		// result.Set(hash);
 		return result;
 	}

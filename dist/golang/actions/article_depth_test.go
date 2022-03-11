@@ -6,9 +6,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/pkg/errors"
 	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/specification/dist/golang/permissions"
+
+	"github.com/pkg/errors"
 )
 
 func TestChapterDepth(t *testing.T) {

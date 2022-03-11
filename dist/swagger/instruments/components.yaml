@@ -1,0 +1,26 @@
+components:
+  tokenized:
+    Membership:
+      $ref: ./_components/schemas/tokenized/instruments/Membership.yaml
+    Currency:
+      $ref: ./_components/schemas/tokenized/instruments/Currency.yaml
+    ShareCommon:
+      $ref: ./_components/schemas/tokenized/instruments/ShareCommon.yaml
+    BondFixedRate:
+      $ref: ./_components/schemas/tokenized/instruments/BondFixedRate.yaml
+    Coupon:
+      $ref: ./_components/schemas/tokenized/instruments/Coupon.yaml
+    LoyaltyPoints:
+      $ref: ./_components/schemas/tokenized/instruments/LoyaltyPoints.yaml
+    TicketAdmission:
+      $ref: ./_components/schemas/tokenized/instruments/TicketAdmission.yaml
+    CasinoChip:
+      $ref: ./_components/schemas/tokenized/instruments/CasinoChip.yaml
+    InformationServiceLicense:
+      $ref: ./_components/schemas/tokenized/instruments/InformationServiceLicense.yaml
+    AgeRestrictionField:
+      $ref: ./_components/schemas/tokenized/instruments/AgeRestrictionField.yaml
+    CurrencyValueField:
+      $ref: ./_components/schemas/tokenized/instruments/CurrencyValueField.yaml
+    RateField:
+      $ref: ./_components/schemas/tokenized/instruments/RateField.yaml

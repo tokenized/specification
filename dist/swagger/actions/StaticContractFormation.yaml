@@ -6,9 +6,9 @@ properties:
     description:  >
       Can be any unique identifying string, including human readable names for branding/vanity
       purposes. Contract identifier (instance) is the bitcoin public address. If the public address
-      is lost, then the administration will have to reissue the entire contract, Asset Definition and
-      tokens with the new public address. Smart contracts can be branded and specialized to suit any
-      terms and conditions.
+      is lost, then the administration will have to reissue the entire contract, Instrument
+      Definition and tokens with the new public address. Smart contracts can be branded and
+      specialized to suit any terms and conditions.
     type: string
     example: "Tesla - Shareholder Agreement"
   ContractCode:
@@ -27,7 +27,7 @@ properties:
     description:  >
       SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full
       terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is
-      specific to the smart contract and relevant Assets.  Legal and technical information.
+      specific to the smart contract and relevant Instruments.  Legal and technical information.
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   ContractType:
@@ -62,8 +62,8 @@ properties:
     description:  >
       Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone
       can go to the website to have a look at the price/token, information about the issuer
-      (company), information about the Asset, legal information, etc.  There will also be a way for
-      token owners to vote on this page and contact details with the issuer/tokenized companies.
+      (company), information about the Instrument, legal information, etc.  There will also be a way
+      for token owners to vote on this page and contact details with the issuer/tokenized companies.
       Could be a IPv6/IPv4, or txn-id for on chain information or even a public address (DNS).
     type: string
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z7github.com/tokenized/specification/dist/golang/messages',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0emessages.proto\x12\x08messages\"\xbd\x01\n\rPublicMessage\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07Subject\x18\x02 \x01(\t\x12*\n\tRegarding\x18\x03 \x01(\x0b\x32\x17.messages.OutpointField\x12.\n\rPublicMessage\x18\x04 \x01(\x0b\x32\x17.messages.DocumentField\x12,\n\x0b\x41ttachments\x18\x05 \x03(\x0b\x32\x17.messages.DocumentField\"\xbf\x01\n\x0ePrivateMessage\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07Subject\x18\x02 \x01(\t\x12*\n\tRegarding\x18\x03 \x01(\x0b\x32\x17.messages.OutpointField\x12/\n\x0ePrivateMessage\x18\x04 \x01(\x0b\x32\x17.messages.DocumentField\x12,\n\x0b\x41ttachments\x18\x05 \x03(\x0b\x32\x17.messages.DocumentField\"4\n\nRevertedTx\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x13\n\x0bTransaction\x18\x02 \x01(\x0c\"+\n\x05Offer\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07Payload\x18\x02 \x01(\x0c\"6\n\x10SignatureRequest\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07Payload\x18\x02 \x01(\x0c\"\x84\x01\n\x11SettlementRequest\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x14\n\x0cTransferTxId\x18\x02 \x01(\x0c\x12\x32\n\x0c\x43ontractFees\x18\x03 \x03(\x0b\x32\x1c.messages.TargetAddressField\x12\x12\n\nSettlement\x18\x04 \x01(\x0c\"g\n\x0eOutputMetadata\x12\x19\n\x11OutputDescription\x18\x01 \x01(\t\x12\x0c\n\x04Tags\x18\x02 \x03(\r\x12,\n\nCustomTags\x18\x03 \x03(\x0b\x32\x18.messages.OutputTagField\"4\n\x0c\x44istribution\x12\x11\n\tAssetCode\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\xc3\x01\n\x14InitiateRelationship\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Seed\x18\x02 \x01(\x0c\x12\x0c\n\x04\x46lag\x18\x03 \x01(\x0c\x12\x16\n\x0e\x45ncryptionType\x18\x04 \x01(\r\x12\x1b\n\x13ProofOfIdentityType\x18\x05 \x01(\r\x12\x17\n\x0fProofOfIdentity\x18\x06 \x01(\x0c\x12\x33\n\x0e\x43hannelParties\x18\x07 \x03(\x0b\x32\x1b.messages.ChannelPartyField\"Q\n\x19PendingAcceptRelationship\x12\x1b\n\x13ProofOfIdentityType\x18\x01 \x01(\r\x12\x17\n\x0fProofOfIdentity\x18\x02 \x01(\x0c\"J\n\x12\x41\x63\x63\x65ptRelationship\x12\x1b\n\x13ProofOfIdentityType\x18\x01 \x01(\r\x12\x17\n\x0fProofOfIdentity\x18\x02 \x01(\x0c\"x\n\x15RelationshipAmendment\x12\x0c\n\x04Seed\x18\x01 \x01(\x0c\x12\x1c\n\x14\x42\x61seEncryptionSecret\x18\x02 \x01(\x0c\x12\x18\n\x10\x41\x64\x64MemberIndexes\x18\x03 \x01(\r\x12\x19\n\x11\x44ropMemberIndexes\x18\x04 \x01(\r\",\n\x0eInitiateThread\x12\x0c\n\x04\x46lag\x18\x01 \x01(\x0c\x12\x0c\n\x04Seed\x18\x02 \x01(\x0c\"0\n\x12\x41\x64ministratorField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"G\n\x11\x43hannelPartyField\x12\x1d\n\x15\x41\x64ministrativeAddress\x18\x01 \x01(\x0c\x12\x13\n\x0bOutputIndex\x18\x02 \x01(\r\"=\n\rDocumentField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x10\n\x08\x43ontents\x18\x03 \x01(\x0c\"\x94\x03\n\x0b\x45ntityField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x0b\n\x03LEI\x18\x03 \x01(\t\x12\x12\n\nUnitNumber\x18\x04 \x01(\t\x12\x16\n\x0e\x42uildingNumber\x18\x05 \x01(\t\x12\x0e\n\x06Street\x18\x06 \x01(\t\x12\x12\n\nSuburbCity\x18\x07 \x01(\t\x12\"\n\x1aTerritoryStateProvinceCode\x18\x08 \x01(\t\x12\x13\n\x0b\x43ountryCode\x18\t \x01(\t\x12\x15\n\rPostalZIPCode\x18\n \x01(\t\x12\x14\n\x0c\x45mailAddress\x18\x0b \x01(\t\x12\x13\n\x0bPhoneNumber\x18\x0c \x01(\t\x12\x34\n\x0e\x41\x64ministration\x18\r \x03(\x0b\x32\x1c.messages.AdministratorField\x12*\n\nManagement\x18\x0e \x03(\x0b\x32\x16.messages.ManagerField\x12\x12\n\nDomainName\x18\x0f \x01(\t\x12\x15\n\rPaymailHandle\x18\x11 \x01(\tJ\x04\x08\x10\x10\x11\"\x8a\x01\n\x18IdentityOracleProofField\x12\x0e\n\x06UserID\x18\x01 \x01(\x0c\x12%\n\x06\x45ntity\x18\x02 \x01(\x0b\x32\x15.messages.EntityField\x12\x37\n\x0fOracleSignature\x18\x03 \x01(\x0b\x32\x1e.messages.OracleSignatureField\"*\n\x0cManagerField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"\x9c\x01\n\x14OracleSignatureField\x12\x11\n\tOracleURL\x18\x01 \x01(\t\x12\x13\n\x0b\x42lockHeight\x18\x02 \x01(\r\x12-\n\x0eValidityPeriod\x18\x03 \x01(\x0b\x32\x15.messages.PeriodField\x12\x1a\n\x12SignatureAlgorithm\x18\x04 \x01(\r\x12\x11\n\tSignature\x18\x05 \x01(\x0c\"2\n\rOutpointField\x12\x0c\n\x04TxId\x18\x01 \x01(\x0c\x12\x13\n\x0bOutputIndex\x18\x02 \x01(\r\"\x1d\n\x0eOutputTagField\x12\x0b\n\x03Tag\x18\x01 \x01(\t\"l\n\x11PaymailProofField\x12\x0e\n\x06UserID\x18\x01 \x01(\x0c\x12\x0e\n\x06Handle\x18\x02 \x01(\t\x12\x37\n\x0fOracleSignature\x18\x03 \x01(\x0b\x32\x1e.messages.OracleSignatureField\")\n\x0bPeriodField\x12\r\n\x05\x42\x65gin\x18\x01 \x01(\x04\x12\x0b\n\x03\x45nd\x18\x02 \x01(\x04\"7\n\x12TargetAddressField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\x42\x39Z7github.com/tokenized/specification/dist/golang/messagesb\x06proto3'
+  serialized_pb=b'\n\x0emessages.proto\x12\x08messages\"\xbd\x01\n\rPublicMessage\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07Subject\x18\x02 \x01(\t\x12*\n\tRegarding\x18\x03 \x01(\x0b\x32\x17.messages.OutpointField\x12.\n\rPublicMessage\x18\x04 \x01(\x0b\x32\x17.messages.DocumentField\x12,\n\x0b\x41ttachments\x18\x05 \x03(\x0b\x32\x17.messages.DocumentField\"\xbf\x01\n\x0ePrivateMessage\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07Subject\x18\x02 \x01(\t\x12*\n\tRegarding\x18\x03 \x01(\x0b\x32\x17.messages.OutpointField\x12/\n\x0ePrivateMessage\x18\x04 \x01(\x0b\x32\x17.messages.DocumentField\x12,\n\x0b\x41ttachments\x18\x05 \x03(\x0b\x32\x17.messages.DocumentField\"4\n\nRevertedTx\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x13\n\x0bTransaction\x18\x02 \x01(\x0c\"+\n\x05Offer\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07Payload\x18\x02 \x01(\x0c\"6\n\x10SignatureRequest\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07Payload\x18\x02 \x01(\x0c\"\x84\x01\n\x11SettlementRequest\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\x12\x14\n\x0cTransferTxId\x18\x02 \x01(\x0c\x12\x32\n\x0c\x43ontractFees\x18\x03 \x03(\x0b\x32\x1c.messages.TargetAddressField\x12\x12\n\nSettlement\x18\x04 \x01(\x0c\"g\n\x0eOutputMetadata\x12\x19\n\x11OutputDescription\x18\x01 \x01(\t\x12\x0c\n\x04Tags\x18\x02 \x03(\r\x12,\n\nCustomTags\x18\x03 \x03(\x0b\x32\x18.messages.OutputTagField\"9\n\x0c\x44istribution\x12\x16\n\x0eInstrumentCode\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\xc3\x01\n\x14InitiateRelationship\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Seed\x18\x02 \x01(\x0c\x12\x0c\n\x04\x46lag\x18\x03 \x01(\x0c\x12\x16\n\x0e\x45ncryptionType\x18\x04 \x01(\r\x12\x1b\n\x13ProofOfIdentityType\x18\x05 \x01(\r\x12\x17\n\x0fProofOfIdentity\x18\x06 \x01(\x0c\x12\x33\n\x0e\x43hannelParties\x18\x07 \x03(\x0b\x32\x1b.messages.ChannelPartyField\"Q\n\x19PendingAcceptRelationship\x12\x1b\n\x13ProofOfIdentityType\x18\x01 \x01(\r\x12\x17\n\x0fProofOfIdentity\x18\x02 \x01(\x0c\"J\n\x12\x41\x63\x63\x65ptRelationship\x12\x1b\n\x13ProofOfIdentityType\x18\x01 \x01(\r\x12\x17\n\x0fProofOfIdentity\x18\x02 \x01(\x0c\"x\n\x15RelationshipAmendment\x12\x0c\n\x04Seed\x18\x01 \x01(\x0c\x12\x1c\n\x14\x42\x61seEncryptionSecret\x18\x02 \x01(\x0c\x12\x18\n\x10\x41\x64\x64MemberIndexes\x18\x03 \x01(\r\x12\x19\n\x11\x44ropMemberIndexes\x18\x04 \x01(\r\",\n\x0eInitiateThread\x12\x0c\n\x04\x46lag\x18\x01 \x01(\x0c\x12\x0c\n\x04Seed\x18\x02 \x01(\x0c\"0\n\x12\x41\x64ministratorField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"G\n\x11\x43hannelPartyField\x12\x1d\n\x15\x41\x64ministrativeAddress\x18\x01 \x01(\x0c\x12\x13\n\x0bOutputIndex\x18\x02 \x01(\r\"=\n\rDocumentField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x10\n\x08\x43ontents\x18\x03 \x01(\x0c\"\x94\x03\n\x0b\x45ntityField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x0b\n\x03LEI\x18\x03 \x01(\t\x12\x12\n\nUnitNumber\x18\x04 \x01(\t\x12\x16\n\x0e\x42uildingNumber\x18\x05 \x01(\t\x12\x0e\n\x06Street\x18\x06 \x01(\t\x12\x12\n\nSuburbCity\x18\x07 \x01(\t\x12\"\n\x1aTerritoryStateProvinceCode\x18\x08 \x01(\t\x12\x13\n\x0b\x43ountryCode\x18\t \x01(\t\x12\x15\n\rPostalZIPCode\x18\n \x01(\t\x12\x14\n\x0c\x45mailAddress\x18\x0b \x01(\t\x12\x13\n\x0bPhoneNumber\x18\x0c \x01(\t\x12\x34\n\x0e\x41\x64ministration\x18\r \x03(\x0b\x32\x1c.messages.AdministratorField\x12*\n\nManagement\x18\x0e \x03(\x0b\x32\x16.messages.ManagerField\x12\x12\n\nDomainName\x18\x0f \x01(\t\x12\x15\n\rPaymailHandle\x18\x11 \x01(\tJ\x04\x08\x10\x10\x11\"\x8a\x01\n\x18IdentityOracleProofField\x12\x0e\n\x06UserID\x18\x01 \x01(\x0c\x12%\n\x06\x45ntity\x18\x02 \x01(\x0b\x32\x15.messages.EntityField\x12\x37\n\x0fOracleSignature\x18\x03 \x01(\x0b\x32\x1e.messages.OracleSignatureField\"*\n\x0cManagerField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"\x9c\x01\n\x14OracleSignatureField\x12\x11\n\tOracleURL\x18\x01 \x01(\t\x12\x13\n\x0b\x42lockHeight\x18\x02 \x01(\r\x12-\n\x0eValidityPeriod\x18\x03 \x01(\x0b\x32\x15.messages.PeriodField\x12\x1a\n\x12SignatureAlgorithm\x18\x04 \x01(\r\x12\x11\n\tSignature\x18\x05 \x01(\x0c\"2\n\rOutpointField\x12\x0c\n\x04TxId\x18\x01 \x01(\x0c\x12\x13\n\x0bOutputIndex\x18\x02 \x01(\r\"\x1d\n\x0eOutputTagField\x12\x0b\n\x03Tag\x18\x01 \x01(\t\"l\n\x11PaymailProofField\x12\x0e\n\x06UserID\x18\x01 \x01(\x0c\x12\x0e\n\x06Handle\x18\x02 \x01(\t\x12\x37\n\x0fOracleSignature\x18\x03 \x01(\x0b\x32\x1e.messages.OracleSignatureField\")\n\x0bPeriodField\x12\r\n\x05\x42\x65gin\x18\x01 \x01(\x04\x12\x0b\n\x03\x45nd\x18\x02 \x01(\x04\"7\n\x12TargetAddressField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\x42\x39Z7github.com/tokenized/specification/dist/golang/messagesb\x06proto3'
 )
 
 
@@ -370,7 +370,7 @@ _DISTRIBUTION = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='messages.Distribution.AssetCode', index=0,
+      name='InstrumentCode', full_name='messages.Distribution.InstrumentCode', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -396,7 +396,7 @@ _DISTRIBUTION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=809,
-  serialized_end=861,
+  serialized_end=866,
 )
 
 
@@ -469,8 +469,8 @@ _INITIATERELATIONSHIP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=864,
-  serialized_end=1059,
+  serialized_start=869,
+  serialized_end=1064,
 )
 
 
@@ -508,8 +508,8 @@ _PENDINGACCEPTRELATIONSHIP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1061,
-  serialized_end=1142,
+  serialized_start=1066,
+  serialized_end=1147,
 )
 
 
@@ -547,8 +547,8 @@ _ACCEPTRELATIONSHIP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1144,
-  serialized_end=1218,
+  serialized_start=1149,
+  serialized_end=1223,
 )
 
 
@@ -600,8 +600,8 @@ _RELATIONSHIPAMENDMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1220,
-  serialized_end=1340,
+  serialized_start=1225,
+  serialized_end=1345,
 )
 
 
@@ -639,8 +639,8 @@ _INITIATETHREAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1342,
-  serialized_end=1386,
+  serialized_start=1347,
+  serialized_end=1391,
 )
 
 
@@ -678,8 +678,8 @@ _ADMINISTRATORFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1388,
-  serialized_end=1436,
+  serialized_start=1393,
+  serialized_end=1441,
 )
 
 
@@ -717,8 +717,8 @@ _CHANNELPARTYFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1438,
-  serialized_end=1509,
+  serialized_start=1443,
+  serialized_end=1514,
 )
 
 
@@ -763,8 +763,8 @@ _DOCUMENTFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1511,
-  serialized_end=1572,
+  serialized_start=1516,
+  serialized_end=1577,
 )
 
 
@@ -900,8 +900,8 @@ _ENTITYFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1575,
-  serialized_end=1979,
+  serialized_start=1580,
+  serialized_end=1984,
 )
 
 
@@ -946,8 +946,8 @@ _IDENTITYORACLEPROOFFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1982,
-  serialized_end=2120,
+  serialized_start=1987,
+  serialized_end=2125,
 )
 
 
@@ -985,8 +985,8 @@ _MANAGERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2122,
-  serialized_end=2164,
+  serialized_start=2127,
+  serialized_end=2169,
 )
 
 
@@ -1045,8 +1045,8 @@ _ORACLESIGNATUREFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2167,
-  serialized_end=2323,
+  serialized_start=2172,
+  serialized_end=2328,
 )
 
 
@@ -1084,8 +1084,8 @@ _OUTPOINTFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2325,
-  serialized_end=2375,
+  serialized_start=2330,
+  serialized_end=2380,
 )
 
 
@@ -1116,8 +1116,8 @@ _OUTPUTTAGFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2377,
-  serialized_end=2406,
+  serialized_start=2382,
+  serialized_end=2411,
 )
 
 
@@ -1162,8 +1162,8 @@ _PAYMAILPROOFFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2408,
-  serialized_end=2516,
+  serialized_start=2413,
+  serialized_end=2521,
 )
 
 
@@ -1201,8 +1201,8 @@ _PERIODFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2518,
-  serialized_end=2559,
+  serialized_start=2523,
+  serialized_end=2564,
 )
 
 
@@ -1240,8 +1240,8 @@ _TARGETADDRESSFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2561,
-  serialized_end=2616,
+  serialized_start=2566,
+  serialized_end=2621,
 )
 
 _PUBLICMESSAGE.fields_by_name['Regarding'].message_type = _OUTPOINTFIELD

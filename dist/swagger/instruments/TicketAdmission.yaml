@@ -1,0 +1,40 @@
+
+description: Admission ticket
+type: object
+properties:
+  AgeRestriction:
+    description: Age restriction is used to specify required ages for instrument ownership.
+    type: object
+    $ref: "#/components/schemas/AgeRestrictionField"
+  Venue:
+    type: string
+    example: "Orion Cinemas - 293 Stehpens St, Vancouver, BC V4A 9V1"
+  Area:
+    type: string
+    example: "Upper Bowl"
+  Seat:
+    type: string
+    example: "Seat 5, or A122"
+  EventStartTimestamp:
+    type: number
+    example: 1594668650000000000
+  EventName:
+    type: string
+    example: "Coingeek Conference - London (November 2018)."
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
+  Details:
+    type: string
+  Section:
+    type: string
+    example: "Sec 1"
+  Row:
+    type: string
+    example: "Sec 1"
+  EventEndTimestamp:
+    type: number
+    example: 1594668650000000000
+

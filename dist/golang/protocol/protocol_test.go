@@ -8,38 +8,38 @@ import (
 	"github.com/tokenized/pkg/bitcoin"
 )
 
-func TestAssetID(t *testing.T) {
-	// Random asset code
+func TestInstrumentID(t *testing.T) {
+	// Random instrument code
 	var code bitcoin.Hash20
 	rand.Read(code[:])
 
-	assetType := "SHR"
+	instrumentType := "SHR"
 
-	id := AssetID(assetType, code)
-	t.Logf("Generated Asset ID : %s", id)
+	id := InstrumentID(instrumentType, code)
+	t.Logf("Generated Instrument ID : %s", id)
 
-	rAssetType, rAssetCode, err := DecodeAssetID(id)
+	rInstrumentType, rInstrumentCode, err := DecodeInstrumentID(id)
 	if err != nil {
-		t.Fatalf("Failed to decode asset id : %s", err)
+		t.Fatalf("Failed to decode instrument id : %s", err)
 	}
 
-	if rAssetType != assetType {
-		t.Fatalf("Incorrect asset type : got %s, want %s", rAssetType, assetType)
+	if rInstrumentType != instrumentType {
+		t.Fatalf("Incorrect instrument type : got %s, want %s", rInstrumentType, instrumentType)
 	}
 
-	if !bytes.Equal(rAssetCode.Bytes(), code[:]) {
-		t.Fatalf("Incorrect asset code : got %x, want %x", rAssetCode.Bytes(), code[:])
+	if !bytes.Equal(rInstrumentCode.Bytes(), code[:]) {
+		t.Fatalf("Incorrect instrument code : got %x, want %x", rInstrumentCode.Bytes(), code[:])
 	}
 }
 
-func TestAssetID_BSV(t *testing.T) {
+func TestInstrumentID_BSV(t *testing.T) {
 	var code bitcoin.Hash20
 
-	assetType := BSVAssetID
+	instrumentType := BSVInstrumentID
 
-	id := AssetID(assetType, code)
+	id := InstrumentID(instrumentType, code)
 
-	if id != assetType {
-		t.Fatalf("got %v, want %v", id, assetType)
+	if id != instrumentType {
+		t.Fatalf("got %v, want %v", id, instrumentType)
 	}
 }

@@ -63,16 +63,16 @@
       "type": "bin"
     },
     {
-      "description": "A code representing the type of asset and the structure of the payload.",
+      "description": "A code representing the type of instrument and the structure of the payload.",
       "example": "CCY",
-      "name": "AssetType",
+      "name": "InstrumentType",
       "size": 3,
       "type": "fixedchar"
     },
     {
-      "description": "Represents a unique identifier for an asset/token.",
+      "description": "Represents a unique identifier for an instrument/token.",
       "example": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "name": "AssetCode",
+      "name": "InstrumentCode",
       "size": 20,
       "type": "bin"
     },
@@ -160,13 +160,13 @@
       "name": "AdminIdentityCertificate"
     },
     {
-      "description": "An Amendment is used to describe the modification of a single field in a Contract or Asset, as defined in the ContractFormation and AssetCreation messages.",
+      "description": "An Amendment is used to describe the modification of a single field in a Contract or Instrument, as defined in the ContractFormation and InstrumentCreation messages.",
       "fields": [
         {
           "description": "List of indices that identify the field/sub-field to be amended.",
           "label": "Field Index Path",
           "name": "FieldIndexPath",
-          "notes": "The index path of the field being modified. Encoded as a list of base 128 var ints. Each index is an index into the current object, top level being the ContractFormation or AssetCreation. Indexes are defined by protobuf messages. If the current level is a list, then the index is a zero based offset to the element in the list.",
+          "notes": "The index path of the field being modified. Encoded as a list of base 128 var ints. Each index is an index into the current object, top level being the ContractFormation or InstrumentCreation. Indexes are defined by protobuf messages. If the current level is a list, then the index is a zero based offset to the element in the list.",
           "size": "tiny",
           "type": "varbin"
         },
@@ -199,7 +199,7 @@
       "name": "Amendment"
     },
     {
-      "description": "An AssetReceiver is a quantity, address, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The address is where the asset will be sent.",
+      "description": "An InstrumentReceiver is a quantity, address, and oracle signature. The quantity could be used to describe a number of tokens, or a value. The address is where the instrument will be sent.",
       "fields": [
         {
           "description": "The address receiving the tokens",
@@ -216,7 +216,7 @@
           "type": "uint"
         },
         {
-          "description": "0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the asset being received has oracles, then a signature is required from one of them.",
+          "description": "0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 = ECDSA+secp256k1. If the contract for the instrument being received has oracles, then a signature is required from one of them.",
           "example": 1,
           "label": "Oracle Signature Algorithm",
           "name": "OracleSigAlgorithm",
@@ -235,7 +235,7 @@
           "type": "uint"
         },
         {
-          "description": "Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Asset Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.",
+          "description": "Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age, location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an approved/trusted oracle through an API signature of the defined message. If no transfer restrictions(trade restriction/age restriction fields in the Instrument Type payload. or restricted to a whitelist by the Contract Auth Flags, it is a NULL field.",
           "label": "Oracle Confirmation Signature",
           "name": "OracleConfirmationSig",
           "type": "Signature"
@@ -254,11 +254,11 @@
           "type": "Timestamp"
         }
       ],
-      "label": "AssetReceiver",
-      "name": "AssetReceiver"
+      "label": "InstrumentReceiver",
+      "name": "InstrumentReceiver"
     },
     {
-      "description": "AssetSettlement is the data required to settle an asset transfer.",
+      "description": "InstrumentSettlement is the data required to settle an instrument transfer.",
       "fields": [
         {
           "description": "Index of input containing the contract's address for this offset",
@@ -268,32 +268,32 @@
           "type": "uint"
         },
         {
-          "description": "Three letter character that specifies the asset type. Example: COU",
+          "description": "Three letter character that specifies the instrument type. Example: COU",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
-          "description": "Each element contains the resulting token balance of Asset X for the output Address, which is referred to by the index.",
+          "description": "Each element contains the resulting token balance of Instrument X for the output Address, which is referred to by the index.",
           "label": "Settlements[]",
           "name": "Settlements",
           "type": "QuantityIndex[]"
         }
       ],
-      "label": "Asset Settlement",
-      "name": "AssetSettlement"
+      "label": "Instrument Settlement",
+      "name": "InstrumentSettlement"
     },
     {
-      "description": "AssetTransfer is the data required to transfer an asset.",
+      "description": "InstrumentTransfer is the data required to transfer an instrument.",
       "fields": [
         {
           "description": "Index of output containing the contract's address for this offset",
@@ -303,35 +303,35 @@
           "type": "uint"
         },
         {
-          "description": "Three letter character that specifies the asset type. Example: COU",
+          "description": "Three letter character that specifies the instrument type. Example: COU",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
           "description": "Each element has the value of tokens to be spent from the input address, which is referred to by the index.",
-          "label": "Asset Senders",
-          "name": "AssetSenders",
+          "label": "Instrument Senders",
+          "name": "InstrumentSenders",
           "type": "QuantityIndex[]"
         },
         {
           "description": "Each element has the value of tokens to be received, the address, and an oracle signature if required.",
-          "label": "Asset Receivers",
-          "name": "AssetReceivers",
-          "type": "AssetReceiver[]"
+          "label": "Instrument Receivers",
+          "name": "InstrumentReceivers",
+          "type": "InstrumentReceiver[]"
         }
       ],
-      "label": "Asset Transfer",
-      "name": "AssetTransfer"
+      "label": "Instrument Transfer",
+      "name": "InstrumentTransfer"
     },
     {
       "description": "A chapter is the top level structure of an agreement. It contains articles.\n",
@@ -555,7 +555,7 @@
           "varSize": "tiny"
         },
         {
-          "description": "Deprecated for separate field in contract. Address of entity contract. When the contract type is asset contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.",
+          "description": "Deprecated for separate field in contract. Address of entity contract. When the contract type is instrument contract, or a child type, this field refers to the entity specified in the contract at the address specified. When this field is present, no other fields should be included in the entity.",
           "label": "Entity Contract Address",
           "name": "EntityContractAddress",
           "type": "deprecated"
@@ -772,7 +772,7 @@
           "type": "uint"
         },
         {
-          "description": "Where an asset has a vote multiplier, true must be set here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.",
+          "description": "Where an instrument has a vote multiplier, true must be set here for the vote multiplier to count, otherwise votes are simply treated as 1x per token.",
           "label": "VoteMultiplierPermitted",
           "name": "VoteMultiplierPermitted",
           "type": "bool"
@@ -817,7 +817,7 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal and technical information.\n",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Instruments. Legal and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
           "only_valid_when": {
@@ -866,7 +866,7 @@
           "type": "Timestamp"
         },
         {
-          "description": "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).",
+          "description": "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the instrument, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).",
           "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
           "label": "Contract URI",
           "name": "ContractURI",
@@ -923,7 +923,7 @@
           "type": "deprecated"
         },
         {
-          "description": "Satoshis required to be paid to the contract for each asset action.",
+          "description": "Satoshis required to be paid to the contract for each instrument action.",
           "label": "Contract Fee",
           "name": "ContractFee",
           "size": 8,
@@ -943,11 +943,11 @@
           "varSize": "small"
         },
         {
-          "description": "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
+          "description": "Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
           "example": "1",
-          "label": "Restricted Qty of Assets",
-          "name": "RestrictedQtyAssets",
-          "notes": "Qty of Assets - Amendments can be restricted to a vote.",
+          "label": "Restricted Qty of Instruments",
+          "name": "RestrictedQtyInstruments",
+          "notes": "Qty of Instruments - Amendments can be restricted to a vote.",
           "size": 8,
           "type": "uint"
         },
@@ -967,7 +967,7 @@
           "type": "bool"
         },
         {
-          "description": "A list of oracles that provide approval for all token transfers for all assets under the contract.",
+          "description": "A list of oracles that provide approval for all token transfers for all instruments under the contract.",
           "label": "Oracles",
           "name": "Oracles",
           "type": "Oracle[]"
@@ -979,7 +979,7 @@
           "type": "Address"
         },
         {
-          "description": "The address of the contract's parent entity. This is not valid for entity contracts, but required for asset and service contracts to identify the entity parent contract.\n",
+          "description": "The address of the contract's parent entity. This is not valid for entity contracts, but required for instrument and service contracts to identify the entity parent contract.\n",
           "label": "Entity Contract",
           "name": "EntityContract",
           "only_valid_when": {
@@ -1009,7 +1009,7 @@
           "type": "Address"
         },
         {
-          "description": "Describes the purpose of the contract. 0 - Entity, 1 - Asset",
+          "description": "Describes the purpose of the contract. 0 - Entity, 1 - Instrument",
           "example": 0,
           "label": "Contract Type",
           "name": "ContractType",
@@ -1107,7 +1107,7 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal and technical information.\n",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Instruments. Legal and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
           "only_valid_when": {
@@ -1156,7 +1156,7 @@
           "type": "Timestamp"
         },
         {
-          "description": "Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).",
+          "description": "Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Instrument, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS).",
           "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
           "label": "Contract URI",
           "name": "ContractURI",
@@ -1207,7 +1207,7 @@
           "type": "deprecated"
         },
         {
-          "description": "Satoshis required to be paid to the contract for each asset action.",
+          "description": "Satoshis required to be paid to the contract for each instrument action.",
           "label": "Contract Fee",
           "name": "ContractFee",
           "size": 8,
@@ -1227,11 +1227,11 @@
           "varSize": "small"
         },
         {
-          "description": "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
+          "description": "Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
           "example": "1",
-          "label": "Restricted Qty of Assets",
-          "name": "RestrictedQtyAssets",
-          "notes": "Qty of Assets - Amendments can be restricted to a vote.",
+          "label": "Restricted Qty of Instruments",
+          "name": "RestrictedQtyInstruments",
+          "notes": "Qty of Instruments - Amendments can be restricted to a vote.",
           "size": 8,
           "type": "uint"
         },
@@ -1251,7 +1251,7 @@
           "type": "bool"
         },
         {
-          "description": "A list of oracles that provide approval for all token transfers for all assets under the contract.",
+          "description": "A list of oracles that provide approval for all token transfers for all instruments under the contract.",
           "label": "Oracles",
           "name": "Oracles",
           "type": "Oracle[]"
@@ -1279,7 +1279,7 @@
           "type": "Timestamp"
         },
         {
-          "description": "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract.",
+          "description": "The address of the contract's parent entity. This is optional for entity contracts, but required for instrument and service contracts to identify the entity parent contract.",
           "label": "Entity Contract",
           "name": "EntityContract",
           "only_valid_when": {
@@ -1303,7 +1303,7 @@
           "type": "Address"
         },
         {
-          "description": "Describes the purpose of the contract. 0 - Entity, 1 - Asset",
+          "description": "Describes the purpose of the contract. 0 - Entity, 1 - Instrument",
           "example": 0,
           "label": "Contract Type",
           "name": "ContractType",
@@ -1372,13 +1372,13 @@
         ],
         "outputs": [
           {
-            "comments": "Required so that users can monitor transactions to the contract for updates to contract/assets.",
+            "comments": "Required so that users can monitor transactions to the contract for updates to contract/instruments.",
             "label": "Contract Public Address",
             "name": "Contract"
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
       "name": "ContractFormation"
     },
@@ -1452,7 +1452,7 @@
       "description": "Static Contract Formation Action",
       "fields": [
         {
-          "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public address. If the public address is lost, then the administration will have to reissue the entire contract, Asset Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
+          "description": "Can be any unique identifying string, including human readable names for branding/vanity purposes. Contract identifier (instance) is the bitcoin public address. If the public address is lost, then the administration will have to reissue the entire contract, Instrument Definition and tokens with the new public address. Smart contracts can be branded and specialized to suit any terms and conditions.\n",
           "example": "Tesla - Shareholder Agreement",
           "label": "Contract Name",
           "name": "ContractName",
@@ -1479,7 +1479,7 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Assets.  Legal and technical information.",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full terms and conditions of an agreement in the Tokenized Body of Agreement format.  This is specific to the smart contract and relevant Instruments.  Legal and technical information.",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
           "type": "varbin",
@@ -1533,7 +1533,7 @@
           "type": "Timestamp"
         },
         {
-          "description": "Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the Asset, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on chain information or even a public address (DNS).",
+          "description": "Length 0-255 bytes. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the Instrument, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on chain information or even a public address (DNS).",
           "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
           "label": "Contract URI",
           "name": "ContractURI",
@@ -1735,7 +1735,7 @@
           "type": "uint"
         },
         {
-          "description": "A collection of modifications to perform on this asset.",
+          "description": "A collection of modifications to perform on this instrument.",
           "label": "Amendments",
           "name": "Amendments",
           "type": "Amendment[]"
@@ -1767,24 +1767,24 @@
       "name": "BodyOfAgreementAmendment"
     },
     {
-      "code": "A1",
-      "description": "This action is used by the administration to define the properties/characteristics of the asset (token) that it wants to create. An asset has a unique identifier called AssetID = AssetType + base58(AssetCode + checksum). An asset is always linked to a contract that is identified by the public address of the Contract wallet.\n",
+      "code": "I1",
+      "description": "This action is used by the administration to define the properties/characteristics of the instrument (token) that it wants to create. An instrument has a unique identifier called InstrumentID = InstrumentType + base58(InstrumentCode + checksum). An instrument is always linked to a contract that is identified by the public address of the Contract wallet.\n",
       "fields": [
         {
-          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this asset. See the Permission documentation for more detail.",
-          "label": "Asset Permissions",
-          "name": "AssetPermissions",
+          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this instrument. See the Permission documentation for more detail.",
+          "label": "Instrument Permissions",
+          "name": "InstrumentPermissions",
           "type": "varbin",
           "varSize": "small"
         },
         {
-          "description": "Deprecated to move into specific asset types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "description": "Deprecated to move into specific instrument types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
           "type": "deprecated"
         },
         {
-          "description": "Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
+          "description": "Deprecated to remove fixed size. If specified, the instrument can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
           "label": "Trade Restrictions",
           "name": "TradeRestrictionsDeprecated",
           "type": "deprecated"
@@ -1797,14 +1797,14 @@
           "type": "bool"
         },
         {
-          "description": "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.",
+          "description": "When false holders of this instrument will not be able to vote for tokens of this instrument even on voting systems in which vote multiplers are not permitted.",
           "example": true,
           "label": "Voting Rights",
           "name": "VotingRights",
           "type": "bool"
         },
         {
-          "description": "Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens.",
+          "description": "Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this instrument don't get any votes for their tokens.",
           "example": "3",
           "label": "Vote Multiplier",
           "name": "VoteMultiplier",
@@ -1827,10 +1827,10 @@
           "type": "bool"
         },
         {
-          "description": "Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset permissions, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
+          "description": "Supported values: 1 - Contract-wide Instrument Governance. 0 - Instrument-wide Instrument Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the instrument permissions, then the vote will either be a contract-wide vote (all instruments vote on the referendum/initiative) or an instrument-wide vote (only this instrument votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
           "example": "1",
-          "label": "Asset Modification Governance",
-          "name": "AssetModificationGovernance",
+          "label": "Instrument Modification Governance",
+          "name": "InstrumentModificationGovernance",
           "options": [
             0,
             1
@@ -1839,7 +1839,7 @@
           "type": "uint"
         },
         {
-          "description": "The number of tokens authorized to be issued for this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
+          "description": "The number of tokens authorized to be issued for this instrument. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many instruments. Set to 0 to represent a placeholder instrument, where tokens are to be issued later, or to represent a decomissioned instrument where all tokens have been revoked.",
           "example": "1000000",
           "label": "Authorized Token Quantity",
           "name": "AuthorizedTokenQty",
@@ -1847,29 +1847,29 @@
           "type": "uint"
         },
         {
-          "description": "A code representing the type of asset and the structure of the payload.",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "description": "A code representing the type of instrument and the structure of the payload.",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "required": true,
-          "type": "AssetType"
+          "type": "InstrumentType"
         },
         {
-          "description": "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.",
-          "label": "Asset Payload",
-          "name": "AssetPayload",
+          "description": "A custom payload that contains meta data about this instrument. Payload structure and length is dependent on the instrument type chosen. See instrument documentation for more details.",
+          "label": "Instrument Payload",
+          "name": "InstrumentPayload",
           "required": true,
           "type": "varbin",
           "varSize": "small"
         },
         {
-          "description": "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
+          "description": "If specified, the instrument can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
           "label": "Trade Restrictions",
           "listSize": "small",
           "name": "TradeRestrictions",
           "type": "Polity[]"
         }
       ],
-      "label": "Asset Definition",
+      "label": "Instrument Definition",
       "metadata": {
         "inputs": [
           {
@@ -1880,50 +1880,50 @@
         ],
         "outputs": [
           {
-            "comments": "The contract that this asset should be assigned to. Must include enough for the responding action.",
+            "comments": "The contract that this instrument should be assigned to. Must include enough for the responding action.",
             "label": "Contract Public Address",
             "name": "Contract"
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
-      "name": "AssetDefinition"
+      "name": "InstrumentDefinition"
     },
     {
-      "code": "A2",
-      "description": "This action creates an asset in response to the administration's instructions in the Definition Action.",
+      "code": "I2",
+      "description": "This action creates an instrument in response to the administration's instructions in the Definition Action.",
       "fields": [
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
-          "description": "The index of the asset within the contract. First asset is zero, second is one. Used to derive the asset code.",
+          "description": "The index of the instrument within the contract. First instrument is zero, second is one. Used to derive the instrument code.",
           "example": 0,
-          "label": "Asset Index",
-          "name": "AssetIndex",
+          "label": "Instrument Index",
+          "name": "InstrumentIndex",
           "size": 8,
           "type": "uint"
         },
         {
-          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this asset. See the Permission documentation for more detail.",
-          "label": "Asset Permissions",
-          "name": "AssetPermissions",
+          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this instrument. See the Permission documentation for more detail.",
+          "label": "Instrument Permissions",
+          "name": "InstrumentPermissions",
           "type": "varbin",
           "varSize": "small"
         },
         {
-          "description": "Deprecated to move into specific asset types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
+          "description": "Deprecated to move into specific instrument types. Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.",
           "label": "Transfers Permitted",
           "name": "TransfersPermitted",
           "type": "deprecated"
         },
         {
-          "description": "Deprecated to remove fixed size. If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
+          "description": "Deprecated to remove fixed size. If specified, the instrument can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
           "label": "Trade Restrictions",
           "name": "TradeRestrictionsDeprecated",
           "type": "deprecated"
@@ -1936,14 +1936,14 @@
           "type": "bool"
         },
         {
-          "description": "When false holders of this asset will not be able to vote for tokens of this asset even on voting systems in which vote multiplers are not permitted.",
+          "description": "When false holders of this instrument will not be able to vote for tokens of this instrument even on voting systems in which vote multiplers are not permitted.",
           "example": true,
           "label": "Voting Rights",
           "name": "VotingRights",
           "type": "bool"
         },
         {
-          "description": "Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this asset don't get any votes for their tokens.",
+          "description": "Multiplies a vote by the specified integer. Where 1 token is equal to 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a multiplier of 3, for example. If zero, then holders of this instrument don't get any votes for their tokens.",
           "example": "3",
           "label": "Vote Multiplier",
           "name": "VoteMultiplier",
@@ -1966,10 +1966,10 @@
           "type": "bool"
         },
         {
-          "description": "Supported values: 1 - Contract-wide Asset Governance.  0 - Asset-wide Asset Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the asset permissions, then the vote will either be a contract-wide vote (all assets vote on the referendum/initiative) or an asset-wide vote (only this asset votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
+          "description": "Supported values: 1 - Contract-wide Instrument Governance.  0 - Instrument-wide Instrument Governance.  If a referendum or initiative is used to propose a modification to a subfield controlled by the instrument permissions, then the vote will either be a contract-wide vote (all instruments vote on the referendum/initiative) or an instrument-wide vote (only this instrument votes on the referendum/initiative) depending on the value in this subfield.  The voting system specifies the voting rules.",
           "example": "1",
-          "label": "Asset Modification Governance",
-          "name": "AssetModificationGovernance",
+          "label": "Instrument Modification Governance",
+          "name": "InstrumentModificationGovernance",
           "options": [
             0,
             1
@@ -1978,7 +1978,7 @@
           "type": "uint"
         },
         {
-          "description": "The number of tokens authorized to be issued for this asset. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many assets. Set to 0 to represent a placeholder asset, where tokens are to be issued later, or to represent a decomissioned asset where all tokens have been revoked.",
+          "description": "The number of tokens authorized to be issued for this instrument. Set to greater than zero for fungible tokens. If the value is 1 then it becomes a non-fungible token, where the contract would have many instruments. Set to 0 to represent a placeholder instrument, where tokens are to be issued later, or to represent a decomissioned instrument where all tokens have been revoked.",
           "example": "1000000",
           "label": "Authorized Token Quantity",
           "name": "AuthorizedTokenQty",
@@ -1986,23 +1986,23 @@
           "type": "uint"
         },
         {
-          "description": "A code representing the type of asset and the structure of the payload.",
-          "label": "Asset Type",
-          "name": "AssetType",
-          "type": "AssetType"
+          "description": "A code representing the type of instrument and the structure of the payload.",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
+          "type": "InstrumentType"
         },
         {
-          "description": "A custom payload that contains meta data about this asset. Payload structure and length is dependent on the asset type chosen. See asset documentation for more details.",
-          "label": "Asset Payload",
-          "name": "AssetPayload",
+          "description": "A custom payload that contains meta data about this instrument. Payload structure and length is dependent on the instrument type chosen. See instrument documentation for more details.",
+          "label": "Instrument Payload",
+          "name": "InstrumentPayload",
           "type": "varbin",
           "varSize": "small"
         },
         {
-          "description": "A counter for the number of times this asset has been revised using a modification action.",
+          "description": "A counter for the number of times this instrument has been revised using a modification action.",
           "example": "456789",
-          "label": "Asset Revision",
-          "name": "AssetRevision",
+          "label": "Instrument Revision",
+          "name": "InstrumentRevision",
           "notes": "Can't be changed by the administration, operator. Smart contract controls.",
           "size": 4,
           "type": "uint"
@@ -2015,64 +2015,64 @@
           "type": "Timestamp"
         },
         {
-          "description": "If specified, the asset can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
+          "description": "If specified, the instrument can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.",
           "label": "Trade Restrictions",
           "listSize": "small",
           "name": "TradeRestrictions",
           "type": "Polity[]"
         }
       ],
-      "label": "Asset Creation",
+      "label": "Instrument Creation",
       "metadata": {
         "inputs": [
           {
-            "comments": "The contract that this asset was assigned to.",
+            "comments": "The contract that this instrument was assigned to.",
             "label": "Contract Public Address",
             "name": "Contract"
           }
         ],
         "outputs": [
           {
-            "comments": "Required so that users can monitor transactions to the contract for updates to contract/assets.",
+            "comments": "Required so that users can monitor transactions to the contract for updates to contract/instruments.",
             "label": "Contract Public Address",
             "name": "Contract"
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
-      "name": "AssetCreation"
+      "name": "InstrumentCreation"
     },
     {
-      "code": "A3",
+      "code": "I3",
       "description": "Token Dilutions, Call Backs/Revocations, burning etc.",
       "fields": [
         {
-          "description": "Three letter character that specifies the asset type.",
+          "description": "Three letter character that specifies the instrument type.",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
           "description": "The current revision figure to ensure the modification provided is based on the latest version.",
           "example": 0,
-          "label": "Asset Revision",
-          "name": "AssetRevision",
+          "label": "Instrument Revision",
+          "name": "InstrumentRevision",
           "notes": "Cannot be Amended",
           "size": 4,
           "type": "uint"
         },
         {
-          "description": "A collection of modifications to perform on this asset.",
+          "description": "A collection of modifications to perform on this instrument.",
           "label": "Amendments",
           "name": "Amendments",
           "type": "Amendment[]"
@@ -2084,7 +2084,7 @@
           "type": "TxId"
         }
       ],
-      "label": "Asset Modification",
+      "label": "Instrument Modification",
       "metadata": {
         "inputs": [
           {
@@ -2095,25 +2095,25 @@
         ],
         "outputs": [
           {
-            "comments": "The contract that this asset currently belongs to. Must include enough for the responding action.",
+            "comments": "The contract that this instrument currently belongs to. Must include enough for the responding action.",
             "label": "Contract Public Address",
             "name": "Contract"
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
-      "name": "AssetModification"
+      "name": "InstrumentModification"
     },
     {
       "code": "T1",
-      "description": "A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different assets - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.",
+      "description": "A Token Owner(s) Sends, Exchanges or Swaps a token(s) or Bitcoin for a token(s) or Bitcoin.  Can be as simple as sending a single token to a receiver.  Or can be as complex as many senders sending many different instruments - controlled by many different smart contracts - to a number of receivers.  This action also supports atomic swaps (tokens for tokens).  Since many parties and contracts can be involved in a transfer and the corresponding settlement action, the partially signed T1 and T2 actions will need to be passed around on-chain with an M1 action, or off-chain.",
       "fields": [
         {
-          "description": "The Assets involved in the Transfer Action.",
-          "label": "Assets",
-          "name": "Assets",
-          "type": "AssetTransfer[]"
+          "description": "The Instruments involved in the Transfer Action.",
+          "label": "Instruments",
+          "name": "Instruments",
+          "type": "InstrumentTransfer[]"
         },
         {
           "description": "This prevents any party from holding on to the partially signed message as a form of an option.  Eg. the exchange at this price is valid for 30 mins.",
@@ -2140,16 +2140,16 @@
       "metadata": {
         "inputs": [
           {
-            "comments": "Asset (token) Sending Public Address. Assets[i].AssetSenders[j].Index references these inputs.",
-            "label": "Asset Senders",
-            "name": "AssetSenders"
+            "comments": "Instrument (token) Sending Public Address. Instruments[i].InstrumentSenders[j].Index references these inputs.",
+            "label": "Instrument Senders",
+            "name": "InstrumentSenders"
           }
         ],
         "outputs": [
           {
             "comments": "Enough for the costs of the responding action, including any bitcoins being transfered, and the Contract Fee.",
-            "label": "Contract Public Address for Asset X",
-            "name": "AssetContract"
+            "label": "Contract Public Address for Instrument X",
+            "name": "InstrumentContract"
           }
         ],
         "rejection": "Rejection",
@@ -2162,10 +2162,10 @@
       "description": "Settles the transfer request of bitcoins and tokens from transfer (T1) actions.",
       "fields": [
         {
-          "description": "The Assets settled by the transfer action.",
-          "label": "Assets",
-          "name": "Assets",
-          "type": "AssetSettlement[]"
+          "description": "The Instruments settled by the transfer action.",
+          "label": "Instruments",
+          "name": "Instruments",
+          "type": "InstrumentSettlement[]"
         },
         {
           "description": "Timestamp in nanoseconds of when the smart contract created the action.",
@@ -2179,20 +2179,20 @@
       "metadata": {
         "inputs": [
           {
-            "comments": "Contract (Asset X) in response to a transfer action with Asset X being sent to another address(es).",
-            "label": "Contract Public Address (Asset X)",
-            "name": "AssetXContract"
+            "comments": "Contract (Instrument X) in response to a transfer action with Instrument X being sent to another address(es).",
+            "label": "Contract Public Address (Instrument X)",
+            "name": "InstrumentXContract"
           }
         ],
         "outputs": [
           {
-            "comments": "Address X that is being settled for Asset 1.",
-            "label": "Asset 1 Settlement Address X",
-            "name": "AssetXSettlementAddressX"
+            "comments": "Address X that is being settled for Instrument 1.",
+            "label": "Instrument 1 Settlement Address X",
+            "name": "InstrumentXSettlementAddressX"
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
       "name": "Settlement"
     },
@@ -2213,19 +2213,19 @@
           "type": "uint"
         },
         {
-          "description": "Three letter character that specifies the asset type.",
+          "description": "Three letter character that specifies the instrument type.",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
           "description": "X for Vote System X. (1-255, 0 is not valid.)",
@@ -2236,7 +2236,7 @@
           "type": "uint"
         },
         {
-          "description": "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.",
+          "description": "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Instrument is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Instrument the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Instrument at that time.",
           "label": "Proposed Amendments",
           "name": "ProposedAmendments",
           "type": "Amendment[]"
@@ -2301,7 +2301,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "Contract/Asset Amendment or nothing"
+        "validation": "Contract/Instrument Amendment or nothing"
       },
       "name": "Proposal"
     },
@@ -2340,7 +2340,7 @@
     },
     {
       "code": "G3",
-      "description": "Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Asset Definition action.",
+      "description": "Used by Token Owners to cast their ballot (vote) on proposals. 1 Vote per token unless a vote multiplier is specified in the relevant Instrument Definition action.",
       "fields": [
         {
           "description": "Tx ID of the Vote the Ballot Cast is being made for.",
@@ -2432,25 +2432,25 @@
     },
     {
       "code": "G5",
-      "description": "Once a vote has been completed the results are published. After the result is posted, it is up to the administration to send a contract/asset amendement if appropriate.",
+      "description": "Once a vote has been completed the results are published. After the result is posted, it is up to the administration to send a contract/instrument amendement if appropriate.",
       "fields": [
         {
-          "description": "Three letter character that specifies the asset type.",
+          "description": "Three letter character that specifies the instrument type.",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
-          "description": "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Asset is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Asset the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Asset at that time.",
+          "description": "Each element contains details of which fields to modify, or delete. Because the number of fields in a Contract and Instrument is dynamic due to some fields being able to be repeated, the index value of the field needs to be calculated against the Contract or Instrument the changes are to apply to. In the event of a Vote being created from this Initiative, the changes will be applied to the version of the Contract or Instrument at that time.",
           "label": "Proposed Amendments",
           "name": "ProposedAmendments",
           "type": "Amendment[]"
@@ -2522,22 +2522,22 @@
           "type": "fixedchar"
         },
         {
-          "description": "Three letter character that specifies the asset type.",
+          "description": "Three letter character that specifies the instrument type.",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
-          "description": "The holders and quantities that are effected by the order. For a contract or asset wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an asset wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed.",
+          "description": "The holders and quantities that are effected by the order. For a contract or instrument wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an instrument wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed.",
           "label": "Target Addresses",
           "listSize": "medium",
           "name": "TargetAddresses",
@@ -2588,7 +2588,7 @@
           "type": "uint"
         },
         {
-          "description": "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Asset Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)",
+          "description": "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Instrument Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)",
           "label": "Authority Order Signature",
           "name": "OrderSignature",
           "type": "varbin"
@@ -2665,31 +2665,31 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
       "name": "Order"
     },
     {
       "code": "E2",
-      "description": "The contract responding to an Order action to freeze assets. To be used to comply with contractual/legal/issuer requirements. The target public address(es) will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The contract will not respond to any actions requested by the frozen address.\n",
+      "description": "The contract responding to an Order action to freeze instruments. To be used to comply with contractual/legal/issuer requirements. The target public address(es) will be marked as frozen. However the Freeze action publishes this fact to the public blockchain for transparency. The contract will not respond to any actions requested by the frozen address.\n",
       "fields": [
         {
-          "description": "Three letter character that specifies the asset type.",
+          "description": "Three letter character that specifies the instrument type.",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
-          "description": "Indices to addresses in outputs and the quantities being frozen. If the only address is the contract address and the asset code is zeros, then it is a contract wide freeze. If the only address is the contract address and the asset code is specified, then it is an asset wide freeze.",
+          "description": "Indices to addresses in outputs and the quantities being frozen. If the only address is the contract address and the instrument code is zeros, then it is a contract wide freeze. If the only address is the contract address and the instrument code is specified, then it is an instrument wide freeze.",
           "label": "Quantities",
           "listSize": "small",
           "name": "Quantities",
@@ -2726,13 +2726,13 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
       "name": "Freeze"
     },
     {
       "code": "E3",
-      "description": "The contract responding to an Order action to thaw assets. To be used to comply with contractual obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.\n",
+      "description": "The contract responding to an Order action to thaw instruments. To be used to comply with contractual obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.\n",
       "fields": [
         {
           "description": "The tx id of the freeze action that is being reversed.",
@@ -2765,28 +2765,28 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
       "name": "Thaw"
     },
     {
       "code": "E4",
-      "description": "The contract responding to an Order action to confiscate assets. To be used to comply with contractual obligations, legal and/or issuer requirements.\n",
+      "description": "The contract responding to an Order action to confiscate instruments. To be used to comply with contractual obligations, legal and/or issuer requirements.\n",
       "fields": [
         {
-          "description": "Three letter character that specifies the asset type.",
+          "description": "Three letter character that specifies the instrument type.",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
           "description": "The holders effected by the confiscation and their balance remaining.",
@@ -2833,28 +2833,28 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
       "name": "Confiscation"
     },
     {
       "code": "E5",
-      "description": "The contract responding to an Order action to reconcile assets. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.\n",
+      "description": "The contract responding to an Order action to reconcile instruments. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.\n",
       "fields": [
         {
-          "description": "Three letter character that specifies the asset type.",
+          "description": "Three letter character that specifies the instrument type.",
           "example": "SHC",
-          "label": "Asset Type",
-          "name": "AssetType",
+          "label": "Instrument Type",
+          "name": "InstrumentType",
           "size": 3,
           "type": "fixedchar"
         },
         {
-          "description": "A unique code that is used to identify the asset. It is generated by hashing the contract public key hash and the asset index. SHA256(contract PKH + asset index)",
-          "label": "Asset Code",
-          "name": "AssetCode",
+          "description": "A unique code that is used to identify the instrument. It is generated by hashing the contract public key hash and the instrument index. SHA256(contract PKH + instrument index)",
+          "label": "Instrument Code",
+          "name": "InstrumentCode",
           "notes": "Cannot be changed by the administration, operator or smart contract.",
-          "type": "AssetCode"
+          "type": "InstrumentCode"
         },
         {
           "description": "The holders effected by the reconciliation and their balance remaining.",
@@ -2888,7 +2888,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
       "name": "Reconciliation"
     },
@@ -3142,7 +3142,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "AssetCreation"
+        "validation": "InstrumentCreation"
       },
       "name": "Rejection"
     }
@@ -9026,13 +9026,13 @@
         },
         {
           "code": 12,
-          "description": "Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.",
-          "label": "Contract Asset Quantity Reduction",
-          "name": "ContractAssetQtyReduction"
+          "description": "Sent when a CA tries to reduce the number of allowed instruments below the number of instruments that already exist for this contract.",
+          "label": "Contract Instrument Quantity Reduction",
+          "name": "ContractInstrumentQtyReduction"
         },
         {
           "code": 13,
-          "description": "Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.",
+          "description": "Sent when the administration attempted to increase the quantity of instruments in a contract beyond the maximum number allowed.",
           "label": "Contract Fixed Quantity",
           "name": "ContractFixedQuantity"
         },
@@ -9074,39 +9074,39 @@
         },
         {
           "code": 20,
-          "description": "The asset code specified already exists and can't be reused.",
-          "label": "Asset Code Already Exists",
-          "name": "AssetCodeExists"
+          "description": "The instrument code specified already exists and can't be reused.",
+          "label": "Instrument Code Already Exists",
+          "name": "InstrumentCodeExists"
         },
         {
           "code": 21,
-          "description": "The asset code is not found.",
-          "label": "Asset Not Found",
-          "name": "AssetNotFound"
+          "description": "The instrument code is not found.",
+          "label": "Instrument Not Found",
+          "name": "InstrumentNotFound"
         },
         {
           "code": 22,
-          "description": "The asset permissions prohibit the action requested.",
-          "label": "Asset Permissions Prohibit",
-          "name": "AssetPermissions"
+          "description": "The instrument permissions prohibit the action requested.",
+          "label": "Instrument Permissions Prohibit",
+          "name": "InstrumentPermissions"
         },
         {
           "code": 23,
-          "description": "The asset is frozen and the request is not permitted while frozen.",
-          "label": "Asset Frozen",
-          "name": "AssetFrozen"
+          "description": "The instrument is frozen and the request is not permitted while frozen.",
+          "label": "Instrument Frozen",
+          "name": "InstrumentFrozen"
         },
         {
           "code": 24,
-          "description": "The revision in an asset amendment is incorrect.",
-          "label": "Asset Revision Incorrect",
-          "name": "AssetRevision"
+          "description": "The revision in an instrument amendment is incorrect.",
+          "label": "Instrument Revision Incorrect",
+          "name": "InstrumentRevision"
         },
         {
           "code": 25,
-          "description": "Action not permitted by asset.",
-          "label": "Asset Not Permitted",
-          "name": "AssetNotPermitted"
+          "description": "Action not permitted by instrument.",
+          "label": "Instrument Not Permitted",
+          "name": "InstrumentNotPermitted"
         },
         {
           "code": 30,

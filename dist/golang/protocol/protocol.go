@@ -33,11 +33,11 @@ const (
 
 	FlagVersion = uint64(0)
 
-	AssetCodeSize = 20
+	InstrumentCodeSize = 20
 
 	ContractCodeSize = 32
 
-	BSVAssetID = "BSV"
+	BSVInstrumentID = "BSV"
 )
 
 var (
@@ -139,9 +139,9 @@ func DeserializeFlagOutputScript(script []byte) ([]byte, error) {
 	return message.Payload(), nil
 }
 
-// AssetCodeFromContract generates a "unique" deterministic asset code from a contract public key
-//   hash and an asset index.
-func AssetCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) bitcoin.Hash20 {
+// InstrumentCodeFromContract generates a "unique" deterministic instrument code from a contract public key
+//   hash and an instrument index.
+func InstrumentCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) bitcoin.Hash20 {
 	hash256 := sha256.New()
 	hash256.Write(contractAddress.Bytes())
 	binary.Write(hash256, DefaultEndian, &index)
@@ -156,21 +156,21 @@ func AssetCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) bit
 	return result
 }
 
-// AssetCodeFromBytes returns a AssetCode with the specified bytes.
-func AssetCodeFromBytes(b []byte) bitcoin.Hash20 {
+// InstrumentCodeFromBytes returns a InstrumentCode with the specified bytes.
+func InstrumentCodeFromBytes(b []byte) bitcoin.Hash20 {
 	var result bitcoin.Hash20
 	copy(result[:], b)
 	return result
 }
 
-// AssetID encodes an asset ID.
+// InstrumentID encodes an instrument ID.
 //
-// AssetID = AssetType(3 characters) + base58(AssetCode + checksum)
+// InstrumentID = InstrumentType(3 characters) + base58(InstrumentCode + checksum)
 //
 // There is a special case for BSV, which will be returned as BSV.
-func AssetID(assetType string, code bitcoin.Hash20) string {
-	if assetType == BSVAssetID {
-		return assetType
+func InstrumentID(instrumentType string, code bitcoin.Hash20) string {
+	if instrumentType == BSVInstrumentID {
+		return instrumentType
 	}
 
 	b := code.Bytes()
@@ -182,58 +182,58 @@ func AssetID(assetType string, code bitcoin.Hash20) string {
 	b = append(b, checksum[:4]...)
 
 	// Prepend with type and encode as text with base 58.
-	return assetType + bitcoin.Base58(b)
+	return instrumentType + bitcoin.Base58(b)
 }
 
-// AssetIDForRaw returns the asset ID for an asset type and asset code in byte slice form.
-func AssetIDForRaw(assetType string, assetCode []byte) (string, error) {
-	if assetType == BSVAssetID {
-		return assetType, nil
+// InstrumentIDForRaw returns the instrument ID for an instrument type and instrument code in byte slice form.
+func InstrumentIDForRaw(instrumentType string, instrumentCode []byte) (string, error) {
+	if instrumentType == BSVInstrumentID {
+		return instrumentType, nil
 	}
 
-	code, err := bitcoin.NewHash20(assetCode)
+	code, err := bitcoin.NewHash20(instrumentCode)
 	if err != nil {
-		return "", errors.Wrap(err, "asset code")
+		return "", errors.Wrap(err, "instrument code")
 	}
 
-	return AssetID(assetType, *code), nil
+	return InstrumentID(instrumentType, *code), nil
 }
 
-func AssetIDForTransfer(f *actions.AssetTransferField) (string, error) {
-	return AssetIDForRaw(f.AssetType, f.AssetCode)
+func InstrumentIDForTransfer(f *actions.InstrumentTransferField) (string, error) {
+	return InstrumentIDForRaw(f.InstrumentType, f.InstrumentCode)
 }
 
-func AssetIDForSettlement(f *actions.AssetSettlementField) (string, error) {
-	return AssetIDForRaw(f.AssetType, f.AssetCode)
+func InstrumentIDForSettlement(f *actions.InstrumentSettlementField) (string, error) {
+	return InstrumentIDForRaw(f.InstrumentType, f.InstrumentCode)
 }
 
-// DecodeAssetID decodes the asset type and asset code from an asset ID.
-func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
-	if id == BSVAssetID {
-		// Bitcoin asset id. Asset code all zeros.
-		return BSVAssetID, bitcoin.Hash20{}, nil
+// DecodeInstrumentID decodes the instrument type and instrument code from an instrument ID.
+func DecodeInstrumentID(id string) (string, bitcoin.Hash20, error) {
+	if id == BSVInstrumentID {
+		// Bitcoin instrument id. Instrument code all zeros.
+		return BSVInstrumentID, bitcoin.Hash20{}, nil
 	}
 
-	if len(id) < AssetCodeSize+7 {
-		return "", bitcoin.Hash20{}, fmt.Errorf("Asset ID too short : %s", id)
+	if len(id) < InstrumentCodeSize+7 {
+		return "", bitcoin.Hash20{}, fmt.Errorf("Instrument ID too short : %s", id)
 	}
 
-	assetType := id[:3]
+	instrumentType := id[:3]
 	text := id[3:]
 
 	b := bitcoin.Base58Decode(text)
 
-	if len(b) != AssetCodeSize+4 {
-		return "", bitcoin.Hash20{}, fmt.Errorf("Asset code data wrong size : %s : got %d, want %d",
-			id, len(b), AssetCodeSize+4)
+	if len(b) != InstrumentCodeSize+4 {
+		return "", bitcoin.Hash20{}, fmt.Errorf("Instrument code data wrong size : %s : got %d, want %d",
+			id, len(b), InstrumentCodeSize+4)
 	}
 
 	// Verify checksum
-	checksum := b[AssetCodeSize:]
-	b = b[:AssetCodeSize]
+	checksum := b[InstrumentCodeSize:]
+	b = b[:InstrumentCodeSize]
 	hash := bitcoin.DoubleSha256(b)
 	if !bytes.Equal(hash[:4], checksum) {
-		return "", bitcoin.Hash20{}, fmt.Errorf("Invalid Asset ID checksum : %s", id)
+		return "", bitcoin.Hash20{}, fmt.Errorf("Invalid Instrument ID checksum : %s", id)
 	}
 
 	code, err := bitcoin.NewHash20(b)
@@ -241,7 +241,7 @@ func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
 		return "", bitcoin.Hash20{}, errors.Wrap(err, "new hash")
 	}
 
-	return assetType, *code, nil
+	return instrumentType, *code, nil
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -262,7 +262,7 @@ func (code *ContractCode) IsZero() bool {
 	return bytes.Equal(code[:], zero)
 }
 
-// AssetCodeFromBytes returns a ContractCode with the specified bytes.
+// InstrumentCodeFromBytes returns a ContractCode with the specified bytes.
 func ContractCodeFromBytes(b []byte) *ContractCode {
 	var result ContractCode
 	copy(result[:], b)

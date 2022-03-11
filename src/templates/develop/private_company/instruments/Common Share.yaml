@@ -1,0 +1,35 @@
+# Common Share Instrument
+Name: CommonShare
+InstrumentType: SHC
+
+Permissions:
+  - Name: Administrator/Holder Special Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: true
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Special Resolution
+    Fields:
+      - [InstrumentPermissions]
+      - [InstrumentPayload, TransfersPermitted]
+      - [VotingRights]
+      - [VoteMultiplier]
+      - [AdministrationProposal]
+      - [HolderProposal]
+      - [AuthorizedTokenQty]
+      - [InstrumentPayload, Ticker]
+      - [InstrumentPayload, ISIN]
+      - [InstrumentPayload, Description]
+
+  - Name: Administrator Special Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Special Resolution
+    Fields:
+      - [TradeRestrictions]
+      - [EnforcementOrdersPermitted]
+      - [InstrumentModificationGovernance]

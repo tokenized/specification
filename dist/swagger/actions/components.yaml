@@ -16,12 +16,12 @@ components:
       $ref: ./_components/schemas/tokenized/actions/BodyOfAgreementFormation.yaml
     BodyOfAgreementAmendment:
       $ref: ./_components/schemas/tokenized/actions/BodyOfAgreementAmendment.yaml
-    AssetDefinition:
-      $ref: ./_components/schemas/tokenized/actions/AssetDefinition.yaml
-    AssetCreation:
-      $ref: ./_components/schemas/tokenized/actions/AssetCreation.yaml
-    AssetModification:
-      $ref: ./_components/schemas/tokenized/actions/AssetModification.yaml
+    InstrumentDefinition:
+      $ref: ./_components/schemas/tokenized/actions/InstrumentDefinition.yaml
+    InstrumentCreation:
+      $ref: ./_components/schemas/tokenized/actions/InstrumentCreation.yaml
+    InstrumentModification:
+      $ref: ./_components/schemas/tokenized/actions/InstrumentModification.yaml
     Transfer:
       $ref: ./_components/schemas/tokenized/actions/Transfer.yaml
     Settlement:
@@ -64,12 +64,12 @@ components:
       $ref: ./_components/schemas/tokenized/actions/AdminIdentityCertificateField.yaml
     AmendmentField:
       $ref: ./_components/schemas/tokenized/actions/AmendmentField.yaml
-    AssetReceiverField:
-      $ref: ./_components/schemas/tokenized/actions/AssetReceiverField.yaml
-    AssetSettlementField:
-      $ref: ./_components/schemas/tokenized/actions/AssetSettlementField.yaml
-    AssetTransferField:
-      $ref: ./_components/schemas/tokenized/actions/AssetTransferField.yaml
+    InstrumentReceiverField:
+      $ref: ./_components/schemas/tokenized/actions/InstrumentReceiverField.yaml
+    InstrumentSettlementField:
+      $ref: ./_components/schemas/tokenized/actions/InstrumentSettlementField.yaml
+    InstrumentTransferField:
+      $ref: ./_components/schemas/tokenized/actions/InstrumentTransferField.yaml
     ChapterField:
       $ref: ./_components/schemas/tokenized/actions/ChapterField.yaml
     ClauseField:

@@ -8,21 +8,21 @@ import {sprintf} from 'sprintf-js';
 import _ from '@keyring/util';
 import {write, read, ReadVarChar, ReadVariableSize, ReadVarBin, ReadFixedChar,
 	WriteVarChar, WriteVariableSize, WriteFixedChar, WriteVarBin, char} from './bytes';
-import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from './protocol_types';
+import { TxId, InstrumentCode, Timestamp, ContractCode, PublicKeyHash } from './protocol_types';
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
-	QuantityIndex, AssetTransfer, AssetSettlement } from './field_types';
+	QuantityIndex, InstrumentTransfer, InstrumentSettlement } from './field_types';
 import { Resources } from './resources';
 import { OpReturnMessage } from './protocol';
 
 export enum ActionCode {
-	// CodeAssetDefinition identifies data as a AssetDefinition message.
-	CodeAssetDefinition = 'A1',
+	// CodeInstrumentDefinition identifies data as a InstrumentDefinition message.
+	CodeInstrumentDefinition = 'A1',
 
-	// CodeAssetCreation identifies data as a AssetCreation message.
-	CodeAssetCreation = 'A2',
+	// CodeInstrumentCreation identifies data as a InstrumentCreation message.
+	CodeInstrumentCreation = 'A2',
 
-	// CodeAssetModification identifies data as a AssetModification message.
-	CodeAssetModification = 'A3',
+	// CodeInstrumentModification identifies data as a InstrumentModification message.
+	CodeInstrumentModification = 'A3',
 
 	// CodeContractOffer identifies data as a ContractOffer message.
 	CodeContractOffer = 'C1',
@@ -112,12 +112,12 @@ export enum ActionCode {
 // TypeMapping holds a mapping of action codes to action types.
 export function TypeMapping(code: string): OpReturnMessage {
 	switch (code) {
-	case ActionCode.CodeAssetDefinition:
-		return new AssetDefinition();
-	case ActionCode.CodeAssetCreation:
-		return new AssetCreation();
-	case ActionCode.CodeAssetModification:
-		return new AssetModification();
+	case ActionCode.CodeInstrumentDefinition:
+		return new InstrumentDefinition();
+	case ActionCode.CodeInstrumentCreation:
+		return new InstrumentCreation();
+	case ActionCode.CodeInstrumentModification:
+		return new InstrumentModification();
 	case ActionCode.CodeContractOffer:
 		return new ContractOffer();
 	case ActionCode.CodeContractFormation:
@@ -171,28 +171,28 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 
 
-	// AssetDefinition This action is used by the administration to define the
-// properties/characteristics of the asset (token) that it wants to create.
-// An asset has a unique identifier called AssetID = AssetType +
-// base58(AssetCode + checksum). An asset is always linked to a contract
+	// InstrumentDefinition This action is used by the administration to define the
+// properties/characteristics of the instrument (token) that it wants to create.
+// An instrument has a unique identifier called InstrumentID = InstrumentType +
+// base58(InstrumentCode + checksum). An instrument is always linked to a contract
 // that is identified by the public address of the Contract wallet.
-	export class AssetDefinition extends OpReturnMessage {
-		type = ActionCode.CodeAssetDefinition;
-		typeStr = 'AssetDefinition';
+	export class InstrumentDefinition extends OpReturnMessage {
+		type = ActionCode.CodeInstrumentDefinition;
+		typeStr = 'InstrumentDefinition';
 
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A set of switches that define the authorization rules for this asset.
+		// 	A set of switches that define the authorization rules for this instrument.
 	// See the Authorization Flags documentation for more detail.
-		asset_auth_flags;
+		instrument_auth_flags;
 	
 		// 	Set to true if transfers are permitted between two parties, otherwise
 	// set to false to prevent peer-to-peer transfers.
 		transfers_permitted;
 	
-		// 	If specified, the asset can only be traded within the specified trade
+		// 	If specified, the instrument can only be traded within the specified trade
 	// restriction zone. For example, AUS would restrict to Australian
 	// residents only.
 		trade_restrictions;
@@ -202,14 +202,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// this feature.
 		enforcement_orders_permitted;
 	
-		// 	When false holders of this asset will not be able to vote for tokens
-	// of this asset even on voting systems in which vote multiplers are not
+		// 	When false holders of this instrument will not be able to vote for tokens
+	// of this instrument even on voting systems in which vote multiplers are not
 	// permitted.
 		voting_rights;
 	
 		// 	Multiplies a vote by the specified integer. Where 1 token is equal to
 	// 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a
-	// multiplier of 3, for example. If zero, then holders of this asset don't
+	// multiplier of 3, for example. If zero, then holders of this instrument don't
 	// get any votes for their tokens.
 		vote_multiplier;
 	
@@ -221,32 +221,32 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// smart contract scope.
 		holder_proposal;
 	
-		// 	Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide
-	// Asset Governance. If a referendum or initiative is used to propose a
-	// modification to a subfield controlled by the asset auth flags, then the
-	// vote will either be a contract-wide vote (all assets vote on the
-	// referendum/initiative) or an asset-wide vote (only this asset votes on
+		// 	Supported values: 1 - Contract-wide Instrument Governance. 0 - Instrument-wide
+	// Instrument Governance. If a referendum or initiative is used to propose a
+	// modification to a subfield controlled by the instrument auth flags, then the
+	// vote will either be a contract-wide vote (all instruments vote on the
+	// referendum/initiative) or an instrument-wide vote (only this instrument votes on
 	// the referendum/initiative) depending on the value in this subfield. The
 	// voting system specifies the voting rules.
-		asset_modification_governance;
+		instrument_modification_governance;
 	
-		// 	The number of tokens to issue with this asset. Set to greater than
+		// 	The number of tokens to issue with this instrument. Set to greater than
 	// zero for fungible tokens. If the value is 1 then it becomes a
-	// non-fungible token, where the contract would have many assets. Set to 0
-	// to represent a placeholder asset, where tokens are to be issued later,
-	// or to represent a decomissioned asset where all tokens have been
+	// non-fungible token, where the contract would have many instruments. Set to 0
+	// to represent a placeholder instrument, where tokens are to be issued later,
+	// or to represent a decomissioned instrument where all tokens have been
 	// revoked.
 		token_qty;
 	
-		// 	A custom payload that contains meta data about this asset. Payload
-	// structure and length is dependent on the asset type chosen. See asset
+		// 	A custom payload that contains meta data about this instrument. Payload
+	// structure and length is dependent on the instrument type chosen. See instrument
 	// documentation for more details.
-		asset_payload;
+		instrument_payload;
 	
 
 	// Type returns the type identifer for this message.
 	Type(): string {
-		return ActionCode.CodeAssetDefinition;
+		return ActionCode.CodeInstrumentDefinition;
 	}
 
 	// Read implements the io.Reader interface, writing the receiver to the
@@ -262,14 +262,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			WriteFixedChar(buf, this.asset_type, 3);
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_auth_flags ([]byte)
+		// instrument_auth_flags ([]byte)
 		{
-			WriteVarBin(buf, this.asset_auth_flags, 8);
+			WriteVarBin(buf, this.instrument_auth_flags, 8);
 		}
 
 		// transfers_permitted (bool)
@@ -312,9 +312,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			write(buf, this.holder_proposal, 'bool');
 		}
 
-		// asset_modification_governance (uint8)
+		// instrument_modification_governance (uint8)
 		{
-			write(buf, this.asset_modification_governance, 'uint8');
+			write(buf, this.instrument_modification_governance, 'uint8');
 		}
 
 		// token_qty (uint64)
@@ -322,25 +322,25 @@ export function TypeMapping(code: string): OpReturnMessage {
 			write(buf, this.token_qty, 'uint64');
 		}
 
-		// asset_payload ([]byte)
+		// instrument_payload ([]byte)
 		{
-			WriteVarBin(buf, this.asset_payload, 16);
+			WriteVarBin(buf, this.instrument_payload, 16);
 		}
 
 		return buf.buf;
 	}
 
-	// write populates the fields in AssetDefinition from the byte slice
+	// write populates the fields in InstrumentDefinition from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			this.asset_type = ReadFixedChar(buf, 3);
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_auth_flags ([]byte)
+		// instrument_auth_flags ([]byte)
 		{
-			this.asset_auth_flags = ReadVarBin(buf, 8);
+			this.instrument_auth_flags = ReadVarBin(buf, 8);
 		}
 
 		// transfers_permitted (bool)
@@ -380,9 +380,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			this.holder_proposal = read(buf, 'bool');
 		}
 
-		// asset_modification_governance (uint8)
+		// instrument_modification_governance (uint8)
 		{
-			this.asset_modification_governance = read(buf, 'uint8');
+			this.instrument_modification_governance = read(buf, 'uint8');
 		}
 
 		// token_qty (uint64)
@@ -390,9 +390,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			this.token_qty = read(buf, 'uint64');
 		}
 
-		// asset_payload ([]byte)
+		// instrument_payload ([]byte)
 		{
-			this.asset_payload = ReadVarBin(buf, 16);
+			this.instrument_payload = ReadVarBin(buf, 16);
 		}
 
 		return b.length - buf.length;
@@ -400,17 +400,17 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// AssetType (string) 
+		// InstrumentType (string)
 		{
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetAuthFlags ([]byte) 
+		// InstrumentAuthFlags ([]byte)
 		{
-			if (this.asset_auth_flags.length >= (2 ** 8)) {
-				return sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (2 ** 8) - 1);
+			if (this.instrument_auth_flags.length >= (2 ** 8)) {
+				return sprintf('varbin field instrument_auth_flags too long %d/%d', this.instrument_auth_flags.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -455,11 +455,11 @@ export function TypeMapping(code: string): OpReturnMessage {
 		{
 		}
 
-		// AssetModificationGovernance (uint8) 
+		// InstrumentModificationGovernance (uint8)
 		{
 			// $field.IntValues [0 1]
-			if ( this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
-				return sprintf('field asset_modification_governance value is invalid : %d', this.asset_modification_governance);
+			if ( this.instrument_modification_governance !== 0 && this.instrument_modification_governance !== 1) {
+				return sprintf('field instrument_modification_governance value is invalid : %d', this.instrument_modification_governance);
 			}
 
 		}
@@ -468,10 +468,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 		{
 		}
 
-		// AssetPayload ([]byte) 
+		// InstrumentPayload ([]byte)
 		{
-			if (this.asset_payload.length >= (2 ** 16)) {
-				return sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (2 ** 16) - 1);
+			if (this.instrument_payload.length >= (2 ** 16)) {
+				return sprintf('varbin field instrument_payload too long %d/%d', this.instrument_payload.length, (2 ** 16) - 1);
 			}
 		}
 		return null; 
@@ -479,8 +479,8 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_auth_flags:%s', this.asset_auth_flags.toString()));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_auth_flags:%s', this.instrument_auth_flags.toString()));
 			vals.push(sprintf('transfers_permitted:%s', this.transfers_permitted.toString()));
 			vals.push(sprintf('trade_restrictions:%s', this.trade_restrictions.toString()));
 			vals.push(sprintf('enforcement_orders_permitted:%s', this.enforcement_orders_permitted.toString()));
@@ -488,9 +488,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			vals.push(sprintf('vote_multiplier:%d', this.vote_multiplier));
 			vals.push(sprintf('administration_proposal:%s', this.administration_proposal.toString()));
 			vals.push(sprintf('holder_proposal:%s', this.holder_proposal.toString()));
-			vals.push(sprintf('asset_modification_governance:%d', this.asset_modification_governance));
+			vals.push(sprintf('instrument_modification_governance:%d', this.instrument_modification_governance));
 			vals.push(sprintf('token_qty:%d', this.token_qty));
-			vals.push(sprintf('asset_payload:%s', this.asset_payload.toString()));
+			vals.push(sprintf('instrument_payload:%s', this.instrument_payload.toString()));
 	
 		return sprintf('{%s}', vals.join(' '));
 	}
@@ -500,12 +500,12 @@ export function TypeMapping(code: string): OpReturnMessage {
 		try {
 			parsed = JSON.parse(json);
 		} catch (e) {
-			console.error('Failed to parse JSON for AssetDefinition.', e);
+			console.error('Failed to parse JSON for InstrumentDefinition.', e);
 			throw e;
 		}
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		// this.asset_auth_flags = parsed.assetAuthFlags (varbin)
+		// this.instrument_auth_flags = parsed.instrumentAuthFlags (varbin)
 		
 		// this.transfers_permitted = parsed.transfersPermitted (bool)
 		
@@ -521,44 +521,44 @@ export function TypeMapping(code: string): OpReturnMessage {
 		
 		// this.holder_proposal = parsed.holderProposal (bool)
 		
-		this.asset_modification_governance = parsed.assetModificationGovernance;
+		this.instrument_modification_governance = parsed.instrumentModificationGovernance;
 		
 		this.token_qty = parsed.tokenQty;
 		
-		// this.asset_payload = parsed.assetPayload (varbin)
+		// this.instrument_payload = parsed.instrumentPayload (varbin)
 		
 		return this.Validate();
 	}
 }
 
-	// AssetCreation This action creates an asset in response to the
+	// InstrumentCreation This action creates an instrument in response to the
 // administration's instructions in the Definition Action.
-	export class AssetCreation extends OpReturnMessage {
-		type = ActionCode.CodeAssetCreation;
-		typeStr = 'AssetCreation';
+	export class InstrumentCreation extends OpReturnMessage {
+		type = ActionCode.CodeInstrumentCreation;
+		typeStr = 'InstrumentCreation';
 
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A unique code that is used to identify the asset. It is generated by
-	// hashing the contract public key hash and the asset index.
-	// SHA256(contract PKH + asset index)
-		asset_code;
+		// 	A unique code that is used to identify the instrument. It is generated by
+	// hashing the contract public key hash and the instrument index.
+	// SHA256(contract PKH + instrument index)
+		instrument_code;
 	
-		// 	The index of the asset within the contract. First asset is zero,
-	// second is one. Used to derive the asset code.
-		asset_index;
+		// 	The index of the instrument within the contract. First instrument is zero,
+	// second is one. Used to derive the instrument code.
+		instrument_index;
 	
-		// 	A set of switches that define the authorization rules for this asset.
+		// 	A set of switches that define the authorization rules for this instrument.
 	// See the Authorization Flags documentation for more detail.
-		asset_auth_flags;
+		instrument_auth_flags;
 	
 		// 	Set to true if transfers are permitted between two parties, otherwise
 	// set to false to prevent peer-to-peer transfers.
 		transfers_permitted;
 	
-		// 	If specified, the asset can only be traded within the specified trade
+		// 	If specified, the instrument can only be traded within the specified trade
 	// restriction zone. For example, AUS would restrict to Australian
 	// residents only.
 		trade_restrictions;
@@ -568,14 +568,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// this feature.
 		enforcement_orders_permitted;
 	
-		// 	When false holders of this asset will not be able to vote for tokens
-	// of this asset even on voting systems in which vote multiplers are not
+		// 	When false holders of this instrument will not be able to vote for tokens
+	// of this instrument even on voting systems in which vote multiplers are not
 	// permitted.
 		voting_rights;
 	
 		// 	Multiplies a vote by the specified integer. Where 1 token is equal to
 	// 1 vote with a 1 for vote multipler (normal), 1 token = 3 votes with a
-	// multiplier of 3, for example. If zero, then holders of this asset don't
+	// multiplier of 3, for example. If zero, then holders of this instrument don't
 	// get any votes for their tokens.
 		vote_multiplier;
 	
@@ -587,31 +587,31 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// smart contract scope.
 		holder_proposal;
 	
-		// 	Supported values: 1 - Contract-wide Asset Governance. 0 - Asset-wide
-	// Asset Governance. If a referendum or initiative is used to propose a
-	// modification to a subfield controlled by the asset auth flags, then the
-	// vote will either be a contract-wide vote (all assets vote on the
-	// referendum/initiative) or an asset-wide vote (only this asset votes on
+		// 	Supported values: 1 - Contract-wide Instrument Governance. 0 - Instrument-wide
+	// Instrument Governance. If a referendum or initiative is used to propose a
+	// modification to a subfield controlled by the instrument auth flags, then the
+	// vote will either be a contract-wide vote (all instruments vote on the
+	// referendum/initiative) or an instrument-wide vote (only this instrument votes on
 	// the referendum/initiative) depending on the value in this subfield. The
 	// voting system specifies the voting rules.
-		asset_modification_governance;
+		instrument_modification_governance;
 	
-		// 	The number of tokens to issue with this asset. Set to greater than
+		// 	The number of tokens to issue with this instrument. Set to greater than
 	// zero for fungible tokens. If the value is 1 then it becomes a
-	// non-fungible token, where the contract would have many assets. Set to 0
-	// to represent a placeholder asset, where tokens are to be issued later,
-	// or to represent a decomissioned asset where all tokens have been
+	// non-fungible token, where the contract would have many instruments. Set to 0
+	// to represent a placeholder instrument, where tokens are to be issued later,
+	// or to represent a decomissioned instrument where all tokens have been
 	// revoked.
 		token_qty;
 	
-		// 	A custom payload that contains meta data about this asset. Payload
-	// structure and length is dependent on the asset type chosen. See asset
+		// 	A custom payload that contains meta data about this instrument. Payload
+	// structure and length is dependent on the instrument type chosen. See instrument
 	// documentation for more details.
-		asset_payload;
+		instrument_payload;
 	
-		// 	A counter for the number of times this asset has been revised using a
+		// 	A counter for the number of times this instrument has been revised using a
 	// modification action.
-		asset_revision;
+		instrument_revision;
 	
 		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
@@ -620,7 +620,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	// Type returns the type identifer for this message.
 	Type(): string {
-		return ActionCode.CodeAssetCreation;
+		return ActionCode.CodeInstrumentCreation;
 	}
 
 	// Read implements the io.Reader interface, writing the receiver to the
@@ -636,24 +636,24 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			WriteFixedChar(buf, this.asset_type, 3);
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			buf.write(this.asset_code.Serialize());
+			buf.write(this.instrument_code.Serialize());
 		}
 
-		// asset_index (uint64)
+		// instrument_index (uint64)
 		{
-			write(buf, this.asset_index, 'uint64');
+			write(buf, this.instrument_index, 'uint64');
 		}
 
-		// asset_auth_flags ([]byte)
+		// instrument_auth_flags ([]byte)
 		{
-			WriteVarBin(buf, this.asset_auth_flags, 8);
+			WriteVarBin(buf, this.instrument_auth_flags, 8);
 		}
 
 		// transfers_permitted (bool)
@@ -696,9 +696,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			write(buf, this.holder_proposal, 'bool');
 		}
 
-		// asset_modification_governance (uint8)
+		// instrument_modification_governance (uint8)
 		{
-			write(buf, this.asset_modification_governance, 'uint8');
+			write(buf, this.instrument_modification_governance, 'uint8');
 		}
 
 		// token_qty (uint64)
@@ -706,14 +706,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 			write(buf, this.token_qty, 'uint64');
 		}
 
-		// asset_payload ([]byte)
+		// instrument_payload ([]byte)
 		{
-			WriteVarBin(buf, this.asset_payload, 16);
+			WriteVarBin(buf, this.instrument_payload, 16);
 		}
 
-		// asset_revision (uint32)
+		// instrument_revision (uint32)
 		{
-			write(buf, this.asset_revision, 'uint32');
+			write(buf, this.instrument_revision, 'uint32');
 		}
 
 		// timestamp (Timestamp)
@@ -724,28 +724,28 @@ export function TypeMapping(code: string): OpReturnMessage {
 		return buf.buf;
 	}
 
-	// write populates the fields in AssetCreation from the byte slice
+	// write populates the fields in InstrumentCreation from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			this.asset_type = ReadFixedChar(buf, 3);
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			this.asset_code = new AssetCode();
-			this.asset_code.Write(buf);
+			this.instrument_code = new InstrumentCode();
+			this.instrument_code.Write(buf);
 		}
 
-		// asset_index (uint64)
+		// instrument_index (uint64)
 		{
-			this.asset_index = read(buf, 'uint64');
+			this.instrument_index = read(buf, 'uint64');
 		}
 
-		// asset_auth_flags ([]byte)
+		// instrument_auth_flags ([]byte)
 		{
-			this.asset_auth_flags = ReadVarBin(buf, 8);
+			this.instrument_auth_flags = ReadVarBin(buf, 8);
 		}
 
 		// transfers_permitted (bool)
@@ -785,9 +785,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			this.holder_proposal = read(buf, 'bool');
 		}
 
-		// asset_modification_governance (uint8)
+		// instrument_modification_governance (uint8)
 		{
-			this.asset_modification_governance = read(buf, 'uint8');
+			this.instrument_modification_governance = read(buf, 'uint8');
 		}
 
 		// token_qty (uint64)
@@ -795,14 +795,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 			this.token_qty = read(buf, 'uint64');
 		}
 
-		// asset_payload ([]byte)
+		// instrument_payload ([]byte)
 		{
-			this.asset_payload = ReadVarBin(buf, 16);
+			this.instrument_payload = ReadVarBin(buf, 16);
 		}
 
-		// asset_revision (uint32)
+		// instrument_revision (uint32)
 		{
-			this.asset_revision = read(buf, 'uint32');
+			this.instrument_revision = read(buf, 'uint32');
 		}
 
 		// timestamp (Timestamp)
@@ -816,29 +816,29 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// AssetType (string) 
+		// InstrumentType (string)
 		{
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode) 
+		// InstrumentCode (InstrumentCode)
 		{
 			// IsInternalType
-			const err = this.asset_code.Validate();
-			if  (err) return sprintf('field asset_code is invalid : %s', err);
+			const err = this.instrument_code.Validate();
+			if  (err) return sprintf('field instrument_code is invalid : %s', err);
 
 		}
 
-		// AssetIndex (uint64) 
+		// InstrumentIndex (uint64)
 		{
 		}
 
-		// AssetAuthFlags ([]byte) 
+		// InstrumentAuthFlags ([]byte)
 		{
-			if (this.asset_auth_flags.length >= (2 ** 8)) {
-				return sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (2 ** 8) - 1);
+			if (this.instrument_auth_flags.length >= (2 ** 8)) {
+				return sprintf('varbin field instrument_auth_flags too long %d/%d', this.instrument_auth_flags.length, (2 ** 8) - 1);
 			}
 		}
 
@@ -883,11 +883,11 @@ export function TypeMapping(code: string): OpReturnMessage {
 		{
 		}
 
-		// AssetModificationGovernance (uint8) 
+		// InstrumentModificationGovernance (uint8)
 		{
 			// $field.IntValues [0 1]
-			if ( this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
-				return sprintf('field asset_modification_governance value is invalid : %d', this.asset_modification_governance);
+			if ( this.instrument_modification_governance !== 0 && this.instrument_modification_governance !== 1) {
+				return sprintf('field instrument_modification_governance value is invalid : %d', this.instrument_modification_governance);
 			}
 
 		}
@@ -896,14 +896,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 		{
 		}
 
-		// AssetPayload ([]byte) 
+		// InstrumentPayload ([]byte)
 		{
-			if (this.asset_payload.length >= (2 ** 16)) {
-				return sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (2 ** 16) - 1);
+			if (this.instrument_payload.length >= (2 ** 16)) {
+				return sprintf('varbin field instrument_payload too long %d/%d', this.instrument_payload.length, (2 ** 16) - 1);
 			}
 		}
 
-		// AssetRevision (uint32) 
+		// InstrumentRevision (uint32)
 		{
 		}
 
@@ -919,10 +919,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
-			vals.push(sprintf('asset_index:%d', this.asset_index));
-			vals.push(sprintf('asset_auth_flags:%s', this.asset_auth_flags.toString()));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_code:%s', this.instrument_code.toString()));
+			vals.push(sprintf('instrument_index:%d', this.instrument_index));
+			vals.push(sprintf('instrument_auth_flags:%s', this.instrument_auth_flags.toString()));
 			vals.push(sprintf('transfers_permitted:%s', this.transfers_permitted.toString()));
 			vals.push(sprintf('trade_restrictions:%s', this.trade_restrictions.toString()));
 			vals.push(sprintf('enforcement_orders_permitted:%s', this.enforcement_orders_permitted.toString()));
@@ -930,10 +930,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 			vals.push(sprintf('vote_multiplier:%d', this.vote_multiplier));
 			vals.push(sprintf('administration_proposal:%s', this.administration_proposal.toString()));
 			vals.push(sprintf('holder_proposal:%s', this.holder_proposal.toString()));
-			vals.push(sprintf('asset_modification_governance:%d', this.asset_modification_governance));
+			vals.push(sprintf('instrument_modification_governance:%d', this.instrument_modification_governance));
 			vals.push(sprintf('token_qty:%d', this.token_qty));
-			vals.push(sprintf('asset_payload:%s', this.asset_payload.toString()));
-			vals.push(sprintf('asset_revision:%d', this.asset_revision));
+			vals.push(sprintf('instrument_payload:%s', this.instrument_payload.toString()));
+			vals.push(sprintf('instrument_revision:%d', this.instrument_revision));
 			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
 	
 		return sprintf('{%s}', vals.join(' '));
@@ -944,17 +944,17 @@ export function TypeMapping(code: string): OpReturnMessage {
 		try {
 			parsed = JSON.parse(json);
 		} catch (e) {
-			console.error('Failed to parse JSON for AssetCreation.', e);
+			console.error('Failed to parse JSON for InstrumentCreation.', e);
 			throw e;
 		}
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		this.asset_code = new AssetCode();
-		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		this.instrument_code = new InstrumentCode();
+		this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
 		
-		this.asset_index = parsed.assetIndex;
+		this.instrument_index = parsed.instrumentIndex;
 		
-		// this.asset_auth_flags = parsed.assetAuthFlags (varbin)
+		// this.instrument_auth_flags = parsed.instrumentAuthFlags (varbin)
 		
 		// this.transfers_permitted = parsed.transfersPermitted (bool)
 		
@@ -970,13 +970,13 @@ export function TypeMapping(code: string): OpReturnMessage {
 		
 		// this.holder_proposal = parsed.holderProposal (bool)
 		
-		this.asset_modification_governance = parsed.assetModificationGovernance;
+		this.instrument_modification_governance = parsed.instrumentModificationGovernance;
 		
 		this.token_qty = parsed.tokenQty;
 		
-		// this.asset_payload = parsed.assetPayload (varbin)
+		// this.instrument_payload = parsed.instrumentPayload (varbin)
 		
-		this.asset_revision = parsed.assetRevision;
+		this.instrument_revision = parsed.instrumentRevision;
 		
 		this.timestamp = new Timestamp();
 		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
@@ -985,25 +985,25 @@ export function TypeMapping(code: string): OpReturnMessage {
 	}
 }
 
-	// AssetModification Token Dilutions, Call Backs/Revocations, burning etc.
-	export class AssetModification extends OpReturnMessage {
-		type = ActionCode.CodeAssetModification;
-		typeStr = 'AssetModification';
+	// InstrumentModification Token Dilutions, Call Backs/Revocations, burning etc.
+	export class InstrumentModification extends OpReturnMessage {
+		type = ActionCode.CodeInstrumentModification;
+		typeStr = 'InstrumentModification';
 
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A unique code that is used to identify the asset. It is generated by
-	// hashing the contract public key hash and the asset index.
-	// SHA256(contract PKH + asset index)
-		asset_code;
+		// 	A unique code that is used to identify the instrument. It is generated by
+	// hashing the contract public key hash and the instrument index.
+	// SHA256(contract PKH + instrument index)
+		instrument_code;
 	
 		// 	The current revision figure to ensure the modification provided is
 	// based on the latest version.
-		asset_revision;
+		instrument_revision;
 	
-		// 	A collection of modifications to perform on this asset.
+		// 	A collection of modifications to perform on this instrument.
 		amendments;
 	
 		// 	The Bitcoin transaction ID of the associated result action that
@@ -1013,7 +1013,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	// Type returns the type identifer for this message.
 	Type(): string {
-		return ActionCode.CodeAssetModification;
+		return ActionCode.CodeInstrumentModification;
 	}
 
 	// Read implements the io.Reader interface, writing the receiver to the
@@ -1029,19 +1029,19 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			WriteFixedChar(buf, this.asset_type, 3);
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			buf.write(this.asset_code.Serialize());
+			buf.write(this.instrument_code.Serialize());
 		}
 
-		// asset_revision (uint32)
+		// instrument_revision (uint32)
 		{
-			write(buf, this.asset_revision, 'uint32');
+			write(buf, this.instrument_revision, 'uint32');
 		}
 
 		// amendments ([]Amendment)
@@ -1060,23 +1060,23 @@ export function TypeMapping(code: string): OpReturnMessage {
 		return buf.buf;
 	}
 
-	// write populates the fields in AssetModification from the byte slice
+	// write populates the fields in InstrumentModification from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			this.asset_type = ReadFixedChar(buf, 3);
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			this.asset_code = new AssetCode();
-			this.asset_code.Write(buf);
+			this.instrument_code = new InstrumentCode();
+			this.instrument_code.Write(buf);
 		}
 
-		// asset_revision (uint32)
+		// instrument_revision (uint32)
 		{
-			this.asset_revision = read(buf, 'uint32');
+			this.instrument_revision = read(buf, 'uint32');
 		}
 
 		// amendments ([]Amendment)
@@ -1103,22 +1103,22 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// AssetType (string) 
+		// InstrumentType (string)
 		{
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode) 
+		// InstrumentCode (InstrumentCode)
 		{
 			// IsInternalType
-			const err = this.asset_code.Validate();
-			if  (err) return sprintf('field asset_code is invalid : %s', err);
+			const err = this.instrument_code.Validate();
+			if  (err) return sprintf('field instrument_code is invalid : %s', err);
 
 		}
 
-		// AssetRevision (uint32) 
+		// InstrumentRevision (uint32)
 		{
 		}
 
@@ -1147,9 +1147,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
-			vals.push(sprintf('asset_revision:%d', this.asset_revision));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_code:%s', this.instrument_code.toString()));
+			vals.push(sprintf('instrument_revision:%d', this.instrument_revision));
 			vals.push(sprintf('amendments:%s', this.amendments.toString()));
 			vals.push(sprintf('ref_tx_id:%s', this.ref_tx_id.toString()));
 	
@@ -1161,15 +1161,15 @@ export function TypeMapping(code: string): OpReturnMessage {
 		try {
 			parsed = JSON.parse(json);
 		} catch (e) {
-			console.error('Failed to parse JSON for AssetModification.', e);
+			console.error('Failed to parse JSON for InstrumentModification.', e);
 			throw e;
 		}
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		this.asset_code = new AssetCode();
-		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		this.instrument_code = new InstrumentCode();
+		this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
 		
-		this.asset_revision = parsed.assetRevision;
+		this.instrument_revision = parsed.instrumentRevision;
 		
 		// this.amendments (Amendment[])
 		
@@ -1195,7 +1195,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
 	// bitcoin public key hash address. If the public address is lost, then
-	// the administration will have to reissue the entire contract, Asset
+	// the administration will have to reissue the entire contract, Instrument
 	// Definition and tokens with the new public address. Smart contracts can
 	// be branded and specialized to suit any terms and conditions.
 		contract_name;
@@ -1206,7 +1206,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	SHA-256 hash of the body of the agreement (full contract in pdf format
 	// or the like) or the full terms and conditions of an agreement in the
 	// Tokenized Body of Agreement format. This is specific to the smart
-	// contract and relevant Assets. Legal and technical information.
+	// contract and relevant Instruments. Legal and technical information.
 		body_of_agreement;
 	
 		// 	Describes the purpose of the contract.
@@ -1237,7 +1237,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 	
 		// 	Points to an information page that also has a copy of the Contract.
 	// Anyone can go to the website to have a look at the price/token,
-	// information about the issuer (company), information about the asset,
+	// information about the issuer (company), information about the instrument,
 	// legal information, etc. There will also be a way for token owners to
 	// vote on this page and contact details with the issuer/tokenized
 	// companies. Could be a IPv6/IPv4, or txn-id for on-chain information or
@@ -1258,7 +1258,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	An additional entity with operator access to the contract.
 		contract_operator;
 	
-		// 	Satoshis required to be paid to the contract for each asset action.
+		// 	Satoshis required to be paid to the contract for each instrument action.
 		contract_fee;
 	
 		// 	A list of voting systems.
@@ -1270,9 +1270,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// should be listed in the Body of Agreement.
 		contract_auth_flags;
 	
-		// 	Number of Assets (non-fungible) permitted on this contract. 0 if
+		// 	Number of Instruments (non-fungible) permitted on this contract. 0 if
 	// unlimited which will display an infinity symbol in UI
-		restricted_qty_assets;
+		restricted_qty_instruments;
 	
 		// 	Set to true if the administration is permitted to make proposals
 	// outside of the smart contract scope.
@@ -1283,7 +1283,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		holder_proposal;
 	
 		// 	A list of oracles that provide approval for all token transfers for
-	// all assets under the contract.
+	// all instruments under the contract.
 		oracles;
 	
 		// 	The public key hash of the contract's master key. This key has the
@@ -1396,9 +1396,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			WriteVarBin(buf, this.contract_auth_flags, 16);
 		}
 
-		// restricted_qty_assets (uint64)
+		// restricted_qty_instruments (uint64)
 		{
-			write(buf, this.restricted_qty_assets, 'uint64');
+			write(buf, this.restricted_qty_instruments, 'uint64');
 		}
 
 		// administration_proposal (bool)
@@ -1529,9 +1529,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			this.contract_auth_flags = ReadVarBin(buf, 16);
 		}
 
-		// restricted_qty_assets (uint64)
+		// restricted_qty_instruments (uint64)
 		{
-			this.restricted_qty_assets = read(buf, 'uint64');
+			this.restricted_qty_instruments = read(buf, 'uint64');
 		}
 
 		// administration_proposal (bool)
@@ -1692,7 +1692,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 			}
 		}
 
-		// RestrictedQtyAssets (uint64) 
+		// RestrictedQtyInstruments (uint64)
 		{
 		}
 
@@ -1745,7 +1745,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 			vals.push(sprintf('contract_fee:%d', this.contract_fee));
 			vals.push(sprintf('voting_systems:%s', this.voting_systems.toString()));
 			vals.push(sprintf('contract_auth_flags:%s', this.contract_auth_flags.toString()));
-			vals.push(sprintf('restricted_qty_assets:%d', this.restricted_qty_assets));
+			vals.push(sprintf('restricted_qty_instruments:%d', this.restricted_qty_instruments));
 			vals.push(sprintf('administration_proposal:%s', this.administration_proposal.toString()));
 			vals.push(sprintf('holder_proposal:%s', this.holder_proposal.toString()));
 			vals.push(sprintf('oracles:%s', this.oracles.toString()));
@@ -1797,7 +1797,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		
 		// this.contract_auth_flags = parsed.contractAuthFlags (varbin)
 		
-		this.restricted_qty_assets = parsed.restrictedQtyAssets;
+		this.restricted_qty_instruments = parsed.restrictedQtyInstruments;
 		
 		// this.administration_proposal = parsed.administrationProposal (bool)
 		
@@ -1825,7 +1825,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
 	// bitcoin public key hash address. If the public address is lost, then
-	// the administration will have to reissue the entire contract, asset
+	// the administration will have to reissue the entire contract, instrument
 	// definition and tokens with the new public address. Smart contracts can
 	// be branded and specialized to suit any terms and conditions.
 		contract_name;
@@ -1836,7 +1836,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	SHA-256 hash of the body of the agreement (full contract in pdf format
 	// or the like) or the full terms and conditions of an agreement in the
 	// Tokenized Body of Agreement format. This is specific to the smart
-	// contract and relevant Assets. Legal and technical information.
+	// contract and relevant Instruments. Legal and technical information.
 		body_of_agreement;
 	
 		// 	Describes the purpose of the contract.
@@ -1867,7 +1867,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	Length 0-255 bytes. 0 is valid. Points to an information page that
 	// also has a copy of the Contract. Anyone can go to the website to have a
 	// look at the price/token, information about the Issuer (company),
-	// information about the Asset, legal information, etc. There will also be
+	// information about the Instrument, legal information, etc. There will also be
 	// a way for Token Owners to vote on this page and contact details with
 	// the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address
 	// (hash) or txn-id for on chain information or even a public address
@@ -1888,7 +1888,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	An additional entity with operator access to the contract.
 		contract_operator;
 	
-		// 	Satoshis required to be paid to the contract for each asset action.
+		// 	Satoshis required to be paid to the contract for each instrument action.
 		contract_fee;
 	
 		// 	A list voting systems.
@@ -1900,9 +1900,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// should be listed in the Body of Agreement
 		contract_auth_flags;
 	
-		// 	Number of Assets (non-fungible) permitted on this contract. 0 if
+		// 	Number of Instruments (non-fungible) permitted on this contract. 0 if
 	// unlimited which will display an infinity symbol in UI
-		restricted_qty_assets;
+		restricted_qty_instruments;
 	
 		// 	Set to true if the administration is permitted to make proposals
 	// outside of the smart contract scope.
@@ -1913,7 +1913,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		holder_proposal;
 	
 		// 	A list of oracles that provide approval for all token transfers for
-	// all assets under the contract.
+	// all instruments under the contract.
 		oracles;
 	
 		// 	The public key hash of the contract's master key. This key has the
@@ -2034,9 +2034,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			WriteVarBin(buf, this.contract_auth_flags, 16);
 		}
 
-		// restricted_qty_assets (uint64)
+		// restricted_qty_instruments (uint64)
 		{
-			write(buf, this.restricted_qty_assets, 'uint64');
+			write(buf, this.restricted_qty_instruments, 'uint64');
 		}
 
 		// administration_proposal (bool)
@@ -2177,9 +2177,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 			this.contract_auth_flags = ReadVarBin(buf, 16);
 		}
 
-		// restricted_qty_assets (uint64)
+		// restricted_qty_instruments (uint64)
 		{
-			this.restricted_qty_assets = read(buf, 'uint64');
+			this.restricted_qty_instruments = read(buf, 'uint64');
 		}
 
 		// administration_proposal (bool)
@@ -2351,7 +2351,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 			}
 		}
 
-		// RestrictedQtyAssets (uint64) 
+		// RestrictedQtyInstruments (uint64)
 		{
 		}
 
@@ -2416,7 +2416,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 			vals.push(sprintf('contract_fee:%d', this.contract_fee));
 			vals.push(sprintf('voting_systems:%s', this.voting_systems.toString()));
 			vals.push(sprintf('contract_auth_flags:%s', this.contract_auth_flags.toString()));
-			vals.push(sprintf('restricted_qty_assets:%d', this.restricted_qty_assets));
+			vals.push(sprintf('restricted_qty_instruments:%d', this.restricted_qty_instruments));
 			vals.push(sprintf('administration_proposal:%s', this.administration_proposal.toString()));
 			vals.push(sprintf('holder_proposal:%s', this.holder_proposal.toString()));
 			vals.push(sprintf('oracles:%s', this.oracles.toString()));
@@ -2470,7 +2470,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		
 		// this.contract_auth_flags = parsed.contractAuthFlags (varbin)
 		
-		this.restricted_qty_assets = parsed.restrictedQtyAssets;
+		this.restricted_qty_instruments = parsed.restrictedQtyInstruments;
 		
 		// this.administration_proposal = parsed.administrationProposal (bool)
 		
@@ -2694,7 +2694,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	Can be any unique identifying string, including human readable names
 	// for branding/vanity purposes. Contract identifier (instance) is the
 	// bitcoin public address. If the public address is lost, then the
-	// administration will have to reissue the entire contract, Asset
+	// administration will have to reissue the entire contract, Instrument
 	// Definition and tokens with the new public address. Smart contracts can
 	// be branded and specialized to suit any terms and conditions.
 		contract_name;
@@ -2712,7 +2712,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	SHA-256 hash of the body of the agreement (full contract in pdf format
 	// or the like) or the full terms and conditions of an agreement in the
 	// Tokenized Body of Agreement format. This is specific to the smart
-	// contract and relevant Assets. Legal and technical information.
+	// contract and relevant Instruments. Legal and technical information.
 		body_of_agreement;
 	
 		// 	Describes the purpose of the contract.
@@ -2749,7 +2749,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	Length 0-255 bytes. Points to an information page that also has a copy
 	// of the Contract. Anyone can go to the website to have a look at the
 	// price/token, information about the issuer (company), information about
-	// the Asset, legal information, etc. There will also be a way for token
+	// the Instrument, legal information, etc. There will also be a way for token
 	// owners to vote on this page and contact details with the
 	// issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on
 	// chain information or even a public address (DNS).
@@ -3260,18 +3260,18 @@ export function TypeMapping(code: string): OpReturnMessage {
 		// 	Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)
 		compliance_action;
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A unique code that is used to identify the asset. It is generated by
-	// hashing the contract public key hash and the asset index.
-	// SHA256(contract PKH + asset index)
-		asset_code;
+		// 	A unique code that is used to identify the instrument. It is generated by
+	// hashing the contract public key hash and the instrument index.
+	// SHA256(contract PKH + instrument index)
+		instrument_code;
 	
 		// 	The holders and quantities that are effected by the order. For a
-	// contract or asset wide freeze only the contract address is specified.
+	// contract or instrument wide freeze only the contract address is specified.
 	// Zero quantities are invalid unless it is for the contract address in an
-	// asset wide or contract wide freeze. In a thaw order this field is not
+	// instrument wide or contract wide freeze. In a thaw order this field is not
 	// serialized, because the entire freeze from the FreezeTxId freeze action
 	// will be thawed.
 		target_addresses;
@@ -3308,7 +3308,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 	
 		// 	Length 0-255 bytes. Signature for a message that lists out the target
 	// addresses and deposit address. Signature of (Contract PKH, Compliance
-	// Action, Authority Name, Asset Code, Supporting Evidence Hash,
+	// Action, Authority Name, Instrument Code, Supporting Evidence Hash,
 	// FreezePeriod, TargetAddresses, and DepositAddress)
 		order_signature;
 	
@@ -3356,14 +3356,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 			write(buf, this.compliance_action, 'byte');
 		}
 
-		// asset_type (string)
+		// instrument_type (string)
 		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
-			WriteFixedChar(buf, this.asset_type, 3);
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
-			buf.write(this.asset_code.Serialize());
+			buf.write(this.instrument_code.Serialize());
 		}
 
 		// target_addresses ([]TargetAddress)
@@ -3448,15 +3448,15 @@ export function TypeMapping(code: string): OpReturnMessage {
 			this.compliance_action = read(buf, 'byte');
 		}
 
-		// asset_type (string)
+		// instrument_type (string)
 		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
-			this.asset_type = ReadFixedChar(buf, 3);
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
-			this.asset_code = new AssetCode();
-			this.asset_code.Write(buf);
+			this.instrument_code = new InstrumentCode();
+			this.instrument_code.Write(buf);
 		}
 
 		// target_addresses ([]TargetAddress)
@@ -3559,20 +3559,20 @@ export function TypeMapping(code: string): OpReturnMessage {
 			}
 		}
 
-		// AssetType (string)
+		// InstrumentType (string)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode)
+		// InstrumentCode (InstrumentCode)
 		// IncludeIf.Field
 		if ( this.compliance_action === char('F') || this.compliance_action === char('C') || this.compliance_action === char('R')) {
 			// IsInternalType
-			const err = this.asset_code.Validate();
-			if  (err) return sprintf('field asset_code is invalid : %s', err);
+			const err = this.instrument_code.Validate();
+			if  (err) return sprintf('field instrument_code is invalid : %s', err);
 
 		}
 
@@ -3694,8 +3694,8 @@ export function TypeMapping(code: string): OpReturnMessage {
 	toString(): string {
 		const vals: string[] = [];
 			vals.push(sprintf('compliance_action:%s', this.compliance_action.toString()));
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_code:%s', this.instrument_code.toString()));
 			vals.push(sprintf('target_addresses:%s', this.target_addresses.toString()));
 			vals.push(sprintf('freeze_tx_id:%s', this.freeze_tx_id.toString()));
 			vals.push(sprintf('freeze_period:%s', this.freeze_period.toString()));
@@ -3723,10 +3723,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 		}
 		// this.compliance_action = parsed.complianceAction (fixedchar)
 		
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		this.asset_code = new AssetCode();
-		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		this.instrument_code = new InstrumentCode();
+		this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
 		
 		// this.target_addresses (TargetAddress[])
 		
@@ -3761,7 +3761,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 	}
 }
 
-	// Freeze The contract responding to an Order action to freeze assets. To
+	// Freeze The contract responding to an Order action to freeze instruments. To
 // be used to comply with contractual/legal/issuer requirements. The target
 // public address(es) will be marked as frozen. However the Freeze action
 // publishes this fact to the public blockchain for transparency. The
@@ -3772,18 +3772,18 @@ export function TypeMapping(code: string): OpReturnMessage {
 		typeStr = 'Freeze';
 
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A unique code that is used to identify the asset. It is generated by
-	// hashing the contract public key hash and the asset index.
-	// SHA256(contract PKH + asset index)
-		asset_code;
+		// 	A unique code that is used to identify the instrument. It is generated by
+	// hashing the contract public key hash and the instrument index.
+	// SHA256(contract PKH + instrument index)
+		instrument_code;
 	
 		// 	Indices to addresses in outputs and the quantities being frozen. If
-	// the only address is the contract address and the asset code is zeros,
+	// the only address is the contract address and the instrument code is zeros,
 	// then it is a contract wide freeze. If the only address is the contract
-	// address and the asset code is specified, then it is an asset wide
+	// address and the instrument code is specified, then it is an instrument wide
 	// freeze.
 		quantities;
 	
@@ -3814,14 +3814,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			WriteFixedChar(buf, this.asset_type, 3);
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			buf.write(this.asset_code.Serialize());
+			buf.write(this.instrument_code.Serialize());
 		}
 
 		// quantities ([]QuantityIndex)
@@ -3848,15 +3848,15 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// write populates the fields in Freeze from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			this.asset_type = ReadFixedChar(buf, 3);
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			this.asset_code = new AssetCode();
-			this.asset_code.Write(buf);
+			this.instrument_code = new InstrumentCode();
+			this.instrument_code.Write(buf);
 		}
 
 		// quantities ([]QuantityIndex)
@@ -3889,18 +3889,18 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// AssetType (string) 
+		// InstrumentType (string)
 		{
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode) 
+		// InstrumentCode (InstrumentCode)
 		{
 			// IsInternalType
-			const err = this.asset_code.Validate();
-			if  (err) return sprintf('field asset_code is invalid : %s', err);
+			const err = this.instrument_code.Validate();
+			if  (err) return sprintf('field instrument_code is invalid : %s', err);
 
 		}
 
@@ -3937,8 +3937,8 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_code:%s', this.instrument_code.toString()));
 			vals.push(sprintf('quantities:%s', this.quantities.toString()));
 			vals.push(sprintf('freeze_period:%s', this.freeze_period.toString()));
 			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
@@ -3954,10 +3954,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 			console.error('Failed to parse JSON for Freeze.', e);
 			throw e;
 		}
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		this.asset_code = new AssetCode();
-		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		this.instrument_code = new InstrumentCode();
+		this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
 		
 		// this.quantities (QuantityIndex[])
 		
@@ -3971,7 +3971,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 	}
 }
 
-	// Thaw The contract responding to an Order action to thaw assets. To be
+	// Thaw The contract responding to an Order action to thaw instruments. To be
 // used to comply with contractual obligations or legal requirements. The
 // Alleged Offender's tokens will be unfrozen to allow them to resume
 // normal exchange and governance activities.
@@ -4084,20 +4084,20 @@ export function TypeMapping(code: string): OpReturnMessage {
 }
 
 	// Confiscation The contract responding to an Order action to confiscate
-// assets. To be used to comply with contractual obligations, legal and/or
+// instruments. To be used to comply with contractual obligations, legal and/or
 // issuer requirements.
 	export class Confiscation extends OpReturnMessage {
 		type = ActionCode.CodeConfiscation;
 		typeStr = 'Confiscation';
 
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A unique code that is used to identify the asset. It is generated by
-	// hashing the contract public key hash and the asset index.
-	// SHA256(contract PKH + asset index)
-		asset_code;
+		// 	A unique code that is used to identify the instrument. It is generated by
+	// hashing the contract public key hash and the instrument index.
+	// SHA256(contract PKH + instrument index)
+		instrument_code;
 	
 		// 	The holders effected by the confiscation and their balance remaining.
 		quantities;
@@ -4128,14 +4128,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			WriteFixedChar(buf, this.asset_type, 3);
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			buf.write(this.asset_code.Serialize());
+			buf.write(this.instrument_code.Serialize());
 		}
 
 		// quantities ([]QuantityIndex)
@@ -4162,15 +4162,15 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// write populates the fields in Confiscation from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			this.asset_type = ReadFixedChar(buf, 3);
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			this.asset_code = new AssetCode();
-			this.asset_code.Write(buf);
+			this.instrument_code = new InstrumentCode();
+			this.instrument_code.Write(buf);
 		}
 
 		// quantities ([]QuantityIndex)
@@ -4202,18 +4202,18 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// AssetType (string) 
+		// InstrumentType (string)
 		{
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode) 
+		// InstrumentCode (InstrumentCode)
 		{
 			// IsInternalType
-			const err = this.asset_code.Validate();
-			if  (err) return sprintf('field asset_code is invalid : %s', err);
+			const err = this.instrument_code.Validate();
+			if  (err) return sprintf('field instrument_code is invalid : %s', err);
 
 		}
 
@@ -4246,8 +4246,8 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_code:%s', this.instrument_code.toString()));
 			vals.push(sprintf('quantities:%s', this.quantities.toString()));
 			vals.push(sprintf('deposit_qty:%d', this.deposit_qty));
 			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
@@ -4263,10 +4263,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 			console.error('Failed to parse JSON for Confiscation.', e);
 			throw e;
 		}
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		this.asset_code = new AssetCode();
-		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		this.instrument_code = new InstrumentCode();
+		this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
 		
 		// this.quantities (QuantityIndex[])
 		
@@ -4280,20 +4280,20 @@ export function TypeMapping(code: string): OpReturnMessage {
 }
 
 	// Reconciliation The contract responding to an Order action to reconcile
-// assets. To be used at the direction of the administration to fix record
+// instruments. To be used at the direction of the administration to fix record
 // keeping errors with bitcoin and token balances.
 	export class Reconciliation extends OpReturnMessage {
 		type = ActionCode.CodeReconciliation;
 		typeStr = 'Reconciliation';
 
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A unique code that is used to identify the asset. It is generated by
-	// hashing the contract public key hash and the asset index.
-	// SHA256(contract PKH + asset index)
-		asset_code;
+		// 	A unique code that is used to identify the instrument. It is generated by
+	// hashing the contract public key hash and the instrument index.
+	// SHA256(contract PKH + instrument index)
+		instrument_code;
 	
 		// 	The holders effected by the reconciliation and their balance
 	// remaining.
@@ -4322,14 +4322,14 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			WriteFixedChar(buf, this.asset_type, 3);
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			buf.write(this.asset_code.Serialize());
+			buf.write(this.instrument_code.Serialize());
 		}
 
 		// quantities ([]QuantityIndex)
@@ -4351,15 +4351,15 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// write populates the fields in Reconciliation from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// asset_type (string)
+		// instrument_type (string)
 		{
-			this.asset_type = ReadFixedChar(buf, 3);
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			this.asset_code = new AssetCode();
-			this.asset_code.Write(buf);
+			this.instrument_code = new InstrumentCode();
+			this.instrument_code.Write(buf);
 		}
 
 		// quantities ([]QuantityIndex)
@@ -4386,18 +4386,18 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// AssetType (string) 
+		// InstrumentType (string)
 		{
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode) 
+		// InstrumentCode (InstrumentCode)
 		{
 			// IsInternalType
-			const err = this.asset_code.Validate();
-			if  (err) return sprintf('field asset_code is invalid : %s', err);
+			const err = this.instrument_code.Validate();
+			if  (err) return sprintf('field instrument_code is invalid : %s', err);
 
 		}
 
@@ -4426,8 +4426,8 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_code:%s', this.instrument_code.toString()));
 			vals.push(sprintf('quantities:%s', this.quantities.toString()));
 			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
 	
@@ -4442,10 +4442,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 			console.error('Failed to parse JSON for Reconciliation.', e);
 			throw e;
 		}
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		this.asset_code = new AssetCode();
-		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		this.instrument_code = new InstrumentCode();
+		this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
 		
 		// this.quantities (QuantityIndex[])
 		
@@ -4470,33 +4470,33 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// Holder
 		initiator;
 	
-		// 	When true this proposal is specific to an asset and the asset type and
-	// asset code fields are serialized.
-		asset_specific_vote;
+		// 	When true this proposal is specific to an instrument and the instrument type and
+	// instrument code fields are serialized.
+		instrument_specific_vote;
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A unique code that is used to identify the asset. It is generated by
-	// hashing the contract public key hash and the asset index.
-	// SHA256(contract PKH + asset index)
-		asset_code;
+		// 	A unique code that is used to identify the instrument. It is generated by
+	// hashing the contract public key hash and the instrument index.
+	// SHA256(contract PKH + instrument index)
+		instrument_code;
 	
 		// 	X for Vote System X. (1-255, 0 is not valid.)
 		vote_system;
 	
 		// 	When true the ProposedAmendments field is included and specifies the
-	// exact changes to make to the contract/asset on chain. When false this
+	// exact changes to make to the contract/instrument on chain. When false this
 	// is just a general proposal like a strategy/direction and doesn't result
 	// in any on chain update.
 		specific;
 	
 		// 	Each element contains details of which fields to modify, or delete.
-	// Because the number of fields in a Contract and Asset is dynamic due to
+	// Because the number of fields in a Contract and Instrument is dynamic due to
 	// some fields being able to be repeated, the index value of the field
-	// needs to be calculated against the Contract or Asset the changes are to
+	// needs to be calculated against the Contract or Instrument the changes are to
 	// apply to. In the event of a Vote being created from this Initiative,
-	// the changes will be applied to the version of the Contract or Asset at
+	// the changes will be applied to the version of the Contract or Instrument at
 	// that time.
 		proposed_amendments;
 	
@@ -4546,19 +4546,19 @@ export function TypeMapping(code: string): OpReturnMessage {
 			write(buf, this.initiator, 'uint8');
 		}
 
-		// asset_specific_vote (bool)
+		// instrument_specific_vote (bool)
 		{
-			write(buf, this.asset_specific_vote, 'bool');
+			write(buf, this.instrument_specific_vote, 'bool');
 		}
 
-		// asset_type (string)
-		if (this.asset_specific_vote) {
-			WriteFixedChar(buf, this.asset_type, 3);
+		// instrument_type (string)
+		if (this.instrument_specific_vote) {
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_code (AssetCode)
-		if (this.asset_specific_vote) {
-			buf.write(this.asset_code.Serialize());
+		// instrument_code (InstrumentCode)
+		if (this.instrument_specific_vote) {
+			buf.write(this.instrument_code.Serialize());
 		}
 
 		// vote_system (uint8)
@@ -4615,20 +4615,20 @@ export function TypeMapping(code: string): OpReturnMessage {
 			this.initiator = read(buf, 'uint8');
 		}
 
-		// asset_specific_vote (bool)
+		// instrument_specific_vote (bool)
 		{
-			this.asset_specific_vote = read(buf, 'bool');
+			this.instrument_specific_vote = read(buf, 'bool');
 		}
 
-		// asset_type (string)
-		if (this.asset_specific_vote) {
-			this.asset_type = ReadFixedChar(buf, 3);
+		// instrument_type (string)
+		if (this.instrument_specific_vote) {
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_code (AssetCode)
-		if (this.asset_specific_vote) {
-			this.asset_code = new AssetCode();
-			this.asset_code.Write(buf);
+		// instrument_code (InstrumentCode)
+		if (this.instrument_specific_vote) {
+			this.instrument_code = new InstrumentCode();
+			this.instrument_code.Write(buf);
 		}
 
 		// vote_system (uint8)
@@ -4694,24 +4694,24 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 		}
 
-		// AssetSpecificVote (bool) 
+		// InstrumentSpecificVote (bool)
 		{
 		}
 
-		// AssetType (string)
+		// InstrumentType (string)
 		// IncludeIfTrue
-		if (this.asset_specific_vote) {
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+		if (this.instrument_specific_vote) {
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode)
+		// InstrumentCode (InstrumentCode)
 		// IncludeIfTrue
-		if (this.asset_specific_vote) {
+		if (this.instrument_specific_vote) {
 			// IsInternalType
-			const err = this.asset_code.Validate();
-			if  (err) return sprintf('field asset_code is invalid : %s', err);
+			const err = this.instrument_code.Validate();
+			if  (err) return sprintf('field instrument_code is invalid : %s', err);
 
 		}
 
@@ -4772,9 +4772,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 	toString(): string {
 		const vals: string[] = [];
 			vals.push(sprintf('initiator:%d', this.initiator));
-			vals.push(sprintf('asset_specific_vote:%s', this.asset_specific_vote.toString()));
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('instrument_specific_vote:%s', this.instrument_specific_vote.toString()));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_code:%s', this.instrument_code.toString()));
 			vals.push(sprintf('vote_system:%d', this.vote_system));
 			vals.push(sprintf('specific:%s', this.specific.toString()));
 			vals.push(sprintf('proposed_amendments:%s', this.proposed_amendments.toString()));
@@ -4797,12 +4797,12 @@ export function TypeMapping(code: string): OpReturnMessage {
 		}
 		this.initiator = parsed.initiator;
 		
-		// this.asset_specific_vote = parsed.assetSpecificVote (bool)
+		// this.instrument_specific_vote = parsed.instrumentSpecificVote (bool)
 		
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		this.asset_code = new AssetCode();
-		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		this.instrument_code = new InstrumentCode();
+		this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
 		
 		this.vote_system = parsed.voteSystem;
 		
@@ -4911,7 +4911,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	// BallotCast Used by Token Owners to cast their ballot (vote) on
 // proposals. 1 Vote per token unless a vote multiplier is specified in the
-// relevant Asset Definition action.
+// relevant Instrument Definition action.
 	export class BallotCast extends OpReturnMessage {
 		type = ActionCode.CodeBallotCast;
 		typeStr = 'BallotCast';
@@ -5182,36 +5182,36 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	// Result Once a vote has been completed the results are published. After
 // the result is posted, it is up to the administration to send a
-// contract/asset amendement if appropriate.
+// contract/instrument amendement if appropriate.
 	export class Result extends OpReturnMessage {
 		type = ActionCode.CodeResult;
 		typeStr = 'Result';
 
 	
-		// 	When true this proposal is specific to an asset and the asset type and
-	// asset code fields are serialized.
-		asset_specific_vote;
+		// 	When true this proposal is specific to an instrument and the instrument type and
+	// instrument code fields are serialized.
+		instrument_specific_vote;
 	
-		// 	Three letter character that specifies the asset type.
-		asset_type;
+		// 	Three letter character that specifies the instrument type.
+		instrument_type;
 	
-		// 	A unique code that is used to identify the asset. It is generated by
-	// hashing the contract public key hash and the asset index.
-	// SHA256(contract PKH + asset index)
-		asset_code;
+		// 	A unique code that is used to identify the instrument. It is generated by
+	// hashing the contract public key hash and the instrument index.
+	// SHA256(contract PKH + instrument index)
+		instrument_code;
 	
 		// 	When true the ProposedAmendments field is included and specifies the
-	// exact changes to make to the Contract/Asset on chain. When false this
+	// exact changes to make to the Contract/Instrument on chain. When false this
 	// is just a general proposal like a strategy/direction and doesn't result
 	// in any on chain update.
 		specific;
 	
 		// 	Each element contains details of which fields to modify, or delete.
-	// Because the number of fields in a Contract and Asset is dynamic due to
+	// Because the number of fields in a Contract and Instrument is dynamic due to
 	// some fields being able to be repeated, the index value of the field
-	// needs to be calculated against the Contract or Asset the changes are to
+	// needs to be calculated against the Contract or Instrument the changes are to
 	// apply to. In the event of a Vote being created from this Initiative,
-	// the changes will be applied to the version of the Contract or Asset at
+	// the changes will be applied to the version of the Contract or Instrument at
 	// that time.
 		proposed_amendments;
 	
@@ -5250,19 +5250,19 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// asset_specific_vote (bool)
+		// instrument_specific_vote (bool)
 		{
-			write(buf, this.asset_specific_vote, 'bool');
+			write(buf, this.instrument_specific_vote, 'bool');
 		}
 
-		// asset_type (string)
-		if (this.asset_specific_vote) {
-			WriteFixedChar(buf, this.asset_type, 3);
+		// instrument_type (string)
+		if (this.instrument_specific_vote) {
+			WriteFixedChar(buf, this.instrument_type, 3);
 		}
 
-		// asset_code (AssetCode)
-		if (this.asset_specific_vote) {
-			buf.write(this.asset_code.Serialize());
+		// instrument_code (InstrumentCode)
+		if (this.instrument_specific_vote) {
+			buf.write(this.instrument_code.Serialize());
 		}
 
 		// specific (bool)
@@ -5309,20 +5309,20 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// write populates the fields in Result from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// asset_specific_vote (bool)
+		// instrument_specific_vote (bool)
 		{
-			this.asset_specific_vote = read(buf, 'bool');
+			this.instrument_specific_vote = read(buf, 'bool');
 		}
 
-		// asset_type (string)
-		if (this.asset_specific_vote) {
-			this.asset_type = ReadFixedChar(buf, 3);
+		// instrument_type (string)
+		if (this.instrument_specific_vote) {
+			this.instrument_type = ReadFixedChar(buf, 3);
 		}
 
-		// asset_code (AssetCode)
-		if (this.asset_specific_vote) {
-			this.asset_code = new AssetCode();
-			this.asset_code.Write(buf);
+		// instrument_code (InstrumentCode)
+		if (this.instrument_specific_vote) {
+			this.instrument_code = new InstrumentCode();
+			this.instrument_code.Write(buf);
 		}
 
 		// specific (bool)
@@ -5372,24 +5372,24 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// AssetSpecificVote (bool) 
+		// InstrumentSpecificVote (bool)
 		{
 		}
 
-		// AssetType (string)
+		// InstrumentType (string)
 		// IncludeIfTrue
-		if (this.asset_specific_vote) {
-			if (this.asset_type.length > 3) {
-				return sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+		if (this.instrument_specific_vote) {
+			if (this.instrument_type.length > 3) {
+				return sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
 			}
 		}
 
-		// AssetCode (AssetCode)
+		// InstrumentCode (InstrumentCode)
 		// IncludeIfTrue
-		if (this.asset_specific_vote) {
+		if (this.instrument_specific_vote) {
 			// IsInternalType
-			const err = this.asset_code.Validate();
-			if  (err) return sprintf('field asset_code is invalid : %s', err);
+			const err = this.instrument_code.Validate();
+			if  (err) return sprintf('field instrument_code is invalid : %s', err);
 
 		}
 
@@ -5445,9 +5445,9 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('asset_specific_vote:%s', this.asset_specific_vote.toString()));
-			vals.push(sprintf('asset_type:%s', this.asset_type.toString()));
-			vals.push(sprintf('asset_code:%s', this.asset_code.toString()));
+			vals.push(sprintf('instrument_specific_vote:%s', this.instrument_specific_vote.toString()));
+			vals.push(sprintf('instrument_type:%s', this.instrument_type.toString()));
+			vals.push(sprintf('instrument_code:%s', this.instrument_code.toString()));
 			vals.push(sprintf('specific:%s', this.specific.toString()));
 			vals.push(sprintf('proposed_amendments:%s', this.proposed_amendments.toString()));
 			vals.push(sprintf('vote_tx_id:%s', this.vote_tx_id.toString()));
@@ -5466,12 +5466,12 @@ export function TypeMapping(code: string): OpReturnMessage {
 			console.error('Failed to parse JSON for Result.', e);
 			throw e;
 		}
-		// this.asset_specific_vote = parsed.assetSpecificVote (bool)
+		// this.instrument_specific_vote = parsed.instrumentSpecificVote (bool)
 		
-		// this.asset_type = parsed.assetType (fixedchar)
+		// this.instrument_type = parsed.instrumentType (fixedchar)
 		
-		this.asset_code = new AssetCode();
-		this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+		this.instrument_code = new InstrumentCode();
+		this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
 		
 		// this.specific = parsed.specific (bool)
 		
@@ -6189,7 +6189,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// Transfer A Token Owner(s) Sends, Exchanges or Swaps a token(s) or
 // Bitcoin for a token(s) or Bitcoin. Can be as simple as sending a single
 // token to a receiver. Or can be as complex as many senders sending many
-// different assets - controlled by many different smart contracts - to a
+// different instruments - controlled by many different smart contracts - to a
 // number of receivers. This action also supports atomic swaps (tokens for
 // tokens). Since many parties and contracts can be involved in a transfer
 // and the corresponding settlement action, the partially signed T1 and T2
@@ -6200,8 +6200,8 @@ export function TypeMapping(code: string): OpReturnMessage {
 		typeStr = 'Transfer';
 
 	
-		// 	The Assets involved in the Transfer Action.
-		assets;
+		// 	The Instruments involved in the Transfer Action.
+		instruments;
 	
 		// 	This prevents any party from holding on to the partially signed
 	// message as a form of an option. Eg. the exchange at this price is valid
@@ -6234,10 +6234,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// assets ([]AssetTransfer)
+		// instruments ([]InstrumentTransfer)
 		{
-			WriteVariableSize(buf, this.assets.length, 8, 8);
-			this.assets.forEach((value) => {
+			WriteVariableSize(buf, this.instruments.length, 8, 8);
+			this.instruments.forEach((value) => {
 				buf.write(value.Serialize());
 			});
 		}
@@ -6263,16 +6263,16 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// write populates the fields in Transfer from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// assets ([]AssetTransfer)
+		// instruments ([]InstrumentTransfer)
 		{
 			// IsInternalTypeArray
 			const size = ReadVariableSize(buf, 8, 8);
-			this.assets = [];
+			this.instruments = [];
 			for (let i = 0; i < size; i++) {
-				const newValue = new AssetTransfer();
+				const newValue = new InstrumentTransfer();
 				newValue.Write(buf);
 
-				this.assets.push(newValue);
+				this.instruments.push(newValue);
 			}
 		}
 
@@ -6298,15 +6298,15 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// Assets ([]AssetTransfer) 
+		// Instruments ([]InstrumentTransfer)
 		{
-			if (this.assets.length > (2 ** 8) - 1) {
-				return sprintf('list field assets has too many items %d/%d', this.assets.length, (2 ** 8) - 1);
+			if (this.instruments.length > (2 ** 8) - 1) {
+				return sprintf('list field instruments has too many items %d/%d', this.instruments.length, (2 ** 8) - 1);
 			}
 
-			const err = this.assets.find((value, i) => {
+			const err = this.instruments.find((value, i) => {
 				const err2 = value.Validate();
-				if (err2) return sprintf('list field assets[%d] is invalid : %s', i, err2);
+				if (err2) return sprintf('list field instruments[%d] is invalid : %s', i, err2);
 			});
 			if (err) return err;
 		}
@@ -6335,7 +6335,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('assets:%s', this.assets.toString()));
+			vals.push(sprintf('instruments:%s', this.instruments.toString()));
 			vals.push(sprintf('offer_expiry:%s', this.offer_expiry.toString()));
 			vals.push(sprintf('exchange_fee:%d', this.exchange_fee));
 			vals.push(sprintf('exchange_fee_address:%s', this.exchange_fee_address.toString()));
@@ -6351,7 +6351,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 			console.error('Failed to parse JSON for Transfer.', e);
 			throw e;
 		}
-		// this.assets (AssetTransfer[])
+		// this.instruments (InstrumentTransfer[])
 		
 		this.offer_expiry = new Timestamp();
 		this.offer_expiry.fromJSON(JSON.stringify(parsed.offerExpiry));
@@ -6372,8 +6372,8 @@ export function TypeMapping(code: string): OpReturnMessage {
 		typeStr = 'Settlement';
 
 	
-		// 	The Assets settled by the transfer action.
-		assets;
+		// 	The Instruments settled by the transfer action.
+		instruments;
 	
 		// 	Timestamp in nanoseconds of when the smart contract created the
 	// action.
@@ -6398,10 +6398,10 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// serialize returns the full OP_RETURN payload bytes.
 	Serialize(): Buffer {
 		const buf = new _.Writer();
-		// assets ([]AssetSettlement)
+		// instruments ([]InstrumentSettlement)
 		{
-			WriteVariableSize(buf, this.assets.length, 8, 8);
-			this.assets.forEach((value) => {
+			WriteVariableSize(buf, this.instruments.length, 8, 8);
+			this.instruments.forEach((value) => {
 				buf.write(value.Serialize());
 			});
 		}
@@ -6417,16 +6417,16 @@ export function TypeMapping(code: string): OpReturnMessage {
 	// write populates the fields in Settlement from the byte slice
 	write(b: Buffer): number {
 		const buf = new _.Reader(b);
-		// assets ([]AssetSettlement)
+		// instruments ([]InstrumentSettlement)
 		{
 			// IsInternalTypeArray
 			const size = ReadVariableSize(buf, 8, 8);
-			this.assets = [];
+			this.instruments = [];
 			for (let i = 0; i < size; i++) {
-				const newValue = new AssetSettlement();
+				const newValue = new InstrumentSettlement();
 				newValue.Write(buf);
 
-				this.assets.push(newValue);
+				this.instruments.push(newValue);
 			}
 		}
 
@@ -6441,15 +6441,15 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	Validate(): string | null {
 
-		// Assets ([]AssetSettlement) 
+		// Instruments ([]InstrumentSettlement)
 		{
-			if (this.assets.length > (2 ** 8) - 1) {
-				return sprintf('list field assets has too many items %d/%d', this.assets.length, (2 ** 8) - 1);
+			if (this.instruments.length > (2 ** 8) - 1) {
+				return sprintf('list field instruments has too many items %d/%d', this.instruments.length, (2 ** 8) - 1);
 			}
 
-			const err = this.assets.find((value, i) => {
+			const err = this.instruments.find((value, i) => {
 				const err2 = value.Validate();
-				if (err2) return sprintf('list field assets[%d] is invalid : %s', i, err2);
+				if (err2) return sprintf('list field instruments[%d] is invalid : %s', i, err2);
 			});
 			if (err) return err;
 		}
@@ -6466,7 +6466,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 
 	toString(): string {
 		const vals: string[] = [];
-			vals.push(sprintf('assets:%s', this.assets.toString()));
+			vals.push(sprintf('instruments:%s', this.instruments.toString()));
 			vals.push(sprintf('timestamp:%s', this.timestamp.toString()));
 	
 		return sprintf('{%s}', vals.join(' '));
@@ -6480,7 +6480,7 @@ export function TypeMapping(code: string): OpReturnMessage {
 			console.error('Failed to parse JSON for Settlement.', e);
 			throw e;
 		}
-		// this.assets (AssetSettlement[])
+		// this.instruments (InstrumentSettlement[])
 		
 		this.timestamp = new Timestamp();
 		this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));

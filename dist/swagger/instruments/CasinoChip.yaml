@@ -1,0 +1,28 @@
+
+description: Casino Chip
+type: object
+properties:
+  UseType:
+    description: Real Money (R), Free Play (F)
+    type: string
+    example: "R"
+  AgeRestriction:
+    description: Age restriction is used to specify required ages for instrument ownership.
+    type: object
+    $ref: "#/components/schemas/AgeRestrictionField"
+  ExpirationTimestamp:
+    type: number
+    example: 1594668650000000000
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
+  CasinoName:
+    description: The name of the casino, or host, of the chip.
+    type: string
+  FaceValue:
+    description: Face value of each coupon specified in a currency.
+    type: object
+    $ref: "#/components/schemas/CurrencyValueField"
+

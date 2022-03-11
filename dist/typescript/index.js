@@ -4,7 +4,7 @@ function __export(m) {
 }
 exports.__esModule = true;
 __export(require("./dist/actions"));
-__export(require("./dist/assets"));
+__export(require("./dist/instruments"));
 __export(require("./dist/authorization"));
 __export(require("./dist/bytes"));
 __export(require("./dist/field_types"));

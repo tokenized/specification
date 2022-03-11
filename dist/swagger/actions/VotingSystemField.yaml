@@ -39,8 +39,8 @@ properties:
     example: 75
   VoteMultiplierPermitted:
     description:  >
-      Where an asset has a vote multiplier, true must be set here for the vote multiplier to count,
-      otherwise votes are simply treated as 1x per token.
+      Where an instrument has a vote multiplier, true must be set here for the vote multiplier to
+      count, otherwise votes are simply treated as 1x per token.
     type: boolean
   HolderProposalFee:
     description:  >

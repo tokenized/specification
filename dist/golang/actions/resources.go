@@ -11161,10 +11161,10 @@ const (
 	// ContractDoesNotExist - The contract address specified does not have an active contract.
 	RejectionsContractDoesNotExist = 11
 
-	// ContractAssetQtyReduction - Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.
-	RejectionsContractAssetQtyReduction = 12
+	// ContractInstrumentQtyReduction - Sent when a CA tries to reduce the number of allowed instruments below the number of instruments that already exist for this contract.
+	RejectionsContractInstrumentQtyReduction = 12
 
-	// ContractFixedQuantity - Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.
+	// ContractFixedQuantity - Sent when the administration attempted to increase the quantity of instruments in a contract beyond the maximum number allowed.
 	RejectionsContractFixedQuantity = 13
 
 	// ContractPermissions - The contract permissions prohibit the action requested.
@@ -11185,23 +11185,23 @@ const (
 	// ContractBothOperatorsRequired - Both operators signatures are required to perform this action.
 	RejectionsContractBothOperatorsRequired = 19
 
-	// AssetCodeExists - The asset code specified already exists and can't be reused.
-	RejectionsAssetCodeExists = 20
+	// InstrumentCodeExists - The instrument code specified already exists and can't be reused.
+	RejectionsInstrumentCodeExists = 20
 
-	// AssetNotFound - The asset code is not found.
-	RejectionsAssetNotFound = 21
+	// InstrumentNotFound - The instrument code is not found.
+	RejectionsInstrumentNotFound = 21
 
-	// AssetPermissions - The asset permissions prohibit the action requested.
-	RejectionsAssetPermissions = 22
+	// InstrumentPermissions - The instrument permissions prohibit the action requested.
+	RejectionsInstrumentPermissions = 22
 
-	// AssetFrozen - The asset is frozen and the request is not permitted while frozen.
-	RejectionsAssetFrozen = 23
+	// InstrumentFrozen - The instrument is frozen and the request is not permitted while frozen.
+	RejectionsInstrumentFrozen = 23
 
-	// AssetRevision - The revision in an asset amendment is incorrect.
-	RejectionsAssetRevision = 24
+	// InstrumentRevision - The revision in an instrument amendment is incorrect.
+	RejectionsInstrumentRevision = 24
 
-	// AssetNotPermitted - Action not permitted by asset.
-	RejectionsAssetNotPermitted = 25
+	// InstrumentNotPermitted - Action not permitted by instrument.
+	RejectionsInstrumentNotPermitted = 25
 
 	// TransferSelf - Transfers with the sender and receiver addresses the same are not permitted.
 	RejectionsTransferSelf = 30
@@ -11339,11 +11339,11 @@ func RejectionsData(code uint32) *RejectionsCode {
 			MetaData:    `{}`,
 		}
 
-	case RejectionsContractAssetQtyReduction:
+	case RejectionsContractInstrumentQtyReduction:
 		return &RejectionsCode{
-			Name:        "ContractAssetQtyReduction",
-			Label:       "Contract Asset Quantity Reduction",
-			Description: "Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.",
+			Name:        "ContractInstrumentQtyReduction",
+			Label:       "Contract Instrument Quantity Reduction",
+			Description: "Sent when a CA tries to reduce the number of allowed instruments below the number of instruments that already exist for this contract.",
 			MetaData:    `{}`,
 		}
 
@@ -11351,7 +11351,7 @@ func RejectionsData(code uint32) *RejectionsCode {
 		return &RejectionsCode{
 			Name:        "ContractFixedQuantity",
 			Label:       "Contract Fixed Quantity",
-			Description: "Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.",
+			Description: "Sent when the administration attempted to increase the quantity of instruments in a contract beyond the maximum number allowed.",
 			MetaData:    `{}`,
 		}
 
@@ -11403,51 +11403,51 @@ func RejectionsData(code uint32) *RejectionsCode {
 			MetaData:    `{}`,
 		}
 
-	case RejectionsAssetCodeExists:
+	case RejectionsInstrumentCodeExists:
 		return &RejectionsCode{
-			Name:        "AssetCodeExists",
-			Label:       "Asset Code Already Exists",
-			Description: "The asset code specified already exists and can't be reused.",
+			Name:        "InstrumentCodeExists",
+			Label:       "Instrument Code Already Exists",
+			Description: "The instrument code specified already exists and can't be reused.",
 			MetaData:    `{}`,
 		}
 
-	case RejectionsAssetNotFound:
+	case RejectionsInstrumentNotFound:
 		return &RejectionsCode{
-			Name:        "AssetNotFound",
-			Label:       "Asset Not Found",
-			Description: "The asset code is not found.",
+			Name:        "InstrumentNotFound",
+			Label:       "Instrument Not Found",
+			Description: "The instrument code is not found.",
 			MetaData:    `{}`,
 		}
 
-	case RejectionsAssetPermissions:
+	case RejectionsInstrumentPermissions:
 		return &RejectionsCode{
-			Name:        "AssetPermissions",
-			Label:       "Asset Permissions Prohibit",
-			Description: "The asset permissions prohibit the action requested.",
+			Name:        "InstrumentPermissions",
+			Label:       "Instrument Permissions Prohibit",
+			Description: "The instrument permissions prohibit the action requested.",
 			MetaData:    `{}`,
 		}
 
-	case RejectionsAssetFrozen:
+	case RejectionsInstrumentFrozen:
 		return &RejectionsCode{
-			Name:        "AssetFrozen",
-			Label:       "Asset Frozen",
-			Description: "The asset is frozen and the request is not permitted while frozen.",
+			Name:        "InstrumentFrozen",
+			Label:       "Instrument Frozen",
+			Description: "The instrument is frozen and the request is not permitted while frozen.",
 			MetaData:    `{}`,
 		}
 
-	case RejectionsAssetRevision:
+	case RejectionsInstrumentRevision:
 		return &RejectionsCode{
-			Name:        "AssetRevision",
-			Label:       "Asset Revision Incorrect",
-			Description: "The revision in an asset amendment is incorrect.",
+			Name:        "InstrumentRevision",
+			Label:       "Instrument Revision Incorrect",
+			Description: "The revision in an instrument amendment is incorrect.",
 			MetaData:    `{}`,
 		}
 
-	case RejectionsAssetNotPermitted:
+	case RejectionsInstrumentNotPermitted:
 		return &RejectionsCode{
-			Name:        "AssetNotPermitted",
-			Label:       "Asset Not Permitted",
-			Description: "Action not permitted by asset.",
+			Name:        "InstrumentNotPermitted",
+			Label:       "Instrument Not Permitted",
+			Description: "Action not permitted by instrument.",
 			MetaData:    `{}`,
 		}
 
@@ -11675,17 +11675,17 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			MetaData:    `{}`,
 		},
 
-		RejectionsContractAssetQtyReduction: &RejectionsCode{
-			Name:        "ContractAssetQtyReduction",
-			Label:       "Contract Asset Quantity Reduction",
-			Description: "Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.",
+		RejectionsContractInstrumentQtyReduction: &RejectionsCode{
+			Name:        "ContractInstrumentQtyReduction",
+			Label:       "Contract Instrument Quantity Reduction",
+			Description: "Sent when a CA tries to reduce the number of allowed instruments below the number of instruments that already exist for this contract.",
 			MetaData:    `{}`,
 		},
 
 		RejectionsContractFixedQuantity: &RejectionsCode{
 			Name:        "ContractFixedQuantity",
 			Label:       "Contract Fixed Quantity",
-			Description: "Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.",
+			Description: "Sent when the administration attempted to increase the quantity of instruments in a contract beyond the maximum number allowed.",
 			MetaData:    `{}`,
 		},
 
@@ -11731,45 +11731,45 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			MetaData:    `{}`,
 		},
 
-		RejectionsAssetCodeExists: &RejectionsCode{
-			Name:        "AssetCodeExists",
-			Label:       "Asset Code Already Exists",
-			Description: "The asset code specified already exists and can't be reused.",
+		RejectionsInstrumentCodeExists: &RejectionsCode{
+			Name:        "InstrumentCodeExists",
+			Label:       "Instrument Code Already Exists",
+			Description: "The instrument code specified already exists and can't be reused.",
 			MetaData:    `{}`,
 		},
 
-		RejectionsAssetNotFound: &RejectionsCode{
-			Name:        "AssetNotFound",
-			Label:       "Asset Not Found",
-			Description: "The asset code is not found.",
+		RejectionsInstrumentNotFound: &RejectionsCode{
+			Name:        "InstrumentNotFound",
+			Label:       "Instrument Not Found",
+			Description: "The instrument code is not found.",
 			MetaData:    `{}`,
 		},
 
-		RejectionsAssetPermissions: &RejectionsCode{
-			Name:        "AssetPermissions",
-			Label:       "Asset Permissions Prohibit",
-			Description: "The asset permissions prohibit the action requested.",
+		RejectionsInstrumentPermissions: &RejectionsCode{
+			Name:        "InstrumentPermissions",
+			Label:       "Instrument Permissions Prohibit",
+			Description: "The instrument permissions prohibit the action requested.",
 			MetaData:    `{}`,
 		},
 
-		RejectionsAssetFrozen: &RejectionsCode{
-			Name:        "AssetFrozen",
-			Label:       "Asset Frozen",
-			Description: "The asset is frozen and the request is not permitted while frozen.",
+		RejectionsInstrumentFrozen: &RejectionsCode{
+			Name:        "InstrumentFrozen",
+			Label:       "Instrument Frozen",
+			Description: "The instrument is frozen and the request is not permitted while frozen.",
 			MetaData:    `{}`,
 		},
 
-		RejectionsAssetRevision: &RejectionsCode{
-			Name:        "AssetRevision",
-			Label:       "Asset Revision Incorrect",
-			Description: "The revision in an asset amendment is incorrect.",
+		RejectionsInstrumentRevision: &RejectionsCode{
+			Name:        "InstrumentRevision",
+			Label:       "Instrument Revision Incorrect",
+			Description: "The revision in an instrument amendment is incorrect.",
 			MetaData:    `{}`,
 		},
 
-		RejectionsAssetNotPermitted: &RejectionsCode{
-			Name:        "AssetNotPermitted",
-			Label:       "Asset Not Permitted",
-			Description: "Action not permitted by asset.",
+		RejectionsInstrumentNotPermitted: &RejectionsCode{
+			Name:        "InstrumentNotPermitted",
+			Label:       "Instrument Not Permitted",
+			Description: "Action not permitted by instrument.",
 			MetaData:    `{}`,
 		},
 

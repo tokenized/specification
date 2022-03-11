@@ -24,7 +24,7 @@ func OrderAuthoritySigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 	digest.Write([]byte(order.AuthorityName))
 	digest.Write(contractAddress.Bytes())
 	digest.Write([]byte{byte(order.ComplianceAction[0])})
-	digest.Write(order.AssetCode)
+	digest.Write(order.InstrumentCode)
 	digest.Write(order.SupportingEvidence[:])
 
 	for _, refTx := range order.ReferenceTransactions {

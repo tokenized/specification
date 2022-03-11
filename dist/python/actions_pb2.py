@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z6github.com/tokenized/specification/dist/golang/actions',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ractions.proto\x12\x07\x61\x63tions\"\x9a\x06\n\rContractOffer\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x1b\n\x13\x42odyOfAgreementType\x18\x02 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x03 \x01(\x0c\x12.\n\x0eSupportingDocs\x18\x05 \x03(\x0b\x32\x16.actions.DocumentField\x12\x1a\n\x12\x43ontractExpiration\x18\x08 \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\t \x01(\t\x12$\n\x06Issuer\x18\n \x01(\x0b\x32\x14.actions.EntityField\x12 \n\x18\x43ontractOperatorIncluded\x18\x0c \x01(\x08\x12\x13\n\x0b\x43ontractFee\x18\x11 \x01(\x04\x12\x31\n\rVotingSystems\x18\x12 \x03(\x0b\x32\x1a.actions.VotingSystemField\x12\x1b\n\x13\x43ontractPermissions\x18\x13 \x01(\x0c\x12\x1b\n\x13RestrictedQtyAssets\x18\x14 \x01(\x04\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x15 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x16 \x01(\x08\x12%\n\x07Oracles\x18\x17 \x03(\x0b\x32\x14.actions.OracleField\x12\x15\n\rMasterAddress\x18\x18 \x01(\x0c\x12\x16\n\x0e\x45ntityContract\x18\x19 \x01(\x0c\x12\x1e\n\x16OperatorEntityContract\x18\x1a \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x1b \x01(\r\x12\'\n\x08Services\x18\x1c \x03(\x0b\x32\x15.actions.ServiceField\x12I\n\x19\x41\x64minIdentityCertificates\x18\x1d \x03(\x0b\x32&.actions.AdminIdentityCertificateField\x12\x14\n\x0cGoverningLaw\x18\x1e \x01(\t\x12\x14\n\x0cJurisdiction\x18\x1f \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08J\x04\x08\x0b\x10\x0cJ\x04\x08\r\x10\x0eJ\x04\x08\x0e\x10\x0fJ\x04\x08\x0f\x10\x10J\x04\x08\x10\x10\x11\"\xd8\x06\n\x11\x43ontractFormation\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x1b\n\x13\x42odyOfAgreementType\x18\x02 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x03 \x01(\x0c\x12.\n\x0eSupportingDocs\x18\x05 \x03(\x0b\x32\x16.actions.DocumentField\x12\x1a\n\x12\x43ontractExpiration\x18\x08 \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\t \x01(\t\x12$\n\x06Issuer\x18\n \x01(\x0b\x32\x14.actions.EntityField\x12\x13\n\x0b\x43ontractFee\x18\x10 \x01(\x04\x12\x31\n\rVotingSystems\x18\x11 \x03(\x0b\x32\x1a.actions.VotingSystemField\x12\x1b\n\x13\x43ontractPermissions\x18\x12 \x01(\x0c\x12\x1b\n\x13RestrictedQtyAssets\x18\x13 \x01(\x04\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x14 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x15 \x01(\x08\x12%\n\x07Oracles\x18\x16 \x03(\x0b\x32\x14.actions.OracleField\x12\x15\n\rMasterAddress\x18\x17 \x01(\x0c\x12\x18\n\x10\x43ontractRevision\x18\x18 \x01(\r\x12\x11\n\tTimestamp\x18\x19 \x01(\x04\x12\x16\n\x0e\x45ntityContract\x18\x1a \x01(\x0c\x12\x1e\n\x16OperatorEntityContract\x18\x1b \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x1c \x01(\r\x12\'\n\x08Services\x18\x1d \x03(\x0b\x32\x15.actions.ServiceField\x12I\n\x19\x41\x64minIdentityCertificates\x18\x1e \x03(\x0b\x32&.actions.AdminIdentityCertificateField\x12\x14\n\x0c\x41\x64minAddress\x18\x1f \x01(\x0c\x12\x17\n\x0fOperatorAddress\x18  \x01(\x0c\x12\x14\n\x0cGoverningLaw\x18! \x01(\t\x12\x14\n\x0cJurisdiction\x18\" \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08J\x04\x08\x0b\x10\x0cJ\x04\x08\x0c\x10\rJ\x04\x08\r\x10\x0eJ\x04\x08\x0e\x10\x0fJ\x04\x08\x0f\x10\x10\"\xaf\x01\n\x11\x43ontractAmendment\x12#\n\x1b\x43hangeAdministrationAddress\x18\x01 \x01(\x08\x12\x1d\n\x15\x43hangeOperatorAddress\x18\x02 \x01(\x08\x12\x18\n\x10\x43ontractRevision\x18\x03 \x01(\r\x12+\n\nAmendments\x18\x04 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x05 \x01(\x0c\"\x87\x04\n\x17StaticContractFormation\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x14\n\x0c\x43ontractCode\x18\x02 \x01(\x0c\x12\x1b\n\x13\x42odyOfAgreementType\x18\x03 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x04 \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x05 \x01(\t\x12.\n\x0eSupportingDocs\x18\x06 \x03(\x0b\x32\x16.actions.DocumentField\x12\x18\n\x10\x43ontractRevision\x18\x07 \x01(\r\x12\x15\n\rEffectiveDate\x18\n \x01(\x04\x12\x1a\n\x12\x43ontractExpiration\x18\x0b \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\x0c \x01(\t\x12\x13\n\x0bPrevRevTxID\x18\r \x01(\x0c\x12&\n\x08\x45ntities\x18\x0e \x03(\x0b\x32\x14.actions.EntityField\x12*\n\x0c\x45ntityOracle\x18\x0f \x01(\x0b\x32\x14.actions.OracleField\x12\x1d\n\x15\x45ntityOracleSignature\x18\x10 \x01(\x0c\x12\"\n\x1a\x45ntityOracleSigBlockHeight\x18\x11 \x01(\r\x12\x14\n\x0cGoverningLaw\x18\x12 \x01(\t\x12\x14\n\x0cJurisdiction\x18\x13 \x01(\tJ\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"F\n\x15\x43ontractAddressChange\x12\x1a\n\x12NewContractAddress\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"o\n\x14\x42odyOfAgreementOffer\x12\'\n\x08\x43hapters\x18\x01 \x03(\x0b\x32\x15.actions.ChapterField\x12.\n\x0b\x44\x65\x66initions\x18\x02 \x03(\x0b\x32\x19.actions.DefinedTermField\"\x98\x01\n\x18\x42odyOfAgreementFormation\x12\'\n\x08\x43hapters\x18\x01 \x03(\x0b\x32\x15.actions.ChapterField\x12.\n\x0b\x44\x65\x66initions\x18\x02 \x03(\x0b\x32\x19.actions.DefinedTermField\x12\x10\n\x08Revision\x18\x03 \x01(\r\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\"j\n\x18\x42odyOfAgreementAmendment\x12\x10\n\x08Revision\x18\x01 \x01(\r\x12+\n\nAmendments\x18\x02 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x03 \x01(\x0c\"\xc6\x02\n\x0f\x41ssetDefinition\x12\x18\n\x10\x41ssetPermissions\x18\x01 \x01(\x0c\x12\"\n\x1a\x45nforcementOrdersPermitted\x18\x04 \x01(\x08\x12\x14\n\x0cVotingRights\x18\x05 \x01(\x08\x12\x16\n\x0eVoteMultiplier\x18\x06 \x01(\r\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x07 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x08 \x01(\x08\x12#\n\x1b\x41ssetModificationGovernance\x18\t \x01(\r\x12\x1a\n\x12\x41uthorizedTokenQty\x18\n \x01(\x04\x12\x11\n\tAssetType\x18\x0b \x01(\t\x12\x14\n\x0c\x41ssetPayload\x18\x0c \x01(\x0c\x12\x19\n\x11TradeRestrictions\x18\r \x03(\tJ\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"\x95\x03\n\rAssetCreation\x12\x11\n\tAssetCode\x18\x01 \x01(\x0c\x12\x12\n\nAssetIndex\x18\x02 \x01(\x04\x12\x18\n\x10\x41ssetPermissions\x18\x03 \x01(\x0c\x12\"\n\x1a\x45nforcementOrdersPermitted\x18\x06 \x01(\x08\x12\x14\n\x0cVotingRights\x18\x07 \x01(\x08\x12\x16\n\x0eVoteMultiplier\x18\x08 \x01(\r\x12\x1e\n\x16\x41\x64ministrationProposal\x18\t \x01(\x08\x12\x16\n\x0eHolderProposal\x18\n \x01(\x08\x12#\n\x1b\x41ssetModificationGovernance\x18\x0b \x01(\r\x12\x1a\n\x12\x41uthorizedTokenQty\x18\x0c \x01(\x04\x12\x11\n\tAssetType\x18\r \x01(\t\x12\x14\n\x0c\x41ssetPayload\x18\x0e \x01(\x0c\x12\x15\n\rAssetRevision\x18\x0f \x01(\r\x12\x11\n\tTimestamp\x18\x10 \x01(\x04\x12\x19\n\x11TradeRestrictions\x18\x11 \x03(\tJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06\"\x8e\x01\n\x11\x41ssetModification\x12\x11\n\tAssetType\x18\x01 \x01(\t\x12\x11\n\tAssetCode\x18\x02 \x01(\x0c\x12\x15\n\rAssetRevision\x18\x03 \x01(\r\x12+\n\nAmendments\x18\x04 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x05 \x01(\x0c\"}\n\x08Transfer\x12+\n\x06\x41ssets\x18\x01 \x03(\x0b\x32\x1b.actions.AssetTransferField\x12\x13\n\x0bOfferExpiry\x18\x02 \x01(\x04\x12\x13\n\x0b\x45xchangeFee\x18\x03 \x01(\x04\x12\x1a\n\x12\x45xchangeFeeAddress\x18\x04 \x01(\x0c\"N\n\nSettlement\x12-\n\x06\x41ssets\x18\x01 \x03(\x0b\x32\x1d.actions.AssetSettlementField\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\x85\x02\n\x08Proposal\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x11\n\tAssetType\x18\x02 \x01(\t\x12\x11\n\tAssetCode\x18\x03 \x01(\x0c\x12\x12\n\nVoteSystem\x18\x04 \x01(\r\x12\x33\n\x12ProposedAmendments\x18\x05 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x13\n\x0bVoteOptions\x18\x06 \x01(\t\x12\x0f\n\x07VoteMax\x18\x07 \x01(\r\x12\x1b\n\x13ProposalDescription\x18\x08 \x01(\t\x12\x1c\n\x14ProposalDocumentHash\x18\t \x01(\x0c\x12\x1b\n\x13VoteCutOffTimestamp\x18\n \x01(\x04\"\x19\n\x04Vote\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\",\n\nBallotCast\x12\x10\n\x08VoteTxId\x18\x01 \x01(\x0c\x12\x0c\n\x04Vote\x18\x02 \x01(\t\"T\n\rBallotCounted\x12\x10\n\x08VoteTxId\x18\x01 \x01(\x0c\x12\x0c\n\x04Vote\x18\x02 \x01(\t\x12\x10\n\x08Quantity\x18\x03 \x01(\x04\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\"\xad\x01\n\x06Result\x12\x11\n\tAssetType\x18\x01 \x01(\t\x12\x11\n\tAssetCode\x18\x02 \x01(\x0c\x12\x33\n\x12ProposedAmendments\x18\x03 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x10\n\x08VoteTxId\x18\x04 \x01(\x0c\x12\x13\n\x0bOptionTally\x18\x05 \x03(\x04\x12\x0e\n\x06Result\x18\x06 \x01(\t\x12\x11\n\tTimestamp\x18\x07 \x01(\x04\"\xfd\x03\n\x05Order\x12\x18\n\x10\x43omplianceAction\x18\x01 \x01(\t\x12\x11\n\tAssetType\x18\x02 \x01(\t\x12\x11\n\tAssetCode\x18\x03 \x01(\x0c\x12\x34\n\x0fTargetAddresses\x18\x04 \x03(\x0b\x32\x1b.actions.TargetAddressField\x12\x12\n\nFreezeTxId\x18\x05 \x01(\x0c\x12\x14\n\x0c\x46reezePeriod\x18\x06 \x01(\x04\x12\x16\n\x0e\x44\x65positAddress\x18\x07 \x01(\x0c\x12\x15\n\rAuthorityName\x18\x08 \x01(\t\x12\x1a\n\x12\x41uthorityPublicKey\x18\t \x01(\x0c\x12\x1a\n\x12SignatureAlgorithm\x18\n \x01(\r\x12\x16\n\x0eOrderSignature\x18\x0b \x01(\x0c\x12\x37\n\x12\x42itcoinDispersions\x18\x0e \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x0f\n\x07Message\x18\x0f \x01(\t\x12 \n\x18SupportingEvidenceFormat\x18\x10 \x01(\r\x12\x1a\n\x12SupportingEvidence\x18\x11 \x01(\x0c\x12\x41\n\x15ReferenceTransactions\x18\x12 \x03(\x0b\x32\".actions.ReferenceTransactionFieldJ\x04\x08\x0c\x10\rJ\x04\x08\r\x10\x0e\"\x88\x01\n\x06\x46reeze\x12\x11\n\tAssetType\x18\x01 \x01(\t\x12\x11\n\tAssetCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x14\n\x0c\x46reezePeriod\x18\x04 \x01(\x04\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"-\n\x04Thaw\x12\x12\n\nFreezeTxId\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\x8c\x01\n\x0c\x43onfiscation\x12\x11\n\tAssetType\x18\x01 \x01(\t\x12\x11\n\tAssetCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x12\n\nDepositQty\x18\x04 \x01(\x04\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"z\n\x0eReconciliation\x12\x11\n\tAssetType\x18\x01 \x01(\t\x12\x11\n\tAssetCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\" \n\rEstablishment\x12\x0f\n\x07Message\x18\x01 \x01(\t\"\x1b\n\x08\x41\x64\x64ition\x12\x0f\n\x07Message\x18\x01 \x01(\t\"0\n\nAlteration\x12\x11\n\tEntryTxID\x18\x01 \x01(\x0c\x12\x0f\n\x07Message\x18\x02 \x01(\t\"-\n\x07Removal\x12\x11\n\tEntryTxID\x18\x01 \x01(\x0c\x12\x0f\n\x07Message\x18\x02 \x01(\t\"f\n\x07Message\x12\x15\n\rSenderIndexes\x18\x01 \x03(\r\x12\x17\n\x0fReceiverIndexes\x18\x02 \x03(\r\x12\x13\n\x0bMessageCode\x18\x03 \x01(\r\x12\x16\n\x0eMessagePayload\x18\x04 \x01(\x0c\"z\n\tRejection\x12\x16\n\x0e\x41\x64\x64ressIndexes\x18\x01 \x03(\r\x12\x1a\n\x12RejectAddressIndex\x18\x02 \x01(\r\x12\x15\n\rRejectionCode\x18\x03 \x01(\r\x12\x0f\n\x07Message\x18\x04 \x01(\t\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"0\n\x12\x41\x64ministratorField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"s\n\x1d\x41\x64minIdentityCertificateField\x12\x16\n\x0e\x45ntityContract\x18\x01 \x01(\x0c\x12\x11\n\tSignature\x18\x02 \x01(\x0c\x12\x13\n\x0b\x42lockHeight\x18\x03 \x01(\r\x12\x12\n\nExpiration\x18\x04 \x01(\x04\"I\n\x0e\x41mendmentField\x12\x16\n\x0e\x46ieldIndexPath\x18\x01 \x01(\x0c\x12\x11\n\tOperation\x18\x02 \x01(\r\x12\x0c\n\x04\x44\x61ta\x18\x03 \x01(\x0c\"\xbe\x01\n\x12\x41ssetReceiverField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\x12\x1a\n\x12OracleSigAlgorithm\x18\x03 \x01(\r\x12\x13\n\x0bOracleIndex\x18\x04 \x01(\r\x12\x1d\n\x15OracleConfirmationSig\x18\x05 \x01(\x0c\x12\x1c\n\x14OracleSigBlockHeight\x18\x06 \x01(\r\x12\x17\n\x0fOracleSigExpiry\x18\x07 \x01(\x04\"\x85\x01\n\x14\x41ssetSettlementField\x12\x15\n\rContractIndex\x18\x01 \x01(\r\x12\x11\n\tAssetType\x18\x02 \x01(\t\x12\x11\n\tAssetCode\x18\x03 \x01(\x0c\x12\x30\n\x0bSettlements\x18\x04 \x03(\x0b\x32\x1b.actions.QuantityIndexField\"\xb9\x01\n\x12\x41ssetTransferField\x12\x15\n\rContractIndex\x18\x01 \x01(\r\x12\x11\n\tAssetType\x18\x02 \x01(\t\x12\x11\n\tAssetCode\x18\x03 \x01(\x0c\x12\x31\n\x0c\x41ssetSenders\x18\x04 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x33\n\x0e\x41ssetReceivers\x18\x05 \x03(\x0b\x32\x1b.actions.AssetReceiverField\"W\n\x0c\x43hapterField\x12\r\n\x05Title\x18\x01 \x01(\t\x12\x10\n\x08Preamble\x18\x02 \x01(\t\x12&\n\x08\x41rticles\x18\x03 \x03(\x0b\x32\x14.actions.ClauseField\"R\n\x0b\x43lauseField\x12\r\n\x05Title\x18\x01 \x01(\t\x12\x0c\n\x04\x42ody\x18\x02 \x01(\t\x12&\n\x08\x43hildren\x18\x03 \x03(\x0b\x32\x14.actions.ClauseField\"4\n\x10\x44\x65\x66inedTermField\x12\x0c\n\x04Term\x18\x01 \x01(\t\x12\x12\n\nDefinition\x18\x02 \x01(\t\"=\n\rDocumentField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x10\n\x08\x43ontents\x18\x03 \x01(\x0c\"\x92\x03\n\x0b\x45ntityField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x0b\n\x03LEI\x18\x03 \x01(\t\x12\x12\n\nUnitNumber\x18\x04 \x01(\t\x12\x16\n\x0e\x42uildingNumber\x18\x05 \x01(\t\x12\x0e\n\x06Street\x18\x06 \x01(\t\x12\x12\n\nSuburbCity\x18\x07 \x01(\t\x12\"\n\x1aTerritoryStateProvinceCode\x18\x08 \x01(\t\x12\x13\n\x0b\x43ountryCode\x18\t \x01(\t\x12\x15\n\rPostalZIPCode\x18\n \x01(\t\x12\x14\n\x0c\x45mailAddress\x18\x0b \x01(\t\x12\x13\n\x0bPhoneNumber\x18\x0c \x01(\t\x12\x33\n\x0e\x41\x64ministration\x18\r \x03(\x0b\x32\x1b.actions.AdministratorField\x12)\n\nManagement\x18\x0e \x03(\x0b\x32\x15.actions.ManagerField\x12\x12\n\nDomainName\x18\x0f \x01(\t\x12\x15\n\rPaymailHandle\x18\x11 \x01(\tJ\x04\x08\x10\x10\x11\"*\n\x0cManagerField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"L\n\x0bOracleField\x12\x13\n\x0bOracleTypes\x18\x04 \x03(\r\x12\x16\n\x0e\x45ntityContract\x18\x05 \x01(\x0cJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"5\n\x12QuantityIndexField\x12\r\n\x05Index\x18\x01 \x01(\r\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\"A\n\x19ReferenceTransactionField\x12\x13\n\x0bTransaction\x18\x01 \x01(\x0c\x12\x0f\n\x07Outputs\x18\x02 \x03(\x0c\"<\n\x0cServiceField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0b\n\x03URL\x18\x02 \x01(\t\x12\x11\n\tPublicKey\x18\x03 \x01(\x0c\"7\n\x12TargetAddressField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\"\xa0\x01\n\x11VotingSystemField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x10\n\x08VoteType\x18\x02 \x01(\t\x12\x12\n\nTallyLogic\x18\x03 \x01(\r\x12\x1b\n\x13ThresholdPercentage\x18\x04 \x01(\r\x12\x1f\n\x17VoteMultiplierPermitted\x18\x05 \x01(\x08\x12\x19\n\x11HolderProposalFee\x18\x06 \x01(\x04\x42\x38Z6github.com/tokenized/specification/dist/golang/actionsb\x06proto3'
+  serialized_pb=b'\n\ractions.proto\x12\x07\x61\x63tions\"\x9f\x06\n\rContractOffer\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x1b\n\x13\x42odyOfAgreementType\x18\x02 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x03 \x01(\x0c\x12.\n\x0eSupportingDocs\x18\x05 \x03(\x0b\x32\x16.actions.DocumentField\x12\x1a\n\x12\x43ontractExpiration\x18\x08 \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\t \x01(\t\x12$\n\x06Issuer\x18\n \x01(\x0b\x32\x14.actions.EntityField\x12 \n\x18\x43ontractOperatorIncluded\x18\x0c \x01(\x08\x12\x13\n\x0b\x43ontractFee\x18\x11 \x01(\x04\x12\x31\n\rVotingSystems\x18\x12 \x03(\x0b\x32\x1a.actions.VotingSystemField\x12\x1b\n\x13\x43ontractPermissions\x18\x13 \x01(\x0c\x12 \n\x18RestrictedQtyInstruments\x18\x14 \x01(\x04\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x15 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x16 \x01(\x08\x12%\n\x07Oracles\x18\x17 \x03(\x0b\x32\x14.actions.OracleField\x12\x15\n\rMasterAddress\x18\x18 \x01(\x0c\x12\x16\n\x0e\x45ntityContract\x18\x19 \x01(\x0c\x12\x1e\n\x16OperatorEntityContract\x18\x1a \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x1b \x01(\r\x12\'\n\x08Services\x18\x1c \x03(\x0b\x32\x15.actions.ServiceField\x12I\n\x19\x41\x64minIdentityCertificates\x18\x1d \x03(\x0b\x32&.actions.AdminIdentityCertificateField\x12\x14\n\x0cGoverningLaw\x18\x1e \x01(\t\x12\x14\n\x0cJurisdiction\x18\x1f \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08J\x04\x08\x0b\x10\x0cJ\x04\x08\r\x10\x0eJ\x04\x08\x0e\x10\x0fJ\x04\x08\x0f\x10\x10J\x04\x08\x10\x10\x11\"\xdd\x06\n\x11\x43ontractFormation\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x1b\n\x13\x42odyOfAgreementType\x18\x02 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x03 \x01(\x0c\x12.\n\x0eSupportingDocs\x18\x05 \x03(\x0b\x32\x16.actions.DocumentField\x12\x1a\n\x12\x43ontractExpiration\x18\x08 \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\t \x01(\t\x12$\n\x06Issuer\x18\n \x01(\x0b\x32\x14.actions.EntityField\x12\x13\n\x0b\x43ontractFee\x18\x10 \x01(\x04\x12\x31\n\rVotingSystems\x18\x11 \x03(\x0b\x32\x1a.actions.VotingSystemField\x12\x1b\n\x13\x43ontractPermissions\x18\x12 \x01(\x0c\x12 \n\x18RestrictedQtyInstruments\x18\x13 \x01(\x04\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x14 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x15 \x01(\x08\x12%\n\x07Oracles\x18\x16 \x03(\x0b\x32\x14.actions.OracleField\x12\x15\n\rMasterAddress\x18\x17 \x01(\x0c\x12\x18\n\x10\x43ontractRevision\x18\x18 \x01(\r\x12\x11\n\tTimestamp\x18\x19 \x01(\x04\x12\x16\n\x0e\x45ntityContract\x18\x1a \x01(\x0c\x12\x1e\n\x16OperatorEntityContract\x18\x1b \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x1c \x01(\r\x12\'\n\x08Services\x18\x1d \x03(\x0b\x32\x15.actions.ServiceField\x12I\n\x19\x41\x64minIdentityCertificates\x18\x1e \x03(\x0b\x32&.actions.AdminIdentityCertificateField\x12\x14\n\x0c\x41\x64minAddress\x18\x1f \x01(\x0c\x12\x17\n\x0fOperatorAddress\x18  \x01(\x0c\x12\x14\n\x0cGoverningLaw\x18! \x01(\t\x12\x14\n\x0cJurisdiction\x18\" \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08J\x04\x08\x0b\x10\x0cJ\x04\x08\x0c\x10\rJ\x04\x08\r\x10\x0eJ\x04\x08\x0e\x10\x0fJ\x04\x08\x0f\x10\x10\"\xaf\x01\n\x11\x43ontractAmendment\x12#\n\x1b\x43hangeAdministrationAddress\x18\x01 \x01(\x08\x12\x1d\n\x15\x43hangeOperatorAddress\x18\x02 \x01(\x08\x12\x18\n\x10\x43ontractRevision\x18\x03 \x01(\r\x12+\n\nAmendments\x18\x04 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x05 \x01(\x0c\"\x87\x04\n\x17StaticContractFormation\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x14\n\x0c\x43ontractCode\x18\x02 \x01(\x0c\x12\x1b\n\x13\x42odyOfAgreementType\x18\x03 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x04 \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x05 \x01(\t\x12.\n\x0eSupportingDocs\x18\x06 \x03(\x0b\x32\x16.actions.DocumentField\x12\x18\n\x10\x43ontractRevision\x18\x07 \x01(\r\x12\x15\n\rEffectiveDate\x18\n \x01(\x04\x12\x1a\n\x12\x43ontractExpiration\x18\x0b \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\x0c \x01(\t\x12\x13\n\x0bPrevRevTxID\x18\r \x01(\x0c\x12&\n\x08\x45ntities\x18\x0e \x03(\x0b\x32\x14.actions.EntityField\x12*\n\x0c\x45ntityOracle\x18\x0f \x01(\x0b\x32\x14.actions.OracleField\x12\x1d\n\x15\x45ntityOracleSignature\x18\x10 \x01(\x0c\x12\"\n\x1a\x45ntityOracleSigBlockHeight\x18\x11 \x01(\r\x12\x14\n\x0cGoverningLaw\x18\x12 \x01(\t\x12\x14\n\x0cJurisdiction\x18\x13 \x01(\tJ\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"F\n\x15\x43ontractAddressChange\x12\x1a\n\x12NewContractAddress\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"o\n\x14\x42odyOfAgreementOffer\x12\'\n\x08\x43hapters\x18\x01 \x03(\x0b\x32\x15.actions.ChapterField\x12.\n\x0b\x44\x65\x66initions\x18\x02 \x03(\x0b\x32\x19.actions.DefinedTermField\"\x98\x01\n\x18\x42odyOfAgreementFormation\x12\'\n\x08\x43hapters\x18\x01 \x03(\x0b\x32\x15.actions.ChapterField\x12.\n\x0b\x44\x65\x66initions\x18\x02 \x03(\x0b\x32\x19.actions.DefinedTermField\x12\x10\n\x08Revision\x18\x03 \x01(\r\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\"j\n\x18\x42odyOfAgreementAmendment\x12\x10\n\x08Revision\x18\x01 \x01(\r\x12+\n\nAmendments\x18\x02 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x03 \x01(\x0c\"\xdf\x02\n\x14InstrumentDefinition\x12\x1d\n\x15InstrumentPermissions\x18\x01 \x01(\x0c\x12\"\n\x1a\x45nforcementOrdersPermitted\x18\x04 \x01(\x08\x12\x14\n\x0cVotingRights\x18\x05 \x01(\x08\x12\x16\n\x0eVoteMultiplier\x18\x06 \x01(\r\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x07 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x08 \x01(\x08\x12(\n InstrumentModificationGovernance\x18\t \x01(\r\x12\x1a\n\x12\x41uthorizedTokenQty\x18\n \x01(\x04\x12\x16\n\x0eInstrumentType\x18\x0b \x01(\t\x12\x19\n\x11InstrumentPayload\x18\x0c \x01(\x0c\x12\x19\n\x11TradeRestrictions\x18\r \x03(\tJ\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"\xbd\x03\n\x12InstrumentCreation\x12\x16\n\x0eInstrumentCode\x18\x01 \x01(\x0c\x12\x17\n\x0fInstrumentIndex\x18\x02 \x01(\x04\x12\x1d\n\x15InstrumentPermissions\x18\x03 \x01(\x0c\x12\"\n\x1a\x45nforcementOrdersPermitted\x18\x06 \x01(\x08\x12\x14\n\x0cVotingRights\x18\x07 \x01(\x08\x12\x16\n\x0eVoteMultiplier\x18\x08 \x01(\r\x12\x1e\n\x16\x41\x64ministrationProposal\x18\t \x01(\x08\x12\x16\n\x0eHolderProposal\x18\n \x01(\x08\x12(\n InstrumentModificationGovernance\x18\x0b \x01(\r\x12\x1a\n\x12\x41uthorizedTokenQty\x18\x0c \x01(\x04\x12\x16\n\x0eInstrumentType\x18\r \x01(\t\x12\x19\n\x11InstrumentPayload\x18\x0e \x01(\x0c\x12\x1a\n\x12InstrumentRevision\x18\x0f \x01(\r\x12\x11\n\tTimestamp\x18\x10 \x01(\x04\x12\x19\n\x11TradeRestrictions\x18\x11 \x03(\tJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06\"\xa2\x01\n\x16InstrumentModification\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12\x1a\n\x12InstrumentRevision\x18\x03 \x01(\r\x12+\n\nAmendments\x18\x04 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x05 \x01(\x0c\"\x87\x01\n\x08Transfer\x12\x35\n\x0bInstruments\x18\x01 \x03(\x0b\x32 .actions.InstrumentTransferField\x12\x13\n\x0bOfferExpiry\x18\x02 \x01(\x04\x12\x13\n\x0b\x45xchangeFee\x18\x03 \x01(\x04\x12\x1a\n\x12\x45xchangeFeeAddress\x18\x04 \x01(\x0c\"X\n\nSettlement\x12\x37\n\x0bInstruments\x18\x01 \x03(\x0b\x32\".actions.InstrumentSettlementField\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\x8f\x02\n\x08Proposal\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x12\n\nVoteSystem\x18\x04 \x01(\r\x12\x33\n\x12ProposedAmendments\x18\x05 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x13\n\x0bVoteOptions\x18\x06 \x01(\t\x12\x0f\n\x07VoteMax\x18\x07 \x01(\r\x12\x1b\n\x13ProposalDescription\x18\x08 \x01(\t\x12\x1c\n\x14ProposalDocumentHash\x18\t \x01(\x0c\x12\x1b\n\x13VoteCutOffTimestamp\x18\n \x01(\x04\"\x19\n\x04Vote\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\",\n\nBallotCast\x12\x10\n\x08VoteTxId\x18\x01 \x01(\x0c\x12\x0c\n\x04Vote\x18\x02 \x01(\t\"T\n\rBallotCounted\x12\x10\n\x08VoteTxId\x18\x01 \x01(\x0c\x12\x0c\n\x04Vote\x18\x02 \x01(\t\x12\x10\n\x08Quantity\x18\x03 \x01(\x04\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\"\xb7\x01\n\x06Result\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12\x33\n\x12ProposedAmendments\x18\x03 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x10\n\x08VoteTxId\x18\x04 \x01(\x0c\x12\x13\n\x0bOptionTally\x18\x05 \x03(\x04\x12\x0e\n\x06Result\x18\x06 \x01(\t\x12\x11\n\tTimestamp\x18\x07 \x01(\x04\"\x87\x04\n\x05Order\x12\x18\n\x10\x43omplianceAction\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x34\n\x0fTargetAddresses\x18\x04 \x03(\x0b\x32\x1b.actions.TargetAddressField\x12\x12\n\nFreezeTxId\x18\x05 \x01(\x0c\x12\x14\n\x0c\x46reezePeriod\x18\x06 \x01(\x04\x12\x16\n\x0e\x44\x65positAddress\x18\x07 \x01(\x0c\x12\x15\n\rAuthorityName\x18\x08 \x01(\t\x12\x1a\n\x12\x41uthorityPublicKey\x18\t \x01(\x0c\x12\x1a\n\x12SignatureAlgorithm\x18\n \x01(\r\x12\x16\n\x0eOrderSignature\x18\x0b \x01(\x0c\x12\x37\n\x12\x42itcoinDispersions\x18\x0e \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x0f\n\x07Message\x18\x0f \x01(\t\x12 \n\x18SupportingEvidenceFormat\x18\x10 \x01(\r\x12\x1a\n\x12SupportingEvidence\x18\x11 \x01(\x0c\x12\x41\n\x15ReferenceTransactions\x18\x12 \x03(\x0b\x32\".actions.ReferenceTransactionFieldJ\x04\x08\x0c\x10\rJ\x04\x08\r\x10\x0e\"\x92\x01\n\x06\x46reeze\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x14\n\x0c\x46reezePeriod\x18\x04 \x01(\x04\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"-\n\x04Thaw\x12\x12\n\nFreezeTxId\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\x96\x01\n\x0c\x43onfiscation\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x12\n\nDepositQty\x18\x04 \x01(\x04\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"\x84\x01\n\x0eReconciliation\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\" \n\rEstablishment\x12\x0f\n\x07Message\x18\x01 \x01(\t\"\x1b\n\x08\x41\x64\x64ition\x12\x0f\n\x07Message\x18\x01 \x01(\t\"0\n\nAlteration\x12\x11\n\tEntryTxID\x18\x01 \x01(\x0c\x12\x0f\n\x07Message\x18\x02 \x01(\t\"-\n\x07Removal\x12\x11\n\tEntryTxID\x18\x01 \x01(\x0c\x12\x0f\n\x07Message\x18\x02 \x01(\t\"f\n\x07Message\x12\x15\n\rSenderIndexes\x18\x01 \x03(\r\x12\x17\n\x0fReceiverIndexes\x18\x02 \x03(\r\x12\x13\n\x0bMessageCode\x18\x03 \x01(\r\x12\x16\n\x0eMessagePayload\x18\x04 \x01(\x0c\"z\n\tRejection\x12\x16\n\x0e\x41\x64\x64ressIndexes\x18\x01 \x03(\r\x12\x1a\n\x12RejectAddressIndex\x18\x02 \x01(\r\x12\x15\n\rRejectionCode\x18\x03 \x01(\r\x12\x0f\n\x07Message\x18\x04 \x01(\t\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"0\n\x12\x41\x64ministratorField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"s\n\x1d\x41\x64minIdentityCertificateField\x12\x16\n\x0e\x45ntityContract\x18\x01 \x01(\x0c\x12\x11\n\tSignature\x18\x02 \x01(\x0c\x12\x13\n\x0b\x42lockHeight\x18\x03 \x01(\r\x12\x12\n\nExpiration\x18\x04 \x01(\x04\"I\n\x0e\x41mendmentField\x12\x16\n\x0e\x46ieldIndexPath\x18\x01 \x01(\x0c\x12\x11\n\tOperation\x18\x02 \x01(\r\x12\x0c\n\x04\x44\x61ta\x18\x03 \x01(\x0c\"\xc3\x01\n\x17InstrumentReceiverField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\x12\x1a\n\x12OracleSigAlgorithm\x18\x03 \x01(\r\x12\x13\n\x0bOracleIndex\x18\x04 \x01(\r\x12\x1d\n\x15OracleConfirmationSig\x18\x05 \x01(\x0c\x12\x1c\n\x14OracleSigBlockHeight\x18\x06 \x01(\r\x12\x17\n\x0fOracleSigExpiry\x18\x07 \x01(\x04\"\x94\x01\n\x19InstrumentSettlementField\x12\x15\n\rContractIndex\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x30\n\x0bSettlements\x18\x04 \x03(\x0b\x32\x1b.actions.QuantityIndexField\"\xd7\x01\n\x17InstrumentTransferField\x12\x15\n\rContractIndex\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x36\n\x11InstrumentSenders\x18\x04 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12=\n\x13InstrumentReceivers\x18\x05 \x03(\x0b\x32 .actions.InstrumentReceiverField\"W\n\x0c\x43hapterField\x12\r\n\x05Title\x18\x01 \x01(\t\x12\x10\n\x08Preamble\x18\x02 \x01(\t\x12&\n\x08\x41rticles\x18\x03 \x03(\x0b\x32\x14.actions.ClauseField\"R\n\x0b\x43lauseField\x12\r\n\x05Title\x18\x01 \x01(\t\x12\x0c\n\x04\x42ody\x18\x02 \x01(\t\x12&\n\x08\x43hildren\x18\x03 \x03(\x0b\x32\x14.actions.ClauseField\"4\n\x10\x44\x65\x66inedTermField\x12\x0c\n\x04Term\x18\x01 \x01(\t\x12\x12\n\nDefinition\x18\x02 \x01(\t\"=\n\rDocumentField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x10\n\x08\x43ontents\x18\x03 \x01(\x0c\"\x92\x03\n\x0b\x45ntityField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x0b\n\x03LEI\x18\x03 \x01(\t\x12\x12\n\nUnitNumber\x18\x04 \x01(\t\x12\x16\n\x0e\x42uildingNumber\x18\x05 \x01(\t\x12\x0e\n\x06Street\x18\x06 \x01(\t\x12\x12\n\nSuburbCity\x18\x07 \x01(\t\x12\"\n\x1aTerritoryStateProvinceCode\x18\x08 \x01(\t\x12\x13\n\x0b\x43ountryCode\x18\t \x01(\t\x12\x15\n\rPostalZIPCode\x18\n \x01(\t\x12\x14\n\x0c\x45mailAddress\x18\x0b \x01(\t\x12\x13\n\x0bPhoneNumber\x18\x0c \x01(\t\x12\x33\n\x0e\x41\x64ministration\x18\r \x03(\x0b\x32\x1b.actions.AdministratorField\x12)\n\nManagement\x18\x0e \x03(\x0b\x32\x15.actions.ManagerField\x12\x12\n\nDomainName\x18\x0f \x01(\t\x12\x15\n\rPaymailHandle\x18\x11 \x01(\tJ\x04\x08\x10\x10\x11\"*\n\x0cManagerField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"L\n\x0bOracleField\x12\x13\n\x0bOracleTypes\x18\x04 \x03(\r\x12\x16\n\x0e\x45ntityContract\x18\x05 \x01(\x0cJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"5\n\x12QuantityIndexField\x12\r\n\x05Index\x18\x01 \x01(\r\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\"A\n\x19ReferenceTransactionField\x12\x13\n\x0bTransaction\x18\x01 \x01(\x0c\x12\x0f\n\x07Outputs\x18\x02 \x03(\x0c\"<\n\x0cServiceField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0b\n\x03URL\x18\x02 \x01(\t\x12\x11\n\tPublicKey\x18\x03 \x01(\x0c\"7\n\x12TargetAddressField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\"\xa0\x01\n\x11VotingSystemField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x10\n\x08VoteType\x18\x02 \x01(\t\x12\x12\n\nTallyLogic\x18\x03 \x01(\r\x12\x1b\n\x13ThresholdPercentage\x18\x04 \x01(\r\x12\x1f\n\x17VoteMultiplierPermitted\x18\x05 \x01(\x08\x12\x19\n\x11HolderProposalFee\x18\x06 \x01(\x04\x42\x38Z6github.com/tokenized/specification/dist/golang/actionsb\x06proto3'
 )
 
 
@@ -111,7 +111,7 @@ _CONTRACTOFFER = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='RestrictedQtyAssets', full_name='actions.ContractOffer.RestrictedQtyAssets', index=11,
+      name='RestrictedQtyInstruments', full_name='actions.ContractOffer.RestrictedQtyInstruments', index=11,
       number=20, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -207,7 +207,7 @@ _CONTRACTOFFER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=27,
-  serialized_end=821,
+  serialized_end=826,
 )
 
 
@@ -290,7 +290,7 @@ _CONTRACTFORMATION = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='RestrictedQtyAssets', full_name='actions.ContractFormation.RestrictedQtyAssets', index=10,
+      name='RestrictedQtyInstruments', full_name='actions.ContractFormation.RestrictedQtyInstruments', index=10,
       number=19, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -413,8 +413,8 @@ _CONTRACTFORMATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=824,
-  serialized_end=1680,
+  serialized_start=829,
+  serialized_end=1690,
 )
 
 
@@ -473,8 +473,8 @@ _CONTRACTAMENDMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1683,
-  serialized_end=1858,
+  serialized_start=1693,
+  serialized_end=1868,
 )
 
 
@@ -617,8 +617,8 @@ _STATICCONTRACTFORMATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1861,
-  serialized_end=2380,
+  serialized_start=1871,
+  serialized_end=2390,
 )
 
 
@@ -656,8 +656,8 @@ _CONTRACTADDRESSCHANGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2382,
-  serialized_end=2452,
+  serialized_start=2392,
+  serialized_end=2462,
 )
 
 
@@ -695,8 +695,8 @@ _BODYOFAGREEMENTOFFER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2454,
-  serialized_end=2565,
+  serialized_start=2464,
+  serialized_end=2575,
 )
 
 
@@ -748,8 +748,8 @@ _BODYOFAGREEMENTFORMATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2568,
-  serialized_end=2720,
+  serialized_start=2578,
+  serialized_end=2730,
 )
 
 
@@ -794,91 +794,91 @@ _BODYOFAGREEMENTAMENDMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2722,
-  serialized_end=2828,
+  serialized_start=2732,
+  serialized_end=2838,
 )
 
 
-_ASSETDEFINITION = _descriptor.Descriptor(
-  name='AssetDefinition',
-  full_name='actions.AssetDefinition',
+_INSTRUMENTDEFINITION = _descriptor.Descriptor(
+  name='InstrumentDefinition',
+  full_name='actions.InstrumentDefinition',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AssetPermissions', full_name='actions.AssetDefinition.AssetPermissions', index=0,
+      name='InstrumentPermissions', full_name='actions.InstrumentDefinition.InstrumentPermissions', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='EnforcementOrdersPermitted', full_name='actions.AssetDefinition.EnforcementOrdersPermitted', index=1,
+      name='EnforcementOrdersPermitted', full_name='actions.InstrumentDefinition.EnforcementOrdersPermitted', index=1,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='VotingRights', full_name='actions.AssetDefinition.VotingRights', index=2,
+      name='VotingRights', full_name='actions.InstrumentDefinition.VotingRights', index=2,
       number=5, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='VoteMultiplier', full_name='actions.AssetDefinition.VoteMultiplier', index=3,
+      name='VoteMultiplier', full_name='actions.InstrumentDefinition.VoteMultiplier', index=3,
       number=6, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AdministrationProposal', full_name='actions.AssetDefinition.AdministrationProposal', index=4,
+      name='AdministrationProposal', full_name='actions.InstrumentDefinition.AdministrationProposal', index=4,
       number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='HolderProposal', full_name='actions.AssetDefinition.HolderProposal', index=5,
+      name='HolderProposal', full_name='actions.InstrumentDefinition.HolderProposal', index=5,
       number=8, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetModificationGovernance', full_name='actions.AssetDefinition.AssetModificationGovernance', index=6,
+      name='InstrumentModificationGovernance', full_name='actions.InstrumentDefinition.InstrumentModificationGovernance', index=6,
       number=9, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AuthorizedTokenQty', full_name='actions.AssetDefinition.AuthorizedTokenQty', index=7,
+      name='AuthorizedTokenQty', full_name='actions.InstrumentDefinition.AuthorizedTokenQty', index=7,
       number=10, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.AssetDefinition.AssetType', index=8,
+      name='InstrumentType', full_name='actions.InstrumentDefinition.InstrumentType', index=8,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetPayload', full_name='actions.AssetDefinition.AssetPayload', index=9,
+      name='InstrumentPayload', full_name='actions.InstrumentDefinition.InstrumentPayload', index=9,
       number=12, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='TradeRestrictions', full_name='actions.AssetDefinition.TradeRestrictions', index=10,
+      name='TradeRestrictions', full_name='actions.InstrumentDefinition.TradeRestrictions', index=10,
       number=13, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -896,119 +896,119 @@ _ASSETDEFINITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2831,
-  serialized_end=3157,
+  serialized_start=2841,
+  serialized_end=3192,
 )
 
 
-_ASSETCREATION = _descriptor.Descriptor(
-  name='AssetCreation',
-  full_name='actions.AssetCreation',
+_INSTRUMENTCREATION = _descriptor.Descriptor(
+  name='InstrumentCreation',
+  full_name='actions.InstrumentCreation',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.AssetCreation.AssetCode', index=0,
+      name='InstrumentCode', full_name='actions.InstrumentCreation.InstrumentCode', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetIndex', full_name='actions.AssetCreation.AssetIndex', index=1,
+      name='InstrumentIndex', full_name='actions.InstrumentCreation.InstrumentIndex', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetPermissions', full_name='actions.AssetCreation.AssetPermissions', index=2,
+      name='InstrumentPermissions', full_name='actions.InstrumentCreation.InstrumentPermissions', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='EnforcementOrdersPermitted', full_name='actions.AssetCreation.EnforcementOrdersPermitted', index=3,
+      name='EnforcementOrdersPermitted', full_name='actions.InstrumentCreation.EnforcementOrdersPermitted', index=3,
       number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='VotingRights', full_name='actions.AssetCreation.VotingRights', index=4,
+      name='VotingRights', full_name='actions.InstrumentCreation.VotingRights', index=4,
       number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='VoteMultiplier', full_name='actions.AssetCreation.VoteMultiplier', index=5,
+      name='VoteMultiplier', full_name='actions.InstrumentCreation.VoteMultiplier', index=5,
       number=8, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AdministrationProposal', full_name='actions.AssetCreation.AdministrationProposal', index=6,
+      name='AdministrationProposal', full_name='actions.InstrumentCreation.AdministrationProposal', index=6,
       number=9, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='HolderProposal', full_name='actions.AssetCreation.HolderProposal', index=7,
+      name='HolderProposal', full_name='actions.InstrumentCreation.HolderProposal', index=7,
       number=10, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetModificationGovernance', full_name='actions.AssetCreation.AssetModificationGovernance', index=8,
+      name='InstrumentModificationGovernance', full_name='actions.InstrumentCreation.InstrumentModificationGovernance', index=8,
       number=11, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AuthorizedTokenQty', full_name='actions.AssetCreation.AuthorizedTokenQty', index=9,
+      name='AuthorizedTokenQty', full_name='actions.InstrumentCreation.AuthorizedTokenQty', index=9,
       number=12, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.AssetCreation.AssetType', index=10,
+      name='InstrumentType', full_name='actions.InstrumentCreation.InstrumentType', index=10,
       number=13, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetPayload', full_name='actions.AssetCreation.AssetPayload', index=11,
+      name='InstrumentPayload', full_name='actions.InstrumentCreation.InstrumentPayload', index=11,
       number=14, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetRevision', full_name='actions.AssetCreation.AssetRevision', index=12,
+      name='InstrumentRevision', full_name='actions.InstrumentCreation.InstrumentRevision', index=12,
       number=15, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='Timestamp', full_name='actions.AssetCreation.Timestamp', index=13,
+      name='Timestamp', full_name='actions.InstrumentCreation.Timestamp', index=13,
       number=16, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='TradeRestrictions', full_name='actions.AssetCreation.TradeRestrictions', index=14,
+      name='TradeRestrictions', full_name='actions.InstrumentCreation.TradeRestrictions', index=14,
       number=17, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1026,49 +1026,49 @@ _ASSETCREATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3160,
-  serialized_end=3565,
+  serialized_start=3195,
+  serialized_end=3640,
 )
 
 
-_ASSETMODIFICATION = _descriptor.Descriptor(
-  name='AssetModification',
-  full_name='actions.AssetModification',
+_INSTRUMENTMODIFICATION = _descriptor.Descriptor(
+  name='InstrumentModification',
+  full_name='actions.InstrumentModification',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.AssetModification.AssetType', index=0,
+      name='InstrumentType', full_name='actions.InstrumentModification.InstrumentType', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.AssetModification.AssetCode', index=1,
+      name='InstrumentCode', full_name='actions.InstrumentModification.InstrumentCode', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetRevision', full_name='actions.AssetModification.AssetRevision', index=2,
+      name='InstrumentRevision', full_name='actions.InstrumentModification.InstrumentRevision', index=2,
       number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='Amendments', full_name='actions.AssetModification.Amendments', index=3,
+      name='Amendments', full_name='actions.InstrumentModification.Amendments', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='RefTxID', full_name='actions.AssetModification.RefTxID', index=4,
+      name='RefTxID', full_name='actions.InstrumentModification.RefTxID', index=4,
       number=5, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -1086,8 +1086,8 @@ _ASSETMODIFICATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3568,
-  serialized_end=3710,
+  serialized_start=3643,
+  serialized_end=3805,
 )
 
 
@@ -1100,7 +1100,7 @@ _TRANSFER = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='Assets', full_name='actions.Transfer.Assets', index=0,
+      name='Instruments', full_name='actions.Transfer.Instruments', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1139,8 +1139,8 @@ _TRANSFER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3712,
-  serialized_end=3837,
+  serialized_start=3808,
+  serialized_end=3943,
 )
 
 
@@ -1153,7 +1153,7 @@ _SETTLEMENT = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='Assets', full_name='actions.Settlement.Assets', index=0,
+      name='Instruments', full_name='actions.Settlement.Instruments', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1178,8 +1178,8 @@ _SETTLEMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3839,
-  serialized_end=3917,
+  serialized_start=3945,
+  serialized_end=4033,
 )
 
 
@@ -1199,14 +1199,14 @@ _PROPOSAL = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.Proposal.AssetType', index=1,
+      name='InstrumentType', full_name='actions.Proposal.InstrumentType', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.Proposal.AssetCode', index=2,
+      name='InstrumentCode', full_name='actions.Proposal.InstrumentCode', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -1273,8 +1273,8 @@ _PROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3920,
-  serialized_end=4181,
+  serialized_start=4036,
+  serialized_end=4307,
 )
 
 
@@ -1305,8 +1305,8 @@ _VOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4183,
-  serialized_end=4208,
+  serialized_start=4309,
+  serialized_end=4334,
 )
 
 
@@ -1344,8 +1344,8 @@ _BALLOTCAST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4210,
-  serialized_end=4254,
+  serialized_start=4336,
+  serialized_end=4380,
 )
 
 
@@ -1397,8 +1397,8 @@ _BALLOTCOUNTED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4256,
-  serialized_end=4340,
+  serialized_start=4382,
+  serialized_end=4466,
 )
 
 
@@ -1411,14 +1411,14 @@ _RESULT = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.Result.AssetType', index=0,
+      name='InstrumentType', full_name='actions.Result.InstrumentType', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.Result.AssetCode', index=1,
+      name='InstrumentCode', full_name='actions.Result.InstrumentCode', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -1471,8 +1471,8 @@ _RESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4343,
-  serialized_end=4516,
+  serialized_start=4469,
+  serialized_end=4652,
 )
 
 
@@ -1492,14 +1492,14 @@ _ORDER = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.Order.AssetType', index=1,
+      name='InstrumentType', full_name='actions.Order.InstrumentType', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.Order.AssetCode', index=2,
+      name='InstrumentCode', full_name='actions.Order.InstrumentCode', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -1608,8 +1608,8 @@ _ORDER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4519,
-  serialized_end=5028,
+  serialized_start=4655,
+  serialized_end=5174,
 )
 
 
@@ -1622,14 +1622,14 @@ _FREEZE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.Freeze.AssetType', index=0,
+      name='InstrumentType', full_name='actions.Freeze.InstrumentType', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.Freeze.AssetCode', index=1,
+      name='InstrumentCode', full_name='actions.Freeze.InstrumentCode', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -1668,8 +1668,8 @@ _FREEZE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5031,
-  serialized_end=5167,
+  serialized_start=5177,
+  serialized_end=5323,
 )
 
 
@@ -1707,8 +1707,8 @@ _THAW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5169,
-  serialized_end=5214,
+  serialized_start=5325,
+  serialized_end=5370,
 )
 
 
@@ -1721,14 +1721,14 @@ _CONFISCATION = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.Confiscation.AssetType', index=0,
+      name='InstrumentType', full_name='actions.Confiscation.InstrumentType', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.Confiscation.AssetCode', index=1,
+      name='InstrumentCode', full_name='actions.Confiscation.InstrumentCode', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -1767,8 +1767,8 @@ _CONFISCATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5217,
-  serialized_end=5357,
+  serialized_start=5373,
+  serialized_end=5523,
 )
 
 
@@ -1781,14 +1781,14 @@ _RECONCILIATION = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.Reconciliation.AssetType', index=0,
+      name='InstrumentType', full_name='actions.Reconciliation.InstrumentType', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.Reconciliation.AssetCode', index=1,
+      name='InstrumentCode', full_name='actions.Reconciliation.InstrumentCode', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
@@ -1820,8 +1820,8 @@ _RECONCILIATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5359,
-  serialized_end=5481,
+  serialized_start=5526,
+  serialized_end=5658,
 )
 
 
@@ -1852,8 +1852,8 @@ _ESTABLISHMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5483,
-  serialized_end=5515,
+  serialized_start=5660,
+  serialized_end=5692,
 )
 
 
@@ -1884,8 +1884,8 @@ _ADDITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5517,
-  serialized_end=5544,
+  serialized_start=5694,
+  serialized_end=5721,
 )
 
 
@@ -1923,8 +1923,8 @@ _ALTERATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5546,
-  serialized_end=5594,
+  serialized_start=5723,
+  serialized_end=5771,
 )
 
 
@@ -1962,8 +1962,8 @@ _REMOVAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5596,
-  serialized_end=5641,
+  serialized_start=5773,
+  serialized_end=5818,
 )
 
 
@@ -2015,8 +2015,8 @@ _MESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5643,
-  serialized_end=5745,
+  serialized_start=5820,
+  serialized_end=5922,
 )
 
 
@@ -2075,8 +2075,8 @@ _REJECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5747,
-  serialized_end=5869,
+  serialized_start=5924,
+  serialized_end=6046,
 )
 
 
@@ -2114,8 +2114,8 @@ _ADMINISTRATORFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5871,
-  serialized_end=5919,
+  serialized_start=6048,
+  serialized_end=6096,
 )
 
 
@@ -2167,8 +2167,8 @@ _ADMINIDENTITYCERTIFICATEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5921,
-  serialized_end=6036,
+  serialized_start=6098,
+  serialized_end=6213,
 )
 
 
@@ -2213,63 +2213,63 @@ _AMENDMENTFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6038,
-  serialized_end=6111,
+  serialized_start=6215,
+  serialized_end=6288,
 )
 
 
-_ASSETRECEIVERFIELD = _descriptor.Descriptor(
-  name='AssetReceiverField',
-  full_name='actions.AssetReceiverField',
+_INSTRUMENTRECEIVERFIELD = _descriptor.Descriptor(
+  name='InstrumentReceiverField',
+  full_name='actions.InstrumentReceiverField',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='Address', full_name='actions.AssetReceiverField.Address', index=0,
+      name='Address', full_name='actions.InstrumentReceiverField.Address', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='Quantity', full_name='actions.AssetReceiverField.Quantity', index=1,
+      name='Quantity', full_name='actions.InstrumentReceiverField.Quantity', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='OracleSigAlgorithm', full_name='actions.AssetReceiverField.OracleSigAlgorithm', index=2,
+      name='OracleSigAlgorithm', full_name='actions.InstrumentReceiverField.OracleSigAlgorithm', index=2,
       number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='OracleIndex', full_name='actions.AssetReceiverField.OracleIndex', index=3,
+      name='OracleIndex', full_name='actions.InstrumentReceiverField.OracleIndex', index=3,
       number=4, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='OracleConfirmationSig', full_name='actions.AssetReceiverField.OracleConfirmationSig', index=4,
+      name='OracleConfirmationSig', full_name='actions.InstrumentReceiverField.OracleConfirmationSig', index=4,
       number=5, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='OracleSigBlockHeight', full_name='actions.AssetReceiverField.OracleSigBlockHeight', index=5,
+      name='OracleSigBlockHeight', full_name='actions.InstrumentReceiverField.OracleSigBlockHeight', index=5,
       number=6, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='OracleSigExpiry', full_name='actions.AssetReceiverField.OracleSigExpiry', index=6,
+      name='OracleSigExpiry', full_name='actions.InstrumentReceiverField.OracleSigExpiry', index=6,
       number=7, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -2287,42 +2287,42 @@ _ASSETRECEIVERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6114,
-  serialized_end=6304,
+  serialized_start=6291,
+  serialized_end=6486,
 )
 
 
-_ASSETSETTLEMENTFIELD = _descriptor.Descriptor(
-  name='AssetSettlementField',
-  full_name='actions.AssetSettlementField',
+_INSTRUMENTSETTLEMENTFIELD = _descriptor.Descriptor(
+  name='InstrumentSettlementField',
+  full_name='actions.InstrumentSettlementField',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ContractIndex', full_name='actions.AssetSettlementField.ContractIndex', index=0,
+      name='ContractIndex', full_name='actions.InstrumentSettlementField.ContractIndex', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.AssetSettlementField.AssetType', index=1,
+      name='InstrumentType', full_name='actions.InstrumentSettlementField.InstrumentType', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.AssetSettlementField.AssetCode', index=2,
+      name='InstrumentCode', full_name='actions.InstrumentSettlementField.InstrumentCode', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='Settlements', full_name='actions.AssetSettlementField.Settlements', index=3,
+      name='Settlements', full_name='actions.InstrumentSettlementField.Settlements', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2340,49 +2340,49 @@ _ASSETSETTLEMENTFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6307,
-  serialized_end=6440,
+  serialized_start=6489,
+  serialized_end=6637,
 )
 
 
-_ASSETTRANSFERFIELD = _descriptor.Descriptor(
-  name='AssetTransferField',
-  full_name='actions.AssetTransferField',
+_INSTRUMENTTRANSFERFIELD = _descriptor.Descriptor(
+  name='InstrumentTransferField',
+  full_name='actions.InstrumentTransferField',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ContractIndex', full_name='actions.AssetTransferField.ContractIndex', index=0,
+      name='ContractIndex', full_name='actions.InstrumentTransferField.ContractIndex', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetType', full_name='actions.AssetTransferField.AssetType', index=1,
+      name='InstrumentType', full_name='actions.InstrumentTransferField.InstrumentType', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetCode', full_name='actions.AssetTransferField.AssetCode', index=2,
+      name='InstrumentCode', full_name='actions.InstrumentTransferField.InstrumentCode', index=2,
       number=3, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetSenders', full_name='actions.AssetTransferField.AssetSenders', index=3,
+      name='InstrumentSenders', full_name='actions.InstrumentTransferField.InstrumentSenders', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='AssetReceivers', full_name='actions.AssetTransferField.AssetReceivers', index=4,
+      name='InstrumentReceivers', full_name='actions.InstrumentTransferField.InstrumentReceivers', index=4,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -2400,8 +2400,8 @@ _ASSETTRANSFERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6443,
-  serialized_end=6628,
+  serialized_start=6640,
+  serialized_end=6855,
 )
 
 
@@ -2446,8 +2446,8 @@ _CHAPTERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6630,
-  serialized_end=6717,
+  serialized_start=6857,
+  serialized_end=6944,
 )
 
 
@@ -2492,8 +2492,8 @@ _CLAUSEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6719,
-  serialized_end=6801,
+  serialized_start=6946,
+  serialized_end=7028,
 )
 
 
@@ -2531,8 +2531,8 @@ _DEFINEDTERMFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6803,
-  serialized_end=6855,
+  serialized_start=7030,
+  serialized_end=7082,
 )
 
 
@@ -2577,8 +2577,8 @@ _DOCUMENTFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6857,
-  serialized_end=6918,
+  serialized_start=7084,
+  serialized_end=7145,
 )
 
 
@@ -2714,8 +2714,8 @@ _ENTITYFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6921,
-  serialized_end=7323,
+  serialized_start=7148,
+  serialized_end=7550,
 )
 
 
@@ -2753,8 +2753,8 @@ _MANAGERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7325,
-  serialized_end=7367,
+  serialized_start=7552,
+  serialized_end=7594,
 )
 
 
@@ -2792,8 +2792,8 @@ _ORACLEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7369,
-  serialized_end=7445,
+  serialized_start=7596,
+  serialized_end=7672,
 )
 
 
@@ -2831,8 +2831,8 @@ _QUANTITYINDEXFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7447,
-  serialized_end=7500,
+  serialized_start=7674,
+  serialized_end=7727,
 )
 
 
@@ -2870,8 +2870,8 @@ _REFERENCETRANSACTIONFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7502,
-  serialized_end=7567,
+  serialized_start=7729,
+  serialized_end=7794,
 )
 
 
@@ -2916,8 +2916,8 @@ _SERVICEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7569,
-  serialized_end=7629,
+  serialized_start=7796,
+  serialized_end=7856,
 )
 
 
@@ -2955,8 +2955,8 @@ _TARGETADDRESSFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7631,
-  serialized_end=7686,
+  serialized_start=7858,
+  serialized_end=7913,
 )
 
 
@@ -3022,8 +3022,8 @@ _VOTINGSYSTEMFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7689,
-  serialized_end=7849,
+  serialized_start=7916,
+  serialized_end=8076,
 )
 
 _CONTRACTOFFER.fields_by_name['SupportingDocs'].message_type = _DOCUMENTFIELD
@@ -3047,9 +3047,9 @@ _BODYOFAGREEMENTOFFER.fields_by_name['Definitions'].message_type = _DEFINEDTERMF
 _BODYOFAGREEMENTFORMATION.fields_by_name['Chapters'].message_type = _CHAPTERFIELD
 _BODYOFAGREEMENTFORMATION.fields_by_name['Definitions'].message_type = _DEFINEDTERMFIELD
 _BODYOFAGREEMENTAMENDMENT.fields_by_name['Amendments'].message_type = _AMENDMENTFIELD
-_ASSETMODIFICATION.fields_by_name['Amendments'].message_type = _AMENDMENTFIELD
-_TRANSFER.fields_by_name['Assets'].message_type = _ASSETTRANSFERFIELD
-_SETTLEMENT.fields_by_name['Assets'].message_type = _ASSETSETTLEMENTFIELD
+_INSTRUMENTMODIFICATION.fields_by_name['Amendments'].message_type = _AMENDMENTFIELD
+_TRANSFER.fields_by_name['Instruments'].message_type = _INSTRUMENTTRANSFERFIELD
+_SETTLEMENT.fields_by_name['Instruments'].message_type = _INSTRUMENTSETTLEMENTFIELD
 _PROPOSAL.fields_by_name['ProposedAmendments'].message_type = _AMENDMENTFIELD
 _RESULT.fields_by_name['ProposedAmendments'].message_type = _AMENDMENTFIELD
 _ORDER.fields_by_name['TargetAddresses'].message_type = _TARGETADDRESSFIELD
@@ -3058,9 +3058,9 @@ _ORDER.fields_by_name['ReferenceTransactions'].message_type = _REFERENCETRANSACT
 _FREEZE.fields_by_name['Quantities'].message_type = _QUANTITYINDEXFIELD
 _CONFISCATION.fields_by_name['Quantities'].message_type = _QUANTITYINDEXFIELD
 _RECONCILIATION.fields_by_name['Quantities'].message_type = _QUANTITYINDEXFIELD
-_ASSETSETTLEMENTFIELD.fields_by_name['Settlements'].message_type = _QUANTITYINDEXFIELD
-_ASSETTRANSFERFIELD.fields_by_name['AssetSenders'].message_type = _QUANTITYINDEXFIELD
-_ASSETTRANSFERFIELD.fields_by_name['AssetReceivers'].message_type = _ASSETRECEIVERFIELD
+_INSTRUMENTSETTLEMENTFIELD.fields_by_name['Settlements'].message_type = _QUANTITYINDEXFIELD
+_INSTRUMENTTRANSFERFIELD.fields_by_name['InstrumentSenders'].message_type = _QUANTITYINDEXFIELD
+_INSTRUMENTTRANSFERFIELD.fields_by_name['InstrumentReceivers'].message_type = _INSTRUMENTRECEIVERFIELD
 _CHAPTERFIELD.fields_by_name['Articles'].message_type = _CLAUSEFIELD
 _CLAUSEFIELD.fields_by_name['Children'].message_type = _CLAUSEFIELD
 _ENTITYFIELD.fields_by_name['Administration'].message_type = _ADMINISTRATORFIELD
@@ -3073,9 +3073,9 @@ DESCRIPTOR.message_types_by_name['ContractAddressChange'] = _CONTRACTADDRESSCHAN
 DESCRIPTOR.message_types_by_name['BodyOfAgreementOffer'] = _BODYOFAGREEMENTOFFER
 DESCRIPTOR.message_types_by_name['BodyOfAgreementFormation'] = _BODYOFAGREEMENTFORMATION
 DESCRIPTOR.message_types_by_name['BodyOfAgreementAmendment'] = _BODYOFAGREEMENTAMENDMENT
-DESCRIPTOR.message_types_by_name['AssetDefinition'] = _ASSETDEFINITION
-DESCRIPTOR.message_types_by_name['AssetCreation'] = _ASSETCREATION
-DESCRIPTOR.message_types_by_name['AssetModification'] = _ASSETMODIFICATION
+DESCRIPTOR.message_types_by_name['InstrumentDefinition'] = _INSTRUMENTDEFINITION
+DESCRIPTOR.message_types_by_name['InstrumentCreation'] = _INSTRUMENTCREATION
+DESCRIPTOR.message_types_by_name['InstrumentModification'] = _INSTRUMENTMODIFICATION
 DESCRIPTOR.message_types_by_name['Transfer'] = _TRANSFER
 DESCRIPTOR.message_types_by_name['Settlement'] = _SETTLEMENT
 DESCRIPTOR.message_types_by_name['Proposal'] = _PROPOSAL
@@ -3097,9 +3097,9 @@ DESCRIPTOR.message_types_by_name['Rejection'] = _REJECTION
 DESCRIPTOR.message_types_by_name['AdministratorField'] = _ADMINISTRATORFIELD
 DESCRIPTOR.message_types_by_name['AdminIdentityCertificateField'] = _ADMINIDENTITYCERTIFICATEFIELD
 DESCRIPTOR.message_types_by_name['AmendmentField'] = _AMENDMENTFIELD
-DESCRIPTOR.message_types_by_name['AssetReceiverField'] = _ASSETRECEIVERFIELD
-DESCRIPTOR.message_types_by_name['AssetSettlementField'] = _ASSETSETTLEMENTFIELD
-DESCRIPTOR.message_types_by_name['AssetTransferField'] = _ASSETTRANSFERFIELD
+DESCRIPTOR.message_types_by_name['InstrumentReceiverField'] = _INSTRUMENTRECEIVERFIELD
+DESCRIPTOR.message_types_by_name['InstrumentSettlementField'] = _INSTRUMENTSETTLEMENTFIELD
+DESCRIPTOR.message_types_by_name['InstrumentTransferField'] = _INSTRUMENTTRANSFERFIELD
 DESCRIPTOR.message_types_by_name['ChapterField'] = _CHAPTERFIELD
 DESCRIPTOR.message_types_by_name['ClauseField'] = _CLAUSEFIELD
 DESCRIPTOR.message_types_by_name['DefinedTermField'] = _DEFINEDTERMFIELD
@@ -3170,26 +3170,26 @@ BodyOfAgreementAmendment = _reflection.GeneratedProtocolMessageType('BodyOfAgree
   })
 _sym_db.RegisterMessage(BodyOfAgreementAmendment)
 
-AssetDefinition = _reflection.GeneratedProtocolMessageType('AssetDefinition', (_message.Message,), {
-  'DESCRIPTOR' : _ASSETDEFINITION,
+InstrumentDefinition = _reflection.GeneratedProtocolMessageType('InstrumentDefinition', (_message.Message,), {
+  'DESCRIPTOR' : _INSTRUMENTDEFINITION,
   '__module__' : 'actions_pb2'
-  # @@protoc_insertion_point(class_scope:actions.AssetDefinition)
+  # @@protoc_insertion_point(class_scope:actions.InstrumentDefinition)
   })
-_sym_db.RegisterMessage(AssetDefinition)
+_sym_db.RegisterMessage(InstrumentDefinition)
 
-AssetCreation = _reflection.GeneratedProtocolMessageType('AssetCreation', (_message.Message,), {
-  'DESCRIPTOR' : _ASSETCREATION,
+InstrumentCreation = _reflection.GeneratedProtocolMessageType('InstrumentCreation', (_message.Message,), {
+  'DESCRIPTOR' : _INSTRUMENTCREATION,
   '__module__' : 'actions_pb2'
-  # @@protoc_insertion_point(class_scope:actions.AssetCreation)
+  # @@protoc_insertion_point(class_scope:actions.InstrumentCreation)
   })
-_sym_db.RegisterMessage(AssetCreation)
+_sym_db.RegisterMessage(InstrumentCreation)
 
-AssetModification = _reflection.GeneratedProtocolMessageType('AssetModification', (_message.Message,), {
-  'DESCRIPTOR' : _ASSETMODIFICATION,
+InstrumentModification = _reflection.GeneratedProtocolMessageType('InstrumentModification', (_message.Message,), {
+  'DESCRIPTOR' : _INSTRUMENTMODIFICATION,
   '__module__' : 'actions_pb2'
-  # @@protoc_insertion_point(class_scope:actions.AssetModification)
+  # @@protoc_insertion_point(class_scope:actions.InstrumentModification)
   })
-_sym_db.RegisterMessage(AssetModification)
+_sym_db.RegisterMessage(InstrumentModification)
 
 Transfer = _reflection.GeneratedProtocolMessageType('Transfer', (_message.Message,), {
   'DESCRIPTOR' : _TRANSFER,
@@ -3338,26 +3338,26 @@ AmendmentField = _reflection.GeneratedProtocolMessageType('AmendmentField', (_me
   })
 _sym_db.RegisterMessage(AmendmentField)
 
-AssetReceiverField = _reflection.GeneratedProtocolMessageType('AssetReceiverField', (_message.Message,), {
-  'DESCRIPTOR' : _ASSETRECEIVERFIELD,
+InstrumentReceiverField = _reflection.GeneratedProtocolMessageType('InstrumentReceiverField', (_message.Message,), {
+  'DESCRIPTOR' : _INSTRUMENTRECEIVERFIELD,
   '__module__' : 'actions_pb2'
-  # @@protoc_insertion_point(class_scope:actions.AssetReceiverField)
+  # @@protoc_insertion_point(class_scope:actions.InstrumentReceiverField)
   })
-_sym_db.RegisterMessage(AssetReceiverField)
+_sym_db.RegisterMessage(InstrumentReceiverField)
 
-AssetSettlementField = _reflection.GeneratedProtocolMessageType('AssetSettlementField', (_message.Message,), {
-  'DESCRIPTOR' : _ASSETSETTLEMENTFIELD,
+InstrumentSettlementField = _reflection.GeneratedProtocolMessageType('InstrumentSettlementField', (_message.Message,), {
+  'DESCRIPTOR' : _INSTRUMENTSETTLEMENTFIELD,
   '__module__' : 'actions_pb2'
-  # @@protoc_insertion_point(class_scope:actions.AssetSettlementField)
+  # @@protoc_insertion_point(class_scope:actions.InstrumentSettlementField)
   })
-_sym_db.RegisterMessage(AssetSettlementField)
+_sym_db.RegisterMessage(InstrumentSettlementField)
 
-AssetTransferField = _reflection.GeneratedProtocolMessageType('AssetTransferField', (_message.Message,), {
-  'DESCRIPTOR' : _ASSETTRANSFERFIELD,
+InstrumentTransferField = _reflection.GeneratedProtocolMessageType('InstrumentTransferField', (_message.Message,), {
+  'DESCRIPTOR' : _INSTRUMENTTRANSFERFIELD,
   '__module__' : 'actions_pb2'
-  # @@protoc_insertion_point(class_scope:actions.AssetTransferField)
+  # @@protoc_insertion_point(class_scope:actions.InstrumentTransferField)
   })
-_sym_db.RegisterMessage(AssetTransferField)
+_sym_db.RegisterMessage(InstrumentTransferField)
 
 ChapterField = _reflection.GeneratedProtocolMessageType('ChapterField', (_message.Message,), {
   'DESCRIPTOR' : _CHAPTERFIELD,

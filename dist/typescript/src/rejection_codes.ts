@@ -21,10 +21,10 @@ export enum RejectCodes {
 	// ContractExists - The contract already exists and can't be recreated.
 	RejectContractExists = 10,
 
-	// ContractAssetQtyReduction - Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.
-	RejectContractAssetQtyReduction = 12,
+	// ContractInstrumentQtyReduction - Sent when a CA tries to reduce the number of allowed instruments below the number of instruments that already exist for this contract.
+	RejectContractInstrumentQtyReduction = 12,
 
-	// ContractFixedQuantity - Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.
+	// ContractFixedQuantity - Sent when the administration attempted to increase the quantity of instruments in a contract beyond the maximum number allowed.
 	RejectContractFixedQuantity = 13,
 
 	// ContractAuthFlags - The contract auth flags don't permit the action requested.
@@ -45,23 +45,23 @@ export enum RejectCodes {
 	// ContractBothOperatorsRequired - Both operators signatures are required to perform this action.
 	RejectContractBothOperatorsRequired = 19,
 
-	// AssetCodeExists - The asset code specified already exists and can't be reused.
-	RejectAssetCodeExists = 20,
+	// InstrumentCodeExists - The instrument code specified already exists and can't be reused.
+	RejectInstrumentCodeExists = 20,
 
-	// AssetNotFound - The asset code is not found.
-	RejectAssetNotFound = 21,
+	// InstrumentNotFound - The instrument code is not found.
+	RejectInstrumentNotFound = 21,
 
-	// AssetAuthFlags - The asset auth flags don't permit the action requested.
-	RejectAssetAuthFlags = 22,
+	// InstrumentAuthFlags - The instrument auth flags don't permit the action requested.
+	RejectInstrumentAuthFlags = 22,
 
-	// AssetFrozen - The asset is frozen and the request is not permitted while frozen.
-	RejectAssetFrozen = 23,
+	// InstrumentFrozen - The instrument is frozen and the request is not permitted while frozen.
+	RejectInstrumentFrozen = 23,
 
-	// AssetRevision - The revision in an asset amendment is incorrect.
-	RejectAssetRevision = 24,
+	// InstrumentRevision - The revision in an instrument amendment is incorrect.
+	RejectInstrumentRevision = 24,
 
-	// AssetNotPermitted - Action not permitted by asset.
-	RejectAssetNotPermitted = 25,
+	// InstrumentNotPermitted - Action not permitted by instrument.
+	RejectInstrumentNotPermitted = 25,
 
 	// TransferSelf - Transfers with the sender and receiver addresses the same are not permitted.
 	RejectTransferSelf = 30,

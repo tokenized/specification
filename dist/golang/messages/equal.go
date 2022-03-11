@@ -303,9 +303,9 @@ func (l *Distribution) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
 	// Field Timestamp - uint

@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFile string) error {
+func ProcessContractPermissionConfigs(actions, instruments Schema, path string, outFile string) error {
 	f, err := os.Create(outFile)
 	if err != nil {
 		panic(err)
@@ -22,7 +22,7 @@ func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFi
 	f.WriteString("type PermissionConfig struct {\n")
 	f.WriteString("    VotingSystems       []VotingSystemField\n")
 	f.WriteString("    ContractPermissions permissions.Permissions\n")
-	f.WriteString("    AssetPermissions    map[string]permissions.Permissions\n")
+	f.WriteString("    InstrumentPermissions    map[string]permissions.Permissions\n")
 	f.WriteString("}\n")
 
 	path = filepath.FromSlash(path)
@@ -33,7 +33,7 @@ func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFi
 
 	for _, dir := range dirs {
 		data := PermissionConfig{
-			AssetPermissions: make(map[string][]Permission),
+			InstrumentPermissions: make(map[string][]Permission),
 		}
 		fmt.Printf("Translating %s\n", dir)
 
@@ -47,27 +47,27 @@ func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFi
 			panic(errors.Wrap(err, "unmarshal yaml contract"))
 		}
 
-		assetFiles, err := filepath.Glob(filepath.Join(dir, "assets", "*"))
+		instrumentFiles, err := filepath.Glob(filepath.Join(dir, "instruments", "*"))
 		if err != nil {
 			panic(err)
 		}
 
-		assetStruct := struct {
-			Name        string       `yaml:"Name"`
-			AssetType   string       `yaml:"AssetType"`
-			Permissions []Permission `yaml:"Permissions"`
+		instrumentStruct := struct {
+			Name           string       `yaml:"Name"`
+			InstrumentType string       `yaml:"InstrumentType"`
+			Permissions    []Permission `yaml:"Permissions"`
 		}{}
 
-		for _, assetFile := range assetFiles {
-			if err := unmarshalFile(assetFile, &assetStruct); err != nil {
-				fmt.Printf("Failed to unmarshal yaml asset : %s\n", err)
-				panic(errors.Wrap(err, "unmarshal yaml asset"))
+		for _, instrumentFile := range instrumentFiles {
+			if err := unmarshalFile(instrumentFile, &instrumentStruct); err != nil {
+				fmt.Printf("Failed to unmarshal yaml instrument : %s\n", err)
+				panic(errors.Wrap(err, "unmarshal yaml instrument"))
 			}
 
-			data.AssetPermissions[assetStruct.AssetType] = assetStruct.Permissions
+			data.InstrumentPermissions[instrumentStruct.InstrumentType] = instrumentStruct.Permissions
 		}
 
-		if err := TranslateContractPermissionConfig(actions, assets, data, f); err != nil {
+		if err := TranslateContractPermissionConfig(actions, instruments, data, f); err != nil {
 			fmt.Printf("Failed to translate permissions : %s\n", err)
 			panic(errors.Wrap(err, fmt.Sprintf("contract %s", dir)))
 		}
@@ -76,7 +76,7 @@ func ProcessContractPermissionConfigs(actions, assets Schema, path string, outFi
 	return f.Close()
 }
 
-func TranslateContractPermissionConfig(actions, assets Schema, data PermissionConfig, file *os.File) error {
+func TranslateContractPermissionConfig(actions, instruments Schema, data PermissionConfig, file *os.File) error {
 
 	file.WriteString(fmt.Sprintf("var %s = PermissionConfig{\n", data.Name))
 
@@ -97,7 +97,7 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 	fips := make([][]int, 0)
 	var err error
 	for _, permission := range data.ContractPermissions {
-		fips, err = TranslatePermission("", actions, assets, actions, permission, data.VotingSystems,
+		fips, err = TranslatePermission("", actions, instruments, actions, permission, data.VotingSystems,
 			"ContractOffer", fips, file)
 		if err != nil {
 			return errors.Wrap(err, "contract permissions")
@@ -105,21 +105,21 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 	}
 	file.WriteString("    },\n")
 
-	assetTypes := make([]string, 0, len(data.AssetPermissions))
-	for assetType, _ := range data.AssetPermissions {
-		assetTypes = append(assetTypes, assetType)
+	instrumentTypes := make([]string, 0, len(data.InstrumentPermissions))
+	for instrumentType, _ := range data.InstrumentPermissions {
+		instrumentTypes = append(instrumentTypes, instrumentType)
 	}
-	sort.Strings(assetTypes)
+	sort.Strings(instrumentTypes)
 
-	file.WriteString("    AssetPermissions: map[string]permissions.Permissions{\n")
-	for _, assetType := range assetTypes {
-		file.WriteString(fmt.Sprintf("        \"%s\": permissions.Permissions{\n", assetType))
+	file.WriteString("    InstrumentPermissions: map[string]permissions.Permissions{\n")
+	for _, instrumentType := range instrumentTypes {
+		file.WriteString(fmt.Sprintf("        \"%s\": permissions.Permissions{\n", instrumentType))
 		fips = make([][]int, 0)
-		for _, permission := range data.AssetPermissions[assetType] {
-			fips, err = TranslatePermission(assetType, actions, assets, assets, permission,
-				data.VotingSystems, "AssetDefinition", fips, file)
+		for _, permission := range data.InstrumentPermissions[instrumentType] {
+			fips, err = TranslatePermission(instrumentType, actions, instruments, instruments, permission,
+				data.VotingSystems, "InstrumentDefinition", fips, file)
 			if err != nil {
-				return errors.Wrap(err, fmt.Sprintf("asset permissions %s", assetType))
+				return errors.Wrap(err, fmt.Sprintf("instrument permissions %s", instrumentType))
 			}
 		}
 		file.WriteString("        },\n")
@@ -130,7 +130,7 @@ func TranslateContractPermissionConfig(actions, assets Schema, data PermissionCo
 	return nil
 }
 
-func TranslatePermission(assetType string, actions, assets, schema Schema, permission Permission,
+func TranslatePermission(instrumentType string, actions, instruments, schema Schema, permission Permission,
 	votingSystems []VotingSystem, structName string, fips [][]int, file *os.File) ([][]int, error) {
 
 	file.WriteString(fmt.Sprintf("        permissions.Permission{ // %s\n", permission.Name))
@@ -218,9 +218,9 @@ func TranslatePermission(assetType string, actions, assets, schema Schema, permi
 			}
 			container = fieldName
 			found = false
-			if fieldName == "AssetPayload" {
-				for _, m := range assets.Messages {
-					if m.Code == assetType {
+			if fieldName == "InstrumentPayload" {
+				for _, m := range instruments.Messages {
+					if m.Code == instrumentType {
 						fields = m.Fields
 						found = true
 						break

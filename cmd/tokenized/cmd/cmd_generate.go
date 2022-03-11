@@ -46,7 +46,7 @@ var cmdGenerate = &cobra.Command{
 			log.Fatal(err)
 		}
 
-		assets, err := parser.NewSchema(filepath.FromSlash(srcPath + "/assets/develop"))
+		instruments, err := parser.NewSchema(filepath.FromSlash(srcPath + "/instruments/develop"))
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -59,19 +59,19 @@ var cmdGenerate = &cobra.Command{
 		// --------------------------------------------------------------------
 		// Compile Languages
 
-		protobuf.Compile(srcPath, distPath, *actions, *assets, *messages)
+		protobuf.Compile(srcPath, distPath, *actions, *instruments, *messages)
 
-		golang.Compile(srcPath, distPath, *actions, *assets, *messages)
+		golang.Compile(srcPath, distPath, *actions, *instruments, *messages)
 
-		json.Compile(srcPath, distPath, *actions, *assets, *messages)
+		json.Compile(srcPath, distPath, *actions, *instruments, *messages)
 
-		markdown.Compile(srcPath, distPath, *actions, *assets, *messages)
+		markdown.Compile(srcPath, distPath, *actions, *instruments, *messages)
 
-		python.Compile(srcPath, distPath, *actions, *assets, *messages)
+		python.Compile(srcPath, distPath, *actions, *instruments, *messages)
 
-		typescript.Compile(srcPath, distPath, *actions, *assets, *messages)
+		typescript.Compile(srcPath, distPath, *actions, *instruments, *messages)
 
-		swagger.Compile(srcPath, distPath, *actions, *assets, *messages)
+		swagger.Compile(srcPath, distPath, *actions, *instruments, *messages)
 
 		return nil
 	},

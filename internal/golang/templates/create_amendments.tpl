@@ -117,16 +117,16 @@
 	}
 
 	{{- else }}
-		{{- if eq .Name "AssetType" }}
-		// AssetType modifications not allowed
-		{{- else if eq .Name "AssetPayload" }}
-	if a.AssetType != newValue.AssetType {
-		return nil, fmt.Errorf("Asset type modification not allowed : %s -> %s", a.AssetType,
-			newValue.AssetType)
+		{{- if eq .Name "InstrumentType" }}
+		// InstrumentType modifications not allowed
+		{{- else if eq .Name "InstrumentPayload" }}
+	if a.InstrumentType != newValue.InstrumentType {
+		return nil, fmt.Errorf("Instrument type modification not allowed : %s -> %s", a.InstrumentType,
+			newValue.InstrumentType)
 	}
 
-	payloadAmendments, err := assets.CreatePayloadAmendments(fip, []byte(a.AssetType),
-		a.AssetPayload, newValue.AssetPayload)
+	payloadAmendments, err := instruments.CreatePayloadAmendments(fip, []byte(a.InstrumentType),
+		a.InstrumentPayload, newValue.InstrumentPayload)
 	if err != nil {
 		return nil, errors.Wrap(err, "{{ .Name }}")
 	}

@@ -18,7 +18,7 @@ gulp.task('watch', gulp.series('scripts', () => {
 	gulp.watch('src/**/*.ts', gulp.series(['tslint', 'scripts']));
 }));
 
-gulp.task('assets', function() {
+gulp.task('instruments', function() {
 	return gulp.src(JSON_FILES)
 		.pipe(gulp.dest('dist'));
 });
@@ -42,5 +42,5 @@ gulp.task('compile-ts', function() {
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('watch', gulp.series(['watch', 'assets', 'tslint', 'scripts']));
+gulp.task('watch', gulp.series(['watch', 'instruments', 'tslint', 'scripts']));
 gulp.task('default', gulp.series(['tslint', 'scripts']));

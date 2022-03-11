@@ -2329,7 +2329,7 @@ proto.messages.Distribution.prototype.toObject = function(opt_includeInstance) {
  */
 proto.messages.Distribution.toObject = function(includeInstance, msg) {
   var f, obj = {
-    assetcode: msg.getAssetcode_asB64(),
+    instrumentcode: msg.getInstrumentcode_asB64(),
     timestamp: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
@@ -2369,7 +2369,7 @@ proto.messages.Distribution.deserializeBinaryFromReader = function(msg, reader) 
     switch (field) {
     case 1:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setAssetcode(value);
+      msg.setInstrumentcode(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readUint64());
@@ -2404,7 +2404,7 @@ proto.messages.Distribution.prototype.serializeBinary = function() {
  */
 proto.messages.Distribution.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAssetcode_asU8();
+  f = message.getInstrumentcode_asU8();
   if (f.length > 0) {
     writer.writeBytes(
       1,
@@ -2422,35 +2422,35 @@ proto.messages.Distribution.serializeBinaryToWriter = function(message, writer) 
 
 
 /**
- * optional bytes AssetCode = 1;
+ * optional bytes InstrumentCode = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.messages.Distribution.prototype.getAssetcode = function() {
+proto.messages.Distribution.prototype.getInstrumentcode = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
- * optional bytes AssetCode = 1;
- * This is a type-conversion wrapper around `getAssetcode()`
+ * optional bytes InstrumentCode = 1;
+ * This is a type-conversion wrapper around `getInstrumentcode()`
  * @return {string}
  */
-proto.messages.Distribution.prototype.getAssetcode_asB64 = function() {
+proto.messages.Distribution.prototype.getInstrumentcode_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getAssetcode()));
+      this.getInstrumentcode()));
 };
 
 
 /**
- * optional bytes AssetCode = 1;
+ * optional bytes InstrumentCode = 1;
  * Note that Uint8Array is not supported on all browsers.
  * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getAssetcode()`
+ * This is a type-conversion wrapper around `getInstrumentcode()`
  * @return {!Uint8Array}
  */
-proto.messages.Distribution.prototype.getAssetcode_asU8 = function() {
+proto.messages.Distribution.prototype.getInstrumentcode_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getAssetcode()));
+      this.getInstrumentcode()));
 };
 
 
@@ -2458,7 +2458,7 @@ proto.messages.Distribution.prototype.getAssetcode_asU8 = function() {
  * @param {!(string|Uint8Array)} value
  * @return {!proto.messages.Distribution} returns this
  */
-proto.messages.Distribution.prototype.setAssetcode = function(value) {
+proto.messages.Distribution.prototype.setInstrumentcode = function(value) {
   return jspb.Message.setProto3BytesField(this, 1, value);
 };
 

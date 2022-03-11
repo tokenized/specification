@@ -11,7 +11,7 @@ import (
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
-	"github.com/tokenized/specification/dist/golang/assets"
+	"github.com/tokenized/specification/dist/golang/instruments"
 )
 
 const (
@@ -93,11 +93,11 @@ func TestContractOfferResponseFees(t *testing.T) {
 	}
 }
 
-func TestAssetDefinitionResponseFees(t *testing.T) {
+func TestInstrumentDefinitionResponseFees(t *testing.T) {
 	contractFee := uint64(2000)
 	dustLimit := uint64(546)
 
-	currency := &assets.Currency{
+	currency := &instruments.Currency{
 		CurrencyCode: "AUD",
 		Precision:    2,
 	}
@@ -109,15 +109,15 @@ func TestAssetDefinitionResponseFees(t *testing.T) {
 
 	requestTx := wire.NewMsgTx(1)
 
-	assetDefinition := &actions.AssetDefinition{
+	instrumentDefinition := &actions.InstrumentDefinition{
 		AdministrationProposal: true,
 		AuthorizedTokenQty:     10000,
-		AssetPayload:           cb,
+		InstrumentPayload:      cb,
 	}
 
-	b, err := Serialize(assetDefinition, true)
+	b, err := Serialize(instrumentDefinition, true)
 	if err != nil {
-		t.Fatalf("%s Failed to serialize asset definition : %s", Failed, err)
+		t.Fatalf("%s Failed to serialize instrument definition : %s", Failed, err)
 	}
 
 	requestTx.AddTxOut(wire.NewTxOut(3000, make([]byte, 26)))
@@ -130,19 +130,19 @@ func TestAssetDefinitionResponseFees(t *testing.T) {
 
 	t.Logf("%s Size : %d, Funding %d", Success, size, funding)
 
-	var assetCode bitcoin.Hash32
-	assetCreation := &actions.AssetCreation{
-		AssetCode:              assetCode.Bytes(), // Asset code is added by smart contract
+	var instrumentCode bitcoin.Hash32
+	instrumentCreation := &actions.InstrumentCreation{
+		InstrumentCode:         instrumentCode.Bytes(), // Instrument code is added by smart contract
 		AdministrationProposal: true,
 		AuthorizedTokenQty:     10000,
-		AssetPayload:           cb,
-		AssetRevision:          0,
+		InstrumentPayload:      cb,
+		InstrumentRevision:     0,
 		Timestamp:              uint64(time.Now().UnixNano()),
 	}
 
-	r, err := Serialize(assetCreation, true)
+	r, err := Serialize(instrumentCreation, true)
 	if err != nil {
-		t.Fatalf("%s Failed to serialize asset creation : %s", Failed, err)
+		t.Fatalf("%s Failed to serialize instrument creation : %s", Failed, err)
 	}
 
 	responseTx := wire.NewMsgTx(1)
@@ -229,12 +229,12 @@ func TestTransferResponseFees(t *testing.T) {
 
 	// Setup transfer request
 	transfer := &actions.Transfer{
-		Assets: []*actions.AssetTransferField{
-			&actions.AssetTransferField{
-				ContractIndex: 0,
-				AssetType:     assets.CodeCurrency,
-				AssetCode:     ac1,
-				AssetSenders: []*actions.QuantityIndexField{
+		Instruments: []*actions.InstrumentTransferField{
+			&actions.InstrumentTransferField{
+				ContractIndex:  0,
+				InstrumentType: instruments.CodeCurrency,
+				InstrumentCode: ac1,
+				InstrumentSenders: []*actions.QuantityIndexField{
 					&actions.QuantityIndexField{
 						Quantity: 1000,
 						Index:    0,
@@ -244,29 +244,29 @@ func TestTransferResponseFees(t *testing.T) {
 						Index:    1,
 					},
 				},
-				AssetReceivers: []*actions.AssetReceiverField{
-					&actions.AssetReceiverField{
+				InstrumentReceivers: []*actions.InstrumentReceiverField{
+					&actions.InstrumentReceiverField{
 						Address:  ad1.Bytes(),
 						Quantity: 3000,
 					},
 				},
 			},
-			&actions.AssetTransferField{
-				ContractIndex: 1,
-				AssetType:     assets.CodeCurrency,
-				AssetCode:     ac1,
-				AssetSenders: []*actions.QuantityIndexField{
+			&actions.InstrumentTransferField{
+				ContractIndex:  1,
+				InstrumentType: instruments.CodeCurrency,
+				InstrumentCode: ac1,
+				InstrumentSenders: []*actions.QuantityIndexField{
 					&actions.QuantityIndexField{
 						Quantity: 4000,
 						Index:    1,
 					},
 				},
-				AssetReceivers: []*actions.AssetReceiverField{
-					&actions.AssetReceiverField{
+				InstrumentReceivers: []*actions.InstrumentReceiverField{
+					&actions.InstrumentReceiverField{
 						Address:  ad2.Bytes(),
 						Quantity: 3000,
 					},
-					&actions.AssetReceiverField{
+					&actions.InstrumentReceiverField{
 						Address:  ad3.Bytes(),
 						Quantity: 1000,
 					},
@@ -506,10 +506,10 @@ func TestMultiContractExample2TransferResponseFees(t *testing.T) {
 
 	// Settlement
 	// {
-	//     "Assets": [
+	//     "Instruments": [
 	//         {
-	//             "AssetType": "CCY",
-	//             "AssetCode": "d6571723491ca8006ea1cd45c07886e92cb411104b2d1216c277f7eb25113833",
+	//             "InstrumentType": "CCY",
+	//             "InstrumentCode": "d6571723491ca8006ea1cd45c07886e92cb411104b2d1216c277f7eb25113833",
 	//             "Settlements": [
 	//                 {},
 	//                 {

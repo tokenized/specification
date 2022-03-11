@@ -14,7 +14,7 @@ type Schema struct {
 	FieldAliases   []Field     `yaml:"fieldAliases"`
 }
 
-// Message represents a protocol action, message or asset
+// Message represents a protocol action, message or instrument
 type Message struct {
 	Code        string  `yaml:"code"`
 	Name        string  `yaml:"name"`
@@ -86,8 +86,8 @@ type VotingSystem struct {
 }
 
 type PermissionConfig struct {
-	Name                string                  `yaml:"Name"`
-	VotingSystems       []VotingSystem          `yaml:"VotingSystems"`
-	ContractPermissions []Permission            `yaml:"Permissions"`
-	AssetPermissions    map[string][]Permission `yaml:"AssetPermissions"`
+	Name                  string                  `yaml:"Name"`
+	VotingSystems         []VotingSystem          `yaml:"VotingSystems"`
+	ContractPermissions   []Permission            `yaml:"Permissions"`
+	InstrumentPermissions map[string][]Permission `yaml:"InstrumentPermissions"`
 }

@@ -26,6 +26,15 @@ const (
 	Code{{.Name}} = "{{.Code}}"
 {{ end }}
 
+	// CodeAssetDefinition (Deprecated) identifies a payload as a InstrumentDefinition action message.
+	CodeAssetDefinition = "A1"
+
+	// CodeAssetCreation (Deprecated) identifies a payload as a InstrumentCreation action message.
+	CodeAssetCreation = "A2"
+
+	// CodeAssetModification (Deprecated) identifies a payload as a InstrumentModification action message.
+	CodeAssetModification = "A3"
+
 	// ServiceTypeIdentityOracle identifies an identity oracle
 	ServiceTypeIdentityOracle = uint32(0)
 
@@ -53,8 +62,8 @@ const (
 	// ContractTypeEntity identifies an entity contract
 	ContractTypeEntity = uint32(0)
 
-	// ContractTypeAsset identifies an asset contract
-	ContractTypeAsset = uint32(1)
+	// ContractTypeInstrument identifies an instrument contract
+	ContractTypeInstrument = uint32(1)
 
 	// ContractBodyOfAgreementTypeNone identifies a contract with no body of agreement specified.
 	ContractBodyOfAgreementTypeNone = uint32(0)
@@ -75,6 +84,12 @@ func NewActionFromCode(code string) Action {
 	case Code{{.Name}}:
 		return &{{.Name}}{}
 {{- end }}
+	case CodeAssetDefinition: // Deprecated, but backwards compatible
+		return &InstrumentDefinition{}
+	case CodeAssetCreation: // Deprecated, but backwards compatible
+		return &InstrumentCreation{}
+	case CodeAssetModification: // Deprecated, but backwards compatible
+		return &InstrumentModification{}
 	default:
 		return nil
 	}

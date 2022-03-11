@@ -57,7 +57,7 @@ message OutputMetadata {
 
 // Message - Distribution (1005)
 message Distribution {
-    bytes AssetCode                                = 1;   // AssetCode
+    bytes InstrumentCode                           = 1;   // InstrumentCode
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
