@@ -94,6 +94,22 @@ func Deserialize(script []byte, isTest bool) (actions.Action, error) {
 	return actions.Deserialize(message.PayloadIdentifier(), message.Payload())
 }
 
+func ActionCodeForScript(script []byte, isTest bool) (string, error) {
+	buf := bytes.NewReader(script)
+	message, err := envelope.Deserialize(buf)
+	if err == envelope.ErrNotEnvelope {
+		return "", ErrNotTokenized
+	} else if err != nil {
+		return "", err
+	}
+
+	if !bytes.Equal(message.PayloadProtocol(), GetProtocolID(isTest)) {
+		return "", ErrNotTokenized
+	}
+
+	return string(message.PayloadIdentifier()), nil
+}
+
 // WrapAction wraps an action in an envelope message.
 func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error) {
 	payload, err := proto.Marshal(action)
