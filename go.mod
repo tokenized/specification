@@ -8,8 +8,8 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.5
-	github.com/tokenized/envelope v0.3.1-0.20211108215110-702f07a88483
-	github.com/tokenized/pkg v0.3.1-0.20220310234239-a48d2b421c28
+	github.com/tokenized/envelope v0.3.1-0.20220315150725-33ebd0658224
+	github.com/tokenized/pkg v0.3.1-0.20220314213803-627e5ee08648
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
 	gopkg.in/yaml.v2 v2.2.8
 )
