@@ -21,6 +21,10 @@ func Test_SerializeAction(t *testing.T) {
 			},
 			code: actions.CodeContractOffer,
 		},
+		{ // Empty action
+			action: &actions.ContractOffer{},
+			code:   actions.CodeContractOffer,
+		},
 	}
 
 	for i, test := range tests {

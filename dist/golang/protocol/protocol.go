@@ -106,7 +106,8 @@ func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
 			return nil, ErrNotTokenized
 		}
 
-		if msg.PayloadCount() != 3 {
+		payloadCount := msg.PayloadCount()
+		if payloadCount != 2 && payloadCount != 3 {
 			return nil, errors.Wrapf(ErrNotTokenized, "wrong payload count: %d",
 				msg.PayloadCount())
 		}
@@ -117,6 +118,17 @@ func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
 		}
 		if version < 0 || uint64(version) != Version {
 			return nil, ErrUnknownVersion
+		}
+
+		if payloadCount == 2 {
+			// Action payload is not provided because it was empty.
+			result := actions.NewActionFromCode(string(msg.PayloadAt(1)))
+			if result == nil {
+				return nil, errors.Wrapf(ErrNotTokenized, "unknown action code: %s",
+					string(msg.PayloadAt(1)))
+			}
+
+			return result, nil
 		}
 
 		return actions.Deserialize(msg.PayloadAt(1), msg.PayloadAt(2))
@@ -154,9 +166,9 @@ func ActionCodeForScript(script bitcoin.Script, isTest bool) (string, error) {
 			return "", ErrNotTokenized
 		}
 
-		if msg.PayloadCount() != 3 {
-			return "", errors.Wrapf(ErrNotTokenized, "wrong payload count: %d",
-				msg.PayloadCount())
+		payloadCount := msg.PayloadCount()
+		if payloadCount != 2 && payloadCount != 3 {
+			return "", errors.Wrapf(ErrNotTokenized, "wrong payload count: %d", payloadCount)
 		}
 
 		version, _, err := bitcoin.ParsePushNumberScript(msg.PayloadAt(0))
@@ -179,7 +191,12 @@ func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error
 	}
 
 	message := envelopeV1.NewMessage([][]byte{GetProtocolID(isTest)},
-		[][]byte{bitcoin.PushNumberScript(int64(Version)), []byte(action.Code()), payload})
+		[][]byte{bitcoin.PushNumberScript(int64(Version)), []byte(action.Code())})
+
+	if len(payload) > 0 {
+		// Only add action payload if it isn't empty.
+		message.AddPayload(payload)
+	}
 
 	return message, nil
 }
