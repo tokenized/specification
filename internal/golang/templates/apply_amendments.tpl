@@ -56,12 +56,22 @@
 		{{- end }}
 
 		case 1: // Add element
-			if len(fip) != 2 { // includes list index
+
+		{{- if .IsCompoundType }}
+			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.{{ .Name }}[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for add {{ .Name }} : %v",
 					fip)
 			}
 
-		{{- if .IsCompoundType }}
 			newValue := &{{ .GoSingularType }}{}
 			if len(data) != 0 { // Leave default values if data is empty
 				if err := proto.Unmarshal(data, newValue); err != nil {
@@ -69,18 +79,24 @@
 						err)
 				}
 			}
-		{{- else if eq .BaseType "fixedchar" "varchar" }}
+		{{- else }}
+			if len(fip) != 2 { // includes list index
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add {{ .Name }} : %v",
+					fip)
+			}
+
+			{{ if eq .BaseType "fixedchar" "varchar" }}
 			newValue := string(data)
-		{{- else if eq .BaseType "bin" }}
+			{{- else if eq .BaseType "bin" }}
 			if len(data) != {{ .BaseSize }} {
 				return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), {{ .BaseSize }})
 			}
 			var newValue [{{ .BaseSize }}]byte
 			copy(newValue, data)
 			a.{{ .Name }} = append(a.{{ .Name }}, newValue)
-		{{- else if eq .BaseType "varbin" }}
+			{{- else if eq .BaseType "varbin" }}
 			newValue := data
-		{{- else if eq .BaseType "uint" }}
+			{{- else if eq .BaseType "uint" }}
 			var newValue {{ .GoSingularType }}
 			buf := bytes.NewBuffer(data)
 			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
@@ -89,7 +105,7 @@
 			} else {
 				newValue = {{ .GoSingularType }}(value)
 			}
-		{{- else if eq .BaseType "bool" }}
+			{{- else if eq .BaseType "bool" }}
 			if len(data) != 1 {
 				return nil, fmt.Errorf("Amendment field index path too deep for {{ .Name }} : %x",
 					data)
@@ -99,7 +115,9 @@
 			if err := binary.Read(buf, binary.LittleEndian, &newValue); err != nil {
 				return nil, fmt.Errorf("{{ .Name }} amendment value failed to deserialize : %s", err)
 			}
+			{{- end }}
 		{{- end }}
+
 			if len(a.{{ .Name }}) <= int(fip[1]) {
 				// Append item to the end
 				a.{{ .Name }} = append(a.{{ .Name }}, newValue)
@@ -115,6 +133,24 @@
 			return permissions.SubPermissions(fip, operation, {{ .IsList }})
 
 		case 2: // Delete element
+
+		{{- if .IsCompoundType }}
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.{{ .Name }}[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete {{ .Name }} : %v",
+					fip)
+			}
+
+		{{- else }}
+
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete {{ .Name }} : %v",
 					fip)
@@ -122,6 +158,7 @@
 			if int(fip[1]) >= len(a.{{ .Name }}) {
 				return nil, fmt.Errorf("Amendment element index out of range for delete {{ .Name }} : %d", fip[1])
 			}
+		{{- end }}
 
 			// Remove item from list
 			a.{{ .Name }} = append(a.{{ .Name }}[:fip[1]], a.{{ .Name }}[fip[1]+1:]...)

@@ -286,6 +286,36 @@ func (l *OutputMetadata) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *Distribution) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &Distribution{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &Distribution{}
+	}
+	r, ok := cr.(*Distribution)
+	if !ok {
+		return false
+	}
+
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
+	}
+
+	// Field Timestamp - uint
+	if c.Timestamp != r.Timestamp {
+		return false // fmt.Errorf("Timestamp integer mismatched")
+	}
+
+	return true
+}
+
 func (l *InitiateRelationship) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {

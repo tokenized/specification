@@ -1,8 +1,8 @@
 
 description:  >
-  The contract responding to an Order action to thaw assets. To be used to comply with contractual
-  obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to allow them to
-  resume normal exchange and governance activities.
+  The contract responding to an Order action to thaw instruments. To be used to comply with
+  contractual obligations or legal requirements. The Alleged Offender's tokens will be unfrozen to
+  allow them to resume normal exchange and governance activities.
 type: object
 properties:
   FreezeTxId:

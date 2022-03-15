@@ -8,7 +8,7 @@ label: "Body Of Agreement Offer"
 description: "Allows the administration to define the agreement for the contract."
 
 metadata:
-  validation: BodyOfAgreement
+  validation: BodyOfAgreementFormation
   rejection: Rejection
 
   inputs:

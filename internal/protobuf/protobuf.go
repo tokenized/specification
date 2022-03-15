@@ -7,12 +7,12 @@ import (
 func Compile(
 	srcPath, distPath string,
 	actions parser.Schema,
-	assets parser.Schema,
+	instruments parser.Schema,
 	messages parser.Schema,
 ) {
 	templateToFile(distPath, "schema.tpl", "actions.proto", actions)
 
-	templateToFile(distPath, "schema.tpl", "assets.proto", assets)
+	templateToFile(distPath, "schema.tpl", "instruments.proto", instruments)
 
 	templateToFile(distPath, "schema.tpl", "messages.proto", messages)
 }

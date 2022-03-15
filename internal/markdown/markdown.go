@@ -11,13 +11,13 @@ import (
 func Compile(
 	srcPath, distPath string,
 	actions parser.Schema,
-	assets parser.Schema,
+	instruments parser.Schema,
 	messages parser.Schema,
 ) {
 
 	templateToFile(distPath, "protocol-actions.tpl", "protocol-actions.md", actions)
 
-	templateToFile(distPath, "protocol-assets.tpl", "protocol-assets.md", assets)
+	templateToFile(distPath, "protocol-instruments.tpl", "protocol-instruments.md", instruments)
 
 	templateToFile(distPath, "protocol-messages.tpl", "protocol-messages.md", messages)
 

@@ -1,0 +1,50 @@
+# Membership Instrument (eg. Administrator/Director/Partner)
+Name: Membership
+InstrumentType: MBR
+
+Permissions:
+  - Name: Administrator/Holder Special Board Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: true
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Special Board Resolution
+    Fields:
+      - [InstrumentPermissions]
+      - [InstrumentPayload, TransfersPermitted]
+      - [VotingRights]
+      - [VoteMultiplier]
+      - [AdministrationProposal]
+      - [HolderProposal]
+      - [AuthorizedTokenQty]
+      - [InstrumentPayload, AgeRestriction]
+      - [InstrumentPayload, ValidFrom]
+
+  - Name: Administrator Special Board Resolution
+    Permitted: false
+    AdministrationProposal: true
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+      - Special Board Resolution
+    Fields:
+      - [TradeRestrictions]
+      - [EnforcementOrdersPermitted]
+      - [InstrumentModificationGovernance]
+      - [InstrumentPayload, ExpirationTimestamp]
+      - [InstrumentPayload, ID]
+      - [InstrumentPayload, MembershipClass]
+      - [InstrumentPayload, RoleType]
+      - [InstrumentPayload, MembershipType]
+
+
+  - Name: Administrative Vote General Board Resolution
+    Permitted: false
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: true
+    VotingSystemsAllowed:
+      - General Board Resolution
+    Fields:
+      - [InstrumentPayload, Description]

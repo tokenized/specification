@@ -198,6 +198,25 @@ func (a *OutputMetadata) Validate() error {
 	return nil
 }
 
+func (a *Distribution) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
+	}
+	if len(a.InstrumentCode) == 0 {
+		return fmt.Errorf("InstrumentCode required")
+	}
+
+	// Field Timestamp - uint
+
+	return nil
+}
+
 func (a *InitiateRelationship) Validate() error {
 	if a == nil {
 		return errors.New("Empty")

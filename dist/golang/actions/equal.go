@@ -88,9 +88,9 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ContractPermissions bytes mismatched")
 	}
 
-	// Field RestrictedQtyAssets - uint
-	if c.RestrictedQtyAssets != r.RestrictedQtyAssets {
-		return false // fmt.Errorf("RestrictedQtyAssets integer mismatched")
+	// Field RestrictedQtyInstruments - uint
+	if c.RestrictedQtyInstruments != r.RestrictedQtyInstruments {
+		return false // fmt.Errorf("RestrictedQtyInstruments integer mismatched")
 	}
 
 	// Field AdministrationProposal - bool
@@ -243,9 +243,9 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ContractPermissions bytes mismatched")
 	}
 
-	// Field RestrictedQtyAssets - uint
-	if c.RestrictedQtyAssets != r.RestrictedQtyAssets {
-		return false // fmt.Errorf("RestrictedQtyAssets integer mismatched")
+	// Field RestrictedQtyInstruments - uint
+	if c.RestrictedQtyInstruments != r.RestrictedQtyInstruments {
+		return false // fmt.Errorf("RestrictedQtyInstruments integer mismatched")
 	}
 
 	// Field AdministrationProposal - bool
@@ -666,26 +666,26 @@ func (l *BodyOfAgreementAmendment) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AssetDefinition) Equal(right proto.Message) bool {
+func (l *InstrumentDefinition) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &AssetDefinition{}
+		c = &InstrumentDefinition{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &AssetDefinition{}
+		cr = &InstrumentDefinition{}
 	}
-	r, ok := cr.(*AssetDefinition)
+	r, ok := cr.(*InstrumentDefinition)
 	if !ok {
 		return false
 	}
 
-	// Field AssetPermissions - varbin
-	if !bytes.Equal(c.AssetPermissions, r.AssetPermissions) {
-		return false // fmt.Errorf("AssetPermissions bytes mismatched")
+	// Field InstrumentPermissions - varbin
+	if !bytes.Equal(c.InstrumentPermissions, r.InstrumentPermissions) {
+		return false // fmt.Errorf("InstrumentPermissions bytes mismatched")
 	}
 
 	// Field EnforcementOrdersPermitted - bool
@@ -713,9 +713,9 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("HolderProposal boolean mismatched")
 	}
 
-	// Field AssetModificationGovernance - uint
-	if c.AssetModificationGovernance != r.AssetModificationGovernance {
-		return false // fmt.Errorf("AssetModificationGovernance integer mismatched")
+	// Field InstrumentModificationGovernance - uint
+	if c.InstrumentModificationGovernance != r.InstrumentModificationGovernance {
+		return false // fmt.Errorf("InstrumentModificationGovernance integer mismatched")
 	}
 
 	// Field AuthorizedTokenQty - uint
@@ -723,14 +723,14 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AuthorizedTokenQty integer mismatched")
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetPayload - varbin
-	if !bytes.Equal(c.AssetPayload, r.AssetPayload) {
-		return false // fmt.Errorf("AssetPayload bytes mismatched")
+	// Field InstrumentPayload - varbin
+	if !bytes.Equal(c.InstrumentPayload, r.InstrumentPayload) {
+		return false // fmt.Errorf("InstrumentPayload bytes mismatched")
 	}
 
 	// Field TradeRestrictions - varchar
@@ -746,36 +746,36 @@ func (l *AssetDefinition) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AssetCreation) Equal(right proto.Message) bool {
+func (l *InstrumentCreation) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &AssetCreation{}
+		c = &InstrumentCreation{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &AssetCreation{}
+		cr = &InstrumentCreation{}
 	}
-	r, ok := cr.(*AssetCreation)
+	r, ok := cr.(*InstrumentCreation)
 	if !ok {
 		return false
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
-	// Field AssetIndex - uint
-	if c.AssetIndex != r.AssetIndex {
-		return false // fmt.Errorf("AssetIndex integer mismatched")
+	// Field InstrumentIndex - uint
+	if c.InstrumentIndex != r.InstrumentIndex {
+		return false // fmt.Errorf("InstrumentIndex integer mismatched")
 	}
 
-	// Field AssetPermissions - varbin
-	if !bytes.Equal(c.AssetPermissions, r.AssetPermissions) {
-		return false // fmt.Errorf("AssetPermissions bytes mismatched")
+	// Field InstrumentPermissions - varbin
+	if !bytes.Equal(c.InstrumentPermissions, r.InstrumentPermissions) {
+		return false // fmt.Errorf("InstrumentPermissions bytes mismatched")
 	}
 
 	// Field EnforcementOrdersPermitted - bool
@@ -803,9 +803,9 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("HolderProposal boolean mismatched")
 	}
 
-	// Field AssetModificationGovernance - uint
-	if c.AssetModificationGovernance != r.AssetModificationGovernance {
-		return false // fmt.Errorf("AssetModificationGovernance integer mismatched")
+	// Field InstrumentModificationGovernance - uint
+	if c.InstrumentModificationGovernance != r.InstrumentModificationGovernance {
+		return false // fmt.Errorf("InstrumentModificationGovernance integer mismatched")
 	}
 
 	// Field AuthorizedTokenQty - uint
@@ -813,19 +813,19 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("AuthorizedTokenQty integer mismatched")
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetPayload - varbin
-	if !bytes.Equal(c.AssetPayload, r.AssetPayload) {
-		return false // fmt.Errorf("AssetPayload bytes mismatched")
+	// Field InstrumentPayload - varbin
+	if !bytes.Equal(c.InstrumentPayload, r.InstrumentPayload) {
+		return false // fmt.Errorf("InstrumentPayload bytes mismatched")
 	}
 
-	// Field AssetRevision - uint
-	if c.AssetRevision != r.AssetRevision {
-		return false // fmt.Errorf("AssetRevision integer mismatched")
+	// Field InstrumentRevision - uint
+	if c.InstrumentRevision != r.InstrumentRevision {
+		return false // fmt.Errorf("InstrumentRevision integer mismatched")
 	}
 
 	// Field Timestamp - uint
@@ -846,36 +846,36 @@ func (l *AssetCreation) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AssetModification) Equal(right proto.Message) bool {
+func (l *InstrumentModification) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &AssetModification{}
+		c = &InstrumentModification{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &AssetModification{}
+		cr = &InstrumentModification{}
 	}
-	r, ok := cr.(*AssetModification)
+	r, ok := cr.(*InstrumentModification)
 	if !ok {
 		return false
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
-	// Field AssetRevision - uint
-	if c.AssetRevision != r.AssetRevision {
-		return false // fmt.Errorf("AssetRevision integer mismatched")
+	// Field InstrumentRevision - uint
+	if c.InstrumentRevision != r.InstrumentRevision {
+		return false // fmt.Errorf("InstrumentRevision integer mismatched")
 	}
 
 	// Field Amendments - Amendment
@@ -913,13 +913,13 @@ func (l *Transfer) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field Assets - AssetTransfer
-	if len(c.Assets) != len(r.Assets) {
+	// Field Instruments - InstrumentTransfer
+	if len(c.Instruments) != len(r.Instruments) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range c.Assets {
-		if !v.Equal(r.Assets[i]) {
-			return false // fmt.Errorf("Assets[%d] : %s", i, err)
+	for i, v := range c.Instruments {
+		if !v.Equal(r.Instruments[i]) {
+			return false // fmt.Errorf("Instruments[%d] : %s", i, err)
 		}
 	}
 
@@ -958,13 +958,13 @@ func (l *Settlement) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field Assets - AssetSettlement
-	if len(c.Assets) != len(r.Assets) {
+	// Field Instruments - InstrumentSettlement
+	if len(c.Instruments) != len(r.Instruments) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range c.Assets {
-		if !v.Equal(r.Assets[i]) {
-			return false // fmt.Errorf("Assets[%d] : %s", i, err)
+	for i, v := range c.Instruments {
+		if !v.Equal(r.Instruments[i]) {
+			return false // fmt.Errorf("Instruments[%d] : %s", i, err)
 		}
 	}
 
@@ -998,14 +998,14 @@ func (l *Proposal) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Type integer mismatched")
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
 	// Field VoteSystem - uint
@@ -1163,14 +1163,14 @@ func (l *Result) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
 	// Field ProposedAmendments - Amendment
@@ -1233,14 +1233,14 @@ func (l *Order) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ComplianceAction string mismatched")
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
 	// Field TargetAddresses - TargetAddress
@@ -1343,14 +1343,14 @@ func (l *Freeze) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1423,14 +1423,14 @@ func (l *Confiscation) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1473,14 +1473,14 @@ func (l *Reconciliation) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
 	// Field Quantities - QuantityIndex
@@ -1816,21 +1816,21 @@ func (l *AmendmentField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AssetReceiverField) Equal(right proto.Message) bool {
+func (l *InstrumentReceiverField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &AssetReceiverField{}
+		c = &InstrumentReceiverField{}
 	}
-	r, ok := right.(*AssetReceiverField)
+	r, ok := right.(*InstrumentReceiverField)
 	if !ok {
 		return false
 	}
 
 	if r == nil {
-		r = &AssetReceiverField{}
+		r = &InstrumentReceiverField{}
 	}
 
 	// Field Address - varbin
@@ -1871,21 +1871,21 @@ func (l *AssetReceiverField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AssetSettlementField) Equal(right proto.Message) bool {
+func (l *InstrumentSettlementField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &AssetSettlementField{}
+		c = &InstrumentSettlementField{}
 	}
-	r, ok := right.(*AssetSettlementField)
+	r, ok := right.(*InstrumentSettlementField)
 	if !ok {
 		return false
 	}
 
 	if r == nil {
-		r = &AssetSettlementField{}
+		r = &InstrumentSettlementField{}
 	}
 
 	// Field ContractIndex - uint
@@ -1893,14 +1893,14 @@ func (l *AssetSettlementField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ContractIndex integer mismatched")
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
 	// Field Settlements - QuantityIndex
@@ -1916,21 +1916,21 @@ func (l *AssetSettlementField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AssetTransferField) Equal(right proto.Message) bool {
+func (l *InstrumentTransferField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &AssetTransferField{}
+		c = &InstrumentTransferField{}
 	}
-	r, ok := right.(*AssetTransferField)
+	r, ok := right.(*InstrumentTransferField)
 	if !ok {
 		return false
 	}
 
 	if r == nil {
-		r = &AssetTransferField{}
+		r = &InstrumentTransferField{}
 	}
 
 	// Field ContractIndex - uint
@@ -1938,33 +1938,33 @@ func (l *AssetTransferField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("ContractIndex integer mismatched")
 	}
 
-	// Field AssetType - fixedchar
-	if c.AssetType != r.AssetType {
-		return false // fmt.Errorf("AssetType string mismatched")
+	// Field InstrumentType - fixedchar
+	if c.InstrumentType != r.InstrumentType {
+		return false // fmt.Errorf("InstrumentType string mismatched")
 	}
 
-	// Field AssetCode - bin
-	if !bytes.Equal(c.AssetCode, r.AssetCode) {
-		return false // fmt.Errorf("AssetCode bytes mismatched")
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
 	}
 
-	// Field AssetSenders - QuantityIndex
-	if len(c.AssetSenders) != len(r.AssetSenders) {
+	// Field InstrumentSenders - QuantityIndex
+	if len(c.InstrumentSenders) != len(r.InstrumentSenders) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range c.AssetSenders {
-		if !v.Equal(r.AssetSenders[i]) {
-			return false // fmt.Errorf("AssetSenders[%d] : %s", i, err)
+	for i, v := range c.InstrumentSenders {
+		if !v.Equal(r.InstrumentSenders[i]) {
+			return false // fmt.Errorf("InstrumentSenders[%d] : %s", i, err)
 		}
 	}
 
-	// Field AssetReceivers - AssetReceiver
-	if len(c.AssetReceivers) != len(r.AssetReceivers) {
+	// Field InstrumentReceivers - InstrumentReceiver
+	if len(c.InstrumentReceivers) != len(r.InstrumentReceivers) {
 		return false // fmt.Errorf("List length mismatched")
 	}
-	for i, v := range c.AssetReceivers {
-		if !v.Equal(r.AssetReceivers[i]) {
-			return false // fmt.Errorf("AssetReceivers[%d] : %s", i, err)
+	for i, v := range c.InstrumentReceivers {
+		if !v.Equal(r.InstrumentReceivers[i]) {
+			return false // fmt.Errorf("InstrumentReceivers[%d] : %s", i, err)
 		}
 	}
 

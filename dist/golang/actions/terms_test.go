@@ -13,7 +13,7 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title",
 			chapter: &ChapterField{
-				Title:    "Testing definition of [Term1]()",
+				Preamble: "Testing definition of [Term1]()",
 				Articles: []*ClauseField{},
 			},
 			terms: []string{"Term1"},
@@ -21,7 +21,7 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title 2 terms",
 			chapter: &ChapterField{
-				Title:    "[Term2]() Testing definition of [Term1]()",
+				Preamble: "[Term2]() Testing definition of [Term1]()",
 				Articles: []*ClauseField{},
 			},
 			terms: []string{"Term2", "Term1"},
@@ -29,7 +29,7 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title 2 terms",
 			chapter: &ChapterField{
-				Title:    "[Term2]() Testing definition of [Term1]()",
+				Preamble: "[Term2]() Testing definition of [Term1]()",
 				Articles: []*ClauseField{},
 			},
 			terms: []string{"Term2", "Term1"},
@@ -37,8 +37,7 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title and preamble",
 			chapter: &ChapterField{
-				Title:    "Testing definition of [Term1]()",
-				Preamble: "This is [Term2]() text",
+				Preamble: "Testing definition of [Term1](). This is [Term2]() text",
 				Articles: []*ClauseField{},
 			},
 			terms: []string{"Term2", "Term1"},
@@ -46,11 +45,10 @@ func TestFindTerms(t *testing.T) {
 		{
 			name: "title and preamble and clause",
 			chapter: &ChapterField{
-				Title:    "Testing definition of [Term1]()",
-				Preamble: "This is [Term2]() text",
+				Preamble: "Testing definition of [Term1](). This is [Term2]() text",
 				Articles: []*ClauseField{
 					&ClauseField{
-						Title: "Contains [Term3]()",
+						Body: "Contains [Term3]()",
 					},
 				},
 			},

@@ -3,13 +3,13 @@ import BN from 'bn.js';
 import * as mocha from 'mocha';
 import * as chai from 'chai';
 import {char} from '../src/bytes';
-import { TxId, AssetCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
+import { TxId, InstrumentCode, Timestamp, ContractCode, PublicKeyHash } from '../src/protocol_types';
 import { Document, Amendment, VotingSystem, Oracle, Entity, TargetAddress,
-	QuantityIndex, AssetTransfer, AssetSettlement } from '../src/field_types';
+	QuantityIndex, InstrumentTransfer, InstrumentSettlement } from '../src/field_types';
 import {
-	AssetDefinition,
-	AssetCreation,
-	AssetModification,
+	InstrumentDefinition,
+	InstrumentCreation,
+	InstrumentModification,
 	ContractOffer,
 	ContractFormation,
 	ContractAmendment,
@@ -51,20 +51,20 @@ const getArrayOrType = (type: string) => {
 }
 
 
-describe('AssetDefinition', () => {
+describe('InstrumentDefinition', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
-		let initialMessage = new AssetDefinition();
-		// asset_type (fixedchar)
+		let initialMessage = new InstrumentDefinition();
+		// instrument_type (fixedchar)
 		{
-			initialMessage.asset_type = [...Array(3).keys()]
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 0))
 				.join('');
 		}
 		
-		// asset_auth_flags (varbin)
+		// instrument_auth_flags (varbin)
 		{
-			initialMessage.asset_auth_flags = Buffer.from([...Array(8).keys()]
+			initialMessage.instrument_auth_flags = Buffer.from([...Array(8).keys()]
 				.map(i => i + 65 + 1));
 		}
 		
@@ -113,9 +113,9 @@ describe('AssetDefinition', () => {
 			initialMessage.holder_proposal = true
 		}
 		
-		// asset_modification_governance (uint)
+		// instrument_modification_governance (uint)
 		{
-				initialMessage.asset_modification_governance = 1;
+				initialMessage.instrument_modification_governance = 1;
 		}
 		
 		// token_qty (uint)
@@ -132,9 +132,9 @@ describe('AssetDefinition', () => {
 				}
 		}
 		
-		// asset_payload (varbin)
+		// instrument_payload (varbin)
 		{
-			initialMessage.asset_payload = Buffer.from([...Array(16).keys()]
+			initialMessage.instrument_payload = Buffer.from([...Array(16).keys()]
 				.map(i => i + 65 + 11));
 		}
 		
@@ -146,7 +146,7 @@ describe('AssetDefinition', () => {
 		let initialEncoding = initialMessage.Serialize();
 
 		// Decode message
-		let decodedMessage = new AssetDefinition();
+		let decodedMessage = new InstrumentDefinition();
 
 		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
@@ -164,15 +164,15 @@ describe('AssetDefinition', () => {
 		// }
 
 		// Compare re-serialized values
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_auth_flags (varbin)
-		if ((initialMessage.asset_auth_flags && decodedMessage.asset_auth_flags) 
-				&& !initialMessage.asset_auth_flags.equals(decodedMessage.asset_auth_flags)) {
-			throw new Error(sprintf("asset_auth_flags doesn't match : %x != %x", initialMessage.asset_auth_flags, decodedMessage.asset_auth_flags));
+		// instrument_auth_flags (varbin)
+		if ((initialMessage.instrument_auth_flags && decodedMessage.instrument_auth_flags)
+				&& !initialMessage.instrument_auth_flags.equals(decodedMessage.instrument_auth_flags)) {
+			throw new Error(sprintf("instrument_auth_flags doesn't match : %x != %x", initialMessage.instrument_auth_flags, decodedMessage.instrument_auth_flags));
 		}
 		// transfers_permitted (bool)
 			// IsNativeType
@@ -236,13 +236,13 @@ describe('AssetDefinition', () => {
 			throw new Error(sprintf("holder_proposal doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_modification_governance (uint)
+		// instrument_modification_governance (uint)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.asset_modification_governance);
-		let decodedJson = JSON.stringify(decodedMessage.asset_modification_governance);
+		let initialJson = JSON.stringify(initialMessage.instrument_modification_governance);
+		let decodedJson = JSON.stringify(decodedMessage.instrument_modification_governance);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("asset_modification_governance doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("instrument_modification_governance doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
 		// token_qty (uint)
@@ -254,10 +254,10 @@ describe('AssetDefinition', () => {
 			throw new Error(sprintf("token_qty doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_payload (varbin)
-		if ((initialMessage.asset_payload && decodedMessage.asset_payload) 
-				&& !initialMessage.asset_payload.equals(decodedMessage.asset_payload)) {
-			throw new Error(sprintf("asset_payload doesn't match : %x != %x", initialMessage.asset_payload, decodedMessage.asset_payload));
+		// instrument_payload (varbin)
+		if ((initialMessage.instrument_payload && decodedMessage.instrument_payload)
+				&& !initialMessage.instrument_payload.equals(decodedMessage.instrument_payload)) {
+			throw new Error(sprintf("instrument_payload doesn't match : %x != %x", initialMessage.instrument_payload, decodedMessage.instrument_payload));
 		}
 
 
@@ -265,40 +265,40 @@ describe('AssetDefinition', () => {
 });
 
 
-describe('AssetCreation', () => {
+describe('InstrumentCreation', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
-		let initialMessage = new AssetCreation();
-		// asset_type (fixedchar)
+		let initialMessage = new InstrumentCreation();
+		// instrument_type (fixedchar)
 		{
-			initialMessage.asset_type = [...Array(3).keys()]
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 0))
 				.join('');
 		}
 		
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			initialMessage.asset_code = new AssetCode();
+			initialMessage.instrument_code = new InstrumentCode();
 			
 		}
 		
-		// asset_index (uint)
+		// instrument_index (uint)
 		{
 			// IsNativeType
 				{
 			let type = 'uint64';
 			if(type.startsWith('['))
-				initialMessage.asset_index = getArrayOrType(type);
+				initialMessage.instrument_index = getArrayOrType(type);
 			else if(type === 'uint64')
-				initialMessage.asset_index = new BN(65 + 2);
+				initialMessage.instrument_index = new BN(65 + 2);
 			else
-				initialMessage.asset_index = 65 + 2;
+				initialMessage.instrument_index = 65 + 2;
 				}
 		}
 		
-		// asset_auth_flags (varbin)
+		// instrument_auth_flags (varbin)
 		{
-			initialMessage.asset_auth_flags = Buffer.from([...Array(8).keys()]
+			initialMessage.instrument_auth_flags = Buffer.from([...Array(8).keys()]
 				.map(i => i + 65 + 3));
 		}
 		
@@ -347,9 +347,9 @@ describe('AssetCreation', () => {
 			initialMessage.holder_proposal = true
 		}
 		
-		// asset_modification_governance (uint)
+		// instrument_modification_governance (uint)
 		{
-				initialMessage.asset_modification_governance = 1;
+				initialMessage.instrument_modification_governance = 1;
 		}
 		
 		// token_qty (uint)
@@ -366,23 +366,23 @@ describe('AssetCreation', () => {
 				}
 		}
 		
-		// asset_payload (varbin)
+		// instrument_payload (varbin)
 		{
-			initialMessage.asset_payload = Buffer.from([...Array(16).keys()]
+			initialMessage.instrument_payload = Buffer.from([...Array(16).keys()]
 				.map(i => i + 65 + 13));
 		}
 		
-		// asset_revision (uint)
+		// instrument_revision (uint)
 		{
 			// IsNativeType
 				{
 			let type = 'uint32';
 			if(type.startsWith('['))
-				initialMessage.asset_revision = getArrayOrType(type);
+				initialMessage.instrument_revision = getArrayOrType(type);
 			else if(type === 'uint64')
-				initialMessage.asset_revision = new BN(65 + 14);
+				initialMessage.instrument_revision = new BN(65 + 14);
 			else
-				initialMessage.asset_revision = 65 + 14;
+				initialMessage.instrument_revision = 65 + 14;
 				}
 		}
 		
@@ -400,7 +400,7 @@ describe('AssetCreation', () => {
 		let initialEncoding = initialMessage.Serialize();
 
 		// Decode message
-		let decodedMessage = new AssetCreation();
+		let decodedMessage = new InstrumentCreation();
 
 		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
@@ -418,26 +418,26 @@ describe('AssetCreation', () => {
 		// }
 
 		// Compare re-serialized values
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_code (AssetCode)
-		// AssetCode test compare not setup
-		// asset_index (uint)
+		// instrument_code (InstrumentCode)
+		// InstrumentCode test compare not setup
+		// instrument_index (uint)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.asset_index);
-		let decodedJson = JSON.stringify(decodedMessage.asset_index);
+		let initialJson = JSON.stringify(initialMessage.instrument_index);
+		let decodedJson = JSON.stringify(decodedMessage.instrument_index);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("asset_index doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("instrument_index doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_auth_flags (varbin)
-		if ((initialMessage.asset_auth_flags && decodedMessage.asset_auth_flags) 
-				&& !initialMessage.asset_auth_flags.equals(decodedMessage.asset_auth_flags)) {
-			throw new Error(sprintf("asset_auth_flags doesn't match : %x != %x", initialMessage.asset_auth_flags, decodedMessage.asset_auth_flags));
+		// instrument_auth_flags (varbin)
+		if ((initialMessage.instrument_auth_flags && decodedMessage.instrument_auth_flags)
+				&& !initialMessage.instrument_auth_flags.equals(decodedMessage.instrument_auth_flags)) {
+			throw new Error(sprintf("instrument_auth_flags doesn't match : %x != %x", initialMessage.instrument_auth_flags, decodedMessage.instrument_auth_flags));
 		}
 		// transfers_permitted (bool)
 			// IsNativeType
@@ -501,13 +501,13 @@ describe('AssetCreation', () => {
 			throw new Error(sprintf("holder_proposal doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_modification_governance (uint)
+		// instrument_modification_governance (uint)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.asset_modification_governance);
-		let decodedJson = JSON.stringify(decodedMessage.asset_modification_governance);
+		let initialJson = JSON.stringify(initialMessage.instrument_modification_governance);
+		let decodedJson = JSON.stringify(decodedMessage.instrument_modification_governance);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("asset_modification_governance doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("instrument_modification_governance doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
 		// token_qty (uint)
@@ -519,18 +519,18 @@ describe('AssetCreation', () => {
 			throw new Error(sprintf("token_qty doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_payload (varbin)
-		if ((initialMessage.asset_payload && decodedMessage.asset_payload) 
-				&& !initialMessage.asset_payload.equals(decodedMessage.asset_payload)) {
-			throw new Error(sprintf("asset_payload doesn't match : %x != %x", initialMessage.asset_payload, decodedMessage.asset_payload));
+		// instrument_payload (varbin)
+		if ((initialMessage.instrument_payload && decodedMessage.instrument_payload)
+				&& !initialMessage.instrument_payload.equals(decodedMessage.instrument_payload)) {
+			throw new Error(sprintf("instrument_payload doesn't match : %x != %x", initialMessage.instrument_payload, decodedMessage.instrument_payload));
 		}
-		// asset_revision (uint)
+		// instrument_revision (uint)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.asset_revision);
-		let decodedJson = JSON.stringify(decodedMessage.asset_revision);
+		let initialJson = JSON.stringify(initialMessage.instrument_revision);
+		let decodedJson = JSON.stringify(decodedMessage.instrument_revision);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("asset_revision doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("instrument_revision doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
 		// timestamp (Timestamp)
@@ -541,34 +541,34 @@ describe('AssetCreation', () => {
 });
 
 
-describe('AssetModification', () => {
+describe('InstrumentModification', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
-		let initialMessage = new AssetModification();
-		// asset_type (fixedchar)
+		let initialMessage = new InstrumentModification();
+		// instrument_type (fixedchar)
 		{
-			initialMessage.asset_type = [...Array(3).keys()]
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 0))
 				.join('');
 		}
 		
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			initialMessage.asset_code = new AssetCode();
+			initialMessage.instrument_code = new InstrumentCode();
 			
 		}
 		
-		// asset_revision (uint)
+		// instrument_revision (uint)
 		{
 			// IsNativeType
 				{
 			let type = 'uint32';
 			if(type.startsWith('['))
-				initialMessage.asset_revision = getArrayOrType(type);
+				initialMessage.instrument_revision = getArrayOrType(type);
 			else if(type === 'uint64')
-				initialMessage.asset_revision = new BN(65 + 2);
+				initialMessage.instrument_revision = new BN(65 + 2);
 			else
-				initialMessage.asset_revision = 65 + 2;
+				initialMessage.instrument_revision = 65 + 2;
 				}
 		}
 		
@@ -592,7 +592,7 @@ describe('AssetModification', () => {
 		let initialEncoding = initialMessage.Serialize();
 
 		// Decode message
-		let decodedMessage = new AssetModification();
+		let decodedMessage = new InstrumentModification();
 
 		decodedMessage.write(initialEncoding);
 //		err = decodedMessage.Validate();
@@ -610,20 +610,20 @@ describe('AssetModification', () => {
 		// }
 
 		// Compare re-serialized values
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_code (AssetCode)
-		// AssetCode test compare not setup
-		// asset_revision (uint)
+		// instrument_code (InstrumentCode)
+		// InstrumentCode test compare not setup
+		// instrument_revision (uint)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.asset_revision);
-		let decodedJson = JSON.stringify(decodedMessage.asset_revision);
+		let initialJson = JSON.stringify(initialMessage.instrument_revision);
+		let decodedJson = JSON.stringify(decodedMessage.instrument_revision);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("asset_revision doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("instrument_revision doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
 		// amendments (Amendment[])
@@ -743,17 +743,17 @@ describe('ContractOffer', () => {
 				.map(i => i + 65 + 15));
 		}
 		
-		// restricted_qty_assets (uint)
+		// restricted_qty_instruments (uint)
 		{
 			// IsNativeType
 				{
 			let type = 'uint64';
 			if(type.startsWith('['))
-				initialMessage.restricted_qty_assets = getArrayOrType(type);
+				initialMessage.restricted_qty_instruments = getArrayOrType(type);
 			else if(type === 'uint64')
-				initialMessage.restricted_qty_assets = new BN(65 + 16);
+				initialMessage.restricted_qty_instruments = new BN(65 + 16);
 			else
-				initialMessage.restricted_qty_assets = 65 + 16;
+				initialMessage.restricted_qty_instruments = 65 + 16;
 				}
 		}
 		
@@ -884,13 +884,13 @@ describe('ContractOffer', () => {
 				&& !initialMessage.contract_auth_flags.equals(decodedMessage.contract_auth_flags)) {
 			throw new Error(sprintf("contract_auth_flags doesn't match : %x != %x", initialMessage.contract_auth_flags, decodedMessage.contract_auth_flags));
 		}
-		// restricted_qty_assets (uint)
+		// restricted_qty_instruments (uint)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.restricted_qty_assets);
-		let decodedJson = JSON.stringify(decodedMessage.restricted_qty_assets);
+		let initialJson = JSON.stringify(initialMessage.restricted_qty_instruments);
+		let decodedJson = JSON.stringify(decodedMessage.restricted_qty_instruments);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("restricted_qty_assets doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("restricted_qty_instruments doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
 		// administration_proposal (bool)
@@ -1028,17 +1028,17 @@ describe('ContractFormation', () => {
 				.map(i => i + 65 + 15));
 		}
 		
-		// restricted_qty_assets (uint)
+		// restricted_qty_instruments (uint)
 		{
 			// IsNativeType
 				{
 			let type = 'uint64';
 			if(type.startsWith('['))
-				initialMessage.restricted_qty_assets = getArrayOrType(type);
+				initialMessage.restricted_qty_instruments = getArrayOrType(type);
 			else if(type === 'uint64')
-				initialMessage.restricted_qty_assets = new BN(65 + 16);
+				initialMessage.restricted_qty_instruments = new BN(65 + 16);
 			else
-				initialMessage.restricted_qty_assets = 65 + 16;
+				initialMessage.restricted_qty_instruments = 65 + 16;
 				}
 		}
 		
@@ -1189,13 +1189,13 @@ describe('ContractFormation', () => {
 				&& !initialMessage.contract_auth_flags.equals(decodedMessage.contract_auth_flags)) {
 			throw new Error(sprintf("contract_auth_flags doesn't match : %x != %x", initialMessage.contract_auth_flags, decodedMessage.contract_auth_flags));
 		}
-		// restricted_qty_assets (uint)
+		// restricted_qty_instruments (uint)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.restricted_qty_assets);
-		let decodedJson = JSON.stringify(decodedMessage.restricted_qty_assets);
+		let initialJson = JSON.stringify(initialMessage.restricted_qty_instruments);
+		let decodedJson = JSON.stringify(decodedMessage.restricted_qty_instruments);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("restricted_qty_assets doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("restricted_qty_instruments doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
 		// administration_proposal (bool)
@@ -1605,16 +1605,16 @@ describe('Order', () => {
 				}
 		}
 		
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 		if ( initialMessage.compliance_action == char('F') || initialMessage.compliance_action == char('C') || initialMessage.compliance_action == char('R')) {
-			initialMessage.asset_type = [...Array(3).keys()]
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 1))
 				.join('');
 		}
 		
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		if ( initialMessage.compliance_action == char('F') || initialMessage.compliance_action == char('C') || initialMessage.compliance_action == char('R')) {
-			initialMessage.asset_code = new AssetCode();
+			initialMessage.instrument_code = new InstrumentCode();
 			
 		}
 		
@@ -1735,13 +1735,13 @@ describe('Order', () => {
 			throw new Error(sprintf("compliance_action doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_code (AssetCode)
-		// AssetCode test compare not setup
+		// instrument_code (InstrumentCode)
+		// InstrumentCode test compare not setup
 		// target_addresses (TargetAddress[])
 		if ((initialMessage.target_addresses && decodedMessage.target_addresses) 
 				&& initialMessage.target_addresses.length != decodedMessage.target_addresses.length) {
@@ -1818,16 +1818,16 @@ describe('Freeze', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
 		let initialMessage = new Freeze();
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 		{
-			initialMessage.asset_type = [...Array(3).keys()]
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 0))
 				.join('');
 		}
 		
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			initialMessage.asset_code = new AssetCode();
+			initialMessage.instrument_code = new InstrumentCode();
 			
 		}
 		
@@ -1875,13 +1875,13 @@ describe('Freeze', () => {
 		// }
 
 		// Compare re-serialized values
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_code (AssetCode)
-		// AssetCode test compare not setup
+		// instrument_code (InstrumentCode)
+		// InstrumentCode test compare not setup
 		// quantities (QuantityIndex[])
 		if ((initialMessage.quantities && decodedMessage.quantities) 
 				&& initialMessage.quantities.length != decodedMessage.quantities.length) {
@@ -1953,16 +1953,16 @@ describe('Confiscation', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
 		let initialMessage = new Confiscation();
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 		{
-			initialMessage.asset_type = [...Array(3).keys()]
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 0))
 				.join('');
 		}
 		
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			initialMessage.asset_code = new AssetCode();
+			initialMessage.instrument_code = new InstrumentCode();
 			
 		}
 		
@@ -2018,13 +2018,13 @@ describe('Confiscation', () => {
 		// }
 
 		// Compare re-serialized values
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_code (AssetCode)
-		// AssetCode test compare not setup
+		// instrument_code (InstrumentCode)
+		// InstrumentCode test compare not setup
 		// quantities (QuantityIndex[])
 		if ((initialMessage.quantities && decodedMessage.quantities) 
 				&& initialMessage.quantities.length != decodedMessage.quantities.length) {
@@ -2051,16 +2051,16 @@ describe('Reconciliation', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
 		let initialMessage = new Reconciliation();
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 		{
-			initialMessage.asset_type = [...Array(3).keys()]
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 0))
 				.join('');
 		}
 		
-		// asset_code (AssetCode)
+		// instrument_code (InstrumentCode)
 		{
-			initialMessage.asset_code = new AssetCode();
+			initialMessage.instrument_code = new InstrumentCode();
 			
 		}
 		
@@ -2102,13 +2102,13 @@ describe('Reconciliation', () => {
 		// }
 
 		// Compare re-serialized values
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_code (AssetCode)
-		// AssetCode test compare not setup
+		// instrument_code (InstrumentCode)
+		// InstrumentCode test compare not setup
 		// quantities (QuantityIndex[])
 		if ((initialMessage.quantities && decodedMessage.quantities) 
 				&& initialMessage.quantities.length != decodedMessage.quantities.length) {
@@ -2131,21 +2131,21 @@ describe('Proposal', () => {
 				initialMessage.initiator = 1;
 		}
 		
-		// asset_specific_vote (bool)
+		// instrument_specific_vote (bool)
 		{
-			initialMessage.asset_specific_vote = true
+			initialMessage.instrument_specific_vote = true
 		}
 		
-		// asset_type (fixedchar)
-		if (initialMessage.asset_specific_vote) {
-			initialMessage.asset_type = [...Array(3).keys()]
+		// instrument_type (fixedchar)
+		if (initialMessage.instrument_specific_vote) {
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 2))
 				.join('');
 		}
 		
-		// asset_code (AssetCode)
-		if (initialMessage.asset_specific_vote) {
-			initialMessage.asset_code = new AssetCode();
+		// instrument_code (InstrumentCode)
+		if (initialMessage.instrument_specific_vote) {
+			initialMessage.instrument_code = new InstrumentCode();
 			
 		}
 		
@@ -2253,22 +2253,22 @@ describe('Proposal', () => {
 			throw new Error(sprintf("initiator doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_specific_vote (bool)
+		// instrument_specific_vote (bool)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.asset_specific_vote);
-		let decodedJson = JSON.stringify(decodedMessage.asset_specific_vote);
+		let initialJson = JSON.stringify(initialMessage.instrument_specific_vote);
+		let decodedJson = JSON.stringify(decodedMessage.instrument_specific_vote);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("asset_specific_vote doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("instrument_specific_vote doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_code (AssetCode)
-		// AssetCode test compare not setup
+		// instrument_code (InstrumentCode)
+		// InstrumentCode test compare not setup
 		// vote_system (uint)
 			// IsNativeType
 			{
@@ -2511,21 +2511,21 @@ describe('Result', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
 		let initialMessage = new Result();
-		// asset_specific_vote (bool)
+		// instrument_specific_vote (bool)
 		{
-			initialMessage.asset_specific_vote = true
+			initialMessage.instrument_specific_vote = true
 		}
 		
-		// asset_type (fixedchar)
-		if (initialMessage.asset_specific_vote) {
-			initialMessage.asset_type = [...Array(3).keys()]
+		// instrument_type (fixedchar)
+		if (initialMessage.instrument_specific_vote) {
+			initialMessage.instrument_type = [...Array(3).keys()]
 				.map(i => String.fromCharCode(i + 65 + 1))
 				.join('');
 		}
 		
-		// asset_code (AssetCode)
-		if (initialMessage.asset_specific_vote) {
-			initialMessage.asset_code = new AssetCode();
+		// instrument_code (InstrumentCode)
+		if (initialMessage.instrument_specific_vote) {
+			initialMessage.instrument_code = new InstrumentCode();
 			
 		}
 		
@@ -2589,22 +2589,22 @@ describe('Result', () => {
 		// }
 
 		// Compare re-serialized values
-		// asset_specific_vote (bool)
+		// instrument_specific_vote (bool)
 			// IsNativeType
 			{
-		let initialJson = JSON.stringify(initialMessage.asset_specific_vote);
-		let decodedJson = JSON.stringify(decodedMessage.asset_specific_vote);
+		let initialJson = JSON.stringify(initialMessage.instrument_specific_vote);
+		let decodedJson = JSON.stringify(decodedMessage.instrument_specific_vote);
 		if (initialJson !== decodedJson) {
-			throw new Error(sprintf("asset_specific_vote doesn't match : %s != %s", initialJson, decodedJson));
+			throw new Error(sprintf("instrument_specific_vote doesn't match : %s != %s", initialJson, decodedJson));
 		}
 			}
-		// asset_type (fixedchar)
+		// instrument_type (fixedchar)
 			// IsFixedChar
-		if (initialMessage.asset_type != decodedMessage.asset_type) {
-			throw new Error(sprintf("asset_type doesn't match : %s != %s", initialMessage.asset_type, decodedMessage.asset_type));
+		if (initialMessage.instrument_type != decodedMessage.instrument_type) {
+			throw new Error(sprintf("instrument_type doesn't match : %s != %s", initialMessage.instrument_type, decodedMessage.instrument_type));
 		}
-		// asset_code (AssetCode)
-		// AssetCode test compare not setup
+		// instrument_code (InstrumentCode)
+		// InstrumentCode test compare not setup
 		// specific (bool)
 			// IsNativeType
 			{
@@ -3038,10 +3038,10 @@ describe('Transfer', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
 		let initialMessage = new Transfer();
-		// assets (AssetTransfer[])
+		// instruments (InstrumentTransfer[])
 		{
 			// IsInternalTypeArray
-			initialMessage.assets = [...Array(2)].map(() => new AssetTransfer());
+			initialMessage.instruments = [...Array(2)].map(() => new InstrumentTransfer());
 		}
 		
 		// offer_expiry (Timestamp)
@@ -3096,10 +3096,10 @@ describe('Transfer', () => {
 		// }
 
 		// Compare re-serialized values
-		// assets (AssetTransfer[])
-		if ((initialMessage.assets && decodedMessage.assets) 
-				&& initialMessage.assets.length != decodedMessage.assets.length) {
-			throw new Error(sprintf("assets lengths don't match : %d != %d", initialMessage.assets.length, decodedMessage.assets.length));
+		// instruments (InstrumentTransfer[])
+		if ((initialMessage.instruments && decodedMessage.instruments)
+				&& initialMessage.instruments.length != decodedMessage.instruments.length) {
+			throw new Error(sprintf("instruments lengths don't match : %d != %d", initialMessage.instruments.length, decodedMessage.instruments.length));
 		}
 		// offer_expiry (Timestamp)
 		// Timestamp test compare not setup
@@ -3124,10 +3124,10 @@ describe('Settlement', () => {
 	it('should encode and decode', () => {
 		// Create a randomized object
 		let initialMessage = new Settlement();
-		// assets (AssetSettlement[])
+		// instruments (InstrumentSettlement[])
 		{
 			// IsInternalTypeArray
-			initialMessage.assets = [...Array(2)].map(() => new AssetSettlement());
+			initialMessage.instruments = [...Array(2)].map(() => new InstrumentSettlement());
 		}
 		
 		// timestamp (Timestamp)
@@ -3162,10 +3162,10 @@ describe('Settlement', () => {
 		// }
 
 		// Compare re-serialized values
-		// assets (AssetSettlement[])
-		if ((initialMessage.assets && decodedMessage.assets) 
-				&& initialMessage.assets.length != decodedMessage.assets.length) {
-			throw new Error(sprintf("assets lengths don't match : %d != %d", initialMessage.assets.length, decodedMessage.assets.length));
+		// instruments (InstrumentSettlement[])
+		if ((initialMessage.instruments && decodedMessage.instruments)
+				&& initialMessage.instruments.length != decodedMessage.instruments.length) {
+			throw new Error(sprintf("instruments lengths don't match : %d != %d", initialMessage.instruments.length, decodedMessage.instruments.length));
 		}
 		// timestamp (Timestamp)
 		// Timestamp test compare not setup

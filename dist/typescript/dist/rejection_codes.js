@@ -16,9 +16,9 @@ var RejectCodes;
     RejectCodes[RejectCodes["RejectDoubleSpend"] = 5] = "RejectDoubleSpend";
     // ContractExists - The contract already exists and can't be recreated.
     RejectCodes[RejectCodes["RejectContractExists"] = 10] = "RejectContractExists";
-    // ContractAssetQtyReduction - Sent when a CA tries to reduce the number of allowed assets below the number of assets that already exist for this contract.
-    RejectCodes[RejectCodes["RejectContractAssetQtyReduction"] = 12] = "RejectContractAssetQtyReduction";
-    // ContractFixedQuantity - Sent when the administration attempted to increase the quantity of assets in a contract beyond the maximum number allowed.
+    // ContractInstrumentQtyReduction - Sent when a CA tries to reduce the number of allowed instruments below the number of instruments that already exist for this contract.
+    RejectCodes[RejectCodes["RejectContractInstrumentQtyReduction"] = 12] = "RejectContractInstrumentQtyReduction";
+    // ContractFixedQuantity - Sent when the administration attempted to increase the quantity of instruments in a contract beyond the maximum number allowed.
     RejectCodes[RejectCodes["RejectContractFixedQuantity"] = 13] = "RejectContractFixedQuantity";
     // ContractAuthFlags - The contract auth flags don't permit the action requested.
     RejectCodes[RejectCodes["RejectContractAuthFlags"] = 14] = "RejectContractAuthFlags";
@@ -32,18 +32,18 @@ var RejectCodes;
     RejectCodes[RejectCodes["RejectContractNotPermitted"] = 18] = "RejectContractNotPermitted";
     // ContractBothOperatorsRequired - Both operators signatures are required to perform this action.
     RejectCodes[RejectCodes["RejectContractBothOperatorsRequired"] = 19] = "RejectContractBothOperatorsRequired";
-    // AssetCodeExists - The asset code specified already exists and can't be reused.
-    RejectCodes[RejectCodes["RejectAssetCodeExists"] = 20] = "RejectAssetCodeExists";
-    // AssetNotFound - The asset code is not found.
-    RejectCodes[RejectCodes["RejectAssetNotFound"] = 21] = "RejectAssetNotFound";
-    // AssetAuthFlags - The asset auth flags don't permit the action requested.
-    RejectCodes[RejectCodes["RejectAssetAuthFlags"] = 22] = "RejectAssetAuthFlags";
-    // AssetFrozen - The asset is frozen and the request is not permitted while frozen.
-    RejectCodes[RejectCodes["RejectAssetFrozen"] = 23] = "RejectAssetFrozen";
-    // AssetRevision - The revision in an asset amendment is incorrect.
-    RejectCodes[RejectCodes["RejectAssetRevision"] = 24] = "RejectAssetRevision";
-    // AssetNotPermitted - Action not permitted by asset.
-    RejectCodes[RejectCodes["RejectAssetNotPermitted"] = 25] = "RejectAssetNotPermitted";
+    // InstrumentCodeExists - The instrument code specified already exists and can't be reused.
+    RejectCodes[RejectCodes["RejectInstrumentCodeExists"] = 20] = "RejectInstrumentCodeExists";
+    // InstrumentNotFound - The instrument code is not found.
+    RejectCodes[RejectCodes["RejectInstrumentNotFound"] = 21] = "RejectInstrumentNotFound";
+    // InstrumentAuthFlags - The instrument auth flags don't permit the action requested.
+    RejectCodes[RejectCodes["RejectInstrumentAuthFlags"] = 22] = "RejectInstrumentAuthFlags";
+    // InstrumentFrozen - The instrument is frozen and the request is not permitted while frozen.
+    RejectCodes[RejectCodes["RejectInstrumentFrozen"] = 23] = "RejectInstrumentFrozen";
+    // InstrumentRevision - The revision in an instrument amendment is incorrect.
+    RejectCodes[RejectCodes["RejectInstrumentRevision"] = 24] = "RejectInstrumentRevision";
+    // InstrumentNotPermitted - Action not permitted by instrument.
+    RejectCodes[RejectCodes["RejectInstrumentNotPermitted"] = 25] = "RejectInstrumentNotPermitted";
     // TransferSelf - Transfers with the sender and receiver addresses the same are not permitted.
     RejectCodes[RejectCodes["RejectTransferSelf"] = 30] = "RejectTransferSelf";
     // TransferExpired - The transfer has expired.

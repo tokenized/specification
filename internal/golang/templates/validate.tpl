@@ -440,7 +440,6 @@ func findTerms(text string, terms map[string]int) map[string]int {
 
 // Terms adds any terms in the chapter or its articles to the map.
 func (c *ChapterField) Terms(terms map[string]int) map[string]int {
-    terms = findTerms(c.Title, terms)
     terms = findTerms(c.Preamble, terms)
 
     for _, article := range c.Articles {
@@ -452,7 +451,6 @@ func (c *ChapterField) Terms(terms map[string]int) map[string]int {
 
 // Terms adds any terms in the clause or its children to the map.
 func (c *ClauseField) Terms(terms map[string]int) map[string]int {
-    terms = findTerms(c.Title, terms)
     terms = findTerms(c.Body, terms)
 
     for _, child := range c.Children {

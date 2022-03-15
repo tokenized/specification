@@ -21,7 +21,7 @@ properties:
     description:  >
       SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full
       agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified
-      in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal and
+      in a C6/C7 action. This is specific to the smart contract and relevant Instruments. Legal and
       technical information.
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
@@ -45,9 +45,9 @@ properties:
     description:  >
       Points to an information page that also has a copy of the Contract.  Anyone can go to the
       website to have a look at the price/token, information about the issuer (company), information
-      about the asset, legal information, etc.  There will also be a way for token owners to vote on
-      this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or
-      txn-id for on-chain information or even a public address (DNS).
+      about the instrument, legal information, etc.  There will also be a way for token owners to
+      vote on this page and contact details with the issuer/tokenized companies. Could be a
+      IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).
     type: string
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
   Issuer:
@@ -60,7 +60,7 @@ properties:
       just funding and "includes" fields are skipped in serialization.
     type: boolean
   ContractFee:
-    description: Satoshis required to be paid to the contract for each asset action.
+    description: Satoshis required to be paid to the contract for each instrument action.
     type: number
   VotingSystems:
     description: A list of voting systems.
@@ -74,10 +74,10 @@ properties:
       permissions for modifying this contract. See the Permission documentation for more detail.
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
-  RestrictedQtyAssets:
+  RestrictedQtyInstruments:
     description:  >
-      Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display
-      an infinity symbol in UI
+      Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will
+      display an infinity symbol in UI
     type: number
     example: 1
   AdministrationProposal:
@@ -93,7 +93,7 @@ properties:
     example: true
   Oracles:
     description:  >
-      A list of oracles that provide approval for all token transfers for all assets under the
+      A list of oracles that provide approval for all token transfers for all instruments under the
       contract.
     type: array
     items:
@@ -107,8 +107,8 @@ properties:
     example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   EntityContract:
     description:  >
-      The address of the contract's parent entity. This is optional for entity contracts, but
-      required for asset and service contracts to identify the entity parent contract.
+      The address of the contract's parent entity. This is not valid for entity contracts, but
+      required for instrument and service contracts to identify the entity parent contract.
     type: string
     example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   OperatorEntityContract:
@@ -116,7 +116,7 @@ properties:
     type: string
     example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   ContractType:
-    description: Describes the purpose of the contract. 0 - Entity, 1 - Asset
+    description: Describes the purpose of the contract. 0 - Entity, 1 - Instrument
     type: number
     example: 0
   Services:

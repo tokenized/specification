@@ -2,12 +2,12 @@
 description: Settles the transfer request of bitcoins and tokens from transfer (T1) actions.
 type: object
 properties:
-  Assets:
-    description: The Assets settled by the transfer action.
+  Instruments:
+    description: The Instruments settled by the transfer action.
     type: array
     items:
       type: object
-      $ref: "#/components/schemas/AssetSettlementField"
+      $ref: "#/components/schemas/InstrumentSettlementField"
   Timestamp:
     description: Timestamp in nanoseconds of when the smart contract created the action.
     type: number

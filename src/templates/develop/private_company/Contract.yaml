@@ -78,7 +78,7 @@ Permissions:
       - Special Resolution
     Fields:
       - [Issuer, CountryCode]
-      - [RestrictedQtyAssets]
+      - [RestrictedQtyInstruments]
 
   - Name: Administrator/Holder Proposal Special Resolution
     Permitted: false

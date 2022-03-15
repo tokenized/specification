@@ -45,14 +45,14 @@ const (
 	// CodeBodyOfAgreementAmendment identifies a payload as a BodyOfAgreementAmendment action message.
 	CodeBodyOfAgreementAmendment = "C8"
 
-	// CodeAssetDefinition identifies a payload as a AssetDefinition action message.
-	CodeAssetDefinition = "A1"
+	// CodeInstrumentDefinition identifies a payload as a InstrumentDefinition action message.
+	CodeInstrumentDefinition = "I1"
 
-	// CodeAssetCreation identifies a payload as a AssetCreation action message.
-	CodeAssetCreation = "A2"
+	// CodeInstrumentCreation identifies a payload as a InstrumentCreation action message.
+	CodeInstrumentCreation = "I2"
 
-	// CodeAssetModification identifies a payload as a AssetModification action message.
-	CodeAssetModification = "A3"
+	// CodeInstrumentModification identifies a payload as a InstrumentModification action message.
+	CodeInstrumentModification = "I3"
 
 	// CodeTransfer identifies a payload as a Transfer action message.
 	CodeTransfer = "T1"
@@ -108,6 +108,15 @@ const (
 	// CodeRejection identifies a payload as a Rejection action message.
 	CodeRejection = "M2"
 
+	// CodeAssetDefinition (Deprecated) identifies a payload as a InstrumentDefinition action message.
+	CodeAssetDefinition = "A1"
+
+	// CodeAssetCreation (Deprecated) identifies a payload as a InstrumentCreation action message.
+	CodeAssetCreation = "A2"
+
+	// CodeAssetModification (Deprecated) identifies a payload as a InstrumentModification action message.
+	CodeAssetModification = "A3"
+
 	// ServiceTypeIdentityOracle identifies an identity oracle
 	ServiceTypeIdentityOracle = uint32(0)
 
@@ -135,8 +144,8 @@ const (
 	// ContractTypeEntity identifies an entity contract
 	ContractTypeEntity = uint32(0)
 
-	// ContractTypeAsset identifies an asset contract
-	ContractTypeAsset = uint32(1)
+	// ContractTypeInstrument identifies an instrument contract
+	ContractTypeInstrument = uint32(1)
 
 	// ContractBodyOfAgreementTypeNone identifies a contract with no body of agreement specified.
 	ContractBodyOfAgreementTypeNone = uint32(0)
@@ -169,12 +178,12 @@ func NewActionFromCode(code string) Action {
 		return &BodyOfAgreementFormation{}
 	case CodeBodyOfAgreementAmendment:
 		return &BodyOfAgreementAmendment{}
-	case CodeAssetDefinition:
-		return &AssetDefinition{}
-	case CodeAssetCreation:
-		return &AssetCreation{}
-	case CodeAssetModification:
-		return &AssetModification{}
+	case CodeInstrumentDefinition:
+		return &InstrumentDefinition{}
+	case CodeInstrumentCreation:
+		return &InstrumentCreation{}
+	case CodeInstrumentModification:
+		return &InstrumentModification{}
 	case CodeTransfer:
 		return &Transfer{}
 	case CodeSettlement:
@@ -211,6 +220,12 @@ func NewActionFromCode(code string) Action {
 		return &Message{}
 	case CodeRejection:
 		return &Rejection{}
+	case CodeAssetDefinition: // Deprecated, but backwards compatible
+		return &InstrumentDefinition{}
+	case CodeAssetCreation: // Deprecated, but backwards compatible
+		return &InstrumentCreation{}
+	case CodeAssetModification: // Deprecated, but backwards compatible
+		return &InstrumentModification{}
 	default:
 		return nil
 	}
@@ -264,16 +279,16 @@ func (a *BodyOfAgreementAmendment) Code() string {
 	return CodeBodyOfAgreementAmendment
 }
 
-func (a *AssetDefinition) Code() string {
-	return CodeAssetDefinition
+func (a *InstrumentDefinition) Code() string {
+	return CodeInstrumentDefinition
 }
 
-func (a *AssetCreation) Code() string {
-	return CodeAssetCreation
+func (a *InstrumentCreation) Code() string {
+	return CodeInstrumentCreation
 }
 
-func (a *AssetModification) Code() string {
-	return CodeAssetModification
+func (a *InstrumentModification) Code() string {
+	return CodeInstrumentModification
 }
 
 func (a *Transfer) Code() string {

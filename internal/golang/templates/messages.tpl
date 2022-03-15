@@ -65,7 +65,7 @@ func (a *{{.Name}}) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
-// Serialize writes an asset to a byte slice.
+// Serialize writes an instrument to a byte slice.
 func (a *{{.Name}}) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {

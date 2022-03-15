@@ -1,7 +1,7 @@
 
 name: Amendment
 label: Amendment
-description: "An Amendment is used to describe the modification of a single field in a Contract or Asset, as defined in the ContractFormation and AssetCreation messages."
+description: "An Amendment is used to describe the modification of a single field in a Contract or Instrument, as defined in the ContractFormation and InstrumentCreation messages."
 
 metadata:
   notes: "Header, timestamp, and count fields that are generated or managed by the Smart Contract are included in the index of fields for consistency, although they cannot be modified on request, or in the case of a count field, there are expectations such as the count matching the number of elements in the related field. An example of a count field is VotingSystemCount in a ContractFormation, which specifies the number of VotingSystems. Indexes are zero based."
@@ -12,7 +12,7 @@ fields:
     description: "List of indices that identify the field/sub-field to be amended."
     type: varbin
     size: tiny
-    notes: "The index path of the field being modified. Encoded as a list of base 128 var ints. Each index is an index into the current object, top level being the ContractFormation or AssetCreation. Indexes are defined by protobuf messages. If the current level is a list, then the index is a zero based offset to the element in the list."
+    notes: "The index path of the field being modified. Encoded as a list of base 128 var ints. Each index is an index into the current object, top level being the ContractFormation or InstrumentCreation. Indexes are defined by protobuf messages. If the current level is a list, then the index is a zero based offset to the element in the list."
 
   - name: Operation
     label: Operation

@@ -6,7 +6,7 @@ import (
 
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/pkg/json"
-	"github.com/tokenized/specification/dist/golang/assets"
+	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
 	"github.com/golang/protobuf/proto"
@@ -55,14 +55,14 @@ func TestContractCreateAmendments(t *testing.T) {
 		{
 			name: "Change name",
 			current: &ContractFormation{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 			},
 			newValue: &ContractOffer{
-				ContractName:        "New Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "New Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
@@ -76,17 +76,17 @@ func TestContractCreateAmendments(t *testing.T) {
 		{
 			name: "Change issuer name",
 			current: &ContractFormation{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 				Issuer: &EntityField{
 					Name: "Original",
 				},
 			},
 			newValue: &ContractOffer{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 				Issuer: &EntityField{
 					Name: "New",
 				},
@@ -103,19 +103,19 @@ func TestContractCreateAmendments(t *testing.T) {
 		{
 			name: "Change restricted quantity",
 			current: &ContractFormation{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 			},
 			newValue: &ContractOffer{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 2,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 2,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(ContractFieldRestrictedQtyAssets)},
+					FieldIndexPath: []byte{1, byte(ContractFieldRestrictedQtyInstruments)},
 					Operation:      0,
 					Data:           []byte{2},
 				},
@@ -124,14 +124,14 @@ func TestContractCreateAmendments(t *testing.T) {
 		{
 			name: "Change 2 fields",
 			current: &ContractFormation{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 			},
 			newValue: &ContractOffer{
-				ContractName:        "New Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 2,
+				ContractName:             "New Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 2,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
@@ -141,7 +141,7 @@ func TestContractCreateAmendments(t *testing.T) {
 					Data:           []byte("New Name"),
 				},
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(ContractFieldRestrictedQtyAssets)},
+					FieldIndexPath: []byte{1, byte(ContractFieldRestrictedQtyInstruments)},
 					Operation:      0,
 					Data:           []byte{2},
 				},
@@ -150,9 +150,9 @@ func TestContractCreateAmendments(t *testing.T) {
 		{
 			name: "Change service key",
 			current: &ContractFormation{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 				Services: []*ServiceField{
 					&ServiceField{
 						Type:      ServiceTypeIdentityOracle,
@@ -162,9 +162,9 @@ func TestContractCreateAmendments(t *testing.T) {
 				},
 			},
 			newValue: &ContractOffer{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 				Services: []*ServiceField{
 					&ServiceField{
 						Type:      ServiceTypeIdentityOracle,
@@ -186,9 +186,9 @@ func TestContractCreateAmendments(t *testing.T) {
 		{
 			name: "Remove last service",
 			current: &ContractFormation{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 				Services: []*ServiceField{
 					&ServiceField{
 						Type:      ServiceTypeIdentityOracle,
@@ -203,9 +203,9 @@ func TestContractCreateAmendments(t *testing.T) {
 				},
 			},
 			newValue: &ContractOffer{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 				Services: []*ServiceField{
 					&ServiceField{
 						Type:      ServiceTypeIdentityOracle,
@@ -228,9 +228,9 @@ func TestContractCreateAmendments(t *testing.T) {
 			// removing the second item.
 			name: "Remove first service",
 			current: &ContractFormation{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 				Services: []*ServiceField{
 					&ServiceField{
 						Type:      ServiceTypeIdentityOracle,
@@ -245,9 +245,9 @@ func TestContractCreateAmendments(t *testing.T) {
 				},
 			},
 			newValue: &ContractOffer{
-				ContractName:        "Original Name",
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				ContractName:             "Original Name",
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 				Services: []*ServiceField{
 					&ServiceField{
 						Type:      ServiceTypeAuthorityOracle,
@@ -292,8 +292,8 @@ func TestContractCreateAmendments(t *testing.T) {
 						EntityContract: entityAddress.Bytes(),
 					},
 				},
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 			},
 			newValue: &ContractOffer{
 				ContractName: "Original Name",
@@ -303,8 +303,8 @@ func TestContractCreateAmendments(t *testing.T) {
 						EntityContract: entityAddress.Bytes(),
 					},
 				},
-				MasterAddress:       address1.Bytes(),
-				RestrictedQtyAssets: 1,
+				MasterAddress:            address1.Bytes(),
+				RestrictedQtyInstruments: 1,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
@@ -650,6 +650,120 @@ func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 						byte(0), // first term
 					},
 					Operation: AmendmentOperationRemoveElement,
+				},
+			},
+		},
+		{
+			name: "Add First Article",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(4), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(0), // first article
+					},
+					Operation: 1,
+					Data: []byte{10, 9, 65, 114, 116, 105, 99, 108, 101, 32, 49, 18, 6, 66,
+						111, 100, 121, 32, 49},
+				},
+			},
+		},
+		{
+			name: "Add Second Article",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Use of [Term]().",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+							{
+								Title: "Article 2",
+								Body:  "Body 2",
+							},
+						},
+					},
+				},
+				Definitions: []*DefinedTermField{
+					&DefinedTermField{
+						Term:       "Term",
+						Definition: "Definition of term",
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(4), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(1), // second article
+					},
+					Operation: 1,
+					Data: []byte{10, 9, 65, 114, 116, 105, 99, 108, 101, 32, 50, 18, 6, 66,
+						111, 100, 121, 32, 50},
 				},
 			},
 		},
@@ -1032,8 +1146,8 @@ func TestBodyOfAgreementApplyAmendments(t *testing.T) {
 	}
 }
 
-func TestAssetCreateAmendments(t *testing.T) {
-	currency := &assets.Currency{
+func TestInstrumentCreateAmendments(t *testing.T) {
+	currency := &instruments.Currency{
 		CurrencyCode: "USD",
 		Precision:    100,
 	}
@@ -1041,31 +1155,31 @@ func TestAssetCreateAmendments(t *testing.T) {
 
 	tests := []struct {
 		name       string
-		current    *AssetCreation
-		newValue   *AssetDefinition
+		current    *InstrumentCreation
+		newValue   *InstrumentDefinition
 		err        error
 		amendments []*AmendmentField
 	}{
 		{
 			name: "Change transfers permitted",
-			current: &AssetCreation{
+			current: &InstrumentCreation{
 				EnforcementOrdersPermitted: false,
 				TradeRestrictions:          []string{"AUS"},
 				AuthorizedTokenQty:         10000,
-				AssetType:                  "CCY",
-				AssetPayload:               currencyPayload,
+				InstrumentType:             "CCY",
+				InstrumentPayload:          currencyPayload,
 			},
-			newValue: &AssetDefinition{
+			newValue: &InstrumentDefinition{
 				EnforcementOrdersPermitted: true,
 				TradeRestrictions:          []string{"AUS"},
 				AuthorizedTokenQty:         10000,
-				AssetType:                  "CCY",
-				AssetPayload:               currencyPayload,
+				InstrumentType:             "CCY",
+				InstrumentPayload:          currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldEnforcementOrdersPermitted)},
+					FieldIndexPath: []byte{1, byte(InstrumentFieldEnforcementOrdersPermitted)},
 					Operation:      0,
 					Data:           []byte{1},
 				},
@@ -1073,22 +1187,22 @@ func TestAssetCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Change token quantity",
-			current: &AssetCreation{
+			current: &InstrumentCreation{
 				TradeRestrictions:  []string{"AUS"},
 				AuthorizedTokenQty: 10000,
-				AssetType:          "CCY",
-				AssetPayload:       currencyPayload,
+				InstrumentType:     "CCY",
+				InstrumentPayload:  currencyPayload,
 			},
-			newValue: &AssetDefinition{
+			newValue: &InstrumentDefinition{
 				TradeRestrictions:  []string{"AUS"},
 				AuthorizedTokenQty: 100000,
-				AssetType:          "CCY",
-				AssetPayload:       currencyPayload,
+				InstrumentType:     "CCY",
+				InstrumentPayload:  currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldAuthorizedTokenQty)},
+					FieldIndexPath: []byte{1, byte(InstrumentFieldAuthorizedTokenQty)},
 					Operation:      0,
 					Data:           []byte{160, 141, 6}, // base 128 var int encoding of 100000
 				},
@@ -1096,29 +1210,29 @@ func TestAssetCreateAmendments(t *testing.T) {
 		},
 		{
 			name: "Change two fields",
-			current: &AssetCreation{
+			current: &InstrumentCreation{
 				EnforcementOrdersPermitted: false,
 				TradeRestrictions:          []string{"AUS"},
 				AuthorizedTokenQty:         10000,
-				AssetType:                  "CCY",
-				AssetPayload:               currencyPayload,
+				InstrumentType:             "CCY",
+				InstrumentPayload:          currencyPayload,
 			},
-			newValue: &AssetDefinition{
+			newValue: &InstrumentDefinition{
 				EnforcementOrdersPermitted: true,
 				TradeRestrictions:          []string{"AUS"},
 				AuthorizedTokenQty:         100000,
-				AssetType:                  "CCY",
-				AssetPayload:               currencyPayload,
+				InstrumentType:             "CCY",
+				InstrumentPayload:          currencyPayload,
 			},
 			err: nil,
 			amendments: []*AmendmentField{
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldEnforcementOrdersPermitted)},
+					FieldIndexPath: []byte{1, byte(InstrumentFieldEnforcementOrdersPermitted)},
 					Operation:      0,
 					Data:           []byte{1},
 				},
 				&AmendmentField{
-					FieldIndexPath: []byte{1, byte(AssetFieldAuthorizedTokenQty)},
+					FieldIndexPath: []byte{1, byte(InstrumentFieldAuthorizedTokenQty)},
 					Operation:      0,
 					Data:           []byte{160, 141, 6}, // base 128 var int encoding of 100000
 				},
@@ -1162,7 +1276,7 @@ func TestAssetCreateAmendments(t *testing.T) {
 				}
 			}
 
-			amended := &AssetCreation{}
+			amended := &InstrumentCreation{}
 			if err := convert(amended, tt.current); err != nil {
 				t.Errorf("Failed to convert current value : %s", err)
 				return
@@ -1181,7 +1295,7 @@ func TestAssetCreateAmendments(t *testing.T) {
 				}
 			}
 
-			newValue := &AssetCreation{}
+			newValue := &InstrumentCreation{}
 			if err := convert(newValue, tt.newValue); err != nil {
 				t.Errorf("Failed to convert new value : %s", err)
 				return
@@ -1195,9 +1309,9 @@ func TestAssetCreateAmendments(t *testing.T) {
 	}
 }
 
-func TestAssetCreateAmendmentsCouponName(t *testing.T) {
-	currentCoupon := &assets.Coupon{
-		FaceValue: &assets.CurrencyValueField{
+func TestInstrumentCreateAmendmentsCouponName(t *testing.T) {
+	currentCoupon := &instruments.Coupon{
+		FaceValue: &instruments.CurrencyValueField{
 			Value:        100,
 			CurrencyCode: "USD",
 			Precision:    2,
@@ -1207,15 +1321,15 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 
 	cb, _ := currentCoupon.Bytes()
 
-	current := &AssetCreation{
+	current := &InstrumentCreation{
 		TradeRestrictions:  []string{"AUS"},
 		AuthorizedTokenQty: 10000,
-		AssetType:          assets.CodeCoupon,
-		AssetPayload:       cb,
+		InstrumentType:     instruments.CodeCoupon,
+		InstrumentPayload:  cb,
 	}
 
-	newCoupon := &assets.Coupon{
-		FaceValue: &assets.CurrencyValueField{
+	newCoupon := &instruments.Coupon{
+		FaceValue: &instruments.CurrencyValueField{
 			Value:        100,
 			CurrencyCode: "USD",
 			Precision:    2,
@@ -1225,11 +1339,11 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 
 	nb, _ := newCoupon.Bytes()
 
-	newValue := &AssetDefinition{
+	newValue := &InstrumentDefinition{
 		TradeRestrictions:  []string{"AUS"},
 		AuthorizedTokenQty: 10000,
-		AssetType:          assets.CodeCoupon,
-		AssetPayload:       nb,
+		InstrumentType:     instruments.CodeCoupon,
+		InstrumentPayload:  nb,
 	}
 
 	amendments, err := current.CreateAmendments(newValue)
@@ -1243,7 +1357,7 @@ func TestAssetCreateAmendmentsCouponName(t *testing.T) {
 
 	// Check amendment
 	expectedAmendment := &AmendmentField{
-		FieldIndexPath: []byte{2, byte(AssetFieldAssetPayload), byte(assets.CouponFieldCouponName)},
+		FieldIndexPath: []byte{2, byte(InstrumentFieldInstrumentPayload), byte(instruments.CouponFieldCouponName)},
 		Operation:      0,
 		Data:           []byte("New Test Coupon"),
 	}

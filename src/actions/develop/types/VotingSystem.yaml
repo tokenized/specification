@@ -32,7 +32,7 @@ fields:
 
   - name: VoteMultiplierPermitted
     label: VoteMultiplierPermitted
-    description: "Where an asset has a vote multiplier, true must be set here for the vote multiplier to count, otherwise votes are simply treated as 1x per token."
+    description: "Where an instrument has a vote multiplier, true must be set here for the vote multiplier to count, otherwise votes are simply treated as 1x per token."
     type: bool
 
   - name: HolderProposalFee

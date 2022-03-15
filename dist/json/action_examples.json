@@ -76,7 +76,7 @@
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
       ],
-      "RestrictedQtyAssets": "1",
+      "RestrictedQtyInstruments": "1",
       "Services": [
         {
           "PublicKey": "027fed903fe7d94a7a5bab491fb728aebcc74260840c0b3d4dadb870cd34ffbfc4",
@@ -182,7 +182,7 @@
           "URL": "http://oracle.tokenized.com/api/3650d9/version2010"
         }
       ],
-      "RestrictedQtyAssets": "1",
+      "RestrictedQtyInstruments": "1",
       "Services": [
         {
           "PublicKey": "027fed903fe7d94a7a5bab491fb728aebcc74260840c0b3d4dadb870cd34ffbfc4",
@@ -390,20 +390,20 @@
     }
   },
   {
-    "code": "A1",
-    "label": "Asset Definition",
-    "name": "AssetDefinition",
+    "code": "I1",
+    "label": "Instrument Definition",
+    "name": "InstrumentDefinition",
     "fields": {
       "(Deprecated)TradeRestrictionsDeprecated": null,
       "(Deprecated)TransfersPermitted": null,
       "AdministrationProposal": "true",
-      "AssetModificationGovernance": "1",
-      "AssetPayload": null,
-      "AssetPermissions": null,
-      "AssetType": "CCY",
       "AuthorizedTokenQty": "1000000",
       "EnforcementOrdersPermitted": "1",
       "HolderProposal": "true",
+      "InstrumentModificationGovernance": "1",
+      "InstrumentPayload": null,
+      "InstrumentPermissions": null,
+      "InstrumentType": "CCY",
       "TradeRestrictions": [
         "GBR"
       ],
@@ -412,23 +412,23 @@
     }
   },
   {
-    "code": "A2",
-    "label": "Asset Creation",
-    "name": "AssetCreation",
+    "code": "I2",
+    "label": "Instrument Creation",
+    "name": "InstrumentCreation",
     "fields": {
       "(Deprecated)TradeRestrictionsDeprecated": null,
       "(Deprecated)TransfersPermitted": null,
       "AdministrationProposal": "true",
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "AssetIndex": "0",
-      "AssetModificationGovernance": "1",
-      "AssetPayload": null,
-      "AssetPermissions": null,
-      "AssetRevision": "456789",
-      "AssetType": "CCY",
       "AuthorizedTokenQty": "1000000",
       "EnforcementOrdersPermitted": "true",
       "HolderProposal": "true",
+      "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentIndex": "0",
+      "InstrumentModificationGovernance": "1",
+      "InstrumentPayload": null,
+      "InstrumentPermissions": null,
+      "InstrumentRevision": "456789",
+      "InstrumentType": "CCY",
       "Timestamp": "1594668650000000000",
       "TradeRestrictions": [
         "GBR"
@@ -438,9 +438,9 @@
     }
   },
   {
-    "code": "A3",
-    "label": "Asset Modification",
-    "name": "AssetModification",
+    "code": "I3",
+    "label": "Instrument Modification",
+    "name": "InstrumentModification",
     "fields": {
       "Amendments": [
         {
@@ -449,9 +449,9 @@
           "Operation": "0"
         }
       ],
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "AssetRevision": "0",
-      "AssetType": "SHC",
+      "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentRevision": "0",
+      "InstrumentType": "SHC",
       "RefTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
     }
   },
@@ -460,10 +460,13 @@
     "label": "Transfer",
     "name": "Transfer",
     "fields": {
-      "Assets": [
+      "ExchangeFee": "0.01",
+      "ExchangeFeeAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+      "Instruments": [
         {
-          "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-          "AssetReceivers": [
+          "ContractIndex": null,
+          "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+          "InstrumentReceivers": [
             {
               "Address": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
               "OracleConfirmationSig": "3044022036164b0c724e6f19e234306444a11631b2f8e47d05468a099928adce0dead62102205138a635827d61915483e7ca1a53b37975a9aa0617c78ef7ac199d94742c36cf",
@@ -474,18 +477,15 @@
               "Quantity": "100"
             }
           ],
-          "AssetSenders": [
+          "InstrumentSenders": [
             {
               "Index": "0",
               "Quantity": "100"
             }
           ],
-          "AssetType": "SHC",
-          "ContractIndex": null
+          "InstrumentType": "SHC"
         }
       ],
-      "ExchangeFee": "0.01",
-      "ExchangeFeeAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
       "OfferExpiry": "1594668650000000000"
     }
   },
@@ -494,11 +494,11 @@
     "label": "Settlement",
     "name": "Settlement",
     "fields": {
-      "Assets": [
+      "Instruments": [
         {
-          "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-          "AssetType": "SHC",
           "ContractIndex": null,
+          "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+          "InstrumentType": "SHC",
           "Settlements": [
             {
               "Index": "0",
@@ -515,8 +515,8 @@
     "label": "Proposal",
     "name": "Proposal",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "AssetType": "SHC",
+      "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentType": "SHC",
       "ProposalDescription": "Change the name of the Contract.",
       "ProposalDocumentHash": "77201b0094f50df309f0343e4f44dae64d0de503c91038faf2c6b039f9f18aec",
       "ProposedAmendments": [
@@ -566,8 +566,8 @@
     "label": "Result",
     "name": "Result",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "AssetType": "SHC",
+      "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentType": "SHC",
       "OptionTally": [
         null
       ],
@@ -590,8 +590,6 @@
     "fields": {
       "(Deprecated)RefTxs": null,
       "(Deprecated)SupportingEvidenceHash": null,
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "AssetType": "SHC",
       "AuthorityName": "Supreme and District Courts Brisbane",
       "AuthorityPublicKey": null,
       "BitcoinDispersions": [
@@ -604,6 +602,8 @@
       "DepositAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
       "FreezePeriod": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
       "FreezeTxId": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506",
+      "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentType": "SHC",
       "Message": "Compelled by a court order.",
       "OrderSignature": null,
       "ReferenceTransactions": [
@@ -630,9 +630,9 @@
     "label": "Freeze",
     "name": "Freeze",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "AssetType": "SHC",
       "FreezePeriod": "1594668650000000000",
+      "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentType": "SHC",
       "Quantities": [
         {
           "Index": "0",
@@ -656,9 +656,9 @@
     "label": "Confiscation",
     "name": "Confiscation",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "AssetType": "SHC",
       "DepositQty": "10000",
+      "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentType": "SHC",
       "Quantities": [
         {
           "Index": "0",
@@ -673,8 +673,8 @@
     "label": "Reconciliation",
     "name": "Reconciliation",
     "fields": {
-      "AssetCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
-      "AssetType": "SHC",
+      "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentType": "SHC",
       "Quantities": [
         {
           "Index": "0",

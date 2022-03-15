@@ -1,0 +1,21 @@
+
+description: Common stock represents ownership interests in companies.
+type: object
+properties:
+  Ticker:
+    description: Ticker symbol assigned by exchanges to represent the instrument.
+    type: string
+    example: "AAPL"
+  ISIN:
+    description: International Securities Identification Number
+    type: string
+    example: "US0004026250"
+  Description:
+    type: string
+    example: "Class C"
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
+

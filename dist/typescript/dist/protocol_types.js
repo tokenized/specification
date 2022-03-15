@@ -61,12 +61,12 @@ class TxId {
 }
 exports.TxId = TxId;
 const zeroTxId = new TxId();
-class AssetCode {
+class InstrumentCode {
     constructor() {
         this.data = Buffer.alloc(32, 0);
     }
     static fromBytes(data) {
-        const code = new AssetCode();
+        const code = new InstrumentCode();
         code.data = Buffer.from(data);
         return code;
     }
@@ -77,7 +77,7 @@ class AssetCode {
         // binary.Write(hash256, DefaultEndian, &index)
         // hash := hash256.Sum(nil)
         console.log(contractPKH, index);
-        const result = new AssetCode();
+        const result = new InstrumentCode();
         // result.Set(hash);
         return result;
     }
@@ -130,7 +130,7 @@ class AssetCode {
         this.data = Buffer.from(value);
     }
 }
-exports.AssetCode = AssetCode;
+exports.InstrumentCode = InstrumentCode;
 // ------------------------------------------------------------------------------------------------
 // Timestamp represents a time in the Tokenized protocol.
 class Timestamp {

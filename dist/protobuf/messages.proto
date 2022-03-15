@@ -55,6 +55,12 @@ message OutputMetadata {
     repeated OutputTagField CustomTags             = 3;   // OutputTag[]
 }
 
+// Message - Distribution (1005)
+message Distribution {
+    bytes InstrumentCode                           = 1;   // InstrumentCode
+    uint64 Timestamp                               = 2;   // Timestamp
+}
+
 // Message - Initiate Relationship (2001)
 message InitiateRelationship {
     uint32 Type                                    = 1;   // uint

@@ -1,5 +1,5 @@
 export * from './src/actions';
-export * from './src/assets';
+export * from './src/instruments';
 export * from './src/authorization';
 export * from './src/bytes';
 export * from './src/field_types';

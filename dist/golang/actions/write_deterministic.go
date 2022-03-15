@@ -59,8 +59,8 @@ func (a *ContractOffer) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractPermissions")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.RestrictedQtyAssets)); err != nil {
-		return errors.Wrap(err, "RestrictedQtyAssets")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.RestrictedQtyInstruments)); err != nil {
+		return errors.Wrap(err, "RestrictedQtyInstruments")
 	}
 
 	if err := binary.Write(w, binary.LittleEndian, a.AdministrationProposal); err != nil {
@@ -163,8 +163,8 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ContractPermissions")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.RestrictedQtyAssets)); err != nil {
-		return errors.Wrap(err, "RestrictedQtyAssets")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.RestrictedQtyInstruments)); err != nil {
+		return errors.Wrap(err, "RestrictedQtyInstruments")
 	}
 
 	if err := binary.Write(w, binary.LittleEndian, a.AdministrationProposal); err != nil {
@@ -420,11 +420,11 @@ func (a *BodyOfAgreementAmendment) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a AssetDefinition in a deterministic way so the data can
+// WriteDeterministic writes data from a InstrumentDefinition in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write(a.AssetPermissions); err != nil {
-		return errors.Wrap(err, "AssetPermissions")
+func (a *InstrumentDefinition) WriteDeterministic(w io.Writer) error {
+	if _, err := w.Write(a.InstrumentPermissions); err != nil {
+		return errors.Wrap(err, "InstrumentPermissions")
 	}
 
 	if err := binary.Write(w, binary.LittleEndian, a.EnforcementOrdersPermitted); err != nil {
@@ -447,20 +447,20 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "HolderProposal")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetModificationGovernance)); err != nil {
-		return errors.Wrap(err, "AssetModificationGovernance")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.InstrumentModificationGovernance)); err != nil {
+		return errors.Wrap(err, "InstrumentModificationGovernance")
 	}
 
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AuthorizedTokenQty)); err != nil {
 		return errors.Wrap(err, "AuthorizedTokenQty")
 	}
 
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetPayload); err != nil {
-		return errors.Wrap(err, "AssetPayload")
+	if _, err := w.Write(a.InstrumentPayload); err != nil {
+		return errors.Wrap(err, "InstrumentPayload")
 	}
 
 	for i, item := range a.TradeRestrictions {
@@ -472,19 +472,19 @@ func (a *AssetDefinition) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a AssetCreation in a deterministic way so the data can
+// WriteDeterministic writes data from a InstrumentCreation in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+func (a *InstrumentCreation) WriteDeterministic(w io.Writer) error {
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetIndex)); err != nil {
-		return errors.Wrap(err, "AssetIndex")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.InstrumentIndex)); err != nil {
+		return errors.Wrap(err, "InstrumentIndex")
 	}
 
-	if _, err := w.Write(a.AssetPermissions); err != nil {
-		return errors.Wrap(err, "AssetPermissions")
+	if _, err := w.Write(a.InstrumentPermissions); err != nil {
+		return errors.Wrap(err, "InstrumentPermissions")
 	}
 
 	if err := binary.Write(w, binary.LittleEndian, a.EnforcementOrdersPermitted); err != nil {
@@ -507,24 +507,24 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "HolderProposal")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetModificationGovernance)); err != nil {
-		return errors.Wrap(err, "AssetModificationGovernance")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.InstrumentModificationGovernance)); err != nil {
+		return errors.Wrap(err, "InstrumentModificationGovernance")
 	}
 
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AuthorizedTokenQty)); err != nil {
 		return errors.Wrap(err, "AuthorizedTokenQty")
 	}
 
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetPayload); err != nil {
-		return errors.Wrap(err, "AssetPayload")
+	if _, err := w.Write(a.InstrumentPayload); err != nil {
+		return errors.Wrap(err, "InstrumentPayload")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetRevision)); err != nil {
-		return errors.Wrap(err, "AssetRevision")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.InstrumentRevision)); err != nil {
+		return errors.Wrap(err, "InstrumentRevision")
 	}
 
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
@@ -540,19 +540,19 @@ func (a *AssetCreation) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a AssetModification in a deterministic way so the data can
+// WriteDeterministic writes data from a InstrumentModification in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *AssetModification) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+func (a *InstrumentModification) WriteDeterministic(w io.Writer) error {
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
-	if err := bitcoin.WriteBase128VarInt(w, uint64(a.AssetRevision)); err != nil {
-		return errors.Wrap(err, "AssetRevision")
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.InstrumentRevision)); err != nil {
+		return errors.Wrap(err, "InstrumentRevision")
 	}
 
 	for i, item := range a.Amendments {
@@ -571,9 +571,9 @@ func (a *AssetModification) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Transfer in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Transfer) WriteDeterministic(w io.Writer) error {
-	for i, item := range a.Assets {
+	for i, item := range a.Instruments {
 		if err := item.WriteDeterministic(w); err != nil {
-			return errors.Wrapf(err, "Assets %d", i)
+			return errors.Wrapf(err, "Instruments %d", i)
 		}
 	}
 
@@ -595,9 +595,9 @@ func (a *Transfer) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Settlement in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Settlement) WriteDeterministic(w io.Writer) error {
-	for i, item := range a.Assets {
+	for i, item := range a.Instruments {
 		if err := item.WriteDeterministic(w); err != nil {
-			return errors.Wrapf(err, "Assets %d", i)
+			return errors.Wrapf(err, "Instruments %d", i)
 		}
 	}
 
@@ -615,12 +615,12 @@ func (a *Proposal) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Type")
 	}
 
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.VoteSystem)); err != nil {
@@ -705,12 +705,12 @@ func (a *BallotCounted) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Result in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Result) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
 	for i, item := range a.ProposedAmendments {
@@ -747,12 +747,12 @@ func (a *Order) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "ComplianceAction")
 	}
 
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
 	for i, item := range a.TargetAddresses {
@@ -819,12 +819,12 @@ func (a *Order) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Freeze in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Freeze) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
 	for i, item := range a.Quantities {
@@ -861,12 +861,12 @@ func (a *Thaw) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Confiscation in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Confiscation) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
 	for i, item := range a.Quantities {
@@ -889,12 +889,12 @@ func (a *Confiscation) WriteDeterministic(w io.Writer) error {
 // WriteDeterministic writes data from a Reconciliation in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Reconciliation) WriteDeterministic(w io.Writer) error {
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
 	for i, item := range a.Quantities {
@@ -1066,9 +1066,9 @@ func (a *AmendmentField) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a AssetReceiver in a deterministic way so the data can
+// WriteDeterministic writes data from a InstrumentReceiver in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *AssetReceiverField) WriteDeterministic(w io.Writer) error {
+func (a *InstrumentReceiverField) WriteDeterministic(w io.Writer) error {
 	if _, err := w.Write(a.Address); err != nil {
 		return errors.Wrap(err, "Address")
 	}
@@ -1100,19 +1100,19 @@ func (a *AssetReceiverField) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a AssetSettlement in a deterministic way so the data can
+// WriteDeterministic writes data from a InstrumentSettlement in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *AssetSettlementField) WriteDeterministic(w io.Writer) error {
+func (a *InstrumentSettlementField) WriteDeterministic(w io.Writer) error {
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractIndex)); err != nil {
 		return errors.Wrap(err, "ContractIndex")
 	}
 
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
 	for i, item := range a.Settlements {
@@ -1124,30 +1124,30 @@ func (a *AssetSettlementField) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a AssetTransfer in a deterministic way so the data can
+// WriteDeterministic writes data from a InstrumentTransfer in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *AssetTransferField) WriteDeterministic(w io.Writer) error {
+func (a *InstrumentTransferField) WriteDeterministic(w io.Writer) error {
 	if err := bitcoin.WriteBase128VarInt(w, uint64(a.ContractIndex)); err != nil {
 		return errors.Wrap(err, "ContractIndex")
 	}
 
-	if _, err := w.Write([]byte(a.AssetType)); err != nil {
-		return errors.Wrap(err, "AssetType")
+	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
+		return errors.Wrap(err, "InstrumentType")
 	}
 
-	if _, err := w.Write(a.AssetCode[:]); err != nil {
-		return errors.Wrap(err, "AssetCode")
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
 	}
 
-	for i, item := range a.AssetSenders {
+	for i, item := range a.InstrumentSenders {
 		if err := item.WriteDeterministic(w); err != nil {
-			return errors.Wrapf(err, "AssetSenders %d", i)
+			return errors.Wrapf(err, "InstrumentSenders %d", i)
 		}
 	}
 
-	for i, item := range a.AssetReceivers {
+	for i, item := range a.InstrumentReceivers {
 		if err := item.WriteDeterministic(w); err != nil {
-			return errors.Wrapf(err, "AssetReceivers %d", i)
+			return errors.Wrapf(err, "InstrumentReceivers %d", i)
 		}
 	}
 

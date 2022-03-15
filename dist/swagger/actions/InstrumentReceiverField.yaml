@@ -1,0 +1,43 @@
+
+description:  >
+  An InstrumentReceiver is a quantity, address, and oracle signature. The quantity could be used to
+  describe a number of tokens, or a value. The address is where the instrument will be sent.
+type: object
+properties:
+  Address:
+    description: The address receiving the tokens
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
+  Quantity:
+    description: Number of tokens to be received by address at Output X
+    type: number
+    example: 100
+  OracleSigAlgorithm:
+    description:  >
+      0 = No Oracle-signed Message (OracleConfirmationSig skipped in serialization), 1 =
+      ECDSA+secp256k1. If the contract for the instrument being received has oracles, then a
+      signature is required from one of them.
+    type: number
+    example: 1
+  OracleIndex:
+    description:  >
+      Specifies the index into the list of oracles in the contract offer that was used to authorize
+      this transfer.
+    type: number
+  OracleConfirmationSig:
+    description:  >
+      Length 0-255 bytes. If restricted to a oracle (whitelist) or has transfer restrictions (age,
+      location, investor status): ECDSA+secp256k1 (or the like) signed message provided by an
+      approved/trusted oracle through an API signature of the defined message. If no transfer
+      restrictions(trade restriction/age restriction fields in the Instrument Type payload. or
+      restricted to a whitelist by the Contract Auth Flags, it is a NULL field.
+    type: string
+    example: "3044022036164b0c724e6f19e234306444a11631b2f8e47d05468a099928adce0dead62102205138a635827d61915483e7ca1a53b37975a9aa0617c78ef7ac199d94742c36cf"
+  OracleSigBlockHeight:
+    description: The block height of the block hash used in the oracle signature.
+    type: number
+  OracleSigExpiry:
+    description: This specifies the time at which the Oracle signature expires.
+    type: number
+    example: 1594668650000000000
+

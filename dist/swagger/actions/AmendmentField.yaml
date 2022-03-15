@@ -1,7 +1,7 @@
 
 description:  >
-  An Amendment is used to describe the modification of a single field in a Contract or Asset, as
-  defined in the ContractFormation and AssetCreation messages.
+  An Amendment is used to describe the modification of a single field in a Contract or Instrument, as
+  defined in the ContractFormation and InstrumentCreation messages.
 type: object
 properties:
   FieldIndexPath:

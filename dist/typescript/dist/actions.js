@@ -17,12 +17,12 @@ const resources_1 = require("./resources");
 const protocol_1 = require("./protocol");
 var ActionCode;
 (function (ActionCode) {
-    // CodeAssetDefinition identifies data as a AssetDefinition message.
-    ActionCode["CodeAssetDefinition"] = "A1";
-    // CodeAssetCreation identifies data as a AssetCreation message.
-    ActionCode["CodeAssetCreation"] = "A2";
-    // CodeAssetModification identifies data as a AssetModification message.
-    ActionCode["CodeAssetModification"] = "A3";
+    // CodeInstrumentDefinition identifies data as a InstrumentDefinition message.
+    ActionCode["CodeInstrumentDefinition"] = "A1";
+    // CodeInstrumentCreation identifies data as a InstrumentCreation message.
+    ActionCode["CodeInstrumentCreation"] = "A2";
+    // CodeInstrumentModification identifies data as a InstrumentModification message.
+    ActionCode["CodeInstrumentModification"] = "A3";
     // CodeContractOffer identifies data as a ContractOffer message.
     ActionCode["CodeContractOffer"] = "C1";
     // CodeContractFormation identifies data as a ContractFormation message.
@@ -83,12 +83,12 @@ var ActionCode;
 // TypeMapping holds a mapping of action codes to action types.
 function TypeMapping(code) {
     switch (code) {
-        case ActionCode.CodeAssetDefinition:
-            return new AssetDefinition();
-        case ActionCode.CodeAssetCreation:
-            return new AssetCreation();
-        case ActionCode.CodeAssetModification:
-            return new AssetModification();
+        case ActionCode.CodeInstrumentDefinition:
+            return new InstrumentDefinition();
+        case ActionCode.CodeInstrumentCreation:
+            return new InstrumentCreation();
+        case ActionCode.CodeInstrumentModification:
+            return new InstrumentModification();
         case ActionCode.CodeContractOffer:
             return new ContractOffer();
         case ActionCode.CodeContractFormation:
@@ -140,20 +140,20 @@ function TypeMapping(code) {
     }
 }
 exports.TypeMapping = TypeMapping;
-// AssetDefinition This action is used by the administration to define the
-// properties/characteristics of the asset (token) that it wants to create.
-// An asset has a unique identifier called AssetID = AssetType +
-// base58(AssetCode + checksum). An asset is always linked to a contract
+// InstrumentDefinition This action is used by the administration to define the
+// properties/characteristics of the instrument (token) that it wants to create.
+// An instrument has a unique identifier called InstrumentID = InstrumentType +
+// base58(InstrumentCode + checksum). An instrument is always linked to a contract
 // that is identified by the public address of the Contract wallet.
-class AssetDefinition extends protocol_1.OpReturnMessage {
+class InstrumentDefinition extends protocol_1.OpReturnMessage {
     constructor() {
         super(...arguments);
-        this.type = ActionCode.CodeAssetDefinition;
-        this.typeStr = 'AssetDefinition';
+        this.type = ActionCode.CodeInstrumentDefinition;
+        this.typeStr = 'InstrumentDefinition';
     }
     // Type returns the type identifer for this message.
     Type() {
-        return ActionCode.CodeAssetDefinition;
+        return ActionCode.CodeInstrumentDefinition;
     }
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
@@ -165,13 +165,13 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // asset_type (string)
+        // instrument_type (string)
         {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_auth_flags ([]byte)
+        // instrument_auth_flags ([]byte)
         {
-            bytes_1.WriteVarBin(buf, this.asset_auth_flags, 8);
+            bytes_1.WriteVarBin(buf, this.instrument_auth_flags, 8);
         }
         // transfers_permitted (bool)
         {
@@ -206,30 +206,30 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
         {
             bytes_1.write(buf, this.holder_proposal, 'bool');
         }
-        // asset_modification_governance (uint8)
+        // instrument_modification_governance (uint8)
         {
-            bytes_1.write(buf, this.asset_modification_governance, 'uint8');
+            bytes_1.write(buf, this.instrument_modification_governance, 'uint8');
         }
         // token_qty (uint64)
         {
             bytes_1.write(buf, this.token_qty, 'uint64');
         }
-        // asset_payload ([]byte)
+        // instrument_payload ([]byte)
         {
-            bytes_1.WriteVarBin(buf, this.asset_payload, 16);
+            bytes_1.WriteVarBin(buf, this.instrument_payload, 16);
         }
         return buf.buf;
     }
-    // write populates the fields in AssetDefinition from the byte slice
+    // write populates the fields in InstrumentDefinition from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // asset_type (string)
+        // instrument_type (string)
         {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_auth_flags ([]byte)
+        // instrument_auth_flags ([]byte)
         {
-            this.asset_auth_flags = bytes_1.ReadVarBin(buf, 8);
+            this.instrument_auth_flags = bytes_1.ReadVarBin(buf, 8);
         }
         // transfers_permitted (bool)
         {
@@ -261,31 +261,31 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
         {
             this.holder_proposal = bytes_1.read(buf, 'bool');
         }
-        // asset_modification_governance (uint8)
+        // instrument_modification_governance (uint8)
         {
-            this.asset_modification_governance = bytes_1.read(buf, 'uint8');
+            this.instrument_modification_governance = bytes_1.read(buf, 'uint8');
         }
         // token_qty (uint64)
         {
             this.token_qty = bytes_1.read(buf, 'uint64');
         }
-        // asset_payload ([]byte)
+        // instrument_payload ([]byte)
         {
-            this.asset_payload = bytes_1.ReadVarBin(buf, 16);
+            this.instrument_payload = bytes_1.ReadVarBin(buf, 16);
         }
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string) 
+        // InstrumentType (string)
         {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetAuthFlags ([]byte) 
+        // InstrumentAuthFlags ([]byte)
         {
-            if (this.asset_auth_flags.length >= (Math.pow(2, 8))) {
-                return sprintf_js_1.sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (Math.pow(2, 8)) - 1);
+            if (this.instrument_auth_flags.length >= (Math.pow(2, 8))) {
+                return sprintf_js_1.sprintf('varbin field instrument_auth_flags too long %d/%d', this.instrument_auth_flags.length, (Math.pow(2, 8)) - 1);
             }
         }
         // TransfersPermitted (bool) 
@@ -322,28 +322,28 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
         // HolderProposal (bool) 
         {
         }
-        // AssetModificationGovernance (uint8) 
+        // InstrumentModificationGovernance (uint8)
         {
             // $field.IntValues [0 1]
-            if (this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
-                return sprintf_js_1.sprintf('field asset_modification_governance value is invalid : %d', this.asset_modification_governance);
+            if (this.instrument_modification_governance !== 0 && this.instrument_modification_governance !== 1) {
+                return sprintf_js_1.sprintf('field instrument_modification_governance value is invalid : %d', this.instrument_modification_governance);
             }
         }
         // TokenQty (uint64) 
         {
         }
-        // AssetPayload ([]byte) 
+        // InstrumentPayload ([]byte)
         {
-            if (this.asset_payload.length >= (Math.pow(2, 16))) {
-                return sprintf_js_1.sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (Math.pow(2, 16)) - 1);
+            if (this.instrument_payload.length >= (Math.pow(2, 16))) {
+                return sprintf_js_1.sprintf('varbin field instrument_payload too long %d/%d', this.instrument_payload.length, (Math.pow(2, 16)) - 1);
             }
         }
         return null;
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_auth_flags:%s', this.asset_auth_flags.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_auth_flags:%s', this.instrument_auth_flags.toString()));
         vals.push(sprintf_js_1.sprintf('transfers_permitted:%s', this.transfers_permitted.toString()));
         vals.push(sprintf_js_1.sprintf('trade_restrictions:%s', this.trade_restrictions.toString()));
         vals.push(sprintf_js_1.sprintf('enforcement_orders_permitted:%s', this.enforcement_orders_permitted.toString()));
@@ -351,9 +351,9 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
         vals.push(sprintf_js_1.sprintf('vote_multiplier:%d', this.vote_multiplier));
         vals.push(sprintf_js_1.sprintf('administration_proposal:%s', this.administration_proposal.toString()));
         vals.push(sprintf_js_1.sprintf('holder_proposal:%s', this.holder_proposal.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_modification_governance:%d', this.asset_modification_governance));
+        vals.push(sprintf_js_1.sprintf('instrument_modification_governance:%d', this.instrument_modification_governance));
         vals.push(sprintf_js_1.sprintf('token_qty:%d', this.token_qty));
-        vals.push(sprintf_js_1.sprintf('asset_payload:%s', this.asset_payload.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_payload:%s', this.instrument_payload.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
     parse(json) {
@@ -362,11 +362,11 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
             parsed = JSON.parse(json);
         }
         catch (e) {
-            console.error('Failed to parse JSON for AssetDefinition.', e);
+            console.error('Failed to parse JSON for InstrumentDefinition.', e);
             throw e;
         }
-        // this.asset_type = parsed.assetType (fixedchar)
-        // this.asset_auth_flags = parsed.assetAuthFlags (varbin)
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        // this.instrument_auth_flags = parsed.instrumentAuthFlags (varbin)
         // this.transfers_permitted = parsed.transfersPermitted (bool)
         // this.trade_restrictions = parsed.tradeRestrictions (Polity[])
         // this.enforcement_orders_permitted = parsed.enforcementOrdersPermitted (bool)
@@ -374,24 +374,24 @@ class AssetDefinition extends protocol_1.OpReturnMessage {
         this.vote_multiplier = parsed.voteMultiplier;
         // this.administration_proposal = parsed.administrationProposal (bool)
         // this.holder_proposal = parsed.holderProposal (bool)
-        this.asset_modification_governance = parsed.assetModificationGovernance;
+        this.instrument_modification_governance = parsed.instrumentModificationGovernance;
         this.token_qty = parsed.tokenQty;
-        // this.asset_payload = parsed.assetPayload (varbin)
+        // this.instrument_payload = parsed.instrumentPayload (varbin)
         return this.Validate();
     }
 }
-exports.AssetDefinition = AssetDefinition;
-// AssetCreation This action creates an asset in response to the
+exports.InstrumentDefinition = InstrumentDefinition;
+// InstrumentCreation This action creates an instrument in response to the
 // administration's instructions in the Definition Action.
-class AssetCreation extends protocol_1.OpReturnMessage {
+class InstrumentCreation extends protocol_1.OpReturnMessage {
     constructor() {
         super(...arguments);
-        this.type = ActionCode.CodeAssetCreation;
-        this.typeStr = 'AssetCreation';
+        this.type = ActionCode.CodeInstrumentCreation;
+        this.typeStr = 'InstrumentCreation';
     }
     // Type returns the type identifer for this message.
     Type() {
-        return ActionCode.CodeAssetCreation;
+        return ActionCode.CodeInstrumentCreation;
     }
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
@@ -403,21 +403,21 @@ class AssetCreation extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // asset_type (string)
+        // instrument_type (string)
         {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            buf.write(this.asset_code.Serialize());
+            buf.write(this.instrument_code.Serialize());
         }
-        // asset_index (uint64)
+        // instrument_index (uint64)
         {
-            bytes_1.write(buf, this.asset_index, 'uint64');
+            bytes_1.write(buf, this.instrument_index, 'uint64');
         }
-        // asset_auth_flags ([]byte)
+        // instrument_auth_flags ([]byte)
         {
-            bytes_1.WriteVarBin(buf, this.asset_auth_flags, 8);
+            bytes_1.WriteVarBin(buf, this.instrument_auth_flags, 8);
         }
         // transfers_permitted (bool)
         {
@@ -452,21 +452,21 @@ class AssetCreation extends protocol_1.OpReturnMessage {
         {
             bytes_1.write(buf, this.holder_proposal, 'bool');
         }
-        // asset_modification_governance (uint8)
+        // instrument_modification_governance (uint8)
         {
-            bytes_1.write(buf, this.asset_modification_governance, 'uint8');
+            bytes_1.write(buf, this.instrument_modification_governance, 'uint8');
         }
         // token_qty (uint64)
         {
             bytes_1.write(buf, this.token_qty, 'uint64');
         }
-        // asset_payload ([]byte)
+        // instrument_payload ([]byte)
         {
-            bytes_1.WriteVarBin(buf, this.asset_payload, 16);
+            bytes_1.WriteVarBin(buf, this.instrument_payload, 16);
         }
-        // asset_revision (uint32)
+        // instrument_revision (uint32)
         {
-            bytes_1.write(buf, this.asset_revision, 'uint32');
+            bytes_1.write(buf, this.instrument_revision, 'uint32');
         }
         // timestamp (Timestamp)
         {
@@ -474,25 +474,25 @@ class AssetCreation extends protocol_1.OpReturnMessage {
         }
         return buf.buf;
     }
-    // write populates the fields in AssetCreation from the byte slice
+    // write populates the fields in InstrumentCreation from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // asset_type (string)
+        // instrument_type (string)
         {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            this.asset_code = new protocol_types_1.AssetCode();
-            this.asset_code.Write(buf);
+            this.instrument_code = new protocol_types_1.InstrumentCode();
+            this.instrument_code.Write(buf);
         }
-        // asset_index (uint64)
+        // instrument_index (uint64)
         {
-            this.asset_index = bytes_1.read(buf, 'uint64');
+            this.instrument_index = bytes_1.read(buf, 'uint64');
         }
-        // asset_auth_flags ([]byte)
+        // instrument_auth_flags ([]byte)
         {
-            this.asset_auth_flags = bytes_1.ReadVarBin(buf, 8);
+            this.instrument_auth_flags = bytes_1.ReadVarBin(buf, 8);
         }
         // transfers_permitted (bool)
         {
@@ -524,21 +524,21 @@ class AssetCreation extends protocol_1.OpReturnMessage {
         {
             this.holder_proposal = bytes_1.read(buf, 'bool');
         }
-        // asset_modification_governance (uint8)
+        // instrument_modification_governance (uint8)
         {
-            this.asset_modification_governance = bytes_1.read(buf, 'uint8');
+            this.instrument_modification_governance = bytes_1.read(buf, 'uint8');
         }
         // token_qty (uint64)
         {
             this.token_qty = bytes_1.read(buf, 'uint64');
         }
-        // asset_payload ([]byte)
+        // instrument_payload ([]byte)
         {
-            this.asset_payload = bytes_1.ReadVarBin(buf, 16);
+            this.instrument_payload = bytes_1.ReadVarBin(buf, 16);
         }
-        // asset_revision (uint32)
+        // instrument_revision (uint32)
         {
-            this.asset_revision = bytes_1.read(buf, 'uint32');
+            this.instrument_revision = bytes_1.read(buf, 'uint32');
         }
         // timestamp (Timestamp)
         {
@@ -548,26 +548,26 @@ class AssetCreation extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string) 
+        // InstrumentType (string)
         {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetCode (AssetCode) 
+        // InstrumentCode (InstrumentCode)
         {
             // IsInternalType
-            const err = this.asset_code.Validate();
+            const err = this.instrument_code.Validate();
             if (err)
-                return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
+                return sprintf_js_1.sprintf('field instrument_code is invalid : %s', err);
         }
-        // AssetIndex (uint64) 
+        // InstrumentIndex (uint64)
         {
         }
-        // AssetAuthFlags ([]byte) 
+        // InstrumentAuthFlags ([]byte)
         {
-            if (this.asset_auth_flags.length >= (Math.pow(2, 8))) {
-                return sprintf_js_1.sprintf('varbin field asset_auth_flags too long %d/%d', this.asset_auth_flags.length, (Math.pow(2, 8)) - 1);
+            if (this.instrument_auth_flags.length >= (Math.pow(2, 8))) {
+                return sprintf_js_1.sprintf('varbin field instrument_auth_flags too long %d/%d', this.instrument_auth_flags.length, (Math.pow(2, 8)) - 1);
             }
         }
         // TransfersPermitted (bool) 
@@ -604,23 +604,23 @@ class AssetCreation extends protocol_1.OpReturnMessage {
         // HolderProposal (bool) 
         {
         }
-        // AssetModificationGovernance (uint8) 
+        // InstrumentModificationGovernance (uint8)
         {
             // $field.IntValues [0 1]
-            if (this.asset_modification_governance !== 0 && this.asset_modification_governance !== 1) {
-                return sprintf_js_1.sprintf('field asset_modification_governance value is invalid : %d', this.asset_modification_governance);
+            if (this.instrument_modification_governance !== 0 && this.instrument_modification_governance !== 1) {
+                return sprintf_js_1.sprintf('field instrument_modification_governance value is invalid : %d', this.instrument_modification_governance);
             }
         }
         // TokenQty (uint64) 
         {
         }
-        // AssetPayload ([]byte) 
+        // InstrumentPayload ([]byte)
         {
-            if (this.asset_payload.length >= (Math.pow(2, 16))) {
-                return sprintf_js_1.sprintf('varbin field asset_payload too long %d/%d', this.asset_payload.length, (Math.pow(2, 16)) - 1);
+            if (this.instrument_payload.length >= (Math.pow(2, 16))) {
+                return sprintf_js_1.sprintf('varbin field instrument_payload too long %d/%d', this.instrument_payload.length, (Math.pow(2, 16)) - 1);
             }
         }
-        // AssetRevision (uint32) 
+        // InstrumentRevision (uint32)
         {
         }
         // Timestamp (Timestamp) 
@@ -634,10 +634,10 @@ class AssetCreation extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_index:%d', this.asset_index));
-        vals.push(sprintf_js_1.sprintf('asset_auth_flags:%s', this.asset_auth_flags.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_code:%s', this.instrument_code.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_index:%d', this.instrument_index));
+        vals.push(sprintf_js_1.sprintf('instrument_auth_flags:%s', this.instrument_auth_flags.toString()));
         vals.push(sprintf_js_1.sprintf('transfers_permitted:%s', this.transfers_permitted.toString()));
         vals.push(sprintf_js_1.sprintf('trade_restrictions:%s', this.trade_restrictions.toString()));
         vals.push(sprintf_js_1.sprintf('enforcement_orders_permitted:%s', this.enforcement_orders_permitted.toString()));
@@ -645,10 +645,10 @@ class AssetCreation extends protocol_1.OpReturnMessage {
         vals.push(sprintf_js_1.sprintf('vote_multiplier:%d', this.vote_multiplier));
         vals.push(sprintf_js_1.sprintf('administration_proposal:%s', this.administration_proposal.toString()));
         vals.push(sprintf_js_1.sprintf('holder_proposal:%s', this.holder_proposal.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_modification_governance:%d', this.asset_modification_governance));
+        vals.push(sprintf_js_1.sprintf('instrument_modification_governance:%d', this.instrument_modification_governance));
         vals.push(sprintf_js_1.sprintf('token_qty:%d', this.token_qty));
-        vals.push(sprintf_js_1.sprintf('asset_payload:%s', this.asset_payload.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_revision:%d', this.asset_revision));
+        vals.push(sprintf_js_1.sprintf('instrument_payload:%s', this.instrument_payload.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_revision:%d', this.instrument_revision));
         vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
@@ -658,14 +658,14 @@ class AssetCreation extends protocol_1.OpReturnMessage {
             parsed = JSON.parse(json);
         }
         catch (e) {
-            console.error('Failed to parse JSON for AssetCreation.', e);
+            console.error('Failed to parse JSON for InstrumentCreation.', e);
             throw e;
         }
-        // this.asset_type = parsed.assetType (fixedchar)
-        this.asset_code = new protocol_types_1.AssetCode();
-        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
-        this.asset_index = parsed.assetIndex;
-        // this.asset_auth_flags = parsed.assetAuthFlags (varbin)
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        this.instrument_code = new protocol_types_1.InstrumentCode();
+        this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
+        this.instrument_index = parsed.instrumentIndex;
+        // this.instrument_auth_flags = parsed.instrumentAuthFlags (varbin)
         // this.transfers_permitted = parsed.transfersPermitted (bool)
         // this.trade_restrictions = parsed.tradeRestrictions (Polity[])
         // this.enforcement_orders_permitted = parsed.enforcementOrdersPermitted (bool)
@@ -673,26 +673,26 @@ class AssetCreation extends protocol_1.OpReturnMessage {
         this.vote_multiplier = parsed.voteMultiplier;
         // this.administration_proposal = parsed.administrationProposal (bool)
         // this.holder_proposal = parsed.holderProposal (bool)
-        this.asset_modification_governance = parsed.assetModificationGovernance;
+        this.instrument_modification_governance = parsed.instrumentModificationGovernance;
         this.token_qty = parsed.tokenQty;
-        // this.asset_payload = parsed.assetPayload (varbin)
-        this.asset_revision = parsed.assetRevision;
+        // this.instrument_payload = parsed.instrumentPayload (varbin)
+        this.instrument_revision = parsed.instrumentRevision;
         this.timestamp = new protocol_types_1.Timestamp();
         this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
         return this.Validate();
     }
 }
-exports.AssetCreation = AssetCreation;
-// AssetModification Token Dilutions, Call Backs/Revocations, burning etc.
-class AssetModification extends protocol_1.OpReturnMessage {
+exports.InstrumentCreation = InstrumentCreation;
+// InstrumentModification Token Dilutions, Call Backs/Revocations, burning etc.
+class InstrumentModification extends protocol_1.OpReturnMessage {
     constructor() {
         super(...arguments);
-        this.type = ActionCode.CodeAssetModification;
-        this.typeStr = 'AssetModification';
+        this.type = ActionCode.CodeInstrumentModification;
+        this.typeStr = 'InstrumentModification';
     }
     // Type returns the type identifer for this message.
     Type() {
-        return ActionCode.CodeAssetModification;
+        return ActionCode.CodeInstrumentModification;
     }
     // Read implements the io.Reader interface, writing the receiver to the
     // []byte.
@@ -704,17 +704,17 @@ class AssetModification extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // asset_type (string)
+        // instrument_type (string)
         {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            buf.write(this.asset_code.Serialize());
+            buf.write(this.instrument_code.Serialize());
         }
-        // asset_revision (uint32)
+        // instrument_revision (uint32)
         {
-            bytes_1.write(buf, this.asset_revision, 'uint32');
+            bytes_1.write(buf, this.instrument_revision, 'uint32');
         }
         // amendments ([]Amendment)
         {
@@ -729,21 +729,21 @@ class AssetModification extends protocol_1.OpReturnMessage {
         }
         return buf.buf;
     }
-    // write populates the fields in AssetModification from the byte slice
+    // write populates the fields in InstrumentModification from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // asset_type (string)
+        // instrument_type (string)
         {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            this.asset_code = new protocol_types_1.AssetCode();
-            this.asset_code.Write(buf);
+            this.instrument_code = new protocol_types_1.InstrumentCode();
+            this.instrument_code.Write(buf);
         }
-        // asset_revision (uint32)
+        // instrument_revision (uint32)
         {
-            this.asset_revision = bytes_1.read(buf, 'uint32');
+            this.instrument_revision = bytes_1.read(buf, 'uint32');
         }
         // amendments ([]Amendment)
         {
@@ -764,20 +764,20 @@ class AssetModification extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string) 
+        // InstrumentType (string)
         {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetCode (AssetCode) 
+        // InstrumentCode (InstrumentCode)
         {
             // IsInternalType
-            const err = this.asset_code.Validate();
+            const err = this.instrument_code.Validate();
             if (err)
-                return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
+                return sprintf_js_1.sprintf('field instrument_code is invalid : %s', err);
         }
-        // AssetRevision (uint32) 
+        // InstrumentRevision (uint32)
         {
         }
         // Amendments ([]Amendment) 
@@ -804,9 +804,9 @@ class AssetModification extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_revision:%d', this.asset_revision));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_code:%s', this.instrument_code.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_revision:%d', this.instrument_revision));
         vals.push(sprintf_js_1.sprintf('amendments:%s', this.amendments.toString()));
         vals.push(sprintf_js_1.sprintf('ref_tx_id:%s', this.ref_tx_id.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
@@ -817,20 +817,20 @@ class AssetModification extends protocol_1.OpReturnMessage {
             parsed = JSON.parse(json);
         }
         catch (e) {
-            console.error('Failed to parse JSON for AssetModification.', e);
+            console.error('Failed to parse JSON for InstrumentModification.', e);
             throw e;
         }
-        // this.asset_type = parsed.assetType (fixedchar)
-        this.asset_code = new protocol_types_1.AssetCode();
-        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
-        this.asset_revision = parsed.assetRevision;
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        this.instrument_code = new protocol_types_1.InstrumentCode();
+        this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
+        this.instrument_revision = parsed.instrumentRevision;
         // this.amendments (Amendment[])
         this.ref_tx_id = new protocol_types_1.TxId();
         this.ref_tx_id.fromJSON(JSON.stringify(parsed.refTxID));
         return this.Validate();
     }
 }
-exports.AssetModification = AssetModification;
+exports.InstrumentModification = InstrumentModification;
 // ContractOffer Allows the administration to tell the smart contract what
 // they want the details (labels, data, T&C's, etc.) of the Contract to be
 // on-chain in a public and immutable way. The Contract Offer action
@@ -928,9 +928,9 @@ class ContractOffer extends protocol_1.OpReturnMessage {
         {
             bytes_1.WriteVarBin(buf, this.contract_auth_flags, 16);
         }
-        // restricted_qty_assets (uint64)
+        // restricted_qty_instruments (uint64)
         {
-            bytes_1.write(buf, this.restricted_qty_assets, 'uint64');
+            bytes_1.write(buf, this.restricted_qty_instruments, 'uint64');
         }
         // administration_proposal (bool)
         {
@@ -1037,9 +1037,9 @@ class ContractOffer extends protocol_1.OpReturnMessage {
         {
             this.contract_auth_flags = bytes_1.ReadVarBin(buf, 16);
         }
-        // restricted_qty_assets (uint64)
+        // restricted_qty_instruments (uint64)
         {
-            this.restricted_qty_assets = bytes_1.read(buf, 'uint64');
+            this.restricted_qty_instruments = bytes_1.read(buf, 'uint64');
         }
         // administration_proposal (bool)
         {
@@ -1177,7 +1177,7 @@ class ContractOffer extends protocol_1.OpReturnMessage {
                 return sprintf_js_1.sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (Math.pow(2, 16)) - 1);
             }
         }
-        // RestrictedQtyAssets (uint64) 
+        // RestrictedQtyInstruments (uint64)
         {
         }
         // AdministrationProposal (bool) 
@@ -1226,7 +1226,7 @@ class ContractOffer extends protocol_1.OpReturnMessage {
         vals.push(sprintf_js_1.sprintf('contract_fee:%d', this.contract_fee));
         vals.push(sprintf_js_1.sprintf('voting_systems:%s', this.voting_systems.toString()));
         vals.push(sprintf_js_1.sprintf('contract_auth_flags:%s', this.contract_auth_flags.toString()));
-        vals.push(sprintf_js_1.sprintf('restricted_qty_assets:%d', this.restricted_qty_assets));
+        vals.push(sprintf_js_1.sprintf('restricted_qty_instruments:%d', this.restricted_qty_instruments));
         vals.push(sprintf_js_1.sprintf('administration_proposal:%s', this.administration_proposal.toString()));
         vals.push(sprintf_js_1.sprintf('holder_proposal:%s', this.holder_proposal.toString()));
         vals.push(sprintf_js_1.sprintf('oracles:%s', this.oracles.toString()));
@@ -1261,7 +1261,7 @@ class ContractOffer extends protocol_1.OpReturnMessage {
         this.contract_fee = parsed.contractFee;
         // this.voting_systems (VotingSystem[])
         // this.contract_auth_flags = parsed.contractAuthFlags (varbin)
-        this.restricted_qty_assets = parsed.restrictedQtyAssets;
+        this.restricted_qty_instruments = parsed.restrictedQtyInstruments;
         // this.administration_proposal = parsed.administrationProposal (bool)
         // this.holder_proposal = parsed.holderProposal (bool)
         // this.oracles (Oracle[])
@@ -1366,9 +1366,9 @@ class ContractFormation extends protocol_1.OpReturnMessage {
         {
             bytes_1.WriteVarBin(buf, this.contract_auth_flags, 16);
         }
-        // restricted_qty_assets (uint64)
+        // restricted_qty_instruments (uint64)
         {
-            bytes_1.write(buf, this.restricted_qty_assets, 'uint64');
+            bytes_1.write(buf, this.restricted_qty_instruments, 'uint64');
         }
         // administration_proposal (bool)
         {
@@ -1483,9 +1483,9 @@ class ContractFormation extends protocol_1.OpReturnMessage {
         {
             this.contract_auth_flags = bytes_1.ReadVarBin(buf, 16);
         }
-        // restricted_qty_assets (uint64)
+        // restricted_qty_instruments (uint64)
         {
-            this.restricted_qty_assets = bytes_1.read(buf, 'uint64');
+            this.restricted_qty_instruments = bytes_1.read(buf, 'uint64');
         }
         // administration_proposal (bool)
         {
@@ -1632,7 +1632,7 @@ class ContractFormation extends protocol_1.OpReturnMessage {
                 return sprintf_js_1.sprintf('varbin field contract_auth_flags too long %d/%d', this.contract_auth_flags.length, (Math.pow(2, 16)) - 1);
             }
         }
-        // RestrictedQtyAssets (uint64) 
+        // RestrictedQtyInstruments (uint64)
         {
         }
         // AdministrationProposal (bool) 
@@ -1691,7 +1691,7 @@ class ContractFormation extends protocol_1.OpReturnMessage {
         vals.push(sprintf_js_1.sprintf('contract_fee:%d', this.contract_fee));
         vals.push(sprintf_js_1.sprintf('voting_systems:%s', this.voting_systems.toString()));
         vals.push(sprintf_js_1.sprintf('contract_auth_flags:%s', this.contract_auth_flags.toString()));
-        vals.push(sprintf_js_1.sprintf('restricted_qty_assets:%d', this.restricted_qty_assets));
+        vals.push(sprintf_js_1.sprintf('restricted_qty_instruments:%d', this.restricted_qty_instruments));
         vals.push(sprintf_js_1.sprintf('administration_proposal:%s', this.administration_proposal.toString()));
         vals.push(sprintf_js_1.sprintf('holder_proposal:%s', this.holder_proposal.toString()));
         vals.push(sprintf_js_1.sprintf('oracles:%s', this.oracles.toString()));
@@ -1728,7 +1728,7 @@ class ContractFormation extends protocol_1.OpReturnMessage {
         this.contract_fee = parsed.contractFee;
         // this.voting_systems (VotingSystem[])
         // this.contract_auth_flags = parsed.contractAuthFlags (varbin)
-        this.restricted_qty_assets = parsed.restrictedQtyAssets;
+        this.restricted_qty_instruments = parsed.restrictedQtyInstruments;
         // this.administration_proposal = parsed.administrationProposal (bool)
         // this.holder_proposal = parsed.holderProposal (bool)
         // this.oracles (Oracle[])
@@ -2316,13 +2316,13 @@ class Order extends protocol_1.OpReturnMessage {
         {
             bytes_1.write(buf, this.compliance_action, 'byte');
         }
-        // asset_type (string)
+        // instrument_type (string)
         if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
-            buf.write(this.asset_code.Serialize());
+            buf.write(this.instrument_code.Serialize());
         }
         // target_addresses ([]TargetAddress)
         if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
@@ -2391,14 +2391,14 @@ class Order extends protocol_1.OpReturnMessage {
         {
             this.compliance_action = bytes_1.read(buf, 'byte');
         }
-        // asset_type (string)
+        // instrument_type (string)
         if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
-            this.asset_code = new protocol_types_1.AssetCode();
-            this.asset_code.Write(buf);
+            this.instrument_code = new protocol_types_1.InstrumentCode();
+            this.instrument_code.Write(buf);
         }
         // target_addresses ([]TargetAddress)
         if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
@@ -2481,20 +2481,20 @@ class Order extends protocol_1.OpReturnMessage {
                 return sprintf_js_1.sprintf('field compliance_action value is invalid : %d', this.compliance_action);
             }
         }
-        // AssetType (string)
+        // InstrumentType (string)
         // IncludeIf.Field
         if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetCode (AssetCode)
+        // InstrumentCode (InstrumentCode)
         // IncludeIf.Field
         if (this.compliance_action === bytes_1.char('F') || this.compliance_action === bytes_1.char('C') || this.compliance_action === bytes_1.char('R')) {
             // IsInternalType
-            const err = this.asset_code.Validate();
+            const err = this.instrument_code.Validate();
             if (err)
-                return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
+                return sprintf_js_1.sprintf('field instrument_code is invalid : %s', err);
         }
         // TargetAddresses ([]TargetAddress)
         // IncludeIf.Field
@@ -2602,8 +2602,8 @@ class Order extends protocol_1.OpReturnMessage {
     toString() {
         const vals = [];
         vals.push(sprintf_js_1.sprintf('compliance_action:%s', this.compliance_action.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_code:%s', this.instrument_code.toString()));
         vals.push(sprintf_js_1.sprintf('target_addresses:%s', this.target_addresses.toString()));
         vals.push(sprintf_js_1.sprintf('freeze_tx_id:%s', this.freeze_tx_id.toString()));
         vals.push(sprintf_js_1.sprintf('freeze_period:%s', this.freeze_period.toString()));
@@ -2629,9 +2629,9 @@ class Order extends protocol_1.OpReturnMessage {
             throw e;
         }
         // this.compliance_action = parsed.complianceAction (fixedchar)
-        // this.asset_type = parsed.assetType (fixedchar)
-        this.asset_code = new protocol_types_1.AssetCode();
-        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        this.instrument_code = new protocol_types_1.InstrumentCode();
+        this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
         // this.target_addresses (TargetAddress[])
         this.freeze_tx_id = new protocol_types_1.TxId();
         this.freeze_tx_id.fromJSON(JSON.stringify(parsed.freezeTxId));
@@ -2652,7 +2652,7 @@ class Order extends protocol_1.OpReturnMessage {
     }
 }
 exports.Order = Order;
-// Freeze The contract responding to an Order action to freeze assets. To
+// Freeze The contract responding to an Order action to freeze instruments. To
 // be used to comply with contractual/legal/issuer requirements. The target
 // public address(es) will be marked as frozen. However the Freeze action
 // publishes this fact to the public blockchain for transparency. The
@@ -2678,13 +2678,13 @@ class Freeze extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // asset_type (string)
+        // instrument_type (string)
         {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            buf.write(this.asset_code.Serialize());
+            buf.write(this.instrument_code.Serialize());
         }
         // quantities ([]QuantityIndex)
         {
@@ -2706,14 +2706,14 @@ class Freeze extends protocol_1.OpReturnMessage {
     // write populates the fields in Freeze from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // asset_type (string)
+        // instrument_type (string)
         {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            this.asset_code = new protocol_types_1.AssetCode();
-            this.asset_code.Write(buf);
+            this.instrument_code = new protocol_types_1.InstrumentCode();
+            this.instrument_code.Write(buf);
         }
         // quantities ([]QuantityIndex)
         {
@@ -2739,18 +2739,18 @@ class Freeze extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string) 
+        // InstrumentType (string)
         {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetCode (AssetCode) 
+        // InstrumentCode (InstrumentCode)
         {
             // IsInternalType
-            const err = this.asset_code.Validate();
+            const err = this.instrument_code.Validate();
             if (err)
-                return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
+                return sprintf_js_1.sprintf('field instrument_code is invalid : %s', err);
         }
         // Quantities ([]QuantityIndex) 
         {
@@ -2783,8 +2783,8 @@ class Freeze extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_code:%s', this.instrument_code.toString()));
         vals.push(sprintf_js_1.sprintf('quantities:%s', this.quantities.toString()));
         vals.push(sprintf_js_1.sprintf('freeze_period:%s', this.freeze_period.toString()));
         vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
@@ -2799,9 +2799,9 @@ class Freeze extends protocol_1.OpReturnMessage {
             console.error('Failed to parse JSON for Freeze.', e);
             throw e;
         }
-        // this.asset_type = parsed.assetType (fixedchar)
-        this.asset_code = new protocol_types_1.AssetCode();
-        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        this.instrument_code = new protocol_types_1.InstrumentCode();
+        this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
         // this.quantities (QuantityIndex[])
         this.freeze_period = new protocol_types_1.Timestamp();
         this.freeze_period.fromJSON(JSON.stringify(parsed.freezePeriod));
@@ -2811,7 +2811,7 @@ class Freeze extends protocol_1.OpReturnMessage {
     }
 }
 exports.Freeze = Freeze;
-// Thaw The contract responding to an Order action to thaw assets. To be
+// Thaw The contract responding to an Order action to thaw instruments. To be
 // used to comply with contractual obligations or legal requirements. The
 // Alleged Offender's tokens will be unfrozen to allow them to resume
 // normal exchange and governance activities.
@@ -2901,7 +2901,7 @@ class Thaw extends protocol_1.OpReturnMessage {
 }
 exports.Thaw = Thaw;
 // Confiscation The contract responding to an Order action to confiscate
-// assets. To be used to comply with contractual obligations, legal and/or
+// instruments. To be used to comply with contractual obligations, legal and/or
 // issuer requirements.
 class Confiscation extends protocol_1.OpReturnMessage {
     constructor() {
@@ -2923,13 +2923,13 @@ class Confiscation extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // asset_type (string)
+        // instrument_type (string)
         {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            buf.write(this.asset_code.Serialize());
+            buf.write(this.instrument_code.Serialize());
         }
         // quantities ([]QuantityIndex)
         {
@@ -2951,14 +2951,14 @@ class Confiscation extends protocol_1.OpReturnMessage {
     // write populates the fields in Confiscation from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // asset_type (string)
+        // instrument_type (string)
         {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            this.asset_code = new protocol_types_1.AssetCode();
-            this.asset_code.Write(buf);
+            this.instrument_code = new protocol_types_1.InstrumentCode();
+            this.instrument_code.Write(buf);
         }
         // quantities ([]QuantityIndex)
         {
@@ -2983,18 +2983,18 @@ class Confiscation extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string) 
+        // InstrumentType (string)
         {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetCode (AssetCode) 
+        // InstrumentCode (InstrumentCode)
         {
             // IsInternalType
-            const err = this.asset_code.Validate();
+            const err = this.instrument_code.Validate();
             if (err)
-                return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
+                return sprintf_js_1.sprintf('field instrument_code is invalid : %s', err);
         }
         // Quantities ([]QuantityIndex) 
         {
@@ -3023,8 +3023,8 @@ class Confiscation extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_code:%s', this.instrument_code.toString()));
         vals.push(sprintf_js_1.sprintf('quantities:%s', this.quantities.toString()));
         vals.push(sprintf_js_1.sprintf('deposit_qty:%d', this.deposit_qty));
         vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
@@ -3039,9 +3039,9 @@ class Confiscation extends protocol_1.OpReturnMessage {
             console.error('Failed to parse JSON for Confiscation.', e);
             throw e;
         }
-        // this.asset_type = parsed.assetType (fixedchar)
-        this.asset_code = new protocol_types_1.AssetCode();
-        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        this.instrument_code = new protocol_types_1.InstrumentCode();
+        this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
         // this.quantities (QuantityIndex[])
         this.deposit_qty = parsed.depositQty;
         this.timestamp = new protocol_types_1.Timestamp();
@@ -3051,7 +3051,7 @@ class Confiscation extends protocol_1.OpReturnMessage {
 }
 exports.Confiscation = Confiscation;
 // Reconciliation The contract responding to an Order action to reconcile
-// assets. To be used at the direction of the administration to fix record
+// instruments. To be used at the direction of the administration to fix record
 // keeping errors with bitcoin and token balances.
 class Reconciliation extends protocol_1.OpReturnMessage {
     constructor() {
@@ -3073,13 +3073,13 @@ class Reconciliation extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // asset_type (string)
+        // instrument_type (string)
         {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            buf.write(this.asset_code.Serialize());
+            buf.write(this.instrument_code.Serialize());
         }
         // quantities ([]QuantityIndex)
         {
@@ -3097,14 +3097,14 @@ class Reconciliation extends protocol_1.OpReturnMessage {
     // write populates the fields in Reconciliation from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // asset_type (string)
+        // instrument_type (string)
         {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_code (AssetCode)
+        // instrument_code (InstrumentCode)
         {
-            this.asset_code = new protocol_types_1.AssetCode();
-            this.asset_code.Write(buf);
+            this.instrument_code = new protocol_types_1.InstrumentCode();
+            this.instrument_code.Write(buf);
         }
         // quantities ([]QuantityIndex)
         {
@@ -3125,18 +3125,18 @@ class Reconciliation extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetType (string) 
+        // InstrumentType (string)
         {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetCode (AssetCode) 
+        // InstrumentCode (InstrumentCode)
         {
             // IsInternalType
-            const err = this.asset_code.Validate();
+            const err = this.instrument_code.Validate();
             if (err)
-                return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
+                return sprintf_js_1.sprintf('field instrument_code is invalid : %s', err);
         }
         // Quantities ([]QuantityIndex) 
         {
@@ -3162,8 +3162,8 @@ class Reconciliation extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_code:%s', this.instrument_code.toString()));
         vals.push(sprintf_js_1.sprintf('quantities:%s', this.quantities.toString()));
         vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
@@ -3177,9 +3177,9 @@ class Reconciliation extends protocol_1.OpReturnMessage {
             console.error('Failed to parse JSON for Reconciliation.', e);
             throw e;
         }
-        // this.asset_type = parsed.assetType (fixedchar)
-        this.asset_code = new protocol_types_1.AssetCode();
-        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        this.instrument_code = new protocol_types_1.InstrumentCode();
+        this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
         // this.quantities (QuantityIndex[])
         this.timestamp = new protocol_types_1.Timestamp();
         this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
@@ -3216,17 +3216,17 @@ class Proposal extends protocol_1.OpReturnMessage {
         {
             bytes_1.write(buf, this.initiator, 'uint8');
         }
-        // asset_specific_vote (bool)
+        // instrument_specific_vote (bool)
         {
-            bytes_1.write(buf, this.asset_specific_vote, 'bool');
+            bytes_1.write(buf, this.instrument_specific_vote, 'bool');
         }
-        // asset_type (string)
-        if (this.asset_specific_vote) {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+        // instrument_type (string)
+        if (this.instrument_specific_vote) {
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_code (AssetCode)
-        if (this.asset_specific_vote) {
-            buf.write(this.asset_code.Serialize());
+        // instrument_code (InstrumentCode)
+        if (this.instrument_specific_vote) {
+            buf.write(this.instrument_code.Serialize());
         }
         // vote_system (uint8)
         {
@@ -3272,18 +3272,18 @@ class Proposal extends protocol_1.OpReturnMessage {
         {
             this.initiator = bytes_1.read(buf, 'uint8');
         }
-        // asset_specific_vote (bool)
+        // instrument_specific_vote (bool)
         {
-            this.asset_specific_vote = bytes_1.read(buf, 'bool');
+            this.instrument_specific_vote = bytes_1.read(buf, 'bool');
         }
-        // asset_type (string)
-        if (this.asset_specific_vote) {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+        // instrument_type (string)
+        if (this.instrument_specific_vote) {
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_code (AssetCode)
-        if (this.asset_specific_vote) {
-            this.asset_code = new protocol_types_1.AssetCode();
-            this.asset_code.Write(buf);
+        // instrument_code (InstrumentCode)
+        if (this.instrument_specific_vote) {
+            this.instrument_code = new protocol_types_1.InstrumentCode();
+            this.instrument_code.Write(buf);
         }
         // vote_system (uint8)
         {
@@ -3335,23 +3335,23 @@ class Proposal extends protocol_1.OpReturnMessage {
                 return sprintf_js_1.sprintf('field initiator value is invalid : %d', this.initiator);
             }
         }
-        // AssetSpecificVote (bool) 
+        // InstrumentSpecificVote (bool)
         {
         }
-        // AssetType (string)
+        // InstrumentType (string)
         // IncludeIfTrue
-        if (this.asset_specific_vote) {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+        if (this.instrument_specific_vote) {
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetCode (AssetCode)
+        // InstrumentCode (InstrumentCode)
         // IncludeIfTrue
-        if (this.asset_specific_vote) {
+        if (this.instrument_specific_vote) {
             // IsInternalType
-            const err = this.asset_code.Validate();
+            const err = this.instrument_code.Validate();
             if (err)
-                return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
+                return sprintf_js_1.sprintf('field instrument_code is invalid : %s', err);
         }
         // VoteSystem (uint8) 
         {
@@ -3403,9 +3403,9 @@ class Proposal extends protocol_1.OpReturnMessage {
     toString() {
         const vals = [];
         vals.push(sprintf_js_1.sprintf('initiator:%d', this.initiator));
-        vals.push(sprintf_js_1.sprintf('asset_specific_vote:%s', this.asset_specific_vote.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_specific_vote:%s', this.instrument_specific_vote.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_code:%s', this.instrument_code.toString()));
         vals.push(sprintf_js_1.sprintf('vote_system:%d', this.vote_system));
         vals.push(sprintf_js_1.sprintf('specific:%s', this.specific.toString()));
         vals.push(sprintf_js_1.sprintf('proposed_amendments:%s', this.proposed_amendments.toString()));
@@ -3426,10 +3426,10 @@ class Proposal extends protocol_1.OpReturnMessage {
             throw e;
         }
         this.initiator = parsed.initiator;
-        // this.asset_specific_vote = parsed.assetSpecificVote (bool)
-        // this.asset_type = parsed.assetType (fixedchar)
-        this.asset_code = new protocol_types_1.AssetCode();
-        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.instrument_specific_vote = parsed.instrumentSpecificVote (bool)
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        this.instrument_code = new protocol_types_1.InstrumentCode();
+        this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
         this.vote_system = parsed.voteSystem;
         // this.specific = parsed.specific (bool)
         // this.proposed_amendments (Amendment[])
@@ -3513,7 +3513,7 @@ class Vote extends protocol_1.OpReturnMessage {
 exports.Vote = Vote;
 // BallotCast Used by Token Owners to cast their ballot (vote) on
 // proposals. 1 Vote per token unless a vote multiplier is specified in the
-// relevant Asset Definition action.
+// relevant Instrument Definition action.
 class BallotCast extends protocol_1.OpReturnMessage {
     constructor() {
         super(...arguments);
@@ -3716,7 +3716,7 @@ class BallotCounted extends protocol_1.OpReturnMessage {
 exports.BallotCounted = BallotCounted;
 // Result Once a vote has been completed the results are published. After
 // the result is posted, it is up to the administration to send a
-// contract/asset amendement if appropriate.
+// contract/instrument amendement if appropriate.
 class Result extends protocol_1.OpReturnMessage {
     constructor() {
         super(...arguments);
@@ -3737,17 +3737,17 @@ class Result extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // asset_specific_vote (bool)
+        // instrument_specific_vote (bool)
         {
-            bytes_1.write(buf, this.asset_specific_vote, 'bool');
+            bytes_1.write(buf, this.instrument_specific_vote, 'bool');
         }
-        // asset_type (string)
-        if (this.asset_specific_vote) {
-            bytes_1.WriteFixedChar(buf, this.asset_type, 3);
+        // instrument_type (string)
+        if (this.instrument_specific_vote) {
+            bytes_1.WriteFixedChar(buf, this.instrument_type, 3);
         }
-        // asset_code (AssetCode)
-        if (this.asset_specific_vote) {
-            buf.write(this.asset_code.Serialize());
+        // instrument_code (InstrumentCode)
+        if (this.instrument_specific_vote) {
+            buf.write(this.instrument_code.Serialize());
         }
         // specific (bool)
         {
@@ -3786,18 +3786,18 @@ class Result extends protocol_1.OpReturnMessage {
     // write populates the fields in Result from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // asset_specific_vote (bool)
+        // instrument_specific_vote (bool)
         {
-            this.asset_specific_vote = bytes_1.read(buf, 'bool');
+            this.instrument_specific_vote = bytes_1.read(buf, 'bool');
         }
-        // asset_type (string)
-        if (this.asset_specific_vote) {
-            this.asset_type = bytes_1.ReadFixedChar(buf, 3);
+        // instrument_type (string)
+        if (this.instrument_specific_vote) {
+            this.instrument_type = bytes_1.ReadFixedChar(buf, 3);
         }
-        // asset_code (AssetCode)
-        if (this.asset_specific_vote) {
-            this.asset_code = new protocol_types_1.AssetCode();
-            this.asset_code.Write(buf);
+        // instrument_code (InstrumentCode)
+        if (this.instrument_specific_vote) {
+            this.instrument_code = new protocol_types_1.InstrumentCode();
+            this.instrument_code.Write(buf);
         }
         // specific (bool)
         {
@@ -3837,23 +3837,23 @@ class Result extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // AssetSpecificVote (bool) 
+        // InstrumentSpecificVote (bool)
         {
         }
-        // AssetType (string)
+        // InstrumentType (string)
         // IncludeIfTrue
-        if (this.asset_specific_vote) {
-            if (this.asset_type.length > 3) {
-                return sprintf_js_1.sprintf('fixedchar field asset_type too long %d/%d', this.asset_type.length, 3);
+        if (this.instrument_specific_vote) {
+            if (this.instrument_type.length > 3) {
+                return sprintf_js_1.sprintf('fixedchar field instrument_type too long %d/%d', this.instrument_type.length, 3);
             }
         }
-        // AssetCode (AssetCode)
+        // InstrumentCode (InstrumentCode)
         // IncludeIfTrue
-        if (this.asset_specific_vote) {
+        if (this.instrument_specific_vote) {
             // IsInternalType
-            const err = this.asset_code.Validate();
+            const err = this.instrument_code.Validate();
             if (err)
-                return sprintf_js_1.sprintf('field asset_code is invalid : %s', err);
+                return sprintf_js_1.sprintf('field instrument_code is invalid : %s', err);
         }
         // Specific (bool) 
         {
@@ -3902,9 +3902,9 @@ class Result extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('asset_specific_vote:%s', this.asset_specific_vote.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_type:%s', this.asset_type.toString()));
-        vals.push(sprintf_js_1.sprintf('asset_code:%s', this.asset_code.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_specific_vote:%s', this.instrument_specific_vote.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_type:%s', this.instrument_type.toString()));
+        vals.push(sprintf_js_1.sprintf('instrument_code:%s', this.instrument_code.toString()));
         vals.push(sprintf_js_1.sprintf('specific:%s', this.specific.toString()));
         vals.push(sprintf_js_1.sprintf('proposed_amendments:%s', this.proposed_amendments.toString()));
         vals.push(sprintf_js_1.sprintf('vote_tx_id:%s', this.vote_tx_id.toString()));
@@ -3922,10 +3922,10 @@ class Result extends protocol_1.OpReturnMessage {
             console.error('Failed to parse JSON for Result.', e);
             throw e;
         }
-        // this.asset_specific_vote = parsed.assetSpecificVote (bool)
-        // this.asset_type = parsed.assetType (fixedchar)
-        this.asset_code = new protocol_types_1.AssetCode();
-        this.asset_code.fromJSON(JSON.stringify(parsed.assetCode));
+        // this.instrument_specific_vote = parsed.instrumentSpecificVote (bool)
+        // this.instrument_type = parsed.instrumentType (fixedchar)
+        this.instrument_code = new protocol_types_1.InstrumentCode();
+        this.instrument_code.fromJSON(JSON.stringify(parsed.instrumentCode));
         // this.specific = parsed.specific (bool)
         // this.proposed_amendments (Amendment[])
         this.vote_tx_id = new protocol_types_1.TxId();
@@ -4483,7 +4483,7 @@ exports.Removal = Removal;
 // Transfer A Token Owner(s) Sends, Exchanges or Swaps a token(s) or
 // Bitcoin for a token(s) or Bitcoin. Can be as simple as sending a single
 // token to a receiver. Or can be as complex as many senders sending many
-// different assets - controlled by many different smart contracts - to a
+// different instruments - controlled by many different smart contracts - to a
 // number of receivers. This action also supports atomic swaps (tokens for
 // tokens). Since many parties and contracts can be involved in a transfer
 // and the corresponding settlement action, the partially signed T1 and T2
@@ -4509,10 +4509,10 @@ class Transfer extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // assets ([]AssetTransfer)
+        // instruments ([]InstrumentTransfer)
         {
-            bytes_1.WriteVariableSize(buf, this.assets.length, 8, 8);
-            this.assets.forEach((value) => {
+            bytes_1.WriteVariableSize(buf, this.instruments.length, 8, 8);
+            this.instruments.forEach((value) => {
                 buf.write(value.Serialize());
             });
         }
@@ -4533,15 +4533,15 @@ class Transfer extends protocol_1.OpReturnMessage {
     // write populates the fields in Transfer from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // assets ([]AssetTransfer)
+        // instruments ([]InstrumentTransfer)
         {
             // IsInternalTypeArray
             const size = bytes_1.ReadVariableSize(buf, 8, 8);
-            this.assets = [];
+            this.instruments = [];
             for (let i = 0; i < size; i++) {
-                const newValue = new field_types_1.AssetTransfer();
+                const newValue = new field_types_1.InstrumentTransfer();
                 newValue.Write(buf);
-                this.assets.push(newValue);
+                this.instruments.push(newValue);
             }
         }
         // offer_expiry (Timestamp)
@@ -4561,15 +4561,15 @@ class Transfer extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // Assets ([]AssetTransfer) 
+        // Instruments ([]InstrumentTransfer)
         {
-            if (this.assets.length > (Math.pow(2, 8)) - 1) {
-                return sprintf_js_1.sprintf('list field assets has too many items %d/%d', this.assets.length, (Math.pow(2, 8)) - 1);
+            if (this.instruments.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('list field instruments has too many items %d/%d', this.instruments.length, (Math.pow(2, 8)) - 1);
             }
-            const err = this.assets.find((value, i) => {
+            const err = this.instruments.find((value, i) => {
                 const err2 = value.Validate();
                 if (err2)
-                    return sprintf_js_1.sprintf('list field assets[%d] is invalid : %s', i, err2);
+                    return sprintf_js_1.sprintf('list field instruments[%d] is invalid : %s', i, err2);
             });
             if (err)
                 return err;
@@ -4595,7 +4595,7 @@ class Transfer extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('assets:%s', this.assets.toString()));
+        vals.push(sprintf_js_1.sprintf('instruments:%s', this.instruments.toString()));
         vals.push(sprintf_js_1.sprintf('offer_expiry:%s', this.offer_expiry.toString()));
         vals.push(sprintf_js_1.sprintf('exchange_fee:%d', this.exchange_fee));
         vals.push(sprintf_js_1.sprintf('exchange_fee_address:%s', this.exchange_fee_address.toString()));
@@ -4610,7 +4610,7 @@ class Transfer extends protocol_1.OpReturnMessage {
             console.error('Failed to parse JSON for Transfer.', e);
             throw e;
         }
-        // this.assets (AssetTransfer[])
+        // this.instruments (InstrumentTransfer[])
         this.offer_expiry = new protocol_types_1.Timestamp();
         this.offer_expiry.fromJSON(JSON.stringify(parsed.offerExpiry));
         this.exchange_fee = parsed.exchangeFee;
@@ -4642,10 +4642,10 @@ class Settlement extends protocol_1.OpReturnMessage {
     // serialize returns the full OP_RETURN payload bytes.
     Serialize() {
         const buf = new util_1.default.Writer();
-        // assets ([]AssetSettlement)
+        // instruments ([]InstrumentSettlement)
         {
-            bytes_1.WriteVariableSize(buf, this.assets.length, 8, 8);
-            this.assets.forEach((value) => {
+            bytes_1.WriteVariableSize(buf, this.instruments.length, 8, 8);
+            this.instruments.forEach((value) => {
                 buf.write(value.Serialize());
             });
         }
@@ -4658,15 +4658,15 @@ class Settlement extends protocol_1.OpReturnMessage {
     // write populates the fields in Settlement from the byte slice
     write(b) {
         const buf = new util_1.default.Reader(b);
-        // assets ([]AssetSettlement)
+        // instruments ([]InstrumentSettlement)
         {
             // IsInternalTypeArray
             const size = bytes_1.ReadVariableSize(buf, 8, 8);
-            this.assets = [];
+            this.instruments = [];
             for (let i = 0; i < size; i++) {
-                const newValue = new field_types_1.AssetSettlement();
+                const newValue = new field_types_1.InstrumentSettlement();
                 newValue.Write(buf);
-                this.assets.push(newValue);
+                this.instruments.push(newValue);
             }
         }
         // timestamp (Timestamp)
@@ -4677,15 +4677,15 @@ class Settlement extends protocol_1.OpReturnMessage {
         return b.length - buf.length;
     }
     Validate() {
-        // Assets ([]AssetSettlement) 
+        // Instruments ([]InstrumentSettlement)
         {
-            if (this.assets.length > (Math.pow(2, 8)) - 1) {
-                return sprintf_js_1.sprintf('list field assets has too many items %d/%d', this.assets.length, (Math.pow(2, 8)) - 1);
+            if (this.instruments.length > (Math.pow(2, 8)) - 1) {
+                return sprintf_js_1.sprintf('list field instruments has too many items %d/%d', this.instruments.length, (Math.pow(2, 8)) - 1);
             }
-            const err = this.assets.find((value, i) => {
+            const err = this.instruments.find((value, i) => {
                 const err2 = value.Validate();
                 if (err2)
-                    return sprintf_js_1.sprintf('list field assets[%d] is invalid : %s', i, err2);
+                    return sprintf_js_1.sprintf('list field instruments[%d] is invalid : %s', i, err2);
             });
             if (err)
                 return err;
@@ -4701,7 +4701,7 @@ class Settlement extends protocol_1.OpReturnMessage {
     }
     toString() {
         const vals = [];
-        vals.push(sprintf_js_1.sprintf('assets:%s', this.assets.toString()));
+        vals.push(sprintf_js_1.sprintf('instruments:%s', this.instruments.toString()));
         vals.push(sprintf_js_1.sprintf('timestamp:%s', this.timestamp.toString()));
         return sprintf_js_1.sprintf('{%s}', vals.join(' '));
     }
@@ -4714,7 +4714,7 @@ class Settlement extends protocol_1.OpReturnMessage {
             console.error('Failed to parse JSON for Settlement.', e);
             throw e;
         }
-        // this.assets (AssetSettlement[])
+        // this.instruments (InstrumentSettlement[])
         this.timestamp = new protocol_types_1.Timestamp();
         this.timestamp.fromJSON(JSON.stringify(parsed.timestamp));
         return this.Validate();

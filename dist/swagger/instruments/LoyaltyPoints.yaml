@@ -1,0 +1,22 @@
+
+description: A Loyalty Point
+type: object
+properties:
+  AgeRestriction:
+    description: Age restriction is used to specify required ages for instrument ownership.
+    type: object
+    $ref: "#/components/schemas/AgeRestrictionField"
+  ProgramName:
+    type: string
+    example: "Qantas Frequent Flyer Points"
+  ExpirationTimestamp:
+    type: number
+    example: 1594668650000000000
+  Details:
+    type: string
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
+

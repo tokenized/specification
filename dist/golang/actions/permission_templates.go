@@ -3,9 +3,9 @@ package actions
 import "github.com/tokenized/specification/dist/golang/permissions"
 
 type PermissionConfig struct {
-	VotingSystems       []VotingSystemField
-	ContractPermissions permissions.Permissions
-	AssetPermissions    map[string]permissions.Permissions
+	VotingSystems         []VotingSystemField
+	ContractPermissions   permissions.Permissions
+	InstrumentPermissions map[string]permissions.Permissions
 }
 
 var PrivateCompany = PermissionConfig{
@@ -128,7 +128,7 @@ var PrivateCompany = PermissionConfig{
 			VotingSystemsAllowed:   []bool{false, false, true, false, false},
 			Fields: []permissions.FieldIndexPath{
 				permissions.FieldIndexPath{10, 9}, // [Issuer CountryCode]
-				permissions.FieldIndexPath{20},    // [RestrictedQtyAssets]
+				permissions.FieldIndexPath{20},    // [RestrictedQtyInstruments]
 			},
 		},
 		permissions.Permission{ // Administrator/Holder Proposal Special Resolution
@@ -160,7 +160,7 @@ var PrivateCompany = PermissionConfig{
 			},
 		},
 	},
-	AssetPermissions: map[string]permissions.Permissions{
+	InstrumentPermissions: map[string]permissions.Permissions{
 		"CCY": permissions.Permissions{
 			permissions.Permission{ // Administrative Vote Special Board Resolution
 				Permitted:              false,
@@ -169,14 +169,14 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{1},  // [AssetPermissions]
+					permissions.FieldIndexPath{1},  // [InstrumentPermissions]
 					permissions.FieldIndexPath{13}, // [TradeRestrictions]
 					permissions.FieldIndexPath{4},  // [EnforcementOrdersPermitted]
 					permissions.FieldIndexPath{5},  // [VotingRights]
 					permissions.FieldIndexPath{6},  // [VoteMultiplier]
 					permissions.FieldIndexPath{7},  // [AdministrationProposal]
 					permissions.FieldIndexPath{8},  // [HolderProposal]
-					permissions.FieldIndexPath{9},  // [AssetModificationGovernance]
+					permissions.FieldIndexPath{9},  // [InstrumentModificationGovernance]
 				},
 			},
 			permissions.Permission{ // Administrator Direct
@@ -196,9 +196,9 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{12, 1}, // [AssetPayload CurrencyCode]
-					permissions.FieldIndexPath{12, 2}, // [AssetPayload MonetaryAuthority]
-					permissions.FieldIndexPath{12, 3}, // [AssetPayload Description]
+					permissions.FieldIndexPath{12, 1}, // [InstrumentPayload CurrencyCode]
+					permissions.FieldIndexPath{12, 2}, // [InstrumentPayload MonetaryAuthority]
+					permissions.FieldIndexPath{12, 3}, // [InstrumentPayload Description]
 				},
 			},
 		},
@@ -210,15 +210,15 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{1},     // [AssetPermissions]
-					permissions.FieldIndexPath{12, 7}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{1},     // [InstrumentPermissions]
+					permissions.FieldIndexPath{12, 7}, // [InstrumentPayload TransfersPermitted]
 					permissions.FieldIndexPath{13},    // [TradeRestrictions]
 					permissions.FieldIndexPath{4},     // [EnforcementOrdersPermitted]
 					permissions.FieldIndexPath{5},     // [VotingRights]
 					permissions.FieldIndexPath{6},     // [VoteMultiplier]
 					permissions.FieldIndexPath{7},     // [AdministrationProposal]
 					permissions.FieldIndexPath{8},     // [HolderProposal]
-					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
+					permissions.FieldIndexPath{9},     // [InstrumentModificationGovernance]
 				},
 			},
 			permissions.Permission{ // Administrator Direct
@@ -229,11 +229,11 @@ var PrivateCompany = PermissionConfig{
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 9}, // [AssetPayload FaceValue]
-					permissions.FieldIndexPath{12, 2}, // [AssetPayload UseType]
-					permissions.FieldIndexPath{12, 3}, // [AssetPayload AgeRestriction]
-					permissions.FieldIndexPath{12, 4}, // [AssetPayload ValidFrom]
-					permissions.FieldIndexPath{12, 5}, // [AssetPayload ExpirationTimestamp]
+					permissions.FieldIndexPath{12, 9}, // [InstrumentPayload FaceValue]
+					permissions.FieldIndexPath{12, 2}, // [InstrumentPayload UseType]
+					permissions.FieldIndexPath{12, 3}, // [InstrumentPayload AgeRestriction]
+					permissions.FieldIndexPath{12, 4}, // [InstrumentPayload ValidFrom]
+					permissions.FieldIndexPath{12, 5}, // [InstrumentPayload ExpirationTimestamp]
 				},
 			},
 		},
@@ -245,15 +245,15 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{1},     // [AssetPermissions]
-					permissions.FieldIndexPath{12, 8}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{1},     // [InstrumentPermissions]
+					permissions.FieldIndexPath{12, 8}, // [InstrumentPayload TransfersPermitted]
 					permissions.FieldIndexPath{13},    // [TradeRestrictions]
 					permissions.FieldIndexPath{4},     // [EnforcementOrdersPermitted]
 					permissions.FieldIndexPath{5},     // [VotingRights]
 					permissions.FieldIndexPath{6},     // [VoteMultiplier]
 					permissions.FieldIndexPath{7},     // [AdministrationProposal]
 					permissions.FieldIndexPath{8},     // [HolderProposal]
-					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
+					permissions.FieldIndexPath{9},     // [InstrumentModificationGovernance]
 				},
 			},
 			permissions.Permission{ // Administrator Direct
@@ -264,10 +264,10 @@ var PrivateCompany = PermissionConfig{
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{10},     // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 1},  // [AssetPayload RedeemingEntity]
-					permissions.FieldIndexPath{12, 3},  // [AssetPayload ExpirationTimestamp]
-					permissions.FieldIndexPath{12, 9},  // [AssetPayload FaceValue]
-					permissions.FieldIndexPath{12, 11}, // [AssetPayload Details]
+					permissions.FieldIndexPath{12, 1},  // [InstrumentPayload RedeemingEntity]
+					permissions.FieldIndexPath{12, 3},  // [InstrumentPayload ExpirationTimestamp]
+					permissions.FieldIndexPath{12, 9},  // [InstrumentPayload FaceValue]
+					permissions.FieldIndexPath{12, 11}, // [InstrumentPayload Details]
 				},
 			},
 		},
@@ -279,17 +279,17 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{1},     // [AssetPermissions]
-					permissions.FieldIndexPath{12, 6}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{1},     // [InstrumentPermissions]
+					permissions.FieldIndexPath{12, 6}, // [InstrumentPayload TransfersPermitted]
 					permissions.FieldIndexPath{13},    // [TradeRestrictions]
 					permissions.FieldIndexPath{4},     // [EnforcementOrdersPermitted]
 					permissions.FieldIndexPath{5},     // [VotingRights]
 					permissions.FieldIndexPath{6},     // [VoteMultiplier]
 					permissions.FieldIndexPath{7},     // [AdministrationProposal]
 					permissions.FieldIndexPath{8},     // [HolderProposal]
-					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
-					permissions.FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
-					permissions.FieldIndexPath{12, 2}, // [AssetPayload ProgramName]
+					permissions.FieldIndexPath{9},     // [InstrumentModificationGovernance]
+					permissions.FieldIndexPath{12, 1}, // [InstrumentPayload AgeRestriction]
+					permissions.FieldIndexPath{12, 2}, // [InstrumentPayload ProgramName]
 				},
 			},
 			permissions.Permission{ // Administrator Direct
@@ -300,8 +300,8 @@ var PrivateCompany = PermissionConfig{
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 4}, // [AssetPayload ExpirationTimestamp]
-					permissions.FieldIndexPath{12, 5}, // [AssetPayload Details]
+					permissions.FieldIndexPath{12, 4}, // [InstrumentPayload ExpirationTimestamp]
+					permissions.FieldIndexPath{12, 5}, // [InstrumentPayload Details]
 				},
 			},
 		},
@@ -313,15 +313,15 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{1},     // [AssetPermissions]
-					permissions.FieldIndexPath{12, 9}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{1},     // [InstrumentPermissions]
+					permissions.FieldIndexPath{12, 9}, // [InstrumentPayload TransfersPermitted]
 					permissions.FieldIndexPath{5},     // [VotingRights]
 					permissions.FieldIndexPath{6},     // [VoteMultiplier]
 					permissions.FieldIndexPath{7},     // [AdministrationProposal]
 					permissions.FieldIndexPath{8},     // [HolderProposal]
 					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 1}, // [AssetPayload AgeRestriction]
-					permissions.FieldIndexPath{12, 2}, // [AssetPayload ValidFrom]
+					permissions.FieldIndexPath{12, 1}, // [InstrumentPayload AgeRestriction]
+					permissions.FieldIndexPath{12, 2}, // [InstrumentPayload ValidFrom]
 				},
 			},
 			permissions.Permission{ // Administrator Special Board Resolution
@@ -333,12 +333,12 @@ var PrivateCompany = PermissionConfig{
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{13},    // [TradeRestrictions]
 					permissions.FieldIndexPath{4},     // [EnforcementOrdersPermitted]
-					permissions.FieldIndexPath{9},     // [AssetModificationGovernance]
-					permissions.FieldIndexPath{12, 3}, // [AssetPayload ExpirationTimestamp]
-					permissions.FieldIndexPath{12, 4}, // [AssetPayload ID]
-					permissions.FieldIndexPath{12, 5}, // [AssetPayload MembershipClass]
-					permissions.FieldIndexPath{12, 6}, // [AssetPayload RoleType]
-					permissions.FieldIndexPath{12, 7}, // [AssetPayload MembershipType]
+					permissions.FieldIndexPath{9},     // [InstrumentModificationGovernance]
+					permissions.FieldIndexPath{12, 3}, // [InstrumentPayload ExpirationTimestamp]
+					permissions.FieldIndexPath{12, 4}, // [InstrumentPayload ID]
+					permissions.FieldIndexPath{12, 5}, // [InstrumentPayload MembershipClass]
+					permissions.FieldIndexPath{12, 6}, // [InstrumentPayload RoleType]
+					permissions.FieldIndexPath{12, 7}, // [InstrumentPayload MembershipType]
 				},
 			},
 			permissions.Permission{ // Administrative Vote General Board Resolution
@@ -348,7 +348,7 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, true, false},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{12, 8}, // [AssetPayload Description]
+					permissions.FieldIndexPath{12, 8}, // [InstrumentPayload Description]
 				},
 			},
 		},
@@ -360,16 +360,16 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   false,
 				VotingSystemsAllowed:   []bool{false, false, true, false, false},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{1},     // [AssetPermissions]
-					permissions.FieldIndexPath{12, 4}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{1},     // [InstrumentPermissions]
+					permissions.FieldIndexPath{12, 4}, // [InstrumentPayload TransfersPermitted]
 					permissions.FieldIndexPath{5},     // [VotingRights]
 					permissions.FieldIndexPath{6},     // [VoteMultiplier]
 					permissions.FieldIndexPath{7},     // [AdministrationProposal]
 					permissions.FieldIndexPath{8},     // [HolderProposal]
 					permissions.FieldIndexPath{10},    // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 1}, // [AssetPayload Ticker]
-					permissions.FieldIndexPath{12, 2}, // [AssetPayload ISIN]
-					permissions.FieldIndexPath{12, 3}, // [AssetPayload Description]
+					permissions.FieldIndexPath{12, 1}, // [InstrumentPayload Ticker]
+					permissions.FieldIndexPath{12, 2}, // [InstrumentPayload ISIN]
+					permissions.FieldIndexPath{12, 3}, // [InstrumentPayload Description]
 				},
 			},
 			permissions.Permission{ // Administrator Special Resolution
@@ -381,7 +381,7 @@ var PrivateCompany = PermissionConfig{
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{13}, // [TradeRestrictions]
 					permissions.FieldIndexPath{4},  // [EnforcementOrdersPermitted]
-					permissions.FieldIndexPath{9},  // [AssetModificationGovernance]
+					permissions.FieldIndexPath{9},  // [InstrumentModificationGovernance]
 				},
 			},
 		},
@@ -393,15 +393,15 @@ var PrivateCompany = PermissionConfig{
 				AdministrativeMatter:   true,
 				VotingSystemsAllowed:   []bool{false, false, false, false, true},
 				Fields: []permissions.FieldIndexPath{
-					permissions.FieldIndexPath{1},      // [AssetPermissions]
-					permissions.FieldIndexPath{12, 11}, // [AssetPayload TransfersPermitted]
+					permissions.FieldIndexPath{1},      // [InstrumentPermissions]
+					permissions.FieldIndexPath{12, 11}, // [InstrumentPayload TransfersPermitted]
 					permissions.FieldIndexPath{13},     // [TradeRestrictions]
 					permissions.FieldIndexPath{4},      // [EnforcementOrdersPermitted]
 					permissions.FieldIndexPath{5},      // [VotingRights]
 					permissions.FieldIndexPath{6},      // [VoteMultiplier]
 					permissions.FieldIndexPath{7},      // [AdministrationProposal]
 					permissions.FieldIndexPath{8},      // [HolderProposal]
-					permissions.FieldIndexPath{9},      // [AssetModificationGovernance]
+					permissions.FieldIndexPath{9},      // [InstrumentModificationGovernance]
 				},
 			},
 			permissions.Permission{ // Administrator Direct
@@ -412,15 +412,15 @@ var PrivateCompany = PermissionConfig{
 				VotingSystemsAllowed:   []bool{false, false, false, false, false},
 				Fields: []permissions.FieldIndexPath{
 					permissions.FieldIndexPath{10},     // [AuthorizedTokenQty]
-					permissions.FieldIndexPath{12, 1},  // [AssetPayload AgeRestriction]
-					permissions.FieldIndexPath{12, 3},  // [AssetPayload Venue]
-					permissions.FieldIndexPath{12, 5},  // [AssetPayload Area]
-					permissions.FieldIndexPath{12, 13}, // [AssetPayload Section]
-					permissions.FieldIndexPath{12, 14}, // [AssetPayload Row]
-					permissions.FieldIndexPath{12, 6},  // [AssetPayload Seat]
-					permissions.FieldIndexPath{12, 7},  // [AssetPayload EventStartTimestamp]
-					permissions.FieldIndexPath{12, 15}, // [AssetPayload EventEndTimestamp]
-					permissions.FieldIndexPath{12, 12}, // [AssetPayload Details]
+					permissions.FieldIndexPath{12, 1},  // [InstrumentPayload AgeRestriction]
+					permissions.FieldIndexPath{12, 3},  // [InstrumentPayload Venue]
+					permissions.FieldIndexPath{12, 5},  // [InstrumentPayload Area]
+					permissions.FieldIndexPath{12, 13}, // [InstrumentPayload Section]
+					permissions.FieldIndexPath{12, 14}, // [InstrumentPayload Row]
+					permissions.FieldIndexPath{12, 6},  // [InstrumentPayload Seat]
+					permissions.FieldIndexPath{12, 7},  // [InstrumentPayload EventStartTimestamp]
+					permissions.FieldIndexPath{12, 15}, // [InstrumentPayload EventEndTimestamp]
+					permissions.FieldIndexPath{12, 12}, // [InstrumentPayload Details]
 				},
 			},
 		},

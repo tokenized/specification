@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/tokenized/pkg/bitcoin"
-	"github.com/tokenized/specification/dist/golang/assets"
+	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/internal"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
@@ -172,22 +172,22 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 	return nil, fmt.Errorf("Unknown agreement amendment field index : %v", fip)
 }
 
-	{{- else if eq $message.Name "AssetDefinition" }}
-// Asset Permission / Amendment Field Indices
+	{{- else if eq $message.Name "InstrumentDefinition" }}
+// Instrument Permission / Amendment Field Indices
 const (
 		{{- range $i, $field := .Fields }}
 			{{- if eq $field.Type "deprecated" }}
-	DeprecatedAssetField{{ $field.Name }} = uint32({{add $i 1}})
+	DeprecatedInstrumentField{{ $field.Name }} = uint32({{add $i 1}})
 			{{- else }}
-	AssetField{{ $field.Name }} = uint32({{add $i 1}})
+	InstrumentField{{ $field.Name }} = uint32({{add $i 1}})
 			{{- end }}
 		{{- end }}
 )
 
 // CreateAmendments determines the differences between two {{ $message.Name }}s and returns
-// amendment data. Use the current value of asset creation, and pass in the new values as an asset
+// amendment data. Use the current value of instrument creation, and pass in the new values as an instrument
 // definition.
-func (a *AssetCreation) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
+func (a *InstrumentCreation) CreateAmendments(newValue *{{ $message.Name }}) ([]*AmendmentField, error) {
 	if err := newValue.Validate(); err != nil {
 		return nil, errors.Wrap(err, "new value invalid")
 	}
@@ -204,7 +204,7 @@ func (a *AssetCreation) CreateAmendments(newValue *{{ $message.Name }}) ([]*Amen
 	// deprecated {{ $field.Name }} {{ $field.GoType }}
 		{{- else }}
 	// {{ $field.Name }} {{ $field.GoType }}
-	fip = []uint32{AssetField{{ $field.Name }}}
+	fip = []uint32{InstrumentField{{ $field.Name }}}
 	{{- template "CreateAmendmentField" $field }}
 		{{- end }}
 	{{ end }}
@@ -217,7 +217,7 @@ func (a *AssetCreation) CreateAmendments(newValue *{{ $message.Name }}) ([]*Amen
 	return r, nil
 }
 
-	{{- else if eq $message.Name "AssetCreation" }}
+	{{- else if eq $message.Name "InstrumentCreation" }}
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
@@ -225,15 +225,15 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
-		return nil, errors.New("Empty asset amendment field index path")
+		return nil, errors.New("Empty instrument amendment field index path")
 	}
 
 	switch fip[0] {
 		{{- range $offset, $field := .Fields }}
 			{{- if eq $field.Type "deprecated" }}
-	case DeprecatedAssetField{{ $field.Name }}: // {{ $field.GoType }}
-		{{- else if not (eq $field.Name "AssetCode" "AssetIndex" "AssetRevision" "Timestamp") }}
-	case AssetField{{ $field.Name }}: // {{ $field.GoType }}
+	case DeprecatedInstrumentField{{ $field.Name }}: // {{ $field.GoType }}
+		{{- else if not (eq $field.Name "InstrumentCode" "InstrumentIndex" "InstrumentRevision" "Timestamp") }}
+	case InstrumentField{{ $field.Name }}: // {{ $field.GoType }}
 				{{- if .IsCompoundType }}
 		if len(fip) == 1 && len(data) == 0 {
 			a.{{ $field.Name }} = nil
@@ -246,7 +246,7 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 		{{ end }}
 	}
 
-	return nil, fmt.Errorf("Unknown asset amendment field index : %v", fip)
+	return nil, fmt.Errorf("Unknown instrument amendment field index : %v", fip)
 }
 	{{- end }}
 {{ end }}

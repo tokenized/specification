@@ -8,7 +8,7 @@ label: Contract Formation
 description: "This txn is created by the contract (smart contract/off-chain agent/token contract) upon receipt of a valid Contract Offer Action from the administration.  The smart contract will execute on a server controlled by the administration, or a smart contract operator on their behalf."
 
 metadata:
-  validation: AssetCreation
+  validation: InstrumentCreation
   rejection: Rejection
 
   inputs:
@@ -19,7 +19,7 @@ metadata:
   outputs:
     - name: Contract
       label: Contract Public Address
-      comments: "Required so that users can monitor transactions to the contract for updates to contract/assets."
+      comments: "Required so that users can monitor transactions to the contract for updates to contract/instruments."
 
 fields:
   - name: ContractName
@@ -49,7 +49,7 @@ fields:
     description: >
       SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the
       full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is
-      specified in a C6/C7 action. This is specific to the smart contract and relevant Assets. Legal
+      specified in a C6/C7 action. This is specific to the smart contract and relevant Instruments. Legal
       and technical information.
     type: varbin
     varSize: medium
@@ -91,7 +91,7 @@ fields:
 
   - name: ContractURI
     label: Contract URI
-    description: "Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Asset, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
+    description: "Length 0-255 bytes.  0 is valid. Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the Issuer (company), information about the Instrument, legal information, etc.  There will also be a way for Token Owners to vote on this page and contact details with the Issuer/tokenized companies. Could be a IPv6/IPv4, an IPFS address (hash) or txn-id for on chain information or even a public address (DNS)."
     type: varchar
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
 
@@ -133,7 +133,7 @@ fields:
 
   - name: ContractFee
     label: Contract Fee
-    description: "Satoshis required to be paid to the contract for each asset action."
+    description: "Satoshis required to be paid to the contract for each instrument action."
     type: uint
     size: 8
 
@@ -148,13 +148,13 @@ fields:
     type: varbin
     varSize: small
 
-  - name: RestrictedQtyAssets
-    label: Restricted Qty of Assets
-    description: "Number of Assets (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
+  - name: RestrictedQtyInstruments
+    label: Restricted Qty of Instruments
+    description: "Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
     type: uint
     size: 8
     example: "1"
-    notes: "Qty of Assets - Amendments can be restricted to a vote."
+    notes: "Qty of Instruments - Amendments can be restricted to a vote."
 
   - name: AdministrationProposal
     label: Administration Proposal
@@ -171,7 +171,7 @@ fields:
 
   - name: Oracles
     label: Oracles
-    description: "A list of oracles that provide approval for all token transfers for all assets under the contract."
+    description: "A list of oracles that provide approval for all token transfers for all instruments under the contract."
     type: Oracle[]
 
   - name: MasterAddress
@@ -195,7 +195,7 @@ fields:
 
   - name: EntityContract
     label: Entity Contract
-    description: "The address of the contract's parent entity. This is optional for entity contracts, but required for asset and service contracts to identify the entity parent contract."
+    description: "The address of the contract's parent entity. This is optional for entity contracts, but required for instrument and service contracts to identify the entity parent contract."
     type: Address
     only_valid_when:
       field_name: ContractType
@@ -213,7 +213,7 @@ fields:
 
   - name: ContractType
     label: Contract Type
-    description: "Describes the purpose of the contract. 0 - Entity, 1 - Asset"
+    description: "Describes the purpose of the contract. 0 - Entity, 1 - Instrument"
     type: uint
     size: 1
     options:

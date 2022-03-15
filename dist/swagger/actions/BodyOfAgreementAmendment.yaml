@@ -8,7 +8,7 @@ properties:
     type: number
     example: 0
   Amendments:
-    description: A collection of modifications to perform on this asset.
+    description: A collection of modifications to perform on this instrument.
     type: array
     items:
       type: object

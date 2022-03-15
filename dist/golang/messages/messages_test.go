@@ -76,6 +76,16 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for OutputMetadata")
 	}
 
+	// Distribution identifies a payload as a Distribution message.
+	messageDistribution, err := Deserialize(CodeDistribution, nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for Distribution : %s", err)
+	}
+	_, ok = messageDistribution.(*Distribution)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for Distribution")
+	}
+
 	// InitiateRelationship identifies a payload as a InitiateRelationship message.
 	messageInitiateRelationship, err := Deserialize(CodeInitiateRelationship, nil)
 	if err != nil {

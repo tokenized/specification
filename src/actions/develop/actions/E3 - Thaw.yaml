@@ -6,12 +6,12 @@ code: E3
 name: Thaw
 label: Thaw
 description: >
-  The contract responding to an Order action to thaw assets.
+  The contract responding to an Order action to thaw instruments.
   To be used to comply with contractual obligations or legal requirements.
   The Alleged Offender's tokens will be unfrozen to allow them to resume normal exchange and governance activities.
 
 metadata:
-  validation: AssetCreation
+  validation: InstrumentCreation
   rejection: Rejection
 
   inputs:

@@ -1,0 +1,40 @@
+# Ticket (Admission)
+Name: Ticket
+InstrumentType: TIC
+
+Permissions:
+  - Name: Administrative Vote Special Board Resolution
+    Permitted: false
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: true
+    VotingSystemsAllowed:
+      - Special Board Resolution
+    Fields:
+      - [InstrumentPermissions]
+      - [InstrumentPayload, TransfersPermitted]
+      - [TradeRestrictions]
+      - [EnforcementOrdersPermitted]
+      - [VotingRights]
+      - [VoteMultiplier]
+      - [AdministrationProposal]
+      - [HolderProposal]
+      - [InstrumentModificationGovernance]
+
+  - Name: Administrator Direct
+    Permitted: true
+    AdministrationProposal: false
+    HolderProposal: false
+    AdministrativeMatter: false
+    VotingSystemsAllowed:
+    Fields:
+      - [AuthorizedTokenQty]
+      - [InstrumentPayload, AgeRestriction]
+      - [InstrumentPayload, Venue]
+      - [InstrumentPayload, Area]
+      - [InstrumentPayload, Section]
+      - [InstrumentPayload, Row]
+      - [InstrumentPayload, Seat]
+      - [InstrumentPayload, EventStartTimestamp]
+      - [InstrumentPayload, EventEndTimestamp]
+      - [InstrumentPayload, Details]

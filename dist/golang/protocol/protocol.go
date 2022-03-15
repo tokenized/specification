@@ -11,6 +11,7 @@ import (
 
 	"github.com/tokenized/envelope/pkg/golang/envelope"
 	envelopeV0 "github.com/tokenized/envelope/pkg/golang/envelope/v0"
+	envelopeV1 "github.com/tokenized/envelope/pkg/golang/envelope/v1"
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/actions"
 
@@ -33,11 +34,11 @@ const (
 
 	FlagVersion = uint64(0)
 
-	AssetCodeSize = 20
+	InstrumentCodeSize = 20
 
 	ContractCodeSize = 32
 
-	BSVAssetID = "BSV"
+	BSVInstrumentID = "BSV"
 )
 
 var (
@@ -58,7 +59,7 @@ func GetProtocolID(isTest bool) []byte {
 }
 
 // Serialize serializes an action into a Tokenized OP_RETURN script.
-func Serialize(action actions.Action, isTest bool) ([]byte, error) {
+func Serialize(action actions.Action, isTest bool) (bitcoin.Script, error) {
 	message, err := WrapAction(action, isTest)
 	if err != nil {
 		return nil, errors.Wrap(err, "wrap action")
@@ -70,11 +71,11 @@ func Serialize(action actions.Action, isTest bool) ([]byte, error) {
 		return nil, errors.Wrap(err, "serialize envelope")
 	}
 
-	return buf.Bytes(), nil
+	return bitcoin.Script(buf.Bytes()), nil
 }
 
 // Deserialize reads an action from a Tokenized OP_RETURN script.
-func Deserialize(script []byte, isTest bool) (actions.Action, error) {
+func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
 	buf := bytes.NewReader(script)
 	message, err := envelope.Deserialize(buf)
 	if err == envelope.ErrNotEnvelope {
@@ -83,15 +84,91 @@ func Deserialize(script []byte, isTest bool) (actions.Action, error) {
 		return nil, err
 	}
 
-	if !bytes.Equal(message.PayloadProtocol(), GetProtocolID(isTest)) {
-		return nil, ErrNotTokenized
+	switch msg := message.(type) {
+	case *envelopeV0.Message:
+		if !bytes.Equal(msg.PayloadProtocol(), GetProtocolID(isTest)) {
+			return nil, ErrNotTokenized
+		}
+
+		if msg.PayloadVersion() != Version {
+			return nil, ErrUnknownVersion
+		}
+
+		return actions.Deserialize(msg.PayloadIdentifier(), msg.Payload())
+
+	default:
+		protocols := msg.PayloadProtocols()
+		if len(protocols) != 1 {
+			return nil, errors.Wrapf(ErrNotTokenized, "wrong protocol count: %d", len(protocols))
+		}
+
+		if !bytes.Equal(protocols[0], GetProtocolID(isTest)) {
+			return nil, ErrNotTokenized
+		}
+
+		if msg.PayloadCount() != 3 {
+			return nil, errors.Wrapf(ErrNotTokenized, "wrong payload count: %d",
+				msg.PayloadCount())
+		}
+
+		version, _, err := bitcoin.ParsePushNumberScript(msg.PayloadAt(0))
+		if err != nil {
+			return nil, errors.Wrap(ErrNotTokenized, errors.Wrap(err, "version number").Error())
+		}
+		if version < 0 || uint64(version) != Version {
+			return nil, ErrUnknownVersion
+		}
+
+		return actions.Deserialize(msg.PayloadAt(1), msg.PayloadAt(2))
+	}
+}
+
+func ActionCodeForScript(script bitcoin.Script, isTest bool) (string, error) {
+	buf := bytes.NewReader(script)
+	message, err := envelope.Deserialize(buf)
+	if err == envelope.ErrNotEnvelope {
+		return "", ErrNotTokenized
+	} else if err != nil {
+		return "", err
 	}
 
-	if message.PayloadVersion() != Version {
-		return nil, ErrUnknownVersion
-	}
+	switch msg := message.(type) {
+	case *envelopeV0.Message:
+		if !bytes.Equal(msg.PayloadProtocol(), GetProtocolID(isTest)) {
+			return "", ErrNotTokenized
+		}
 
-	return actions.Deserialize(message.PayloadIdentifier(), message.Payload())
+		if msg.PayloadVersion() != Version {
+			return "", ErrUnknownVersion
+		}
+
+		return string(msg.PayloadIdentifier()), nil
+
+	default:
+		protocols := msg.PayloadProtocols()
+		if len(protocols) != 1 {
+			return "", errors.Wrapf(ErrNotTokenized, "wrong protocol count: %d", len(protocols))
+		}
+
+		if !bytes.Equal(protocols[0], GetProtocolID(isTest)) {
+			return "", ErrNotTokenized
+		}
+
+		if msg.PayloadCount() != 3 {
+			return "", errors.Wrapf(ErrNotTokenized, "wrong payload count: %d",
+				msg.PayloadCount())
+		}
+
+		version, _, err := bitcoin.ParsePushNumberScript(msg.PayloadAt(0))
+		if err != nil {
+			return "", errors.Wrap(ErrNotTokenized, errors.Wrap(err, "version number").Error())
+		}
+		if version < 0 || uint64(version) != Version {
+			return "", ErrUnknownVersion
+		}
+
+		return string(msg.PayloadAt(1)), nil
+	}
 }
 
 // WrapAction wraps an action in an envelope message.
@@ -101,25 +178,27 @@ func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error
 		return nil, errors.Wrap(err, "serialize action")
 	}
 
-	message := envelopeV0.NewMessage(GetProtocolID(isTest), Version, payload)
-	message.SetPayloadIdentifier([]byte(action.Code()))
+	message := envelopeV1.NewMessage([][]byte{GetProtocolID(isTest)},
+		[][]byte{bitcoin.PushNumberScript(int64(Version)), []byte(action.Code()), payload})
 
 	return message, nil
 }
 
 // SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
 //   message.
-func SerializeFlagOutputScript(flag []byte) ([]byte, error) {
-	message := envelopeV0.NewMessage([]byte(FlagProtocolID), FlagVersion, flag)
+func SerializeFlagOutputScript(flag []byte) (bitcoin.Script, error) {
+	message := envelopeV1.NewMessage([][]byte{[]byte(FlagProtocolID)},
+		[][]byte{bitcoin.PushNumberScript(int64(FlagVersion)), flag})
+
 	var buf bytes.Buffer
 	if err := message.Serialize(&buf); err != nil {
 		return nil, errors.Wrap(err, "Failed to serialize flag envelope")
 	}
-	return buf.Bytes(), nil
+	return bitcoin.Script(buf.Bytes()), nil
 }
 
 // DeserializeFlagOutputScript returns a flag value if the script is a flag script.
-func DeserializeFlagOutputScript(script []byte) ([]byte, error) {
+func DeserializeFlagOutputScript(script bitcoin.Script) ([]byte, error) {
 	buf := bytes.NewReader(script)
 	message, err := envelope.Deserialize(buf)
 	if err == envelope.ErrNotEnvelope {
@@ -128,20 +207,48 @@ func DeserializeFlagOutputScript(script []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	if !bytes.Equal(message.PayloadProtocol(), []byte(FlagProtocolID)) {
-		return nil, ErrNotFlag
-	}
+	switch msg := message.(type) {
+	case *envelopeV0.Message:
+		if !bytes.Equal(msg.PayloadProtocol(), []byte(FlagProtocolID)) {
+			return nil, ErrNotFlag
+		}
 
-	if message.PayloadVersion() != FlagVersion {
-		return nil, ErrUnknownVersion
-	}
+		if msg.PayloadVersion() != FlagVersion {
+			return nil, ErrUnknownVersion
+		}
 
-	return message.Payload(), nil
+		return msg.Payload(), nil
+
+	default:
+		protocols := msg.PayloadProtocols()
+		if len(protocols) != 1 {
+			return nil, errors.Wrapf(ErrNotFlag, "wrong protocol count: %d", len(protocols))
+		}
+
+		if !bytes.Equal(protocols[0], []byte(FlagProtocolID)) {
+			return nil, ErrNotFlag
+		}
+
+		if msg.PayloadCount() != 2 {
+			return nil, errors.Wrapf(ErrNotFlag, "wrong payload count: %d",
+				msg.PayloadCount())
+		}
+
+		version, _, err := bitcoin.ParsePushNumberScript(msg.PayloadAt(0))
+		if err != nil {
+			return nil, errors.Wrap(ErrNotFlag, errors.Wrap(err, "version number").Error())
+		}
+		if version < 0 || uint64(version) != FlagVersion {
+			return nil, ErrUnknownVersion
+		}
+
+		return message.PayloadAt(1), nil
+	}
 }
 
-// AssetCodeFromContract generates a "unique" deterministic asset code from a contract public key
-//   hash and an asset index.
-func AssetCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) bitcoin.Hash20 {
+// InstrumentCodeFromContract generates a "unique" deterministic instrument code from a contract public key
+//   hash and an instrument index.
+func InstrumentCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) bitcoin.Hash20 {
 	hash256 := sha256.New()
 	hash256.Write(contractAddress.Bytes())
 	binary.Write(hash256, DefaultEndian, &index)
@@ -156,21 +263,21 @@ func AssetCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) bit
 	return result
 }
 
-// AssetCodeFromBytes returns a AssetCode with the specified bytes.
-func AssetCodeFromBytes(b []byte) bitcoin.Hash20 {
+// InstrumentCodeFromBytes returns a InstrumentCode with the specified bytes.
+func InstrumentCodeFromBytes(b []byte) bitcoin.Hash20 {
 	var result bitcoin.Hash20
 	copy(result[:], b)
 	return result
 }
 
-// AssetID encodes an asset ID.
+// InstrumentID encodes an instrument ID.
 //
-// AssetID = AssetType(3 characters) + base58(AssetCode + checksum)
+// InstrumentID = InstrumentType(3 characters) + base58(InstrumentCode + checksum)
 //
 // There is a special case for BSV, which will be returned as BSV.
-func AssetID(assetType string, code bitcoin.Hash20) string {
-	if assetType == BSVAssetID {
-		return assetType
+func InstrumentID(instrumentType string, code bitcoin.Hash20) string {
+	if instrumentType == BSVInstrumentID {
+		return instrumentType
 	}
 
 	b := code.Bytes()
@@ -182,58 +289,58 @@ func AssetID(assetType string, code bitcoin.Hash20) string {
 	b = append(b, checksum[:4]...)
 
 	// Prepend with type and encode as text with base 58.
-	return assetType + bitcoin.Base58(b)
+	return instrumentType + bitcoin.Base58(b)
 }
 
-// AssetIDForRaw returns the asset ID for an asset type and asset code in byte slice form.
-func AssetIDForRaw(assetType string, assetCode []byte) (string, error) {
-	if assetType == BSVAssetID {
-		return assetType, nil
+// InstrumentIDForRaw returns the instrument ID for an instrument type and instrument code in byte slice form.
+func InstrumentIDForRaw(instrumentType string, instrumentCode []byte) (string, error) {
+	if instrumentType == BSVInstrumentID {
+		return instrumentType, nil
 	}
 
-	code, err := bitcoin.NewHash20(assetCode)
+	code, err := bitcoin.NewHash20(instrumentCode)
 	if err != nil {
-		return "", errors.Wrap(err, "asset code")
+		return "", errors.Wrap(err, "instrument code")
 	}
 
-	return AssetID(assetType, *code), nil
+	return InstrumentID(instrumentType, *code), nil
 }
 
-func AssetIDForTransfer(f *actions.AssetTransferField) (string, error) {
-	return AssetIDForRaw(f.AssetType, f.AssetCode)
+func InstrumentIDForTransfer(f *actions.InstrumentTransferField) (string, error) {
+	return InstrumentIDForRaw(f.InstrumentType, f.InstrumentCode)
 }
 
-func AssetIDForSettlement(f *actions.AssetSettlementField) (string, error) {
-	return AssetIDForRaw(f.AssetType, f.AssetCode)
+func InstrumentIDForSettlement(f *actions.InstrumentSettlementField) (string, error) {
+	return InstrumentIDForRaw(f.InstrumentType, f.InstrumentCode)
 }
 
-// DecodeAssetID decodes the asset type and asset code from an asset ID.
-func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
-	if id == BSVAssetID {
-		// Bitcoin asset id. Asset code all zeros.
-		return BSVAssetID, bitcoin.Hash20{}, nil
+// DecodeInstrumentID decodes the instrument type and instrument code from an instrument ID.
+func DecodeInstrumentID(id string) (string, bitcoin.Hash20, error) {
+	if id == BSVInstrumentID {
+		// Bitcoin instrument id. Instrument code all zeros.
+		return BSVInstrumentID, bitcoin.Hash20{}, nil
 	}
 
-	if len(id) < AssetCodeSize+7 {
-		return "", bitcoin.Hash20{}, fmt.Errorf("Asset ID too short : %s", id)
+	if len(id) < InstrumentCodeSize+7 {
+		return "", bitcoin.Hash20{}, fmt.Errorf("Instrument ID too short : %s", id)
 	}
 
-	assetType := id[:3]
+	instrumentType := id[:3]
 	text := id[3:]
 
 	b := bitcoin.Base58Decode(text)
 
-	if len(b) != AssetCodeSize+4 {
-		return "", bitcoin.Hash20{}, fmt.Errorf("Asset code data wrong size : %s : got %d, want %d",
-			id, len(b), AssetCodeSize+4)
+	if len(b) != InstrumentCodeSize+4 {
+		return "", bitcoin.Hash20{}, fmt.Errorf("Instrument code data wrong size : %s : got %d, want %d",
+			id, len(b), InstrumentCodeSize+4)
 	}
 
 	// Verify checksum
-	checksum := b[AssetCodeSize:]
-	b = b[:AssetCodeSize]
+	checksum := b[InstrumentCodeSize:]
+	b = b[:InstrumentCodeSize]
 	hash := bitcoin.DoubleSha256(b)
 	if !bytes.Equal(hash[:4], checksum) {
-		return "", bitcoin.Hash20{}, fmt.Errorf("Invalid Asset ID checksum : %s", id)
+		return "", bitcoin.Hash20{}, fmt.Errorf("Invalid Instrument ID checksum : %s", id)
 	}
 
 	code, err := bitcoin.NewHash20(b)
@@ -241,7 +348,7 @@ func DecodeAssetID(id string) (string, bitcoin.Hash20, error) {
 		return "", bitcoin.Hash20{}, errors.Wrap(err, "new hash")
 	}
 
-	return assetType, *code, nil
+	return instrumentType, *code, nil
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -262,7 +369,7 @@ func (code *ContractCode) IsZero() bool {
 	return bytes.Equal(code[:], zero)
 }
 
-// AssetCodeFromBytes returns a ContractCode with the specified bytes.
+// InstrumentCodeFromBytes returns a ContractCode with the specified bytes.
 func ContractCodeFromBytes(b []byte) *ContractCode {
 	var result ContractCode
 	copy(result[:], b)
