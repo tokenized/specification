@@ -903,6 +903,120 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 	return funding, boomerang, nil
 }
 
+func EstimatedConfiscationResponse(requestTx *wire.MsgTx, feeRate, dustFeeRate float32,
+	contractFee uint64, isTest bool) (uint64, error) {
+
+	// Find Tokenized Order
+	var request *actions.Order
+	for _, output := range requestTx.TxOut {
+		action, err := Deserialize(output.LockingScript, isTest)
+		if err != nil {
+			continue
+		}
+
+		confiscation, ok := action.(*actions.Order)
+		if ok {
+			request = confiscation
+			break
+		}
+	}
+
+	if request == nil {
+		return 0, errors.New("Tokenized Order OP_RETURN not found")
+	}
+	if request.ComplianceAction != actions.ComplianceActionConfiscation {
+		return 0, errors.New("Not a Tokenized Confiscation Order")
+	}
+
+	confiscation := &actions.Confiscation{}
+	if err := convert(request, confiscation); err != nil {
+		return 0, errors.Wrap(err, "Failed to convert confiscation order to confiscation")
+	}
+
+	confiscation.Timestamp = uint64(time.Now().UnixNano())
+	confiscation.Quantities = make([]*actions.QuantityIndexField, len(request.TargetAddresses)+1)
+
+	quantityIndex := uint32(0)
+	outputsSize := 0
+	outputCount := uint64(0)
+	outputValue := uint64(0)
+
+	for i, target := range request.TargetAddresses {
+		targetAddress, err := bitcoin.DecodeRawAddress(target.Address)
+		if err != nil {
+			return 0, errors.Wrap(err, "decode target address")
+		}
+
+		confiscation.Quantities[quantityIndex] = &actions.QuantityIndexField{
+			Index:    quantityIndex,
+			Quantity: math.MaxUint64,
+		}
+		confiscation.DepositQty += target.Quantity
+
+		lockingScript, err := targetAddress.LockingScript()
+		if err != nil {
+			return 0, errors.Wrapf(err, "target %d locking script", i)
+		}
+		outputsSize += txbuilder.OutputSize(lockingScript)
+		outputValue += txbuilder.DustLimitForLockingScript(lockingScript, dustFeeRate)
+		outputCount++
+		quantityIndex++
+	}
+
+	depositAddress, err := bitcoin.DecodeRawAddress(request.DepositAddress)
+	if err != nil {
+		return 0, errors.Wrap(err, "Failed to read deposit address")
+	}
+
+	confiscation.Quantities[quantityIndex] = &actions.QuantityIndexField{
+		Index:    quantityIndex,
+		Quantity: math.MaxUint64,
+	}
+
+	lockingScript, err := depositAddress.LockingScript()
+	if err != nil {
+		return 0, errors.Wrap(err, "deposit locking script")
+	}
+	outputsSize += txbuilder.OutputSize(lockingScript)
+	outputValue += txbuilder.DustLimitForLockingScript(lockingScript, dustFeeRate)
+	outputCount++
+
+	if contractFee != 0 {
+		// Add fee output
+		// TODO use contract's actual fee address --ce
+		outputsSize += txbuilder.P2PKHOutputSize
+		dustLimit := txbuilder.DustLimit(txbuilder.P2PKHOutputSize, dustFeeRate)
+		if contractFee < dustLimit {
+			outputValue += dustLimit
+		} else {
+			outputValue += contractFee
+		}
+		outputCount++
+	}
+
+	// Calculate confiscation action output
+	confiscationScript, err := Serialize(confiscation, isTest)
+	if err != nil {
+		return 0, errors.Wrap(err, "Failed to serialize confiscation")
+	}
+	confiscationScriptSize := len(confiscationScript)
+	confiscationOutputSize := txbuilder.OutputBaseSize +
+		wire.VarIntSerializeSize(uint64(confiscationScriptSize)) + confiscationScriptSize
+	outputCount++
+
+	// Input from contract
+	inputsSize, err := txbuilder.InputSize(requestTx.TxOut[0].LockingScript)
+	if err != nil {
+		return 0, errors.Wrapf(err, "input size")
+	}
+
+	txSize := txbuilder.BaseTxSize + inputsSize + wire.VarIntSerializeSize(outputCount) +
+		outputsSize + confiscationOutputSize
+	txFee := int(math.Ceil(float64(txSize) * float64(feeRate)))
+
+	return uint64(txFee) + outputValue, nil
+}
+
 // Convert assigns all available compatible values with matching member names from one object to
 //   another.
 // The dst object needs to be a pointer so that it can be written to.

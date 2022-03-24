@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/rand"
 	"encoding/hex"
+	"math"
 	"testing"
 	"time"
 
@@ -626,4 +627,128 @@ func TestMultiContractExample2TransferResponseFees(t *testing.T) {
 	}
 	t.Logf("Boomerang is over by %d (%d%%)", boomerang-1748,
 		int(100.0*(float32(boomerang-1748)/float32(1748))))
+}
+
+func Test_EstimatedConfiscationResponse(t *testing.T) {
+	contractFee := uint64(2000)
+	feeRate := float32(0.5)
+	dustFeeRate := float32(0.25)
+
+	instrumentType := instruments.CodeCurrency
+	var instrumentCode bitcoin.Hash20
+	rand.Read(instrumentCode[:])
+
+	contractKey, err := bitcoin.GenerateKey(bitcoin.MainNet)
+	if err != nil {
+		t.Fatalf("Failed to generate key : %s", err)
+	}
+	contractLockingScript, err := contractKey.LockingScript()
+	if err != nil {
+		t.Fatalf("Failed to create locking script : %s", err)
+	}
+
+	targetKey, err := bitcoin.GenerateKey(bitcoin.MainNet)
+	if err != nil {
+		t.Fatalf("Failed to generate key : %s", err)
+	}
+	targetAddress, err := targetKey.RawAddress()
+	if err != nil {
+		t.Fatalf("Failed to create raw address : %s", err)
+	}
+
+	depositKey, err := bitcoin.GenerateKey(bitcoin.MainNet)
+	if err != nil {
+		t.Fatalf("Failed to generate key : %s", err)
+	}
+	depositAddress, err := depositKey.RawAddress()
+	if err != nil {
+		t.Fatalf("Failed to create raw address : %s", err)
+	}
+
+	confiscationOrder := &actions.Order{
+		ComplianceAction: actions.ComplianceActionConfiscation,
+		InstrumentType:   instrumentType,
+		InstrumentCode:   instrumentCode.Bytes(),
+		DepositAddress:   depositAddress.Bytes(),
+		Message:          "Sent to wrong address",
+	}
+
+	target := &actions.TargetAddressField{
+		Address:  targetAddress.Bytes(),
+		Quantity: 5000,
+	}
+
+	confiscationOrder.TargetAddresses = append(confiscationOrder.TargetAddresses, target)
+
+	confiscationOrderScript, err := Serialize(confiscationOrder, true)
+	if err != nil {
+		t.Fatalf("%s Failed to serialize confiscation order : %s", Failed, err)
+	}
+
+	requestTx := wire.NewMsgTx(1)
+
+	requestTx.AddTxOut(wire.NewTxOut(3000, contractLockingScript))
+	requestTx.AddTxOut(wire.NewTxOut(0, confiscationOrderScript))
+
+	funding, err := EstimatedConfiscationResponse(requestTx, feeRate, dustFeeRate, contractFee,
+		true)
+	if err != nil {
+		t.Fatalf("%s Failed to estimate response : %s", Failed, err)
+	}
+
+	t.Logf("%s Funding %d", Success, funding)
+
+	confiscation := &actions.Confiscation{
+		InstrumentType: instrumentType,
+		InstrumentCode: instrumentCode.Bytes(),
+		Quantities: []*actions.QuantityIndexField{
+			{ // Target
+				Quantity: math.MaxUint64,
+				Index:    0,
+			},
+			{ // Deposit
+				Quantity: math.MaxUint64,
+				Index:    1,
+			},
+		},
+		DepositQty: 5000,
+		Timestamp:  uint64(time.Now().UnixNano()),
+	}
+
+	confiscationScript, err := Serialize(confiscation, true)
+	if err != nil {
+		t.Fatalf("%s Failed to serialize confiscation response : %s", Failed, err)
+	}
+
+	responseTx := wire.NewMsgTx(1)
+	dustLimit := txbuilder.DustLimitForLockingScript(contractLockingScript, dustFeeRate)
+
+	// From Contract
+	responseTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(&bitcoin.Hash32{}, 0), make([]byte,
+		txbuilder.MaximumP2PKHSigScriptSize)))
+
+	// To Target
+	responseTx.AddTxOut(wire.NewTxOut(dustLimit, make([]byte, txbuilder.P2PKHOutputScriptSize)))
+
+	// To Deposit
+	responseTx.AddTxOut(wire.NewTxOut(dustLimit, make([]byte, txbuilder.P2PKHOutputScriptSize)))
+
+	// Confiscation
+	responseTx.AddTxOut(wire.NewTxOut(0, confiscationScript))
+
+	// To Fees
+	responseTx.AddTxOut(wire.NewTxOut(contractFee, make([]byte, txbuilder.P2PKHOutputScriptSize)))
+
+	outputValue := uint64(0)
+	for _, txout := range responseTx.TxOut {
+		outputValue += txout.Value
+	}
+	responseFee := uint64(float32(responseTx.SerializeSize()) * feeRate)
+
+	if responseFee+outputValue != funding {
+		t.Fatalf("%s Wrong funding amount : got %d, want %d", Failed, funding,
+			responseFee+outputValue)
+	}
+	t.Logf("Verified Estimated Response Funding : got %d, want %d", funding,
+		responseFee+outputValue)
 }
