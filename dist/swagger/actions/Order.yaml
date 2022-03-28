@@ -55,8 +55,7 @@ properties:
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
   SignatureAlgorithm:
-    description:  >
-      Algorithm used for order signature. Only valid value is currently 1 = ECDSA+secp256k1
+    description: Algorithm used for order signature. 0 = No signature provided, 1 = ECDSA+secp256k1
     type: number
     example: 1
   OrderSignature:

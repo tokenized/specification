@@ -2931,6 +2931,8 @@ Used by the administration to signal to the smart contract that the tokens that 
         <td>
             The holders and quantities that are effected by the order. For a contract or instrument wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an instrument wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed.
             
+            This field is required when the field ComplianceAction is within the values F, C, R.
+            This field is only valid when the field ComplianceAction is within the values F, C, R.
         </td>
     </tr>
 
@@ -2942,6 +2944,7 @@ Used by the administration to signal to the smart contract that the tokens that 
         <td>
             The tx id of the freeze action that is being thawed. Only serialized for thaw orders.
             
+            This field is only valid when the field ComplianceAction equals T.
         </td>
     </tr>
 
@@ -2952,7 +2955,8 @@ Used by the administration to signal to the smart contract that the tokens that 
         </td>
         <td>
             Used for a &#39;time out&#39;.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders.
-             Example: Tue Oct 09 2018 05:00:00 GMT&#43;1000 (AEST)
+            
+            This field is only valid when the field ComplianceAction equals F. Example: Tue Oct 09 2018 05:00:00 GMT&#43;1000 (AEST)
         </td>
     </tr>
 
@@ -2964,6 +2968,8 @@ Used by the administration to signal to the smart contract that the tokens that 
         <td>
             The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions.
             Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes.
+            This field is required when the field ComplianceAction equals C.
+            This field is only valid when the field ComplianceAction equals C.
         </td>
     </tr>
 
@@ -2974,7 +2980,9 @@ Used by the administration to signal to the smart contract that the tokens that 
         </td>
         <td>
             Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)
-             Example: Supreme and District Courts Brisbane
+            
+            This field is required when the field SignatureAlgorithm equals 1.
+            This field is only valid when the field SignatureAlgorithm equals 1. Example: Supreme and District Courts Brisbane
         </td>
     </tr>
 
@@ -2986,6 +2994,8 @@ Used by the administration to signal to the smart contract that the tokens that 
         <td>
             Length 0-255 bytes. Public Key associated with the Enforcement Authority
             
+            This field is required when the field SignatureAlgorithm equals 1.
+            This field is only valid when the field SignatureAlgorithm equals 1.
         </td>
     </tr>
 
@@ -2995,7 +3005,7 @@ Used by the administration to signal to the smart contract that the tokens that 
             uint(1)
         </td>
         <td>
-            Algorithm used for order signature. Only valid value is currently 1 = ECDSA&#43;secp256k1
+            Algorithm used for order signature. 0 = No signature provided, 1 = ECDSA&#43;secp256k1
              Example: 1
         </td>
     </tr>
@@ -3008,6 +3018,8 @@ Used by the administration to signal to the smart contract that the tokens that 
         <td>
             Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Instrument Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)
             
+            This field is required when the field SignatureAlgorithm equals 1.
+            This field is only valid when the field SignatureAlgorithm equals 1.
         </td>
     </tr>
 
@@ -3037,6 +3049,8 @@ Used by the administration to signal to the smart contract that the tokens that 
         <td>
             Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens.
             
+            This field is required when the field ComplianceAction equals R.
+            This field is only valid when the field ComplianceAction equals R.
         </td>
     </tr>
 
@@ -3070,6 +3084,8 @@ Used by the administration to signal to the smart contract that the tokens that 
         <td>
             Supporting evidence related to the order being requested.
             
+            This field is required when the field SupportingEvidenceFormat equals 1.
+            This field is only valid when the field SupportingEvidenceFormat equals 1.
         </td>
     </tr>
 

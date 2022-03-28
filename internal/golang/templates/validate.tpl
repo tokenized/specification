@@ -125,7 +125,7 @@ const (
             }
             {{- if and (gt (len .BaseOptions) 0) (eq .BaseType "fixedchar") }}
             found{{ .Name }} := false
-            for _, o := range []{{ .GoSingularType }}{ {{ template "ListValues" .BaseOptions }} } {
+            for _, o := range []{{ .GoSingularType }}{ {{ template "ListValuesString" .BaseOptions }} } {
                 if v == o {
                     found{{ .Name }} = true
                     break
@@ -273,12 +273,21 @@ const (
     }
         {{- else }}
     validValueFound{{ .Name }} := false
+    {{ if eq .OnlyValidWhen.FieldGoType "string" }}
+    for _, v := range []{{ .OnlyValidWhen.FieldGoType }}{ {{ template "ListValuesString" .OnlyValidWhen.Values }} } {
+        if a.{{ .OnlyValidWhen.FieldName }} == v {
+            validValueFound{{ .Name }} = true
+            break
+        }
+    }
+    {{- else -}}
     for _, v := range []{{ .OnlyValidWhen.FieldGoType }}{ {{ template "ListValues" .OnlyValidWhen.Values }} } {
         if a.{{ .OnlyValidWhen.FieldName }} == v {
             validValueFound{{ .Name }} = true
             break
         }
     }
+    {{- end }}
     if !validValueFound{{ .Name }} && {{ template "IsNotEmptyCheck" . }} {
         return fmt.Errorf("{{ .Name }} is only allowed when {{ .OnlyValidWhen.FieldName }} value is within values {{ .OnlyValidWhen.Values }} : %v", a.{{ .OnlyValidWhen.FieldName }})
     }
@@ -291,12 +300,21 @@ const (
     }
         {{- else }}
     requiredValueFound{{ .Name }} := false
+    {{ if eq .RequiredWhen.FieldGoType "string" }}
+    for _, v := range []{{ .RequiredWhen.FieldGoType }}{ {{ template "ListValuesString" .RequiredWhen.Values }} } {
+        if a.{{ .RequiredWhen.FieldName }} == v {
+            requiredValueFound{{ .Name }} = true
+            break
+        }
+    }
+    {{- else -}}
     for _, v := range []{{ .RequiredWhen.FieldGoType }}{ {{ template "ListValues" .RequiredWhen.Values }} } {
         if a.{{ .RequiredWhen.FieldName }} == v {
             requiredValueFound{{ .Name }} = true
             break
         }
     }
+    {{- end }}
     if requiredValueFound{{ .Name }} && {{ template "IsEmptyCheck" . }} {
         return fmt.Errorf("{{ .Name }} is required when {{ .RequiredWhen.FieldName }} value is within values {{ .RequiredWhen.Values }} : %v", a.{{ .RequiredWhen.FieldName }})
     }

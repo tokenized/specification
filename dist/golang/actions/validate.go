@@ -1163,14 +1163,58 @@ func (a *Order) Validate() error {
 			return errors.Wrap(err, fmt.Sprintf("TargetAddresses[%d]", i))
 		}
 	}
+	validValueFoundTargetAddresses := false
+
+	for _, v := range []string{"F", "C", "R"} {
+		if a.ComplianceAction == v {
+			validValueFoundTargetAddresses = true
+			break
+		}
+	}
+	if !validValueFoundTargetAddresses && len(a.TargetAddresses) != 0 {
+		return fmt.Errorf("TargetAddresses is only allowed when ComplianceAction value is within values [F C R] : %v", a.ComplianceAction)
+	}
+	requiredValueFoundTargetAddresses := false
+
+	for _, v := range []string{"F", "C", "R"} {
+		if a.ComplianceAction == v {
+			requiredValueFoundTargetAddresses = true
+			break
+		}
+	}
+	if requiredValueFoundTargetAddresses && len(a.TargetAddresses) == 0 {
+		return fmt.Errorf("TargetAddresses is required when ComplianceAction value is within values [F C R] : %v", a.ComplianceAction)
+	}
 
 	// Field FreezeTxId - bin
 	if len(a.FreezeTxId) != 0 && len(a.FreezeTxId) != 32 {
 		return fmt.Errorf("FreezeTxId fixed width field wrong size : %d should be %d",
 			len(a.FreezeTxId), 32)
 	}
+	validValueFoundFreezeTxId := false
+
+	for _, v := range []string{"T"} {
+		if a.ComplianceAction == v {
+			validValueFoundFreezeTxId = true
+			break
+		}
+	}
+	if !validValueFoundFreezeTxId && len(a.FreezeTxId) != 0 {
+		return fmt.Errorf("FreezeTxId is only allowed when ComplianceAction value is within values [T] : %v", a.ComplianceAction)
+	}
 
 	// Field FreezePeriod - uint
+	validValueFoundFreezePeriod := false
+
+	for _, v := range []string{"F"} {
+		if a.ComplianceAction == v {
+			validValueFoundFreezePeriod = true
+			break
+		}
+	}
+	if !validValueFoundFreezePeriod && a.FreezePeriod != 0 {
+		return fmt.Errorf("FreezePeriod is only allowed when ComplianceAction value is within values [F] : %v", a.ComplianceAction)
+	}
 
 	// Field DepositAddress - varbin
 	if len(a.DepositAddress) > 0 {
@@ -1181,32 +1225,114 @@ func (a *Order) Validate() error {
 	if len(a.DepositAddress) > max2ByteInteger {
 		return fmt.Errorf("DepositAddress over max size : %d > %d", len(a.DepositAddress), max2ByteInteger)
 	}
+	validValueFoundDepositAddress := false
+
+	for _, v := range []string{"C"} {
+		if a.ComplianceAction == v {
+			validValueFoundDepositAddress = true
+			break
+		}
+	}
+	if !validValueFoundDepositAddress && len(a.DepositAddress) != 0 {
+		return fmt.Errorf("DepositAddress is only allowed when ComplianceAction value is within values [C] : %v", a.ComplianceAction)
+	}
+	requiredValueFoundDepositAddress := false
+
+	for _, v := range []string{"C"} {
+		if a.ComplianceAction == v {
+			requiredValueFoundDepositAddress = true
+			break
+		}
+	}
+	if requiredValueFoundDepositAddress && len(a.DepositAddress) == 0 {
+		return fmt.Errorf("DepositAddress is required when ComplianceAction value is within values [C] : %v", a.ComplianceAction)
+	}
 
 	// Field AuthorityName - varchar
 	if len(a.AuthorityName) > max1ByteInteger {
 		return fmt.Errorf("AuthorityName over max size : %d > %d", len(a.AuthorityName), max1ByteInteger)
+	}
+	validValueFoundAuthorityName := false
+	for _, v := range []uint32{1} {
+		if a.SignatureAlgorithm == v {
+			validValueFoundAuthorityName = true
+			break
+		}
+	}
+	if !validValueFoundAuthorityName && len(a.AuthorityName) != 0 {
+		return fmt.Errorf("AuthorityName is only allowed when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
+	}
+	requiredValueFoundAuthorityName := false
+	for _, v := range []uint32{1} {
+		if a.SignatureAlgorithm == v {
+			requiredValueFoundAuthorityName = true
+			break
+		}
+	}
+	if requiredValueFoundAuthorityName && len(a.AuthorityName) == 0 {
+		return fmt.Errorf("AuthorityName is required when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
 	}
 
 	// Field AuthorityPublicKey - varbin
 	if len(a.AuthorityPublicKey) > max1ByteInteger {
 		return fmt.Errorf("AuthorityPublicKey over max size : %d > %d", len(a.AuthorityPublicKey), max1ByteInteger)
 	}
+	validValueFoundAuthorityPublicKey := false
+	for _, v := range []uint32{1} {
+		if a.SignatureAlgorithm == v {
+			validValueFoundAuthorityPublicKey = true
+			break
+		}
+	}
+	if !validValueFoundAuthorityPublicKey && len(a.AuthorityPublicKey) != 0 {
+		return fmt.Errorf("AuthorityPublicKey is only allowed when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
+	}
+	requiredValueFoundAuthorityPublicKey := false
+	for _, v := range []uint32{1} {
+		if a.SignatureAlgorithm == v {
+			requiredValueFoundAuthorityPublicKey = true
+			break
+		}
+	}
+	if requiredValueFoundAuthorityPublicKey && len(a.AuthorityPublicKey) == 0 {
+		return fmt.Errorf("AuthorityPublicKey is required when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
+	}
 
 	// Field SignatureAlgorithm - uint
 	foundSignatureAlgorithm := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint32{0, 1} {
 		if a.SignatureAlgorithm == v {
 			foundSignatureAlgorithm = true
 			break
 		}
 	}
 	if !foundSignatureAlgorithm {
-		return fmt.Errorf("SignatureAlgorithm value not within options [1] : %d", a.SignatureAlgorithm)
+		return fmt.Errorf("SignatureAlgorithm value not within options [0 1] : %d", a.SignatureAlgorithm)
 	}
 
 	// Field OrderSignature - varbin
 	if len(a.OrderSignature) > max1ByteInteger {
 		return fmt.Errorf("OrderSignature over max size : %d > %d", len(a.OrderSignature), max1ByteInteger)
+	}
+	validValueFoundOrderSignature := false
+	for _, v := range []uint32{1} {
+		if a.SignatureAlgorithm == v {
+			validValueFoundOrderSignature = true
+			break
+		}
+	}
+	if !validValueFoundOrderSignature && len(a.OrderSignature) != 0 {
+		return fmt.Errorf("OrderSignature is only allowed when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
+	}
+	requiredValueFoundOrderSignature := false
+	for _, v := range []uint32{1} {
+		if a.SignatureAlgorithm == v {
+			requiredValueFoundOrderSignature = true
+			break
+		}
+	}
+	if requiredValueFoundOrderSignature && len(a.OrderSignature) == 0 {
+		return fmt.Errorf("OrderSignature is required when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
 	}
 
 	// Field BitcoinDispersions - QuantityIndex
@@ -1217,6 +1343,28 @@ func (a *Order) Validate() error {
 		if err := v.Validate(); err != nil {
 			return errors.Wrap(err, fmt.Sprintf("BitcoinDispersions[%d]", i))
 		}
+	}
+	validValueFoundBitcoinDispersions := false
+
+	for _, v := range []string{"R"} {
+		if a.ComplianceAction == v {
+			validValueFoundBitcoinDispersions = true
+			break
+		}
+	}
+	if !validValueFoundBitcoinDispersions && len(a.BitcoinDispersions) != 0 {
+		return fmt.Errorf("BitcoinDispersions is only allowed when ComplianceAction value is within values [R] : %v", a.ComplianceAction)
+	}
+	requiredValueFoundBitcoinDispersions := false
+
+	for _, v := range []string{"R"} {
+		if a.ComplianceAction == v {
+			requiredValueFoundBitcoinDispersions = true
+			break
+		}
+	}
+	if requiredValueFoundBitcoinDispersions && len(a.BitcoinDispersions) == 0 {
+		return fmt.Errorf("BitcoinDispersions is required when ComplianceAction value is within values [R] : %v", a.ComplianceAction)
 	}
 
 	// Field Message - varchar
@@ -1239,6 +1387,26 @@ func (a *Order) Validate() error {
 	// Field SupportingEvidence - varbin
 	if len(a.SupportingEvidence) > max1ByteInteger {
 		return fmt.Errorf("SupportingEvidence over max size : %d > %d", len(a.SupportingEvidence), max1ByteInteger)
+	}
+	validValueFoundSupportingEvidence := false
+	for _, v := range []uint32{1} {
+		if a.SupportingEvidenceFormat == v {
+			validValueFoundSupportingEvidence = true
+			break
+		}
+	}
+	if !validValueFoundSupportingEvidence && len(a.SupportingEvidence) != 0 {
+		return fmt.Errorf("SupportingEvidence is only allowed when SupportingEvidenceFormat value is within values [1] : %v", a.SupportingEvidenceFormat)
+	}
+	requiredValueFoundSupportingEvidence := false
+	for _, v := range []uint32{1} {
+		if a.SupportingEvidenceFormat == v {
+			requiredValueFoundSupportingEvidence = true
+			break
+		}
+	}
+	if requiredValueFoundSupportingEvidence && len(a.SupportingEvidence) == 0 {
+		return fmt.Errorf("SupportingEvidence is required when SupportingEvidenceFormat value is within values [1] : %v", a.SupportingEvidenceFormat)
 	}
 
 	// Field ReferenceTransactions - ReferenceTransaction

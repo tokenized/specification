@@ -55,48 +55,101 @@ fields:
     description: "The holders and quantities that are effected by the order. For a contract or instrument wide freeze only the contract address is specified. Zero quantities are invalid unless it is for the contract address in an instrument wide or contract wide freeze. In a thaw order this field is not serialized, because the entire freeze from the FreezeTxId freeze action will be thawed."
     type: TargetAddress[]
     listSize: medium
+    only_valid_when:
+      field_name: ComplianceAction
+      values:
+        - 'F'
+        - 'C'
+        - 'R'
+    required_when:
+      field_name: ComplianceAction
+      values:
+        - 'F'
+        - 'C'
+        - 'R'
 
   - name: FreezeTxId
     label: Freeze Tx Id
     description: "The tx id of the freeze action that is being thawed. Only serialized for thaw orders."
     type: TxId
+    only_valid_when:
+      field_name: ComplianceAction
+      values:
+        - 'T'
 
   - name: FreezePeriod
     label: Freeze Period
     description: "Used for a 'time out'.  Tokens are automatically unfrozen after the expiration timestamp without requiring a Thaw Action. Null value for Thaw, Confiscation and Reconciallitaion orders."
     type: Timestamp
     example: "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)"
+    only_valid_when:
+      field_name: ComplianceAction
+      values:
+        - 'F'
 
   - name: DepositAddress
     label: Deposit Address
     description: "The public address for confiscated tokens to be deposited in.  Null for Freeze, Thaw, actions."
     type: Address
     notes: "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes."
+    only_valid_when:
+      field_name: ComplianceAction
+      values:
+        - 'C'
+    required_when:
+      field_name: ComplianceAction
+      values:
+        - 'C'
 
   - name: AuthorityName
     label: Authority Name
     description: "Length 0-255 bytes. Enforcement Authority Name (eg. Issuer, Queensland Police Service, Tokenized, etc.)"
     type: varchar
     example: "Supreme and District Courts Brisbane"
+    only_valid_when:
+      field_name: SignatureAlgorithm
+      values:
+        - 1
+    required_when:
+      field_name: SignatureAlgorithm
+      values:
+        - 1
 
   - name: AuthorityPublicKey
     label: Authority Public Key
     description: "Length 0-255 bytes. Public Key associated with the Enforcement Authority"
     type: varbin
+    only_valid_when:
+      field_name: SignatureAlgorithm
+      values:
+        - 1
+    required_when:
+      field_name: SignatureAlgorithm
+      values:
+        - 1
 
   - name: SignatureAlgorithm
     label: Signature Algorithm
-    description: "Algorithm used for order signature. Only valid value is currently 1 = ECDSA+secp256k1"
+    description: "Algorithm used for order signature. 0 = No signature provided, 1 = ECDSA+secp256k1"
     type: uint
     size: 1
     example: 1
     options:
+      - 0
       - 1
 
   - name: OrderSignature
     label: Authority Order Signature
     description: "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Instrument Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)"
     type: varbin
+    only_valid_when:
+      field_name: SignatureAlgorithm
+      values:
+        - 1
+    required_when:
+      field_name: SignatureAlgorithm
+      values:
+        - 1
 
   - name: SupportingEvidenceHash
     label: Supporting Evidence Hash
@@ -114,6 +167,14 @@ fields:
     description: "Index of address in TargetAddresses and amount of bitcoin (in satoshis) they are receiving in exchange for their tokens."
     type: QuantityIndex[]
     listSize: small
+    only_valid_when:
+      field_name: ComplianceAction
+      values:
+        - 'R'
+    required_when:
+      field_name: ComplianceAction
+      values:
+        - 'R'
 
   - name: Message
     label: Message
@@ -136,6 +197,14 @@ fields:
     description: "Supporting evidence related to the order being requested."
     type: varbin
     size: medium
+    only_valid_when:
+      field_name: SupportingEvidenceFormat
+      values:
+        - 1
+    required_when:
+      field_name: SupportingEvidenceFormat
+      values:
+        - 1
 
   - name: ReferenceTransactions
     label: Reference Transactions

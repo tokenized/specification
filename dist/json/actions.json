@@ -2541,12 +2541,34 @@
           "label": "Target Addresses",
           "listSize": "medium",
           "name": "TargetAddresses",
+          "only_valid_when": {
+            "field_name": "ComplianceAction",
+            "values": [
+              "F",
+              "C",
+              "R"
+            ]
+          },
+          "required_when": {
+            "field_name": "ComplianceAction",
+            "values": [
+              "F",
+              "C",
+              "R"
+            ]
+          },
           "type": "TargetAddress[]"
         },
         {
           "description": "The tx id of the freeze action that is being thawed. Only serialized for thaw orders.",
           "label": "Freeze Tx Id",
           "name": "FreezeTxId",
+          "only_valid_when": {
+            "field_name": "ComplianceAction",
+            "values": [
+              "T"
+            ]
+          },
           "type": "TxId"
         },
         {
@@ -2554,6 +2576,12 @@
           "example": "Tue Oct 09 2018 05:00:00 GMT+1000 (AEST)",
           "label": "Freeze Period",
           "name": "FreezePeriod",
+          "only_valid_when": {
+            "field_name": "ComplianceAction",
+            "values": [
+              "F"
+            ]
+          },
           "type": "Timestamp"
         },
         {
@@ -2561,6 +2589,18 @@
           "label": "Deposit Address",
           "name": "DepositAddress",
           "notes": "Eventually the supporting evidence/explanation can be supported by a Subfield that has the public address (and a signed message) owned by a legal authority for ID verification/certification purposes.",
+          "only_valid_when": {
+            "field_name": "ComplianceAction",
+            "values": [
+              "C"
+            ]
+          },
+          "required_when": {
+            "field_name": "ComplianceAction",
+            "values": [
+              "C"
+            ]
+          },
           "type": "Address"
         },
         {
@@ -2568,20 +2608,45 @@
           "example": "Supreme and District Courts Brisbane",
           "label": "Authority Name",
           "name": "AuthorityName",
+          "only_valid_when": {
+            "field_name": "SignatureAlgorithm",
+            "values": [
+              1
+            ]
+          },
+          "required_when": {
+            "field_name": "SignatureAlgorithm",
+            "values": [
+              1
+            ]
+          },
           "type": "varchar"
         },
         {
           "description": "Length 0-255 bytes. Public Key associated with the Enforcement Authority",
           "label": "Authority Public Key",
           "name": "AuthorityPublicKey",
+          "only_valid_when": {
+            "field_name": "SignatureAlgorithm",
+            "values": [
+              1
+            ]
+          },
+          "required_when": {
+            "field_name": "SignatureAlgorithm",
+            "values": [
+              1
+            ]
+          },
           "type": "varbin"
         },
         {
-          "description": "Algorithm used for order signature. Only valid value is currently 1 = ECDSA+secp256k1",
+          "description": "Algorithm used for order signature. 0 = No signature provided, 1 = ECDSA+secp256k1",
           "example": 1,
           "label": "Signature Algorithm",
           "name": "SignatureAlgorithm",
           "options": [
+            0,
             1
           ],
           "size": 1,
@@ -2591,6 +2656,18 @@
           "description": "Length 0-255 bytes. Signature for a message that lists out the target addresses and deposit address. Signature of (Contract PKH, Compliance Action, Authority Name, Instrument Code, Supporting Evidence Hash, FreezePeriod, TargetAddresses, and DepositAddress)",
           "label": "Authority Order Signature",
           "name": "OrderSignature",
+          "only_valid_when": {
+            "field_name": "SignatureAlgorithm",
+            "values": [
+              1
+            ]
+          },
+          "required_when": {
+            "field_name": "SignatureAlgorithm",
+            "values": [
+              1
+            ]
+          },
           "type": "varbin"
         },
         {
@@ -2611,6 +2688,18 @@
           "label": "Bitcoin Dispersions",
           "listSize": "small",
           "name": "BitcoinDispersions",
+          "only_valid_when": {
+            "field_name": "ComplianceAction",
+            "values": [
+              "R"
+            ]
+          },
+          "required_when": {
+            "field_name": "ComplianceAction",
+            "values": [
+              "R"
+            ]
+          },
           "type": "QuantityIndex[]"
         },
         {
@@ -2636,6 +2725,18 @@
           "description": "Supporting evidence related to the order being requested.",
           "label": "Supporting Evidence",
           "name": "SupportingEvidence",
+          "only_valid_when": {
+            "field_name": "SupportingEvidenceFormat",
+            "values": [
+              1
+            ]
+          },
+          "required_when": {
+            "field_name": "SupportingEvidenceFormat",
+            "values": [
+              1
+            ]
+          },
           "size": "medium",
           "type": "varbin"
         },
