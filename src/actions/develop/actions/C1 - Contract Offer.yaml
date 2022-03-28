@@ -1,11 +1,21 @@
 #
-# Contract Offer Action: The Contract Offer action allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
+# Contract Offer Action: The Contract Offer action allows the administration to tell the smart
+# contract what they want the details (labels, data, T&C's, etc.) of the contract to be on-chain in
+# a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that
+# has been spun up by either the smart contract operator or the administration. This on-chain action
+# allows for the positive response from the smart contract with either a Contract Formation Action
+# or a Rejection Action.
 #
 
 code: C1
 name: ContractOffer
 label: "Contract Offer"
-description: "Allows the administration to tell the smart contract what they want the details (labels, data, T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action."
+description: >
+  Allows the administration to tell the smart contract what they want the details (labels, data,
+  T&C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer
+  action 'initializes' a generic smart contract that has been spun up by either the smart contract
+  operator or the administration. This on-chain action allows for the positive response from the
+  smart contract with either a Contract Formation Action or a Rejection Action.
 
 metadata:
   validation: ContractFormation
@@ -14,15 +24,21 @@ metadata:
   inputs:
     - name: Administration
       label: "Administration's Public Address"
-      comments: "The smart contract sets the administration's public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are controlled by the administration according to the protocol."
+      comments: >
+        The smart contract sets the administration's public address with whatever public address is
+        in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to
+        'commands' (request actions) from this address with respect to actions that are controlled
+        by the administration according to the protocol.
 
     - name: ContractOperator
       label: "Contract Operator's Public Address (Optional)"
       comments: >
         Can also be used as a cold storage backup for the issuer.
-        This is important if the issuer wants to be able to change their address as changes to the issuer or operator pkh in an amendment require signatures from both the issuer and the operator pkhs.
-        The one exception to this rule, the Contract Operator can nominate a secondary controlling public address that can act on behalf of the issuer for issuer related requests.
-        Typically this will be the Smart Contract Operator.
+        This is important if the issuer wants to be able to change their address as changes to the
+        issuer or operator pkh in an amendment require signatures from both the issuer and the
+        operator pkhs. The one exception to this rule, the Contract Operator can nominate a
+        secondary controlling public address that can act on behalf of the issuer for issuer related
+        requests. Typically this will be the Smart Contract Operator.
 
   outputs:
     - name: Contract
@@ -57,8 +73,8 @@ fields:
     description: >
       SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the
       full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is
-      specified in a C6/C7 action. This is specific to the smart contract and relevant Instruments. Legal
-      and technical information.
+      specified in a C6/C7 action. This is specific to the smart contract and relevant instruments.
+      Legal and technical information.
     type: varbin
     varSize: medium
     only_valid_when:
@@ -79,27 +95,44 @@ fields:
 
   - name: GoverningLaw
     label: Governing Law
-    description: "Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    description: >
+      Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract
+      will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below.
+      Private dispute resolution organizations can be used as well.  A custom code just needs to be
+      defined.
     type: deprecated
     example: "USA"
     notes: "Governing Legal System - Amendments can be restricted to a vote."
 
   - name: Jurisdiction
     label: Jurisdiction
-    description: "Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    description: >
+      Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the
+      specified Governing Law in this location.
     type: deprecated
     example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."
 
   - name: ContractExpiration
     label: Contract Expiration
-    description: "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder."
+    description: >
+      All actions related to the contract will cease to work after this timestamp. The smart
+      contract will stop running.  This will allow many token use cases to be able to calculate
+      total smart contract running costs for the entire life of the contract. Eg. an issuer is
+      creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate
+      exchange and send transactions up until the 6th of June.  Wallets can use this to forget
+      tokens that are no longer valid - or at least store them in an 'Expired' folder.
     type: Timestamp
     notes: "Contract Expiration - Amendments can be restricted to a vote."
 
   - name: ContractURI
     label: Contract URI
-    description: "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the instrument, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS)."
+    description: >
+      Points to an information page that also has a copy of the Contract.  Anyone can go to the
+      website to have a look at the price/token, information about the issuer (company),
+      information about the instrument, legal information, etc.  There will also be a way for token
+      owners to vote on this page and contact details with the issuer/tokenized companies. Could be
+      a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).
     type: varchar
     example: "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj"
 
@@ -120,23 +153,32 @@ fields:
 
   - name: ContractOperatorIncluded
     label: Contract Operator Included
-    description: "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization."
+    description: >
+      If true, then the second input is a contract operator. If false, then all additional inputs
+      are just funding and "includes" fields are skipped in serialization.
     type: bool
 
   - name: ContractOperator
     label: Contract Operator
-    description: "Deprecated for operator entity contract address. An additional entity with operator access to the contract."
+    description: >
+      Deprecated for operator entity contract address. An additional entity with operator access to
+      the contract.
     type: deprecated
 
   - name: AdminOracle
     label: Administration Identity Oracle
     type: deprecated
-    description: "The oracle that provided the signature used to verify the administration's identity and association with a parent contract if one is specified."
+    description: >
+      The oracle that provided the signature used to verify the administration's identity and
+      association with a parent contract if one is specified.
 
   - name: AdminOracleSignature
     label: Administration Identity Oracle Signature
     type: deprecated
-    description: "The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity."
+    description: >
+      The ECDSA signature provided by the oracle specified. The first input must correspond to the
+      administration entity and, if a contract operator is included, the second input must
+      correspond to the contract operator entity.
 
   - name: AdminOracleSigBlockHeight
     label: Administration Identity Oracle Signature Block height
@@ -157,13 +199,17 @@ fields:
 
   - name: ContractPermissions
     label: Contract Permissions
-    description: "A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail."
+    description: >
+      A set of permission objects containing switches and field references that define the
+      permissions for modifying this contract. See the Permission documentation for more detail.
     type: varbin
     varSize: small
 
   - name: RestrictedQtyInstruments
     label: Restricted Qty of Instruments
-    description: "Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI"
+    description: >
+      Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will
+      display an infinity symbol in UI
     type: uint
     size: 8
     example: "1"
@@ -171,38 +217,41 @@ fields:
 
   - name: AdministrationProposal
     label: Administration Proposal
-    description: "Set to true if the administration is permitted to make proposals outside of the smart contract scope."
+    description: >
+      Set to true if the administration is permitted to make proposals outside of the smart contract
+      scope.
     type: bool
     example: true
     notes: "General Governance"
 
   - name: HolderProposal
     label: Holder Proposal
-    description: "Set to true if a holder is permitted to make proposals outside of the smart contract scope."
+    description: >
+      Set to true if a holder is permitted to make proposals outside of the smart contract scope.
     type: bool
     example: true
 
   - name: Oracles
     label: Oracles
-    description: "A list of oracles that provide approval for all token transfers for all instruments under the contract."
+    description: >
+      A list of oracles that provide approval for all token transfers for all instruments under the
+      contract.
     type: Oracle[]
 
   - name: MasterAddress
     label: Master Address
-    description: "The address of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key."
+    description: >
+      The address of the contract's master key. This key has the ability to change the active
+      contract address in case of a security failure with the active contract key.
     type: Address
 
   - name: EntityContract
     label: Entity Contract
     description: >
-      The address of the contract's parent entity. This is not valid for entity contracts, but
-      required for instrument and service contracts to identify the entity parent contract.
+      The contract address of the entity contract of the entity. This is not valid for entity
+      contracts.
     type: Address
     only_valid_when:
-      field_name: ContractType
-      values:
-        - 1
-    required_when:
       field_name: ContractType
       values:
         - 1
@@ -242,14 +291,19 @@ fields:
 
   - name: GoverningLaw
     label: Governing Law
-    description: "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined."
+    description: >
+      5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be
+      settled by this law in the jurisdiction specified below. Private dispute resolution
+      organizations can be used as well.  A custom code just needs to be defined.
     type: LegalSystem
     example: "USA"
     notes: "Governing Legal System - Amendments can be restricted to a vote."
 
   - name: Jurisdiction
     label: Jurisdiction
-    description: "Legal proceedings/arbitration will take place using the specified Governing Law in this location."
+    description: >
+      Legal proceedings/arbitration will take place using the specified Governing Law in this
+      location.
     type: Polity
     example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."

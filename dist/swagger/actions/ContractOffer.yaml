@@ -21,7 +21,7 @@ properties:
     description:  >
       SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full
       agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified
-      in a C6/C7 action. This is specific to the smart contract and relevant Instruments. Legal and
+      in a C6/C7 action. This is specific to the smart contract and relevant instruments. Legal and
       technical information.
     type: string
     example: "151c232a31383f464d545b626970777e858c939aa1a8afb6"
@@ -107,8 +107,8 @@ properties:
     example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   EntityContract:
     description:  >
-      The address of the contract's parent entity. This is not valid for entity contracts, but
-      required for instrument and service contracts to identify the entity parent contract.
+      The contract address of the entity contract of the entity. This is not valid for entity
+      contracts.
     type: string
     example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   OperatorEntityContract:

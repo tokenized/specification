@@ -52,6 +52,7 @@ See the [Transactions article](../concepts/transactions) for details on how to c
 
 Allows the administration to tell the smart contract what they want the details (labels, data, T&amp;C&#39;s, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action &#39;initializes&#39; a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.
 
+
 <table>
     <tr>
         <th style="width:15%">Action Code</th>
@@ -95,7 +96,7 @@ Allows the administration to tell the smart contract what they want the details 
             varbin(medium)
         </td>
         <td>
-            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Instruments. Legal and technical information.
+            SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant instruments. Legal and technical information.
 
             
             This field is only valid when the field BodyOfAgreementType equals 1.
@@ -127,6 +128,7 @@ Allows the administration to tell the smart contract what they want the details 
         <td>deprecated</td>
         <td>
             Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+
             Governing Legal System - Amendments can be restricted to a vote. Example: USA
         </td>
     </tr>
@@ -136,6 +138,7 @@ Allows the administration to tell the smart contract what they want the details 
         <td>deprecated</td>
         <td>
             Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+
             Jurisdiction - Amendments can be restricted to a vote. Example: US-CA
         </td>
     </tr>
@@ -147,6 +150,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an &#39;Expired&#39; folder.
+
             Contract Expiration - Amendments can be restricted to a vote.
         </td>
     </tr>
@@ -158,6 +162,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the instrument, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).
+
              Example: https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj
         </td>
     </tr>
@@ -190,6 +195,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             If true, then the second input is a contract operator. If false, then all additional inputs are just funding and &#34;includes&#34; fields are skipped in serialization.
+
             
         </td>
     </tr>
@@ -199,6 +205,7 @@ Allows the administration to tell the smart contract what they want the details 
         <td>deprecated</td>
         <td>
             Deprecated for operator entity contract address. An additional entity with operator access to the contract.
+
             
         </td>
     </tr>
@@ -208,6 +215,7 @@ Allows the administration to tell the smart contract what they want the details 
         <td>deprecated</td>
         <td>
             The oracle that provided the signature used to verify the administration&#39;s identity and association with a parent contract if one is specified.
+
             
         </td>
     </tr>
@@ -217,6 +225,7 @@ Allows the administration to tell the smart contract what they want the details 
         <td>deprecated</td>
         <td>
             The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.
+
             
         </td>
     </tr>
@@ -259,6 +268,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail.
+
             
         </td>
     </tr>
@@ -270,6 +280,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI
+
             Qty of Instruments - Amendments can be restricted to a vote. Example: 1
         </td>
     </tr>
@@ -281,6 +292,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             Set to true if the administration is permitted to make proposals outside of the smart contract scope.
+
             General Governance Example: true
         </td>
     </tr>
@@ -292,6 +304,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             Set to true if a holder is permitted to make proposals outside of the smart contract scope.
+
              Example: true
         </td>
     </tr>
@@ -303,6 +316,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             A list of oracles that provide approval for all token transfers for all instruments under the contract.
+
             
         </td>
     </tr>
@@ -314,6 +328,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             The address of the contract&#39;s master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.
+
             
         </td>
     </tr>
@@ -324,10 +339,9 @@ Allows the administration to tell the smart contract what they want the details 
             <a href="#alias-address">Address</a>
         </td>
         <td>
-            The address of the contract&#39;s parent entity. This is not valid for entity contracts, but required for instrument and service contracts to identify the entity parent contract.
+            The contract address of the entity contract of the entity. This is not valid for entity contracts.
 
             
-            This field is required when the field ContractType equals 1.
             This field is only valid when the field ContractType equals 1.
         </td>
     </tr>
@@ -385,6 +399,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.
+
             Governing Legal System - Amendments can be restricted to a vote. Example: USA
         </td>
     </tr>
@@ -396,6 +411,7 @@ Allows the administration to tell the smart contract what they want the details 
         </td>
         <td>
             Legal proceedings/arbitration will take place using the specified Governing Law in this location.
+
             Jurisdiction - Amendments can be restricted to a vote. Example: US-CA
         </td>
     </tr>
@@ -414,7 +430,8 @@ Allows the administration to tell the smart contract what they want the details 
    <tr>
         <td class="text-center">0</td>
         <td>Administration&#39;s Public Address</td>
-        <td>The smart contract sets the administration&#39;s public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to &#39;commands&#39; (request actions) from this address with respect to actions that are controlled by the administration according to the protocol.</td>
+        <td>The smart contract sets the administration&#39;s public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to &#39;commands&#39; (request actions) from this address with respect to actions that are controlled by the administration according to the protocol.
+</td>
     </tr>
    <tr>
         <td class="text-center">1</td>

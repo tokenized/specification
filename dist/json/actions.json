@@ -793,7 +793,7 @@
   "messages": [
     {
       "code": "C1",
-      "description": "Allows the administration to tell the smart contract what they want the details (labels, data, T\u0026C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.",
+      "description": "Allows the administration to tell the smart contract what they want the details (labels, data, T\u0026C's, etc.) of the Contract to be on-chain in a public and immutable way. The Contract Offer action 'initializes' a generic smart contract that has been spun up by either the smart contract operator or the administration. This on-chain action allows for the positive response from the smart contract with either a Contract Formation Action or a Rejection Action.\n",
       "fields": [
         {
           "description": "The name/title of the contract.",
@@ -817,7 +817,7 @@
           "type": "uint"
         },
         {
-          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant Instruments. Legal and technical information.\n",
+          "description": "SHA-256 hash of the body of the agreement (full contract in pdf format or the like) or the full agreement. If BodyOfAgreementType is 2 then this field is empty and the agreement is specified in a C6/C7 action. This is specific to the smart contract and relevant instruments. Legal and technical information.\n",
           "label": "Body of Agreement",
           "name": "BodyOfAgreement",
           "only_valid_when": {
@@ -843,7 +843,7 @@
           "type": "Document[]"
         },
         {
-          "description": "Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.",
+          "description": "Deprecated to remove fixed size. 5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.\n",
           "example": "USA",
           "label": "Governing Law",
           "name": "GoverningLaw",
@@ -851,7 +851,7 @@
           "type": "deprecated"
         },
         {
-          "description": "Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location.",
+          "description": "Deprecated to remove fixed size. Legal proceedings/arbitration will take place using the specified Governing Law in this location.\n",
           "example": "US-CA",
           "label": "Jurisdiction",
           "name": "Jurisdiction",
@@ -859,14 +859,14 @@
           "type": "deprecated"
         },
         {
-          "description": "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.",
+          "description": "All actions related to the contract will cease to work after this timestamp. The smart contract will stop running.  This will allow many token use cases to be able to calculate total smart contract running costs for the entire life of the contract. Eg. an issuer is creating tickets for an event on the 5th of June 2018.  The smart contract will facilitate exchange and send transactions up until the 6th of June.  Wallets can use this to forget tokens that are no longer valid - or at least store them in an 'Expired' folder.\n",
           "label": "Contract Expiration",
           "name": "ContractExpiration",
           "notes": "Contract Expiration - Amendments can be restricted to a vote.",
           "type": "Timestamp"
         },
         {
-          "description": "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the instrument, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).",
+          "description": "Points to an information page that also has a copy of the Contract.  Anyone can go to the website to have a look at the price/token, information about the issuer (company), information about the instrument, legal information, etc.  There will also be a way for token owners to vote on this page and contact details with the issuer/tokenized companies. Could be a IPv6/IPv4, or txn-id for on-chain information or even a public address (DNS).\n",
           "example": "https://tokenized.com/Contract/3qeoSCg7JmfSnJesJFojj",
           "label": "Contract URI",
           "name": "ContractURI",
@@ -892,25 +892,25 @@
           "type": "deprecated"
         },
         {
-          "description": "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization.",
+          "description": "If true, then the second input is a contract operator. If false, then all additional inputs are just funding and \"includes\" fields are skipped in serialization.\n",
           "label": "Contract Operator Included",
           "name": "ContractOperatorIncluded",
           "type": "bool"
         },
         {
-          "description": "Deprecated for operator entity contract address. An additional entity with operator access to the contract.",
+          "description": "Deprecated for operator entity contract address. An additional entity with operator access to the contract.\n",
           "label": "Contract Operator",
           "name": "ContractOperator",
           "type": "deprecated"
         },
         {
-          "description": "The oracle that provided the signature used to verify the administration's identity and association with a parent contract if one is specified.",
+          "description": "The oracle that provided the signature used to verify the administration's identity and association with a parent contract if one is specified.\n",
           "label": "Administration Identity Oracle",
           "name": "AdminOracle",
           "type": "deprecated"
         },
         {
-          "description": "The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.",
+          "description": "The ECDSA signature provided by the oracle specified. The first input must correspond to the administration entity and, if a contract operator is included, the second input must correspond to the contract operator entity.\n",
           "label": "Administration Identity Oracle Signature",
           "name": "AdminOracleSignature",
           "type": "deprecated"
@@ -936,14 +936,14 @@
           "type": "VotingSystem[]"
         },
         {
-          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail.",
+          "description": "A set of permission objects containing switches and field references that define the permissions for modifying this contract. See the Permission documentation for more detail.\n",
           "label": "Contract Permissions",
           "name": "ContractPermissions",
           "type": "varbin",
           "varSize": "small"
         },
         {
-          "description": "Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI",
+          "description": "Number of Instruments (non-fungible) permitted on this contract. 0 if unlimited which will display an infinity symbol in UI\n",
           "example": "1",
           "label": "Restricted Qty of Instruments",
           "name": "RestrictedQtyInstruments",
@@ -952,7 +952,7 @@
           "type": "uint"
         },
         {
-          "description": "Set to true if the administration is permitted to make proposals outside of the smart contract scope.",
+          "description": "Set to true if the administration is permitted to make proposals outside of the smart contract scope.\n",
           "example": true,
           "label": "Administration Proposal",
           "name": "AdministrationProposal",
@@ -960,35 +960,29 @@
           "type": "bool"
         },
         {
-          "description": "Set to true if a holder is permitted to make proposals outside of the smart contract scope.",
+          "description": "Set to true if a holder is permitted to make proposals outside of the smart contract scope.\n",
           "example": true,
           "label": "Holder Proposal",
           "name": "HolderProposal",
           "type": "bool"
         },
         {
-          "description": "A list of oracles that provide approval for all token transfers for all instruments under the contract.",
+          "description": "A list of oracles that provide approval for all token transfers for all instruments under the contract.\n",
           "label": "Oracles",
           "name": "Oracles",
           "type": "Oracle[]"
         },
         {
-          "description": "The address of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.",
+          "description": "The address of the contract's master key. This key has the ability to change the active contract address in case of a security failure with the active contract key.\n",
           "label": "Master Address",
           "name": "MasterAddress",
           "type": "Address"
         },
         {
-          "description": "The address of the contract's parent entity. This is not valid for entity contracts, but required for instrument and service contracts to identify the entity parent contract.\n",
+          "description": "The contract address of the entity contract of the entity. This is not valid for entity contracts.\n",
           "label": "Entity Contract",
           "name": "EntityContract",
           "only_valid_when": {
-            "field_name": "ContractType",
-            "values": [
-              1
-            ]
-          },
-          "required_when": {
             "field_name": "ContractType",
             "values": [
               1
@@ -1039,7 +1033,7 @@
           "type": "AdminIdentityCertificate[]"
         },
         {
-          "description": "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.",
+          "description": "5 Letter Code to identify which governing law the contract will adhere to.  Disputes are to be settled by this law in the jurisdiction specified below. Private dispute resolution organizations can be used as well.  A custom code just needs to be defined.\n",
           "example": "USA",
           "label": "Governing Law",
           "name": "GoverningLaw",
@@ -1047,7 +1041,7 @@
           "type": "LegalSystem"
         },
         {
-          "description": "Legal proceedings/arbitration will take place using the specified Governing Law in this location.",
+          "description": "Legal proceedings/arbitration will take place using the specified Governing Law in this location.\n",
           "example": "US-CA",
           "label": "Jurisdiction",
           "name": "Jurisdiction",
@@ -1059,7 +1053,7 @@
       "metadata": {
         "inputs": [
           {
-            "comments": "The smart contract sets the administration's public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are controlled by the administration according to the protocol.",
+            "comments": "The smart contract sets the administration's public address with whatever public address is in Index 0 of the first valid Contract Offer.  From then on, the SC will only respond to 'commands' (request actions) from this address with respect to actions that are controlled by the administration according to the protocol.\n",
             "label": "Administration's Public Address",
             "name": "Administration"
           },
