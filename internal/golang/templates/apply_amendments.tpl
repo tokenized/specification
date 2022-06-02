@@ -74,7 +74,7 @@
 
 			newValue := &{{ .GoSingularType }}{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to {{ .Name }} failed to deserialize : %s",
 						err)
 				}

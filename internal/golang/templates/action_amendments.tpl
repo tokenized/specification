@@ -6,11 +6,11 @@ import (
 	"fmt"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/bsor"
 	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/internal"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 

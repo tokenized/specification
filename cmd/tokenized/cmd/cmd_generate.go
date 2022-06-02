@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/tokenized/specification/internal/bsor"
 	"github.com/tokenized/specification/internal/golang"
 	"github.com/tokenized/specification/internal/json"
 	"github.com/tokenized/specification/internal/markdown"
@@ -60,6 +61,8 @@ var cmdGenerate = &cobra.Command{
 		// Compile Languages
 
 		protobuf.Compile(srcPath, distPath, *actions, *instruments, *messages)
+
+		bsor.Compile(srcPath, distPath, *actions, *instruments, *messages)
 
 		golang.Compile(srcPath, distPath, *actions, *instruments, *messages)
 

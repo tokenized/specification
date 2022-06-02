@@ -6,9 +6,9 @@ import (
 	"encoding/binary"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/bsor"
 	"github.com/tokenized/specification/dist/golang/actions"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -28,7 +28,7 @@ func OrderAuthoritySigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 	digest.Write(order.SupportingEvidence[:])
 
 	for _, refTx := range order.ReferenceTransactions {
-		data, err := proto.Marshal(refTx)
+		data, err := bsor.MarshalBinary(refTx)
 		if err != nil {
 			return nil, errors.Wrap(err, "Failed to serialize reference transaction")
 		}
@@ -41,7 +41,7 @@ func OrderAuthoritySigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 	}
 
 	for _, target := range order.TargetAddresses {
-		data, err := proto.Marshal(target)
+		data, err := bsor.MarshalBinary(target)
 		if err != nil {
 			return nil, errors.Wrap(err, "Failed to serialize target address")
 		}

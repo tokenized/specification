@@ -13,9 +13,9 @@ import (
 	envelopeV0 "github.com/tokenized/envelope/pkg/golang/envelope/v0"
 	envelopeV1 "github.com/tokenized/envelope/pkg/golang/envelope/v1"
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/bsor"
 	"github.com/tokenized/specification/dist/golang/actions"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/ripemd160"
 )
@@ -185,7 +185,7 @@ func ActionCodeForScript(script bitcoin.Script, isTest bool) (string, error) {
 
 // WrapAction wraps an action in an envelope message.
 func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error) {
-	payload, err := proto.Marshal(action)
+	payload, err := bsor.MarshalBinary(action)
 	if err != nil {
 		return nil, errors.Wrap(err, "serialize action")
 	}

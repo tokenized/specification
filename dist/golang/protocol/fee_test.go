@@ -1,14 +1,13 @@
 package protocol
 
 import (
-	"bytes"
 	"crypto/rand"
-	"encoding/hex"
 	"math"
 	"testing"
 	"time"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
@@ -324,17 +323,93 @@ func TestExampleTransferResponseFees(t *testing.T) {
 	feeRate := float32(1.0)
 	dustFeeRate := float32(1.0)
 
-	h := "010000000441cf4cd05f3e90c6b88bcf79128fece494c8b3df89ae9b18707921ccf8640431020000006a473044022059aa3e22b19989c2237e604a6b251715dafdc351415f0938ce28302e8061a8f502205a12a3b85abfa2d6f27118abd883c775cd87ae61735742af7b2639b6b8bc91ee412103b370b2aab691da4c1ae98b7e464e5e6835b3af3a671cbde7b3e13463c9d20eb0ffffffff23aecd316912c3221ec115c946e2bb5cdeaa39b9b461b9ea5332cb4d1df6f27b000000006a473044022025fbaf15e11b4f1ae921e2800eedb10f1c63690f477900d5714c0f735e3638e30220330700c48cb9ec07c88c8bef52eef864f977483799f4d5c714c5cb3c29ff85a24121032447bf539a49de8034bd1df92256049d1918ec2786fa455349d2d06117cf1bcfffffffff23aecd316912c3221ec115c946e2bb5cdeaa39b9b461b9ea5332cb4d1df6f27b010000006a473044022054124286f9118d86bc329210cf7a9e8eb62eea9f270bc71424bf0ec7e72589500220598f0aec527e9f71b8406fd77b316acdf3b6fea8aa44660d238c5729368457ac4121029bb9c7cb8be3e2a3bc94caef749a0ce527c37209138d13265b37bd19d8b20e58ffffffffb007215319b8db969f05583fdf9ac2da09da9f6e49b1296648c6f6997e9a3628030000006b483045022100fe8e1d9424fb82233d459bfb18e18034f74fa828f7128b2e93e429a07b6fa7b802205b6c184913baf618194359c12c1f546615a524f7a19dd1472c41072c0c49315b412103ad7c96e7da4066b647e4fa4ad471e66a6f1d49b79f5f39d7627ef4287dd1c07affffffff04db160000000000001976a9144068eae2ac3722b8d9b9fb6c1920062d0f5b3d2588ac22020000000000001976a9147beee8a3d931c9d6d221de0bfec2ad4d8bd84c0588ac0000000000000000fd8902006a02bd0008746573742e544b4e041a0254314d73020af00412034355521a20d6571723491ca8006ea1cd45c07886e92cb411104b2d1216c277f7eb25113833220310e0082a720a15207beee8a3d931c9d6d221de0bfec2ad4d8bd84c0510c80118012a46304402202e8620babfd561d41807920194f9b0613c2c3a608e3e885226130c09a42dcb1702203fd8d514ab78ea23dc2d7e1d738b406f557a50afdf33b4d8f799a78fcb1a969b30918a2838f4ddbf8fdec2e29e162a720a1520a6c6ab9ade7a68f4dc5daf670b872c41ca25cfa6106418012a473045022100caf87f8abef267cb50b1a7667b4ecb5fc7b06e5b1b393e3edf33d519ce3f8993022026d90ea97cb81854b9dcd0071303a2a2e7bc9e2c90016c7c05a424f4976464db30918a2838d4fdc0b8dec2e29e162a720a1520d9354520c31bc16704faf6596cae92c24930dc2f10a60118012a4630440220595ba09b7fd1c95728ceb407810b1dca6167ab8f3e562fb29b35da9a3450133f022057bdde8817e969866e19c13a79695e457fd920221090a032f4a13810e7e2009d30918a283897f9f6bcdec2e29e162a720a1520ccb51eb299d1fc9f2f91c8ae82cad3041153388110b80118012a463044022064f0f702c9c1086868e489a7a9a88ef9863ac70b8f29cc1a1af0f5c701b51d4d0220015722a799d407937dbb36d738e3a1b6ebdf9a42c710e67cb1b3baefa1cf8be830918a2838dd97c3c2dec2e29e162a720a1520f0453add3936952a18a339b34753e7d18a69c8f110d60318012a46304402206174c356fc4f59e9d0319ef34c819e2251e849469996fb57abadf0c5bf4941bb0220693ef570ad6eec1328bddaf405fff9e8ba43727682328490f8331ab83f8833ac30918a2838a3919ac7dec2e29e1628210000000000001976a914d5ef701d1e06a72bc17711678da1a3b0b52cbb4d88ac00000000"
+	js := `{
+	    "Instruments": [
+	        {
+	            "InstrumentType": "CUR",
+	            "InstrumentCode": "d6571723491ca8006ea1cd45c07886e92cb411104b2d1216c277f7eb25113833",
+	            "InstrumentSenders": [
+	                {
+	                    "Quantity": 1120
+	                }
+	            ],
+	            "InstrumentReceivers": [
+	                {
+	                    "Address": "207beee8a3d931c9d6d221de0bfec2ad4d8bd84c05",
+	                    "Quantity": 200,
+	                    "OracleSigAlgorithm": 1,
+	                    "OracleConfirmationSig": "304402202e8620babfd561d41807920194f9b0613c2c3a608e3e885226130c09a42dcb1702203fd8d514ab78ea23dc2d7e1d738b406f557a50afdf33b4d8f799a78fcb1a969b",
+	                    "OracleSigBlockHeight": 656657,
+	                    "OracleSigExpiry": 1602588869003308788
+	                },
+	                {
+	                    "Address": "20a6c6ab9ade7a68f4dc5daf670b872c41ca25cfa6",
+	                    "Quantity": 100,
+	                    "OracleSigAlgorithm": 1,
+	                    "OracleConfirmationSig": "3045022100caf87f8abef267cb50b1a7667b4ecb5fc7b06e5b1b393e3edf33d519ce3f8993022026d90ea97cb81854b9dcd0071303a2a2e7bc9e2c90016c7c05a424f4976464db",
+	                    "OracleSigBlockHeight": 656657,
+	                    "OracleSigExpiry": 1602588869089312468
+	                },
+	                {
+	                    "Address": "20d9354520c31bc16704faf6596cae92c24930dc2f",
+	                    "Quantity": 166,
+	                    "OracleSigAlgorithm": 1,
+	                    "OracleConfirmationSig": "30440220595ba09b7fd1c95728ceb407810b1dca6167ab8f3e562fb29b35da9a3450133f022057bdde8817e969866e19c13a79695e457fd920221090a032f4a13810e7e2009d",
+	                    "OracleSigBlockHeight": 656657,
+	                    "OracleSigExpiry": 1602588869098585239
+	                },
+	                {
+	                    "Address": "20ccb51eb299d1fc9f2f91c8ae82cad30411533881",
+	                    "Quantity": 184,
+	                    "OracleSigAlgorithm": 1,
+	                    "OracleConfirmationSig": "3044022064f0f702c9c1086868e489a7a9a88ef9863ac70b8f29cc1a1af0f5c701b51d4d0220015722a799d407937dbb36d738e3a1b6ebdf9a42c710e67cb1b3baefa1cf8be8",
+	                    "OracleSigBlockHeight": 656657,
+	                    "OracleSigExpiry": 1602588869110320093
+	                },
+	                {
+	                    "Address": "20f0453add3936952a18a339b34753e7d18a69c8f1",
+	                    "Quantity": 470,
+	                    "OracleSigAlgorithm": 1,
+	                    "OracleConfirmationSig": "304402206174c356fc4f59e9d0319ef34c819e2251e849469996fb57abadf0c5bf4941bb0220693ef570ad6eec1328bddaf405fff9e8ba43727682328490f8331ab83f8833ac",
+	                    "OracleSigBlockHeight": 656657,
+	                    "OracleSigExpiry": 1602588869120133283
+	                }
+	            ]
+	        }
+	    ]
+	}`
 
-	b, err := hex.DecodeString(h)
-	if err != nil {
-		t.Fatalf("Failed to parse request tx hex : %s", err)
+	transfer := &actions.Transfer{}
+	if err := json.Unmarshal([]byte(js), transfer); err != nil {
+		t.Fatalf("Failed to unmarshal json : %s", err)
 	}
 
-	requestTx := &wire.MsgTx{}
-	if err := requestTx.Deserialize(bytes.NewReader(b)); err != nil {
-		t.Fatalf("Failed to parse request tx : %s", err)
-	}
+	requestTx := wire.NewMsgTx(1)
+
+	h1, _ := bitcoin.NewHash32FromStr("310464f8cc217970189bae89dfb3c894e4ec8f1279cf8bb8c6903e5fd04ccf41")
+	script1, _ := bitcoin.StringToScript("0x3044022059aa3e22b19989c2237e604a6b251715dafdc351415f0938ce28302e8061a8f502205a12a3b85abfa2d6f27118abd883c775cd87ae61735742af7b2639b6b8bc91ee41 0x03b370b2aab691da4c1ae98b7e464e5e6835b3af3a671cbde7b3e13463c9d20eb0")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h1, 2), script1))
+
+	h2, _ := bitcoin.NewHash32FromStr("7bf2f61d4dcb3253eab961b4b939aade5cbbe246c915c11e22c3126931cdae23")
+	script2, _ := bitcoin.StringToScript("0x3044022025fbaf15e11b4f1ae921e2800eedb10f1c63690f477900d5714c0f735e3638e30220330700c48cb9ec07c88c8bef52eef864f977483799f4d5c714c5cb3c29ff85a241 0x032447bf539a49de8034bd1df92256049d1918ec2786fa455349d2d06117cf1bcf")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h2, 0), script2))
+
+	h3, _ := bitcoin.NewHash32FromStr("7bf2f61d4dcb3253eab961b4b939aade5cbbe246c915c11e22c3126931cdae23")
+	script3, _ := bitcoin.StringToScript("0x3044022054124286f9118d86bc329210cf7a9e8eb62eea9f270bc71424bf0ec7e72589500220598f0aec527e9f71b8406fd77b316acdf3b6fea8aa44660d238c5729368457ac41 0x029bb9c7cb8be3e2a3bc94caef749a0ce527c37209138d13265b37bd19d8b20e58")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h3, 1), script3))
+
+	h4, _ := bitcoin.NewHash32FromStr("28369a7e99f6c6486629b1496e9fda09dac29adf3f58059f96dbb819532107b0")
+	script4, _ := bitcoin.StringToScript("0x3045022100fe8e1d9424fb82233d459bfb18e18034f74fa828f7128b2e93e429a07b6fa7b802205b6c184913baf618194359c12c1f546615a524f7a19dd1472c41072c0c49315b41 0x03ad7c96e7da4066b647e4fa4ad471e66a6f1d49b79f5f39d7627ef4287dd1c07a")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h4, 3), script4))
+
+	script5, _ := bitcoin.StringToScript("OP_DUP OP_HASH160 0x4068eae2ac3722b8d9b9fb6c1920062d0f5b3d25 OP_EQUALVERIFY OP_CHECKSIG")
+	requestTx.AddTxOut(wire.NewTxOut(5851, script5))
+
+	script6, _ := bitcoin.StringToScript("OP_DUP OP_HASH160 0x7beee8a3d931c9d6d221de0bfec2ad4d8bd84c05 OP_EQUALVERIFY OP_CHECKSIG")
+	requestTx.AddTxOut(wire.NewTxOut(546, script6))
+
+	script7, _ := Serialize(transfer, true)
+	requestTx.AddTxOut(wire.NewTxOut(0, script7))
 
 	key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
 	script, _ := key.LockingScript()
@@ -346,7 +421,6 @@ func TestExampleTransferResponseFees(t *testing.T) {
 	// Estimate funding
 	funding, boomerang, err := EstimatedTransferResponse(requestTx, lockingScripts, feeRate,
 		dustFeeRate, contractFees, true)
-
 	if err != nil {
 		t.Fatalf("Failed to estimate response : %s", err)
 	}
@@ -373,18 +447,79 @@ func TestMultiContractExampleTransferResponseFees(t *testing.T) {
 	feeRate := float32(1.0)
 	dustFeeRate := float32(1.0)
 
-	// Hex tx
-	h := "0100000004ca2bc0de6f66a52ffb29300832a1dbe992cb5f2164a81ccc29dfdd895c5258a3010000006a47304402201ee4aeceeb7e7722bffa2af82c3f155b128c22c92e257d3721b86536d54d380b022070cab3a4c13d94db8ad78d6e8aeb5c94a3319f12a5a7b15c107d79ac37d5ed5c4121023f4788aad94abbd33760ceebe24a315425998bf435c38ffe2ac0c2838b1dde2effffffff9839e203c40d6ba67810b935ef6bc4bc4bb3cc900b9b58e9de02b616eca84261000000006a473044022044b6e0890ab4df32dea6297ab9cbeda4fe964b785418d4b66547f27621f7a6d002203fe1b664452a8f18dfbca20d1dac6342e7129bad9d7c33fed87ba43c068e1e454121021898ab0284a77b81ad2dc9eaa51e651be2712813b55e1adf14d8096f1933c6e0ffffffff0bb2ed3ed42e0af3c06483864fd11beaf7657fba68f824ed59d61766e69be47e010000006a47304402201e900def83ced090da54b0bb9de5ea482180a1db7d888bce4f91777daf66243a022057e0958fa9aa9c25e561feae80fc7fc2bc6cd564a313ca41c2f87c363e197114412102e20407d67a11c43635d1050c72c477f3744c17ecb257bc643037ed54f59575c9ffffffff4e05fb0d92dbdd570937cd0c97f8ba19219146e8a04992286c84b3310b5f52ce000000006b483045022100b342ea27d980eeef85834c2e40264b482e5b33f7e76e118b9608930f955341660220786c0c1bb60a66fa2fea7fbe59f8365bb2c565512bd60a47653fbedabddec048412103765276b998c225bc39f69e10ba49d7b0118af7abf45e6827ee55e153fdb116d5ffffffff04d2100000000000001976a9144068eae2ac3722b8d9b9fb6c1920062d0f5b3d2588acf2090000000000001976a914e7bf2122bc0b7373234843cd9c3b0dd37dc2717488ac0000000000000000fd1101006a02bd0008746573742e544b4e041a0254314cfc0aa30112034355521a20d6571723491ca8006ea1cd45c07886e92cb411104b2d1216c277f7eb251138332205080210c8012a730a15208faa446d79832101b751595b8c474309cfd538d110c80118012a473045022100e3538663ba00dae05ab45e2b8a1e728d174a2f1d87c56170b904a76e9540717402206a74daf4d4f8919e0a267b74a41475389d401d1fbc86a3e1751f4a0fdc59179e30908a2838e6cf8fc189c0e29e160a4a08011203434f551a20e6c3012d4e38c2fff4b206c3fe27af25ebdf8994d83a0fb3c6ab04bf4d5bf75e220310e8072a1a0a1520eb891888cdcbb2dcbd097eae04e8a7394faabb5b10e80710c0c4ca86abcff0a016f4050000000000001976a9144068eae2ac3722b8d9b9fb6c1920062d0f5b3d2588ac00000000"
+	js := `{
+	    "Instruments": [
+	        {
+	            "InstrumentType": "CUR",
+	            "InstrumentCode": "d6571723491ca8006ea1cd45c07886e92cb411104b2d1216c277f7eb25113833",
+	            "InstrumentSenders": [
+	                {
+	                    "Index": 2,
+	                    "Quantity": 200
+	                }
+	            ],
+	            "InstrumentReceivers": [
+	                {
+	                    "Address": "208faa446d79832101b751595b8c474309cfd538d1",
+	                    "Quantity": 200,
+	                    "OracleSigAlgorithm": 1,
+	                    "OracleConfirmationSig": "3045022100e3538663ba00dae05ab45e2b8a1e728d174a2f1d87c56170b904a76e9540717402206a74daf4d4f8919e0a267b74a41475389d401d1fbc86a3e1751f4a0fdc59179e",
+	                    "OracleSigBlockHeight": 656656,
+	                    "OracleSigExpiry": 1602588777570887654
+	                }
+	            ]
+	        },
+	        {
+	            "ContractIndex": 1,
+	            "InstrumentType": "COU",
+	            "InstrumentCode": "e6c3012d4e38c2fff4b206c3fe27af25ebdf8994d83a0fb3c6ab04bf4d5bf75e",
+	            "InstrumentSenders": [
+	                {
+	                    "Quantity": 1000
+	                }
+	            ],
+	            "InstrumentReceivers": [
+	                {
+	                    "Address": "20eb891888cdcbb2dcbd097eae04e8a7394faabb5b",
+	                    "Quantity": 1000
+	                }
+	            ]
+	        }
+	    ],
+	    "OfferExpiry": 1603776774529000000
+	}`
 
-	b, err := hex.DecodeString(h)
-	if err != nil {
-		t.Fatalf("Failed to parse request tx hex : %s", err)
+	transfer := &actions.Transfer{}
+	if err := json.Unmarshal([]byte(js), transfer); err != nil {
+		t.Fatalf("Failed to unmarshal json : %s", err)
 	}
 
-	requestTx := &wire.MsgTx{}
-	if err := requestTx.Deserialize(bytes.NewReader(b)); err != nil {
-		t.Fatalf("Failed to parse request tx : %s", err)
-	}
+	requestTx := wire.NewMsgTx(1)
+
+	h1, _ := bitcoin.NewHash32FromStr("a358525c89dddf29cc1ca864215fcb92e9dba132083029fb2fa5666fdec02bca")
+	script1, _ := bitcoin.StringToScript("0x304402201ee4aeceeb7e7722bffa2af82c3f155b128c22c92e257d3721b86536d54d380b022070cab3a4c13d94db8ad78d6e8aeb5c94a3319f12a5a7b15c107d79ac37d5ed5c41 0x023f4788aad94abbd33760ceebe24a315425998bf435c38ffe2ac0c2838b1dde2e")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h1, 1), script1))
+
+	h2, _ := bitcoin.NewHash32FromStr("6142a8ec16b602dee9589b0b90ccb34bbcc46bef35b91078a66b0dc403e23998")
+	script2, _ := bitcoin.StringToScript("0x3044022044b6e0890ab4df32dea6297ab9cbeda4fe964b785418d4b66547f27621f7a6d002203fe1b664452a8f18dfbca20d1dac6342e7129bad9d7c33fed87ba43c068e1e4541 0x021898ab0284a77b81ad2dc9eaa51e651be2712813b55e1adf14d8096f1933c6e0")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h2, 0), script2))
+
+	h3, _ := bitcoin.NewHash32FromStr("7ee49be66617d659ed24f868ba7f65f7ea1bd14f868364c0f30a2ed43eedb20b")
+	script3, _ := bitcoin.StringToScript("0x304402201e900def83ced090da54b0bb9de5ea482180a1db7d888bce4f91777daf66243a022057e0958fa9aa9c25e561feae80fc7fc2bc6cd564a313ca41c2f87c363e19711441 0x02e20407d67a11c43635d1050c72c477f3744c17ecb257bc643037ed54f59575c9")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h3, 1), script3))
+
+	h4, _ := bitcoin.NewHash32FromStr("ce525f0b31b3846c289249a0e846912119baf8970ccd370957dddb920dfb054e")
+	script4, _ := bitcoin.StringToScript("0x3045022100b342ea27d980eeef85834c2e40264b482e5b33f7e76e118b9608930f955341660220786c0c1bb60a66fa2fea7fbe59f8365bb2c565512bd60a47653fbedabddec04841 0x03765276b998c225bc39f69e10ba49d7b0118af7abf45e6827ee55e153fdb116d5")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h4, 0), script4))
+
+	script5, _ := bitcoin.StringToScript("OP_DUP OP_HASH160 0x4068eae2ac3722b8d9b9fb6c1920062d0f5b3d25 OP_EQUALVERIFY OP_CHECKSIG")
+	requestTx.AddTxOut(wire.NewTxOut(4306, script5))
+
+	script6, _ := bitcoin.StringToScript("OP_DUP OP_HASH160 0xe7bf2122bc0b7373234843cd9c3b0dd37dc27174 OP_EQUALVERIFY OP_CHECKSIG")
+	requestTx.AddTxOut(wire.NewTxOut(2546, script6))
+
+	script7, _ := Serialize(transfer, true)
+	requestTx.AddTxOut(wire.NewTxOut(0, script7))
 
 	key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
 	script, _ := key.LockingScript()
@@ -396,7 +531,6 @@ func TestMultiContractExampleTransferResponseFees(t *testing.T) {
 	// Estimate funding
 	funding, boomerang, err := EstimatedTransferResponse(requestTx, lockingScripts, feeRate,
 		dustFeeRate, contractFees, true)
-
 	if err != nil {
 		t.Fatalf("Failed to estimate response : %s", err)
 	}
@@ -417,31 +551,86 @@ func TestMultiContractExample2TransferResponseFees(t *testing.T) {
 	feeRate := float32(1.0)
 	dustFeeRate := float32(1.0)
 
-	h := "0100000004d3e50737e2f8e67a7db014edd8f76da4208bc773422ce4760da693da78473268020000006a473044022069e3f6c16ac3b58a062c68f580b158c191fac86542817f938b64ea7780008d22022073535c685987d5535c8b7a9a31d390303a9b8dd8f8aa13b4960e5396924a902f412103b654875e469b677e919b7c1bbcfb9657c80d4c0fe412705579fd3a67dda518bfffffffff94abf2d91615b61ad9944da7821238a0106a57119b25d3f4b519a68924e0afda000000006b483045022100c9ecdc04f1507d25de4d3a6e87875774b0f2d70e9057ba4103edb80e21ddaf2f0220505bfb25e8098243220c0409fb3a041c7a1beb64ff9f43276f80f74deff38298412102baa5c4238b87a6561dbbb9a7ea19f4914599508c37304509b9725bd6d3831935ffffffffb5bef1d4f18c67583de9f7e8ce85fa389da619ce2f8749b80b25c1d5a042e4be020000006946304302200d621b472cffafb78fbb9e637fed5f4639f09d283e6316d67262d0e54c19bbce021f5ca3bb38e411e3e7b8e4c5d48b1e47e3a1bf76f9e8eabfc620af2a459e1d864121021c176d29126d262a152e518837b5415b1be3fbf36d7e9d4b64b30f327b02af2dffffffff5e728e246dfbc9f1c5102566223a6730110e43b188cc5be773c9617727f3fa1b000000006a47304402201f5ad7d489c8d82543c63ec03aec3ae6bbe5b4b68ba7cf23e87743b3e23c04f30220399bc533bf9387dcbd79b9bd2a536d218eed9a5f16fb8db06fe50972e5ee9603412103b667d6ba2666fe9bbbd9096f00fa6918fc95d8a131d57199e5b95d1f1a39b035ffffffff04d2100000000000001976a9144068eae2ac3722b8d9b9fb6c1920062d0f5b3d2588ac970b0000000000001976a9144068eae2ac3722b8d9b9fb6c1920062d0f5b3d2588acf2090000000000001976a914d10efc43564e142b4a2a35b94c5c8e5f7ae1d04d88ac0000000000000000fd6601006a02bd0008746573742e544b4e041a0254314d50010aa00112034355521a20d6571723491ca8006ea1cd45c07886e92cb411104b2d1216c277f7eb251138332204080210022a710a15206ebc761d1462d1e29860c277f3e4b601cb5d2023100218012a463044022016193cadea74015bb550d0c04e56855133882e5060a31722256af5ceaafcff7602207389033aa28f24a4d1d787df5d6347f58a1036930115a6e91e56137a36c0914930de852838fee0bc99fbc3949e160aa001080212034355521a205014ab300af2697c1a9313c055bafb0f31efb28757a8d8c098ec68432eb18a96220210012a710a152049d32a3556228d119a040f292ac6dbf0684261a6100118012a46304402202d62d642f1ad775d41d9b715ec6164b50aff90d67c9e95e7c56495eebbc8846d022036c2956dfc494c652f8268a3c65f01bf4751f58cc7e343191810d07df77dda6930de852838bbe3be8998c7949e161080bccaf69bd3a2a01600000000"
+	js := `{
+	    "Instruments": [
+	        {
+	            "InstrumentType": "CUR",
+	            "InstrumentCode": "d6571723491ca8006ea1cd45c07886e92cb411104b2d1216c277f7eb25113833",
+	            "InstrumentSenders": [
+	                {
+	                    "Index": 2,
+	                    "Quantity": 2
+	                }
+	            ],
+	            "InstrumentReceivers": [
+	                {
+	                    "Address": "206ebc761d1462d1e29860c277f3e4b601cb5d2023",
+	                    "Quantity": 2,
+	                    "OracleSigAlgorithm": 1,
+	                    "OracleConfirmationSig": "3044022016193cadea74015bb550d0c04e56855133882e5060a31722256af5ceaafcff7602207389033aa28f24a4d1d787df5d6347f58a1036930115a6e91e56137a36c09149",
+	                    "OracleSigBlockHeight": 656094,
+	                    "OracleSigExpiry": 1602245863540732030
+	                }
+	            ]
+	        },
+	        {
+	            "ContractIndex": 2,
+	            "InstrumentType": "CUR",
+	            "InstrumentCode": "5014ab300af2697c1a9313c055bafb0f31efb28757a8d8c098ec68432eb18a96",
+	            "InstrumentSenders": [
+	                {
+	                    "Quantity": 1
+	                }
+	            ],
+	            "InstrumentReceivers": [
+	                {
+	                    "Address": "2049d32a3556228d119a040f292ac6dbf0684261a6",
+	                    "Quantity": 1,
+	                    "OracleSigAlgorithm": 1,
+	                    "OracleConfirmationSig": "304402202d62d642f1ad775d41d9b715ec6164b50aff90d67c9e95e7c56495eebbc8846d022036c2956dfc494c652f8268a3c65f01bf4751f58cc7e343191810d07df77dda69",
+	                    "OracleSigBlockHeight": 656094,
+	                    "OracleSigExpiry": 1602245974371054011
+	                }
+	            ]
+	        }
+	    ],
+	    "OfferExpiry": 1603433860280000000
+	}`
 
-	// Actual outputs
-
-	// Value: 0.00004306
-	// Script: 76a9144068eae2ac3722b8d9b9fb6c1920062d0f5b3d2588ac
-	// Address: 16sZw5K28wNWMPSzyqw5QabvxCg97bUi8k
-
-	// Value: 0.00002967
-	// Script: 76a9144068eae2ac3722b8d9b9fb6c1920062d0f5b3d2588ac
-	// Address: 16sZw5K28wNWMPSzyqw5QabvxCg97bUi8k
-
-	// Value: 0.00002546
-	// Script: 76a914d10efc43564e142b4a2a35b94c5c8e5f7ae1d04d88ac
-	// Address: 1L4QBJCgVPJfYjmXzykajifzb2cwpVEJyd
-
-	b, err := hex.DecodeString(h)
-	if err != nil {
-		t.Fatalf("Failed to parse request tx hex : %s", err)
+	transfer := &actions.Transfer{}
+	if err := json.Unmarshal([]byte(js), transfer); err != nil {
+		t.Fatalf("Failed to unmarshal json : %s", err)
 	}
 
-	requestTx := &wire.MsgTx{}
-	if err := requestTx.Deserialize(bytes.NewReader(b)); err != nil {
-		t.Fatalf("Failed to parse request tx : %s", err)
-	}
+	requestTx := wire.NewMsgTx(1)
+
+	h1, _ := bitcoin.NewHash32FromStr("68324778da93a60d76e42c4273c78b20a46df7d8ed14b07d7ae6f8e23707e5d3")
+	script1, _ := bitcoin.StringToScript("0x3044022069e3f6c16ac3b58a062c68f580b158c191fac86542817f938b64ea7780008d22022073535c685987d5535c8b7a9a31d390303a9b8dd8f8aa13b4960e5396924a902f41 0x03b654875e469b677e919b7c1bbcfb9657c80d4c0fe412705579fd3a67dda518bf")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h1, 2), script1))
+
+	h2, _ := bitcoin.NewHash32FromStr("daafe02489a619b5f4d3259b11576a10a0381282a74d94d91ab61516d9f2ab94")
+	script2, _ := bitcoin.StringToScript("0x3045022100c9ecdc04f1507d25de4d3a6e87875774b0f2d70e9057ba4103edb80e21ddaf2f0220505bfb25e8098243220c0409fb3a041c7a1beb64ff9f43276f80f74deff3829841 0x02baa5c4238b87a6561dbbb9a7ea19f4914599508c37304509b9725bd6d3831935")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h2, 0), script2))
+
+	h3, _ := bitcoin.NewHash32FromStr("bee442a0d5c1250bb849872fce19a69d38fa85cee8f7e93d58678cf1d4f1beb5")
+	script3, _ := bitcoin.StringToScript("0x304302200d621b472cffafb78fbb9e637fed5f4639f09d283e6316d67262d0e54c19bbce021f5ca3bb38e411e3e7b8e4c5d48b1e47e3a1bf76f9e8eabfc620af2a459e1d8641 0x021c176d29126d262a152e518837b5415b1be3fbf36d7e9d4b64b30f327b02af2d")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h3, 2), script3))
+
+	h4, _ := bitcoin.NewHash32FromStr("1bfaf3277761c973e75bcc88b1430e1130673a22662510c5f1c9fb6d248e725e")
+	script4, _ := bitcoin.StringToScript("0x304402201f5ad7d489c8d82543c63ec03aec3ae6bbe5b4b68ba7cf23e87743b3e23c04f30220399bc533bf9387dcbd79b9bd2a536d218eed9a5f16fb8db06fe50972e5ee960341 0x03b667d6ba2666fe9bbbd9096f00fa6918fc95d8a131d57199e5b95d1f1a39b035")
+	requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(h4, 0), script4))
+
+	script5, _ := bitcoin.StringToScript("OP_DUP OP_HASH160 0x4068eae2ac3722b8d9b9fb6c1920062d0f5b3d25 OP_EQUALVERIFY OP_CHECKSIG")
+	requestTx.AddTxOut(wire.NewTxOut(4306, script5))
+
+	script6, _ := bitcoin.StringToScript("OP_DUP OP_HASH160 0x4068eae2ac3722b8d9b9fb6c1920062d0f5b3d25 OP_EQUALVERIFY OP_CHECKSIG")
+	requestTx.AddTxOut(wire.NewTxOut(2967, script6))
+
+	script7, _ := bitcoin.StringToScript("OP_DUP OP_HASH160 0xd10efc43564e142b4a2a35b94c5c8e5f7ae1d04d OP_EQUALVERIFY OP_CHECKSIG")
+	requestTx.AddTxOut(wire.NewTxOut(2546, script7))
+
+	script8, _ := Serialize(transfer, true)
+	requestTx.AddTxOut(wire.NewTxOut(0, script8))
 
 	key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
 	script, _ := key.LockingScript()
@@ -453,7 +642,6 @@ func TestMultiContractExample2TransferResponseFees(t *testing.T) {
 	// Estimate funding
 	funding, boomerang, err := EstimatedTransferResponse(requestTx, lockingScripts, feeRate,
 		dustFeeRate, contractFees, true)
-
 	if err != nil {
 		t.Fatalf("Failed to estimate response : %s", err)
 	}

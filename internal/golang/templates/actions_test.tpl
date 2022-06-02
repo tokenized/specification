@@ -1,7 +1,7 @@
 package {{ .Package }}
 
 import (
-    "testing"
+	"testing"
 )
 
 

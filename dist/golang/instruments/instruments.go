@@ -4,19 +4,17 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/tokenized/pkg/bsor"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
 type Instrument interface {
-	proto.Message
-
 	Code() string
 
 	Validate() error
-	Equal(proto.Message) bool
+	Equal(interface{}) bool
 
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
@@ -106,8 +104,8 @@ func Deserialize(code []byte, payload []byte) (Instrument, error) {
 	}
 
 	if len(payload) != 0 {
-		if err := proto.Unmarshal(payload, result); err != nil {
-			return nil, errors.Wrap(err, "Failed protobuf unmarshaling")
+		if _, err := bsor.UnmarshalBinary(payload, result); err != nil {
+			return nil, errors.Wrap(err, "unmarshal bsor")
 		}
 	}
 
@@ -119,14 +117,14 @@ func (a *Membership) Code() string {
 }
 
 func (a *Membership) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *Membership) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize Membership")
+		return errors.Wrap(err, "serialize Membership")
 	}
 
 	_, err = buf.Write(data)
@@ -138,14 +136,14 @@ func (a *Currency) Code() string {
 }
 
 func (a *Currency) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *Currency) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize Currency")
+		return errors.Wrap(err, "serialize Currency")
 	}
 
 	_, err = buf.Write(data)
@@ -157,14 +155,14 @@ func (a *ShareCommon) Code() string {
 }
 
 func (a *ShareCommon) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *ShareCommon) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize ShareCommon")
+		return errors.Wrap(err, "serialize ShareCommon")
 	}
 
 	_, err = buf.Write(data)
@@ -176,14 +174,14 @@ func (a *BondFixedRate) Code() string {
 }
 
 func (a *BondFixedRate) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *BondFixedRate) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize BondFixedRate")
+		return errors.Wrap(err, "serialize BondFixedRate")
 	}
 
 	_, err = buf.Write(data)
@@ -195,14 +193,14 @@ func (a *Coupon) Code() string {
 }
 
 func (a *Coupon) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *Coupon) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize Coupon")
+		return errors.Wrap(err, "serialize Coupon")
 	}
 
 	_, err = buf.Write(data)
@@ -214,14 +212,14 @@ func (a *LoyaltyPoints) Code() string {
 }
 
 func (a *LoyaltyPoints) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *LoyaltyPoints) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize LoyaltyPoints")
+		return errors.Wrap(err, "serialize LoyaltyPoints")
 	}
 
 	_, err = buf.Write(data)
@@ -233,14 +231,14 @@ func (a *TicketAdmission) Code() string {
 }
 
 func (a *TicketAdmission) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *TicketAdmission) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize TicketAdmission")
+		return errors.Wrap(err, "serialize TicketAdmission")
 	}
 
 	_, err = buf.Write(data)
@@ -252,14 +250,14 @@ func (a *CasinoChip) Code() string {
 }
 
 func (a *CasinoChip) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *CasinoChip) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize CasinoChip")
+		return errors.Wrap(err, "serialize CasinoChip")
 	}
 
 	_, err = buf.Write(data)
@@ -271,14 +269,14 @@ func (a *InformationServiceLicense) Code() string {
 }
 
 func (a *InformationServiceLicense) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *InformationServiceLicense) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize InformationServiceLicense")
+		return errors.Wrap(err, "serialize InformationServiceLicense")
 	}
 
 	_, err = buf.Write(data)

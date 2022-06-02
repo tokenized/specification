@@ -85,7 +85,7 @@
 		if i < len(newValue.{{ .Name }}) {
 			amendment.Operation = 1 // Add element
 		{{- if .IsCompoundType }}
-			b, err := proto.Marshal(newValue.{{ .Name }}[i])
+			b, err := bsor.MarshalBinary(newValue.{{ .Name }}[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize {{ .Name }} %d", i)
 			}

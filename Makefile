@@ -19,8 +19,7 @@ generate-code:
 	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
 	goimports -w $(GO_DIST_DIR)
 
-run-generate: generate-code protobuf
-	goimports -w $(GO_DIST_DIR)
+run-generate: generate-code
 
 dist-cli:
 	$(GO_DIST) -o dist/$(BINARY_CONTRACT_CLI) cmd/$(BINARY_CONTRACT_CLI)/main.go

@@ -2,11 +2,9 @@ package actions
 
 import (
 	"bytes"
-
-	proto "github.com/golang/protobuf/proto"
 )
 
-func (l *ContractOffer) Equal(right proto.Message) bool {
+func (l *ContractOffer) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -166,7 +164,7 @@ func (l *ContractOffer) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ContractFormation) Equal(right proto.Message) bool {
+func (l *ContractFormation) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -341,7 +339,7 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ContractAmendment) Equal(right proto.Message) bool {
+func (l *ContractAmendment) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -391,7 +389,7 @@ func (l *ContractAmendment) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *StaticContractFormation) Equal(right proto.Message) bool {
+func (l *StaticContractFormation) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -506,7 +504,7 @@ func (l *StaticContractFormation) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ContractAddressChange) Equal(right proto.Message) bool {
+func (l *ContractAddressChange) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -536,7 +534,7 @@ func (l *ContractAddressChange) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *BodyOfAgreementOffer) Equal(right proto.Message) bool {
+func (l *BodyOfAgreementOffer) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -576,7 +574,7 @@ func (l *BodyOfAgreementOffer) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *BodyOfAgreementFormation) Equal(right proto.Message) bool {
+func (l *BodyOfAgreementFormation) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -626,7 +624,7 @@ func (l *BodyOfAgreementFormation) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *BodyOfAgreementAmendment) Equal(right proto.Message) bool {
+func (l *BodyOfAgreementAmendment) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -666,7 +664,7 @@ func (l *BodyOfAgreementAmendment) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InstrumentDefinition) Equal(right proto.Message) bool {
+func (l *InstrumentDefinition) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -746,7 +744,7 @@ func (l *InstrumentDefinition) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InstrumentCreation) Equal(right proto.Message) bool {
+func (l *InstrumentCreation) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -846,7 +844,7 @@ func (l *InstrumentCreation) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InstrumentModification) Equal(right proto.Message) bool {
+func (l *InstrumentModification) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -896,7 +894,7 @@ func (l *InstrumentModification) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Transfer) Equal(right proto.Message) bool {
+func (l *Transfer) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -941,7 +939,7 @@ func (l *Transfer) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Settlement) Equal(right proto.Message) bool {
+func (l *Settlement) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -976,7 +974,7 @@ func (l *Settlement) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Proposal) Equal(right proto.Message) bool {
+func (l *Proposal) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1051,7 +1049,7 @@ func (l *Proposal) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Vote) Equal(right proto.Message) bool {
+func (l *Vote) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1076,7 +1074,7 @@ func (l *Vote) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *BallotCast) Equal(right proto.Message) bool {
+func (l *BallotCast) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1106,7 +1104,7 @@ func (l *BallotCast) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *BallotCounted) Equal(right proto.Message) bool {
+func (l *BallotCounted) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1146,7 +1144,7 @@ func (l *BallotCounted) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Result) Equal(right proto.Message) bool {
+func (l *Result) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1211,7 +1209,7 @@ func (l *Result) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Order) Equal(right proto.Message) bool {
+func (l *Order) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1326,7 +1324,7 @@ func (l *Order) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Freeze) Equal(right proto.Message) bool {
+func (l *Freeze) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1376,7 +1374,7 @@ func (l *Freeze) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Thaw) Equal(right proto.Message) bool {
+func (l *Thaw) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1406,7 +1404,7 @@ func (l *Thaw) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Confiscation) Equal(right proto.Message) bool {
+func (l *Confiscation) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1456,7 +1454,7 @@ func (l *Confiscation) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Reconciliation) Equal(right proto.Message) bool {
+func (l *Reconciliation) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1501,7 +1499,7 @@ func (l *Reconciliation) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Establishment) Equal(right proto.Message) bool {
+func (l *Establishment) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1526,7 +1524,7 @@ func (l *Establishment) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Addition) Equal(right proto.Message) bool {
+func (l *Addition) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1551,7 +1549,7 @@ func (l *Addition) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Alteration) Equal(right proto.Message) bool {
+func (l *Alteration) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1581,7 +1579,7 @@ func (l *Alteration) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Removal) Equal(right proto.Message) bool {
+func (l *Removal) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1611,7 +1609,7 @@ func (l *Removal) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Message) Equal(right proto.Message) bool {
+func (l *Message) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1661,7 +1659,7 @@ func (l *Message) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Rejection) Equal(right proto.Message) bool {
+func (l *Rejection) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1711,7 +1709,7 @@ func (l *Rejection) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AdministratorField) Equal(right proto.Message) bool {
+func (l *AdministratorField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1741,7 +1739,7 @@ func (l *AdministratorField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AdminIdentityCertificateField) Equal(right proto.Message) bool {
+func (l *AdminIdentityCertificateField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1781,7 +1779,7 @@ func (l *AdminIdentityCertificateField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AmendmentField) Equal(right proto.Message) bool {
+func (l *AmendmentField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1816,7 +1814,7 @@ func (l *AmendmentField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InstrumentReceiverField) Equal(right proto.Message) bool {
+func (l *InstrumentReceiverField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1871,7 +1869,7 @@ func (l *InstrumentReceiverField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InstrumentSettlementField) Equal(right proto.Message) bool {
+func (l *InstrumentSettlementField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1916,7 +1914,7 @@ func (l *InstrumentSettlementField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InstrumentTransferField) Equal(right proto.Message) bool {
+func (l *InstrumentTransferField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -1971,7 +1969,7 @@ func (l *InstrumentTransferField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ChapterField) Equal(right proto.Message) bool {
+func (l *ChapterField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2011,7 +2009,7 @@ func (l *ChapterField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ClauseField) Equal(right proto.Message) bool {
+func (l *ClauseField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2051,7 +2049,7 @@ func (l *ClauseField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *DefinedTermField) Equal(right proto.Message) bool {
+func (l *DefinedTermField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2081,7 +2079,7 @@ func (l *DefinedTermField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *DocumentField) Equal(right proto.Message) bool {
+func (l *DocumentField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2116,7 +2114,7 @@ func (l *DocumentField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *EntityField) Equal(right proto.Message) bool {
+func (l *EntityField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2226,7 +2224,7 @@ func (l *EntityField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ManagerField) Equal(right proto.Message) bool {
+func (l *ManagerField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2256,7 +2254,7 @@ func (l *ManagerField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *OracleField) Equal(right proto.Message) bool {
+func (l *OracleField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2291,7 +2289,7 @@ func (l *OracleField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *QuantityIndexField) Equal(right proto.Message) bool {
+func (l *QuantityIndexField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2321,7 +2319,7 @@ func (l *QuantityIndexField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ReferenceTransactionField) Equal(right proto.Message) bool {
+func (l *ReferenceTransactionField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2356,7 +2354,7 @@ func (l *ReferenceTransactionField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ServiceField) Equal(right proto.Message) bool {
+func (l *ServiceField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2391,7 +2389,7 @@ func (l *ServiceField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *TargetAddressField) Equal(right proto.Message) bool {
+func (l *TargetAddressField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -2421,7 +2419,7 @@ func (l *TargetAddressField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *VotingSystemField) Equal(right proto.Message) bool {
+func (l *VotingSystemField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {

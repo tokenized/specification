@@ -2,8 +2,6 @@ package {{ .Package }}
 
 import (
 	"bytes"
-
-	proto "github.com/golang/protobuf/proto"
 )
 
 {{ define "EqualField" -}}
@@ -55,7 +53,7 @@ import (
 {{ end }}
 
 {{ range .Messages }}
-func (l *{{.Name}}) Equal(right proto.Message) bool {
+func (l *{{.Name}}) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -83,7 +81,7 @@ func (l *{{.Name}}) Equal(right proto.Message) bool {
 {{ end }}
 
 {{ range .FieldTypes }}
-func (l *{{.Name}}Field) Equal(right proto.Message) bool {
+func (l *{{.Name}}Field) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {

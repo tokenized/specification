@@ -1,8 +1,6 @@
 package {{ .Package }}
 
 import (
-	"bytes"
-	"encoding/binary"
 	"testing"
 )
 

@@ -1,10 +1,6 @@
 package instruments
 
-import (
-	proto "github.com/golang/protobuf/proto"
-)
-
-func (l *Membership) Equal(right proto.Message) bool {
+func (l *Membership) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -69,7 +65,7 @@ func (l *Membership) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Currency) Equal(right proto.Message) bool {
+func (l *Currency) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -104,7 +100,7 @@ func (l *Currency) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ShareCommon) Equal(right proto.Message) bool {
+func (l *ShareCommon) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -144,7 +140,7 @@ func (l *ShareCommon) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *BondFixedRate) Equal(right proto.Message) bool {
+func (l *BondFixedRate) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -239,7 +235,7 @@ func (l *BondFixedRate) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Coupon) Equal(right proto.Message) bool {
+func (l *Coupon) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -299,7 +295,7 @@ func (l *Coupon) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *LoyaltyPoints) Equal(right proto.Message) bool {
+func (l *LoyaltyPoints) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -344,7 +340,7 @@ func (l *LoyaltyPoints) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *TicketAdmission) Equal(right proto.Message) bool {
+func (l *TicketAdmission) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -419,7 +415,7 @@ func (l *TicketAdmission) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *CasinoChip) Equal(right proto.Message) bool {
+func (l *CasinoChip) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -469,7 +465,7 @@ func (l *CasinoChip) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InformationServiceLicense) Equal(right proto.Message) bool {
+func (l *InformationServiceLicense) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -514,7 +510,7 @@ func (l *InformationServiceLicense) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AgeRestrictionField) Equal(right proto.Message) bool {
+func (l *AgeRestrictionField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -544,7 +540,7 @@ func (l *AgeRestrictionField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *CurrencyValueField) Equal(right proto.Message) bool {
+func (l *CurrencyValueField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -579,7 +575,7 @@ func (l *CurrencyValueField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *RateField) Equal(right proto.Message) bool {
+func (l *RateField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {

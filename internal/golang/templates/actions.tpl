@@ -3,21 +3,19 @@ package {{ .Package }}
 import (
 	"fmt"
 
-	"github.com/golang/protobuf/proto"
+	"github.com/tokenized/pkg/bsor"
+
 	"github.com/pkg/errors"
 )
 
 type Action interface {
-	proto.Message
-
 	Code() string
 
 	Validate() error
-	Equal(proto.Message) bool
+	Equal(interface{}) bool
 }
 
 type Field interface {
-	proto.Message
 }
 
 const (
@@ -103,8 +101,8 @@ func Deserialize(code []byte, payload []byte) (Action, error) {
 	}
 
 	if len(payload) != 0 {
-		if err := proto.Unmarshal(payload, result); err != nil {
-			return nil, errors.Wrap(err, "Failed protobuf unmarshaling")
+		if _, err := bsor.UnmarshalBinary(payload, result); err != nil {
+			return nil, errors.Wrap(err, "unmarshal bsor")
 		}
 	}
 

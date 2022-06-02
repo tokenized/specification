@@ -1,0 +1,123 @@
+version 0
+
+
+// Membership (MBR)
+Membership {
+    AgeRestriction      AgeRestrictionField = 1;   // AgeRestriction
+    ValidFrom           uint64              = 2;   // Timestamp
+    ExpirationTimestamp uint64              = 3;   // Timestamp
+    ID                  string              = 4;   // varchar
+    MembershipClass     string              = 5;   // varchar
+    RoleType            string              = 6;   // varchar
+    MembershipType      string              = 7;   // varchar
+    Description         string              = 8;   // varchar
+    TransfersPermitted  bool                = 9;   // bool
+}
+
+// Currency (CCY)
+Currency {
+    CurrencyCode      string(3)  = 1;   // CurrencyType
+    MonetaryAuthority string     = 2;   // varchar
+    Precision         uint64     = 4;   // uint
+}
+
+// Share - Common (SHC)
+ShareCommon {
+    Ticker             string(5)  = 1;   // fixedchar
+    ISIN               string(12) = 2;   // fixedchar
+    Description        string     = 3;   // varchar
+    TransfersPermitted bool       = 4;   // bool
+}
+
+// Bond - Fixed Rate (BFR)
+BondFixedRate {
+    Name                       string              = 1;   // varchar
+    BondType                   string(1)           = 2;   // fixedchar
+    ISIN                       string              = 3;   // varchar
+    Collateral                 string              = 4;   // varchar
+    ParValue                   CurrencyValueField  = 5;   // CurrencyValue
+    InterestRate               RateField           = 6;   // Rate
+    InterestPaymentInitialDate uint64              = 7;   // TimestampSeconds
+    InterestPaymentDateDeltas  []uint64            = 8;   // Seconds[]
+    LatePaymentPenaltyRate     RateField           = 9;   // Rate
+    LatePaymentWindow          uint64              = 10;  // TimestampSeconds
+    LatePaymentPenaltyPeriod   uint64              = 11;  // TimestampSeconds
+    MaturityDate               uint64              = 12;  // Timestamp
+    AgeRestriction             AgeRestrictionField = 13;  // AgeRestriction
+    TransfersPermitted         bool                = 14;  // bool
+}
+
+// Coupon (COU)
+Coupon {
+    RedeemingEntity     string             = 1;   // varchar
+    ValidFromTimestamp  uint64             = 2;   // Timestamp
+    ExpirationTimestamp uint64             = 3;   // Timestamp
+    CouponName          string             = 6;   // varchar
+    TransfersPermitted  bool               = 8;   // bool
+    FaceValue           CurrencyValueField = 9;   // CurrencyValue
+    RedemptionVenue     string             = 10;  // varchar
+    Details             string             = 11;  // varchar
+}
+
+// Loyalty Points (LOY)
+LoyaltyPoints {
+    AgeRestriction      AgeRestrictionField = 1;   // AgeRestriction
+    ProgramName         string              = 2;   // varchar
+    ExpirationTimestamp uint64              = 4;   // Timestamp
+    Details             string              = 5;   // varchar
+    TransfersPermitted  bool                = 6;   // bool
+}
+
+// Ticket (Admission) (TIC)
+TicketAdmission {
+    AgeRestriction      AgeRestrictionField = 1;   // AgeRestriction
+    Venue               string              = 3;   // varchar
+    Area                string              = 5;   // varchar
+    Seat                string              = 6;   // varchar
+    EventStartTimestamp uint64              = 7;   // Timestamp
+    EventName           string              = 10;  // varchar
+    TransfersPermitted  bool                = 11;  // bool
+    Details             string              = 12;  // varchar
+    Section             string              = 13;  // varchar
+    Row                 string              = 14;  // varchar
+    EventEndTimestamp   uint64              = 15;  // Timestamp
+}
+
+// Casino Chip (CHP)
+CasinoChip {
+    UseType             string(1)           = 2;   // fixedchar
+    AgeRestriction      AgeRestrictionField = 3;   // AgeRestriction
+    ExpirationTimestamp uint64              = 5;   // Timestamp
+    TransfersPermitted  bool                = 7;   // bool
+    CasinoName          string              = 8;   // varchar
+    FaceValue           CurrencyValueField  = 9;   // CurrencyValue
+}
+
+// Information Service License (ISL)
+InformationServiceLicense {
+    AgeRestriction      AgeRestrictionField = 1;   // AgeRestriction
+    ExpirationTimestamp uint64              = 2;   // Timestamp
+    ServiceName         string              = 3;   // varchar
+    TransfersPermitted  bool                = 4;   // bool
+    URL                 string              = 5;   // varchar
+}
+
+// Age Restriction Field
+AgeRestrictionField {
+    Lower    uint8 = 1;   // uint
+    Upper    uint8 = 2;   // uint
+}
+
+// Currency Value Field
+CurrencyValueField {
+    Value        uint64    = 1;   // uint
+    CurrencyCode string(3) = 2;   // CurrencyType
+    Precision    uint8     = 3;   // uint
+}
+
+// Rate Field
+RateField {
+    Precision uint8  = 1;   // uint
+    Value     uint64 = 2;   // uint
+}
+

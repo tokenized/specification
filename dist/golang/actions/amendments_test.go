@@ -5,11 +5,11 @@ import (
 	"testing"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/bsor"
 	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -516,7 +516,7 @@ func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 		Definition: "Definition of new term",
 	}
 
-	newTermBytes, err := proto.Marshal(newTerm)
+	newTermBytes, err := bsor.MarshalBinary(newTerm)
 	if err != nil {
 		t.Fatalf("Failed to marshal new term : %s", err)
 	}
@@ -700,8 +700,8 @@ func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 						byte(0), // first article
 					},
 					Operation: 1,
-					Data: []byte{10, 9, 65, 114, 116, 105, 99, 108, 101, 32, 49, 18, 6, 66,
-						111, 100, 121, 32, 49},
+					Data: []byte{82, 81, 9, 65, 114, 116, 105, 99, 108, 101, 32, 49, 82, 6, 66, 111,
+						100, 121, 32, 49},
 				},
 			},
 		},
@@ -762,8 +762,8 @@ func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 						byte(1), // second article
 					},
 					Operation: 1,
-					Data: []byte{10, 9, 65, 114, 116, 105, 99, 108, 101, 32, 50, 18, 6, 66,
-						111, 100, 121, 32, 50},
+					Data: []byte{82, 81, 9, 65, 114, 116, 105, 99, 108, 101, 32, 50, 82, 6, 66, 111,
+						100, 121, 32, 50},
 				},
 			},
 		},

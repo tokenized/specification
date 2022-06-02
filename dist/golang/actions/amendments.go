@@ -6,11 +6,11 @@ import (
 	"fmt"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/bsor"
 	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/internal"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
@@ -105,7 +105,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 	// deprecated ContractType deprecated
 
-	// SupportingDocs []DocumentField
+	// SupportingDocs []*DocumentField
 	fip = []uint32{ContractFieldSupportingDocs}
 	SupportingDocsMin := len(a.SupportingDocs)
 	if SupportingDocsMin > len(newValue.SupportingDocs) {
@@ -136,7 +136,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 		if i < len(newValue.SupportingDocs) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.SupportingDocs[i])
+			b, err := bsor.MarshalBinary(newValue.SupportingDocs[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize SupportingDocs %d", i)
 			}
@@ -208,7 +208,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// VotingSystems []VotingSystemField
+	// VotingSystems []*VotingSystemField
 	fip = []uint32{ContractFieldVotingSystems}
 	VotingSystemsMin := len(a.VotingSystems)
 	if VotingSystemsMin > len(newValue.VotingSystems) {
@@ -239,7 +239,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 		if i < len(newValue.VotingSystems) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.VotingSystems[i])
+			b, err := bsor.MarshalBinary(newValue.VotingSystems[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize VotingSystems %d", i)
 			}
@@ -302,7 +302,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// Oracles []OracleField
+	// Oracles []*OracleField
 	fip = []uint32{ContractFieldOracles}
 	OraclesMin := len(a.Oracles)
 	if OraclesMin > len(newValue.Oracles) {
@@ -333,7 +333,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 		if i < len(newValue.Oracles) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Oracles[i])
+			b, err := bsor.MarshalBinary(newValue.Oracles[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Oracles %d", i)
 			}
@@ -377,7 +377,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// Services []ServiceField
+	// Services []*ServiceField
 	fip = []uint32{ContractFieldServices}
 	ServicesMin := len(a.Services)
 	if ServicesMin > len(newValue.Services) {
@@ -408,7 +408,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 		if i < len(newValue.Services) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Services[i])
+			b, err := bsor.MarshalBinary(newValue.Services[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Services %d", i)
 			}
@@ -420,7 +420,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		result = append(result, amendment)
 	}
 
-	// AdminIdentityCertificates []AdminIdentityCertificateField
+	// AdminIdentityCertificates []*AdminIdentityCertificateField
 	fip = []uint32{ContractFieldAdminIdentityCertificates}
 	AdminIdentityCertificatesMin := len(a.AdminIdentityCertificates)
 	if AdminIdentityCertificatesMin > len(newValue.AdminIdentityCertificates) {
@@ -451,7 +451,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 		if i < len(newValue.AdminIdentityCertificates) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.AdminIdentityCertificates[i])
+			b, err := bsor.MarshalBinary(newValue.AdminIdentityCertificates[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize AdminIdentityCertificates %d", i)
 			}
@@ -522,7 +522,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 	case DeprecatedContractFieldContractType: // deprecated
 
-	case ContractFieldSupportingDocs: // []DocumentField
+	case ContractFieldSupportingDocs: // []*DocumentField
 		if len(fip) == 1 && len(data) == 0 {
 			a.SupportingDocs = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -561,7 +561,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 			newValue := &DocumentField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to SupportingDocs failed to deserialize : %s",
 						err)
 				}
@@ -656,7 +656,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldVotingSystems: // []VotingSystemField
+	case ContractFieldVotingSystems: // []*VotingSystemField
 		if len(fip) == 1 && len(data) == 0 {
 			a.VotingSystems = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -695,7 +695,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 			newValue := &VotingSystemField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to VotingSystems failed to deserialize : %s",
 						err)
 				}
@@ -777,7 +777,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldOracles: // []OracleField
+	case ContractFieldOracles: // []*OracleField
 		if len(fip) == 1 && len(data) == 0 {
 			a.Oracles = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -816,7 +816,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 			newValue := &OracleField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Oracles failed to deserialize : %s",
 						err)
 				}
@@ -879,7 +879,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldServices: // []ServiceField
+	case ContractFieldServices: // []*ServiceField
 		if len(fip) == 1 && len(data) == 0 {
 			a.Services = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -918,7 +918,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 			newValue := &ServiceField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Services failed to deserialize : %s",
 						err)
 				}
@@ -958,7 +958,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case ContractFieldAdminIdentityCertificates: // []AdminIdentityCertificateField
+	case ContractFieldAdminIdentityCertificates: // []*AdminIdentityCertificateField
 		if len(fip) == 1 && len(data) == 0 {
 			a.AdminIdentityCertificates = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -997,7 +997,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 			newValue := &AdminIdentityCertificateField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to AdminIdentityCertificates failed to deserialize : %s",
 						err)
 				}
@@ -1067,7 +1067,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 	var result []*internal.Amendment
 	var fip permissions.FieldIndexPath
 
-	// Chapters []ChapterField
+	// Chapters []*ChapterField
 	fip = []uint32{BodyOfAgreementFieldChapters}
 	ChaptersMin := len(a.Chapters)
 	if ChaptersMin > len(newValue.Chapters) {
@@ -1098,7 +1098,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 
 		if i < len(newValue.Chapters) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Chapters[i])
+			b, err := bsor.MarshalBinary(newValue.Chapters[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Chapters %d", i)
 			}
@@ -1110,7 +1110,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 		result = append(result, amendment)
 	}
 
-	// Definitions []DefinedTermField
+	// Definitions []*DefinedTermField
 	fip = []uint32{BodyOfAgreementFieldDefinitions}
 	DefinitionsMin := len(a.Definitions)
 	if DefinitionsMin > len(newValue.Definitions) {
@@ -1141,7 +1141,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 
 		if i < len(newValue.Definitions) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Definitions[i])
+			b, err := bsor.MarshalBinary(newValue.Definitions[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Definitions %d", i)
 			}
@@ -1172,7 +1172,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 	}
 
 	switch fip[0] {
-	case BodyOfAgreementFieldChapters: // []ChapterField
+	case BodyOfAgreementFieldChapters: // []*ChapterField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -1207,7 +1207,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 
 			newValue := &ChapterField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Chapters failed to deserialize : %s",
 						err)
 				}
@@ -1247,7 +1247,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case BodyOfAgreementFieldDefinitions: // []DefinedTermField
+	case BodyOfAgreementFieldDefinitions: // []*DefinedTermField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -1282,7 +1282,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 
 			newValue := &DefinedTermField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Definitions failed to deserialize : %s",
 						err)
 				}
@@ -2273,7 +2273,7 @@ func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPat
 		copy(a.InstrumentCode, data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case InstrumentSettlementFieldSettlements: // []QuantityIndexField
+	case InstrumentSettlementFieldSettlements: // []*QuantityIndexField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2308,7 +2308,7 @@ func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPat
 
 			newValue := &QuantityIndexField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Settlements failed to deserialize : %s",
 						err)
 				}
@@ -2402,7 +2402,7 @@ func (a *InstrumentSettlementField) CreateAmendments(fip permissions.FieldIndexP
 		})
 	}
 
-	// Settlements []QuantityIndexField
+	// Settlements []*QuantityIndexField
 	fip = append(ofip, InstrumentSettlementFieldSettlements)
 	SettlementsMin := len(a.Settlements)
 	if SettlementsMin > len(newValue.Settlements) {
@@ -2433,7 +2433,7 @@ func (a *InstrumentSettlementField) CreateAmendments(fip permissions.FieldIndexP
 
 		if i < len(newValue.Settlements) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Settlements[i])
+			b, err := bsor.MarshalBinary(newValue.Settlements[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Settlements %d", i)
 			}
@@ -2491,7 +2491,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 		copy(a.InstrumentCode, data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case InstrumentTransferFieldInstrumentSenders: // []QuantityIndexField
+	case InstrumentTransferFieldInstrumentSenders: // []*QuantityIndexField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2526,7 +2526,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 
 			newValue := &QuantityIndexField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to InstrumentSenders failed to deserialize : %s",
 						err)
 				}
@@ -2566,7 +2566,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case InstrumentTransferFieldInstrumentReceivers: // []InstrumentReceiverField
+	case InstrumentTransferFieldInstrumentReceivers: // []*InstrumentReceiverField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2601,7 +2601,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 
 			newValue := &InstrumentReceiverField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to InstrumentReceivers failed to deserialize : %s",
 						err)
 				}
@@ -2695,7 +2695,7 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 		})
 	}
 
-	// InstrumentSenders []QuantityIndexField
+	// InstrumentSenders []*QuantityIndexField
 	fip = append(ofip, InstrumentTransferFieldInstrumentSenders)
 	InstrumentSendersMin := len(a.InstrumentSenders)
 	if InstrumentSendersMin > len(newValue.InstrumentSenders) {
@@ -2726,7 +2726,7 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 
 		if i < len(newValue.InstrumentSenders) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.InstrumentSenders[i])
+			b, err := bsor.MarshalBinary(newValue.InstrumentSenders[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize InstrumentSenders %d", i)
 			}
@@ -2738,7 +2738,7 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 		result = append(result, amendment)
 	}
 
-	// InstrumentReceivers []InstrumentReceiverField
+	// InstrumentReceivers []*InstrumentReceiverField
 	fip = append(ofip, InstrumentTransferFieldInstrumentReceivers)
 	InstrumentReceiversMin := len(a.InstrumentReceivers)
 	if InstrumentReceiversMin > len(newValue.InstrumentReceivers) {
@@ -2769,7 +2769,7 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 
 		if i < len(newValue.InstrumentReceivers) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.InstrumentReceivers[i])
+			b, err := bsor.MarshalBinary(newValue.InstrumentReceivers[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize InstrumentReceivers %d", i)
 			}
@@ -2810,7 +2810,7 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 		a.Preamble = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ChapterFieldArticles: // []ClauseField
+	case ChapterFieldArticles: // []*ClauseField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2845,7 +2845,7 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 
 			newValue := &ClauseField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Articles failed to deserialize : %s",
 						err)
 				}
@@ -2930,7 +2930,7 @@ func (a *ChapterField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Articles []ClauseField
+	// Articles []*ClauseField
 	fip = append(ofip, ChapterFieldArticles)
 	ArticlesMin := len(a.Articles)
 	if ArticlesMin > len(newValue.Articles) {
@@ -2961,7 +2961,7 @@ func (a *ChapterField) CreateAmendments(fip permissions.FieldIndexPath,
 
 		if i < len(newValue.Articles) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Articles[i])
+			b, err := bsor.MarshalBinary(newValue.Articles[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Articles %d", i)
 			}
@@ -3002,7 +3002,7 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 		a.Body = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ClauseFieldChildren: // []ClauseField
+	case ClauseFieldChildren: // []*ClauseField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -3037,7 +3037,7 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 			newValue := &ClauseField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Children failed to deserialize : %s",
 						err)
 				}
@@ -3122,7 +3122,7 @@ func (a *ClauseField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Children []ClauseField
+	// Children []*ClauseField
 	fip = append(ofip, ClauseFieldChildren)
 	ChildrenMin := len(a.Children)
 	if ChildrenMin > len(newValue.Children) {
@@ -3153,7 +3153,7 @@ func (a *ClauseField) CreateAmendments(fip permissions.FieldIndexPath,
 
 		if i < len(newValue.Children) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Children[i])
+			b, err := bsor.MarshalBinary(newValue.Children[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Children %d", i)
 			}
@@ -3411,7 +3411,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 		a.PhoneNumber = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case EntityFieldAdministration: // []AdministratorField
+	case EntityFieldAdministration: // []*AdministratorField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -3446,7 +3446,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 			newValue := &AdministratorField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Administration failed to deserialize : %s",
 						err)
 				}
@@ -3486,7 +3486,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case EntityFieldManagement: // []ManagerField
+	case EntityFieldManagement: // []*ManagerField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -3521,7 +3521,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 			newValue := &ManagerField{}
 			if len(data) != 0 { // Leave default values if data is empty
-				if err := proto.Unmarshal(data, newValue); err != nil {
+				if _, err := bsor.UnmarshalBinary(data, newValue); err != nil {
 					return nil, fmt.Errorf("Amendment addition to Management failed to deserialize : %s",
 						err)
 				}
@@ -3706,7 +3706,7 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Administration []AdministratorField
+	// Administration []*AdministratorField
 	fip = append(ofip, EntityFieldAdministration)
 	AdministrationMin := len(a.Administration)
 	if AdministrationMin > len(newValue.Administration) {
@@ -3737,7 +3737,7 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 
 		if i < len(newValue.Administration) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Administration[i])
+			b, err := bsor.MarshalBinary(newValue.Administration[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Administration %d", i)
 			}
@@ -3749,7 +3749,7 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 		result = append(result, amendment)
 	}
 
-	// Management []ManagerField
+	// Management []*ManagerField
 	fip = append(ofip, EntityFieldManagement)
 	ManagementMin := len(a.Management)
 	if ManagementMin > len(newValue.Management) {
@@ -3780,7 +3780,7 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 
 		if i < len(newValue.Management) {
 			amendment.Operation = 1 // Add element
-			b, err := proto.Marshal(newValue.Management[i])
+			b, err := bsor.MarshalBinary(newValue.Management[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Management %d", i)
 			}

@@ -1,0 +1,188 @@
+version 0
+
+
+// Public Message (0002)
+PublicMessage {
+    Timestamp     uint64          = 1;   // Timestamp
+    Subject       string          = 2;   // varchar
+    Regarding     OutpointField   = 3;   // Outpoint
+    PublicMessage DocumentField   = 4;   // Document
+    Attachments   []DocumentField = 5;   // Document[]
+}
+
+// Private Message (0003)
+PrivateMessage {
+    Timestamp      uint64          = 1;   // Timestamp
+    Subject        string          = 2;   // varchar
+    Regarding      OutpointField   = 3;   // Outpoint
+    PrivateMessage DocumentField   = 4;   // Document
+    Attachments    []DocumentField = 5;   // Document[]
+}
+
+// Reverted Tx (0004)
+RevertedTx {
+    Timestamp   uint64 = 1;   // Timestamp
+    Transaction binary = 2;   // varbin
+}
+
+// Offer (1001)
+Offer {
+    Timestamp uint64 = 1;   // Timestamp
+    Payload   binary = 2;   // varbin
+}
+
+// Signature Request (1002)
+SignatureRequest {
+    Timestamp uint64 = 1;   // Timestamp
+    Payload   binary = 2;   // varbin
+}
+
+// Settlement Request (1003)
+SettlementRequest {
+    Timestamp    uint64               = 1;   // Timestamp
+    TransferTxId binary(32)           = 2;   // TxId
+    ContractFees []TargetAddressField = 3;   // TargetAddress[]
+    Settlement   binary               = 4;   // varbin
+}
+
+// Output Metadata (1004)
+OutputMetadata {
+    OutputDescription string           = 1;   // varchar
+    Tags              []uint8          = 2;   // Tag[]
+    CustomTags        []OutputTagField = 3;   // OutputTag[]
+}
+
+// Distribution (1005)
+Distribution {
+    InstrumentCode binary(20) = 1;   // InstrumentCode
+    Timestamp      uint64     = 2;   // Timestamp
+}
+
+// Initiate Relationship (2001)
+InitiateRelationship {
+    Type                uint8               = 1;   // uint
+    Seed                binary              = 2;   // varbin
+    Flag                binary              = 3;   // varbin
+    EncryptionType      uint8               = 4;   // uint
+    ProofOfIdentityType uint8               = 5;   // ProofOfIdentityType
+    ProofOfIdentity     binary              = 6;   // varbin
+    ChannelParties      []ChannelPartyField = 7;   // ChannelParty[]
+}
+
+// Pending Accept Relationship (2002)
+PendingAcceptRelationship {
+    ProofOfIdentityType uint8  = 1;   // ProofOfIdentityType
+    ProofOfIdentity     binary = 2;   // varbin
+}
+
+// Accept Relationship (2003)
+AcceptRelationship {
+    ProofOfIdentityType uint8  = 1;   // ProofOfIdentityType
+    ProofOfIdentity     binary = 2;   // varbin
+}
+
+// Relationship Amendment (2004)
+RelationshipAmendment {
+    Seed                 binary = 1;   // varbin
+    BaseEncryptionSecret binary = 2;   // varbin
+    AddMemberIndexes     uint32 = 3;   // uint
+    DropMemberIndexes    uint32 = 4;   // uint
+}
+
+// Initiate Thread (2005)
+InitiateThread {
+    Flag     binary = 1;   // varbin
+    Seed     binary = 2;   // varbin
+}
+
+// Administrator Field
+AdministratorField {
+    Type     uint8  = 1;   // Role
+    Name     string = 2;   // varchar
+}
+
+// Channel Party Field
+ChannelPartyField {
+    AdministrativeAddress binary = 1;   // Address
+    OutputIndex           uint32 = 2;   // uint
+}
+
+// Document Field
+DocumentField {
+    Name     string = 1;   // varchar
+    Type     string = 2;   // varchar
+    Contents binary = 3;   // varbin
+}
+
+// Entity Field
+EntityField {
+    Name                       string               = 1;   // varchar
+    Type                       string(1)            = 2;   // EntityType
+    LEI                        string(20)           = 3;   // fixedchar
+    UnitNumber                 string               = 4;   // varchar
+    BuildingNumber             string               = 5;   // varchar
+    Street                     string               = 6;   // varchar
+    SuburbCity                 string               = 7;   // varchar
+    TerritoryStateProvinceCode string(5)            = 8;   // fixedchar
+    CountryCode                string(3)            = 9;   // fixedchar
+    PostalZIPCode              string(12)           = 10;  // fixedchar
+    EmailAddress               string               = 11;  // varchar
+    PhoneNumber                string               = 12;  // varchar
+    Administration             []AdministratorField = 13;  // Administrator[]
+    Management                 []ManagerField       = 14;  // Manager[]
+    DomainName                 string               = 15;  // varchar
+    PaymailHandle              string               = 17;  // varchar
+}
+
+// Identity Oracle Proof Field
+IdentityOracleProofField {
+    UserID          binary               = 1;   // varbin
+    Entity          EntityField          = 2;   // Entity
+    OracleSignature OracleSignatureField = 3;   // OracleSignature
+}
+
+// Manager Field
+ManagerField {
+    Type     uint8  = 1;   // Role
+    Name     string = 2;   // varchar
+}
+
+// Oracle Signature Field
+OracleSignatureField {
+    OracleURL          string      = 1;   // varchar
+    BlockHeight        uint32      = 2;   // uint
+    ValidityPeriod     PeriodField = 3;   // Period
+    SignatureAlgorithm uint8       = 4;   // uint
+    Signature          binary      = 5;   // varbin
+}
+
+// Outpoint Field
+OutpointField {
+    TxId        binary(32) = 1;   // TxId
+    OutputIndex uint32     = 2;   // uint
+}
+
+// Output Tag Field
+OutputTagField {
+    Tag      string = 1;   // varchar
+}
+
+// Paymail Proof Field
+PaymailProofField {
+    UserID          binary               = 1;   // varbin
+    Handle          string               = 2;   // varchar
+    OracleSignature OracleSignatureField = 3;   // OracleSignature
+}
+
+// Period Field
+PeriodField {
+    Begin    uint64 = 1;   // Timestamp
+    End      uint64 = 2;   // Timestamp
+}
+
+// Target Address Field
+TargetAddressField {
+    Address  binary = 1;   // Address
+    Quantity uint64 = 2;   // uint
+}
+

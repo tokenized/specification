@@ -228,8 +228,20 @@ func (f *Field) GoType() string {
 	gt := f.GoSingularType()
 
 	if f.IsList() {
-		gt = "[]" + gt
+		gt = "[]" + f.GoSingularTypeWithPointer()
 	}
+	return gt
+}
+
+func (f *Field) GoTypeWithPointer() string {
+	gt := f.GoSingularType()
+
+	if f.IsList() {
+		gt = "[]" + f.GoSingularTypeWithPointer()
+	} else if f.IsCompoundType {
+		gt = "*" + gt
+	}
+
 	return gt
 }
 
@@ -274,6 +286,67 @@ func (f *Field) ProtobufType() string {
 	}
 
 	return pbt
+}
+
+func (f *Field) BSORType() string {
+	result := ""
+	if f.IsList() {
+		if f.Size > 0 {
+			result += fmt.Sprintf("[%d]", f.Size) // fixed size list
+		} else {
+			result += "[]" // variable size list
+		}
+	}
+
+	baseType := f.BaseType()
+
+	if f.AliasField != nil {
+		return result + f.AliasField.BSORType()
+	}
+
+	switch baseType {
+	case "varchar":
+		baseType = "string"
+
+	case "fixedchar":
+		baseType = fmt.Sprintf("string(%d)", f.Size)
+
+	case "varbin":
+		baseType = "binary"
+
+	case "bin":
+		baseType = fmt.Sprintf("binary(%d)", f.Size)
+
+	case "uint":
+		if f.Size > 4 {
+			baseType = "uint64"
+		} else if f.Size > 2 {
+			baseType = "uint32"
+		} else if f.Size > 1 {
+			baseType = "uint16"
+		} else {
+			baseType = "uint8"
+		}
+
+	case "int":
+		if f.Size > 4 {
+			baseType = "int64"
+		} else if f.Size > 2 {
+			baseType = "int32"
+		} else if f.Size > 1 {
+			baseType = "int16"
+		} else {
+			baseType = "int8"
+		}
+	}
+
+	if f.IsCompoundType {
+		result += baseType + "Field"
+	} else {
+		result += baseType
+	}
+
+	return result
 }
 
 func (f *Field) MarkdownType() string {

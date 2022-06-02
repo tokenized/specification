@@ -2,20 +2,18 @@ package {{ .Package }}
 
 import (
 	"bytes"
-	"encoding/binary"
 	"fmt"
 
-	"github.com/golang/protobuf/proto"
+	"github.com/tokenized/pkg/bsor"
+
 	"github.com/pkg/errors"
 )
 
 type Message interface {
-	proto.Message
-
 	Code() uint32
 
 	Validate() error
-	Equal(proto.Message) bool
+	Equal(interface{}) bool
 
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
@@ -48,8 +46,8 @@ func Deserialize(code uint32, payload []byte) (Message, error) {
 	}
 
 	if len(payload) != 0 {
-		if err := proto.Unmarshal(payload, result); err != nil {
-			return nil, errors.Wrap(err, "Failed protobuf unmarshaling")
+		if _, err := bsor.UnmarshalBinary(payload, result); err != nil {
+			return nil, errors.Wrap(err, "unmarshal bsor")
 		}
 	}
 
@@ -62,14 +60,14 @@ func (a *{{.Name}}) Code() uint32 {
 }
 
 func (a *{{.Name}}) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *{{.Name}}) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize {{.Name}}")
+		return errors.Wrap(err, "serialize {{.Name}}")
 	}
 
 	_, err = buf.Write(data)
