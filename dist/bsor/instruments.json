@@ -1,0 +1,396 @@
+{
+  "version": 0,
+  "messages": {
+    "AgeRestrictionField": [
+      {
+        "name": "Lower",
+        "type": "uint8",
+        "id": 1
+      },
+      {
+        "name": "Upper",
+        "type": "uint8",
+        "id": 2
+      }
+    ],
+    "BondFixedRate": [
+      {
+        "name": "Name",
+        "type": "string",
+        "id": 1
+      },
+      {
+        "name": "BondType",
+        "type": "string",
+        "id": 2,
+        "fixed_size": 1
+      },
+      {
+        "name": "ISIN",
+        "type": "string",
+        "id": 3
+      },
+      {
+        "name": "Collateral",
+        "type": "string",
+        "id": 4
+      },
+      {
+        "name": "ParValue",
+        "type": "CurrencyValueField",
+        "id": 5
+      },
+      {
+        "name": "InterestRate",
+        "type": "RateField",
+        "id": 6
+      },
+      {
+        "name": "InterestPaymentInitialDate",
+        "type": "uint64",
+        "id": 7
+      },
+      {
+        "name": "InterestPaymentDateDeltas",
+        "type": "uint64",
+        "id": 8,
+        "is_array": true
+      },
+      {
+        "name": "LatePaymentPenaltyRate",
+        "type": "RateField",
+        "id": 9
+      },
+      {
+        "name": "LatePaymentWindow",
+        "type": "uint64",
+        "id": 10
+      },
+      {
+        "name": "LatePaymentPenaltyPeriod",
+        "type": "uint64",
+        "id": 11
+      },
+      {
+        "name": "MaturityDate",
+        "type": "uint64",
+        "id": 12
+      },
+      {
+        "name": "AgeRestriction",
+        "type": "AgeRestrictionField",
+        "id": 13
+      },
+      {
+        "name": "TransfersPermitted",
+        "type": "bool",
+        "id": 14
+      }
+    ],
+    "CasinoChip": [
+      {
+        "name": "UseType",
+        "type": "string",
+        "id": 2,
+        "fixed_size": 1
+      },
+      {
+        "name": "AgeRestriction",
+        "type": "AgeRestrictionField",
+        "id": 3
+      },
+      {
+        "name": "ExpirationTimestamp",
+        "type": "uint64",
+        "id": 5
+      },
+      {
+        "name": "TransfersPermitted",
+        "type": "bool",
+        "id": 7
+      },
+      {
+        "name": "CasinoName",
+        "type": "string",
+        "id": 8
+      },
+      {
+        "name": "FaceValue",
+        "type": "CurrencyValueField",
+        "id": 9
+      }
+    ],
+    "Coupon": [
+      {
+        "name": "RedeemingEntity",
+        "type": "string",
+        "id": 1
+      },
+      {
+        "name": "ValidFromTimestamp",
+        "type": "uint64",
+        "id": 2
+      },
+      {
+        "name": "ExpirationTimestamp",
+        "type": "uint64",
+        "id": 3
+      },
+      {
+        "name": "CouponName",
+        "type": "string",
+        "id": 6
+      },
+      {
+        "name": "TransfersPermitted",
+        "type": "bool",
+        "id": 8
+      },
+      {
+        "name": "FaceValue",
+        "type": "CurrencyValueField",
+        "id": 9
+      },
+      {
+        "name": "RedemptionVenue",
+        "type": "string",
+        "id": 10
+      },
+      {
+        "name": "Details",
+        "type": "string",
+        "id": 11
+      }
+    ],
+    "Currency": [
+      {
+        "name": "CurrencyCode",
+        "type": "string",
+        "id": 1,
+        "fixed_size": 3
+      },
+      {
+        "name": "MonetaryAuthority",
+        "type": "string",
+        "id": 2
+      },
+      {
+        "name": "Precision",
+        "type": "uint64",
+        "id": 4
+      }
+    ],
+    "CurrencyValueField": [
+      {
+        "name": "Value",
+        "type": "uint64",
+        "id": 1
+      },
+      {
+        "name": "CurrencyCode",
+        "type": "string",
+        "id": 2,
+        "fixed_size": 3
+      },
+      {
+        "name": "Precision",
+        "type": "uint8",
+        "id": 3
+      }
+    ],
+    "InformationServiceLicense": [
+      {
+        "name": "AgeRestriction",
+        "type": "AgeRestrictionField",
+        "id": 1
+      },
+      {
+        "name": "ExpirationTimestamp",
+        "type": "uint64",
+        "id": 2
+      },
+      {
+        "name": "ServiceName",
+        "type": "string",
+        "id": 3
+      },
+      {
+        "name": "TransfersPermitted",
+        "type": "bool",
+        "id": 4
+      },
+      {
+        "name": "URL",
+        "type": "string",
+        "id": 5
+      }
+    ],
+    "LoyaltyPoints": [
+      {
+        "name": "AgeRestriction",
+        "type": "AgeRestrictionField",
+        "id": 1
+      },
+      {
+        "name": "ProgramName",
+        "type": "string",
+        "id": 2
+      },
+      {
+        "name": "ExpirationTimestamp",
+        "type": "uint64",
+        "id": 4
+      },
+      {
+        "name": "Details",
+        "type": "string",
+        "id": 5
+      },
+      {
+        "name": "TransfersPermitted",
+        "type": "bool",
+        "id": 6
+      }
+    ],
+    "Membership": [
+      {
+        "name": "AgeRestriction",
+        "type": "AgeRestrictionField",
+        "id": 1
+      },
+      {
+        "name": "ValidFrom",
+        "type": "uint64",
+        "id": 2
+      },
+      {
+        "name": "ExpirationTimestamp",
+        "type": "uint64",
+        "id": 3
+      },
+      {
+        "name": "ID",
+        "type": "string",
+        "id": 4
+      },
+      {
+        "name": "MembershipClass",
+        "type": "string",
+        "id": 5
+      },
+      {
+        "name": "RoleType",
+        "type": "string",
+        "id": 6
+      },
+      {
+        "name": "MembershipType",
+        "type": "string",
+        "id": 7
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "id": 8
+      },
+      {
+        "name": "TransfersPermitted",
+        "type": "bool",
+        "id": 9
+      }
+    ],
+    "RateField": [
+      {
+        "name": "Precision",
+        "type": "uint8",
+        "id": 1
+      },
+      {
+        "name": "Value",
+        "type": "uint64",
+        "id": 2
+      }
+    ],
+    "ShareCommon": [
+      {
+        "name": "Ticker",
+        "type": "string",
+        "id": 1,
+        "fixed_size": 5
+      },
+      {
+        "name": "ISIN",
+        "type": "string",
+        "id": 2,
+        "fixed_size": 12
+      },
+      {
+        "name": "Description",
+        "type": "string",
+        "id": 3
+      },
+      {
+        "name": "TransfersPermitted",
+        "type": "bool",
+        "id": 4
+      }
+    ],
+    "TicketAdmission": [
+      {
+        "name": "AgeRestriction",
+        "type": "AgeRestrictionField",
+        "id": 1
+      },
+      {
+        "name": "Venue",
+        "type": "string",
+        "id": 3
+      },
+      {
+        "name": "Area",
+        "type": "string",
+        "id": 5
+      },
+      {
+        "name": "Seat",
+        "type": "string",
+        "id": 6
+      },
+      {
+        "name": "EventStartTimestamp",
+        "type": "uint64",
+        "id": 7
+      },
+      {
+        "name": "EventName",
+        "type": "string",
+        "id": 10
+      },
+      {
+        "name": "TransfersPermitted",
+        "type": "bool",
+        "id": 11
+      },
+      {
+        "name": "Details",
+        "type": "string",
+        "id": 12
+      },
+      {
+        "name": "Section",
+        "type": "string",
+        "id": 13
+      },
+      {
+        "name": "Row",
+        "type": "string",
+        "id": 14
+      },
+      {
+        "name": "EventEndTimestamp",
+        "type": "uint64",
+        "id": 15
+      }
+    ]
+  }
+}
