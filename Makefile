@@ -18,6 +18,7 @@ protobuf:
 generate-code:
 	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
 	goimports -w $(GO_DIST_DIR)
+	go run dist/bsor/golang/cmd/main.go dist/bsor/
 
 run-generate: generate-code
 

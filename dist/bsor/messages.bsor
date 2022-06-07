@@ -1,0 +1,109 @@
+version 0
+
+ChannelPartyField {
+  1 AdministrativeAddress binary
+  2 OutputIndex           uint32
+}
+
+OutpointField {
+  1 TxId        binary
+  2 OutputIndex uint32
+}
+
+RevertedTx {
+  1 Timestamp   uint64
+  2 Transaction binary
+}
+
+OutputMetadata {
+  1 OutputDescription string
+  2 Tags              []uint32
+  3 CustomTags        []*OutputTagField
+}
+
+InitiateRelationship {
+  1 Type                uint32
+  2 Seed                binary
+  3 Flag                binary
+  4 EncryptionType      uint32
+  5 ProofOfIdentityType uint32
+  6 ProofOfIdentity     binary
+  7 ChannelParties      []*ChannelPartyField
+}
+
+AcceptRelationship {
+  1 ProofOfIdentityType uint32
+  2 ProofOfIdentity     binary
+}
+
+DocumentField {
+  1 Name     string
+  2 Type     string
+  3 Contents binary
+}
+
+SignatureRequest {
+  1 Timestamp uint64
+  2 Payload   binary
+}
+
+Distribution {
+  1 InstrumentCode binary
+  2 Timestamp      uint64
+}
+
+OutputTagField {
+  1 Tag string
+}
+
+RelationshipAmendment {
+  1 Seed                 binary
+  2 BaseEncryptionSecret binary
+  3 AddMemberIndexes     uint32
+  4 DropMemberIndexes    uint32
+}
+
+PublicMessage {
+  1 Timestamp     uint64
+  2 Subject       string
+  3 Regarding     *OutpointField
+  4 PublicMessage *DocumentField
+  5 Attachments   []*DocumentField
+}
+
+SettlementRequest {
+  1 Timestamp    uint64
+  2 TransferTxId binary
+  3 ContractFees []*TargetAddressField
+  4 Settlement   binary
+}
+
+TargetAddressField {
+  1 Address  binary
+  2 Quantity uint64
+}
+
+InitiateThread {
+  1 Flag binary
+  2 Seed binary
+}
+
+PrivateMessage {
+  1 Timestamp      uint64
+  2 Subject        string
+  3 Regarding      *OutpointField
+  4 PrivateMessage *DocumentField
+  5 Attachments    []*DocumentField
+}
+
+Offer {
+  1 Timestamp uint64
+  2 Payload   binary
+}
+
+PendingAcceptRelationship {
+  1 ProofOfIdentityType uint32
+  2 ProofOfIdentity     binary
+}
+
+

@@ -1,1490 +1,2160 @@
 {
   "version": 0,
-  "messages": {
-    "Addition": [
-      {
-        "name": "Message",
-        "type": "string",
-        "id": 1
-      }
-    ],
-    "AdminIdentityCertificateField": [
-      {
-        "name": "EntityContract",
-        "type": "binary",
-        "id": 1
-      },
-      {
-        "name": "Signature",
-        "type": "binary",
-        "id": 2
-      },
-      {
-        "name": "BlockHeight",
-        "type": "uint32",
-        "id": 3
-      },
-      {
-        "name": "Expiration",
-        "type": "uint64",
-        "id": 4
-      }
-    ],
-    "AdministratorField": [
-      {
-        "name": "Type",
-        "type": "uint8",
-        "id": 1
-      },
-      {
-        "name": "Name",
-        "type": "string",
-        "id": 2
-      }
-    ],
-    "Alteration": [
-      {
-        "name": "EntryTxID",
-        "type": "binary",
-        "id": 1,
-        "fixed_size": 32
-      },
-      {
-        "name": "Message",
-        "type": "string",
-        "id": 2
-      }
-    ],
-    "AmendmentField": [
-      {
-        "name": "FieldIndexPath",
-        "type": "binary",
-        "id": 1
-      },
-      {
-        "name": "Operation",
-        "type": "uint8",
-        "id": 2
-      },
-      {
-        "name": "Data",
-        "type": "binary",
-        "id": 3
-      }
-    ],
-    "BallotCast": [
-      {
-        "name": "VoteTxId",
-        "type": "binary",
-        "id": 1,
-        "fixed_size": 32
-      },
-      {
-        "name": "Vote",
-        "type": "string",
-        "id": 2
-      }
-    ],
-    "BallotCounted": [
-      {
-        "name": "VoteTxId",
-        "type": "binary",
-        "id": 1,
-        "fixed_size": 32
-      },
-      {
-        "name": "Vote",
-        "type": "string",
-        "id": 2
-      },
-      {
-        "name": "Quantity",
-        "type": "uint64",
-        "id": 3
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 4
-      }
-    ],
-    "BodyOfAgreementAmendment": [
-      {
-        "name": "Revision",
-        "type": "uint32",
-        "id": 1
-      },
-      {
-        "name": "Amendments",
-        "type": "AmendmentField",
-        "id": 2,
-        "is_array": true
-      },
-      {
-        "name": "RefTxID",
-        "type": "binary",
-        "id": 3,
-        "fixed_size": 32
-      }
-    ],
-    "BodyOfAgreementFormation": [
-      {
-        "name": "Chapters",
-        "type": "ChapterField",
-        "id": 1,
-        "is_array": true
-      },
-      {
-        "name": "Definitions",
-        "type": "DefinedTermField",
-        "id": 2,
-        "is_array": true
-      },
-      {
-        "name": "Revision",
-        "type": "uint32",
-        "id": 3
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 4
-      }
-    ],
-    "BodyOfAgreementOffer": [
-      {
-        "name": "Chapters",
-        "type": "ChapterField",
-        "id": 1,
-        "is_array": true
-      },
-      {
-        "name": "Definitions",
-        "type": "DefinedTermField",
-        "id": 2,
-        "is_array": true
-      }
-    ],
-    "ChapterField": [
-      {
-        "name": "Title",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "Preamble",
-        "type": "string",
-        "id": 2
-      },
-      {
-        "name": "Articles",
-        "type": "ClauseField",
-        "id": 3,
-        "is_array": true
-      }
-    ],
-    "ClauseField": [
-      {
-        "name": "Title",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "Body",
-        "type": "string",
-        "id": 2
-      },
-      {
-        "name": "Children",
-        "type": "ClauseField",
-        "id": 3,
-        "is_array": true
-      }
-    ],
-    "Confiscation": [
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 1,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 2,
-        "fixed_size": 20
-      },
-      {
-        "name": "Quantities",
-        "type": "QuantityIndexField",
-        "id": 3,
-        "is_array": true
-      },
-      {
-        "name": "DepositQty",
-        "type": "uint64",
-        "id": 4
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 5
-      }
-    ],
-    "ContractAddressChange": [
-      {
-        "name": "NewContractAddress",
-        "type": "binary",
-        "id": 1
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 2
-      }
-    ],
-    "ContractAmendment": [
-      {
-        "name": "ChangeAdministrationAddress",
-        "type": "bool",
-        "id": 1
-      },
-      {
-        "name": "ChangeOperatorAddress",
-        "type": "bool",
-        "id": 2
-      },
-      {
-        "name": "ContractRevision",
-        "type": "uint32",
-        "id": 3
-      },
-      {
-        "name": "Amendments",
-        "type": "AmendmentField",
-        "id": 4,
-        "is_array": true
-      },
-      {
-        "name": "RefTxID",
-        "type": "binary",
-        "id": 5,
-        "fixed_size": 32
-      }
-    ],
-    "ContractFormation": [
-      {
-        "name": "ContractName",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "BodyOfAgreementType",
-        "type": "uint8",
-        "id": 2
-      },
-      {
-        "name": "BodyOfAgreement",
-        "type": "binary",
-        "id": 3
-      },
-      {
-        "name": "SupportingDocs",
-        "type": "DocumentField",
-        "id": 5,
-        "is_array": true
-      },
-      {
-        "name": "ContractExpiration",
-        "type": "uint64",
-        "id": 8
-      },
-      {
-        "name": "ContractURI",
-        "type": "string",
-        "id": 9
-      },
-      {
-        "name": "Issuer",
-        "type": "EntityField",
-        "id": 10
-      },
-      {
-        "name": "ContractFee",
-        "type": "uint64",
-        "id": 16
-      },
-      {
-        "name": "VotingSystems",
-        "type": "VotingSystemField",
-        "id": 17,
-        "is_array": true
-      },
-      {
-        "name": "ContractPermissions",
-        "type": "binary",
-        "id": 18
-      },
-      {
-        "name": "RestrictedQtyInstruments",
-        "type": "uint64",
-        "id": 19
-      },
-      {
-        "name": "AdministrationProposal",
-        "type": "bool",
-        "id": 20
-      },
-      {
-        "name": "HolderProposal",
-        "type": "bool",
-        "id": 21
-      },
-      {
-        "name": "Oracles",
-        "type": "OracleField",
-        "id": 22,
-        "is_array": true
-      },
-      {
-        "name": "MasterAddress",
-        "type": "binary",
-        "id": 23
-      },
-      {
-        "name": "ContractRevision",
-        "type": "uint32",
-        "id": 24
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 25
-      },
-      {
-        "name": "EntityContract",
-        "type": "binary",
-        "id": 26
-      },
-      {
-        "name": "OperatorEntityContract",
-        "type": "binary",
-        "id": 27
-      },
-      {
-        "name": "ContractType",
-        "type": "uint8",
-        "id": 28
-      },
-      {
-        "name": "Services",
-        "type": "ServiceField",
-        "id": 29,
-        "is_array": true
-      },
-      {
-        "name": "AdminIdentityCertificates",
-        "type": "AdminIdentityCertificateField",
-        "id": 30,
-        "is_array": true
-      },
-      {
-        "name": "AdminAddress",
-        "type": "binary",
-        "id": 31
-      },
-      {
-        "name": "OperatorAddress",
-        "type": "binary",
-        "id": 32
-      },
-      {
-        "name": "GoverningLaw",
-        "type": "string",
-        "id": 33
-      },
-      {
-        "name": "Jurisdiction",
-        "type": "string",
-        "id": 34
-      }
-    ],
-    "ContractOffer": [
-      {
-        "name": "ContractName",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "BodyOfAgreementType",
-        "type": "uint8",
-        "id": 2
-      },
-      {
-        "name": "BodyOfAgreement",
-        "type": "binary",
-        "id": 3
-      },
-      {
-        "name": "SupportingDocs",
-        "type": "DocumentField",
-        "id": 5,
-        "is_array": true
-      },
-      {
-        "name": "ContractExpiration",
-        "type": "uint64",
-        "id": 8
-      },
-      {
-        "name": "ContractURI",
-        "type": "string",
-        "id": 9
-      },
-      {
-        "name": "Issuer",
-        "type": "EntityField",
-        "id": 10
-      },
-      {
-        "name": "ContractOperatorIncluded",
-        "type": "bool",
-        "id": 12
-      },
-      {
-        "name": "ContractFee",
-        "type": "uint64",
-        "id": 17
-      },
-      {
-        "name": "VotingSystems",
-        "type": "VotingSystemField",
-        "id": 18,
-        "is_array": true
-      },
-      {
-        "name": "ContractPermissions",
-        "type": "binary",
-        "id": 19
-      },
-      {
-        "name": "RestrictedQtyInstruments",
-        "type": "uint64",
-        "id": 20
-      },
-      {
-        "name": "AdministrationProposal",
-        "type": "bool",
-        "id": 21
-      },
-      {
-        "name": "HolderProposal",
-        "type": "bool",
-        "id": 22
-      },
-      {
-        "name": "Oracles",
-        "type": "OracleField",
-        "id": 23,
-        "is_array": true
-      },
-      {
-        "name": "MasterAddress",
-        "type": "binary",
-        "id": 24
-      },
-      {
-        "name": "EntityContract",
-        "type": "binary",
-        "id": 25
-      },
-      {
-        "name": "OperatorEntityContract",
-        "type": "binary",
-        "id": 26
-      },
-      {
-        "name": "ContractType",
-        "type": "uint8",
-        "id": 27
-      },
-      {
-        "name": "Services",
-        "type": "ServiceField",
-        "id": 28,
-        "is_array": true
-      },
-      {
-        "name": "AdminIdentityCertificates",
-        "type": "AdminIdentityCertificateField",
-        "id": 29,
-        "is_array": true
-      },
-      {
-        "name": "GoverningLaw",
-        "type": "string",
-        "id": 30
-      },
-      {
-        "name": "Jurisdiction",
-        "type": "string",
-        "id": 31
-      }
-    ],
-    "DefinedTermField": [
-      {
-        "name": "Term",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "Definition",
-        "type": "string",
-        "id": 2
-      }
-    ],
-    "DocumentField": [
-      {
-        "name": "Name",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "Type",
-        "type": "string",
-        "id": 2
-      },
-      {
-        "name": "Contents",
-        "type": "binary",
-        "id": 3
-      }
-    ],
-    "EntityField": [
-      {
-        "name": "Name",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "Type",
-        "type": "string",
-        "id": 2,
-        "fixed_size": 1
-      },
-      {
-        "name": "LEI",
-        "type": "string",
-        "id": 3,
-        "fixed_size": 20
-      },
-      {
-        "name": "UnitNumber",
-        "type": "string",
-        "id": 4
-      },
-      {
-        "name": "BuildingNumber",
-        "type": "string",
-        "id": 5
-      },
-      {
-        "name": "Street",
-        "type": "string",
-        "id": 6
-      },
-      {
-        "name": "SuburbCity",
-        "type": "string",
-        "id": 7
-      },
-      {
-        "name": "TerritoryStateProvinceCode",
-        "type": "string",
-        "id": 8,
-        "fixed_size": 5
-      },
-      {
-        "name": "CountryCode",
-        "type": "string",
-        "id": 9,
-        "fixed_size": 3
-      },
-      {
-        "name": "PostalZIPCode",
-        "type": "string",
-        "id": 10,
-        "fixed_size": 12
-      },
-      {
-        "name": "EmailAddress",
-        "type": "string",
-        "id": 11
-      },
-      {
-        "name": "PhoneNumber",
-        "type": "string",
-        "id": 12
-      },
-      {
-        "name": "Administration",
-        "type": "AdministratorField",
-        "id": 13,
-        "is_array": true
-      },
-      {
-        "name": "Management",
-        "type": "ManagerField",
-        "id": 14,
-        "is_array": true
-      },
-      {
-        "name": "DomainName",
-        "type": "string",
-        "id": 15
-      },
-      {
-        "name": "PaymailHandle",
-        "type": "string",
-        "id": 17
-      }
-    ],
-    "Establishment": [
-      {
-        "name": "Message",
-        "type": "string",
-        "id": 1
-      }
-    ],
-    "Freeze": [
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 1,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 2,
-        "fixed_size": 20
-      },
-      {
-        "name": "Quantities",
-        "type": "QuantityIndexField",
-        "id": 3,
-        "is_array": true
-      },
-      {
-        "name": "FreezePeriod",
-        "type": "uint64",
-        "id": 4
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 5
-      }
-    ],
-    "InstrumentCreation": [
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 1,
-        "fixed_size": 20
-      },
-      {
-        "name": "InstrumentIndex",
-        "type": "uint64",
-        "id": 2
-      },
-      {
-        "name": "InstrumentPermissions",
-        "type": "binary",
-        "id": 3
-      },
-      {
-        "name": "EnforcementOrdersPermitted",
-        "type": "bool",
-        "id": 6
-      },
-      {
-        "name": "VotingRights",
-        "type": "bool",
-        "id": 7
-      },
-      {
-        "name": "VoteMultiplier",
-        "type": "uint8",
-        "id": 8
-      },
-      {
-        "name": "AdministrationProposal",
-        "type": "bool",
-        "id": 9
-      },
-      {
-        "name": "HolderProposal",
-        "type": "bool",
-        "id": 10
-      },
-      {
-        "name": "InstrumentModificationGovernance",
-        "type": "uint8",
-        "id": 11
-      },
-      {
-        "name": "AuthorizedTokenQty",
-        "type": "uint64",
-        "id": 12
-      },
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 13,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentPayload",
-        "type": "binary",
-        "id": 14
-      },
-      {
-        "name": "InstrumentRevision",
-        "type": "uint32",
-        "id": 15
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 16
-      },
-      {
-        "name": "TradeRestrictions",
-        "type": "string",
-        "id": 17,
-        "is_array": true
-      }
-    ],
-    "InstrumentDefinition": [
-      {
-        "name": "InstrumentPermissions",
-        "type": "binary",
-        "id": 1
-      },
-      {
-        "name": "EnforcementOrdersPermitted",
-        "type": "bool",
-        "id": 4
-      },
-      {
-        "name": "VotingRights",
-        "type": "bool",
-        "id": 5
-      },
-      {
-        "name": "VoteMultiplier",
-        "type": "uint8",
-        "id": 6
-      },
-      {
-        "name": "AdministrationProposal",
-        "type": "bool",
-        "id": 7
-      },
-      {
-        "name": "HolderProposal",
-        "type": "bool",
-        "id": 8
-      },
-      {
-        "name": "InstrumentModificationGovernance",
-        "type": "uint8",
-        "id": 9
-      },
-      {
-        "name": "AuthorizedTokenQty",
-        "type": "uint64",
-        "id": 10
-      },
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 11,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentPayload",
-        "type": "binary",
-        "id": 12
-      },
-      {
-        "name": "TradeRestrictions",
-        "type": "string",
-        "id": 13,
-        "is_array": true
-      }
-    ],
-    "InstrumentModification": [
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 1,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 2,
-        "fixed_size": 20
-      },
-      {
-        "name": "InstrumentRevision",
-        "type": "uint32",
-        "id": 3
-      },
-      {
-        "name": "Amendments",
-        "type": "AmendmentField",
-        "id": 4,
-        "is_array": true
-      },
-      {
-        "name": "RefTxID",
-        "type": "binary",
-        "id": 5,
-        "fixed_size": 32
-      }
-    ],
-    "InstrumentReceiverField": [
-      {
-        "name": "Address",
-        "type": "binary",
-        "id": 1
-      },
-      {
-        "name": "Quantity",
-        "type": "uint64",
-        "id": 2
-      },
-      {
-        "name": "OracleSigAlgorithm",
-        "type": "uint8",
-        "id": 3
-      },
-      {
-        "name": "OracleIndex",
-        "type": "uint8",
-        "id": 4
-      },
-      {
-        "name": "OracleConfirmationSig",
-        "type": "binary",
-        "id": 5
-      },
-      {
-        "name": "OracleSigBlockHeight",
-        "type": "uint32",
-        "id": 6
-      },
-      {
-        "name": "OracleSigExpiry",
-        "type": "uint64",
-        "id": 7
-      }
-    ],
-    "InstrumentSettlementField": [
-      {
-        "name": "ContractIndex",
-        "type": "uint16",
-        "id": 1
-      },
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 2,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 3,
-        "fixed_size": 20
-      },
-      {
-        "name": "Settlements",
-        "type": "QuantityIndexField",
-        "id": 4,
-        "is_array": true
-      }
-    ],
-    "InstrumentTransferField": [
-      {
-        "name": "ContractIndex",
-        "type": "uint16",
-        "id": 1
-      },
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 2,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 3,
-        "fixed_size": 20
-      },
-      {
-        "name": "InstrumentSenders",
-        "type": "QuantityIndexField",
-        "id": 4,
-        "is_array": true
-      },
-      {
-        "name": "InstrumentReceivers",
-        "type": "InstrumentReceiverField",
-        "id": 5,
-        "is_array": true
-      }
-    ],
-    "ManagerField": [
-      {
-        "name": "Type",
-        "type": "uint8",
-        "id": 1
-      },
-      {
-        "name": "Name",
-        "type": "string",
-        "id": 2
-      }
-    ],
-    "Message": [
-      {
-        "name": "SenderIndexes",
-        "type": "uint32",
-        "id": 1,
-        "is_array": true
-      },
-      {
-        "name": "ReceiverIndexes",
-        "type": "uint32",
-        "id": 2,
-        "is_array": true
-      },
-      {
-        "name": "MessageCode",
-        "type": "uint16",
-        "id": 3
-      },
-      {
-        "name": "MessagePayload",
-        "type": "binary",
-        "id": 4
-      }
-    ],
-    "OracleField": [
-      {
-        "name": "OracleTypes",
-        "type": "uint8",
-        "id": 4,
-        "is_array": true
-      },
-      {
-        "name": "EntityContract",
-        "type": "binary",
-        "id": 5
-      }
-    ],
-    "Order": [
-      {
-        "name": "ComplianceAction",
-        "type": "string",
-        "id": 1,
-        "fixed_size": 1
-      },
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 2,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 3,
-        "fixed_size": 20
-      },
-      {
-        "name": "TargetAddresses",
-        "type": "TargetAddressField",
-        "id": 4,
-        "is_array": true
-      },
-      {
-        "name": "FreezeTxId",
-        "type": "binary",
-        "id": 5,
-        "fixed_size": 32
-      },
-      {
-        "name": "FreezePeriod",
-        "type": "uint64",
-        "id": 6
-      },
-      {
-        "name": "DepositAddress",
-        "type": "binary",
-        "id": 7
-      },
-      {
-        "name": "AuthorityName",
-        "type": "string",
-        "id": 8
-      },
-      {
-        "name": "AuthorityPublicKey",
-        "type": "binary",
-        "id": 9
-      },
-      {
-        "name": "SignatureAlgorithm",
-        "type": "uint8",
-        "id": 10
-      },
-      {
-        "name": "OrderSignature",
-        "type": "binary",
-        "id": 11
-      },
-      {
-        "name": "BitcoinDispersions",
-        "type": "QuantityIndexField",
-        "id": 14,
-        "is_array": true
-      },
-      {
-        "name": "Message",
-        "type": "string",
-        "id": 15
-      },
-      {
-        "name": "SupportingEvidenceFormat",
-        "type": "uint8",
-        "id": 16
-      },
-      {
-        "name": "SupportingEvidence",
-        "type": "binary",
-        "id": 17
-      },
-      {
-        "name": "ReferenceTransactions",
-        "type": "ReferenceTransactionField",
-        "id": 18,
-        "is_array": true
-      }
-    ],
-    "Proposal": [
-      {
-        "name": "Type",
-        "type": "uint8",
-        "id": 1
-      },
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 2,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 3,
-        "fixed_size": 20
-      },
-      {
-        "name": "VoteSystem",
-        "type": "uint8",
-        "id": 4
-      },
-      {
-        "name": "ProposedAmendments",
-        "type": "AmendmentField",
-        "id": 5,
-        "is_array": true
-      },
-      {
-        "name": "VoteOptions",
-        "type": "string",
-        "id": 6
-      },
-      {
-        "name": "VoteMax",
-        "type": "uint8",
-        "id": 7
-      },
-      {
-        "name": "ProposalDescription",
-        "type": "string",
-        "id": 8
-      },
-      {
-        "name": "ProposalDocumentHash",
-        "type": "binary",
-        "id": 9,
-        "fixed_size": 32
-      },
-      {
-        "name": "VoteCutOffTimestamp",
-        "type": "uint64",
-        "id": 10
-      }
-    ],
-    "QuantityIndexField": [
-      {
-        "name": "Index",
-        "type": "uint16",
-        "id": 1
-      },
-      {
-        "name": "Quantity",
-        "type": "uint64",
-        "id": 2
-      }
-    ],
-    "Reconciliation": [
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 1,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 2,
-        "fixed_size": 20
-      },
-      {
-        "name": "Quantities",
-        "type": "QuantityIndexField",
-        "id": 3,
-        "is_array": true
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 4
-      }
-    ],
-    "ReferenceTransactionField": [
-      {
-        "name": "Transaction",
-        "type": "binary",
-        "id": 1
-      },
-      {
-        "name": "Outputs",
-        "type": "binary",
-        "id": 2,
-        "is_array": true
-      }
-    ],
-    "Rejection": [
-      {
-        "name": "AddressIndexes",
-        "type": "uint32",
-        "id": 1,
-        "is_array": true
-      },
-      {
-        "name": "RejectAddressIndex",
-        "type": "uint16",
-        "id": 2
-      },
-      {
-        "name": "RejectionCode",
-        "type": "uint8",
-        "id": 3
-      },
-      {
-        "name": "Message",
-        "type": "string",
-        "id": 4
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 5
-      }
-    ],
-    "Removal": [
-      {
-        "name": "EntryTxID",
-        "type": "binary",
-        "id": 1,
-        "fixed_size": 32
-      },
-      {
-        "name": "Message",
-        "type": "string",
-        "id": 2
-      }
-    ],
-    "Result": [
-      {
-        "name": "InstrumentType",
-        "type": "string",
-        "id": 1,
-        "fixed_size": 3
-      },
-      {
-        "name": "InstrumentCode",
-        "type": "binary",
-        "id": 2,
-        "fixed_size": 20
-      },
-      {
-        "name": "ProposedAmendments",
-        "type": "AmendmentField",
-        "id": 3,
-        "is_array": true
-      },
-      {
-        "name": "VoteTxId",
-        "type": "binary",
-        "id": 4,
-        "fixed_size": 32
-      },
-      {
-        "name": "OptionTally",
-        "type": "uint64",
-        "id": 5,
-        "is_array": true
-      },
-      {
-        "name": "Result",
-        "type": "string",
-        "id": 6
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 7
-      }
-    ],
-    "ServiceField": [
-      {
-        "name": "Type",
-        "type": "uint8",
-        "id": 1
-      },
-      {
-        "name": "URL",
-        "type": "string",
-        "id": 2
-      },
-      {
-        "name": "PublicKey",
-        "type": "binary",
-        "id": 3,
-        "fixed_size": 33
-      }
-    ],
-    "Settlement": [
-      {
-        "name": "Instruments",
-        "type": "InstrumentSettlementField",
-        "id": 1,
-        "is_array": true
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 2
-      }
-    ],
-    "StaticContractFormation": [
-      {
-        "name": "ContractName",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "ContractCode",
-        "type": "binary",
-        "id": 2,
-        "fixed_size": 32
-      },
-      {
-        "name": "BodyOfAgreementType",
-        "type": "uint8",
-        "id": 3
-      },
-      {
-        "name": "BodyOfAgreement",
-        "type": "binary",
-        "id": 4
-      },
-      {
-        "name": "ContractType",
-        "type": "string",
-        "id": 5
-      },
-      {
-        "name": "SupportingDocs",
-        "type": "DocumentField",
-        "id": 6,
-        "is_array": true
-      },
-      {
-        "name": "ContractRevision",
-        "type": "uint32",
-        "id": 7
-      },
-      {
-        "name": "EffectiveDate",
-        "type": "uint64",
-        "id": 10
-      },
-      {
-        "name": "ContractExpiration",
-        "type": "uint64",
-        "id": 11
-      },
-      {
-        "name": "ContractURI",
-        "type": "string",
-        "id": 12
-      },
-      {
-        "name": "PrevRevTxID",
-        "type": "binary",
-        "id": 13,
-        "fixed_size": 32
-      },
-      {
-        "name": "Entities",
-        "type": "EntityField",
-        "id": 14,
-        "is_array": true
-      },
-      {
-        "name": "EntityOracle",
-        "type": "OracleField",
-        "id": 15
-      },
-      {
-        "name": "EntityOracleSignature",
-        "type": "binary",
-        "id": 16
-      },
-      {
-        "name": "EntityOracleSigBlockHeight",
-        "type": "uint32",
-        "id": 17
-      },
-      {
-        "name": "GoverningLaw",
-        "type": "string",
-        "id": 18
-      },
-      {
-        "name": "Jurisdiction",
-        "type": "string",
-        "id": 19
-      }
-    ],
-    "TargetAddressField": [
-      {
-        "name": "Address",
-        "type": "binary",
-        "id": 1
-      },
-      {
-        "name": "Quantity",
-        "type": "uint64",
-        "id": 2
-      }
-    ],
-    "Thaw": [
-      {
-        "name": "FreezeTxId",
-        "type": "binary",
-        "id": 1,
-        "fixed_size": 32
-      },
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 2
-      }
-    ],
-    "Transfer": [
-      {
-        "name": "Instruments",
-        "type": "InstrumentTransferField",
-        "id": 1,
-        "is_array": true
-      },
-      {
-        "name": "OfferExpiry",
-        "type": "uint64",
-        "id": 2
-      },
-      {
-        "name": "ExchangeFee",
-        "type": "uint64",
-        "id": 3
-      },
-      {
-        "name": "ExchangeFeeAddress",
-        "type": "binary",
-        "id": 4
-      }
-    ],
-    "Vote": [
-      {
-        "name": "Timestamp",
-        "type": "uint64",
-        "id": 1
-      }
-    ],
-    "VotingSystemField": [
-      {
-        "name": "Name",
-        "type": "string",
-        "id": 1
-      },
-      {
-        "name": "VoteType",
-        "type": "string",
-        "id": 2,
-        "fixed_size": 1
-      },
-      {
-        "name": "TallyLogic",
-        "type": "uint8",
-        "id": 3
-      },
-      {
-        "name": "ThresholdPercentage",
-        "type": "uint8",
-        "id": 4
-      },
-      {
-        "name": "VoteMultiplierPermitted",
-        "type": "bool",
-        "id": 5
-      },
-      {
-        "name": "HolderProposalFee",
-        "type": "uint64",
-        "id": 6
-      }
-    ]
+  "definitions": {
+    "Addition": {
+      "fields": [
+        {
+          "name": "Message",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "AdminIdentityCertificateField": {
+      "fields": [
+        {
+          "name": "EntityContract",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Signature",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "BlockHeight",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Expiration",
+          "id": 4,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "AdministratorField": {
+      "fields": [
+        {
+          "name": "Type",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Name",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "Alteration": {
+      "fields": [
+        {
+          "name": "EntryTxID",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Message",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "AmendmentField": {
+      "fields": [
+        {
+          "name": "FieldIndexPath",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Operation",
+          "id": 2,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Data",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "BallotCast": {
+      "fields": [
+        {
+          "name": "VoteTxId",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Vote",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "BallotCounted": {
+      "fields": [
+        {
+          "name": "VoteTxId",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Vote",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Quantity",
+          "id": 3,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 4,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "BodyOfAgreementAmendment": {
+      "fields": [
+        {
+          "name": "Revision",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Amendments",
+          "id": 2,
+          "type": {
+            "base_type": "struct",
+            "type_name": "AmendmentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "RefTxID",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "BodyOfAgreementFormation": {
+      "fields": [
+        {
+          "name": "Chapters",
+          "id": 1,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ChapterField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Definitions",
+          "id": 2,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DefinedTermField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Revision",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 4,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "BodyOfAgreementOffer": {
+      "fields": [
+        {
+          "name": "Chapters",
+          "id": 1,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ChapterField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Definitions",
+          "id": 2,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DefinedTermField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "ChapterField": {
+      "fields": [
+        {
+          "name": "Title",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Preamble",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Articles",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ClauseField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "ClauseField": {
+      "fields": [
+        {
+          "name": "Title",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Body",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Children",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ClauseField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "Confiscation": {
+      "fields": [
+        {
+          "name": "InstrumentType",
+          "id": 1,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Quantities",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "QuantityIndexField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "DepositQty",
+          "id": 4,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 5,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "ContractAddressChange": {
+      "fields": [
+        {
+          "name": "NewContractAddress",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "ContractAmendment": {
+      "fields": [
+        {
+          "name": "ChangeAdministrationAddress",
+          "id": 1,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "ChangeOperatorAddress",
+          "id": 2,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "ContractRevision",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Amendments",
+          "id": 4,
+          "type": {
+            "base_type": "struct",
+            "type_name": "AmendmentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "RefTxID",
+          "id": 5,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "ContractFormation": {
+      "fields": [
+        {
+          "name": "ContractName",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "BodyOfAgreementType",
+          "id": 2,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "BodyOfAgreement",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "SupportingDocs",
+          "id": 5,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DocumentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "ContractExpiration",
+          "id": 8,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "ContractURI",
+          "id": 9,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Issuer",
+          "id": 10,
+          "type": {
+            "base_type": "struct",
+            "type_name": "EntityField",
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "ContractFee",
+          "id": 16,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "VotingSystems",
+          "id": 17,
+          "type": {
+            "base_type": "struct",
+            "type_name": "VotingSystemField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "ContractPermissions",
+          "id": 18,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "RestrictedQtyInstruments",
+          "id": 19,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "AdministrationProposal",
+          "id": 20,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "HolderProposal",
+          "id": 21,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "Oracles",
+          "id": 22,
+          "type": {
+            "base_type": "struct",
+            "type_name": "OracleField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "MasterAddress",
+          "id": 23,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "ContractRevision",
+          "id": 24,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 25,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "EntityContract",
+          "id": 26,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "OperatorEntityContract",
+          "id": 27,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "ContractType",
+          "id": 28,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Services",
+          "id": 29,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ServiceField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "AdminIdentityCertificates",
+          "id": 30,
+          "type": {
+            "base_type": "struct",
+            "type_name": "AdminIdentityCertificateField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "AdminAddress",
+          "id": 31,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "OperatorAddress",
+          "id": 32,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "GoverningLaw",
+          "id": 33,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Jurisdiction",
+          "id": 34,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "ContractOffer": {
+      "fields": [
+        {
+          "name": "ContractName",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "BodyOfAgreementType",
+          "id": 2,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "BodyOfAgreement",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "SupportingDocs",
+          "id": 5,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DocumentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "ContractExpiration",
+          "id": 8,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "ContractURI",
+          "id": 9,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Issuer",
+          "id": 10,
+          "type": {
+            "base_type": "struct",
+            "type_name": "EntityField",
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "ContractOperatorIncluded",
+          "id": 12,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "ContractFee",
+          "id": 17,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "VotingSystems",
+          "id": 18,
+          "type": {
+            "base_type": "struct",
+            "type_name": "VotingSystemField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "ContractPermissions",
+          "id": 19,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "RestrictedQtyInstruments",
+          "id": 20,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "AdministrationProposal",
+          "id": 21,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "HolderProposal",
+          "id": 22,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "Oracles",
+          "id": 23,
+          "type": {
+            "base_type": "struct",
+            "type_name": "OracleField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "MasterAddress",
+          "id": 24,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "EntityContract",
+          "id": 25,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "OperatorEntityContract",
+          "id": 26,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "ContractType",
+          "id": 27,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Services",
+          "id": 28,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ServiceField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "AdminIdentityCertificates",
+          "id": 29,
+          "type": {
+            "base_type": "struct",
+            "type_name": "AdminIdentityCertificateField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "GoverningLaw",
+          "id": 30,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Jurisdiction",
+          "id": 31,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "DefinedTermField": {
+      "fields": [
+        {
+          "name": "Term",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Definition",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "DocumentField": {
+      "fields": [
+        {
+          "name": "Name",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Type",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Contents",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "EntityField": {
+      "fields": [
+        {
+          "name": "Name",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Type",
+          "id": 2,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 1
+          }
+        },
+        {
+          "name": "LEI",
+          "id": 3,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 20
+          }
+        },
+        {
+          "name": "UnitNumber",
+          "id": 4,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "BuildingNumber",
+          "id": 5,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Street",
+          "id": 6,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "SuburbCity",
+          "id": 7,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "TerritoryStateProvinceCode",
+          "id": 8,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 5
+          }
+        },
+        {
+          "name": "CountryCode",
+          "id": 9,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "PostalZIPCode",
+          "id": 10,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 12
+          }
+        },
+        {
+          "name": "EmailAddress",
+          "id": 11,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "PhoneNumber",
+          "id": 12,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Administration",
+          "id": 13,
+          "type": {
+            "base_type": "struct",
+            "type_name": "AdministratorField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Management",
+          "id": 14,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ManagerField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "DomainName",
+          "id": 15,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "PaymailHandle",
+          "id": 17,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "Establishment": {
+      "fields": [
+        {
+          "name": "Message",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "Freeze": {
+      "fields": [
+        {
+          "name": "InstrumentType",
+          "id": 1,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Quantities",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "QuantityIndexField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "FreezePeriod",
+          "id": 4,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 5,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "InstrumentCreation": {
+      "fields": [
+        {
+          "name": "InstrumentCode",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "InstrumentIndex",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "InstrumentPermissions",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "EnforcementOrdersPermitted",
+          "id": 6,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "VotingRights",
+          "id": 7,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "VoteMultiplier",
+          "id": 8,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "AdministrationProposal",
+          "id": 9,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "HolderProposal",
+          "id": 10,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "InstrumentModificationGovernance",
+          "id": 11,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "AuthorizedTokenQty",
+          "id": 12,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "InstrumentType",
+          "id": 13,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentPayload",
+          "id": 14,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "InstrumentRevision",
+          "id": 15,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 16,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "TradeRestrictions",
+          "id": 17,
+          "type": {
+            "base_type": "string",
+            "is_array": true
+          }
+        }
+      ]
+    },
+    "InstrumentDefinition": {
+      "fields": [
+        {
+          "name": "InstrumentPermissions",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "EnforcementOrdersPermitted",
+          "id": 4,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "VotingRights",
+          "id": 5,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "VoteMultiplier",
+          "id": 6,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "AdministrationProposal",
+          "id": 7,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "HolderProposal",
+          "id": 8,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "InstrumentModificationGovernance",
+          "id": 9,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "AuthorizedTokenQty",
+          "id": 10,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "InstrumentType",
+          "id": 11,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentPayload",
+          "id": 12,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "TradeRestrictions",
+          "id": 13,
+          "type": {
+            "base_type": "string",
+            "is_array": true
+          }
+        }
+      ]
+    },
+    "InstrumentModification": {
+      "fields": [
+        {
+          "name": "InstrumentType",
+          "id": 1,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "InstrumentRevision",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Amendments",
+          "id": 4,
+          "type": {
+            "base_type": "struct",
+            "type_name": "AmendmentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "RefTxID",
+          "id": 5,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "InstrumentReceiverField": {
+      "fields": [
+        {
+          "name": "Address",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Quantity",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "OracleSigAlgorithm",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "OracleIndex",
+          "id": 4,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "OracleConfirmationSig",
+          "id": 5,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "OracleSigBlockHeight",
+          "id": 6,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "OracleSigExpiry",
+          "id": 7,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "InstrumentSettlementField": {
+      "fields": [
+        {
+          "name": "ContractIndex",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "InstrumentType",
+          "id": 2,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Settlements",
+          "id": 4,
+          "type": {
+            "base_type": "struct",
+            "type_name": "QuantityIndexField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "InstrumentTransferField": {
+      "fields": [
+        {
+          "name": "ContractIndex",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "InstrumentType",
+          "id": 2,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "InstrumentSenders",
+          "id": 4,
+          "type": {
+            "base_type": "struct",
+            "type_name": "QuantityIndexField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "InstrumentReceivers",
+          "id": 5,
+          "type": {
+            "base_type": "struct",
+            "type_name": "InstrumentReceiverField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "ManagerField": {
+      "fields": [
+        {
+          "name": "Type",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Name",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "Message": {
+      "fields": [
+        {
+          "name": "SenderIndexes",
+          "id": 1,
+          "type": {
+            "base_type": "uint32",
+            "is_array": true
+          }
+        },
+        {
+          "name": "ReceiverIndexes",
+          "id": 2,
+          "type": {
+            "base_type": "uint32",
+            "is_array": true
+          }
+        },
+        {
+          "name": "MessageCode",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "MessagePayload",
+          "id": 4,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "OracleField": {
+      "fields": [
+        {
+          "name": "OracleTypes",
+          "id": 4,
+          "type": {
+            "base_type": "uint32",
+            "is_array": true
+          }
+        },
+        {
+          "name": "EntityContract",
+          "id": 5,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "Order": {
+      "fields": [
+        {
+          "name": "ComplianceAction",
+          "id": 1,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 1
+          }
+        },
+        {
+          "name": "InstrumentType",
+          "id": 2,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "TargetAddresses",
+          "id": 4,
+          "type": {
+            "base_type": "struct",
+            "type_name": "TargetAddressField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "FreezeTxId",
+          "id": 5,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "FreezePeriod",
+          "id": 6,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "DepositAddress",
+          "id": 7,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "AuthorityName",
+          "id": 8,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "AuthorityPublicKey",
+          "id": 9,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "SignatureAlgorithm",
+          "id": 10,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "OrderSignature",
+          "id": 11,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "BitcoinDispersions",
+          "id": 14,
+          "type": {
+            "base_type": "struct",
+            "type_name": "QuantityIndexField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Message",
+          "id": 15,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "SupportingEvidenceFormat",
+          "id": 16,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "SupportingEvidence",
+          "id": 17,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "ReferenceTransactions",
+          "id": 18,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ReferenceTransactionField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "Proposal": {
+      "fields": [
+        {
+          "name": "Type",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "InstrumentType",
+          "id": 2,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "VoteSystem",
+          "id": 4,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "ProposedAmendments",
+          "id": 5,
+          "type": {
+            "base_type": "struct",
+            "type_name": "AmendmentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "VoteOptions",
+          "id": 6,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "VoteMax",
+          "id": 7,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "ProposalDescription",
+          "id": 8,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "ProposalDocumentHash",
+          "id": 9,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "VoteCutOffTimestamp",
+          "id": 10,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "QuantityIndexField": {
+      "fields": [
+        {
+          "name": "Index",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Quantity",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "Reconciliation": {
+      "fields": [
+        {
+          "name": "InstrumentType",
+          "id": 1,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Quantities",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "QuantityIndexField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 4,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "ReferenceTransactionField": {
+      "fields": [
+        {
+          "name": "Transaction",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Outputs",
+          "id": 2,
+          "type": {
+            "base_type": "binary",
+            "is_array": true
+          }
+        }
+      ]
+    },
+    "Rejection": {
+      "fields": [
+        {
+          "name": "AddressIndexes",
+          "id": 1,
+          "type": {
+            "base_type": "uint32",
+            "is_array": true
+          }
+        },
+        {
+          "name": "RejectAddressIndex",
+          "id": 2,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "RejectionCode",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Message",
+          "id": 4,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 5,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "Removal": {
+      "fields": [
+        {
+          "name": "EntryTxID",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Message",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "Result": {
+      "fields": [
+        {
+          "name": "InstrumentType",
+          "id": 1,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 3
+          }
+        },
+        {
+          "name": "InstrumentCode",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "ProposedAmendments",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "AmendmentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "VoteTxId",
+          "id": 4,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "OptionTally",
+          "id": 5,
+          "type": {
+            "base_type": "uint64",
+            "is_array": true
+          }
+        },
+        {
+          "name": "Result",
+          "id": 6,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 7,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "ServiceField": {
+      "fields": [
+        {
+          "name": "Type",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "URL",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "PublicKey",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "Settlement": {
+      "fields": [
+        {
+          "name": "Instruments",
+          "id": 1,
+          "type": {
+            "base_type": "struct",
+            "type_name": "InstrumentSettlementField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "StaticContractFormation": {
+      "fields": [
+        {
+          "name": "ContractName",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "ContractCode",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "BodyOfAgreementType",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "BodyOfAgreement",
+          "id": 4,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "ContractType",
+          "id": 5,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "SupportingDocs",
+          "id": 6,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DocumentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "ContractRevision",
+          "id": 7,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "EffectiveDate",
+          "id": 10,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "ContractExpiration",
+          "id": 11,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "ContractURI",
+          "id": 12,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "PrevRevTxID",
+          "id": 13,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Entities",
+          "id": 14,
+          "type": {
+            "base_type": "struct",
+            "type_name": "EntityField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "EntityOracle",
+          "id": 15,
+          "type": {
+            "base_type": "struct",
+            "type_name": "OracleField",
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "EntityOracleSignature",
+          "id": 16,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "EntityOracleSigBlockHeight",
+          "id": 17,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "GoverningLaw",
+          "id": 18,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Jurisdiction",
+          "id": 19,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "TargetAddressField": {
+      "fields": [
+        {
+          "name": "Address",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Quantity",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "Thaw": {
+      "fields": [
+        {
+          "name": "FreezeTxId",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "Transfer": {
+      "fields": [
+        {
+          "name": "Instruments",
+          "id": 1,
+          "type": {
+            "base_type": "struct",
+            "type_name": "InstrumentTransferField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "OfferExpiry",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "ExchangeFee",
+          "id": 3,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "ExchangeFeeAddress",
+          "id": 4,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "Vote": {
+      "fields": [
+        {
+          "name": "Timestamp",
+          "id": 1,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "VotingSystemField": {
+      "fields": [
+        {
+          "name": "Name",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "VoteType",
+          "id": 2,
+          "type": {
+            "base_type": "string",
+            "fixed_size": 1
+          }
+        },
+        {
+          "name": "TallyLogic",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "ThresholdPercentage",
+          "id": 4,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "VoteMultiplierPermitted",
+          "id": 5,
+          "type": {
+            "base_type": "bool"
+          }
+        },
+        {
+          "name": "HolderProposalFee",
+          "id": 6,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    }
   }
 }
