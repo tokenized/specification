@@ -1,0 +1,36 @@
+{
+  "ContractName": "Test Contract Name",
+  "BodyOfAgreementType": 0,
+  "BodyOfAgreement": null,
+  "SupportingDocs": null,
+  "ContractExpiration": 0,
+  "ContractURI": "",
+  "Issuer": null,
+  "ContractOperatorIncluded": false,
+  "ContractFee": 2000,
+  "VotingSystems": null,
+  "ContractPermissions": null,
+  "RestrictedQtyInstruments": 0,
+  "AdministrationProposal": false,
+  "HolderProposal": false,
+  "Oracles": null,
+  "MasterAddress": null,
+  "EntityContract": null,
+  "OperatorEntityContract": null,
+  "ContractType": 0,
+  "Services": [
+    {
+      "Type": 0,
+      "URL": "test://test_url.com",
+      "PublicKey": "At1piGewoPfB5wrTbbfkhg/rq768WZwbvdHOdzfKkiAU"
+    },
+    {
+      "Type": 1,
+      "URL": "test://test_url.com",
+      "PublicKey": null
+    }
+  ],
+  "AdminIdentityCertificates": null,
+  "GoverningLaw": "",
+  "Jurisdiction": ""
+}
