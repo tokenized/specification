@@ -228,8 +228,20 @@ func (f *Field) GoType() string {
 	gt := f.GoSingularType()
 
 	if f.IsList() {
-		gt = "[]" + gt
+		gt = "[]" + f.GoSingularTypeWithPointer()
 	}
+	return gt
+}
+
+func (f *Field) GoTypeWithPointer() string {
+	gt := f.GoSingularType()
+
+	if f.IsList() {
+		gt = "[]" + f.GoSingularTypeWithPointer()
+	} else if f.IsCompoundType {
+		gt = "*" + gt
+	}
+
 	return gt
 }
 
@@ -274,6 +286,117 @@ func (f *Field) ProtobufType() string {
 	}
 
 	return pbt
+}
+
+func (f *Field) BSORType() string {
+	result := ""
+	if f.IsList() {
+		if f.Size > 0 {
+			result += fmt.Sprintf("[%d]", f.Size) // fixed size list
+		} else {
+			result += "[]" // variable size list
+		}
+	}
+
+	baseType := f.BaseType()
+
+	if f.AliasField != nil {
+		return result + f.AliasField.BSORType()
+	}
+
+	switch baseType {
+	case "varchar":
+		baseType = "string"
+
+	case "fixedchar":
+		baseType = fmt.Sprintf("string(%d)", f.Size)
+
+	case "varbin":
+		baseType = "binary"
+
+	case "bin":
+		baseType = fmt.Sprintf("binary(%d)", f.Size)
+
+	case "uint":
+		if f.Size > 4 {
+			baseType = "uint64"
+		} else if f.Size > 2 {
+			baseType = "uint32"
+		} else if f.Size > 1 {
+			baseType = "uint16"
+		} else {
+			baseType = "uint8"
+		}
+
+	case "int":
+		if f.Size > 4 {
+			baseType = "int64"
+		} else if f.Size > 2 {
+			baseType = "int32"
+		} else if f.Size > 1 {
+			baseType = "int16"
+		} else {
+			baseType = "int8"
+		}
+	}
+
+	if f.IsCompoundType {
+		result += baseType + "Field"
+	} else {
+		result += baseType
+	}
+
+	return result
+}
+
+// BSORFullType returns the BSOR base type name and the fixed size if it is fixed size.
+func (f *Field) BSORFullType() (string, uint) {
+	if f.AliasField != nil {
+		return f.AliasField.BSORFullType()
+	}
+
+	baseType := f.BaseType()
+	switch baseType {
+	case "varchar":
+		return "string", 0
+
+	case "fixedchar":
+		return "string", uint(f.Size)
+
+	case "varbin":
+		return "binary", 0
+
+	case "bin":
+		return "binary", uint(f.Size)
+
+	case "uint":
+		if f.Size > 4 {
+			return "uint64", 0
+		} else if f.Size > 2 {
+			return "uint32", 0
+		} else if f.Size > 1 {
+			return "uint16", 0
+		} else {
+			return "uint8", 0
+		}
+
+	case "int":
+		if f.Size > 4 {
+			return "int64", 0
+		} else if f.Size > 2 {
+			return "int32", 0
+		} else if f.Size > 1 {
+			return "int16", 0
+		} else {
+			return "int8", 0
+		}
+	}
+
+	if f.IsCompoundType {
+		return baseType + "Field", 0
+	}
+
+	return baseType, 0
 }
 
 func (f *Field) MarkdownType() string {

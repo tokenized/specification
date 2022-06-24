@@ -10,27 +10,23 @@ import (
 	"time"
 
 	"github.com/tokenized/envelope/pkg/golang/envelope"
+	"github.com/tokenized/envelope/pkg/golang/envelope/base"
+	envelopeBase "github.com/tokenized/envelope/pkg/golang/envelope/base"
 	envelopeV0 "github.com/tokenized/envelope/pkg/golang/envelope/v0"
 	envelopeV1 "github.com/tokenized/envelope/pkg/golang/envelope/v1"
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/bsor"
+	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/specification/dist/golang/actions"
+	actionsv0 "github.com/tokenized/specification/dist/golang/v0/actions"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/ripemd160"
 )
 
 const (
-	// ProtocolID is the current protocol ID
-	ProtocolID = "TKN"
-
-	// TestProtocolID is the current protocol ID for testing.
-	TestProtocolID = "test.TKN"
-
 	// Version of the Tokenized protocol.
-	Version = uint64(0)
-
-	FlagProtocolID = "flag"
+	Version = uint64(1)
 
 	FlagVersion = uint64(0)
 
@@ -42,6 +38,14 @@ const (
 )
 
 var (
+	// ProtocolID is the current protocol ID
+	ProtocolID = envelopeBase.ProtocolID("TKN")
+
+	// TestProtocolID is the current protocol ID for testing.
+	TestProtocolID = envelopeBase.ProtocolID("test.TKN")
+
+	FlagProtocolID = envelopeBase.ProtocolID("flag")
+
 	ErrNotTokenized   = errors.New("Not Tokenized")
 	ErrNotFlag        = errors.New("Not Flag")
 	ErrUnknownVersion = errors.New("Unknown Version")
@@ -50,161 +54,225 @@ var (
 	DefaultEndian = binary.LittleEndian
 )
 
-func GetProtocolID(isTest bool) []byte {
+func GetProtocolID(isTest bool) envelopeBase.ProtocolID {
 	if isTest {
-		return []byte(TestProtocolID)
+		return TestProtocolID
 	} else {
-		return []byte(ProtocolID)
+		return ProtocolID
 	}
 }
 
 // Serialize serializes an action into a Tokenized OP_RETURN script.
 func Serialize(action actions.Action, isTest bool) (bitcoin.Script, error) {
-	message, err := WrapAction(action, isTest)
+	scriptItems, err := WrapAction(action, isTest)
 	if err != nil {
 		return nil, errors.Wrap(err, "wrap action")
 	}
 
-	var buf bytes.Buffer
-	err = message.Serialize(&buf)
-	if err != nil {
-		return nil, errors.Wrap(err, "serialize envelope")
-	}
-
-	return bitcoin.Script(buf.Bytes()), nil
+	return scriptItems.Script()
 }
 
 // Deserialize reads an action from a Tokenized OP_RETURN script.
 func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
-	buf := bytes.NewReader(script)
-	message, err := envelope.Deserialize(buf)
-	if err == envelope.ErrNotEnvelope {
+	r := bytes.NewReader(script)
+
+	envelopeVersion, err := envelopeBase.ParseHeader(r)
+	if err == envelopeBase.ErrNotEnvelope {
 		return nil, ErrNotTokenized
 	} else if err != nil {
 		return nil, err
 	}
 
-	switch msg := message.(type) {
-	case *envelopeV0.Message:
-		if !bytes.Equal(msg.PayloadProtocol(), GetProtocolID(isTest)) {
-			return nil, ErrNotTokenized
-		}
-
-		if msg.PayloadVersion() != Version {
-			return nil, ErrUnknownVersion
-		}
-
-		return actions.Deserialize(msg.PayloadIdentifier(), msg.Payload())
-
-	default:
-		protocols := msg.PayloadProtocols()
-		if len(protocols) != 1 {
-			return nil, errors.Wrapf(ErrNotTokenized, "wrong protocol count: %d", len(protocols))
-		}
-
-		if !bytes.Equal(protocols[0], GetProtocolID(isTest)) {
-			return nil, ErrNotTokenized
-		}
-
-		payloadCount := msg.PayloadCount()
-		if payloadCount != 2 && payloadCount != 3 {
-			return nil, errors.Wrapf(ErrNotTokenized, "wrong payload count: %d",
-				msg.PayloadCount())
-		}
-
-		version, _, err := bitcoin.ParsePushNumberScript(msg.PayloadAt(0))
-		if err != nil {
-			return nil, errors.Wrap(ErrNotTokenized, errors.Wrap(err, "version number").Error())
-		}
-		if version < 0 || uint64(version) != Version {
-			return nil, ErrUnknownVersion
-		}
-
-		if payloadCount == 2 {
-			// Action payload is not provided because it was empty.
-			result := actions.NewActionFromCode(string(msg.PayloadAt(1)))
-			if result == nil {
-				return nil, errors.Wrapf(ErrNotTokenized, "unknown action code: %s",
-					string(msg.PayloadAt(1)))
-			}
-
-			return result, nil
-		}
-
-		return actions.Deserialize(msg.PayloadAt(1), msg.PayloadAt(2))
+	if envelopeVersion == 0 {
+		return parseEnvelopeV0(r, isTest)
 	}
+
+	if envelopeVersion == 1 {
+		return parseEnvelopeV1(r, isTest)
+	}
+
+	return nil, errors.Wrap(ErrUnknownVersion, "envelope")
+}
+
+func parseEnvelopeV0(r *bytes.Reader, isTest bool) (actions.Action, error) {
+	msg, err := envelopeV0.Deserialize(r)
+	if err == envelopeBase.ErrNotEnvelope {
+		return nil, ErrNotTokenized
+	} else if err != nil {
+		return nil, errors.Wrap(err, "envelope v0: parse")
+	}
+
+	if !bytes.Equal(msg.PayloadProtocol(), GetProtocolID(isTest)) {
+		return nil, ErrNotTokenized
+	}
+
+	version := msg.PayloadVersion()
+
+	if version == 0 {
+		return parseV0(msg.PayloadIdentifier(), msg.Payload())
+	}
+
+	return nil, errors.Wrapf(ErrUnknownVersion, "envelope v0: %d", version)
+}
+
+func parseEnvelopeV1(r *bytes.Reader, isTest bool) (actions.Action, error) {
+	envelopeData, err := envelopeV1.ParseAfterHeader(r)
+	if err != nil {
+		return nil, errors.Wrap(err, "envelope v1: protocol ids")
+	}
+
+	if len(envelopeData.ProtocolIDs) != 1 ||
+		!bytes.Equal(envelopeData.ProtocolIDs[0], GetProtocolID(isTest)) {
+
+		return nil, errors.Wrap(ErrNotTokenized, "envelope v1: protocol id")
+	}
+
+	if len(envelopeData.Payload) < 2 {
+		return nil, errors.Wrap(ErrNotTokenized, "envelope v1: not enough payloads")
+	}
+
+	version, err := bitcoin.ScriptNumberValueUnsigned(envelopeData.Payload[0])
+	if err != nil {
+		return nil, errors.Wrap(err, "envelope v1: version")
+	}
+
+	if version == 0 {
+		code := []byte(envelopeData.Payload[1].Data)
+
+		var payload []byte
+		if len(envelopeData.Payload) > 2 {
+			payload = envelopeData.Payload[2].Data
+		}
+
+		return parseV0(code, payload)
+	}
+
+	if version == 1 {
+		return parseV1(envelopeData.Payload[1:])
+	}
+
+	return nil, errors.Wrapf(ErrUnknownVersion, "envelope v1: %d", version)
+}
+
+func parseV0(code []byte, payload []byte) (actions.Action, error) {
+	actionv0, err := actionsv0.Deserialize(code, payload)
+	if err != nil {
+		return nil, errors.Wrap(err, "deserialize v0")
+	}
+
+	// Convert to v1 action
+	return convertV0toV1(actionv0)
+}
+
+func parseV1(payload bitcoin.ScriptItems) (actions.Action, error) {
+	return actions.Deserialize(payload)
+}
+
+// convertV0toV1 is needed to read the old protobuf structures into the new bsor structures. It
+// requires the json field names to match and be the same type.
+func convertV0toV1(actionv0 actionsv0.Action) (actions.Action, error) {
+	js, err := json.Marshal(actionv0)
+	if err != nil {
+		return nil, errors.Wrap(err, "json marshal")
+	}
+
+	actionv1 := actions.NewActionFromCode(actionv0.Code())
+	if actionv1 == nil {
+		return nil, fmt.Errorf("No action for code: %s", actionv0.Code())
+	}
+
+	if err := json.Unmarshal(js, actionv1); err != nil {
+		return nil, errors.Wrap(err, "json unmarshal")
+	}
+
+	return actionv1, nil
 }
 
 func ActionCodeForScript(script bitcoin.Script, isTest bool) (string, error) {
-	buf := bytes.NewReader(script)
-	message, err := envelope.Deserialize(buf)
-	if err == envelope.ErrNotEnvelope {
+	r := bytes.NewReader(script)
+
+	envelopeVersion, err := envelopeBase.ParseHeader(r)
+	if err == envelopeBase.ErrNotEnvelope {
 		return "", ErrNotTokenized
 	} else if err != nil {
 		return "", err
 	}
 
-	switch msg := message.(type) {
-	case *envelopeV0.Message:
+	if envelopeVersion == 0 {
+		msg, err := envelopeV0.Deserialize(r)
+		if err == envelopeBase.ErrNotEnvelope {
+			return "", ErrNotTokenized
+		} else if err != nil {
+			return "", errors.Wrap(err, "envelope v0: parse")
+		}
+
 		if !bytes.Equal(msg.PayloadProtocol(), GetProtocolID(isTest)) {
 			return "", ErrNotTokenized
 		}
 
-		if msg.PayloadVersion() != Version {
-			return "", ErrUnknownVersion
+		version := msg.PayloadVersion()
+
+		if version == 0 {
+			return string(msg.PayloadIdentifier()), nil
 		}
 
-		return string(msg.PayloadIdentifier()), nil
-
-	default:
-		protocols := msg.PayloadProtocols()
-		if len(protocols) != 1 {
-			return "", errors.Wrapf(ErrNotTokenized, "wrong protocol count: %d", len(protocols))
-		}
-
-		if !bytes.Equal(protocols[0], GetProtocolID(isTest)) {
-			return "", ErrNotTokenized
-		}
-
-		payloadCount := msg.PayloadCount()
-		if payloadCount != 2 && payloadCount != 3 {
-			return "", errors.Wrapf(ErrNotTokenized, "wrong payload count: %d", payloadCount)
-		}
-
-		version, _, err := bitcoin.ParsePushNumberScript(msg.PayloadAt(0))
-		if err != nil {
-			return "", errors.Wrap(ErrNotTokenized, errors.Wrap(err, "version number").Error())
-		}
-		if version < 0 || uint64(version) != Version {
-			return "", ErrUnknownVersion
-		}
-
-		return string(msg.PayloadAt(1)), nil
+		return "", errors.Wrapf(ErrUnknownVersion, "envelope v0: %d", version)
 	}
+
+	if envelopeVersion == 1 {
+		envelopeData, err := envelopeV1.ParseAfterHeader(r)
+		if err != nil {
+			return "", errors.Wrap(err, "envelope v1: protocol ids")
+		}
+
+		if len(envelopeData.ProtocolIDs) != 1 ||
+			!bytes.Equal(envelopeData.ProtocolIDs[0], GetProtocolID(isTest)) {
+			return "", errors.Wrap(ErrNotTokenized, "envelope v1: protocol id")
+		}
+
+		if len(envelopeData.Payload) < 2 {
+			return "", errors.Wrap(ErrNotTokenized, "envelope v1: not enough payloads")
+		}
+
+		version, err := bitcoin.ScriptNumberValueUnsigned(envelopeData.Payload[0])
+		if err != nil {
+			return "", errors.Wrap(err, "envelope v1: version")
+		}
+
+		if version == 0 {
+			return string([]byte(envelopeData.Payload[1].Data)), nil
+		}
+
+		if version == 1 {
+			return string([]byte(envelopeData.Payload[1].Data)), nil
+		}
+	}
+
+	return "", errors.Wrap(ErrUnknownVersion, "envelope")
 }
 
 // WrapAction wraps an action in an envelope message.
-func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error) {
-	payload, err := proto.Marshal(action)
+func WrapAction(action actions.Action, isTest bool) (bitcoin.ScriptItems, error) {
+	scriptItems := envelopeV1.HeaderScriptItems(base.ProtocolIDs{GetProtocolID(isTest)})
+
+	payloadScriptItems, err := bsor.Marshal(action)
 	if err != nil {
 		return nil, errors.Wrap(err, "serialize action")
 	}
 
-	message := envelopeV1.NewMessage([][]byte{GetProtocolID(isTest)},
-		[][]byte{bitcoin.PushNumberScript(int64(Version)), []byte(action.Code())})
+	scriptItems = append(scriptItems, bitcoin.PushNumberScriptItem(int64(len(payloadScriptItems)+2)))
 
-	if len(payload) > 0 {
-		// Only add action payload if it isn't empty.
-		message.AddPayload(payload)
-	}
+	scriptItems = append(scriptItems, bitcoin.PushNumberScriptItem(int64(Version)))
 
-	return message, nil
+	scriptItems = append(scriptItems, bitcoin.NewPushDataScriptItem([]byte(action.Code())))
+
+	return append(scriptItems, payloadScriptItems...), nil
 }
 
 // SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
 //   message.
 func SerializeFlagOutputScript(flag []byte) (bitcoin.Script, error) {
-	message := envelopeV1.NewMessage([][]byte{[]byte(FlagProtocolID)},
+	message := envelopeV1.NewMessage(base.ProtocolIDs{FlagProtocolID},
 		[][]byte{bitcoin.PushNumberScript(int64(FlagVersion)), flag})
 
 	var buf bytes.Buffer
@@ -218,7 +286,7 @@ func SerializeFlagOutputScript(flag []byte) (bitcoin.Script, error) {
 func DeserializeFlagOutputScript(script bitcoin.Script) ([]byte, error) {
 	buf := bytes.NewReader(script)
 	message, err := envelope.Deserialize(buf)
-	if err == envelope.ErrNotEnvelope {
+	if err == envelopeBase.ErrNotEnvelope {
 		return nil, ErrNotFlag
 	} else if err != nil {
 		return nil, err

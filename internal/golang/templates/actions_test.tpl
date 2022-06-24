@@ -9,7 +9,10 @@ func TestEmptyDeserialize(t *testing.T) {
     var ok bool
 {{- range .Messages }}
 	// {{.Name}} identifies a payload as a {{.Name}} message.
-	action{{.Name}}, err := Deserialize([]byte(Code{{.Name}}), nil)
+	action{{.Name}}ScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(Code{{.Name}})),
+	}
+	action{{.Name}}, err := Deserialize(action{{.Name}}ScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for {{.Name}} : %s", err)
 	}

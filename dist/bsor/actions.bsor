@@ -1,0 +1,405 @@
+version 0
+
+InstrumentDefinition {
+   1 InstrumentPermissions            binary
+   4 EnforcementOrdersPermitted       bool
+   5 VotingRights                     bool
+   6 VoteMultiplier                   uint32
+   7 AdministrationProposal           bool
+   8 HolderProposal                   bool
+   9 InstrumentModificationGovernance uint32
+  10 AuthorizedTokenQty               uint64
+  11 InstrumentType                   string(3)
+  12 InstrumentPayload                binary
+  13 TradeRestrictions                []string
+}
+
+Thaw {
+  1 FreezeTxId binary
+  2 Timestamp  uint64
+}
+
+Removal {
+  1 EntryTxID binary
+  2 Message   string
+}
+
+Vote {
+  1 Timestamp uint64
+}
+
+Addition {
+  1 Message string
+}
+
+AdministratorField {
+  1 Type uint32
+  2 Name string
+}
+
+AmendmentField {
+  1 FieldIndexPath binary
+  2 Operation      uint32
+  3 Data           binary
+}
+
+InstrumentModification {
+  1 InstrumentType     string(3)
+  2 InstrumentCode     binary
+  3 InstrumentRevision uint32
+  4 Amendments         []*AmendmentField
+  5 RefTxID            binary
+}
+
+InstrumentTransferField {
+  1 ContractIndex       uint32
+  2 InstrumentType      string(3)
+  3 InstrumentCode      binary
+  4 InstrumentSenders   []*QuantityIndexField
+  5 InstrumentReceivers []*InstrumentReceiverField
+}
+
+InstrumentReceiverField {
+  1 Address               binary
+  2 Quantity              uint64
+  3 OracleSigAlgorithm    uint32
+  4 OracleIndex           uint32
+  5 OracleConfirmationSig binary
+  6 OracleSigBlockHeight  uint32
+  7 OracleSigExpiry       uint64
+}
+
+InstrumentSettlementField {
+  1 ContractIndex  uint32
+  2 InstrumentType string(3)
+  3 InstrumentCode binary
+  4 Settlements    []*QuantityIndexField
+}
+
+Rejection {
+  1 AddressIndexes     []uint32
+  2 RejectAddressIndex uint32
+  3 RejectionCode      uint32
+  4 Message            string
+  5 Timestamp          uint64
+}
+
+ManagerField {
+  1 Type uint32
+  2 Name string
+}
+
+BodyOfAgreementAmendment {
+  1 Revision   uint32
+  2 Amendments []*AmendmentField
+  3 RefTxID    binary
+}
+
+BallotCast {
+  1 VoteTxId binary
+  2 Vote     string
+}
+
+Freeze {
+  1 InstrumentType string(3)
+  2 InstrumentCode binary
+  3 Quantities     []*QuantityIndexField
+  4 FreezePeriod   uint64
+  5 Timestamp      uint64
+}
+
+BodyOfAgreementOffer {
+  1 Chapters    []*ChapterField
+  2 Definitions []*DefinedTermField
+}
+
+ClauseField {
+  1 Title    string
+  2 Body     string
+  3 Children []*ClauseField
+}
+
+Result {
+  1 InstrumentType     string(3)
+  2 InstrumentCode     binary
+  3 ProposedAmendments []*AmendmentField
+  4 VoteTxId           binary
+  5 OptionTally        []uint64
+  6 Result             string
+  7 Timestamp          uint64
+}
+
+Reconciliation {
+  1 InstrumentType string(3)
+  2 InstrumentCode binary
+  3 Quantities     []*QuantityIndexField
+  4 Timestamp      uint64
+}
+
+Message {
+  1 SenderIndexes   []uint32
+  2 ReceiverIndexes []uint32
+  3 MessageCode     uint32
+  4 MessagePayload  binary
+}
+
+DocumentField {
+  1 Name     string
+  2 Type     string
+  3 Contents binary
+}
+
+InstrumentCreation {
+   1 InstrumentCode                   binary
+   2 InstrumentIndex                  uint64
+   3 InstrumentPermissions            binary
+   6 EnforcementOrdersPermitted       bool
+   7 VotingRights                     bool
+   8 VoteMultiplier                   uint32
+   9 AdministrationProposal           bool
+  10 HolderProposal                   bool
+  11 InstrumentModificationGovernance uint32
+  12 AuthorizedTokenQty               uint64
+  13 InstrumentType                   string(3)
+  14 InstrumentPayload                binary
+  15 InstrumentRevision               uint32
+  16 Timestamp                        uint64
+  17 TradeRestrictions                []string
+}
+
+BallotCounted {
+  1 VoteTxId  binary
+  2 Vote      string
+  3 Quantity  uint64
+  4 Timestamp uint64
+}
+
+TargetAddressField {
+  1 Address  binary
+  2 Quantity uint64
+}
+
+Transfer {
+  1 Instruments        []*InstrumentTransferField
+  2 OfferExpiry        uint64
+  3 ExchangeFee        uint64
+  4 ExchangeFeeAddress binary
+}
+
+Proposal {
+   1 Type                 uint32
+   2 InstrumentType       string(3)
+   3 InstrumentCode       binary
+   4 VoteSystem           uint32
+   5 ProposedAmendments   []*AmendmentField
+   6 VoteOptions          string
+   7 VoteMax              uint32
+   8 ProposalDescription  string
+   9 ProposalDocumentHash binary
+  10 VoteCutOffTimestamp  uint64
+}
+
+VotingSystemField {
+  1 Name                    string
+  2 VoteType                string(1)
+  3 TallyLogic              uint32
+  4 ThresholdPercentage     uint32
+  5 VoteMultiplierPermitted bool
+  6 HolderProposalFee       uint64
+}
+
+OracleField {
+  4 OracleTypes    []uint32
+  5 EntityContract binary
+}
+
+ServiceField {
+  1 Type      uint32
+  2 URL       string
+  3 PublicKey binary
+}
+
+StaticContractFormation {
+   1 ContractName               string
+   2 ContractCode               binary
+   3 BodyOfAgreementType        uint32
+   4 BodyOfAgreement            binary
+   5 ContractType               string
+   6 SupportingDocs             []*DocumentField
+   7 ContractRevision           uint32
+  10 EffectiveDate              uint64
+  11 ContractExpiration         uint64
+  12 ContractURI                string
+  13 PrevRevTxID                binary
+  14 Entities                   []*EntityField
+  15 EntityOracle               *OracleField
+  16 EntityOracleSignature      binary
+  17 EntityOracleSigBlockHeight uint32
+  18 GoverningLaw               string
+  19 Jurisdiction               string
+}
+
+ChapterField {
+  1 Title    string
+  2 Preamble string
+  3 Articles []*ClauseField
+}
+
+BodyOfAgreementFormation {
+  1 Chapters    []*ChapterField
+  2 Definitions []*DefinedTermField
+  3 Revision    uint32
+  4 Timestamp   uint64
+}
+
+ReferenceTransactionField {
+  1 Transaction binary
+  2 Outputs     []binary
+}
+
+Confiscation {
+  1 InstrumentType string(3)
+  2 InstrumentCode binary
+  3 Quantities     []*QuantityIndexField
+  4 DepositQty     uint64
+  5 Timestamp      uint64
+}
+
+Establishment {
+  1 Message string
+}
+
+Alteration {
+  1 EntryTxID binary
+  2 Message   string
+}
+
+ContractOffer {
+   1 ContractName              string
+   2 BodyOfAgreementType       uint32
+   3 BodyOfAgreement           binary
+   5 SupportingDocs            []*DocumentField
+   8 ContractExpiration        uint64
+   9 ContractURI               string
+  10 Issuer                    *EntityField
+  12 ContractOperatorIncluded  bool
+  17 ContractFee               uint64
+  18 VotingSystems             []*VotingSystemField
+  19 ContractPermissions       binary
+  20 RestrictedQtyInstruments  uint64
+  21 AdministrationProposal    bool
+  22 HolderProposal            bool
+  23 Oracles                   []*OracleField
+  24 MasterAddress             binary
+  25 EntityContract            binary
+  26 OperatorEntityContract    binary
+  27 ContractType              uint32
+  28 Services                  []*ServiceField
+  29 AdminIdentityCertificates []*AdminIdentityCertificateField
+  30 GoverningLaw              string
+  31 Jurisdiction              string
+}
+
+EntityField {
+   1 Name                       string
+   2 Type                       string(1)
+   3 LEI                        string(20)
+   4 UnitNumber                 string
+   5 BuildingNumber             string
+   6 Street                     string
+   7 SuburbCity                 string
+   8 TerritoryStateProvinceCode string(5)
+   9 CountryCode                string(3)
+  10 PostalZIPCode              string(12)
+  11 EmailAddress               string
+  12 PhoneNumber                string
+  13 Administration             []*AdministratorField
+  14 Management                 []*ManagerField
+  15 DomainName                 string
+  17 PaymailHandle              string
+}
+
+ContractFormation {
+   1 ContractName              string
+   2 BodyOfAgreementType       uint32
+   3 BodyOfAgreement           binary
+   5 SupportingDocs            []*DocumentField
+   8 ContractExpiration        uint64
+   9 ContractURI               string
+  10 Issuer                    *EntityField
+  16 ContractFee               uint64
+  17 VotingSystems             []*VotingSystemField
+  18 ContractPermissions       binary
+  19 RestrictedQtyInstruments  uint64
+  20 AdministrationProposal    bool
+  21 HolderProposal            bool
+  22 Oracles                   []*OracleField
+  23 MasterAddress             binary
+  24 ContractRevision          uint32
+  25 Timestamp                 uint64
+  26 EntityContract            binary
+  27 OperatorEntityContract    binary
+  28 ContractType              uint32
+  29 Services                  []*ServiceField
+  30 AdminIdentityCertificates []*AdminIdentityCertificateField
+  31 AdminAddress              binary
+  32 OperatorAddress           binary
+  33 GoverningLaw              string
+  34 Jurisdiction              string
+}
+
+ContractAddressChange {
+  1 NewContractAddress binary
+  2 Timestamp          uint64
+}
+
+DefinedTermField {
+  1 Term       string
+  2 Definition string
+}
+
+Order {
+   1 ComplianceAction         string(1)
+   2 InstrumentType           string(3)
+   3 InstrumentCode           binary
+   4 TargetAddresses          []*TargetAddressField
+   5 FreezeTxId               binary
+   6 FreezePeriod             uint64
+   7 DepositAddress           binary
+   8 AuthorityName            string
+   9 AuthorityPublicKey       binary
+  10 SignatureAlgorithm       uint32
+  11 OrderSignature           binary
+  14 BitcoinDispersions       []*QuantityIndexField
+  15 Message                  string
+  16 SupportingEvidenceFormat uint32
+  17 SupportingEvidence       binary
+  18 ReferenceTransactions    []*ReferenceTransactionField
+}
+
+AdminIdentityCertificateField {
+  1 EntityContract binary
+  2 Signature      binary
+  3 BlockHeight    uint32
+  4 Expiration     uint64
+}
+
+ContractAmendment {
+  1 ChangeAdministrationAddress bool
+  2 ChangeOperatorAddress       bool
+  3 ContractRevision            uint32
+  4 Amendments                  []*AmendmentField
+  5 RefTxID                     binary
+}
+
+QuantityIndexField {
+  1 Index    uint32
+  2 Quantity uint64
+}
+
+Settlement {
+  1 Instruments []*InstrumentSettlementField
+  2 Timestamp   uint64
+}
+
+

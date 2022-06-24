@@ -11,16 +11,16 @@ all: prepare tools run-generate format test
 run-win: prepare-win tools run-generate format-win
 
 protobuf:
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/actions --js_out=library=actions,binary:dist/typescript/protobuf/actions --python_out=dist/python/ dist/protobuf/actions.proto
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/instruments --js_out=library=instruments,binary:dist/typescript/protobuf/instruments --python_out=dist/python/ dist/protobuf/instruments.proto
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/messages --js_out=library=messages,binary:dist/typescript/protobuf/messages --python_out=dist/python/ dist/protobuf/messages.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/v0/actions --js_out=library=actions,binary:dist/typescript/protobuf/actions --python_out=dist/python/ dist/protobuf/actions.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/v0/instruments --js_out=library=instruments,binary:dist/typescript/protobuf/instruments --python_out=dist/python/ dist/protobuf/instruments.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/v0/messages --js_out=library=messages,binary:dist/typescript/protobuf/messages --python_out=dist/python/ dist/protobuf/messages.proto
 
 generate-code:
 	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
 	goimports -w $(GO_DIST_DIR)
+	go run dist/bsor/golang/cmd/main.go dist/bsor/
 
-run-generate: generate-code protobuf
-	goimports -w $(GO_DIST_DIR)
+run-generate: generate-code
 
 dist-cli:
 	$(GO_DIST) -o dist/$(BINARY_CONTRACT_CLI) cmd/$(BINARY_CONTRACT_CLI)/main.go

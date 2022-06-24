@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/tokenized/pkg/json"
-	"github.com/tokenized/specification/dist/golang/permissions"
+	"github.com/tokenized/specification/dist/golang/v0/permissions"
 
 	"github.com/pkg/errors"
 )

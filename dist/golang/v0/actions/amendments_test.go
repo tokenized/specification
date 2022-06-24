@@ -6,8 +6,8 @@ import (
 
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/pkg/json"
-	"github.com/tokenized/specification/dist/golang/instruments"
-	"github.com/tokenized/specification/dist/golang/permissions"
+	"github.com/tokenized/specification/dist/golang/v0/instruments"
+	"github.com/tokenized/specification/dist/golang/v0/permissions"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"

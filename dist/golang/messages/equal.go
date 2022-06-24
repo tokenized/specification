@@ -2,11 +2,9 @@ package messages
 
 import (
 	"bytes"
-
-	proto "github.com/golang/protobuf/proto"
 )
 
-func (l *PublicMessage) Equal(right proto.Message) bool {
+func (l *PublicMessage) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -56,7 +54,7 @@ func (l *PublicMessage) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *PrivateMessage) Equal(right proto.Message) bool {
+func (l *PrivateMessage) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -106,7 +104,7 @@ func (l *PrivateMessage) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *RevertedTx) Equal(right proto.Message) bool {
+func (l *RevertedTx) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -136,7 +134,7 @@ func (l *RevertedTx) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Offer) Equal(right proto.Message) bool {
+func (l *Offer) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -166,7 +164,7 @@ func (l *Offer) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *SignatureRequest) Equal(right proto.Message) bool {
+func (l *SignatureRequest) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -196,7 +194,7 @@ func (l *SignatureRequest) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *SettlementRequest) Equal(right proto.Message) bool {
+func (l *SettlementRequest) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -241,7 +239,7 @@ func (l *SettlementRequest) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *OutputMetadata) Equal(right proto.Message) bool {
+func (l *OutputMetadata) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -286,7 +284,7 @@ func (l *OutputMetadata) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Distribution) Equal(right proto.Message) bool {
+func (l *Distribution) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -316,7 +314,7 @@ func (l *Distribution) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InitiateRelationship) Equal(right proto.Message) bool {
+func (l *InitiateRelationship) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -376,7 +374,7 @@ func (l *InitiateRelationship) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *PendingAcceptRelationship) Equal(right proto.Message) bool {
+func (l *PendingAcceptRelationship) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -406,7 +404,7 @@ func (l *PendingAcceptRelationship) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AcceptRelationship) Equal(right proto.Message) bool {
+func (l *AcceptRelationship) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -436,7 +434,7 @@ func (l *AcceptRelationship) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *RelationshipAmendment) Equal(right proto.Message) bool {
+func (l *RelationshipAmendment) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -476,7 +474,7 @@ func (l *RelationshipAmendment) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *InitiateThread) Equal(right proto.Message) bool {
+func (l *InitiateThread) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -506,7 +504,7 @@ func (l *InitiateThread) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *AdministratorField) Equal(right proto.Message) bool {
+func (l *AdministratorField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -536,7 +534,7 @@ func (l *AdministratorField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ChannelPartyField) Equal(right proto.Message) bool {
+func (l *ChannelPartyField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -566,7 +564,7 @@ func (l *ChannelPartyField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *DocumentField) Equal(right proto.Message) bool {
+func (l *DocumentField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -601,7 +599,7 @@ func (l *DocumentField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *EntityField) Equal(right proto.Message) bool {
+func (l *EntityField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -711,7 +709,7 @@ func (l *EntityField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *IdentityOracleProofField) Equal(right proto.Message) bool {
+func (l *IdentityOracleProofField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -746,7 +744,7 @@ func (l *IdentityOracleProofField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *ManagerField) Equal(right proto.Message) bool {
+func (l *ManagerField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -776,7 +774,7 @@ func (l *ManagerField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *OracleSignatureField) Equal(right proto.Message) bool {
+func (l *OracleSignatureField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -821,7 +819,7 @@ func (l *OracleSignatureField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *OutpointField) Equal(right proto.Message) bool {
+func (l *OutpointField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -851,7 +849,7 @@ func (l *OutpointField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *OutputTagField) Equal(right proto.Message) bool {
+func (l *OutputTagField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -876,7 +874,7 @@ func (l *OutputTagField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *PaymailProofField) Equal(right proto.Message) bool {
+func (l *PaymailProofField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -911,7 +909,7 @@ func (l *PaymailProofField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *PeriodField) Equal(right proto.Message) bool {
+func (l *PeriodField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {
@@ -941,7 +939,7 @@ func (l *PeriodField) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *TargetAddressField) Equal(right proto.Message) bool {
+func (l *TargetAddressField) Equal(right interface{}) bool {
 	c := l
 	if c == nil {
 		if right == nil {

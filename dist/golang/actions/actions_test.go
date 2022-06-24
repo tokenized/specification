@@ -2,12 +2,17 @@ package actions
 
 import (
 	"testing"
+
+	"github.com/tokenized/pkg/bitcoin"
 )
 
 func TestEmptyDeserialize(t *testing.T) {
 	var ok bool
 	// ContractOffer identifies a payload as a ContractOffer message.
-	actionContractOffer, err := Deserialize([]byte(CodeContractOffer), nil)
+	actionContractOfferScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeContractOffer)),
+	}
+	actionContractOffer, err := Deserialize(actionContractOfferScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ContractOffer : %s", err)
 	}
@@ -17,7 +22,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// ContractFormation identifies a payload as a ContractFormation message.
-	actionContractFormation, err := Deserialize([]byte(CodeContractFormation), nil)
+	actionContractFormationScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeContractFormation)),
+	}
+	actionContractFormation, err := Deserialize(actionContractFormationScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ContractFormation : %s", err)
 	}
@@ -27,7 +35,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// ContractAmendment identifies a payload as a ContractAmendment message.
-	actionContractAmendment, err := Deserialize([]byte(CodeContractAmendment), nil)
+	actionContractAmendmentScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeContractAmendment)),
+	}
+	actionContractAmendment, err := Deserialize(actionContractAmendmentScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ContractAmendment : %s", err)
 	}
@@ -37,7 +48,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// StaticContractFormation identifies a payload as a StaticContractFormation message.
-	actionStaticContractFormation, err := Deserialize([]byte(CodeStaticContractFormation), nil)
+	actionStaticContractFormationScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeStaticContractFormation)),
+	}
+	actionStaticContractFormation, err := Deserialize(actionStaticContractFormationScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for StaticContractFormation : %s", err)
 	}
@@ -47,7 +61,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// ContractAddressChange identifies a payload as a ContractAddressChange message.
-	actionContractAddressChange, err := Deserialize([]byte(CodeContractAddressChange), nil)
+	actionContractAddressChangeScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeContractAddressChange)),
+	}
+	actionContractAddressChange, err := Deserialize(actionContractAddressChangeScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ContractAddressChange : %s", err)
 	}
@@ -57,7 +74,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BodyOfAgreementOffer identifies a payload as a BodyOfAgreementOffer message.
-	actionBodyOfAgreementOffer, err := Deserialize([]byte(CodeBodyOfAgreementOffer), nil)
+	actionBodyOfAgreementOfferScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeBodyOfAgreementOffer)),
+	}
+	actionBodyOfAgreementOffer, err := Deserialize(actionBodyOfAgreementOfferScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BodyOfAgreementOffer : %s", err)
 	}
@@ -67,7 +87,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BodyOfAgreementFormation identifies a payload as a BodyOfAgreementFormation message.
-	actionBodyOfAgreementFormation, err := Deserialize([]byte(CodeBodyOfAgreementFormation), nil)
+	actionBodyOfAgreementFormationScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeBodyOfAgreementFormation)),
+	}
+	actionBodyOfAgreementFormation, err := Deserialize(actionBodyOfAgreementFormationScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BodyOfAgreementFormation : %s", err)
 	}
@@ -77,7 +100,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BodyOfAgreementAmendment identifies a payload as a BodyOfAgreementAmendment message.
-	actionBodyOfAgreementAmendment, err := Deserialize([]byte(CodeBodyOfAgreementAmendment), nil)
+	actionBodyOfAgreementAmendmentScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeBodyOfAgreementAmendment)),
+	}
+	actionBodyOfAgreementAmendment, err := Deserialize(actionBodyOfAgreementAmendmentScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BodyOfAgreementAmendment : %s", err)
 	}
@@ -87,7 +113,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InstrumentDefinition identifies a payload as a InstrumentDefinition message.
-	actionInstrumentDefinition, err := Deserialize([]byte(CodeInstrumentDefinition), nil)
+	actionInstrumentDefinitionScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeInstrumentDefinition)),
+	}
+	actionInstrumentDefinition, err := Deserialize(actionInstrumentDefinitionScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InstrumentDefinition : %s", err)
 	}
@@ -97,7 +126,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InstrumentCreation identifies a payload as a InstrumentCreation message.
-	actionInstrumentCreation, err := Deserialize([]byte(CodeInstrumentCreation), nil)
+	actionInstrumentCreationScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeInstrumentCreation)),
+	}
+	actionInstrumentCreation, err := Deserialize(actionInstrumentCreationScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InstrumentCreation : %s", err)
 	}
@@ -107,7 +139,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InstrumentModification identifies a payload as a InstrumentModification message.
-	actionInstrumentModification, err := Deserialize([]byte(CodeInstrumentModification), nil)
+	actionInstrumentModificationScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeInstrumentModification)),
+	}
+	actionInstrumentModification, err := Deserialize(actionInstrumentModificationScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InstrumentModification : %s", err)
 	}
@@ -117,7 +152,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Transfer identifies a payload as a Transfer message.
-	actionTransfer, err := Deserialize([]byte(CodeTransfer), nil)
+	actionTransferScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeTransfer)),
+	}
+	actionTransfer, err := Deserialize(actionTransferScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Transfer : %s", err)
 	}
@@ -127,7 +165,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Settlement identifies a payload as a Settlement message.
-	actionSettlement, err := Deserialize([]byte(CodeSettlement), nil)
+	actionSettlementScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeSettlement)),
+	}
+	actionSettlement, err := Deserialize(actionSettlementScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Settlement : %s", err)
 	}
@@ -137,7 +178,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Proposal identifies a payload as a Proposal message.
-	actionProposal, err := Deserialize([]byte(CodeProposal), nil)
+	actionProposalScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeProposal)),
+	}
+	actionProposal, err := Deserialize(actionProposalScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Proposal : %s", err)
 	}
@@ -147,7 +191,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Vote identifies a payload as a Vote message.
-	actionVote, err := Deserialize([]byte(CodeVote), nil)
+	actionVoteScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeVote)),
+	}
+	actionVote, err := Deserialize(actionVoteScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Vote : %s", err)
 	}
@@ -157,7 +204,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BallotCast identifies a payload as a BallotCast message.
-	actionBallotCast, err := Deserialize([]byte(CodeBallotCast), nil)
+	actionBallotCastScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeBallotCast)),
+	}
+	actionBallotCast, err := Deserialize(actionBallotCastScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BallotCast : %s", err)
 	}
@@ -167,7 +217,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BallotCounted identifies a payload as a BallotCounted message.
-	actionBallotCounted, err := Deserialize([]byte(CodeBallotCounted), nil)
+	actionBallotCountedScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeBallotCounted)),
+	}
+	actionBallotCounted, err := Deserialize(actionBallotCountedScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BallotCounted : %s", err)
 	}
@@ -177,7 +230,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Result identifies a payload as a Result message.
-	actionResult, err := Deserialize([]byte(CodeResult), nil)
+	actionResultScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeResult)),
+	}
+	actionResult, err := Deserialize(actionResultScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Result : %s", err)
 	}
@@ -187,7 +243,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Order identifies a payload as a Order message.
-	actionOrder, err := Deserialize([]byte(CodeOrder), nil)
+	actionOrderScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeOrder)),
+	}
+	actionOrder, err := Deserialize(actionOrderScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Order : %s", err)
 	}
@@ -197,7 +256,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Freeze identifies a payload as a Freeze message.
-	actionFreeze, err := Deserialize([]byte(CodeFreeze), nil)
+	actionFreezeScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeFreeze)),
+	}
+	actionFreeze, err := Deserialize(actionFreezeScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Freeze : %s", err)
 	}
@@ -207,7 +269,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Thaw identifies a payload as a Thaw message.
-	actionThaw, err := Deserialize([]byte(CodeThaw), nil)
+	actionThawScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeThaw)),
+	}
+	actionThaw, err := Deserialize(actionThawScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Thaw : %s", err)
 	}
@@ -217,7 +282,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Confiscation identifies a payload as a Confiscation message.
-	actionConfiscation, err := Deserialize([]byte(CodeConfiscation), nil)
+	actionConfiscationScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeConfiscation)),
+	}
+	actionConfiscation, err := Deserialize(actionConfiscationScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Confiscation : %s", err)
 	}
@@ -227,7 +295,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Reconciliation identifies a payload as a Reconciliation message.
-	actionReconciliation, err := Deserialize([]byte(CodeReconciliation), nil)
+	actionReconciliationScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeReconciliation)),
+	}
+	actionReconciliation, err := Deserialize(actionReconciliationScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Reconciliation : %s", err)
 	}
@@ -237,7 +308,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Establishment identifies a payload as a Establishment message.
-	actionEstablishment, err := Deserialize([]byte(CodeEstablishment), nil)
+	actionEstablishmentScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeEstablishment)),
+	}
+	actionEstablishment, err := Deserialize(actionEstablishmentScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Establishment : %s", err)
 	}
@@ -247,7 +321,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Addition identifies a payload as a Addition message.
-	actionAddition, err := Deserialize([]byte(CodeAddition), nil)
+	actionAdditionScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeAddition)),
+	}
+	actionAddition, err := Deserialize(actionAdditionScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Addition : %s", err)
 	}
@@ -257,7 +334,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Alteration identifies a payload as a Alteration message.
-	actionAlteration, err := Deserialize([]byte(CodeAlteration), nil)
+	actionAlterationScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeAlteration)),
+	}
+	actionAlteration, err := Deserialize(actionAlterationScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Alteration : %s", err)
 	}
@@ -267,7 +347,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Removal identifies a payload as a Removal message.
-	actionRemoval, err := Deserialize([]byte(CodeRemoval), nil)
+	actionRemovalScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeRemoval)),
+	}
+	actionRemoval, err := Deserialize(actionRemovalScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Removal : %s", err)
 	}
@@ -277,7 +360,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Message identifies a payload as a Message message.
-	actionMessage, err := Deserialize([]byte(CodeMessage), nil)
+	actionMessageScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeMessage)),
+	}
+	actionMessage, err := Deserialize(actionMessageScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Message : %s", err)
 	}
@@ -287,7 +373,10 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Rejection identifies a payload as a Rejection message.
-	actionRejection, err := Deserialize([]byte(CodeRejection), nil)
+	actionRejectionScriptItems := bitcoin.ScriptItems{
+		bitcoin.NewPushDataScriptItem([]byte(CodeRejection)),
+	}
+	actionRejection, err := Deserialize(actionRejectionScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Rejection : %s", err)
 	}

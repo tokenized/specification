@@ -4,17 +4,16 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/golang/protobuf/proto"
+	"github.com/tokenized/pkg/bsor"
+
 	"github.com/pkg/errors"
 )
 
 type Message interface {
-	proto.Message
-
 	Code() uint32
 
 	Validate() error
-	Equal(proto.Message) bool
+	Equal(interface{}) bool
 
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
@@ -103,8 +102,8 @@ func Deserialize(code uint32, payload []byte) (Message, error) {
 	}
 
 	if len(payload) != 0 {
-		if err := proto.Unmarshal(payload, result); err != nil {
-			return nil, errors.Wrap(err, "Failed protobuf unmarshaling")
+		if _, err := bsor.UnmarshalBinary(payload, result); err != nil {
+			return nil, errors.Wrap(err, "unmarshal")
 		}
 	}
 
@@ -116,12 +115,12 @@ func (a *PublicMessage) Code() uint32 {
 }
 
 func (a *PublicMessage) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *PublicMessage) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize PublicMessage")
 	}
@@ -135,12 +134,12 @@ func (a *PrivateMessage) Code() uint32 {
 }
 
 func (a *PrivateMessage) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *PrivateMessage) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize PrivateMessage")
 	}
@@ -154,12 +153,12 @@ func (a *RevertedTx) Code() uint32 {
 }
 
 func (a *RevertedTx) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *RevertedTx) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize RevertedTx")
 	}
@@ -173,12 +172,12 @@ func (a *Offer) Code() uint32 {
 }
 
 func (a *Offer) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *Offer) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize Offer")
 	}
@@ -192,12 +191,12 @@ func (a *SignatureRequest) Code() uint32 {
 }
 
 func (a *SignatureRequest) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *SignatureRequest) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize SignatureRequest")
 	}
@@ -211,12 +210,12 @@ func (a *SettlementRequest) Code() uint32 {
 }
 
 func (a *SettlementRequest) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *SettlementRequest) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize SettlementRequest")
 	}
@@ -230,12 +229,12 @@ func (a *OutputMetadata) Code() uint32 {
 }
 
 func (a *OutputMetadata) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *OutputMetadata) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize OutputMetadata")
 	}
@@ -249,12 +248,12 @@ func (a *Distribution) Code() uint32 {
 }
 
 func (a *Distribution) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *Distribution) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize Distribution")
 	}
@@ -268,12 +267,12 @@ func (a *InitiateRelationship) Code() uint32 {
 }
 
 func (a *InitiateRelationship) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *InitiateRelationship) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize InitiateRelationship")
 	}
@@ -287,12 +286,12 @@ func (a *PendingAcceptRelationship) Code() uint32 {
 }
 
 func (a *PendingAcceptRelationship) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *PendingAcceptRelationship) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize PendingAcceptRelationship")
 	}
@@ -306,12 +305,12 @@ func (a *AcceptRelationship) Code() uint32 {
 }
 
 func (a *AcceptRelationship) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *AcceptRelationship) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize AcceptRelationship")
 	}
@@ -325,12 +324,12 @@ func (a *RelationshipAmendment) Code() uint32 {
 }
 
 func (a *RelationshipAmendment) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *RelationshipAmendment) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize RelationshipAmendment")
 	}
@@ -344,12 +343,12 @@ func (a *InitiateThread) Code() uint32 {
 }
 
 func (a *InitiateThread) Bytes() ([]byte, error) {
-	return proto.Marshal(a)
+	return bsor.MarshalBinary(a)
 }
 
 // Serialize writes an instrument to a byte slice.
 func (a *InitiateThread) Serialize(buf *bytes.Buffer) error {
-	data, err := proto.Marshal(a)
+	data, err := bsor.MarshalBinary(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize InitiateThread")
 	}

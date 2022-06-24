@@ -3,22 +3,20 @@ package actions
 import (
 	"fmt"
 
-	"github.com/golang/protobuf/proto"
+	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/bsor"
+
 	"github.com/pkg/errors"
 )
 
 type Action interface {
-	proto.Message
-
 	Code() string
 
 	Validate() error
-	Equal(proto.Message) bool
+	Equal(interface{}) bool
 }
 
-type Field interface {
-	proto.Message
-}
+type Field interface{}
 
 const (
 	// CodeContractOffer identifies a payload as a ContractOffer action message.
@@ -232,15 +230,19 @@ func NewActionFromCode(code string) Action {
 }
 
 // Deserialize reads an action from a byte slice.
-func Deserialize(code []byte, payload []byte) (Action, error) {
-	result := NewActionFromCode(string(code))
-	if result == nil {
-		return nil, fmt.Errorf("Unknown action code : %s", string(code))
+func Deserialize(payload bitcoin.ScriptItems) (Action, error) {
+	if len(payload) < 1 {
+		return nil, errors.New("No action code")
 	}
 
-	if len(payload) != 0 {
-		if err := proto.Unmarshal(payload, result); err != nil {
-			return nil, errors.Wrap(err, "Failed protobuf unmarshaling")
+	result := NewActionFromCode(string([]byte(payload[0].Data)))
+	if result == nil {
+		return nil, fmt.Errorf("Unknown action code : %s", string([]byte(payload[0].Data)))
+	}
+
+	if len(payload) > 1 {
+		if _, err := bsor.Unmarshal(payload[1:], result); err != nil {
+			return nil, errors.Wrap(err, "unmarshal")
 		}
 	}
 

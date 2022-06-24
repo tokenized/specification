@@ -43,13 +43,15 @@ func TestContractOfferResponseFees(t *testing.T) {
 		AdministrationProposal: true,
 	}
 
-	b, err := Serialize(contractOffer, true)
+	contractOfferScript, err := Serialize(contractOffer, true)
 	if err != nil {
 		t.Fatalf("%s Failed to serialize contract offer : %s", Failed, err)
 	}
 
+	t.Logf("Contract Offer Script : %s", contractOfferScript)
+
 	requestTx.AddTxOut(wire.NewTxOut(3000, make([]byte, 26)))
-	requestTx.AddTxOut(wire.NewTxOut(0, b))
+	requestTx.AddTxOut(wire.NewTxOut(0, contractOfferScript))
 
 	size, funding, err := EstimatedResponse(requestTx, 0, dustLimit, contractFee, true)
 	if err != nil {

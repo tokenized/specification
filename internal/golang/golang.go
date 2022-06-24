@@ -11,6 +11,8 @@ func Compile(
 	messages parser.Schema,
 ) {
 	// Actions
+	parser.TemplateToFile(actions, "internal/golang/templates/bsor.tpl",
+		distPath+"/golang/"+"actions/actions.bsor.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/actions.tpl",
 		distPath+"/golang/"+"actions/actions.go")
 	parser.TemplateToFile(actions,
@@ -30,6 +32,8 @@ func Compile(
 		distPath+"/golang/"+"actions/write_deterministic.go")
 
 	// Instruments
+	parser.TemplateToFile(instruments, "internal/golang/templates/bsor.tpl",
+		distPath+"/golang/"+"instruments/instruments.bsor.go")
 	parser.TemplateToFile(instruments, "internal/golang/templates/instruments.tpl",
 		distPath+"/golang/"+"instruments/instruments.go")
 	parser.TemplateToFile(instruments,
@@ -47,6 +51,8 @@ func Compile(
 		distPath+"/golang/"+"instruments/instruments_test.go")
 
 	// Messages
+	parser.TemplateToFile(messages, "internal/golang/templates/bsor.tpl",
+		distPath+"/golang/"+"messages/messages.bsor.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/messages.tpl",
 		distPath+"/golang/"+"messages/messages.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/validate.tpl",

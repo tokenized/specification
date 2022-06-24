@@ -3,7 +3,7 @@ package instruments
 import (
 	"testing"
 
-	"github.com/tokenized/specification/dist/golang/internal"
+	"github.com/tokenized/specification/dist/golang/v0/internal"
 )
 
 func TestInstrumentCreateAmendments(t *testing.T) {

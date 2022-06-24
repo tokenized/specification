@@ -1,0 +1,465 @@
+{
+  "version": 0,
+  "definitions": {
+    "AcceptRelationship": {
+      "fields": [
+        {
+          "name": "ProofOfIdentityType",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "ProofOfIdentity",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "ChannelPartyField": {
+      "fields": [
+        {
+          "name": "AdministrativeAddress",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "OutputIndex",
+          "id": 2,
+          "type": {
+            "base_type": "uint32"
+          }
+        }
+      ]
+    },
+    "Distribution": {
+      "fields": [
+        {
+          "name": "InstrumentCode",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Timestamp",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    },
+    "DocumentField": {
+      "fields": [
+        {
+          "name": "Name",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Type",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Contents",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "InitiateRelationship": {
+      "fields": [
+        {
+          "name": "Type",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "Seed",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Flag",
+          "id": 3,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "EncryptionType",
+          "id": 4,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "ProofOfIdentityType",
+          "id": 5,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "ProofOfIdentity",
+          "id": 6,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "ChannelParties",
+          "id": 7,
+          "type": {
+            "base_type": "struct",
+            "type_name": "ChannelPartyField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "InitiateThread": {
+      "fields": [
+        {
+          "name": "Flag",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Seed",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "Offer": {
+      "fields": [
+        {
+          "name": "Timestamp",
+          "id": 1,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "Payload",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "OutpointField": {
+      "fields": [
+        {
+          "name": "TxId",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "OutputIndex",
+          "id": 2,
+          "type": {
+            "base_type": "uint32"
+          }
+        }
+      ]
+    },
+    "OutputMetadata": {
+      "fields": [
+        {
+          "name": "OutputDescription",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Tags",
+          "id": 2,
+          "type": {
+            "base_type": "uint32",
+            "is_array": true
+          }
+        },
+        {
+          "name": "CustomTags",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "OutputTagField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "OutputTagField": {
+      "fields": [
+        {
+          "name": "Tag",
+          "id": 1,
+          "type": {
+            "base_type": "string"
+          }
+        }
+      ]
+    },
+    "PendingAcceptRelationship": {
+      "fields": [
+        {
+          "name": "ProofOfIdentityType",
+          "id": 1,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "ProofOfIdentity",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "PrivateMessage": {
+      "fields": [
+        {
+          "name": "Timestamp",
+          "id": 1,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "Subject",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Regarding",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "OutpointField",
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "PrivateMessage",
+          "id": 4,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DocumentField",
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Attachments",
+          "id": 5,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DocumentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "PublicMessage": {
+      "fields": [
+        {
+          "name": "Timestamp",
+          "id": 1,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "Subject",
+          "id": 2,
+          "type": {
+            "base_type": "string"
+          }
+        },
+        {
+          "name": "Regarding",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "OutpointField",
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "PublicMessage",
+          "id": 4,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DocumentField",
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Attachments",
+          "id": 5,
+          "type": {
+            "base_type": "struct",
+            "type_name": "DocumentField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        }
+      ]
+    },
+    "RelationshipAmendment": {
+      "fields": [
+        {
+          "name": "Seed",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "BaseEncryptionSecret",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "AddMemberIndexes",
+          "id": 3,
+          "type": {
+            "base_type": "uint32"
+          }
+        },
+        {
+          "name": "DropMemberIndexes",
+          "id": 4,
+          "type": {
+            "base_type": "uint32"
+          }
+        }
+      ]
+    },
+    "RevertedTx": {
+      "fields": [
+        {
+          "name": "Timestamp",
+          "id": 1,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "Transaction",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "SettlementRequest": {
+      "fields": [
+        {
+          "name": "Timestamp",
+          "id": 1,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "TransferTxId",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "ContractFees",
+          "id": 3,
+          "type": {
+            "base_type": "struct",
+            "type_name": "TargetAddressField",
+            "is_array": true,
+            "is_pointer": true
+          }
+        },
+        {
+          "name": "Settlement",
+          "id": 4,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "SignatureRequest": {
+      "fields": [
+        {
+          "name": "Timestamp",
+          "id": 1,
+          "type": {
+            "base_type": "uint64"
+          }
+        },
+        {
+          "name": "Payload",
+          "id": 2,
+          "type": {
+            "base_type": "binary"
+          }
+        }
+      ]
+    },
+    "TargetAddressField": {
+      "fields": [
+        {
+          "name": "Address",
+          "id": 1,
+          "type": {
+            "base_type": "binary"
+          }
+        },
+        {
+          "name": "Quantity",
+          "id": 2,
+          "type": {
+            "base_type": "uint64"
+          }
+        }
+      ]
+    }
+  }
+}
